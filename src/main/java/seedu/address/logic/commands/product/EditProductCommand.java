@@ -23,6 +23,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * Edits the details of an existing product in the address book.
@@ -94,8 +95,11 @@ public class EditProductCommand extends Command {
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Sales updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
         UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
+        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
+
         System.out.println("createEditedProduct " + productToEdit);
-        return new Product(updatedDescription, updatedPrice, updatedQuantity, updatedSales, updatedId);
+        return new Product(updatedDescription, updatedPrice, updatedQuantity,
+                updatedSales, updatedThreshold, updatedId);
     }
 
     @Override
@@ -126,6 +130,7 @@ public class EditProductCommand extends Command {
         private Quantity quantity;
         private Sales sales;
         private UUID id;
+        private QuantityThreshold threshold;
 
         public EditProductDescriptor() {}
 
@@ -186,6 +191,14 @@ public class EditProductCommand extends Command {
 
         public Optional<UUID> getId() {
             return Optional.ofNullable(id);
+        }
+
+        public void setThreshold(QuantityThreshold threshold) {
+            this.threshold = threshold;
+        }
+
+        public Optional<QuantityThreshold> getThreshold() {
+            return Optional.ofNullable(threshold);
         }
 
         @Override

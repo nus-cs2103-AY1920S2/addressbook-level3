@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_THRESHOLD;
+import static seedu.address.model.util.QuantityThreshold.DEFAULT_VALUE;
 
 import java.util.stream.Stream;
 
@@ -20,6 +22,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * Parses input arguments and creates a new AddProductCommand object
@@ -49,8 +52,14 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         } else {
             sales = new Sales("0");
         }
+        QuantityThreshold threshold;
+        if (arePrefixesPresent(argMultimap, PREFIX_THRESHOLD)) {
+            threshold = ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
+        } else {
+            threshold = new QuantityThreshold(DEFAULT_VALUE);
+        }
 
-        Product product = new Product(description, price, quantity, sales);
+        Product product = new Product(description, price, quantity, sales, threshold);
 
         return new AddProductCommand(product);
     }

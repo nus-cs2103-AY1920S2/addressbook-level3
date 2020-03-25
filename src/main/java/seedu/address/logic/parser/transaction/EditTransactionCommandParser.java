@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCRIPTION;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.transaction.EditTransactionCommand;
@@ -32,7 +32,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME,
-                        PREFIX_QUANTITY, PREFIX_MONEY, PREFIX_TRANS_DESCIPTION);
+                        PREFIX_QUANTITY, PREFIX_MONEY, PREFIX_TRANS_DESCRIPTION);
         Index index;
 
         try {

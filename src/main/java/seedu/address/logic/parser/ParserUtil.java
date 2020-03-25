@@ -15,11 +15,13 @@ import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
+import seedu.address.model.statistics.StartEndDate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -265,4 +267,48 @@ public class ParserUtil {
         return new Description(trimmedDescription);
     }
 
+    /**
+     * Parses a {@code String startDate} into an {@code StartEndDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startDate} is invalid.
+     */
+    public static StartEndDate parseStartDate(String startDate) throws ParseException {
+        requireNonNull(startDate);
+        String trimmedStartEndDate = startDate.trim();
+        if (!StartEndDate.isValidStartEndDate(trimmedStartEndDate)) {
+            throw new ParseException(StartEndDate.MESSAGE_CONSTRAINTS);
+        }
+        return new StartEndDate(startDate);
+    }
+
+    /**
+     * Parses a {@code String endDate} into an {@code StartEndDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDate} is invalid.
+     */
+    public static StartEndDate parseEndDate(String endDate) throws ParseException {
+        requireNonNull(endDate);
+        String trimmedStartEndDate = endDate.trim();
+        if (!StartEndDate.isValidStartEndDate(trimmedStartEndDate)) {
+            throw new ParseException(StartEndDate.MESSAGE_CONSTRAINTS);
+        }
+        return new StartEndDate(endDate);
+    }
+
+    /**
+     * Parses a {@code String threshold} into an {@code trimmedThreshold}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static QuantityThreshold parseThreshold(String threshold) throws ParseException {
+        requireNonNull(threshold);
+        String trimmedThreshold = threshold.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedThreshold)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return new QuantityThreshold(trimmedThreshold);
+    }
 }

@@ -22,13 +22,15 @@ import seedu.address.logic.commands.product.DeleteProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
+import seedu.address.logic.commands.product.LowLimitCommand;
+import seedu.address.logic.commands.statistics.RevenueCommand;
 import seedu.address.logic.commands.transaction.AddTransactionCommand;
 import seedu.address.logic.commands.transaction.ClearTransactionCommand;
 import seedu.address.logic.commands.transaction.DeleteTransactionCommand;
 import seedu.address.logic.commands.transaction.EditTransactionCommand;
-
 import seedu.address.logic.commands.transaction.FindTransactionCommand;
 import seedu.address.logic.commands.transaction.ListTransactionCommand;
+
 import seedu.address.logic.parser.customer.AddCustomerCommandParser;
 import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
 import seedu.address.logic.parser.customer.EditCustomerCommandParser;
@@ -38,6 +40,8 @@ import seedu.address.logic.parser.product.AddProductCommandParser;
 import seedu.address.logic.parser.product.DeleteProductCommandParser;
 import seedu.address.logic.parser.product.EditProductCommandParser;
 import seedu.address.logic.parser.product.FindProductCommandParser;
+import seedu.address.logic.parser.product.LowLimitCommandParser;
+import seedu.address.logic.parser.statistics.RevenueCommandParser;
 import seedu.address.logic.parser.transaction.AddTransactionCommandParser;
 import seedu.address.logic.parser.transaction.DeleteTransactionCommandParser;
 import seedu.address.logic.parser.transaction.EditTransactionCommandParser;
@@ -112,6 +116,9 @@ public class InventorySystemParser {
         case FindProductCommand.COMMAND_WORD:
             return new FindProductCommandParser().parse(arguments);
 
+        case LowLimitCommand.COMMAND_WORD:
+            return new LowLimitCommandParser().parse(arguments);
+
         case AddTransactionCommand.COMMAND_WORD:
             return new AddTransactionCommandParser().parse(arguments);
 
@@ -129,6 +136,9 @@ public class InventorySystemParser {
 
         case ClearTransactionCommand.COMMAND_WORD:
             return new ClearTransactionCommand();
+
+        case RevenueCommand.COMMAND_WORD:
+            return new RevenueCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
+import seedu.address.ui.NotificationWindow;
 
 /**
  * Represents a Product in the product list.
@@ -23,28 +25,33 @@ public class Product {
     private final Sales sales;
     private final UUID id;
 
+    private QuantityThreshold threshold;
+
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, Price price, Quantity quantity, Sales sales) {
+    public Product(Description description, Price price, Quantity quantity, Sales sales, QuantityThreshold threshold) {
         requireAllNonNull(description, price, quantity);
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
+        this.threshold = threshold;
         this.id = UUID.randomUUID();
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, Price price, Quantity quantity, Sales sales, UUID id) {
+    public Product(Description description, Price price, Quantity quantity, Sales sales,
+                   QuantityThreshold threshold, UUID id) {
         requireAllNonNull(description, price, quantity);
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
         this.id = id;
+        this.threshold = threshold;
     }
 
     public Description getDescription() {
@@ -65,6 +72,19 @@ public class Product {
 
     public UUID getId() {
         return id;
+    }
+    public QuantityThreshold getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(String quantityThreshold) {
+        this.threshold = new QuantityThreshold(quantityThreshold);
+        int numQuantity = quantity.value;
+        int thresholdValue = Integer.parseInt(quantityThreshold);
+        if (numQuantity <= thresholdValue) {
+            NotificationWindow window = new NotificationWindow();
+            window.show(description, quantity);
+        }
     }
 
     /**
@@ -118,7 +138,9 @@ public class Product {
                 .append(" Quantity: ")
                 .append(getQuantity())
                 .append(" Sales: ")
-                .append(getSales());;
+                .append(getSales())
+                .append(" Threshold: ")
+                .append(getThreshold());
         return builder.toString();
     }
 
