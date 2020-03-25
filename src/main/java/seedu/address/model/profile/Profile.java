@@ -31,7 +31,6 @@ public class Profile {
     private static Name name;
     private static CourseName courseName;
 
-
     /**
      * Every field must be present and not null.
      */

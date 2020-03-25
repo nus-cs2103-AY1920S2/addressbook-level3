@@ -288,9 +288,15 @@ public class AddCommandTest {
         }
 
         @Override
-        public void initDeadlineList() {
+        public void clearDeadlineList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void loadDeadlines() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     private class ModelStubWithProfile extends ModelStub {
