@@ -317,6 +317,9 @@ public class NasaBook implements ReadOnlyNasaBook {
         return moduleList;
     }
 
+    /**
+     * Reschedule all activity based on user presets.
+     */
     public void scheduleAll() {
         moduleList.asModifiableObservableList().stream()
                 .forEach(x -> x.getActivities().getActivityList().stream()

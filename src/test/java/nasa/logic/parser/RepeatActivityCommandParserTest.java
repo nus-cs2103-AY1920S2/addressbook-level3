@@ -19,7 +19,7 @@ class RepeatActivityCommandParserTest {
 
     @Test
     void commandParserTest() {
-       assertParseSuccess(parser, " m/CS1231 a/Project work r/1",
+        assertParseSuccess(parser, " m/CS1231 a/Project work r/1",
                new RepeatCommand(moduleCode, nameOfActivity, index));
     }
 }
