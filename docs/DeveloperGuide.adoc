@@ -154,6 +154,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::planning[]
 === Planning feature
 ==== Proposed Implementation
 
@@ -178,7 +179,7 @@ This section describes some noteworthy details on how certain features are imple
 ** Pros: Easy to implement, uncomplicated data structure.
 ** Cons: Hard to obtain the scheduled recipes on a certain date, as we do not know which index
 corresponds to the date we are interested in.
-// end::undoredo[]
+// end::planning[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
