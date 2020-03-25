@@ -185,6 +185,9 @@ image::AdvancedFilterSequenceDiagram.png[]
 // tag::planning[]
 === Planning feature
 ==== Proposed Implementation
+The planning feature uses the `PlannedRecipeMap` to store a `Recipe` at a `Date`.
+
+Given below is a sequence diagram on how a recipe can be scheduled on a date.
 
 image::PlanningSequenceDiagram.png[]
 
