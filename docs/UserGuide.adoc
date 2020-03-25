@@ -50,10 +50,10 @@ image::Ui.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add m/MODULE`, `MODULE` is a parameter which can be used as `add m/CS2103`.
-* Parameters can be entered in any format, unless stated otherwise.
-* Items in square brackets are optional e.g `m/MODULE [g/GRADE]` can be used as `m/CS2103 g/A+` or as `m/CS2103`.
-* Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`, although some are optional.
+* Words in `UPPER_CASE` are the parameters supplied by you e.g. in `add m/MODULE`, `MODULE` is a parameter which can be used as `add m/CS2103`
+* Parameters can be entered in any format, unless stated otherwise
+* Items in square brackets are optional e.g `m/MODULE [g/GRADE]` can be used as `m/CS2103 g/A+` or as `m/CS2103`
+* Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`
 ====
 
 === Viewing help : `help` (coming in v2.0)
@@ -63,68 +63,76 @@ Format: `help`
 === Adding a module/task: `add`
 
 There are *two* things you can do using the `add` command: +
+
 1) Adds a current/completed module to the manager +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
 * `g/GRADE` is optional
 * `y/SEMESTER_INDEX` must be in the format `y/INTEGER` (eg. A module taken in Year 2 Semester 1 will be y/3)
+* As you have already specified the current semester you currently are in your academic journey at the start, MODdy will indicate modules added to prior semesters as "completed", while modules that are added to the current semester or to future semesters are indicated as "currently taking" or "planning to take" respectively
 ****
 
-2) Adds a deadline to a module in the manager +
+2) Adds a task with a deadline to a module in the manager +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK d/DEADLINE` +
 
 ****
-* Module must exist in the manager before a deadline can be added
-* `d/DEADLINE` must be in the format `YYYY-MM-DD HH:mm` (eg. 2020-03-31 23:59)
-* `t/TASK d/DEADLINE` will be auto deleted when it is completed
+* The module must already exist in the manager before a task can be added
+* `d/DEADLINE` must be in the format `YYYY-MM-DD HH:mm` (e.g. 2020-03-31 23:59)
+* `t/TASK d/DEADLINE` will be automatically deleted when it is completed
 ****
 
 Examples:
 
 * `add m/CS2105 y/3 g/A+` +
-Adds CS2105 to the list of modules in the MODdy profile with the attributes semester taken (3) and grade (A+)
+Adds CS2105 to the list of modules in the MODdy profile with the semester the module was taken in (3) and the resulting grade (A+)
 * `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
-Adds a deadline "Assignment" with its deadline "2020-03-31 23:59" to the existing module CS2105
+Adds a task named "Assignment" with the deadline "2020-03-31 23:59" to the already-existing module CS2105
 
 
 
 === Editing a module : `edit`
 
 Edits an existing profile or module in MODdy. +
+
 There are *two* ways you can use the `edit` command: +
 
 1) Edit the Profile of the user +
 Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
 
 ****
-* Fields in brackets [] are optional, but at least one field should be present to be edited.
-****
-
-2) Edit a module present in MODdy +
-Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]
-
-****
-* Fields in brackets [] are optional, but at least one field should be present to be edited.
-* Feature to edit tasks and deadlines will be coming in later versions.
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
 ****
 
 Examples:
 
-* `edit s/Theory and Algorithm` +
-Edits current profile's specialisation to Theory and Algorithm.
+* `edit n/Brad c/Information Security` +
+This edits your current profile name to "Brad" and your current course to "Information Security" from what they were previously
+
+2) Edit a module previously added in MODdy +
+Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
+
+****
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
+* Feature to edit tasks and deadlines will be coming in later versions
+****
+
+Examples:
+
+* `edit s/Algorithms & Theory` +
+Edits current profile's specialisation to "Algorithms & Theory". If you did not previously specify your specialisation, this adds the specialisation to your profile.
 * `edit m/CS2103 g/A+` +
-Edits the grade of existing module CS2103 to A+.
+Edits the grade of the module CS2103 to A+.
 
 === Showing: `show`
 
-There are multiple details you can show with the `show` command:
+There are multiple fields you can show with the `show` command:
 
-1) Show all modules in a specified semester
+1) Show all modules in a given semester
 
 Format: `show y/SEMESTER_INDEX`
 
-This lists the modules that have been added in this specified semester.
+This lists the modules that have been added in this given semester.
 
 2) Show all modules in a course's requirements
 
@@ -134,9 +142,9 @@ This lists the module requirements under this course.
 
 3) Show details of a module
 
-Format: `show m/MODULE`
+Format: `show m/MODULE_CODE`
 
-This displays all the details of a specified module.
+This displays all the details of the specified module.
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`
@@ -156,18 +164,18 @@ This displays all the details of a specified module.
 
 === New user profile : `new`
 
-Creates a new Profile. +
+This helps you to create a new Profile. +
 Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
 ****
 * Fields in brackets [] are optional.
-* Only one profile is allowed. Changing the profile is to be done using the `edit` command.
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new command, please remove it with the `delete` feature mentioned below
 ****
 
 Examples:
 
 * `new n/John c/Computer Science cs/4` +
-Creates a new profile with the name John.
+Creates a new profile with the name "John", currently majoring in "Computer Science" and is in his 4th semester of study.
 
 
 === Delete a user profile : `delete` (coming in v2.0)
