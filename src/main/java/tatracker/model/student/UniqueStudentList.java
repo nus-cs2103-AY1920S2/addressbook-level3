@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
 
@@ -42,6 +43,20 @@ public class UniqueStudentList implements Iterable<Student> {
 
     public Student get(int n) {
         return internalList.get(n);
+    }
+
+    /**
+     * Returns the student in this list with the given student
+     * matriculation number (the student id).
+     * Returns null if no such student exists.
+     */
+    public Student get(Matric studentId) {
+        for (Student student : internalList) {
+            if (student.getMatric().equals(studentId)) {
+                return student;
+            }
+        }
+        return null; // Did not find a student with the given student id
     }
 
     /**
