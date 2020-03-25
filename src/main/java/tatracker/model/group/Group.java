@@ -3,6 +3,7 @@ package tatracker.model.group;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
@@ -41,10 +42,17 @@ public class Group {
     }
 
     /**
-     * Adds a student to the list of enrolled students.
+     * Returns the group identifier.
      */
-    public void addStudent(Student student) {
-        students.add(student);
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    /**
+     * Returns the student list.
+     */
+    public ObservableList<Student> getStudentList() {
+        return students.asUnmodifiableObservableList();
     }
 
     /**
@@ -64,17 +72,10 @@ public class Group {
     }
 
     /**
-     * Returns the student list.
+     * Adds a student to the list of enrolled students.
      */
-    public ObservableList<Student> getStudentList() {
-        return students.asUnmodifiableObservableList();
-    }
-
-    /**
-     * Returns the group identifier.
-     */
-    public String getIdentifier() {
-        return identifier;
+    public void addStudent(Student student) {
+        students.add(student);
     }
 
     /**
