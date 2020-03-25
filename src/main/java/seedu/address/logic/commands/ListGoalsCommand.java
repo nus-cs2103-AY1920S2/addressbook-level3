@@ -7,7 +7,7 @@ import seedu.address.model.Model;
  */
 public class ListGoalsCommand extends Command {
 
-    public static final String COMMAND_WORD = "listGoals";
+    public static final String COMMAND_WORD = "listgoals";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all available goals to be tracked";
     public static final String LIST = "Bulk like the Hulk\n" +
             "Wholesome Wholegrains\n" +
