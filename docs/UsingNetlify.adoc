@@ -24,7 +24,7 @@ https://www.netlify.com/[Netlify] is an automated hosting platform for deploying
 . You will then be brought to the setup page. Click `GitHub` to link your repository to Netlify.
 * Depending on whether you are the owner of the repository, you can either grant or request access to Netlify so that it can access your repository and build your documentation.
 +
-image:netlify/grant_or_request_access.png[Grant or request access, width = 630]
+image:netlify/grant_or_request_access.svg[Grant or request access, width = 630]
 * After granting or requesting access to your repository, click `Authorize netlify`.
 +
 . Pick your repository from the list.
