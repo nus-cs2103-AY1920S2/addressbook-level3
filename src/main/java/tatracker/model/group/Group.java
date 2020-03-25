@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
@@ -61,11 +62,32 @@ public class Group {
         return students.asUnmodifiableObservableList();
     }
 
+    public boolean hasStudent(Student student) {
+        return students.contains(student);
+    }
+
+    /**
+     * Returns the student enrolled in this module with the given
+     * matriculation number (the student id).
+     * Returns null if no such student exists.
+     */
+    public Student getStudent(Matric studentId) {
+        return students.get(studentId);
+    }
+
     /**
      * Adds a student to the list of enrolled students.
      */
     public void addStudent(Student student) {
         students.add(student);
+    }
+
+    /**
+     * Deletes the given student from the list of enrolled students,
+     * if it exists.
+     */
+    public void deleteStudent(Student student) {
+        students.remove(student);
     }
 
     /**
