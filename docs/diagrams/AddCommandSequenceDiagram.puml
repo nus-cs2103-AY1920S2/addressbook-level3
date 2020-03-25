@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+skinparam arrowColor #black
+skinparam SequenceBoxBorderColor #black
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceReferenceBorderThickness 2
+skinparam DiagramBorderThickness 2
+skinparam SequenceArrowThickness 2
+skinparam SequenceLifeLineBorderColor #black
+skinparam ParticipantBorderColor #black
+
+
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MODdyParser" as MODdyParser LOGIC_COLOR
+participant ":AddCommand" as AddCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModuleManager" as ModuleManager MODEL_COLOR
+participant ":JsonModule" as JsonModule MODEL_COLOR
+end box
+
+[-> CommandBox : execute("add \n m/CS2105 y/4")
+activate CommandBox
+
+CommandBox -> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> MODdyParser : execute()
+activate MODdyParser
+
+MODdyParser -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> ModuleManager : getModule()
+activate ModuleManager
+
+ModuleManager -> JsonModule : toModelType()
+activate JsonModule
+
+JsonModule --> ModuleManager : Module
+deactivate JsonModule
+
+ModuleManager --> AddCommand
+deactivate ModuleManager
+
+AddCommand --> MODdyParser
+deactivate AddCommand
+destroy AddCommand
+
+MODdyParser --> LogicManager
+deactivate MODdyParser
+
+LogicManager --> CommandBox
+deactivate LogicManager
+
+[<--CommandBox
+deactivate CommandBox
+destroy CommandBox
+
+@enduml

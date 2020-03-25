@@ -179,31 +179,38 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === New Profile Feature
 
-=== Add Module / Deadline Feature
+=== Add Feature
 
-The `add` command adds the entity (module, deadline) with the fields provided by the user. `add m/module_code y/semester_index` adds a module and `add m/module_code y/semester_index t/task d/deadline` adds a deadline.
+The `add` feature allows the user to add a module and a task with a deadline for an existing module with the command `add`, appended with the tags.
+
+The tags are:
+
+* `m/module_code y/semester_index` for adding a module
+* `m/module_code y/semester_index t/task d/deadline` for adding a task to an existing module
 
 ==== Current Implementations
 
 `AddCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `AddCommand` is parsed using `AddCommandParser` to split the user input into relevant fields.
 
-The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+The following sequence diagram shows how the `add` operation works with input: `add m/CS2105 y/4`
 
-(diagram)
+image::AddCommandSequenceDiagram.png[]
 
-Given below is an example usage scenario and how the `add` mechanism behaves at each step:
+The following sequence diagram shows how the `add` operation works with the input: `add m/CS2105 y/4 t/Assignment 2 d/2020-04-12 23:59`
 
-. User launches the application.
-.. If it is the first time, a `Profile` object will be created using `NewCommand`.
-. User enters the command. `AddCommandParser` will create a `AddCommand` object, which can contain `moduleCode`, `semesterIndex`, `grade`, `task`, `deadline`.
-. `AddCommand#execute(Model model) is executed. `Profile#getHashmap()#values()` is called to check if the module already exists.
-.. If module exists, user will be prompted to add a task and deadline.
-.. If module does not exists, a `Personal` object will be created.
-. After the module is added, a `CommandResult` containing the log of execution result will be returned.
+* image pending
 
 ==== Design Considerations
 
-Aspect: How `add` executes
+* *Alternative 1 (current choice):* Both `date` and `time` is compulsory for a `deadline`
+** Pros: Easier to implement since both date and time will be parsed
+** Cons: Some tasks do not have a timing that it must be completed by, making it user-unfriendly
+
+* *Alternative 2:* The `date` is compulsory while `time` is optional for a `deadline`
+** Pros: Gives user the flexibility to input different types of tasks
+** Cons: Bugs in `deadline` related method calls
+
+Eventually, we decided on alternative 1 due to the benefits of consistency in types of tasks allowed in MODdy as well as to reduce the bugs faced.
 
 === Show Feature
 
@@ -218,7 +225,7 @@ The tags are:
 
 ==== Current Implementations
 
-`show` command is parsed using `ShowCommandParser` to split the user input into relevant fields.
+`ShowCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ShowCommand` is parsed using `ShowCommandParser` to split the user input into relevant fields.
 
 The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science`
 
