@@ -112,7 +112,7 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getIdentifier().equals(this.getIdentifier());
+        return this.identifier.equals(otherModule.identifier);
     }
 
     @Override
