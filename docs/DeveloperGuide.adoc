@@ -479,7 +479,10 @@ matric number exists in the TA-Tracker. If no such student exists, a command exc
 is thrown saying that a student with the given matric number doesn't exist. If it does
 exist, the student is removed from the TA-Tracker.
 
-.Group Delete - Sequence Diagram
+Note: This diagram assumes that there exists a student with the matric number 'A0181234G'
+pre-existing in the TA-Tracker.
+
+.Student Delete - Sequence Diagram
 image::DeleteStudentSequenceDiagram.png[]
 
 1. LogicManager uses the TATrackerParser to first parse the user command.
@@ -518,10 +521,16 @@ image::TSSModelClassDiagram.png[]
 The TaTracker model class contains a TSS which helps it keep track of the total
 hours the user is associated with. Each TSS contains the TotalHours of all the
 done sessions, a rate which represents how much the user is paid per hour and
-the total earnings of the user. Each time DoneSessionCommand is called,
-TotalHours is incremented according to the duration of the completed session.
-The duration of the completed session is calculated by subtracting the start
-time of the session from the end time and then rounding up the value to a whole.
+the total earnings of the user.
+
+.TSS View - Activity Diagram
+image::TSSActivityDiagram.png[]
+
+1. A DoneSessionCommand is called,
+2. TotalHours is incremented according to the duration of the completed session.
+3. The duration of the completed session is calculated by subtracting StartDateTime
+of the session from EndDateTime and then rounding up the value to a whole.
+4. TotalEarnings is calculated by multiplying TotalHours with Rate
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
