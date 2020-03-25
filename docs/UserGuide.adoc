@@ -41,15 +41,16 @@ a|
    4.  Editing a coupon: edit
    5.  Locating coupons by name: find
    6.  Deleting a coupon: delete
-   7. Clearing all entries: clear
-   8. Exiting the program: exit
-   9. Saving the data
-   10. Marking a coupon as used: used
-   11. Listing all expiring coupons: expiring
-   12. Shows reminders: remind
-   13. Viewing savings: saved
-   14. Undo the previous command: undo/redo
-   15. Archive a coupon: archive
+   7.  Listing all expiring coupons: expiring
+   8.  Clearing all entries: clear
+   9.  Exiting the program: exit
+   10. Saving the data
+   11. Marking a coupon as used: used
+   12. Listing all expiring coupons: expiring
+   13. Shows reminders: remind
+   14. Viewing savings: saved
+   15. Undo the previous command: undo/redo
+   16. Archive a coupon: archive
 
  |3
 
@@ -107,17 +108,27 @@ Format: `help`
 
 === Adding a coupon: `add`
 
-Adds a coupon to your coupon stash
+Adds a coupon. Some fields like name, expiry date and savings
+are required. Optional fields like promo code and tags
+may be provided as well.
 
-Format: `add n/name e/EXPIRY DATE s/SAVINGS [l/limit] [p/PROMO CODE] [sd/START DATE] [r/REMIND DATE] [c/CONDITION] [t/TAG]`
+Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
+[c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...
 
 [TIP]
 A coupon can have any number of tags (including 0)
 
 Examples:
 
-* `add n/The Deck Chicken Rice d/20% off s/5/5/2020 e/ 6/5/2020 t/value`
-* `add n/Preenz Gjorjes Pak Mala d/10% off s/2/3/2020 t/value t/friends`
+* `add n/The Deck Chicken Rice s/20% s/Free Add Rice sd/5-5-2020 e/6-5-2020 t/value`
++
+Adds a new Coupon:
+image:ug_deck_chicken.png[]
+
+* `add n/Preenz Gjorjes Pak Mala s/$1.50 e/2-3-2020 t/value t/friends`
++
+Adds a new Coupon:
+image:ug_pgp_mala.png[]
 
 === Listing all coupons: `list`
 
@@ -129,8 +140,8 @@ Format: `list`
 
 Edits an existing coupon in the coupon book.
 
-Format: `edit INDEX [n/NAME] [d/DETAILS] [s/START DATE] [e/EXPIRY]
-[t/TAG]`
+Format: `edit INDEX [n/NAME] [s/SAVINGS]... [sd/START_DATE] [e/EXPIRY_DATE]
+[p/PROMO_CODE] [c/CONDITIONS] [l/USAGE_LIMIT] [t/TAG]...`
 
 ****
 * Edits the coupon at the specified INDEX. The index refers to the index
@@ -142,12 +153,14 @@ integer* 1, 2, 3, …​
 adding of tags is not cumulative.
 * You can remove all the coupon’s tags by typing t/ without specifying
 any tags after it.
+* When editing savings, existing savings of the coupon will also
+be removed.
 ****
 
 Examples:
 
-* `edit 1 d/50% off` +
-Edits the details of the 1st coupon to be 50% off
+* `edit 1 s/50% +
+Edits the savings of the 1st coupon to be 50% off
 * `edit 2 n/The Deck Nasi Ayam Hainan t/` +
 Edits the name of the 2nd coupon to be The Deck Nasi Ayam Hainan and
 clears all existing tags.
@@ -267,26 +280,47 @@ Reminders will be displayed as a pop up when you launch the app.
 
 === Viewing savings: `saved`
 
-Shows you all your savings from using the coupons, from
-a specified date. +
+Shows you how much you have saved by using coupons in Coupon Stash.
+There are three ways to use this command:
+
+- If just the word "saved" is entered, the total savings accumulated
+since you started using Coupon Stash will be shown.
++
 Format: +
-`saved /d (date to track from)`
+`saved`
+
+- If a specific date is given, Coupon Stash will show you savings
+earned only on that day.
++
+Format: +
+`saved d/(date to show)`
+
+- If a start date and end date are given, Coupon Stash will show you
+the total savings accumulated over all the dates between that start date
+and end date, inclusive of those dates as well.
++
+Format: +
+`saved sd/(start date) e/(end date)`
 
 ****
+* Dates are given in Coupon Stash date format, namely
+D-M-YYYY where D and M can be single or double digits.
 * Shows you a numeric value (e.g. 12.00 to represent
-twelve dollars/euros/pounds/pesos) that represents how much
-you saved since a certain date
+twelve dollars/euros/pounds/pesos) that represents how much money
+you saved since a certain date, as well as certain items that
+you might have saved
 * This value changes depending on which coupons were marked
-as used during that period
+as used during the time period specified
 ****
 Examples:
 
-* `saved /d 2020-03-01` +
-A message will be displayed: You have saved 0.10 since 1st March, 2020
+* `saved d/1-3-2020` +
+A message will be displayed: You have saved $6.50 as well as earned 2x Brattby Bag.
 
 
-* `saved /d 2019-05-01` +
-A message will be displayed: You have saved 2.10 since 1st May, 2019
+* `saved sd/1-5-2019 e/20-3-2020` +
+A message will be displayed: You have saved $117.15 as well as earned
+5x Brattby Bag, 7x Water Bottle, 12x Free Coffee, 1x Plush Toy.
 
 === Use a coupon: `used`
 Uses a coupon if its usage has yet to reached its limit.
