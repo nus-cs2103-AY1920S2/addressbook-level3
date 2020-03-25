@@ -10,6 +10,7 @@ import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 import fithelper.model.profile.Profile;
 
+import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 
@@ -21,7 +22,8 @@ public interface Model {
     Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_UNDONE_ENTRIES = entry -> entry.getStatus().value.equals("Undone");
-    Predicate<Entry> PREDICATE_SHOW_DONE_ENTRIES = entry -> entry.getStatus().value.equals("Done");
+    Predicate<Entry> PREDICATE_SHOW_TODAY_ENTRIES = entry ->
+            entry.getTime().getDateStr().equals(new Today().getTodayDateStr());
 
     /**
      * Replaces FitHelper data with the data in {@code fitHelper}.
