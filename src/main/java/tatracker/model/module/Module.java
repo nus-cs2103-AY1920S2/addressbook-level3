@@ -19,17 +19,17 @@ public class Module {
     private final UniqueSessionList doneSessions;
 
     /**
-     * Constructs a group object.
+     * Constructs a module object.
      *
-     * @param identifier identifies the module. Usually equal
-     *                   to the module code.
+     * @param identifier identifies the module.
+     *                   Usually equal to the module code.
      * @param name the name of the module.
      */
     public Module(String identifier, String name) {
         this.identifier = identifier;
         this.name = name;
-        groups = new UniqueGroupList();
-        doneSessions = new UniqueSessionList();
+        this.groups = new UniqueGroupList();
+        this.doneSessions = new UniqueSessionList();
     }
 
     /**
