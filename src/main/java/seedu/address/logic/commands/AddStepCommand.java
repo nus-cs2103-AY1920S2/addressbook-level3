@@ -20,7 +20,7 @@ import seedu.address.model.recipe.Step;
  */
 public class AddStepCommand extends Command {
 
-    public static final String COMMAND_WORD = "addStep";
+    public static final String COMMAND_WORD = "addstep";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds step(s) to an existing recipe in the "
             + "recipe book.\n"

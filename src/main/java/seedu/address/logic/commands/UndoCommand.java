@@ -13,11 +13,12 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_CANNOT_UNDO = "Cannot undo!";
+    public static final String MESSAGE_CANNOT_UNDO = "Unable to undo!";
     public static final String MESSAGE_CONSTRAINTS = "Only one non-zero unsigned integer "
-            + "(representing the number of actions you wish to undo) is allowed as an argument. "
+            + "(representing the number of actions you wish to undo) or the 'all' keyword is allowed as an argument. "
             + "Otherwise, leaving it blank will do (undoes only the previous action)!";
     public static final String MESSAGE_SUCCESS = "Undid %1$d action(s) successfully!";
+    public static final String MESSAGE_ALL_SUCCESS = "Undid all actions successfully!";
 
     private final int numberOfUndo;
 
@@ -33,6 +34,10 @@ public class UndoCommand extends Command {
         }
         model.undoRecipeBook(numberOfUndo);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfUndo));
+        if (numberOfUndo > 0) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfUndo));
+        } else {
+            return new CommandResult(MESSAGE_ALL_SUCCESS);
+        }
     }
 }

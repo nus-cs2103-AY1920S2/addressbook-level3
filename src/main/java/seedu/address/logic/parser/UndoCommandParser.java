@@ -23,6 +23,8 @@ public class UndoCommandParser implements Parser<UndoCommand> {
         int numberOfUndo;
         if (argsArray[0].isBlank()) {
             numberOfUndo = 1;
+        } else if (argsArray[0].toLowerCase().equals("all")) {
+            numberOfUndo = 0;
         } else {
             if (!StringUtil.isNonZeroUnsignedInteger(argsArray[0])) {
                 throw new ParseException(UndoCommand.MESSAGE_CONSTRAINTS);

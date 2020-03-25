@@ -16,9 +16,9 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 
-import seedu.address.logic.commands.DeleteIngredientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.address.logic.commands.EditIngredientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.recipe.ingredient.Fruit;
@@ -28,20 +28,20 @@ import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
- * Parses input arguments and creates a new DeleteIngredientCommand object.
+ * Parses input arguments and creates a new EditIngredientCommand object.
  */
-public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCommand> {
+public class EditIngredientCommandParser implements Parser<EditIngredientCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteIngredientCommand
-     * and returns an DeleteIngredientCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditIngredientCommand
+     * and returns an EditIngredientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteIngredientCommand parse(String args) throws ParseException {
+    public EditIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
         if (args.isBlank()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteIngredientCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIngredientCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap =
@@ -57,22 +57,22 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
 
-        parseGrainsForDeleteIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN))
+        parseGrainsForEditIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN))
                 .ifPresent(editRecipeDescriptor::setGrains);
-        parseVegetablesForDeleteIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE))
+        parseVegetablesForEditIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE))
                 .ifPresent(editRecipeDescriptor::setVegetables);
-        parseProteinsForDeleteIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN))
+        parseProteinsForEditIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN))
                 .ifPresent(editRecipeDescriptor::setProteins);
-        parseFruitsForDeleteIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT))
+        parseFruitsForEditIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT))
                 .ifPresent(editRecipeDescriptor::setFruits);
-        parseOthersForDeleteIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER))
+        parseOthersForEditIngredient(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER))
                 .ifPresent(editRecipeDescriptor::setOthers);
 
         if (!editRecipeDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new DeleteIngredientCommand(index, editRecipeDescriptor);
+        return new EditIngredientCommand(index, editRecipeDescriptor);
     }
 
 
@@ -81,13 +81,13 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
      * If {@code grains} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Grain>} containing zero Grain ingredients.
      */
-    private Optional<Set<Grain>> parseGrainsForDeleteIngredient(Collection<String> grains) throws ParseException {
+    private Optional<Set<Grain>> parseGrainsForEditIngredient(Collection<String> grains) throws ParseException {
         assert grains != null;
         if (grains.isEmpty()) {
             return Optional.empty();
         }
         Collection<String> grainSet = grains.size() == 1 && grains.contains("") ? Collections.emptySet() : grains;
-        return Optional.of(ParserUtil.parseGrainsNameOnly(grainSet));
+        return Optional.of(ParserUtil.parseGrains(grainSet));
     }
 
     /**
@@ -95,7 +95,7 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
      * If {@code vegetables} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Vegetable>} containing zero Vegetable ingredients.
      */
-    private Optional<Set<Vegetable>> parseVegetablesForDeleteIngredient(Collection<String> vegetables)
+    private Optional<Set<Vegetable>> parseVegetablesForEditIngredient(Collection<String> vegetables)
             throws ParseException {
         assert vegetables != null;
 
@@ -105,7 +105,7 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
         Collection<String> vegetableSet = vegetables.size() == 1 && vegetables.contains("")
                 ? Collections.emptySet()
                 : vegetables;
-        return Optional.of(ParserUtil.parseVegetablesNameOnly(vegetableSet));
+        return Optional.of(ParserUtil.parseVegetables(vegetableSet));
     }
 
     /**
@@ -113,7 +113,7 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
      * If {@code proteins} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Protein>} containing zero Protein ingredients.
      */
-    private Optional<Set<Protein>> parseProteinsForDeleteIngredient(Collection<String> proteins) throws ParseException {
+    private Optional<Set<Protein>> parseProteinsForEditIngredient(Collection<String> proteins) throws ParseException {
         assert proteins != null;
 
         if (proteins.isEmpty()) {
@@ -123,7 +123,7 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
                 ? Collections.emptySet()
                 : proteins;
 
-        return Optional.of(ParserUtil.parseProteinsNameOnly(proteinSet));
+        return Optional.of(ParserUtil.parseProteins(proteinSet));
     }
 
     /**
@@ -131,7 +131,7 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
      * If {@code fruits} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Fruit>} containing zero Protein ingredients.
      */
-    private Optional<Set<Fruit>> parseFruitsForDeleteIngredient(Collection<String> fruits) throws ParseException {
+    private Optional<Set<Fruit>> parseFruitsForEditIngredient(Collection<String> fruits) throws ParseException {
         assert fruits != null;
 
         if (fruits.isEmpty()) {
@@ -141,7 +141,7 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
                 ? Collections.emptySet()
                 : fruits;
 
-        return Optional.of(ParserUtil.parseFruitsNameOnly(fruitSet));
+        return Optional.of(ParserUtil.parseFruits(fruitSet));
     }
 
     /**
@@ -149,14 +149,14 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
      * If {@code others} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Other>} containing zero Other ingredients.
      */
-    private Optional<Set<Other>> parseOthersForDeleteIngredient(Collection<String> others) throws ParseException {
+    private Optional<Set<Other>> parseOthersForEditIngredient(Collection<String> others) throws ParseException {
         assert others != null;
 
         if (others.isEmpty()) {
             return Optional.empty();
         }
         Collection<String> otherSet = others.size() == 1 && others.contains("") ? Collections.emptySet() : others;
-        return Optional.of(ParserUtil.parseOthersNameOnly(otherSet));
+        return Optional.of(ParserUtil.parseOthers(otherSet));
     }
 
 }

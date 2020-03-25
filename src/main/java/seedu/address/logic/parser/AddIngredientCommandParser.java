@@ -39,6 +39,10 @@ public class AddIngredientCommandParser implements Parser<AddIngredientCommand> 
      */
     public AddIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        if (args.isBlank()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIngredientCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
                         PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT, PREFIX_INGREDIENT_OTHER);
@@ -48,7 +52,7 @@ public class AddIngredientCommandParser implements Parser<AddIngredientCommand> 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
