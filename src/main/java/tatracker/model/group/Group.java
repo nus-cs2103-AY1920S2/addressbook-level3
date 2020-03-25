@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
-import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
@@ -52,22 +51,6 @@ public class Group {
      */
     public ObservableList<Student> getStudentList() {
         return students.asUnmodifiableObservableList();
-    }
-
-    /**
-     * Returns the student with given matric number.
-     * It returns null if no such student exists.
-     */
-    public Student getStudent(Matric matric) {
-        Student student = null;
-        for (int i = 0; i < students.size(); ++i) {
-            student = students.get(i);
-            if (student.getMatric().equals(matric)) {
-                break;
-            }
-            student = null;
-        }
-        return student;
     }
 
     /**
