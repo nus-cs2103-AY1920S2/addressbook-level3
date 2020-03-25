@@ -7,8 +7,8 @@
     "vegetables" : [ "vege,  20.0g" ],
     "proteins" : [ ],
     "fruits" : [ "kiwi,  50.0g" ],
-    "others" : [ "hello,  30.0g" ],
-    "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "yay", "Last step" ],
+    "others" : [ "others,  30.0g" ],
+    "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "yay", "Last step", "fifth" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Healthy Duck Brown Rice",
