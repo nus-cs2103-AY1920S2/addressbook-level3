@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+# **CookBuddy Recipe Manager**
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,116 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W12-4/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
-
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+**CookBuddy** is for users who prefer a desktop application for managing recipes. More importantly, CookBuddy is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CookBuddy can get your recipe management tasks done faster than traditional GUI apps. Interested? Proceed to [Quick Start](#quick-start) to get started. Enjoy!
 
 == Quick Start
+1. Ensure you have Java 11 or later installed on your machine.
+    - If not, download the latest Java Runtime Environment [here](https://www.java.com/en/download/).
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+2. Download the latest CookBuddy.jar.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+3. Copy the file to the folder you want to use as the home folder for your CookBuddy program.
 
-.  Refer to <<Features>> for details of each command.
+4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
-[[Features]]
-== Features
+5. Type the command in the command box and press Enter to execute it.
+   e.g. typing help and pressing Enter will open the help window.
 
-====
-*Command Format*
+6. Some example commands you can try:
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+   *    list : lists all recipes
 
-=== Viewing help : `help`
+   *    new recipe n/Chicken Rice ing/<Chicken, 1; ...> ins/<Mix Chicken with Rice>:
+    adds a recipe named Chicken Rice to the CookBuddy program.
 
-Format: `help`
+   *    delete 3 : deletes the 3rd recipe shown in the current list
 
-=== Adding a person: `add`
+   *    exit : exits the app
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+7. Refer to Section 3, [Features](#3.Features) for details of each command.
 
-[TIP]
-A person can have any number of tags (including 0)
+==  Features
+COMMAND FORMAT:
 
-Examples:
+* Words in angle brackets indicate that they are mandatory. `<index>` means that `index` is mandatory.
+* Words in square brackets indicate that they are optional. `[tags/TAG]` means the `tags` parameter is optional.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+===  Help — `help (V1.4)`
+Lists out all the commands accepted by CookBuddy
+If the command name is specified, it will specify how to use that command.
 
-=== Listing all persons : `list`
+=== Create a Recipe — `new`
+Adds a new recipe to the CookBuddy program.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Format: `new n/[name] ing/[ingredient, quantity; ...] ins/[instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
 
-=== Editing a person : `edit`
+Example: `new n/Fried Rice ing/<White rice, 1 cup; salt, 1gram> ins/<Fry the rice; add salt>`
+Current options are:
+    `n` - name
+    `ing` - ingredients
+    `ins` - instructions
+    `cal` - calories
+    `s` - serving size
+    `r` - rating (scale of 0 to 5)
+    `tags` - tags
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Delete a Recipe — `delete`
+Deletes a recipe from the CookBuddy program.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `delete <index>`
 
-Examples:
+=== Modify a Recipe — `modify`
+Modifies attributes of a recipe.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Format: `modify <index> [ing/ingredient, quantity; ...] [ins/instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
 
-=== Locating persons by name: `find`
+Example: `modify 1 ing/3. eggs, 2`
+Replaces the ingredient at index 3 with 2 eggs.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Example: `modify 2 ins/<boil eggs; slice apples>`
+Replaces the instructions in the recipe from 'boil eggs' to 'slice apples'
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+=== List Recipes — `list`
+Lists out all the recipes with their respective indexes in the CookBuddy program.
 
-Examples:
+=== View a Recipe — `view <recipe> (V1.3)`
+Opens a recipe to view.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+=== Tagging Recipes — `tag <index> <tag_type> <tag> (V1.3)`
+Tags the recipe at the specified index with the tag of tag_type.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+// ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
+// Tags a recipe (and the ingredient, if specified) as containing `allergen`.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+// ==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
+// Tag the recipe with a serving size of `serving size`.
 
-Examples:
+// ==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
+// Tag the recipe as `meal type` such as breakfast/lunch/dinner
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+// === Duplicate Recipe — `dup <index>`
+// Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
+// Useful for users who wish to experiment with recipes while keeping a copy of the original.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Search (V1.3)
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Search keyword — `search keyword <keyword>`
+Search for recipes that contain `keyword` in their name
 
-=== Exiting the program : `exit`
+==== Search tag — `search tag <tag type> <tag name>`
+Search for recipes that are contain the tag `tag name` from the tag `tag type`
 
-Exits the program. +
-Format: `exit`
+Example: `search tag meal dinner` would return all the recipes which have been tagged under the dinner meal tag.
 
-=== Saving the data
+=== Clearing all entries - `reset`
+Clears all entries from the *CookBuddy* application.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+=== Exiting the program - `exit`
+Exits the program.
