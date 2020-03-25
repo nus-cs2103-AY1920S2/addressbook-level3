@@ -99,7 +99,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
-        if (model.getFirstProfile().getDeadlines() != null) {
+        if (model.getFilteredPersonList().size() == 1 && model.getFirstProfile().getDeadlines() != null) {
             model.loadDeadlines();
         }
         return model.getFilteredDeadlineList();

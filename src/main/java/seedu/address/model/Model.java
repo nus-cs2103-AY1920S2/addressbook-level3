@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -107,5 +108,7 @@ public interface Model {
     void clearDeadlineList();
 
     void loadDeadlines();
+
+    void deleteModuleDeadlines(ModuleCode mc);
 
 }
