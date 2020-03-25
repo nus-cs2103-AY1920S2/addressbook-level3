@@ -154,6 +154,32 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Planning feature
+==== Proposed Implementation
+
+
+==== Design Considerations
+
+===== Aspect: How recipes are scheduled
+
+* **Alternative 1 (current choice):** Scheduled recipes are saved in a separate data structure.
+** Pros: Scheduled recipes can be easily obtained and sorted.
+** Cons: May have performance issues in terms of memory usage if a large number of recipes are scheduled.
+* **Alternative 2:** Store the date that the scheduled recipe is scheduled on as another attribute to the Recipe class.
+** Pros: Easy to implement, no additional data structure added.
+** Cons: All scheduled recipes can not be easily seen and sorted.
+
+===== Aspect: Data structure to support the scheduled recipes
+
+* **Alternative 1 (current choice):** Use a tree map to store the scheduled recipes in a <Date, List<Recipe>> key-value pair.
+** Pros: Allows us to easily and intuitively access the list of recipes scheduled on a certain day.
+** Cons: Obtaining all the recipes scheduled across a period of time will not be very efficient.
+* **Alternative 2:** Use a List sorted by increasing time.
+** Pros: Easy to implement, uncomplicated data structure.
+** Cons: Hard to obtain the scheduled recipes on a certain date, as we do not know which index
+corresponds to the date we are interested in.
+// end::undoredo[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
