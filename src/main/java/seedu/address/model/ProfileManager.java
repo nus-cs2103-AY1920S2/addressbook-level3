@@ -15,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
@@ -177,5 +178,16 @@ public class ProfileManager implements Model {
     @Override
     public void loadDeadlines() {
         this.deadlineList.addAll(this.profileList.getProfileList().get(0).getDeadlines());
+    }
+
+    @Override
+    public void deleteModuleDeadlines(ModuleCode mc) {
+        Iterator<Deadline> iter = this.deadlineList.iterator();
+        while (iter.hasNext()) {
+            Deadline dl = iter.next();
+            if (dl.getModuleCode().toString().equals(mc.toString())) {
+                iter.remove();
+            }
+        }
     }
 }
