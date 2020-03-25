@@ -93,7 +93,7 @@ public class FitHelperParser {
             return new ExitCommand();
 
         case TodayCommand.COMMAND_WORD:
-            return new TodayCommand();
+            return new TodayCommandParser().parse(arguments);
 
         case DiaryCommand.COMMAND_WORD:
             return new DiaryCommand();
