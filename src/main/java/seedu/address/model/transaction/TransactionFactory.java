@@ -1,5 +1,7 @@
 package seedu.address.model.transaction;
 
+import java.util.UUID;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -36,8 +38,17 @@ public class TransactionFactory {
     public Transaction createTransaction(Model model) {
         Customer customer = model.getFilteredCustomerList().get(customerIndex.getZeroBased());
         Product product = model.getFilteredProductList().get(productIndex.getZeroBased());
+        UUID productId = model.getFilteredProductList().get(productIndex.getZeroBased()).getId();
 
-        return new Transaction(customer, product, dateTime, quantity, money, description);
+        return new Transaction(customer, product, productId, dateTime, quantity, money, description);
+    }
+
+    public Index getProductIndex() {
+        return productIndex;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
     }
 
     @Override

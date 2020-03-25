@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -96,6 +97,12 @@ public interface Model {
      * {@code product} must not already exist in the product list.
      */
     void addProduct(Product product);
+
+    /**
+     * Find product by id.
+     * {@code id} the unique id.
+     */
+    Product findProductById(UUID id);
 
     /**
      * Replaces the given customer {@code target} with {@code editedCustomer}.

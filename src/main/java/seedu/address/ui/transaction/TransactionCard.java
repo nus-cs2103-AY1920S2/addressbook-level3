@@ -52,7 +52,7 @@ public class TransactionCard extends UiPart<Region> {
         customer.setText(transaction.getCustomer().getName().toString());
         product.setText(transaction.getProduct().getDescription().toString());
         dateTime.setText(transaction.getDateTime().toString());
-        quantity.setText(transaction.getQuantity().value);
+        quantity.setText(String.valueOf(transaction.getQuantity().value));
         money.setText("$" + transaction.getMoney().value);
         description.setText(transaction.getDescription().value);
     }

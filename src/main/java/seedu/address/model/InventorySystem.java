@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
 
@@ -124,6 +125,15 @@ public class InventorySystem implements ReadOnlyInventorySystem {
      */
     public void addProduct(Product p) {
         products.add(p);
+    }
+
+    /**
+     * Finds a product by id.
+     * @param id the unique if for product.
+     * @return the product found.
+     */
+    public Product findProductById(UUID id) {
+        return products.findProductById(id);
     }
 
     /**

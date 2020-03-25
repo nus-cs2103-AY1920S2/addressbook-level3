@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -86,16 +87,19 @@ public class EditProductCommand extends Command {
      * Creates and returns a {@code Product} with the details of {@code productToEdit}
      * edited with {@code editProductDescriptor}.
      */
-    private static Product createEditedProduct(Product productToEdit, EditProductDescriptor editProductDescriptor) {
+    public static Product createEditedProduct(Product productToEdit, EditProductDescriptor editProductDescriptor) {
         assert productToEdit != null;
 
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Sales updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
+        UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
         QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
+
         System.out.println("createEditedProduct " + productToEdit);
-        return new Product(updatedDescription, updatedPrice, updatedQuantity, updatedSales, updatedThreshold);
+        return new Product(updatedDescription, updatedPrice, updatedQuantity,
+                updatedSales, updatedThreshold, updatedId);
     }
 
     @Override
@@ -125,6 +129,7 @@ public class EditProductCommand extends Command {
         private Price price;
         private Quantity quantity;
         private Sales sales;
+        private UUID id;
         private QuantityThreshold threshold;
 
         public EditProductDescriptor() {}
@@ -138,6 +143,7 @@ public class EditProductCommand extends Command {
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
+            setId(toCopy.id);
         }
 
         /**
@@ -179,6 +185,14 @@ public class EditProductCommand extends Command {
             return Optional.ofNullable(sales);
         }
 
+        public void setId(UUID id) {
+            this.id = id;
+        }
+
+        public Optional<UUID> getId() {
+            return Optional.ofNullable(id);
+        }
+
         public void setThreshold(QuantityThreshold threshold) {
             this.threshold = threshold;
         }
@@ -205,7 +219,8 @@ public class EditProductCommand extends Command {
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
-                    && getSales().equals(e.getSales());
+                    && getSales().equals(e.getSales())
+                    && getId().equals(e.getId());
         }
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.model.product;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
@@ -22,6 +23,7 @@ public class Product {
     private final Price price;
     private final Quantity quantity;
     private final Sales sales;
+    private final UUID id;
 
     private QuantityThreshold threshold;
 
@@ -34,6 +36,21 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
+        this.threshold = threshold;
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Product(Description description, Price price, Quantity quantity, Sales sales,
+                   QuantityThreshold threshold, UUID id) {
+        requireAllNonNull(description, price, quantity);
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.sales = sales;
+        this.id = id;
         this.threshold = threshold;
     }
 
@@ -53,13 +70,16 @@ public class Product {
         return sales;
     }
 
+    public UUID getId() {
+        return id;
+    }
     public QuantityThreshold getThreshold() {
         return threshold;
     }
 
     public void setThreshold(String quantityThreshold) {
         this.threshold = new QuantityThreshold(quantityThreshold);
-        int numQuantity = Integer.parseInt(quantity.value);
+        int numQuantity = quantity.value;
         int thresholdValue = Integer.parseInt(quantityThreshold);
         if (numQuantity <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();

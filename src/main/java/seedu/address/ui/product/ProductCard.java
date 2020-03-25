@@ -45,7 +45,7 @@ public class ProductCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(product.getDescription().value);
         price.setText("$" + product.getPrice().value);
-        quantity.setText(product.getQuantity().value);
+        quantity.setText(String.valueOf(product.getQuantity().value));
         sales.setText("$" + product.getSales().value);
         threshold.setText(product.getThreshold().value);
     }

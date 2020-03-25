@@ -1,5 +1,7 @@
 package seedu.address.storage.product;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +12,6 @@ import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
-
 
 /**
  * Jackson-friendly version of {@link Product}.
@@ -23,6 +24,7 @@ public class JsonAdaptedProduct {
     private final String price;
     private final String quantity;
     private final String sales;
+    private final String id;
     private final String threshold;
 
     /**
@@ -31,12 +33,13 @@ public class JsonAdaptedProduct {
     @JsonCreator
     public JsonAdaptedProduct(@JsonProperty("description") String description, @JsonProperty("price") String price,
                              @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales,
-                              @JsonProperty("threshold") String threshold) {
+                              @JsonProperty("threshold") String threshold, @JsonProperty("id") String id) {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
         this.threshold = threshold;
+        this.id = id;
     }
 
     /**
@@ -45,9 +48,10 @@ public class JsonAdaptedProduct {
     public JsonAdaptedProduct(Product source) {
         description = source.getDescription().value;
         price = source.getPrice().value;
-        quantity = source.getQuantity().value;
+        quantity = source.getQuantity().toString();
         sales = source.getSales().value;
         threshold = source.getThreshold().value;
+        id = source.getId().toString();
     }
 
     /**
@@ -99,7 +103,12 @@ public class JsonAdaptedProduct {
         }
         final QuantityThreshold modelQuantityThreshold = new QuantityThreshold(threshold);
 
-        return new Product(modelDescription, modelPrice, modelQuantity, modelSales, modelQuantityThreshold);
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName()));
+        }
+        final UUID modelId = UUID.fromString(id);
+
+        return new Product(modelDescription, modelPrice, modelQuantity, modelSales, modelQuantityThreshold, modelId);
     }
 
 }
