@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("student delete A0181234G")
+[-> LogicManager : execute("student \ndelete A0181234G")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("student delete A0181234G")
+LogicManager -> TaTrackerParser : parseCommand("student \ndelete A0181234G")
 activate TaTrackerParser
 
 create StudentCommandParser
@@ -27,7 +27,7 @@ activate StudentCommandParser
 StudentCommandParser --> TaTrackerParser
 deactivate StudentCommandParser
 
-TaTrackerParser -> StudentCommandParser : parse("delete A0181234G")
+TaTrackerParser -> StudentCommandParser : parse("delete \nA0181234G")
 activate StudentCommandParser
 
 create DeleteStudentCommandParser
