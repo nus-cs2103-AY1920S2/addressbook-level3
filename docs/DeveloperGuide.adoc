@@ -153,19 +153,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/com/notably/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the View can be bound to this list so that the View automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores and manipulates the `BlockTree` data that represents a tree of Blocks, through BlockModel
+* stores and manipulates a list of suggestions based on the user's input, through SuggestionModel
+* stores the current state of the `View`, through ViewStateModel
+** stores the command input given by the user, through CommandInputModel
+** stores the state of the `help` modal being open, through HelpFlagModel
+* stores `UserPref` data that represents the user's preferences, through UserPrefModel
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
