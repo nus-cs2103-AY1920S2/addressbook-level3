@@ -1,4 +1,4 @@
-= Coupon Stash v1.0 - User Guide
+= Coupon Stash v1.3 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -46,11 +46,10 @@ a|
    9.  Exiting the program: exit
    10. Saving the data
    11. Marking a coupon as used: used
-   12. Listing all expiring coupons: expiring
-   13. Shows reminders: remind
-   14. Viewing savings: saved
-   15. Undo the previous command: undo/redo
-   16. Archive a coupon: archive
+   12. Shows reminders: remind
+   13. Viewing savings: saved
+   14. Undo the previous command: undo/redo
+   15. Archive a coupon: archive
 
  |3
 
@@ -85,7 +84,7 @@ e.g. typing *help* and pressing Enter will open the help window.
 * *add:* `add n/Domino's Pizaa Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5 t/pizza t/delivery`: adds a coupon named Domino's Pizaa Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
 * *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
 * *exit* : exits the app (your data will be saved automatically)
-.  Refer to Section 3, “Features” for details of each command.
+.  Refer to <<Features, Section 3, “Features”>> for details of each command.
 
 
 [[Features]]
@@ -97,8 +96,8 @@ e.g. typing *help* and pressing Enter will open the help window.
 * Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add n/NAME, NAME is a parameter which can be used as add n/The Deck Chicken Rice.
 * Items in square brackets are optional e.g n/NAME [t/TAG] can be used as `n/The Deck Chicken Rice t/value` or as `n/The Deck Chicken Rice`.
 * Items with …​ after them can be used multiple times including zero times e.g. [t/TAG]…​ can be used as (i.e. 0 times), t/value, t/friend t/value etc.
-* Parameters can be in any order e.g. if the command specifies n/NAME, d/DETAILS, d/DETAILS n/NAME is also acceptable.
-* Dates are all in the DD/MM/YYYY format. (CouponStash-Date format)
+* Parameters can be in any order e.g. if the command specifies n/NAME s/SAVINGS, s/SAVINGS n/NAME is also acceptable.
+* Dates are all in the DD-MM-YYYY format. (CouponStash-Date format)
 ** D((Optional<Character>) D)-M((Optional<Character>) M)-YYYY
 ====
 
@@ -112,8 +111,8 @@ Adds a coupon. Some fields like name, expiry date and savings
 are required. Optional fields like promo code and tags
 may be provided as well.
 
-Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
-[c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...
+Format: `Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
+[c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...`
 
 [TIP]
 A coupon can have any number of tags (including 0)
@@ -299,6 +298,7 @@ Format: +
 the total savings accumulated over all the dates between that start date
 and end date, inclusive of those dates as well.
 +
+
 Format: +
 `saved sd/(start date) e/(end date)`
 
@@ -354,7 +354,7 @@ Undo previous operation. Has no effect if there is no previous operation.
 
 Examples:
 
-* `remind 1 /p 5 days` +
+* `remind 1 e/ 5 days` +
   `undo` +
 Undo the `remind` command. Reminder is removed.
 
@@ -368,7 +368,7 @@ Redo the previously undone command.
 
 Examples:
 
-* `remind 1 /p 5 days` +
+* `remind 1 e/ 5 days` +
   `undo` +
   `redo` +
 Un-undo the `remind` command.
@@ -381,7 +381,7 @@ Un-undo the `redit` command.
 
 Examples:
 
-* `remind 1 /p 5 days` +
+* `remind 1 e/ 5 days` +
   `undo` +
 Undo the `remind` command. Reminder is removed.
 
@@ -410,6 +410,41 @@ Examples:
 * `archive 1` +
 Archives the first coupon in the coupon stash.
 
+=== Export a coupon: `export`
+Exports a coupon as an <<Adding a coupon: `add`, `add`>> command to your clipboard so that you can easily share it with your friends/ family!
+
+Format: `export INDEX`
+
+****
+* Exports the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon
+list.
+* The index *must be a positive integer* 1, 2, 3, …​
+* The <<Adding a coupon: `add`, add command>> of the coupon will be copied to your clipboard. Simply ctrl + v to paste it!
+****
+
+[NOTE]
+====
+The exported add command will only contain the following fields: +
+****
+* Name
+* Savings
+* Expiry Date
+* Limit
+* Promo Code (if any)
+* Condition (if any)
+****
+====
+
+Examples:
+
+* `list` +
+`export 2` +
+Exports the 2nd coupon in the coupon stash to an `add` command and copies it to your clipboard.
+* `find chicken` +
+`export 1` +
+Exports the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
+
 
 == FAQ
 
@@ -421,13 +456,7 @@ Archives the first coupon in the coupon stash.
 
 *Q*: Can I add multiple coupons using a command line?
 
-*A:* Yes, you can. Use the ``Add'' command and type in all your coupons
-in this format, +
-add n/Co-op d/25% off on all stationeries s/25/2/2020 t/value
-t/stationaries +
-n/PGP Mala d/10% off s/2/3/2020 t/value t/friends +
-n/Universal Studios theme part d/ 50% off for all students s/2/5/2020
-e/1/1/2021 t/value +
+*A:*  Sorry, not at the moment. We may consider adding this feature in version 2.0.0. +
 {empty} +
 
 *Q* : Why do I need to tag my coupons?
@@ -441,7 +470,7 @@ for more detail. +
 *Q* : How do I store coupons with no ending date?
 
 *A* : Sorry, at the moment, coupon entries with no ending date cannot be
-stored. You would need to enter a much further date like 01/01/2030. To
+stored. You would need to enter a much further date like 1-1-2030. To
 be added in version 2.0.0 +
 {empty} +
 
@@ -454,24 +483,31 @@ calculate the values saved based on the details of the coupon.
 
 == Command Summary
 
-* *Add:* `add n/NAME d/DETAILS s/START DATE [e/EXPIRY] [t/TAG]…`​ +
-e.g. `add n/The Deck Chicken Rice d/20% off s/2/3/2020 t/friend t/value`
+* *Add:* `add n/name e/EXPIRY DATE s/SAVINGS [l/limit] [p/PROMO CODE] [sd/START DATE] [r/REMIND DATE] [c/CONDITION] [t/TAG]…`​ +
+e.g. `add n/The Deck Chicken Rice s/20% off sd/2-3-2020 e/30-8-2020 t/friend t/value`
 * *Clear*: `clear`
 * *Delete*: `delete INDEX` +
 e.g. `delete 3`
-* *Edit*: `edit INDEX [n/NAME] [d/DETAILS] [s/START DATE] [e/EXPIRY]
-[t/TAG]…`​ +
-e.g. `edit 2 n/Chicken Up d/50% off`
+* *Edit*: `edit INDEX [n/name] [e/EXPIRY DATE] [s/SAVINGS] [l/limit] [p/PROMO CODE] [sd/START DATE] [r/REMIND DATE] [c/CONDITION] [t/TAG]`​ +
+e.g. `edit 2 n/Chicken Up s/50% off`
 * *Find*: `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find western chick`
 * *List*: `list`
-* *Used*:
-* *Expiring*:
-* *Remind*:
-* *Saved*:
-* *Help*: help
-* *Undo*:
-* *Redo*:
+* *Expiring*: `expiring DATE` +
+e.g. `expiring 30-4-2020`
+* *Remind*: `remind INDEX /e (period before expiry date)` or `remind INDEX /d (DATE to remind)`
+e.g. `remind 1 /e 5 days` or `remind 5 /d 1-5-2020`
+* *Saved*: saved /d (DATE to track from)
+e.g. `saved /d 1-5-2020`
+* *Used*: `used INDEX` or `used INDEX MONETARY_SYMBOL + ORIGINAL_AMOUNT` +
+e.g. `used 1 or used 1 $10.0`
+* *Help*: `help`
+* *Undo*: `undo`
+* *Redo*: `redo`
+* *Archive*: `archive INDEX` +
+e.g. `archive 1`
+* *Export*: `export INDEX` +
+e.g. `export 1`
 
 == Appendix
 
@@ -482,11 +518,11 @@ operations on stored coupons using SQL-like syntax.
 
 Examples:
 
-* `edit favorites set tag=hated where expiry < 19/2/2020` +
+* `edit favorites set tag=hated where expiry < 19-2-2020` +
 For all coupons tagged as ``favorites'', set their tag to ``hated'' if
 they expire before the 19th Feb 2020.
 
-* `delete favorites where expiry < 19/2/2020` +
+* `delete favorites where expiry < 19-2-2020` +
 For all coupons tagged as ``favorites'', delete them if they expire
 before the 19th Feb 2020.
 
