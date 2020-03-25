@@ -2,36 +2,75 @@
 !include style.puml
 
 Actor User as user USER_COLOR
-Participant ":UI" as ui UI_COLOR
-Participant ":Logic" as logic LOGIC_COLOR
+Participant ":MainWindow" as mainWindow UI_COLOR
+Participant ":LogicManager" as logicManager LOGIC_COLOR
+Participant ":FitHelperParser" as fitHelperParser LOGIC_COLOR
+Participant ":TodayCommandParser" as todayCommandParser LOGIC_COLOR
+Participant ":TodayCommand" as todayCommand LOGIC_COLOR
+Participant ":CommandResult" as commandResult LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
-Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete 1"
-activate ui UI_COLOR
+user -[USER_COLOR]> mainWindow : "today"
+activate mainWindow
 
-ui -[UI_COLOR]> logic : execute("delete 1")
-activate logic LOGIC_COLOR
+mainWindow -[UI_COLOR]> logicManager
+activate logicManager
 
-logic -[LOGIC_COLOR]> model : deleteEntry(p)
-activate model MODEL_COLOR
+logicManager -[LOGIC_COLOR]> logicManager : execute("today")
+activate logicManager
 
-model -[MODEL_COLOR]-> logic
+logicManager -[LOGIC_COLOR]> fitHelperParser : parseCommand("today")
+activate fitHelperParser
+
+create todayCommandParser
+fitHelperParser -> todayCommandParser
+activate todayCommandParser
+
+todayCommandParser --> fitHelperParser
+deactivate todayCommandParser
+
+fitHelperParser -> todayCommandParser : parse("today")
+activate todayCommandParser
+
+create todayCommand
+todayCommandParser -> todayCommand
+activate todayCommand
+
+todayCommand --> todayCommandParser : todayCommand
+deactivate todayCommand
+
+todayCommandParser --> fitHelperParser : todayCommand
+deactivate todayCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+todayCommandParser -[hidden]-> fitHelperParser
+destroy todayCommandParser
+
+fitHelperParser --> logicManager : todayCommand
+deactivate fitHelperParser
+deactivate logicManager
+
+logicManager -> todayCommand : execute()
+activate todayCommand
+
+todayCommand -> model : updateFilteredEntryList(predicate)
+activate model
+
+model --> todayCommand
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveFithelper(fitHelper)
-activate storage STORAGE_COLOR
+create commandResult
+todayCommand -> commandResult
+activate commandResult
 
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
+commandResult --> todayCommand
+deactivate commandResult
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
+todayCommand --> logicManager : commandResult
+deactivate todayCommand
 
-logic --[LOGIC_COLOR]> ui
-deactivate logic
+logicManager --> mainWindow : commandResult
+deactivate logicManager
 
-ui--[UI_COLOR]> user
-deactivate ui
+[<--mainWindow
+deactivate mainWindow
 @enduml
