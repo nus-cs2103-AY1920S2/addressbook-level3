@@ -177,7 +177,7 @@ Step 2. The user executes `delete 5` command to delete the 5th recipe in the rec
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/Chicken Rice ...` to add a new recipe. The `add` command also calls
+Step 3. The user executes `new n/Chicken Rice ...` to add a new recipe. The `new` command also calls
 `Model#commitRecipeBook()`, causing another modified Recipe book state to be saved into the `RecipeBookStateList`.
 
 image::UndoRedoState2.png[]
