@@ -369,6 +369,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user|get reminders for tasks not done |I can focused on these tasks and complete them
 
+|`* *` |user who do not know very well about dieting and exercising|
+check calorie intake/consumption of common food and sports |I can input calorie intake/consumption without
+having to search about these information online.
+
+|`* *` |first-time user|view help page|I can know the functions of the application quickly
+
 |=======================================================================
 
 _{More to be added}_
