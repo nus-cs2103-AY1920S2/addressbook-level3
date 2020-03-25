@@ -8,7 +8,6 @@ import java.util.UUID;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
-import seedu.address.ui.NotificationWindow;
 
 /**
  * Represents a Product in the product list.
@@ -79,12 +78,6 @@ public class Product {
 
     public void setThreshold(String quantityThreshold) {
         this.threshold = new QuantityThreshold(quantityThreshold);
-        int numQuantity = quantity.value;
-        int thresholdValue = Integer.parseInt(quantityThreshold);
-        if (numQuantity <= thresholdValue) {
-            NotificationWindow window = new NotificationWindow();
-            window.show(description, quantity);
-        }
     }
 
     /**
