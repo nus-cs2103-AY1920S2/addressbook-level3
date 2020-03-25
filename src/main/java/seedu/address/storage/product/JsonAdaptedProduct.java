@@ -10,6 +10,8 @@ import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
+import java.util.UUID;
+
 
 /**
  * Jackson-friendly version of {@link Product}.
@@ -22,17 +24,20 @@ public class JsonAdaptedProduct {
     private final String price;
     private final String quantity;
     private final String sales;
+    private final String id;
 
     /**
      * Constructs a {@code JsonAdaptedProduct} with the given product details.
      */
     @JsonCreator
     public JsonAdaptedProduct(@JsonProperty("description") String description, @JsonProperty("price") String price,
-                             @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales) {
+                             @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales,
+                              @JsonProperty("id") String id) {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
+        this.id = id;
     }
 
     /**
@@ -43,6 +48,7 @@ public class JsonAdaptedProduct {
         price = source.getPrice().value;
         quantity = source.getQuantity().toString();
         sales = source.getSales().value;
+        id = source.getId().toString();
     }
 
     /**
@@ -85,7 +91,12 @@ public class JsonAdaptedProduct {
         }
         final Sales modelSales = new Sales(sales);
 
-        return new Product(modelDescription, modelPrice, modelQuantity, modelSales);
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName()));
+        }
+        final UUID modelId = UUID.fromString(id);
+
+        return new Product(modelDescription, modelPrice, modelQuantity, modelSales, modelId);
     }
 
 }

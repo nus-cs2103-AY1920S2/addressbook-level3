@@ -5,6 +5,8 @@ import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
+import java.util.UUID;
+
 /**
  * Represents a Transaction in the system.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -13,16 +15,18 @@ public class Transaction {
 
     private final Customer customer;
     private final Product product;
+    private final UUID productId;
     private final DateTime dateTime;
     private final Quantity quantity;
     private final Money money;
     private final Description description;
 
 
-    public Transaction(Customer customer, Product product, DateTime dateTime,
+    public Transaction(Customer customer, Product product, UUID productId, DateTime dateTime,
                        Quantity quantity, Money money, Description description) {
         this.customer = customer;
         this.product = product;
+        this.productId = productId;
         this.quantity = quantity;
         this.money = money;
         this.dateTime = dateTime;
@@ -35,6 +39,10 @@ public class Transaction {
 
     public Product getProduct() {
         return product;
+    }
+
+    public UUID getProductId() {
+        return productId;
     }
 
     public DateTime getDateTime() {
@@ -66,6 +74,7 @@ public class Transaction {
 
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
+                && otherTransaction.getProductId().equals(getProductId())
                 && otherTransaction.getDateTime().equals(getDateTime())
                 && otherTransaction.getQuantity().equals(getQuantity())
                 && otherTransaction.getMoney().equals(getMoney());
@@ -85,6 +94,7 @@ public class Transaction {
         Transaction otherTransaction = (Transaction) other;
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
+                && otherTransaction.getProductId().equals(getProductId())
                 && otherTransaction.getDateTime().equals(getDateTime())
                 && otherTransaction.getQuantity().equals(getQuantity())
                 && otherTransaction.getMoney().equals(getMoney())

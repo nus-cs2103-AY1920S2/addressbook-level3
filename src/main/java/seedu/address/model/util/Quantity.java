@@ -65,6 +65,17 @@ public class Quantity implements Comparable<Quantity>{
         return new Quantity(newValue);
     }
 
+    /**
+     * Returns a new quantity whose value is the summation between this value and the
+     * other's value.
+     * @param q other quantity.
+     * @return new quantity.
+     */
+    public Quantity plus(Quantity q) {
+        int newValue = value + q.value;
+        return new Quantity(newValue);
+    }
+
     @Override
     public String toString() {
         return String.valueOf(value);

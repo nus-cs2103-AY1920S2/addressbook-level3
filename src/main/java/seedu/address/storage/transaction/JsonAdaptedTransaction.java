@@ -14,6 +14,8 @@ import seedu.address.model.util.Quantity;
 import seedu.address.storage.customer.JsonAdaptedCustomer;
 import seedu.address.storage.product.JsonAdaptedProduct;
 
+import java.util.UUID;
+
 /**
  * Jackson-friendly version of {@link Transaction}.
  */
@@ -23,6 +25,7 @@ public class JsonAdaptedTransaction {
 
     private final JsonAdaptedCustomer customer;
     private final JsonAdaptedProduct product;
+    private final String productId;
     private final String dateTime;
     private final String quantity;
     private final String money;
@@ -34,10 +37,12 @@ public class JsonAdaptedTransaction {
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("customer") JsonAdaptedCustomer customer,
                                   @JsonProperty("product") JsonAdaptedProduct product,
+                                  @JsonProperty("productId") String productId,
                                @JsonProperty("dateTime") String dateTime, @JsonProperty("quantity") String quantity,
                                @JsonProperty("money") String money, @JsonProperty("description") String description) {
         this.customer = customer;
         this.product = product;
+        this.productId = productId;
         this.dateTime = dateTime;
         this.quantity = quantity;
         this.money = money;
@@ -50,6 +55,7 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(Transaction source) {
         customer = new JsonAdaptedCustomer(source.getCustomer());
         product = new JsonAdaptedProduct(source.getProduct());
+        productId = source.getProductId().toString();
         dateTime = source.getDateTime().toString();
         quantity = source.getQuantity().toString();
         money = source.getMoney().toString();
@@ -71,6 +77,11 @@ public class JsonAdaptedTransaction {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
         final Product modelProduct = product.toModelType();
+
+        if (productId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
+        }
+        final UUID modelProductId = UUID.fromString(productId);
 
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -107,7 +118,8 @@ public class JsonAdaptedTransaction {
         }
         final Description modelDescription = new Description(description);
 
-        return new Transaction(modelCustomer, modelProduct, modelDateTime, modelQuantity, modelMoney, modelDescription);
+        return new Transaction(modelCustomer, modelProduct, modelProductId,
+                modelDateTime, modelQuantity, modelMoney, modelDescription);
     }
 
 }

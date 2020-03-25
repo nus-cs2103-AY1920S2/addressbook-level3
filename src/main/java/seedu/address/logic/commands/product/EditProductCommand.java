@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -92,8 +93,9 @@ public class EditProductCommand extends Command {
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Sales updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
+        UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
         System.out.println("createEditedProduct " + productToEdit);
-        return new Product(updatedDescription, updatedPrice, updatedQuantity, updatedSales);
+        return new Product(updatedDescription, updatedPrice, updatedQuantity, updatedSales, updatedId);
     }
 
     @Override
@@ -123,6 +125,7 @@ public class EditProductCommand extends Command {
         private Price price;
         private Quantity quantity;
         private Sales sales;
+        private UUID id;
 
         public EditProductDescriptor() {}
 
@@ -135,6 +138,7 @@ public class EditProductCommand extends Command {
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
+            setId(toCopy.id);
         }
 
         /**
@@ -176,6 +180,14 @@ public class EditProductCommand extends Command {
             return Optional.ofNullable(sales);
         }
 
+        public void setId(UUID id) {
+            this.id = id;
+        }
+
+        public Optional<UUID> getId() {
+            return Optional.ofNullable(id);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -194,7 +206,8 @@ public class EditProductCommand extends Command {
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
-                    && getSales().equals(e.getSales());
+                    && getSales().equals(e.getSales())
+                    && getId().equals(e.getId());
         }
     }
 }

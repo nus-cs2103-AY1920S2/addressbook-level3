@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,6 +98,17 @@ public class UniqueProductList implements Iterable<Product> {
         if (!internalList.remove(toRemove)) {
             throw new ProductNotFoundException();
         }
+    }
+
+    public Product findProductById(UUID id) {
+        for (Product p: internalList) {
+            System.out.println(id.toString());
+            System.out.println(p.getId().toString());
+            if (p.getId().equals(id)) {
+                return p;
+            }
+        }
+        throw new ProductNotFoundException();
     }
 
     /**

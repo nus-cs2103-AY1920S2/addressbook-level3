@@ -7,6 +7,8 @@ import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
+import java.util.UUID;
+
 /**
  * Creates a transaction with the customer and product index.
  */
@@ -36,8 +38,9 @@ public class TransactionFactory {
     public Transaction createTransaction(Model model) {
         Customer customer = model.getFilteredCustomerList().get(customerIndex.getZeroBased());
         Product product = model.getFilteredProductList().get(productIndex.getZeroBased());
+        UUID productId = model.getFilteredProductList().get(productIndex.getZeroBased()).getId();
 
-        return new Transaction(customer, product, dateTime, quantity, money, description);
+        return new Transaction(customer, product, productId, dateTime, quantity, money, description);
     }
 
     public Index getProductIndex() {

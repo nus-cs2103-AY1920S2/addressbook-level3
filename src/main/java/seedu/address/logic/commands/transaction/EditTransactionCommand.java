@@ -1,16 +1,21 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
+import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
+import static seedu.address.logic.commands.product.EditProductCommand.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -18,6 +23,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
@@ -75,18 +81,57 @@ public class EditTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Transaction> lastShownList = model.getFilteredTransactionList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        EditProductDescriptor editOriginalProductDescriptor = new EditProductDescriptor();
+        EditProductDescriptor editUpdatedProductDescriptor = new EditProductDescriptor();
+
+        List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
+
+        if (index.getZeroBased() >= lastShownTransactionList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
+        Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor, model);
 
         if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
+
+        Product originalProductToEdit = model.findProductById(transactionToEdit.getProductId());
+        Quantity originalProductOldQuantity = originalProductToEdit.getQuantity();
+        Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
+        editOriginalProductDescriptor.setQuantity(originalProductNewQuantity);
+        editOriginalProductDescriptor.setId(originalProductToEdit.getId());
+        Product editedOriginalProduct = createEditedProduct(originalProductToEdit, editOriginalProductDescriptor);
+
+        if (!originalProductToEdit.isSameProduct(editedOriginalProduct) && model.hasProduct(editedOriginalProduct)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
+        }
+
+        model.setProduct(originalProductToEdit, editedOriginalProduct);
+
+        Product updatedProductToEdit = model.findProductById(editedTransaction.getProductId());
+        Quantity updatedProductOldQuantity = updatedProductToEdit.getQuantity();
+
+        if (updatedProductOldQuantity.compareTo(editedTransaction.getQuantity()) >= 0) {
+            Quantity updateProductNewQuantity = updatedProductOldQuantity.minus(editedTransaction.getQuantity());
+            editUpdatedProductDescriptor.setQuantity(updateProductNewQuantity);
+        } else {
+            model.setProduct(editedOriginalProduct, originalProductToEdit);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
+                    updatedProductOldQuantity.value, updatedProductToEdit.getDescription().value));
+        }
+
+        Product editedUpdatedProduct = createEditedProduct(updatedProductToEdit, editUpdatedProductDescriptor);
+
+        if (!updatedProductToEdit.isSameProduct(editedUpdatedProduct) && model.hasProduct(editedUpdatedProduct)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
+        }
+
+        model.setProduct(updatedProductToEdit, editedUpdatedProduct);
+        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
 
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
@@ -99,24 +144,39 @@ public class EditTransactionCommand extends Command {
      */
     private static Transaction createEditedTransaction(Transaction transactionToEdit,
                                                        EditTransactionDescriptor editTransactionDescriptor,
-                                                       Model model) {
+                                                       Model model) throws CommandException {
         assert transactionToEdit != null;
 
+        List<Customer> lastShownCustomerList = model.getFilteredCustomerList();
+        List<Product> lastShownProductList = model.getFilteredProductList();
 
         Customer updatedCustomer;
         if (editTransactionDescriptor.getCustomerIndex().isPresent()) {
             Index updatedCustomerIndex = editTransactionDescriptor.getCustomerIndex().get();
+
+            if (updatedCustomerIndex.getZeroBased() >= lastShownCustomerList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
             updatedCustomer = model.getFilteredCustomerList().get(updatedCustomerIndex.getZeroBased());
         } else {
             updatedCustomer = transactionToEdit.getCustomer();
         }
 
         Product updatedProduct;
+        UUID updatedProductId;
         if (editTransactionDescriptor.getProductIndex().isPresent()) {
             Index updatedProductIndex = editTransactionDescriptor.getProductIndex().get();
+
+            if (updatedProductIndex.getZeroBased() >= lastShownProductList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+            }
+
             updatedProduct = model.getFilteredProductList().get(updatedProductIndex.getZeroBased());
+            updatedProductId = model.getFilteredProductList().get(updatedProductIndex.getZeroBased()).getId();
         } else {
             updatedProduct = transactionToEdit.getProduct();
+            updatedProductId = transactionToEdit.getProductId();
         }
 
         DateTime updatedDateTime = editTransactionDescriptor.getDateTime().orElse(transactionToEdit.getDateTime());
@@ -125,7 +185,7 @@ public class EditTransactionCommand extends Command {
         Description updatedDescription = editTransactionDescriptor.getDescription()
                 .orElse(transactionToEdit.getDescription());
 
-        return new Transaction(updatedCustomer, updatedProduct,
+        return new Transaction(updatedCustomer, updatedProduct, updatedProductId,
                 updatedDateTime, updatedQuantity, updatedMoney, updatedDescription);
     }
 

@@ -3,6 +3,7 @@ package seedu.address.model.product;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
@@ -20,6 +21,7 @@ public class Product {
     private final Price price;
     private final Quantity quantity;
     private final Sales sales;
+    private final UUID id;
 
     /**
      * Every field must be present and not null.
@@ -30,6 +32,19 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Product(Description description, Price price, Quantity quantity, Sales sales, UUID id) {
+        requireAllNonNull(description, price, quantity);
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.sales = sales;
+        this.id = id;
     }
 
     public Description getDescription() {
@@ -47,6 +62,8 @@ public class Product {
     public Sales getSales() {
         return sales;
     }
+
+    public UUID getId() { return id; }
 
     /**
      * Returns true if both products have the same identity and data fields.
