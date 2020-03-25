@@ -116,23 +116,6 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-    * Gets group with given group code.
-    * Returns null if no such group exists.
-    */
-    public Group getGroup(String code) {
-        Group group = null;
-        for (int i = 0; i < this.size(); ++i) {
-            group = this.get(i);
-            if (group.getIdentifier().equals(code)) {
-                break;
-            }
-            group = null;
-        }
-        return group;
-    }
-
-
-    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Group> asUnmodifiableObservableList() {
