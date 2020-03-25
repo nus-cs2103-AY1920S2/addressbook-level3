@@ -42,6 +42,8 @@ public class SavedCommand extends Command {
     public static final String MESSAGE_ONLY_ONE_DATE_OF_RANGE = "To specify a"
             + " range of dates, both start date and end date must be provided!\n"
             + MESSAGE_USAGE;
+    public static final String MESSAGE_UNEXPECTED_EXTRA_WORDS = "Did you mean to"
+            + " specify a date, or a range of dates?\n" + MESSAGE_USAGE;
 
     private final LocalDate startDate;
     private final LocalDate endDate;
