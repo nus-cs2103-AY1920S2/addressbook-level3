@@ -27,8 +27,8 @@ public class SavedCommand extends Command {
     public static final String COMMAND_WORD = "saved";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows "
             + "all the savings accumulated in Coupons stored in the "
-            + "Coupon Stash (if no date is provided), savings earned"
-            + "on a particular date in D-M-YYYY format, or savings"
+            + "Coupon Stash (if no date is provided), savings earned "
+            + "on a particular date in D-M-YYYY format, or savings "
             + "earned between two specified dates (inclusive).\n"
             + "Parameters: "
             + "[" + CliSyntax.PREFIX_DATE + "DATE] "
