@@ -558,35 +558,110 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // tag::syntaxhighlighting[]
 === [Proposed] Syntax Highlighting feature
-==== Proposed Implementation
 
-The syntax highlighting feature extends the CLI input box in the `MainWindow` of TA-Tracker
-by colouring the font of valid command words as the user is typing.
+The syntax highlighting feature extends the `CommandBox` in the `MainWindow` of TA-Tracker
+by colouring the font of valid command words as the user is typing. Currently, when a user
+inputs an invalid command, the `CommandBox` highlights the entire command in red. This feature
+will improve on this existing feature by changing the highlighting to be in real-time,
+and on a per word basis.
 
+==== Proposed Implementation of the Syntax Highlighting feature
+
+When the user inputs a command in the `CommandBox`, the `CommandBox` will be highlight the following:
+
+1. All valid command words. If a command word has more than one word,
+then the syntax highlighting will only appear when all of these words are in the `CommandBox`.
+
+2. All valid prefixes for each current command.
+
+3. The values of each valid prefix, if they are valid.
+
+In order to keep track of all commands and parameters, the `CommandDictionary`
+will store these information in a `Set`. To support the storage of all commands,
+each command should have a class variable named `COMMAND_WORD`.
+
+A `CommandBox` has a `TextField` that the user inputs to.
+To detect whether the user has changed their command input,
+the CommandBox registers an event listener that is triggered whenever
+the value within the `TextField` has changed.
+
+In the following diagrams, the `CommandBox` behaves as an input buffer that that listens to keyboard inputs.
+
+.Syntax Highlighting - Full Activity Diagram
 image::SyntaxHighlighting.png[]
+
+1. `CommandBox` listens to events that change the value in its `TextField` component.
+
+2. User inputs a character +
+(in other words, the user changes the value stored in the `TextField` of the `CommandBox`).
+
+3. CommandBox reads the new `user input` (value) in the `TextField`.
+
+4. If the `user input` has a command word that exists in the `CommandDictionary`
+(i.e. a valid command word), highlight it.
+
+    a. While the `user input` has prefixes that exists in the `CommandDictionary`,
+    (i.e. any valid prefixes), highlight them.
+
+        . For each prefix, if it has a valid value in the `user input`,
+        (i.e. the prefix value is valid), highlight it.
+
+When the user inputs the `ENTER` key, the user input is executed and the syntax highlighting is removed.
 
 ==== Design Considerations
 
-===== Aspect: How to syntax highlighting executes in real-time
+===== Aspect #1: How to execute syntax highlighting in real-time
 
-* **Alternative 1 (current choice):** Updates the syntax highlighting for each character that the user inputs.
-** Pros: Will have improved performance as the program can idle.
-** Cons: May be difficult to handle the deletion of characters in the CLI box.
-* **Alternative 2:** Constantly update the syntax highlighting (in an infinite loop) when the user input is not blank.
-** Pros: Simplest implementation.
-** Cons: May cause performance issues, especially if there are other features that update constantly.
-* **Alternative 3:** Subscribe to a centralized update loop in a modified TA-Tracker.
-** Pros: Works seamlessly with other real-time features.
-** Cons: May cause performance issues, especially if there are other features that update constantly.
+When the user is typing their command, the `CommandBox` will need to highlight all valid command words, prefixes, and parameters.
 
-===== Aspect: Data structure to support the undo/redo commands
+[width="100%",cols="33%,<33%,<35%",options="header",]
+|=====================
+| Solution | Pros | Cons
 
-* **Alternative 1 (current choice):** Use a list to store the history of TA-Tracker states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTaTracker`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+| **Alternative 1 (current choice)** +
+Register an event listener in `CommandBox` that triggers when the command text in it changes.
+| Will have improved performance as the program can idle.
+| Requires careful implementation of JavaFX events and event listeners.
+
+| **Alternative 2** +
+Constantly update the syntax highlighting (in an infinite loop) when the user input is not blank.
+| Simplest implementation, for example using a constantly running update loop.
+| May have performance issues, since the update loop will be running even when the `CommandBox` is inactive.
+
+| **Alternative 3** +
+Subscribe to a application-wide update loop in a modified TA-Tracker.
+| Allows integration of other real-time features, such as application notifications.
+| Requires major refactoring in TA-Tracker for the large-scale update loop.
+
+|=====================
+
+===== Aspect #2: Range of syntax highlighting
+
+Which inputs should the syntax highlighting be limited to. There are three types of inputs:
+invalid, valid and unknown inputs.
+
+[width="100%",cols="33%,<33%,<35%",options="header",]
+|=====================
+| Solution | Pros | Cons
+
+| **Alternative 1 (current choice)** +
+Highlight valid inputs in green
+| User only need to know that their input is correct.
+| Valid inputs may be obscured due to the choice of colour.
+
+| **Alternative 2** +
+Highlight invalid inputs in red
+| User will know that they need to correct their invalid inputs.
+| Feature already exists when submitting an invalid full command.
+
+The scope of invalid inputs is too broad.
+
+| **Alternative 3** +
+All inputs
+| All inputs verified in the `CommandBox`.
+| Too many colours may confuse the user.
+
+|=====================
 // end::syntaxhighlighting[]
 
 === Logging
