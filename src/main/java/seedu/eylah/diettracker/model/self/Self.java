@@ -4,6 +4,8 @@ import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.eylah.diettracker.model.Mode;
+
 /**
  * Represents a User in the diet tracker of EYLAH.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -13,6 +15,7 @@ public class Self {
     // Data fields
     private static Height height;
     private static Weight weight;
+    private static Mode mode;
 
     /**
      * Every field must be present
@@ -32,18 +35,22 @@ public class Self {
         return weight;
     }
 
-    public static void setHeight(Height height) {
-        height = height;
+    public static Mode getMode() { return mode; }
+
+    public static void setHeight(Height newHeight) {
+        height = newHeight;
     }
 
-    public static void setWeight(Weight weight) {
-        weight = weight;
+    public static void setWeight(Weight newWeight) {
+        weight = newWeight;
     }
+
+    public static void setMode(Mode newMode) { mode = newMode; }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(height, weight);
+        return Objects.hash(height, weight, mode);
     }
 
     @Override
@@ -52,7 +59,9 @@ public class Self {
         builder.append(" Height: ")
                 .append(getHeight())
                 .append(" Weight: ")
-                .append(getWeight());
+                .append(getWeight())
+                .append(" Mode: ")
+                .append(getMode());
         return builder.toString();
     }
 }

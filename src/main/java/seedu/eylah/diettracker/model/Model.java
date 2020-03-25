@@ -70,6 +70,12 @@ public interface Model {
     void addFood(Food food);
 
     /**
+     * Edits the given food.
+     * {@code food} must already exist in the food book.
+     */
+    //void editFood(Food food);
+
+    /**
      * Replaces the given food {@code target} with {@code editedFood}.
      * {@code target} must exist in the food book.
      * The food identity of {@code editedFood} must not be the same as another existing food in the food book.
@@ -78,6 +84,15 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
+
+    /** Returns the String format of the foods consumed over the last number of days.
+     */
+    String listFoods(String mode, int numDays);
+
+
+    /** Returns the String format of the foods based on the mode input.
+     */
+    String listFoods(String mode);
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
