@@ -96,7 +96,7 @@ public class FitHelperParser {
             return new TodayCommandParser().parse(arguments);
 
         case DiaryCommand.COMMAND_WORD:
-            return new DiaryCommand();
+            return new DiaryCommandParser().parse(arguments);
 
         case CalendarCommand.COMMAND_WORD:
             return new CalendarParser().parse(arguments);
