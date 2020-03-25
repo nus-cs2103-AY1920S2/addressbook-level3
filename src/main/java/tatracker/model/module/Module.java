@@ -65,19 +65,11 @@ public class Module {
     }
 
     /**
-     * Gets group with given group code (could be tutorial or
-     * lab code). Returns null if no such group exists.
+     * Returns the group in this module with the given group id.
+     * Returns null if no such group exists.
      */
-    public Group getGroup(String identifier) {
-        Group group = null;
-        for (int i = 0; i < groups.size(); ++i) {
-            group = groups.get(i);
-            if (group.getIdentifier().equals(identifier)) {
-                break;
-            }
-            group = null;
-        }
-        return group;
+    public Group getGroup(String groupId) {
+        return groups.get(groupId);
     }
 
     /**
