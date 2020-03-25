@@ -16,11 +16,13 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Recipe {
-Class Recipe
-Class Recipe
+Class Calorie
 Class IngredientList
-Class Name
 Class InstructionList
+Class Name
+Class Recipe
+Class Rating
+Class Serving
 Class UniqueRecipeList
 }
 
@@ -42,10 +44,12 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 RecipeBook *--> "1" UniqueRecipeList
 UniqueRecipeList o--> "*" Recipe
-Recipe *--> Name
-Recipe *--> InstructionList
-Recipe *--> IngredientList
-Recipe *--> Recipe
+Recipe *-left-> Name
+Recipe *-left-> InstructionList
+Recipe *-left-> IngredientList
+Recipe *-down-> Calorie
+Recipe *--> Serving
+Recipe *--> Rating
 Recipe *--> "*" Tag
 
 Name -[hidden]right-> InstructionList

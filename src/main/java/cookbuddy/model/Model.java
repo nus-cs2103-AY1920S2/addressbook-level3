@@ -58,6 +58,11 @@ public interface Model {
     boolean hasRecipe(Recipe recipe);
 
     /**
+     * Returns the total number of recipes in the recipe book.
+     */
+    long count();
+
+    /**
      * Deletes the given recipe.
      * The recipe must exist in the recipe book.
      */
