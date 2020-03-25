@@ -558,11 +558,14 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // tag::syntaxhighlighting[]
 === [Proposed] Syntax Highlighting feature
-==== Proposed Implementation
 
-The syntax highlighting feature extends the CLI input box in the `MainWindow` of TA-Tracker
-by colouring the font of valid command words as the user is typing.
+The syntax highlighting feature extends the `CommandBox` in the `MainWindow` of TA-Tracker
+by colouring the font of valid command words as the user is typing. Currently, when a user
+inputs an invalid command, the `CommandBox` highlights the entire command in red. This feature
+will improve on this existing feature by changing the highlighting to be in real-time,
+and on a per word basis.
 
+.Syntax Highlighting - Full Activity Diagram
 image::SyntaxHighlighting.png[]
 
 ==== Design Considerations
