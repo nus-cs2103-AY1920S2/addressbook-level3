@@ -11,7 +11,8 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class EntryListPanel
+Class FoodListPanel
+Class SportsListPanel
 Class SportsCard
 Class FoodCard
 Class StatusBarFooter
@@ -34,16 +35,18 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> EntryListPanel
+MainWindow *-down-> FoodListPanel
+MainWindow *-down-> SportsListPanel
 
-EntryListPanel -down-> FoodCard
-EntryListPanel -down-> SportsCard
+FoodListPanel -down-> FoodCard
+SportsListPanel -down-> SportsCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
+FoodListPanel --|> UiPart
+SportsListPanel --|> UiPart
 FoodCard --|> UiPart
 SportsCard --|> UiPart
 HelpWindow -down-|> UiPart
@@ -53,7 +56,8 @@ SportsCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-EntryListPanel -[hidden]left- HelpWindow
+FoodListPanel -[hidden]left- HelpWindow
+SportsListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
