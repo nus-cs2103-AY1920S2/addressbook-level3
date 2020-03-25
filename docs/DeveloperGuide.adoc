@@ -123,10 +123,25 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Class Diagram of the Suggestion Engine Component
 image::SuggestionClassDiagram.png[]
 
+*API* :
+link:{repoURL}blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
+
+1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
+2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
+which implements `SuggestionCommandParser` interface.
+3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
+`XYZSuggestionCommand` is then executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
+"Open a note" and store a list of `SuggestionItem` in the model).
+5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+to the user.
+
 Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /")` API call.
 
 .Interactions Inside the Logic and Suggestion Component for the `open /` Command
 image::SuggestionSequenceDiagram.png[]
+
+NOTE: The lifeline for `OpenSuggestionCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 
 [[Design-CorrectionEngine]]
