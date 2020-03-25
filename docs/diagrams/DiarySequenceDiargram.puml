@@ -62,7 +62,7 @@ deactivate LogicManager
 LogicManager -> DiaryCommand : execute()
 activate DiaryCommand
 
-DiaryCommand -> model : updateFilteredEntryList(predicate)
+DiaryCommand -> model : updateFilteredDiaryList(predicate)
 activate model
 
 model --> DiaryCommand
