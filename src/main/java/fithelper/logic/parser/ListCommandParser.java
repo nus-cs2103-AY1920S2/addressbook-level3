@@ -1,7 +1,7 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntaxUtil.*;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
