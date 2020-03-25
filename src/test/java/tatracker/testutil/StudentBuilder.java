@@ -88,7 +88,7 @@ public class StudentBuilder {
     }
 
     public Student build() {
-        return new Student(name, phone, email, matric, tags);
+        return new Student(matric, name, phone, email, tags);
     }
 
 }

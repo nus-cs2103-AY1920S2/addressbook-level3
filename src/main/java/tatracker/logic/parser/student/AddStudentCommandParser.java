@@ -57,7 +57,7 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
         Matric matric = ParserUtil.parseMatric(argMultimap.getValue(PREFIX_MATRIC).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Student student = new Student(name, phone, email, matric, tagList);
+        Student student = new Student(matric, name, phone, email, tagList);
 
         return new AddStudentCommand(student);
     }
