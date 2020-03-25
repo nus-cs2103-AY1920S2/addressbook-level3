@@ -154,6 +154,19 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::advancedfilter[]
+=== Advanced Filter feature
+==== Implementation
+
+image::AdvancedFilterSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How recipes are filtered
+
+// end::advancedfilter[]
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
