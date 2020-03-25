@@ -277,6 +277,15 @@ Step 2: When the today's date passes `20-04-2020 00:00`, the application will tr
 cycle into it and hence the new date will be `20-05-2020 00:00` for it to refresh again. The activity `status` and `dateline`
 will be reset automatically.
 
+==== Design Consideration
+
+* Alternative 1 (Current choice): Each activity will contain a schedule object.
+** Pros: Easy to implement.
+** Cons: Each activity will be cluttered with an additional object.
+
+* Alternative 2 : Have a scheduler to manage all the activity.
+** Pros: Neater.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
