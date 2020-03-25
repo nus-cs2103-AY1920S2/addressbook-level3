@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+box Ui UI_COLOR_T1
+Participant ":MainWindow" as mainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+Participant ":LogicManager" as logicManager LOGIC_COLOR
+Participant ":FitHelperParser" as fitHelperParser LOGIC_COLOR
+Participant ":TodayCommandParser" as todayCommandParser LOGIC_COLOR
+Participant ":TodayCommand" as todayCommand LOGIC_COLOR
+Participant ":CommandResult" as commandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+Participant ":Model" as model MODEL_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+user -[USER_COLOR]> mainWindow : "today"
+activate mainWindow
+
+mainWindow -[UI_COLOR]> logicManager
+activate logicManager
+
+logicManager -[LOGIC_COLOR]> logicManager : execute("today")
+activate logicManager
+
+logicManager -[LOGIC_COLOR]> fitHelperParser : parseCommand("today")
+activate fitHelperParser
+
+create todayCommandParser
+fitHelperParser -> todayCommandParser
+activate todayCommandParser
+
+todayCommandParser --> fitHelperParser
+deactivate todayCommandParser
+
+fitHelperParser -> todayCommandParser : parse("today")
+activate todayCommandParser
+
+create todayCommand
+todayCommandParser -> todayCommand
+activate todayCommand
+
+todayCommand --> todayCommandParser : todayCommand
+deactivate todayCommand
+
+todayCommandParser --> fitHelperParser : todayCommand
+deactivate todayCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+todayCommandParser -[hidden]-> fitHelperParser
+destroy todayCommandParser
+
+fitHelperParser --> logicManager : todayCommand
+deactivate fitHelperParser
+deactivate logicManager
+
+logicManager -> todayCommand : execute()
+activate todayCommand
+
+todayCommand -> model : updateFilteredEntryList(predicate)
+activate model
+
+model --> todayCommand
+deactivate model
+
+create commandResult
+todayCommand -> commandResult
+activate commandResult
+
+commandResult --> todayCommand
+deactivate commandResult
+
+todayCommand --> logicManager : commandResult
+deactivate todayCommand
+
+logicManager --> mainWindow : commandResult
+deactivate logicManager
+
+[<--mainWindow
+deactivate mainWindow
+@enduml
