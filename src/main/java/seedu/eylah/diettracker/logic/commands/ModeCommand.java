@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Mode;
 import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.self.Self;
 
 /**
  * Sets the Mode of the Diet Tracker depending on user preferences. The 3 modes available are
