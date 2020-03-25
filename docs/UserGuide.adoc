@@ -140,6 +140,12 @@ Displays a list of suggestions of food.
 
 Format: `randomize`
 
+* `[c/ CANTEEN_NAME]` - Randomize based on the canteen selected.
+** Example: `randomize c/ The Deck`
+* `[t/ TAG]` - Randomize based on the tag provided.
+** Example: `randomize t/ rice`
+* `[c/]` and `[t/]` are optional.
+
 image::wireframe/randomize.png[width="700", align="left"]
 
 === Set a Budget : `*budget set*`
@@ -194,7 +200,7 @@ Formats: `report`
 * `[f/]`, `[t/]`, `[m/]`, `[w/]` and `[y/]` fields are optional.
 
 NOTE: `FROM_DATE` cannot be a future date. +
-`TILL_DATE` cannot be before the FROM_DATE, or the earliest possible date if the [f/] field is empty.
+`TO_DATE` cannot be before the `FROM_DATE`, or the earliest possible date if the [f/] field is empty.
 
 image::wireframe/report.png[width="700", align="left"]
 
@@ -215,7 +221,7 @@ Formats: `transaction`
 * `[f/]`, `[t/]`, `[m/]`, `[w/]` and `[y/]` fields are optional.
 
 NOTE: `FROM_DATE` cannot be a future date. +
-`TILL_DATE` cannot be before the FROM_DATE, or the earliest possible date if the [f/] field is empty.
+`TO_DATE` cannot be before the `FROM_DATE`, or the earliest possible date if the [f/] field is empty.
 
 image::wireframe/transaction.png[width="700", align="left"]
 
@@ -274,7 +280,7 @@ TIP: User can also update existing ratings by using the same command.
 
 |rate INDEX | Give a rating to the store |
 
-|randomize |Display a list of randomize options |
+|randomize |Display a list of randomize options | randomize c/ The Deck
 
 |report |Generate a report of the food consumed |report f/ 12-02-2020 t/ 30-04-2020
 
