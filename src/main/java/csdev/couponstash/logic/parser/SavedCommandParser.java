@@ -2,9 +2,14 @@ package csdev.couponstash.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Optional;
+import java.util.function.Supplier;
+
+import csdev.couponstash.commons.util.DateFormatUtil;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-
 
 /**
  * This class contains logic for parsing a
@@ -12,6 +17,7 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
  * can be executed by Coupon Stash
  */
 public class SavedCommandParser implements Parser<SavedCommand> {
+
     /**
      * Parses a String (which will be taken from the
      * application when a user types in a command) into
@@ -27,10 +33,46 @@ public class SavedCommandParser implements Parser<SavedCommand> {
     @Override
     public SavedCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
-        // ArgumentMultimap argMultimap =
-        //         ArgumentTokenizer.tokenize(
-        //                 userInput,
-        //                 CliSyntax.PREFIX_DATE);
-        return new SavedCommand();
+        ArgumentMultimap argMultimap =
+                 ArgumentTokenizer.tokenize(
+                         userInput,
+                         CliSyntax.PREFIX_DATE,
+                         CliSyntax.PREFIX_START_DATE,
+                         CliSyntax.PREFIX_EXPIRY_DATE);
+        Optional<String> specificDate = argMultimap.getValue(CliSyntax.PREFIX_DATE);
+        Optional<String> startDate = argMultimap.getValue(CliSyntax.PREFIX_START_DATE);
+        Optional<String> endDate = argMultimap.getValue(CliSyntax.PREFIX_EXPIRY_DATE);
+        Supplier<ParseException> dateRangeException = () ->
+            new ParseException(SavedCommand.MESSAGE_ONLY_ONE_DATE_OF_RANGE);
+        if (specificDate.isPresent()) {
+            if (startDate.isPresent() || endDate.isPresent()) {
+                throw dateRangeException.get();
+            }
+            LocalDate specDate;
+            try {
+                specDate = DateFormatUtil.parseString(specificDate.get());
+            } catch (DateTimeParseException e) {
+                throw new ParseException(DateFormatUtil.MESSAGE_DATE_WRONG_FORMAT);
+            }
+            return new SavedCommand(specDate);
+        } else if (startDate.isPresent() || endDate.isPresent()) {
+            String strStart = startDate.orElseThrow(dateRangeException);
+            String strEnd = endDate.orElseThrow(dateRangeException);
+            LocalDate sDate;
+            LocalDate eDate;
+            try {
+                sDate = DateFormatUtil.parseString(strStart);
+                eDate = DateFormatUtil.parseString(strEnd);
+            } catch (DateTimeParseException e) {
+                throw new ParseException(DateFormatUtil.MESSAGE_DATE_WRONG_FORMAT);
+            }
+            if (sDate.isAfter(eDate) || sDate.equals(eDate)) {
+                throw new ParseException(SavedCommand.MESSAGE_INVALID_DATE_RANGE);
+            }
+            return new SavedCommand(sDate, eDate);
+        } else {
+            // no dates provided
+            return new SavedCommand();
+        }
     }
 }

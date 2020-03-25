@@ -12,7 +12,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import csdev.couponstash.commons.MoneySymbolStub;
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.model.UserPrefs;
 
@@ -74,6 +76,7 @@ public class JsonUserPrefsStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setCouponStashFilePath(Paths.get("couponstash.json"));
+        userPrefs.setStashSettings(new StashSettings(new MoneySymbolStub("RM")));
         return userPrefs;
     }
 

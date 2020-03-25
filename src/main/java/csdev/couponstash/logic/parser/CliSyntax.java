@@ -17,4 +17,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
     public static final Prefix PREFIX_REMIND = new Prefix("r/");
+    public static final Prefix PREFIX_MONEY_SYMBOL = new Prefix("ms/");
 }
