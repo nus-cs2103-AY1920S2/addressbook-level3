@@ -6,10 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
-import java.util.ArrayList;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
@@ -55,7 +54,7 @@ public class ShowCommand extends Command {
             message = MESSAGE_SUCCESS_FOCUS_AREA;
         } else if (toShow instanceof Module) {
             message = MESSAGE_SUCCESS_MODULE;
-        } else if (toShow instanceof ArrayList) {
+        } else if (toShow instanceof ModuleList) {
             message = MESSAGE_SUCCESS_MODULE_LIST;
         }
 

@@ -6,11 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.util.ArrayList;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
@@ -96,7 +95,7 @@ public class AddCommand extends Command {
         Profile profile = model.getFirstProfile();
         boolean hasModule = false;
         Module module = toAdd;
-        for (ArrayList<Module> list: profile.getHashMap().values()) {
+        for (ModuleList list: profile.getHashMap().values()) {
             for (Module moduleItr: list) {
                 if (toAdd.isSameModule(moduleItr)) {
                     hasModule = true;

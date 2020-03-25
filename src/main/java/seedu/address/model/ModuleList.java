@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.Module;
@@ -13,7 +15,7 @@ import seedu.address.model.profile.course.module.ModuleCode;
 /**
  * Creates a new ModuleList object which contains Module objects.
  */
-public class ModuleList {
+public class ModuleList implements Iterable<Module> {
 
     private ArrayList<Module> moduleList = new ArrayList<>();
     private ArrayList<ModuleCode> moduleCodes = new ArrayList<>();
@@ -46,7 +48,7 @@ public class ModuleList {
 
     /**
      * Returns the module with module code {@code moduleCode} in the module list, if it exists.
-     * @throws NoSuchElementException No module in the module list contains {@code moduleCode}.
+     * @throws ParseException No module in the module list contains {@code moduleCode}.
      */
     public Module getModuleWithModuleCode(ModuleCode moduleCode) throws ParseException {
         requireNonNull(moduleCode);
@@ -63,7 +65,39 @@ public class ModuleList {
         return null;
     }
 
+    /**
+     * Removes the module with module code {@code moduleCode} in the module list, if it exists.
+     * @throws ParseException No module in the module list contains {@code moduleCode}.
+     */
+    public void removeModuleWithModuleCode(ModuleCode moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        if (!hasModuleWithModuleCode(moduleCode)) {
+            throw new ParseException(MESSAGE_INVALID_MODULE);
+        }
+        Module modToRemove = getModuleWithModuleCode(moduleCode);
+        moduleList.remove(modToRemove);
+        moduleCodes.remove(moduleCode);
+    }
+
     public ArrayList<Module> getModuleList() {
         return moduleList;
+    }
+
+    public Stream<Module> stream() {
+        return moduleList.stream();
+    }
+
+    @Override
+    public Iterator<Module> iterator() {
+        return moduleList.iterator();
+    }
+
+    @Override
+    public String toString() {
+        List<String> strModCodes = new ArrayList<>();
+        for (ModuleCode moduleCode: moduleCodes) {
+            strModCodes.add(moduleCode.toString());
+        }
+        return String.join("\n", strModCodes);
     }
 }
