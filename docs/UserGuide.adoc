@@ -93,12 +93,19 @@ e.g. typing *help* and pressing Enter will open the help window.
 ====
 *Command Format*
 
-* Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add n/NAME, NAME is a parameter which can be used as add n/The Deck Chicken Rice.
-* Items in square brackets are optional e.g n/NAME [t/TAG] can be used as n/The Deck Chicken Rice t/value or as n/The Deck Chicken Rice.
-* Items with …​ after them can be used multiple times including zero times e.g. [t/TAG]…​ can be used as (i.e. 0 times), t/value, t/friend t/value etc.
-* Parameters can be in any order e.g. if the command specifies n/NAME, d/DETAILS, d/DETAILS n/NAME is also acceptable.
-* Dates are all in the DD/MM/YYYY format. (CouponStash-Date format)
-** D((Optional<Character>) D)-M((Optional<Character>) M)-YYYY
+* Words in UPPER_CASE are the parameters to be supplied by the user
+e.g. in add n/NAME, NAME is a parameter which can be used as add
+n/The Deck Chicken Rice.
+* Items in square brackets are optional e.g n/NAME [t/TAG] can be
+used as n/The Deck Chicken Rice t/value or as n/The Deck Chicken Rice.
+* Items with ... after them can be used multiple times including zero
+times e.g. [t/TAG]...​ can be used as (i.e. 0 times), t/value,
+t/friend t/value etc.
+* Parameters can be in any order e.g. if the command specifies n/NAME,
+s/SAVINGS, s/SAVINGS n/NAME is also acceptable.
+* Dates are all in the D-M-YYYY format. (Coupon Stash date format)
+** D and M can be one or two digits, but YYYY has to be four digits
+** e.g.
 ====
 
 === Viewing help: `help`
