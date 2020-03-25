@@ -26,6 +26,7 @@ LogicManager -> CheckCommand : parseAndCreateCommand()
 activate CheckCommand
 LogicManager <-- CheckCommand : command
 deactivate
+
 'LogicManager -> FitHelperParser : parseCommand(userInput)
 'activate FitHelperParser
 'create CheckCommandParser
