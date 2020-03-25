@@ -236,12 +236,20 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::calendar[]
+=== Calendar
+. The user enters a view command in the `calendar d/tmr`.
 
-_{Explain here how the data encryption feature will be implemented}_
+. `LogicManager` parses the user input, constructs and executes the `CalendarCommand`.
 
-// end::dataencryption[]
+. The `CalendarCommand` reaches `setCalendarDate` in the `Model` and returns the `CommandResult` to the `LogicManager`.
+
+. The `LogicManager` returns the `CommandResult` to the `Ui`.
+
+. The `Ui` gets the `date` from `LogicManager` and updates the Ui to display the module.
+The following sequence diagram shows how the update operation works to change calendar page in model:
+image:CalendarSequenceDiagram.png[]
+// end::calendar[]
 
 === Logging
 
@@ -311,6 +319,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user|update my basic information such as address and name if necessary |have an updated profile at any time
 
 |`* *` |user|view pending tasks and status of daily calories goals in a calendar |have cleaner display of data
+
+|`* *` |user who wants to have a clean user interface |clear entries regularly | do not need to see irrelevant information
+
+|`* *` |user who types wrongly sometimes |undo my previous command |I do not need to delete explicitly using a long command
+
+|`* *` |user|leave the application when I need |It does not occupy additional space in my computer
+
+|`* *` |user|list all entries by certain criteria|I can filter the tasks by what I am looking for
+
+|`* *` |user|get reminders for tasks not done |I can focused on these tasks and complete them
+
 |=======================================================================
 
 _{More to be added}_
@@ -387,358 +406,6 @@ Use case ends.
 +
 [none]
 ** 1a1. FitHelper shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC04 - Display the List
-
-*MSS*
-
-1.  User requests to display the list of a day.
-2.  FitHelper displays the list corresponding to the specified date. If the user does not specify a date, FitHelper will display the list for `today`.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The date specified by the user does not contain any entries.
-+
-[none]
-** 1a1. FitHelper shows the message reminding the user that that specific day is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC05 - Show Reminders
-
-*MSS*
-
-1.  User requests to display the undone tasks for a specific day.
-2.  FitHelper displays the undone task list corresponding to the specified date. If the user does not specify a date, FitHelper will display all the undone tasks in the coming 7 days.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The date specified by the user does not contain any entries.
-+
-[none]
-** 1a1. FitHelper shows the message reminding the user that that specific day is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC06 - Clear
-
-*MSS*
-
-1.  User requests to clear the entries for a specific day.
-2.  FitHelper clears the entries in the daily file for the specified day. If the user does not input a `DATE`, FitHelper will delete all the entries for `today`.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The date specified by the user does not contain any entries.
-+
-[none]
-** 1a1. FitHelper shows the message reminding the user that that specific day is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC07 - Undo
-
-*MSS*
-
-1.  User requests to undo the previous command.
-2.  FitHelper undoes the previous command.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. There is no previous command.
-+
-[none]
-** 1a1. FitHelper shows an error message indicating there is no previous command.
-+
-Use case ends.
-
-* 1b. The previous command is not undoable. e.g. The previous command is a `list` command where `undo` does not make sense.
-+
-[none]
-** 1b1. FitHelper shows an error message indicating the previous command is not undoable.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC08 - Exit
-
-*MSS*
-
-1.  User requests to exit the application.
-2.  FitHelper displayes the `goodbye` word and terminates the application.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC09 - Record Profile
-
-*MSS*
-
-1.  User requests to record profile and input values
-2.  FitHelper store user profile data.
-3.  FitHelper display successful record and show profile page.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User input incomplete values.
-+
-[none]
-** 1a1. FitHelper shows an error message.
-+
-Use case ends.
-
-* 1b. User has recorded basic data before.
-+
-[none]
-** 1b1. FitHelper shows an error message.
-+
-Use case ends.
-
-
-[discrete]
-=== Use case: UC10 - Update Profile
-
-*MSS*
-
-1.  User requests to update profile attribute values.
-2.  FitHelper update data accordingly.
-3.  FitHelper display successful update and show profile page.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User input unknown attribute.
-+
-[none]
-** 1a1. FitHelper shows an error message.
-+
-Use case ends.
-
-* 1b. User input wrong type for values.
-+
-[none]
-** 1b1. FitHelper shows an error message.
-+
-Use case ends.
-
-
-[discrete]
-=== Use case: UC11 - Show Profile
-
-*MSS*
-
-1.  User requests to show profile page.
-2.  FitHelper display profile page.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User has not record profile data yet.
-+
-[none]
-** 1a1. FitHelper shows an error message and reminder user to record.
-+
-Use case ends.
-
-
-[discrete]
-=== Use case: UC12 - Show Weight Graph Page (for certain period)
-
-*MSS*
-
-1.  User requests to show Weight Graph page (for certain period)
-2.  FitHelper display Weight page with information.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User input invalid time.
-+
-[none]
-** 1a1. FitHelper shows an error message.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC13 - Keep a Diary
-
-*MSS*
-
-1.  User adds comments as today's diary
-2.  FitHelper adds the diary log to `today` file.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User input is incomplete.
-+
-[none]
-** 1a1. FitHelper shows an error message.
-+
-Use case ends.
-
-* 1b. User specifies a `DATE` after the `diary` keyword.
-+
-[none]
-** 1b1. FitHelper will take the `date` as part of the comments as `diary` is only for `today` .
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC14 - View the Reward
-
-*MSS*
-
-1.  User requests to view the rewarding points and current fitness level
-2.  FitHelper displays the users rewarding points together with the current fitness level.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC15 - View Today Page
-
-*MSS*
-
-1.  User requests to view `Today Page` with an optional `DATE` input
-2.  FitHelper displays `Today Page` for `today` if the `DATE` field is null and the `Today Page` for the specified date if there is a valid date.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User specifies an invalid date.
-+
-[none]
-** 1a1. FitHelper shows shows an error message indicating the date is invalid.
-** 1a2. FitHelper displays `Today Page` for `today`.
-+
-Use case ends.
-
-* 1b. User specifies a date in the future.
-+
-[none]
-** 1b1. FitHelper shows an error message indicating the date should be at least today or prior to today.
-** 1b2. FitHelper shows the `Today Page` for `today`.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC16 - View Weekly Report
-
-*MSS*
-
-1.  User requests to view `Weekly Report` with an optional `DATE` input
-2.  FitHelper displays `Weekly Report` for the current week if the `DATE` field is null and the `Weekly Report` for the week containing the specified date if there is a valid date.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User specifies an invalid date.
-+
-[none]
-** 1a1. FitHelper shows shows an error message indicating the date is invalid.
-** 1a2. FitHelper displays `Weekly Report` for the current week.
-+
-Use case ends.
-
-* 1b. User specifies a date in the future.
-+
-[none]
-** 1b1. FitHelper shows an error message indicating the date should be at least today or prior to today.
-** 1b2. FitHelper shows the `Weekly Report` for the current week.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC17 - Get Reminders
-
-*MSS*
-
-1.  User requests to be reminded about undone tasks.
-2.  FitHelper displays all the undone tasks for the coming 7 days if the `DATE` field is null and for the specified date if there is a valid date.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User specifies an invalid date.
-+
-[none]
-** 1a1. FitHelper shows shows an error message indicating the date is invalid.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC18 - Find Entries Containing the Keyword
-
-*MSS*
-
-1.  User requests to find entries containing a specific keyword.
-2.  FitHelper displays all the entries containing the keyword.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User inputs a keyword that does not show in any entries.
-+
-[none]
-** 1a1. FitHelper shows shows an error message indicating no entry matches the keyword.
-+
-
-
-Use case ends.
-[discrete]
-=== Use case: UC19 - Calendar View
-
-*MSS*
-
-1.  User requests to display tasks in calendar view.
-2.  FitHelper displays all tasks of the current months with colored indication of whether the daily target is achieved or not.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User specifies an invalid command.
-+
-[none]
-** 1a1. FitHelper shows shows an error message indicating the command is invalid.
 +
 Use case ends.
 
