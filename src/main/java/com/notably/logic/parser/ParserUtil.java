@@ -3,7 +3,6 @@ package com.notably.logic.parser;
 import java.util.stream.Stream;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -23,12 +22,12 @@ public class ParserUtil {
     /**
      * Returns either a AbsolutePath or RelativePath base on userInput.
      */
-    public static Path createPath(String text) throws ParseException {
+    public static AbsolutePath createAbsolutePath(String text, AbsolutePath currentDirectory) throws ParseException {
         if (AbsolutePath.isValidAbsolutePath(text)) {
             return AbsolutePath.fromString(text);
         }
         if (RelativePath.isValidRelativePath(text)) {
-            return RelativePath.fromString(text);
+            return RelativePath.fromString(text).toAbsolutePath(currentDirectory);
         }
         throw new ParseException("Invalid Path");
     }
