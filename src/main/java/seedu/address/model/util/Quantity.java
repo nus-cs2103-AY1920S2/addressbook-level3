@@ -62,7 +62,7 @@ public class Quantity implements Comparable<Quantity>{
      */
     public Quantity minus(Quantity q) {
         int newValue = value - q.value;
-        return new Quantity(String.valueOf(newValue));
+        return new Quantity(newValue);
     }
 
     @Override

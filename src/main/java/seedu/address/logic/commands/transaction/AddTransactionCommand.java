@@ -72,10 +72,13 @@ public class AddTransactionCommand extends Command {
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
         Quantity oldQuantity = productToEdit.getQuantity();
-        Quantity newQuantity = oldQuantity.minus(transactionFactory.getQuantity());
 
-        if (newQuantity.compareTo(new Quantity("0")) > 0) {
+        if (oldQuantity.compareTo(transactionFactory.getQuantity()) >= 0) {
+            Quantity newQuantity = oldQuantity.minus(transactionFactory.getQuantity());
             editProductDescriptor.setQuantity(newQuantity);
+        } else {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
+                    oldQuantity.value, productToEdit.getDescription().value));
         }
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
