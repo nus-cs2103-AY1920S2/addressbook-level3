@@ -189,6 +189,22 @@ Returns Chicken Rice, Ayam Penyet and Chicken Up
 Returns any coupon having names chicken, ayam, 鸡, pollo, Hähnchen,
 chinese or western
 
+=== Sorting coupons: `sort`
+
+Sorts the coupons in the coupon stash in ascending order. It is possible to sort by coupon name or expiry date.
+
+Format: `sort PARAMETER`
+
+* The `PARAMETER` can be either `n/` or `/e`.
+* Using `n/` would mean sorting by name, while `e/` would mean sorting by expiry date.
+
+Examples:
+
+* `sort n/` +
+Sorts the coupon stash by name in ascending order.
+* `sort e/` +
+Sorts the coupon stash by expiry date from earliest to latest.
+
 // tag::delete[]
 === Deleting a coupon: `delete`
 
@@ -350,45 +366,43 @@ The total savings of the coupon will be calculated, and can be seen with the com
 
 
 === Undo the previous command: `undo`
-Undo previous operation. Has no effect if there is no previous operation.
+Undo previous operation. Only works on the following commands: (i.e. commands that change the coupons in the coupon stash)
+
+* `add`
+* `archive`
+* `clear`
+* `delete`
+* `edit`
+* `remind`
+
+Note that changes to user preferences cannot be undone.
 
 Examples:
 
-* `remind 1 /p 5 days` +
+* `remind 1 r/ 25-12-2020` +
   `undo` +
 Undo the `remind` command. Reminder is removed.
 
 
-* `edit 1 d/50% off` +
+* `edit 1 n/ Duck Rice` +
   `undo` +
-Revert the edit that was performed. Has no effect if nothing was undone before.
+Revert the edit that was performed.
 
 === Redo the undone command: `redo`
 Redo the previously undone command.
 
 Examples:
 
-* `remind 1 /p 5 days` +
+* `remind 1 r/ 25-12-2020` +
   `undo` +
   `redo` +
 Un-undo the `remind` command.
 
 
-* `edit 1 d/50% off` +
+* `edit 1 n/ Duck Rice` +
   `undo` +
   `redo`
-Un-undo the `redit` command.
-
-Examples:
-
-* `remind 1 /p 5 days` +
-  `undo` +
-Undo the `remind` command. Reminder is removed.
-
-
-* `edit 1 d/50% off` +
-  `undo` +
-Revert the edit that was performed. Has no effect if nothing was undone before.
+Un-undo the `edit` command.
 
 === Archive a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your current stash of coupons.

@@ -176,12 +176,12 @@ The following methods in the `Model` interface facilitates this feature:
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The `CouponStash` will be initialized with the initial coupon stash state, and the `currentStatePointer` pointing to that single coupon stash state.
+The `CouponStash` will be initialized with the initial coupon stash state, and the `currStateIndex` pointing to that single coupon stash state.
 
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the coupon stash.
-The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currentStatePointer` is shifted to the newly inserted address book state.
+The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
@@ -194,12 +194,12 @@ image::UndoRedoState2.png[]
 If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the address book state and command text will not be saved.
 
 Step 4. The user now decides that adding the coupon was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `Model#undoCouponStash()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
+The `undo` command will call `Model#undoCouponStash()`, which will shift the `currStateIndex` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial coupon stash state, then there are no previous coupon stash states to restore.
+If the `currStateIndex` is at index 0, pointing to the initial coupon stash state, then there are no previous coupon stash states to restore.
 The `undo` command uses `Model#canUndoCouponStash()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the undo.
 
@@ -209,10 +209,10 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoCouponStash()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state and command text, and restores the coupon stash to that state. Finally, it returns the redone command text.
+The `redo` command does the opposite -- it calls `Model#redoCouponStash()`, which shifts the `currStateIndex` once to the right, pointing to the previously undone state and command text, and restores the coupon stash to that state. Finally, it returns the redone command text.
 
 [NOTE]
-If the `currentStatePointer` is at index `couponStashStateList.size() - 1`, pointing to the latest coupon stash state, then there are no undone coupon stash states to restore.
+If the `currStateIndex` is at index `couponStashStateList.size() - 1`, pointing to the latest coupon stash state, then there are no undone coupon stash states to restore.
 The `redo` command uses `Model#canRedoCouponStash()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the redo.
 
@@ -222,9 +222,9 @@ Thus, the `couponStashStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
-Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged.
-We designed it this way because it no longer makes sense to redo the `add n/David ...` command.
+Step 6. The user executes `clear`, which calls `Model#commitCouponStash()`.
+Since the `currStateIndex` is not pointing at the end of the `couponStashStateList`, all coupon stash states and command text history after the `currStateIndex` will be purged.
+We designed it this way because it no longer makes sense to redo the `add n/OMO STORE ...` command.
 This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
@@ -237,31 +237,14 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the coupon being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+*  Saves the entire coupon stash.
+** Each coupon is copied into `HistoryManager`, thus eliminating any chance for bugs when mutating coupons.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* Use two lists to store the history of address book states and command text history.
+** The lists are stored in a `HistoryManager` class, which includes a `currStateIndex`.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
