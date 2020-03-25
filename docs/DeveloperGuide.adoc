@@ -275,6 +275,7 @@ When manipulating the `BlockTree`, the execution of any operation is always spli
 Current choice: `BlockTreeItem`
 Pros: No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
 Cons: Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
+
 ===== Aspect: Root should also be a `BlockTreeItem`
 Pros: Seamless transition to JSON storage
 Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not contain any `Body` and is also unmodifiable
