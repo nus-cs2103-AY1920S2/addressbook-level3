@@ -25,16 +25,16 @@ public class UniqueGroupList implements Iterable<Group> {
     private final ObservableList<Group> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Returns true if the list contains an equivalent group as the given argument.
      */
     public boolean contains(Group toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
-    }
-
-    public int size() {
-        return internalList.size();
     }
 
     public Group get(int n) {
@@ -67,6 +67,17 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
+     * Removes the equivalent group from the list.
+     * The group must exist in the list.
+     */
+    public void remove(Group toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new GroupNotFoundException();
+        }
+    }
+
+    /**
      * Replaces the group {@code target} in the list with {@code editedGroup}.
      * {@code target} must exist in the list.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the list.
@@ -84,17 +95,6 @@ public class UniqueGroupList implements Iterable<Group> {
         }
 
         internalList.set(index, editedGroup);
-    }
-
-    /**
-     * Removes the equivalent group from the list.
-     * The group must exist in the list.
-     */
-    public void remove(Group toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new GroupNotFoundException();
-        }
     }
 
     public void setGroups(UniqueGroupList replacement) {
