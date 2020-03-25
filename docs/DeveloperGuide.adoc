@@ -565,8 +565,48 @@ inputs an invalid command, the `CommandBox` highlights the entire command in red
 will improve on this existing feature by changing the highlighting to be in real-time,
 and on a per word basis.
 
+==== Proposed Implementation of the Syntax Highlighting feature
+
+When the user inputs a command in the `CommandBox`, the `CommandBox` will be highlight the following:
+
+1. All valid command words. If a command word has more than one word,
+then the syntax highlighting will only appear when all of these words are in the `CommandBox`.
+
+2. All valid prefixes for each current command.
+
+3. The values of each valid prefix, if they are valid.
+
+In order to keep track of all commands and parameters, the `CommandDictionary`
+will store these information in a `Set`. To support the storage of all commands,
+each command should have a class variable named `COMMAND_WORD`.
+
+A `CommandBox` has a `TextField` that the user inputs to.
+To detect whether the user has changed their command input,
+the CommandBox registers an event listener that is triggered whenever
+the value within the `TextField` has changed.
+
+In the following diagrams, the `CommandBox` behaves as an input buffer that that listens to keyboard inputs.
+
 .Syntax Highlighting - Full Activity Diagram
 image::SyntaxHighlighting.png[]
+
+1. `CommandBox` listens to events that change the value in its `TextField` component.
+
+2. User inputs a character +
+(in other words, the user changes the value stored in the `TextField` of the `CommandBox`).
+
+3. CommandBox reads the new `user input` (value) in the `TextField`.
+
+4. If the `user input` has a command word that exists in the `CommandDictionary`
+(i.e. a valid command word), highlight it.
+
+    a. While the `user input` has prefixes that exists in the `CommandDictionary`,
+    (i.e. any valid prefixes), highlight them.
+
+        . For each prefix, if it has a valid value in the `user input`,
+        (i.e. the prefix value is valid), highlight it.
+
+When the user inputs the `ENTER` key, the user input is executed and the syntax highlighting is removed.
 
 ==== Design Considerations
 
