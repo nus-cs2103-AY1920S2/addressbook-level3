@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cookbuddy.logic.commands.Command;
+import cookbuddy.logic.commands.CountCommand;
 import cookbuddy.logic.commands.DeleteCommand;
 import cookbuddy.logic.commands.ExitCommand;
 import cookbuddy.logic.commands.FindCommand;
@@ -61,6 +62,9 @@ public class RecipeBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case CountCommand.COMMAND_WORD:
+            return new CountCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

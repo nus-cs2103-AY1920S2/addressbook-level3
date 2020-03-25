@@ -68,6 +68,14 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     }
 
     /**
+     * Returns the total number of recipes in the recipe book.
+     */
+    public long count() {
+        return recipes.count();
+    }
+
+
+    /**
      * Adds a recipe to the recipe book.
      * The recipe must not already exist in the recipe book.
      */
