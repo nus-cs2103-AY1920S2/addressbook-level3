@@ -89,11 +89,14 @@ Replaces the instructions in the recipe from 'boil eggs' to 'slice apples'
 === List Recipes — `list`
 Lists out all the recipes with their respective indexes in the CookBuddy program.
 
+=== Count Recipes — `count`
+Displays the total number of recipes stored in the CookBuddy program.
+
 === View a Recipe — `view <recipe> (V1.3)`
 Opens a recipe to view.
 
-=== Tagging Recipes — `tag <index> <tag_type> <tag> (V1.3)`
-Tags the recipe at the specified index with the tag of tag_type.
+=== Tag a Recipe — `tag <index> <tag_type> <tag> (V1.3)`
+Tags a recipe at the specified index with the tag of tag_type.
 
 Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1.
 
