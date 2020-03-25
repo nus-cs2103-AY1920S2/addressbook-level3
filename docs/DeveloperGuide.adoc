@@ -296,8 +296,17 @@ image::SequenceDiagramForCheckCommand.png[]
 
 ==== Design Considerations
 
+Aspect: Data structure to store entries
 
-
+* **Alternative 1 (current choice):** Use an `ArrayList` as an attribute in CalorieTable
+to store the entries.
+** pros: easy to implement partial-key search (compare the keyword with the name of each entry in the list).
+** cons: O(n) complexity for finding matching entries, where n is the number of entries in the list.
+* **Alternative 2:** Use a `HashMap` as an attribute in CalorieTable to store the entries.
+The key is the name of the entry and the value is the entry.
+** pros: (theoretically) O(1) time complexity for finding an entry given a complete keyword,
+regardless of how many entries are in the HashMap.
+** cons: hard to implement partial-key search (i.e. the keyword is only part of the name of the entry).
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
