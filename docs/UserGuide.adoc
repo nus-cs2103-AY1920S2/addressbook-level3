@@ -119,9 +119,15 @@ A coupon can have any number of tags (including 0)
 
 Examples:
 
-* `add n/The Deck Chicken Rice s/20% sd/5-5-2020 e/6-5-2020 t/value`
+* `add n/The Deck Chicken Rice s/20% s/Free Add Rice sd/5-5-2020 e/6-5-2020 t/value`
++
+Adds a new Coupon:
+image:ug_deck_chicken.png[]
 
-* `add n/Preenz Gjorjes Pak Mala s/$1.50 ed/2-3-2020 t/value t/friends`
+* `add n/Preenz Gjorjes Pak Mala s/$1.50 e/2-3-2020 t/value t/friends`
++
+Adds a new Coupon:
+image:ug_pgp_mala.png[]
 
 === Listing all coupons: `list`
 
