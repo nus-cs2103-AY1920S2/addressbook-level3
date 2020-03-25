@@ -280,7 +280,7 @@ Initialization: when the application is launched, `ModelManager` will initialize
 will in turn initialize both `FoodCalorieTable` and `SportsCalorieTable` to contain pre-set data
 which is a list of one type of `CalorieEntry` (either `FoodCalorieEntry` or `SportsCalorieEntry`).
 
-image::InitializationOfCalorieTables.png[]
+image::InitializationOfCalorieTables.png[test, 50%]
 
 Case 1: when the user enter the command `check x/sports k/swim`, the `LogicManager` will create
 a `CheckCommand`, which askes `ModelManager` to let `FitHelper` to search through `SportsCalorieTable`
@@ -296,7 +296,7 @@ the list to `CheckCommand`. Since the list contains no `CalorieEntry` (meaning t
 matching entries), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser` contains
 a failure message followed by the string representation of the keyword.
 
-image::SequenceDiagramForCheckCommand.png[]
+image::SequenceDiagramForCheckCommand.png[test, 150%]
 
 ==== Design Considerations
 
