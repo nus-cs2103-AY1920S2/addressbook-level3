@@ -46,7 +46,7 @@ public class PlannedRecipeMap {
      * Returns a list of recipes that were planned from the period starting from date
      * to 'daysFromDate' number of days since that day.
      */
-    public List<Recipe> getRecipeInRange(Date date, int daysFromDate) {
+/*    public List<Recipe> getRecipeInRange(Date date, int daysFromDate) {
         List<Recipe> recipes = new ArrayList<>();
         while (daysFromDate > 0 && hasLaterDate(date)) {
             // check if later date is more than days from date
@@ -54,7 +54,7 @@ public class PlannedRecipeMap {
             recipes.addAll(getRecipeAt(date));
             // subtract jump and update days from date
         }
-    }
+    }*/
 
     public boolean hasLaterDate(Date date) {
         return plannedRecipes.higherKey(date) != null;
