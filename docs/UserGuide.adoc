@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-4/main/
 
-By: `The CookBuddy Team`      Since: `Feb 2020`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 **CookBuddy** is for users who prefer a desktop application for managing recipes. More importantly, CookBuddy is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CookBuddy can get your recipe management tasks done faster than traditional GUI apps. Interested? Proceed to [Quick Start](#quick-start) to get started. Enjoy!
@@ -99,9 +99,6 @@ Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the re
 
 // ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
 // Tags a recipe (and the ingredient, if specified) as containing `allergen`.
-
-// ==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
-// Tag the recipe with a serving size of `serving size`.
 
 // ==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
 // Tag the recipe as `meal type` such as breakfast/lunch/dinner
