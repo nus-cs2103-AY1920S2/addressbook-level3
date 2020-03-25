@@ -319,6 +319,68 @@ For more information regarding the procedure, please refer to the Activity Diagr
 
 image::SnoozeReminderActivityDiagram.png[]
 
+=== Sort Activity Feature (To be implemented)
+
+Activities (ie. deadlines, lessons and events) are sorted by a specific criteria, such as date added or priority.
+By default, activities are sorted by date added.
+
+The list of criteria to be sorted are as follows:
+
+. Date added
+
+. Date due
+
+. Lexicographical order
+
+. Priority
+
+
+Refer to the user guide for the specific commands. Sorting of activities is facilitated by ModelManager#sortActivity.
+
+==== Implementation
+To sort activities, the command will use the keyword `sort` followed by the sort criteria.
+
+The following diagram shows how activities are sorted.
+
+image::ArchitectureSequenceDiagram.png[]
+
+==== Internal workings for the sort activity command
+
+Below is an example of a user sorting activities by priority and how the underlying system works.
+
+. The user enters the command `sort c/priority`
+
+. The LogicManager will create NasaBookParser to parse the user input.
+
+. NasaBookParser will create an SortCommandParser which parses the input and returns an SortCommand.
+
+. LogicManager will execute the SortCommand. SortCommand will sort all activities by the criteria specified.
+
+. The underlying model's activity lists are all updated.
+
+. The view is updated to the new model.
+
+. Subsequently, all CRUD operations will preserve the order specified by the latest sort command entered by the user.
+
+The figure below shows the sequence diagram on what happens with the execution of the aforementioned command.
+
+image::AddDeadlineLogicSequenceDiagram.png[]
+
+==== Design Considerations
+
+The design considerations for the classes are shown below:
+
+[width="59%",cols="22%,<100%,<100%",options="header",]
+|=======================================================================
+|Choice|Pros|Cons
+|Permanent modification on the model's activity list when sorting.|Persistence of sorting ensure consistency
+regardless of user activity. |Rigid design, user will have to explicitly enter the sort command and criteria to change
+sort format.
+|All CRUD operations on activity list after sort criteria is defined will adhere to the sort criteria.|Consistency in
+sort criteria is ensured, removing the need to enter the sort command after CRUD operations.|Can be expensive on
+performance, and affect responsiveness of application when there are many entries of activities.
+|=======================================================================
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
