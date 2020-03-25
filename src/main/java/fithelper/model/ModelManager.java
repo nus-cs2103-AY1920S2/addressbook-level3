@@ -19,6 +19,7 @@ import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
 
+import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -77,6 +78,12 @@ public class ModelManager implements Model {
     }
 
     //=========== Basic Functions ===========================================================================
+    public Predicate<Entry> someDatePredicate(String dateStr) {
+        Predicate<Entry> SHOW_SOMEDAY_ENTRIES = entry ->
+                entry.getTime().getDateStr().equalsIgnoreCase(dateStr);
+        return SHOW_SOMEDAY_ENTRIES;
+    }
+
     @Override
     public boolean hasDiary(Diary diary) {
         requireNonNull(diary);

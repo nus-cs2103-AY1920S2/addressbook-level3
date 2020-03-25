@@ -24,6 +24,7 @@ public interface Model {
     Predicate<Entry> PREDICATE_SHOW_UNDONE_ENTRIES = entry -> entry.getStatus().value.equals("Undone");
     Predicate<Entry> PREDICATE_SHOW_TODAY_ENTRIES = entry ->
             entry.getTime().getDateStr().equals(new Today().getTodayDateStr());
+    Predicate<Entry> someDatePredicate(String dateStr);
 
     /**
      * Replaces FitHelper data with the data in {@code fitHelper}.

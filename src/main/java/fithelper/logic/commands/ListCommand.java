@@ -1,5 +1,6 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.parser.CliSyntaxUtil.*;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static java.util.Objects.requireNonNull;
 
@@ -14,10 +15,29 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all entries";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all entries specified by the date keyword.\n"
+            + "If not specified, all entries in chronological order are displayed.\n"
+            + "Parameters: "
+            + PREFIX_DATE + "Date (optional)"
+            + "Example: " + COMMAND_WORD
+            + PREFIX_DATE + "2020-03-25 ";
+
+    private final String dateStr;
+
+    public ListCommand(String dateStr) {
+        this.dateStr = dateStr;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (this.dateStr == null) {
+            model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            model.updateFilteredEntryList(model.someDatePredicate(this.dateStr));
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
     }
+
 }
