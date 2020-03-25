@@ -29,7 +29,7 @@ import seedu.address.model.recipe.ingredient.Vegetable;
  */
 public class AddIngredientCommand extends Command {
 
-    public static final String COMMAND_WORD = "addIngredient";
+    public static final String COMMAND_WORD = "addingredient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds ingredient(s) to an existing recipe in the "
             + "recipe book.\n"
