@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package BlockTree <<Rectangle>>{
+    Class Root
+    Class Y2S1
+    Class CS2103
+    Class CS3230
+    Class CS2107
+    Class "Lecture" as L1
+    Class "Lecture" as L2
+    Class "Tutorial" as T1
+    Class "Tutorial" as T2
+    Class "Tutorial" as T3
+    Class "Week 1" as Week1
+    Class "Tutorial 1" as Tutorial1
+}
+
+Root -down-> Y2S1
+Y2S1 -down-> CS2103
+Y2S1 -down-> CS2107
+Y2S1 -down-> CS3230
+CS2103 -down-> L1
+CS2103 -down-> T1
+CS2107 -down-> L2
+CS2107 -down-> T2
+CS3230 -down-> T3
+L1 -down-> Week1
+T3 -down-> Tutorial1
+
+@enduml
