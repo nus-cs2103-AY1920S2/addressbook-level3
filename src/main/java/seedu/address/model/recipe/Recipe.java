@@ -181,17 +181,19 @@ public class Recipe {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Time: ")
+                .append("\nTime: ")
                 .append(getTime())
-                .append(" Ingredients: ");
-        getGrains().forEach(builder::append);
-        getVegetables().forEach(builder::append);
-        getProteins().forEach(builder::append);
-        getFruits().forEach(builder::append);
-        getOthers().forEach(builder::append);
-        builder.append(" Step: ")
+                .append(" mins")
+                .append("\nIngredients: ");
+        getGrains().forEach(grain -> builder.append(grain).append(", "));
+        getVegetables().forEach(vegetable -> builder.append(vegetable).append(", "));
+        getProteins().forEach(protein -> builder.append(protein).append(", "));
+        getFruits().forEach(fruit -> builder.append(fruit).append(", "));
+        getOthers().forEach(other -> builder.append(other).append(", "));
+        builder.delete(builder.length() - 2, builder.length());
+        builder.append("\nSteps: ")
                 .append(getSteps())
-                .append(" Goals: ");
+                .append("\nGoals: ");
         getGoals().forEach(builder::append);
         return builder.toString();
     }

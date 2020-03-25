@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_CANNOT_UNDO = "Cannot undo!";
-    public static final String MESSAGE_CONSTRAINTS = "Only one non-zero positive integer "
+    public static final String MESSAGE_CONSTRAINTS = "Only one non-zero unsigned integer "
             + "(representing the number of actions you wish to undo) is allowed as an argument. "
             + "Otherwise, leaving it blank will do (undoes only the previous action)!";
     public static final String MESSAGE_SUCCESS = "Undid %1$d action(s) successfully!";

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -23,14 +24,10 @@ public class UndoCommandParser implements Parser<UndoCommand> {
         if (argsArray[0].isBlank()) {
             numberOfUndo = 1;
         } else {
-            try {
-                numberOfUndo = Integer.parseInt(argsArray[0]);
-                if (numberOfUndo < 1) {
-                    throw new ParseException(UndoCommand.MESSAGE_CONSTRAINTS);
-                }
-            } catch (NumberFormatException nfe) {
+            if (!StringUtil.isNonZeroUnsignedInteger(argsArray[0])) {
                 throw new ParseException(UndoCommand.MESSAGE_CONSTRAINTS);
             }
+            numberOfUndo = Integer.parseInt(argsArray[0]);
         }
         return new UndoCommand(numberOfUndo);
     }

@@ -59,7 +59,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "10 "
             + PREFIX_INGREDIENT_VEGE + "Insert new vegetable here "
-            + PREFIX_INGREDIENT_PROTEIN + "Insert new protein-rich ingredient here "
+            + PREFIX_INGREDIENT_PROTEIN + "Inser t new protein-rich ingredient here "
             + PREFIX_STEP + "Insert new step here "
             + PREFIX_GOAL + "Insert new goal here ";
 
@@ -108,7 +108,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Recipe} with the details of {@code recipeToEdit}
      * edited with {@code editRecipeDescriptor}.
      */
-    private static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
+    protected static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
 
         boolean isFavourite = recipeToEdit.isFavourite();

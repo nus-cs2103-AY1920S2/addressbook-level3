@@ -8,7 +8,7 @@
     "proteins" : [ ],
     "fruits" : [ "kiwi,  50.0g" ],
     "others" : [ "hello,  30.0g" ],
-    "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
+    "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Second step is another really long step that requires you to heat up the wok and stir fry all the ingredients together", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "Last step" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Healthy Duck Brown Rice",
