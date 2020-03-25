@@ -115,21 +115,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelUML.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/nasa/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* stores a `HistoryManager` object that stores user's previous actions.
+* it also stores the `NasaBook` data.
+* `NasaBook` will contain a set of module list stored in `UniqueModuleList`.
+* each `Module` consists of several `Activity`.
+* an `Activity` can be either a `Deadline`, `Lesson`, `Event`.
 
 [[Design-Storage]]
 === Storage component
@@ -261,6 +257,25 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Automation feature
+==== Proposed Implementation
+
+Each `Activity` will store a `Schedule` that contains it's date of creation and the next date
+to refresh it implementation. By default, a `Activity` that is being created will not be set to repeat itself. A command `repeat m/CS3233 a/Programming r/1`
+has to be provided. `r/` is the prefix identifier for setting the activity to repeat `r/1` weekly, `r/2` after twice
+a week, `r/3` monthly.
+
+Below is a given scenario on how this feature will works.
+
+Step 1: The user launches the application for the first time. The application will fetch for existing data, if nothing was
+initialise, user will have to add modules and activity into it. Let say, there is an existing module `CS3233` with
+activity `Lab1` added on `20-03-2020 00:00`, by default, this activity will not be schedule unless `repeat` command is given.
+To activate the scheduling, type `repeat m/CS3233 a/Lab1 r/3` into CLI.
+
+Step 2: When the today's date passes `20-04-2020 00:00`, the application will trigger an update during initialisation to add another
+cycle into it and hence the new date will be `20-05-2020 00:00` for it to refresh again. The activity `status` and `dateline`
+will be reset automatically.
 
 == Documentation
 
