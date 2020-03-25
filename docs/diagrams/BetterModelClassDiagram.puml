@@ -1,20 +1,60 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor MODEL_COLOR
+skinparam arrowColor #123456
 skinparam classBackgroundColor MODEL_COLOR
 
-OrderBook *-right-> "1" UniqueOrderList
+Package Model <<Rectangle>> {
+Interface ReadOnlyReturnOrderBook <<Interface>>
+Interface ReadOnlyOrderBook <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class OrderBook
+class ReturnOrderBook
+Class ReadOnlyOrderBook
+class ReadOnlyReturnOrderBook
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
 
+
+Package ReturnOrder {
+Class ReturnOrder
+Class TransactionId
+Class Address
+Class Name
+Class Phone
+Class UniqueReturnOrderList
+Class Warehouse
+Class TimeStamp
+}
+
+OrderBook *-right-> "1" UniqueOrderList
 UniqueOrderList o-right-> Order
 
 Order *--> TransactionId
 Order *--> Name
 Order *--> Phone
 Order *--> Warehouse
+Order *--> Email
 Order *--> Address
 Order *--> Timestamp
 Order *--> CashOnDelivery
 Order *--> Comment
 Order *--> TypeOfItem
+
+ReturnBook *-right-> "1" UniqueReturnOrderList
+UniqueReturnOrderList *-right-> "1" ReturnOrder
+
+
+
+ReturnOrder *--> TransactionId
+ReturnOrder *--> Name
+ReturnOrder *--> Phone
+ReturnOrder *--> Warehouse
+ReturnOrder *--> Address
+ReturnOrder *--> Timestamp
+ReturnOrder ---> Comment
+ReturnOrder ---> TypeOfItem
 @enduml

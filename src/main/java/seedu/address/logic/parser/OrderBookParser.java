@@ -16,6 +16,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NearbyCommand;
+import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.SearchCommand;
 
 import seedu.address.logic.commands.ShowCommand;
@@ -80,6 +81,9 @@ public class OrderBookParser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommand();
+
+        case ReturnCommand.COMMAND_WORD:
+            return new ReturnCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

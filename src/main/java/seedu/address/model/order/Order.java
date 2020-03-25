@@ -11,7 +11,7 @@ import seedu.address.model.itemtype.TypeOfItem;
  * Represents a Order in the order book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Order {
+public class Order extends Parcel {
 
     // Identity fields
     private final TransactionId tid;
@@ -27,6 +27,7 @@ public class Order {
     private final Comment comment;
     private final TypeOfItem itemType;
     private boolean deliveryStatus;
+    private boolean isReturn;
     /**
      * Every field must be present and not null.
      */
@@ -44,6 +45,7 @@ public class Order {
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = false;
+        this.isReturn = false;
     }
 
     public TransactionId getTid() {
@@ -92,6 +94,14 @@ public class Order {
 
     public void setDeliveryStatus(boolean status) {
         deliveryStatus = status;
+    }
+
+    public void setIsReturn(boolean isReturn) {
+        this.isReturn = isReturn;
+    }
+
+    public boolean isReturn() {
+        return isReturn;
     }
 
     /**
@@ -169,6 +179,11 @@ public class Order {
             builder.append(" Delivery Status: ").append("Delivered");
         } else {
             builder.append(" Delivery Status: ").append("Not Delivered");
+        }
+        if (this.isReturn()) {
+            builder.append(" Parcel Status: ").append("Return Order");
+        } else {
+            builder.append(" Parcel Status: ").append("Delivery Order");
         }
         return builder.toString();
     }

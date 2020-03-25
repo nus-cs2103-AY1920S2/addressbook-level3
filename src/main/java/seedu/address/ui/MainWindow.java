@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private OrderListPanel orderListPanel;
+    private ReturnOrderListPanel returnOrderListPanel;
     private ResultDisplay resultDisplay;
     private ShowWindow showWindow;
     private HelpWindow helpWindow;
@@ -53,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane returnOrderListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -147,10 +151,13 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
+        //returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
+        //returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getOrderBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getReturnOrderBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

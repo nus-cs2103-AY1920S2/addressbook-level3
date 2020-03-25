@@ -19,9 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.Order;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.testutil.OrderBuilder;
 
 public class InsertCommandTest {
@@ -161,7 +162,7 @@ public class InsertCommandTest {
         }
 
         @Override
-        public void addReturnOrder(Order order) {
+        public void addReturnOrder(ReturnOrder returnOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -176,17 +177,17 @@ public class InsertCommandTest {
         }
 
         @Override
-        public boolean hasReturnOrder(Order order) {
+        public boolean hasReturnOrder(ReturnOrder returnOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteReturnOrder(Order target) {
+        public void deleteReturnOrder(ReturnOrder target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setReturnOrder(Order target, Order editedOrder) {
+        public void setReturnOrder(ReturnOrder target, ReturnOrder editedOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,7 +197,7 @@ public class InsertCommandTest {
         }
 
         @Override
-        public ObservableList<Order> getFilteredReturnOrderList() {
+        public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -206,7 +207,7 @@ public class InsertCommandTest {
         }
 
         @Override
-        public void updateFilteredReturnOrderList(Predicate<Order> predicate) {
+        public void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

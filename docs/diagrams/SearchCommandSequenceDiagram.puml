@@ -1,0 +1,83 @@
+@startuml
+/' Sequence Diagram for postal sector search '/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":SearchCommandParser" as SearchCommandParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "s:SearchCommand" as SearchCommand LOGIC_COLOR
+participant "order:OrderContainsKeywordsPredicate" as OrderContainsKeywordsPredicate LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("search Alice")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("search Alice")
+activate OrderBookParser
+
+create SearchCommandParser
+OrderBookParser -> SearchCommandParser
+activate SearchCommandParser
+
+SearchCommandParser --> OrderBookParser
+deactivate SearchCommandParser
+
+OrderBookParser -> SearchCommandParser : parse("Alice")
+activate SearchCommandParser
+
+
+SearchCommandParser -> ArgumentTokenizer++ : tokenize(args, PREFIX_TID, ...)
+
+ArgumentTokenizer -> ArgumentTokenizer++ : extractArguments(argsString, prefixPositions)
+create ArgumentMultimap
+ArgumentTokenizer -> ArgumentMultimap++
+ArgumentMultimap --> ArgumentTokenizer-- : argMultimap
+
+ArgumentTokenizer --> ArgumentTokenizer-- : argMultimap
+
+ArgumentTokenizer --> SearchCommandParser-- : argMultimap
+
+SearchCommandParser -> SearchCommandParser++ : arePrefixesPresent(argMultimap, PREFIX_TID, ...)
+
+SearchCommandParser -> ArgumentMultimap++ : getValue(prefix)
+
+ArgumentMultimap --> SearchCommandParser-- : Optional<String>
+
+SearchCommandParser --> SearchCommandParser-- : true
+
+alt preamble is not empty
+    create OrderContainsKeywordsPredicate
+    SearchCommandParser -> OrderContainsKeywordsPredicate++ : keywords
+
+    OrderContainsKeywordsPredicate --> SearchCommandParser-- : order
+
+    create SearchCommand
+    SearchCommandParser -> SearchCommand++ : order
+    SearchCommand --> SearchCommandParser-- : s
+else preamble is empty
+    create OrderContainsKeywordsPredicate
+    SearchCommandParser -> OrderContainsKeywordsPredicate++ : (keywords, argMultimap)
+
+    OrderContainsKeywordsPredicate --> SearchCommandParser-- : order
+
+    create SearchCommand
+    SearchCommandParser -> SearchCommand++ : order
+    SearchCommand --> SearchCommandParser-- : s
+end
+
+    SearchCommandParser --> OrderBookParser-- : s
+
+OrderBookParser --> LogicManager-- : s
+
+ref over LogicManager,  Model : Execution of the Search Command Sequence Diagram
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
