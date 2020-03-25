@@ -42,6 +42,19 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
+     * Returns the group in this list with the given group id.
+     * Returns null if no such group exists.
+     */
+    public Group get(String groupId) {
+        for (Group group : internalList) {
+            if (group.getIdentifier().equals(groupId)) {
+                return group;
+            }
+        }
+        return null; // Did not find a group with the given group id
+    }
+
+    /**
      * Adds a group to the list.
      * The group must not already exist in the list.
      */
