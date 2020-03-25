@@ -35,6 +35,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = expenseSplitterParser.parseCommand(commandText);
+
         commandResult = command.execute(model);
 
 

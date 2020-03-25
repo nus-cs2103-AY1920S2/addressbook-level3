@@ -30,9 +30,9 @@ public interface Model {
     /**
      * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.
      *
-     * @param p the person to pay
+     *
      */
-    void paidPerson(Person p);
+    void paidPerson(Person person, String amountPaid);
 
     /**
      * Command for listing all person with their amount.
