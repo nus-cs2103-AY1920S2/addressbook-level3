@@ -1,0 +1,37 @@
+@startuml
+start
+:User executes Switch command;
+:SwitchCommandParser parses user input;
+if() then ([isEmpty])
+:Throws Exception;
+stop
+
+else([else])
+    if() then ([recipes])
+    :Returns SwitchCommand(Tab.RECIPES);
+    else([else])
+        if() then ([planning])
+        :Returns SwitchCommand(Tab.PLANNING);
+        else([else])
+            if() then ([goals])
+            :Returns SwitchCommand(Tab.GOALS);
+            else([else])
+                if() then ([achievements])
+                :Returns SwitchCommand(Tab.ACHIEVEMENT);
+                else([else])
+                :Throws Exception;
+                stop
+                endif
+            endif
+        endif
+    endif
+endif
+:LogicManager executes SwitchCommand;
+:Returns CommandResult;
+if() then([isSwitchTab])
+:handleSwitchTab;
+else([else])
+endif
+stop
+
+@enduml
