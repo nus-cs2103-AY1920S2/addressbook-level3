@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.commons.core.LogsCenter;
+import seedu.expensela.model.monthlydata.Expense;
+import seedu.expensela.model.monthlydata.Income;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
@@ -105,6 +107,13 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         expenseLa.addTransaction(transaction);
+        boolean positive = transaction.getAmount().positive;
+        double amount = transaction.getAmount().transactionAmount;
+        if (positive) {
+            monthlyData.setIncome(new Income(Double.toString(monthlyData.getIncome().incomeAmount + amount)));
+        } else {
+            monthlyData.setExpense(new Expense(Double.toString(monthlyData.getExpense().expenseAmount + amount)));
+        }
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 

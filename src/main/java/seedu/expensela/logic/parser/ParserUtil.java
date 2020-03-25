@@ -50,13 +50,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code Amount} is invalid.
      */
-    public static Amount parseAmount(String amount) throws ParseException {
+    public static Amount parseAmount(String amount, boolean isPositiveIncome) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        return new Amount(trimmedAmount, true);
+        return new Amount(trimmedAmount, isPositiveIncome);
     }
 
     /**

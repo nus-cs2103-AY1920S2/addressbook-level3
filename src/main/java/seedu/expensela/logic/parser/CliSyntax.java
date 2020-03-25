@@ -13,5 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CATEGORY = new Prefix("c/");
     public static final Prefix PREFIX_BUDGET = new Prefix("b/");
     public static final Prefix PREFIX_RECURRING = new Prefix("rc/");
+    public static final Prefix PREFIX_INCOME = new Prefix("i/");
+
 
 }
