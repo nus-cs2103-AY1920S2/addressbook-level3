@@ -98,6 +98,10 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         persons.remove(key);
     }
 
+    public void removeAmount(Person person, Amount amount) {
+        persons.removeAmount(person, amount);
+    }
+
     //// util methods
 
     @Override
@@ -134,6 +138,5 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
     public int hashCode() {
         return persons.hashCode();
     }
-
 
 }

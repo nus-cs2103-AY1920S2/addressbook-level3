@@ -4,6 +4,10 @@ import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.eylah.expensesplitter.model.person.Amount;
+
+
+
 /**
  * Represents an Item in the Expense Splitter of EYLAH.
  * Guarantees: details are present and not null.
@@ -15,6 +19,7 @@ public class Item {
 
     // Data fields
     private final ItemPrice price;
+    private final Amount amountPerPerson;
 
     /**
      * Every field must be present,
@@ -22,10 +27,11 @@ public class Item {
      *
      * @param name,price represents the compulsory fields of an Item object.
      */
-    public Item(ItemName name, ItemPrice price) {
+    public Item(ItemName name, ItemPrice price, Amount amountPerPerson) {
         requireAllNonNull(name, price);
         this.name = name;
         this.price = price;
+        this.amountPerPerson = amountPerPerson;
     }
 
     /**
@@ -46,6 +52,9 @@ public class Item {
         return price;
     }
 
+    public Amount getAmountPerPerson() {
+        return amountPerPerson;
+    }
 
     /**
      * Returns true if both Items of the same name have the same price.

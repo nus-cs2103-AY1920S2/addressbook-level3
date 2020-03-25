@@ -96,4 +96,14 @@ public class Person {
         BigDecimal newAmount = currAmount.add(amountToBeAdded);
         this.amount = new Amount(newAmount);
     }
+
+    /**
+     * Removes {@code amount} from the current amount.
+     */
+    public void removeAmount(Amount amount) {
+        BigDecimal currAmount = this.amount.getBigDecimal();
+        BigDecimal amountToBeRemoved = amount.getBigDecimal();
+        BigDecimal newAmount = currAmount.subtract(amountToBeRemoved);
+        this.amount = new Amount(newAmount);
+    }
 }

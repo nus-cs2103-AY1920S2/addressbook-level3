@@ -7,23 +7,35 @@ Participant ":LogicManager" as logic LOGIC_COLOR
 Participant ":ModelManager" as model MODEL_COLOR
 Participant ":StorageManager" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "deleteitem 1"
+user -[USER_COLOR]> ui : "additem -i pasta -p 5 -n bob"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("deleteitem 1")
+ui -[UI_COLOR]> logic : execute("additem -i pasta -p 5 -n bob")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : removeAmount(person, amount)
+logic -[LOGIC_COLOR]> model : addEntry(entry)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> model : deleteEntry(i)
-activate model MODEL_COLOR
+alt person does not exist in model
 
-model -[MODEL_COLOR]-> logic
-deactivate model
+    logic -[LOGIC_COLOR]> model : addPerson(person)
+    activate model MODEL_COLOR
+
+    model -[MODEL_COLOR]-> logic
+    deactivate model
+
+else person already exist in model
+
+        logic -[LOGIC_COLOR]> model : addAmount(person, amount)
+        activate model MODEL_COLOR
+
+        model -[MODEL_COLOR]-> logic
+        deactivate model
+
+end
 
 logic -[LOGIC_COLOR]> storage : savePersonAmountBook(personAmount)
 activate storage STORAGE_COLOR

@@ -33,7 +33,7 @@ public class Entry {
      *
      * @return the item.
      */
-    private Item getItem() {
+    public Item getItem() {
         return this.item;
     }
 
@@ -42,7 +42,7 @@ public class Entry {
      *
      * @return the ArrayList of Persons associated with the Item.
      */
-    private ArrayList<Person> getPersonsList() {
+    public ArrayList<Person> getPersonsList() {
         return this.persons;
     }
 
