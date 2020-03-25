@@ -1,8 +1,14 @@
 package nasa.model.module;
 
 import static nasa.testutil.Assert.assertThrows;
+import static nasa.testutil.TypicalModules.CS2103T;
+import static nasa.testutil.TypicalModules.CS2106;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import nasa.testutil.ModuleBuilder;
 
 public class ModuleTest {
 
@@ -34,73 +40,65 @@ public class ModuleTest {
         assertTrue(CS2103T.isSameModule(CS2103T);
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(CS2103T.isSameModule(null));
 
         // different phone and email -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        Module editedAlice = new ModuleBuilder(CS2103T).withPhone(VALID_PHONE_CS2101).withEmail(VALID_EMAIL_CS2101)
+        .build();
+        assertFalse(CS2103T.isSameModule(editedAlice));
 
         // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        editedAlice = new ModuleBuilder(CS2103T).withName(VALID_NAME_CS2101).build();
+        assertFalse(CS2103T.isSameModule(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ModuleBuilder(CS2103T).withEmail(VALID_EMAIL_CS2101).withAddress(VALID_ADDRESS_CS2101)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(CS2103T.isSameModule(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ModuleBuilder(CS2103T).withPhone(VALID_PHONE_CS2101).withAddress(VALID_ADDRESS_CS2101)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(CS2103T.isSameModule(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        editedAlice = new ModuleBuilder(CS2103T).withAddress(VALID_ADDRESS_CS2101).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(CS2103T.isSameModule(editedAlice));
     }
 
      */
 
-    /*
-    //TODO: Add test method for equals, similar idea to PersonTest
+    //TODO: Add test method for equals, similar idea to ModuleTest
     @Test
     public void equals() {
         // same values -> returns true
-        Module cs2103tCopy = new ModuleBuilder(CS2103T).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Module cs2103tCopy = new ModuleBuilder().withCode("CS2103T").withName("SOFTWARE ENGINEERING").build();
+        assertTrue(CS2103T.equals(cs2103tCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(CS2103T.equals(CS2103T));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(CS2103T.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(CS2103T.equals(5));
 
-        // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+        // different module -> returns false
+        assertFalse(CS2103T.equals(CS2106));
+
+        // different code-> returns false
+        Module editedcs2103t = new ModuleBuilder().withCode("CS2113").build();
+        assertFalse(CS2103T.equals(editedcs2103t));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedcs2103t = new ModuleBuilder().withName("Object Oriented Programming").build();
+        assertTrue(CS2103T.equals(editedcs2103t));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
+        /*
         // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ModuleBuilder(CS2103T).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(CS2103T.equals(editedAlice));
+         */
     }
-
-     */
 }

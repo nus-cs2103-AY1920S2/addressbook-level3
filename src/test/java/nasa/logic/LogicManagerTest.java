@@ -4,6 +4,7 @@ import static nasa.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS2030;
 import static nasa.logic.commands.CommandTestUtil.MODULE_NAME_DESC_CS2030;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2030;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS2030;
 import static nasa.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -80,7 +81,9 @@ public class LogicManagerTest {
         // Execute add command
 
         String addCommand = AddModuleCommand.COMMAND_WORD + MODULE_CODE_DESC_CS2030 + MODULE_NAME_DESC_CS2030;
-        Module expectedModule = new ModuleBuilder().withCode(VALID_MODULE_CODE_CS2030).build();
+        Module expectedModule =
+                new ModuleBuilder().withCode(VALID_MODULE_CODE_CS2030).withName(VALID_MODULE_NAME_CS2030)
+                        .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addModule(expectedModule);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

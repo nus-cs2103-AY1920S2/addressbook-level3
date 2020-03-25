@@ -18,8 +18,6 @@ public class ModuleUtil {
         return AddModuleCommand.COMMAND_WORD + " " + getModuleDetails(module);
     }
 
-
-
     /**
      * Returns the part of command string for the given {@code module}'s details.
      */

@@ -11,8 +11,8 @@ import nasa.model.module.ModuleName;
  */
 public class ModuleBuilder {
 
-    public static final String DEFAULT_MODULE_NAME = "OOP";
-    public static final String DEFAULT_MODULE_CODE = "CS2113";
+    public static final String DEFAULT_MODULE_NAME = "SOFTWARE ENGINEERING";
+    public static final String DEFAULT_MODULE_CODE = "CS2103T";
     public static final Activity TASK_1 = new DeadlineBuilder()
             .withName("Homework")
             .withDate("01-04-2021 01:00")
@@ -58,6 +58,12 @@ public class ModuleBuilder {
         activityList.add(TASK_3);
         activityList.add(TASK_4);
         activityList.add(TASK_5);
+    }
+
+    public ModuleBuilder(Module moduleToCopy) {
+        name = moduleToCopy.getModuleName();
+        code = moduleToCopy.getModuleCode();
+        activityList = moduleToCopy.getActivities();
     }
 
     /**
