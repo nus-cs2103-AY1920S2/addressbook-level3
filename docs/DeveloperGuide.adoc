@@ -205,6 +205,36 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+== Implementation
+
+[[Implementation-CorrectionEngine]]
+===  Correction Engine
+TODO:Edit below
+
+[[Implementation-SuggestionEngine]]
+=== Suggestion Engine
+TODO:Edit below
+
+[[Implementation-Path]]
+=== Paths
+TODO:Edit below
+
+[[Implementation-Parser]]
+=== Parser
+TODO:Edit below
+
+[[Implementation-DataStructure]]
+=== DataStructure
+TODO:Edit below
+
+[[Implementation-Storage]]
+=== Storage
+TODO:Edit below
+
+[[Implementation-UI]]
+=== UI
+TODO:Edit below
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
