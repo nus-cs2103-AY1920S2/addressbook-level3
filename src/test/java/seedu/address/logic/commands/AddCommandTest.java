@@ -1,36 +1,57 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddCommandParserTest;
-import seedu.address.model.*;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileList;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.AcceptedCourses;
 import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.module.*;
+import seedu.address.model.profile.course.module.Description;
+import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.Prereqs;
+import seedu.address.model.profile.course.module.SemesterData;
+import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.DeadlineList;
 import seedu.address.storage.JsonModuleListStorage;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class AddCommandTest {
 
@@ -74,10 +95,17 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateModule_throwsCommandException() {
-        Profile validProfile = new Profile(
-                new Name("name"), new CourseName("course"), "3", "spec");
-        Module module = new Module(moduleCode, new Title("title"), new PrereqList("prereq"),
-                new ModularCredits("4"), new Description("desc"), new SemesterData(Arrays.asList("1","2")));
+        Profile validProfile;
+        try {
+            validProfile = new Profile(
+                    new Name("name"), new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName()), 3,
+                    "spec");
+        } catch (ParseException e) {
+            fail();
+            return;
+        }
+        Module module = new Module(moduleCode, new Title("title"), new Prereqs("prereq"),
+                new ModularCredits("4"), new Description("desc"), new SemesterData(Arrays.asList("1", "2")));
         String initialStatus = module.getPersonal().getStatus();
         // Create an AddCommand which attempts to add a module with the same module code
         AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null);
@@ -85,20 +113,26 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithProfile(validProfile, module);
         // Executing addCommand.execute should raise CommandException with the duplicate module message
         assertThrows(CommandException.class,
-                String.format(AddCommand.MESSAGE_DUPLICATE_MODULE, module.getPersonal().getStatus()),
-                () -> addCommand.execute(modelStub));
+                String.format(AddCommand.MESSAGE_DUPLICATE_MODULE,
+                        module.getPersonal().getStatus()), () -> addCommand.execute(modelStub));
         // Also make sure that the module's status does not change after failing to add duplicate module
         assertTrue(module.getPersonal().getStatus().equals(initialStatus));
     }
 
     @Test
     public void execute_newModule_noChangeStatus() {
-        Profile validProfile = new Profile(
-                new Name("name"), new CourseName("course"), "3", "spec");
+        Profile validProfile;
+        try {
+            validProfile = new Profile(
+                    new Name("name"), new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName()), 3,
+                    "spec");
+        } catch (ParseException e) {
+            fail();
+            return;
+        }
         Module module = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title("title"),
-                new PrereqList("prereq"), new ModularCredits("4"), new Description("desc"),
-                new SemesterData(Arrays.asList("1","2")));
-        int initialSemester = module.getPersonal().getSemester();
+                new Prereqs("prereq"), new ModularCredits("4"), new Description("desc"),
+                new SemesterData(Arrays.asList("1", "2")));
         String initialStatus = module.getPersonal().getStatus();
         String initialGrade = module.getPersonal().getGrade();
         DeadlineList initialDeadlines = module.getPersonal().getDeadlineList();
@@ -111,7 +145,6 @@ public class AddCommandTest {
         } catch (CommandException e) {
             fail();
         }
-        assertTrue(module.getPersonal().getSemester() == initialSemester); // Check if semester is the same
         assertTrue(module.getPersonal().getStatus().equals(initialStatus)); // Check if status is the same
         boolean sameGrade = (module.getPersonal().getGrade() == null && initialGrade == null)
                 || (module.getPersonal().getGrade() != null && initialGrade != null
@@ -220,6 +253,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Deadline> getFilteredDeadlineList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Profile> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -236,6 +274,21 @@ public class AddCommandTest {
 
         @Override
         public Profile getFirstProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDeadline(Deadline deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDeadline(Deadline deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void initDeadlineList() {
             throw new AssertionError("This method should not be called.");
         }
     }
