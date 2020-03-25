@@ -77,10 +77,16 @@ public class ModelManager implements Model {
     }
 
     //=========== Basic Functions ===========================================================================
+
+    /**
+     * Creates a predicate in showing entries of a specific date.
+     * @param dateStr
+     * @return
+     */
     public Predicate<Entry> someDatePredicate(String dateStr) {
-        Predicate<Entry> SHOW_SOMEDAY_ENTRIES = entry ->
+        Predicate<Entry> showSomedayEntriesPredicate = entry ->
                 entry.getTime().getDateStr().equalsIgnoreCase(dateStr);
-        return SHOW_SOMEDAY_ENTRIES;
+        return showSomedayEntriesPredicate;
     }
 
     @Override
