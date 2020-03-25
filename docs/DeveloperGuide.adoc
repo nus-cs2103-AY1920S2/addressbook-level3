@@ -271,7 +271,7 @@ When manipulating the `BlockTree`, the execution of any operation is always spli
 3. Execute the operation on the block that is currently open
 
 ==== Design Considerations
-===== Aspect: `BlockTreeItem` vs Folders to represent path/
+===== Aspect: `BlockTreeItem` vs Folders to represent path structure
 Current choice: `BlockTreeItem`
 Pros: No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
 Cons: Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
