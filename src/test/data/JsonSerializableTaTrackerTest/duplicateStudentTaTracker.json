@@ -4,13 +4,11 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "matric": "A0178716J",
-    "address": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "matric": "A0178716J",
-    "address": "4th street"
+    "matric": "A0178716J"
   } ]
 }

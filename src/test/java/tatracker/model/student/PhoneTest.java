@@ -2,28 +2,27 @@ package tatracker.model.student;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import tatracker.testutil.Assert;
 
 public class PhoneTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Phone(null));
+        assertThrows(NullPointerException.class, () -> new Phone(null));
     }
 
     @Test
     public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Phone(invalidPhone));
+        String invalidPhone = "967!5774";
+        assertThrows(IllegalArgumentException.class, () -> new Phone(invalidPhone));
     }
 
     @Test
     public void isValidPhone() {
         // null phone number
-        Assert.assertThrows(NullPointerException.class, () -> Phone.isValidPhone(null));
+        assertThrows(NullPointerException.class, () -> Phone.isValidPhone(null));
 
         // invalid phone numbers
         assertFalse(Phone.isValidPhone("")); // empty string

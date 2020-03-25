@@ -1,6 +1,11 @@
 package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
+import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
@@ -13,7 +18,6 @@ import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.CliSyntax;
 import tatracker.model.Model;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -33,15 +37,15 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed student list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
-            + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
-            + "[" + CliSyntax.PREFIX_MATRIC + "MATRIC] "
-            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_MATRIC + "MATRIC] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com "
-            + CliSyntax.PREFIX_MATRIC + "A0181234J";
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_MATRIC + "A0181234J";
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

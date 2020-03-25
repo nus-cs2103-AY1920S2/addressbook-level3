@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import tatracker.logic.commands.EditStudentCommand;
+import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -17,21 +17,21 @@ import tatracker.model.tag.Tag;
  */
 public class EditStudentDescriptorBuilder {
 
-    private EditStudentCommand.EditStudentDescriptor descriptor;
+    private EditStudentDescriptor descriptor;
 
     public EditStudentDescriptorBuilder() {
-        descriptor = new EditStudentCommand.EditStudentDescriptor();
+        descriptor = new EditStudentDescriptor();
     }
 
-    public EditStudentDescriptorBuilder(EditStudentCommand.EditStudentDescriptor descriptor) {
-        this.descriptor = new EditStudentCommand.EditStudentDescriptor(descriptor);
+    public EditStudentDescriptorBuilder(EditStudentDescriptor descriptor) {
+        this.descriptor = new EditStudentDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditStudentDescriptor} with fields containing {@code student}'s details
      */
     public EditStudentDescriptorBuilder(Student student) {
-        descriptor = new EditStudentCommand.EditStudentDescriptor();
+        descriptor = new EditStudentDescriptor();
         descriptor.setName(student.getName());
         descriptor.setPhone(student.getPhone());
         descriptor.setEmail(student.getEmail());
@@ -81,7 +81,7 @@ public class EditStudentDescriptorBuilder {
         return this;
     }
 
-    public EditStudentCommand.EditStudentDescriptor build() {
+    public EditStudentDescriptor build() {
         return descriptor;
     }
 }
