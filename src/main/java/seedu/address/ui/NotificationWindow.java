@@ -6,13 +6,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.util.Description;
+import seedu.address.model.util.Quantity;
 
 /**
  * Controller for notification page.
  */
 public class NotificationWindow extends UiPart<Stage> {
 
-    public static final String NOTIFICATION_MESSAGE = "Product %s quantity low! Remaining balance: %d";
+    public static final String NOTIFICATION_MESSAGE = "Product %s quantity low! Remaining balance: %s";
 
     private static final Logger logger = LogsCenter.getLogger(NotificationWindow.class);
     private static final String FXML = "NotificationWindow.fxml";
@@ -27,7 +29,6 @@ public class NotificationWindow extends UiPart<Stage> {
      */
     public NotificationWindow(Stage root) {
         super(FXML, root);
-        notificationMessage.setText(NOTIFICATION_MESSAGE);
     }
 
     /**
@@ -55,8 +56,9 @@ public class NotificationWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show() {
+    public void show(Description description, Quantity quantity) {
         logger.fine("Showing notification window.");
+        notificationMessage.setText(String.format(NOTIFICATION_MESSAGE, description, quantity));
         getRoot().show();
         getRoot().centerOnScreen();
     }
