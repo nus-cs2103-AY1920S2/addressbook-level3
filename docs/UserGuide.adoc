@@ -174,7 +174,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. Rice Chicken will match Chicken Rice
 * Language does not matter e.g. Nasi to Rice
 * Only full words will be matched e.g. Chicken will not match Chickens
-* Coupons matching at least one keyword will be returned (i.e. OR search). 
+* Coupons matching at least one keyword will be returned (i.e. OR search).
 e.g. Chicken Rice will return Duck Rice, Chicken Chop
 ****
 
