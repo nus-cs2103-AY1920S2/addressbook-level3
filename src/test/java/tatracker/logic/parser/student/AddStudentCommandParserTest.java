@@ -114,18 +114,6 @@ public class AddStudentCommandParserTest {
                         + MATRIC_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB
-                        + VALID_PHONE_BOB + EMAIL_DESC_BOB
-                        + MATRIC_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB
-                        + PHONE_DESC_BOB + VALID_EMAIL_BOB
-                        + MATRIC_DESC_BOB,
-                expectedMessage);
-
         // missing matric prefix
         assertParseFailure(parser, NAME_DESC_BOB
                         + PHONE_DESC_BOB + EMAIL_DESC_BOB

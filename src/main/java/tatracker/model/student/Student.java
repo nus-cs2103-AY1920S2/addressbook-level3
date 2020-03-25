@@ -17,11 +17,11 @@ public class Student {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
     private final Matric matric;
 
     // Data fields
+    private final Phone phone;
+    private final Email email;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
