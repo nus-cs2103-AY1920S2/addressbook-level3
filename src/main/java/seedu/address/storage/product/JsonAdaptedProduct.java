@@ -1,5 +1,7 @@
 package seedu.address.storage.product;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,9 +11,6 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-
-import java.util.UUID;
-
 
 /**
  * Jackson-friendly version of {@link Product}.

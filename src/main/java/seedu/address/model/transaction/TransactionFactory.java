@@ -1,13 +1,13 @@
 package seedu.address.model.transaction;
 
+import java.util.UUID;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-
-import java.util.UUID;
 
 /**
  * Creates a transaction with the customer and product index.

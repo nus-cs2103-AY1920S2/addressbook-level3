@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -121,6 +122,11 @@ public class AddProductCommandTest {
         @Override
         public void addProduct(Product product) {
 
+        }
+
+        @Override
+        public Product findProductById(UUID id) {
+            return null;
         }
 
         @Override

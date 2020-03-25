@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import static seedu.address.logic.commands.product.EditProductCommand.MESSAGE_DUPLICATE_PRODUCT;
+import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
@@ -23,7 +23,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;

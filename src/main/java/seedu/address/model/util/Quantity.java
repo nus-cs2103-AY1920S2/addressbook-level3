@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Product's quantity in the product list
  * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
  */
-public class Quantity implements Comparable<Quantity>{
+public class Quantity implements Comparable<Quantity> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity should take numeric values, and it should not be blank";

@@ -1,11 +1,11 @@
 package seedu.address.model.transaction;
 
+import java.util.UUID;
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-
-import java.util.UUID;
 
 /**
  * Represents a Transaction in the system.

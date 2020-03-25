@@ -1,5 +1,7 @@
 package seedu.address.storage.transaction;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,8 +15,6 @@ import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.storage.customer.JsonAdaptedCustomer;
 import seedu.address.storage.product.JsonAdaptedProduct;
-
-import java.util.UUID;
 
 /**
  * Jackson-friendly version of {@link Transaction}.

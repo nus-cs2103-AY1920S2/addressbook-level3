@@ -63,7 +63,9 @@ public class Product {
         return sales;
     }
 
-    public UUID getId() { return id; }
+    public UUID getId() {
+        return id;
+    }
 
     /**
      * Returns true if both products have the same identity and data fields.

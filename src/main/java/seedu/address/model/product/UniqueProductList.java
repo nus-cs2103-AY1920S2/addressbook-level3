@@ -100,6 +100,11 @@ public class UniqueProductList implements Iterable<Product> {
         }
     }
 
+    /**
+     * Find a product by UUID.
+     * @param id the unique id.
+     * @return a specific product with matching id.
+     */
     public Product findProductById(UUID id) {
         for (Product p: internalList) {
             System.out.println(id.toString());

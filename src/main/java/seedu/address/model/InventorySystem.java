@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.customer.ClearCustomerCommand;
 import seedu.address.logic.commands.product.ClearProductCommand;
 import seedu.address.logic.commands.transaction.ClearTransactionCommand;
@@ -17,7 +16,6 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.UniqueProductList;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
-import seedu.address.model.util.Quantity;
 
 /**
  * Wraps all data at the address-book level
