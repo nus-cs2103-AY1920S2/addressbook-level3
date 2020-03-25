@@ -3,6 +3,7 @@ package tatracker.model.module;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.session.Session;
@@ -32,19 +33,25 @@ public class Module {
     }
 
     /**
-     * Adds a done session to the list of done sessions.
+     * Returns the module identifier.
      */
-    public void addSession(Session session) {
-        doneSessions.add(session);
+    public String getIdentifier() {
+        return identifier;
     }
 
     /**
-     * Deletes the session that is of the given index.
+     * Returns module name.
      */
-    public void deleteSession(int n) {
-        doneSessions.remove(n);
+    public String getName() {
+        return name;
     }
 
+    /**
+     * Returns the group list.
+     */
+    public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
+    }
 
     /**
      * Returns the session list.
@@ -53,24 +60,9 @@ public class Module {
         return doneSessions.asUnmodifiableObservableList();
     }
 
-    /**
-     * Adds a group to the list of groups.
-     */
-    public void addGroup(Group group) {
-        groups.add(group);
-    }
-
     public boolean hasGroup(Group group) {
         return groups.contains(group);
     }
-
-    /**
-     * Deletes the group that is equal to the given group.
-     */
-    public void deleteGroup(Group group) {
-        groups.remove(group);
-    }
-
 
     /**
      * Gets group with given group code (could be tutorial or
@@ -89,42 +81,31 @@ public class Module {
     }
 
     /**
-     * Returns the group list.
+     * Adds a group to the list of groups.
      */
-    public ObservableList<Group> getGroupList() {
-        return groups.asUnmodifiableObservableList();
+    public void addGroup(Group group) {
+        groups.add(group);
     }
 
     /**
-     * Returns the module identifier.
+     * Deletes the group that is equal to the given group.
      */
-    public String getIdentifier() {
-        return identifier;
+    public void deleteGroup(Group group) {
+        groups.remove(group);
     }
 
     /**
-     * Returns module name.
+     * Adds a done session to the list of done sessions.
      */
-    public String getName() {
-        return name;
+    public void addSession(Session session) {
+        doneSessions.add(session);
     }
 
     /**
-     * Returns a string that shows the value inside the groups list.
+     * Deletes the session that is of the given index.
      */
-    public String groupsString() {
-        StringBuilder str = new StringBuilder();
-        str.append("[");
-        boolean first = true;
-        for (int i = 0; i < groups.size(); ++i) {
-            if (first) {
-                str.append(" " + groups.get(i));
-            } else {
-                str.append((", " + groups.get(i)));
-            }
-        }
-        str.append("]");
-        return str.toString();
+    public void deleteSession(int n) {
+        doneSessions.remove(n);
     }
 
     /**
@@ -159,5 +140,23 @@ public class Module {
                 .append(") ")
                 .append(groupsString());
         return builder.toString();
+    }
+
+    /**
+     * Returns a string that shows the value inside the groups list.
+     */
+    private String groupsString() {
+        StringBuilder str = new StringBuilder();
+        str.append("[");
+        boolean first = true;
+        for (int i = 0; i < groups.size(); ++i) {
+            if (first) {
+                str.append(" " + groups.get(i));
+            } else {
+                str.append((", " + groups.get(i)));
+            }
+        }
+        str.append("]");
+        return str.toString();
     }
 }
