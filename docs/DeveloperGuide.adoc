@@ -158,6 +158,7 @@ This section describes some noteworthy details on how certain features are imple
 === Planning feature
 ==== Proposed Implementation
 
+image::PlanningSequenceDiagram.png[]
 
 ==== Design Considerations
 
