@@ -23,8 +23,12 @@ public class VersionedRecipeBook extends RecipeBook {
      */
     public boolean canUndo(int numberOfUndo) {
         assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
-        assert numberOfUndo > 0;
-        return numberOfUndo <= currentStatePointer;
+        assert numberOfUndo >= 0;
+        if (numberOfUndo > 0) {
+            return numberOfUndo <= currentStatePointer;
+        } else {
+            return currentStatePointer > 0;
+        }
     }
 
     /**
@@ -33,8 +37,12 @@ public class VersionedRecipeBook extends RecipeBook {
      */
     public boolean canRedo(int numberOfRedo) {
         assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
-        assert numberOfRedo > 0;
-        return numberOfRedo <= addressBookStateList.size() - 1 - currentStatePointer;
+        assert numberOfRedo >= 0;
+        if (numberOfRedo > 0) {
+            return numberOfRedo <= addressBookStateList.size() - 1 - currentStatePointer;
+        } else {
+            return currentStatePointer < addressBookStateList.size() - 1;
+        }
     }
 
     /**
@@ -58,7 +66,10 @@ public class VersionedRecipeBook extends RecipeBook {
      * Reverts the RecipeBook back by {@code numberOfUndo} states.
      */
     public ReadOnlyRecipeBook undo(int numberOfUndo) {
-        assert numberOfUndo > 0;
+        assert numberOfUndo >= 0;
+        if (numberOfUndo == 0) {
+            currentStatePointer = 0;
+        }
         while (numberOfUndo > 0) {
             currentStatePointer--;
             assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
@@ -71,7 +82,10 @@ public class VersionedRecipeBook extends RecipeBook {
      * Fast forwards the RecipeBook by {@code numberOfRedo} states.
      */
     public ReadOnlyRecipeBook redo(int numberOfRedo) {
-        assert numberOfRedo > 0;
+        assert numberOfRedo >= 0;
+        if (numberOfRedo == 0) {
+            currentStatePointer = addressBookStateList.size() - 1;
+        }
         while (numberOfRedo > 0) {
             currentStatePointer++;
             assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
