@@ -111,8 +111,10 @@ public class ModelManager implements Model {
         double amount = transaction.getAmount().transactionAmount;
         if (positive) {
             monthlyData.setIncome(new Income(Double.toString(monthlyData.getIncome().incomeAmount + amount)));
+            userPrefs.setTotalBalance(userPrefs.getTotalBalance() + amount);
         } else {
             monthlyData.setExpense(new Expense(Double.toString(monthlyData.getExpense().expenseAmount + amount)));
+            userPrefs.setTotalBalance(userPrefs.getTotalBalance() - amount);
         }
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
