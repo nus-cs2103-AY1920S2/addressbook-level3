@@ -135,12 +135,10 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-CorrectionEngine]]
 ==== CorrectionEngine component
 
-TODO: EDIT BELOW!
+.Class Diagram of the CorrectionEngine Component
+image::CorrectionEngineClassDiagram.png[]
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `CorrectionEngine` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
