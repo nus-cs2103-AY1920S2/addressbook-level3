@@ -15,7 +15,7 @@ class RepeatActivityCommandParserTest {
     private RepeatActivityCommandParser parser = new RepeatActivityCommandParser();
     private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CS1231);
     private Name nameOfActivity = new Name("Project work");
-    private Index index = Index.fromOneBased(1);
+    private Index index = Index.fromZeroBased(1);
 
     @Test
     void commandParserTest() {
