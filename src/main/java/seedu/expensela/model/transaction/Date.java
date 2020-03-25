@@ -1,5 +1,7 @@
 package seedu.expensela.model.transaction;
 
+import java.time.LocalDate;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
@@ -17,7 +19,7 @@ public class Date {
      */
     public static final String VALIDATION_REGEX = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
 
-    public final String transactionDate;
+    public final LocalDate transactionDate;
 
     /**
      * Constructs an {@code Date}.
@@ -27,7 +29,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        transactionDate = date;
+        transactionDate = LocalDate.parse(date);
     }
 
     /**
@@ -39,7 +41,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return transactionDate;
+        return transactionDate.toString();
     }
 
     @Override

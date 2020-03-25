@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.commons.util.StringUtil;
 import seedu.expensela.logic.parser.exceptions.ParseException;
+import seedu.expensela.model.monthlydata.Budget;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Date;
@@ -49,13 +50,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code Amount} is invalid.
      */
-    public static Amount parseAmount(String amount) throws ParseException {
+    public static Amount parseAmount(String amount, boolean isPositiveIncome) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        return new Amount(trimmedAmount, true);
+        return new Amount(trimmedAmount, isPositiveIncome);
     }
 
     /**
@@ -103,5 +104,20 @@ public class ParserUtil {
             throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
         return new Category(trimmedCategory);
+    }
+
+    /**
+     * Parses a {@code String budget} into a {@code Budget}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Budget} is invalid.
+     */
+    public static Budget parseBudget(String budget) throws ParseException {
+        requireNonNull(budget);
+        String trimmedBudget = budget.trim();
+        if (!Budget.isValidAmount(trimmedBudget)) {
+            throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
+        }
+        return new Budget(trimmedBudget);
     }
 }

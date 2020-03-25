@@ -12,6 +12,7 @@ import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.ExpenseLaParser;
 import seedu.expensela.logic.parser.exceptions.ParseException;
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.monthlydata.MonthlyData;
@@ -81,4 +82,15 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public Double getTotalBalance() {
+        return model.getTotalBalance();
+    }
+
+    @Override
+    public void setTotalBalance(Double totalBalance) {
+        model.updateTotalBalance(totalBalance);
+    }
+
 }
