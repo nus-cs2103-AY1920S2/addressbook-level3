@@ -36,9 +36,9 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Caesar Salad "
             + PREFIX_TIME + "10 "
-            + PREFIX_INGREDIENT_VEGE + "100, Tomato "
-            + PREFIX_INGREDIENT_VEGE + "100, Lettuce "
-            + PREFIX_INGREDIENT_OTHER + "50, Honeydew "
+            + PREFIX_INGREDIENT_VEGE + "100g, Tomato "
+            + PREFIX_INGREDIENT_VEGE + "100g, Lettuce "
+            + PREFIX_INGREDIENT_OTHER + "50g, Honeydew "
             + PREFIX_STEP + "Cut tomatoes "
             + PREFIX_STEP + "Remove honeydew skin "
             + PREFIX_GOAL + "Herbivore ";

@@ -8,7 +8,7 @@
     "proteins" : [ ],
     "fruits" : [ "kiwi,  50.0g" ],
     "others" : [ "hello,  30.0g" ],
-    "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
+    "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "yay", "Last step" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Healthy Duck Brown Rice",
@@ -91,17 +91,6 @@
     "name" : "stub5",
     "time" : "5",
     "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ "stub,  5.0g" ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ ],
-    "steps" : [ "stub" ],
-    "goals" : [ "stub" ]
-  }, {
-    "name" : "stub9",
-    "time" : "5",
-    "isFavourite" : true,
     "grains" : [ ],
     "vegetables" : [ "stub,  5.0g" ],
     "proteins" : [ ],

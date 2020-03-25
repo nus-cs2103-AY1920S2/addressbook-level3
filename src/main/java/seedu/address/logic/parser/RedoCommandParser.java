@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -23,14 +25,10 @@ public class RedoCommandParser implements Parser<RedoCommand> {
         if (argsArray[0].isBlank()) {
             numberOfRedo = 1;
         } else {
-            try {
-                numberOfRedo = Integer.parseInt(argsArray[0]);
-                if (numberOfRedo < 1) {
-                    throw new ParseException(RedoCommand.MESSAGE_CONSTRAINTS);
-                }
-            } catch (NumberFormatException nfe) {
-                throw new ParseException(RedoCommand.MESSAGE_CONSTRAINTS);
+            if (!StringUtil.isNonZeroUnsignedInteger(argsArray[0])) {
+                throw new ParseException(UndoCommand.MESSAGE_CONSTRAINTS);
             }
+            numberOfRedo = Integer.parseInt(argsArray[0]);
         }
         return new RedoCommand(numberOfRedo);
     }

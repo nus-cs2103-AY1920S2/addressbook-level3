@@ -7,10 +7,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIngredientCommand;
+import seedu.address.logic.commands.AddStepCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteIngredientCommand;
+import seedu.address.logic.commands.DeleteStepCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditStepCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
 import seedu.address.logic.commands.FilterCommand;
@@ -92,6 +97,21 @@ public class RecipeBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommandParser().parse(arguments);
+
+        case AddStepCommand.COMMAND_WORD:
+            return new AddStepCommandParser().parse(arguments);
+
+        case DeleteStepCommand.COMMAND_WORD:
+            return new DeleteStepCommandParser().parse(arguments);
+
+        case EditStepCommand.COMMAND_WORD:
+            return new EditStepCommandParser().parse(arguments);
+
+        case AddIngredientCommand.COMMAND_WORD:
+            return new AddIngredientCommandParser().parse(arguments);
+
+        case DeleteIngredientCommand.COMMAND_WORD:
+            return new DeleteIngredientCommandParser().parse(arguments);
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);

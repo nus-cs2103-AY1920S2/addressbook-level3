@@ -14,7 +14,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_CANNOT_REDO = "Cannot redo!";
-    public static final String MESSAGE_CONSTRAINTS = "Only one non-zero positive integer "
+    public static final String MESSAGE_CONSTRAINTS = "Only one non-zero unsigned integer "
             + "(representing the number of actions you wish to redo) is allowed as an argument. "
             + "Otherwise, leaving it blank will do (undoes the actions of only the previous undo)!";
     public static final String MESSAGE_SUCCESS = "Redid %1$d action(s) successfully!";
