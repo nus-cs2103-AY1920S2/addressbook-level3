@@ -9,13 +9,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -48,10 +48,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             ModuleCode moduleCode = new ModuleCode(moduleCodeString);
 
             Module existingModule = null;
-            ArrayList<Module> inList = null;
+            ModuleList inList = null;
             Module module = ModuleManager.getModule(moduleCode);
-            HashMap<Integer, ArrayList<Module>> hashMap = Profile.getHashMap();
-            for (ArrayList<Module> list: hashMap.values()) {
+            HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
+            for (ModuleList list: hashMap.values()) {
                 for (Module moduleItr: list) {
                     if (module.isSameModule(moduleItr)) {
                         existingModule = moduleItr;
@@ -72,7 +72,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
                 }
                 int intSemester = Integer.parseInt(semester);
-                hashMap.get(inSemester).remove(existingModule);
+                hashMap.get(inSemester).removeModuleWithModuleCode(moduleCode);
                 Profile.addModule(intSemester, existingModule);
                 updateStatus(Profile.getCurrentSemester());
             }
@@ -116,8 +116,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Updates statuses of all modules in the Profile
      */
     private void updateStatus(int currentSemester) {
-        HashMap<Integer, ArrayList<Module>> hashMap = Profile.getHashMap();
-        for (ArrayList<Module> list: hashMap.values()) {
+        HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
+        for (ModuleList list: hashMap.values()) {
             int semester = getKey(hashMap, list);
             for (Module moduleItr: list) {
                 if (semester < currentSemester) {

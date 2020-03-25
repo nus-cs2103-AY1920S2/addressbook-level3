@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ModuleList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
@@ -55,9 +56,9 @@ class JsonProfile {
         specialisation = source.getSpecialisation();
         currentSemester = Integer.toString(source.getCurrentSemester());
         records = new ArrayList<>();
-        for (Map.Entry<Integer, ArrayList<Module>> entry: source.getMappings()) {
+        for (Map.Entry<Integer, ModuleList> entry: source.getMappings()) {
             String sem = entry.getKey().toString();
-            ArrayList<Module> modules = entry.getValue();
+            ModuleList modules = entry.getValue();
             records.add(new JsonSemesterRecord(
                     sem, modules.stream().map(JsonPersonalModule::new).collect(Collectors.toList())));
         }

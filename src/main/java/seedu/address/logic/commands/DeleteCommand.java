@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Name;
@@ -34,6 +35,8 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Profile: %1$s";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Deleted Deadline: %1$s";
+    public static final String MESSAGE_NOT_TAKING_MODULE =
+            "User is currently not taking a module with module code %1$s";
 
     private final Name deleteName;
     private final ModuleCode deleteModuleCode;
@@ -81,6 +84,7 @@ public class DeleteCommand extends Command {
                 Profile profileToDelete = model.getProfile(deleteName);
                 model.deletePerson(profileToDelete);
                 model.setProfileList(new ProfileList());
+                model.clearDeadlineList();
                 return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete));
             } else {
                 throw new CommandException("Profile with name " + deleteName + " does not exist!");
@@ -88,14 +92,21 @@ public class DeleteCommand extends Command {
         } else if (deleteModuleCode != null) {
             Profile profile = model.getFirstProfile(); // To edit when dealing with multiple profiles
             if (!profile.hasModule(deleteModuleCode)) {
-                throw new CommandException(
-                        "User is currently not taking a module with module code " + deleteModuleCode.toString());
+                throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
             }
             if (deleteDeadline == null) { // Deleting a module
-                profile.deleteModule(deleteModuleCode);
+                try {
+                    profile.deleteModule(deleteModuleCode);
+                } catch (ParseException e) {
+                    throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
+                }
                 return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode));
             } else { // Deleting a deadline/task
-                profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
+                try {
+                    profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
+                } catch (ParseException e) {
+                    throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
+                }
                 model.deleteDeadline(deleteDeadline);
                 return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline));
             }

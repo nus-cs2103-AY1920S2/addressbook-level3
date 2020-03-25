@@ -104,4 +104,6 @@ public interface Model {
 
     void deleteDeadline(Deadline deadline);
 
+    void clearDeadlineList();
+
 }

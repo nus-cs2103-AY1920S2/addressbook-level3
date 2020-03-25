@@ -7,12 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.model.profile.Profile.getModules;
 
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
@@ -41,7 +41,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
             }
             int intSemester = Integer.parseInt(semester);
-            ArrayList<Module> modulesList = getModules(intSemester);
+            ModuleList modulesList = getModules(intSemester);
 
             return new ShowCommand(modulesList);
         }

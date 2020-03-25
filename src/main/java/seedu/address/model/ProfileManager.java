@@ -148,7 +148,7 @@ public class ProfileManager implements Model {
 
     @Override
     public void addDeadline(Deadline deadline) {
-        deadlineList.add(deadline);
+        this.deadlineList.add(deadline);
     }
 
     @Override
@@ -167,5 +167,10 @@ public class ProfileManager implements Model {
         if (!flag) {
             throw new DeadlineNotFoundException();
         }
+    }
+
+    @Override
+    public void clearDeadlineList() {
+        deadlineList.clear();
     }
 }

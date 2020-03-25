@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MODdy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-3`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -154,93 +154,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th profile in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new profile. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the profile was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the profile being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+=== Dependency between Personals and Modules
+(Insert class diagrams showing dependencies)
 
 === Logging
 
@@ -261,6 +176,103 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== New Profile Feature
+
+=== Add Module / Deadline Feature
+
+The `add` command adds the entity (module, deadline) with the fields provided by the user. `add m/module_code y/semester_index` adds a module and `add m/module_code y/semester_index t/task d/deadline` adds a deadline.
+
+==== Current Implementations
+
+`AddCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `AddCommand` is parsed using `AddCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+(diagram)
+
+Given below is an example usage scenario and how the `add` mechanism behaves at each step:
+
+. User launches the application.
+.. If it is the first time, a `Profile` object will be created using `NewCommand`.
+. User enters the command. `AddCommandParser` will create a `AddCommand` object, which can contain `moduleCode`, `semesterIndex`, `grade`, `task`, `deadline`.
+. `AddCommand#execute(Model model) is executed. `Profile#getHashmap()#values()` is called to check if the module already exists.
+.. If module exists, user will be prompted to add a task and deadline.
+.. If module does not exists, a `Personal` object will be created.
+. After the module is added, a `CommandResult` containing the log of execution result will be returned.
+
+==== Design Considerations
+
+Aspect: How `add` executes
+
+=== Show Feature
+
+The `show` feature allows the user to display information about a `Module`, `Course`, `Focus Area` or `Semester` with the command `show`, appended with the tags. These information cannot be seen from the main UI and have to be displayed through the `show` command.
+
+The tags are:
+
+* `m/module_code` for `Module`
+* `c/course_name` for `Course`
+* `f/focus_area` for `Focus Area`
+* `y/semester_index` for `Semester`
+
+==== Current Implementations
+
+`show` command is parsed using `ShowCommandParser` to split the user input into relevant fields.
+
+The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science`
+
+image::ShowCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Have one ShowCommand for all objects
+** Pros: Repeated code is avoided
+** Cons: Takes in an Object in its constructor, any Object can call this method and cause the application to fail
+
+* *Alternative 2:* Have a separate ShowCommand (e.g. ShowModuleCommand, ShowCourseCommand) for each object shown
+** Pros: Applies Single Level of Abstraction Principle (SLAP)
+** Cons: Too many classes having repeated code
+
+Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented methods to gracefully reject other Objects that unintendedly called this method.
+
+=== Edit Profile / Module Feature
+
+The `edit` feature supports editing of `Profile` with the command `edit`, and editing of `Module` with the command `edit` appended with `m/module_code`.
+
+==== Current Implementations
+
+`edit` command is parsed using `EditCommandParser` to split the user input into relevant fields.
+
+To edit `profile`, the command `edit` should be appended with one or more of the tags `n/name`, `c/course`, `cs/current_semester`.
+
+To edit `module`, the command `edit` should be appended with `m/module`, followed by one or more of the tags `s/semester` and  `g/grade`.
+
+`edit` command extends command class and uses inheritance to facilitate implementation. Hence it inherits the following methods:
+
+- `Command#execute(Model model)`
+
+The following sequence diagram shows how the `edit` command works: `edit m/CS2105 g/A`:
+
+==== Design Considerations
+
+=== Delete Profile / Module / Deadline Feature
+
+The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`
+
+In addition, the delete module feature is a complementary feature to the add module feature. It enables the removal of a `Module` from the list of modules the user is taking in his `Profile`. As a consequence, all deadlines stored under the module will be deleted. This `delete` feature can be used by appending the command with the tag `m/module_code`.
+
+Lastly, the delete deadline feature is a complementary feature to the add deadline feature. It enables the removal of a `Deadline` of a particular `Module`. This `delete` feature can be used by appending the command with the tags `m/module_code` and `t/deadline`.
+
+==== Current Implementations
+
+`DeleteCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `DeleteCommand` is parsed using `DeleteCommandParser` to split the user input into relevant fields.
+
+The following sequence diagram shows the interactions between `Ui`, `Logic` and `Model` components when a module is deleted.
+
+(diagram)
+
+
 
 == Documentation
 

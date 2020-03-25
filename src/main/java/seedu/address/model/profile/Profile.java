@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -25,7 +25,7 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 public class Profile {
 
     // Identity fields
-    private static HashMap<Integer, ArrayList<Module>> moduleHash;
+    private static HashMap<Integer, ModuleList> moduleHash;
     private static int currentSemester = 0;
     private static String specialisation;
     private static Name name;
@@ -44,7 +44,7 @@ public class Profile {
         Profile.courseName = courseName;
         Profile.currentSemester = currentSemester;
         Profile.specialisation = specialisation;
-        Profile.moduleHash = new HashMap<Integer, ArrayList<Module>>();
+        Profile.moduleHash = new HashMap<>();
     }
 
     /**
@@ -52,11 +52,11 @@ public class Profile {
      */
     public static void addModule(Integer semester, Module module) {
         if (!moduleHash.isEmpty() && moduleHash.containsKey(semester)) {
-            moduleHash.get(semester).add(module);
+            moduleHash.get(semester).addModule(module);
         } else {
-            ArrayList<Module> semesterList = new ArrayList<Module>();
-            semesterList.add(module);
-            moduleHash.put(semester, semesterList);
+            ModuleList moduleList = new ModuleList();
+            moduleList.addModule(module);
+            moduleHash.put(semester, moduleList);
         }
     }
 
@@ -96,75 +96,79 @@ public class Profile {
         Profile.specialisation = specialisation;
     }
 
-    public static ArrayList<Module> getModules(Integer semester) throws ParseException {
+    public static ModuleList getModules(Integer semester) throws ParseException {
         if (!moduleHash.containsKey(semester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
         return moduleHash.get(semester);
     }
 
-    public static HashMap<Integer, ArrayList<Module>> getAllModules() {
+    public static HashMap<Integer, ModuleList> getAllModules() {
         return moduleHash;
     }
 
-    public Set<Map.Entry<Integer, ArrayList<Module>>> getMappings() {
+    public Set<Map.Entry<Integer, ModuleList>> getMappings() {
         return moduleHash.entrySet();
     }
 
-    public static HashMap<Integer, ArrayList<Module>> getHashMap() {
+    public static HashMap<Integer, ModuleList> getHashMap() {
         return moduleHash;
     }
 
     public List<Deadline> getDeadlines() {
-        List<Module> modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
-        if (modules == null) {
-            return new ArrayList<>();
-        } else {
-            for (Module module : modules) {
-                deadlines.addAll(module.getDeadlines());
-            }
+
+        ModuleList modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
+        List<Deadline> deadlineList = new ArrayList<>();
+        for (Module module: modules) {
+            deadlineList.addAll(module.getDeadlines());
         }
         return deadlines;
     }
 
     public int getModuleSemester(ModuleCode moduleCode) {
-        return moduleHash.entrySet()
-                .stream()
-                .filter(entry->entry.getValue().stream().anyMatch(mod->mod.getModuleCode().equals(moduleCode)))
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .get();
+        for (int semester: moduleHash.keySet()) {
+            for (Module module: moduleHash.get(semester)) {
+                if (module.getModuleCode().equals(moduleCode)) {
+                    return semester;
+                }
+            }
+        }
+        throw new NoSuchElementException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
-    public Module getModule(ModuleCode moduleCode) {
-        return moduleHash.values()
-                .stream()
-                .flatMap(Collection::stream)
-                .filter(x->x.getModuleCode().equals(moduleCode))
-                .findFirst().get();
+    public Module getModule(ModuleCode moduleCode) throws ParseException {
+        for (ModuleList moduleList: moduleHash.values()) {
+            for (Module module: moduleList) {
+                if (module.getModuleCode().equals(moduleCode)) {
+                    return module;
+                }
+            }
+        }
+        throw new ParseException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
     /**
      * Returns true if a module with module code {@code moduleCode} exists in {@code moduleHash}.
      */
     public boolean hasModule(ModuleCode moduleCode) {
-        return moduleHash.values()
-                .stream()
-                .flatMap(Collection::stream)
-                .anyMatch(x->x.getModuleCode().equals(moduleCode));
+        for (ModuleList moduleList: moduleHash.values()) {
+            if (moduleList.hasModuleWithModuleCode(moduleCode)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * Deletes a module with module code {@code moduleCode}.
      */
-    public void deleteModule(ModuleCode moduleCode) {
+    public void deleteModule(ModuleCode moduleCode) throws ParseException {
         if (hasModule(moduleCode)) {
             int semester = getModuleSemester(moduleCode);
-            Module modToDelete = getModule(moduleCode);
-            moduleHash.get(semester).remove(modToDelete);
+            moduleHash.get(semester).removeModuleWithModuleCode(moduleCode);
             return;
         }
-        throw new NoSuchElementException();
+        throw new ParseException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
 
