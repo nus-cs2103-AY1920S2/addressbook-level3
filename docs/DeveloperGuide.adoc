@@ -235,7 +235,7 @@ into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following is a sample sequence diagram of the DeleteItemCommand.
 
-image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
+image::.png[]
 
 ==== List Command
 
