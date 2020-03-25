@@ -28,17 +28,16 @@ public class Group {
     private final GroupType groupType;
     private final UniqueStudentList students;
 
-
     /**
      * Constructs a group object.
      *
-     * @param identifier identifies the group. For example,
-     *                   the tutorial code for a tutorial, etc.
+     * @param identifier identifies the group.
+     *                   For example, the tutorial code for a tutorial, etc.
      */
     public Group(String identifier, GroupType groupType) {
         this.identifier = identifier;
-        students = new UniqueStudentList();
         this.groupType = groupType;
+        this.students = new UniqueStudentList();
     }
 
     /**
