@@ -46,4 +46,10 @@ public class DeadlineList {
     public void deleteDeadline(Deadline deadline) {
         list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeadlineList && other.equals(this));
+    }
 }

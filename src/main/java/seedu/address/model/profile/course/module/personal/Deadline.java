@@ -12,6 +12,10 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
  * Represents a Deadline in Personal.
  */
 public class Deadline {
+    public static final String MESSAGE_CONSTRAINTS = "Date and time field of deadline should be in the format: "
+            + "YYYY-MM-DD and HH:mm respectively. Dates should be valid Gregorian calendar dates"
+            + " and time should be in 24-hour format.";
+
     protected String moduleCode;
     protected String description;
     protected LocalDate date;
@@ -70,6 +74,19 @@ public class Deadline {
         return inputTimePattern;
     }
 
+    /**
+     * Returns true if the given date and time are valid.
+     */
+    public static boolean isValidDeadline(String date, String time) { // No point checking the description/task
+        try {
+            LocalDate.parse(date);
+            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
     public String getModuleCode() {
         return this.moduleCode;
     }
@@ -84,5 +101,21 @@ public class Deadline {
         return result;
     }
 
-
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof Deadline) {
+            boolean sameDescription = this.description.equals(((Deadline) other).description);
+            boolean sameDate = (this.date == null && ((Deadline) other).date == null)
+                    || (this.date != null && ((Deadline) other).date != null
+                    && this.date.equals(((Deadline) other).date));
+            boolean sameTime = (this.time == null && ((Deadline) other).time == null)
+                    || (this.time != null && ((Deadline) other).time != null
+                    && this.time.equals(((Deadline) other).time));
+            return sameDescription && sameDate && sameTime;
+        }
+        return false;
+    }
 }
