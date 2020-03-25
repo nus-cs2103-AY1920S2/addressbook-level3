@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":SuggestionEngineImplementation" as SuggestionEngineImplementation LOGIC_COLOR
+participant ":SuggestionEngineImpl" as SuggestionEngineImpl LOGIC_COLOR
 participant ":OpenSuggestionCommandParser" as OpenSuggestionCommandParser LOGIC_COLOR
 participant "o:OpenSuggestionCommand" as OpenSuggestionCommand LOGIC_COLOR
 participant ":SuggestionItemImpl" as SuggestionItemImpl LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("open /")
 activate LogicManager
 
-LogicManager -> SuggestionEngineImplementation : parseCommand("open /")
-activate SuggestionEngineImplementation
+LogicManager -> SuggestionEngineImpl : parseCommand("open /")
+activate SuggestionEngineImpl
 
 create OpenSuggestionCommandParser
-SuggestionEngineImplementation -> OpenSuggestionCommandParser
+SuggestionEngineImpl -> OpenSuggestionCommandParser
 activate OpenSuggestionCommandParser
 
-OpenSuggestionCommandParser --> SuggestionEngineImplementation
+OpenSuggestionCommandParser --> SuggestionEngineImpl
 deactivate OpenSuggestionCommandParser
 
-SuggestionEngineImplementation -> OpenSuggestionCommandParser : parse("open /")
+SuggestionEngineImpl -> OpenSuggestionCommandParser : parse("open /")
 activate OpenSuggestionCommandParser
 
 create OpenSuggestionCommand
@@ -36,14 +36,14 @@ activate OpenSuggestionCommand
 OpenSuggestionCommand --> OpenSuggestionCommandParser : o
 deactivate OpenSuggestionCommand
 
-OpenSuggestionCommandParser --> SuggestionEngineImplementation : o
+OpenSuggestionCommandParser --> SuggestionEngineImpl : o
 deactivate OpenSuggestionCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-OpenSuggestionCommandParser -[hidden]-> SuggestionEngineImplementation
+OpenSuggestionCommandParser -[hidden]-> SuggestionEngineImpl
 destroy OpenSuggestionCommandParser
 
-SuggestionEngineImplementation --> LogicManager : o
-deactivate SuggestionEngineImplementation
+SuggestionEngineImpl --> LogicManager : o
+deactivate SuggestionEngineImpl
 
 LogicManager -> OpenSuggestionCommand : execute(model)
 activate OpenSuggestionCommand
