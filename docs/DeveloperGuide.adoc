@@ -424,7 +424,7 @@ The following is a detailed explanation of the operations `ListReceiptCommand` p
 
 The following is a sample sequence diagram of the ListReceiptCommand.
 
-
+image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 
 ==== List Amount Command
@@ -441,7 +441,7 @@ The following is a detailed explanation of the operations `ListAmountCommand` pe
 
 The following is a sample sequence diagram of the ListAmountCommand.
 
-image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
+image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 
 ==== Paid Command
