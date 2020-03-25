@@ -27,7 +27,7 @@ public class Student {
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Matric matric, Set<Tag> tags) {
+    public Student(Matric matric, Name name, Phone phone, Email email, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, matric, tags);
         this.name = name;
         this.phone = phone;
