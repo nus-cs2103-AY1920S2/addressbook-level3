@@ -23,6 +23,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Quantity;
+import seedu.address.ui.NotificationWindow;
 
 /**
  * Adds a transaction to the system.
@@ -64,8 +65,13 @@ public class AddTransactionCommand extends Command {
         List<Product> lastShownList = model.getFilteredProductList();
 
         Index productIndex = transactionFactory.getProductIndex();
+        Index customerIndex = transactionFactory.getCustomerIndex();
 
         if (productIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        }
+
+        if (customerIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -86,8 +92,16 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
+        int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
+
+        if (editedProduct.getQuantity().value < thresholdValue) {
+            NotificationWindow window = new NotificationWindow();
+            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
+        }
+
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
 
         Transaction toAdd = transactionFactory.createTransaction(model);
 

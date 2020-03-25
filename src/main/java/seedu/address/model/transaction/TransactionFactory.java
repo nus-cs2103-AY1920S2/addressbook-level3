@@ -47,6 +47,10 @@ public class TransactionFactory {
         return productIndex;
     }
 
+    public Index getCustomerIndex() {
+        return customerIndex;
+    }
+
     public Quantity getQuantity() {
         return quantity;
     }

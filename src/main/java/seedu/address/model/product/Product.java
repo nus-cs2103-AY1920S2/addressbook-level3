@@ -79,12 +79,6 @@ public class Product {
 
     public void setThreshold(String quantityThreshold) {
         this.threshold = new QuantityThreshold(quantityThreshold);
-        int numQuantity = quantity.value;
-        int thresholdValue = Integer.parseInt(quantityThreshold);
-        if (numQuantity <= thresholdValue) {
-            NotificationWindow window = new NotificationWindow();
-            window.show(description, quantity);
-        }
     }
 
     /**
