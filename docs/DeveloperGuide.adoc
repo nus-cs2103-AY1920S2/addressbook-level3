@@ -377,6 +377,10 @@ success message. Otherwise, an error message showing the correct command syntax 
 `PersonAmountStorage#savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook)` which saves the new Person(s)
 Amount into JSON format after serializing it using `JsonAdaptedPerson`.
 
+The following is a sample sequence diagram of the DeleteItemCommand.
+
+image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
+
 ==== Delete Item Command
 
 *Implementation*
