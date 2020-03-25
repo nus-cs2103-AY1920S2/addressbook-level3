@@ -16,10 +16,10 @@ import tatracker.model.tag.Tag;
 public class Student {
 
     // Identity fields
-    private final Name name;
     private final Matric matric;
+    private final Name name;
 
-    // Data fields
+    // Optional fields
     private final Phone phone;
     private final Email email;
     private final Set<Tag> tags = new HashSet<>();
@@ -36,6 +36,10 @@ public class Student {
         this.tags.addAll(tags);
     }
 
+    public Matric getMatric() {
+        return matric;
+    }
+
     public Name getName() {
         return name;
     }
@@ -46,10 +50,6 @@ public class Student {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Matric getMatric() {
-        return matric;
     }
 
     /**
@@ -117,5 +117,4 @@ public class Student {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
