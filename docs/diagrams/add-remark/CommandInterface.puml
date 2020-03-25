@@ -1,4 +1,4 @@
-@startuml
+@startuml CommandInterface
 !include ../style.puml
 
 Class "{abstract}\nCommand" as Command LOGIC_COLOR_T1{
@@ -31,4 +31,3 @@ hide circle
 show members
 hide CommandException members
 @enduml
-
