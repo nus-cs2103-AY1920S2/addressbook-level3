@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Profile;
@@ -53,7 +54,8 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Profile}
      */
-    /*public AddCommand(Module module) {
+    /*
+    public AddCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -64,10 +66,17 @@ public class AddCommand extends Command {
         MESSAGE_SUCCESS = "Existing module updated: %1$s";
     }*/
 
-    public AddCommand(ModuleCode moduleCode, int semester, String grade, String task, String deadlineString) {
+    public AddCommand(ModuleCode moduleCode, int semester, String grade,
+                      String task, String deadlineString) {
         requireNonNull(moduleCode);
         requireNonNull(semester);
-        toAdd = ModuleManager.getModule(moduleCode);
+        Module tempMod;
+        try {
+            tempMod = ModuleManager.getModule(moduleCode);
+        } catch (ParseException e) {
+            tempMod = null; // Placeholder!
+        }
+        toAdd = tempMod;
         addSemester = semester;
         if (grade != null) {
             addGrade = grade;
@@ -115,22 +124,29 @@ public class AddCommand extends Command {
         }
         if (addTask != null) {
             Deadline deadline;
+            String moduleCode = toAdd.getModuleCode().toString();
             if (addDeadlineString != null) {
                 String date = addDeadlineString.split(" ")[0];
                 String time = addDeadlineString.split(" ")[1];
                 try {
-                    deadline = new Deadline(addTask, date, time);
-                    personal.addDeadline(deadline);
+                    deadline = new Deadline(moduleCode, addTask, date, time);
                 } catch (DateTimeException e) {
                     throw new CommandException("Invalid date or time!");
                 }
             } else {
-                deadline = new Deadline(addTask);
+                deadline = new Deadline(moduleCode, addTask);
             }
+
+            if (model.getFilteredDeadlineList() == null) { //if no deadlines added before
+                model.initDeadlineList();
+            }
+
             personal.addDeadline(deadline);
+            model.addDeadline(deadline);
+
         }
 
-        int currentSemester = Integer.parseInt(profile.getCurrentSemester());
+        int currentSemester = Profile.getCurrentSemester();
         if (addSemester < currentSemester) {
             personal.setStatus("completed");
         } else if (addSemester == currentSemester) {
@@ -142,7 +158,7 @@ public class AddCommand extends Command {
         module.setPersonal(personal);
 
         if (!hasModule) {
-            profile.addModule(addSemester, module);
+            Profile.addModule(addSemester, module);
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
         } else {
             return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd));

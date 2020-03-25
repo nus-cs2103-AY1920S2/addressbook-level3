@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * API of the Logic component
@@ -34,6 +35,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Profile> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Deadline> getFilteredDeadlineList();
 
     /**
      * Returns the user prefs' address book file path.

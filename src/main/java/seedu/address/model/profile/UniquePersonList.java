@@ -13,14 +13,14 @@ import seedu.address.model.profile.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A profile is considered unique by comparing using {@code Profile#isSamePerson(Profile)}. As such, adding and
- * updating of persons uses Profile#isSamePerson(Profile) for equality so as to ensure that the profile being added
+ * A profile is considered unique by comparing using {@code Profile#isSameProfile(Profile)}. As such, adding and
+ * updating of persons uses Profile#isSameProfile(Profile) for equality so as to ensure that the profile being added
  * or updated is unique in terms of identity in the UniquePersonList. However, the removal of a profile uses
  * Profile#equals(Object) so as to ensure that the profile with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Profile#isSamePerson(Profile)
+ * @see Profile#isSameProfile(Profile)
  */
 public class UniquePersonList implements Iterable<Profile> {
 
@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Profile> {
      */
     public boolean contains(Profile toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameProfile);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniquePersonList implements Iterable<Profile> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedProfile) && contains(editedProfile)) {
+        if (!target.isSameProfile(editedProfile) && contains(editedProfile)) {
             throw new DuplicatePersonException();
         }
 
@@ -127,7 +127,7 @@ public class UniquePersonList implements Iterable<Profile> {
     private boolean personsAreUnique(List<Profile> profiles) {
         for (int i = 0; i < profiles.size() - 1; i++) {
             for (int j = i + 1; j < profiles.size(); j++) {
-                if (profiles.get(i).isSamePerson(profiles.get(j))) {
+                if (profiles.get(i).isSameProfile(profiles.get(j))) {
                     return false;
                 }
             }

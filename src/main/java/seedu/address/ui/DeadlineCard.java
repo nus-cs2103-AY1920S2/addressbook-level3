@@ -28,17 +28,20 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Label module;
     @FXML
-    private Label assignment;
+    private Label description;
     @FXML
-    private Label dateTime;
+    private Label date;
+    @FXML
+    private Label time;
 
 
     public DeadlineCard(Deadline deadline) {
         super(FXML);
         this.deadline = deadline;
-        //module.setText();
-        //assignment.setText();
-        //dateTime.setText();
+        module.setText(deadline.getModuleCode());
+        description.setText(deadline.getDescription());
+        date.setText(deadline.getStringDate());
+        time.setText(deadline.getStringTime());
     }
 
     @Override

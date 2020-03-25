@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -79,6 +80,7 @@ public class DeleteCommand extends Command {
             if (model.hasProfile(deleteName)) {
                 Profile profileToDelete = model.getProfile(deleteName);
                 model.deletePerson(profileToDelete);
+                model.setProfileList(new ProfileList());
                 return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete));
             } else {
                 throw new CommandException("Profile with name " + deleteName + " does not exist!");
@@ -94,6 +96,8 @@ public class DeleteCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode));
             } else { // Deleting a deadline/task
                 profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
+                model.deleteDeadline(deleteDeadline);
+                System.out.println(deleteDeadline.toString());
                 return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline));
             }
         }

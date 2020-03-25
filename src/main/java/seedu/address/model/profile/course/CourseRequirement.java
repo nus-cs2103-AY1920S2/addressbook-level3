@@ -35,7 +35,7 @@ public class CourseRequirement {
         double integerCredits = Double.valueOf(modularCredits.toString());
 
         output.append(requirementName + " ");
-        output.append("(" + (int) integerCredits + " MCs):");
+        output.append("(" + (int) integerCredits + " MCs):\n");
 
         if (requirementInfo != null) {
             for (String info : requirementInfo) {
@@ -45,10 +45,9 @@ public class CourseRequirement {
         }
 
         for (ModuleCode moduleCode : modules) {
-            output.append("\n");
             output.append(moduleCode);
+            output.append("\n");
         }
-        output.append("\n");
         return output.toString();
     }
 

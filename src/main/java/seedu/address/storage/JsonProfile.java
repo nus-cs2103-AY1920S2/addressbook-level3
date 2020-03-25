@@ -53,7 +53,7 @@ class JsonProfile {
         name = source.getName().toString();
         courseName = source.getCourseName().toString();
         specialisation = source.getSpecialisation();
-        currentSemester = source.getCurrentSemester();
+        currentSemester = Integer.toString(source.getCurrentSemester());
         records = new ArrayList<>();
         for (Map.Entry<Integer, ArrayList<Module>> entry: source.getMappings()) {
             String sem = entry.getKey().toString();
@@ -92,7 +92,7 @@ class JsonProfile {
 
         Name profileName = new Name(name);
         CourseName profileCourse = new CourseName(courseName);
-        Profile profile = new Profile(profileName, profileCourse, currentSemester, specialisation);
+        Profile profile = new Profile(profileName, profileCourse, Integer.parseInt(currentSemester), specialisation);
 
         for (JsonSemesterRecord record : records) {
             int semester = Integer.parseInt(record.getSemester());
@@ -162,7 +162,7 @@ class JsonPersonalModule extends JsonModule {
 
     public JsonPersonalModule(Module module) {
         super(module.getModuleCode().toString(), module.getTitle().toString(), module.getDescription().toString(),
-                module.getModularCredits().toString(), module.getPrereqList().toString(),
+                module.getModularCredits().toString(), module.getPrereqs().toString(),
                 module.getSemesterData().getSemesters().stream()
                         .map(JsonSemesterData::new).collect(Collectors.toList()));
         status = module.getStatus();
@@ -210,20 +210,24 @@ class JsonPersonalModule extends JsonModule {
 class JsonDeadline {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deadline's %s field is missing!";
 
+    private String moduleCode;
     private String description;
     private String date;
     private String time;
 
     @JsonCreator
-    public JsonDeadline(@JsonProperty("description") String description,
+    public JsonDeadline(@JsonProperty("moduleCode") String moduleCode,
+            @JsonProperty("description") String description,
             @JsonProperty("date") String date,
             @JsonProperty("time") String time) {
+        this.moduleCode = moduleCode;
         this.description = description;
         this.date = date;
         this.time = time;
     }
 
     public JsonDeadline(Deadline deadline) {
+        moduleCode = deadline.getModuleCode();
         description = deadline.getDescription();
         if (deadline.getDate() == null) {
             date = null;
@@ -259,12 +263,12 @@ class JsonDeadline {
             }
 
             try {
-                return new Deadline(description, date, time);
+                return new Deadline(moduleCode, description, date, time);
             } catch (DateTimeException e) {
                 throw new IllegalValueException("Unknown error occurred");
             }
         }
 
-        return new Deadline(description);
+        return new Deadline(moduleCode, description);
     }
 }

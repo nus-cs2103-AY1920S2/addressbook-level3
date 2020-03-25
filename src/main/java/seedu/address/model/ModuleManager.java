@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
@@ -26,7 +27,7 @@ public class ModuleManager {
         return this.moduleList.hasModuleWithModuleCode(moduleCode);
     }
 
-    public static Module getModule(ModuleCode moduleCode) {
+    public static Module getModule(ModuleCode moduleCode) throws ParseException {
         return moduleList.getModuleWithModuleCode(moduleCode);
     }
 }

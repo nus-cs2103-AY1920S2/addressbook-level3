@@ -13,7 +13,7 @@ public class Module {
 
     private final ModuleCode moduleCode;
     private final Title title;
-    private final PrereqList prereqList;
+    private final Prereqs prereqs;
     private final ModularCredits modularCredits;
     private final Description description;
     private final SemesterData semesterData;
@@ -23,12 +23,12 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(ModuleCode moduleCode, Title title, PrereqList prereqList,
+    public Module(ModuleCode moduleCode, Title title, Prereqs prereqs,
                   ModularCredits modularCredits, Description description, SemesterData semesterData) {
         // requireAllNonNull() // to be implemented
         this.moduleCode = moduleCode;
         this.title = title;
-        this.prereqList = prereqList;
+        this.prereqs = prereqs;
         this.modularCredits = modularCredits;
         this.description = description;
         this.semesterData = semesterData;
@@ -52,8 +52,8 @@ public class Module {
         return title;
     }
 
-    public PrereqList getPrereqList() {
-        return prereqList;
+    public Prereqs getPrereqs() {
+        return prereqs;
     }
 
     public ModularCredits getModularCredits() {
@@ -93,14 +93,16 @@ public class Module {
         builder.append(getModuleCode());
         builder.append(": ");
         builder.append(getTitle());
-
-        /*
-        builder.append(getPrereqList());
+        builder.append("\n Prerequisite: ");
+        builder.append(getPrereqs());
+        builder.append("\n Modular Credits (MCs): ");
         builder.append(getModularCredits());
+        builder.append("\n Description: ");
         builder.append(getDescription());
+        builder.append("\n Semesters Offered: ");
         builder.append(getSemesterData());
-        builder.append(getAcadYear());
-         */
+        builder.append("\n");
+        //builder.append(getAcadYear());
 
         return builder.toString();
     }
@@ -115,8 +117,4 @@ public class Module {
                 && moduleCode.equals(((Module) other).moduleCode)); // state check
     }
     // && (personal.getSemester() == ((Module) other).getPersonal().getSemester())
-
-    // methods to be implemented
-    // isSameModule()
-    // hashCode()
 }

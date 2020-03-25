@@ -33,12 +33,11 @@ public class ProfileListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Profile profile, boolean empty) {
             super.updateItem(profile, empty);
-
             if (empty || profile == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ProfileCard(profile, getIndex() + 1).getRoot());
+                setGraphic(new ProfileCard(profile).getRoot());
             }
         }
     }

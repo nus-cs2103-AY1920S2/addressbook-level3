@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
@@ -21,7 +22,11 @@ public class PersonBuilder {
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        courseName = new CourseName(DEFAULT_COURSE_NAME);
+        try {
+            courseName = new CourseName(DEFAULT_COURSE_NAME);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         currentSemester = DEFAULT_CURRENT_SEMESTER;
         specialisation = DEFAULT_SPEC;
     }
@@ -45,7 +50,11 @@ public class PersonBuilder {
      * Sets the {@code Course} of the {@code Profile} that we are building.
      */
     public PersonBuilder withCourseName(String courseName) {
-        this.courseName = new CourseName(courseName);
+        try {
+            this.courseName = new CourseName(courseName);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
@@ -58,7 +67,7 @@ public class PersonBuilder {
     }
 
     public Profile build() {
-        return new Profile(name, courseName, currentSemester, specialisation);
+        return new Profile(name, courseName, Integer.parseInt(currentSemester), specialisation);
     }
 
 }

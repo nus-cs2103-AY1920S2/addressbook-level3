@@ -34,11 +34,10 @@ public class ProfileCard extends UiPart<Region> {
     @FXML
     private Label curSem;
 
-    public ProfileCard(Profile profile, int displayedIndex) {
+    public ProfileCard(Profile profile) {
         super(FXML);
         this.profile = profile;
-        id.setText(displayedIndex + ". ");
-        name.setText(profile.getName().fullName);
+        name.setText(profile.getName().fullName.toUpperCase());
         course.setText("Course: " + profile.getCourseName().toString());
         curSem.setText("Current Semester: " + profile.getCurrentSemester());
     }

@@ -10,12 +10,13 @@
         },
         {
           "requirementName": "Computer Science Breadth and Depth",
-          "requirementInfo": ["Complete at least 8 MCs of Computer Systems Team Project modules from the following pairs, or modules approved by the Department of Computer Science:"],
+          "requirementInfo": ["Complete at least 8 MCs of Computer Systems Team Project modules from the following pairs, or modules approved by the Department of Computer Science."],
           "modules": ["CS3203", "CS3216 and CS3217", "CS3281 and CS3282"],
           "modularCredits": "8"
         },
         {
           "requirementName": "Industrial Experience Requirement",
+          "requirementInfo": ["Satisfy 12 MCs by doing any of the following."],
           "modules": ["CP3880", "CP3200", "CP3202", "CP3107", "CP3110", "IS4010", "TR3202"],
           "modularCredits": "12"
         },
@@ -93,23 +94,38 @@
         },
         {
           "requirementName": "Program Electives - List A (Business Applications)",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from Lists A, B and C, with at least 2 modules each from Lists A and B. 5 of 6 modules must be at level-4000."],
           "modules": ["DBA3712", "IE3120", "IS3240", "BT4012", "BT4016", "BT4211", "BT4212", "DBA4811", "IS4241", "IS4250", "MKT4418"],
           "modularCredits": "24"
         },
         {
           "requirementName": "Program Electives - List B (Analytics Methods)",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from Lists A, B and C, with at least 2 modules each from Lists A and B. 5 of 6 modules must be at level-4000."],
           "modules": ["IE2110 or DBA3701", "CS3244", "DBA3803", "BSE4711", "BT4012", "BT4015", "BT4221", "BT4222", "BT4240", "IS4241", "IE2410", "ST3131",  "ST4245"],
           "modularCredits": "24"
         },
         {
           "requirementName": "Program Electives - List C (Technology Implementation)",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from Lists A, B and C, with at least 2 modules each from Lists A and B. 5 of 6 modules must be at level-4000."],
           "modules": ["IS3221", "IS3261", "BT4014", "IS4228", "IS4302"],
           "modularCredits": "24"
         },
         {
           "requirementName": "Industrial Experience Requirement",
-          "modules": ["IS4010", "BT4101"],
+          "modules": ["IS4010 or BT4101"],
           "modularCredits": "12"
+        }
+      ],
+      "focusAreas": [
+        {
+          "focusAreaName": "Financial Analytics",
+          "primaries": ["BT4013", "BT4016", "IS4228"],
+          "electives": ["BT4012", "BT4221", "BT4222", "IS4234", "IS4302"]
+        },
+        {
+          "focusAreaName": "Marketing Analytics",
+          "primaries": ["BT4211", "BT4212", "BT4222"],
+          "electives": ["BT4014", "BT4015", "BT4221", "IS3240", "IS4241"]
         }
       ]
     },
@@ -123,33 +139,55 @@
         },
         {
           "requirementName": "Programme Electives - Digital Business",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from the list of Programme Electives. 3 of the 6 modules must be at level-4000."],
           "modules": ["IS3150", "IS3240", "IS3261", "IS4151"],
-          "modularCredits": "16"
+          "modularCredits": "24"
         },
         {
           "requirementName": "Programme Electives - Financial Technology",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from the list of Programme Electives. 3 of the 6 modules must be at level-4000."],
           "modules": ["IS4228", "IS4302", "IS4303"],
-          "modularCredits": "12"
+          "modularCredits": "24"
         },
         {
           "requirementName": "Programme Electives - IT Solutioning",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from the list of Programme Electives. 3 of the 6 modules must be at level-4000."],
           "modules": ["CS3240", "IS3221", "IS4204", "IS4234", "IS4243", "IS4250", "IS4301"],
-          "modularCredits": "28"
+          "modularCredits": "24"
         },
         {
           "requirementName": "Programme Electives - IT Business Innovation and Entrepreneurship",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from the list of Programme Electives. 3 of the 6 modules must be at level-4000."],
           "modules": ["IS3251", "IS4242", "IS4241", "IS4261", "IS5002", "IS5128"],
-          "modularCredits": "36"
+          "modularCredits": "24"
         },
         {
           "requirementName": "Programme Electives - IT Security and Legal Aspects",
+          "requirementInfo": ["Choose 6 modules to make up 24 MCs from the list of Programme Electives. 3 of the 6 modules must be at level-4000."],
           "modules": ["CS2107", "IFS4101", "IS4231", "IS4233"],
-          "modularCredits": "16"
+          "modularCredits": "24"
         },
         {
           "requirementName": "Industry Experience Requirement",
-          "modules": ["IS4010", "CP4101"],
+          "modules": ["IS4010 or CP4101"],
           "modularCredits": "12"
+        }
+      ],
+      "focusAreas": [
+        {
+          "focusAreaName": "Digital Innovation",
+          "primaries": ["IS3240", "IS3251", "IS4261"],
+          "electives": ["IS3150", "IS3261", "IS4204", "IS4233", "IS4242", "IS4243", "IS5002", "IS5128"]
+        },
+        {
+          "focusAreaName": "Electronic Commerce",
+          "primaries": ["IS3150", "IS4151", "IS4261"],
+          "electives": ["IS3240", "IS3261", "IS4228", "IS4231", "IS4242", "IS4243"]
+        },
+        {
+          "focusAreaName": "Financial Technology",
+          "primaries": ["IS4228", "IS4302", "IS4303"],
+          "electives": ["IS3221", "IS4231", "IS4233", "IS4234", "IS4242", "IS4301", "IS5002"]
         }
       ]
     },
@@ -163,11 +201,18 @@
         },
         {
           "requirementName": "Information Security Requirements",
-          "modules": ["CS2107", "CS3235", "IS4231", "IFS4205", "CS3236", "CS4236", "MA4261", "CS4238", "CS4239", "CS4257", "CS4276", "CS5231", "CS5321", "CS5322", "IFS4101", "IFS4102", "IFS4103", "IS4204", "IS4233", "IS4234", "IS4302"],
-          "modularCredits": "32"
+          "modules": ["CS2107", "CS3235", "IS4231", "IFS4205 or CS4238 & IFS4103"],
+          "modularCredits": "20"
         },
         {
-          "requirementName": "Computing Breadth",
+          "requirementName": "Programme Electives",
+          "requirementInfo": ["Complete 12 MCs from the following list of modules."],
+          "modules": ["CS3236", "CS4236 or MA4261", "CS4238", "CS4239", "CS4257", "CS4276", "CS5231", "CS5321", "CS5322", "IFS4101", "IFS4102", "IFS4103", "IS4204", "IS4233", "IS4234", "IS4302"],
+          "modularCredits": "12"
+        },
+        {
+          "requirementName": "Computing Breadth and Industrial Experience Requirement",
+          "requirementInfo": ["Complete 8 MCs of CP-coded, CS-coded or IS-coded modules at level-3000 or above. Complete 12 MCs of Industrial Experience Requirement by doing any of the following."],
           "modules": ["CP3880", "CP3200", "CP3202", "CP3107", "CP3110", "IS4010", "TR3202"],
           "modularCredits": "20"
         },
@@ -187,9 +232,67 @@
       "courseName": "Computer Engineering",
       "requirements": [
         {
-          "requirementName": "Core Modules",
-          "modules": ["CG1111", "CG1112", "CS1010", "CS1231", "MA1511", "MA1512", "MA1508E", "CG2023", "CG2027", "CG2028", "CG2271", "CS2040C", "CS2101", "CS2113T", "EE2026", "EG2401A", "ST2334", "CG3207 or CS3230", "CP3880 or EG3611A", "CG4002", "EE4204"],
-          "modularCredits": "88"
+          "requirementName": "Software Design",
+          "modules": ["CS1010", "CS2040C", "CS2113T", "CG2271"],
+          "modularCredits": "16"
+        },
+        {
+          "requirementName": "Hardware Design",
+          "modules": ["CG2027", "EE2026", "CG2028", "EE4202", "CG2023"],
+          "modularCredits": "16"
+        },
+        {
+          "requirementName": "Hardware-Software Co-design",
+          "modules": ["CG1111", "CG1112", "CG4002"],
+          "modularCredits": "20"
+        },
+        {
+          "requirementName": "Technical Elective",
+          "requirementInfo": ["To achieve depth, students need to read a minimum of 12 MCs of depth electives from the list of focus areas. All electives must add up to at least 20 MCs."],
+          "modules": ["CG3207 or CS3230"],
+          "modularCredits": "24"
+        },
+        {
+          "requirementName": "Mathematical Foundation",
+          "modules": ["CS1231", "MA1511", "MA1512", "MA1508E", "ST2334"],
+          "modularCredits": "16"
+        },
+        {
+          "requirementName": "Internship and Professionalism",
+          "modules": ["CS2101", "EG2401A", "CP3880 or EG3611A"],
+          "modularCredits": "16"
+        }
+      ],
+      "focusAreas": [
+        {
+          "focusAreaName": "Communications and Networking",
+          "primaries": ["CS2107", "CS3103", "EE3131C"],
+          "electives": ["CS4222", "CS4226", "EE4210", "CS5223", "CS5321", "EE5135"]
+        },
+        {
+          "focusAreaName": "Embedded Computing",
+          "primaries": ["CG3207", "CS2107", "CS3211", "EE3731C"],
+          "electives": ["CS4222", "CS4223", "EE4218", "EE4415", "CS5272", "EE5903"]
+        },
+        {
+          "focusAreaName": "Intelligent Systems",
+          "primaries": ["CS3243", "CS3244", "EE3331C"],
+          "electives": ["CS4244", "CS4246", "CS4248", "EE4305", "EE4308", "CS5242", "CS5339", "EE5094", "EE5907"]
+        },
+        {
+          "focusAreaName": "Interactive Digital Media",
+          "primaries": ["CS2108", "CS3240", "CS3241", "CS3242", "CS3247", "CS3249", "EE3731C"],
+          "electives": ["CS4240", "CS4243", "CS4247", "CS4249", "CS4347", "CS4351", "EE4212", "EE4604", "EE4704"]
+        },
+        {
+          "focusAreaName": "Large-Scale Computing",
+          "primaries": ["CS2102", "CS3210", "CS3211", "CS3230", "CS3235"],
+          "electives": ["CS3223", "CS4211", "CS4221", "CS4223", "CS4224", "CS4231", "EE4210", "EE4218"]
+        },
+        {
+          "focusAreaName": "System-On-A-Chip Design",
+          "primaries": ["CG3207", "EE3104C", "EE3408C"],
+          "electives": ["CS4223", "EE4104", "EE4112", "EE4218", "EE4415", "EE4505", "EE5518"]
         }
       ]
     }
