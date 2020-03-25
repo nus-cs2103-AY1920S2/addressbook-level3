@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import csdev.couponstash.commons.MoneySymbolStub;
 import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
@@ -58,7 +60,7 @@ public class CommandTestUtil {
             new MonetaryAmount(VALID_MONETARY_AMOUNT_TWO_TWENTY),
             Arrays.asList(new Saveable(VALID_SAVEABLE_COFFEE), new Saveable(VALID_SAVEABLE_TEA))
     );
-    public static final String VALID_MONEY_SYMBOL = "RM";
+    public static final MoneySymbol VALID_MONEY_SYMBOL = new MoneySymbolStub("RM");
     public static final String VALID_USAGE_AMY = "0";
     public static final String VALID_USAGE_BOB = "1";
     public static final String VALID_LIMIT_AMY = "1";

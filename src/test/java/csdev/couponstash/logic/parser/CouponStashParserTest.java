@@ -35,12 +35,14 @@ import csdev.couponstash.testutil.TypicalIndexes;
 
 public class CouponStashParserTest {
     // use an arbitrary symbol as the money symbol
-    private final CouponStashParser parser = new CouponStashParser(VALID_MONEY_SYMBOL);
+    private final CouponStashParser parser =
+            new CouponStashParser(VALID_MONEY_SYMBOL);
 
     @Test
     public void parseCommand_add() throws Exception {
         Coupon coupon = new CouponBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon, VALID_MONEY_SYMBOL));
+        AddCommand command = (AddCommand) parser.parseCommand(
+                CouponUtil.getAddCommand(coupon, VALID_MONEY_SYMBOL.toString()));
         AddCommand newCommand = new AddCommand(coupon);
         assertEquals(newCommand, command);
     }
@@ -63,10 +65,10 @@ public class CouponStashParserTest {
 
         Coupon coupon = new CouponBuilder().build();
         EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(coupon).build();
-        String test = CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL);
+        String test = CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL.toString());
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased() + " "
-                + CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL));
+                + CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL.toString()));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor), command);
     }
 
