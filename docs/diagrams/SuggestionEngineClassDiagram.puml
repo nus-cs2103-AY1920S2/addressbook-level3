@@ -31,9 +31,7 @@ Class LogicManager
 }
 
 package Model{
-Interface CommandInputModel <<interface>>
-Interface SuggestionModel <<interface>>
-Class SuggestionModelImpl
+Class HiddenModel #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
@@ -47,7 +45,7 @@ SuggestionEngineImpl .right.> XYZSuggestionCommandParser: creates >
 SuggestionEngineImpl .down.|> SuggestionEngine
 
 XYZSuggestionCommandParser .up.> XYZSuggestionCommand : creates >
-XYZSuggestionCommandParser .up.|> SuggestionCommandParser
+XYZSuggestionCommandParser .down.|> SuggestionCommandParser
 
 XYZSuggestionCommand .up.|> SuggestionCommand
 LogicManager .right.> SuggestionCommand : executes >
@@ -55,12 +53,7 @@ XYZSuggestionCommand .right.> SuggestionItemImpl : creates >
 
 LogicManager --> Model
 SuggestionCommand ..> Model
-note left of XYZSuggestionCommand: XYZSuggestionCommand = OpenSuggestionCommand, \nNewSuggestionCommand, etc
+note bottom of XYZSuggestionCommand: XYZSuggestionCommand = OpenSuggestionCommand, \nNewSuggestionCommand, etc
 
 SuggestionItemImpl .up.|> SuggestionItem
-SuggestionItemImpl ..> SuggestionModelImpl
-
-SuggestionModelImpl ..|> SuggestionModel
-CommandInputModel ..> SuggestionEngine : triggers suggestion for every input change >
-
 @enduml
