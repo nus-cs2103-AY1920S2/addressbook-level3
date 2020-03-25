@@ -39,7 +39,7 @@ public class HeightCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        Self.setHeight(height);
+        model.setHeight(height);
 
         return new CommandResult(String.format(MESSAGE_ADD_HEIGHT_SUCCESS, height.toString()));
     }

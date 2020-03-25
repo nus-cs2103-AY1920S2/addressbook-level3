@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.eylah.commons.core.GuiSettings;
 import seedu.eylah.diettracker.model.food.Food;
+import seedu.eylah.diettracker.model.self.Height;
+import seedu.eylah.diettracker.model.self.Self;
+import seedu.eylah.diettracker.model.self.Weight;
 
 /**
  * The API of the Model component.
@@ -99,4 +102,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
+
+    void setHeight(Height height);
+
+    void setWeight(Weight weight);
+
+    void setMode(Mode mode);
 }

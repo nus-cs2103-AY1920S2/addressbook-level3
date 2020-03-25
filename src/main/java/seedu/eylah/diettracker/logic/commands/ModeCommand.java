@@ -35,7 +35,7 @@ public class ModeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Self.setMode(mode);
+        model.setMode(mode);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, mode));
     }

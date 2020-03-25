@@ -12,6 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.eylah.commons.core.GuiSettings;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.diettracker.model.food.Food;
+import seedu.eylah.diettracker.model.self.Height;
+import seedu.eylah.diettracker.model.self.Self;
+import seedu.eylah.diettracker.model.self.Weight;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -169,6 +172,23 @@ public class ModelManager implements Model {
         return foodBook.equals(other.foodBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredFoods.equals(other.filteredFoods);
+    }
+
+    //=========== Self ================================================================================
+
+    @Override
+    public void setHeight(Height height) {
+        Self.setHeight(height);
+    }
+
+    @Override
+    public void setWeight(Weight weight) {
+        Self.setWeight(weight);
+    }
+
+    @Override
+    public void setMode(Mode mode) {
+        Self.setMode(mode);
     }
 
 }
