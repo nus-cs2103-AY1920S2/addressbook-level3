@@ -172,17 +172,17 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/com/notably/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save the Block data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `com.notably.commons` package.
 
 === Logging
 
@@ -282,11 +282,6 @@ Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not c
 
 .Tree Data Structure Design Example
 image::TreeDataStructureDesign.png[]
-
-
-[[Implementation-Storage]]
-=== Storage
-TODO:Edit below
 
 [[Implementation-UI]]
 === UI
