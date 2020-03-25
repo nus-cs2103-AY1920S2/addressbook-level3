@@ -1,0 +1,66 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package SuggestionEngine {
+Interface SuggestionEngine <<Interface>>
+Class SuggestionEngineImpl
+}
+
+package SuggestionCommandParser {
+Interface SuggestionCommandParser <<Interface>>
+Class XYZSuggestionCommandParser
+}
+
+package SuggestionCommand {
+Interface SuggestionCommand <<Interface>>
+Class XYZSuggestionCommand
+}
+
+package SuggestionItem {
+Interface SuggestionItem <<interface>>
+Class SuggestionItemImpl
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+}
+
+package Model{
+Interface CommandInputModel <<interface>>
+Interface SuggestionModel <<interface>>
+Class SuggestionModelImpl
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+
+
+LogicManager .up.|> Logic
+LogicManager -down->"1" SuggestionEngineImpl
+SuggestionEngineImpl .right.> XYZSuggestionCommandParser: creates >
+SuggestionEngineImpl .down.|> SuggestionEngine
+
+XYZSuggestionCommandParser .up.> XYZSuggestionCommand : creates >
+XYZSuggestionCommandParser .up.|> SuggestionCommandParser
+
+XYZSuggestionCommand .up.|> SuggestionCommand
+LogicManager .right.> SuggestionCommand : executes >
+XYZSuggestionCommand .right.> SuggestionItemImpl : creates >
+
+LogicManager --> Model
+SuggestionCommand ..> Model
+note left of XYZSuggestionCommand: XYZSuggestionCommand = OpenSuggestionCommand, \nNewSuggestionCommand, etc
+
+SuggestionItemImpl .up.|> SuggestionItem
+SuggestionItemImpl ..> SuggestionModelImpl
+
+SuggestionModelImpl ..|> SuggestionModel
+CommandInputModel ..> SuggestionEngine : triggers suggestion for every input change >
+
+@enduml
