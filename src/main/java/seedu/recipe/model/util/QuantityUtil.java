@@ -49,14 +49,19 @@ public class QuantityUtil {
      *
      */
     public static Quantity parseQuantity(String quantity) {
-        quantity = quantity.toLowerCase().trim();
-        int indexOfUnit = indexOfFirstAlphabet(quantity);
+        System.out.println(quantity);
+        if (quantity.isBlank()) {
+            return new Quantity();
+        } else {
+            quantity = quantity.toLowerCase().trim();
+            int indexOfUnit = indexOfFirstAlphabet(quantity);
 
-        double magnitude = Double.parseDouble(quantity.substring(0, indexOfUnit));
-        String unitString = quantity.substring(indexOfUnit);
+            double magnitude = Double.parseDouble(quantity.substring(0, indexOfUnit));
+            String unitString = quantity.substring(indexOfUnit);
 
-        Unit unit = parseUnit(unitString);
-        return new Quantity(magnitude, unit);
+            Unit unit = parseUnit(unitString);
+            return new Quantity(magnitude, unit);
+        }
     }
 
     /**
