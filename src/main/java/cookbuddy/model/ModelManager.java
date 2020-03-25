@@ -95,6 +95,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public long count() {
+        return recipeBook.count();
+    }
+
+    @Override
     public void deleteRecipe(Recipe target) {
         recipeBook.removeRecipe(target);
     }
