@@ -50,6 +50,7 @@ a|
    13. Viewing savings: saved
    14. Undo the previous command: undo/redo
    15. Archive a coupon: archive
+   16. Exporting a coupon: export
 
  |3
 
@@ -375,6 +376,37 @@ Examples:
 
 * `archive 1` +
 Archives the first coupon in the coupon stash.
+
+=== Export a coupon: `export`
+Exports a coupon as an `add` command to your clipboard so that you can easily share it with your friends/ family! 
+
+Format: `export INDEX`
+
+****
+* Exports the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon
+list.
+* The index *must be a positive integer* 1, 2, 3, …​
+* The <<Adding a coupon: `add`, add command>> of the coupon will be copied to your clipboard. Simply ctrl + v to paste it!
+****
+****
+NOTE: The exported add command will only contain the following fields: 
+* Name
+* Savings
+* Expiry Date
+* Limit
+* Promo Code (if any)
+* Condition (if any)
+****
+
+Examples:
+
+* `list` +
+`export 2` +
+Exports the 2nd coupon in the coupon stash to an `add` command and copies it to your clipboard.
+* `find chicken` +
+`export 1` +
+Exports the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
 
 
 == FAQ
