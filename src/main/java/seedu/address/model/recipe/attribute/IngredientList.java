@@ -45,6 +45,24 @@ public class IngredientList {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientList)) {
+            return false;
+        }
+
+        return ((IngredientList) other).ingredientData.equals(this.ingredientData);
+    }
+
+    @Override
+    public int hashCode() {
+        return ingredientData.hashCode();
+    }
+
+    @Override
     public String toString() {
         return ingredientData.stream().map(Ingredient::toString).collect(Collectors.joining(System.lineSeparator()));
     }

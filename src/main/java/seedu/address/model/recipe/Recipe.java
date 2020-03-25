@@ -7,8 +7,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.recipe.attribute.Calorie;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Rating;
+import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
@@ -22,19 +26,23 @@ public class Recipe {
     private final IngredientList ingredients;
     private final InstructionList instructions;
     private final Calorie calorie;
-
+    private final Serving serving;
+    private final Rating rating;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie, Set<Tag> tags) {
+    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie,
+                Serving serving, Rating rating, Set<Tag> tags) {
         requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.calorie = calorie;
+        this.serving = serving;
+        this.rating = rating;
         this.tags.addAll(tags);
     }
 
@@ -54,6 +62,14 @@ public class Recipe {
         return calorie;
     }
 
+    public Rating getRating() {
+        return rating;
+    }
+
+    public Serving getServing() {
+        return serving;
+    }
+
     /**
      * Returns an immutable tag set, which throws
      * {@code UnsupportedOperationException} if modification is attempted.
@@ -63,9 +79,8 @@ public class Recipe {
     }
 
     /**
-     * Returns true if both recipes of the same name have at least one other
-     * identity field that is the same. This defines a weaker notion of equality
-     * between two recipes.
+     * Returns true if both recipes of the same name have the same ingredients and instructions. This defines a weaker
+     * notion of equality between two recipes.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
@@ -73,8 +88,8 @@ public class Recipe {
         }
 
         return otherRecipe != null && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getIngredients().equals(getIngredients())
-                        || otherRecipe.getInstructions().equals(getInstructions()));
+            && otherRecipe.getIngredients().equals(getIngredients())
+            && otherRecipe.getInstructions().equals(getInstructions());
     }
 
     /**
@@ -93,21 +108,23 @@ public class Recipe {
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
             && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getCalorie()
-            .equals(getCalorie()) && otherRecipe.getTags().equals(getTags());
+            .equals(getCalorie()) && otherRecipe.getRating().equals(getRating())
+                && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions, calorie, tags);
+        return Objects.hash(name, ingredients, instructions, calorie, serving, rating, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
-            " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(" Tags"
-            + ": ");
+            " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(
+                    " Serving size: ").append(getServing()).append(" Rating: ").append(getRating()).append(" "
+                + "Tags" + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

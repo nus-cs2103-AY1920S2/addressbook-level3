@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,12 +26,16 @@ public class NewCommand extends Command {
             + PREFIX_INGREDIENTS + "INGREDIENT 1, QUANTITY; INGREDIENT 2, QUANTITY... "
             + PREFIX_INSTRUCTIONS + "INSTRUCTION 1, INSTRUCTION 2 "
             + "[" + PREFIX_CALORIE + "CALORIES] "
+            + "[" + PREFIX_SERVING + "SERVING SIZE] "
+            + "[" + PREFIX_RATING + "RATING"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Ham Sandwich "
             + PREFIX_INGREDIENTS + "bread, 2 slices; ham, 1 slice "
             + PREFIX_INSTRUCTIONS + "put ham between bread; eat sandwich "
             + PREFIX_CALORIE + "169 "
+            + PREFIX_SERVING + "2 "
+            + PREFIX_RATING + "4 "
             + PREFIX_TAG + "breakfast";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";

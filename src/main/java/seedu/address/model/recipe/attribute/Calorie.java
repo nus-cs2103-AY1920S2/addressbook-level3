@@ -1,4 +1,4 @@
-package seedu.address.model.recipe;
+package seedu.address.model.recipe.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -48,7 +48,7 @@ public class Calorie {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + calorie + " kcal]";
+        return calorie;
     }
 
 }
