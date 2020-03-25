@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -14,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 /**
  * Represents the in-memory model of the profile list data.
@@ -22,7 +25,7 @@ public class ProfileManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ProfileManager.class);
 
     private final ProfileList profileList;
-    private DeadlineList deadlineList;
+    private ObservableList<Deadline> deadlineList;
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
     private FilteredList<Deadline> filteredDeadlines;
@@ -36,16 +39,13 @@ public class ProfileManager implements Model {
         this.profileList = profileList;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProfiles = new FilteredList<>(profileList.getProfileList());
+        deadlineList = FXCollections.observableArrayList();
+        filteredDeadlines = new FilteredList<>((deadlineList));
+
     }
 
     public ProfileManager() {
         this(new ProfileList(), new UserPrefs());
-    }
-
-    @Override
-    public void initDeadlineList() {
-        this.deadlineList = profileList.getDeadlineList();
-        filteredDeadlines = new FilteredList<>(deadlineList.getDeadlineList());
     }
 
     @Override
@@ -84,7 +84,6 @@ public class ProfileManager implements Model {
     @Override
     public void setProfileList(ProfileList profileList) {
         this.profileList.resetData(profileList);
-        setDeadlineList(this.deadlineList);
     }
 
     @Override
@@ -149,17 +148,24 @@ public class ProfileManager implements Model {
 
     @Override
     public void addDeadline(Deadline deadline) {
-        deadlineList.addDeadline(deadline);
-    }
-
-    public void setDeadlineList(DeadlineList deadlineList) {
-        this.deadlineList.resetData(deadlineList);
+        deadlineList.add(deadline);
     }
 
     @Override
     public void deleteDeadline(Deadline deadline) {
-        deadlineList.deleteDeadline(deadline);
+        Iterator<Deadline> iter = this.deadlineList.iterator();
+        Boolean flag = false;
+        while (iter.hasNext()) {
+            Deadline dl = iter.next();
+            if (dl.getModuleCode().equals(deadline.getModuleCode())
+                    && dl.getDescription().equals(deadline.getDescription())) {
+                iter.remove();
+                flag = true;
+            }
+        }
+
+        if (!flag) {
+            throw new DeadlineNotFoundException();
+        }
     }
-
-
 }

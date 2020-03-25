@@ -97,7 +97,6 @@ public class DeleteCommand extends Command {
             } else { // Deleting a deadline/task
                 profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
                 model.deleteDeadline(deleteDeadline);
-                System.out.println(deleteDeadline.toString());
                 return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline));
             }
         }

@@ -30,6 +30,7 @@ public class Profile {
     private static String specialisation;
     private static Name name;
     private static CourseName courseName;
+    private List<Deadline> deadlines = new ArrayList<Deadline>();
 
 
     /**
@@ -116,11 +117,14 @@ public class Profile {
 
     public List<Deadline> getDeadlines() {
         List<Module> modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
-        List<Deadline> deadlineList = new ArrayList<>();
-        for (Module module: modules) {
-            deadlineList.addAll(module.getDeadlines());
+        if (modules == null) {
+            return new ArrayList<>();
+        } else {
+            for (Module module : modules) {
+                deadlines.addAll(module.getDeadlines());
+            }
         }
-        return deadlineList;
+        return deadlines;
     }
 
     public int getModuleSemester(ModuleCode moduleCode) {
