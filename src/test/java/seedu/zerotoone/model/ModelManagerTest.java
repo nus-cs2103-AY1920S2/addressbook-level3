@@ -17,7 +17,9 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.model.workout.WorkoutList;
 import seedu.zerotoone.testutil.exercise.ExerciseListBuilder;
+import seedu.zerotoone.testutil.workout.WorkoutListBuilder;
 
 public class ModelManagerTest {
 
@@ -98,11 +100,12 @@ public class ModelManagerTest {
     public void equals() {
         ExerciseList exerciseList = new ExerciseListBuilder().withExercise(BENCH_PRESS).withExercise(DEADLIFT).build();
         ExerciseList differentExerciseList = new ExerciseList();
+        WorkoutList workoutList = new WorkoutListBuilder().withWorkout(BENCH_PRESS).withWorkout(DEADLIFT).build();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(userPrefs, exerciseList);
-        ModelManager modelManagerCopy = new ModelManager(userPrefs, exerciseList);
+        modelManager = new ModelManager(userPrefs, exerciseList, workoutList);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, exerciseList, workoutList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,12 +118,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different exerciseList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(userPrefs, differentExerciseList)));
+        assertFalse(modelManager.equals(new ModelManager(userPrefs, differentExerciseList, workoutList)));
 
         // different filteredList -> returns false
         String keyword = BENCH_PRESS.getExerciseName().fullName;
         modelManager.updateFilteredExerciseList(new PredicateFilterExerciseName(keyword));
-        assertFalse(modelManager.equals(new ModelManager(userPrefs, exerciseList)));
+        assertFalse(modelManager.equals(new ModelManager(userPrefs, exerciseList, workoutList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
@@ -128,6 +131,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(differentUserPrefs, exerciseList)));
+        assertFalse(modelManager.equals(new ModelManager(differentUserPrefs, exerciseList, workoutList)));
     }
 }

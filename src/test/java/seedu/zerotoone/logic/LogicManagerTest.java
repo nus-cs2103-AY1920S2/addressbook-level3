@@ -22,6 +22,7 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
+import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 import seedu.zerotoone.testutil.LogicManagerTestUtil;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -38,9 +39,11 @@ public class LogicManagerTest {
     public void setUp() {
         ExerciseListStorageManager exerciseListStorage =
                 new ExerciseListStorageManager(temporaryFolder.resolve("exerciseList.json"));
+        WorkoutListStorageManager workoutListStorage =
+                new WorkoutListStorageManager(temporaryFolder.resolve("workoutList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage, workoutListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -62,9 +65,11 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonExerciseListIoExceptionThrowingStub
         ExerciseListStorageManager exerciseListStorage =
                 new JsonExerciseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseList.json"));
+        WorkoutListStorageManager workoutListStorage =
+                new JsonWorkoutListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionWorkoutList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage, workoutListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

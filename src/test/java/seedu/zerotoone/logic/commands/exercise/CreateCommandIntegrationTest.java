@@ -4,6 +4,7 @@ import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_OVERHEAD_PRESS;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class CreateCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new UserPrefs(), getTypicalExerciseList());
+        model = new ModelManager(new UserPrefs(), getTypicalExerciseList(), getTypicalWorkoutList());
     }
 
     @Test
