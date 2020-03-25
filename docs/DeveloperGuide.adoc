@@ -29,7 +29,7 @@ Refer to the guide <<SettingUp#, here>>.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of CookBuddy.
-A quick overview of each component is give below.
+A quick overview of each component is given below.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
