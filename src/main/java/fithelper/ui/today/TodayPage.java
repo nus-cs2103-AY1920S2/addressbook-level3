@@ -3,6 +3,7 @@ package fithelper.ui.today;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.model.calculator.CalorieCalculator;
 import fithelper.model.entry.Entry;
 import fithelper.ui.FoodCard;
 import fithelper.ui.SportCard;
@@ -23,6 +24,10 @@ public class TodayPage extends UiPart<AnchorPane> {
     private static final String FXML = "TodayPage.fxml";
     private final Logger logger = LogsCenter.getLogger(TodayPage.class);
 
+    private double foodCalorie;
+    private double sportCalorie;
+    private double difCalorie;
+
     @FXML
     private ListView<Entry> foodListView;
 
@@ -42,6 +47,21 @@ public class TodayPage extends UiPart<AnchorPane> {
     @FXML
     private Label doneSportCounter;
 
+    @FXML
+    private Label calorieGain;
+
+    @FXML
+    private Label calorieConsume;
+
+    @FXML
+    private Label totalCalorie;
+
+    @FXML
+    private Label performance;
+
+    @FXML
+    private Label feedback;
+
     /**
      * Creates an order page displaying orders from {@code orderList}.
      */
@@ -49,6 +69,10 @@ public class TodayPage extends UiPart<AnchorPane> {
         super(FXML);
 
         logger.info("Initializing Today Page");
+
+        foodCalorie = 0.0;
+        sportCalorie = 0.0;
+        difCalorie = 0.0;
 
         initializeFoodListView(foodList);
         initializeSportListView(sportList);
@@ -102,6 +126,24 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param foodList an observable list of food entries
      */
     private void updateFoodStatistics(ObservableList<Entry> foodList) {
+        updateFoodCounter(foodList);
+        updateFoodCalorie(foodList);
+    }
+
+    /**
+     * Updates the sport entry list statistics.
+     * @param sportList an observable list of sport entries
+     */
+    private void updateSportStatistics(ObservableList<Entry> sportList) {
+        updateSportCounter(sportList);
+        updateSportCalorie(sportList);
+    }
+
+    /**
+     * Updates the food entry list statistics.
+     * @param foodList an observable list of food entries
+     */
+    private void updateFoodCounter(ObservableList<Entry> foodList) {
         int undoneCount = 0;
         int doneCount = 0;
 
@@ -118,10 +160,10 @@ public class TodayPage extends UiPart<AnchorPane> {
     }
 
     /**
-     * Updates the sport entry list statistics.
-     * @param sportList an observable list of sport entries
+     * Updates the food entry list statistics.
+     * @param sportList an observable list of food entries
      */
-    private void updateSportStatistics(ObservableList<Entry> sportList) {
+    private void updateSportCounter(ObservableList<Entry> sportList) {
         int undoneCount = 0;
         int doneCount = 0;
 
@@ -135,6 +177,32 @@ public class TodayPage extends UiPart<AnchorPane> {
 
         undoneSportCounter.setText(undoneCount + " sport plans undone");
         doneSportCounter.setText(doneCount + " sport plans completed");
+    }
+
+
+    /**
+     * Updates the food entry list statistics.
+     * @param foodList an observable list of food entries
+     */
+    private void updateFoodCalorie(ObservableList<Entry> foodList) {
+        CalorieCalculator foodCalorieCalculator = new CalorieCalculator(foodList);
+        foodCalorie = foodCalorieCalculator.getFoodCalorie();
+        logger.info("foodCalorie: " + foodCalorie);
+        calorieGain.setText("today food calorie: " + foodCalorie);
+        difCalorie = foodCalorie - sportCalorie;
+        totalCalorie.setText("total calorie for today: " + difCalorie);
+    }
+
+    /**
+     * Updates the food entry list statistics.
+     * @param sportList an observable list of food entries
+     */
+    private void updateSportCalorie(ObservableList<Entry> sportList) {
+        CalorieCalculator sportCalorieCalculator = new CalorieCalculator(sportList);
+        sportCalorie = sportCalorieCalculator.getSportsCalorie();
+        calorieConsume.setText("today sports calorie: " + sportCalorie);
+        difCalorie = foodCalorie - sportCalorie;
+        totalCalorie.setText("total calorie for today: " + difCalorie);
     }
 
     /**
