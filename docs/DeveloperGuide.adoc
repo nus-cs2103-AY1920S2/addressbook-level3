@@ -154,6 +154,14 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::basic[]
+=== Basic commands
+==== Switch command
+
+image::SwitchActivityDiagram.png[]
+
+// end::basic[]
+
 // tag::advancedfilter[]
 === Advanced Filter feature
 ==== Implementation
@@ -172,14 +180,23 @@ image::AdvancedFilterSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How chart goals executes
+===== Aspect: How goals are being tagged
 
-* **Alternative 1 (current choice):** User chooses from 4 given goals and user adds the tags to the recipes.
+* **Alternative 1 (current choice):** System generates tags for each recipe based on food algorithm.
+** Pros: Higher accuracy and makes use of inputs of ingredients class.
+** Cons: Would require several criteria checks that may not be intuitive and would require the use of artificial intelligence for the highest accuracy.
+* **Alternative 2 :** User chooses from 4 given goals and user adds the tags to the recipes.
 ** Pros: Easy to implement.
 ** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
-* **Alternative 2:** System generates tags for each recipe based on food algorithm.
-** Pros: Higher accuracy.
-** Cons: Would require several criteria checks that may not be intuitive and will require the use of artificial intelligence for accuracy.
+
+===== Aspect: How to determine the criteria for each goal
+
+* **Alternative 1 (current choice):** Check by quantity
+** Pros: More accurate and can be modelled against ideal ratio of a healthy meal.
+** Cons: Harder to implement as we need to standardise the ingredient measurements, not as intuitive.
+* **Alternative 2 :** Check by variety
+** Pros: Easy to implement.
+** Cons: Not as accurate as one grain of rice would still be counted as variety.
 // end::goals[]
 
 // tag::planning[]

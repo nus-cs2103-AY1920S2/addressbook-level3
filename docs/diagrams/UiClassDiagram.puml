@@ -17,6 +17,10 @@ package UI <<Rectangle>>{
  package {
  Class RecipeListPanel
  Class RecipeCard
+ Class PlanningListPanel
+ Class PlanningCard
+ Class GoalsListPanel
+ Class GoalsCard
  }
  }
 
@@ -41,17 +45,24 @@ MainWindow *-down-> MainTabPanel
 
 MainTabPanel *-down-> RecipeListPanel
 RecipeListPanel -down-> RecipeCard
+MainTabPanel *-down-> PlanningListPanel
+PlanningListPanel -down-> PlanningCard
+MainTabPanel *-down-> GoalsListPanel
+GoalsListPanel -down-> GoalsCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 RecipeListPanel --|> UiPart
-RecipeCard --|> UiPart
+PlanningListPanel --|> UiPart
+GoalsListPanel  --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-RecipeCard ..> Model
+RecipeCard .down.> Model
+PlanningCard .down.> Model
+GoalsCard .down.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
