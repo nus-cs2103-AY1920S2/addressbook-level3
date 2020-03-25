@@ -1,0 +1,101 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FitHelperParser" as FitHelperParser LOGIC_COLOR
+participant ":UpdateCommandParser" as UpdateCommandParser LOGIC_COLOR
+participant ":UpdateValueDescriptor" as UpdateValueDescriptor LOGIC_COLOR
+participant "u:UpdateCommand" as UpdateCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ReadOnlyUserProfile" as ReadOnlyUserProfile MODEL_COLOR
+participant ":UserProfile" as UserProfile MODEL_COLOR
+participant ":Profile" as Profile MODEL_COLOR
+end box
+[-> LogicManager : execute(userInput)
+activate LogicManager
+
+LogicManager -> FitHelperParser : parseCommand(userInput)
+activate FitHelperParser
+
+create UpdateCommandParser
+FitHelperParser -> UpdateCommandParser : parse(args)
+activate UpdateCommandParser
+
+create UpdateValueDescriptor
+UpdateCommandParser -> UpdateValueDescriptor
+activate UpdateValueDescriptor
+
+UpdateValueDescriptor --> UpdateCommandParser
+deactivate UpdateValueDescriptor
+
+create UpdateCommand
+UpdateCommandParser -> UpdateCommand
+activate UpdateCommand
+
+UpdateCommand --> UpdateCommandParser : u
+deactivate UpdateCommand
+
+UpdateCommandParser --> FitHelperParser : u
+deactivate UpdateCommandParser
+
+FitHelperParser --> LogicManager : u
+deactivate FitHelperParser
+
+LogicManager -> UpdateCommand : execute(model)
+activate UpdateCommand
+
+UpdateCommand -> Model : getUserProfile()
+activate Model
+
+Model -> ReadOnlyUserProfile : getUserProfile()
+activate ReadOnlyUserProfile
+
+ReadOnlyUserProfile -> Profile
+activate Profile
+
+Profile --> ReadOnlyUserProfile : oldP
+deactivate Profile
+
+ReadOnlyUserProfile --> Model : oldP
+deactivate ReadOnlyUserProfile
+
+Model --> UpdateCommand : oldP
+deactivate Model
+
+UpdateCommand -> Profile
+activate Profile
+
+Profile --> UpdateCommand : newP
+deactivate Profile
+
+UpdateCommand -> Model : setUserProfile(newP)
+activate Model
+
+Model -> UserProfile : setUserProfile(newP)
+activate UserProfile
+
+UserProfile -> Profile
+activate Profile
+
+Profile --> UserProfile
+deactivate Profile
+
+UserProfile --> Model :
+deactivate UserProfile
+
+Model --> UpdateCommand
+deactivate Model
+
+UpdateCommand --> LogicManager : result
+deactivate UpdateCommand
+
+UpdateCommand -[hidden]-> LogicManager : result
+destroy UpdateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
