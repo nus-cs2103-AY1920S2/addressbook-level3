@@ -330,6 +330,7 @@ image::ProductActivityDiagram.png[]
 ** Cons: Difficult to sort and iterate through hashmap, get(key) can be O(1) in the best case and O(n) in the worst case.
 // end::manageproduct[]
 
+// tag::managetransaction[]
 === Add/ Edit/ Delete transactions
 The user input is handled by the `MainWindow` class in Ui first, then passed to the `LogicManager` and parsed into
 `AddTransactionCommand`, `EditTransactionCommand`, etc. Depending on the nature of each command, new transaction or
@@ -337,13 +338,44 @@ updated transaction will be added to a new index or existing index of the `Uniqu
 `InventorySystem` class. For the `deleteTransactionCommand`, a transaction will be dropped from the `internalList`.
 Since the `quantity` and `sales` attribute will affect the same attributes of a product, the affiliated `product` will
 also be edited. In the end, the `filteredTransactionList` of the system will be updated so that the user can view the change
-accordingly.
+accordingly. Three commands are implemented corresponding to these 3 operations in the logic module:
+
+* `AddTransactionCommand` -- Adds a transaction into the system and update the the quantity and sales attribute
+of the corresponding product.
+* `EditTransactionCommand` -- Edit detials of a transaction. If `quantity` is changed, edit the affected product
+as well.
+* `DeleteTransactionCommand` -- Delete a transaction from the system and edit the affiliated product.
+
+For each command, a parser is implemented to parse the input into arguments.
+
+* `AddTransactionCommmandParser` -- Parse the add transaction input and generates `AddTransactionCommand`. +
+* `EditTransactionCommandParser` -- Parse the edit transaction input and generates `EditTransactionCommand`. +
+* `DeleteTransactionCommandParser` --Parse the delete transaction input and generates `DeleteTransactionCommand`. +
 
 The following sequence diagram shows how each operation works.
 
 image::AddTransactionSequenceDiagram.png[]
+NOTE: The AddTransactionCommmandParser returns a transactionFacotry with `productIndex` and `customerIndex`, while a
+transaction is only generated in AddTransactionCommand.
 
+==== Design Considerations
 
+===== Aspect: How to store product & customer in transaction.
+
+* **Alternative 1 (current choice):** Store the product/ customer instance as an attribute.
+** Pros: Easy to construct a transaction and display product/ customer name.
+** Cons: Easy to generate bugs while any of the instance is editted.
+* **Alternative 2:** Store an unique id of the product/ customer.
+
+===== Aspect: How to change the quantity & sales attribute of product while edtting transactions.
+
+* **Alternative 1 (current choice):** Re-store the quantity and sales of old product, and
+edit the quantity & sales of the new product.
+** Pros: Easy to construct a transaction and display product/ customer name.
+** Cons: Easy to generate bugs when the new quantity exceeds inventory. Currenty, if such case
+happens, undo the re-storing.
+
+// end::managetransaction[]
 
 === Logging
 
