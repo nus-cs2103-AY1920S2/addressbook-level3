@@ -11,8 +11,8 @@ import nasa.model.module.ModuleName;
  */
 public class ModuleBuilder {
 
-    public static final String DEFAULT_MODULE_NAME = "SOFTWARE ENGINEERING";
-    public static final String DEFAULT_MODULE_CODE = "CS2103T";
+    public static final String DEFAULT_MODULE_NAME = "OOP";
+    public static final String DEFAULT_MODULE_CODE = "CS2113";
     public static final Activity TASK_1 = new DeadlineBuilder()
             .withName("Homework")
             .withDate("01-04-2021 01:00")

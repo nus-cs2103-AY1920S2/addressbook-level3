@@ -20,7 +20,7 @@ public class JsonAdaptedModuleTest {
     private static final String INVALID_NAME = "#name";
     //private static final String INVALID_ACTIVITY = "#friend";
 
-    private static final String VALID_CODE = CS2103T.getModuleName().toString();
+    private static final String VALID_CODE = "CS2103T";
     private static final String VALID_NAME = CS2103T.getModuleCode().toString();
     private static final List<JsonAdaptedActivity> VALID_ACTIVITIES = CS2103T.getActivities().getActivityList().stream()
             .map(JsonAdaptedActivity::new)
@@ -43,7 +43,7 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_nullCode_throwsIllegalValueException() {
         JsonAdaptedModule module = new JsonAdaptedModule(null, VALID_NAME, VALID_ACTIVITIES);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Module.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 

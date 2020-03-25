@@ -22,12 +22,15 @@ public class NasaBookParserTest {
 
     private final NasaBookParser parser = new NasaBookParser();
 
+    /*
     @Test
     public void parseCommand_add() throws Exception {
         Module module = new ModuleBuilder().build();
         AddModuleCommand command = (AddModuleCommand) parser.parseCommand(ModuleUtil.getAddModuleCommand(module));
         assertEquals(new AddModuleCommand(module), command);
     }
+
+     */
 
     @Test
     public void parseCommand_clear() throws Exception {

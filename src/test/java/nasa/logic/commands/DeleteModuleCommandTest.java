@@ -3,6 +3,8 @@ package nasa.logic.commands;
 import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
+import static nasa.testutil.TypicalModules.getTypicalModules;
+import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,15 +17,15 @@ import nasa.testutil.NasaBookBuilder;
 
 public class DeleteModuleCommandTest {
 
-    private Model model = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
 
     @Test
     public void execute_validModuleUnfilteredList_success() {
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
         DeleteModuleCommand deleteCommand = new DeleteModuleCommand(moduleToDelete.getModuleCode());
 
-        String expectedMessage = String.format(moduleToDelete.getModuleCode().toString()
-            + DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS);
+        String expectedMessage = String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
+                moduleToDelete.getModuleCode().toString());
 
         ModelManager expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);

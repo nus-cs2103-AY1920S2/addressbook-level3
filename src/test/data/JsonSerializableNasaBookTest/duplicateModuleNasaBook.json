@@ -1,0 +1,10 @@
+{
+  "modules": [ {
+    "moduleCode": "CS2103T",
+    "moduleName": "Software Engineering",
+    "tagged": [ "friends" ]
+  }, {
+    "moduleCode": "CS2103T",
+    "moduleName": "Software Engineering"
+  } ]
+}

@@ -2,6 +2,7 @@ package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newModule_success() {
-        Module validModule = new ModuleBuilder().build();
+        Module validModule = GEH1001;
 
         Model expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
         expectedModel.addModule(validModule);
@@ -37,7 +38,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateModule_throwsCommandException() {
         Module moduleInList = model.getNasaBook().getModuleList().get(0);
         assertCommandFailure(new AddModuleCommand(moduleInList), model, AddModuleCommand.MESSAGE_DUPLICATED_MODULE);
     }
