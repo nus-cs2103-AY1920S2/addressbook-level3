@@ -26,14 +26,14 @@ import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
- * Deletes ingredient(s) from an existing recipe in the recipe book.
+ * Edits ingredient(s) quantity from an existing recipe in the recipe book.
  */
-public class DeleteIngredientCommand extends Command {
+public class EditIngredientCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteingredient";
+    public static final String COMMAND_WORD = "editingredient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes ingredient(s) from an existing recipe in the "
-            + "recipe book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits ingredient(s) quantity from an existing recipe "
+            + "in the recipe book.\n"
             + "Parameters: [INDEX of recipe] "
             + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
             + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
@@ -41,11 +41,11 @@ public class DeleteIngredientCommand extends Command {
             + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
             + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_INGREDIENT_VEGE + "Tomato "
-            + PREFIX_INGREDIENT_VEGE + "Lettuce "
-            + PREFIX_INGREDIENT_OTHER + "Honeydew";
+            + PREFIX_INGREDIENT_VEGE + "100g, Tomato "
+            + PREFIX_INGREDIENT_VEGE + "100g, Lettuce "
+            + PREFIX_INGREDIENT_OTHER + "50g, Honeydew";
 
-    public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully deleted ingredient(s) from %1$s!";
+    public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully edited ingredient(s) in %1$s!";
 
     private final Index index;
     private final EditCommand.EditRecipeDescriptor editRecipeDescriptor;
@@ -54,7 +54,7 @@ public class DeleteIngredientCommand extends Command {
      * @param index of the recipe in the filtered recipe list to edit
      * @param editRecipeDescriptor details to edit the recipe with
      */
-    public DeleteIngredientCommand(Index index, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public EditIngredientCommand(Index index, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
         this.index = index;
         this.editRecipeDescriptor = editRecipeDescriptor;
     }
@@ -85,14 +85,19 @@ public class DeleteIngredientCommand extends Command {
     }
 
     /**
-     * Removes the specified {@code Grain} ingredient(s) from the current list of grains.
+     * Edits the quantity of the specified {@code Grain} ingredient(s) in the current list of grains.
      * If the specified grain ingredient(s) do not exist in the current list, nothing happens.
      */
     public void updateGrainsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getGrains().isPresent()) {
-            Set<Grain> grainsToDelete = new TreeSet<>(editRecipeDescriptor.getGrains().get());
+            Set<Grain> grainsToEdit = new TreeSet<>(editRecipeDescriptor.getGrains().get());
             Set<Grain> currentGrainsList = new TreeSet<>(recipeToEdit.getGrains());
-            currentGrainsList.removeIf(grainsToDelete::contains);
+            for (Grain grain : grainsToEdit) {
+                if (currentGrainsList.contains(grain)) {
+                    currentGrainsList.remove(grain);
+                    currentGrainsList.add(grain);
+                }
+            }
             editRecipeDescriptor.setGrains(currentGrainsList);
         } else {
             editRecipeDescriptor.setGrains(recipeToEdit.getGrains());
@@ -100,14 +105,19 @@ public class DeleteIngredientCommand extends Command {
     }
 
     /**
-     * Removes the specified {@code Vegetable} ingredient(s) from the current list of vegetables.
+     * Edits the quantity of the specified {@code Vegetable} ingredient(s) in the current list of vegetables.
      * If the specified vegetable ingredient(s) do not exist in the current list, nothing happens.
      */
     public void updateVegetablesList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getVegetables().isPresent()) {
-            Set<Vegetable> vegetablesToDelete = new TreeSet<>(editRecipeDescriptor.getVegetables().get());
+            Set<Vegetable> vegetablesToEdit = new TreeSet<>(editRecipeDescriptor.getVegetables().get());
             Set<Vegetable> currentVegetablesList = new TreeSet<>(recipeToEdit.getVegetables());
-            currentVegetablesList.removeIf(vegetablesToDelete::contains);
+            for (Vegetable vegetable : vegetablesToEdit) {
+                if (currentVegetablesList.contains(vegetable)) {
+                    currentVegetablesList.remove(vegetable);
+                    currentVegetablesList.add(vegetable);
+                }
+            }
             editRecipeDescriptor.setVegetables(currentVegetablesList);
         } else {
             editRecipeDescriptor.setVegetables(recipeToEdit.getVegetables());
@@ -115,14 +125,19 @@ public class DeleteIngredientCommand extends Command {
     }
 
     /**
-     * Removes the specified {@code Protein} ingredient(s) from the current list of proteins.
+     * Edits the quantity of the specified {@code Protein} ingredient(s) in the current list of proteins.
      * If the specified protein ingredient(s) do not exist in the current list, nothing happens.
      */
     public void updateProteinsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getProteins().isPresent()) {
-            Set<Protein> proteinsToDelete = new TreeSet<>(editRecipeDescriptor.getProteins().get());
+            Set<Protein> proteinsToEdit = new TreeSet<>(editRecipeDescriptor.getProteins().get());
             Set<Protein> currentProteinsList = new TreeSet<>(recipeToEdit.getProteins());
-            currentProteinsList.removeIf(proteinsToDelete::contains);
+            for (Protein protein : proteinsToEdit) {
+                if (currentProteinsList.contains(protein)) {
+                    currentProteinsList.remove(protein);
+                    currentProteinsList.add(protein);
+                }
+            }
             editRecipeDescriptor.setProteins(currentProteinsList);
         } else {
             editRecipeDescriptor.setProteins(recipeToEdit.getProteins());
@@ -130,14 +145,19 @@ public class DeleteIngredientCommand extends Command {
     }
 
     /**
-     * Removes the specified {@code Fruit} ingredient(s) from the current list of fruits.
+     * Edits the quantity of the specified {@code Fruit} ingredient(s) in the current list of fruits.
      * If the specified fruit ingredient(s) do not exist in the current list, nothing happens.
      */
     public void updateFruitsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getFruits().isPresent()) {
-            Set<Fruit> fruitsToDelete = new TreeSet<>(editRecipeDescriptor.getFruits().get());
+            Set<Fruit> fruitsToEdit = new TreeSet<>(editRecipeDescriptor.getFruits().get());
             Set<Fruit> currentFruitsList = new TreeSet<>(recipeToEdit.getFruits());
-            currentFruitsList.removeIf(fruitsToDelete::contains);
+            for (Fruit fruit : fruitsToEdit) {
+                if (currentFruitsList.contains(fruit)) {
+                    currentFruitsList.remove(fruit);
+                    currentFruitsList.add(fruit);
+                }
+            }
             editRecipeDescriptor.setFruits(currentFruitsList);
         } else {
             editRecipeDescriptor.setFruits(recipeToEdit.getFruits());
@@ -145,14 +165,19 @@ public class DeleteIngredientCommand extends Command {
     }
 
     /**
-     * Removes the specified {@code Other} ingredient(s) from the current list of other ingredients.
+     * Edits the quantity of the specified {@code Other} ingredient(s) in the current list of other ingredients.
      * If the specified other ingredient(s) do not exist in the current list, nothing happens.
      */
     public void updateOthersList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getOthers().isPresent()) {
-            Set<Other> othersToDelete = new TreeSet<>(editRecipeDescriptor.getOthers().get());
+            Set<Other> othersToEdit = new TreeSet<>(editRecipeDescriptor.getOthers().get());
             Set<Other> currentOthersList = new TreeSet<>(recipeToEdit.getOthers());
-            currentOthersList.removeIf(othersToDelete::contains);
+            for (Other other : othersToEdit) {
+                if (currentOthersList.contains(other)) {
+                    currentOthersList.remove(other);
+                    currentOthersList.add(other);
+                }
+            }
             editRecipeDescriptor.setOthers(currentOthersList);
         } else {
             editRecipeDescriptor.setOthers(recipeToEdit.getOthers());
@@ -162,8 +187,8 @@ public class DeleteIngredientCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteIngredientCommand // instanceof handles nulls
-                && index.equals(((DeleteIngredientCommand) other).index)
-                && editRecipeDescriptor.equals(((DeleteIngredientCommand) other).editRecipeDescriptor)); // state check
+                || (other instanceof EditIngredientCommand // instanceof handles nulls
+                && index.equals(((EditIngredientCommand) other).index)
+                && editRecipeDescriptor.equals(((EditIngredientCommand) other).editRecipeDescriptor)); // state check
     }
 }

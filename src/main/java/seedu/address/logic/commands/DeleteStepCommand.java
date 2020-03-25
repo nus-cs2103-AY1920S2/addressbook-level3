@@ -20,7 +20,7 @@ import seedu.address.model.recipe.Step;
  */
 public class DeleteStepCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteStep";
+    public static final String COMMAND_WORD = "deletestep";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes step(s) from an existing recipe in the "
             + "recipe book.\n"
