@@ -73,14 +73,15 @@ public class Module {
     }
 
     /**
-     * Adds a group to the list of groups.
+     * Adds a group to the list of module groups.
      */
     public void addGroup(Group group) {
         groups.add(group);
     }
 
     /**
-     * Deletes the group that is equal to the given group.
+     * Deletes the given group from the list of module groups,
+     * if it exists.
      */
     public void deleteGroup(Group group) {
         groups.remove(group);
