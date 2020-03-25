@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-title creating CalorieTables when the application is launched
+title Sequence Diagram of CalorieTables Initialization
 
 participant ":MainApp" as Main #black
 participant ":ModelManager" as Model MODEL_COLOR
