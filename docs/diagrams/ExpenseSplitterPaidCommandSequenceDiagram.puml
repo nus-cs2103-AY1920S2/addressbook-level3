@@ -4,6 +4,7 @@
 Actor User as user USER_COLOR
 Participant ":EYLAH" as ui UI_COLOR
 Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":StorageManager" as storage STORAGE_COLOR
 Participant ":ModelManager" as model MODEL_COLOR
 Participant ":PersonAmountBook" as personamountbook MODEL_COLOR
 Participant ":UniquePersonList" as uniquepersonlist MODEL_COLOR
@@ -35,6 +36,16 @@ deactivate uniquepersonlist
 deactivate personamountbook
 
 deactivate model
+
+logic -[LOGIC_COLOR]> storage : savePersonAmountBook(personAmount)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> logic
+deactivate storage
 
 logic --[UI_COLOR]> ui : CommandResult
 deactivate logic
