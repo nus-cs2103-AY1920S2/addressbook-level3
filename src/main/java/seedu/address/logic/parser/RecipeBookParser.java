@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddStepCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteIngredientCommand;
 import seedu.address.logic.commands.DeleteStepCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditStepCommand;
@@ -103,6 +104,9 @@ public class RecipeBookParser {
 
         case AddIngredientCommand.COMMAND_WORD:
             return new AddIngredientCommandParser().parse(arguments);
+
+        case DeleteIngredientCommand.COMMAND_WORD:
+            return new DeleteIngredientCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
