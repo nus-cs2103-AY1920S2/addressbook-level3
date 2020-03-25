@@ -50,6 +50,7 @@ a|
    13. Shows reminders: remind
    14. Viewing savings: saved
    15. Undo the previous command: undo/redo
+   16. Archive a coupon: archive
 
  |3
 
@@ -81,8 +82,8 @@ Coupon Stash is for SoC students and staff who rightfully *prefer to use a deskt
 e.g. typing *help* and pressing Enter will open the help window.
 .  Some example commands you can try:
 * *list* : lists all coupons
-* *add:* add n/Techno Western d/20% off s/2/3/2020: adds a coupon named Techno Western to the Coupon Stash.
-* *delete*: delete 3 : deletes the 3rd coupon shown in the current list
+* *add:* `add n/Domino's Pizaa Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5 t/pizza t/delivery`: adds a coupon named Domino's Pizaa Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
+* *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to Section 3, “Features” for details of each command.
 
@@ -94,7 +95,7 @@ e.g. typing *help* and pressing Enter will open the help window.
 *Command Format*
 
 * Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add n/NAME, NAME is a parameter which can be used as add n/The Deck Chicken Rice.
-* Items in square brackets are optional e.g n/NAME [t/TAG] can be used as n/The Deck Chicken Rice t/value or as n/The Deck Chicken Rice.
+* Items in square brackets are optional e.g n/NAME [t/TAG] can be used as `n/The Deck Chicken Rice t/value` or as `n/The Deck Chicken Rice`.
 * Items with …​ after them can be used multiple times including zero times e.g. [t/TAG]…​ can be used as (i.e. 0 times), t/value, t/friend t/value etc.
 * Parameters can be in any order e.g. if the command specifies n/NAME, d/DETAILS, d/DETAILS n/NAME is also acceptable.
 * Dates are all in the DD/MM/YYYY format. (CouponStash-Date format)
@@ -323,11 +324,8 @@ A message will be displayed: You have saved $117.15 as well as earned
 
 === Use a coupon: `used`
 Uses a coupon if its usage has yet to reached its limit.
-Requires an original amount of purchase if the coupon has savings in percentage. +
-Format: +
-`used INDEX` +
-or +
-`used INDEX MONETARY_SYMBOL+ORIGINAL_AMOUNT`
+Requires an original amount of purchase if the coupon has savings in a percentage value. +
+Format: `used INDEX` or `used INDEX MONETARY_SYMBOL+ORIGINAL_AMOUNT`
 
 ****
 * Uses the coupon at the specified INDEX.
@@ -391,6 +389,27 @@ Undo the `remind` command. Reminder is removed.
 * `edit 1 d/50% off` +
   `undo` +
 Revert the edit that was performed. Has no effect if nothing was undone before.
+
+=== Archive a coupon: `archive`
+Archives a coupon when you want to keep a record of it, without cluttering your current stash of coupons.
+
+TIP: Coupon Stash will automatically archive your coupons once their usage limit has reach, or when they have expired, to keep your stash more organized!
+Find your archives easily with the `find` command.
+
+Format: `archive INDEX`
+
+****
+* Archives the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon
+list.
+* The index *must be a positive integer* 1, 2, 3, …​
+****
+
+Examples:
+
+* `archive 1` +
+Archives the first coupon in the coupon stash.
+
 
 == FAQ
 
