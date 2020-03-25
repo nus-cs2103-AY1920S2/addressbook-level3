@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+
+title creating CalorieTables when the application is launched
+
+participant ":MainApp" as Main #black
+participant ":ModelManager" as Model MODEL_COLOR
+participant ":FitHelper" as Fh #red
+participant ":CalorieTable" as Table #green
+participant ":CalorieEntryUtil" as Data #blue
+
+ -> Main : initModelManager()
+activate Main
+create Model
+Main -> Model
+activate Model
+create Fh
+Model -> Fh
+activate Fh
+create Table
+Fh -> Table
+activate Table
+Table -> Data : getData()
+Table <-- Data : data in String
+Table -> Table : convertDataToList()
+Fh <-- Table
+deactivate
+Model <-- Fh
+deactivate
+Main <-- Model :
+deactivate
+ <-- Main : model
+deactivate Main
+
+@enduml

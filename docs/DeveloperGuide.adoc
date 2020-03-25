@@ -267,6 +267,50 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 The following sequence diagram shows how the update operation works to change user profile in model:
 image:UpdateSequenceDiagram.png[]
 
+=== Check calorie intake/consumption of some common food/sports
+
+==== Implementation
+The check function is achieved by calling the `FitHelper` inside the `ModelManager` to search
+through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieEntry` that contain the
+keywords specified by the user.
+
+Given below are example usage scenario:
+
+Initialization: when the application is launched, `ModelManager` will initialize a `FitHelper`, which
+will in turn initialize both `FoodCalorieTable` and `SportsCalorieTable` to contain pre-set data
+which is a list of one type of `CalorieEntry` (either `FoodCalorieEntry` or `SportsCalorieEntry`).
+
+image::InitializationOfCalorieTables.png[]
+
+Case 1: when the user enter the command `check x/sports k/swim`, the `LogicManager` will create
+a `CheckCommand`, which askes `ModelManager` to let `FitHelper` to search through `SportsCalorieTable`
+to add first 3 `CalorieEntry` whose name contains the keyword `swim` into a List, and return the
+list to `CheckCommand`. Since the list contains at least one `CalorieEntry` (meaning there is
+some matching entries), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser`
+contains a success message followed by the string representation of each matching entries.
+
+Case 2: when the user enter the command `check x/f k/swim`, the `LogicManager` will create
+a `CheckCommand`, which askes `ModelManager` to let ` FitHelper` to search through `FoodCalorieTable`
+to add first 3 `CalorieEntry`s whose name contains the keyword `swim` into a List, and return
+the list to `CheckCommand`. Since the list contains no `CalorieEntry` (meaning there is no
+matching entries), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser` contains
+a failure message followed by the string representation of the keyword.
+
+image::SequenceDiagramForCheckCommand.png[]
+
+==== Design Considerations
+
+Aspect: Data structure to store entries
+
+* **Alternative 1 (current choice):** Use an `ArrayList` as an attribute in CalorieTable
+to store the entries.
+** pros: easy to implement partial-key search (compare the keyword with the name of each entry in the list).
+** cons: O(n) complexity for finding matching entries, where n is the number of entries in the list.
+* **Alternative 2:** Use a `HashMap` as an attribute in CalorieTable to store the entries.
+The key is the name of the entry and the value is the entry.
+** pros: (theoretically) O(1) time complexity for finding an entry given a complete keyword,
+regardless of how many entries are in the HashMap.
+** cons: hard to implement partial-key search (i.e. the keyword is only part of the name of the entry).
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

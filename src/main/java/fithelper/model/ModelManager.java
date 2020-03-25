@@ -276,22 +276,22 @@ public class ModelManager implements Model {
      * Searches the {@code FoodCalorieTable} and add all entries whose name contains the keyword into a list
      * add returns the list.
      *
-     * @param keyword keyword for searching
+     * @param keywords keyword for searching
      * @return a list of {@code CalorieEntry} with matching keyword
      */
-    public List<CalorieEntry> searchFoodCalorieTable(String keyword) {
-        return fitHelper.addCalorieEntries("f", keyword);
+    public List<CalorieEntry> searchFoodCalorieTable(String keywords) {
+        return fitHelper.addCalorieEntries("f", keywords);
     }
 
     /**
-     * Searches the {@code SportsCalorieTable} and add all entries whose name contains the keyword into a list
+     * Searches the {@code SportsCalorieTable} and add all entries whose name contains the keywords into a list
      * add returns the list.
      *
-     * @param keyword keyword for searching
-     * @return a list of {@code CalorieEntry} with matching keyword
+     * @param keywords keywords for searching
+     * @return a list of {@code CalorieEntry} with matching keywords
      */
-    public List<CalorieEntry> searchSportsCalorieTable(String keyword) {
-        return fitHelper.addCalorieEntries("s", keyword);
+    public List<CalorieEntry> searchSportsCalorieTable(String keywords) {
+        return fitHelper.addCalorieEntries("s", keywords);
     }
 
     @Override
