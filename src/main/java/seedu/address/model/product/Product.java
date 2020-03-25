@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * Represents a Product in the product list.
@@ -21,15 +22,18 @@ public class Product {
     private final Quantity quantity;
     private final Sales sales;
 
+    private QuantityThreshold threshold;
+
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, Price price, Quantity quantity, Sales sales) {
+    public Product(Description description, Price price, Quantity quantity, Sales sales, QuantityThreshold threshold) {
         requireAllNonNull(description, price, quantity);
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
+        this.threshold = threshold;
     }
 
     public Description getDescription() {
@@ -48,6 +52,13 @@ public class Product {
         return sales;
     }
 
+    public QuantityThreshold getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(String threshold) {
+        this.threshold = new QuantityThreshold(threshold);
+    }
     /**
      * Returns true if both products have the same identity and data fields.
      */
@@ -99,7 +110,9 @@ public class Product {
                 .append(" Quantity: ")
                 .append(getQuantity())
                 .append(" Sales: ")
-                .append(getSales());;
+                .append(getSales())
+                .append(" Threshold: ")
+                .append(getThreshold());
         return builder.toString();
     }
 

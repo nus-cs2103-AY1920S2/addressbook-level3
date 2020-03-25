@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCRIPTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.List;
@@ -43,14 +43,14 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_MONEY + "MONEY] "
-            + "[" + PREFIX_TRANS_DESCIPTION + "DESCRIPTION] \n"
+            + "[" + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "Bob "
             + PREFIX_PRODUCT + "WaterMelon "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
             + PREFIX_QUANTITY + "30 "
             + PREFIX_MONEY + "30 "
-            + PREFIX_TRANS_DESCIPTION + "under discount ";
+            + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCRIPTION;
 import static seedu.address.model.util.Description.DEFAULT_VALUE;
 
 import java.util.stream.Stream;
@@ -34,7 +34,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
     public AddTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME, PREFIX_QUANTITY,
-                        PREFIX_MONEY, PREFIX_TRANS_DESCIPTION);
+                        PREFIX_MONEY, PREFIX_TRANS_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME, PREFIX_QUANTITY,
                 PREFIX_MONEY)
@@ -50,8 +50,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         Money money = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
 
         Description transDescription;
-        if (arePrefixesPresent(argMultimap, PREFIX_TRANS_DESCIPTION)) {
-            transDescription = ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCIPTION).get());
+        if (arePrefixesPresent(argMultimap, PREFIX_TRANS_DESCRIPTION)) {
+            transDescription = ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCRIPTION).get());
         } else {
             transDescription = new Description(DEFAULT_VALUE);
         }

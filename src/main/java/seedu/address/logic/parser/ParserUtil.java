@@ -21,6 +21,7 @@ import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -294,5 +295,20 @@ public class ParserUtil {
             throw new ParseException(StartEndDate.MESSAGE_CONSTRAINTS);
         }
         return new StartEndDate(endDate);
+    }
+
+    /**
+     * Parses a {@code String threshold} into an {@code trimmedThreshold}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static QuantityThreshold parseThreshold(String threshold) throws ParseException {
+        requireNonNull(threshold);
+        String trimmedThreshold = threshold.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedThreshold)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return new QuantityThreshold(trimmedThreshold);
     }
 }

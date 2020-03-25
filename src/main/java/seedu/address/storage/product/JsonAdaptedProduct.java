@@ -9,6 +9,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 
 /**
@@ -22,17 +23,20 @@ public class JsonAdaptedProduct {
     private final String price;
     private final String quantity;
     private final String sales;
+    private final String threshold;
 
     /**
      * Constructs a {@code JsonAdaptedProduct} with the given product details.
      */
     @JsonCreator
     public JsonAdaptedProduct(@JsonProperty("description") String description, @JsonProperty("price") String price,
-                             @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales) {
+                             @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales,
+                              @JsonProperty("threshold") String threshold) {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
+        this.threshold = threshold;
     }
 
     /**
@@ -43,6 +47,7 @@ public class JsonAdaptedProduct {
         price = source.getPrice().value;
         quantity = source.getQuantity().value;
         sales = source.getSales().value;
+        threshold = source.getThreshold().value;
     }
 
     /**
@@ -85,7 +90,16 @@ public class JsonAdaptedProduct {
         }
         final Sales modelSales = new Sales(sales);
 
-        return new Product(modelDescription, modelPrice, modelQuantity, modelSales);
+        if (threshold == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    QuantityThreshold.class.getSimpleName()));
+        }
+        if (!QuantityThreshold.isValidQuantity(threshold)) {
+            throw new IllegalValueException(QuantityThreshold.MESSAGE_CONSTRAINTS);
+        }
+        final QuantityThreshold modelQuantityThreshold = new QuantityThreshold(threshold);
+
+        return new Product(modelDescription, modelPrice, modelQuantity, modelSales, modelQuantityThreshold);
     }
 
 }
