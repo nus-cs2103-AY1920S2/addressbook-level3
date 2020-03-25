@@ -7,11 +7,12 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.notably.commons.core.path.Path;
+import com.notably.commons.core.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.model.Model;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockImpl;
 import com.notably.model.block.Body;
@@ -21,9 +22,12 @@ import com.notably.model.block.Title;
  * Represents a Parser for New Command.
  */
 public class NewCommandParser implements CommandParser {
+    private Model notablyModel;
 
+    public NewCommandParser(Model notablyModel) {
+        this.notablyModel = notablyModel;
+    }
     /**
-     * TODO: integrate with CorrectionEngine.
      * Parse input and create NewCommand and OpenCommand.
      * @param args parse userInput used to create block.
      * @return List of command to execute.
@@ -41,8 +45,9 @@ public class NewCommandParser implements CommandParser {
         String title = argMultimap.getValue(PREFIX_TITLE).get();
         String body = argMultimap.getValue(PREFIX_BODY).get();
 
-        Path path = ParserUtil.createPath(title);
+        AbsolutePath path = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         Block block = new BlockImpl(new Title(title), new Body(body));
+
         List<Command> commands = new ArrayList<>();
         commands.add(new NewCommand(block, path));
 

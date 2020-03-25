@@ -3,9 +3,6 @@ package com.notably.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.Path;
-import com.notably.commons.core.path.RelativePath;
-import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 
 /**
@@ -13,24 +10,20 @@ import com.notably.model.Model;
  */
 public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
-    private Path path;
+    private AbsolutePath path;
 
-    public OpenCommand(Path path) {
+    public OpenCommand(AbsolutePath path) {
         this.path = path;
     }
 
     /**
-     * Open block path
+     * Open block path.
      * @param notablyModel used to open path.
-     * @throws CommandException if there is an invalid path error.
      */
-    public void execute(Model notablyModel) throws CommandException {
+    @Override
+    public void execute(Model notablyModel) {
         requireNonNull(notablyModel);
-        if (this.path instanceof RelativePath) {
-            RelativePath toConvert = (RelativePath) this.path;
-            this.path = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
-        }
-        notablyModel.setCurrentlyOpenBlock((AbsolutePath) path);
+        notablyModel.setCurrentlyOpenBlock(path);
     }
 
 }
