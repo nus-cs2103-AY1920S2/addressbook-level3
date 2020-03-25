@@ -240,6 +240,53 @@ The model will then be updated using the predicate obtained from the `getAreaPre
 A new `CommandResult` will be created and returned to the `LogicManager`.
 
 
+=== Import feature
+The import feature allows users to save the trouble of adding the delivery orders and the return orders one by one
+when they have large amount of delivery orders or return orders to add into Delino.
+
+The import feature was implemented as a `ImportCommand` in the `Logic` package.
+
+==== Class Diagram for Import feature:
+
+image::ImportClassDiagram.png[]
+
+==== Sequence Diagram for importing the csv file.
+The sequence diagram for the *Import Command* when import the data from the  *csv file*
+is shown below:
+
+image::ImportCommandSequenceDiagram.png[]
+
+The arguments passed to the Import Command will be parsed by the `ImportCommandParser` class. +
+If the given arguments are valid, a new `ImportCommand` object will be returned.
+In this class, invalid arguments will result in a `ParseException`. +
+
+Two types of checks will be done before returning the `ImportCommand`:
+
+* Check whether the file is exists in the data folder.
+* Check whether the first prefix is `orderType` prefix.
+
+[NOTE]
+====
+`CsvProcessor` is  a helper class that helps to retrieve the data from the csv file and process the data before
+giving to `ImportCommand`.
+====
+
+After the `ImportCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
+to run the execute the import Command, this is will be shown at the <<Execution of Import Command Sequence Diagram, Execution of Import Command Sequence Diagram>>.
+
+==== Execution of Import Command Sequence Diagram
+image::ImportCommandSequenceDiagram2.png[]
+
+The `execute(model)` function of the `ImportCommand` will first check if the data given starts with
+*order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
+
+Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return the `InsertCommand` or `ReturnCommand` respective
+if it successfully parse the data. The `ImportCommand` will then call the `execute(Model)` function of `InsertCommand`
+or `ReturnCommand`. This will cause a delivery order or return order being added into the `Model`.
+
+The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
+which is then pass back to the `LogicManager`.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
