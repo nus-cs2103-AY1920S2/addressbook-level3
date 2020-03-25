@@ -1,4 +1,4 @@
-= Coupon Stash v1.0 - User Guide
+= Coupon Stash v1.3 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -423,7 +423,10 @@ Exports the 1st coupon in the results of the find command to an `add` command an
 
 *Q*: Can I add multiple coupons using a command line?
 
-*A:* Yes, you can. Use the ``Add'' command and type in all your coupons
+*A:*  Sorry, not at the moment. We may consider adding this feature in version 2.0.0. +
+{empty} +
+
+Yes, you can. Use the ``Add'' command and type in all your coupons
 in this format, +
 add n/Co-op s/25% off on all stationeries sd/25-2-2020 e/30-8-2020 t/value
 t/stationaries +
@@ -456,7 +459,7 @@ calculate the values saved based on the details of the coupon.
 
 == Command Summary
 
-* *Add:* `add n/NAME d/DETAILS s/START DATE [e/EXPIRY] [t/TAG]…`​ +
+* *Add:* `add n/name e/EXPIRY DATE s/SAVINGS [l/limit] [p/PROMO CODE] [sd/START DATE] [r/REMIND DATE] [c/CONDITION] [t/TAG]…`​ +
 e.g. `add n/The Deck Chicken Rice s/20% off sd/2-3-2020 e/30-8-2020 t/friend t/value`
 * *Clear*: `clear`
 * *Delete*: `delete INDEX` +
