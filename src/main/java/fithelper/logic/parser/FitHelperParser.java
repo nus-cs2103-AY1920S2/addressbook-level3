@@ -83,7 +83,7 @@ public class FitHelperParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD_1:
             // fall through
@@ -93,10 +93,10 @@ public class FitHelperParser {
             return new ExitCommand();
 
         case TodayCommand.COMMAND_WORD:
-            return new TodayCommand();
+            return new TodayCommandParser().parse(arguments);
 
         case DiaryCommand.COMMAND_WORD:
-            return new DiaryCommand();
+            return new DiaryCommandParser().parse(arguments);
 
         case CalendarCommand.COMMAND_WORD:
             return new CalendarParser().parse(arguments);
