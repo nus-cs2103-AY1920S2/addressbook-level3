@@ -211,7 +211,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoState4.svg[]
 
-Step 6. The user executes `clear`, which calls `Model#commitRecipeBook()`. Since the `currentStatePointer` is not pointing at the end of the `recipeBookStateList`, all recipe book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Chicken Rice ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `reset`, which calls `Model#commitRecipeBook()`. Since the `currentStatePointer` is not pointing at the end of the `recipeBookStateList`, all recipe book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `new n/Chicken Rice ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.svg[]
 
