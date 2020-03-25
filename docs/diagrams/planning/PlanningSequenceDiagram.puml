@@ -1,6 +1,0 @@
-@startuml
-participant ":PlannedRecipeMap" as PlannedRecipeMap
-participant ":AddressBookParser" as AddressBookParser
-participant ":ScheduleCommand" as ScheduleCommand
-
-@enduml

@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
+participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "d:Date" as Date MODEL_COLOR
+participant "i:Index" as Index MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":PlannedRecipeMap" as PlannedRecipeMap MODEL_COLOR
+end box
+
+[-> LogicManager : execute("schedule 3 2020-02-02")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("schedule 3 2020-02-02")
+activate AddressBookParser
+
+create ScheduleCommandParser
+AddressBookParser -> ScheduleCommandParser
+activate ScheduleCommandParser
+
+ScheduleCommandParser --> AddressBookParser
+deactivate ScheduleCommandParser
+
+AddressBookParser -> ScheduleCommandParser : parse("3 2020-02-02")
+activate ScheduleCommandParser
+
+'Date and Index necessary?
+
+create Date
+ScheduleCommandParser -> Date
+activate Date
+
+Date --> ScheduleCommandParser : d
+deactivate Date
+
+create Index
+ScheduleCommandParser -> Index
+activate Index
+
+Index --> ScheduleCommandParser : i
+deactivate Index
+
+create ScheduleCommand
+ScheduleCommandParser -> ScheduleCommand
+activate ScheduleCommand
+
+ScheduleCommand --> ScheduleCommandParser : s
+deactivate ScheduleCommand
+
+ScheduleCommandParser --> AddressBookParser : s
+deactivate ScheduleCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ScheduleCommandParser -[hidden]-> AddressBookParser
+destroy ScheduleCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+LogicManager -> ScheduleCommand : execute()
+activate ScheduleCommand
+
+ScheduleCommand -> Model : getFilteredRecipeList()
+activate Model
+Model --> ScheduleCommand : recipeList
+
+'Must we show how we obtain Recipe?
+
+Model -> PlannedRecipeMap : planRecipe(recipe, date)
+activate PlannedRecipeMap
+PlannedRecipeMap --> Model
+deactivate PlannedRecipeMap
+
+deactivate Model
+
+create CommandResult
+ScheduleCommand -> CommandResult
+activate CommandResult
+CommandResult --> ScheduleCommand
+deactivate CommandResult
+
+ScheduleCommand --> LogicManager : result
+deactivate ScheduleCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
