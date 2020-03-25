@@ -365,9 +365,6 @@ Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not c
 .Tree Data Structure Design Example
 image::TreeDataStructureDesign.png[]
 
-[[Implementation-UI]]
-=== UI
-TODO:Edit below
 
 == Documentation
 
