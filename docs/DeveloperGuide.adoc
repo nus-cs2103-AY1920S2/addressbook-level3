@@ -446,6 +446,34 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Schedule a recipe
+
+*MSS*
+
+1.  User enters which recipe index and date they would like to schedule
+2.  HealthyBaby shows the recipe scheduled under the given date
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given recipe index is invalid.
++
+[none]
+** 2a1. HealthyBaby shows an error message.
++
+Use case ends.
+
+[none]
+* 2b. The given date is invalid.
++
+[none]
+** 2b1. HealthyBaby shows an error message.
++
+Use case ends.
+
+[discrete]
 === Use case: Clear entire recipe list
 
 *MSS*
