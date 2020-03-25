@@ -106,7 +106,7 @@ StringCorrectionEngine .up.|> CorrectionEngine
 LogicManager .up.|> Logic
 LogicManager -->"1" NotablyParser
 NotablyParser .left.> XYZCommandParser: creates >
-NotablyParser .right--> Model 
+NotablyParser .right--> Model
 
 XYZCommandParser .up..> XYZCommand : creates >
 XYZCommandParser ..|> CommandParser

@@ -20,11 +20,11 @@ activate LogicManager
 LogicManager -> NotablyParser : parseCommand("delte -t cs2103")
 activate NotablyParser
 
-NotablyParser -> StringCorrectionEngine : correct("delte") 
-activate StringCorrectionEngine 
+NotablyParser -> StringCorrectionEngine : correct("delte")
+activate StringCorrectionEngine
 
 StringCorrectionEngine --> NotablyParser : "delete"
-deactivate StringCorrectionEngine 
+deactivate StringCorrectionEngine
 
 create DeleteCommandParser
 NotablyParser -> DeleteCommandParser
@@ -38,15 +38,15 @@ activate DeleteCommandParser
 
 create AbsolutePathCorrectionEngine
 DeleteCommandParser -> AbsolutePathCorrectionEngine: AbsolutePathCorrectionEngine(model, 2)
-activate AbsolutePathCorrectionEngine 
-AbsolutePathCorrectionEngine --> DeleteCommandParser 
-deactivate AbsolutePathCorrectionEngine 
+activate AbsolutePathCorrectionEngine
+AbsolutePathCorrectionEngine --> DeleteCommandParser
+deactivate AbsolutePathCorrectionEngine
 
 DeleteCommandParser -> AbsolutePathCorrectionEngine: correct(p)
-activate AbsolutePathCorrectionEngine 
+activate AbsolutePathCorrectionEngine
 
 AbsolutePathCorrectionEngine --> DeleteCommandParser : corrected path
-deactivate AbsolutePathCorrectionEngine 
+deactivate AbsolutePathCorrectionEngine
 
 create DeleteCommand
 DeleteCommandParser -> DeleteCommand : DeleteCommand(p)
@@ -73,7 +73,7 @@ activate Model
 Model --> DeleteCommand
 deactivate Model
 
-DeleteCommand --> LogicManager 
+DeleteCommand --> LogicManager
 deactivate DeleteCommand
 
 [<--LogicManager
