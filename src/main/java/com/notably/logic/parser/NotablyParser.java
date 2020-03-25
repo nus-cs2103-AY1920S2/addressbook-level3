@@ -48,7 +48,7 @@ public class NotablyParser {
             throw new ParseException("Invalid command");
         }
         commandWord = correctedCommand.get();
-        final String arguments = matcher.group("arguments");o
+        final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
         case NewCommand.COMMAND_WORD:
