@@ -70,7 +70,7 @@ public class ModelManager implements Model {
     @Override
     public void listReceipt() {
 
-        System.out.println(receipt);
+        System.out.println(receipt.toString());
 
     }
 
