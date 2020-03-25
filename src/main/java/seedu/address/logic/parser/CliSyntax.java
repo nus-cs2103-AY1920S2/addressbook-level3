@@ -15,5 +15,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_INGREDIENT_PROTEIN = new Prefix("ip/");
     public static final Prefix PREFIX_INGREDIENT_FRUIT = new Prefix("if/");
     public static final Prefix PREFIX_INGREDIENT_OTHER = new Prefix("io/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
 
 }

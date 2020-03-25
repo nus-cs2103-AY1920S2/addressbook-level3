@@ -155,7 +155,7 @@ public class Recipe {
         }
 
         Recipe otherRecipe = (Recipe) other;
-        /* debug purposes
+        /* debug purposes todo remove string debugging later
         System.out.print("my: " + grains + ", other: " + otherRecipe.getGrains()
                 + "my: " + vegetables + ", other: " + otherRecipe.getVegetables()
                 + "my: " + proteins + ", other: " + otherRecipe.getProteins()
