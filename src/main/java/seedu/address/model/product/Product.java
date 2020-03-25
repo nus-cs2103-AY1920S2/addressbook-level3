@@ -8,7 +8,6 @@ import java.util.UUID;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
-import seedu.address.ui.NotificationWindow;
 
 /**
  * Represents a Product in the product list.
