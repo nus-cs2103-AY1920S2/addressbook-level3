@@ -235,12 +235,64 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::manageproduct[]
+=== [Proposed] Add/ delete/ edit/ clear/ list/ find product feature
+==== Proposed Implementation
 
-// end::dataencryption[]
+The manage product mechanism is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+This results in a Command object which is executed by the LogicManager.
+The command execution modifies Model's product list depending on the command.
+The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
+
+The following commands are available to be parsed by InventorySystemParser:
+
+* `AddProductCommand` -- Adds a product into the product list in the inventory system.
+* `ListProductCommand` -- Lists all products in the product list.
+* `ClearProductCommand` -- Clears all products in the product list.
+* `DeleteProductCommand` -- Deletes a product from the product list in the inventory system.
+* `EditProductCommand` -- Edits a product details (description, price, quantity, sales)
+* `FindProductCommand` -- Finds products with name containing given keyword(s)
+
+The commands all inherit from superclass `Command`. Only add, delete, edit and find commands require a command parser to parse the arguments entered by the user.
+
+The following sequence diagram shows how the add operation works:
+
+image::AddProductSequenceDiagram.png[]
+
+The following sequence diagram shows how the list operation works:
+
+image::ListProductSequenceDiagram.png[]
+
+The following sequence diagram shows how the edit operation works:
+
+image::EditProductSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a command that changes the product list in the model:
+
+image::ProductActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How product commands are executed
+
+* **Alternative 1 (current choice):** Keep products in the inventory system
+** Pros: Easy to implement, use less memory
+** Cons: If inventory system is corrupted then product data is lost
+* **Alternative 2:** Keep products in a product management system, separate from the customers and transactions
+** Pros: Keep implementation of products, customers and transactions separate
+** Cons: Use more memory, tedious implementation
+
+===== Aspect: Data structure to support the product commands
+
+* **Alternative 1 (current choice):** Use a list (`ArrayList`) to store the products
+** Pros: Easy to sort and iterate through the list, get(index) method always gives an O(1) performance
+** Cons: allows duplicates
+* **Alternative 2:** Use a hashmap to store the products
+** Pros: Finding a product is O(1), does not allow duplicate keys
+** Cons: Difficult to sort and iterate through hashmap, get(key) can be O(1) in the best case and O(n) in the worst case.
+// end::manageproduct[]
 
 === Logging
 
