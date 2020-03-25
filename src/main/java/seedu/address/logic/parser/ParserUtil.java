@@ -513,6 +513,11 @@ public class ParserUtil {
         return othersSet;
     }
 
+    /**
+     * Parses {@code String date} into a {@code Date}.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
@@ -522,12 +527,3 @@ public class ParserUtil {
         return new Date(trimmedDate);
     }
 }
-/*
-    public static Time parseTime(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedTime = time.trim();
-        if (!Time.isValidTime(trimmedTime)) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
-        }
-        return new Time(trimmedTime);
-    }*/

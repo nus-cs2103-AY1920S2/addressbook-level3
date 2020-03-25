@@ -11,15 +11,15 @@ import java.time.format.DateTimeParseException;
  * Represents a date in the planned recipes book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date implements Comparable<Date>{
+public class Date implements Comparable<Date> {
 
 
     public static final String MESSAGE_CONSTRAINTS =
             "Date should be written in the format YYYY-MM-DD";
 
     public static final String VALIDATION_REGEX = "^[0-9-]+";
-    public static final DateTimeFormatter dayOfWeek = DateTimeFormatter.ofPattern("EEEE");
-    public static final DateTimeFormatter dateAndMonth = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");
+    public static final DateTimeFormatter DATE_AND_MONTH = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
     public final LocalDate date;
 
@@ -52,7 +52,7 @@ public class Date implements Comparable<Date>{
     }
 
     @Override
-    public int compareTo(Date other){
+    public int compareTo(Date other) {
         LocalDate otherLocalDate = other.date;
         if (date.isBefore(otherLocalDate)) {
             return -1;
@@ -65,7 +65,7 @@ public class Date implements Comparable<Date>{
 
     @Override
     public String toString() {
-        return date.format(dayOfWeek) + ": " + date.format(dateAndMonth);
+        return date.format(DAY_OF_WEEK) + ": " + date.format(DATE_AND_MONTH);
     }
 
     @Override

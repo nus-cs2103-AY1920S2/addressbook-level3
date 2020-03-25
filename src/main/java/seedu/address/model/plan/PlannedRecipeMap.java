@@ -8,7 +8,7 @@ import java.util.TreeMap;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Holds a tree of <Date, List<Recipe>> (key, value) pairs which stores the
+ * Holds a tree of (Date, List(Recipe)) (key, value) pairs which stores the
  * planned recipe that the user plans to cook on that certain date.
  *
  * The value of each key (date) currently holds only one recipe.
@@ -46,7 +46,7 @@ public class PlannedRecipeMap {
      * Returns a list of recipes that were planned from the period starting from date
      * to 'daysFromDate' number of days since that day.
      */
-/*    public List<Recipe> getRecipeInRange(Date date, int daysFromDate) {
+    /*    public List<Recipe> getRecipeInRange(Date date, int daysFromDate) {
         List<Recipe> recipes = new ArrayList<>();
         while (daysFromDate > 0 && hasLaterDate(date)) {
             // check if later date is more than days from date

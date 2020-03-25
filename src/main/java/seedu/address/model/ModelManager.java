@@ -40,7 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        plannedRecipes = new PlannedRecipeMap();     // todo: planned recipes cant be saved currently
+        plannedRecipes = new PlannedRecipeMap(); // todo: planned recipes cant be saved currently
     }
 
     public ModelManager() {

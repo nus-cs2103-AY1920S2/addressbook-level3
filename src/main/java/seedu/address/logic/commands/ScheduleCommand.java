@@ -12,6 +12,9 @@ import seedu.address.model.Model;
 import seedu.address.model.plan.Date;
 import seedu.address.model.recipe.Recipe;
 
+/**
+ * Schedules a recipe to a date.
+ */
 
 public class ScheduleCommand extends Command {
 

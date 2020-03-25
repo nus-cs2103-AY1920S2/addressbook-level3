@@ -41,7 +41,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = recipeBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
         try {
             storage.saveRecipeBook(model.getRecipeBook());
         } catch (IOException ioe) {
