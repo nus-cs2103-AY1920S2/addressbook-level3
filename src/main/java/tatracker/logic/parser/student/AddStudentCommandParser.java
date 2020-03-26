@@ -44,15 +44,15 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Email email = new Email("");
+
+        Email email = new Email();
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-
         }
-        Phone phone = new Phone("");
+
+        Phone phone = new Phone();
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-
         }
         Matric matric = ParserUtil.parseMatric(argMultimap.getValue(PREFIX_MATRIC).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
