@@ -17,8 +17,9 @@ public class DateEqualsKeywordPredicate implements Predicate<Transaction> {
 
     @Override
     public boolean test(Transaction transaction) {
-        return keyword.stream()
-                .anyMatch(keyword -> StringUtil.equals(transaction.getDate().transactionDate, keyword));
+//        return keyword.stream()
+//                .anyMatch(keyword -> StringUtil.equals(transaction.getDate().transactionDate, keyword));
+        return true;
     }
 
     @Override

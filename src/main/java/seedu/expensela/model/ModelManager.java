@@ -109,7 +109,7 @@ public class ModelManager implements Model {
         boolean positive = target.getAmount().positive;
         double amount = target.getAmount().transactionAmount;
         updateMonthlyData(positive, amount*(-1));
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateUnfilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
@@ -220,7 +220,6 @@ public class ModelManager implements Model {
 
     @Override
     public Double getTotalBalance() {
-        System.out.println("new pls");
         return userPrefs.getTotalBalance();
     }
 
