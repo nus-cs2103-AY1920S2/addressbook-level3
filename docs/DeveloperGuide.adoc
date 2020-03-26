@@ -323,6 +323,10 @@ For more information regarding the procedure, please refer to the Activity Diagr
 
 image::AddReminderActivityDiagram.png[]
 
+For more information regarding the structure of the feature, refer to the class diagram below:
+
+image::AddReminderClassDiagram.png[]
+
 === Snooze Reminder Feature
 
 Users can also snooze reminders so that they can get the same reminder at a different time.
