@@ -2,6 +2,7 @@ package seedu.eylah.expensesplitter.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
@@ -87,7 +88,9 @@ public class ModelManager implements Model {
      * To be implemented later.
      */
     @Override
-    public void paidPerson(Person p) {
+    public void paidPerson(Person person, String amountPaid) {
+        Amount amount = new Amount(new BigDecimal(amountPaid));
+        personAmountBook.removeAmount(person, amount);
 
     }
 

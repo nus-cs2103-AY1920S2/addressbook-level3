@@ -167,4 +167,10 @@ public class UniquePersonList implements Iterable<Person> {
         int index = internalList.indexOf(person);
         return internalList.get(index);
     }
+
+
+    public Person getPersonUsingIndex(int indexOfPerson) {
+        Person p = internalList.get(indexOfPerson); // I minused 1 when i parsed so dont minus again
+        return p;
+    }
 }

@@ -451,11 +451,18 @@ The following is a detailed explanation of the operations `PaidCommand` performs
 
 1. The `PaidCommand#execute(Model model)` method is executed.
 
-2. The `Model#paidPerson()` will be called
+2. The `Model#paidPerson(Person person, String amountPaid)` will be called. String amountPaid will be converted into an Amount.
 
-3. KIV temporarily while I implement the paidCommand method..
+3. The `personAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
 
-image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+4. Thus calling `UniquePersonList#removeAmount(Person person, Amount amount)`.
+
+5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount.
+
+[NOTE]
+Person(s) with $0 Amount will be deleted from UniquePersonList.
+
+image::ExpenseSplitterPaidCommandSequenceDiagramV2.png[]
 
 ==== Back Command
 
