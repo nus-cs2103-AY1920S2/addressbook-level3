@@ -460,7 +460,7 @@ Exports the 1st coupon in the results of the find command to an `add` command an
 
 === Set user preferences: `setpref`
 Sets the user preferences in Coupon Stash. Available user
-preferences currenly consist of:
+preferences currently consist of:
 
 * The symbol used to represent monetary amount
 
