@@ -146,8 +146,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     /**
      * Returns module from TATracker.
      */
-    public Module getModule(Module module) {
-        return modules.getModule(module);
+    public Module getModule(String moduleId) {
+        return modules.getModule(moduleId);
     }
 
     /**

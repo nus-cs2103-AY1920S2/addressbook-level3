@@ -171,8 +171,7 @@ public class ModelManager implements Model {
 
     public Module getModule(String code) {
         requireNonNull(code);
-        Module module = new Module(code, null);
-        return taTracker.getModule(module);
+        return taTracker.getModule(code);
     }
 
     @Override
