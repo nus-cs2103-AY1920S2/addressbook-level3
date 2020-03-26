@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.module.Module;
@@ -28,22 +29,13 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueModuleList modules;
     private final UniqueGroupList groups;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
+    public TaTracker() {
         students = new UniqueStudentList();
         sessions = new UniqueSessionList();
         doneSessions = new UniqueDoneSessionList();
         modules = new UniqueModuleList();
         groups = new UniqueGroupList();
     }
-
-    public TaTracker() {}
 
     /**
      * Creates a TaTracker using the Students in the {@code toBeCopied}
@@ -126,10 +118,6 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions.add(s);
     }
 
-    public void addDoneSession(Session s) {
-        doneSessions.add(s);
-    }
-
     /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the ta-tracker.
@@ -149,6 +137,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public void removeSession(Session session) {
         sessions.remove(session);
+    }
+
+    public void addDoneSession(Session s) {
+        doneSessions.add(s);
     }
 
     //// student-level operations
@@ -204,13 +196,6 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Adds a group to the TATracker.
-     */
-    public void addGroup(Group group) {
-        groups.add(group);
-    }
-
-    /**
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
@@ -247,6 +232,13 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public void removeModule(Module key) {
         modules.remove(key);
+    }
+
+    /**
+     * Adds a group to the TATracker.
+     */
+    public void addGroup(Group group) {
+        groups.add(group);
     }
 
     //// util methods
