@@ -44,7 +44,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
 
-        model.sortCoupons(prefixToSortBy);
+        model.sortCoupons(prefixToSortBy, commandText);
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, prefixToSortBy.toString())

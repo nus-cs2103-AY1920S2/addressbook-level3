@@ -52,7 +52,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                         CliSyntax.PREFIX_USAGE,
                         CliSyntax.PREFIX_LIMIT,
                         CliSyntax.PREFIX_TAG,
-                        CliSyntax.PREFIX_REMIND);
+                        CliSyntax.PREFIX_REMIND,
+                        CliSyntax.PREFIX_CONDITION);
 
         Index index;
 
@@ -104,6 +105,11 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (!editCouponDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_CONDITION).isPresent()) {
+            editCouponDescriptor.setCondition(ParserUtil.parseCondition(argMultimap
+                    .getValue(CliSyntax.PREFIX_CONDITION).get()));
         }
 
         return new EditCommand(index, editCouponDescriptor);

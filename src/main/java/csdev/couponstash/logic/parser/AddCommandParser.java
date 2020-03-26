@@ -1,6 +1,7 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -53,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROMO_CODE, PREFIX_SAVINGS, PREFIX_EXPIRY_DATE,
-                        PREFIX_START_DATE, PREFIX_USAGE, PREFIX_LIMIT, PREFIX_TAG, PREFIX_REMIND);
+                        PREFIX_START_DATE, PREFIX_USAGE, PREFIX_LIMIT, PREFIX_TAG, PREFIX_REMIND, PREFIX_CONDITION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EXPIRY_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -70,7 +72,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE, "0").get());
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList);
+        Condition condition = ParserUtil.parseCondition(
+                argMultimap.getValueForOptionalField(PREFIX_CONDITION, "No condition stated.").get());
+
+        Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList, condition);
 
         return new AddCommand(coupon);
     }

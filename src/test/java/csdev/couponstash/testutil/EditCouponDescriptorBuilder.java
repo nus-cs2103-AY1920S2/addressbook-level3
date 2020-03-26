@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -45,6 +46,7 @@ public class EditCouponDescriptorBuilder {
         descriptor.setLimit(coupon.getLimit());
         descriptor.setTags(coupon.getTags());
         descriptor.setRemindDate(coupon.getRemindDate());
+        descriptor.setCondition(coupon.getCondition());
     }
 
     /**
@@ -118,6 +120,14 @@ public class EditCouponDescriptorBuilder {
      */
     public EditCouponDescriptorBuilder withRemindDate(String remindDate, String expiryDate) {
         descriptor.setRemindDate(new RemindDate(remindDate, expiryDate));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Condition} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withCondition(String condition) {
+        descriptor.setCondition(new Condition(condition));
         return this;
     }
 

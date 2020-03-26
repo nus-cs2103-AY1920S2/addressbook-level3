@@ -12,7 +12,8 @@ import java.time.format.DateTimeFormatter;
 public class DateFormatUtil {
     // The standard DateTimeFormatter describing the consistent Coupon Stash Date Format
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
-
+    public static final String MESSAGE_DATE_WRONG_FORMAT = "Date is in the"
+            + " wrong format! Should be D-M-YYYY";
     /**
      * Formats a certain LocalDate using the default
      * DateTimeFormatter specified in DateFormatUtil,

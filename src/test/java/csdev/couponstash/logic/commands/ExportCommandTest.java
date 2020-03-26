@@ -15,6 +15,7 @@ import java.awt.datatransfer.DataFlavor;
 
 import org.junit.jupiter.api.Test;
 
+import csdev.couponstash.commons.MoneySymbolStub;
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
@@ -110,7 +111,8 @@ public class ExportCommandTest {
         ExportCommand exportCommand = new ExportCommand(lastIndex);
         Coupon couponToExport = model.getFilteredCouponList().get(lastIndex.getZeroBased());
         String exportString = exportCommand.getExportCommand(couponToExport);
-        CouponStashParser command = new CouponStashParser("$");
+        CouponStashParser command = new CouponStashParser(
+                new MoneySymbolStub("$"));
         try {
             command.parseCommand(exportString).execute(expectedModel);
         } catch (ParseException pe) {

@@ -1,6 +1,5 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
@@ -27,9 +26,9 @@ public class UsedCommand extends Command {
             + "identified by the index number used in the displayed coupon list. "
             + "This increases the value of its usage by one.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_SAVINGS + "Original amount of purchase (optional)\n"
-            + "Example: " + COMMAND_WORD + " 1"
-            + "Example with Savings: " + COMMAND_WORD + "1 " + PREFIX_SAVINGS + "$100";
+            + "[%s" + "(Original amount of purchase)]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example with Savings: " + COMMAND_WORD + " 1 " + "%s100";
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";
     public static final String MESSAGE_USAGE_LIMIT_REACHED = "Coupon usage limit has been reached!\n"

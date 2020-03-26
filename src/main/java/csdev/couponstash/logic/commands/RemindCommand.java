@@ -13,6 +13,7 @@ import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Archived;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -21,7 +22,6 @@ import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
-
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -196,9 +196,11 @@ public class RemindCommand extends Command {
         Set<Tag> tags = couponToBeReminded.getTags();
         Usage updatedUsage = couponToBeReminded.getUsage();
         DateSavingsSumMap totalSavings = couponToBeReminded.getSavingsMap();
+        Condition condition = couponToBeReminded.getCondition();
+
         Archived archived = couponToBeReminded.getArchived();
 
         return new Coupon(name, promoCode, savingsForEachUse, expiryDate, startDate, updatedUsage, limit,
-                tags, totalSavings, remindDate, archived);
+                tags, totalSavings, remindDate, condition, archived);
     }
 }

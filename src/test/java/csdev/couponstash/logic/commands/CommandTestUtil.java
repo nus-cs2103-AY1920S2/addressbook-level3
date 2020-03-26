@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import csdev.couponstash.commons.MoneySymbolStub;
 import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
@@ -58,12 +60,14 @@ public class CommandTestUtil {
             new MonetaryAmount(VALID_MONETARY_AMOUNT_TWO_TWENTY),
             Arrays.asList(new Saveable(VALID_SAVEABLE_COFFEE), new Saveable(VALID_SAVEABLE_TEA))
     );
-    public static final String VALID_MONEY_SYMBOL = "RM";
+    public static final MoneySymbol VALID_MONEY_SYMBOL = new MoneySymbolStub("RM");
     public static final String VALID_USAGE_AMY = "0";
     public static final String VALID_USAGE_BOB = "1";
     public static final String VALID_LIMIT_AMY = "1";
     public static final String VALID_LIMIT_BOB = "10";
 
+    public static final String VALID_CONDITION_AMY = "While Stocks Last";
+    public static final String VALID_CONDITION_BOB = "While Stocks Last";
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PROMO_CODE_DESC_AMY = " " + PREFIX_PROMO_CODE + VALID_PROMO_CODE_AMY;
@@ -113,6 +117,7 @@ public class CommandTestUtil {
                 .withLimit(VALID_LIMIT_AMY)
                 .withTags(VALID_TAG_FRIEND)
                 .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
+                .withCondition(VALID_CONDITION_AMY)
                 .build();
         DESC_BOB = new EditCouponDescriptorBuilder()
                 .withName(VALID_NAME_BOB)
@@ -124,6 +129,7 @@ public class CommandTestUtil {
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                 .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
+                .withCondition(VALID_CONDITION_BOB)
                 .build();
     }
 

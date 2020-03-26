@@ -20,6 +20,7 @@ import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.TypicalIndexes;
 
+
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_USAGE = "-1";
@@ -188,4 +189,6 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+
 }

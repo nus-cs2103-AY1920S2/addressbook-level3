@@ -92,6 +92,11 @@
                                 <Font name="Arial Italic" />
                               </font>
                             </Label>
+                            <Label id="couponFields" fx:id="condition" style="-fx-font-style: italic; -fx-font-family: arial;" text="condition">
+                              <font>
+                                <Font name="Arial Italic" />
+                              </font>
+                            </Label>
                           </children>
                           <HBox.margin>
                             <Insets top="10.0" />

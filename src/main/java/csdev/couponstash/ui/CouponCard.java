@@ -51,6 +51,9 @@ public class CouponCard extends UiPart<Region> {
     private FlowPane tagsDup;
     @FXML
     private Label remindDate;
+    @FXML
+    private Label condition;
+
     /**
      * Constructor for a new CouponCard to be shown
      * in the JavaFX GUI.
@@ -81,6 +84,7 @@ public class CouponCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tagsDup.getChildren().add(new Label(tag.tagName)));
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
+        condition.setText("Terms & Condition: " + coupon.getCondition().value);
     }
 
     @Override

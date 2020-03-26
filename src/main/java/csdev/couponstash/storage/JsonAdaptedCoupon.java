@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.Archived;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -22,7 +23,6 @@ import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
-
 /**
  * Jackson-friendly version of {@link Coupon}.
  */
@@ -41,6 +41,7 @@ class JsonAdaptedCoupon {
     private final String archived;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final JsonAdaptedDssm totalSaved;
+    private final String condition;
 
     /**
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
@@ -56,6 +57,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                              @JsonProperty("remind date") String remindDate,
+                             @JsonProperty("condition") String condition,
                              @JsonProperty("archived") String archived
     ) {
         this.name = name;
@@ -70,6 +72,7 @@ class JsonAdaptedCoupon {
             this.tagged.addAll(tagged);
         }
         this.remindDate = remindDate;
+        this.condition = condition;
         this.archived = archived;
     }
 
@@ -89,6 +92,7 @@ class JsonAdaptedCoupon {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         remindDate = source.getRemindDate().toString();
+        condition = source.getCondition().value;
         archived = source.getArchived().toString();
     }
 
@@ -157,6 +161,12 @@ class JsonAdaptedCoupon {
         }
         final Limit modelLimit = new Limit(limit);
 
+        if (condition == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Condition.class.getSimpleName()));
+        }
+        final Condition modelCondition = new Condition(condition);
+
         if (!Archived.isValidState(archived)) {
             throw new IllegalValueException(Archived.MESSAGE_CONSTRAINTS);
         }
@@ -176,11 +186,11 @@ class JsonAdaptedCoupon {
         }
         final RemindDate modelRemindDate = new RemindDate(remindDate, expiryDate);
 
-
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
         return new Coupon(modelName, modelPromoCode, modelSavings,
                 modelExpiryDate, modelStartDate, modelUsage, modelLimit,
-                modelTags, modelTotalSaved, modelRemindDate, modelArchived);
+                modelTags, modelTotalSaved, modelRemindDate, modelCondition,
+                modelArchived);
     }
 }

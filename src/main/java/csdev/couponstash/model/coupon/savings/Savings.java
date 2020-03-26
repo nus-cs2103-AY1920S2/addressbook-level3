@@ -3,9 +3,11 @@ package csdev.couponstash.model.coupon.savings;
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
 
@@ -94,7 +96,7 @@ public class Savings implements Comparable<Savings> {
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.empty();
         this.percentage = Optional.empty();
-        this.saveables = Optional.of(saveables);
+        this.saveables = Optional.of(condenseSaveablesList(saveables));
     }
 
     /**
@@ -112,7 +114,7 @@ public class Savings implements Comparable<Savings> {
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.of(monetaryAmount);
         this.percentage = Optional.empty();
-        this.saveables = Optional.of(saveables);
+        this.saveables = Optional.of(condenseSaveablesList(saveables));
     }
 
     /**
@@ -130,7 +132,7 @@ public class Savings implements Comparable<Savings> {
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.empty();
         this.percentage = Optional.of(percentage);
-        this.saveables = Optional.of(saveables);
+        this.saveables = Optional.of(condenseSaveablesList(saveables));
     }
 
     /**
@@ -281,8 +283,10 @@ public class Savings implements Comparable<Savings> {
             Savings s = (Savings) o;
             return this.monetaryAmount.equals(s.monetaryAmount)
                     && this.percentage.equals(s.percentage)
-                    // takes order of saveables list into account
-                    && this.saveables.equals(s.saveables);
+                    // does not take order of saveables list into account
+                    && ((this.saveables.isEmpty() && s.saveables.isEmpty())
+                    || (this.saveables.isPresent() && s.saveables.isPresent()
+                    && this.saveables.get().containsAll(s.saveables.get())));
         }
     }
 
@@ -312,5 +316,23 @@ public class Savings implements Comparable<Savings> {
     private static boolean isValidSaveablesList(List<Saveable> list) {
         return !list.isEmpty() && list.stream()
                 .allMatch(sva -> Saveable.isValidSaveableValue(sva.getValue(), sva.getCount()));
+    }
+
+    /**
+     * Given a Saveables list that possibly has duplicate items,
+     * find these duplicate items and put them together instead,
+     * increasing the count value of the item accordingly.
+     *
+     * @param list The original Saveables list.
+     * @return A new Saveables list without any duplicates.
+     */
+    private static List<Saveable> condenseSaveablesList(List<Saveable> list) {
+        HashMap<String, Integer> nameToCountMap = new HashMap<String, Integer>();
+        list.forEach(sva -> {
+            nameToCountMap.merge(sva.getValue(), sva.getCount(), Integer::sum);
+        });
+        return nameToCountMap.entrySet().stream()
+                .map(mapping -> new Saveable(mapping.getKey(), mapping.getValue()))
+                .collect(Collectors.toList());
     }
 }
