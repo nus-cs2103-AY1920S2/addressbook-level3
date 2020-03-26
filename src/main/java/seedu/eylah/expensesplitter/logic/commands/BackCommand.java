@@ -17,7 +17,7 @@ public class BackCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.backToMainMenu();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true, false);
     }
 
 
