@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.module.Module;
+import tatracker.model.module.ModuleNotFoundException;
 import tatracker.model.module.UniqueModuleList;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueDoneSessionList;
@@ -209,11 +210,65 @@ public class TaTracker implements ReadOnlyTaTracker {
     // ======== Group Methods ==================================================
 
     /**
+     * Returns true if a group with the same group code exists in the TATracker.
+     */
+    public boolean hasGroup(Group group, Module targetModule) {
+        requireNonNull(group);
+
+        if (!hasModule(targetModule)) {
+            return false;
+        }
+
+        Module module = getModule(targetModule.getIdentifier());
+        return module.hasGroup(group);
+    }
+
+    /**
      * Adds a group to the TATracker.
      */
     public void addGroup(Group group) {
         groups.add(group);
     }
+
+    /**
+     * Adds a group to the TATracker.
+     */
+    public void addGroup(Group group, Module targetModule) {
+        if (!hasModule(targetModule)) {
+            throw new ModuleNotFoundException();
+        }
+        Module module = getModule(targetModule.getIdentifier());
+        module.addGroup(group);
+    }
+
+    /**
+     * Removes {@code key} from this {@code TaTracker}.
+     * {@code key} must exist in the ta-tracker.
+     */
+    public void removeGroup(Group group, Module targetModule) {
+        if (!hasModule(targetModule)) {
+            throw new ModuleNotFoundException();
+        }
+        Module module = getModule(targetModule.getIdentifier());
+        module.deleteGroup(group);
+    }
+
+    // Uncomment when edit is implemented.
+    // /**
+    //  * Replaces the given group {@code target} in the list with {@code editedGroup}.
+    //  * {@code target} must exist in the ta-tracker.
+    //  * The group identity of {@code editedGroup} must not be the same as another existing group in the tracker.
+    //  */
+    // public void setGroup(Group target, Group editedGroup, Module targetModule) {
+    //     requireNonNull(editedGroup);
+    //
+    //     if (!hasModule(targetModule)) {
+    //         throw new ModuleNotFoundException();
+    //     }
+    //
+    //     Module module = getModule(targetModule.getIdentifier());
+    //     module.setGroup(target, editedGroup);
+    // }
 
     @Override
     public ObservableList<Group> getGroupList() {
