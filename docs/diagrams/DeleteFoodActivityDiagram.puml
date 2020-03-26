@@ -1,0 +1,10 @@
+@startuml
+start
+:User executes DeleteCommand;
+ :Validate Index given;
+ :Retrieve FoodList from storage;
+ :Delete Food at given index from FoodList;
+ :Save FoodList;
+ :Display to user that Food has been deleted;
+ stop
+ @enduml
