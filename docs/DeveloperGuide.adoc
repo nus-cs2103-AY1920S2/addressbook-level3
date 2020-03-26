@@ -28,7 +28,7 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::../images/ArchitectureDiagram.png[]
 
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.svg[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
