@@ -239,9 +239,9 @@ Format: +
 Example: +
 `listreceipt`
 
-==== List amounts owed`listamount`
+==== List amounts owed `listamount`
 
-Display all the person(s) and the amount they owe
+Display all the person(s) and the amount they owe.
 
 Format: +
 `listamount` +
@@ -278,7 +278,7 @@ NOTE: When a Person owes $0 he/she will be automatically deleted from PersonList
 
 ==== Exiting split to go back to main menu `back`
 
-Exits split to go back to main menu of the application.
+Exits `split` mode to go back to the main menu of the application.
 
 Format: +
 `back`
