@@ -21,6 +21,7 @@ public interface Model {
 
     /** {@code Predicate} for activities that always evaluate to true */
     Predicate<Activity> PREDICATE_SHOW_ALL_ACTIVITIES = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -132,14 +133,32 @@ public interface Model {
     void removeActivity(ModuleCode target, Activity activity);
 
     /**
-     * Returns true if a module {@code target} has {@code activity} exists in the nasa book.
-     */
-    boolean hasActivity(Module target, Activity activity);
-
-    /**
-     * Returns true if a module {@code target} has {@code activity} exists in the nasa book.
+     * Returns true if a module code {@code target} has {@code activity} exists in the nasa book.
      */
     boolean hasActivity(ModuleCode target, Activity activity);
+
+    /**
+     * Replaces the given activity in {@code target} with {@code editedActivity}.
+     * {@code target} must exist in the nasa book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity
+     * in the address book.
+     */
+    // void setActivity(Activity target, Activity editedActivity);
+
+    /** Returns an unmodifiable view of the filtered activity list from the module at {@code index} of
+     * the NasaBook's {@code UniqueModuleList}.
+     */
+    ObservableList<Activity> getFilteredActivityList(Index index);
+
+    // TODO: Implement getFilteredActivityList by moduleCode
+
+    /**
+     * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
+
+    void updateFilteredActivityList(Predicate<Activity> predicate);
 
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();
@@ -154,9 +173,6 @@ public interface Model {
     void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity);
     void editActivityByIndex(Module module, Index index, Object... args);
     void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args);
-    ObservableList<Activity> getFilteredActivityList(Index index);
-    void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
-    void updateFilteredActivityList(Predicate<Activity> predicate);
     void removeModuleByIndex(Index index);
     void removeActivityByIndex(Module module, Index index);
     void removeActivityByIndex(ModuleCode moduleCode, Index index);

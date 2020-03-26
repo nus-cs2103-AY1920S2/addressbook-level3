@@ -36,7 +36,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     public NasaBook() {}
 
     /**
-     * Creates a NasaBook using the moduleList in the {@code toBeCopied}
+     * Creates a NasaBook using the Modules in the {@code toBeCopied}
      */
     public NasaBook(ReadOnlyNasaBook toBeCopied) {
         this();
@@ -317,6 +317,11 @@ public class NasaBook implements ReadOnlyNasaBook {
     public String toString() {
         return moduleList.asUnmodifiableObservableList().size() + " moduleList";
         //TODO: refine Later
+    }
+
+    @Override
+    public UniqueModuleList getUniqueModuleList() {
+        return moduleList;
     }
 
     @Override

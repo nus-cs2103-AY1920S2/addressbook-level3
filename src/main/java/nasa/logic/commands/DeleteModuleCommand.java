@@ -8,24 +8,20 @@ import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 
 /**
- * Deletes a module from the NASA book.
+ * Deletes a module identified using it's code from NASA.
  */
-
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "Mdelete";
+    public static final String COMMAND_WORD = "mdelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ":Deletes the modules specified in the NASA application"
-            + ".\n "
-            + "Parameters:"
-            + PREFIX_MODULE + "....." + "\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "CS2030";
+            + ": Deletes the module specified by the code in NASA.\n"
+            + "Parameters: " + PREFIX_MODULE + ".....\n"
+            + "Example: " + COMMAND_WORD + " CS2030";
 
-    public static final String MESSAGE_SUCCESS = " is deleted successfully!";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "%1$s is deleted successfully!";
 
-    public static final String MESSAGE_FAILURE = "Module indicated all does not exist!";
+    public static final String MESSAGE_FAILURE = "Module indicated does not exist!";
 
     private final ModuleCode moduleToDelete;
 
@@ -43,7 +39,7 @@ public class DeleteModuleCommand extends Command {
         requireNonNull(model);
         if (model.hasModule(moduleToDelete)) {
             model.deleteModule(moduleToDelete);
-            return new CommandResult(moduleToDelete.toString() + MESSAGE_SUCCESS);
+            return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
         } else {
             throw new CommandException(MESSAGE_FAILURE);
         }

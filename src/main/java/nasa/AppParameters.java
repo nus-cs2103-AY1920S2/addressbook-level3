@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+
 import nasa.commons.core.LogsCenter;
 import nasa.commons.util.FileUtil;
 

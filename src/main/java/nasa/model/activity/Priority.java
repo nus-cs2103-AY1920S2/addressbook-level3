@@ -8,7 +8,7 @@ import static nasa.commons.util.AppUtil.checkArgument;
  */
 public class Priority {
 
-    public static final String PRIORITY_RANGE_CONSTRAINTS = "Priority should range from 1 to 5 inclusive only.";
+    public static final String MESSAGE_CONSTRAINTS = "Priority should range from 1 to 5 inclusive only.";
 
     /**
      * Valid integers that cannot start with the digit '0', and within range of 1 to 5.
@@ -36,7 +36,7 @@ public class Priority {
      * @param priorityLevel priority level of the given activity, a String in the integer range of 1 to 5 inclusive.
      */
     public Priority(String priorityLevel) {
-        checkArgument(isValidPriorityValue(priorityLevel), PRIORITY_RANGE_CONSTRAINTS);
+        checkArgument(isValidPriorityValue(priorityLevel), MESSAGE_CONSTRAINTS);
         this.priorityLevel = Integer.parseInt(priorityLevel);
     }
 

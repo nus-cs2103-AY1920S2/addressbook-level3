@@ -2,6 +2,8 @@ package nasa.model.activity;
 
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 import nasa.model.Regenerable;
 
 /**
@@ -10,10 +12,10 @@ import nasa.model.Regenerable;
 public abstract class Activity implements Regenerable<Activity> {
 
     protected Status status;
-    private Name name;
-    private Date date;
-    private Note note;
-    private Priority priority;
+    protected Name name;
+    protected Date date;
+    protected Note note;
+    protected Priority priority;
 
     public Activity(Name name, Note note) {
         requireAllNonNull(name);
@@ -38,13 +40,15 @@ public abstract class Activity implements Regenerable<Activity> {
      * @param name name of activity
      * @param date date of the activity
      * @param note note of the activity
+     * @param status status of the activity
+     * @param priority priority of the activity
      */
     public Activity(Name name, Date date, Note note, Status status, Priority priority) {
         requireAllNonNull(name, date, note, status, priority);
         this.name = name;
         this.date = date;
         this.note = note;
-        this.status = Status.ONGOING;
+        this.status = status;
         this.priority = priority;
     }
 
@@ -99,10 +103,6 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
     /**
      * Returns true if both activities of the same name, note and date.
      * @param otherActivity
@@ -133,11 +133,20 @@ public abstract class Activity implements Regenerable<Activity> {
             return false;
         }
         Activity otherActivity = (Activity) other;
+
         return otherActivity.getName().equals(getName());
     }
 
     /**
-     * Retrieve the late status of the activity
+     * Retrieve the status object of the activity.
+     * @return Status of the activity
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Retrieve the late status of the activity.
      * @return boolean, true means late, false means not
      */
     public boolean isLate() {
@@ -174,4 +183,25 @@ public abstract class Activity implements Regenerable<Activity> {
     public abstract Activity regenerate();
 
     public void updateStatus() {}
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, note, date, status, priority);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Note: ")
+                .append(getNote())
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Status: ")
+                .append(getStatus())
+                .append(" Priority: ")
+                .append(getPriority());
+        return builder.toString();
+    }
 }
