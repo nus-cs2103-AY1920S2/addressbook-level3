@@ -27,9 +27,9 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
      */
     public DeleteGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_GROUP);
+                ArgumentTokenizer.tokenize(args, PREFIX_GROUP, PREFIX_MODULE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_GROUP)
+        if (!arePrefixesPresent(argMultimap, PREFIX_GROUP, PREFIX_MODULE)
                  || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteGroupCommand.MESSAGE_USAGE));
         }
