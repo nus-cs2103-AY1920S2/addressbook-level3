@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -21,6 +22,7 @@ import tatracker.model.Model;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.ReadOnlyUserPrefs;
 import tatracker.model.TaTracker;
+import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
@@ -82,8 +84,14 @@ public class AddStudentCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyTaTracker getTaTracker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTaTracker(ReadOnlyTaTracker newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -91,14 +99,8 @@ public class AddStudentCommandTest {
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
-
         @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -113,42 +115,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void addStudent(Student student) {
+        public GuiSettings getGuiSettings() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setTaTracker(ReadOnlyTaTracker newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyTaTracker getTaTracker() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasStudent(Student student) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteStudent(Student target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setStudent(Student target, Student editedStudent) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Student> getFilteredStudentList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredStudentList(Predicate<Student> predicate) {
+        public void setGuiSettings(GuiSettings guiSettings) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,6 +175,16 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Module getModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -213,12 +195,72 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ObservableList<Module> getFilteredModuleList() {
+        public boolean hasGroup(Group group, Module targetModule) {
+            return false;
+        }
+
+        @Override
+        public void addGroup(Group group, Module targetModule) {
+
+        }
+
+        @Override
+        public void deleteGroup(Group target, Module targetModule) {
+
+        }
+
+        @Override
+        public void setGroup(Group target, Group editedGroup, Module targetModule) {
+
+        }
+
+        @Override
+        public boolean hasStudent(Student student) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredModuleList(Predicate<Module> predicate) {
+        public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
+            return false;
+        }
+
+        @Override
+        public void addStudent(Student student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addStudent(Student student, Group targetGroup, Module targetModule) {
+
+        }
+
+        @Override
+        public void deleteStudent(Student target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
+
+        }
+
+        @Override
+        public void setStudent(Student target, Student editedStudent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
+
+        }
+
+        @Override
+        public ObservableList<Student> getFilteredStudentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredStudentList(Predicate<Student> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
