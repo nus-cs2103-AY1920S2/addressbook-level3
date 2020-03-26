@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -228,21 +228,25 @@ MODdy data are saved in the hard disk automatically after any command that chang
 There is no need to save manually.
 
 
-== FAQ (coming in v2.0)
+== FAQ
 
-//*Q*: How do I transfer my data to another Computer? +
-//*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MODdy folder.
 
-== Command Summary (coming in v2.0)
+== Command Summary
 
-//* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-//e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-//* *Clear* : `clear`
-//* *Delete* : `delete INDEX` +
-//e.g. `delete 3`
-//* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-//e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Add* `add m/MODULE y/SEMESTER_INDEX [g/GRADE] [t/TASK d/DEADLINE]` +
+e.g. `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59`
+* *Clear* : `clear`
+* *Delete* : Either `delete n/NAME` or `delete m/MODULE_CODE [t/TASK]` +
+e.g. `delete m/CS2103T t/Assignment`
+* *Edit* : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
+e.g. `edit n/Brad c/Information Security`
 //* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 //e.g. `find James Jake`
 //* *List* : `list`
-//* *Help* : `help`
+* *Help* : `help`
+* *New* : `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]` +
+e.g. `new n/John c/Computer Science cs/4`
+* *Show* : `show [y/SEMESTER_INDEX] [c/COURSE_NAME] [m/MODULE_CODE]` +
+e.g. `show c/computer science`
