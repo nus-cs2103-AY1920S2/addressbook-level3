@@ -479,7 +479,8 @@ Examples:
 
 * `setpref ms/€` +
 Sets the money symbol used in commands, as well as to
-display coupons' savings, to € (Euro).
+display coupons' savings, to € (Euro). The changes will
+be visible immediately.
 
 
 == FAQ
