@@ -45,11 +45,15 @@ a|
    8.  Clearing all entries: clear
    9.  Exiting the program: exit
    10. Saving the data
-   11. Marking a coupon as used: used
-   12. Shows reminders: remind
-   13. Viewing savings: saved
-   14. Undo the previous command: undo/redo
-   15. Archive a coupon: archive
+   11. Adding a reminder: remind
+   12. Viewing savings: saved
+   13. Use a coupon: used
+   14. Undo the previous command: undo
+   15. Redo the undone command: redo
+   16. Archive a coupon: archive
+   17. Export a coupon: export
+   18. Set user preferences: setpref
+
 
  |3
 
@@ -201,7 +205,7 @@ name in your coupon name!
 Examples:
 
 * `find ken` +
-Returns Ken Kitchen, Ken Ridge Optical, Chic Ken Rice
+Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
 
 // tag::delete[]
 === Deleting a coupon: `delete`
@@ -330,7 +334,9 @@ A message will be displayed: You have saved $117.15 as well as earned
 === Use a coupon: `used`
 Uses a coupon if its usage has yet to reached its limit.
 Requires an original amount of purchase if the coupon has savings in a percentage value. +
-Format: `used INDEX` or `used INDEX MONETARY_SYMBOL+ORIGINAL_AMOUNT`
+Format: `used INDEX` or `used INDEX MONETARY_AMOUNT`
+where `MONETARY_AMOUNT` is a number prefixed by a user-defined currency
+symbol e.g.($4.50, where the currency symbol is "$").
 
 ****
 * Uses the coupon at the specified INDEX.
@@ -439,6 +445,8 @@ The exported add command will only contain the following fields: +
 * Promo Code (if any)
 * Condition (if any)
 ****
+Statistics like number of times used or amount of
+savings accumulated will not be exported.
 ====
 
 Examples:
@@ -449,6 +457,29 @@ Exports the 2nd coupon in the coupon stash to an `add` command and copies it to 
 * `find chicken` +
 `export 1` +
 Exports the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
+
+=== Set user preferences: `setpref`
+Sets the user preferences in Coupon Stash. Available user
+preferences currenly consist of:
+
+* The symbol used to represent monetary amount
+
+* More to be added in v2.0
+
+Format: `setpref [ms/NEW_MONEY_SYMBOL]`
+
+****
+* At least one of the optional fields must be provided.
+* The preferences may affect the visual look of the
+program, as well as modify commands entered
+****
+
+
+Examples:
+
+* `setpref ms/€` +
+Sets the money symbol used in commands, as well as to
+display coupons' savings, to € (Euro).
 
 
 == FAQ
