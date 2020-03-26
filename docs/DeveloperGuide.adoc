@@ -263,6 +263,53 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::calendar[]
+=== Calendar
+
+==== Current Implementation
+The Calendar component provides a visual representation of the stored coupons that are expiring over a month. It is
+facilitated by the `CalendarPane`, `DateCell` and `CouponsOnDateWindow`.
+
+The `CalendarPane` is controller of the `Calendar`. Users can change the month on display and open a `CouponsOnDateWindow`
+to show the coupons that expire on a date by clicking on a highlighted `DateCell`.
+
+Each `DateCell` represents each date of the month that is currently on display.
+
+
+The `ObservableList<Coupon>` is the list of filtered coupons that are currently on display in the `CouponListPanel`.
+They are obtained by calling the `getFilteredCouponList()` method in the `Logic` class. Each `DateCell` uses the same
+`ObservableList<Coupon>` as reference, to get coupons that expires on that particular date.
+
+Below is an example of how the Calendar behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The Calendar will be initialised to the system's current date.
+
+Step 2. The user executes a `find` command.
+The `find` command alters the filteredCouponList and the Calendar will be updated according to the list.
+
+
+==== Design Considerations
+===== Aspect: Information displayed on the Calendar
+* **Alternative 1 (current choice):** Show expiring coupons by highlighting the dates with expiring coupons and users
+clicking on them for more information in a separate window
+** Pros: Cleaner view of the Calendar with minimal information
+** Cons: Lesser information provided with a glance and user have to click to see the details of the expiring coupons on
+a date in a separate window
+
+* **Alternative 2:** Show a condensed version of the coupons in the cell of each date
+** Pros: No additional clicking required and more information provided with a glance
+** Cons: May be messy to look at when there are multiple coupons expiring on a date
+
+===== Aspect: Whether the Calendar should update with the list
+* **Alternative 1 (current choice):** Calender updates with the filtered list
+** Pros: User can relate the coupons shown in the Calendar to the `CouponListPanel` (Observer design pattern)
+** Cons: May overlook coupons if list is filtered
+
+* **Alternative 2:** Calendar shows all the coupons in CouponStash
+** Pros: View of all coupons and will not overlook any coupons when the coupon list is filtered
+** Cons: User may be confused if he/she sees a coupon on the Calendar that is not in the `CouponListPanel`
+
 === Logging
 
 We are using `java.util.logging` package for logging.
