@@ -82,7 +82,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/csdev/couponstash/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc.
+The UI consists of a `MainWindow` that is made up of three main parts - `CommandBox`, `CalendarResultDisplayPanel` and  `CouponListPanel`.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework.
@@ -330,6 +330,63 @@ The `LogsCenter` class is used to manage the logging levels and logging destinat
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+[[Implementation-Coupon-Archiving]]
+=== Coupon Archiving
+
+==== Current Implementation
+The archiving of coupons is facilitated by the Archived attribute of a coupon. The following methods in the `CouponStash`,
+`Coupon`, Usage` class and the 'Model' interface facilitates this feature:
+
+* CouponStash#archiveExpiredCoupons() -- Archives any coupon in the CouponStash that has expired, and returns a new updated CouponStash.
+* Coupon#increaseUsageByOne() - Increases the usage of a coupon by one.
+* Usage#isUsageAtLimit - Returns true if the current usage is at its limit (abstracted by the `Limit` field).
+* Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS - A Predicate function that filters out archived coupons from a given CouponStash.
+
+Given below is two example usage scenarios and how the archiving mechanism behaves at each step of each scenario.
+
+===== Archiving of Expired Coupons
+
+Expired coupons are automatically archived by Coupon Stash upon start up of the application. The following steps describe
+how this behaviour is implemented.
+
+Step 1. The user launches the application for the first time. The initiation of CouponStash with any available saved data
+is triggered by the initiation of the ModelManager.
+
+Step 2. The initiated CouponStash will have its UniqueCouponList mapped to a function that archive coupons that has expired
+before the date of opening the application, and returns a new updated CouponStash.
+
+Step 3. The ModelManager will proceed to filter out the archived coupons from the newly updated CouponStash, and return
+a filtered list of active coupons. This filtering is facilitated by the predicate Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS.
+
+===== Archiving of Exhausted Coupons
+
+Coupons that have exhausted its usages will be automatically archived by the application. The following steps describe how
+this behaviour is implemented.
+
+Step 1. The user uses a coupon in the current observable CouponStash with the command `used 1`.
+The particular coupon will then have its usage increased by one.
+
+Step 2. The coupon will then be checked if its usage has reached its limit. For the purpose of this
+explanation, we assume that the coupon being used has a usage limit of 1 and a previous usage value of 0,
+with savings in MonetaryAmount.
+
+Step 3. The coupon will have a new `Archived` value, which will be set to `true` if the usage has indeed reached its limit.
+
+Step 4. The CouponStash will be updated with this used coupon with the ModelManager#setCoupon() method. Under the hood of
+this method, the current filtered list will be be updated to show active coupons only, facilitated by the predicate Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS.
+
+==== Design Considerations
+
+===== Aspect: The implementation to store archived coupons
+
+* **Alternative 1 (current choice):** Coupon contains an Archived field
+** Pros: Easy to implement, lower maintainability.
+** Cons: Saved data may get get considerably huge after heavy usage of application.
+
+* **Alternative 2:** Archived coupons are stored in another separate data file.
+** Pros: Separates the logic between the two different `CouponStash`, e.g. you can only do limited functions with archived coupons
+** Cons: Sharply increases the maintainability and coupling of the application with two data files.
 
 == Documentation
 

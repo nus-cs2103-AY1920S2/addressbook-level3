@@ -14,7 +14,8 @@ public class UsedCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser,
-                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, UsedCommand.MESSAGE_USAGE));
+                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(UsedCommand.MESSAGE_USAGE, VALID_MONEY_SYMBOL, VALID_MONEY_SYMBOL)));
     }
 
     @Test void parse_validArgs_returnsUsedCommand() {
