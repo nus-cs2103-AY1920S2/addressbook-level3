@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * A session is any claimable duty that has a start and end time.
  * Guarantees: Date, Start Time and End Time are not null.
  */
-public class Session {
+public class Session implements Comparable<Session> {
 
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -204,5 +204,13 @@ public class Session {
 
         Session otherSession = (Session) other;
         return isSameSession(otherSession);
+    }
+
+    /**
+     * Compare Sessions based on the session that will occur first.
+     */
+    @Override
+    public int compareTo(Session other) {
+        return getDate().compareTo(other.getDate());
     }
 }
