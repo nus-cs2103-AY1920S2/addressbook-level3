@@ -56,12 +56,14 @@ image::Ui.png[width="790"]
 * Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`
 ====
 
+[[Help]]
 === Viewing help : `help`
 
 You will be directed to MODdy's User Guide. +
 
 Format: `help`
 
+[[add]]
 === Adding: `add`
 
 Adds a module or a task to an existing module in MODdy. +
@@ -94,7 +96,7 @@ Adds CS2105 to the list of modules in the MODdy profile with the semester the mo
 Adds a task named "Assignment" with the deadline "31 March 2020 23:59" to the already-existing module CS2105
 
 
-
+[[Edit]]
 === Editing: `edit`
 
 Edits an existing profile or module in MODdy. +
@@ -128,6 +130,7 @@ Edits current profile's specialisation to "Algorithms & Theory". If you did not 
 * `edit m/CS2103 g/A+` +
 Edits the grade of the module CS2103 to A+
 
+[[Show]]
 === Showing: `show`
 
 There are *three* ways you can use the `show` command:
@@ -167,7 +170,7 @@ Shows the module requirements and focus areas under Computer Science
 * `show m/CS2107` +
 Shows the module name, prerequisites, modular credits, description and semesters CS2107 is offered in
 
-
+[[New]]
 === New user profile : `new`
 
 This helps you to create a new Profile. +
@@ -175,7 +178,7 @@ Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
 ****
 * Fields in brackets [] are optional.
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the `delete` feature mentioned below
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<delete,`delete`>> feature mentioned below
 ****
 
 Examples:
@@ -183,12 +186,13 @@ Examples:
 * `new n/John c/Computer Science cs/4` +
 Creates a new profile with the name "John", currently majoring in "Computer Science" and is in his 4th semester of study.
 
-
+[[Delete]]
 === Delete a user profile : `delete` (coming in v2.0)
 
 //Clears all entries from the address book. +
 //Format: `clear`
 
+[[Exit]]
 === Exiting the program : `exit`
 
 Exits the program. +
