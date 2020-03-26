@@ -7,7 +7,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "noodle", "rice", "cheap" ]
+    "tags" : [ "rice", "noodle", "cheap" ]
   }, {
     "name" : "Claypot Seafood Soup",
     "canteenName" : "The Deck",
@@ -16,7 +16,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "rice", "cheap" ]
+    "tags" : [ "cheap", "rice" ]
   }, {
     "name" : "Indian",
     "canteenName" : "The Deck",
@@ -25,7 +25,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "spicy", "asian", "cheap", "halal" ]
+    "tags" : [ "cheap", "halal", "spicy", "asian" ]
   }, {
     "name" : "Japanese",
     "canteenName" : "The Deck",
@@ -43,7 +43,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "rice", "halal", "spicy", "cheap" ]
+    "tags" : [ "spicy", "cheap", "rice", "halal" ]
   }, {
     "name" : "Noodle",
     "canteenName" : "The Deck",
@@ -70,7 +70,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "noodle", "asian", "cheap" ]
+    "tags" : [ "asian", "noodle", "cheap" ]
   }, {
     "name" : "Yong Tau Foo and Laksa",
     "canteenName" : "The Deck",
@@ -79,7 +79,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "expensive", "noodle" ]
+    "tags" : [ "noodle", "expensive" ]
   }, {
     "name" : "Vegetarian",
     "canteenName" : "The Deck",
@@ -88,7 +88,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "halal", "rice", "cheap" ]
+    "tags" : [ "halal", "cheap", "rice" ]
   }, {
     "name" : "Western",
     "canteenName" : "The Deck",
@@ -97,7 +97,7 @@
     "cuisine" : "western",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "expensive", "western" ]
+    "tags" : [ "western", "expensive" ]
   }, {
     "name" : "Pasta Express",
     "canteenName" : "The Deck",
@@ -124,7 +124,7 @@
     "cuisine" : "fusion",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "asian", "spicy", "western", "expensive", "rice" ]
+    "tags" : [ "western", "expensive", "asian", "spicy", "rice" ]
   }, {
     "name" : "Duck and Chicken Rice",
     "canteenName" : "Nus Flavors",
@@ -133,7 +133,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "rice", "asian" ]
+    "tags" : [ "asian", "rice" ]
   }, {
     "name" : "Five Grains Bee Hoon",
     "canteenName" : "Nus Flavors",
@@ -142,7 +142,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "noodle", "asian" ]
+    "tags" : [ "asian", "noodle" ]
   }, {
     "name" : "Indian Cuisine",
     "canteenName" : "Nus Flavors",
@@ -160,7 +160,7 @@
     "cuisine" : "Fusion",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "asian", "expensive" ]
+    "tags" : [ "expensive", "asian" ]
   }, {
     "name" : "Mala Hot Pot",
     "canteenName" : "Nus Flavors",
@@ -169,7 +169,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "expensive", "asian", "spicy" ]
+    "tags" : [ "spicy", "asian", "expensive" ]
   }, {
     "name" : "Minced Meat Noodle",
     "canteenName" : "Nus Flavors",
@@ -178,7 +178,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "noodle", "cheap", "asian" ]
+    "tags" : [ "cheap", "asian", "noodle" ]
   }, {
     "name" : "Mixed Veg Rice",
     "canteenName" : "Nus Flavors",
@@ -187,7 +187,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "cheap", "asian", "rice" ]
+    "tags" : [ "rice", "cheap", "asian" ]
   }, {
     "name" : "Taiwan Cuisine",
     "canteenName" : "Nus Flavors",
@@ -196,7 +196,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "expensive", "asian" ]
+    "tags" : [ "asian", "expensive" ]
   }, {
     "name" : "Western",
     "canteenName" : "Nus Flavors",
@@ -205,7 +205,7 @@
     "cuisine" : "Western",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "western", "expensive" ]
+    "tags" : [ "expensive", "western" ]
   }, {
     "name" : "Wok Fried",
     "canteenName" : "Nus Flavors",
