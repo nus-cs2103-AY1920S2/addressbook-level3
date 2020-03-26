@@ -13,11 +13,18 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
             + "Tag/Quantity, Name\n"
             + "For example, to enter 50g of Broccoli, the format is iv/50g, Broccoli";
+
     public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%-]+$+";
 
     protected String ingredientName;
     protected Quantity quantity;
 
+    /**
+     * Constructs an {@code Ingredient}.
+     *
+     * @param ingredientName A valid ingredient name
+     * @param quantity A valid quantity of the ingredient
+     */
     public Ingredient(String ingredientName, Quantity quantity) {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
