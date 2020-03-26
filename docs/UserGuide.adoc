@@ -241,8 +241,7 @@ Lists all your expiring coupons.
 Format: expiring DATE
 
 * Lists all coupons that are expiring before the specified DATE
-* The date must be in CouponStash-Date format
-* The date must be a future date
+* The date must be in Coupon Stash date format
 
 Examples:
 
@@ -262,7 +261,7 @@ Format: `exit`
 
 === Saving the data
 
-Coupon stash data is saved in the hard disk automatically after any
+Coupon data is saved in the hard disk automatically after any
 command that changes the data.
 
 There is no need to save manually.
@@ -271,27 +270,20 @@ There is no need to save manually.
 
 Adds a reminder to remind yourself to use a coupon +
 Format: +
-`remind INDEX /e (period before expiry)` +
-or +
-`remind INDEX /d  (specific date to remind)`
+`remind INDEX r/(specific date to remind)`
 
 ****
 * Reminds you about the coupon at the specified INDEX.
 * The index refers to the index number shown in the displayed coupon list.
 * The index must be a positive integer 1, 2, 3, …​
-* /e - to indicate the period before the coupon’s expiry date
-* /d - to indicate the specific date to remind
+* Date provided has to be in Coupon Stash date format
 
 ****
 Examples:
 
-* `remind 1 /p 5 days` +
-Reminds you about the 1st coupon, 5 days before it expires.
-Reminders will be displayed as a pop up when you launch the app.
-
 
 * `remind 5 /d 2020-05-01` +
-Reminds you about the 5th  coupon on 1 May 2020.
+Reminds you about the 5th coupon in the list on 1 May 2020.
 Reminders will be displayed as a pop up when you launch the app.
 
 === Viewing savings: `saved`
