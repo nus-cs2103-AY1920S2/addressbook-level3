@@ -65,9 +65,6 @@ public class Session implements Comparable<Session> {
         return false;
     }
 
-    /**
-     * Returns the date when the session will take place.
-     */
     public LocalDate getDate() {
         return this.startDateTime.toLocalDate();
     }

@@ -62,6 +62,11 @@ public class DeleteSessionCommand extends Command {
         }
 
         Session sessionToDelete = lastShownList.get(index.getZeroBased());
+        if (sessionToDelete.getIsRecurring()) {
+            RecurSessionCommand recurSession = new RecurSessionCommand(sessionToDelete);
+            recurSession.createRecurSession();
+        }
+
         model.deleteSession(sessionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete));
     }
