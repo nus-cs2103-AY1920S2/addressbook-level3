@@ -69,7 +69,12 @@ a|
 
 == Introduction
 
-Coupon Stash is for SoC students and staff who rightfully *prefer to use a desktop app for managing coupons*. More importantly, CS is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CS can get your coupon management tasks done faster than traditional GUI apps. Interested? You should be!!!! Jump to the Section 2, “Quick Start” to get started. Enjoy!
+Coupon Stash is for SoC students and staff who rightfully *prefer to use a desktop
+app for managing coupons*. More importantly, CS is *optimized for those who prefer
+to work with a Command Line Interface* (CLI) while still having the benefits of a
+Graphical User Interface (GUI). If you can type fast, CS can get your coupon
+management tasks done faster than traditional GUI apps. Interested?
+You should be!!!! Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
@@ -81,7 +86,8 @@ Coupon Stash is for SoC students and staff who rightfully *prefer to use a deskt
 e.g. typing *help* and pressing Enter will open the help window.
 .  Some example commands you can try:
 * *list* : lists all coupons
-* *add:* `add n/Domino's Pizaa Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5 t/pizza t/delivery`: adds a coupon named Domino's Pizaa Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
+* *add:* `add n/Domino's Pizaa Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
+          t/pizza t/delivery`: adds a coupon named Domino's Pizaa Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
 * *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to <<Features, Section 3, “Features”>> for details of each command.
@@ -105,7 +111,7 @@ t/friend t/value etc.
 s/SAVINGS, s/SAVINGS n/NAME is also acceptable.
 * Dates are all in the D-M-YYYY format. (Coupon Stash date format)
 ** D and M can be one or two digits, but YYYY has to be four digits
-** e.g.
+** e.g. 1-1-2020, 01-01-2020 are both valid dates
 ====
 
 === Viewing help: `help`
@@ -162,6 +168,10 @@ adding of tags is not cumulative.
 be removed.
 ****
 
+[TIP]
+Savings cannot be cleared in the same way as clearing tags,
+as a coupon must have at least 1 saving!
+
 Examples:
 
 * `edit 1 s/50%` +
@@ -179,19 +189,19 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g mALa will match Mala
 * The order of the keywords does not matter. e.g. Rice Chicken will match Chicken Rice
-* Language does not matter e.g. Nasi to Rice
 * Only full words will be matched e.g. Chicken will not match Chickens
 * Coupons matching at least one keyword will be returned (i.e. OR search).
 e.g. Chicken Rice will return Duck Rice, Chicken Chop
 ****
 
+[TIP]
+For easy finding of coupons, include the store or brand
+name in your coupon name!
+
 Examples:
 
-* `find chicken` +
-Returns Chicken Rice, Ayam Penyet and Chicken Up
-* `find chicken chinese western` +
-Returns any coupon having names chicken, ayam, 鸡, pollo, Hähnchen,
-chinese or western
+* `find ken` +
+Returns Ken Kitchen, Ken Ridge Optical, Chic Ken Rice
 
 // tag::delete[]
 === Deleting a coupon: `delete`
