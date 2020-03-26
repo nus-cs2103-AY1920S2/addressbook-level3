@@ -24,6 +24,7 @@ public class UsedCommandParser implements Parser<UsedCommand> {
      * @param moneySymbol String representing the money symbol.
      */
     public UsedCommandParser(String moneySymbol) {
+        System.out.println(moneySymbol);
         this.moneySymbol = moneySymbol;
     }
 
@@ -58,8 +59,8 @@ public class UsedCommandParser implements Parser<UsedCommand> {
                 return new UsedCommand(index, originalAmount);
             }
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UsedCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(UsedCommand.MESSAGE_USAGE, moneySymbol, moneySymbol)), pe);
         }
     }
 }
