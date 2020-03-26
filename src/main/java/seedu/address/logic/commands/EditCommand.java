@@ -113,10 +113,8 @@ public class EditCommand extends Command {
                 HashMap<Integer, ModuleList> hashMap = profileToEdit.getHashMap();
                 try {
                     hashMap.get(inSemester).removeModuleWithModuleCode(moduleCode);
-                    System.out.println("deleted: " + profileToEdit);
                 } catch (ParseException e) {
-                    e.printStackTrace();
-                    System.out.println("exception thrown");
+                    throw new CommandException("Error deleting exiting module.");
                 }
                 profileToEdit.addModule(intSemester, toEditModule);
                 updateStatus(profileToEdit, profileToEdit.getCurrentSemester());

@@ -10,7 +10,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":MODdyParser" as MODdyParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
-participant ":EditCommand" as EditCommand LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -22,7 +22,7 @@ end box
 [-> CommandBox : "edit n/John"
 activate CommandBox
 
-CommandBox --> MainWindow : execute("edit n/John")
+CommandBox --> MainWindow : executeCommand("edit n/John")
 activate MainWindow
 
 MainWindow -> LogicManager : execute("edit n/John")
@@ -35,37 +35,52 @@ create EditCommandParser
 MODdyParser -> EditCommandParser : parse("n/John")
 activate EditCommandParser
 
-EditCommandParser --> Profile : setName("John")
-activate Profile
+EditCommandParser --> MODdyParser
+deactivate EditCommandParser
 
-Profile --> EditCommandParser
-deactivate Profile
+MODdyParser --> EditCommandParser : parse("n/John")
+activate EditCommandParser
 
 create EditCommand
 EditCommandParser --> EditCommand
 activate EditCommand
 
-EditCommand --> Model
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> MODdyParser : e
+destroy EditCommandParser
+
+MODdyParser --> LogicManager : e
+deactivate MODdyParser
+
+
+LogicManager --> EditCommand : execute()
+activate EditCommand
+
+EditCommand --> Model : getFilteredPersonList().get(0)
 activate Model
 
 Model --> EditCommand
 deactivate Model
+
+EditCommand --> Profile : setName("John")
+activate Profile
+
+Profile --> EditCommand
+deactivate Profile
+
+
 
 create CommandResult
 EditCommand -> CommandResult
 activate CommandResult
 
 CommandResult --> EditCommand
-deactivate CommandResult
+destroy CommandResult
 
-EditCommand --> EditCommandParser
-deactivate EditCommand
-
-EditCommandParser --> MODdyParser
-deactivate EditCommandParser
-
-MODdyParser --> LogicManager
-deactivate MODdyParser
+EditCommand --> LogicManager : result
+destroy EditCommand
 
 LogicManager --> MainWindow
 deactivate LogicManager
