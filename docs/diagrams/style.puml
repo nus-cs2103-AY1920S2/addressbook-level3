@@ -87,6 +87,5 @@ skinparam classAttributeIconSize 0
 skinparam genericDisplay old
 
 hide footbox
-'hide members
+hide members
 hide circle
-hide icon
