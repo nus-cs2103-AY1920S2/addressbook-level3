@@ -209,6 +209,7 @@ Below are some diagrams to explain how our team implemented this portion.
 
 image::activityDiagram_for_expensesplitter.png[]
 
+[[Add-Command]]
 ==== Add Command
 
 *Implementation*
@@ -235,6 +236,7 @@ The following is a sample sequence diagram of the AddCommand.
 .Interactions for add food command
 image::AddFoodSequenceDiagram.png[]
 
+[[Delete-Command]]
 ==== Delete Command
 *Implementation*
 
@@ -264,6 +266,7 @@ The following is a sample sequence diagram of the DeleteItemCommand.
 .Interactions for delete food command
 image::DeleteFoodSequenceDiagram.png[]
 
+[[List-Command]]
 ==== List Command
 *Implementation*
 
@@ -283,6 +286,7 @@ The following is a sample sequence diagram of the ListCommand.
 
 image::DietTrackerListCommandSequenceDiagram.png[]
 
+[[Edit-Command]]
 ==== Edit Command
 *Implementation*
 
@@ -309,6 +313,7 @@ The following is a sample sequence diagram of the EditCommand.
 
 image::DietTrackerEditCommandSequenceDiagram.png[]
 
+[[Bmi-Command]]
 ==== Bmi Command
 *Implementation*
 
@@ -385,6 +390,8 @@ Aspect: Storage of BMI
 ** Pros: Users have access to it anytime.
 ** Cons: Coding complexity.
 
+
+[[Height-Command]]
 ==== Height Command
 *Implementation*
 
@@ -403,6 +410,8 @@ The following is a sample sequence diagram of the HeightCommand.
 
 image::DietTrackerHeightCommandSequenceDiagram.png[]
 
+
+[[Weight-Command]]
 ==== Weight Command
 *Implementation*
 
@@ -421,6 +430,7 @@ The following is a sample sequence diagram of the WeightCommand.
 
 image::DietTrackerWeightCommandSequenceDiagram.png[]
 
+[[Mode-Command]]
 ==== Mode Command
 *Implementation*
 
@@ -1010,6 +1020,26 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[bmi]] Body-Mass Index (BMI)::
+The BMI is a convenient rule of thumb used to broadly categorize a person as underweight, normal weight, overweight,
+or obese based on tissue mass (muscle, fat, and bone) and height
+
+[[self]] Self:
+A static class used in Diet Tracker to represent the user in the model.
+
+_Table 1. Diet Tracker Command Prefix_ +
+| Prefix | Description | Used in Following Commands |
+| --- | --- | --- |
+| -n | Name of Food | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>>  |
+| -c | Calories | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>> |
+| -g | Gain | <<Mode-Command,*Mode*>> |
+| -m | Maintain | <<Mode-Command,*Mode*>> |
+| -f | Foods | <<List-Command,*List*>> |
+| -d | Day | <<List-Command,*List*>> |
+| -t | Track | <<List-Command,*List*>> |
+| -h | Height | <<Bmi-Command,*Bmi*>> |
+| -w | Weight | <<Bmi-Command,*Bmi*>> |
+
 [appendix]
 == Product Survey
 
@@ -1051,19 +1081,32 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Food in Diet Tracker
 
-. Deleting a person while all persons are listed
+. Deleting a Food while all Foods are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all Foods using the `list -f` command. Multiple Foods in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First Food is deleted from the list. Details of the deleted Food shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No Food is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Editing a Food in Diet Tracker
+
+. Editing a Food while all Foods are listed
+
+.. Prerequisites: List all Foods using the `list -f` command. Multiple Foods in the list.
+.. Test case: `edit 1 -n Pasta` +
+   Expected: First Food is edited. Details of the edited Food shown in the status message. Timestamp in the status bar is updated.
+   Food is edited and then restored.
+.. Test case: `edit 1` +
+   Expected: No Food is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
 === Saving data
 
