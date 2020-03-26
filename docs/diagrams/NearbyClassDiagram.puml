@@ -1,5 +1,7 @@
 @startuml
 skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
 
 class DistrictInfo {
     /' Fields '/
@@ -98,7 +100,7 @@ class Index {
     + {static} fromOneBased(oneBasedIndex : int) : Index
 }
 
-class NearbyCommand extends Command {
+class NearbyCommand {
     /' Fields '/
     + {static} COMMAND_WORD : String
     + {static} NEWLINE : String
@@ -117,15 +119,17 @@ class NearbyCommand extends Command {
     - isPostalSectorSearch() : boolean
 }
 
-abstract class Command {
+abstract class "{abstract}\nCommand" {
     + {abstract} execute(model : Model) : CommandResult
 }
+
+NearbyCommand --up|> "{abstract}\nCommand"
 
 class NearbyCommandParser implements Parser {
     + parse(args : String) : NearbyCommand
 }
 
-interface Parser<T> {
+interface Parser<T> <<interface>> {
     parse(userInput : String) : NearbyCommand
 }
 
