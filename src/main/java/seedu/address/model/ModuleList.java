@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -17,8 +19,8 @@ import seedu.address.model.profile.course.module.ModuleCode;
  */
 public class ModuleList implements Iterable<Module> {
 
-    private ArrayList<Module> moduleList = new ArrayList<>();
-    private ArrayList<ModuleCode> moduleCodes = new ArrayList<>();
+    private ObservableList<Module> moduleList = FXCollections.observableArrayList();
+    private ObservableList<ModuleCode> moduleCodes = FXCollections.observableArrayList();
 
     public ModuleList() {}
 
@@ -79,7 +81,7 @@ public class ModuleList implements Iterable<Module> {
         moduleCodes.remove(moduleCode);
     }
 
-    public ArrayList<Module> getModuleList() {
+    public ObservableList<Module> getModuleList() {
         return moduleList;
     }
 
