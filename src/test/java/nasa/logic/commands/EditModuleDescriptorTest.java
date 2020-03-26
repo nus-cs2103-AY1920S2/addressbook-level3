@@ -2,7 +2,7 @@ package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.DESC_CS1231;
 import static nasa.logic.commands.CommandTestUtil.DESC_CS2030;
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,7 +38,7 @@ public class EditModuleDescriptorTest {
         assertFalse(DESC_CS2030.equals(editedExam));
 
         // different module code -> returns false
-        editedExam = new EditModuleDescriptorBuilder(DESC_CS2030).withModuleCode(VALID_MODULE_CS1231).build();
+        editedExam = new EditModuleDescriptorBuilder(DESC_CS2030).withModuleCode(VALID_MODULE_CODE_CS1231).build();
         assertFalse(DESC_CS2030.equals(editedExam));
 
     }

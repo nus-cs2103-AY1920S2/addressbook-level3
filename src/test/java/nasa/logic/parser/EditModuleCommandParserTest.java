@@ -3,12 +3,12 @@ package nasa.logic.parser;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
 import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_NAME_DESC;
-import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS1231;
-import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
+import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS2030;
 import static nasa.logic.commands.CommandTestUtil.MODULE_NAME_DESC_CS1231;
 import static nasa.logic.commands.CommandTestUtil.MODULE_NAME_DESC_CS2030;
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2030;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS2030;
 import static nasa.logic.commands.EditModuleCommand.EXCESS_MODULE_CODE;
@@ -56,7 +56,7 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        String validPreamble = MODULE_DESC_CS2030.trim();
+        String validPreamble = MODULE_CODE_DESC_CS2030.trim();
         assertParseFailure(parser, validPreamble + INVALID_MODULE_NAME_DESC,
                 ModuleName.MESSAGE_CONSTRAINTS); // invalid module name
         assertParseFailure(parser, validPreamble + INVALID_MODULE_DESC,
@@ -67,11 +67,11 @@ public class EditModuleCommandParserTest {
                 ModuleCode.MESSAGE_CONSTRAINTS);
 
         // invalid module name followed by valid module code
-        assertParseFailure(parser, validPreamble + INVALID_MODULE_NAME_DESC + MODULE_DESC_CS1231,
+        assertParseFailure(parser, validPreamble + INVALID_MODULE_NAME_DESC + MODULE_CODE_DESC_CS1231,
                 ModuleName.MESSAGE_CONSTRAINTS);
 
         // two module codes input (in addition to preamble)
-        assertParseFailure(parser, validPreamble + MODULE_DESC_CS1231 + MODULE_DESC_CS2030,
+        assertParseFailure(parser, validPreamble + MODULE_CODE_DESC_CS1231 + MODULE_CODE_DESC_CS2030,
                 EXCESS_MODULE_CODE);
 
         // multiple invalid values, but module code errors are always caught before module name errors
@@ -82,13 +82,13 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        String validPreamble = MODULE_DESC_CS2030.trim();
-        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
+        String validPreamble = MODULE_CODE_DESC_CS2030.trim();
+        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CODE_CS2030);
 
-        String userInput = validPreamble + MODULE_DESC_CS1231 + MODULE_NAME_DESC_CS1231;
+        String userInput = validPreamble + MODULE_CODE_DESC_CS1231 + MODULE_NAME_DESC_CS1231;
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleName(VALID_MODULE_NAME_CS1231)
-                .withModuleCode(VALID_MODULE_CS1231).build();
+                .withModuleCode(VALID_MODULE_CODE_CS1231).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetModuleCode, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -97,12 +97,13 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        String validPreamble = MODULE_DESC_CS2030.trim();
-        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
+        String validPreamble = MODULE_CODE_DESC_CS2030.trim();
+        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CODE_CS2030);
 
         // edit module code only
-        String userInput = validPreamble + MODULE_DESC_CS1231;
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CS1231).build();
+        String userInput = validPreamble + MODULE_CODE_DESC_CS1231;
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+                .withModuleCode(VALID_MODULE_CODE_CS1231).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetModuleCode, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -115,13 +116,13 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedModuleNames_acceptsLast() {
-        String validPreamble = MODULE_DESC_CS2030.trim();
-        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
+        String validPreamble = MODULE_CODE_DESC_CS2030.trim();
+        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CODE_CS2030);
 
-        String userInput = validPreamble + MODULE_DESC_CS1231 + MODULE_NAME_DESC_CS1231 + MODULE_NAME_DESC_CS2030;
+        String userInput = validPreamble + MODULE_CODE_DESC_CS1231 + MODULE_NAME_DESC_CS1231 + MODULE_NAME_DESC_CS2030;
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleName(VALID_MODULE_NAME_CS2030)
-                .withModuleCode(VALID_MODULE_CS1231).build();
+                .withModuleCode(VALID_MODULE_CODE_CS1231).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetModuleCode, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -129,14 +130,14 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_invalidModuleNameFollowedByValidModuleName_success() {
-        String validPreamble = MODULE_DESC_CS2030.trim();
-        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
+        String validPreamble = MODULE_CODE_DESC_CS2030.trim();
+        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CODE_CS2030);
 
-        String userInput = validPreamble + MODULE_DESC_CS1231 + INVALID_MODULE_NAME_DESC + MODULE_NAME_DESC_CS1231
+        String userInput = validPreamble + MODULE_CODE_DESC_CS1231 + INVALID_MODULE_NAME_DESC + MODULE_NAME_DESC_CS1231
                 + MODULE_NAME_DESC_CS2030;
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleName(VALID_MODULE_NAME_CS2030)
-                .withModuleCode(VALID_MODULE_CS1231).build();
+                .withModuleCode(VALID_MODULE_CODE_CS1231).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetModuleCode, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

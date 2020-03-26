@@ -222,11 +222,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasActivity(Module target, Activity activity) {
-            return false;
-        }
-
-        @Override
         public boolean hasActivity(ModuleCode target, Activity activity) {
             return false;
         }
@@ -346,11 +341,6 @@ public class AddCommandTest {
         @Override
         public void removeActivity(ModuleCode target, Activity activity) {
 
-        }
-
-        @Override
-        public boolean hasActivity(Module target, Activity activity) {
-            return false;
         }
 
         @Override

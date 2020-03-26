@@ -93,7 +93,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        NasaBook nasaBook = new NasaBookBuilder().withModule(GEH1001).withModule(CS2106).build();
+        NasaBook nasaBook = new NasaBookBuilder().addModule(GEH1001).addModule(CS2106).build();
         NasaBook differentNasaBook = new NasaBook();
         UserPrefs userPrefs = new UserPrefs();
 

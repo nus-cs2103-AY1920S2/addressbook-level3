@@ -123,13 +123,19 @@ class NasaBookTest {
     private static class NasaBookStub implements ReadOnlyNasaBook {
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
-        NasaBookStub(Collection<Module> Modules) {
-            this.modules.setAll(Modules);
+        NasaBookStub(Collection<Module> modules) {
+            this.modules.setAll(modules);
         }
 
         @Override
         public ObservableList<Module> getModuleList() {
             return modules;
         }
+
+        @Override
+        public UniqueModuleList getUniqueModuleList() { // stub
+            return new UniqueModuleList();
+        }
+
     }
 }

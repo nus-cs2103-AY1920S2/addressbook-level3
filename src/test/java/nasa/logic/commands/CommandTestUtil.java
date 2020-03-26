@@ -28,8 +28,8 @@ import nasa.testutil.EditModuleDescriptorBuilder;
 public class CommandTestUtil {
 
     // valid module names and codes
-    public static final String VALID_MODULE_CS2030 = "CS2030";
-    public static final String VALID_MODULE_CS1231 = "CS1231";
+    public static final String VALID_MODULE_CODE_CS2030 = "CS2030";
+    public static final String VALID_MODULE_CODE_CS1231 = "CS1231";
     public static final String VALID_MODULE_NAME_CS2030 = "Programming Methodology II";
     public static final String VALID_MODULE_NAME_CS1231 = "Discrete Structures";
 
@@ -45,8 +45,8 @@ public class CommandTestUtil {
     public static final String VALID_DATE_TEST_2 = "14-12-2020 23:59";
 
     // parameters with their prefixes
-    public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
-    public static final String MODULE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CS1231;
+    public static final String MODULE_CODE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CODE_CS2030;
+    public static final String MODULE_CODE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CODE_CS1231;
     public static final String MODULE_NAME_DESC_CS2030 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS2030;
     public static final String MODULE_NAME_DESC_CS1231 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS1231;
     public static final String ACTIVITY_NAME_DESC_HWK = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_HWK;
@@ -91,9 +91,9 @@ public class CommandTestUtil {
         DESC_HWK = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_HWK)
                 .withDate(VALID_DATE_TEST_2).withNote(VALID_NOTES_TEST_2).withPriority(VALID_PRIORITY_LOW)
                 .build();
-        DESC_CS2030 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CS2030)
+        DESC_CS2030 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CODE_CS2030)
                 .withModuleName(VALID_MODULE_NAME_CS2030).build();
-        DESC_CS1231 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CS1231)
+        DESC_CS1231 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CODE_CS1231)
                 .withModuleName(VALID_MODULE_NAME_CS1231).build();
     }
 
