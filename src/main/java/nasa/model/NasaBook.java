@@ -320,6 +320,11 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     @Override
+    public UniqueModuleList getUniqueModuleList() {
+        return moduleList;
+    }
+
+    @Override
     public ObservableList<Module> getModuleList() {
         return moduleList.asUnmodifiableObservableList();
     }

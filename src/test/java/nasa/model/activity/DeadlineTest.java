@@ -24,13 +24,13 @@ class DeadlineTest {
     }
 
     @Test
-    void set_dateline() {
+    void set_due_date() {
         Date date = new Date("19-03-2020 03:00");
         Deadline subject = (Deadline) DEADLINE_LATE;
 
-        assertFalse(subject.getDateline().equals(date));
+        assertFalse(subject.getDueDate().equals(date));
 
-        subject.setDateLine(date);
-        assertTrue(subject.getDateline().equals(date));
+        subject.setDueDate(date);
+        assertTrue(subject.getDueDate().equals(date));
     }
 }

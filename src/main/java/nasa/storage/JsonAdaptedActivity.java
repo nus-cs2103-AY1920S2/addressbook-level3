@@ -68,7 +68,7 @@ class JsonAdaptedActivity {
         if (source instanceof Deadline) {
             type = "deadline";
             Deadline temp = (Deadline) source;
-            dueDate = temp.getDateline().toString();
+            dueDate = temp.getDueDate().toString();
             startDate = "";
             endDate = "";
         } else if (source instanceof Event) {

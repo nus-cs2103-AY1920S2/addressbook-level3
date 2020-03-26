@@ -48,7 +48,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.name = name;
         this.date = date;
         this.note = note;
-        this.status = Status.ONGOING;
+        this.status = status;
         this.priority = priority;
     }
 
@@ -103,10 +103,6 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
     /**
      * Returns true if both activities of the same name, note and date.
      * @param otherActivity
@@ -137,11 +133,20 @@ public abstract class Activity implements Regenerable<Activity> {
             return false;
         }
         Activity otherActivity = (Activity) other;
+
         return otherActivity.getName().equals(getName());
     }
 
     /**
-     * Retrieve the late status of the activity
+     * Retrieve the status object of the activity.
+     * @return Status of the activity
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Retrieve the late status of the activity.
      * @return boolean, true means late, false means not
      */
     public boolean isLate() {

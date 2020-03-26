@@ -91,7 +91,7 @@ public class ParserUtil {
         requireNonNull(priority);
         String priorityTrimmed = priority.trim();
         if (!Priority.isValidPriorityValue(priorityTrimmed)) {
-            throw new ParseException(Priority.PRIORITY_RANGE_CONSTRAINTS);
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
         return new Priority(priorityTrimmed);
     }

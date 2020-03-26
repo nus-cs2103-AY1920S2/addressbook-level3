@@ -37,18 +37,18 @@ public class Deadline extends Activity {
         this.dueDate = dueDate;
     }
 
-    public Date getDateline() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDateLine(Date date) {
+    public void setDueDate(Date date) {
         this.dueDate = date;
-        updateStatus();
+        this.updateStatus();
     }
 
     @Override
     public void updateStatus() {
-        if (status == Status.ONGOING && Date.now().isAfter(getDateline())) {
+        if (status == Status.ONGOING && Date.now().isAfter(getDueDate())) {
             status = Status.LATE;
         }
     }
