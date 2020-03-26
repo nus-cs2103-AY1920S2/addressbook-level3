@@ -336,13 +336,13 @@ Uses a coupon if its usage has yet to reached its limit.
 Requires an original amount of purchase if the coupon has savings in a percentage value. +
 Format: `used INDEX` or `used INDEX MONETARY_AMOUNT`
 where `MONETARY_AMOUNT` is a number prefixed by a user-defined currency
-symbol e.g.($4.50, where the currency symbol is "$").
+symbol e.g. ($4.50, where the currency symbol is "$").
 
 ****
 * Uses the coupon at the specified INDEX.
 * The index refers to the index number shown in the displayed coupon.
 list.
-* The index *must be a positive integer* 1, 2, 3, …​
+* The index *must be a positive integer* 1, 2, 3, ...
 * The monetary symbol is the one preset by the user e.g. $, RM ...
 * The original amount *must be a positive double* e.g. 10.00, 23.11, 0.50 ...
 ****
@@ -479,7 +479,8 @@ Examples:
 
 * `setpref ms/€` +
 Sets the money symbol used in commands, as well as to
-display coupons' savings, to € (Euro).
+display coupons' savings, to € (Euro). The changes will
+be visible immediately.
 
 
 == FAQ
@@ -524,7 +525,7 @@ e.g. `add n/The Deck Chicken Rice s/20% sd/2-3-2020 e/30-8-2020 t/friend t/valu
 * *Clear*: `clear`
 * *Delete*: `delete INDEX` +
 e.g. `delete 3`
-* *Edit*: `edit INDEX [n/name] [e/EXPIRY DATE] [s/SAVINGS] [l/limit] [p/PROMO CODE] [sd/START DATE] [r/REMIND DATE] [c/CONDITION] [t/TAG]`​ +
+* *Edit*: `edit INDEX [n/name] [e/EXPIRY DATE] [s/SAVINGS] [l/limit] [p/PROMO CODE] [sd/START DATE] [r/REMIND DATE] [c/CONDITION] [t/TAG]` +
 e.g. `edit 2 n/Chicken Up s/50%`
 * *Find*: `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find western chick`
