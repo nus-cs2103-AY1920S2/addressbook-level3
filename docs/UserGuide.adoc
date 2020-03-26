@@ -208,9 +208,11 @@ Returns Ken Kitchen, Ken Ridge Optical, Chic Ken Rice
 
 Deletes the specified coupon from the coupon stash.
 
-Todo: confirmation (maybe for not expired)
+Version 2.0 will bring new features like confirmation
+of coupons before they are deleted!
 
-Todo: recycle bin
+Also, a "recycle bin" is in the works for version 3.0,
+similar to the Recycle Bin in Microsoft Windows.
 
 Format: `delete INDEX`
 
