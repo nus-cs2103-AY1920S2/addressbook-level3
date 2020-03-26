@@ -55,9 +55,7 @@
                                             <Insets bottom="10" left="10" right="10" top="10"/>
                                         </padding>
                                         <Label fx:id="orderListLabel" alignment="CENTER" prefWidth="Infinity"
-                                               text="Order List" VBox.vgrow="ALWAYS">
-
-                                        </Label>
+                                               text="Order List" VBox.vgrow="ALWAYS"/>
                                         <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                                     </VBox>
                                     <VBox fx:id="returnOrderList" minWidth="340" prefWidth="340"
@@ -66,8 +64,7 @@
                                             <Insets bottom="10" left="10" right="10" top="10"/>
                                         </padding>
                                         <Label fx:id="returnOrderLabel" alignment="CENTER" prefWidth="Infinity"
-                                               text="Return List" VBox.vgrow="ALWAYS">
-                                        </Label>
+                                               text="Return List" VBox.vgrow="ALWAYS"/>
                                         <StackPane fx:id="returnOrderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                                     </VBox>
                                 </HBox>
