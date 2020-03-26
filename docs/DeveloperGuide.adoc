@@ -232,6 +232,7 @@ Amount into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following is a sample sequence diagram of the AddCommand.
 
+.Interactions for add food command
 image::AddFoodSequenceDiagram.png[]
 
 ==== Delete Command
@@ -260,6 +261,7 @@ into JSON format after serializing it using `JsonAdaptedFood`.
 
 The following is a sample sequence diagram of the DeleteItemCommand.
 
+.Interactions for delete food command
 image::DeleteFoodSequenceDiagram.png[]
 
 ==== List Command
