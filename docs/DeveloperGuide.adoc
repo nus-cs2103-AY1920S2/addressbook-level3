@@ -178,7 +178,32 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === New Profile Feature
+The `new` feature allows the user to create a profile with the command `new`, appended with the tags.
 
+The tags are:
+
+* `n/name` for `Name`
+* `c/course` for `Course`
+* `cs/current_semester` for `Current Semester`
+* `s/specialisation` for `Specialisation`
+
+==== Current Implementations
+
+`NewCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `NewCommand` is parsed using `NewCommandParser` to split the user input into relevant fields.
+
+The following sequence diagram shows how the `new` operation works with the input: `new n/John c/Computer Science cs/4`
+
+image pending.
+
+==== Design Considerations (pending)
+
+* *Alternative 1:*
+** Pros:
+** Cons:
+
+* *Alternative 2:*
+** Pros:
+** Cons:
 
 === Add Feature
 
