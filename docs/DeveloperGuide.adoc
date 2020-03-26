@@ -164,7 +164,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::undoredo[]
 === Undo/Redo feature
 
-==== Proposed Implementation
+==== Current Implementation
 
 The undo/redo mechanism is facilitated by with an undo/redo history, stored internally as an `couponStashStateList` with a `commandTextHistory` and `currStateIndex`. All these components are encapsulated in the `HistoryManager` class.
 The following methods in the `Model` interface facilitates this feature:
@@ -371,6 +371,77 @@ this method, the current filtered list will be be updated to show active coupons
 * **Alternative 2:** Archived coupons are stored in another separate data file.
 ** Pros: Separates the logic between the two different `CouponStash`, e.g. you can only do limited functions with archived coupons
 ** Cons: Sharply increases the maintainability and coupling of the application with two data files.
+
+// tag::updownarrowcommandhistory[]
+=== Up/down arrow command history
+
+==== Current Implementation
+The retrieving of command history via the up and down arrow keys is facilitated
+by the `CommandTextHistory` class. The command history is stored internally as a `LinkedList` used as a stack with a `currIndex`
+tracking the next command in the history to return.
+The following methods in the `CommandTextHistory`
+class facilitates this feature:
+
+* `CommandTextHistory#add(String commandText)`
+* `CommandTextHistory#getDown()`
+* `CommandTextHistory#getUp()`
+
+Given below is an example usage scenario and how the up/down button presses behaves at each step.
+
+Step 1. The user launches the application for the first time. The `CommandTextHistory` is initialized
+with a `LinkedList` containing only an empty string (`""`), and the `currIndex` is set to `0`.
+
+image::UpDownHistory0.png[]
+
+Step 2. The user executes `delete 1`. `CommandBox#handleCommandEntered()` will call `CommandTextHistory#add(String commandText)` to save the entered command into
+the stack contained in `CommandTextHistory`. The top of the stack (i.e. the empty string) is popped off first, before
+the etered command is pushed onto the stack. Then, the empty string is pushed onto the stack again, thus ensuring that
+the empty string stays at the top of the stack. Note that `currIndex` is not affected.
+
+image::UpDownHistory1.png[]
+
+Step 3. The user executes `delete 2`. `CommandBox#handleCommandEntered()` will also save the entered command into
+the stack contained in `CommandTextHistory`. As in the previous step, the new command is pushed to the top of the stack,
+just below the empty string.
+
+image::UpDownHistory2.png[]
+
+Step 3. Now, the user decides to delete the second coupon again. We press the arrow key up once,
+and `CommandBox#commandTextField` has a listener that calls `CommandTextHistory#getUp()`.
+The `currIndex` is incremented, and then the command text pointed to by `currIndex` is returned and
+displayed in the program command box.
+
+image::UpDownHistory3.png[]
+
+Step 4. The user then executes the retrieved command (`delete 2`). As in the previous steps, this newly executed command
+is pushed to the top of the stack just below the empty string. However, in such a case when the `currIndex` is not `0` and
+does not point to the top of the stack, it is reset to `0`.
+
+image::UpDownHistory4.png[]
+
+[NOTE]
+If the `currStateIndex` is pointing to the top of the stack,
+then there are no previous commands to retrieve. Thus, the up button will simply
+return the empty string. No changes to the stack and `currIndex` will be effected.
+
+The down arrow key does the opposite, it will lead to the calling of `CommandTextHistory#getDown()`,
+which shifts the `currIndex` one item higher (i.e. decrement the `currIndex` by `1`), before returning
+the command text pointed by the updated `currIndex`.
+
+[NOTE]
+If the `currIndex` is at index `commandTextHistory.size() - 1`, pointing to the
+bottom of the stack, there is no next command to retrieve when pressing the down key. Thus,
+the down button will simple return the command text currently being pointed to by the `currIndex`.
+No changes to the stack and `currIndex` will be effected.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support the key actions
+
+* We used a `LinkedList` as a stack to store the command text history.
+** The first in first out nature of a stack made it a very suitable data structure
+for the storage of history that is retrived in chronological order of execution.
+// end::updownarrowcommandhistory[]
 
 
 === Coupon Reminder
