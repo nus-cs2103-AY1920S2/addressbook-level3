@@ -345,7 +345,7 @@ The archiving of coupons is facilitated by the `Archived` attribute of a coupon.
 
 Given below is two example usage scenarios and how the archiving mechanism behaves at each step of each scenario.
 
-image:ArchivingClassDiagram.png[]
+image::ArchivingClassDiagram.png[]
 
 ===== Archiving of Expired Coupons
 
@@ -362,7 +362,7 @@ and returns a new updated `CouponStash`.
 Step 3. The `ModelManager` will proceed to filter out the archived coupons from the newly updated `CouponStash`, and return
 a filtered list of active coupons. This filtering is facilitated by the predicate `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
 
-image:ArchiveExpiredSequenceDiagram.png[]
+image::ArchiveExpiredSequenceDiagram.png[]
 
 ===== Archiving of Exhausted Coupons
 
