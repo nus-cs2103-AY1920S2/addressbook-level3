@@ -13,9 +13,22 @@
         </TextFlow>
         <Label text=" Quick start:" styleClass="quickStart"></Label>
         <TextFlow>
-            <Label text=" 1. No new profile? Create using " styleClass="quickStart" ></Label>
+            <Label text=" 1. No profile? Create using " styleClass="quickStart" ></Label>
             <Label text="`new`" styleClass="command"></Label>
         </TextFlow>
-        <Label text="format: new n/Name c/Course cs/Current Semester" styleClass="command"></Label>
+        <Label text="format: new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]" styleClass="command"></Label>
+        <Label text="    " styleClass="quickStart"></Label>
+
+        <TextFlow>
+            <Label text=" 2. Add modules using" styleClass="quickStart" ></Label>
+            <Label text="`add`" styleClass="command"></Label>
+        </TextFlow>
+        <Label text="format: add m/MODULE y/SEMESTER_INDEX" styleClass="command"></Label>
+        <Label text="    " styleClass="quickStart"></Label>
+        <TextFlow>
+            <Label text=" 3. Add deadlines using" styleClass="quickStart" ></Label>
+            <Label text="`add`" styleClass="command"></Label>
+        </TextFlow>
+        <Label text="format: add m/MODULE y/SEMESTER_INDEX t/TASK d/DEADLINE" styleClass="command"></Label>
     </VBox>
 </StackPane>

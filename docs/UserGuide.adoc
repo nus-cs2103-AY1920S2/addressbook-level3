@@ -26,21 +26,21 @@ Enjoy!
 
 == Quick Start (coming in v2.0)
 
-//.  Ensure you have Java `11` or above installed in your Computer.
-//.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-//.  Copy the file to the folder you want to use as the home folder for your Address Book.
-//.  Double-click the file to start the app. The GUI should appear in a few seconds.
-//+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `MODdy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your personalised MODdy.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
 image::Ui.png[width="790"]
-//+
-//.  Type the command in the command box and press kbd:[Enter] to execute it. +
-//e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-//.  Some example commands you can try:
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+. Create your own profile using `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
+.  Some example commands you can try:
 
-//* *`list`* : lists all contacts
-//* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-//* **`delete`**`3` : deletes the 3rd contact shown in the current list
-//* *`exit`* : exits the app
+* **`add`**`m/CS2103T y/1` : adds CS2103T into your Module List under semester 1
+* **`delete`**`n/NAME` : deletes your whole profile and its data
+* *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -63,7 +63,23 @@ You will be directed to MODdy's User Guide. +
 
 Format: `help`
 
-[[add]]
+[[New]]
+=== New user profile : `new`
+
+This helps you to create a new Profile. +
+Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
+
+****
+* Fields in brackets [] are optional.
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<delete,`delete`>> feature mentioned below
+****
+
+Examples:
+
+* `new n/John c/Computer Science cs/4` +
+Creates a new profile with the name "John", currently majoring in "Computer Science" and is in his 4th semester of study.
+
+[[Add]]
 === Adding: `add`
 
 Adds a module or a task to an existing module in MODdy. +
@@ -170,32 +186,22 @@ Shows the module requirements and focus areas under Computer Science
 * `show m/CS2107` +
 Shows the module name, prerequisites, modular credits, description and semesters CS2107 is offered in
 
-[[New]]
-=== New user profile : `new`
-
-This helps you to create a new Profile. +
-Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
-
-****
-* Fields in brackets [] are optional.
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<delete,`delete`>> feature mentioned below
-****
-
-Examples:
-
-* `new n/John c/Computer Science cs/4` +
-Creates a new profile with the name "John", currently majoring in "Computer Science" and is in his 4th semester of study.
-
 [[Delete]]
 === Delete a user profile : `delete` (coming in v2.0)
 
-//Clears all entries from the address book. +
-//Format: `clear`
+
+[[Clear]]
+=== Resets the whole application : `clear`
+
+This allows you to clear all entries from the application including your profile and its data.
+
+Format: `clear`
 
 [[Exit]]
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
 Format: `exit`
 
 === Saving the data
