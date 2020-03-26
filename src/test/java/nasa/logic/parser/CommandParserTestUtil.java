@@ -6,7 +6,7 @@ import nasa.logic.commands.Command;
 import nasa.logic.parser.exceptions.ParseException;
 
 /**
- * Util class for command parser tests.
+ * Contains helper methods for testing command parsers.
  */
 public class CommandParserTestUtil {
 

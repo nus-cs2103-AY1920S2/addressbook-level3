@@ -1,39 +1,23 @@
 package nasa.testutil;
 
-import static nasa.testutil.TypicalModules.CS2103T;
-import static nasa.testutil.TypicalModules.CS2106;
-import static nasa.testutil.TypicalModules.GEH1001;
-
-import nasa.commons.core.index.Index;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;
-import nasa.model.module.UniqueModuleList;
 
 /**
- * Class to build example NasaBook.
+ * A utility class to help with building NASA objects.
+ * Example usage: <br>
+ *     {@code NasaBook nb = new NasaBookBuilder().withModule("CS2103T", "Software Engineering").build();}
  */
 public class NasaBookBuilder {
 
-    public static final Module DEFAULT_MODULE_1 = CS2103T;
-    public static final Module DEFAULT_MODULE_2 = CS2106;
-    public static final Module DEFAULT_MODULE_3 = GEH1001;
-
-    private UniqueModuleList moduleList;
+    private NasaBook nasaBook;
 
     public NasaBookBuilder() {
-        moduleList = new UniqueModuleList();
-        moduleList.add(DEFAULT_MODULE_1);
-        moduleList.add(DEFAULT_MODULE_2);
-        moduleList.add(DEFAULT_MODULE_3);
+        nasaBook = new NasaBook();
     }
 
-    /**
-     * Reset nasabook builder.
-     * @return NasaBookBuilder
-     */
-    public NasaBookBuilder reset() {
-        moduleList = new UniqueModuleList();
-        return this;
+    public NasaBookBuilder(NasaBook nasaBook) {
+        this.nasaBook = nasaBook;
     }
 
     /**
@@ -41,28 +25,8 @@ public class NasaBookBuilder {
      * @param module module
      * @return NasaBookBuilder
      */
-    public NasaBookBuilder addModule(Module module) {
-        moduleList.add(module);
-        return this;
-    }
-
-    /**
-     * Delete the module from Nasabook.
-     * @param module module
-     * @return NasaBookBuilder
-     */
-    public NasaBookBuilder deleteModule(Module module) {
-        moduleList.remove(module);
-        return this;
-    }
-
-    /**
-     * Delete the module from Nasabook.
-     * @param index index
-     * @return NasaBookBuilder
-     */
-    public NasaBookBuilder deleteModule(Index index) {
-        moduleList.removeByIndex(index);
+    public NasaBookBuilder withModule(Module module) {
+        nasaBook.addModule(module);
         return this;
     }
 
@@ -71,8 +35,6 @@ public class NasaBookBuilder {
      * @return NasaBook
      */
     public NasaBook build() {
-        NasaBook nasaBook = new NasaBook();
-        nasaBook.setModuleList(moduleList);
         return nasaBook;
     }
 

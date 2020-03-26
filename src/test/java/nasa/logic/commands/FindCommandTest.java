@@ -1,33 +1,25 @@
 package nasa.logic.commands;
 
-import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
-import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
+import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
-import nasa.model.activity.ActivityContainsKeyWordsPredicate;
-import nasa.testutil.NasaBookBuilder;
 
+/**
+ * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ */
 public class FindCommandTest {
+    private Model model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalNasaBook(), new UserPrefs());
 
-    private Model model = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
-    private Model expectedModel = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
-
+    /*
     @Test
     public void equals() {
-        ActivityContainsKeyWordsPredicate firstPredicate =
-            new ActivityContainsKeyWordsPredicate(Collections.singletonList("first"));
-
-        ActivityContainsKeyWordsPredicate secondPredicate =
-            new ActivityContainsKeyWordsPredicate(Collections.singletonList("second"));
+        NameContainsKeywordsPredicate firstPredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
+        NameContainsKeywordsPredicate secondPredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -49,28 +41,38 @@ public class FindCommandTest {
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
+     */
+    /*
+
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW, 0);
-        ActivityContainsKeyWordsPredicate predicate = preparePredicate(" ");
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredActivityList(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
-    public void execute_multipleKeywords_multipleActivitiesFound() {
-        String expectedMessage = String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW, 3);
-        ActivityContainsKeyWordsPredicate predicate = preparePredicate("Lab");
-        FindCommand findCommand = new FindCommand(predicate);
-        expectedModel.updateFilteredActivityList(predicate);
-        assertCommandSuccess(findCommand, model, expectedMessage, expectedModel);
+    public void execute_multipleKeywords_multiplePersonsFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
-    /**
-     * Parses {@code userInput} into a {@code ActivityContainsKeywordsPredicate}.
      */
-    private ActivityContainsKeyWordsPredicate preparePredicate(String userInput) {
-        return new ActivityContainsKeyWordsPredicate(Arrays.asList(userInput.split("\\s+")));
+
+    /**
+     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     */
+    /*
+    private AcitivityContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new AcitivityContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
+
+     */
 }

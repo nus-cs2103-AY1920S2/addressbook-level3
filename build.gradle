@@ -68,7 +68,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'nasa.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

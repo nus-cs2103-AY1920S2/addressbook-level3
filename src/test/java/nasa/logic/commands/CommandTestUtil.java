@@ -9,7 +9,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.testutil.Assert.assertThrows;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -21,13 +20,13 @@ import nasa.model.NasaBook;
 import nasa.model.module.Module;
 
 /**
- * Test util.
+ * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
     // valid module names and codes
-    public static final String VALID_MODULE_CS2030 = "CS2030";
-    public static final String VALID_MODULE_CS1231 = "CS1231";
+    public static final String VALID_MODULE_CODE_CS2030 = "CS2030";
+    public static final String VALID_MODULE_CODE_CS1231 = "CS1231";
     public static final String VALID_MODULE_NAME_CS2030 = "Programming Methodology II";
     public static final String VALID_MODULE_NAME_CS1231 = "Discrete Structures";
 
@@ -42,8 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_DATE_TEST_2 = "14-12-2020 23:59";
 
     // parameters with their prefixes
-    public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
-    public static final String MODULE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CS1231;
+    public static final String MODULE_CODE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CODE_CS2030;
+    public static final String MODULE_CODE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CODE_CS1231;
     public static final String MODULE_NAME_DESC_CS2030 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS2030;
     public static final String MODULE_NAME_DESC_CS1231 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS1231;
     public static final String ACTIVITY_NAME_DESC_HWK = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_HWK;
@@ -73,6 +72,20 @@ public class CommandTestUtil {
     //extra test strings
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    //public static final EditCommand.EditPersonDescriptor DESC_AMY;
+    //public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    /*
+        static {
+            DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+                    .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                    .withTags(VALID_TAG_FRIEND).build();
+            DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+                    .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                    .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        }
+
+     */
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -116,4 +129,22 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getNasaBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
     }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    /*
+    public static void showPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().fullName.split("\\s+");
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+
+     */
 }
