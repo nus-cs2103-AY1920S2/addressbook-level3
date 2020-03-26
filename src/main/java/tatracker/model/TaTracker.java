@@ -82,7 +82,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         setGroups(newData.getGroupList());
     }
 
-    //// session-level operations
+    // ======== Session Methods ================================================
 
     /**
      * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
@@ -134,6 +134,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return sessions.asUnmodifiableObservableList();
     }
 
+    // ======== Done Session Methods =================================================
+
     public void addDoneSession(Session s) {
         doneSessions.add(s);
     }
@@ -142,6 +144,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     public ObservableList<Session> getDoneSessionList() {
         return doneSessions.asUnmodifiableObservableList();
     }
+
+    // ======== Module Methods =================================================
 
     /**
      * Returns module from TATracker.
@@ -202,6 +206,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.asUnmodifiableObservableList();
     }
 
+    // ======== Group Methods ==================================================
+
     /**
      * Adds a group to the TATracker.
      */
@@ -214,7 +220,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return groups.asUnmodifiableObservableList();
     }
 
-    //// student-level operations
+    // ======== Student Methods ================================================
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
@@ -251,8 +257,6 @@ public class TaTracker implements ReadOnlyTaTracker {
         students.setStudent(target, editedStudent);
     }
 
-    //// list overwrite operations
-
     /**
      * Replaces the contents of the student list with {@code students}.
      * {@code students} must not contain duplicate students.
@@ -266,6 +270,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return students.asUnmodifiableObservableList();
     }
 
+    // ======== Utility Methods ================================================
+
     @Override
     public int hashCode() {
         return students.hashCode();
@@ -277,8 +283,6 @@ public class TaTracker implements ReadOnlyTaTracker {
                 || (other instanceof TaTracker // instanceof handles nulls
                 && students.equals(((TaTracker) other).students));
     }
-
-    //// util methods
 
     @Override
     public String toString() {
