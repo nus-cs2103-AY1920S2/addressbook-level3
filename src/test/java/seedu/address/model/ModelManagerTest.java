@@ -18,9 +18,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.GoodBuilder;
 import seedu.address.testutil.InventoryBuilder;
 
 public class ModelManagerTest {
@@ -132,6 +134,29 @@ public class ModelManagerTest {
     @Test
     public void getFilteredGoodList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredGoodList().remove(0));
+    }
+
+    @Test
+    public void undo_affectsAllDatabases() {
+        modelManager.addGood(APPLE);
+        modelManager.addPerson(ALICE);
+        modelManager.commit();
+
+        modelManager.undo();
+        assertFalse(modelManager.hasGood(APPLE));
+        assertFalse(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void commit_savesAllDatabases() {
+        modelManager.addGood(APPLE);
+        modelManager.commit();
+        modelManager.addPerson(ALICE);
+        modelManager.commit();
+
+        modelManager.undo();
+        assertTrue(modelManager.hasGood(APPLE));
+        assertFalse(modelManager.hasPerson(ALICE));
     }
 
     @Test
