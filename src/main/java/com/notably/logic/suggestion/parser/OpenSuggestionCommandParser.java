@@ -18,6 +18,7 @@ import com.notably.model.Model;
  */
 public class OpenSuggestionCommandParser implements SuggestionCommandParser<OpenSuggestionCommand> {
     private static final int DISTANCE_THRESHOLD = 2;
+
     private Model model;
     private AbsolutePathCorrectionEngine correctionEngine;
 
