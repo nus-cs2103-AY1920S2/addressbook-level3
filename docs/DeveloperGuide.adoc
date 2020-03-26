@@ -153,6 +153,18 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Module Search 
+
+Our module search function consists of 2 main implementation 
+
+  1.Retrieving information from NUSmods 
+  2.Retrieving information from cached data 
+  
+  The implementation allows user to retrieve details about a module from NUSmods if the user have not query about the module before. The search function will create a API call and retrieve the object as a JSON object, which will be decoded and parsed into different relevant attribute of the Module Class. 
+  
+  The moduleSearch function would first search its storage in data/addressbook.json whether the module information is queried before. If queried, the information would be retrieved from the storage instead of querying from the internet. This allows user to plan for module if they have queried the module before without the need for Internet access.
+   
+
 === [Proposed] Pathing
 
 Given below is the consideration and proposed implementation for pathing in the future versions.
@@ -192,13 +204,6 @@ cons:
 Not as flexible
 
 
-
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -237,13 +242,15 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
 * has a need to manage deadlines and tasks
 * has a need to manage module planning
+* prefer desktop apps over other types
+* prefers typing over mouse input
+* prefers to have everything in one app
+* can type fast
+* is reasonably comfortable using CLI apps
 * is studying in NUS
+
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
