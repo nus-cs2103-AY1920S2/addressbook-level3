@@ -59,9 +59,9 @@
                 <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
-            <Tab fx:id="tssListTab" text="TSS Claims">
+            <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                  <StackPane fx:id="studentListPanelPlaceholder1" VBox.vgrow="ALWAYS" />
+                  <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                </content>
             </Tab>
           </tabs>
