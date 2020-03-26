@@ -96,7 +96,7 @@ public class AddTransactionCommand extends Command {
 
         if (editedProduct.getQuantity().value <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();
-            window.show(editedProduct, editedProduct.getQuantity());
+            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }
 
         model.setProduct(productToEdit, editedProduct);

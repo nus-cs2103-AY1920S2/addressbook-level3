@@ -67,7 +67,7 @@ public class LowLimitCommand extends Command {
 
         if (editedProduct.getQuantity().value <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();
-            window.show(editedProduct, editedProduct.getQuantity());
+            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedProduct));
