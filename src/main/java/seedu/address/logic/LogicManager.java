@@ -99,8 +99,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
-        if (model.getFilteredPersonList().size() == 1 && model.getFirstProfile().getDeadlines() != null) {
-            model.loadDeadlines();
+        if (model.getFilteredPersonList().size() == 1) { //profile exists
+            int curSem = Profile.getCurrentSemester(); //taking from static profile
+            System.out.println(model.getFirstProfile().getCurModules(curSem));
+            if (model.getFirstProfile().getCurModules(curSem) != null) {
+                model.loadDeadlines();
+            }
         }
         return model.getFilteredDeadlineList();
     }

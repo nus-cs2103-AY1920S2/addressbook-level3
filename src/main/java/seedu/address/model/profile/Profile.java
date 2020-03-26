@@ -122,6 +122,10 @@ public class Profile {
         return deadlineList;
     }
 
+    public ModuleList getCurModules(int currentSemester) {
+        return moduleHash.get(currentSemester);
+    }
+
     public int getModuleSemester(ModuleCode moduleCode) {
         for (int semester: moduleHash.keySet()) {
             for (Module module: moduleHash.get(semester)) {
