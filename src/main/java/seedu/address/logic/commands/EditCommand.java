@@ -84,6 +84,9 @@ public class EditCommand extends Command {
         ModuleList inList = null;
         Module module = ModuleManager.getModule(moduleCode);
         HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
+        if (hashMap.isEmpty()) {
+            throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
+        }
         for (ModuleList list: hashMap.values()) {
             for (Module moduleItr: list) {
                 if (module.isSameModule(moduleItr)) {
@@ -105,8 +108,12 @@ public class EditCommand extends Command {
         requireNonNull(model);
 
         List<Profile> lastShownList = model.getFilteredPersonList();
-        Profile profileToEdit = lastShownList.get(0); //accessing only first profile in list
-        System.out.println(profileToEdit);
+        Profile profileToEdit;
+        try {
+            profileToEdit = lastShownList.get(0); //accessing only first profile in list
+        } catch (Exception e) {
+            throw new CommandException("Error: There is no existing profile.");
+        }
 
         if (toEditModule != null) {
             if (intSemester != 0) {

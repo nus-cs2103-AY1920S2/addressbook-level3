@@ -79,7 +79,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 currentSemester = Integer.parseInt(currentSemesterString);
             }
             if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
-                specialisation = argMultimap.getValue(PREFIX_GRADE).get();
+                specialisation = argMultimap.getValue(PREFIX_SPEC).get();
             }
             return new EditCommand(name, courseName, currentSemester, specialisation);
         }
