@@ -46,8 +46,15 @@ public class Quantity implements Comparable<Quantity> {
      * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
-        return test.matches(VALIDATION_REGEX)
-                && Integer.parseInt(test) < MAX_VALUE;
+        if (test.matches(VALIDATION_REGEX)) {
+            try {
+                int value = Integer.parseInt(test);
+                return value <= MAX_VALUE;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
     }
 
     /**

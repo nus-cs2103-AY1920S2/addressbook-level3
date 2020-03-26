@@ -36,8 +36,15 @@ public class Sales {
      * Returns true if a given string is a valid sales.
      */
     public static boolean isValidSales(String test) {
-        return test.matches(VALIDATION_REGEX)
-                && Integer.parseInt(test) < MAX_VALUE;
+        if (test.matches(VALIDATION_REGEX)) {
+            try {
+                int value = Integer.parseInt(test);
+                return value <= MAX_VALUE;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override
