@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+
+box "<color:black>Model</color>"
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":CouponStash" as CouponStash MODEL_COLOR
+participant ":FilteredList" as FilteredList MODEL_COLOR
+participant ":Coupon" as Coupon MODEL_COLOR
+end box
+
+create ModelManager
+[-> ModelManager: initModelManager(storage, userPrefs)
+activate ModelManager
+
+create CouponStash
+ModelManager -> CouponStash: new CouponStash(couponStash)
+activate CouponStash
+CouponStash --> ModelManager: couponStash
+deactivate CouponStash
+
+ModelManager -> CouponStash: archiveExpiredCoupons()
+activate CouponStash
+
+loop for each coupon
+    CouponStash -> Coupon: getExpiryDate()
+    activate Coupon
+
+    alt has expired
+        Coupon --> CouponStash: archived coupon
+    else
+        Coupon --> CouponStash: coupon
+    end
+end
+
+CouponStash --> ModelManager: updatedCouponStash
+deactivate CouponStash
+
+create FilteredList
+ModelManager -> FilteredList: new FilteredList<>(sortedCoupons, PREDICATE_SHOW_ALL_ACTIVE_COUPONS)
+activate FilteredList
+FilteredList --> ModelManager: filteredCoupons
+deactivate FilteredList
+
+[<-- ModelManager : modelManager
+deactivate ModelManager
+
+@enduml
