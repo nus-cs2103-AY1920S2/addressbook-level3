@@ -90,6 +90,8 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         return persons.getPerson(person);
     }
 
+
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -98,8 +100,24 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         persons.remove(key);
     }
 
+    /**
+     * Removes Amount from a Person
+     * @param person
+     * @param amount
+     */
     public void removeAmount(Person person, Amount amount) {
         persons.removeAmount(person, amount);
+
+        /*
+        This handles the deleting of Person when their amount is 0. Cannot use enhanced for loop because
+        that will throw java.ConcurrentException because you are editing the personList while you're doing enhanced
+        for loop.
+         */
+        for (int i = 0; i < persons.asUnmodifiableObservableList().size(); i++) {
+            if (persons.getPersonUsingIndex(i).getAmount().amount.doubleValue() == 0.0) {
+                removePerson(getPersonByIndex(i));
+            }
+        }
     }
 
     //// util methods
@@ -137,6 +155,12 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    @Override
+    public Person getPersonByIndex(int indexOfPerson) {
+        requireNonNull(indexOfPerson);
+        return persons.getPersonUsingIndex(indexOfPerson);
     }
 
 }

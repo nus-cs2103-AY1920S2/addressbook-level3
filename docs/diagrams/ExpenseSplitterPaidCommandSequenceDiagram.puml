@@ -1,0 +1,56 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":EYLAH" as ui UI_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":StorageManager" as storage STORAGE_COLOR
+Participant ":ModelManager" as model MODEL_COLOR
+Participant ":PersonAmountBook" as personamountbook MODEL_COLOR
+Participant ":UniquePersonList" as uniquepersonlist MODEL_COLOR
+Participant ":Person" as person MODEL_COLOR
+
+
+user -[USER_COLOR]> ui : "paid 1 3.30"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("paid 1 3.30")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : paidPerson(Person person, String amountPaid)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> personamountbook : removeAmount(Person person, Amount amount)
+activate personamountbook MODEL_COLOR
+
+personamountbook -[MODEL_COLOR]> uniquepersonlist : removeAmount(Person person, Amount amount)
+activate uniquepersonlist MODEL_COLOR
+
+uniquepersonlist --[MODEL_COLOR]> person : removeAmount(Amount amount)
+activate person MODEL_COLOR
+
+deactivate person
+
+deactivate uniquepersonlist
+
+deactivate personamountbook
+
+deactivate model
+
+logic -[LOGIC_COLOR]> storage : savePersonAmountBook(personAmount)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> logic
+deactivate storage
+
+logic --[UI_COLOR]> ui : CommandResult
+deactivate logic
+
+ui --[UI_COLOR]> user : CommandResult.
+deactivate ui
+
+@enduml

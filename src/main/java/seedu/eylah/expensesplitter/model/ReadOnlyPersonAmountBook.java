@@ -13,4 +13,6 @@ public interface ReadOnlyPersonAmountBook {
      * This list will not contain any duplicate Persons.
      */
     ObservableList<Person> getPersonList();
+
+    Person getPersonByIndex(int indexOfPerson);
 }
