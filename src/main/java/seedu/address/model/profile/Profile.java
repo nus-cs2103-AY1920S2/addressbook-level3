@@ -31,7 +31,6 @@ public class Profile {
     private static Name name;
     private static CourseName courseName;
 
-
     /**
      * Every field must be present and not null.
      */
@@ -121,6 +120,10 @@ public class Profile {
             deadlineList.addAll(module.getDeadlines());
         }
         return deadlineList;
+    }
+
+    public ModuleList getCurModules(int currentSemester) {
+        return moduleHash.get(currentSemester);
     }
 
     public int getModuleSemester(ModuleCode moduleCode) {

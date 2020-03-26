@@ -136,10 +136,6 @@ public class AddCommand extends Command {
                 deadline = new Deadline(moduleCode, addTask);
             }
 
-            if (model.getFilteredDeadlineList() == null) { //if no deadlines added before
-                model.initDeadlineList();
-            }
-
             personal.addDeadline(deadline);
             model.addDeadline(deadline);
 

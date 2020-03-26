@@ -39,9 +39,14 @@ public class DeadlineCard extends UiPart<Region> {
         super(FXML);
         this.deadline = deadline;
         module.setText(deadline.getModuleCode());
-        description.setText(deadline.getDescription());
-        date.setText(deadline.getStringDate());
-        time.setText(deadline.getStringTime());
+        description.setText("Task: " + deadline.getDescription());
+        if (deadline.getDate() == null) {
+            date.setText("Date: -");
+            time.setText("Time: -");
+        } else {
+            date.setText("Date: " + deadline.getStringDate());
+            time.setText("Time: " + deadline.getStringTime());
+        }
     }
 
     @Override

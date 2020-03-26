@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+skinparam arrowColor #black
+skinparam SequenceBoxBorderColor #black
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceReferenceBorderThickness 2
+skinparam DiagramBorderThickness 2
+skinparam SequenceArrowThickness 2
+skinparam SequenceLifeLineBorderColor #black
+skinparam ParticipantBorderColor #black
+
+
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MODdyParser" as MODdyParser LOGIC_COLOR
+participant ":ShowCommand" as ShowCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":CourseManager" as CourseManager MODEL_COLOR
+participant ":JsonCourse" as JsonCourse MODEL_COLOR
+end box
+
+[-> CommandBox : execute("show \n c/Computer Science")
+activate CommandBox
+
+CommandBox -> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> MODdyParser : execute()
+activate MODdyParser
+
+MODdyParser -> ShowCommand : execute()
+activate ShowCommand
+
+ShowCommand -> CourseManager : getCourse()
+activate CourseManager
+
+CourseManager -> JsonCourse : toModelType()
+activate JsonCourse
+
+JsonCourse --> CourseManager : Course
+deactivate JsonCourse
+
+CourseManager --> ShowCommand
+deactivate CourseManager
+
+ShowCommand --> MODdyParser
+deactivate ShowCommand
+destroy ShowCommand
+
+MODdyParser --> LogicManager
+deactivate MODdyParser
+
+LogicManager --> CommandBox
+deactivate LogicManager
+
+[<--CommandBox
+deactivate CommandBox
+destroy CommandBox
+
+@enduml
