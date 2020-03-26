@@ -2,6 +2,7 @@ package cookbuddy.logic.parser;
 
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -16,6 +17,7 @@ import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -44,7 +46,7 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS,
-                PREFIX_INSTRUCTIONS, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_TAG);
+                PREFIX_INSTRUCTIONS, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS) || !argMultimap
                 .getPreamble().isEmpty()) {
@@ -57,9 +59,10 @@ public class NewCommandParser implements Parser<NewCommand> {
         Calorie calorie = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).orElse("0"));
         Serving serving = ParserUtil.parseServing(argMultimap.getValue(PREFIX_SERVING).orElse("1"));
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).orElse("0"));
+        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).orElse("0"));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe recipe = new Recipe(name, ingredients, instructions, calorie, serving, rating, tagList);
+        Recipe recipe = new Recipe(name, ingredients, instructions, calorie, serving, rating, difficulty, tagList);
 
         return new NewCommand(recipe);
     }

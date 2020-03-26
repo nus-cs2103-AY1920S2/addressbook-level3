@@ -2,6 +2,7 @@ package cookbuddy.logic.parser;
 
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -34,7 +35,7 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS,
-                    PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_TAG);
+                    PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY, PREFIX_TAG);
 
         Index index;
 
@@ -70,6 +71,11 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
         if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
             editRecipeDescriptor.setRating(
                     ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
+            editRecipeDescriptor.setDifficulty(
+                    ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
