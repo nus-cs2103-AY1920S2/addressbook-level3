@@ -8,8 +8,8 @@ import javafx.collections.ObservableList;
 import tatracker.model.module.Module;
 import tatracker.model.module.UniqueModuleList;
 import tatracker.model.session.Session;
-import tatracker.model.session.UniqueSessionList;
 import tatracker.model.session.UniqueDoneSessionList;
+import tatracker.model.session.UniqueSessionList;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 

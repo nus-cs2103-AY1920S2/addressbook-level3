@@ -168,6 +168,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void addDoneSession(Session session) {
+
+        }
+
+        @Override
         public void setSession(Session target, Session editedSession) {
             throw new AssertionError("This method should not be called.");
         }
@@ -180,6 +185,16 @@ public class AddStudentCommandTest {
         @Override
         public void updateFilteredSessionList(Predicate<Session> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Session> getFilteredDoneSessionList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+
         }
 
         @Override

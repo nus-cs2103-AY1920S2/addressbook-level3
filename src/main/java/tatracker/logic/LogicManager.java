@@ -68,6 +68,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Session> getFilteredDoneSessionList() {
+        return model.getFilteredDoneSessionList();
+    }
+
+    @Override
     public Path getTaTrackerFilePath() {
         return model.getTaTrackerFilePath();
     }

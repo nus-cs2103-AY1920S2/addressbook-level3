@@ -89,6 +89,7 @@ public class TaTrackerTest {
      */
     private static class TaTrackerStub implements ReadOnlyTaTracker {
         private final ObservableList<Session> sessions = FXCollections.observableArrayList();
+        private final ObservableList<Session> doneSessions = FXCollections.observableArrayList();
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
         private final ObservableList<Student> students = FXCollections.observableArrayList();
 
@@ -104,6 +105,11 @@ public class TaTrackerTest {
         @Override
         public ObservableList<Session> getSessionList() {
             return sessions;
+        }
+
+        @Override
+        public ObservableList<Session> getDoneSessionList() {
+            return doneSessions;
         }
 
         @Override
