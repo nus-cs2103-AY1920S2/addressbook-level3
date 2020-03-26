@@ -3,7 +3,6 @@ package cookbuddy.logic.parser;
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
-import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 
