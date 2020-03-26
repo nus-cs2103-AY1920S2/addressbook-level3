@@ -108,12 +108,12 @@ Format: `help`
 
 === Adding a coupon: `add`
 
-Adds a coupon. Some fields like name, expiry date and savings
-are required. Optional fields like promo code and tags
-may be provided as well.
 
-Format: `Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
-[c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...`
+
+Adds a coupon. Some fields like name, expiry date and savings are required. Optional fields like promo code and tags may be provided as well.
+
+Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE] [c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]…​ [t/TAG]…​`
+
 
 [TIP]
 A coupon can have any number of tags (including 0)
