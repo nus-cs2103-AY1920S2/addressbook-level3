@@ -401,7 +401,7 @@ image::UpDownHistory0.png[]
 
 Step 2. The user executes `delete 1`. `CommandBox#handleCommandEntered()` will call `CommandTextHistory#add(String commandText)` to save the entered command into
 the stack contained in `CommandTextHistory`. The top of the stack (i.e. the empty string) is popped off first, before
-the etered command is pushed onto the stack. Then, the empty string is pushed onto the stack again, thus ensuring that
+the entered command is pushed onto the stack. Then, the empty string is pushed onto the stack again, thus ensuring that
 the empty string stays at the top of the stack. Note that `currIndex` is not affected.
 
 image::UpDownHistory1.png[]
