@@ -46,10 +46,8 @@ public class QuantityUtil {
 
     /**
      * Parses the quantity String into a Quantity, assuming ParseExceptions have been handled.
-     *
      */
     public static Quantity parseQuantity(String quantity) {
-        System.out.println(quantity);
         if (quantity.isBlank()) {
             return new Quantity();
         } else {
