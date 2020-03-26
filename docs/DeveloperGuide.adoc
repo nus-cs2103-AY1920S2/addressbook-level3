@@ -361,6 +361,8 @@ Once the command line is entered, our application will react in the following st
 . After, it will find for the activity inside the module.
 . Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and make changes to the expiring date.
 
+image::sequenceDiagramAutomation.png[]
+
 However, above is only the creation. What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
 the user initialise the program again, the system will automatically reset the expired date.
 
@@ -370,8 +372,8 @@ This is how it goes :
 
 . NasaBookStorage will access json file in JsonAdaptedModule to retrieve the old schedule.
 
-. NasaBook will load every module in the module list and update each module by the Scheduler.
-.. If scheduler sees `0` nothing will be done and the module will get deleted.
+. NasaBook will load every module in the module list and update each activity in the module through the Schedule class.
+.. If scheduler sees `0` nothing will be done and the activity will get deleted.
 .. If scheduler sees `1`,`2` or `3` it will update to the new date.
 
 === Logging
@@ -393,34 +395,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-=== Automation feature
-==== Proposed Implementation
-
-Each `Activity` will store a `Schedule` that contains it's date of creation and the next date
-to refresh it implementation. By default, a `Activity` that is being created will not be set to repeat itself. A command `repeat m/CS3233 a/Programming r/1`
-has to be provided. `r/` is the prefix identifier for setting the activity to repeat `r/1` weekly, `r/2` after twice
-a week, `r/3` monthly.
-
-Below is a given scenario on how this feature will works.
-
-Step 1: The user launches the application for the first time. The application will fetch for existing data, if nothing was
-initialise, user will have to add modules and activity into it. Let say, there is an existing module `CS3233` with
-activity `Lab1` added on `20-03-2020 00:00`, by default, this activity will not be schedule unless `repeat` command is given.
-To activate the scheduling, type `repeat m/CS3233 a/Lab1 r/3` into CLI.
-
-Step 2: When the today's date passes `20-04-2020 00:00`, the application will trigger an update during initialisation to add another
-cycle into it and hence the new date will be `20-05-2020 00:00` for it to refresh again. The activity `status` and `dateline`
-will be reset automatically.
-
-==== Design Consideration
-
-* Alternative 1 (Current choice): Each activity will contain a schedule object.
-** Pros: Easy to implement.
-** Cons: Each activity will be cluttered with an additional object.
-
-* Alternative 2 : Have a scheduler to manage all the activity.
-** Pros: Neater.
 
 == Documentation
 
