@@ -1,4 +1,4 @@
-package seedu.expensela.model.monthlydata;
+package seedu.expensela.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
@@ -6,25 +6,25 @@ import static seedu.expensela.commons.util.AppUtil.checkArgument;
 import java.text.DecimalFormat;
 
 /**
- * Monthly income data set by user
+ * Monthly balance data set by user
  */
-public class Income {
+public class Balance {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Income should only contain numbers with 2 decimal places";
+            "Balance should only contain numbers with 2 decimal places";
     public static final String VALIDATION_REGEX = "^-?\\d*\\.?\\d{0,2}$";
     public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
-    public final Double incomeAmount;
+    public final Double balanceAmount;
 
     /**
-     * Constructs a {@code Income}.
+     * Constructs a {@code Balance}.
      *
-     * @param value A valid income amount.
+     * @param value A valid balance amount.
      */
-    public Income(String value) {
+    public Balance(String value) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        incomeAmount = Double.parseDouble(value);
+        balanceAmount = Double.parseDouble(value);
     }
 
     /**
@@ -37,20 +37,20 @@ public class Income {
     @Override
     public String toString() {
         String printedAmount = "$";
-        printedAmount += DECIMAL_FORMATTER.format(incomeAmount);
+        printedAmount += DECIMAL_FORMATTER.format(balanceAmount);
         return printedAmount;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Income // instanceof handles nulls
-                && incomeAmount == ((Income) other).incomeAmount); // state check
+                || (other instanceof Balance // instanceof handles nulls
+                && balanceAmount == ((Balance) other).balanceAmount); // state check
     }
 
     @Override
     public int hashCode() {
-        return (incomeAmount).hashCode();
+        return (balanceAmount).hashCode();
     }
 
 }

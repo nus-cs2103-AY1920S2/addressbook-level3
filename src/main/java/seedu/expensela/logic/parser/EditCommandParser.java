@@ -22,9 +22,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK,
+                        PREFIX_CATEGORY, PREFIX_INCOME);
 
         Index index;
+        boolean isNotIncome = true;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -33,11 +35,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
+
+        if (argMultimap.getValue(PREFIX_INCOME).isPresent()){
+            isNotIncome = false;
+        }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editTransactionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
@@ -46,7 +52,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editTransactionDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editTransactionDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
+            editTransactionDescriptor
+                    .setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
         }
 
         if (!editTransactionDescriptor.isAnyFieldEdited()) {

@@ -1,24 +1,21 @@
 package seedu.expensela.model.transaction;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Represents a Transaction's remark which is optional.
  * Guarantees: immutable.
  */
 public class Remark {
 
-    public final String transactionRemark;
-
-    public static final String VALIDATION_REGEX;
-
     public static final String MESSAGE_CONSTRAINTS =
             "Remarks should only contain alphanumeric characters, spaces, \":+-()'\", may or may not be blank";
 
+    public static final String VALIDATION_REGEX;
 
     static {
         VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     }
+
+    public final String transactionRemark;
 
     public Remark(String remark) {
         transactionRemark = remark;

@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.Expense;
+import seedu.expensela.model.monthlydata.Income;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.TransactionList;
@@ -88,7 +90,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     /**
      * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
      * {@code target} must exist in the expensela.
-     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction in the expensela.
+     * The transaction identity of {@code editedTransaction} must not be the same as another
+     * existing transaction in the expensela.
      */
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);

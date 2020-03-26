@@ -39,7 +39,7 @@ public class Category {
      * Returns true if a given string is a valid category.
      */
     public static boolean isValidCategory(String test) {
-//        return test.matches(VALIDATION_REGEX);
+        // return test.matches(VALIDATION_REGEX);
         return true;
     }
 

@@ -15,11 +15,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path expenseLaFilePath = Paths.get("data" , "expenseLa.json");
+    private Double balance = 1000.00;
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -36,6 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setExpenseLaFilePath(newUserPrefs.getExpenseLaFilePath());
+        setTotalBalance(newUserPrefs.getTotalBalance());
     }
 
     public GuiSettings getGuiSettings() {
@@ -45,6 +48,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public Double getTotalBalance() {
+        return balance;
+    }
+
+    public void setTotalBalance(Double totalBalance) {
+        requireNonNull(totalBalance);
+        this.balance = totalBalance;
     }
 
     public Path getExpenseLaFilePath() {
@@ -68,12 +80,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && expenseLaFilePath.equals(o.expenseLaFilePath);
+                && expenseLaFilePath.equals(o.expenseLaFilePath)
+                && balance.equals(o.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, expenseLaFilePath);
+        return Objects.hash(guiSettings, expenseLaFilePath, balance);
     }
 
     @Override
@@ -81,6 +94,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + expenseLaFilePath);
+        sb.append("\ntotal balance : " + balance);
         return sb.toString();
     }
 

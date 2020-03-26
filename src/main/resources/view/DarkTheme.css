@@ -350,3 +350,13 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#monthlyDataContainer {
+    -fx-padding: 5 0 5 15
+}
+
+.monthly-data-label {
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-padding: 5 40 0 0
+}

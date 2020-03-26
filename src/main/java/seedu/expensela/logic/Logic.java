@@ -53,4 +53,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Get the total balance of the user
+     */
+    Double getTotalBalance();
+
+    /**
+     * Set the total balance of the user
+     */
+    void setTotalBalance(Double totalBalance);
 }

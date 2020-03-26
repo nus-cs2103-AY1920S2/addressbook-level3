@@ -88,4 +88,14 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public Double getTotalBalance() {
+        return model.getTotalBalance();
+    }
+
+    @Override
+    public void setTotalBalance(Double totalBalance) {
+        model.updateTotalBalance(totalBalance);
+    }
+
 }

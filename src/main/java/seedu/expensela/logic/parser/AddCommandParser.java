@@ -2,10 +2,17 @@ package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.expensela.logic.parser.CliSyntax.*;
+
 import java.util.stream.Stream;
+
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Remark;
+import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -18,8 +25,16 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
+
+        boolean isNotIncome = true;
+
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK,
+                        PREFIX_CATEGORY, PREFIX_INCOME);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_INCOME)){
+            isNotIncome = false;
+        }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -27,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());

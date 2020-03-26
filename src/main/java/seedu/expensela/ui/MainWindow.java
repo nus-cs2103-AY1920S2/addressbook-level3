@@ -186,6 +186,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            monthlyDataPlaceholder.getChildren().clear();
+            monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData(), logic.getTotalBalance());
+            monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {

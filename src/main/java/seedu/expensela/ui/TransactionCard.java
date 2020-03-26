@@ -44,7 +44,7 @@ public class TransactionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(transaction.getName().transactionName);
         amount.setText(transaction.getAmount().toString());
-        date.setText(transaction.getDate().transactionDate);
+        date.setText(transaction.getDate().transactionDate.toString());
         remark.setText(transaction.getRemark().transactionRemark);
         category.setText(transaction.getCategory().transactionCategory);
     }

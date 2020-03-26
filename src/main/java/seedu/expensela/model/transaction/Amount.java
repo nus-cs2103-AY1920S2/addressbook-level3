@@ -1,9 +1,9 @@
 package seedu.expensela.model.transaction;
 
-import java.text.DecimalFormat;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
+
+import java.text.DecimalFormat;
 
 /**
  * Represents a Transaction's cost/gain in the expensela.
@@ -14,7 +14,7 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain numbers with 2 decimal places";
-    public static final String VALIDATION_REGEX = "^(?=.*[1-9])\\d{1,9}(?:\\.\\d{0,2})?$";
+    public static final String VALIDATION_REGEX = "^-?\\d*\\.?\\d{0,2}$";
     public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
     public final Double transactionAmount;
     public final boolean positive;
@@ -27,7 +27,6 @@ public class Amount {
     public Amount(String value, boolean positive) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        String[] tokens = value.split(".");
         this.transactionAmount = Double.parseDouble(value);
         this.positive = positive;
     }
@@ -47,7 +46,7 @@ public class Amount {
         } else {
             printedAmount = "- $";
         }
-        printedAmount += transactionAmount;
+        printedAmount += DECIMAL_FORMATTER.format(transactionAmount);
         return printedAmount;
     }
 

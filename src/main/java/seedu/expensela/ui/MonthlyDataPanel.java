@@ -6,36 +6,40 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.monthlydata.MonthlyData;
 
 /**
  * Panel containing the list of transactions.
  */
 public class MonthlyDataPanel extends UiPart<Region> {
+
     private static final String FXML = "MonthlyDataPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
 
     public final MonthlyData monthlyData;
 
-    @FXML
-    private Label expenditureLabel;
+    private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
 
     @FXML
-    private Label budgetLabel;
+    private Label balance;
 
     @FXML
-    private Label incomeLabel;
+    private Label budget;
 
     @FXML
-    private Label balanceLabel;
+    private Label expenditure;
 
-    public MonthlyDataPanel(MonthlyData monthlyData) {
+    @FXML
+    private Label income;
+
+    public MonthlyDataPanel(MonthlyData monthlyData, Double balanceAmount) {
         super(FXML);
         this.monthlyData = monthlyData;
-        expenditureLabel.setText("Monthly Expense: ");
-        budgetLabel.setText("Monthly Budget: ");
-        incomeLabel.setText("Monthly Income: ");
-        balanceLabel.setText("Total Balance: ");
+        Balance balanceModel = new Balance(balanceAmount.toString());
+        balance.setText("Total Balance: " + balanceModel);
+        budget.setText("Monthly Budget: " + monthlyData.getBudget());
+        expenditure.setText("Monthly Expense: " + monthlyData.getExpense());
+        income.setText("Monthly Income: " + monthlyData.getIncome());
     }
 
 }

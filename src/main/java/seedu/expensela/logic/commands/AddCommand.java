@@ -1,7 +1,12 @@
 package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.expensela.logic.parser.CliSyntax.*;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
+
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.Transaction;
@@ -28,7 +33,8 @@ public class AddCommand extends Command {
             + PREFIX_CATEGORY + "FOOD ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the transaction list";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists "
+            + "in the transaction list";
 
     private final Transaction toAdd;
 

@@ -21,7 +21,6 @@ import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.UserPrefs;
-import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.util.SampleDataUtil;
 import seedu.expensela.storage.ExpenseLaStorage;
 import seedu.expensela.storage.JsonExpenseLaStorage;
