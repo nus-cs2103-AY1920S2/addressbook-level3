@@ -128,4 +128,7 @@ public interface Model {
     void updateFilteredTransactionsList(Predicate<PurchasedFood> predicate);
 
     void addPurchasedFood(PurchasedFood food);
+
+    ObservableList<Stall> getFilteredRandomizeList();
+
 }

@@ -99,7 +99,6 @@ public class LogicManager implements Logic {
             //TODO Not Implemented
 
         case RandomizeCommand.COMMAND_WORD:
-            //no storage yet.
             return Randomize.class.getSimpleName();
 
         case FavoritesCommand.COMMAND_WORD:
@@ -194,4 +193,10 @@ public class LogicManager implements Logic {
     public ObservableList<PurchasedFood> getFilteredTransactionsList() {
         return model.getFilteredTransactionsList();
     }
+
+    @Override
+    public ObservableList<Stall> getFilteredRandomizeList() {
+        return model.getFilteredRandomizeList();
+    }
+
 }

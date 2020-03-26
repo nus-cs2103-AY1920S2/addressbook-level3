@@ -262,6 +262,11 @@ public class AddCommandTest {
         public void addPurchasedFood(PurchasedFood food) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Stall> getFilteredRandomizeList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

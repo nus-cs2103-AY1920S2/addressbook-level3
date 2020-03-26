@@ -3,8 +3,8 @@
     "windowWidth" : 740.0,
     "windowHeight" : 600.0,
     "windowCoordinates" : {
-      "x" : 626,
-      "y" : 180
+      "x" : 427,
+      "y" : 106
     }
   },
   "foodieBotFilePath" : "foodiebot.json",
