@@ -52,11 +52,6 @@ public class DeleteActivityCommandTest {
         ModuleCode moduleCode = new ModuleCode("UTW1001K");
         DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(INDEX_FIRST_ACTIVITY, moduleCode);
 
-        assertCommandFailure(deleteActivityCommand, model, DeleteActivityCommand.MESSAGE_FAILURE);
-
-        // a null module
-        deleteActivityCommand = new DeleteActivityCommand(INDEX_FIRST_ACTIVITY, null);
-
-        assertCommandFailure(deleteActivityCommand, model, DeleteActivityCommand.MESSAGE_FAILURE);
+        assertCommandFailure(deleteActivityCommand, model, DeleteActivityCommand.MESSAGE_MODULE_NOT_FOUND);
     }
 }
