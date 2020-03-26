@@ -116,15 +116,16 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelUML.png[]
+image::classDiagramModel.png[]
 
 *API* : link:{repoURL}/src/main/java/nasa/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `HistoryManager` object that stores user's previous actions.
-* it also stores the `NasaBook` data.
-* `NasaBook` will contain a set of module list stored in `UniqueModuleList`.
+* mainly consist of two components which are the `NasaBook` and `HistoryManager`.
+* `NasaBook` contains all the user current stored modules and activities.
+* `HistoryManager` contains all the user previous state for each of it actions.
+* `NasaBook` contain a set of module list stored in `UniqueModuleList`.
 * each `Module` consists of several `Activity`.
 * an `Activity` can be either a `Deadline`, `Lesson`, `Event`.
 
