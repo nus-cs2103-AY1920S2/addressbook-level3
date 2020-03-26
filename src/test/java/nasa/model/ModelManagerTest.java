@@ -2,7 +2,6 @@ package nasa.model;
 
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static nasa.testutil.Assert.assertThrows;
-import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -93,7 +92,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        NasaBook nasaBook = new NasaBookBuilder().addModule(GEH1001).addModule(CS2106).build();
+        NasaBook nasaBook = new NasaBookBuilder().build();
         NasaBook differentNasaBook = new NasaBook();
         UserPrefs userPrefs = new UserPrefs();
 
