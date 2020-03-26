@@ -179,6 +179,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === New Profile Feature
 
+
 === Add Feature
 
 The `add` feature allows the user to add a module and a task with a deadline for an existing module with the command `add`, appended with the tags.
@@ -194,11 +195,7 @@ The tags are:
 
 The following sequence diagram shows how the `add` operation works with input: `add m/CS2105 y/4`
 
-image::AddCommandSequenceDiagram.png[]
-
-The following sequence diagram shows how the `add` operation works with the input: `add m/CS2105 y/4 t/Assignment 2 d/2020-04-12 23:59`
-
-* image pending
+image::AddSequenceDiagram.png[]
 
 ==== Design Considerations
 
