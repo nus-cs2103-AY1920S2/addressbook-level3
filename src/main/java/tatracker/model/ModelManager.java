@@ -40,9 +40,9 @@ public class ModelManager implements Model {
 
         this.taTracker = new TaTracker(taTracker);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
-        filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
-        filteredModules = new FilteredList<>(this.taTracker.getModuleList());
+        this.filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
+        this.filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
+        this.filteredModules = new FilteredList<>(this.taTracker.getModuleList());
     }
 
     public ModelManager() {
