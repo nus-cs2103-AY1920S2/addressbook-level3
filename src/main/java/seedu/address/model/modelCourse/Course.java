@@ -20,7 +20,6 @@ public class Course {
   // Identity fields
   private final Name name;
   private final ID id;
-  // TODO: Create CourseTeacherTab along with CourseStudentTab
   // TODO: Remove dummy teacher_id
   private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();

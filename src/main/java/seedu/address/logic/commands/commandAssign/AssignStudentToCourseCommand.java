@@ -25,7 +25,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Deadline;
@@ -43,7 +42,6 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     private final AssignDescriptor assignDescriptor;
     private Set<Tag> ArrayList;
-    public static final String MESSAGE_DUPLICATE_COURSESTUDENT = "This student has already been assigned to this course";
 
     public AssignStudentToCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
@@ -89,14 +87,6 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         } else {
             Courseid courseid = ParserUtil.parseCourseid(courseidString);
             Studentid studentid = ParserUtil.parseStudentid(studentidString);
-
-            // TODO: Allow adding of tags
-            CourseStudent courseStudent = new CourseStudent(courseid, studentid, new HashSet<Tag>());
-            if (model.hasCourseStudent(courseStudent)) {
-                throw new CommandException(MESSAGE_DUPLICATE_COURSESTUDENT);
-            }
-
-            model.addCourseStudent(courseStudent);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentidString, courseName, courseidString));
         }

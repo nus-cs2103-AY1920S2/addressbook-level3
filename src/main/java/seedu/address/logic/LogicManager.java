@@ -107,12 +107,6 @@ public class LogicManager implements Logic {
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
-    } else if (command instanceof AssignStudentToCourseCommand) {
-      try {
-        storage.saveCourseStudentAddressBook(model.getCourseStudentAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
     }
 
     // Updates summary panel
