@@ -56,9 +56,10 @@
           <tabs>
             <Tab fx:id="studentListTab" text="Students">
               <content>
-                <SplitPane dividerPositions="0.5">
+                <SplitPane dividerPositions="0.6, 0.8">
                   <items>
                     <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                     <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                   </items>
                 </SplitPane>
@@ -71,10 +72,10 @@
             </Tab>
             <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                 <SplitPane dividerPositions="0.75">
+                 <SplitPane dividerPositions="0.8">
                    <items>
                      <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="moduleListPanelPlaceholderCopy" VBox.vgrow="ALWAYS" />
                    </items>
                  </SplitPane>               </content>
             </Tab>
