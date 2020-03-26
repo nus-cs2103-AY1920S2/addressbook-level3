@@ -1,6 +1,5 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
