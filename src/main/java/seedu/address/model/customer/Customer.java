@@ -91,9 +91,7 @@ public class Customer {
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getEmail().equals(getEmail())
-                && otherCustomer.getAddress().equals(getAddress())
-                && otherCustomer.getTags().equals(getTags());
+                && otherCustomer.getEmail().equals(getEmail());
     }
 
     @Override
@@ -106,7 +104,7 @@ public class Customer {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append("\nPhone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())

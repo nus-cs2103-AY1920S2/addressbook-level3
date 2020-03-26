@@ -43,7 +43,7 @@ public class EditCustomerCommandTest {
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredCustomerList().get(0), editedCustomer);
 
         assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
@@ -64,7 +64,7 @@ public class EditCustomerCommandTest {
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setPerson(lastCustomer, editedCustomer);
 
         assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
@@ -78,7 +78,7 @@ public class EditCustomerCommandTest {
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
 
         assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +94,7 @@ public class EditCustomerCommandTest {
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredCustomerList().get(0), editedCustomer);
 
         assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
@@ -114,7 +114,7 @@ public class EditCustomerCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit customer in filtered list into a duplicate in address book
-        Customer customerInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Customer customerInList = model.getInventorySystem().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(customerInList).build());
 
@@ -139,7 +139,7 @@ public class EditCustomerCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventorySystem().getPersonList().size());
 
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

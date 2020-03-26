@@ -42,7 +42,7 @@ public class EditProductCommandTest {
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setProduct(model.getFilteredProductList().get(0), editedProduct);
 
         assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditProductCommandTest {
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setProduct(lastProduct, editedProduct);
 
         assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class EditProductCommandTest {
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
 
         assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
     }
@@ -95,7 +95,7 @@ public class EditProductCommandTest {
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
-        Model expectedModel = new ModelManager(new InventorySystem(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setProduct(model.getFilteredProductList().get(0), editedProduct);
 
         assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
@@ -115,7 +115,7 @@ public class EditProductCommandTest {
         showProductAtIndex(model, INDEX_FIRST_PRODUCT);
 
         // edit product in filtered list into a duplicate in address book
-        Product productInList = model.getAddressBook().getProductList().get(INDEX_SECOND_PRODUCT.getZeroBased());
+        Product productInList = model.getInventorySystem().getProductList().get(INDEX_SECOND_PRODUCT.getZeroBased());
         EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT,
                 new EditProductDescriptorBuilder(productInList).build());
 
@@ -142,7 +142,7 @@ public class EditProductCommandTest {
         showProductAtIndex(model, INDEX_FIRST_PRODUCT);
         Index outOfBoundIndex = INDEX_SECOND_PRODUCT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getProductList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventorySystem().getProductList().size());
 
         EditProductCommand editProductCommand = new EditProductCommand(outOfBoundIndex,
                 new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH).build());

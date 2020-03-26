@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the quantity threshold for each product before the application notifies the user.
  */
 public class QuantityThreshold {
-    public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Quantity threshold should be a positive integer value, or Null";
     public static final String DEFAULT_VALUE = "Null";
 
     /*

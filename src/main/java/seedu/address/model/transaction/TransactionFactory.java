@@ -55,6 +55,10 @@ public class TransactionFactory {
         return quantity;
     }
 
+    public Money getMoney() {
+        return money;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,9 +72,6 @@ public class TransactionFactory {
         TransactionFactory otherTransactionFactory = (TransactionFactory) other;
         return otherTransactionFactory.customerIndex.equals(customerIndex)
                 && otherTransactionFactory.productIndex.equals(productIndex)
-                && otherTransactionFactory.dateTime.equals(dateTime)
-                && otherTransactionFactory.quantity.equals(quantity)
-                && otherTransactionFactory.money.equals(money)
-                && otherTransactionFactory.description.equals(description);
+                && otherTransactionFactory.dateTime.equals(dateTime);
     }
 }

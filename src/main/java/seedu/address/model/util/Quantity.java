@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Quantity implements Comparable<Quantity> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Quantity should take numeric values, and it should not be blank";
+            "Quantity should take positive integer values, and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS_NOT_NEGATIVE =
             "The numeric value of a Quantity must not be negative";
 

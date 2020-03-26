@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Price {
 
-    public static final String MESSAGE_CONSTRAINTS = "Price can take any numeric values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Price can take any positive integer values, and it should not be blank";
 
     /*
      * There must be one or more digits entered.

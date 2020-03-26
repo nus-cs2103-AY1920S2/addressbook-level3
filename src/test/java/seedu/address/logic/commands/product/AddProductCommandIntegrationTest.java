@@ -29,7 +29,7 @@ public class AddProductCommandIntegrationTest {
     public void execute_newProduct_success() {
         Product validProduct = new ProductBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventorySystem(), new UserPrefs());
         expectedModel.addProduct(validProduct);
 
         assertCommandSuccess(new AddProductCommand(validProduct), model,
@@ -38,7 +38,7 @@ public class AddProductCommandIntegrationTest {
 
     @Test
     public void execute_duplicateProduct_throwsCommandException() {
-        Product productInList = model.getAddressBook().getProductList().get(0);
+        Product productInList = model.getInventorySystem().getProductList().get(0);
         assertCommandFailure(new AddProductCommand(productInList), model,
                 AddProductCommand.MESSAGE_DUPLICATE_PRODUCT);
     }
