@@ -154,4 +154,13 @@ public class UniqueOrderList implements Iterable<Order> {
         }
         return true;
     }
+
+    public Order get(TransactionId transactionId) {
+        for (Order order : internalList) {
+            if (order.getTid().equals(transactionId)) {
+                return order;
+            }
+        }
+        return null;
+    }
 }

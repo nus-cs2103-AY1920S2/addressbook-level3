@@ -42,15 +42,21 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_TYPE,
                         PREFIX_COMMENT);
+        if (arePrefixesPresent(argMultimap, PREFIX_TID) && !arePrefixesPresent(argMultimap, PREFIX_NAME,
+                PREFIX_ADDRESS, PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_EMAIL, PREFIX_COMMENT, PREFIX_PHONE,
+                PREFIX_TYPE)) {
+            try {
+                TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
+                return new ReturnCommand(null, tid);
+            } catch (ParseException pe) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE), pe);
+            }
+        }
         if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                 PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
-        }
-
-        if (arePrefixesPresent(argMultimap, PREFIX_TID) && !arePrefixesPresent(argMultimap, PREFIX_NAME,
-                PREFIX_ADDRESS, PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_EMAIL)) {
-
         }
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -69,7 +75,7 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
         ReturnOrder returnOrder = new ReturnOrder(tid, name, phone, email, address,
                 timeStamp, warehouse, comment, type);
 
-        return new ReturnCommand(returnOrder);
+        return new ReturnCommand(returnOrder, tid);
     }
 
     /**

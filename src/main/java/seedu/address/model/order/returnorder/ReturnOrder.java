@@ -51,7 +51,7 @@ public class ReturnOrder extends Parcel {
         this.warehouse = warehouse;
         this.comment = comment;
         this.itemType = itemType;
-        this.deliveryStatus = true;
+        this.deliveryStatus = false;
         this.isReturn = true;
     }
 
@@ -69,7 +69,7 @@ public class ReturnOrder extends Parcel {
         this.warehouse = order.getWarehouse();
         this.comment = order.getComment();
         this.itemType = order.getItemType();
-        this.deliveryStatus = true;
+        this.deliveryStatus = false;
         this.isReturn = true;
     }
 
@@ -199,5 +199,4 @@ public class ReturnOrder extends Parcel {
                 .append("Return Order");
         return builder.toString();
     }
-
 }
