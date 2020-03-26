@@ -338,6 +338,42 @@ For more information regarding the procedure, please refer to the Activity Diagr
 
 image::SnoozeReminderActivityDiagram.png[]
 
+=== Automation
+We store the date that the user has create an activity. Based on user input to repeat the task either
+weekly, twice weekly or monthly, our application will check whether today's date has passed `date of creation` + `user preset`.
+
+==== Implementation
+By default there will not be any scheduling for any activities. Therefore, user has to enter `repeat` followed by `module code`
+, `activity name` for identification of the activity and `1-Weekly-, 2-Twice Weekly, 3-Monthly`.
+
+* An example of command line `repeat m/CS3233 a/Lab Assignment r/1`.
+
+Once the command line is entered, our application will react in the following steps :
+
+. LogicManager will create NasaBookParser to parse the user input `repeat`.
+
+. NasaBookParser will call RepeatActivityCommandParser to check if all the following prefixes `m/`, `a/` and `r/` are present.
+.. If not present, an error message `"invalid command format!"` will be prompted.
+.. Else, a success message `"set repeated"` will be given, and RepeatCommand will be executed.
+
+. RepeatCommand will set schedule in Model.
+. Model will first find the module in it internal module list.
+. After, it will find for the activity inside the module.
+. Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and make changes to the expiring date.
+
+However, above is only the creation. What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
+the user initialise the program again, the system will automatically reset the expired date.
+
+This is how it goes :
+
+. MainApp will execute initialisation which will fetch data through NasaBookStorage.
+
+. NasaBookStorage will access json file in JsonAdaptedModule to retrieve the old schedule.
+
+. NasaBook will load every module in the module list and update each module by the Scheduler.
+.. If scheduler sees `0` nothing will be done and the module will get deleted.
+.. If scheduler sees `1`,`2` or `3` it will update to the new date.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
