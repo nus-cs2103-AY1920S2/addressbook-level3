@@ -293,6 +293,7 @@ a date in a separate window
 ** Pros: View of all coupons and will not overlook any coupons when the coupon list is filtered
 ** Cons: User may be confused if he/she sees a coupon on the Calendar that is not in the `CouponListPanel`
 
+
 === Logging
 
 We are using `java.util.logging` package for logging.
