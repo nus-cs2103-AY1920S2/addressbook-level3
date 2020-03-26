@@ -14,7 +14,7 @@ import nasa.model.UserPrefs;
 import nasa.model.module.UniqueModuleList;
 
 /**
- * Manages storage of NasaBook data in local storage.
+ * Manages storage of NASA data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -48,7 +48,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ NasaBook methods ==============================
+    // ================ NASA methods ==============================
 
     @Override
     public Path getNasaBookFilePath() {

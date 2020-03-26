@@ -34,7 +34,7 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
     public void resetData(ReadOnlyHistory<T> newData) {
         requireNonNull(newData);
 
-        moduleListHistory.setStackList(newData.getModuleListHistory());
+        moduleListHistory.setStack(newData.getModuleListHistory());
     }
 
     public ObservableList<T> getModuleListHistory() {

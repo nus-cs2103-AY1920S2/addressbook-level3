@@ -236,7 +236,7 @@ public class UniqueModuleList implements Iterable<Module> {
         ObservableList<Module> deepCopyList = FXCollections.observableArrayList();
         for (Module mods : internalUnmodifiableList) {
             Module moduleTemp = new Module(mods.getModuleCode(), mods.getModuleName());
-            moduleTemp.setActivities(mods.getActivities());
+            moduleTemp.setActivities(mods.getActivities().getDeepCopyList());
             deepCopyList.add(moduleTemp);
         }
         return deepCopyList;

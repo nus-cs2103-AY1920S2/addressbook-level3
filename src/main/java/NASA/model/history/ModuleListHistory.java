@@ -21,13 +21,13 @@ public class ModuleListHistory<T> extends History<T> {
         super(moduleListStack);
     }
 
-    /**
-     * Reset the stack list with {@moduleListHistory}
-     * @param moduleListHistory
-     */
-    public void setStackList(List<T> moduleListHistory) {
-        super.setStack(moduleListHistory);
-    }
+//    /**
+//     * Reset the stack list with {@moduleListHistory}
+//     * @param moduleListHistory
+//     */
+//    public void setStackList(List<T> moduleListHistory) {
+//        super.setStack(moduleListHistory);
+//    }
 
     /**
      * Return unmodifiable list containing histories.

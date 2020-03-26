@@ -56,7 +56,7 @@ public class JsonAdaptedHistory {
         }
 
         final ModuleListHistory<UniqueModuleList> temp = new ModuleListHistory<>();
-        temp.setStackList(historyList);
+        temp.setStack(historyList);
         HistoryBook<UniqueModuleList> historyBook = new HistoryBook<>();
         historyBook.setModuleListHistory(temp);
         return historyBook;

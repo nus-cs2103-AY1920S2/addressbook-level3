@@ -21,7 +21,7 @@ import nasa.model.module.ModuleName;
 import nasa.model.module.UniqueModuleList;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the NASA data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -39,11 +39,11 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(nasaBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + nasaBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with NASA: " + nasaBook + " and user prefs " + userPrefs);
 
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
+        filteredModules = new FilteredList<>(this.nasaBook.getDeepCopyList());
         this.historyManager = new HistoryManager(historyBook);
         initialisation();
     }
@@ -98,6 +98,8 @@ public class ModelManager implements Model {
             updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         }
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -279,16 +281,18 @@ public class ModelManager implements Model {
         updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
+    /*
+        @Override
+    public void setPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
 
-    @Override
-    public boolean hasActivity(Module target, Activity activity) {
-        requireNonNull(activity);
-        return nasaBook.hasActivity(target, activity);
+        nasaBook.setPerson(target, editedPerson);
     }
+     */
 
     @Override
     public boolean hasActivity(ModuleCode target, Activity activity) {
-        requireNonNull(activity);
+        requireAllNonNull(target, activity);
         return nasaBook.hasActivity(target, activity);
     }
 
@@ -319,14 +323,17 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Activity> getFilteredActivityList(Index index) {
         Module module = filteredModules.get(index.getZeroBased());
-        return module.getFilteredActivityList();
+        return module.getDeepCopyList();
     }
 
     @Override
     public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
-        filteredModules.setPredicate(x -> x.equals(moduleCode));
-        Module module = filteredModules.getSource().get(0);
-        return module.getActivities().getActivityList();
+        updateFilteredModuleList(x -> x.getModuleCode().equals(moduleCode));
+        Module module = filteredModules.get(0);
+        for (Activity x : module.getDeepCopyList()) {
+            System.out.println(x);
+        }
+        return module.getDeepCopyList();
     }
 
     @Override

@@ -38,7 +38,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     public NasaBook() {}
 
     /**
-     * Creates a NasaBook using the moduleList in the {@code toBeCopied}
+     * Creates a NasaBook using the Modules in the {@code toBeCopied}
      */
     public NasaBook(ReadOnlyNasaBook toBeCopied) {
         this();
@@ -86,6 +86,12 @@ public class NasaBook implements ReadOnlyNasaBook {
      * @param moduleList must not be empty
      */
     public void setModuleList(UniqueModuleList moduleList) {
+        requireNonNull(moduleList);
+
+        this.moduleList.setModules(moduleList);
+    }
+
+    public void setModuleList(List<Module> moduleList) {
         requireNonNull(moduleList);
 
         this.moduleList.setModules(moduleList);
@@ -329,12 +335,23 @@ public class NasaBook implements ReadOnlyNasaBook {
     public void setSchedule(ModuleCode module, Name activity, Index type) {
         moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
     }
+
+    public NasaBook deepCopyNasaBook() {
+        NasaBook newNasaBook = new NasaBook();
+        newNasaBook.setModuleList(getDeepCopyList());
+        return newNasaBook;
+    }
     //// util methods
 
     @Override
     public String toString() {
         return moduleList.asUnmodifiableObservableList().size() + " moduleList";
         //TODO: refine Later
+    }
+
+    @Override
+    public UniqueModuleList getUniqueModuleList() {
+        return moduleList;
     }
 
     @Override

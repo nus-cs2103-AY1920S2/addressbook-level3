@@ -73,7 +73,7 @@ class JsonAdaptedActivity {
         if (source instanceof Deadline) {
             type = "deadline";
             Deadline temp = (Deadline) source;
-            dueDate = temp.getDateline().toString();
+            dueDate = temp.getDueDate().toString();
             startDate = "";
             endDate = "";
         } else if (source instanceof Event) {
@@ -102,7 +102,7 @@ class JsonAdaptedActivity {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
-            throw new IllegalValueException(seedu.address.model.person.Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
 
@@ -160,7 +160,7 @@ class JsonAdaptedActivity {
 
             if (dueDate == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Date.class.getSimpleName()));
+                        Date.class.getSimpleName()));
             }
             if (!Date.isValidDate(dueDate)) {
                 throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
@@ -174,7 +174,7 @@ class JsonAdaptedActivity {
         case "event":
             if (startDate == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Date.class.getSimpleName()));
+                        Date.class.getSimpleName()));
             }
             if (!Date.isValidDate(startDate)) {
                 throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
@@ -183,7 +183,7 @@ class JsonAdaptedActivity {
 
             if (endDate == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Date.class.getSimpleName()));
+                        Date.class.getSimpleName()));
             }
             if (!Date.isValidDate(endDate)) {
                 throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
@@ -196,7 +196,7 @@ class JsonAdaptedActivity {
         case "lesson":
             if (startDate == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Date.class.getSimpleName()));
+                        Date.class.getSimpleName()));
             }
             if (!Date.isValidDate(startDate)) {
                 throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
@@ -205,7 +205,7 @@ class JsonAdaptedActivity {
 
             if (endDate == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Date.class.getSimpleName()));
+                        Date.class.getSimpleName()));
             }
             if (!Date.isValidDate(endDate)) {
                 throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);

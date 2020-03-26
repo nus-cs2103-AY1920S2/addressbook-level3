@@ -1,6 +1,6 @@
 package nasa.logic.parser;
 
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import nasa.model.module.ModuleCode;
 class RepeatActivityCommandParserTest {
 
     private RepeatActivityCommandParser parser = new RepeatActivityCommandParser();
-    private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CS1231);
+    private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1231);
     private Name nameOfActivity = new Name("Project work");
     private Index index = Index.fromZeroBased(1);
 

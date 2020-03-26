@@ -2,9 +2,9 @@ package nasa.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 import nasa.model.module.Module;
 
@@ -24,10 +24,11 @@ public class ModuleCard extends UiPart<Region> {
      */
 
     public final Module module;
+    public final int id;
     private ActivityListPanel activityListPanel;
 
     @FXML
-    private VBox cardPane;
+    private Pane cardPane;
     @FXML
     private Label code;
     @FXML
@@ -36,6 +37,7 @@ public class ModuleCard extends UiPart<Region> {
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
+        this.id = displayedIndex;
         code.setText(module.getModuleCode().toString());
         activityListPanel = new ActivityListPanel(module.getFilteredActivityList());
         activityListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
@@ -55,7 +57,7 @@ public class ModuleCard extends UiPart<Region> {
 
         // state check
         ModuleCard card = (ModuleCard) other;
-        return code.getText().equals(card.code.getText())
+        return id == card.id
                 && module.equals(card.module);
     }
 }
