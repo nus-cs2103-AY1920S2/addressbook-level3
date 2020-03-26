@@ -9,7 +9,6 @@ import tatracker.logic.commands.module.DeleteModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.module.Module;
@@ -33,7 +32,7 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
         }
 
-        String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
+        String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
 
         Module module = new Module(moduleCode, null);
 
