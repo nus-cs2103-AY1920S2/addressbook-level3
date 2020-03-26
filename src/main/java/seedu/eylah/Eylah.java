@@ -32,6 +32,7 @@ import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
 import seedu.eylah.expensesplitter.storage.StorageManager;
 import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
 import seedu.eylah.ui.Ui;
+import seedu.eylah.ui.UiManager;
 
 /**
  * The main entry for the EYLAH.
@@ -50,11 +51,44 @@ public class Eylah {
 
     private Ui ui;
 
-    public Eylah() {
-        logger.info("=============================[ Initializing EYLAH ]===========================");
-        ui = new Ui();
+    /**
+     * Runs the application until termination.
+     */
+    public void run() {
+        start();
+        runCommandLoopUntilExitCommand();
+        exit();
     }
 
+    /**
+     * Setup the required objects and show welcome message.
+     */
+    private void start() {
+        ui = new UiManager();
+    }
+
+    /**
+     * Reads the user command and executes it, until the user enter the exit command.
+     */
+    private void runCommandLoopUntilExitCommand() {
+        run1(); //temporary for testing
+    }
+
+    /**
+     * Shows exit message and exits.
+     */
+    private void exit() {
+        ui.showExit();
+        System.exit(0);
+    }
+
+    /**
+     * Starting point for whole application.
+     */
+    public static void main(String[] args) {
+        Eylah eylah = new Eylah();
+        eylah.run();
+    }
 
     /**
      * Main method to run the application.
@@ -63,12 +97,13 @@ public class Eylah {
      * the way to exit the app just simply close the app in terminal.
      *
      */
-    public void run() {
+    public void run1() {
         boolean isExit = false;
         ui.showWelcome();
-        System.out.println("Enter mode (diet/splitting): ");
+
+        //System.out.println("Enter mode (diet/splitting): ");
         String input = ui.readCommand();
-        if (input.equals("diet")) {
+        if (input.equals("1")) {
             // Diet mode
             Config config;
 
@@ -88,7 +123,6 @@ public class Eylah {
                 System.out.println("Enter Diet Command: ");
                 input = ui.readCommand();
                 if (input.equals("exit")) {
-                    ui.showExit();
                     break;
                 }
                 try {
@@ -123,7 +157,6 @@ public class Eylah {
                 System.out.println("Enter Splitting Command: ");
                 input = ui.readCommand();
                 if (input.equals("exit")) {
-                    ui.showExit();
                     break;
                 }
                 try {
@@ -300,11 +333,5 @@ public class Eylah {
     }
 
 
-    /**
-     * Starting point for whole application.
-     */
-    public static void main(String[] args) throws Exception {
-        Eylah eylah = new Eylah();
-        eylah.run();
-    }
+
 }
