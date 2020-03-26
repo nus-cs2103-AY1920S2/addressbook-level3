@@ -9,9 +9,12 @@ import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.AssignedStudents;
+import seedu.address.model.person.AssignedTeacher;
 import seedu.address.model.person.Courseid;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -31,18 +34,22 @@ public class Course {
   private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();
   private Amount amount;
+  private AssignedTeacher assignedTeacher;
   private AssignedStudents assignedStudents;
+  private String assignedTeacherWithName;
   private String assignedStudentsWithNames;
   /**
    * Every field must be present and not null.
    */
-  public Course(Name name, ID id, Amount amount, AssignedStudents assignedStudents, Set<Tag> tags) {
+  public Course(Name name, ID id, Amount amount, AssignedTeacher assignedTeacher, AssignedStudents assignedStudents, Set<Tag> tags) {
     requireAllNonNull(name, id, tags);
     this.name = name;
     this.id = id;
     this.amount = amount;
+    this.assignedTeacher = assignedTeacher;
     this.assignedStudents = assignedStudents;
     this.tags.addAll(tags);
+    this.assignedTeacherWithName = "None";
     this.assignedStudentsWithNames = "None";
 
     if (assignedStudents == null){
@@ -60,6 +67,10 @@ public class Course {
 
   public Amount getAmount() {
     return amount;
+  }
+
+  public AssignedTeacher getAssignedTeacher() {
+    return assignedTeacher;
   }
 
   public ID getTeacherID() {
@@ -84,6 +95,20 @@ public class Course {
 
   public String getAssignedStudentsWithNames(){
     return this.assignedStudentsWithNames;
+  }
+
+  /**
+   * Converts internal list of assigned teacher ID into the name with the ID
+   */
+  public void processAssignedTeacher(FilteredList<TeacherAddressBook> filteredTeachers){
+    StringBuilder s = new StringBuilder();
+
+
+    if (s.toString().equals("")) {
+      this.assignedStudentsWithNames = "None";
+    } else {
+      this.assignedStudentsWithNames = "[" + s.toString() + "]";
+    }
   }
 
   /**
@@ -151,6 +176,8 @@ public class Course {
     return otherCourse.getName().equals(getName())
         && otherCourse.getId().equals(getId())
         && otherCourse.getAmount().equals(getAmount())
+        && otherCourse.getAssignedTeacher().equals(getAssignedTeacher())
+        && otherCourse.getAssignedStudents().equals(getAssignedStudents())
         && otherCourse.getTags().equals(getTags());
   }
 
@@ -168,6 +195,8 @@ public class Course {
         .append(getId())
         .append(" Amount: ")
         .append(getAmount())
+        .append(" AssignedTeacher: ")
+        .append(getAssignedTeacher())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

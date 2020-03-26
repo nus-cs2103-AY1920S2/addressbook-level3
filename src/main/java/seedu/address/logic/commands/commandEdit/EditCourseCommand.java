@@ -78,7 +78,7 @@ public class EditCourseCommand extends Command {
     Amount updatedAmount = editCourseDescriptor.getAmount().orElse(courseToEdit.getAmount());
     Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
 
-    return new Course(updatedName, updatedCourseID, updatedAmount,
+    return new Course(updatedName, updatedCourseID, updatedAmount, courseToEdit.getAssignedTeacher(),
         courseToEdit.getAssignedStudents(), updatedTags);
   }
 

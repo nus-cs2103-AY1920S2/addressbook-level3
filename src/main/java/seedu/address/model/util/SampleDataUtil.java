@@ -88,9 +88,11 @@ public class SampleDataUtil {
 
   public static Finance[] getSampleFinances() {
     return new Finance[]{
-        new Finance(new Name("Renovated Staff Lounge"), new Amount("2000"),
+        new Finance(new Name("Renovated Staff Lounge"), new FinanceType("Misc"),
+            new Date("2020-08-20"), new Amount("2000"),
             getTagSet("BLK71", "AirCon")),
-        new Finance(new Name("Received Payment From NUS"), new Amount("1000"),
+        new Finance(new Name("Received Payment From NUS"), new FinanceType("Misc"),
+            new Date("2020-08-21"), new Amount("1000"),
             getTagSet("Contract"))
     };
   }
@@ -106,9 +108,11 @@ public class SampleDataUtil {
   public static Course[] getSampleCourses() {
     return new Course[]{
         new Course(new Name("Cozmo Programming"), new ID("829"), new Amount("1000"),
+            new AssignedTeacher("1"),
             new AssignedStudents("33"),
             getTagSet("Robot", "Fun")),
         new Course(new Name("Advanced Java"), new ID("182"), new Amount("2000"),
+            new AssignedTeacher("2"),
             new AssignedStudents("33,44"),
             getTagSet("OOP", "Difficult"))
     };

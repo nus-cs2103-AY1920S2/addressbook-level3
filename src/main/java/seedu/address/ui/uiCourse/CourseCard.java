@@ -36,6 +36,8 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private Label courseID;
   @FXML
+  private Label assignedTeacher;
+  @FXML
   private Label assignedStudents;
   @FXML
   private Label amount;
@@ -49,6 +51,7 @@ public class CourseCard extends UiPart<Region> {
     teacherId.setText(course.getTeacherID().value);
     courseID.setText(course.getId().value);
     amount.setText(course.getAmount().value);
+    assignedTeacher.setText(course.getAssignedTeacher().toString());
     assignedStudents.setText(course.getAssignedStudentsWithNames());
 
     course.getTags().stream()

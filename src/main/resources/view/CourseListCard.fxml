@@ -32,6 +32,10 @@
         <Label styleClass="cell_small_label" text="\$amount" fx:id="amount"/>
       </HBox>
       <HBox>
+        <Label styleClass="cell_small_label" text="Assigned Teacher: "/>
+        <Label styleClass="cell_small_label" text="\$assignedTeacher" fx:id="assignedTeacher"/>
+      </HBox>
+      <HBox>
         <Label styleClass="cell_small_label" text="Assigned Students: "/>
         <Label styleClass="cell_small_label" text="\$assignedStudents" fx:id="assignedStudents"/>
       </HBox>
