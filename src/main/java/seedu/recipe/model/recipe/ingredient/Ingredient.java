@@ -8,12 +8,12 @@ import static seedu.recipe.commons.util.AppUtil.checkArgument;
  */
 public abstract class Ingredient implements Comparable<Ingredient> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only "
-            + "alphabetical letters or spaces";
+    public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain "
+            + "alphanumeric characters, spaces, or special characters from this set {&, %, (, ), -}.";
     public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
             + "Tag/Quantity, Name\n"
             + "For example, to enter 50g of Broccoli, the format is iv/50g, Broccoli";
-    public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
+    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%-]+$+";
 
     protected String ingredientName;
     protected Quantity quantity;
@@ -36,7 +36,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
      * Returns true if a given string is a valid ingredient name.
      */
     public static boolean isValidIngredientName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return (!test.isBlank()) && test.matches(VALIDATION_REGEX);
     }
 
     public Quantity getQuantity() {

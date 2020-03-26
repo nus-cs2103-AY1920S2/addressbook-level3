@@ -71,7 +71,7 @@ public class CommandTestUtil {
     public static final String GOAL_DESC_GRAIN = " " + PREFIX_GOAL + VALID_GOAL_GRAIN;
     public static final String GOAL_DESC_PROTEIN = " " + PREFIX_GOAL + VALID_GOAL_PROTEIN;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James!"; // '!' not allowed in names
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "911a"; // 'a' not allowed in times
     public static final String INVALID_STEP_DESC = " " + PREFIX_STEP + ""; // empty space
     public static final String INVALID_GOAL_DESC = " " + PREFIX_GOAL + "bulking*"; // '*' not allowed in goals
