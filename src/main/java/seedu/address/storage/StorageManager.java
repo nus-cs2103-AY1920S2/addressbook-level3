@@ -14,7 +14,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
@@ -150,27 +150,27 @@ public class StorageManager implements Storage {
   }
 
   @Override
-  public Optional<ReadOnlyStudentAddressBook> readStudentAddressBook()
+  public Optional<ReadOnlyAddressBookGeneric<Student>> readStudentAddressBook()
       throws DataConversionException, IOException {
     return readStudentAddressBook(studentAddressBookStorage.getStudentAddressBookFilePath());
   }
 
   @Override
-  public Optional<ReadOnlyStudentAddressBook> readStudentAddressBook(Path filePath)
+  public Optional<ReadOnlyAddressBookGeneric<Student>> readStudentAddressBook(Path filePath)
       throws DataConversionException, IOException {
     logger.fine("Attempting to read data from file: " + filePath);
     return studentAddressBookStorage.readStudentAddressBook(filePath);
   }
 
   @Override
-  public void saveStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook)
+  public void saveStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook)
       throws IOException {
     saveStudentAddressBook(studentAddressBook,
         studentAddressBookStorage.getStudentAddressBookFilePath());
   }
 
   @Override
-  public void saveStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook, Path filePath)
+  public void saveStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook, Path filePath)
       throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
     studentAddressBookStorage.saveStudentAddressBook(studentAddressBook, filePath);

@@ -30,7 +30,7 @@ import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
@@ -154,8 +154,8 @@ public class MainApp extends Application {
       teacherInitialData = new TeacherAddressBook();
     }
 
-    Optional<ReadOnlyStudentAddressBook> studentAddressBookOptional;
-    ReadOnlyStudentAddressBook studentInitialData;
+    Optional<ReadOnlyAddressBookGeneric<Student>> studentAddressBookOptional;
+    ReadOnlyAddressBookGeneric<Student> studentInitialData;
     try {
       studentAddressBookOptional = storage.readStudentAddressBook();
       if (!studentAddressBookOptional.isPresent()) {

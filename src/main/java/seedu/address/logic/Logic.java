@@ -11,7 +11,6 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
@@ -87,7 +86,7 @@ public interface Logic {
    *
    * @see seedu.address.model.Model#getStudentAddressBook()
    */
-  ReadOnlyStudentAddressBook getStudentAddressBook();
+  ReadOnlyAddressBookGeneric<Student> getStudentAddressBook();
 
   /**
    * Returns an unmodifiable view of the filtered list of students

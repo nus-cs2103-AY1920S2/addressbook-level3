@@ -14,7 +14,6 @@ import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
@@ -78,10 +77,10 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyStudentAddressBook getSampleStudentAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Student> getSampleStudentAddressBook() {
     StudentAddressBook sampleAb = new StudentAddressBook();
     for (Student sampleStudent : getSampleStudents()) {
-      sampleAb.addStudent(sampleStudent);
+      sampleAb.add(sampleStudent);
     }
     return sampleAb;
   }
