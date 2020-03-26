@@ -1,4 +1,4 @@
-package com.notably.commons.core.path;
+package com.notably.commons.path;
 
 import static com.notably.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.notably.commons.core.path.exceptions.InvalidPathException;
+import com.notably.commons.path.exceptions.InvalidPathException;
 
 /**
  * Test for RelativePath.

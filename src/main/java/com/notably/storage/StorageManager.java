@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.notably.commons.core.LogsCenter;
+import com.notably.commons.LogsCenter;
 import com.notably.commons.exceptions.DataConversionException;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.ReadOnlyUserPrefs;

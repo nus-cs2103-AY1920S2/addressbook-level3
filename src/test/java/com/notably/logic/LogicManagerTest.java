@@ -1,8 +1,8 @@
 //TODO: To be enabled or changed when refactoring is completed
 //package com.notably.logic;
 //
-//import static com.notably.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-//import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+//import static com.notably.commons.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+//import static com.notably.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static com.notably.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 //import static com.notably.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 //import static com.notably.logic.commands.CommandTestUtil.NAME_DESC_AMY;

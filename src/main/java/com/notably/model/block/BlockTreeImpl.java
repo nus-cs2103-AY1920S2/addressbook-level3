@@ -2,7 +2,7 @@ package com.notably.model.block;
 
 import static java.util.Objects.requireNonNull;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 

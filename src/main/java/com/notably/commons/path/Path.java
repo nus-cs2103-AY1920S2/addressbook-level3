@@ -1,4 +1,4 @@
-package com.notably.commons.core.path;
+package com.notably.commons.path;
 
 import java.util.List;
 
