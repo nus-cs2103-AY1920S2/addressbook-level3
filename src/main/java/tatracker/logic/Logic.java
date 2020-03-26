@@ -3,6 +3,7 @@ package tatracker.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -31,9 +32,6 @@ public interface Logic {
      */
     ReadOnlyTaTracker getTaTracker();
 
-    /** Returns an unmodifiable view of the filtered list of students */
-    ObservableList<Student> getFilteredStudentList();
-
     /**
      * Returns the user prefs' ta-tracker file path.
      */
@@ -50,4 +48,7 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ObservableList<Session> getFilteredSessionList();
+
+    /** Returns an unmodifiable view of the filtered list of students */
+    ObservableList<Student> getFilteredStudentList();
 }
