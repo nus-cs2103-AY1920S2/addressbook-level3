@@ -1091,6 +1091,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a Food in Diet Tracker
+
+. Adding a Food
+
+.. Test case: `add -n burger -c 170` +
+   Expected: Food is added to FoodBook. Details of the added Food are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add burger` +
+   Expected: No Food is added. Error details and the correct format to input will be shown to the user.
+.. Other incorrect add commands to try: `add`, `add` with no flags `-f` and `-c` appended to the command. +
+   Expected: Similar to previous.
+
 === Deleting a Food in Diet Tracker
 
 . Deleting a Food while all Foods are listed
@@ -1102,8 +1113,6 @@ _{ more test cases ... }_
    Expected: No Food is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Editing a Food in Diet Tracker
 
