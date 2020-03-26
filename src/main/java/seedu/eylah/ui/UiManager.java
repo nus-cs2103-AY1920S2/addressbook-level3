@@ -2,6 +2,9 @@ package seedu.eylah.ui;
 
 import java.util.Scanner;
 
+/**
+ * The manager of the UI component.
+ */
 public class UiManager implements Ui {
     private static final String WELCOME_MESSAGE = "Welcome to EYLAH";
     private static final String LOGO = "          _____                    _____            \n"
@@ -43,7 +46,7 @@ public class UiManager implements Ui {
 
     @Override
     public void showWelcome() {
-        showToUser(WELCOME_MESSAGE, SEPARATOR,LOGO, SEPARATOR, LS, USAGE, NAV_LIST);
+        showToUser(WELCOME_MESSAGE, SEPARATOR, LOGO, SEPARATOR, LS, USAGE, NAV_LIST);
     }
 
     @Override

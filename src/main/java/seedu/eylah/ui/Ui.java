@@ -1,7 +1,5 @@
 package seedu.eylah.ui;
 
-import java.util.Scanner;
-
 /**
  * API of UI component.
  */
