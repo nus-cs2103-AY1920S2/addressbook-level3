@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title After command "undo"
+package States {
+    class State1 as "0:CouponStash"
+    class State2 as "1:CouponStash"
+    class State3 as "2:CouponStash"
+
+    class State4 as "0:CommandText"
+    class State5 as "1:CommandText"
+    class State6 as "2:CommandText"
+
+}
+State1 -[hidden]right-> State2
+State2 -[hidden]right-> State3
+State1 -[hidden]up->State4
+State2 -[hidden]up->State5
+State3 -[hidden]up->State6
+
+class Pointer as "Current State" #FFFFF
+Pointer -up-> State2
+@end
