@@ -12,7 +12,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
-import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
@@ -184,27 +184,27 @@ public class StorageManager implements Storage {
   }
 
   @Override
-  public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook()
+  public Optional<ReadOnlyAddressBookGeneric<Finance>> readFinanceAddressBook()
       throws DataConversionException, IOException {
     return readFinanceAddressBook(financeAddressBookStorage.getFinanceAddressBookFilePath());
   }
 
   @Override
-  public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook(Path filePath)
+  public Optional<ReadOnlyAddressBookGeneric<Finance>> readFinanceAddressBook(Path filePath)
       throws DataConversionException, IOException {
     logger.fine("Attempting to read data from file: " + filePath);
     return financeAddressBookStorage.readFinanceAddressBook(filePath);
   }
 
   @Override
-  public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook)
+  public void saveFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook)
       throws IOException {
     saveFinanceAddressBook(financeAddressBook,
         financeAddressBookStorage.getFinanceAddressBookFilePath());
   }
 
   @Override
-  public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook, Path filePath)
+  public void saveFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook, Path filePath)
       throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
     financeAddressBookStorage.saveFinanceAddressBook(financeAddressBook, filePath);

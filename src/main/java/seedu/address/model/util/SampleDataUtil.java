@@ -13,7 +13,6 @@ import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
-import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelStudent.Student;
@@ -96,10 +95,10 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyFinanceAddressBook getSampleFinanceAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Finance> getSampleFinanceAddressBook() {
     FinanceAddressBook sampleAb = new FinanceAddressBook();
     for (Finance sampleFinance : getSampleFinances()) {
-      sampleAb.addFinance(sampleFinance);
+      sampleAb.add(sampleFinance);
     }
     return sampleAb;
   }

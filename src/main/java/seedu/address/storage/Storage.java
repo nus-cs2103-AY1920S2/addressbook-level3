@@ -11,7 +11,7 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
-import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
@@ -75,11 +75,11 @@ public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
   Path getFinanceAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Finance>> readFinanceAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) throws IOException;
+  void saveFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook) throws IOException;
 
   ///
   @Override

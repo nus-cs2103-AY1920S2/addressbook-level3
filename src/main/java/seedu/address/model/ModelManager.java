@@ -21,7 +21,6 @@ import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
-import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelStudent.Student;
@@ -60,7 +59,7 @@ public class ModelManager implements Model {
    */
   public ModelManager(ReadOnlyAddressBook addressBook,
                       ReadOnlyTeacherAddressBook teacherAddressBook, ReadOnlyStudentAddressBook studentAddressBook,
-                      ReadOnlyFinanceAddressBook financeAddressBook, ReadOnlyAddressBookGeneric<Course> courseAddressBook,
+                      ReadOnlyAddressBookGeneric<Finance> financeAddressBook, ReadOnlyAddressBookGeneric<Course> courseAddressBook,
                       ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook,
                       ReadOnlyUserPrefs userPrefs) {
     super();
@@ -83,7 +82,7 @@ public class ModelManager implements Model {
     filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     filteredTeachers = new FilteredList<>(this.teacherAddressBook.getTeacherList());
     filteredStudents = new FilteredList<>(this.studentAddressBook.getStudentList());
-    filteredFinances = new FilteredList<>(this.financeAddressBook.getFinanceList());
+    filteredFinances = new FilteredList<>(this.financeAddressBook.getList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getList());
     filteredCourseStudents = new FilteredList<>(this.courseStudentAddressBook.getList());
@@ -310,30 +309,30 @@ public class ModelManager implements Model {
 
   ///
   @Override
-  public ReadOnlyFinanceAddressBook getFinanceAddressBook() {
+  public ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook() {
     return financeAddressBook;
   }
 
 
   @Override
-  public void setFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) {
+  public void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook) {
     this.financeAddressBook.resetData(financeAddressBook);
   }
 
   @Override
   public boolean hasFinance(Finance finance) {
     requireNonNull(finance);
-    return financeAddressBook.hasFinances(finance);
+    return financeAddressBook.has(finance);
   }
 
   @Override
   public void deleteFinance(Finance target) {
-    financeAddressBook.removeFinance(target);
+    financeAddressBook.remove(target);
   }
 
   @Override
   public void addFinance(Finance finance) {
-    financeAddressBook.addFinance(finance);
+    financeAddressBook.add(finance);
     updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
   }
 
@@ -341,7 +340,7 @@ public class ModelManager implements Model {
   public void setFinance(Finance target, Finance editedFinance) {
     requireAllNonNull(target, editedFinance);
 
-    financeAddressBook.setFinance(target, editedFinance);
+    financeAddressBook.set(target, editedFinance);
   }
 
   ///
