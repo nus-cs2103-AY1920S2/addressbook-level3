@@ -1,7 +1,6 @@
 package csdev.couponstash.model.coupon;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.function.Predicate;
 
 import csdev.couponstash.commons.util.DateUtil;

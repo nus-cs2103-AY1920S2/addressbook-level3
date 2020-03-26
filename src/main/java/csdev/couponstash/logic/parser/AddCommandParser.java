@@ -69,8 +69,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 argMultimap.getValueForOptionalField(PREFIX_PROMO_CODE, "-").get());
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
-        StartDate startDate =
-                ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE,
+        StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE,
                         DateUtil.formatDate(LocalDate.now())).get());
         Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE, "0").get());
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());

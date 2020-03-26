@@ -79,7 +79,7 @@ public class CalendarPane extends UiPart<Region> {
     }
 
     /**
-     * Adds the specified {@DateCell} to ArrayList<DateCell> dateCells.
+     * Adds the specified {@DateCell} to the ArrayList of {@DateCells}.
      */
     private void addDateCellToArray(DateCell dateCell) {
         dateCells.add(dateCell);
@@ -299,30 +299,30 @@ public class CalendarPane extends UiPart<Region> {
     private int getDayOfWeekInInt(String day) {
         int dayInInt;
         switch (day) {
-            case "MONDAY":
-                dayInInt = 0;
-                break;
-            case "TUESDAY":
-                dayInInt = 1;
-                break;
-            case "WEDNESDAY":
-                dayInInt = 2;
-                break;
-            case "THURSDAY":
-                dayInInt = 3;
-                break;
-            case "FRIDAY":
-                dayInInt = 4;
-                break;
-            case "SATURDAY":
-                dayInInt = 5;
-                break;
-            case "SUNDAY":
-                dayInInt = 6;
-                break;
-            default:
-                dayInInt = 0;
-                break;
+        case "MONDAY":
+            dayInInt = 0;
+            break;
+        case "TUESDAY":
+            dayInInt = 1;
+            break;
+        case "WEDNESDAY":
+            dayInInt = 2;
+            break;
+        case "THURSDAY":
+            dayInInt = 3;
+            break;
+        case "FRIDAY":
+            dayInInt = 4;
+            break;
+        case "SATURDAY":
+            dayInInt = 5;
+            break;
+        case "SUNDAY":
+            dayInInt = 6;
+            break;
+        default:
+            dayInInt = 0;
+            break;
         }
         return dayInInt;
     }

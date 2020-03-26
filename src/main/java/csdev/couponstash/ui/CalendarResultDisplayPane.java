@@ -3,8 +3,6 @@ package csdev.couponstash.ui;
 import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.logic.Logic;
-import csdev.couponstash.model.coupon.Coupon;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Region;
@@ -19,7 +17,6 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
     // Independent Ui parts residing in this Ui container
     private CalendarPane calendarPane;
     private ResultDisplay resultDisplay;
-//    private ObservableList<Coupon> coupons;
     private Logic logic;
 
     @FXML
@@ -30,7 +27,6 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
 
     public CalendarResultDisplayPane(Logic logic) {
         super(FXML);
-//        this.coupons = logic.getFilteredCouponList();
         this.logic = logic;
     }
 
