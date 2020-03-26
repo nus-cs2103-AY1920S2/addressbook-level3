@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #acbfea; -fx-border-color: #ffffff;" text="Today's Food" textFill="WHITE">
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #789cce; -fx-border-color: #ffffff;" text="Today's Food" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #acbfea; -fx-border-color: #ffffff;" text="Today's Sports" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #789cce; -fx-border-color: #ffffff;" text="Today's Sports" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="310.0" layoutY="25.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Playground" textFill="#acbfea">
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ef827d; -fx-border-color: #ffffff;" text="My Performance" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
@@ -35,7 +32,17 @@
                <children>
                   <ListView fx:id="foodListView" editable="true" prefHeight="277.0" prefWidth="200.0" style="-fx-background-color: white;" />
                   <ListView fx:id="sportListView" prefHeight="277.0" prefWidth="200.0" style="-fx-background-color: white;" />
-                  <AnchorPane prefHeight="277.0" prefWidth="200.0" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <AnchorPane prefHeight="277.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="277.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label fx:id="calorieGain" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Calorie-Intake" textFill="#ef827d" wrapText="true" />
+                              <Label fx:id="calorieConsume" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Calorie-Consumption" textFill="#ef827d" wrapText="true" />
+                              <Label fx:id="totalCalorie" layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Total-Calorie" textFill="#ef827d" wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

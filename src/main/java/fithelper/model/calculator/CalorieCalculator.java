@@ -56,7 +56,7 @@ public class CalorieCalculator {
     public double compFoodCalorie(List<Entry> entries) {
         double temp = 0.0;
         for (Entry entry : entries) {
-            if (entry.isFood()) {
+            if (entry.isFood() && entry.isDone()) {
                 temp += entry.getCalorie().value;
             }
         }
@@ -71,7 +71,7 @@ public class CalorieCalculator {
     public double compSportsCalorie(List<Entry> entries) {
         double temp = 0.0;
         for (Entry entry : entries) {
-            if (entry.isSports()) {
+            if (entry.isSports() && entry.isDone()) {
                 temp += entry.getCalorie().value;
             }
         }
