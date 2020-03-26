@@ -13,10 +13,19 @@ import tatracker.model.session.UniqueSessionList;
  * Represents a module in the TAT.
  */
 public class Module {
+    private static final String DEFAULT_NAME = "";
+
     private final String identifier;
     private final String name;
     private final UniqueGroupList groups;
     private final UniqueSessionList doneSessions;
+
+    /**
+     * Constructs a module object with no name.
+     */
+    public Module(String identifier) {
+        this(identifier, DEFAULT_NAME);
+    }
 
     /**
      * Constructs a module object.
