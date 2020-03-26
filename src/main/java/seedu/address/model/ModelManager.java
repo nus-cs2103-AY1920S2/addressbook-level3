@@ -15,7 +15,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourseStudent.CourseStudent;
@@ -62,7 +61,7 @@ public class ModelManager implements Model {
   public ModelManager(ReadOnlyAddressBook addressBook,
                       ReadOnlyTeacherAddressBook teacherAddressBook, ReadOnlyStudentAddressBook studentAddressBook,
                       ReadOnlyFinanceAddressBook financeAddressBook, ReadOnlyAddressBookGeneric<Course> courseAddressBook,
-                      ReadOnlyAssignmentAddressBook assignmentAddressBook, ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook,
+                      ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook,
                       ReadOnlyUserPrefs userPrefs) {
     super();
     requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
@@ -86,7 +85,7 @@ public class ModelManager implements Model {
     filteredStudents = new FilteredList<>(this.studentAddressBook.getStudentList());
     filteredFinances = new FilteredList<>(this.financeAddressBook.getFinanceList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
-    filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getAssignmentList());
+    filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getList());
     filteredCourseStudents = new FilteredList<>(this.courseStudentAddressBook.getList());
 
     updateCourseStudents();
@@ -382,12 +381,12 @@ public class ModelManager implements Model {
 
   ///
   @Override
-  public ReadOnlyAssignmentAddressBook getAssignmentAddressBook() {
+  public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
     return assignmentAddressBook;
   }
 
   @Override
-  public void setAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) {
+  public void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
     this.assignmentAddressBook.resetData(assignmentAddressBook);
   }
 
@@ -406,7 +405,7 @@ public class ModelManager implements Model {
   @Override
   public void addAssignment(Assignment assignment) {
     requireNonNull(assignment);
-    assignmentAddressBook.addAssignment(assignment);
+    assignmentAddressBook.add(assignment);
     updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
   }
 

@@ -21,7 +21,7 @@ public class CourseStudentAddressBook extends AddressBookGeneric<CourseStudent> 
    * Creates an AddressBook using the Persons in the {@code toBeCopied}
    */
   public CourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> toBeCopied) {
-    super();
+    super(toBeCopied);
   }
 
   @Override

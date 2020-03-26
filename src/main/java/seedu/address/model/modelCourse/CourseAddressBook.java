@@ -19,7 +19,7 @@ public class CourseAddressBook extends AddressBookGeneric<Course> {
   }
 
   public CourseAddressBook(ReadOnlyAddressBookGeneric<Course> toBeCopied) {
-    super();
+    super(toBeCopied);
   }
 
   @Override

@@ -19,9 +19,10 @@ import seedu.address.model.tag.Tag;
  * Represents a Course in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
-public class Course implements ModelObject {
+public class Course extends ModelObject {
 
   // Identity fields
+  private final String ENTITY_NAME = "Course";
   private final Name name;
   private final ID id;
   // TODO: Create CourseTeacherTab along with CourseStudentTab
@@ -81,16 +82,6 @@ public class Course implements ModelObject {
    * Returns true if both courses of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two courses.
    */
-  public boolean isSameCourse(Course otherCourse) {
-    if (otherCourse == this) {
-      return true;
-    }
-
-    return otherCourse != null
-//        && otherCourse.getName().equals(getName())
-        && otherCourse.getId().equals(getId());
-  }
-
   public boolean weakEquals(ModelObject otherCourse) {
     if (otherCourse == this) {
       return true;
@@ -145,11 +136,4 @@ public class Course implements ModelObject {
     return builder.toString();
   }
 
-  public static RuntimeException getNotFoundException() {
-    return new CourseNotFoundException();
-  }
-
-  public static RuntimeException getDuplicateException() {
-    return new DuplicateCourseException();
-  }
 }

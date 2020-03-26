@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
@@ -349,12 +348,12 @@ public interface Model {
   /**
    * Returns the assignmentAddressBook
    */
-  ReadOnlyAssignmentAddressBook getAssignmentAddressBook();
+  ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook();
 
   /**
    * Replaces assignment address book data with the data in {@code teacerAddressBook}.
    */
-  void setAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook);
+  void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook);
 
   /**
    * Returns true if a assignment with the same identity as {@code assignment} exists in the address

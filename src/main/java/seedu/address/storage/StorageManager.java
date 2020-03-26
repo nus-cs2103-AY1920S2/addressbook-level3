@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
+import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
@@ -252,27 +252,27 @@ public class StorageManager implements Storage {
   }
 
   @Override
-  public Optional<ReadOnlyAssignmentAddressBook> readAssignmentAddressBook()
+  public Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook()
           throws DataConversionException, IOException {
     return readAssignmentAddressBook(assignmentAddressBookStorage.getAssignmentAddressBookFilePath());
   }
 
   @Override
-  public Optional<ReadOnlyAssignmentAddressBook> readAssignmentAddressBook(Path filePath)
+  public Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook(Path filePath)
           throws DataConversionException, IOException {
     logger.fine("Attempting to read data from file: " + filePath);
     return assignmentAddressBookStorage.readAssignmentAddressBook(filePath);
   }
 
   @Override
-  public void saveAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook)
+  public void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook)
           throws IOException {
     saveAssignmentAddressBook(assignmentAddressBook,
             assignmentAddressBookStorage.getAssignmentAddressBookFilePath());
   }
 
   @Override
-  public void saveAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook, Path filePath)
+  public void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, Path filePath)
           throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
     assignmentAddressBookStorage.saveAssignmentAddressBook(assignmentAddressBook, filePath);

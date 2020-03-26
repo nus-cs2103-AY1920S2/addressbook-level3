@@ -21,8 +21,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourseStudent.CourseStudent;
@@ -211,8 +211,8 @@ public class MainApp extends Application {
       courseInitialData = new CourseAddressBook();
     }
 
-    Optional<ReadOnlyAssignmentAddressBook> assignmentAddressBookOptional;
-    ReadOnlyAssignmentAddressBook assignmentInitialData;
+    Optional<ReadOnlyAddressBookGeneric<Assignment>> assignmentAddressBookOptional;
+    ReadOnlyAddressBookGeneric<Assignment> assignmentInitialData;
 
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();

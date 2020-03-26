@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.DuplicateException;
+import seedu.address.commons.exceptions.NotFoundException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Deadline;
@@ -23,9 +25,10 @@ import seedu.address.model.tag.Tag;
  * Represents a CourseStudent in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
-public class CourseStudent implements ModelObject {
+public class CourseStudent extends ModelObject {
 
   // Identity fields
+  private final String ENTITY_NAME = "CourseStudent";
   private final Courseid courseid;
   private final Studentid studentid;
   private final Set<Tag> tags = new HashSet<>();
@@ -119,13 +122,4 @@ public class CourseStudent implements ModelObject {
     getTags().forEach(builder::append);
     return builder.toString();
   }
-
-  public static RuntimeException getNotFoundException() {
-    return new CourseStudentNotFoundException();
-  }
-
-  public static RuntimeException getDuplicateException() {
-    return new DuplicateCourseStudentException();
-  }
-
 }

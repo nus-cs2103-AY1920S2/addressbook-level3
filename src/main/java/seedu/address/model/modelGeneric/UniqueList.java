@@ -39,7 +39,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     public void add(K toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw K.getDuplicateException();
+            throw toAdd.getDuplicateException();
         }
         internalList.add(toAdd);
     }
@@ -54,11 +54,11 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw K.getNotFoundException();
+            throw target.getNotFoundException();
         }
 
         if (!target.weakEquals(edited) && contains(edited)) {
-            throw K.getDuplicateException();
+            throw target.getDuplicateException();
         }
 
         internalList.set(index, edited);
@@ -70,7 +70,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     public void remove(K toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw K.getNotFoundException();
+            throw toRemove.getNotFoundException();
         }
     }
 
@@ -86,7 +86,8 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     public void set(List<K> objects) {
         requireAllNonNull(objects);
         if (!objectsAreUnique(objects)) {
-            throw K.getDuplicateException();
+            // guarantee to have at least one object
+            throw objects.get(0).getDuplicateException();
         }
 
         internalList.setAll(objects);

@@ -8,7 +8,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
@@ -145,7 +144,7 @@ public interface Logic {
    *
    * @see seedu.address.model.Model#getCourseAddressBook()
    */
-  ReadOnlyAssignmentAddressBook getAssignmentAddressBook();
+  ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook();
 
   /**
    * Returns an unmodifiable view of the filtered list of courses
