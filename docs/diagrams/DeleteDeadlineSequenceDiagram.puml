@@ -1,0 +1,111 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Profile" as Profile MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+participant ":Deadline" as Deadline MODEL_COLOR
+end box
+
+[-> CommandBox
+activate CommandBox
+
+CommandBox -> MainWindow : executeCommand("delete m/CS2101 t/work")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("delete m/CS2101 t/work")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("delete m/CS2101 t/work")
+activate AddressBookParser
+
+create DeleteCommandParser
+AddressBookParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> AddressBookParser
+deactivate DeleteCommandParser
+
+AddressBookParser -> DeleteCommandParser : parse("m/CS2101 t/work")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> AddressBookParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> AddressBookParser
+destroy DeleteCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : getFirstProfile()
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
+
+DeleteCommand -> Profile
+activate Profile
+
+Profile -> Module : getModule()
+activate Module
+
+Module --> Profile
+deactivate Module
+
+Profile --> DeleteCommand
+deactivate Profile
+
+DeleteCommand -> Module
+activate Module
+
+Module -> Deadline : deleteDeadline()
+activate Deadline
+
+Deadline -> Module
+deactivate Deadline
+Deadline -[hidden]-> Module
+destroy Deadline
+
+Module -> DeleteCommand
+deactivate Module
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow --> CommandBox
+@enduml
