@@ -1,13 +1,13 @@
 {
   "recipes" : [ {
-    "name" : "momo",
+    "name" : "momo1",
     "time" : "15",
     "isFavourite" : false,
     "grains" : [ ],
-    "vegetables" : [ "vegewspecialchar())))&&&&&%%,  50.0g" ],
+    "vegetables" : [ "ing w a space % - ( ),  30.0g" ],
     "proteins" : [ "meat-meat,  30.0g" ],
     "fruits" : [ "kiwi,  50.0g" ],
-    "others" : [ "others,  30.0g" ],
+    "others" : [ "mac & cheese 100% cheese (grandmas fav),  100.0g" ],
     "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "yay", "Last step", "fifth" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
@@ -15,7 +15,7 @@
     "time" : "20",
     "isFavourite" : true,
     "grains" : [ ],
-    "vegetables" : [ "capsci,  20.0g" ],
+    "vegetables" : [ "ing                     w many spaces,  30.0g" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ "other,  30.0ml" ],
