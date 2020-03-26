@@ -60,8 +60,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Student> getFilteredStudentList() {
-        return model.getFilteredStudentList();
+    public Path getTaTrackerFilePath() {
+        return model.getTaTrackerFilePath();
+    }
+
+    @Override
+    public GuiSettings getGuiSettings() {
+        return model.getGuiSettings();
+    }
+
+    @Override
+    public void setGuiSettings(GuiSettings guiSettings) {
+        model.setGuiSettings(guiSettings);
     }
 
     @Override
@@ -75,17 +85,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getTaTrackerFilePath() {
-        return model.getTaTrackerFilePath();
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
+    public ObservableList<Student> getFilteredStudentList() {
+        return model.getFilteredStudentList();
     }
 }
