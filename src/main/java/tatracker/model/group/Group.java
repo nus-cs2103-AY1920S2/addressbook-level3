@@ -25,9 +25,18 @@ public class Group {
         TUTORIAL
     }
 
+    private static final GroupType DEFAULT_GROUP_TYPE = GroupType.TUTORIAL;
+
     private final String identifier;
     private final GroupType groupType;
     private final UniqueStudentList students;
+
+    /**
+     * Constructs a group object with a default group type.
+     */
+    public Group(String identifier) {
+        this(identifier, DEFAULT_GROUP_TYPE);
+    }
 
     /**
      * Constructs a group object.
