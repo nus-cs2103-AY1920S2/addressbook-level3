@@ -17,13 +17,13 @@ import com.notably.model.Model;
  * Represents a Parser for OpenSuggestionCommand.
  */
 public class OpenSuggestionCommandParser implements SuggestionCommandParser<OpenSuggestionCommand> {
-    private final int distanceThreshold = 2;
+    private static final int DISTANCE_THRESHOLD = 2;
     private Model model;
     private AbsolutePathCorrectionEngine correctionEngine;
 
     public OpenSuggestionCommandParser(Model model) {
         this.model = model;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(model, distanceThreshold);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD);
     }
 
     /**
