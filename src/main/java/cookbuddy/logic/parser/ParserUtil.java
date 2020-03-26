@@ -11,7 +11,16 @@ import java.util.stream.Stream;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
-import cookbuddy.model.recipe.attribute.*;
+import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Ingredient;
+import cookbuddy.model.recipe.attribute.IngredientList;
+import cookbuddy.model.recipe.attribute.Instruction;
+import cookbuddy.model.recipe.attribute.InstructionList;
+import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Rating;
+import cookbuddy.model.recipe.attribute.Serving;
+import cookbuddy.model.recipe.attribute.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser

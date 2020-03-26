@@ -32,9 +32,9 @@ class JsonAdaptedRecipe {
     private final String ingredients;
     private final String instructions;
     private final String calorie;
-    public final int difficulty;
     private final int serving;
     private final int rating;
+    private final int difficulty;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
