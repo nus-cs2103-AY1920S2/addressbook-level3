@@ -1,67 +1,86 @@
 @startuml
 !include style.puml
 
-skinparam arrowColor #black
-skinparam SequenceBoxBorderColor #black
-skinparam SequenceParticipantBorderThickness 2
-skinparam SequenceReferenceBorderThickness 2
-skinparam DiagramBorderThickness 2
-skinparam SequenceArrowThickness 2
-skinparam SequenceLifeLineBorderColor #black
-skinparam ParticipantBorderColor #black
-
-
 box UI UI_COLOR_T1
 participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":MODdyParser" as MODdyParser LOGIC_COLOR
-participant ":ShowCommand" as ShowCommand LOGIC_COLOR
+participant ":ShowCommandParser" as ShowCommandParser LOGIC_COLOR
+participant "s:ShowCommand" as ShowCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":CourseManager" as CourseManager MODEL_COLOR
-participant ":JsonCourse" as JsonCourse MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> CommandBox : execute("show \n c/Computer Science")
+[-> CommandBox : "show m/CS2105 y/4"
 activate CommandBox
 
-CommandBox -> LogicManager : execute()
+CommandBox -> MainWindow : executeCommand("show m/CS2105 \ny/4")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("show m/CS2105 \ny/4")
 activate LogicManager
 
-LogicManager -> MODdyParser : execute()
+LogicManager -> MODdyParser : parseCommand("show m/CS2105 \ny/4")
 activate MODdyParser
 
-MODdyParser -> ShowCommand : execute()
+create ShowCommandParser
+MODdyParser -> ShowCommandParser
+activate ShowCommandParser
+
+ShowCommandParser --> MODdyParser
+deactivate ShowCommandParser
+
+MODdyParser -> ShowCommandParser : parse("m/CS2105 y/4")
+activate ShowCommandParser
+
+create ShowCommand
+ShowCommandParser -> ShowCommand
 activate ShowCommand
 
-ShowCommand -> CourseManager : getCourse()
-activate CourseManager
-
-CourseManager -> JsonCourse : toModelType()
-activate JsonCourse
-
-JsonCourse --> CourseManager : Course
-deactivate JsonCourse
-
-CourseManager --> ShowCommand
-deactivate CourseManager
-
-ShowCommand --> MODdyParser
+ShowCommand --> ShowCommandParser : s
 deactivate ShowCommand
-destroy ShowCommand
 
-MODdyParser --> LogicManager
+ShowCommandParser --> MODdyParser : s
+deactivate ShowCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShowCommandParser -[hidden]-> MODdyParser
+destroy ShowCommandParser
+
+MODdyParser --> LogicManager : s
 deactivate MODdyParser
 
-LogicManager --> CommandBox
+LogicManager -> ShowCommand : execute()
+activate ShowCommand
+
+ShowCommand -> Model : getModule()
+activate Model
+
+Model --> ShowCommand
+deactivate Model
+
+create CommandResult
+ShowCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ShowCommand
+deactivate CommandResult
+
+ShowCommand --> LogicManager : result
+deactivate ShowCommand
+
+LogicManager -> MainWindow
 deactivate LogicManager
+
+MainWindow -> CommandBox
+deactivate MainWindow
 
 [<--CommandBox
 deactivate CommandBox
-destroy CommandBox
-
 @enduml
