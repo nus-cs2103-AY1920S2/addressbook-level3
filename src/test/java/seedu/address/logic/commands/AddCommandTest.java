@@ -204,6 +204,16 @@ public class AddCommandTest {
         public void updateFilteredGoodList(Predicate<Good> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
