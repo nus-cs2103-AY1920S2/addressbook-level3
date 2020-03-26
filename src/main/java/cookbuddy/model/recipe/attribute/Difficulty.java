@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the Difficulty of the recipe in the recipe book.
- * Guarantees: immutable; rating is valid as declared in {@link #isValidDifficulty(int)}
+ * Guarantees: immutable; difficulty is valid as declared in {@link #isValidDifficulty(int)}
  */
 public class Difficulty {
 
@@ -14,7 +14,7 @@ public class Difficulty {
     public final int difficulty;
 
     /**
-     * Constructs a {@code Serving size}.
+     * Constructs a {@code Difficulty}.
      *
      * @param difficulty A valid difficulty.
      */
@@ -26,7 +26,7 @@ public class Difficulty {
 
 
     /**
-     * Returns true if a given string is a valid serving size.
+     * Returns true if a given string is a valid difficulty.
      */
     public static boolean isValidDifficulty(int test) {
         return (test >= 0 && test <= 5);
