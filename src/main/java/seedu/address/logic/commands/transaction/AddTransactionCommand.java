@@ -1,7 +1,8 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.product.EditProductCommand.*;
+import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
+import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
@@ -52,6 +53,7 @@ public class AddTransactionCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the address book";
 
     private final TransactionFactory transactionFactory;
     private final EditProductDescriptor editProductDescriptor = new EditProductDescriptor();

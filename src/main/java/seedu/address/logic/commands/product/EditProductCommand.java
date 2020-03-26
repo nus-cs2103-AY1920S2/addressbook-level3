@@ -97,7 +97,6 @@ public class EditProductCommand extends Command {
         UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
         QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
 
-        System.out.println("createEditedProduct " + productToEdit);
         return new Product(updatedDescription, updatedPrice, updatedQuantity,
                 updatedSales, updatedThreshold, updatedId);
     }

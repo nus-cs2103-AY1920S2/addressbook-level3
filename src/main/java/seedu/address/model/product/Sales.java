@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Sales {
 
-    public static final String MESSAGE_CONSTRAINTS = "Sales can take any numeric values (up to 1000000), and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Sales can take any numeric values (up to 1000000), and it should not be blank";
 
     /*
      * There must be one or more digits entered.
