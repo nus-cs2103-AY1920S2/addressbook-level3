@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
@@ -26,7 +27,7 @@ public class AddDeadlineCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new NasaBook(), new UserPrefs());
+        model = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
         module = new Module(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         model.addModule(module);
     }
@@ -35,7 +36,7 @@ public class AddDeadlineCommandTest {
     public void execute_newDeadline_success() {
         Deadline deadline = new DeadlineBuilder().build();
 
-        Model expectedModel = new ModelManager(new NasaBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
         expectedModel.addModule(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         expectedModel.addActivity(module, deadline);
 
@@ -47,7 +48,7 @@ public class AddDeadlineCommandTest {
     @Test
     public void execute_duplicateDeadline_failure() {
         Deadline deadline = new DeadlineBuilder().build();
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
         AddDeadlineCommand command = new AddDeadlineCommand(deadline, new ModuleCode(VALID_MODULE_CODE_CS1231));
 
         expectedModel.addActivity(module, deadline);

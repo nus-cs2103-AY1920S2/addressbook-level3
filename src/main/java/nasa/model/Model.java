@@ -8,9 +8,11 @@ import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * The API of the Model component.
@@ -59,6 +61,9 @@ public interface Model {
 
     /** Returns the NasaBook */
     ReadOnlyNasaBook getNasaBook();
+
+    /** Returns the HistoryBook */
+    ReadOnlyHistory getHistoryBook();
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
@@ -150,7 +155,7 @@ public interface Model {
      */
     ObservableList<Activity> getFilteredActivityList(Index index);
 
-    // TODO: Implement getFilteredActivityList by moduleCode
+    ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode);
 
     /**
      * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
@@ -176,5 +181,8 @@ public interface Model {
     void removeModuleByIndex(Index index);
     void removeActivityByIndex(Module module, Index index);
     void removeActivityByIndex(ModuleCode moduleCode, Index index);
-
+    HistoryManager<UniqueModuleList> getHistoryManager();
+    void undoHistory();
+    void redoHistory();
+    void setSchedule(ModuleCode module, Name activity, Index type);
 }

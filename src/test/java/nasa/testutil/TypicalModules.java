@@ -40,7 +40,7 @@ public class TypicalModules {
     public static NasaBook getTypicalNasaBook() {
         NasaBook nb = new NasaBook();
         for (Module module : getTypicalModules()) {
-            nb.addModule(module);
+            nb.addModule(module.getDeepCopyModule());
         }
         return nb;
     }

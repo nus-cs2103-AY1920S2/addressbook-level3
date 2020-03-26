@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 
 import nasa.commons.core.LogsCenter;
 import nasa.commons.exceptions.DataConversionException;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.UserPrefs;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * Manages storage of NASA data in local storage.
@@ -54,6 +56,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Path getHistoryBookFilePath() {
+        return nasaBookStorage.getHistoryBookFilePath();
+    }
+
+    @Override
     public Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException {
         return readNasaBook(nasaBookStorage.getNasaBookFilePath());
     }
@@ -65,6 +72,17 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return nasaBookStorage.readHistoryBook(filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException {
+        return readHistoryBook(nasaBookStorage.getHistoryBookFilePath());
+    }
+
+    @Override
     public void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException {
         saveNasaBook(nasaBook, nasaBookStorage.getNasaBookFilePath());
     }
@@ -73,6 +91,20 @@ public class StorageManager implements Storage {
     public void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         nasaBookStorage.saveNasaBook(nasaBook, filePath);
+    }
+
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook)
+            throws IOException {
+        saveUltimate(nasaBook, historyBook, nasaBookStorage.getNasaBookFilePath(),
+                nasaBookStorage.getHistoryBookFilePath());
+    }
+
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
+                             Path filePathTwo) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePathOne + filePathTwo);
+        nasaBookStorage.saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
     }
 
 }

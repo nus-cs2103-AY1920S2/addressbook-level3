@@ -15,14 +15,18 @@ import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
+import nasa.model.HistoryManager;
 import nasa.model.Model;
 import nasa.model.NasaBook;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 import nasa.testutil.ModuleBuilder;
 
 public class AddCommandTest {
@@ -167,6 +171,36 @@ public class AddCommandTest {
         public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public HistoryManager<UniqueModuleList> getHistoryManager() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ReadOnlyHistory getHistoryBook() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void undoHistory() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void redoHistory() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void setSchedule(ModuleCode module, Name activity, Index type) {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**
@@ -275,6 +309,11 @@ public class AddCommandTest {
         public void removeActivityByIndex(ModuleCode moduleCode, Index index) {
 
         }
+
+        @Override
+        public void setSchedule(ModuleCode module, Name activity, Index type) {
+
+        }
         /*
         @Override
         public boolean hasModule(Module module) {
@@ -374,6 +413,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
+            return null;
+        }
+
+        @Override
         public void updateFilteredActivityList(Index index, Predicate<Activity> predicate) {
 
         }
@@ -399,9 +443,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public HistoryManager<UniqueModuleList> getHistoryManager() {
+            return null;
+        }
+
+        @Override
+        public void undoHistory() {
+
+        }
+
+        @Override
+        public void redoHistory() {
+
+        }
+
+        @Override
         public ReadOnlyNasaBook getNasaBook() {
             return new NasaBook();
         }
+
+        @Override
+        public ReadOnlyHistory getHistoryBook() {
+            return null;
+        }
+
+        @Override
+        public void setSchedule(ModuleCode module, Name activity, Index type) {}
     }
 
 }

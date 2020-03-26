@@ -20,6 +20,8 @@ public class Note {
      */
     public static final String VALIDATION_REGEX = "^(?!\\s*$).+";
 
+    public static final String VALIDATION_REGEX_EMPTY = "^$";
+
     public final String content;
 
     /**

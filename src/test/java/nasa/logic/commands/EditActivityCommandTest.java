@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import nasa.commons.core.Messages;
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditActivityCommand.EditActivityDescriptor;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
@@ -34,7 +35,7 @@ import nasa.testutil.ModuleBuilder;
  */
 public class EditActivityCommandTest {
 
-    private Model model = new ModelManager(NASABOOK_TYPE_1, new UserPrefs());
+    private Model model = new ModelManager(NASABOOK_TYPE_1.deepCopyNasaBook(), new HistoryBook<>(), new UserPrefs());
     private Module module = new ModuleBuilder().build(); // module to contain activity
     private int activityListSize = module.getActivities().getActivityList().size(); // num of activity in module
     private Index indexLastActivity = Index.fromOneBased(activityListSize);
@@ -51,7 +52,8 @@ public class EditActivityCommandTest {
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(),
+                new UserPrefs());
         expectedModel.setActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY, editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
@@ -66,7 +68,8 @@ public class EditActivityCommandTest {
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(),
+                new UserPrefs());
         expectedModel.setActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY, editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
@@ -81,7 +84,8 @@ public class EditActivityCommandTest {
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(),
+                new UserPrefs());
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
     }

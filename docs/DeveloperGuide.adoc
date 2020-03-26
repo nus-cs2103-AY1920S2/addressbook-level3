@@ -116,21 +116,18 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::classDiagramModel.png[]
 
 *API* : link:{repoURL}/src/main/java/nasa/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* mainly consist of two components which are the `NasaBook` and `HistoryManager`.
+* `NasaBook` contains all the user current stored modules and activities.
+* `HistoryManager` contains all the user previous state for each of it actions.
+* `NasaBook` contain a set of module list stored in `UniqueModuleList`.
+* each `Module` consists of several `Activity`.
+* an `Activity` can be either a `Deadline`, `Lesson`, `Event`.
 
 [[Design-Storage]]
 === Storage component
@@ -344,6 +341,44 @@ Below is an example of how users can snooze reminders:
 For more information regarding the procedure, please refer to the Activity Diagram below:
 
 image::SnoozeReminderActivityDiagram.png[]
+
+=== Automation
+We store the date that the user has create an activity. Based on user input to repeat the task either
+weekly, twice weekly or monthly, our application will check whether today's date has passed `date of creation` + `user preset`.
+
+==== Implementation
+By default there will not be any scheduling for any activities. Therefore, user has to enter `repeat` followed by `module code`
+, `activity name` for identification of the activity and `1-Weekly-, 2-Twice Weekly, 3-Monthly`.
+
+* An example of command line `repeat m/CS3233 a/Lab Assignment r/1`.
+
+Once the command line is entered, our application will react in the following steps :
+
+. LogicManager will create NasaBookParser to parse the user input `repeat`.
+
+. NasaBookParser will call RepeatActivityCommandParser to check if all the following prefixes `m/`, `a/` and `r/` are present.
+.. If not present, an error message `"invalid command format!"` will be prompted.
+.. Else, a success message `"set repeated"` will be given, and RepeatCommand will be executed.
+
+. RepeatCommand will set schedule in Model.
+. Model will first find the module in it internal module list.
+. After, it will find for the activity inside the module.
+. Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and make changes to the expiring date.
+
+image::sequenceDiagramAutomation.png[]
+
+However, above is only the creation. What happen if the activity has expired when NasaBook is not in use? Not to worry, because when
+the user initialise the program again, the system will automatically reset the expired date.
+
+This is how it goes :
+
+. MainApp will execute initialisation which will fetch data through NasaBookStorage.
+
+. NasaBookStorage will access json file in JsonAdaptedModule to retrieve the old schedule.
+
+. NasaBook will load every module in the module list and update each activity in the module through the Schedule class.
+.. If scheduler sees `0` nothing will be done and the activity will get deleted.
+.. If scheduler sees `1`,`2` or `3` it will update to the new date.
 
 === Sort Activity Feature (To be implemented)
 

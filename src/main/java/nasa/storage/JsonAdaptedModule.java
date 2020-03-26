@@ -83,7 +83,7 @@ class JsonAdaptedModule {
         final UniqueActivityList uniqueActivityList = new UniqueActivityList();
         uniqueActivityList.setActivities(moduleActivities);
 
-        Module module = new Module(modelModuleCode, modelModuleName);
+        final Module module = new Module(modelModuleCode, modelModuleName);
         module.setActivities(uniqueActivityList);
         return module;
     }

@@ -20,11 +20,14 @@ import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.UserPrefs;
 import nasa.model.module.Module;
+import nasa.model.module.UniqueModuleList;
 import nasa.storage.JsonNasaBookStorage;
 import nasa.storage.JsonUserPrefsStorage;
 import nasa.storage.StorageManager;
@@ -40,9 +43,10 @@ public class LogicManagerTest {
     private Logic logic;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         JsonNasaBookStorage nasaBookStorage =
-                new JsonNasaBookStorage(temporaryFolder.resolve("nasaBook.json"));
+                new JsonNasaBookStorage(temporaryFolder.resolve("nasaBook.json"),
+                        temporaryFolder.resolve("historyBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(nasaBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -69,10 +73,11 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_storageThrowsIoException_throwsCommandException() {
+    public void execute_storageThrowsIoException_throwsCommandException() throws IOException {
         // Setup LogicManager with JsonNasaBookIoExceptionThrowingStub
         JsonNasaBookStorage nasaBookStorage =
-                new JsonNasaBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionNasaBook.json"));
+                new JsonNasaBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionNasaBook.json"),
+                        temporaryFolder.resolve("ioExceptionHistoryBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(nasaBookStorage, userPrefsStorage);
@@ -131,7 +136,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -152,8 +157,14 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonNasaBookIoExceptionThrowingStub extends JsonNasaBookStorage {
-        private JsonNasaBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
+        private JsonNasaBookIoExceptionThrowingStub(Path filePath, Path filePathTwo) {
+            super(filePath, filePathTwo);
+        }
+
+        @Override
+        public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
+                                 Path filePathOne, Path filePathTwo) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
         }
 
         @Override

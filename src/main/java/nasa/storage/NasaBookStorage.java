@@ -5,7 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import nasa.commons.exceptions.DataConversionException;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * Represents a storage for {@link nasa.model.NasaBook}.
@@ -16,6 +18,8 @@ public interface NasaBookStorage {
      * Returns the file path of the data file.
      */
     Path getNasaBookFilePath();
+
+    Path getHistoryBookFilePath();
 
     /**
      * Returns NASABook data as a {@link ReadOnlyNasaBook}.
@@ -30,16 +34,22 @@ public interface NasaBookStorage {
      */
     Optional<ReadOnlyNasaBook> readNasaBook(Path filePath) throws DataConversionException, IOException;
 
+    Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException;
+
+    Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException, IOException;
     /**
      * Saves the given {@link ReadOnlyNasaBook} to the storage.
      * @param nasaBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException;
-
     /**
      * @see #saveNasaBook(ReadOnlyNasaBook)
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException;
 
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException;
+
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
+                      Path filePathTwo) throws IOException;
 }

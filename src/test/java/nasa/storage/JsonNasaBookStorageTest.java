@@ -19,7 +19,8 @@ import nasa.model.NasaBook;
 import nasa.model.ReadOnlyNasaBook;
 
 public class JsonNasaBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonNasaBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonNasaBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -30,7 +31,8 @@ public class JsonNasaBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyNasaBook> readNasaBook(String filePath) throws Exception {
-        return new JsonNasaBookStorage(Paths.get(filePath)).readNasaBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonNasaBookStorage(Paths.get(filePath),
+                Paths.get(filePath)).readNasaBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -62,8 +64,9 @@ public class JsonNasaBookStorageTest {
     @Test
     public void readAndSaveNasaBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempNasaBook.json");
+        Path filePathTwo = testFolder.resolve("TempHistoryBook.json");
         NasaBook original = getTypicalNasaBook();
-        JsonNasaBookStorage jsonNasaBookStorage = new JsonNasaBookStorage(filePath);
+        JsonNasaBookStorage jsonNasaBookStorage = new JsonNasaBookStorage(filePath, filePathTwo);
 
         // Save in new file and read back
         jsonNasaBookStorage.saveNasaBook(original, filePath);
@@ -95,7 +98,7 @@ public class JsonNasaBookStorageTest {
      */
     private void saveNasaBook(ReadOnlyNasaBook nasaBook, String filePath) {
         try {
-            new JsonNasaBookStorage(Paths.get(filePath))
+            new JsonNasaBookStorage(Paths.get(filePath), Paths.get(filePath))
                     .saveNasaBook(nasaBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

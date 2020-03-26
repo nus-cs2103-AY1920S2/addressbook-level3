@@ -137,5 +137,9 @@ class NasaBookTest {
             return new UniqueModuleList();
         }
 
+        @Override
+        public ObservableList<Module> getDeepCopyList() {
+            return modules;
+        }
     }
 }

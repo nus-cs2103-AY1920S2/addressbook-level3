@@ -9,6 +9,7 @@ import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
@@ -17,7 +18,7 @@ import nasa.model.module.ModuleCode;
 
 public class DeleteActivityCommandTest {
 
-    private Model model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
 
     @Test
     public void execute_validActivityUnfilteredList_success() {
@@ -28,7 +29,7 @@ public class DeleteActivityCommandTest {
         String expectedMessage = String.format(INDEX_FIRST_ACTIVITY.toString()
             + DeleteActivityCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS);
 
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
         expectedModel.removeActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY);
 
         assertCommandSuccess(deleteActivityCommand, model, expectedMessage, expectedModel);

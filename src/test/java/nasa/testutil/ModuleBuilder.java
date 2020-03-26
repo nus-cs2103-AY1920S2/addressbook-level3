@@ -63,7 +63,9 @@ public class ModuleBuilder {
     public ModuleBuilder(Module moduleToCopy) {
         name = moduleToCopy.getModuleName();
         code = moduleToCopy.getModuleCode();
-        activityList = moduleToCopy.getActivities();
+        UniqueActivityList newActivityList = new UniqueActivityList();
+        newActivityList.setActivities(moduleToCopy.getDeepCopyList());
+        activityList = newActivityList;
     }
 
     /**
@@ -107,7 +109,7 @@ public class ModuleBuilder {
      */
     public Module build() {
         Module module = new Module(code, name);
-        module.setActivities(activityList);
+        module.setActivities(activityList.getDeepCopyList());
         return module;
     }
 

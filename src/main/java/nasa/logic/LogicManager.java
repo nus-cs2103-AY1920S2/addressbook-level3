@@ -33,6 +33,11 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         nasaBookParser = new NasaBookParser();
+        try {
+            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook());
+        } catch (IOException ioe) {
+            logger.info("-------------------Error while setting up logic manager");
+        }
     }
 
     @Override
@@ -44,7 +49,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveNasaBook(model.getNasaBook());
+            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

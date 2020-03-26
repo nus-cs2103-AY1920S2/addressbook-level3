@@ -9,12 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,14 +31,14 @@ public class AddModuleCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<UniqueModuleList>(), new UserPrefs());
     }
 
     @Test
     public void execute_newModule_success() throws Exception {
         Module validModule = new Module(new ModuleCode(MODULE_CODE), new ModuleName(MODULE_NAME));
 
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
         expectedModel.addModule(validModule);
 
         assertCommandSuccess(new AddModuleCommand(validModule), model, String.format(AddModuleCommand.MESSAGE_SUCCESS,

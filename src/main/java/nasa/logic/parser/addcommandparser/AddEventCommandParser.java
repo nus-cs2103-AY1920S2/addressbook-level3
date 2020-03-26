@@ -46,22 +46,22 @@ public class AddEventCommandParser extends AddCommandParser {
         Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
+        Event event = new Event(activityName, startDate, endDate);
+
         // optional fields - must see if it exist, else create null
         Note note;
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+            event.setNote(note);
         } else {
             note = null;
         }
 
-        Priority priority;
+        Priority priority = new Priority();
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = null;
         }
-
-        Event event = new Event(activityName, note, priority, startDate, endDate);
+        event.setPriority(priority);
         return new AddEventCommand(event, moduleCode);
     }
 }

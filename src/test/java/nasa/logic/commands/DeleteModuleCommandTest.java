@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
@@ -21,7 +22,7 @@ import nasa.model.module.ModuleCode;
  */
 public class DeleteModuleCommandTest {
 
-    private Model model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
 
     @Test
     public void execute_validModuleUnfilteredList_success() {
@@ -31,7 +32,7 @@ public class DeleteModuleCommandTest {
         String expectedMessage = String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
                 moduleToDelete.getModuleCode().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

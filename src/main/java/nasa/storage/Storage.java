@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import nasa.commons.exceptions.DataConversionException;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.UserPrefs;
@@ -24,7 +25,13 @@ public interface Storage extends NasaBookStorage, UserPrefsStorage {
     Path getNasaBookFilePath();
 
     @Override
+    Path getHistoryBookFilePath();
+
+    @Override
     Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException;
 
     @Override
     void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException;

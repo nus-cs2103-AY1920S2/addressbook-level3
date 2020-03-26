@@ -2,11 +2,15 @@ package nasa.model.activity;
 
 import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
 import static nasa.testutil.TypicalActivities.DEADLINE;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 
 /**
  * To test the UniqueActivity class.
@@ -56,4 +60,26 @@ class UniqueActivityListTest {
 
         assertFalse(uniqueActivityList.contains(DEADLINE));
     }
+
+    @Test
+    public void checkUnmodifiableList_test() {
+        uniqueActivityList.add(DEADLINE);
+        uniqueActivityList.add(CORRECT_EVENT);
+        assertTrue(uniqueActivityList.asUnmodifiableObservableList().size() == 2);
+    }
+
+    @Test
+    public void modifyUnmodifiableList_test() {
+        uniqueActivityList.add(DEADLINE);
+        ObservableList<Activity> temp = uniqueActivityList.asUnmodifiableObservableList();
+        assertThrows(UnsupportedOperationException.class, () -> temp.add(CORRECT_EVENT));
+    }
+
+    @Test
+    public void getActivityByName() {
+        uniqueActivityList.add(DEADLINE);
+        Activity activity = uniqueActivityList.getActivityByName(new Name("Homework for tut"));
+        assertEquals(DEADLINE, activity);
+    }
+
 }

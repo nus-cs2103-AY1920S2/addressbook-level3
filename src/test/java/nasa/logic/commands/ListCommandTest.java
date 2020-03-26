@@ -6,6 +6,7 @@ import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
@@ -20,8 +21,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
+        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
     }
 
     @Test

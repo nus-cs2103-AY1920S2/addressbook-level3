@@ -47,22 +47,22 @@ public class AddLessonCommandParser extends AddCommandParser {
         Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
+        Lesson lesson = new Lesson(activityName, startDate, endDate);
+
         // optional fields - must see if it exist, else create null
         Note note;
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+            lesson.setNote(note);
         } else {
             note = null;
         }
 
-        Priority priority;
+        Priority priority = new Priority();
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = null;
         }
-
-        Lesson lesson = new Lesson(activityName, note, priority, startDate, endDate);
+        lesson.setPriority(priority);
         return new AddLessonCommand(lesson, moduleCode);
     }
 }

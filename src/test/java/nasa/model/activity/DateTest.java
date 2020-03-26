@@ -33,7 +33,21 @@ class DateTest {
 
         // valid Dates
         assertTrue(Date.isValidDate("29-02-2020 23:59")); //leap year
+        assertTrue(Date.isValidDate("29-2-2020 23:59")); //leap year
+
         assertTrue(Date.isValidDate("12-03-2020 20:00")); //leap year
+    }
+
+    @Test
+    void getDifferenceInDate() {
+        Date dateNoOne = new Date("20-04-2020 23:59");
+        Date dateNoTwo = new Date("19-04-2020 01:00");
+
+        long[] difference = dateNoOne.getDifference(dateNoTwo);
+
+        for (long x : difference) {
+            System.out.println(x);
+        }
     }
 
     @Test

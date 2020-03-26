@@ -15,6 +15,13 @@ public class Deadline extends Activity {
 
     private Date dueDate;
 
+    public Deadline(Name name, Date dueDate) {
+        super(name);
+        requireNonNull(dueDate);
+        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
+        this.dueDate = dueDate;
+    }
+
     public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
         requireNonNull(dueDate);
@@ -46,6 +53,17 @@ public class Deadline extends Activity {
         this.updateStatus();
     }
 
+    public int getDifferenceInDay() {
+        return (int) getDate().getDifference(dueDate)[0];
+    }
+
+    /**
+     * Get days remaining for the task.
+     */
+    public int getDaysRemaining() {
+        return (int) this.dueDate.getDifference(Date.now())[0];
+    }
+
     @Override
     public void updateStatus() {
         if (status == Status.ONGOING && Date.now().isAfter(getDueDate())) {
@@ -57,8 +75,12 @@ public class Deadline extends Activity {
         return date.isAfter(Date.now());
     }
 
-    //TODO: detailed implementation of deadline regeneration
+    @Override
     public Deadline regenerate() {
+        if (super.getSchedule().update()) {
+            setDueDate(getSchedule().getDate().addDaysToCurrDate(getDifferenceInDay()));
+            setStatus(Status.ONGOING);
+        }
         return this;
     }
 }

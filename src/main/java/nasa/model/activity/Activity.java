@@ -12,11 +12,31 @@ import nasa.model.Regenerable;
 public abstract class Activity implements Regenerable<Activity> {
 
     protected Status status;
-    protected Name name;
-    protected Date date;
-    protected Note note;
-    protected Priority priority;
+    private Name name;
+    private Date date;
+    private Note note;
+    private Priority priority;
+    private Schedule schedule;
 
+    /**
+     * Constructs a {@code activity} with default note, status and priority.
+     * @param name name of activity
+     */
+    public Activity(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.note = new Note("-");
+        this.date = Date.now();
+        this.status = Status.ONGOING;
+        this.priority = new Priority("1");
+        this.schedule = new Schedule(date);
+    }
+
+    /**
+     * Constructs a {@code activity} with default status and priority.
+     * @param name name of activity
+     * @param note note of activity
+     */
     public Activity(Name name, Note note) {
         requireAllNonNull(name);
         this.name = name;
@@ -24,8 +44,15 @@ public abstract class Activity implements Regenerable<Activity> {
         this.date = Date.now();
         this.status = Status.ONGOING;
         this.priority = new Priority("1");
+        this.schedule = new Schedule(date);
     }
 
+    /**
+     * Constructs a {@code activity} with priority.
+     * @param name name of activity
+     * @param note note of activity
+     * @param priority priority of activity
+     */
     public Activity(Name name, Note note, Priority priority) {
         requireAllNonNull(name);
         this.name = name;
@@ -33,6 +60,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.date = Date.now();
         this.priority = priority;
         this.status = Status.ONGOING;
+        this.schedule = new Schedule(date);
     }
 
     /**
@@ -50,6 +78,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
         this.status = status;
         this.priority = priority;
+        this.schedule = new Schedule(date);
     }
 
     /**
@@ -103,6 +132,10 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     /**
      * Returns true if both activities of the same name, note and date.
      * @param otherActivity
@@ -114,9 +147,7 @@ public abstract class Activity implements Regenerable<Activity> {
         }
 
         return otherActivity != null
-                && otherActivity.getName().equals(getName())
-                //&& otherActivity.getNote().equals(getNote())
-                && otherActivity.getDate().equals(getDate());
+                && otherActivity.getName().equals(getName());
     }
 
     /**
@@ -174,6 +205,18 @@ public abstract class Activity implements Regenerable<Activity> {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(int type) {
+        schedule.setType(type);
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     /**

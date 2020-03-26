@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path nasaBookFilePath = Paths.get("data" , "nasabook.json");
+    private Path historyBookFilePath = Paths.get("data" , "history.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setNasaBookFilePath(newUserPrefs.getNasaBookFilePath());
+        setHistoryBookFilePath(newUserPrefs.getHistoryBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,9 +53,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return nasaBookFilePath;
     }
 
+    public Path getHistoryBookFilePath() {
+        return historyBookFilePath;
+    }
+
     public void setNasaBookFilePath(Path nasaBookFilePath) {
         requireNonNull(nasaBookFilePath);
         this.nasaBookFilePath = nasaBookFilePath;
+    }
+
+    public void setHistoryBookFilePath(Path historyBookFilePath) {
+        requireNonNull(historyBookFilePath);
+        this.historyBookFilePath = historyBookFilePath;
     }
 
     @Override
@@ -68,12 +79,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && nasaBookFilePath.equals(o.nasaBookFilePath);
+                && nasaBookFilePath.equals(o.nasaBookFilePath)
+                && historyBookFilePath.equals(o.historyBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, nasaBookFilePath);
+        return Objects.hash(guiSettings, nasaBookFilePath, historyBookFilePath);
     }
 
     @Override
@@ -81,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + nasaBookFilePath);
+        sb.append("\nLocal history data file location : " + historyBookFilePath);
         return sb.toString();
     }
 }

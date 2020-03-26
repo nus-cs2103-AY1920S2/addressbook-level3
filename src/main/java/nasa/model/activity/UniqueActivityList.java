@@ -80,6 +80,13 @@ public class UniqueActivityList implements Iterable<Activity> {
         return internalList.get(index.getZeroBased());
     }
 
+    public Activity getActivityByName(Name name) {
+        return internalList.stream()
+                .filter(x -> x.getName().equals(name))
+                .findFirst()
+                .get();
+    }
+
     public void setActivityByIndex(Index index, Activity activity) {
         requireNonNull(activity);
 
@@ -160,6 +167,35 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
 
         internalList.setAll(activities);
+    }
+
+    public ObservableList<Activity> getDeepCopyList() {
+        ObservableList<Activity> deepCopyList = FXCollections.observableArrayList();
+        for (Activity activity : internalUnmodifiableList) {
+            if (activity instanceof Deadline) {
+                Activity activityTemp = new Deadline(activity.getName(), activity.getDate(), activity.getNote(),
+                        activity.getStatus(), activity.getPriority(), ((Deadline) activity).getDueDate());
+                activityTemp.setSchedule(activity.getSchedule());
+                deepCopyList.add(activityTemp);
+            }
+
+            if (activity instanceof Event) {
+                Activity activityTemp = new Event(activity.getName(), activity.getDate(), activity.getNote(),
+                        activity.getStatus(), activity.getPriority(), (
+                                (Event) activity).getDateFrom(), ((Event) activity).getDateTo());
+                activityTemp.setSchedule(activity.getSchedule());
+                deepCopyList.add(activityTemp);
+            }
+
+            if (activity instanceof Lesson) {
+                Activity activityTemp = new Lesson(activity.getName(), activity.getDate(), activity.getNote(),
+                        activity.getStatus(), activity.getPriority(), (
+                                (Lesson) activity).getDateFrom(), ((Lesson) activity).getDateTo());
+                activityTemp.setSchedule(activity.getSchedule());
+                deepCopyList.add(activityTemp);
+            }
+        }
+        return deepCopyList;
     }
 
     /**

@@ -9,6 +9,7 @@ import javafx.collections.transformation.FilteredList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.activity.UniqueActivityList;
 
 /**
@@ -93,8 +94,22 @@ public class Module {
         return activityList.getActivityByIndex(index);
     }
 
+    public Activity getActivityByName(Name name) {
+        return activityList.getActivityByName(name);
+    }
+
     public ObservableList<Activity> getFilteredActivityList() {
         return filteredActivity;
+    }
+
+    public ObservableList<Activity> getDeepCopyList() {
+        return activityList.getDeepCopyList();
+    }
+
+    public Module getDeepCopyModule() {
+        Module newModule = new Module(getModuleCode(), getModuleName());
+        newModule.setActivities(activityList.getDeepCopyList());
+        return newModule;
     }
 
     public void setActivityByIndex(Index index, Activity activity) {

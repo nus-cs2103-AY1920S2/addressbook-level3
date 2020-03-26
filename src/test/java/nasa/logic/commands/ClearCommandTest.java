@@ -5,6 +5,7 @@ import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
@@ -22,8 +23,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyNasaBook_success() {
-        Model model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
         expectedModel.setNasaBook(new NasaBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
