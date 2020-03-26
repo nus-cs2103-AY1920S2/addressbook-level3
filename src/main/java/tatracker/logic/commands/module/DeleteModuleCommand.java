@@ -52,4 +52,3 @@ public class DeleteModuleCommand extends Command {
                 && module.equals(((DeleteModuleCommand) other).module)); // state check
     }
 }
-
