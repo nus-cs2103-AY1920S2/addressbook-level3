@@ -103,24 +103,24 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
-        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getUnfilteredTransactionList());
+        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
-        assertEquals(expectedFilteredList, actualModel.getUnfilteredTransactionList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showTransactionAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getUnfilteredTransactionList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
 
-        Transaction transaction = model.getUnfilteredTransactionList().get(targetIndex.getZeroBased());
+        Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
         final String[] splitName = transaction.getName().transactionName.split("\\s+");
-        model.updateUnfilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getUnfilteredTransactionList().size());
+        assertEquals(1, model.getFilteredTransactionList().size());
     }
 
 }

@@ -25,7 +25,6 @@ public class ModelManager implements Model {
     private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> unfilteredTransactions;
-    private final FilteredList<Transaction> filteredTransactions;
     private final MonthlyData monthlyData;
     private final Filter filter;
 
@@ -41,7 +40,6 @@ public class ModelManager implements Model {
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
         unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
-        filteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         monthlyData = this.expenseLa.getMonthlyData();
         filter = this.expenseLa.getFilter();
     }
@@ -109,7 +107,7 @@ public class ModelManager implements Model {
         boolean positive = target.getAmount().positive;
         double amount = target.getAmount().transactionAmount;
         updateMonthlyData(positive, amount*(-1));
-        updateUnfilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
@@ -118,7 +116,7 @@ public class ModelManager implements Model {
         boolean positive = transaction.getAmount().positive;
         double amount = transaction.getAmount().transactionAmount;
         updateMonthlyData(positive, amount);
-        updateUnfilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     public void updateMonthlyData(boolean positive, double amount) {
@@ -138,7 +136,7 @@ public class ModelManager implements Model {
         expenseLa.setTransaction(target, editedTransaction);
     }
 
-    //=========== Unfiltered Transaction List Accessors =============================================================
+    //=========== Filtered Transaction List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
@@ -146,36 +144,17 @@ public class ModelManager implements Model {
      */
 
     @Override
-    public ObservableList<Transaction> getUnfilteredTransactionList() {
+    public ObservableList<Transaction> getFilteredTransactionList() {
         return unfilteredTransactions;
     }
 
     @Override
-    public void updateUnfilteredTransactionList(Predicate<Transaction> predicate) {
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         unfilteredTransactions.setPredicate(predicate);
     }
 
-    //=========== Filtered Transaction List Accessors =============================================================
 
-//    /**
-//     * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
-//     * {@code versionedExpenseLa} with the filters applied
-//     */
-//
-//    @Override
-//    public ObservableList<Transaction> getListForFilter() {
-//        return filteredTransactions;
-//    }
-//
-//    @Override
-//    public void updateListForFilter(Predicate<Transaction> predicate) {
-//        requireNonNull(predicate);
-//
-//        // modifies the filteredTransactions list to only contain the transactions with the category name or date range
-//        // matching the predicate
-//        filteredTransactions.setPredicate(predicate);
-//    }
 
     @Override
     public boolean equals(Object obj) {

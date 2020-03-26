@@ -90,8 +90,8 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getUnfilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getUnfilteredTransactionList().remove(0));
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTransactionList().remove(0));
     }
 
     @Test
@@ -119,11 +119,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = PIZZA.getName().transactionName.split("\\s+");
-        modelManager.updateUnfilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateUnfilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

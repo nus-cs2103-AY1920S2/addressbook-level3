@@ -90,8 +90,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getUnfilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getUnfilteredTransactionList().remove(0));
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTransactionList().remove(0));
     }
 
     /**

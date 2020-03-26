@@ -59,9 +59,9 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateUnfilteredTransactionList(predicate);
+        expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getUnfilteredTransactionList());
+        assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
     }
 
     @Test
@@ -69,9 +69,9 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Gas Electricity Flowers");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateUnfilteredTransactionList(predicate);
+        expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CAR_GAS, ELECTRICITY, FLOWERS), model.getUnfilteredTransactionList());
+        assertEquals(Arrays.asList(CAR_GAS, ELECTRICITY, FLOWERS), model.getFilteredTransactionList());
     }
 
     /**

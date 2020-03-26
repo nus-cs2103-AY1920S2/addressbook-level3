@@ -140,12 +140,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Transaction> getUnfilteredTransactionList() {
+        public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateUnfilteredTransactionList(Predicate<Transaction> predicate) {
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
