@@ -217,23 +217,37 @@ The following sequence diagram shows how the `show` operation works: `show c/Com
 
 === Edit Profile / Module Feature
 
-The `edit` feature supports editing of `Profile` with the command `edit`, and editing of `Module` with the command `edit` appended with `m/module_code`.
+The `edit` feature supports the editing of both `Profile` and `Module`, with the command `edit` and  `edit` appended with `m/module_code` respectively.
 
 ==== Current Implementations
 
-`edit` command is parsed using `EditCommandParser` to split the user input into relevant fields.
+The `edit` command is parsed using `EditCommandParser` to split the user input into relevant fields.
 
-To edit `profile`, the command `edit` should be appended with one or more of the tags `n/name`, `c/course`, `cs/current_semester`.
+To edit `profile`, the command `edit` should be appended with one or more of the tags:
 
-To edit `module`, the command `edit` should be appended with `m/module`, followed by one or more of the tags `s/semester` and  `g/grade`.
+- `n/NAME`
+- `c/COURSE`
+- `cs/CURRENT_SEMESTER`.
 
-`edit` command extends command class and uses inheritance to facilitate implementation. Hence it inherits the following methods:
+To edit `module`, the command `edit` should be appended with `m/module`, followed by one or more of the tags:
+
+- `s/SEMESTER`
+- `g/GRADE`.
+
+The feature to edit `Deadline` is coming soon.
+
+The `edit` command extends command class and uses inheritance to facilitate implementation. Hence it inherits the following methods:
 
 - `Command#execute(Model model)`
 
 The following sequence diagram shows how the `edit` command works: `edit m/CS2105 g/A`:
 
+.Interactions Inside the Logic Component for the `edit n/NAME` Command
+(EditSequenceDiagram.puml)
+
 ==== Design Considerations
+
+- By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
 === Delete Profile / Module / Deadline Feature
 

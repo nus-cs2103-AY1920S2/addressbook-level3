@@ -1,69 +1,77 @@
 @startuml
 !include style.puml
 
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":MODdyParser" as MODdyParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant ":EditCommand" as EditCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
+participant "Profile" as Profile MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> CommandBox : "edit n/John"
+activate CommandBox
+
+CommandBox --> MainWindow : execute("edit n/John")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("edit n/John")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> MODdyParser : parseCommand("edit n/John")
+activate MODdyParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create EditCommandParser
+MODdyParser -> EditCommandParser : parse("n/John")
+activate EditCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+EditCommandParser --> Profile : setName("John")
+activate Profile
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+Profile --> EditCommandParser
+deactivate Profile
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create EditCommand
+EditCommandParser --> EditCommand
+activate EditCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
-
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
-
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
-
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
-
-DeleteCommand -> Model : deletePerson(1)
+EditCommand --> Model
 activate Model
 
-Model --> DeleteCommand
+Model --> EditCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+EditCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> EditCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+EditCommand --> EditCommandParser
+deactivate EditCommand
 
-[<--LogicManager
+EditCommandParser --> MODdyParser
+deactivate EditCommandParser
+
+MODdyParser --> LogicManager
+deactivate MODdyParser
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow --> CommandBox
+
+[<-- CommandBox
 deactivate LogicManager
 @enduml
