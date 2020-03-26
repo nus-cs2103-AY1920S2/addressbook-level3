@@ -36,7 +36,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
      * Returns true if a given string is a valid ingredient name.
      */
     public static boolean isValidIngredientName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return (!test.isBlank()) && test.matches(VALIDATION_REGEX);
     }
 
     public Quantity getQuantity() {
