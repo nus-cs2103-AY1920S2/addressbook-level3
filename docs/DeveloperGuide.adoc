@@ -354,6 +354,8 @@ For each command, a parser is implemented to parse the input into arguments.
 
 The following sequence diagram shows how each operation works.
 
+AddTransaction Operation:
+
 image::AddTransactionSequenceDiagram.png[]
 NOTE: The AddTransactionCommmandParser returns a transactionFacotry with `productIndex` and `customerIndex`, while a
 transaction is only generated in AddTransactionCommand.
