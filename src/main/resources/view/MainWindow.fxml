@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="TA-Tracker App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<?import javafx.scene.control.SplitPane?>
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="TA-Tracker App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -33,6 +33,11 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+               <Menu mnemonicParsing="false" text="Statistics">
+                  <items>
+                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleHelp" text="Statistics" />
+                  </items>
+               </Menu>
         </MenuBar>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
@@ -51,7 +56,12 @@
           <tabs>
             <Tab fx:id="studentListTab" text="Students">
               <content>
-                <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                <SplitPane dividerPositions="0.5">
+                  <items>
+                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  </items>
+                </SplitPane>
               </content>
             </Tab>
             <Tab fx:id="sessionListTab" text="Sessions">
@@ -61,8 +71,12 @@
             </Tab>
             <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                  <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-               </content>
+                 <SplitPane dividerPositions="0.5">
+                   <items>
+                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   </items>
+                 </SplitPane>               </content>
             </Tab>
           </tabs>
         </TabPane>
