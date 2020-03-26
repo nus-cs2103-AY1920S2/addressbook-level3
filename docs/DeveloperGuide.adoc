@@ -344,6 +344,7 @@ The archiving of coupons is facilitated by the Archived attribute of a coupon. T
 * Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS - A Predicate function that filters out archived coupons from a given CouponStash.
 
 Given below is two example usage scenarios and how the archiving mechanism behaves at each step of each scenario.
+image:ArchivingClassDiagram.png[]
 
 ===== Archiving of Expired Coupons
 
