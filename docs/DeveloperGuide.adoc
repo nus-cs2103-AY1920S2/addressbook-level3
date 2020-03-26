@@ -364,7 +364,7 @@ To sort activities, the command will use the keyword `sort` followed by the sort
 
 The following diagram shows how activities are sorted.
 
-image::ArchitectureSequenceDiagram.png[]
+image::SortActivityDiagram.png[]
 
 ==== Internal workings for the sort activity command
 
@@ -386,11 +386,11 @@ Below is an example of a user sorting activities by priority and how the underly
 
 The figure below shows the sequence diagram on what happens with the execution of the aforementioned command.
 
-image::AddDeadlineLogicSequenceDiagram.png[]
+image::SortLogicSequenceDiagram.png[]
 
 ==== Design Considerations
 
-The design considerations for the classes are shown below:
+it The design considerations for the classes are shown below:
 
 [width="59%",cols="22%,<100%,<100%",options="header",]
 |=======================================================================

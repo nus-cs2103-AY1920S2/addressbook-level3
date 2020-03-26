@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":NasaBookParser" as NasaBookParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":SortCommand" as SortCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> NasaBookParser : parseCommand(command)
+activate NasaBookParser
+
+create SortCommandParser
+NasaBookParser -> SortCommandParser
+activate SortCommandParser
+
+SortCommandParser --> NasaBookParser
+deactivate SortCommandParser
+
+NasaBookParser -> SortCommandParser : parse(command)
+activate SortCommandParser
+
+SortCommandParser -> ParserUtil : parseCriteria(command)
+activate ParserUtil
+
+ParserUtil --> SortCommandParser : criteria
+deactivate ParserUtil
+
+create SortCommand
+SortCommandParser -> SortCommand : new SortCommand(criteria)
+
+activate SortCommand
+SortCommand --> SortCommandParser :
+deactivate SortCommand
+
+SortCommandParser --> NasaBookParser :
+deactivate SortCommandParser
+SortCommandParser -[hidden]-> NasaBookParser
+destroy SortCommandParser
+
+NasaBookParser --> LogicManager :
+
+<-- LogicManager :
+
+@enduml
