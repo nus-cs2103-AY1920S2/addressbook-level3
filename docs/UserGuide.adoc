@@ -68,6 +68,7 @@ Current options are:
     `cal` - calories
     `s` - serving size
     `r` - rating (scale of 0 to 5)
+    `d` - difficulty (scale of 0 to 5)
     `tags` - tags
 
 === Delete a Recipe — `delete`
