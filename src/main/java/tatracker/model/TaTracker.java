@@ -45,24 +45,6 @@ public class TaTracker implements ReadOnlyTaTracker {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the student list with {@code students}.
-     * {@code students} must not contain duplicate students.
-     */
-    public void setStudents(List<Student> students) {
-        this.students.setStudents(students);
-    }
-
-    /**
-     * Replaces the contents of the session list with {@code sessions}.
-     * {@code sessions} must not contain duplicate sessions.
-     */
-    public void setSessions(List<Session> sessions) {
-        this.sessions.setSessions(sessions);
-    }
-
     /**
      * Replaces the contents of the group list with {@code groups}.
      * {@code groups} must not contain duplicate groups.
@@ -119,6 +101,15 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
+     * Removes {@code session} from this {@code TaTracker}.
+     * {@code session} must exist in the ta-tracker.
+     */
+    public void removeSession(Session session) {
+        sessions.remove(session);
+    }
+
+    /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the ta-tracker.
      * The session identity of {@code editedSession} must not be the same as another
@@ -131,53 +122,32 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
-     * Removes {@code session} from this {@code TaTracker}.
-     * {@code session} must exist in the ta-tracker.
+     * Replaces the contents of the session list with {@code sessions}.
+     * {@code sessions} must not contain duplicate sessions.
      */
-    public void removeSession(Session session) {
-        sessions.remove(session);
+    public void setSessions(List<Session> sessions) {
+        this.sessions.setSessions(sessions);
+    }
+
+    @Override
+    public ObservableList<Session> getSessionList() {
+        return sessions.asUnmodifiableObservableList();
     }
 
     public void addDoneSession(Session s) {
         doneSessions.add(s);
     }
 
-    //// student-level operations
-
-    /**
-     * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
-     */
-    public boolean hasStudent(Student student) {
-        requireNonNull(student);
-        return students.contains(student);
+    @Override
+    public ObservableList<Session> getDoneSessionList() {
+        return doneSessions.asUnmodifiableObservableList();
     }
 
     /**
-     * Adds a student to the ta-tracker.
-     * The student must not already exist in the ta-tracker.
+     * Returns module from TATracker.
      */
-    public void addStudent(Student p) {
-        students.add(p);
-    }
-
-    /**
-     * Replaces the given student {@code target} in the list with {@code editedStudent}.
-     * {@code target} must exist in the ta-tracker.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the tracker.
-     */
-    public void setStudent(Student target, Student editedStudent) {
-        requireNonNull(editedStudent);
-
-        students.setStudent(target, editedStudent);
-    }
-
-    /**
-     * Removes {@code key} from this {@code TaTracker}.
-     * {@code key} must exist in the ta-tracker.
-     */
-    public void removeStudent(Student key) {
-        students.remove(key);
+    public Module getModule(Module module) {
+        return modules.getModule(module);
     }
 
     /**
@@ -209,10 +179,11 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Returns module from TATracker.
+     * Removes {@code key} from this {@code TaTracker}.
+     * {@code key} must exist in the ta-tracker.
      */
-    public Module getModule(Module module) {
-        return modules.getModule(module);
+    public void removeModule(Module key) {
+        modules.remove(key);
     }
 
     /**
@@ -226,12 +197,9 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules.setModule(target, editedModule);
     }
 
-    /**
-     * Removes {@code key} from this {@code TaTracker}.
-     * {@code key} must exist in the ta-tracker.
-     */
-    public void removeModule(Module key) {
-        modules.remove(key);
+    @Override
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
     }
 
     /**
@@ -241,12 +209,56 @@ public class TaTracker implements ReadOnlyTaTracker {
         groups.add(group);
     }
 
-    //// util methods
-
     @Override
-    public String toString() {
-        return students.asUnmodifiableObservableList().size() + " students";
-        // TODO: refine later
+    public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
+    }
+
+    //// student-level operations
+
+    /**
+     * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
+     */
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return students.contains(student);
+    }
+
+    /**
+     * Adds a student to the ta-tracker.
+     * The student must not already exist in the ta-tracker.
+     */
+    public void addStudent(Student p) {
+        students.add(p);
+    }
+
+    /**
+     * Removes {@code key} from this {@code TaTracker}.
+     * {@code key} must exist in the ta-tracker.
+     */
+    public void removeStudent(Student key) {
+        students.remove(key);
+    }
+
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the ta-tracker.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the tracker.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        requireNonNull(editedStudent);
+
+        students.setStudent(target, editedStudent);
+    }
+
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the student list with {@code students}.
+     * {@code students} must not contain duplicate students.
+     */
+    public void setStudents(List<Student> students) {
+        this.students.setStudents(students);
     }
 
     @Override
@@ -255,23 +267,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     @Override
-    public ObservableList<Session> getSessionList() {
-        return sessions.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Session> getDoneSessionList() {
-        return doneSessions.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Module> getModuleList() {
-        return modules.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Group> getGroupList() {
-        return groups.asUnmodifiableObservableList();
+    public int hashCode() {
+        return students.hashCode();
     }
 
     @Override
@@ -281,8 +278,11 @@ public class TaTracker implements ReadOnlyTaTracker {
                 && students.equals(((TaTracker) other).students));
     }
 
+    //// util methods
+
     @Override
-    public int hashCode() {
-        return students.hashCode();
+    public String toString() {
+        return students.asUnmodifiableObservableList().size() + " students";
+        // TODO: refine later
     }
 }
