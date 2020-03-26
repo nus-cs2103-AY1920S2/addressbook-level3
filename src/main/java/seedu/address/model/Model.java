@@ -7,11 +7,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
@@ -237,12 +237,12 @@ public interface Model {
   /**
    * Returns the courseAddressBook
    */
-  ReadOnlyCourseAddressBook getCourseAddressBook();
+ ReadOnlyAddressBookGeneric<Course> getCourseAddressBook();
 
   /**
    * Replaces course address book data with the data in {@code teacerAddressBook}.
    */
-  void setCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook);
+  void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook);
 
   /**
    * Returns true if a course with the same identity as {@code course} exists in the address book.

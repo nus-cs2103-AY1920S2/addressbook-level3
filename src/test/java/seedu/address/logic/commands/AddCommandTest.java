@@ -25,7 +25,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
@@ -271,12 +270,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyCourseAddressBook getCourseAddressBook() {
+        publicReadOnlyAddressBookGeneric<Course> getCourseAddressBook() {
             return null;
         }
 
         @Override
-        public void setCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) {
+        public void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook) {
 
         }
 

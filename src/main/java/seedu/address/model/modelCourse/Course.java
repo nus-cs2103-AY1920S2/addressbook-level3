@@ -6,16 +6,20 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.exceptions.CourseNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateCourseException;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Course in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
-public class Course {
+public class Course implements ModelObject {
 
   // Identity fields
   private final Name name;
@@ -87,6 +91,20 @@ public class Course {
         && otherCourse.getId().equals(getId());
   }
 
+  public boolean weakEquals(ModelObject otherCourse) {
+    if (otherCourse == this) {
+      return true;
+    }
+
+    if (otherCourse instanceof Course == false) {
+      return false;
+    }
+    Course otherCourseCast = (Course) otherCourse;
+    return otherCourseCast != null
+//        && otherCourse.getName().equals(getName())
+            && otherCourseCast.getId().equals(getId());
+  }
+
   /**
    * Returns true if both courses have the same identity and data fields. This defines a stronger
    * notion of equality between two courses.
@@ -127,4 +145,11 @@ public class Course {
     return builder.toString();
   }
 
+  public static RuntimeException getNotFoundException() {
+    return new CourseNotFoundException();
+  }
+
+  public static RuntimeException getDuplicateException() {
+    return new DuplicateCourseException();
+  }
 }

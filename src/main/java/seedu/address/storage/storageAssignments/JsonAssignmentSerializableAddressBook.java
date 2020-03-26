@@ -9,7 +9,6 @@ import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
-import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 
 import java.util.ArrayList;
 import java.util.List;
