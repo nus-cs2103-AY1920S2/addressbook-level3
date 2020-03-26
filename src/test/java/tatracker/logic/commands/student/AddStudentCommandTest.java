@@ -21,6 +21,7 @@ import tatracker.model.Model;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.ReadOnlyUserPrefs;
 import tatracker.model.TaTracker;
+import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
@@ -208,6 +209,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void addGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteModule(Module target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -233,7 +239,17 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public ObservableList<Group> getFilteredGroupList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredModuleList(Predicate<Module> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredGroupList(Predicate<Group> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

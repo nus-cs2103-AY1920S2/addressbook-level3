@@ -69,6 +69,13 @@ public class Group {
     }
 
     /**
+     * Returns the group type.
+     */
+    public GroupType getType() {
+        return groupType;
+    }
+
+    /**
      * Returns true if both groups have the same identifiers.
      */
     @Override

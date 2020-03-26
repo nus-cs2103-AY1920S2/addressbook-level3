@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import tatracker.model.group.Group;
+import tatracker.model.group.UniqueGroupList;
 import tatracker.model.module.Module;
 import tatracker.model.module.UniqueModuleList;
 import tatracker.model.session.Session;
@@ -24,6 +26,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
+    private final UniqueGroupList groups;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +40,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         sessions = new UniqueSessionList();
         doneSessions = new UniqueDoneSessionList();
         modules = new UniqueModuleList();
+        groups = new UniqueGroupList();
     }
 
     public TaTracker() {}
@@ -173,6 +177,13 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Adds a group to the TATracker.
+     */
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
+
+    /**
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
@@ -237,6 +248,11 @@ public class TaTracker implements ReadOnlyTaTracker {
     @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
     }
 
     @Override

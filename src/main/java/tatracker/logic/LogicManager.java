@@ -14,6 +14,7 @@ import tatracker.logic.parser.TaTrackerParser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.ReadOnlyTaTracker;
+import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
@@ -76,6 +77,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return model.getFilteredGroupList();
     }
 
     @Override

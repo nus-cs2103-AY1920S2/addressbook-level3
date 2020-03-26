@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
+import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Module> filteredModules;
+    private final FilteredList<Group> filteredGroups;
 
     private long totalHours = 0;
     private int rate;
@@ -48,6 +50,7 @@ public class ModelManager implements Model {
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
         filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
         filteredModules = new FilteredList<>(this.taTracker.getModuleList());
+        filteredGroups = new FilteredList<>(this.taTracker.getGroupList());
     }
 
     public ModelManager() {
@@ -137,6 +140,12 @@ public class ModelManager implements Model {
     public void addModule(Module module) {
         requireNonNull(module);
         taTracker.addModule(module);
+    }
+
+    @Override
+    public void addGroup(Group group) {
+        requireNonNull(group);
+        taTracker.addGroup(group);
     }
 
 
@@ -289,5 +298,16 @@ public class ModelManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return filteredGroups;
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
+        requireNonNull(predicate);
+        filteredGroups.setPredicate(predicate);
     }
 }
