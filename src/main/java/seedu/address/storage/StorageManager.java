@@ -11,7 +11,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
+import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
@@ -286,27 +286,27 @@ public class StorageManager implements Storage {
   }
 
   @Override
-  public Optional<ReadOnlyCourseStudentAddressBook> readCourseStudentAddressBook()
+  public Optional<ReadOnlyAddressBookGeneric<CourseStudent>> readCourseStudentAddressBook()
       throws DataConversionException, IOException {
     return readCourseStudentAddressBook(courseStudentAddressBookStorage.getCourseStudentAddressBookFilePath());
   }
 
   @Override
-  public Optional<ReadOnlyCourseStudentAddressBook> readCourseStudentAddressBook(Path filePath)
+  public Optional<ReadOnlyAddressBookGeneric<CourseStudent>> readCourseStudentAddressBook(Path filePath)
       throws DataConversionException, IOException {
     logger.fine("Attempting to read data from file: " + filePath);
     return courseStudentAddressBookStorage.readCourseStudentAddressBook(filePath);
   }
 
   @Override
-  public void saveCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook)
+  public void saveCourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook)
       throws IOException {
     saveCourseStudentAddressBook(courseStudentAddressBook,
         courseStudentAddressBookStorage.getCourseStudentAddressBookFilePath());
   }
 
   @Override
-  public void saveCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook, Path filePath)
+  public void saveCourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook, Path filePath)
       throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
     courseStudentAddressBookStorage.saveCourseStudentAddressBook(courseStudentAddressBook, filePath);

@@ -6,18 +6,24 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Studentid;
+import seedu.address.model.person.exceptions.CourseNotFoundException;
+import seedu.address.model.person.exceptions.CourseStudentNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateCourseException;
+import seedu.address.model.person.exceptions.DuplicateCourseStudentException;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a CourseStudent in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
-public class CourseStudent {
+public class CourseStudent implements ModelObject {
 
   // Identity fields
   private final Courseid courseid;
@@ -56,14 +62,20 @@ public class CourseStudent {
    * Returns true if both courses of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two courses.
    */
-  public boolean isSameCourseStudent(CourseStudent otherCourseStudent) {
+  @Override
+  public boolean weakEquals(ModelObject otherCourseStudent) {
     if (otherCourseStudent == this) {
       return true;
     }
 
-    return otherCourseStudent != null
-        && otherCourseStudent.getCourseid().equals(getCourseid())
-        && otherCourseStudent.getStudentid().equals(getStudentid());
+    if (otherCourseStudent instanceof CourseStudent == false) {
+      return false;
+    }
+
+    CourseStudent otherCourseStudentCast = (CourseStudent) otherCourseStudent;
+    return otherCourseStudentCast != null
+        && otherCourseStudentCast.getCourseid().equals(getCourseid())
+        && otherCourseStudentCast.getStudentid().equals(getStudentid());
   }
 
   /**
@@ -106,6 +118,14 @@ public class CourseStudent {
             .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();
+  }
+
+  public static RuntimeException getNotFoundException() {
+    return new CourseStudentNotFoundException();
+  }
+
+  public static RuntimeException getDuplicateException() {
+    return new DuplicateCourseStudentException();
   }
 
 }
