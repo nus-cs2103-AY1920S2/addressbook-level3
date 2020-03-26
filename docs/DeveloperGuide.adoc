@@ -193,7 +193,7 @@ The tags are:
 
 The following sequence diagram shows how the `new` operation works with the input: `new n/John c/Computer Science cs/4`
 
-image pending.
+image::NewCommandSequenceDiagram.png[]
 
 ==== Design Considerations (pending)
 
