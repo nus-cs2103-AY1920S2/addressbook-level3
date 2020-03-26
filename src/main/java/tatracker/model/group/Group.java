@@ -14,15 +14,6 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class Group {
 
-    /**
-     * Represents a group type.
-     * Can be a lab or a tutorial.
-     */
-    public enum GroupType {
-        LAB,
-        TUTORIAL;
-    }
-
     private final String identifier;
     private final GroupType groupType;
     private final UniqueStudentList students;

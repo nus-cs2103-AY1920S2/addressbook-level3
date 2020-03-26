@@ -13,7 +13,7 @@ public enum SessionType {
     OTHER ("Other");
 
     private String typeName;
-    private SessionType(String typeName) {
+    SessionType(String typeName) {
         this.typeName = typeName;
     }
 
