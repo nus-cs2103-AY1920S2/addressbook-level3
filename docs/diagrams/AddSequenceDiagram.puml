@@ -20,7 +20,7 @@ participant ":Profile" as Profile MODEL_COLOR
 participant ":Module" as Module MODEL_COLOR
 end box
 
-[-> CommandBox : "add m/CS2106 y/4"
+[-> CommandBox : "add m/CS2105 y/4"
 activate CommandBox
 
 CommandBox -> MainWindow : executeCommand("add m/CS2105 \ny/4")
