@@ -24,7 +24,6 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.Person;
@@ -57,7 +56,7 @@ public class ModelManager implements Model {
    * Initializes a ModelManager with the given addressBook and userPrefs.
    */
   public ModelManager(ReadOnlyAddressBook addressBook,
-                      ReadOnlyTeacherAddressBook teacherAddressBook, ReadOnlyAddressBookGeneric<Student> studentAddressBook,
+                      ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook, ReadOnlyAddressBookGeneric<Student> studentAddressBook,
                       ReadOnlyAddressBookGeneric<Finance> financeAddressBook, ReadOnlyAddressBookGeneric<Course> courseAddressBook,
                       ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook,
                       ReadOnlyUserPrefs userPrefs) {
@@ -79,7 +78,7 @@ public class ModelManager implements Model {
 
     this.userPrefs = new UserPrefs(userPrefs);
     filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    filteredTeachers = new FilteredList<>(this.teacherAddressBook.getTeacherList());
+    filteredTeachers = new FilteredList<>(this.teacherAddressBook.getList());
     filteredStudents = new FilteredList<>(this.studentAddressBook.getList());
     filteredFinances = new FilteredList<>(this.financeAddressBook.getList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
@@ -237,37 +236,37 @@ public class ModelManager implements Model {
 
   ///
   @Override
-  public ReadOnlyTeacherAddressBook getTeacherAddressBook() {
+  public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
     return teacherAddressBook;
   }
 
 
   @Override
-  public void setTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook) {
+  public void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) {
     this.teacherAddressBook.resetData(teacherAddressBook);
   }
 
   @Override
   public boolean hasTeacher(Teacher teacher) {
     requireNonNull(teacher);
-    return teacherAddressBook.hasTeachers(teacher);
+    return teacherAddressBook.has(teacher);
   }
 
   @Override
   public void deleteTeacher(Teacher target) {
-    teacherAddressBook.removeTeacher(target);
+    teacherAddressBook.remove(target);
   }
 
   @Override
   public void addTeacher(Teacher teacher) {
-    teacherAddressBook.addTeacher(teacher);
+    teacherAddressBook.add(teacher);
     updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
   }
   @Override
   public void setTeacher(Teacher target, Teacher editedTeacher) {
     requireAllNonNull(target, editedTeacher);
 
-    teacherAddressBook.setTeacher(target, editedTeacher);
+    teacherAddressBook.set(target, editedTeacher);
   }
 
   ///

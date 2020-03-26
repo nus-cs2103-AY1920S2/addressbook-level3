@@ -10,7 +10,6 @@ import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
 
@@ -119,12 +118,12 @@ public interface Model {
   /**
    * Returns the teacherAddressBook
    */
-  ReadOnlyTeacherAddressBook getTeacherAddressBook();
+  ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook();
 
   /**
    * Replaces teacher address book data with the data in {@code teacerAddressBook}.
    */
-  void setTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook);
+  void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook);
 
   /**
    * Returns true if a teacher with the same identity as {@code teacher} exists in the address

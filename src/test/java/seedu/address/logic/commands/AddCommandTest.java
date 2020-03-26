@@ -27,7 +27,6 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -166,12 +165,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyTeacherAddressBook getTeacherAddressBook() {
+        public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
             return null;
         }
 
         @Override
-        public void setTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook) {
+        public void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) {
 
         }
 
