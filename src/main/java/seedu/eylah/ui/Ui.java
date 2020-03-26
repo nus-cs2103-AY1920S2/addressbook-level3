@@ -1,48 +1,35 @@
 package seedu.eylah.ui;
 
-import java.util.Scanner;
-
 /**
- * Main CLI Ui component for the application.
+ * API of UI component.
  */
-public class Ui {
+public interface Ui {
 
-    private static final String WELCOME_MESSAGE = "Welcome to EYLAH, this is a debug version of interface :)";
-    private static final String USAGE = "To use the application, enter `diet` or "
-            + "`splitter` to enter the different mode.";
-    private static final String EXIT_MESSAGE = "Bye! See you next time :)";
-    private static final String LS = System.lineSeparator();
+    /**
+     * Shows the welcome message, logo, and the main command to the user.
+     */
+    void showWelcome();
 
-    private Scanner scanner;
+    /**
+     * Reads the userInput from the user.
+     *
+     * @return the given user input
+     */
+    String readCommand();
 
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
+    /**
+     * Shows the result of the command to user.
+     */
+    void showResult(String result);
 
-    private void showToUser(String... message) {
-        for (String m : message) {
-            System.out.println(m.replace("\n", LS));
-        }
-    }
+    /**
+     * Shows the exit message to user.
+     */
+    void showExit();
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    public void showWelcome() {
-        showToUser(WELCOME_MESSAGE, USAGE);
-    }
-
-    public void showError(String error) {
-        showToUser(error);
-    }
-
-    public void showResult(String result) {
-        showToUser(result);
-    }
-
-    public void showExit() {
-        showToUser(EXIT_MESSAGE);
-    }
+    /**
+     * Show the error message to user.
+     */
+    void showError(String error);
 
 }
