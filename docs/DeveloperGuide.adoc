@@ -347,7 +347,7 @@ Below are some diagrams to explain how our team implemented this portion.
 
 *Activity Diagram* of Expense Splitter: +
 
-image::activityDiagram_for_expensesplitter.png[]
+image::ExpenseSplitterActivityDiagram.png[]
 
 ==== Add Item Command
 

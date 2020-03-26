@@ -1,0 +1,22 @@
+@startuml
+start
+:AddItem;
+note right: This process repeats until the User has finished entering all Items
+
+if () then ([itemAddedCorrectly])
+  :List Receipt to check Item;
+
+
+  if () then ([seeReceipt])
+    :List Receipt;
+  else ([else])
+    :List Amount;
+  endif
+
+else ([else])
+  :DeleteItem>
+endif
+stop
+
+
+@enduml

@@ -1,4 +1,4 @@
-= EYELAH - User Guide
+= EYLAH - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -23,9 +23,18 @@ Residences in National University of Singapore (NUS)*. More importantly, EYLAH i
 work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
 and splitting the cost after each outing or late-night party session. Interested?
-Jump to <<Quick Start>> to get started. Enjoy!
+Jump to <<Getting Started>> to get started. Enjoy!
 
-== Quick Start
+== Features Summary
+
+. *Diet Tracker* tracks your diet easily.
+
+. *Expense Splitter* solves your hassle of splitting bills with a large group.
+
+.. Add and Delete Item(s) to split.
+.. Lists the amount each Person(s) owes you.
+
+== Getting Started
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `eylah.jar` link:{repoURL}/releases[here].
@@ -219,19 +228,10 @@ Use `listreceipt` to view your item indices before deletion.
 Example: +
 `deleteitem 3`
 
-==== List person's amount `listamount`
-
-Display all the Person(s) in the PersonList with the amount they owe you.
-
-Format: +
-`listamount` +
-
-Example: +
-`listamount`
-
 ==== List the current receipt `listreceipt`
 
-Display the current receipt which shows all the Items and its respective price and Person(s) involved in splitting that Item.
+Display the current receipt which shows all the items and its
+respective price and person(s) involved in splitting the cost of that item
 
 Format: +
 `listreceipt` +
@@ -239,9 +239,19 @@ Format: +
 Example: +
 `listreceipt`
 
+==== List amounts owed`listamount`
+
+Display all the person(s) and the amount they owe
+
+Format: +
+`listamount` +
+
+Example: +
+`listamount`
+
 ==== Paid money `paid`
 
-When a Person pays an amount, or part of the amount, they owe you.
+Subtracts the paid amount from the person
 
 Format: +
 `paid INDEX [AMOUNT]` +
@@ -251,11 +261,18 @@ Example: +
 `paid 2 3.90`
 
 [TIP]
-When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
+Use `listamount` command to find the index of the person who paid you.
 
 [TIP]
-Index represents the Index of the Person who paid you while Amount represents how much they paid you. If left blank, EYLAH
-will take it as the full amount they owe is paid.
+Leaving the amount empty is equivalent to paying the full amount.
+
+[NOTE]
+The person will automatically be removed from the list if the amount owed is $0.
+
+[NOTE]
+Price can be up to 2 decimal places, i.e. 7.99.
+There is no need to add the dollar sign ($).
+
 
 NOTE: When a Person owes $0 he/she will be automatically deleted from PersonList.
 
@@ -308,7 +325,7 @@ e.g. `back`
 
 
 == Appendix A: Simple activity diagram to aid user with using Expense Splitter
-image::activityDiagram_for_expensesplitter.png[width="790"]
+image::ExpenseSplitterActivityDiagram.png[width="790"]
 
 The fully blackened circle at the top represents the start point while the circle
 at the bottom represents the end point.
