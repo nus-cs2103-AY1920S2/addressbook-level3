@@ -48,11 +48,12 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns an unmodifiable view of the filtered list of sessions. */
     ObservableList<Session> getFilteredSessionList();
 
-    /** Returns an unmodifiable view of the filtered list of students */
+    /** Returns an unmodifiable view of the filtered list of module. */
     ObservableList<Module> getFilteredModuleList();
 
-    /** Returns an unmodifiable view of the filtered list of students */
+    /** Returns an unmodifiable view of the filtered list of students. */
     ObservableList<Student> getFilteredStudentList();
 }
