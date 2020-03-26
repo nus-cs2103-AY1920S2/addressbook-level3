@@ -23,9 +23,11 @@ import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.UserPrefs;
 import nasa.model.module.Module;
+import nasa.model.module.UniqueModuleList;
 import nasa.storage.JsonNasaBookStorage;
 import nasa.storage.JsonUserPrefsStorage;
 import nasa.storage.StorageManager;
@@ -156,6 +158,12 @@ public class LogicManagerTest {
     private static class JsonNasaBookIoExceptionThrowingStub extends JsonNasaBookStorage {
         private JsonNasaBookIoExceptionThrowingStub(Path filePath, Path filePathTwo) {
             super(filePath, filePathTwo);
+        }
+
+        @Override
+        public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
+                                 Path filePathOne, Path filePathTwo) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
         }
 
         @Override
