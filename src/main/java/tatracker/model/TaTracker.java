@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import tatracker.model.group.Group;
+import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.module.Module;
 import tatracker.model.module.ModuleNotFoundException;
@@ -278,11 +279,49 @@ public class TaTracker implements ReadOnlyTaTracker {
     // ======== Student Methods ================================================
 
     /**
+     * Returns true if a given student with the same identity as {@code student}
+     * exists in a module group that is in TaTracker.
+     * @param targetGroup group to check if {@code student} is enrolled in.
+     * @param targetModule module that contains {@code group}.
+     */
+    public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
+        requireNonNull(student);
+
+        if (!hasGroup(targetGroup, targetModule)) {
+            return false;
+        }
+
+        Module module = getModule(targetModule.getIdentifier());
+        Group group = module.getGroup(targetGroup.getIdentifier());
+        return module.hasGroup(group);
+    }
+
+    /**
      * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return students.contains(student);
+    }
+
+    /**
+     * Adds the given student into a module group that is in TaTracker.
+     * @param student student to add, which must not already exist in the TaTracker module group.
+     * @param targetGroup group to add {@code student} into, which must exist in the TaTracker module.
+     * @param targetModule module to add {@code student} into, which must exist in the TaTracker.
+     */
+    public void addStudent(Student student, Group targetGroup, Module targetModule) {
+        if (!hasModule(targetModule)) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!hasGroup(targetGroup, targetModule)) {
+            throw new GroupNotFoundException();
+        }
+
+        Module module = getModule(targetModule.getIdentifier());
+        Group group = module.getGroup(targetGroup.getIdentifier());
+        group.addStudent(student);
     }
 
     /**
@@ -294,11 +333,53 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Deletes the given student {@code target} from a module group that is in TaTracker.
+     * @param target student to delete, which must exist in the TaTracker module group.
+     * @param targetGroup group to delete student {@code target} from, which must exist in the TaTracker module.
+     * @param targetModule module to delete student {@code target} from, which must exist in the TaTracker.
+     */
+    public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
+        if (!hasModule(targetModule)) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!hasGroup(targetGroup, targetModule)) {
+            throw new GroupNotFoundException();
+        }
+
+        Module module = getModule(targetModule.getIdentifier());
+        Group group = module.getGroup(targetGroup.getIdentifier());
+        group.deleteStudent(target);
+    }
+
+    /**
      * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the ta-tracker.
      */
     public void removeStudent(Student key) {
         students.remove(key);
+    }
+
+    /**
+     * Replaces the given student {@code target} in a TaTracker module group with {@code editedStudent}.
+     * @param target student to edit, which must exist in the TaTracker module group.
+     * @param editedStudent the edited student {@code target}.
+     *                      The identity of {@code editedStudent} must be the same as {@code target}.
+     * @param targetGroup group with the student to edit, which must exist in the TaTracker module.
+     * @param targetModule module with the student to edit, which must exist in the TaTracker.
+     */
+    public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
+        if (!hasModule(targetModule)) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!hasGroup(targetGroup, targetModule)) {
+            throw new GroupNotFoundException();
+        }
+
+        Module module = getModule(targetModule.getIdentifier());
+        Group group = module.getGroup(targetGroup.getIdentifier());
+        group.setStudent(target, editedStudent);
     }
 
     /**
