@@ -13,6 +13,7 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new DeleteGroupCommand object
@@ -36,9 +37,10 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
         String groupCode = argMultimap.getValue(PREFIX_GROUP).get();
         String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
 
-        Group group = new Group(groupCode, null);
+        Group group = new Group(groupCode);
+        Module module = new Module(moduleCode);
 
-        return new DeleteGroupCommand(group, moduleCode);
+        return new DeleteGroupCommand(group, module);
     }
 
     /**
