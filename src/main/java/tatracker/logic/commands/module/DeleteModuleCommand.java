@@ -40,7 +40,7 @@ public class DeleteModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module moduleToDelete = model.getModule(module);
+        Module moduleToDelete = model.getModule(module.getIdentifier());
         model.deleteModule(moduleToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
