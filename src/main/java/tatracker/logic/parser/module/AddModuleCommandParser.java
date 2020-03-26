@@ -10,7 +10,6 @@ import tatracker.logic.commands.module.AddModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.module.Module;
@@ -34,8 +33,9 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleCommand.MESSAGE_USAGE));
         }
 
-        String name = ParserUtil.parseValue(argMultimap.getValue(PREFIX_NAME).get());
-        String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
+        // No need to parse trimmed strings
+        String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
+        String name = argMultimap.getValue(PREFIX_NAME).get();
 
         Module module = new Module(moduleCode, name);
 
