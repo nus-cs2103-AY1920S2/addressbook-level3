@@ -21,14 +21,11 @@ participant ":Module" as Module MODEL_COLOR
 participant ":Deadline" as Deadline MODEL_COLOR
 end box
 
-[-> MainWindow
-activate MainWindow
-
-create CommandBox
-MainWindow -> CommandBox
+[-> CommandBox
 activate CommandBox
 
 CommandBox -> MainWindow : executeCommand("delete m/CS2101 t/work")
+activate MainWindow
 
 MainWindow -> LogicManager : execute("delete m/CS2101 t/work")
 activate LogicManager
@@ -71,17 +68,30 @@ activate Model
 Model --> DeleteCommand
 deactivate Model
 
-DeleteCommand -> Profile : getModule()
+DeleteCommand -> Profile
 activate Profile
 
-Profile -> Module
+Profile -> Module : getModule()
 activate Module
 
-Module -> Deadline
+Module --> Profile
+deactivate Module
+
+Profile --> DeleteCommand
+deactivate Profile
+
+DeleteCommand -> Module
+activate Module
+
+Module -> Deadline : deleteDeadline()
 activate Deadline
 
+Deadline -> Module
+deactivate Deadline
+Deadline -[hidden]-> Module
+destroy Deadline
 
-Module --> Profile : module
+Module -> DeleteCommand
 deactivate Module
 
 create CommandResult
@@ -94,6 +104,8 @@ deactivate CommandResult
 DeleteCommand --> LogicManager : result
 deactivate DeleteCommand
 
-[<--LogicManager
+LogicManager --> MainWindow
 deactivate LogicManager
+
+MainWindow --> CommandBox
 @enduml
