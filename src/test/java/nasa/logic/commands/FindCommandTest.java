@@ -11,8 +11,8 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.model.HistoryBook;
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;

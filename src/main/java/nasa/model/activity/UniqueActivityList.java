@@ -181,16 +181,16 @@ public class UniqueActivityList implements Iterable<Activity> {
 
             if (activity instanceof Event) {
                 Activity activityTemp = new Event(activity.getName(), activity.getDate(), activity.getNote(),
-                        activity.getStatus(), activity.getPriority(), ((Event) activity).getDateFrom(),
-                        ((Event) activity).getDateTo());
+                        activity.getStatus(), activity.getPriority(), (
+                                (Event) activity).getDateFrom(), ((Event) activity).getDateTo());
                 activityTemp.setSchedule(activity.getSchedule());
                 deepCopyList.add(activityTemp);
             }
 
             if (activity instanceof Lesson) {
                 Activity activityTemp = new Lesson(activity.getName(), activity.getDate(), activity.getNote(),
-                        activity.getStatus(), activity.getPriority(), ((Lesson) activity).getDateFrom(),
-                        ((Lesson) activity).getDateTo());
+                        activity.getStatus(), activity.getPriority(), (
+                                (Lesson) activity).getDateFrom(), ((Lesson) activity).getDateTo());
                 activityTemp.setSchedule(activity.getSchedule());
                 deepCopyList.add(activityTemp);
             }

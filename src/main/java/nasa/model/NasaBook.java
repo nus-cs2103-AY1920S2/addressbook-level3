@@ -336,6 +336,9 @@ public class NasaBook implements ReadOnlyNasaBook {
         moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
     }
 
+    /**
+     * Return a new NasaBook, to avoid pointing to the same data when testing.
+     */
     public NasaBook deepCopyNasaBook() {
         NasaBook newNasaBook = new NasaBook();
         newNasaBook.setModuleList(getDeepCopyList());

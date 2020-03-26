@@ -52,7 +52,8 @@ public class EditActivityCommandTest {
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(),
+                new UserPrefs());
         expectedModel.setActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY, editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
@@ -67,7 +68,8 @@ public class EditActivityCommandTest {
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(),
+                new UserPrefs());
         expectedModel.setActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY, editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
@@ -82,7 +84,8 @@ public class EditActivityCommandTest {
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), model.getHistoryBook(),
+                new UserPrefs());
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
     }

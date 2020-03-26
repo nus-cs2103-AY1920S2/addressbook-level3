@@ -19,7 +19,8 @@ import nasa.model.NasaBook;
 import nasa.model.ReadOnlyNasaBook;
 
 public class JsonNasaBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonNasaBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonNasaBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -30,7 +31,8 @@ public class JsonNasaBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyNasaBook> readNasaBook(String filePath) throws Exception {
-        return new JsonNasaBookStorage(Paths.get(filePath), Paths.get(filePath)).readNasaBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonNasaBookStorage(Paths.get(filePath),
+                Paths.get(filePath)).readNasaBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

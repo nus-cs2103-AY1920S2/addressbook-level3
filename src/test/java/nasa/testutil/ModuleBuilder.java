@@ -5,7 +5,6 @@ import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-import nasa.model.module.UniqueModuleList;
 
 /**
  * A utility class to help with building Module objects.

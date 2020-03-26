@@ -1,13 +1,11 @@
 package nasa.model;
 
-
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static nasa.testutil.Assert.assertThrows;
-import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
+import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalNasaBook.NASABOOK_TYPE_1;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,16 +17,15 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 
+import nasa.commons.core.GuiSettings;
 import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.UniqueModuleList;
-
-import nasa.commons.core.GuiSettings;
 import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
 
-    final ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
+    private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
             new UserPrefs());
 
     @Test
@@ -126,40 +123,40 @@ class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredModuleList().remove(0));
     }
 
-//    @Test
-//    public void equals() {
-//        NasaBook nasaBook = new NasaBookBuilder().build();
-//        NasaBook differentNasaBook = new NasaBook();
-//        UserPrefs userPrefs = new UserPrefs();
-//
-//        // same values -> returns true
-//        modelManager = new ModelManager(nasaBook, new HistoryBook<>(), userPrefs);
-//        ModelManager modelManagerCopy = new ModelManager(nasaBook, new HistoryBook<>(), userPrefs);
-//        assertTrue(modelManager.equals(modelManagerCopy));
-//
-//        // same object -> returns true
-//        assertTrue(modelManager.equals(modelManager));
-//
-//        // null -> returns false
-//        assertFalse(modelManager.equals(null));
-//
-//        // different types -> returns false
-//        assertFalse(modelManager.equals(5));
-//
-//        // different addressBook -> returns false
-//        assertFalse(modelManager.equals(new ModelManager(differentNasaBook, new HistoryBook<>(), userPrefs)));
-//
-//        // different filteredList -> returns false
-//        String[] keywords = GEH1001.getModuleName().toString().split("\\s+");
-//        //modelManager.updateFilteredModuleList((Predicate) new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-//        //assertFalse(modelManager.equals(new ModelManager(nasaBook, userPrefs)));
-//
-//        // resets modelManager to initial state for upcoming tests
-//        modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-//
-//        // different userPrefs -> returns false
-//        UserPrefs differentUserPrefs = new UserPrefs();
-//        differentUserPrefs.setNasaBookFilePath(Paths.get("differentFilePath"));
-//        assertFalse(modelManager.equals(new ModelManager(nasaBook, new HistoryBook<>(), differentUserPrefs)));
-//    }
+    @Test
+    public void equals() {
+        NasaBook nasaBook = new NasaBookBuilder().build();
+        NasaBook differentNasaBook = new NasaBook();
+        UserPrefs userPrefs = new UserPrefs();
+
+        // same values -> returns true
+        modelManager = new ModelManager(nasaBook, new HistoryBook<>(), userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(nasaBook, new HistoryBook<>(), userPrefs);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
+
+        // null -> returns false
+        assertFalse(modelManager.equals(null));
+
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
+
+        // different addressBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentNasaBook, new HistoryBook<>(), userPrefs)));
+
+        // different filteredList -> returns false
+        String[] keywords = GEH1001.getModuleName().toString().split("\\s+");
+        //modelManager.updateFilteredModuleList((Predicate) new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        //assertFalse(modelManager.equals(new ModelManager(nasaBook, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setNasaBookFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(nasaBook, new HistoryBook<>(), differentUserPrefs)));
+    }
 }

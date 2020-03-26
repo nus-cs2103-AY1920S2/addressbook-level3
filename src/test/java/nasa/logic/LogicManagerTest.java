@@ -45,7 +45,8 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() throws IOException {
         JsonNasaBookStorage nasaBookStorage =
-                new JsonNasaBookStorage(temporaryFolder.resolve("nasaBook.json"), temporaryFolder.resolve("historyBook.json"));
+                new JsonNasaBookStorage(temporaryFolder.resolve("nasaBook.json"),
+                        temporaryFolder.resolve("historyBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(nasaBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
