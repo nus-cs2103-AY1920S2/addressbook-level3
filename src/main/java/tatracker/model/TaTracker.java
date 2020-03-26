@@ -253,22 +253,21 @@ public class TaTracker implements ReadOnlyTaTracker {
         module.deleteGroup(group);
     }
 
-    // Uncomment when edit is implemented.
-    // /**
-    //  * Replaces the given group {@code target} in the list with {@code editedGroup}.
-    //  * {@code target} must exist in the ta-tracker.
-    //  * The group identity of {@code editedGroup} must not be the same as another existing group in the tracker.
-    //  */
-    // public void setGroup(Group target, Group editedGroup, Module targetModule) {
-    //     requireNonNull(editedGroup);
-    //
-    //     if (!hasModule(targetModule)) {
-    //         throw new ModuleNotFoundException();
-    //     }
-    //
-    //     Module module = getModule(targetModule.getIdentifier());
-    //     module.setGroup(target, editedGroup);
-    // }
+    /**
+     * Replaces the given group {@code target} in the list with {@code editedGroup}.
+     * {@code target} must exist in the ta-tracker.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the tracker.
+     */
+    public void setGroup(Group target, Group editedGroup, Module targetModule) {
+        requireNonNull(editedGroup);
+
+        if (!hasModule(targetModule)) {
+            throw new ModuleNotFoundException();
+        }
+
+        Module module = getModule(targetModule.getIdentifier());
+        module.setGroup(target, editedGroup);
+    }
 
     @Override
     public ObservableList<Group> getGroupList() {
