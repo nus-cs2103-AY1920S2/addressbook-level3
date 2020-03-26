@@ -130,7 +130,7 @@ class NearbyCommandParser implements Parser {
 }
 
 interface Parser<T> <<interface>> {
-    parse(userInput : String) : NearbyCommand
+    parse(userInput : String) : T
 }
 
 DistrictInfo -up-> Index
