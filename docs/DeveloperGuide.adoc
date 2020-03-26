@@ -852,19 +852,19 @@ Use case ends.
 
 *MSS*
 
-1.  User keys in Food name, its price and Person(s) involved in the splitting of that food.
-2.  EYLAH adds the Food object.
-3.  EYLAH displays the Food and the Person(s) involved with splitting of that food.
+1.  User keys in Item name, its price and Person(s) involved in the splitting of that item.
+2.  EYLAH adds the Item object.
+3.  EYLAH displays the Item and the Person(s) involved with splitting of that item.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. EYLAH detects empty Food name, Food price or Person(s)
+* 1a. EYLAH detects empty Item name, Item price or Person(s)
 +
 [none]
-** 1a1. EYLAH shows an error message and displays an example of a correct `addfood` function.
+** 1a1. EYLAH shows an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
 
@@ -873,7 +873,7 @@ Use case ends.
 
 +
 [none]
-** 1b1. EYLAH shows an error message and displays an example of a correct `addfood` function.
+** 1b1. EYLAH shows an error message and displays an example of a correct `additem` function.
 +
 Use case ends.
 
