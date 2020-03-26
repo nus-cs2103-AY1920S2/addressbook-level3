@@ -40,20 +40,20 @@ a|
    3.  Listing all coupons: list
    4.  Editing a coupon: edit
    5.  Locating coupons by name: find
-   6.  Deleting a coupon: delete
-   7.  Listing all expiring coupons: expiring
-   8.  Clearing all entries: clear
-   9.  Exiting the program: exit
-   10. Saving the data
-   11. Adding a reminder: remind
-   12. Viewing savings: saved
-   13. Using a coupon: used
-   14. Undoing the previous command: undo
-   15. Redoing the undone command: redo
-   16. Archiving a coupon: archive
-   17. Exporting a coupon: export
-   18. Setting user preferences: setpref
-
+   6.  Sorting coupons: sort
+   7.  Deleting a coupon: delete
+   8.  Listing all expiring coupons: expiring
+   9.  Clearing all entries: clear
+   10.  Exiting the program: exit
+   11. Saving the data
+   12. Adding a reminder: remind
+   13. Viewing savings: saved
+   14. Use a coupon: used
+   15. Undo the previous command: undo
+   16. Redo the undone command: redo
+   17. Archive a coupon: archive
+   18. Export a coupon: export
+   19. Set user preferences: setpref
 
  |3
 
@@ -127,9 +127,7 @@ Format: `help`
 
 === Adding a coupon: `add`
 
-Adds a coupon. Some fields like name, expiry date and savings
-are required. Optional fields like promo code and tags
-may be provided as well.
+Adds a coupon. Some fields like name, expiry date and savings are required. Optional fields like promo code and tags may be provided as well.
 
 Format: `Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
 [c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...`
@@ -210,6 +208,22 @@ Examples:
 
 * `find ken` +
 Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
+
+=== Sorting coupons: `sort`
+
+Sorts the coupons in the coupon stash in ascending order. It is possible to sort by coupon name or expiry date.
+
+Format: `sort PARAMETER`
+
+* The `PARAMETER` can be either `n/` or `/e`.
+* Using `n/` would mean sorting by name, while `e/` would mean sorting by expiry date.
+
+Examples:
+
+* `sort n/` +
+Sorts the coupon stash by name in ascending order.
+* `sort e/` +
+Sorts the coupon stash by expiry date from earliest to latest.
 
 // tag::delete[]
 === Deleting a coupon: `delete`
@@ -361,19 +375,28 @@ The total savings of the coupon will be calculated, and can be seen with the com
 
 
 === Undo the previous command: `undo`
-Undo previous operation. Has no effect if there is no previous operation. +
+Undo previous operation. Only works on the following commands: (i.e. commands that change the coupons in the coupon stash)
+
+* `add`
+* `archive`
+* `clear`
+* `delete`
+* `edit`
+* `remind`
+
+Note that changes to user preferences cannot be undone.
 Format: `undo`
 
 Examples:
 
-* `remind 1 e/ 5 days` +
+* `remind 1 r/ 25-12-2020` +
   `undo` +
 Undo the `remind` command. Reminder is removed.
 
 
-* `edit 1 d/50% off` +
+* `edit 1 n/ Duck Rice` +
   `undo` +
-Revert the edit that was performed. Has no effect if nothing was undone before.
+Revert the edit that was performed.
 
 === Redo the undone command: `redo`
 Redo the previously undone command. +
@@ -381,27 +404,16 @@ Format: `redo`
 
 Examples:
 
-* `remind 1 e/ 5 days` +
+* `remind 1 r/ 25-12-2020` +
   `undo` +
   `redo` +
 Un-undo the `remind` command.
 
 
-* `edit 1 d/50% off` +
+* `edit 1 n/ Duck Rice` +
   `undo` +
   `redo`
-Un-undo the `redit` command.
-
-Examples:
-
-* `remind 1 e/ 5 days` +
-  `undo` +
-Undo the `remind` command. Reminder is removed.
-
-
-* `edit 1 d/50% off` +
-  `undo` +
-Revert the edit that was performed. Has no effect if nothing was undone before.
+Un-undo the `edit` command.
 
 === Archive a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your current stash of coupons.
@@ -523,7 +535,7 @@ calculate the values saved based on the details of the coupon.
 
 == Command Summary
 
-* *Add:* `add n/name e/EXPIRY DATE s/SAVINGS [u/USAGE] [l/USAGE_LIMIT] [p/PROMO_CODE] [sd/START_DATE] [r/REMIND_DATE] [c/CONDITION] [s/SAVINGS]... [t/TAG]…`​ +
+* *Add:* `add n/NAME e/EXPIRY_DATE s/SAVINGS [u/USAGE] [l/USAGE_LIMIT] [p/PROMO_CODE] [sd/START_DATE] [r/REMIND_DATE] [c/CONDITION] [s/SAVINGS]... [t/TAG]…`​ +
 e.g. `add n/The Deck Chicken Rice s/20% sd/2-3-2020 e/30-8-2020 t/friend t/value`
 * *Clear*: `clear`
 * *Delete*: `delete INDEX` +
@@ -532,6 +544,8 @@ e.g. `delete 3`
 e.g. `edit 2 n/Chicken Up s/50%`
 * *Find*: `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find western chick`
+* *Sort*: `sort PARAMETER` +
+e.g. `sort n/`
 * *List*: `list`
 * *Expiring*: `expiring DATE` +
 e.g. `expiring 30-4-2020`
