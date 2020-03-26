@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -98,6 +99,8 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 (FilteredList<Student>) model.getFilteredStudentList());
             foundStudent.processAssignedCourses(
                 (FilteredList<Course>) model.getFilteredCourseList());
+            model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+            model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentidString, courseName, courseidString));
         }

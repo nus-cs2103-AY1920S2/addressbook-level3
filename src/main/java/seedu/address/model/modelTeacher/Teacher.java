@@ -17,14 +17,23 @@ import seedu.address.model.tag.Tag;
 public class Teacher extends Person {
 
   private final Salary salary;
+  private final ID id;
 
   /**
    * Every field must be present and not null.
    */
-  public Teacher(Name name, Phone phone, Email email, Salary salary, Address address,
+  public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address,
       Set<Tag> tags) {
     super(name, phone, email, address, tags);
+    this.id = id;
     this.salary = salary;
+  }
+
+  /**
+   * Get id of the teacher.
+   */
+  public ID getID() {
+    return id;
   }
 
   /**
@@ -45,6 +54,7 @@ public class Teacher extends Person {
 
     return otherTeacher != null
         && otherTeacher.getName().equals(getName())
+        && otherTeacher.getID().equals(getID())
         && (otherTeacher.getPhone().equals(getPhone()) || (
         otherTeacher.getSalary().equals(getSalary()) || otherTeacher.getEmail()
             .equals(getEmail())));
@@ -67,6 +77,7 @@ public class Teacher extends Person {
 
     Teacher otherTeacher = (Teacher) other;
     return otherTeacher.getName().equals(getName())
+        && otherTeacher.getID().equals(getID())
         && otherTeacher.getPhone().equals(getPhone())
         && otherTeacher.getEmail().equals(getEmail())
         && otherTeacher.getSalary().equals(getSalary())
@@ -86,6 +97,7 @@ public class Teacher extends Person {
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName());
+    builder.append(" TeacherID: ").append(getID());
     if (getPhone().isKnown()) {
       builder.append(" Phone: ").append(getPhone());
     }

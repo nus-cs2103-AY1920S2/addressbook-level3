@@ -34,6 +34,8 @@ public class TeacherCard extends UiPart<Region> {
   @FXML
   private Label id;
   @FXML
+  private Label teacherID;
+  @FXML
   private Label phone;
   @FXML
   private Label address;
@@ -49,6 +51,7 @@ public class TeacherCard extends UiPart<Region> {
     this.teacher = teacher;
     id.setText(displayedIndex + ". ");
     name.setText(teacher.getName().fullName);
+    teacherID.setText(teacher.getID().value);
     phone.setText(teacher.getPhone().value);
     address.setText(teacher.getAddress().value);
     email.setText(teacher.getEmail().value);

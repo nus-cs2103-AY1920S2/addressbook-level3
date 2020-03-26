@@ -19,6 +19,7 @@ import seedu.address.model.person.Courseid;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Studentid;
+import seedu.address.model.person.Teacherid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,8 +31,6 @@ public class Course {
   // Identity fields
   private final Name name;
   private final ID id;
-  // TODO: Remove dummy teacher_id
-  private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();
   private Amount amount;
   private AssignedTeacher assignedTeacher;
@@ -73,13 +72,6 @@ public class Course {
     return assignedTeacher;
   }
 
-  public ID getTeacherID() {
-    return this.teacher_id;
-  }
-
-  public void setTeacherID(ID teacher_id) {
-    this.teacher_id = teacher_id;
-  }
 
   public void addStudent(Studentid studentid) {
     if (this.assignedStudents.toString().equals("")) {
@@ -87,6 +79,10 @@ public class Course {
     } else {
       this.assignedStudents = new AssignedStudents(this.assignedStudents.toString() + "," + studentid.toString());
     }
+  }
+
+  public void assignTeacher(Teacherid teacherid) {
+    this.assignedTeacher = new AssignedTeacher(teacherid.toString());
   }
 
   public AssignedStudents getAssignedStudents(){
@@ -97,17 +93,18 @@ public class Course {
     return this.assignedStudentsWithNames;
   }
 
+  public String getAssignedTeacherWithName(){
+    return this.assignedTeacherWithName;
+  }
   /**
    * Converts internal list of assigned teacher ID into the name with the ID
    */
-  public void processAssignedTeacher(FilteredList<TeacherAddressBook> filteredTeachers){
-    StringBuilder s = new StringBuilder();
-
-
-    if (s.toString().equals("")) {
-      this.assignedStudentsWithNames = "None";
-    } else {
-      this.assignedStudentsWithNames = "[" + s.toString() + "]";
+  public void processAssignedTeacher(FilteredList<Teacher> filteredTeachers){
+    this.assignedTeacherWithName = "None";
+    for (Teacher teacher : filteredTeachers) {
+      if (teacher.getID().toString().equals(this.assignedTeacher.toString())) {
+        this.assignedTeacherWithName = teacher.getName().toString() + "(" + teacher.getID().toString() + ")";
+      }
     }
   }
 

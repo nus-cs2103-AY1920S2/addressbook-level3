@@ -85,6 +85,7 @@ public class ModelManager implements Model {
 
     for (Course course : filteredCourses) {
       course.processAssignedStudents(filteredStudents);
+      course.processAssignedTeacher(filteredTeachers);
     }
 
     for (Student student : filteredStudents) {
