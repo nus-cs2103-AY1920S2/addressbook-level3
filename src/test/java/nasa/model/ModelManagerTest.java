@@ -28,7 +28,7 @@ import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
 
-    final ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1.deepCopyNasaBook(), new HistoryBook<UniqueModuleList>(),
+    final ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
             new UserPrefs());
 
     @Test
