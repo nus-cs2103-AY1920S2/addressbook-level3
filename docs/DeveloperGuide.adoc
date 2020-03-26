@@ -164,7 +164,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::undoredo[]
 === Undo/Redo feature
 
-==== Proposed Implementation
+==== Current Implementation
 
 The undo/redo mechanism is facilitated by with an undo/redo history, stored internally as an `couponStashStateList` with a `commandTextHistory` and `currStateIndex`. All these components are encapsulated in the `HistoryManager` class.
 The following methods in the `Model` interface facilitates this feature:
@@ -176,12 +176,12 @@ The following methods in the `Model` interface facilitates this feature:
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The `CouponStash` will be initialized with the initial coupon stash state, and the `currentStatePointer` pointing to that single coupon stash state.
+The `CouponStash` will be initialized with the initial coupon stash state, and the `currStateIndex` pointing to that single coupon stash state.
 
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the coupon stash.
-The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currentStatePointer` is shifted to the newly inserted address book state.
+The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
@@ -194,12 +194,12 @@ image::UndoRedoState2.png[]
 If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the address book state and command text will not be saved.
 
 Step 4. The user now decides that adding the coupon was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `Model#undoCouponStash()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
+The `undo` command will call `Model#undoCouponStash()`, which will shift the `currStateIndex` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial coupon stash state, then there are no previous coupon stash states to restore.
+If the `currStateIndex` is at index 0, pointing to the initial coupon stash state, then there are no previous coupon stash states to restore.
 The `undo` command uses `Model#canUndoCouponStash()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the undo.
 
@@ -209,22 +209,22 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoCouponStash()`, which shifts the `currStateIndex` once to the right, pointing to the previously undone state and command text, and restores the coupon stash to that state. Finally, it returns the redone command text.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore.
-The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case.
+If the `currStateIndex` is at index `couponStashStateList.size() - 1`, pointing to the latest coupon stash state, then there are no undone coupon stash states to restore.
+The `redo` command uses `Model#canRedoCouponStash()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`.
-Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
-Thus, the `addressBookStateList` remains unchanged.
+Commands that do not modify the address book, such as `list`, will  not call `Model#commitCouponStash()`.
+Thus, the `couponStashStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
-Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged.
-We designed it this way because it no longer makes sense to redo the `add n/David ...` command.
+Step 6. The user executes `clear`, which calls `Model#commitCouponStash()`.
+Since the `currStateIndex` is not pointing at the end of the `couponStashStateList`, all coupon stash states and command text history after the `currStateIndex` will be purged.
+We designed it this way because it no longer makes sense to redo the `add n/OMO STORE ...` command.
 This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
@@ -237,31 +237,14 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the coupon being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+*  Saves the entire coupon stash.
+** Each coupon is copied into `HistoryManager`, thus eliminating any chance for bugs when mutating coupons.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* Use two lists to store the history of address book states and command text history.
+** The lists are stored in a `HistoryManager` class, which includes a `currStateIndex`.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 // tag::calendar[]
 === Calendar
@@ -309,6 +292,7 @@ a date in a separate window
 * **Alternative 2:** Calendar shows all the coupons in CouponStash
 ** Pros: View of all coupons and will not overlook any coupons when the coupon list is filtered
 ** Cons: User may be confused if he/she sees a coupon on the Calendar that is not in the `CouponListPanel`
+
 
 === Logging
 
@@ -393,6 +377,91 @@ this method, the current filtered list will be be updated to show active coupons
 * **Alternative 2:** Archived coupons are stored in another separate data file.
 ** Pros: Separates the logic between the two different `CouponStash`, e.g. you can limit the functions on archived coupons
 ** Cons: Sharply increases the maintainability and coupling of the application with two data files.
+
+// tag::updownarrowcommandhistory[]
+=== Up/down arrow command history
+
+==== Current Implementation
+The retrieving of command history via the up and down arrow keys is facilitated
+by the `CommandTextHistory` class. The command history is stored internally as a `LinkedList` used as a stack with a `currIndex`
+tracking the next command in the history to return.
+The following methods in the `CommandTextHistory`
+class facilitates this feature:
+
+* `CommandTextHistory#add(String commandText)`
+* `CommandTextHistory#getDown()`
+* `CommandTextHistory#getUp()`
+
+Given below is an example usage scenario and how the up/down button presses behaves at each step.
+
+Step 1. The user launches the application for the first time. The `CommandTextHistory` is initialized
+with a `LinkedList` containing only an empty string (`""`), and the `currIndex` is set to `0`.
+
+image::UpDownHistory0.png[]
+
+Step 2. The user executes `delete 1`. `CommandBox#handleCommandEntered()` will call `CommandTextHistory#add(String commandText)` to save the entered command into
+the stack contained in `CommandTextHistory`. The top of the stack (i.e. the empty string) is popped off first, before
+the etered command is pushed onto the stack. Then, the empty string is pushed onto the stack again, thus ensuring that
+the empty string stays at the top of the stack. Note that `currIndex` is not affected.
+
+image::UpDownHistory1.png[]
+
+Step 3. The user executes `delete 2`. `CommandBox#handleCommandEntered()` will also save the entered command into
+the stack contained in `CommandTextHistory`. As in the previous step, the new command is pushed to the top of the stack,
+just below the empty string.
+
+image::UpDownHistory2.png[]
+
+Step 3. Now, the user decides to delete the second coupon again. We press the arrow key up once,
+and `CommandBox#commandTextField` has a listener that calls `CommandTextHistory#getUp()`.
+The `currIndex` is incremented, and then the command text pointed to by `currIndex` is returned and
+displayed in the program command box.
+
+image::UpDownHistory3.png[]
+
+Step 4. The user then executes the retrieved command (`delete 2`). As in the previous steps, this newly executed command
+is pushed to the top of the stack just below the empty string. However, in such a case when the `currIndex` is not `0` and
+does not point to the top of the stack, it is reset to `0`.
+
+image::UpDownHistory4.png[]
+
+[NOTE]
+If the `currStateIndex` is pointing to the top of the stack,
+then there are no previous commands to retrieve. Thus, the up button will simply
+return the empty string. No changes to the stack and `currIndex` will be effected.
+
+The down arrow key does the opposite, it will lead to the calling of `CommandTextHistory#getDown()`,
+which shifts the `currIndex` one item higher (i.e. decrement the `currIndex` by `1`), before returning
+the command text pointed by the updated `currIndex`.
+
+[NOTE]
+If the `currIndex` is at index `commandTextHistory.size() - 1`, pointing to the
+bottom of the stack, there is no next command to retrieve when pressing the down key. Thus,
+the down button will simple return the command text currently being pointed to by the `currIndex`.
+No changes to the stack and `currIndex` will be effected.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support the key actions
+
+* We used a `LinkedList` as a stack to store the command text history.
+** The first in first out nature of a stack made it a very suitable data structure
+for the storage of history that is retrived in chronological order of execution.
+// end::updownarrowcommandhistory[]
+
+
+=== Coupon Reminder
+
+==== Current Implementation
+
+The coupon reminder provides a visual alert through a pop-up box, upon launching the application, whenever there are coupon(s) that
+are set to be reminded on a certain date.
+
+This reminder feature is facilitated by the Remind attribute of a coupon. The followings methods in the  RemindCommand Class,
+'Model' interface, "ui" interface facilitates this feature:
+
+* RemindCommand#ShowRemind - Will execute checking of all coupons and alert the user when
+
 
 == Documentation
 

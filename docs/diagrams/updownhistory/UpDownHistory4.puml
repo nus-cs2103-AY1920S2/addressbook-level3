@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title After executing "delete 2" again
+
+package Stack <<rectangle>> {
+    class Item1 as """"
+    class Item2 as "delete 2"
+    class Item3 as "delete 2"
+    class Item4 as "delete 1"
+}
+
+class Pointer as "currIndex: 0" #FFFFF
+
+Pointer -> Item1
+
+Item2 -[hidden]up->Item1
+Item3 -[hidden]up->Item2
+Item4 -[hidden]up->Item3
+@end
