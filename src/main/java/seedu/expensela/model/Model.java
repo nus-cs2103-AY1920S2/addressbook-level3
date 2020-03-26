@@ -108,4 +108,6 @@ public interface Model {
 
     /** Updates monthly data by the given monthly data */
     void updateMonthlyData(MonthlyData monthlyData);
+
+    Filter getFilter();
 }

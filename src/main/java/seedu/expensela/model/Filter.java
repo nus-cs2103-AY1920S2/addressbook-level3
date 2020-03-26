@@ -1,31 +1,30 @@
 package seedu.expensela.model;
 
+import java.time.LocalDate;
+
 public class Filter {
 
+    private String categoryName;
+    private LocalDate dateMonth;
 
-    /**
-     *
-     */
-
-    // the type of filter applied e.g. filter by category/filter by date
-    private static String filterType;
-
-    // the name of what the user wants to filter by e.g. for filterType = category, filterName = food
-    private static String filterName;
-
-    public String getFilterType() {
-        return this.filterType;
+    public Filter(String categoryName, LocalDate dateMonth) {
+        this.categoryName = categoryName;
+        this.dateMonth = dateMonth;
     }
 
-    public void setFilterType(String filterType) {
-        this.filterType = filterType;
+    public String getFilterCategoryName() {
+        return this.categoryName;
     }
 
-    public String getFilterName() {
-        return this.filterName;
+    public void setFilterCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public void setFilterName(String filterName) {
-        this.filterName = filterName;
+    public LocalDate getDateMonth() {
+        return this.dateMonth;
+    }
+
+    public void setDateMonth(LocalDate dateMonth) {
+        this.dateMonth = dateMonth;
     }
 }

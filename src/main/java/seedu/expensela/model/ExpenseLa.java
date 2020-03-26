@@ -14,7 +14,7 @@ import seedu.expensela.model.transaction.TransactionList;
  * Duplicates are not allowed (by .isSameTransaction comparison)
  */
 public class ExpenseLa implements ReadOnlyExpenseLa {
-
+    private final Filter filter;
     private final MonthlyData monthlyData;
     private final TransactionList transactions;
 
@@ -26,6 +26,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      *   among constructors.
      */
     {
+        filter = new Filter(null, null);
         monthlyData = new MonthlyData(null, null, null, null);
         transactions = new TransactionList();
     }
@@ -119,6 +120,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     @Override
     public MonthlyData getMonthlyData() {
         return this.monthlyData;
+    }
+
+
+    public Filter getFilter() {
+        return this.filter;
     }
 
     @Override

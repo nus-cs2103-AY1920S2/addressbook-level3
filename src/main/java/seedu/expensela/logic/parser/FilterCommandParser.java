@@ -34,6 +34,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         } else if (nameKeywords[0].equals("category")) {
+            // set filter
 
             // sends the next word after "category" to see if it matches any transaction categories
             return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(nameKeywords[1])));

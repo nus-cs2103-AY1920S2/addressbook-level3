@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private FilterPanel filterPanel;
     private MonthlyDataPanel monthlyDataPanel;
     private TransactionListPanel transactionListPanel;
     private ResultDisplay resultDisplay;
@@ -53,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane filterPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -115,6 +119,9 @@ public class MainWindow extends UiPart<Stage> {
         monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData());
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
         monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
+
+        filterPanel = new FilterPanel(logic.getFilter());       // instantiate filterPanel
+        filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

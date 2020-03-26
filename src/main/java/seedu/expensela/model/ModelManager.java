@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final FilteredList<Transaction> unfilteredTransactions;
     private final FilteredList<Transaction> filteredTransactions;
     private final MonthlyData monthlyData;
+    private final Filter filter;
 
     /**
      * Initializes a ModelManager with the given expenseLa and userPrefs.
@@ -40,6 +41,7 @@ public class ModelManager implements Model {
         unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         filteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         monthlyData = this.expenseLa.getMonthlyData();
+        filter = this.expenseLa.getFilter();
     }
 
     public ModelManager() {
@@ -190,5 +192,10 @@ public class ModelManager implements Model {
     @Override
     public void updateMonthlyData(MonthlyData monthlyData) {
         expenseLa.setMonthlyData(monthlyData);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
     }
 }
