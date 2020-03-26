@@ -443,6 +443,20 @@ No changes to the stack and `currIndex` will be effected.
 for the storage of history that is retrived in chronological order of execution.
 // end::updownarrowcommandhistory[]
 
+
+=== Coupon Reminder
+
+==== Current Implementation
+
+The coupon reminder provides a visual alert through a pop-up box, upon launching the application, whenever there are coupon(s) that
+are set to be reminded on a certain date.
+
+This reminder feature is facilitated by the Remind attribute of a coupon. The followings methods in the  RemindCommand Class,
+'Model' interface, "ui" interface facilitates this feature:
+
+* RemindCommand#ShowRemind - Will execute checking of all coupons and alert the user when
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
