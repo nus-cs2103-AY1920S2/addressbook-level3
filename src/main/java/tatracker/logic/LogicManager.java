@@ -34,7 +34,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        taTrackerParser = new TaTrackerParser();
+        this.taTrackerParser = new TaTrackerParser();
     }
 
     @Override
