@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public class CalendarWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(CalendarWindow.class);
     private static final String FXML = "CalendarWindow.fxml";
-    private ObservableList<Coupon> coupons;
     private CalendarPane calendarPane;
 
     @FXML
@@ -27,17 +26,17 @@ public class CalendarWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    public CalendarWindow(Stage root, ObservableList<Coupon> coupons, Logic logic) {
+    public CalendarWindow(Stage root,Logic logic) {
         super(FXML, root);
-        calendarPane = new CalendarPane(coupons, logic);
+        calendarPane = new CalendarPane(logic);
         calendarPanePlaceholder.getChildren().add(calendarPane.getRoot());
     }
 
     /**
      * Creates a new CalendarWindow.
      */
-    public CalendarWindow(ObservableList<Coupon> coupons, Logic logic) {
-        this(new Stage(), coupons, logic);
+    public CalendarWindow(Logic logic) {
+        this(new Stage(), logic);
     }
 
 

@@ -19,7 +19,7 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
     // Independent Ui parts residing in this Ui container
     private CalendarPane calendarPane;
     private ResultDisplay resultDisplay;
-    private ObservableList<Coupon> coupons;
+//    private ObservableList<Coupon> coupons;
     private Logic logic;
 
     @FXML
@@ -28,9 +28,9 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public CalendarResultDisplayPane(ObservableList<Coupon> coupons, Logic logic) {
+    public CalendarResultDisplayPane(Logic logic) {
         super(FXML);
-        this.coupons = coupons;
+//        this.coupons = logic.getFilteredCouponList();
         this.logic = logic;
     }
 
@@ -38,7 +38,7 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        calendarPane = new CalendarPane(coupons, logic);
+        calendarPane = new CalendarPane(logic);
         calendarPanePlaceholder.getChildren().add(calendarPane.getRoot());
         calendarPanePlaceholder.setAlignment(Pos.TOP_RIGHT);
 

@@ -12,9 +12,11 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Condition;
@@ -68,7 +70,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         StartDate startDate =
-                ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE, "").get());
+                ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE,
+                        DateUtil.formatDate(LocalDate.now())).get());
         Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE, "0").get());
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
