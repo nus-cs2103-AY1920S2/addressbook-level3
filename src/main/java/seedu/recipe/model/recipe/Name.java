@@ -29,7 +29,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        this.fullName = name;
+        this.fullName = removeExtraWhitespace(name);
     }
 
     /**
@@ -37,6 +37,13 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return (!test.isBlank()) && test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Removes additional whitespaces between words (ie. words should only have one whitespace between them)
+     */
+    private String removeExtraWhitespace(String stringToProcess) {
+        return stringToProcess.replaceAll("\\s{2,}", " ");
     }
 
 

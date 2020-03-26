@@ -22,14 +22,16 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
-        this.ingredientName = ingredientName;
+        this.ingredientName = removeExtraWhitespace(ingredientName);
     }
 
     /**
      * Overloaded Ingredient constructor for the purpose of filtering by ingredient name.
      */
     public Ingredient(String ingredientName) {
-        this.ingredientName = ingredientName;
+        requireNonNull(ingredientName);
+        checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
+        this.ingredientName = removeExtraWhitespace(ingredientName);
     }
 
     /**
@@ -45,6 +47,13 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     public String getIngredientName() {
         return ingredientName;
+    }
+
+    /**
+     * Removes additional whitespaces between words (ie. words should only have one whitespace between them)
+     */
+    private String removeExtraWhitespace(String stringToProcess) {
+        return stringToProcess.replaceAll("\\s{2,}", " ");
     }
 
     @Override
