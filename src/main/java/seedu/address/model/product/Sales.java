@@ -9,12 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Sales {
 
-    public static final String MESSAGE_CONSTRAINTS = "Sales can take any numeric values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Sales can take any numeric values (up to 1000000), and it should not be blank";
 
     /*
      * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
+
+    public static final int MAX_VALUE = 1000000;
 
     public final String value;
 
@@ -33,7 +35,8 @@ public class Sales {
      * Returns true if a given string is a valid sales.
      */
     public static boolean isValidSales(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX)
+                && Integer.parseInt(test) < MAX_VALUE;
     }
 
     @Override
