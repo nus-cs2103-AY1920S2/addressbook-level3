@@ -70,8 +70,8 @@ public class FoodBook implements ReadOnlyFoodBook {
      * Adds a food to the food book.
      * The food must not already exist in the food book.
      */
-    public void addFood(Food f) {
-        foods.add(f);
+    public void addFood(Food food) {
+        foods.add(food);
     }
 
     /**

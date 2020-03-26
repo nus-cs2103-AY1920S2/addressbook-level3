@@ -1,0 +1,9 @@
+@startuml
+start
+:User executes AddCommand;
+ :Create Food object;
+ :Add Food object into FoodBook;
+ :FoodBook stores the Food object as UniqueFoodList;
+ :Display to user that Food has been added;
+ stop
+ @enduml
