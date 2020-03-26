@@ -61,33 +61,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    @FXML
-    private Label allOrdersLabel;
-
-    @FXML
-    private Label todayOrdersLabel;
-
-    @FXML
-    private Label completedLabel;
-
-    @FXML
-    private Label urgentLabel;
-
-    @FXML
-    private Label warehouseLabel;
-
-    @FXML
-    private Label returnLabel;
-
-    @FXML
-    private Label earningLabel;
-
-    @FXML
-    private Label importLabel;
-
-    @FXML
-    private Label settingLabel;
-
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -151,8 +124,8 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
-        //returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
-        //returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
+        returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
+        returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
