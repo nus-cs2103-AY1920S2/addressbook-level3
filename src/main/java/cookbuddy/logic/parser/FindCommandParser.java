@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import cookbuddy.logic.commands.FindCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
-import cookbuddy.model.recipe.NameContainsKeywordsPredicate;
+import cookbuddy.model.recipe.InstructionContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -27,7 +27,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new InstructionContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
