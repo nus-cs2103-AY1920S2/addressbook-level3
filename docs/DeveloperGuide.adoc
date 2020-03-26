@@ -189,7 +189,7 @@ Easier for the user to navigate through the current folder and not key in the wh
 
 cons:
 
-Not as flexible 
+Not as flexible
 
 
 
