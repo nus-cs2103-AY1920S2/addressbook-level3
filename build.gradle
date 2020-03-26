@@ -68,7 +68,7 @@ dependencies {
 
 shadowJar {
     archiveName = 'couponStash.jar'
-
+    archiveVersion = '1.2.5'
     destinationDir = file("${buildDir}/jar/")
 }
 
