@@ -48,7 +48,7 @@ public class DeleteGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module actualModule = model.getModule(targetModule);
+        Module actualModule = model.getModule(targetModule.getIdentifier());
 
         if (!actualModule.hasGroup(group)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
