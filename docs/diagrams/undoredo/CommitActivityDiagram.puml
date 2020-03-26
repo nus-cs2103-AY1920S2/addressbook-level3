@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([command commits CouponStash])
+    :Purge redunant states;
+    :Save CouponStash to;
+    :couponStashStateList;
+    :Save command text to;
+    :commandTextHistory;
+else ([else])
+endif
+stop
+@enduml

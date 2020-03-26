@@ -1,7 +1,6 @@
 package csdev.couponstash.model.history;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  * This class stores all the commandText that was executed in STASH. Does not matter
@@ -9,14 +8,15 @@ import java.util.List;
  * the keyboard.
  */
 public class CommandTextHistory {
-    private List<String> commandTextHistory;
+    private static final String EMPTY_COMMAND = "";
+
+    private LinkedList<String> commandTextHistory;
     private int currIndex;
 
     public CommandTextHistory() {
-        commandTextHistory = new ArrayList<>();
-        commandTextHistory.add("");
-        commandTextHistory.add("");
-        currIndex = 1;
+        commandTextHistory = new LinkedList<>();
+        commandTextHistory.push(EMPTY_COMMAND);
+        currIndex = 0;
     }
 
     /**
@@ -24,9 +24,10 @@ public class CommandTextHistory {
      * @param commandText commandText to add to history
      */
     public void add(String commandText) {
-        commandTextHistory.add(commandText);
-        commandTextHistory.add("");
-        currIndex = commandTextHistory.size() - 1;
+        commandTextHistory.pop(); // remove empty command from top of stack
+        commandTextHistory.push(commandText); // add newest command to top of stack
+        commandTextHistory.push(EMPTY_COMMAND); // add empty command to top of stack again
+        currIndex = 0; // let index point to top of stack
     }
 
     /**
@@ -34,16 +35,9 @@ public class CommandTextHistory {
      * @return commandText before up button was pressed
      */
     public String getDown() {
-        if (currIndex == commandTextHistory.size() - 1) {
-            return "";
-        } else {
-            currIndex += 2;
-            if (currIndex + 1 > commandTextHistory.size() - 1) {
-                return "";
-            } else {
-                return commandTextHistory.get(currIndex + 1);
-            }
-        }
+        return currIndex == 0
+                ? EMPTY_COMMAND
+                : commandTextHistory.get(--currIndex);
     }
 
     /**
@@ -51,13 +45,8 @@ public class CommandTextHistory {
      * @return last input commandText.
      */
     public String getUp() {
-        if (currIndex == 1) {
-            return commandTextHistory.size() > 2
-                    ? commandTextHistory.get(currIndex + 1)
-                    : "";
-        } else {
-            currIndex -= 2;
-            return commandTextHistory.get(currIndex + 1);
-        }
+        return currIndex == commandTextHistory.size() - 1
+                ? commandTextHistory.get(currIndex) // No more previous command
+                : commandTextHistory.get(++currIndex);
     }
 }
