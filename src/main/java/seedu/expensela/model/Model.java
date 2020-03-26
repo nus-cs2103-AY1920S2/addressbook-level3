@@ -78,11 +78,11 @@ public interface Model {
      */
     void setTransaction(Transaction target, Transaction editedTransaction);
 
-    /** Returns an unmodifiable view of the filtered transaction list */
+    /** Returns an unmodifiable view of the unfiltered transaction list */
     ObservableList<Transaction> getFilteredTransactionList();
 
     /**
-     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * Updates the filter of the unfiltered transaction list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
@@ -92,6 +92,8 @@ public interface Model {
 
     /** Updates monthly data by the given monthly data */
     void updateMonthlyData(MonthlyData monthlyData);
+
+    Filter getFilter();
 
     /**
      * Get Total balance of the user.

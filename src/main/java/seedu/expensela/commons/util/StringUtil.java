@@ -65,4 +65,12 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if both strings are equal
+     */
+
+    public static boolean equals(String s1, String s2) {
+        return s1.equals(s2);
+    }
 }

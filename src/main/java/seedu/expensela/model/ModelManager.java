@@ -24,8 +24,9 @@ public class ModelManager implements Model {
 
     private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
-    private final FilteredList<Transaction> filteredTransactions;
+    private final FilteredList<Transaction> unfilteredTransactions;
     private final MonthlyData monthlyData;
+    private final Filter filter;
 
     /**
      * Initializes a ModelManager with the given expenseLa and userPrefs.
@@ -38,8 +39,9 @@ public class ModelManager implements Model {
 
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
+        unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         monthlyData = this.expenseLa.getMonthlyData();
+        filter = this.expenseLa.getFilter();
     }
 
     public ModelManager() {
@@ -140,16 +142,19 @@ public class ModelManager implements Model {
      * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
      * {@code versionedExpenseLa}
      */
+
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
-        return filteredTransactions;
+        return unfilteredTransactions;
     }
 
     @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
-        filteredTransactions.setPredicate(predicate);
+        unfilteredTransactions.setPredicate(predicate);
     }
+
+
 
     @Override
     public boolean equals(Object obj) {
@@ -167,7 +172,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return expenseLa.equals(other.expenseLa)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTransactions.equals(other.filteredTransactions);
+                && unfilteredTransactions.equals(other.unfilteredTransactions);
     }
 
     //=========== Monthly Data Accessors =============================================================
@@ -188,8 +193,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    @Override
     public Double getTotalBalance() {
-        System.out.println("new pls");
         return userPrefs.getTotalBalance();
     }
 
