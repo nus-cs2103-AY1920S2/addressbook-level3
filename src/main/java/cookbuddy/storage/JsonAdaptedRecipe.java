@@ -13,6 +13,7 @@ import cookbuddy.commons.exceptions.IllegalValueException;
 import cookbuddy.logic.parser.ParserUtil;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -31,6 +32,7 @@ class JsonAdaptedRecipe {
     private final String ingredients;
     private final String instructions;
     private final String calorie;
+    public final int difficulty;
     private final int serving;
     private final int rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -42,13 +44,15 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
             @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
                              @JsonProperty("serving") int serving, @JsonProperty("rating") int rating,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("difficulty") int difficulty,
+                                     @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.calorie = calorie;
         this.serving = serving;
         this.rating = rating;
+        this.difficulty = difficulty;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -64,6 +68,7 @@ class JsonAdaptedRecipe {
         calorie = source.getCalorie().calorie;
         serving = source.getServing().serving;
         rating = source.getRating().rating;
+        difficulty = source.getDifficulty().difficulty;
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -109,8 +114,9 @@ class JsonAdaptedRecipe {
         final Calorie modelCalorie = new Calorie(calorie);
         final Serving modelServe = new Serving(serving);
         final Rating modelRating = new Rating(rating);
+        final Difficulty modelDifficulty = new Difficulty(difficulty);
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
         return new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelServe,
-                modelRating, modelTags);
+                modelRating, modelDifficulty, modelTags);
     }
 }

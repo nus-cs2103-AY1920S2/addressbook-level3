@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -28,6 +29,7 @@ public class Recipe {
     private final Calorie calorie;
     private final Serving serving;
     private final Rating rating;
+    private final Difficulty difficulty;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -35,7 +37,7 @@ public class Recipe {
      * Every field must be present and not null.
      */
     public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie,
-                Serving serving, Rating rating, Set<Tag> tags) {
+                Serving serving, Rating rating, Difficulty difficulty, Set<Tag> tags) {
         requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
@@ -43,6 +45,7 @@ public class Recipe {
         this.calorie = calorie;
         this.serving = serving;
         this.rating = rating;
+        this.difficulty = difficulty;
         this.tags.addAll(tags);
     }
 
@@ -68,6 +71,10 @@ public class Recipe {
 
     public Serving getServing() {
         return serving;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 
     /**
@@ -109,13 +116,14 @@ public class Recipe {
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
             && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getCalorie()
             .equals(getCalorie()) && otherRecipe.getRating().equals(getRating())
+                && otherRecipe.getDifficulty().equals(getDifficulty())
                 && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions, calorie, serving, rating, tags);
+        return Objects.hash(name, ingredients, instructions, calorie, serving, rating, difficulty, tags);
     }
 
     @Override
@@ -123,8 +131,8 @@ public class Recipe {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
             " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(
-                    " Serving size: ").append(getServing()).append(" Rating: ").append(getRating()).append(" "
-                + "Tags" + ": ");
+                    " Serving size: ").append(getServing()).append(" Rating: ").append(getRating()).append(
+                " Difficulty ").append(getDifficulty()).append(" Tags" + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
