@@ -73,9 +73,9 @@ public class EditCommand extends Command {
         System.out.println(model.getFilteredPersonList().get(0).getDeadlines());
 
         if (toEditProfile) {
-            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
+            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile), false);
         } else if (toEditModule != null) {
-            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule));
+            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule), false);
         } else {
             throw new CommandException("Error: Edit Command cannot be executed");
         }

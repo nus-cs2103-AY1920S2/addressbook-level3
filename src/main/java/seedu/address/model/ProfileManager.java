@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
@@ -30,6 +32,7 @@ public class ProfileManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
     private FilteredList<Deadline> filteredDeadlines;
+    private Optional<ObservableList<Module>> displayedView = Optional.empty();
 
     public ProfileManager(ProfileList profileList, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -189,5 +192,16 @@ public class ProfileManager implements Model {
                 iter.remove();
             }
         }
+    }
+
+    //To change main panel according to show command
+    @Override
+    public Optional<ObservableList<Module>> getDisplayedView() {
+        return displayedView;
+    }
+
+    @Override
+    public void setDisplayedView(ObservableList<Module> toDisplay) {
+        this.displayedView = Optional.ofNullable(toDisplay);
     }
 }

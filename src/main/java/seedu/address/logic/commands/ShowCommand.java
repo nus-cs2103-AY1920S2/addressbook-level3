@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
@@ -55,10 +57,16 @@ public class ShowCommand extends Command {
         } else if (toShow instanceof Module) {
             message = MESSAGE_SUCCESS_MODULE;
         } else if (toShow instanceof ModuleList) {
+            ObservableList<Module> moduleList = FXCollections.observableArrayList();
+            for (Module module : (ModuleList) toShow) {
+                moduleList.add(module);
+            }
+            model.setDisplayedView(moduleList); //show module list
             message = MESSAGE_SUCCESS_MODULE_LIST;
+            return new CommandResult(String.format(message, toShow), true);
         }
 
-        return new CommandResult(String.format(message, toShow));
+        return new CommandResult(String.format(message, toShow), false);
     }
 
     @Override

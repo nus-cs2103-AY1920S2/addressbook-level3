@@ -85,7 +85,7 @@ public class DeleteCommand extends Command {
                 model.deletePerson(profileToDelete);
                 model.setProfileList(new ProfileList());
                 model.clearDeadlineList();
-                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete));
+                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete), false);
             } else {
                 throw new CommandException("Profile with name " + deleteName + " does not exist!");
             }
@@ -101,7 +101,7 @@ public class DeleteCommand extends Command {
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 }
-                return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode));
+                return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode), false);
             } else { // Deleting a deadline/task
                 try {
                     profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
@@ -109,7 +109,7 @@ public class DeleteCommand extends Command {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 }
                 model.deleteDeadline(deleteDeadline); //delete from observablelist
-                return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline));
+                return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline), false);
             }
         }
 

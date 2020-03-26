@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,8 +15,10 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.storage.Storage;
@@ -107,5 +110,10 @@ public class LogicManager implements Logic {
             }
         }
         return model.getFilteredDeadlineList();
+    }
+
+    @Override
+    public Optional<ObservableList<Module>> getDisplayedView() {
+        return model.getDisplayedView();
     }
 }

@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModuleList;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
 /**
@@ -39,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Ui parts in the main panel (dynamic)
     private WelcomeView welcomeViewPanel;
+    private ModuleListPanel moduleListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -179,6 +184,24 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleShowCommand() {
+        Optional<ObservableList<Module>> displayedView = logic.getDisplayedView();
+
+        // Removes the current displayed module
+        if (moduleListPanel != null) {
+            mainPanelPlaceholder.getChildren().remove(moduleListPanel.getRoot());
+        }
+
+        // Early return if nothing to display
+        if (displayedView.isEmpty()) {
+            return;
+        }
+
+        moduleListPanel = new ModuleListPanel(displayedView.get());
+        mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -200,6 +223,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowCommand()) {
+                handleShowCommand();
             }
 
             return commandResult;
