@@ -65,18 +65,18 @@ public class Module {
     }
 
     /**
+     * Adds a group to the list of module groups.
+     */
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
+
+    /**
      * Returns the group in this module with the given group id.
      * Returns null if no such group exists.
      */
     public Group getGroup(String groupId) {
         return groups.get(groupId);
-    }
-
-    /**
-     * Adds a group to the list of module groups.
-     */
-    public void addGroup(Group group) {
-        groups.add(group);
     }
 
     /**
