@@ -71,7 +71,7 @@
             </Tab>
             <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                 <SplitPane dividerPositions="0.5">
+                 <SplitPane dividerPositions="0.75">
                    <items>
                      <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
