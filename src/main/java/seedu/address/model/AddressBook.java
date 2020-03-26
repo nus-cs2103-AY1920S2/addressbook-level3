@@ -93,6 +93,10 @@ public class AddressBook implements ReadOnlyList<Person> {
         persons.remove(key);
     }
 
+    protected UniquePersonList getPersons() {
+        return persons;
+    }
+
     //// util methods
 
     @Override
@@ -110,7 +114,7 @@ public class AddressBook implements ReadOnlyList<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && getPersons().equals(((AddressBook) other).getPersons()));
     }
 
     @Override

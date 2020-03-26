@@ -111,11 +111,15 @@ public class Inventory implements ReadOnlyList<Good> {
         return goods.asUnmodifiableObservableList();
     }
 
+    protected UniqueGoodList getGoods() {
+        return goods;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Inventory // instanceof handles nulls
-                && goods.equals(((Inventory) other).goods));
+                && getGoods().equals(((Inventory) other).getGoods()));
     }
 
     @Override

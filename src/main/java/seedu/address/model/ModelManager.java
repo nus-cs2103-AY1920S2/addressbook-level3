@@ -20,8 +20,8 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final Inventory inventory;
+    private final VersionedAddressBook addressBook;
+    private final VersionedInventory inventory;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Good> filteredGoods;
@@ -37,8 +37,8 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook
                 + ", inventory: " + inventory + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.inventory = new Inventory(inventory);
+        this.addressBook = new VersionedAddressBook(addressBook);
+        this.inventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getReadOnlyList());
         filteredGoods = new FilteredList<>(this.inventory.getReadOnlyList());
@@ -139,7 +139,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyList<Good> getInventory() {
-        return inventory;
+        return inventory.getCurrentState();
     }
 
     @Override
@@ -171,7 +171,15 @@ public class ModelManager implements Model {
         inventory.setGood(target, editedGood);
     }
 
+    @Override
+    public void commit() {
+        return;
+    }
 
+    @Override
+    public void undo() {
+        return;
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
