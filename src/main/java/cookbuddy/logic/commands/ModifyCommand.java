@@ -1,6 +1,7 @@
 package cookbuddy.logic.commands;
 
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -23,6 +24,7 @@ import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -46,7 +48,8 @@ public class ModifyCommand extends Command {
             + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING] "
-            + "[" + PREFIX_RATING + "RATING]"
+            + "[" + PREFIX_RATING + "RATING] "
+            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
@@ -106,10 +109,11 @@ public class ModifyCommand extends Command {
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
+        Difficulty updatedDifficulty = editRecipeDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
-                updatedRating, updatedTags);
+                updatedRating, updatedDifficulty, updatedTags);
     }
 
     @Override
@@ -141,6 +145,7 @@ public class ModifyCommand extends Command {
         private Calorie calorie;
         private Serving serving;
         private Rating rating;
+        private Difficulty difficulty;
         private Set<Tag> tags;
 
         public EditRecipeDescriptor() {
@@ -157,6 +162,7 @@ public class ModifyCommand extends Command {
             setCalorie(toCopy.calorie);
             setServing(toCopy.serving);
             setRating(toCopy.rating);
+            setDifficulty(toCopy.difficulty);
             setTags(toCopy.tags);
         }
 
@@ -164,7 +170,8 @@ public class ModifyCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, serving, rating, tags);
+            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, serving, rating,
+                    difficulty, tags);
         }
 
         public void setName(Name name) {
@@ -215,6 +222,14 @@ public class ModifyCommand extends Command {
             return (rating != null) ? Optional.of(rating) : Optional.empty();
         }
 
+        public void setDifficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
+        }
+
+        public Optional<Difficulty> getDifficulty() {
+            return (difficulty != null) ? Optional.of(difficulty) : Optional.empty();
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -253,6 +268,7 @@ public class ModifyCommand extends Command {
                     && getCalorie().equals(e.getCalorie())
                     && getServing().equals(e.getServing())
                     && getRating().equals(e.getRating())
+                    && getDifficulty().equals(e.getDifficulty())
                     && getTags().equals(e.getTags());
         }
     }

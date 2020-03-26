@@ -1,6 +1,7 @@
 package cookbuddy.logic.commands;
 
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -27,7 +28,8 @@ public class NewCommand extends Command {
             + PREFIX_INSTRUCTIONS + "INSTRUCTION 1, INSTRUCTION 2 "
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING SIZE] "
-            + "[" + PREFIX_RATING + "RATING"
+            + "[" + PREFIX_RATING + "RATING] "
+            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Ham Sandwich "
@@ -36,6 +38,7 @@ public class NewCommand extends Command {
             + PREFIX_CALORIE + "169 "
             + PREFIX_SERVING + "2 "
             + PREFIX_RATING + "4 "
+            + PREFIX_DIFFICULTY + "2 "
             + PREFIX_TAG + "breakfast";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";

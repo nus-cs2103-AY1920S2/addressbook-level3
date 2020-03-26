@@ -12,6 +12,7 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.Instruction;
@@ -137,6 +138,21 @@ public class ParserUtil {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
         return new Rating(rating);
+    }
+
+    /**
+     * Parses a {@code String difficultyString} into a {@code Difficulty}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code difficultyString} is invalid.
+     */
+    public static Difficulty parseDifficulty(String difficultyString) throws ParseException {
+        requireNonNull(difficultyString);
+        int difficulty = Integer.parseInt(difficultyString.trim());
+        if (!Difficulty.isValidDifficulty(difficulty)) {
+            throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
+        }
+        return new Difficulty(difficulty);
     }
 
     /**
