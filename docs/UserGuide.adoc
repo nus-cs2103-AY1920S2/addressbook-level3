@@ -184,10 +184,38 @@ Examples:
 Creates a new profile with the name "John", currently majoring in "Computer Science" and is in his 4th semester of study.
 
 
-=== Delete a user profile : `delete` (coming in v2.0)
+=== Deleting: `delete`
 
-//Clears all entries from the address book. +
-//Format: `clear`
+There are *three* ways you can use the `delete` command:
+
+1) Delete a user profile
+
+Format: `delete n/NAME`
+
+This deletes the profile of the specified user, including all modules, tasks and deadlines of that profile.
+
+2) Delete a module
+
+Format: `delete m/MODULE_CODE`
+
+This deletes the specified module from the current profile, including all tasks and deadlines of that module.
+
+3) Delete a task
+
+Format: `delete m/MODULE_CODE t/TASK`
+
+This deletes the specified task and its deadline from the specified module.
+
+Examples:
+
+- `delete n/John` +
+  Deletes the profile of the user "John".
+
+- `delete m/CS2103T` +
+  Deletes the module CS2103T from the current profile.
+
+- `delete m/CS2103T t/Assignment` +
+  Deletes the task "Assignment" from the module CS2103T in the current profile.
 
 === Exiting the program : `exit`
 
