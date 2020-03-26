@@ -26,8 +26,6 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::../images/ArchitectureDiagram.png[]
-
 image::ArchitectureDiagram.svg[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
@@ -69,7 +67,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.svg[]
 
 The sections below give more details of each component.
 
@@ -77,7 +75,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -109,7 +107,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::DeleteSequenceDiagram.svg[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -320,7 +318,7 @@ to run the execute the import Command, this is will be shown at the <<Execution 
 ==== Execution of Import Command Sequence Diagram
 
 .Import Command Sequence Diagram 2
-image::ImportCommandSequenceDiagram2.png[]
+image::ImportCommandSequenceDiagram2.svg[]
 
 The `execute(model)` function of the `ImportCommand` will first check if the data given starts with
 *order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
