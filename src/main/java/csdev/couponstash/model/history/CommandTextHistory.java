@@ -8,9 +8,10 @@ import java.util.LinkedList;
  * the keyboard.
  */
 public class CommandTextHistory {
+    private static final String EMPTY_COMMAND = "";
+
     private LinkedList<String> commandTextHistory;
     private int currIndex;
-    private static final String EMPTY_COMMAND = "";
 
     public CommandTextHistory() {
         commandTextHistory = new LinkedList<>();
