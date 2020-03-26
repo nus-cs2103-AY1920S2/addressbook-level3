@@ -47,12 +47,12 @@ a|
    10. Saving the data
    11. Adding a reminder: remind
    12. Viewing savings: saved
-   13. Use a coupon: used
-   14. Undo the previous command: undo
-   15. Redo the undone command: redo
-   16. Archive a coupon: archive
-   17. Export a coupon: export
-   18. Set user preferences: setpref
+   13. Using a coupon: used
+   14. Undoing the previous command: undo
+   15. Redoing the undone command: redo
+   16. Archiving a coupon: archive
+   17. Exporting a coupon: export
+   18. Setting user preferences: setpref
 
 
  |3
@@ -78,14 +78,15 @@ app for managing coupons*. More importantly, CS is *optimized for those who pref
 to work with a Command Line Interface* (CLI) while still having the benefits of a
 Graphical User Interface (GUI). If you can type fast, CS can get your coupon
 management tasks done faster than traditional GUI apps. Interested?
-You should be!!!! Jump to the Section 2, “Quick Start” to get started. Enjoy!
+You should be! Jump to the <<Quick Start, Quick Start section>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java (recommended: version 11 or above) installed in your Computer.
-.  Download the latest CouponStash.jar.
+.  Download the latest link:{repoURL}/archive/v1.2.zip[`CouponStash.jar`]
 .  Copy the file to the folder you want to use as the home folder for your Coupon Stash.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. If nothing occurs, use the command
+`java -jar CouponStash.jar` in your computer's CLI to open the file up.
 .  Type the command in the command box and press Enter to execute it. +
 e.g. typing *help* and pressing Enter will open the help window.
 .  Some example commands you can try:
@@ -94,7 +95,7 @@ e.g. typing *help* and pressing Enter will open the help window.
           t/pizza t/delivery`: adds a coupon named Domino's Pizaa Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
 * *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
 * *exit* : exits the app (your data will be saved automatically)
-.  Refer to <<Features, Section 3, “Features”>> for details of each command.
+.  Refer to the <<Features, Section 3, "Features">> for details of each command.
 
 
 [[Features]]
@@ -112,13 +113,15 @@ used as n/The Deck Chicken Rice t/value or as n/The Deck Chicken Rice.
 times e.g. [t/TAG]...​ can be used as (i.e. 0 times), t/value,
 t/friend t/value etc.
 * Parameters can be in any order e.g. if the command specifies n/NAME,
-s/SAVINGS, s/SAVINGS n/NAME is also acceptable.
+s/SAVINGS, s/SAVINGS n/NAME is also acceptable. (Note: the app will only take the last specified parameter
+if there are multiple of the same parameters, but only one is required)
 * Dates are all in the D-M-YYYY format. (Coupon Stash date format)
 ** D and M can be one or two digits, but YYYY has to be four digits
 ** e.g. 1-1-2020, 01-01-2020 are both valid dates
 ====
 
 === Viewing help: `help`
+A help window will pop up aiding the user in the usage of Coupon Stash.
 
 Format: `help`
 
@@ -129,7 +132,7 @@ are required. Optional fields like promo code and tags
 may be provided as well.
 
 Format: `Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
-[c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...`
+[c/CONDITIONS] [u/CURRENT_USAGE] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...`
 
 [TIP]
 A coupon can have any number of tags (including 0)
@@ -170,9 +173,10 @@ adding of tags is not cumulative.
 * You can remove all the coupon’s tags by typing t/ without specifying any tags after it.
 * When editing savings, existing savings of the coupon will also
 be removed.
+* Usage is disallowed from editing.
 ****
 
-[TIP]
+[WARNING]
 Savings cannot be cleared in the same way as clearing tags,
 as a coupon must have at least 1 saving!
 
