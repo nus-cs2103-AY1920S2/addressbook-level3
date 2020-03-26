@@ -51,6 +51,9 @@ public class DoneSessionCommand extends Command {
 
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
+        model.addDoneSession(session);
+        model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+        model.deleteSession(session);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, session));
     }

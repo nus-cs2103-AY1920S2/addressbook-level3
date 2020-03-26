@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final TaTracker taTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Session> filteredSessions;
+    private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Module> filteredModules;
 
@@ -40,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
+        filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
         filteredModules = new FilteredList<>(this.taTracker.getModuleList());
     }
 
@@ -191,6 +193,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addDoneSession(Session session) {
+        taTracker.addDoneSession(session);
+        updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS);
+    }
+
+    @Override
     public void deleteSession(Session target) {
         taTracker.removeSession(target);
     }
@@ -217,6 +225,23 @@ public class ModelManager implements Model {
     public void updateFilteredSessionList(Predicate<Session> predicate) {
         requireNonNull(predicate);
         filteredSessions.setPredicate(predicate);
+    }
+
+    //=========== Filtered Done Session List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Session} backed by the internal list of
+     * {@code versionedTaTracker}
+     */
+    @Override
+    public ObservableList<Session> getFilteredDoneSessionList() {
+        return filteredDoneSessions;
+    }
+
+    @Override
+    public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+        requireNonNull(predicate);
+        filteredDoneSessions.setPredicate(predicate);
     }
 
     //=========== Others =============================================================

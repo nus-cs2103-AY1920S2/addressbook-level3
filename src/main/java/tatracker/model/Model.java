@@ -111,6 +111,12 @@ public interface Model {
     void deleteSession(Session target);
 
     /**
+     * Adds the given session to the list of completed sessions.
+     * The session must exist in the ta-tracker.
+     */
+    void addDoneSession(Session session);
+
+    /**
      * Replaces the given session {@code target} with {@code editedSession}.
      * {@code target} must exist in the ta-tracker.
      * The session identity of {@code editedSession} must not be the same as another existing session in the tracker
@@ -125,6 +131,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSessionList(Predicate<Session> predicate);
+
+    /** Returns an unmodifiable view of the filtered done session list */
+    ObservableList<Session> getFilteredDoneSessionList();
+
+    /**
+     * Updates the filter of the filtered done session list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDoneSessionList(Predicate<Session> predicate);
 
     /**
      * Checks whether given module exists already.

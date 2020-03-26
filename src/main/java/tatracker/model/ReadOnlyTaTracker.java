@@ -27,4 +27,10 @@ public interface ReadOnlyTaTracker {
      * This list will not contain any duplicate sessions.
      */
     ObservableList<Session> getSessionList();
+
+    /**
+     * Returns an unmodifiable view of the done sessions list.
+     * This list will not contain any duplicate sessions.
+     */
+    ObservableList<Session> getDoneSessionList();
 }

@@ -9,6 +9,7 @@ import tatracker.model.module.Module;
 import tatracker.model.module.UniqueModuleList;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueSessionList;
+import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
@@ -21,6 +22,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     private final UniqueStudentList students;
     private final UniqueSessionList sessions;
+    private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
 
     /*
@@ -33,6 +35,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     {
         students = new UniqueStudentList();
         sessions = new UniqueSessionList();
+        doneSessions = new UniqueDoneSessionList();
         modules = new UniqueModuleList();
     }
 
@@ -90,6 +93,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public void addSession(Session s) {
         sessions.add(s);
+    }
+
+    public void addDoneSession(Session s) {
+        doneSessions.add(s);
     }
 
     /**
@@ -220,6 +227,11 @@ public class TaTracker implements ReadOnlyTaTracker {
     @Override
     public ObservableList<Session> getSessionList() {
         return sessions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Session> getDoneSessionList() {
+        return doneSessions.asUnmodifiableObservableList();
     }
 
     @Override
