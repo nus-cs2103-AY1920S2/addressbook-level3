@@ -110,11 +110,6 @@ public interface Model {
     // ======== Module Methods =================================================
 
     /**
-     * Returns the given module {@code target} in the TaTracker.
-     */
-    Module getModule(Module target);
-
-    /**
      * Returns the TaTracker module with the given module identifier.
      */
     Module getModule(String moduleId);
