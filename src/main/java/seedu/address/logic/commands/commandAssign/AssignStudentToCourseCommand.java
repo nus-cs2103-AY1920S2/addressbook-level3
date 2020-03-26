@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -63,11 +64,14 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
         boolean courseExists = false;
         boolean studentExists = false;
+        Course foundCourse = null;
+        Student foundStudent = null;
 
         for (Course course : model.getFilteredCourseList()) {
             if (course.getId().value.equals(courseidString)) {
                 courseName = course.getName().toString();
                 courseExists = true;
+                foundCourse = course;
                 break;
             }
         }
@@ -76,6 +80,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             if (student.getID().value.equals(studentidString)) {
                 studentName = student.getName().toString();
                 studentExists = true;
+                foundStudent = student;
                 break;
             }
         }
@@ -87,6 +92,12 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         } else {
             Courseid courseid = ParserUtil.parseCourseid(courseidString);
             Studentid studentid = ParserUtil.parseStudentid(studentidString);
+            foundCourse.addStudent(studentid);
+            foundStudent.addCourse(courseid);
+            foundCourse.processAssignedStudents(
+                (FilteredList<Student>) model.getFilteredStudentList());
+            foundStudent.processAssignedCourses(
+                (FilteredList<Course>) model.getFilteredCourseList());
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentidString, courseName, courseidString));
         }

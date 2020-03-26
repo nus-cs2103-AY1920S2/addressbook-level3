@@ -49,12 +49,13 @@ public class CourseCard extends UiPart<Region> {
     teacherId.setText(course.getTeacherID().value);
     courseID.setText(course.getId().value);
     amount.setText(course.getAmount().value);
-    assignedStudents.setText(course.getAssignedStudents());
+    assignedStudents.setText(course.getAssignedStudentsWithNames());
 
     course.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
+
 
   @Override
   public boolean equals(Object other) {

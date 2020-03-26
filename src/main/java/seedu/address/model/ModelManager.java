@@ -83,6 +83,14 @@ public class ModelManager implements Model {
     filteredCourses = new FilteredList<>(this.courseAddressBook.getCourseList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getAssignmentList());
 
+    for (Course course : filteredCourses) {
+      course.processAssignedStudents(filteredStudents);
+    }
+
+    for (Student student : filteredStudents) {
+      student.processAssignedCourses(filteredCourses);
+    }
+
   }
 
   public ModelManager() {

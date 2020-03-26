@@ -71,9 +71,9 @@ public class SampleDataUtil {
 
   public static Student[] getSampleStudents() {
     return new Student[]{
-        new Student(new Name("Sim Sheng Xue"), new ID("33"),
+        new Student(new Name("Sim Sheng Xue"), new ID("33"), new AssignedCourses("829,182"),
             getTagSet("Loyal", "10Year")),
-        new Student(new Name("John AppleSeed"), new ID("44"),
+        new Student(new Name("John AppleSeed"), new ID("44"), new AssignedCourses("182"),
             getTagSet("Lazy", "Old"))
     };
   }
@@ -106,8 +106,10 @@ public class SampleDataUtil {
   public static Course[] getSampleCourses() {
     return new Course[]{
         new Course(new Name("Cozmo Programming"), new ID("829"), new Amount("1000"),
+            new AssignedStudents("33"),
             getTagSet("Robot", "Fun")),
         new Course(new Name("Advanced Java"), new ID("182"), new Amount("2000"),
+            new AssignedStudents("33,44"),
             getTagSet("OOP", "Difficult"))
     };
   }

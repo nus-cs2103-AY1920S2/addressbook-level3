@@ -47,20 +47,6 @@ public class ParserUtil {
     return new Name(trimmedName);
   }
 
-  /**
-   * Parses a {@code String course} into a {@code AssignedCourse}. Leading and trailing whitespaces
-   * will be trimmed.
-   *
-   * @throws ParseException if the given {@code course} is invalid.
-   */
-  public static AssignedCourse parseCourse(String course) throws ParseException {
-    requireNonNull(course);
-    String trimmedCourse = course.trim();
-    if (!AssignedCourse.isValidCourse(trimmedCourse)) {
-      throw new ParseException(AssignedCourse.MESSAGE_CONSTRAINTS);
-    }
-    return new AssignedCourse(trimmedCourse);
-  }
 
   /**
    * Parses a {@code String courseID} into a {@code ID}. Leading and trailing whitespaces will be
