@@ -147,9 +147,6 @@ class JsonAdaptedRecipe {
         // todo: throw illegalvalue if ingredients list is empty
 
         final List<Step> recipeSteps = new ArrayList<>();
-        if (steps.isEmpty()) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName()));
-        }
         for (JsonAdaptedStep step : steps) {
             recipeSteps.add(step.toModelType());
         }

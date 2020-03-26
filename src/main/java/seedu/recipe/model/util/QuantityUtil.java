@@ -49,7 +49,6 @@ public class QuantityUtil {
      *
      */
     public static Quantity parseQuantity(String quantity) {
-        System.out.println(quantity);
         if (quantity.isBlank()) {
             return new Quantity();
         } else {

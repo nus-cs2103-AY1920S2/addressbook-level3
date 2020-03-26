@@ -45,6 +45,12 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT,
                         PREFIX_INGREDIENT_OTHER, PREFIX_STEP, PREFIX_GOAL);
 
+        if (areAnyPrefixesPresent(argMultimap, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
+                PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT, PREFIX_INGREDIENT_OTHER)) {
+            System.out.println("an ingredient is present");
+        }
+
+
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -75,6 +81,14 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if one of the prefixes is not an empty {@code Optional} value in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
