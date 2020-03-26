@@ -40,16 +40,16 @@ public class EditActivityCommand extends Command {
             + "by the index number used in the displayed moduleCode's activity list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE"
-            + "INDEX (must be a positive integer)"
+            + PREFIX_MODULE + "MODULE CODE "
+            + "INDEX (must be a positive integer) "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_NOTE + "NOTE]\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_MODULE + "CS2030"
-            + "1"
-            + PREFIX_DATE + "2020-03-20"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_MODULE + "CS2030 "
+            + "1 "
+            + PREFIX_DATE + "2020-03-20 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
     public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity";

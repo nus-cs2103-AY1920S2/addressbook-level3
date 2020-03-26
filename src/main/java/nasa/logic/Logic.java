@@ -25,21 +25,17 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the NasaBook.
      *
      * @see nasa.model.Model#getNasaBook()
      */
     ReadOnlyNasaBook getNasaBook();
 
-    // TODO: Implement {@code getFilteredActivityList} with {@code Index index} as input parameters
-    /** Returns an unmodifiable view of the filtered list of activities */
-    // ObservableList<Activity> getFilteredActivityList();
-
     /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' NASA file path.
      */
     Path getNasaBookFilePath();
 

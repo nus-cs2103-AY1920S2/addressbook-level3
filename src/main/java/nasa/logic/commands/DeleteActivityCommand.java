@@ -1,6 +1,7 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.logic.commands.addcommands.AddCommand.MESSAGE_MODULE_NOT_FOUND;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import nasa.commons.core.index.Index;
@@ -9,24 +10,22 @@ import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 
 /**
- * Deletes an activity from a module list.
+ * Deletes an activity identified using it's displayed index from the module list.
  */
 public class DeleteActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ":Deletes the activities identified by the index numbers used in the displayed activity list.\n "
-            + "Parameters:"
-            + PREFIX_MODULE + "MODULE CODE"
-            + "INDEX" + "\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS3233"
-            + "1 2 3";
+            + ": Deletes the activities identified by the index numbers used in the displayed activity list.\n"
+            + "Parameters: " + PREFIX_MODULE + "MODULE CODE INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MODULE + "CS3233" + " 1 2 3";
 
-    public static final String MESSAGE_SUCCESS = " are deleted successfully!";
+    public static final String MESSAGE_DELETE_ACTIVITY_SUCCESS = " are deleted successfully!";
 
-    public static final String MESSAGE_FAILURE = "Activity indicated all does not exist!";
+    public static final String MESSAGE_FAILURE = "Activity indicated does not exist!";
+
+    public static final String MESSAGE_MODULE_NOT_FOUND = "Module does not exist!";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -46,9 +45,14 @@ public class DeleteActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.hasModule(moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        }
+
         try {
             model.removeActivityByIndex(moduleCode, index);
-            return new CommandResult(index.toString() + MESSAGE_SUCCESS);
+            return new CommandResult(index.toString() + MESSAGE_DELETE_ACTIVITY_SUCCESS);
         } catch (Exception e) {
             throw new CommandException(MESSAGE_FAILURE);
         }

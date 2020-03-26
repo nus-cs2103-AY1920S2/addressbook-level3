@@ -12,7 +12,7 @@ import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.UserPrefs;
 
 /**
- * Manages storage of NasaBook data in local storage.
+ * Manages storage of NASA data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -46,7 +46,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ NasaBook methods ==============================
+    // ================ NASA methods ==============================
 
     @Override
     public Path getNasaBookFilePath() {

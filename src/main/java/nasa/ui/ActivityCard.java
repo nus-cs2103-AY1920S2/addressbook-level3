@@ -2,7 +2,6 @@ package nasa.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 

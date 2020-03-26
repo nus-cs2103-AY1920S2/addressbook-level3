@@ -10,12 +10,17 @@ import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
 
 /**
- * Adds any activity to a module's list.
+ * Adds any activity to a module's activity list.
  */
 public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New activity added!";
+
     public static final String MESSAGE_DUPLICATED_ACTIVITY =
         "This activity already exist in the module's activity list!";
+
+    public static final String MESSAGE_MODULE_NOT_FOUND =
+        "The module does not exist!";
+
 
     private final Activity toAdd;
     private final ModuleCode moduleCode;
@@ -35,13 +40,16 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /*
-         * Create a dummy moduleTask so as to add the activity to that
-         * associated module in the ModelNasa model.
-         */
+
+        // check if module exist and if a duplicated activity already exists
+        if (!model.hasModule(moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        }
+
         if (model.hasActivity(moduleCode, toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
         }
+
         model.addActivity(moduleCode, toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
     }
