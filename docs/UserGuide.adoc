@@ -297,6 +297,21 @@ Examples:
 ** `statistics tp/WEEK` +
 Displays activities completed over this week.
 
+=== Automating activity: `repeat`
+Allows user to repeat an activity from a module.
+Format: `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+
+** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
+**  By default `INDEX` will be `0` hence no automation will be done.
+**  The activity will be regenerated once user open the application.
+
+Examples:
+
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/0` to cancel.
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/1` to regenerate weekly.
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/2` to regenerate twice weekly.
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/3` to regenerate monthly.
+
 === Export to calendar `export` `[coming in v1.2]`
 Exports all module activity-lists onto a calendar (.ics format) for users. +
 Format: `export`
