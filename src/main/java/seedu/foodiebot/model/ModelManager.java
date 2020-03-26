@@ -43,7 +43,7 @@ public class ModelManager implements Model {
 
     private final Budget budget;
     private final Randomize randomize;
-    private final FilteredList<Food> filteredFavoriteFoodList;
+    private FilteredList<Food> filteredFavoriteFoodList;
     private FilteredList<PurchasedFood> filteredTransactionsList;
 
     /**
@@ -96,12 +96,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getFoodieBotFilePath() {
         return userPrefs.getFoodieBotFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setFoodieBotFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setFoodieBotFilePath(addressBookFilePath);
     }
@@ -244,7 +244,6 @@ public class ModelManager implements Model {
         if (!isInitialised) {
             updateModelManagerStalls();
         }
-
         return filteredStalls;
     }
 
@@ -254,6 +253,18 @@ public class ModelManager implements Model {
      */
     public ObservableList<Stall> getFilteredStallList() {
         return filteredStalls;
+    }
+
+
+    /**
+     * Returns an unmodifiable view of the list of {@code FavoriteFood} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    public ObservableList<Food> getFilteredFavoriteFoodList(boolean isInitialised) {
+        if (!isInitialised) {
+            updateModelManagerFavoriteList();
+        }
+        return filteredFavoriteFoodList;
     }
 
     /**
@@ -321,11 +332,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Food> getFilteredFavoriteFoodList() {
-        return filteredFavoriteFoodList;
-    }
-
-    @Override
     public void updateFilteredFavoriteList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFavoriteFoodList.setPredicate(predicate);
@@ -377,6 +383,17 @@ public class ModelManager implements Model {
         return randomize.asUnmodifiableObservableList();
     }
 
+    @Override
+    public void removeFavorite(Food food) {
+        requireAllNonNull(food);
+        foodieBot.removeFavorite(food);
+    }
+
+    @Override
+    public void setFavoriteList(ObservableList<Food> filteredFavoriteFoodList) {
+        foodieBot.setFavoritedFoods(filteredFavoriteFoodList);
+    }
+
 
     /**
      * .
@@ -394,6 +411,31 @@ public class ModelManager implements Model {
             e.printStackTrace();
         }
     }
+
+    /**
+     * .
+     */
+    public void updateModelManagerFavoriteList() {
+        try {
+            FoodieBotStorage foodieBotStorage =
+                new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath(), userPrefs.getStallsFilePath(),
+                    userPrefs.getBudgetFilePath(), userPrefs.getFoodieBotFilePath(),
+                    userPrefs.getFavoriteFoodFilePath(), userPrefs.getTransactionsFilePath());
+            Storage storage = new StorageManager(foodieBotStorage);
+            Optional<ReadOnlyFoodieBot> newBot = storage.readFoodieBot("FavoriteFood");
+
+            if (!newBot.equals(Optional.empty())) {
+                this.foodieBot.setFavoritedFoods(newBot.get().getFavoriteList());
+                filteredFavoriteFoodList = new FilteredList<Food>(newBot.get().getFavoriteList());
+            }
+
+        } catch (DataConversionException e) {
+            // return Optional.empty();
+        } catch (IOException e) {
+            // return Optional.empty();
+        }
+    }
+
 
     /**
      * .

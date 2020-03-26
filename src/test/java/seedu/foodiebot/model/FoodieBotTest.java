@@ -147,6 +147,11 @@ public class FoodieBotTest {
         }
 
         @Override
+        public void removeFavorite(Food food) {
+            //
+        }
+
+        @Override
         public boolean isLocationSpecified() {
             return false;
         }

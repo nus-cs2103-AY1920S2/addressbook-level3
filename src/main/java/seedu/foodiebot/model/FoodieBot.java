@@ -12,7 +12,6 @@ import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.UniqueCanteenList;
-import seedu.foodiebot.model.favorites.FavoriteFood;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.food.UniqueFoodList;
 import seedu.foodiebot.model.randomize.Randomize;
@@ -79,7 +78,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     }
 
     public void setFavoritedFoods(List<Food> stalls) {
-        this.foods.setFood(stalls);
+        this.favoritedFoods.setFood(stalls);
     }
 
 
@@ -243,7 +242,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         return favoritedFoods.asUnmodifiableObservableList();
     }
 
-    public void addFavoriteFood(FavoriteFood f) {
+    public void addFavoriteFood(Food f) {
         favoritedFoods.add(f);
     }
 
@@ -254,6 +253,11 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     @Override
     public ObservableList<PurchasedFood> getTransactionsList() {
         return transactions.getList();
+    }
+
+    @Override
+    public void removeFavorite(Food food) {
+        favoritedFoods.remove(food);
     }
 
     public void setTransactionsList(ObservableList<PurchasedFood> newList) {

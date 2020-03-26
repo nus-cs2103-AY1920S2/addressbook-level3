@@ -157,7 +157,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getFoodieBotFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getFoodieBotFilePath();
     }
 
     @Override
@@ -186,7 +186,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Food> getFilteredFavoriteFoodList(boolean isInitialised) {
-        return model.getFilteredFavoriteFoodList();
+        return model.getFilteredFavoriteFoodList(isInitialised);
     }
 
     @Override
