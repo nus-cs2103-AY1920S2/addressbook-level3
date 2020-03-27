@@ -376,3 +376,4 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 * *Statistics* : `statistics [tp/TIME_PERIOD]`
 * *chadd* : `chadd ACTIVITY_ID CHECKLIST_ITEM`
 * *chdel* : `chdel ACTIVITY_ID CHECKLIST_ID`
+* *repeat* : `repeat m/MODULE_CODE a/ACTIVITYNAME r/INDEX`

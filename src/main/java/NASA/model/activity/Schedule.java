@@ -1,10 +1,19 @@
 package nasa.model.activity;
 
+import static nasa.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents schedule class in Nasa book.
  * Allows user to regenerate activity automatically.
  */
 public class Schedule {
+
+    public static final String MESSAGE_CONSTRAINTS = "Schedule should be from 0 to 3 inclusive only.";
+
+    /**
+     * Valid integers that start from 0 to 3.
+     */
+    public static final String VALID_INTEGER_REGEX = "([0-3]\\d{0})";
 
     private int type;
     private Date date;
@@ -36,6 +45,7 @@ public class Schedule {
      * @param type
      */
     public Schedule(Date date, int type) {
+        checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
         this.date = date;
         this.defaultDate = date;
         this.type = type;
@@ -58,6 +68,7 @@ public class Schedule {
      * Set scheduling.
      */
     public void setType(int type) {
+        checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
         this.type = type;
         date = defaultDate;
         update();
@@ -76,6 +87,9 @@ public class Schedule {
      */
     public void init(int type) {
         switch (type) {
+        case 0 :
+            cancel();
+            break;
         case 1 :
             runOnceAWeek();
             break;
@@ -116,6 +130,10 @@ public class Schedule {
      */
     private void runMonthly() {
         date = date.addMonthsToCurrDate(1);
+    }
+
+    private static boolean isValidSchedule(String test) {
+        return test.matches(VALID_INTEGER_REGEX);
     }
 
     @Override
