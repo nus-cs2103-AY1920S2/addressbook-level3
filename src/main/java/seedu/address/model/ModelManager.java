@@ -16,9 +16,10 @@ import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.Metric;
+import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
-import seedu.address.model.hirelah.Session;
 import seedu.address.model.hirelah.Transcript;
 
 /**
@@ -26,13 +27,13 @@ import seedu.address.model.hirelah.Transcript;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private Session session;
     private AppPhase appPhase;
     private final IntervieweeList intervieweeList;
     private final AttributeList attributeList;
     private final QuestionList questionList;
+    private final MetricList metricList;
     private final UserPrefs userPrefs;
+    private boolean finalisedInterviewProperties;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,6 +48,7 @@ public class ModelManager implements Model {
         this.intervieweeList = new IntervieweeList();
         this.attributeList = new AttributeList();
         this.questionList = new QuestionList();
+        this.metricList = new MetricList();
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
@@ -92,16 +94,6 @@ public class ModelManager implements Model {
     //=========== App state setters/getters ======================================================
 
     @Override
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    @Override
-    public Session getSession() {
-        return session;
-    }
-
-    @Override
     public void setAppPhase(AppPhase phase) {
         this.appPhase = phase;
     }
@@ -137,6 +129,11 @@ public class ModelManager implements Model {
         return FXCollections.unmodifiableObservableList(intervieweeList.getObservableList());
     }
 
+    @Override
+    public ObservableList<Metric> getMetricListView() {
+        return FXCollections.unmodifiableObservableList(metricList.getObservableList());
+    }
+
     //=========== Model component accessors ========================================================
 
     @Override
@@ -157,12 +154,23 @@ public class ModelManager implements Model {
         return questionList;
     }
 
-    /**
-     * Finalizes the questions and attributes so they do not change between interviews
-     */
     @Override
-    public void finalizeQuestionsAndAttributes() {
-        // TODO: add finalizing methods for Questions and Attributes
+    public MetricList getMetricList() {
+        return metricList;
+    }
+
+    /**
+     * Finalizes the questions and attributes so they do not change between interviews.
+     */
+
+    public void finaliseInterviewProperties() {
+        this.finalisedInterviewProperties = true;
+    }
+
+    /** Checks whether the interviewees, questions and attributes has been finalised */
+    @Override
+    public boolean isfinalisedInterviewProperties() {
+        return this.finalisedInterviewProperties;
     }
 
     @Override
