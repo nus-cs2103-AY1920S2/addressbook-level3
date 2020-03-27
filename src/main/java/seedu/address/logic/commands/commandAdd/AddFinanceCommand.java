@@ -14,7 +14,16 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Courseid;
+import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Studentid;
+import seedu.address.model.person.Teacherid;
 
 /**
  * Adds a finance to the address book.
@@ -79,8 +88,11 @@ public class AddFinanceCommand extends AddCommand {
 
   public static final String MESSAGE_SUCCESS = "New finance added: %1$s";
   public static final String MESSAGE_DUPLICATE_FINANCE = "This finance already exists in the address book";
+  public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
+  public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
+  public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such teacher that with ID";
 
-  private final Finance toAdd;
+  private Finance toAdd;
 
   /**
    * Creates an AddCommand to add the specified {@code Finance}
@@ -93,6 +105,81 @@ public class AddFinanceCommand extends AddCommand {
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
+
+    FinanceType financeType = toAdd.getFinanceType();
+    if (financeType.toString().equals("cs")) {
+      Courseid courseid = toAdd.getCourseID();
+      Studentid studentid = toAdd.getStudentID();
+      Amount amount = new Amount("999");
+      String courseName = "";
+      String studentName = "";
+      boolean foundCourse = false;
+      boolean foundStudent = false;
+
+      for (Course course : model.getFilteredCourseList()){
+        if (course.getId().toString().equals(courseid.toString())) {
+          courseName = course.getName().toString();
+          amount = course.getAmount();
+          foundCourse = true;
+          break;
+        }
+      }
+
+      for (Student student : model.getFilteredStudentList()){
+        if (student.getID().toString().equals(studentid.toString())) {
+          studentName = student.getName().toString();
+          foundStudent = true;
+          break;
+        }
+      }
+
+      if (!foundCourse) {
+        throw new CommandException(MESSAGE_INVALID_COURSE_ID);
+      } else if (!foundStudent) {
+        throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+      }
+      Name name = new Name(String.format("Student %s %s has paid for Course %s %s", studentName, studentid.toString()
+      , courseName, courseid.toString()));
+
+      toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
+          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getTeacherID(), toAdd.getTags());
+    } else if (financeType.toString().equals("ct")) {
+      Courseid courseid = toAdd.getCourseID();
+      Teacherid teacherid = toAdd.getTeacherID();
+      Amount amount = new Amount("999");
+      String courseName = "";
+      String teacherName = "";
+      boolean foundCourse = false;
+      boolean foundTeacher = false;
+
+      for (Course course : model.getFilteredCourseList()){
+        if (course.getId().toString().equals(courseid.toString())) {
+          courseName = course.getName().toString();
+          amount = course.getAmount();
+          foundCourse = true;
+          break;
+        }
+      }
+
+      for (Teacher teacher : model.getFilteredTeacherList()){
+        if (teacher.getID().toString().equals(teacherid.toString())) {
+          teacherName = teacher.getName().toString();
+          foundTeacher = true;
+          break;
+        }
+      }
+
+      if (!foundCourse) {
+        throw new CommandException(MESSAGE_INVALID_COURSE_ID);
+      } else if (!foundTeacher) {
+        throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
+      }
+      Name name = new Name(String.format("Teacher %s %s has been paid for teaching Course %s %s", teacherName, teacherid.toString()
+          , courseName, courseid.toString()));
+
+      toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
+          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getTeacherID(), toAdd.getTags());
+    }
 
     if (model.hasFinance(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);

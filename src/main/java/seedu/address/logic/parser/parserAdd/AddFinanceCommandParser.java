@@ -108,13 +108,12 @@ public class AddFinanceCommandParser extends AddCommandParser {
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
 
-        Courseid courseid = (Courseid) ParserUtil
+        Courseid courseid = ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
-        Studentid studentid = (Studentid) ParserUtil
+        Studentid studentid = ParserUtil
             .parseStudentid(argMultimap.getValue(PREFIX_STUDENTID).get());
-        Name name = new Name(
-            String.format("Student %s has paid for Course %s", studentid, courseid));
-        Amount amount = new Amount("99999");
+        Name name = new Name("None");
+        Amount amount = new Amount("999");
         Finance finance = new Finance(name, financeType, date, amount, courseid, studentid,
             emptyTeacherid, tagList);
         return new AddFinanceCommand(finance);
@@ -131,13 +130,12 @@ public class AddFinanceCommandParser extends AddCommandParser {
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
 
-        Courseid courseid = (Courseid) ParserUtil
+        Courseid courseid = ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
-        Teacherid teacherid = (Teacherid) ParserUtil
+        Teacherid teacherid = ParserUtil
             .parseTeacherid(argMultimap.getValue(PREFIX_TEACHERID).get());
-        Name name = new Name(
-            String.format("Teacher %s has been paid for Course %s", teacherid, courseid));
-        Amount amount = new Amount("99999");
+        Name name = new Name("None");
+        Amount amount = new Amount("999");
         Finance finance = new Finance(name, financeType, date, amount, courseid, emptyStudentid,
             teacherid, tagList);
         return new AddFinanceCommand(finance);
