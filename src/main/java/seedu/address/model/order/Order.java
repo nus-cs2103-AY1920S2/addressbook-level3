@@ -175,11 +175,6 @@ public class Order extends Parcel {
                 .append(getComment())
                 .append(" Item Type: ")
                 .append(getItemType());
-        if (this.isDelivered()) {
-            builder.append(" Delivery Status: ").append("Delivered");
-        } else {
-            builder.append(" Delivery Status: ").append("Not Delivered");
-        }
         if (this.isReturn()) {
             builder.append(" Parcel Status: ").append("Return Order");
         } else {

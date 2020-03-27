@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RETURNS;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
@@ -21,6 +23,7 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Adds a order to the order book.
@@ -39,47 +42,66 @@ public class DoneCommand extends Command {
 
     private final Index targetIndex;
     private final DoneCommand.DoneOrderDescriptor doneOrderDescriptor;
+    private final Flag flag;
 
     /**
      * @param targetIndex                of the order in the filtered order list to edit
+     * @param flag to identify which list this command is targeting
      * @param doneOrderDescriptor details to edit the order with
      */
-    public DoneCommand(Index targetIndex, DoneOrderDescriptor doneOrderDescriptor) {
+    public DoneCommand(Index targetIndex, Flag flag, DoneOrderDescriptor doneOrderDescriptor) {
         requireNonNull(targetIndex);
+        requireNonNull(flag);
         requireNonNull(doneOrderDescriptor);
 
         this.targetIndex = targetIndex;
+        this.flag = flag;
         this.doneOrderDescriptor = new DoneOrderDescriptor(doneOrderDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
+        List<Order> orderList = model.getFilteredOrderList();
+        List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= orderList.size() || targetIndex.getZeroBased() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
-
-        Order orderToBeDelivered = lastShownList.get(targetIndex.getZeroBased());
-        Order editedOrder = createEditedOrder(orderToBeDelivered, doneOrderDescriptor);
-
-        if (orderToBeDelivered.isDelivered() == false) {
-            model.setOrder(orderToBeDelivered, editedOrder);
-            model.deliverOrder(editedOrder);
-            model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+        if (flag.toString().trim().equals("-o")) {
+            Order orderToBeDelivered = orderList.get(targetIndex.getZeroBased());
+            Order editedOrder = createDeliveredOrder(orderToBeDelivered, doneOrderDescriptor);
+            if (!orderToBeDelivered.isDelivered()) {
+                model.setOrder(orderToBeDelivered, editedOrder);
+                model.deliverOrder(editedOrder);
+                model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+                return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+            } else {
+                model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
+                return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
+            }
+        } else if (flag.toString().trim().equals("-r")) {
+            ReturnOrder returnOrderToBeDelivered = returnOrderList.get(targetIndex.getZeroBased());
+            ReturnOrder editedReturnOrder = createDeliveredReturnOrder(returnOrderToBeDelivered, doneOrderDescriptor);
+            if (!returnOrderToBeDelivered.isDelivered()) {
+                model.setReturnOrder(returnOrderToBeDelivered, editedReturnOrder);
+                model.deliverReturnOrder(editedReturnOrder);
+                model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
+                return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
+            } else {
+                model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
+                return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
+            }
         } else {
-            model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
-            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
+            return new CommandResult(String.format(MESSAGE_USAGE));
         }
     }
 
     /**
-     * Creates and returns a {@code copyOrder} with the details of {@code orderToDeliver}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code deliveredOrder} with the details of {@code orderToDeliver}
+     * edited with {@code donePersonDescriptor}.
      */
-    private static Order createEditedOrder(Order orderToDeliver, DoneOrderDescriptor doneOrderDescriptor) {
+    private static Order createDeliveredOrder(Order orderToDeliver, DoneOrderDescriptor doneOrderDescriptor) {
         assert orderToDeliver != null;
 
         TransactionId updatedTid = doneOrderDescriptor.getTid().orElse(orderToDeliver.getTid());
@@ -94,10 +116,35 @@ public class DoneCommand extends Command {
         TypeOfItem updatedType = doneOrderDescriptor.getItemType().orElse(orderToDeliver.getItemType());
         boolean updatedDeliveryStatus = doneOrderDescriptor.getDeliveryStatus();
 
-        Order copyOrder = new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress,
+        Order deliveredOrder = new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress,
                 updateTimeStamp, updatedWarehouse, updatedCod, updatedComment, updatedType);
-        copyOrder.setDeliveryStatus(updatedDeliveryStatus);
-        return copyOrder;
+        deliveredOrder.setDeliveryStatus(updatedDeliveryStatus);
+        return deliveredOrder;
+    }
+
+    /**
+     * Creates and returns a {@code deliveredReturnOrder} with the details of {@code returnOrderToDeliver}
+     * edited with {@code donePersonDescriptor}.
+     */
+    private static ReturnOrder createDeliveredReturnOrder(ReturnOrder returnOrderToDeliver,
+                                                    DoneOrderDescriptor doneOrderDescriptor) {
+        assert returnOrderToDeliver != null;
+
+        TransactionId updatedTid = doneOrderDescriptor.getTid().orElse(returnOrderToDeliver.getTid());
+        Name updatedName = doneOrderDescriptor.getName().orElse(returnOrderToDeliver.getName());
+        Phone updatedPhone = doneOrderDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
+        Email updatedEmail = doneOrderDescriptor.getEmail().orElse(returnOrderToDeliver.getEmail());
+        Address updatedAddress = doneOrderDescriptor.getAddress().orElse(returnOrderToDeliver.getAddress());
+        TimeStamp updateTimeStamp = doneOrderDescriptor.getTimeStamp().orElse(returnOrderToDeliver.getTimestamp());
+        Warehouse updatedWarehouse = doneOrderDescriptor.getWarehouse().orElse(returnOrderToDeliver.getWarehouse());
+        Comment updatedComment = doneOrderDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
+        TypeOfItem updatedType = doneOrderDescriptor.getItemType().orElse(returnOrderToDeliver.getItemType());
+        boolean updatedDeliveryStatus = doneOrderDescriptor.getDeliveryStatus();
+
+        ReturnOrder deliveredReturnOrder = new ReturnOrder(updatedTid, updatedName, updatedPhone, updatedEmail,
+                updatedAddress, updateTimeStamp, updatedWarehouse, updatedComment, updatedType);
+        deliveredReturnOrder.setDeliveryStatus(updatedDeliveryStatus);
+        return deliveredReturnOrder;
     }
 
     @Override
@@ -151,6 +198,23 @@ public class DoneCommand extends Command {
             setTimeStamp(toCopy.getTimestamp());
             setWarehouse(toCopy.getWarehouse());
             setCash(toCopy.getCash());
+            setComment(toCopy.getComment());
+            setItemType(toCopy.getItemType());
+            setDeliveryStatus(toCopy.isDelivered());
+        }
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public DoneOrderDescriptor(ReturnOrder toCopy) {
+            setTid(toCopy.getTid());
+            setName(toCopy.getName());
+            setPhone(toCopy.getPhone());
+            setEmail(toCopy.getEmail());
+            setAddress(toCopy.getAddress());
+            setTimeStamp(toCopy.getTimestamp());
+            setWarehouse(toCopy.getWarehouse());
             setComment(toCopy.getComment());
             setItemType(toCopy.getItemType());
             setDeliveryStatus(toCopy.isDelivered());
@@ -284,7 +348,6 @@ public class DoneCommand extends Command {
                     && getAddress().equals(e.getAddress())
                     && getTimeStamp().equals(e.getTimeStamp())
                     && getWarehouse().equals(e.getWarehouse())
-                    && getCash().equals(e.getCash())
                     && getComment().equals(e.getComment())
                     && getItemType().equals(e.getItemType())
                     && (getDeliveryStatus() == (e.getDeliveryStatus()));

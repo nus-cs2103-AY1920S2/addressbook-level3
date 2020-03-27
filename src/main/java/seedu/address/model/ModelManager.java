@@ -209,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deliverReturnOrder(ReturnOrder target) {
+        returnOrderBook.deliverReturnOrder(target);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

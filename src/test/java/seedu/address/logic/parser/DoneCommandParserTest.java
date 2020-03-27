@@ -16,7 +16,7 @@ public class DoneCommandParserTest {
     private DoneCommandParser parser = new DoneCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_validArgs_returnsDoneCommand() {
         DoneCommand.DoneOrderDescriptor descriptor = new DoneCommand.DoneOrderDescriptor();
         assertParseSuccess(parser, "1", new DoneCommand(INDEX_FIRST_ORDER, descriptor));
         assertParseSuccess(parser, "2", new DoneCommand(INDEX_SECOND_ORDER, descriptor));

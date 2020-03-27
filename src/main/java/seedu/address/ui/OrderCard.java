@@ -40,8 +40,6 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label warehouse;
     @FXML
-    private Label email;
-    @FXML
     private Label cashOnDelivery;
     @FXML
     private Label comment;

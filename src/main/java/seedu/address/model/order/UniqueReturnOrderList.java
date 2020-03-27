@@ -102,6 +102,14 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     }
 
     /**
+     * Marks a return order in the list as done.
+     */
+    public void deliver(ReturnOrder toBeDelivered) {
+        requireNonNull(toBeDelivered);
+        toBeDelivered.setDeliveryStatus(true);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<ReturnOrder> asUnmodifiableObservableList() {

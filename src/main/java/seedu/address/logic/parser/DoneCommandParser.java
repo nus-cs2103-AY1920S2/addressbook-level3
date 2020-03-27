@@ -1,6 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DoneCommand;
@@ -17,14 +22,29 @@ public class DoneCommandParser implements Parser<DoneCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DoneCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            DoneCommand.DoneOrderDescriptor doneOrderDescriptor = new DoneCommand.DoneOrderDescriptor();
-            return new DoneCommand(index, doneOrderDescriptor);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE), pe);
+        String[] trimmedArgs = args.trim().split("\\s");
+        ArrayList<String> splitInputList = new ArrayList<>(Arrays.asList(trimmedArgs));
+        for (int i = 0; i < splitInputList.size(); i++) {
+            System.out.println(splitInputList.get(i));
+        }
+        DoneCommand.DoneOrderDescriptor doneOrderDescriptor = new DoneCommand.DoneOrderDescriptor();
+        if (splitInputList.size() > 2) {
+            // Unnecessary input
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+        if (splitInputList.contains("-r")) {
+            splitInputList.remove("-r");
+            int indexAsInt = Integer.parseInt(splitInputList.get(0));
+            Index index = Index.fromOneBased(indexAsInt);
+            return new DoneCommand(index, FLAG_RETURN_LIST, doneOrderDescriptor);
+        } else if (splitInputList.contains("-o")) {
+            splitInputList.remove("-o");
+            int indexAsInt = Integer.parseInt(splitInputList.get(0));
+            Index index = Index.fromOneBased(indexAsInt);
+            return new DoneCommand(index, FLAG_ORDER_LIST, doneOrderDescriptor);
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
     }
-
 }
+
