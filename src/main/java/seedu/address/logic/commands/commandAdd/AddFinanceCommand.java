@@ -172,7 +172,7 @@ public class AddFinanceCommand extends AddCommand {
       for (Course course : model.getFilteredCourseList()){
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
-          amount = course.getAmount();
+          amount = new Amount("-" + course.getAmount().toString());
           assignedTeacher = course.getAssignedTeacher().toString();
           foundCourse = true;
           break;
