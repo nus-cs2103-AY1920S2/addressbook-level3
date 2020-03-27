@@ -21,6 +21,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -79,6 +80,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
       address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
     }
+    AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
     /*
@@ -88,7 +90,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
     */
 
-    Teacher teacher = new Teacher(name, id, phone, email, salary, address, tagList);
+    Teacher teacher = new Teacher(name, id, phone, email, salary, address, assignedCourses, tagList);
 
     return new AddTeacherCommand(teacher);
   }

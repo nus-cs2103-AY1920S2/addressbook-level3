@@ -89,7 +89,7 @@ public class EditTeacherCommand extends Command {
     Address updatedAddress = editTeacherDescriptor.getAddress().orElse(teacherToEdit.getAddress());
     Set<Tag> updatedTags = editTeacherDescriptor.getTags().orElse(teacherToEdit.getTags());
 
-    return new Teacher(updatedName, updatedID, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
+    return new Teacher(updatedName, updatedID, updatedPhone, updatedEmail, updatedSalary, updatedAddress, teacherToEdit.getAssignedCourses(),
         updatedTags);
   }
 

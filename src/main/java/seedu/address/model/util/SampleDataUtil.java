@@ -53,10 +53,12 @@ public class SampleDataUtil {
         new Teacher(new Name("Bob Ross"), new ID("21"), new Phone("88283902"), new Email("bob.ross@gmail.com"),
             new Salary("9000"),
             new Address("Serangoon"),
+            new AssignedCourses("829,182"),
             getTagSet("Friendly", "LovesArt")),
         new Teacher(new Name("Martin Henz"), new ID("31"), new Phone("98765432"), new Email("henz@gmail.com"),
             new Salary("100"),
             new Address("311, Clementi Ave 2, #02-25"),
+            new AssignedCourses("829,182"),
             getTagSet("WishfulThinking", "Experienced")),
     };
   }

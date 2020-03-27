@@ -92,6 +92,10 @@ public class ModelManager implements Model {
       student.processAssignedCourses(filteredCourses);
     }
 
+    for (Teacher teacher : filteredTeachers) {
+      teacher.processAssignedCourses(filteredCourses);
+    }
+
   }
 
   public ModelManager() {

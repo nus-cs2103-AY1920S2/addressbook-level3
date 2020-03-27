@@ -85,9 +85,13 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
             Courseid courseid = ParserUtil.parseCourseid(courseidString);
             Teacherid teacherid = ParserUtil.parseTeacherid(teacheridString);
             foundCourse.assignTeacher(teacherid);
-            //TODO: Add courses to teacher
+            foundTeacher.addCourse(courseid);
+
             foundCourse.processAssignedTeacher(
                 (FilteredList<Teacher>) model.getFilteredTeacherList());
+            foundTeacher.processAssignedCourses(
+                (FilteredList<Course>) model.getFilteredCourseList());
+
             model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
             model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
 
