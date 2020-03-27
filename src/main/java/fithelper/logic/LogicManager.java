@@ -118,5 +118,10 @@ public class LogicManager implements Logic {
         return model.getCalendarDate();
     }
 
+    @Override
+    public String getCalendarMode() {
+        return model.getCalendarMode();
+    }
+
 }
 

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.commons.util.ModeUtil;
 import fithelper.model.calendar.CalendarSettings;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
@@ -37,7 +38,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredTodayFoodEntries;
     private final FilteredList<Entry> filteredTodaySportsEntries;
     private final VeventList vEventList;
-    private CalendarSettings calendarSettings = new CalendarSettings(LocalDateTime.now());
+    private CalendarSettings calendarSettings = new CalendarSettings(LocalDateTime.now(), "tb");
     private final UserProfile userProfile;
 
     /**
@@ -358,6 +359,16 @@ public class ModelManager implements Model {
 
     public LocalDateTime getCalendarDate() {
         return calendarSettings.getDate();
+    }
+
+    @Override
+    public void setCalendarMode(String mode) {
+        ModeUtil.checkMode(mode);
+        calendarSettings.setMode(mode);
+    }
+
+    public String getCalendarMode() {
+        return calendarSettings.getMode();
     }
 
     // Methods about user profile.

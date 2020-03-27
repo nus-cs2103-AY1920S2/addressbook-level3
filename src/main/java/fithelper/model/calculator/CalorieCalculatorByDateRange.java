@@ -1,5 +1,7 @@
 package fithelper.model.calculator;
 
+import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ public class CalorieCalculatorByDateRange {
 
     public CalorieCalculatorByDateRange(ObservableList< Entry > foodList, ObservableList<Entry> sportsList,
                                         LocalDate startDate, LocalDate endDate) {
+        requireAllNonNull(foodList, sportsList);
         this.foodList = foodList;
         this.sportsList = sportsList;
         this.startDate = startDate;

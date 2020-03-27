@@ -11,7 +11,7 @@
     <children>
         <StackPane prefWidth="200.0">
             <children>
-                <Label fx:id="upcomingTitle" StackPane.alignment="TOP_LEFT" textFill="DARKORANGE">
+                <Label fx:id="upcomingTitle" StackPane.alignment="TOP_LEFT" textFill="#789cce">
                     <StackPane.margin>
                         <Insets top="0.0" left="3.0"/>
                     </StackPane.margin>
