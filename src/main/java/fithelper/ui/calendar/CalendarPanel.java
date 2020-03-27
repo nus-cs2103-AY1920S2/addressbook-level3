@@ -23,6 +23,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     private ObservableList<Entry> foodList;
     private ObservableList<Entry> sportList;
     private final CalendarPage calendarPage;
+    private DaysCard daysPage;
     private MonthView monthView;
     private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
@@ -37,6 +38,9 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     @FXML
     private StackPane upcomingListPlaceholder;
 
+    @FXML
+    private AnchorPane daysPagePlaceholder;
+
     /**
      * Creates a calendar page displaying two components from {@code }.
      */
@@ -47,7 +51,8 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         this.sportList = sportList;
         logger.info("Initializing Calendar Page");
         calendarPage = new CalendarPage(events);
-        setDate(LocalDateTime.now());
+        daysPage = new DaysCard(foodList, sportList, LocalDateTime.now());
+        set(LocalDateTime.now(), "tb");
     }
 
     public void updateScheduler() {
@@ -55,11 +60,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     }
 
     // set date reference based on parameter date
-    public void setDate(LocalDateTime date) {
-        calendarPage.setDate(date);
-        calendarPage.updateScheduler();
-        calendarPagePlaceholder.getChildren().clear();
-        calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
+    public void set(LocalDateTime date, String mode) {
         getGenerator(date);
         monthView = new MonthView(date, stats);
         upcomingList = new UpcomingList(foodList, sportList, date);
@@ -67,6 +68,18 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
+        if ("ls".equals(mode)) {
+            calendarPagePlaceholder.getChildren().clear();
+            daysPagePlaceholder.getChildren().clear();
+            daysPage = new DaysCard(foodList, sportList, date);
+            daysPagePlaceholder.getChildren().add(daysPage.getRoot());
+        } else {
+            daysPagePlaceholder.getChildren().clear();
+            calendarPage.setDate(date);
+            calendarPage.updateScheduler();
+            calendarPagePlaceholder.getChildren().clear();
+            calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
+        }
     }
 
     public void getGenerator(LocalDateTime date) {

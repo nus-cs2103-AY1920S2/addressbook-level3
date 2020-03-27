@@ -62,4 +62,6 @@ public interface Logic {
     ObservableList<Entry> getFilteredTodaySportsEntryList(String dateStr);
 
     LocalDateTime getCalendarDate();
+
+    String getCalendarMode();
 }

@@ -152,6 +152,9 @@ public interface Model {
     void setCalendarDate(String date);
     LocalDateTime getCalendarDate();
 
+    void setCalendarMode(String mode);
+    String getCalendarMode();
+
 
     // Methods about user profile.
 

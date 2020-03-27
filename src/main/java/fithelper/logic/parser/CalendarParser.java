@@ -1,6 +1,7 @@
 package fithelper.logic.parser;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_MODE;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,9 @@ public class CalendarParser {
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             calendarCommand.setDate(argMultimap.getValue(PREFIX_DATE).get());
         }
+        if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
+            calendarCommand.setMode(argMultimap.getValue(PREFIX_MODE).get());
+        }
         return calendarCommand;
     }
 
@@ -30,11 +34,18 @@ public class CalendarParser {
     public CalendarCommand parse(String args) {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer
-                .tokenize(args, PREFIX_DATE);
-        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                .tokenize(args, PREFIX_DATE, PREFIX_MODE);
+        if (argMultimap.getValue(PREFIX_DATE).isPresent() && argMultimap.getValue(PREFIX_MODE).isPresent()) {
+            return calendarCommand(argMultimap);
+        } else if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            argMultimap.put(PREFIX_MODE, "tb");
+            return calendarCommand(argMultimap);
+        } else if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
+            argMultimap.put(PREFIX_DATE, LocalDateTime.now().toString());
             return calendarCommand(argMultimap);
         } else {
             argMultimap.put(PREFIX_DATE, LocalDateTime.now().toString());
+            argMultimap.put(PREFIX_MODE, "tb");
             return calendarCommand(argMultimap);
         }
     }

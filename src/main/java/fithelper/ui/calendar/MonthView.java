@@ -54,7 +54,7 @@ public class MonthView extends UiPart<AnchorPane> {
                 ap.setPrefSize(20, 20);
                 ap.setStyle("-fx-border-color:white;");
                 calendar.add(ap, j, i);
-                dayNames[j].setFill(Color.DARKORANGE);
+                dayNames[j].setFill(Color.web("#789cce"));
                 if (i == 0) {
                     ap.setTopAnchor(dayNames[j], 8.0);
                     ap.setLeftAnchor(dayNames[j], 8.0);
@@ -69,7 +69,7 @@ public class MonthView extends UiPart<AnchorPane> {
             AnchorPane.setTopAnchor(monthYearTitle, 0.0);
             AnchorPane.setLeftAnchor(monthYearTitle, 10.0);
             AnchorPane.setTopAnchor(calendar, 20.0);
-            monthYearTitle.setTextFill(Color.web("#ff7f50"));
+            monthYearTitle.setTextFill(Color.web("#789cce"));
             view = new AnchorPane(monthYearTitle, calendar);
         }
     }
@@ -97,10 +97,10 @@ public class MonthView extends UiPart<AnchorPane> {
                 } else if (calorieStats.getDailyCalorie().get(calendarDate) < 0) {
                     txt.setFill(Color.GREEN);
                 } else {
-                    txt.setFill(Color.DARKORANGE);
+                    txt.setFill(Color.web("#789cce"));
                 }
             } else {
-                txt.setFill(Color.DARKORANGE);
+                txt.setFill(Color.web("#789cce"));
             }
             ap.setDate(calendarDate);
             AnchorPane.setTopAnchor(txt, 8.0);

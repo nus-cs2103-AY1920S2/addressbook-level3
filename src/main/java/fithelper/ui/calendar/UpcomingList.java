@@ -18,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
  * A section which displays upcoming tasks.
  */
 public class UpcomingList extends UiPart<AnchorPane> {
-    private static final String FXML = "upcomingList.fxml";
+    private static final String FXML = "UpcomingList.fxml";
     private ObservableList<Entry> combined;
     private LocalDateTime time;
 
@@ -73,7 +73,7 @@ public class UpcomingList extends UiPart<AnchorPane> {
      */
     public void addFilteredEntries(ObservableList<Entry> list) {
         for (Entry entry : list) {
-            if (time.isBefore(entry.getDateTime())) {
+            if (time.isBefore(entry.getDateTime()) && time.getMonth().equals(entry.getDateTime().getMonth())) {
                 combined.add(entry);
             }
         }

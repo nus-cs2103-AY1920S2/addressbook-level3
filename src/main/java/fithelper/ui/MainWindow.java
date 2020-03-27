@@ -249,7 +249,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showCalendarPanel() {
         pagePane.getChildren().clear();
         calendarPanel.updateScheduler();
-        calendarPanel.setDate(logic.getCalendarDate());
+        calendarPanel.set(logic.getCalendarDate(), logic.getCalendarMode());
         pagePane.getChildren().add(calendarPanel.getRoot());
         currentPage.setText("Calendar");
     }

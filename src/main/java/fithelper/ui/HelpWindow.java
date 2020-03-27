@@ -36,7 +36,9 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "check x/TYPE keywords\n"
             + "  - show records of calorie intake of some food or calorie consumption per hour of some sports\n"
             + "table x/TYPE YYYY-MM-DD\n"
-            + "  - show calorie table of a specified date\n";
+            + "  - show calorie table of a specified date\n"
+            + "calendar [OPT]d/datestring [OPT]m/'ls' or tb\n"
+            + "  - show calendar of a specified time period, mode can be switched to list or timetable\n";
     //+ "update attr/ATTRIBUTE v/VALUE\n"
     //+ "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n"
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
