@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Represents a Recipe's ingredients in the recipe book.
  */
 public class IngredientList {
-    private final ArrayList<Ingredient> ingredientData;
+    public final ArrayList<Ingredient> ingredientData;
 
     /**
      * Constructs an ingredient list from {@code ingredientList}. Requires that the
