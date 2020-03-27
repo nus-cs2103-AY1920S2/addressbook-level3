@@ -7,7 +7,6 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.image.Image?>
 
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.geometry.Insets?>
 <fx:root resizable="false" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
@@ -25,7 +24,7 @@
                            <Font size="17.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="productList" minWidth="150.0" styleClass="pane-with-border">
+                     <VBox fx:id="productList" minWidth="150.0">
                         <padding>
                            <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
