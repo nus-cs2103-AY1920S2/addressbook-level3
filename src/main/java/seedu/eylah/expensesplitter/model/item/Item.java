@@ -7,7 +7,6 @@ import java.util.Objects;
 import seedu.eylah.expensesplitter.model.person.Amount;
 
 
-
 /**
  * Represents an Item in the Expense Splitter of EYLAH.
  * Guarantees: details are present and not null.

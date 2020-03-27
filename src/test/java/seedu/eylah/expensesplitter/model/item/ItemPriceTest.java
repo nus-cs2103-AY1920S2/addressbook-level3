@@ -39,7 +39,7 @@ public class ItemPriceTest {
         // valid ItemPrice
         assertTrue(ItemPrice.isValidPrice(BigDecimal.valueOf(9))); // exactly 1 number
         assertTrue(ItemPrice.isValidPrice(BigDecimal.valueOf(9.84)));
-        assertTrue(ItemPrice.isValidPrice(BigDecimal.valueOf(9999999.12))); // long phone numbers
+        assertTrue(ItemPrice.isValidPrice(BigDecimal.valueOf(9999999.12))); // long item price
     }
 
 
