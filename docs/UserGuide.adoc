@@ -26,6 +26,38 @@ while still enjoying the benefits of a Graphical User Interface (GUI).
 Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
 Have a delightful journey using Delino!
 
+=== How to navigate this user guide
+Throughout this user guide, you might encounter additional symbols. These symbols are used to
+highlight important information. +
+This user guide uses the following symbols:
+
+[NOTE]
+====
+This block contains additional *notes*. +
+It contains more information regarding complex content that you should take note of.
+====
+
+[TIP]
+====
+This block contains additional *tips*.
+====
+
+[WARNING]
+====
+This block contains *warning* information.
+====
+
+[IMPORTANT]
+====
+This block contains *important* inforamtion that you should be mindful of.
+====
+
+You will also encounter the use of `text markup` to indicate keywords such as
+command arguments to Delino. (e.g. `exit`)
+
+Finally, you will encounter links to external webpages for additional information.
+These links will link:[look like this].
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -570,7 +602,8 @@ e.g. `nearby` `north`
 
 
 [[area_table]]
-*Area Information of Singapore*
+
+=== Area Information of Singapore
 
 <<nearby, Click here>> to navigate back to the Nearby Command!
 
