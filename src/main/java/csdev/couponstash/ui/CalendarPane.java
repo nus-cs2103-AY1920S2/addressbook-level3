@@ -51,14 +51,13 @@ public class CalendarPane extends UiPart<Region> {
 
     /**
      * Creates a new CalendarPane.
-     *
      */
-    public CalendarPane(ObservableList<Coupon> coupons, Logic logic) {
+    public CalendarPane(Logic logic) {
         super(FXML);
         calendarPaneHeader.setText(LocalDate.now().format(DATE_FORMATTER));
         currentYearMonth = YearMonth.now();
         dateCells = new ArrayList<>();
-        this.coupons = coupons;
+        this.coupons = logic.getFilteredCouponList();
         this.logic = logic;
         coupons.addListener((ListChangeListener<? super Coupon>) change -> fillUpCalendar());
         initializeUi();
@@ -72,7 +71,7 @@ public class CalendarPane extends UiPart<Region> {
         for (int i = 0; i < MAX_NUMBER_OF_WEEKS_TO_SHOW_PER_MONTH; i++) {
             for (int j = 0; j < NUMBER_OF_DAYS_IN_A_WEEK; j++) {
                 DateCell dateCell = new DateCell(logic);
-                dateCells.add(dateCell);
+                addDateCellToArray(dateCell);
                 StackPane calendarDateStackPane = dateCell.getCalendarDateStackPane();
                 calendarGrid.add(calendarDateStackPane, j, i);
             }
@@ -80,25 +79,21 @@ public class CalendarPane extends UiPart<Region> {
     }
 
     /**
+     * Adds the specified {@DateCell} to the ArrayList of {@DateCells}.
+     */
+    private void addDateCellToArray(DateCell dateCell) {
+        dateCells.add(dateCell);
+    }
+
+    /**
      * Fills up the calendar with current month and year.
      */
     private void fillUpCalendar() {
         updateCalendarTitle();
-        LocalDate date = getDateOfFirstMonday();
-        String lastDayOfTheMonth = (currentYearMonth.atDay(currentYearMonth.lengthOfMonth()))
-                .getDayOfWeek().toString();
-        int numberOfDaysOverflow = getDayOfWeekInInt(lastDayOfTheMonth);
 
-        boolean visible = true;
+        LocalDate date = getDateOfFirstMonday();
         for (DateCell dateCell : dateCells) {
-            addAllCouponsForDateInDateCell(dateCell, date);
-            if (!dateIsInCurrentMonth(date) && dateIsInNextMonth(date)) {
-                numberOfDaysOverflow++;
-                if (numberOfDaysOverflow >= NUMBER_OF_DAYS_IN_A_WEEK) {
-                    visible = false;
-                }
-            }
-            setDateCell(dateCell, date, visible);
+            setDateCell(dateCell, date); //sets DateCell's date, text, coupons and circle
             dateCell.addChildren();
             date = date.plusDays(1);
         }
@@ -129,34 +124,53 @@ public class CalendarPane extends UiPart<Region> {
      * Sets the display date of the specified {@code DateCell} to the specified {@code LocalDate}.
      *
      * @param dateCell The specified {@code DateCell}.
-     * @param date The specified {@code LocalDate}.
-     * @param visible If specified {@code LocalDate} is visible in the current month.
+     * @param date     The specified {@code LocalDate}.
      */
-    private void setDateCell(DateCell dateCell, LocalDate date, Boolean visible) {
+    private void setDateCell(DateCell dateCell, LocalDate date) {
         StackPane dateStackPane = dateCell.getCalendarDateStackPane();
         dateStackPane.getChildren().clear();
-        setDateCellText(dateCell, date, visible);
-        setDateCellCircle(dateCell, date);
-        setDateCellDate(dateCell, date);
+
+        setDateCellDate(dateCell, date); //set DateCell's date
+        addExpiringCoupons(dateCell); //add coupons expiring on the date
+        setDateCellText(dateCell, date);
+        setDateCellCircle(dateCell, date); //set DateCell's circle's color
     }
 
     /**
      * Sets the {@LocalDate} of the {@DateCell}.
+     *
      * @param dateCell The specified {@DateCell}.
-     * @param date The specified {@LocalDate}
+     * @param date     The specified {@LocalDate}
      */
     private void setDateCellDate(DateCell dateCell, LocalDate date) {
         dateCell.setDate(date);
     }
 
     /**
+     * Adds all coupons expiring on the specified {@code LocalDate} to the list in the specified {@code DateCell}.
+     *
+     * @param dateCell The specified {@DateCell}.
+     */
+    private void addExpiringCoupons(DateCell dateCell) {
+        dateCell.clearCoupons();
+        LocalDate date = dateCell.getDate();
+        for (Coupon coupon : coupons) {
+            LocalDate couponExpiryDate = coupon.getExpiryDate().getDate();
+            if (date.isEqual(couponExpiryDate)) {
+                dateCell.addCoupon(coupon);
+            }
+        }
+    }
+
+    /**
      * Sets the formatted text of the specified {@DateCell}.
      *
      * @param dateCell The specified {@DateCell}.
-     * @param date The specified {@LocalDate}.
-     * @param visible Boolean of whether the specified {@LocalDate} is visible in the current month.
+     * @param date     The specified {@LocalDate}.
      */
-    private void setDateCellText(DateCell dateCell, LocalDate date, Boolean visible) {
+    private void setDateCellText(DateCell dateCell, LocalDate date) {
+        boolean visible = isVisible(date);
+
         Text dateText = new Text(String.format("%02d", date.getDayOfMonth()));
         if (visible) {
             if (dateIsInCurrentMonth(date)) {
@@ -171,10 +185,37 @@ public class CalendarPane extends UiPart<Region> {
     }
 
     /**
+     * Returns true if the date is visible on the current Calendar.
+     *
+     * @param date Current date.
+     * @return Boolean of whether the date is visible on the current Calendar.
+     */
+    private boolean isVisible(LocalDate date) {
+        int numDaysToOverflow = getNumberOfDaysToOverflow();
+        int dateOfMonth = date.getDayOfMonth();
+        if (dateIsInNextMonth(date) && dateOfMonth > numDaysToOverflow) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Returns the number of days in the next month allowed on the current Calendar.
+     *
+     * @return {@int} of the number of days in the next month allowed on the current Calender.
+     */
+    private int getNumberOfDaysToOverflow() {
+        String lastDayOfTheMonth = (currentYearMonth.atDay(currentYearMonth.lengthOfMonth()))
+                .getDayOfWeek().toString();
+        return NUMBER_OF_DAYS_IN_A_WEEK - getDayOfWeekInInt(lastDayOfTheMonth) - 1;
+    }
+
+    /**
      * Sets the formatted circle of the specified {@DateCell}.
      *
      * @param dateCell The specified {@DateCell}.
-     * @param date The specified {@LocalDate}.
+     * @param date     The specified {@LocalDate}.
      */
     private void setDateCellCircle(DateCell dateCell, LocalDate date) {
         Circle circle = new Circle(15);
@@ -201,26 +242,12 @@ public class CalendarPane extends UiPart<Region> {
 
     /**
      * Returns a boolean if the specified {@LocalDate} is in the next month.
+     *
      * @param date The specified {@LocalDate}.
      * @return Boolean if the specified {@LocalDate} is in the next month.
      */
     private boolean dateIsInNextMonth(LocalDate date) {
         return date.minusMonths(1).getMonthValue() == currentYearMonth.getMonthValue();
-    }
-
-    /**
-     * Adds all coupons expiring on the specified {@code LocalDate} to the list in the specified {@code DateCell}.
-     *
-     * @param dateCell The specified {@DateCell}.
-     * @param date The specified {@LocalDate}.
-     */
-    private void addAllCouponsForDateInDateCell(DateCell dateCell, LocalDate date) {
-        dateCell.clearCoupons();
-        for (Coupon coupon : coupons) {
-            if (date.equals(coupon.getExpiryDate().getDate())) {
-                dateCell.addCoupon(coupon);
-            }
-        }
     }
 
     /**
@@ -254,7 +281,6 @@ public class CalendarPane extends UiPart<Region> {
             throw new IllegalValueException(MIN_YEAR_MESSAGE);
         }
     }
-
 
     /**
      * Closes all displayed coupon windows.
