@@ -33,10 +33,7 @@ public class TodayPage extends UiPart<AnchorPane> {
     private double sportCalorie;
     private double difCalorie;
 
-    private int foodDone;
-    private int foodUndone;
     private int sportDone;
-    private int sportUndone;
 
     private double percentDone;
 
@@ -210,11 +207,11 @@ public class TodayPage extends UiPart<AnchorPane> {
     private void updateFoodCounter(ObservableList<Entry> foodList) {
         PerformanceCalculator foodPerformanceCalculator = new PerformanceCalculator(foodList);
 
-        this.foodUndone = foodPerformanceCalculator.getUndoneCounter();
-        this.foodDone = foodPerformanceCalculator.getDoneCounter();
+        int foodUndone = foodPerformanceCalculator.getUndoneCounter();
+        int foodDone = foodPerformanceCalculator.getDoneCounter();
 
-        undoneFoodCounter.setText(this.foodUndone + " undone");
-        doneFoodCounter.setText(this.foodDone + " completed");
+        undoneFoodCounter.setText(foodUndone + " undone");
+        doneFoodCounter.setText(foodDone + " completed");
     }
 
     /**
@@ -224,11 +221,11 @@ public class TodayPage extends UiPart<AnchorPane> {
     private void updateSportCounter(ObservableList<Entry> sportList) {
         PerformanceCalculator sportPerformanceCalculator = new PerformanceCalculator(sportList);
 
-        this.sportUndone = sportPerformanceCalculator.getUndoneCounter();
+        int sportUndone = sportPerformanceCalculator.getUndoneCounter();
         this.sportDone = sportPerformanceCalculator.getDoneCounter();
 
-        undoneSportCounter.setText(this.sportUndone + " sport plans undone");
-        doneSportCounter.setText(this.sportDone + " sport plans completed");
+        undoneSportCounter.setText(sportUndone + " sport plans undone");
+        doneSportCounter.setText(sportDone + " sport plans completed");
     }
 
 

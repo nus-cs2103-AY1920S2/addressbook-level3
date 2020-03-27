@@ -91,7 +91,7 @@ public class CommandResult {
 
     @Override
     public String toString() {
-        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
+        return "FeedBack: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
     }
 
     /**
