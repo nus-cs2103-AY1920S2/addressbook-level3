@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsWindow statisticsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -80,6 +81,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statisticsWindow = new StatisticsWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -175,6 +177,18 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the statistics window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStatistics() {
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show();
+        } else {
+            statisticsWindow.focus();
         }
     }
 
