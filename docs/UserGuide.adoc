@@ -180,6 +180,22 @@ so that you can navigate the application easily.
 * `help` +
 Returns a list of all commands available.
 
+[[show]]
+=== Show statistics : `show`
+
+==== Description
+* You can use the show command to open a new window to display statistics of the orders assigned to the courier.
+It shows the earnings the courier has made today, the number of orders delivered and the total number of orders
+he or she has to deliver today. The statistics include a PieChart at the bottom, which shows the percentage of
+delivered orders compared to the undelivered ones.
+
+==== Format:
+* `show`
+
+==== Examples:
+* `show` +
+Opens a new window that contains the statistics.
+
 [[insert]]
 === Inserting an order: `insert`
 
@@ -474,6 +490,7 @@ e.g. `edit` `2` `n/Xuan En`
 * <<search, *Search*>> : `search` `ORDER_ATTRIBUTE_PREFIX/KEYWORD` +
 e.g. `search` `tid/ac1e345x7s`
 * <<help, *Help*>> : `help`
+* <<show, *Show*>> : `show`
 * <<import, *Import*>> : `import` `FILE_NAME` +
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +

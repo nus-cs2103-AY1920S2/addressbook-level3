@@ -33,7 +33,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
 
         if (flag == null) {
-            return new CommandResult(MESSAGE_ENQUIRY, false, false, true);
+            return new CommandResult(MESSAGE_ENQUIRY, false, false, true, false);
         }
 
         model.setOrderBook(new OrderBook());

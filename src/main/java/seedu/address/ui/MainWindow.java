@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -21,6 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ *
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private OrderListPanel orderListPanel;
     private ReturnOrderListPanel returnOrderListPanel;
     private ResultDisplay resultDisplay;
+    private ShowWindow showWindow;
     private HelpWindow helpWindow;
     private ClearWindow clearWindow;
 
@@ -58,33 +59,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private Label allOrdersLabel;
-
-    @FXML
-    private Label todayOrdersLabel;
-
-    @FXML
-    private Label completedLabel;
-
-    @FXML
-    private Label urgentLabel;
-
-    @FXML
-    private Label warehouseLabel;
-
-    @FXML
-    private Label returnLabel;
-
-    @FXML
-    private Label earningLabel;
-
-    @FXML
-    private Label importLabel;
-
-    @FXML
-    private Label settingLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -149,14 +123,11 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
-        //returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
-        //returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
+        returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
+        returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getReturnOrderBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -195,6 +166,19 @@ public class MainWindow extends UiPart<Stage> {
             clearWindow.show();
         } else {
             clearWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the show window or focus on it if it the window is already opened.
+     */
+    @FXML
+    public void handleShowCommand() {
+        showWindow = new ShowWindow(logic);
+        if (!showWindow.isShowing()) {
+            showWindow.show();
+        } else {
+            showWindow.focus();
         }
     }
 
@@ -237,6 +221,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isClearList()) {
                 handleClearWarning();
                 clearWindow.setComponent(resultDisplay);
+            }
+
+            if (commandResult.isDisplayEarnings()) {
+                handleShowCommand();
             }
 
             if (commandResult.isExit()) {
