@@ -18,7 +18,7 @@ end box
 activate MainWindow
 
 create CalendarResultDisplayPane
-MainWindow -> CalendarResultDisplayPane: new CalendarResultDisplayPane(logic)
+MainWindow -> CalendarResultDisplayPane: CalendarResultDisplayPane()
 activate CalendarResultDisplayPane
 
 CalendarResultDisplayPane --> MainWindow
@@ -28,7 +28,7 @@ MainWindow -> CalendarResultDisplayPane: fillInnerParts()
 activate CalendarResultDisplayPane
 
 create CalendarPane
-CalendarResultDisplayPane -> CalendarPane: new CalendarPane(logic)
+CalendarResultDisplayPane -> CalendarPane: CalendarPane()
 activate CalendarPane
 
 deactivate CalendarResultDisplayPane
