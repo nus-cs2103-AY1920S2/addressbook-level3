@@ -154,12 +154,22 @@
 }
 
 .list-cell:filled:selected #cardPane {
-	-fx-border-color: white;
+	/* -fx-border-color: white; */
 	-fx-border-width: 1;
 }
 
-.list-cell .label {
+.list-cell {
 	-fx-text-fill: #453fe9;
+}
+
+.checkbox {
+	-fx-background-color: #f7f2f0;
+}
+
+/* ====================== PersonListCard.fxml styling =========================== */
+.tasklist-card {
+	-fx-background-color: white;
+	-fx-background-radius: 15px;
 }
 
 .cell_big_label {
@@ -180,6 +190,8 @@
 
 .pane-with-border {
 	-fx-background-color: #f7f2f0;
+	-fx-border-radius: 25;
+	-fx-background-radius: 25;
 }
 
 .status-bar {
@@ -362,12 +374,6 @@
 	-fx-background-color: #f8713d;
 	-fx-border-width: 0;
 	-fx-padding: 1px;
-}
-
-#cardPane {
-	-fx-background-color: white;
-	-fx-border-radius: 30px;
-	-fx-border-width: 0;
 }
 
 #commandTypeLabel {

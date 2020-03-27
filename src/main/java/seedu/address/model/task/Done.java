@@ -40,6 +40,10 @@ public class Done {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public Boolean getIsDone() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         return isDone ? DONE : NOT_DONE;
