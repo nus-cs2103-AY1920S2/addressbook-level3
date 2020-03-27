@@ -44,7 +44,7 @@
                             </padding>
                             <CheckBox fx:id="done" styleClass="checkbox"/>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT">
+                        <VBox alignment="CENTER_LEFT" maxWidth="300">
                             <padding>
                                 <Insets left="15" right="5" />
                             </padding>
