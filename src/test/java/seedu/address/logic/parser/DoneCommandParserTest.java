@@ -24,15 +24,24 @@ public class DoneCommandParserTest {
         assertParseSuccess(parser, "2 -o", new DoneCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST, descriptor));
         assertParseSuccess(parser, "3 -o", new DoneCommand(INDEX_THIRD_ORDER, FLAG_ORDER_LIST, descriptor));
 
+        assertParseSuccess(parser, "-o 1", new DoneCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST, descriptor));
+        assertParseSuccess(parser, "-o 2", new DoneCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST, descriptor));
+        assertParseSuccess(parser, "-o 3", new DoneCommand(INDEX_THIRD_ORDER, FLAG_ORDER_LIST, descriptor));
+
         assertParseSuccess(parser, "1 -r", new DoneCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST, descriptor));
         assertParseSuccess(parser, "2 -r", new DoneCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST, descriptor));
         assertParseSuccess(parser, "3 -r", new DoneCommand(INDEX_THIRD_ORDER, FLAG_RETURN_LIST, descriptor));
 
+        assertParseSuccess(parser, "-r 1", new DoneCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST, descriptor));
+        assertParseSuccess(parser, "-r 2", new DoneCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST, descriptor));
+        assertParseSuccess(parser, "-r 3", new DoneCommand(INDEX_THIRD_ORDER, FLAG_RETURN_LIST, descriptor));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "@", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DoneCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "@", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DoneCommand.MESSAGE_USAGE));
     }
 }

@@ -153,6 +153,15 @@ public class ReturnOrderBuilder {
         return this;
     }
 
+    /**
+     * Builds a delivered return order based on attributes given.
+     * @return A delivered {@Code ReturnOrder} with the given attributes
+     */
+    public ReturnOrder buildDelivered() {
+        ReturnOrder toBuild = new ReturnOrder(tid, name, phone, email, address, timeStamp, warehouse, comment, itemType);
+        toBuild.setDeliveryStatus(true);
+        return toBuild;
+    }
 
 
     /**

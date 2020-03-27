@@ -25,6 +25,8 @@ import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
+import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
 import seedu.address.testutil.DoneOrderDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
@@ -203,6 +205,20 @@ public class CommandTestUtil {
         model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredOrderList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the return order at the given {@code targetIndex} in the
+     * {@code model}'s return order book.
+     */
+    public static void showReturnOrderAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredReturnOrderList().size());
+
+        ReturnOrder returnOrder = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
+        final String[] splitName = returnOrder.getName().fullName.split("\\s+");
+        model.updateFilteredReturnOrderList(new ReturnOrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredReturnOrderList().size());
     }
 
 }

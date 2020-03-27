@@ -67,6 +67,8 @@ public class DoneCommand extends Command {
 
         if (targetIndex.getZeroBased() >= orderList.size() || targetIndex.getZeroBased() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        } else if (targetIndex.getZeroBased() >= returnOrderList.size() || targetIndex.getZeroBased() < 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
         }
         if (flag.toString().trim().equals("-o")) {
             Order orderToBeDelivered = orderList.get(targetIndex.getZeroBased());

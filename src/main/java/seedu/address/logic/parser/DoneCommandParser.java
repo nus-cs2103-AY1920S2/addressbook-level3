@@ -24,9 +24,6 @@ public class DoneCommandParser implements Parser<DoneCommand> {
     public DoneCommand parse(String args) throws ParseException {
         String[] trimmedArgs = args.trim().split("\\s");
         ArrayList<String> splitInputList = new ArrayList<>(Arrays.asList(trimmedArgs));
-        for (int i = 0; i < splitInputList.size(); i++) {
-            System.out.println(splitInputList.get(i));
-        }
         DoneCommand.DoneOrderDescriptor doneOrderDescriptor = new DoneCommand.DoneOrderDescriptor();
         if (splitInputList.size() > 2) {
             // Unnecessary input
