@@ -64,5 +64,4 @@ deactivate ModelManager
 UsedCommand --> LogicManager : commandResult
 deactivate UsedCommand
 
-
 @enduml
