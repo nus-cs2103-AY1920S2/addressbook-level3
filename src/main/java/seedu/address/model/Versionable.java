@@ -3,5 +3,5 @@ package seedu.address.model;
 public interface Versionable {
     public void commit();
 
-    public void undo();
+    public void undo() throws StateNotFoundException;
 }

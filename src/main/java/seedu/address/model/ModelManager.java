@@ -178,7 +178,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undo() {
+    public void undo() throws StateNotFoundException {
         addressBook.undo();
         inventory.undo();
     }

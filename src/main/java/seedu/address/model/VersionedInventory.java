@@ -99,9 +99,9 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
     }
 
     @Override
-    public void undo() {
+    public void undo() throws StateNotFoundException {
         if (statePointer == 0) {
-            throw new IllegalStateException("Cannot undo with no previous commits.");
+            throw new StateNotFoundException();
         }
 
         statePointer--;
