@@ -212,7 +212,7 @@ public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
               .collect(Collectors.toList()));
 }
 ----
-. It appears that a `JsonAdaptedPerson` is created for each `Person` and then added to the
+. It appears that a `JsonAdaptedPerson` is created for each `person` and then added to the
 `JsonSerializableAddressBook`.
 . We can continue to step through until we return to `MainWindow#executeCommand()`.
 . Stepping into ``resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
@@ -253,6 +253,6 @@ handled?
 .. Allow `delete` to remove more than one index at a time
 .. Save the address book in the CSV format instead
 .. Add a new command
-.. Add a new field to `Person`
+.. Add a new field to `person`
 .. Add a new entity to the address book
 ****
