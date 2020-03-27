@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
  */
 public class DayCard extends UiPart<AnchorPane> {
     private static final String FXML = "DayCard.fxml";
-    private LocalDateTime time;
     private ObservableList<Entry> entries;
     private CalorieCalculator stats;
 
@@ -36,7 +35,7 @@ public class DayCard extends UiPart<AnchorPane> {
 
     public DayCard(ObservableList<Entry> entriesToSet, LocalDateTime dateToSet) {
         super(FXML);
-        time = dateToSet;
+        LocalDateTime time = dateToSet;
         dayTitle.setText(time.toLocalDate().toString());
         entries = FXCollections.observableArrayList();
         entries = entriesToSet;

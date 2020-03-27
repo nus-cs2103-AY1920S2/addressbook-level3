@@ -68,7 +68,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
-        if (mode.equals("ls")) {
+        if ("ls".equals(mode)) {
             calendarPagePlaceholder.getChildren().clear();
             daysPagePlaceholder.getChildren().clear();
             daysPage = new DaysCard(foodList, sportList, date);

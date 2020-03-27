@@ -25,7 +25,7 @@ public class EntryCard extends UiPart<AnchorPane> {
 
     private Entry entry;
 
-    @javafx.fxml.FXML
+    @FXML
     private AnchorPane innerPane;
     @FXML
     private Label index;
@@ -93,12 +93,12 @@ public class EntryCard extends UiPart<AnchorPane> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof fithelper.ui.calendar.EntryCard)) {
+        if (!(other instanceof EntryCard)) {
             return false;
         }
 
         // state check
-        fithelper.ui.calendar.EntryCard card = (fithelper.ui.calendar.EntryCard) other;
+        fithelper.ui.calendar.EntryCard card = (EntryCard) other;
         return entry.equals(card.entry);
     }
 }

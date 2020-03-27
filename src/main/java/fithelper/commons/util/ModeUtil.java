@@ -14,7 +14,7 @@ public class ModeUtil {
     public static void checkMode(String mode) {
         requireNonNull(mode);
         String trimmedMode = mode.trim();
-        checkArgument(!mode.isEmpty(), "Mode cannot be empty");
-        checkArgument(mode.equals("tb") || mode.equals("ls"), "Mode can only be tb or ls");
+        checkArgument(!trimmedMode.isEmpty(), "Mode cannot be empty");
+        checkArgument("tb".equals(trimmedMode) || "ls".equals(trimmedMode), "Mode can only be tb or ls");
     }
 }
