@@ -167,7 +167,13 @@ Our module search function consists of 2 main implementation
   If queried, the information would be retrieved from the storage instead of querying from the internet.
   This allows user to plan for module if they have queried the module before without the need for Internet access.
 
-
+=== Diary
+- `diaryAdd` and `diaryLog` extends from `Command` class
+- `DiaryEntry` is another model which contains:
+* Diary Entry
+* Date
+* Weather
+* Mood
 === [Proposed] Pathing
 
 Given below is the consideration and proposed implementation for pathing in the future versions.
