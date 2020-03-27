@@ -98,7 +98,7 @@ public class EntryCard extends UiPart<AnchorPane> {
         }
 
         // state check
-        fithelper.ui.calendar.EntryCard card = (EntryCard) other;
+        EntryCard card = (EntryCard) other;
         return entry.equals(card.entry);
     }
 }
