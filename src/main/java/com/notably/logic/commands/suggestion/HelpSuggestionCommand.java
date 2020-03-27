@@ -1,8 +1,7 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
 
 import java.util.Objects;
 
-import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.model.Model;
 
 /**

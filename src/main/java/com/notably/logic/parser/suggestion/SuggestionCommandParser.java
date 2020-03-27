@@ -1,7 +1,7 @@
-package com.notably.logic.suggestion.parser;
+package com.notably.logic.parser.suggestion;
 
+import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.logic.suggestion.SuggestionCommand;
 
 /**
  * Represents a Suggestion Command Parser that is able to parse user input into a SuggestionCommand.

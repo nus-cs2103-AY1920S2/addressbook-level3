@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.model.suggestion.SuggestionItem;
