@@ -122,16 +122,13 @@ public class Finance extends ModelObject {
         && otherFinance.getFinanceType().equals(getFinanceType())
         && otherFinance.getDate().equals(getDate())
         && otherFinance.getAmount().equals(getAmount())
-        && otherFinance.getCourseID().equals(getCourseID())
-        && otherFinance.getStudentID().equals(getStudentID())
-        && otherFinance.getTeacherID().equals(getTeacherID())
         && otherFinance.getTags().equals(getTags());
   }
 
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, amount, tags);
+    return Objects.hash(name, financeType, date, amount, courseid, studentid, teacherid, tags);
   }
 
   @Override
