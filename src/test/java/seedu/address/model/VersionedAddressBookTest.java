@@ -17,8 +17,8 @@ public class VersionedAddressBookTest {
     private VersionedAddressBook versionedAddressBook = new VersionedAddressBook();
 
     @Test
-    public void undo_withoutCommits_throwsIllegalStateException() {
-        assertThrows(IllegalStateException.class, () -> versionedAddressBook.undo());
+    public void undo_withoutCommits_throwsStateNotFoundException() {
+        assertThrows(StateNotFoundException.class, () -> versionedAddressBook.undo());
     }
 
     @Test

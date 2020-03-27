@@ -17,8 +17,8 @@ public class VersionedInventoryTest {
     private VersionedInventory versionedInventory = new VersionedInventory();
 
     @Test
-    public void undo_withoutCommits_throwsIllegalStateException() {
-        assertThrows(IllegalStateException.class, () -> versionedInventory.undo());
+    public void undo_withoutCommits_throwsStateNotFoundException() {
+        assertThrows(StateNotFoundException.class, () -> versionedInventory.undo());
     }
 
     @Test

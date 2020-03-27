@@ -137,6 +137,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void undo_noCommits_throwsStateNotFoundException() {
+        assertThrows(StateNotFoundException.class, () -> modelManager.undo());
+    }
+
+    @Test
     public void undo_affectsAllDatabases() {
         modelManager.addGood(APPLE);
         modelManager.addPerson(ALICE);
