@@ -492,6 +492,12 @@ This reminder feature is facilitated by the Remind attribute of a coupon. The fo
 * RemindCommand#ShowRemind - Will execute checking of all coupons and alert the user when
 
 
+=== Calculating amount saved
+
+Just for reference, the diagram below shows the class diagram for the Savings class.
+It is compulsory for each Coupon to contain an Savings object.
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
