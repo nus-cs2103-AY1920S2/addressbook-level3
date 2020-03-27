@@ -8,10 +8,8 @@ import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.expensela.testutil.MonthlyDataBuilder;
 import seedu.expensela.testutil.TransactionBuilder;
 

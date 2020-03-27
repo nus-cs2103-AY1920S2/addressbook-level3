@@ -1,10 +1,9 @@
 package seedu.expensela.model.transaction;
 
-import java.time.LocalDate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
 /**
  * Represents a Transaction's date in the expensela.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}

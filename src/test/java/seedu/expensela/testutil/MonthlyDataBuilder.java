@@ -4,8 +4,10 @@ import seedu.expensela.model.monthlydata.Budget;
 import seedu.expensela.model.monthlydata.Expense;
 import seedu.expensela.model.monthlydata.Income;
 import seedu.expensela.model.monthlydata.MonthlyData;
-import seedu.expensela.model.transaction.Transaction;
 
+/**
+ * A utility class to help with building Monthly Data objects.
+ */
 public class MonthlyDataBuilder {
 
     public static final String DEFAULT_BUDGET = "1000.00";
@@ -38,7 +40,7 @@ public class MonthlyDataBuilder {
     /**
      * Sets the {@code Name} of the {@code Transaction} that we are building.
      */
-    public MonthlyDataBuilder withID(String id) {
+    public MonthlyDataBuilder withId(String id) {
         this.id = id;
         return this;
     }

@@ -1,10 +1,10 @@
 package seedu.expensela.testutil;
 
 import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Remark;
-import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Transaction;
 
 /**

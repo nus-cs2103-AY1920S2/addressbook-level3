@@ -27,8 +27,8 @@ public class AmountTest {
         // invalid amount numbers
         assertFalse(Amount.isValidAmount("")); // empty string
         assertFalse(Amount.isValidAmount(" ")); // spaces only
-        assertFalse(Amount.isValidAmount("91")); // no decimal places
-        assertFalse(Amount.isValidAmount("91.1")); // 1 decimal place
+        assertTrue(Amount.isValidAmount("91")); // no decimal places
+        assertTrue(Amount.isValidAmount("91.1")); // 1 decimal place
         assertFalse(Amount.isValidAmount("amount")); // non-numeric
         assertFalse(Amount.isValidAmount("9011p041")); // alphabets within digits
         assertFalse(Amount.isValidAmount("9312 1534")); // spaces within digits

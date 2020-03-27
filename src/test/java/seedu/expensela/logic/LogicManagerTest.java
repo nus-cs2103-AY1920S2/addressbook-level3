@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static seedu.expensela.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_FOOD;
 import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_PIZZA;
-import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_FOOD;
 import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 
@@ -31,6 +31,7 @@ import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.storage.JsonExpenseLaStorage;
 import seedu.expensela.storage.JsonUserPrefsStorage;
 import seedu.expensela.storage.StorageManager;
+import seedu.expensela.testutil.MonthlyDataBuilder;
 import seedu.expensela.testutil.TransactionBuilder;
 
 public class LogicManagerTest {
@@ -44,6 +45,7 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
+        model.setMonthlyData(new MonthlyDataBuilder().build());
         JsonExpenseLaStorage expenseLaStorage =
                 new JsonExpenseLaStorage(temporaryFolder.resolve("expenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -84,6 +86,7 @@ public class LogicManagerTest {
                 + REMARK_DESC_PIZZA + CATEGORY_DESC_FOOD;
         Transaction expectedTransaction = new TransactionBuilder(PIZZA).build();
         ModelManager expectedModel = new ModelManager();
+        expectedModel.setMonthlyData(new MonthlyDataBuilder().build());
         expectedModel.addTransaction(expectedTransaction);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);

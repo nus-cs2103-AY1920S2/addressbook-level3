@@ -33,14 +33,14 @@
     "amount": "30.50",
     "positive": "false",
     "date": "2020-01-01",
-    "remark": "",
+    "remark": "bts is the best",
     "category": "MISC"
   }, {
     "name": "Internship Pay",
     "amount": "1000.00",
     "positive": "true",
     "date": "2019-01-08",
-    "remark": "",
+    "remark": "money money money",
     "category": "MISC"
   }, {
     "name": "Angpao Money",
@@ -49,5 +49,10 @@
     "date": "2019-02-26",
     "remark": "GONG XI FA CAI",
     "category": "MISC"
-  } ]
+  } ],
+  "monthlyData" : {
+    "budget" : "1000.0",
+    "expense" : "500.0",
+    "income" : "2000.0"
+  }
 }

@@ -41,7 +41,8 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Apples"));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
+                Collections.singletonList("Apples"));
         assertTrue(predicate.test(new TransactionBuilder().withName("Apples Bananas").build()));
 
         // Multiple keywords
@@ -68,8 +69,9 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new TransactionBuilder().withName("Apples Bananas").build()));
 
         // Keywords match amount, date, remark and category, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("5.00", "2020-02-07", "Make pie", "FOOD"));
-        assertFalse(predicate.test(new TransactionBuilder().withName("Apples").withAmount("5.00", false)
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("5.00", "2020-02-07", "Make", "FOOD"));
+        assertFalse(predicate.test(new TransactionBuilder().withName("Apples")
+                .withAmount("5.00", false)
                 .withDate("2020-02-07").withRemark("Make pie").withCategory("FOOD").build()));
     }
 }

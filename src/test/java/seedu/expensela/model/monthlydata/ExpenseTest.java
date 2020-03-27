@@ -27,9 +27,9 @@ public class ExpenseTest {
         // invalid expense
         assertFalse(Expense.isValidAmount("")); // empty string
         assertFalse(Expense.isValidAmount(" ")); // spaces only
-        assertFalse(Expense.isValidAmount("88")); // no cents
+        assertTrue(Expense.isValidAmount("88")); // no cents
         assertFalse(Expense.isValidAmount(".88")); // no dollars
-        assertFalse(Expense.isValidAmount("88.9")); // cents not 2 digits
+        assertTrue(Expense.isValidAmount("88.9")); // cents not 2 digits
         assertFalse(Expense.isValidAmount("eighty eight")); // non-numeric
         assertFalse(Expense.isValidAmount("88e88.00")); // alphabets within digits
         assertFalse(Expense.isValidAmount("69 96.00")); // spaces within digits

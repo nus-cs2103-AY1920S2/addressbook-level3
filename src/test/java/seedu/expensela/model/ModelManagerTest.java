@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 import static seedu.expensela.testutil.TypicalTransactions.GRAB;
+import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 import seedu.expensela.testutil.ExpenseLaBuilder;
+import seedu.expensela.testutil.MonthlyDataBuilder;
 
 public class ModelManagerTest {
 
@@ -85,6 +86,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionInExpenseLa_returnsTrue() {
+        modelManager.setMonthlyData(new MonthlyDataBuilder().build());
         modelManager.addTransaction(PIZZA);
         assertTrue(modelManager.hasTransaction(PIZZA));
     }

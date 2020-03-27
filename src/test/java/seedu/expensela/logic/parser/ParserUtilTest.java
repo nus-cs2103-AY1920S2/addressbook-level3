@@ -13,7 +13,7 @@ import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = " P";
+    private static final String INVALID_NAME = " ";
     private static final String INVALID_AMOUNT = "eight eight";
     private static final String INVALID_DATE = " ";
     private static final String INVALID_REMARK = "*";
@@ -54,7 +54,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        assertThrows(IllegalArgumentException.class, () -> ParserUtil.parseName(INVALID_NAME));
     }
 
     @Test
@@ -72,25 +72,25 @@ public class ParserUtilTest {
 
     @Test
     public void parseAmount_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount((String) null, false));
     }
 
     @Test
     public void parseAmount_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(INVALID_AMOUNT));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(INVALID_AMOUNT, false));
     }
 
     @Test
     public void parseAmount_validValueWithoutWhitespace_returnsAmount() throws Exception {
         Amount expectedAmount = new Amount(VALID_AMOUNT, true);
-        assertEquals(expectedAmount, ParserUtil.parseAmount(VALID_AMOUNT));
+        assertEquals(expectedAmount, ParserUtil.parseAmount(VALID_AMOUNT, true));
     }
 
     @Test
     public void parseAmount_validValueWithWhitespace_returnsTrimmedAmount() throws Exception {
         String amountWithWhitespace = WHITESPACE + VALID_AMOUNT + WHITESPACE;
         Amount expectedAmount = new Amount(VALID_AMOUNT, true);
-        assertEquals(expectedAmount, ParserUtil.parseAmount(amountWithWhitespace));
+        assertEquals(expectedAmount, ParserUtil.parseAmount(amountWithWhitespace, true));
     }
 
     @Test

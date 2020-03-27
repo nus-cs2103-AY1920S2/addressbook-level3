@@ -25,7 +25,6 @@ public class ModelManager implements Model {
     private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> unfilteredTransactions;
-    private final MonthlyData monthlyData;
     private final Filter filter;
 
     /**
@@ -40,7 +39,6 @@ public class ModelManager implements Model {
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
         unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
-        monthlyData = this.expenseLa.getMonthlyData();
         filter = this.expenseLa.getFilter();
     }
 
@@ -106,7 +104,7 @@ public class ModelManager implements Model {
         expenseLa.removeTransaction(target);
         boolean positive = target.getAmount().positive;
         double amount = target.getAmount().transactionAmount;
-        updateMonthlyData(positive, amount*(-1));
+        updateMonthlyData(positive, amount * (-1));
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
@@ -119,12 +117,24 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
+    /**
+     * Update monthly data depending whether it is a positive transaction and the amount
+     * @param positive whether transaction is income or expense
+     * @param amount positive for transaction insertion, negative for deletion
+     */
     public void updateMonthlyData(boolean positive, double amount) {
+        if (this.expenseLa.getMonthlyData() == null) {
+            return;
+        }
         if (positive) {
-            monthlyData.setIncome(new Income(Double.toString(monthlyData.getIncome().incomeAmount + amount)));
+            this.expenseLa.getMonthlyData()
+                    .setIncome(new Income(Double.toString(
+                            this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
             userPrefs.setTotalBalance(userPrefs.getTotalBalance() + amount);
         } else {
-            monthlyData.setExpense(new Expense(Double.toString(monthlyData.getExpense().expenseAmount + amount)));
+            this.expenseLa.getMonthlyData()
+                    .setExpense(new Expense(Double.toString(
+                            this.expenseLa.getMonthlyData().getExpense().expenseAmount + amount)));
             userPrefs.setTotalBalance(userPrefs.getTotalBalance() - amount);
         }
     }
@@ -132,7 +142,12 @@ public class ModelManager implements Model {
     @Override
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
-
+        boolean positiveBefore = target.getAmount().positive;
+        double amountBefore = target.getAmount().transactionAmount * -1;
+        boolean positive = editedTransaction.getAmount().positive;
+        double amount = editedTransaction.getAmount().transactionAmount;
+        updateMonthlyData(positiveBefore, amountBefore);
+        updateMonthlyData(positive, amount);
         expenseLa.setTransaction(target, editedTransaction);
     }
 
@@ -181,14 +196,14 @@ public class ModelManager implements Model {
      */
     @Override
     public MonthlyData getMonthlyData() {
-        return monthlyData;
+        return this.expenseLa.getMonthlyData();
     }
 
     /**
      * Update monthly data object
      */
     @Override
-    public void updateMonthlyData(MonthlyData monthlyData) {
+    public void setMonthlyData(MonthlyData monthlyData) {
         expenseLa.setMonthlyData(monthlyData);
     }
 

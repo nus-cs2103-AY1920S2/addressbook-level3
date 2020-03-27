@@ -8,7 +8,6 @@ import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
 import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
