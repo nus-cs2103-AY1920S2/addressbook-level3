@@ -1,16 +1,26 @@
 @startuml
 !include style.puml
 
-box "<color:black>Model</color>"
+skinparam ParticipantPadding 0
+
+box <color:black>Application</color> #999999
+participant ":MainApp" as MainApp #333333
+end box
+
+
+box "<color:black>Model</color>" MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 participant ":CouponStash" as CouponStash MODEL_COLOR
 participant ":FilteredList" as FilteredList MODEL_COLOR
 participant ":Coupon" as Coupon MODEL_COLOR
 end box
 
+activate MainApp
+
 create ModelManager
-[-> ModelManager: initModelManager(storage, userPrefs)
 activate ModelManager
+
+MainApp -> ModelManager: new ModelManager()
 
 create CouponStash
 ModelManager -> CouponStash: new CouponStash(couponStash)
