@@ -25,26 +25,28 @@ public class AddStudentCommand extends Command {
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.ADD_MODEL;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the TA-Tracker. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a student to the into the given module group.\n"
+            + "Parameters:\n"
             + PREFIX_MATRIC + "MATRIC "
             + PREFIX_MODULE + "MODULE "
             + PREFIX_GROUP + "GROUP "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_MATRIC + "A0181234G "
-            + PREFIX_MODULE + "CS2103T "
-            + PREFIX_GROUP + "W17-4 "
+            + PREFIX_MODULE + "CS3243 "
+            + PREFIX_GROUP + "G06 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New student added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New student added: %s\n To Module: %s\n To Group: %s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";
     public static final String MESSAGE_INVALID_MODULE_FORMAT = "There is no module with the given module code: %s";
     public static final String MESSAGE_INVALID_GROUP_FORMAT =
@@ -86,7 +88,7 @@ public class AddStudentCommand extends Command {
         }
 
         model.addStudent(toAdd, targetGroup, targetModule);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, targetModule, targetGroup));
     }
 
     @Override

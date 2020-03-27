@@ -55,7 +55,7 @@ public class AddStudentCommandIntegrationTest {
         expectedModel.addStudent(validStudent, expectedGroup, expectedModule);
 
         assertCommandSuccess(new AddStudentCommand(validStudent, testGroup, testModule), model,
-                String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), expectedModel);
+                String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent, testModule, testGroup), expectedModel);
     }
 
     @Test
