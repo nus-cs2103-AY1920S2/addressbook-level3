@@ -143,25 +143,30 @@ public class ModelManagerTest {
 
     @Test
     public void undo_affectsAllDatabases() {
+        Model expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getUserPrefs());
+
         modelManager.addGood(APPLE);
         modelManager.addPerson(ALICE);
         modelManager.commit();
 
         modelManager.undo();
-        assertFalse(modelManager.hasGood(APPLE));
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertEquals(modelManager, expectedModel);
     }
 
     @Test
     public void commit_savesAllDatabases() {
+        Model expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getUserPrefs());
+        expectedModel.addGood(APPLE);
+
         modelManager.addGood(APPLE);
         modelManager.commit();
         modelManager.addPerson(ALICE);
         modelManager.commit();
 
         modelManager.undo();
-        assertTrue(modelManager.hasGood(APPLE));
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertEquals(modelManager, expectedModel);
     }
 
     @Test
