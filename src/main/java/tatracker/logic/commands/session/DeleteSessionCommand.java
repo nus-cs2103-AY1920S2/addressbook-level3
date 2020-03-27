@@ -21,7 +21,6 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
-
 /**
  * Deletes a session identified using it's index.
  */
@@ -62,11 +61,6 @@ public class DeleteSessionCommand extends Command {
         }
 
         Session sessionToDelete = lastShownList.get(index.getZeroBased());
-        if (sessionToDelete.getIsRecurring()) {
-            RecurSessionCommand recurSession = new RecurSessionCommand(sessionToDelete);
-            recurSession.createRecurSession();
-        }
-
         model.deleteSession(sessionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete));
     }
