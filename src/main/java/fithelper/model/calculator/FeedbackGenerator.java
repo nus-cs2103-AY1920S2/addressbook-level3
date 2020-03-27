@@ -1,12 +1,12 @@
 package fithelper.model.calculator;
 
-import static fithelper.commons.core.Feedbacks.FEEDBACK_CALORIE_DEFAULT;
-import static fithelper.commons.core.Feedbacks.FEEDBACK_CALORIE_NEGATIVE;
-import static fithelper.commons.core.Feedbacks.FEEDBACK_CALORIE_TOO_MUCH;
-import static fithelper.commons.core.Feedbacks.FEEDBACK_TASK_ALL_COMPLETE;
-import static fithelper.commons.core.Feedbacks.FEEDBACK_TASK_DEFAULT;
-import static fithelper.commons.core.Feedbacks.FEEDBACK_TASK_SOME_COMPLETE;
-import static fithelper.commons.core.Feedbacks.FEEDBACK_TASL_NONE_COMPLETE;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_CALORIE_DEFAULT;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_CALORIE_NEGATIVE;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_CALORIE_TOO_MUCH;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_TASK_ALL_COMPLETE;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_TASK_DEFAULT;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_TASK_SOME_COMPLETE;
+import static fithelper.commons.core.FeedbackUtils.FEEDBACK_TASL_NONE_COMPLETE;
 
 /**
  * This class generates feedbacks based on the task completion and calorie results.

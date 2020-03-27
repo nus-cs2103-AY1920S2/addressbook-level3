@@ -3,7 +3,7 @@ package fithelper.commons.core;
 /**
  * Container for user visible feedback messages.
  */
-public class Feedbacks {
+public class FeedbackUtils {
 
     //Calorie Summary
     public static final String FEEDBACK_CALORIE_NEGATIVE = "Wow, your sports consumption outweighs your food intake!";
