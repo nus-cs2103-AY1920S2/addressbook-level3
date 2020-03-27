@@ -185,7 +185,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: Segoe UI, Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -305,10 +305,6 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
-}
 
 #tags {
     -fx-hgap: 7;
@@ -321,4 +317,21 @@
     -fx-padding: 1 8 1 8;
     -fx-background-radius: 20;
     -fx-font-size: 11;
+}
+
+//For TextArea component of ResultDisplay
+.text-area {
+    -fx-background-color: #6C96BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
 }

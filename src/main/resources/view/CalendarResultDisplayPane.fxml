@@ -6,10 +6,10 @@
     <VBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml" prefWidth="200">
 
-        <StackPane fx:id="calendarPanePlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="calendarPanePlaceholder" style="-fx-padding: 0 0 10 0" HBox.hgrow="NEVER" >
         </StackPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="resultDisplayPlaceholder"  HBox.hgrow="NEVER" VBox.vgrow="ALWAYS">
         </StackPane>
     </VBox>
 </StackPane>
