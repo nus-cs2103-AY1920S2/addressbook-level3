@@ -16,10 +16,12 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of dayDatas that enforces CONSTANT_SIZE, days must be continuous between its elements and
- * does not allow nulls. A dayData is considered unique by comparing using {@code DayData#isSameDayData(DayData)}.
- * As such, adding and updating of persons uses DayData#isSameDayData(DayData) for equality so as to ensure that
- * the dayDaya being added or updated is unique in terms of identity in the CustomQueue. However, the removal of a
- * person uses DayData#equals(Object) so as to ensure that the dayData with exactly the same fields will be removed.
+ * does not allow nulls. A dayData is considered unique by comparing using {@code
+ * DayData#isSameDayData(DayData)}. As such, adding and updating of persons uses
+ * DayData#isSameDayData(DayData) for equality so as to ensure that the dayDaya being added or
+ * updated is unique in terms of identity in the CustomQueue. However, the removal of a person uses
+ * DayData#equals(Object) so as to ensure that the dayData with exactly the same fields will be
+ * removed.
  *
  * <p>Supports a minimal set of list operations.
  *
@@ -27,7 +29,8 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
  */
 public class CustomQueue implements Iterable<DayData> {
 
-    public static final String MESSAGE_CONSTRAINTS = "CONSTANT_SIZE enforced, days must be continuous";
+    public static final String MESSAGE_CONSTRAINTS =
+            "CONSTANT_SIZE enforced, days must be continuous";
     public static final int CONSTANT_SIZE = 7;
 
     private final ObservableList<DayData> internalList = FXCollections.observableArrayList();
@@ -48,7 +51,6 @@ public class CustomQueue implements Iterable<DayData> {
         if (!tableConstraintsAreEnforced(internalList)) {
             throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS);
         }
-
     }
 
     /** reinitialises dayDataList to current day while retaining stored data. */
@@ -140,7 +142,7 @@ public class CustomQueue implements Iterable<DayData> {
 
     /** Identify latest DayData in the queue. */
     private DayData getLatestDayData() {
-        return this.get(-1);
+        return this.get(CONSTANT_SIZE - 1);
     }
 
     /** Returns true if the list contains an equivalent dayData as the given argument. */
@@ -172,9 +174,9 @@ public class CustomQueue implements Iterable<DayData> {
     }
 
     /**
-     * Replaces the dayData {@code target} in the list with {@code editedDayData}. {@code target} must
-     * exist in the list. The dayData identity of {@code editedDayData} must not be the same as another
-     * existing person in the list.
+     * Replaces the dayData {@code target} in the list with {@code editedDayData}. {@code target}
+     * must exist in the list. The dayData identity of {@code editedDayData} must not be the same as
+     * another existing person in the list.
      */
     public void setDayData(DayData target, DayData editedDayData) {
         requireAllNonNull(target, editedDayData);
@@ -200,19 +202,19 @@ public class CustomQueue implements Iterable<DayData> {
     }
 
     /**
-    public void setDayDatas(CustomQueue replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    } */
+     * public void setDayDatas(CustomQueue replacement) { requireNonNull(replacement);
+     * internalList.setAll(replacement.internalList); }
+     */
 
     /**
-     * Replaces the contents of this list with {@code dayDatas}. {@code dayDatas} must
-     * not break table constraints
+     * Replaces the contents of this list with {@code dayDatas}. {@code dayDatas} must not break
+     * table constraints
      */
-    public void setDayDatas(List<DayData> dayDatas) throws InvalidTableException{
+    public void setDayDatas(List<DayData> dayDatas) throws InvalidTableException {
         requireAllNonNull(dayDatas);
         if (!tableConstraintsAreEnforced(dayDatas)) {
-            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS); // table is not size FIXED_SIZE
+            throw new InvalidTableException(
+                    CustomQueue.MESSAGE_CONSTRAINTS); // table is not size FIXED_SIZE
         }
 
         internalList.setAll(dayDatas);
@@ -232,7 +234,7 @@ public class CustomQueue implements Iterable<DayData> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CustomQueue // instanceof handles nulls
-                && internalList.equals(((CustomQueue) other).internalList));
+                        && internalList.equals(((CustomQueue) other).internalList));
     }
 
     @Override
@@ -267,6 +269,4 @@ public class CustomQueue implements Iterable<DayData> {
 
         return true;
     }
-
 }
-
