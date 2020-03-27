@@ -101,6 +101,11 @@ public class EditTransactionCommand extends Command {
         Quantity originalProductOldQuantity = originalProductToEdit.getQuantity();
         Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
         editOriginalProductDescriptor.setQuantity(originalProductNewQuantity);
+
+        Money originalProductOldSales = originalProductToEdit.getSales();
+        Money originalProductNewSales = originalProductOldSales.minus(transactionToEdit.getMoney());
+        editOriginalProductDescriptor.setSales(originalProductNewSales);
+
         editOriginalProductDescriptor.setId(originalProductToEdit.getId());
         Product editedOriginalProduct = createEditedProduct(originalProductToEdit, editOriginalProductDescriptor);
 
@@ -112,10 +117,13 @@ public class EditTransactionCommand extends Command {
 
         Product updatedProductToEdit = model.findProductById(editedTransaction.getProductId());
         Quantity updatedProductOldQuantity = updatedProductToEdit.getQuantity();
+        Money updatedProductOldSales = updatedProductToEdit.getSales();
 
         if (updatedProductOldQuantity.compareTo(editedTransaction.getQuantity()) >= 0) {
-            Quantity updateProductNewQuantity = updatedProductOldQuantity.minus(editedTransaction.getQuantity());
-            editUpdatedProductDescriptor.setQuantity(updateProductNewQuantity);
+            Quantity updatedProductNewQuantity = updatedProductOldQuantity.minus(editedTransaction.getQuantity());
+            Money updatedProductNewSales = updatedProductOldSales.plus(editedTransaction.getMoney());
+            editUpdatedProductDescriptor.setQuantity(updatedProductNewQuantity);
+            editUpdatedProductDescriptor.setSales(updatedProductNewSales);
         } else {
             model.setProduct(editedOriginalProduct, originalProductToEdit);
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
@@ -130,7 +138,6 @@ public class EditTransactionCommand extends Command {
 
         model.setProduct(updatedProductToEdit, editedUpdatedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
-
 
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
