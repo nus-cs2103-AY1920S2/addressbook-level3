@@ -1,0 +1,22 @@
+/'
+ ' Contains the styles for use in
+ ' Savings object diagrams
+ '/
+
+!define SAVINGS_COLOUR #202679
+!define PERCENT_COLOUR #705112
+!define MONEY_COLOUR #166800
+!define SAVEABLE_COLOUR #973535
+
+skinparam Class {
+    FontColor #FFFFFF
+    BorderThickness 1
+    BorderColor #FFFFFF
+    StereotypeFontColor #FFFFFF
+    FontName Verdana
+    AttributeFontColor #FFFFFF
+}
+
+hide footbox
+hide empty members
+hide circle

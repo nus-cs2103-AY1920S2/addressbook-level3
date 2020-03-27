@@ -494,8 +494,53 @@ This reminder feature is facilitated by the Remind attribute of a coupon. The fo
 
 === Calculating amount saved
 
-Just for reference, the diagram below shows the class diagram for the Savings class.
-It is compulsory for each Coupon to contain an Savings object.
+Just for reference, the diagram below shows the class diagram
+for the Savings class. It is compulsory for each Coupon to
+contain an Savings object.
+
+image::SavingsClassDiagram.png[]
+
+A Savings object can hold a PercentageAmount, MonetaryAmount or
+Saveables, which represents discounts like "$5 off", "10% off"
+and "free door gift" respectively.
+
+The table below shows which are valid Savings objects, and
+which are not.
+
+[cols="2"]
+|=========================================
+a|
+image::s1valid.png[] | Valid
+a|
+image::s2valid.png[] | Valid
+a|
+image::s3valid.png[] | Valid
+a|
+image::s4invalid.png[] | Invalid: Savings must have at
+least one field
+a|
+image::s5valid.png[] | Valid: Savings can have both a
+percentage amount and saveables
+a|
+image::s6valid.png[] | Valid: Savings can hold more
+than one Saveable
+a|
+image::s7invalid.png[] | Invalid: Savings cannot have both a
+MonetaryAmount and PercentageAmount
+|=========================================
+
+
+
+
+==== Implementation of used command
+
+When the user enters a used command, the actions taken by Coupon
+Stash change depending on whether the Coupon's Savings stores
+a MonetaryAmount of PercentageAmount.
+
+==== Implementation of saved command
+
+
 
 
 == Documentation
