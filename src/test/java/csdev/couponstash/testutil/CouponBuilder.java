@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
@@ -34,7 +35,7 @@ public class CouponBuilder {
                     LocalDate.of(2020, 2, 2),
                     new PureMonetarySavings(new MonetaryAmount(97.5)));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
-    public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
+    public static final String DEFAULT_START_DATE = DateUtil.formatDate(LocalDate.now());
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
@@ -161,10 +162,11 @@ public class CouponBuilder {
     }
 
     /**
-     * Sets the {@code StartDate} of the {@code Coupon} that we are building. For empty arguments.
+     * Sets the {@code StartDate} of the {@code Coupon} that we are building. Start Date will set the date to today's
+     * date if it is an empty argument.
      */
     public CouponBuilder withStartDate() {
-        this.startDate = new StartDate("");
+        this.startDate = new StartDate(DateUtil.formatDate(LocalDate.now()));
         return this;
     }
 

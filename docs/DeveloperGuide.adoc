@@ -181,7 +181,7 @@ The `CouponStash` will be initialized with the initial coupon stash state, and t
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the coupon stash.
-The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to the newly inserted address book state.
+The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to the newly inserted coupon stash state.
 
 image::UndoRedoState1.png[]
 
@@ -191,7 +191,7 @@ The `add` command also calls `Model#commitCouponStash(String commandText)`, caus
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the address book state and command text will not be saved.
+If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the coupon stash state and command text will not be saved.
 
 Step 4. The user now decides that adding the coupon was a mistake, and decides to undo that action by executing the `undo` command.
 The `undo` command will call `Model#undoCouponStash()`, which will shift the `currStateIndex` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
@@ -217,7 +217,7 @@ The `redo` command uses `Model#canRedoCouponStash()` to check if this is the cas
 If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`.
-Commands that do not modify the address book, such as `list`, will  not call `Model#commitCouponStash()`.
+Commands that do not modify the coupon stash, such as `list`, will  not call `Model#commitCouponStash()`.
 Thus, the `couponStashStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
@@ -242,7 +242,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* Use two lists to store the history of address book states and command text history.
+* Use two lists to store the history of coupons stash states and command text history.
 ** The lists are stored in a `HistoryManager` class, which includes a `currStateIndex`.
 // end::undoredo[]
 
@@ -260,16 +260,44 @@ Each `DateCell` represents each date of the month that is currently on display.
 
 
 The `ObservableList<Coupon>` is the list of filtered coupons that are currently on display in the `CouponListPanel`.
-They are obtained by calling the `getFilteredCouponList()` method in the `Logic` class. Each `DateCell` uses the same
-`ObservableList<Coupon>` as reference, to get coupons that expires on that particular date.
+They are obtained by calling the `Logic#getFilteredCouponList()` method. Each `DateCell` uses the same
+`ObservableList<Coupon>` as reference, to get coupons that expires on each of the dates.
 
-Below is an example of how the Calendar behaves at each step.
+The sequence diagrams below show how the Calendar works:
+
+image::CalendarSequenceDiagram.png[]
+image::CalendarSequenceDiagram_Ref_SetDetailsOfDateCell.png[]
+
+The two scenarios below are examples of how the Calendar mechanism behaves at each step of each scenario.
+
+===== Updating the Calendar with a Filtered List
+The Calendar updates with the current observable coupon list. The following steps describes how this behavior is implemented.
 
 Step 1. The user launches the application for the first time.
-The Calendar will be initialised to the system's current date.
+The Calendar displayed will render the saved data, triggered by the initiation of the UiManager.
 
 Step 2. The user executes a `find` command.
-The `find` command alters the filteredCouponList and the Calendar will be updated according to the list.
+The `find` command alters the observable coupon list and the Calendar will be updated according to the list with the
+`Logic#getFilteredCouponList()` method.
+
+
+===== Selecting a highlighted date on the Calendar
+Dates that have coupons expiring on that day are highlighted and clickable. The user can click on them and open a separate
+window to view all the coupons that are expiring on that day. The following steps describes how this behavior is implemented.
+
+Step 1. The user launches the application for the first time or changes the month displayed on the Calendar.
+The Calendar displayed will render the expiring coupons for the month and highlight the dates with expiring coupons
+facilitated by the `CalendarPane#setDateCellCircle` method.
+Example of highlighted date:
+
+image::Calendar_HighlightedCell.png[]
+
+Step 2. The user clicks on a highlighted date.
+A new separate window will open, showing the user all the coupons that are expiring on that particular day facilitated
+by the `DateCell#displayCoupons()` method.
+Example of new window:
+
+image::Calendar_CouponsOnDateWindow.png[]
 
 
 ==== Design Considerations
@@ -283,6 +311,7 @@ a date in a separate window
 * **Alternative 2:** Show a condensed version of the coupons in the cell of each date
 ** Pros: No additional clicking required and more information provided with a glance
 ** Cons: May be messy to look at when there are multiple coupons expiring on a date
+
 
 ===== Aspect: Whether the Calendar should update with the list
 * **Alternative 1 (current choice):** Calender updates with the filtered list
@@ -319,57 +348,63 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 === Coupon Archiving
 
 ==== Current Implementation
-The archiving of coupons is facilitated by the Archived attribute of a coupon. The following methods in the `CouponStash`,
-`Coupon`, Usage` class and the 'Model' interface facilitates this feature:
+The archiving of coupons is facilitated by the `Archived` attribute of a coupon. The following methods in the `CouponStash`,
+`Coupon`, `Usage` class and the `Model` interface facilitates this feature:
 
-* CouponStash#archiveExpiredCoupons() -- Archives any coupon in the CouponStash that has expired, and returns a new updated CouponStash.
-* Coupon#increaseUsageByOne() - Increases the usage of a coupon by one.
-* Usage#isUsageAtLimit - Returns true if the current usage is at its limit (abstracted by the `Limit` field).
-* Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS - A Predicate function that filters out archived coupons from a given CouponStash.
+* `CouponStash#archiveExpiredCoupons()` -- Archives any coupon in the CouponStash that has expired, and returns a new updated CouponStash.
+* `Coupon#increaseUsageByOne()` - Increases the usage of a coupon by one.
+* `Usage#isUsageAtLimit` - Returns true if the current usage is at its limit (abstracted by the `Limit` field).
+* `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A Predicate function that filters out archived coupons from a given CouponStash.
 
 Given below is two example usage scenarios and how the archiving mechanism behaves at each step of each scenario.
+
+image::ArchivingClassDiagram.png[]
 
 ===== Archiving of Expired Coupons
 
 Expired coupons are automatically archived by Coupon Stash upon start up of the application. The following steps describe
 how this behaviour is implemented.
 
-Step 1. The user launches the application for the first time. The initiation of CouponStash with any available saved data
-is triggered by the initiation of the ModelManager.
+Step 1. The user launches the application for the first time. The initiation of `ModelManager` will also trigger the
+initiation of `CouponStash` with any available saved data.
 
-Step 2. The initiated CouponStash will have its UniqueCouponList mapped to a function that archive coupons that has expired
-before the date of opening the application, and returns a new updated CouponStash.
+Step 2. The method `CouponStash#archiveExpiredCoupons` will be called from the newly initiated `CouponStash`, and have its
+`UniqueCouponList` mapped to a function that archive coupons that have expired before the date of opening the application,
+and returns a new updated `CouponStash`.
 
-Step 3. The ModelManager will proceed to filter out the archived coupons from the newly updated CouponStash, and return
-a filtered list of active coupons. This filtering is facilitated by the predicate Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS.
+Step 3. The `ModelManager` will proceed to filter out the archived coupons from the newly updated `CouponStash`, and return
+a filtered list of active coupons. This filtering is facilitated by the predicate `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
+
+image::ArchiveExpiredSequenceDiagram.png[]
 
 ===== Archiving of Exhausted Coupons
 
 Coupons that have exhausted its usages will be automatically archived by the application. The following steps describe how
 this behaviour is implemented.
 
-Step 1. The user uses a coupon in the current observable CouponStash with the command `used 1`.
+Step 1. The user uses a coupon in the current observable `CouponStash` with the command `used 1`.
 The particular coupon will then have its usage increased by one.
 
 Step 2. The coupon will then be checked if its usage has reached its limit. For the purpose of this
 explanation, we assume that the coupon being used has a usage limit of 1 and a previous usage value of 0,
-with savings in MonetaryAmount.
+with savings in `MonetaryAmount`.
 
 Step 3. The coupon will have a new `Archived` value, which will be set to `true` if the usage has indeed reached its limit.
 
-Step 4. The CouponStash will be updated with this used coupon with the ModelManager#setCoupon() method. Under the hood of
-this method, the current filtered list will be be updated to show active coupons only, facilitated by the predicate Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS.
+Step 4. The `CouponStash` will be updated with this used coupon with the `ModelManager#setCoupon()` method. Under the hood of
+this method, the current filtered list will be be updated to show active coupons only, facilitated by the predicate
+`Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
 
 ==== Design Considerations
 
 ===== Aspect: The implementation to store archived coupons
 
-* **Alternative 1 (current choice):** Coupon contains an Archived field
+* **Alternative 1 (current choice):** `Coupon` contains an `Archived` field
 ** Pros: Easy to implement, lower maintainability.
 ** Cons: Saved data may get get considerably huge after heavy usage of application.
 
 * **Alternative 2:** Archived coupons are stored in another separate data file.
-** Pros: Separates the logic between the two different `CouponStash`, e.g. you can only do limited functions with archived coupons
+** Pros: Separates the logic between the two different `CouponStash`, e.g. you can limit the functions on archived coupons
 ** Cons: Sharply increases the maintainability and coupling of the application with two data files.
 
 // tag::updownarrowcommandhistory[]
@@ -395,7 +430,7 @@ image::UpDownHistory0.png[]
 
 Step 2. The user executes `delete 1`. `CommandBox#handleCommandEntered()` will call `CommandTextHistory#add(String commandText)` to save the entered command into
 the stack contained in `CommandTextHistory`. The top of the stack (i.e. the empty string) is popped off first, before
-the etered command is pushed onto the stack. Then, the empty string is pushed onto the stack again, thus ensuring that
+the entered command is pushed onto the stack. Then, the empty string is pushed onto the stack again, thus ensuring that
 the empty string stays at the top of the stack. Note that `currIndex` is not affected.
 
 image::UpDownHistory1.png[]

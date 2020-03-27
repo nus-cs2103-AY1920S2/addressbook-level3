@@ -70,7 +70,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        calendarWindow = new CalendarWindow(logic.getFilteredCouponList(), logic);
+        calendarWindow = new CalendarWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        calendarResultPane = new CalendarResultDisplayPane(logic.getFilteredCouponList(), logic);
+        calendarResultPane = new CalendarResultDisplayPane(logic);
         calendarResultPlaceholder.getChildren().add(calendarResultPane.getRoot());
         calendarResultPane.fillInnerParts();
     }

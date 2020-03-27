@@ -4,7 +4,9 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import csdev.couponstash.commons.util.DateUtil;
 
 /**
  * Represents a Coupon's expiry date in the CouponStash.
@@ -15,7 +17,6 @@ public class ExpiryDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Expiry Dates should be a date in the D-M-YYYY format.";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     public final LocalDate date;
     public final String value;
 
@@ -35,10 +36,10 @@ public class ExpiryDate {
      * Returns true if a given string is a valid expiry date.
      */
     public static boolean isValidExpiryDate(String test) {
-        LocalDate testDate = LocalDate.now();
-
-        if (test.matches(VALIDATION_REGEX)) {
-            testDate = LocalDate.parse(test, DATE_FORMATTER);
+        try {
+            DateUtil.parseString(test);
+        } catch (DateTimeParseException ex) {
+            return false;
         }
         return test.matches(VALIDATION_REGEX);
     }
@@ -48,7 +49,7 @@ public class ExpiryDate {
      * @return Expiry Date as a LocalDate
      */
     public LocalDate getDate() {
-        return LocalDate.parse(value, DATE_FORMATTER);
+        return DateUtil.parseString(value);
     }
 
     @Override
