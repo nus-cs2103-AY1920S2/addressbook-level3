@@ -23,6 +23,7 @@ import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
 import seedu.address.logic.commands.product.LowLimitCommand;
+import seedu.address.logic.commands.statistics.PredictCommand;
 import seedu.address.logic.commands.statistics.RevenueCommand;
 import seedu.address.logic.commands.transaction.AddTransactionCommand;
 import seedu.address.logic.commands.transaction.ClearTransactionCommand;
@@ -139,6 +140,9 @@ public class InventorySystemParser {
 
         case RevenueCommand.COMMAND_WORD:
             return new RevenueCommandParser().parse(arguments);
+
+        case PredictCommand.COMMAND_WORD:
+            return new PredictCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

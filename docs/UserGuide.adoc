@@ -100,7 +100,7 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 === Locating customers by name: `findc`
 
 Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
-Format: `findc [n/ NAME] [p/ PHONE] [e/ EMAIL] [a/ ADDRESS]`
+Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
@@ -364,27 +364,27 @@ Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
 * The start date and end date must follow a format of `yyyy-mm-dd`
-* The default period is the last month.
 ****
 
 Example:
 
-* `revenue` +
-Returns the revenue in line graph for the last month.
+* `revenue sd/2020-01-01 ed/2020-12-31` +
+Returns the revenue from Jan 1 to Dec 31
 
-=== Setting the low-inventory threshold : `lowinv`
+=== Setting the low-inventory threshold : `lowlimit`
 
 Sets the notification threshold.
-Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
+Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 
 ****
 * `THRESHOLD` must be non-negative integers, i.e. 1, 2, 3, ...
-* If the product id is not specified, the threshold applies to all products.
+* `PRODUCT_ID` refers to the index number shown in the displayed products list.
+* The index must be a positive integer 1, 2, 3, …​
 ****
 
 Examples:
 
-* `lowinv p/001 t/20` +
+* `lowlimit p/1 t/20` +
 Sets the low inventory threshold for product 001 as 20.
 
 === Receiving notification while a certain product is running low.
@@ -396,7 +396,7 @@ This is a passive feature.
 
 === Predicting the sales for the next month : `predict`.
 
-Displays a line graph representing the predicted sales for each day in the next month. +
+Predict sales for the next month based on sales in the previous three months +
 Format: `predict`
 
 === Exiting from the program : `exit`
@@ -438,7 +438,7 @@ e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #
 * *Listing all customers* : `listc`
 * *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
 e.g. `editc 1 p/91234567 e/johndoe@example.com`
-* *Locating customers* : `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Locating customers* : `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `findc n/John`
 * *Deleting a customer* : `deletec INDEX` +
 e.g. `findc n/Betsy` +
@@ -450,7 +450,7 @@ e.g. `addp d/iphone x pr/1000 q/10`
 e.g. `listp s/quantity o/ASC`
 * *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
-* *Finding products* : `findp [KEYWORD]` +
+* *Finding products* : `findp KEYWORD` +
 e.g. `findp black`
 * *Deleting a product* : `deletep INDEX` +
 e.g. `listp` +
@@ -469,7 +469,7 @@ e.g. `findt 2020-01-03` +
 `deletet 1`
 * *Clearing all transactions* : `cleart`
 * *Viewing the revenue trend in a certain period* : `revenue`
-* *Setting the low-inventory threshold* : `lowinv [p/PRODUCT_ID] t/THRESHOLD` +
+* *Setting the low-inventory threshold* : `lowlimit [p/PRODUCT_ID] t/THRESHOLD` +
 e.g. `lowinv p/001 t/20`
 * *Predicting the sales for the next month* : `predict`
 * *Exiting from the program* : `exit`

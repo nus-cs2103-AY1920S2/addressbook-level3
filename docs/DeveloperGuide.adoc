@@ -452,7 +452,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to find items by keyword and attribute.
+1. User requests to find items by keyword and/or attribute.
 2. The app displays the search result.
 
 +
@@ -461,7 +461,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. No item was found with the keyword and attribute entered.
+* 1a. No item was found with the keyword and/or attribute entered.
 +
 [none]
 ** 1a1. The app shows a prompt message that no such item was found.
@@ -571,7 +571,8 @@ Use case ends.
 .  The system should save the <<product, product>>, <<customer, customer>> and <<transaction, transaction>> data permanently.
 .  There should be at least one <<product, product>> and <<customer, customer>> before a <<transaction, transaction>> can be made.
 .  The response to any use action should become visible within 5 seconds.
-.  The system should be able to have up to 100 <<customer, customers>>, 100 <<product, products>> and 100 <<transaction, transactions>>.
+.  The system should be able to have up to 1000000 <<customer, customers>>, 1000000 <<product, products>> and 1000000 <<transaction, transactions>>.
+.  The product (price, cost, quantity, sales), transaction (quantity, money) fields and quantity threshold should be able to take values up to 1000000.
 .  The user interface should be intuitive enough for users who are not IT-savvy.
 .  The source code should be open source.
 .  The product is offered as a free downloadable <<jar, jar>> file.
@@ -597,6 +598,18 @@ A deal between a customer and the user’s shop that is made on a product
 
 [[inventory]] Inventory::
 The products in stock.
+
+[[revenue]] Revenue::
+The sales of the product, calculated by adding up the transaction amounts of a particular product.
+
+[[sales]] Sales::
+Used interchangeably with revenue
+
+[[price]] Price::
+Selling price of the product
+
+[[cost]] Cost::
+Cost price of the product
 
 [[jar]] Jar File::
 A https://en.wikipedia.org/wiki/JAR_(file_format)[JAR] (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file for distribution.

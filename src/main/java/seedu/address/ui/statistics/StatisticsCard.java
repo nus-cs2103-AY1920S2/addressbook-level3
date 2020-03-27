@@ -1,4 +1,4 @@
-package seedu.address.ui.product;
+package seedu.address.ui.statistics;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +10,7 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Product}.
  */
-public class ProductCard extends UiPart<Region> {
+public class StatisticsCard extends UiPart<Region> {
 
     private static final String FXML = "ProductListCard.fxml";
 
@@ -39,7 +39,7 @@ public class ProductCard extends UiPart<Region> {
     @FXML
     private Label threshold;
 
-    public ProductCard(Product product, int displayedIndex) {
+    public StatisticsCard(Product product, int displayedIndex) {
         super(FXML);
         this.product = product;
         id.setText(displayedIndex + ". ");
@@ -58,14 +58,13 @@ public class ProductCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.ui.product.ProductCard)) {
+        if (!(other instanceof StatisticsCard)) {
             return false;
         }
 
         // state check
-        seedu.address.ui.product.ProductCard card = (seedu.address.ui.product.ProductCard) other;
+        StatisticsCard card = (StatisticsCard) other;
         return id.getText().equals(card.id.getText())
                 && product.equals(card.product);
     }
 }
-
