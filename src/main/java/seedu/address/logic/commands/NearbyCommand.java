@@ -25,10 +25,12 @@ public class NearbyCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": View all orders located at the same postal sector based on the displayed order list."
             + NEWLINE + "Parameters: POSTAL_SECTOR or AREA"
+            + NEWLINE + "A flag must be given to indicate the list to be searched for."
+            + "The flag can be either -o for orders for -r for return orders"
             + NEWLINE + "A postal sector is the first two digits of a six digit Singapore postal code"
             + NEWLINE + "An area is one of the following: Central, East, North-East, West, North"
-            + NEWLINE + "Example: " + COMMAND_WORD + " 14"
-            + NEWLINE + "Example: " + COMMAND_WORD + " central";
+            + NEWLINE + "Example: " + COMMAND_WORD + " -o 14"
+            + NEWLINE + "Example: " + COMMAND_WORD + " -r central";
 
     public static final String MESSAGE_SUCCESS_POSTAL_SECTOR = "Displayed all orders in postal sector."
             + NEWLINE + "General Location: %1$s";
