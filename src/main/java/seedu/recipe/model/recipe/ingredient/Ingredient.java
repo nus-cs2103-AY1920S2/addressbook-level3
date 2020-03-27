@@ -13,23 +13,36 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
             + "Tag/Quantity, Name\n"
             + "For example, to enter 50g of Broccoli, the format is iv/50g, Broccoli";
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
     public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%-/]+$+";
+
 
     protected String ingredientName;
     protected Quantity quantity;
 
+    /**
+     * Constructs an {@code Ingredient}.
+     *
+     * @param ingredientName A valid ingredient name
+     * @param quantity A valid quantity of the ingredient
+     */
     public Ingredient(String ingredientName, Quantity quantity) {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
-        this.ingredientName = ingredientName;
+        this.ingredientName = removeExtraWhitespace(ingredientName);
     }
 
     /**
      * Overloaded Ingredient constructor for the purpose of filtering by ingredient name.
      */
     public Ingredient(String ingredientName) {
-        this.ingredientName = ingredientName;
+        requireNonNull(ingredientName);
+        checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
+        this.ingredientName = removeExtraWhitespace(ingredientName);
     }
 
     /**
@@ -45,6 +58,13 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     public String getIngredientName() {
         return ingredientName;
+    }
+
+    /**
+     * Removes additional whitespaces between words (ie. words should only have one whitespace between them)
+     */
+    private String removeExtraWhitespace(String stringToProcess) {
+        return stringToProcess.replaceAll("\\s{2,}", " ");
     }
 
     @Override
