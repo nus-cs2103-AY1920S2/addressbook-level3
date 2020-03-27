@@ -44,11 +44,11 @@ public class LogicManagerTest {
     @TempDir
     public Path temporaryFolder;
 
-    private Model model = new ModelManager();
+    private Model model;
     private Logic logic;
 
-    private Module module = new Module(VALID_MODULE_CS2030);
-    private Group group = new Group(VALID_GROUP_T04);
+    private Module module;
+    private Group group;
 
     @BeforeEach
     public void setUp() {
@@ -56,6 +56,11 @@ public class LogicManagerTest {
                 new JsonTaTrackerStorage(temporaryFolder.resolve("tatracker.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(taTrackerStorage, userPrefsStorage);
+
+        model = new ModelManager();
+
+        module = new Module(VALID_MODULE_CS2030);
+        group = new Group(VALID_GROUP_T04);
 
         module.addGroup(group);
         model.addModule(module);
@@ -93,7 +98,12 @@ public class LogicManagerTest {
 
         // Setup Model
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addModule(module);
+
+        Module expectedModule = new Module(VALID_MODULE_CS2030);
+        Group expectedGroup = new Group(VALID_GROUP_T04);
+
+        expectedModule.addGroup(expectedGroup);
+        expectedModel.addModule(expectedModule);
 
         // Execute add command
         String addCommand = AddStudentCommand.COMMAND_WORD + MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04
@@ -101,7 +111,7 @@ public class LogicManagerTest {
 
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();
 
-        expectedModel.addStudent(expectedStudent);
+        expectedModel.addStudent(expectedStudent, expectedGroup, expectedModule);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

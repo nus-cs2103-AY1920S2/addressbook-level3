@@ -48,40 +48,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Replaces the contents of the group list with {@code groups}.
-     * {@code groups} must not contain duplicate groups.
-     */
-    public void setGroups(List<Group> groups) {
-        this.groups.setGroups(groups);
-    }
-
-    /**
-     * Replaces the contents of the modules list with {@code modules}.
-     * {@code modules} must not contain duplicate modules.
-     */
-    public void setModules(List<Module> modules) {
-        this.modules.setModules(modules);
-    }
-
-    /**
-     * Replaces the contents of the donesession list with {@code donesessions}.
-     * {@code donesessions} must not contain duplicate donesessions.
-     */
-    public void setDoneSessions(List<Session> donesessions) {
-        this.doneSessions.setSessions(donesessions);
-    }
-
-    /**
      * Resets the existing data of this {@code TaTracker} with {@code newData}.
      */
     public void resetData(ReadOnlyTaTracker newData) {
         requireNonNull(newData);
 
-        setStudents(newData.getStudentList());
         setSessions(newData.getSessionList());
         setDoneSessions(newData.getDoneSessionList());
         setModules(newData.getModuleList());
         setGroups(newData.getGroupList());
+        setStudents(newData.getStudentList());
     }
 
     // ======== Session Methods ================================================
@@ -142,6 +118,14 @@ public class TaTracker implements ReadOnlyTaTracker {
         doneSessions.add(s);
     }
 
+    /**
+     * Replaces the contents of the donesession list with {@code donesessions}.
+     * {@code donesessions} must not contain duplicate donesessions.
+     */
+    public void setDoneSessions(List<Session> donesessions) {
+        this.doneSessions.setSessions(donesessions);
+    }
+
     @Override
     public ObservableList<Session> getDoneSessionList() {
         return doneSessions.asUnmodifiableObservableList();
@@ -200,6 +184,14 @@ public class TaTracker implements ReadOnlyTaTracker {
         requireNonNull(editedModule);
 
         modules.setModule(target, editedModule);
+    }
+
+    /**
+     * Replaces the contents of the modules list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
     }
 
     @Override
@@ -269,6 +261,14 @@ public class TaTracker implements ReadOnlyTaTracker {
         module.setGroup(target, editedGroup);
     }
 
+    /**
+     * Replaces the contents of the group list with {@code groups}.
+     * {@code groups} must not contain duplicate groups.
+     */
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
+
     @Override
     public ObservableList<Group> getGroupList() {
         return groups.asUnmodifiableObservableList();
@@ -291,7 +291,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         Module module = getModule(targetModule.getIdentifier());
         Group group = module.getGroup(targetGroup.getIdentifier());
-        return module.hasGroup(group);
+        return group.hasStudent(student);
     }
 
     /**
