@@ -33,6 +33,8 @@ public class CouponCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label idDup;
+    @FXML
     private Label promoCode;
     @FXML
     private Label savings;
@@ -43,9 +45,9 @@ public class CouponCard extends UiPart<Region> {
     @FXML
     private Label usage;
     @FXML
-    private Label limit;
-    @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane tagsDup;
     @FXML
     private Label remindDate;
     @FXML
@@ -66,21 +68,23 @@ public class CouponCard extends UiPart<Region> {
     public CouponCard(Coupon coupon, int displayedIndex, String moneySymbol) {
         super(FXML);
         this.coupon = coupon;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
+        idDup.setText(displayedIndex + ""); // duplicate is needed for UI purposes
         name.setText(coupon.getName().fullName);
         promoCode.setText("Promo Code: " + coupon.getPromoCode());
         savings.setText(coupon.getSavingsForEachUse().getStringWithMoneySymbol(moneySymbol));
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
-        usage.setText(coupon.getUsage().toUiLabelText());
-        limit.setText(coupon.getLimit().toUiLabelText());
+        usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        coupon.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tagsDup.getChildren().add(new Label(tag.tagName)));
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("Terms & Condition: " + coupon.getCondition().value);
     }
-
 
     @Override
     public boolean equals(Object other) {

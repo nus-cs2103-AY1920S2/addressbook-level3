@@ -54,9 +54,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane couponListPanelPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
-
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -118,9 +115,6 @@ public class MainWindow extends UiPart<Stage> {
         couponListPanel = new CouponListPanel(
                 logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCouponStashFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
