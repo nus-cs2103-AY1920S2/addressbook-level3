@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor ARCHIVE_COLOR_T1
+skinparam classBackgroundColor ARCHIVE_COLOR
+
+Interface Model <<Interface>>
+
+Class ModelManager
+Class UniqueCouponList
+Class ObservableList<Coupon>
+Class Coupon
+Class Archive
+Class ExpiryDate
+Class Limit
+
+Class CouponStash {
+    +archiveExpiredCoupons()
+}
+
+Class Coupon {
+    +increaseUsageByOne()
+    +archive()
+}
+
+Class Usage {
+    {static} +isUsageAtLimit()
+}
+
+ModelManager..left|> Model
+ModelManager--right> "1" CouponStash : contains
+CouponStash--down>"             1"UniqueCouponList : has
+CouponStash..down>ExpiryDate
+UniqueCouponList--down>"2 "ObservableList : contains
+ObservableList--left>"*" Coupon : contains
+Coupon--up>Archive : has
+Coupon..up>Archive
+Coupon--up>Usage : has
+Coupon..up>Usage
+Coupon--up>Limit : has
+Coupon--up>ExpiryDate : has
+Usage..left>Limit
+
+@enduml

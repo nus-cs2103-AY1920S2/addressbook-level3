@@ -105,8 +105,9 @@ public class CouponStash implements ReadOnlyCouponStash {
     public CouponStash archiveExpiredCoupons() {
         Iterable<Coupon> iterable = () -> coupons.iterator();
         CouponStash updatedCouponStash = new CouponStash();
+        final LocalDate today = LocalDate.now();
         updatedCouponStash.setCoupons(StreamSupport.stream(iterable.spliterator(), false)
-                .map(coupon -> coupon.getExpiryDate().date.isBefore(LocalDate.now()) ? coupon.archive() : coupon)
+                .map(coupon -> coupon.getExpiryDate().date.isBefore(today) ? coupon.archive() : coupon)
                 .collect(Collectors.toList()));
         return updatedCouponStash;
     }

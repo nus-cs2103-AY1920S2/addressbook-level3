@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import csdev.couponstash.commons.util.DateFormatUtil;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
@@ -50,9 +50,9 @@ public class SavedCommandParser implements Parser<SavedCommand> {
             }
             LocalDate specDate;
             try {
-                specDate = DateFormatUtil.parseString(specificDate.get());
+                specDate = DateUtil.parseString(specificDate.get());
             } catch (DateTimeParseException e) {
-                throw new ParseException(DateFormatUtil.MESSAGE_DATE_WRONG_FORMAT);
+                throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
             }
             return new SavedCommand(specDate);
         } else if (startDate.isPresent() || endDate.isPresent()) {
@@ -61,10 +61,10 @@ public class SavedCommandParser implements Parser<SavedCommand> {
             LocalDate sDate;
             LocalDate eDate;
             try {
-                sDate = DateFormatUtil.parseString(strStart);
-                eDate = DateFormatUtil.parseString(strEnd);
+                sDate = DateUtil.parseString(strStart);
+                eDate = DateUtil.parseString(strEnd);
             } catch (DateTimeParseException e) {
-                throw new ParseException(DateFormatUtil.MESSAGE_DATE_WRONG_FORMAT);
+                throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
             }
             if (sDate.isAfter(eDate) || sDate.equals(eDate)) {
                 throw new ParseException(SavedCommand.MESSAGE_INVALID_DATE_RANGE);

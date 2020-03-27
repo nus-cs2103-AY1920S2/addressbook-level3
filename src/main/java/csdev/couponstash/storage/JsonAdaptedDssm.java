@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
-import csdev.couponstash.commons.util.DateFormatUtil;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 
@@ -66,12 +66,12 @@ public class JsonAdaptedDssm {
         }
 
         public JsonAdaptedDateSavingsPair(LocalDate ld, PureMonetarySavings pms) {
-            this.date = DateFormatUtil.formatDate(ld);
+            this.date = DateUtil.formatDate(ld);
             this.savings = new JsonAdaptedPureMonetarySavings(pms);
         }
 
         public LocalDate getDate() {
-            return DateFormatUtil.parseString(date);
+            return DateUtil.parseString(date);
         }
 
         public PureMonetarySavings getSavings() throws IllegalValueException {

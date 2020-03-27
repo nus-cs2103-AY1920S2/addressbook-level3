@@ -4,7 +4,9 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import csdev.couponstash.commons.util.DateUtil;
 
 /**
  * Represents a Coupon's start date in the CouponStash.
@@ -15,7 +17,6 @@ public class StartDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Start Dates should be a date in the D-M-YYYY format.";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     public final LocalDate date;
     public final String value;
 
@@ -27,11 +28,7 @@ public class StartDate {
     public StartDate(String startDate) {
         requireNonNull(startDate);
         checkArgument(isValidStartDate(startDate), MESSAGE_CONSTRAINTS);
-        if ("".equals(startDate)) {
-            value = LocalDate.now().format(DATE_FORMATTER);
-        } else {
-            value = startDate;
-        }
+        value = startDate;
         date = getDate();
     }
 
@@ -39,19 +36,20 @@ public class StartDate {
      * Returns true if a given string is a valid start date.
      */
     public static boolean isValidStartDate(String test) {
-        LocalDate testDate = LocalDate.now();
-        if (test.matches(VALIDATION_REGEX)) {
-            testDate = LocalDate.parse(test, DATE_FORMATTER);
+        try {
+            DateUtil.parseString(test);
+        } catch (DateTimeParseException ex) {
+            return false;
         }
-        return ("").equals(test) || (test.matches(VALIDATION_REGEX));
+        return (test.matches(VALIDATION_REGEX));
     }
 
     /**
-     * Returns the start date as a LocalDate.
-     * @return Start Date as a LocalDate
+     * Returns the start date as a {@LocalDate}.
+     * @return Start Date as a {@LocalDate}
      */
     public LocalDate getDate() {
-        return LocalDate.parse(value, DATE_FORMATTER);
+        return DateUtil.parseString(value);
     }
 
     @Override
