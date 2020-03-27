@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -45,6 +46,14 @@ public class TypicalPersons {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
+
+    public static PersonAmountBook getTypicalPersonAmountBook() {
+        PersonAmountBook pABook = new PersonAmountBook();
+        for (Person person : getTypicalPersons()) {
+            pABook.addPerson(person);
+        }
+        return pABook;
+    }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BOB, CARL, DANIEL, ELLE, FIONA, GEORGE));
