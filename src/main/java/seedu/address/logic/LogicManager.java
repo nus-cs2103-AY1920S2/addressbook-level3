@@ -84,8 +84,7 @@ public class LogicManager implements Logic {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
     } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand
-        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand
-        || command instanceof AssignTeacherToCourseCommand) {
+        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
       try {
         storage.saveCourseAddressBook(model.getCourseAddressBook());
       } catch (IOException ioe) {
@@ -113,6 +112,8 @@ public class LogicManager implements Logic {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
     }
+
+
 
     // Updates summary panel
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());
