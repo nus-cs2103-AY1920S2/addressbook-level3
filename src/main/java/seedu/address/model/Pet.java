@@ -4,24 +4,28 @@ public class Pet implements ReadOnlyPet {
     private static final String DEFAULT_NAME = "BB Productive";
     private static final String DEFAULT_EXP = "0";
     private static final String DEFAULT_LEVEL = "1";
+    private static final String DEFAULT_MOOD = "HAPPY";
     public String exp;
     public String level;
     public String name;
+    public String mood;
 
-    public Pet(String name, String exp, String level) {
+    public Pet(String name, String exp, String level, String mood) {
         this.exp = exp;
         this.level = level;
         this.name = name;
+        this.mood = mood;
     }
 
     public Pet(ReadOnlyPet source) {
         this.exp = source.getExp();
         this.level = source.getLevel();
         this.name = source.getName();
+        this.mood = source.getMood();
     }
 
     public Pet() {
-        this(DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LEVEL);
+        this(DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LEVEL, DEFAULT_MOOD);
     }
 
     public void setName(String name) {
@@ -62,6 +66,11 @@ public class Pet implements ReadOnlyPet {
     @Override
     public String getExp() {
         return this.exp;
+    }
+
+    @Override
+    public String getMood() {
+        return this.mood;
     }
 
     @Override
