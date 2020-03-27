@@ -39,7 +39,7 @@ public class TypicalPersons {
         .withAmount(new BigDecimal("10.50")).build();
 
     public static final Person IDA = new PersonBuilder().withName("IDA Seah")
-        .withAmount(new BigDecimal("11.50")).build();
+        .withAmount(new BigDecimal("11.60")).build();
 
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
