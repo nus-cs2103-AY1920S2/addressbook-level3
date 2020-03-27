@@ -91,6 +91,8 @@ public class AddFinanceCommand extends AddCommand {
   public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
   public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
   public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such teacher that with ID";
+  public static final String MESSAGE_INVALID_COURSESTUDENT = "The specified course does not contain a student with that ID";
+  public static final String MESSAGE_INVALID_COURSETEACHER = "The specified course does not contain a teacher with that ID";
 
   private Finance toAdd;
 
@@ -113,13 +115,16 @@ public class AddFinanceCommand extends AddCommand {
       Amount amount = new Amount("999");
       String courseName = "";
       String studentName = "";
+      String assignedStudents = "";
       boolean foundCourse = false;
       boolean foundStudent = false;
+      boolean foundCourseStudent = false;
 
       for (Course course : model.getFilteredCourseList()){
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = course.getAmount();
+          assignedStudents = course.getAssignedStudents().toString();
           foundCourse = true;
           break;
         }
@@ -138,6 +143,17 @@ public class AddFinanceCommand extends AddCommand {
       } else if (!foundStudent) {
         throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
       }
+
+      for (String studentStr : assignedStudents.split(",")) {
+        if (studentid.toString().equals(studentStr)) {
+          foundCourseStudent = true;
+        }
+      }
+
+      if (!foundCourseStudent) {
+        throw new CommandException(MESSAGE_INVALID_COURSESTUDENT);
+      }
+
       Name name = new Name(String.format("Student %s %s has paid for Course %s %s", studentName, studentid.toString()
       , courseName, courseid.toString()));
 
@@ -149,6 +165,7 @@ public class AddFinanceCommand extends AddCommand {
       Amount amount = new Amount("999");
       String courseName = "";
       String teacherName = "";
+      String assignedTeacher = "";
       boolean foundCourse = false;
       boolean foundTeacher = false;
 
@@ -156,6 +173,7 @@ public class AddFinanceCommand extends AddCommand {
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = course.getAmount();
+          assignedTeacher = course.getAssignedTeacher().toString();
           foundCourse = true;
           break;
         }
@@ -174,6 +192,11 @@ public class AddFinanceCommand extends AddCommand {
       } else if (!foundTeacher) {
         throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
       }
+
+      if (assignedTeacher.equals("")) {
+        throw new CommandException(MESSAGE_INVALID_COURSETEACHER);
+      }
+
       Name name = new Name(String.format("Teacher %s %s has been paid for teaching Course %s %s", teacherName, teacherid.toString()
           , courseName, courseid.toString()));
 

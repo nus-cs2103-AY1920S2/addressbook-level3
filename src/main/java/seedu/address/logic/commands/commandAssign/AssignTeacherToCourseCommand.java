@@ -32,6 +32,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
     public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such teacher that with ID";
+
     public static final String MESSAGE_SUCCESS = "Successfully assigned teacher %s(%s) to course %s(%s)";
 
     private final AssignDescriptor assignDescriptor;
