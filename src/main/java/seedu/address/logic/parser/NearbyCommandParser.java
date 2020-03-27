@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.NearbyCommand;
@@ -24,13 +25,14 @@ public class NearbyCommandParser implements Parser<NearbyCommand> {
     public NearbyCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         String validFlagRegex = "\\s+%s\\s+";
-        boolean isOrderListSearch = Pattern.matches(String.format(validFlagRegex, FLAG_ORDER_LIST.toString()),
-                trimmedArgs);
-        boolean isReturnListSearch = Pattern.matches(String.format(validFlagRegex, FLAG_RETURN_LIST.toString()),
-                trimmedArgs);
+        Pattern p = Pattern.compile(String.format(validFlagRegex, FLAG_ORDER_LIST.toString()));
+        Matcher m = p.matcher(args);
+        boolean isOrderListSearch = m.find();
+        p = Pattern.compile(String.format(validFlagRegex, FLAG_RETURN_LIST.toString()));
+        m = p.matcher(args);
+        boolean isReturnListSearch = m.find();
         boolean isInvalid = trimmedArgs.length() == 0
-                || !isOrderListSearch
-                || !isReturnListSearch;
+                || !(isOrderListSearch || isReturnListSearch);
         if (isInvalid) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NearbyCommand.MESSAGE_USAGE));

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
@@ -28,7 +29,7 @@ public class NearbyCommand extends Command {
             + ": View all orders located at the same postal sector based on the displayed order list."
             + NEWLINE + "Parameters: POSTAL_SECTOR or AREA"
             + NEWLINE + "A flag must be given to indicate the list to be searched for."
-            + "The flag can be either -o for orders for -r for return orders"
+            + NEWLINE + "The flag can be either -o for orders for -r for return orders"
             + NEWLINE + "A postal sector is the first two digits of a six digit Singapore postal code"
             + NEWLINE + "An area is one of the following: Central, East, North-East, West, North"
             + NEWLINE + "Example: " + COMMAND_WORD + " -o 14"
@@ -45,14 +46,20 @@ public class NearbyCommand extends Command {
     private boolean isReturnListSearch;
 
     public NearbyCommand(String searchTerm) {
-        String validFlagRegex = "\\s+%s\\s+";
+        String validFlagRegex = "\\s*%s\\s+";
         String orderListRegex = String.format(validFlagRegex, FLAG_ORDER_LIST.toString());
         String returnListRegex = String.format(validFlagRegex, FLAG_RETURN_LIST.toString());
-        this.isOrderListSearch = Pattern.matches(orderListRegex, searchTerm);
-        this.isReturnListSearch = Pattern.matches(returnListRegex, searchTerm);
-        if (isOrderListSearch) {
+
+        Pattern p = Pattern.compile(orderListRegex);
+        Matcher m = p.matcher(searchTerm);
+        this.isOrderListSearch = m.find();
+
+        p = Pattern.compile(returnListRegex);
+        m = p.matcher(searchTerm);
+        this.isReturnListSearch = m.find();
+        if (this.isOrderListSearch) {
             this.searchTerm = searchTerm.replaceFirst(orderListRegex, "");
-        } else if (isReturnListSearch) {
+        } else if (this.isReturnListSearch) {
             this.searchTerm = searchTerm.replaceFirst(returnListRegex, "");
         } else {
             this.searchTerm = searchTerm;
