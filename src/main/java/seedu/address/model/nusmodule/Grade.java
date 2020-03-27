@@ -18,6 +18,8 @@ public enum Grade {
     S(0.0, "S", true, true),
     U(0.0, "U", false, false);
 
+    public static final String MESSAGE_CONSTRAINTS = "Please enter valid grade.";
+
     private final double point;
     private final String text;
     private final boolean isPassed;
@@ -66,5 +68,17 @@ public enum Grade {
 
     public String getText() {
         return this.text;
+    }
+
+    /**
+     * Returns if a given string is a valid grade.
+     */
+    public static boolean isValidGrade(String test) {
+        for (Grade g : values()) {
+            if (g.text.equals(test)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

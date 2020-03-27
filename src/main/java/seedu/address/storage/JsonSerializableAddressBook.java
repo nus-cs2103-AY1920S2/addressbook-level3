@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,12 +24,18 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
+    private final List<JsonAdaptedDiary> diary = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("diary") List<JsonAdaptedDiary> diary) {
         this.persons.addAll(persons);
+        if (diary != null) {
+            this.diary.addAll(diary);
+        }
     }
 
     /**
@@ -38,6 +45,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        if (source.getDiaryList() != null) {
+            diary.addAll(source.getDiaryList().stream().map(JsonAdaptedDiary::new).collect(Collectors.toList()));
+        }
     }
 
     /**
@@ -54,6 +64,12 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (JsonAdaptedDiary jsonAdaptedDiary: diary) {
+            DiaryEntry diaryentry = jsonAdaptedDiary.toModelType();
+            addressBook.addDiaryEntry(diaryentry);
+        }
+
         return addressBook;
     }
 

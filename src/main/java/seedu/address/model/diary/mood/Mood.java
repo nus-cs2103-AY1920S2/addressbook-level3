@@ -1,5 +1,8 @@
 package seedu.address.model.diary.mood;
 
+/**
+ * Dummy javadocs
+ */
 public abstract class Mood {
     private final String mood;
 

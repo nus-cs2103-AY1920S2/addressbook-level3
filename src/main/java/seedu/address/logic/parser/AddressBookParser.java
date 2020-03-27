@@ -7,10 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.CapCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DiaryLogCommand;
+import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.DiaryAddCommand;
 import seedu.address.logic.commands.DiaryLogCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -19,6 +21,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NotesCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -79,6 +82,18 @@ public class AddressBookParser {
 
         case DiaryLogCommand.COMMAND_WORD:
             return new DiaryLogCommand();
+
+        case SearchCommand.COMMAND_WORD:
+            return new SearchCommandParser().parse(arguments);
+
+        case AddModuleCommand.COMMAND_WORD:
+            return new AddModuleCommandParser().parse(arguments);
+
+        case DeleteModuleCommand.COMMAND_WORD:
+            return new DeleteModuleCommandParser().parse(arguments);
+
+        case CapCommand.COMMAND_WORD:
+            return new CapCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

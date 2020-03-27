@@ -13,6 +13,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.ModuleBook;
+import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,7 +28,10 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ObservableList<DiaryEntry> diaryEntries;
     private DiaryBook diaryBook;
+    private final FilteredList<Notes> filesInFolder;
+    private ModuleBook moduleBook;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,7 +45,10 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        diaryEntries = this.addressBook.getDiaryList();
         diaryBook = new DiaryBook();
+        filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
+        moduleBook = new ModuleBook();
     }
 
     public ModelManager() {
@@ -116,6 +126,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Diary Module ==================================================================================
     @Override
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         diaryBook.addEntry(diaryEntry);
@@ -131,6 +142,44 @@ public class ModelManager implements Model {
     public String showDiaryLog() {
         return diaryBook.showLog();
     }
+
+    @Override
+    public Path getDiaryBookFilePath() {
+        return userPrefs.getDiaryBookFilePath();
+    }
+
+    @Override
+    public ObservableList<DiaryEntry> getDiaryList() {
+        return diaryEntries;
+    }
+
+
+    //=========== Cap Module ==================================================================================
+
+    /**
+     * Dummy java docs
+     * @param
+     * @return
+     */
+    public boolean hasModule(ModuleCode moduleCode) {
+        return moduleBook.hasModule(moduleCode);
+    }
+
+    @Override
+    public void addModule(NusModule module) {
+        moduleBook.addModule(module);
+    }
+
+    @Override
+    public void deleteModule(ModuleCode moduleCode) {
+        moduleBook.deleteModule(moduleCode);
+    }
+
+    @Override
+    public double getCap() {
+        return moduleBook.getCap();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -147,6 +196,20 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== Notes Module ==================================================================================
+    /** Returns an list of String that contains what is currently in the folder */
+    @Override
+    public ObservableList<Notes> getFilesInFolderList() {
+        return filesInFolder;
+    }
+
+    @Override
+    public void updateNotesList(Predicate<Notes> predicate) {
+        requireNonNull(predicate);
+        filesInFolder.setPredicate(predicate);
+    }
+
 
     @Override
     public boolean equals(Object obj) {

@@ -1,20 +1,23 @@
 package seedu.address.model.diary;
 
-import java.util.Optional;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import seedu.address.model.diary.mood.Mood;
 import seedu.address.model.diary.weather.Weather;
 
+/**
+ * Dummy javadocs
+ */
 public class DiaryEntry {
+
     private LocalDate date;
     private Optional<Weather> weather;
     private Optional<Mood> mood;
     private String entryContent;
 
-    private DiaryEntry(LocalDate date, Weather weather, Mood mood, String entryContent) {
+    public DiaryEntry(LocalDate date, Weather weather, Mood mood, String entryContent) {
         this.date = date;
         this.weather = Optional.ofNullable(weather);
         this.mood = Optional.ofNullable(mood);
@@ -31,6 +34,22 @@ public class DiaryEntry {
         heading += "WEATHER: " + (weather.isPresent() ? weather.get().toString() : "N.A.") + " | ";
         heading += "MOOD: " + (mood.isPresent() ? mood.get().toString() : "N.A.") + " | ";
         return heading + "\n";
+    }
+
+    public String getEntryContent() {
+        return entryContent;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Optional<Weather> getWeather() {
+        return weather;
+    }
+
+    public Optional<Mood> getMood() {
+        return mood;
     }
 
     @Override

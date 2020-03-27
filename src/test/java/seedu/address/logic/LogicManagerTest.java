@@ -43,7 +43,8 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"),
+                        temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -149,7 +150,7 @@ public class LogicManagerTest {
      */
     private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
         private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
+            super(filePath, filePath);
         }
 
         @Override

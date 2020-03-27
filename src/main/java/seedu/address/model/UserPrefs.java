@@ -16,6 +16,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
+    private Path diaryBookFilePath = Paths.get("data", "stub-diaryEntries.json");
+
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -49,6 +51,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
+    }
+
+    // Diary Book entry at startup
+    public Path getDiaryBookFilePath() {
+        return diaryBookFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
