@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_WATCH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALES_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SALES_WATCH;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class TypicalProducts {
 
     public static final Product ABACUS = new ProductBuilder().withDescription("Abacus")
             .withPrice("12").withQuantity("1")
-            .withSales("94351253").build();
+            .withSales("100000").build();
     public static final Product BOOK = new ProductBuilder().withDescription("Beige Book")
             .withPrice("311")
             .withQuantity("2").withSales("98").build();
@@ -45,12 +44,16 @@ public class TypicalProducts {
             .withQuantity("37").withSales("854").build();
 
     // Manually added - Customer's details found in {@code CommandTestUtil}
-    public static final Product WATCH = new ProductBuilder().withDescription(VALID_DESCRIPTION_WATCH)
+    public static final Product WATCH = new ProductBuilder()
+            .withDescription(VALID_DESCRIPTION_WATCH)
             .withPrice(VALID_PRICE_WATCH)
-            .withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH).build();
-    public static final Product BAG = new ProductBuilder().withDescription(VALID_DESCRIPTION_BAG)
+            .withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH)
+            .build();
+    public static final Product BAG = new ProductBuilder()
+            .withDescription(VALID_DESCRIPTION_BAG)
             .withPrice(VALID_PRICE_BAG)
-            .withQuantity(VALID_QUANTITY_BAG).withSales(VALID_SALES_BAG).build();
+            .withQuantity(VALID_QUANTITY_BAG)
+            .build();
 
     public static final String KEYWORD_MATCHING_BEIGE = "Beige"; // A keyword that matches MEIER
 

@@ -307,7 +307,7 @@ public class ParserUtil {
         requireNonNull(threshold);
         String trimmedThreshold = threshold.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedThreshold)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(QuantityThreshold.MESSAGE_CONSTRAINTS);
         }
         return new QuantityThreshold(trimmedThreshold);
     }

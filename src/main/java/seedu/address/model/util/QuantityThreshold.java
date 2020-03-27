@@ -7,7 +7,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the quantity threshold for each product before the application notifies the user.
  */
 public class QuantityThreshold {
-    public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Quantity threshold should be a positive integer value (up to 1000000), or Null";
     public static final String DEFAULT_VALUE = "Null";
 
     /*
@@ -15,6 +16,8 @@ public class QuantityThreshold {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
+
+    public static final int MAX_VALUE = 1000000;
 
     public final String value;
 
@@ -30,10 +33,12 @@ public class QuantityThreshold {
     }
 
     /**
-     * Returns true if a given string is a valid quantity.
+     * Returns true if a given string is a valid quantity threshold.
      */
     public static boolean isValidQuantity(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.equals(DEFAULT_VALUE)
+                || (test.matches(VALIDATION_REGEX)
+                && Integer.parseInt(test) < MAX_VALUE);
     }
 
     @Override

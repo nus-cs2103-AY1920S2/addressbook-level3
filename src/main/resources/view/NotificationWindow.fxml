@@ -4,22 +4,36 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Low quantity notification" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Alert!" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 <icons>
     <Image url="@/images/info_icon.png" />
 </icons>
     <scene>
     <Scene>
-        <HBox alignment="CENTER" >
+        <HBox alignment="CENTER" style="-fx-background-color: #101010;">
             <children>
-                <Label fx:id="notificationMessage" text="Label">
-                    <HBox.margin>
-                        <Insets right="5.0" />
-                    </HBox.margin>
-                </Label>
+               <AnchorPane style="-fx-background-color: #101010;" styleClass="notification-window">
+                  <children>
+                     <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                        <children>
+                           <Label maxWidth="1.7976931348623157E308" text="Low quantity notification" textAlignment="CENTER" textFill="#e797fd" wrapText="true">
+                              <font>
+                                 <Font size="20.0" />
+                              </font></Label>
+                            <Label fx:id="notificationMessage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS" />
+                        </children>
+                     </VBox>
+                  </children>
+                  <HBox.margin>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </HBox.margin>
+               </AnchorPane>
             </children>
             <opaqueInsets>
                 <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />

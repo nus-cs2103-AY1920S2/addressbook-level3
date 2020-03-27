@@ -23,20 +23,20 @@ public class QuantityTest {
 
     @Test
     public void isValidQuantity() {
-        // null phone number
+        // null quantity
         assertThrows(NullPointerException.class, () -> Quantity.isValidQuantity(null));
 
-        // invalid phone numbers
+        // invalid quantities
         assertFalse(Quantity.isValidQuantity("")); // empty string
         assertFalse(Quantity.isValidQuantity(" ")); // spaces only
         assertFalse(Quantity.isValidQuantity("price")); // non-numeric
         assertFalse(Quantity.isValidQuantity("9011p041")); // alphabets within digits
         assertFalse(Quantity.isValidQuantity("9312 1534")); // spaces within digits
+        assertFalse(Quantity.isValidQuantity("93121534")); // exceed max value
 
-        // valid phone numbers
+        // valid quantities
         assertTrue(Quantity.isValidQuantity("911")); // exactly 3 numbers
-        assertTrue(Quantity.isValidQuantity("93121534"));
-        assertTrue(Quantity.isValidQuantity("124293842033123")); // long prices
+        assertTrue(Quantity.isValidQuantity("1000000")); // long prices
     }
 }
 

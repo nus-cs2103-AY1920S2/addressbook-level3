@@ -65,9 +65,8 @@ public class AddProductCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
         Product expectedProduct = new ProductBuilder(BAG).build();
-        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + PRICE_DESC_BAG + QUANTITY_DESC_BAG + SALES_DESC_BAG,
+        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + PRICE_DESC_BAG + QUANTITY_DESC_BAG,
                 new AddProductCommand(expectedProduct));
     }
 

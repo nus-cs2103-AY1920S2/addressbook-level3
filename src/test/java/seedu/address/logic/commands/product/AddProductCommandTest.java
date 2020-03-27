@@ -135,7 +135,7 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public ReadOnlyInventorySystem getAddressBook() {
+        public ReadOnlyInventorySystem getInventorySystem() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -257,7 +257,7 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public ReadOnlyInventorySystem getAddressBook() {
+        public ReadOnlyInventorySystem getInventorySystem() {
             return new InventorySystem();
         }
     }

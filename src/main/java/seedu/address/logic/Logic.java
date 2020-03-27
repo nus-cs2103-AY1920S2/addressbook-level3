@@ -28,7 +28,7 @@ public interface Logic {
     /**
      * Returns the InventorySystem.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getInventorySystem()
      */
     ReadOnlyInventorySystem getAddressBook();
 
