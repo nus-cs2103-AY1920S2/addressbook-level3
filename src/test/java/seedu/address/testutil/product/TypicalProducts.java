@@ -1,5 +1,7 @@
 package seedu.address.testutil.product;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COSTPRICE_BAG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COSTPRICE_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BAG;
@@ -46,11 +48,14 @@ public class TypicalProducts {
     // Manually added - Customer's details found in {@code CommandTestUtil}
     public static final Product WATCH = new ProductBuilder()
             .withDescription(VALID_DESCRIPTION_WATCH)
+            .withCostPrice(VALID_COSTPRICE_WATCH)
             .withPrice(VALID_PRICE_WATCH)
-            .withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH)
+            .withQuantity(VALID_QUANTITY_WATCH)
+            .withSales(VALID_SALES_WATCH)
             .build();
     public static final Product BAG = new ProductBuilder()
             .withDescription(VALID_DESCRIPTION_BAG)
+            .withCostPrice(VALID_COSTPRICE_BAG)
             .withPrice(VALID_PRICE_BAG)
             .withQuantity(VALID_QUANTITY_BAG)
             .build();
