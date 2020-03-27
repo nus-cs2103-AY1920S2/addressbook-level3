@@ -7,13 +7,14 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
-import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
-import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
-import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
-import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
-import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelCourseStudent.CourseStudent;
+import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageCourseStudent.CourseStudentAddressBookStorage;
@@ -52,65 +53,65 @@ public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
   Path getTeacherAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyTeacherAddressBook> readTeacherAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Teacher>> readTeacherAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook) throws IOException;
+  void saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) throws IOException;
 
   ///
   @Override
   Path getStudentAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyStudentAddressBook> readStudentAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Student>> readStudentAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook) throws IOException;
+  void saveStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook) throws IOException;
 
   ///
   @Override
   Path getFinanceAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Finance>> readFinanceAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) throws IOException;
+  void saveFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook) throws IOException;
 
   ///
   @Override
   Path getCourseAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyCourseAddressBook> readCourseAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Course>> readCourseAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) throws IOException;
+  void saveCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook) throws IOException;
 
   ///
   @Override
   Path getAssignmentAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyAssignmentAddressBook> readAssignmentAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Assignment>> readAssignmentAddressBook()
           throws DataConversionException, IOException;
 
   @Override
-  void saveAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) throws IOException;
+  void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) throws IOException;
 
   ///
   @Override
   Path getCourseStudentAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyCourseStudentAddressBook> readCourseStudentAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<CourseStudent>> readCourseStudentAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook) throws IOException;
+  void saveCourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook) throws IOException;
 
 }
