@@ -19,7 +19,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int MAX_BUFFER_SIZE = 100;
+    private static final int MAX_BUFFER_SIZE = 100; // size of buffer to store command history
 
     private final CommandExecutor commandExecutor;
 

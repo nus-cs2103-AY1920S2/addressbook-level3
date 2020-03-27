@@ -20,6 +20,8 @@ public class Money {
 
     public static final int MAX_VALUE = 1000000;
 
+    public static final int DEFAULT_VALUE = 0;
+
     public final int value;
 
     /**

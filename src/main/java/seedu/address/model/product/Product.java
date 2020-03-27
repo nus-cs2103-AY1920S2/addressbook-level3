@@ -20,6 +20,7 @@ public class Product {
     private final Description description;
 
     // Data fields
+    private final CostPrice costPrice;
     private final Price price;
     private final Quantity quantity;
     private final Money sales;
@@ -30,9 +31,11 @@ public class Product {
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, Price price, Quantity quantity, Money sales, QuantityThreshold threshold) {
-        requireAllNonNull(description, price, quantity);
+    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
+                   Money sales, QuantityThreshold threshold) {
+        requireAllNonNull(description, costPrice, price, quantity);
         this.description = description;
+        this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
@@ -43,10 +46,11 @@ public class Product {
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, Price price, Quantity quantity, Money sales,
+    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity, Money sales,
                    QuantityThreshold threshold, UUID id) {
-        requireAllNonNull(description, price, quantity);
+        requireAllNonNull(description, costPrice, price, quantity);
         this.description = description;
+        this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
@@ -56,6 +60,10 @@ public class Product {
 
     public Description getDescription() {
         return description;
+    }
+
+    public CostPrice getCostPrice() {
+        return costPrice;
     }
 
     public Price getPrice() {
@@ -92,6 +100,7 @@ public class Product {
 
         return otherProduct != null
                 && otherProduct.getDescription().equals(getDescription())
+                && otherProduct.getCostPrice().equals(getCostPrice())
                 && otherProduct.getPrice().equals(getPrice());
     }
 
@@ -110,24 +119,27 @@ public class Product {
 
         Product otherProduct = (Product) other;
         return otherProduct.getDescription().equals(getDescription())
+                && otherProduct.getCostPrice().equals(getCostPrice())
                 && otherProduct.getPrice().equals(getPrice());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, quantity, sales);
+        return Objects.hash(description, costPrice, price, quantity, sales);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDescription())
-                .append("\nPrice: ")
+                .append("\nCost Price: $")
+                .append(getCostPrice())
+                .append(" Price: $")
                 .append(getPrice())
                 .append(" Quantity: ")
                 .append(getQuantity())
-                .append(" Sales: ")
+                .append(" Sales: $")
                 .append(getSales())
                 .append(" Threshold: ")
                 .append(getThreshold());

@@ -1,5 +1,6 @@
 package seedu.address.testutil.product;
 
+import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
@@ -13,12 +14,14 @@ import seedu.address.model.util.QuantityThreshold;
 public class ProductBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Black watch";
+    public static final String DEFAULT_COSTPRICE = "10";
     public static final String DEFAULT_PRICE = "22";
     public static final String DEFAULT_QUANTITY = "12";
     public static final String DEFAULT_SALES = "44";
     public static final String DEFAULT_THRESHOLD = "5";
 
     private Description description;
+    private CostPrice costPrice;
     private Price price;
     private Money sales;
     private Quantity quantity;
@@ -26,6 +29,7 @@ public class ProductBuilder {
 
     public ProductBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
+        costPrice = new CostPrice(DEFAULT_COSTPRICE);
         price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         sales = new Money(DEFAULT_SALES);
@@ -37,6 +41,7 @@ public class ProductBuilder {
      */
     public ProductBuilder(Product productToCopy) {
         description = productToCopy.getDescription();
+        costPrice = productToCopy.getCostPrice();
         price = productToCopy.getPrice();
         quantity = productToCopy.getQuantity();
         sales = productToCopy.getSales();
@@ -48,6 +53,14 @@ public class ProductBuilder {
      */
     public ProductBuilder withDescription(String description) {
         this.description = new Description(description);
+        return this;
+    }
+
+    /**
+     * Sets the {@code CostPrice} of the {@code Product} that we are building.
+     */
+    public ProductBuilder withCostPrice(String costPrice) {
+        this.costPrice = new CostPrice(costPrice);
         return this;
     }
 
@@ -84,7 +97,7 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(description, price, quantity, sales, threshold);
+        return new Product(description, costPrice, price, quantity, sales, threshold);
     }
 
 }
