@@ -494,9 +494,10 @@ This reminder feature is facilitated by the Remind attribute of a coupon. The fo
 
 === Calculating amount saved
 
-Just for reference, the diagram below shows the class diagram
+Just for reference, the image below shows the class diagram
 for the Savings class. It is compulsory for each Coupon to
-contain an Savings object.
+contain an Savings object, that represents what the user
+would gain from 1 use of that Coupon.
 
 image::SavingsClassDiagram.png[]
 
@@ -509,34 +510,48 @@ which are not.
 
 [cols="2"]
 |=========================================
+|Object Diagram | Comments
 a|
-image::s1valid.png[] | Valid
+image:s1valid.png[] | Valid
 a|
-image::s2valid.png[] | Valid
+image:s2valid.png[] | Valid
 a|
-image::s3valid.png[] | Valid
+image:s3valid.png[] | Valid
 a|
-image::s4invalid.png[] | Invalid: Savings must have at
+image:s4invalid.png[] | Invalid: Savings must have at
 least one field
 a|
-image::s5valid.png[] | Valid: Savings can have both a
+image:s5valid.png[] | Valid: Savings can have both a
 percentage amount and saveables
 a|
-image::s6valid.png[] | Valid: Savings can hold more
+image:s6valid.png[] | Valid: Savings can hold more
 than one Saveable
 a|
-image::s7invalid.png[] | Invalid: Savings cannot have both a
+image:s7invalid.png[] | Invalid: Savings cannot have both a
 MonetaryAmount and PercentageAmount
 |=========================================
 
+As can be seen from the table, Savings cannot be completely
+empty, and Savings cannot have both a MonetaryAmount and
+PercentageAmount (it does not make much sense to have
+a voucher that says "10% and $5 off").
 
-
+In order to calculate the total amount saved, Coupons also
+store information about how much the user saves whenever
+the user uses the coupon. The following section describes
+the processes that follow whenever a user marks a Coupon
+as "used" with the `used` command.
 
 ==== Implementation of used command
 
 When the user enters a used command, the actions taken by Coupon
 Stash change depending on whether the Coupon's Savings stores
-a MonetaryAmount of PercentageAmount.
+a MonetaryAmount of PercentageAmount. The following activity
+diagram shows the execution of a used command.
+
+image::UsedCommandActivityDiagram.png[]
+
+
 
 ==== Implementation of saved command
 
