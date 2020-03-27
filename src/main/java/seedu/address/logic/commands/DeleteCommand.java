@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EditCommand.createEditedPerson;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -13,6 +12,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -41,9 +41,9 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index targetIndex;
-    private final EditCommand.EditPersonDescriptor editPersonDescriptor;
+    private final EditPersonDescriptor editPersonDescriptor;
 
-    public DeleteCommand(Index targetIndex, EditCommand.EditPersonDescriptor editPersonDescriptor) {
+    public DeleteCommand(Index targetIndex, EditPersonDescriptor editPersonDescriptor) {
         this.targetIndex = targetIndex;
         this.editPersonDescriptor = editPersonDescriptor;
     }
@@ -62,7 +62,7 @@ public class DeleteCommand extends Command {
             model.deletePerson(personToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
         } else {
-            Person editedPerson = createEditedPerson(personToDelete, editPersonDescriptor);
+            Person editedPerson = editPersonDescriptor.createEditedPerson(personToDelete);
 
             if (!personToDelete.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
