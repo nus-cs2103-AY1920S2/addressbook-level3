@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.calculator.CalorieCalculator;
+import fithelper.model.calculator.FeedbackGenerator;
 import fithelper.model.calculator.PerformanceCalculator;
 import fithelper.model.entry.Entry;
 import fithelper.ui.FoodCard;
@@ -126,6 +127,7 @@ public class TodayPage extends UiPart<AnchorPane> {
                 FXCollections.observableArrayList(pieChartDataList);
 
         foodCaloriePieChart.setData(pieChartData);
+        setFoodCaloriePieChartProperty();
     }
 
     /**
@@ -145,6 +147,16 @@ public class TodayPage extends UiPart<AnchorPane> {
         }
 
         return pieChartDataList;
+    }
+
+    /**
+     * Sets the property of food calorie pie chart.
+     */
+    private void setFoodCaloriePieChartProperty() {
+        foodCaloriePieChart.setClockwise(true);
+        foodCaloriePieChart.setLabelLineLength(10);
+        foodCaloriePieChart.setBorder(null);
+
     }
 
     /**
@@ -177,6 +189,7 @@ public class TodayPage extends UiPart<AnchorPane> {
         updateFoodCounter(foodList);
         updateFoodCalorie(foodList);
         updateFoodCaloriePieChart(foodList);
+        updateFeedback();
     }
 
     /**
@@ -187,6 +200,7 @@ public class TodayPage extends UiPart<AnchorPane> {
         updateSportCounter(sportList);
         updateSportCalorie(sportList);
         updatePerformance(sportList);
+        updateFeedback();
     }
 
     /**
@@ -256,8 +270,9 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param sportList an observable list of sport entries
      */
     private void updatePerformance(ObservableList<Entry> sportList) {
-        this.percentDone = this.sportDone * 100.0 / sportList.size();
+        percentDone = this.sportDone * 100.0 / sportList.size();
         performance.setText("Sports Task Completion: " + (int)this.percentDone + "%");
+        logger.info("task modification: " + this.percentDone);
     }
 
     /**
@@ -292,6 +307,16 @@ public class TodayPage extends UiPart<AnchorPane> {
                 setGraphic(new SportCard(sport, getIndex() + 1).getRoot());
             }
         }
+    }
+
+    /**
+     * Generates and updates the feedback box based on the task completion data.
+     */
+    private void updateFeedback() {
+        FeedbackGenerator feedbackGenerator = new FeedbackGenerator(this.percentDone, this.difCalorie);
+        logger.info("generate feedback: " + percentDone);
+        String todayFeedback = feedbackGenerator.generateFeedback();
+        feedback.setText(todayFeedback);
     }
 
 }
