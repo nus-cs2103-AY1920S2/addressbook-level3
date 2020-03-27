@@ -91,9 +91,9 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_nearby() throws Exception {
         NearbyCommand nearbyCommand = (NearbyCommand) parser.parseCommand(
-                NearbyCommand.COMMAND_WORD + " " + "1"
+                NearbyCommand.COMMAND_WORD + " -o " + "1"
         );
-        assertEquals(new NearbyCommand("1"), nearbyCommand);
+        assertEquals(new NearbyCommand(" -o 1"), nearbyCommand);
     }
 
     @Test
