@@ -59,6 +59,7 @@ public class ReturnCommand extends Command {
      * Creates an ReturnCommand to add the specified {@code Order}
      */
     public ReturnCommand(ReturnOrder returnOrder, TransactionId tid) {
+        requireNonNull(tid);
         toBeCreated = returnOrder;
         this.tid = tid;
     }
