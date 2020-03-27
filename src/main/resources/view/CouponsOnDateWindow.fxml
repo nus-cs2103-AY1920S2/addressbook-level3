@@ -7,8 +7,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
 <?import java.net.URL?>
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
-         xmlns:fx="http://javafx.com/fxml/1" minWidth="656.0">
+<?import javafx.scene.image.Image?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         minWidth="656.0">
+  <icons>
+    <Image url="@/images/coupon_stash_32.png"/>
+  </icons>
   <scene>
     <Scene>
       <stylesheets>

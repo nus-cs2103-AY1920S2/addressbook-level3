@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="950" onCloseRequest="#handleExit" title="Coupon Stash" type="javafx.stage.Stage"
+<fx:root minHeight="600" minWidth="1000" onCloseRequest="#handleExit" title="Coupon Stash" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/coupon_stash_32.png"/>
@@ -36,22 +36,21 @@
           </Menu>
         </MenuBar>
 
-        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" minWidth="640" >
-          <VBox fx:id="couponList" alignment="TOP_LEFT" minWidth="631" styleClass="background" HBox.hgrow="ALWAYS"
-                VBox.vgrow="ALWAYS">
-            <StackPane fx:id="couponListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-          </VBox>
+        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" minWidth="680">
+          <StackPane fx:id="tabPanePlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          </StackPane>
+
           <StackPane fx:id="calendarResultPlaceholder" alignment="TOP_RIGHT" styleClass="pane-with-border"
                      HBox.hgrow="NEVER" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets right="7" top="5"/>
-          </padding>
+            <padding>
+              <Insets right="7" top="5"/>
+            </padding>
           </StackPane>
         </HBox>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER" prefHeight="30">
           <padding>
-            <Insets bottom="5" left="7" right="7" top="5"/>
+            <Insets bottom="5" left="27" right="7" top="5"/>
           </padding>
         </StackPane>
       </VBox>

@@ -15,7 +15,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -25,7 +24,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
- * The ui for the Calendar that is displayed at the right of the application.
+ * Calendar that is displayed at the right.
  */
 public class CalendarPane extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(CalendarPane.class);
@@ -56,7 +55,6 @@ public class CalendarPane extends UiPart<Region> {
      */
     public CalendarPane(Logic logic) {
         super(FXML);
-//        calendarPaneHeader.setText(LocalDate.now().format(DATE_FORMATTER));
         currentYearMonth = YearMonth.now();
         dateCells = new ArrayList<>();
         this.coupons = logic.getFilteredCouponList();
@@ -174,7 +172,7 @@ public class CalendarPane extends UiPart<Region> {
         boolean visible = isVisible(date);
 
         Text dateText = new Text(String.format("%02d", date.getDayOfMonth()));
-        dateText.setFont(new Font("Segoe Ui Bold", 14));
+        dateText.setFont(new Font("Segoe Ui SemiBold", 14));
         dateText.setFill(Paint.valueOf("#FFFFFF"));
         if (visible) {
             if (dateIsInCurrentMonth(date)) {
@@ -229,7 +227,7 @@ public class CalendarPane extends UiPart<Region> {
             dateCell.setCircle(circle);
             dateCell.setCursor();
         } else if (date.isEqual(LocalDate.now())) {
-            circle.setFill(Paint.valueOf("#8D021F"));
+            circle.setFill(Paint.valueOf("#DF6D54"));
             dateCell.setCircle(circle);
         } else {
             circle = new Circle(0);
@@ -307,30 +305,30 @@ public class CalendarPane extends UiPart<Region> {
     private int getDayOfWeekInInt(String day) {
         int dayInInt;
         switch (day) {
-            case "MONDAY":
-                dayInInt = 0;
-                break;
-            case "TUESDAY":
-                dayInInt = 1;
-                break;
-            case "WEDNESDAY":
-                dayInInt = 2;
-                break;
-            case "THURSDAY":
-                dayInInt = 3;
-                break;
-            case "FRIDAY":
-                dayInInt = 4;
-                break;
-            case "SATURDAY":
-                dayInInt = 5;
-                break;
-            case "SUNDAY":
-                dayInInt = 6;
-                break;
-            default:
-                dayInInt = 0;
-                break;
+        case "MONDAY":
+            dayInInt = 0;
+            break;
+        case "TUESDAY":
+            dayInInt = 1;
+            break;
+        case "WEDNESDAY":
+            dayInInt = 2;
+            break;
+        case "THURSDAY":
+            dayInInt = 3;
+            break;
+        case "FRIDAY":
+            dayInInt = 4;
+            break;
+        case "SATURDAY":
+            dayInInt = 5;
+            break;
+        case "SUNDAY":
+            dayInInt = 6;
+            break;
+        default:
+            dayInInt = 0;
+            break;
         }
         return dayInInt;
     }
