@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.product.EditProductCommand.*;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 
@@ -10,7 +12,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Quantity;
 
 /**
  * Deletes a transaction identified using it's displayed index from the transaction list.
@@ -35,6 +39,8 @@ public class DeleteTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
+
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -42,6 +48,20 @@ public class DeleteTransactionCommand extends Command {
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        Product productToEdit = model.findProductById(transactionToDelete.getProductId());
+        Quantity oldQuantity = productToEdit.getQuantity();
+        Quantity newQuantity = oldQuantity.plus(transactionToDelete.getQuantity());
+        editProductDescriptor.setQuantity(newQuantity);
+        Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
+
+        if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
+        }
+
+        model.setProduct(productToEdit, editedProduct);
+        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
         model.deleteTransaction(transactionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, transactionToDelete));
     }

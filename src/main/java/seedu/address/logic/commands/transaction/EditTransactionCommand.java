@@ -50,12 +50,12 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_MONEY + "MONEY] "
             + "[" + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CUSTOMER + "Bob "
-            + PREFIX_PRODUCT + "WaterMelon "
+            + PREFIX_CUSTOMER + "1 "
+            + PREFIX_PRODUCT + "1 "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
-            + PREFIX_QUANTITY + "30 "
-            + PREFIX_MONEY + "30 "
-            + PREFIX_TRANS_DESCRIPTION + "under discount ";
+            + PREFIX_QUANTITY + "3 "
+            + PREFIX_MONEY + "40 "
+            + PREFIX_TRANS_DESCRIPTION + "normal price ";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
