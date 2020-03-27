@@ -494,6 +494,21 @@ This reminder feature is facilitated by the Remind attribute of a coupon. The fo
 
 === Savings per use and total amount saved
 
+To allow users to keep track of how much they have saved
+(after all, the whole point of coupons is to offer
+certain tangible benefits, encouraging purchases
+by customers), Coupon Stash automatically tracks the
+user's savings as they use their coupons that are
+handled in the application.
+
+To achieve this, Coupons have to store two different
+fields: +
+1. Amount of savings each use of a coupon provides +
+2. Total amount of savings accumulated
+from using a certain coupon
+
+==== Class structure of Savings
+
 Just for reference, the image below shows the class diagram
 for the Savings class. It is compulsory for each Coupon to
 contain an Savings object, that represents what the user
@@ -536,6 +551,8 @@ empty, and Savings cannot have both a MonetaryAmount and
 PercentageAmount (it does not make much sense to have
 a voucher that says "10% and $5 off").
 
+==== PureMonetarySavings and DateSavingsSumMap
+
 In order to calculate the total amount saved, Coupons also
 store information about how much the user saves, and storage
 is done at the moment the user uses the coupon. This
@@ -544,6 +561,13 @@ which is a subclass of Savings that never holds
 PercentageAmounts. The class diagram below illustrates this.
 
 image:PureMonetarySavingsClassDiagram.png[]
+
+The reason why PercentageAmounts are not allowed in
+accumulated savings is because a percentage
+discount is a relative value that depends on the
+original price of the product, and cannot be easily
+added up in a way that allows users to accurately
+measure how much they have saved from their coupons.
 
 [[dssm]]
 PureMonetarySavings are stored in
@@ -607,6 +631,14 @@ a <<DeveloperGuide.adoc#dssm, DateSavingsSumMap>>.
 
 ==== Implementation of saved command
 
+Now that we have seen how the used command works,
+we can look at how the saved command works. While
+`used` stores the amount of savings that the user
+has earned on a particular day, `saved` retrieves
+the amount of savings earned as recorded by Coupon
+Stash, given a particular time period.
+
+==== Design considerations
 
 
 
