@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Quantity implements Comparable<Quantity> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Quantity should take numeric values, and it should not be blank";
+            "Quantity should take positive integer values (up to 1000000), and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS_NOT_NEGATIVE =
             "The numeric value of a Quantity must not be negative";
 
@@ -18,6 +18,8 @@ public class Quantity implements Comparable<Quantity> {
      * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
+
+    public static final int MAX_VALUE = 1000000;
 
     public final int value;
 
@@ -44,7 +46,15 @@ public class Quantity implements Comparable<Quantity> {
      * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.matches(VALIDATION_REGEX)) {
+            try {
+                int value = Integer.parseInt(test);
+                return value <= MAX_VALUE;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
     }
 
     /**

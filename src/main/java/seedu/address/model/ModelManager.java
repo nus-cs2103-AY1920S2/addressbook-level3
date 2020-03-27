@@ -23,7 +23,7 @@ import seedu.address.model.transaction.Transaction;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final InventorySystem addressBook;
+    private final InventorySystem inventorySystem;
     private final UserPrefs userPrefs;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Product> filteredProducts;
@@ -38,11 +38,11 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new InventorySystem(addressBook);
+        this.inventorySystem = new InventorySystem(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCustomers = new FilteredList<>(this.addressBook.getPersonList());
-        filteredProducts = new FilteredList<>(this.addressBook.getProductList());
-        filteredTransactions = new FilteredList<>(this.addressBook.getTransactionList());
+        filteredCustomers = new FilteredList<>(this.inventorySystem.getPersonList());
+        filteredProducts = new FilteredList<>(this.inventorySystem.getProductList());
+        filteredTransactions = new FilteredList<>(this.inventorySystem.getTransactionList());
     }
 
     public ModelManager() {
@@ -88,87 +88,87 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyInventorySystem addressBook, String commandWord) {
-        this.addressBook.resetData(addressBook, commandWord);
+        this.inventorySystem.resetData(addressBook, commandWord);
     }
 
     @Override
-    public ReadOnlyInventorySystem getAddressBook() {
-        return addressBook;
+    public ReadOnlyInventorySystem getInventorySystem() {
+        return inventorySystem;
     }
 
     @Override
     public boolean hasPerson(Customer customer) {
         requireNonNull(customer);
-        return addressBook.hasPerson(customer);
+        return inventorySystem.hasPerson(customer);
     }
 
     @Override
     public boolean hasProduct(Product product) {
         requireNonNull(product);
-        return addressBook.hasProduct(product);
+        return inventorySystem.hasProduct(product);
     }
 
     @Override
     public Product findProductById(UUID id) {
         requireNonNull(id);
-        return addressBook.findProductById(id);
+        return inventorySystem.findProductById(id);
     }
 
     @Override
     public void deletePerson(Customer target) {
-        addressBook.removePerson(target);
+        inventorySystem.removePerson(target);
     }
 
     @Override
     public void deleteProduct(Product target) {
-        addressBook.removeProduct(target);
+        inventorySystem.removeProduct(target);
     }
 
     @Override
     public void addPerson(Customer customer) {
-        addressBook.addPerson(customer);
+        inventorySystem.addPerson(customer);
         updateFilteredCustomerList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void addProduct(Product product) {
-        addressBook.addProduct(product);
+        inventorySystem.addProduct(product);
         updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
     }
 
     @Override
     public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
-        return addressBook.hasTransaction(transaction);
+        return inventorySystem.hasTransaction(transaction);
     }
 
     @Override
     public void addTransaction(Transaction transaction) {
-        addressBook.addTransaction(transaction);
+        inventorySystem.addTransaction(transaction);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
-        addressBook.setTransaction(target, editedTransaction);
+        inventorySystem.setTransaction(target, editedTransaction);
     }
 
     @Override
     public void deleteTransaction(Transaction transaction) {
-        addressBook.removeTransaction(transaction);
+        inventorySystem.removeTransaction(transaction);
     }
 
     @Override
     public void setPerson(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
-        addressBook.setPerson(target, editedCustomer);
+        inventorySystem.setPerson(target, editedCustomer);
     }
 
     @Override
     public void setProduct(Product target, Product editedProduct) {
         requireAllNonNull(target, editedProduct);
-        addressBook.setProduct(target, editedProduct);
+        inventorySystem.setProduct(target, editedProduct);
     }
 
     //=========== Filtered Customer List Accessors =============================================================
@@ -224,7 +224,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return inventorySystem.equals(other.inventorySystem)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCustomers.equals(other.filteredCustomers)
                 && filteredProducts.equals(other.filteredProducts)

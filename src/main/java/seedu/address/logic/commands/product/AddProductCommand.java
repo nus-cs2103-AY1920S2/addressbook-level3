@@ -19,12 +19,12 @@ public class AddProductCommand extends Command {
 
     public static final String COMMAND_WORD = "addp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a product to the product list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a product to the product list.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
             + PREFIX_QUANTITY + "QUANTITY "
-            + "[" + PREFIX_SALES + "SALES] "
+            + "[" + PREFIX_SALES + "SALES] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "iphone "
             + PREFIX_PRICE + "1000 "

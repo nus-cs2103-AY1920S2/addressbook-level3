@@ -21,19 +21,20 @@ public class SalesTest {
 
     @Test
     public void isValidSales() {
-        // null phone number
+        // null sales
         assertThrows(NullPointerException.class, () -> Sales.isValidSales(null));
 
-        // invalid phone numbers
+        // invalid sales
         assertFalse(Sales.isValidSales("")); // empty string
         assertFalse(Sales.isValidSales(" ")); // spaces only
         assertFalse(Sales.isValidSales("price")); // non-numeric
         assertFalse(Sales.isValidSales("9011p041")); // alphabets within digits
         assertFalse(Sales.isValidSales("9312 1534")); // spaces within digits
+        assertFalse(Sales.isValidSales("124293842033123")); // long sales
 
-        // valid phone numbers
+        // valid sales
         assertTrue(Sales.isValidSales("911")); // exactly 3 numbers
-        assertTrue(Sales.isValidSales("93121534"));
-        assertTrue(Sales.isValidSales("124293842033123")); // long prices
+        assertTrue(Sales.isValidSales("1000000"));
+
     }
 }

@@ -75,9 +75,7 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime())
-                && otherTransaction.getQuantity().equals(getQuantity())
-                && otherTransaction.getMoney().equals(getMoney());
+                && otherTransaction.getDateTime().equals(getDateTime());
 
     }
 
@@ -95,9 +93,21 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime())
-                && otherTransaction.getQuantity().equals(getQuantity())
-                && otherTransaction.getMoney().equals(getMoney())
-                && otherTransaction.getDescription().equals(getDescription());
+                && otherTransaction.getDateTime().equals(getDateTime());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getCustomer().getName())
+                .append(" bought ")
+                .append(getProduct().getDescription())
+                .append("\nDate/ time: ")
+                .append(getDateTime())
+                .append(" Quantity: ")
+                .append(getQuantity())
+                .append(" Amount: ")
+                .append(getMoney());
+        return builder.toString();
     }
 }

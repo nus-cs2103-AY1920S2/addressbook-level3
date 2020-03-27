@@ -90,9 +90,7 @@ public class Product {
 
         return otherProduct != null
                 && otherProduct.getDescription().equals(getDescription())
-                && otherProduct.getPrice().equals(getPrice())
-                && otherProduct.getQuantity().equals(getQuantity())
-                && otherProduct.getSales().equals(getSales());
+                && otherProduct.getPrice().equals(getPrice());
     }
 
     /**
@@ -110,9 +108,7 @@ public class Product {
 
         Product otherProduct = (Product) other;
         return otherProduct.getDescription().equals(getDescription())
-                && otherProduct.getPrice().equals(getPrice())
-                && otherProduct.getQuantity().equals(getQuantity())
-                && otherProduct.getSales().equals(getSales());
+                && otherProduct.getPrice().equals(getPrice());
     }
 
     @Override
@@ -124,9 +120,8 @@ public class Product {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Description: ")
-                .append(getDescription())
-                .append(" Price: ")
+        builder.append(getDescription())
+                .append("\nPrice: ")
                 .append(getPrice())
                 .append(" Quantity: ")
                 .append(getQuantity())

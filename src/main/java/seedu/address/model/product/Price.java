@@ -9,12 +9,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Price {
 
-    public static final String MESSAGE_CONSTRAINTS = "Price can take any numeric values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Price can take any positive integer values (up to 1000000), and it should not be blank";
 
     /*
      * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
+
+    public static final int MAX_VALUE = 1000000;
 
     public final String value;
 
@@ -33,7 +36,15 @@ public class Price {
      * Returns true if a given string is a valid price.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.matches(VALIDATION_REGEX)) {
+            try {
+                int value = Integer.parseInt(test);
+                return value <= MAX_VALUE;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override

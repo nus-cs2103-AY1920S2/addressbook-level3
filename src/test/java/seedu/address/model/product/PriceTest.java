@@ -21,19 +21,19 @@ public class PriceTest {
 
     @Test
     public void isValidPrice() {
-        // null phone number
+        // null prices
         assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
 
-        // invalid phone numbers
+        // invalid prices
         assertFalse(Price.isValidPrice("")); // empty string
         assertFalse(Price.isValidPrice(" ")); // spaces only
         assertFalse(Price.isValidPrice("price")); // non-numeric
         assertFalse(Price.isValidPrice("9011p041")); // alphabets within digits
         assertFalse(Price.isValidPrice("9312 1534")); // spaces within digits
+        assertFalse(Price.isValidPrice("124293842033123")); // long prices
 
-        // valid phone numbers
+        // valid prices
         assertTrue(Price.isValidPrice("911")); // exactly 3 numbers
-        assertTrue(Price.isValidPrice("93121534"));
-        assertTrue(Price.isValidPrice("124293842033123")); // long prices
+        assertTrue(Price.isValidPrice("1000000"));
     }
 }

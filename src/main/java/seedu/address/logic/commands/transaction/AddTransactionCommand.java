@@ -19,10 +19,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
+import seedu.address.model.product.Sales;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 import seedu.address.ui.NotificationWindow;
 
 /**
@@ -32,24 +35,25 @@ public class AddTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "addt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": add a transaction to the application. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the application. \n"
             + "Parameters: "
-            + "[" + PREFIX_CUSTOMER + "CUSTOMER] "
-            + "[" + PREFIX_PRODUCT + "PRODUCT] "
-            + "[" + PREFIX_DATETIME + "DATETIME] "
-            + "[" + PREFIX_QUANTITY + "QUANTITY] "
-            + "[" + PREFIX_MONEY + "MONEY] "
-            + "[" + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION] \n"
+            + PREFIX_CUSTOMER + "CUSTOMER "
+            + PREFIX_PRODUCT + "PRODUCT "
+            + PREFIX_DATETIME + "DATETIME "
+            + PREFIX_QUANTITY + "QUANTITY "
+            + PREFIX_MONEY + "MONEY "
+            + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
-            + PREFIX_QUANTITY + "30 "
+            + PREFIX_QUANTITY + "1 "
             + PREFIX_MONEY + "30 "
             + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the address book";
 
     private final TransactionFactory transactionFactory;
     private final EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
@@ -64,52 +68,79 @@ public class AddTransactionCommand extends Command {
         requireNonNull(model);
         List<Product> lastShownList = model.getFilteredProductList();
 
-        Index productIndex = transactionFactory.getProductIndex();
-        Index customerIndex = transactionFactory.getCustomerIndex();
-
-        if (productIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
-        }
-
-        if (customerIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
+        Index productIndex = getProductIndex(lastShownList);
+        Index customerIndex = getCustomerIndex(model.getFilteredCustomerList());
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        Quantity oldQuantity = productToEdit.getQuantity();
+        Quantity newQuantity = getNewQuantity(productToEdit);
+        editProductDescriptor.setQuantity(newQuantity);
 
-        if (oldQuantity.compareTo(transactionFactory.getQuantity()) >= 0) {
-            Quantity newQuantity = oldQuantity.minus(transactionFactory.getQuantity());
-            editProductDescriptor.setQuantity(newQuantity);
-        } else {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
-                    oldQuantity.value, productToEdit.getDescription().value));
-        }
+        Sales newSales = getNewSales(productToEdit);
+        editProductDescriptor.setSales(newSales);
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
-
         if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-        int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
 
-        if (editedProduct.getQuantity().value <= thresholdValue) {
-            NotificationWindow window = new NotificationWindow();
-            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
+        Transaction toAdd = transactionFactory.createTransaction(model);
+        if (model.hasTransaction(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
+        if (!editedProduct.getThreshold().value.equals(QuantityThreshold.DEFAULT_VALUE)) {
+            int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
 
-        Transaction toAdd = transactionFactory.createTransaction(model);
-
-        if (model.hasTransaction(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+            if (editedProduct.getQuantity().value < thresholdValue) {
+                NotificationWindow window = new NotificationWindow();
+                window.show(editedProduct.getDescription(), editedProduct.getQuantity());
+            }
         }
 
         model.addTransaction(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    private Index getProductIndex(List<Product> lastShownList) throws CommandException {
+        Index productIndex = transactionFactory.getProductIndex();
+        if (productIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        }
+        return productIndex;
+    }
+
+    private Index getCustomerIndex(List<Customer> lastShownList) throws CommandException {
+        Index customerIndex = transactionFactory.getCustomerIndex();
+        if (customerIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        }
+        return customerIndex;
+    }
+
+    private Quantity getNewQuantity(Product productToEdit) throws CommandException {
+        Quantity oldQuantity = productToEdit.getQuantity();
+
+        if (oldQuantity.compareTo(transactionFactory.getQuantity()) < 0) {
+            throw new CommandException(String.format(Messages.MESSAGE_ZERO_PRODUCT_QUANTITY,
+                    oldQuantity.value, productToEdit.getDescription().value));
+        }
+
+        return oldQuantity.minus(transactionFactory.getQuantity());
+    }
+
+    private Sales getNewSales(Product productToEdit) throws CommandException {
+        Sales oldSales = productToEdit.getSales();
+        int newSalesValue = Integer.parseInt(oldSales.value)
+                + Integer.parseInt(transactionFactory.getMoney().value);
+
+        if (newSalesValue > Sales.MAX_VALUE) {
+            throw new CommandException(Sales.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Sales(String.valueOf(newSalesValue));
     }
 }

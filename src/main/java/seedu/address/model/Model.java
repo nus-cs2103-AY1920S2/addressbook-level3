@@ -56,7 +56,7 @@ public interface Model {
     void setAddressBook(ReadOnlyInventorySystem addressBook, String commandWord);
 
     /** Returns the InventorySystem */
-    ReadOnlyInventorySystem getAddressBook();
+    ReadOnlyInventorySystem getInventorySystem();
 
     /**
      * Returns true if a customer with the same identity as {@code customer} exists in the address book.
