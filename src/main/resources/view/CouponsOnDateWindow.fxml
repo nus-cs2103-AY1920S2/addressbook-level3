@@ -9,19 +9,19 @@
 <?import java.net.URL?>
 <fx:root resizable="false" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
          xmlns:fx="http://javafx.com/fxml/1">
-    <scene>
-        <Scene>
-            <stylesheets>
-                <URL value="@DarkTheme.css"/>
-                <URL value="@Extensions.css"/>
-            </stylesheets>
-            <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600"
-                  prefWidth="600" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <padding>
-                    <Insets bottom="10" left="10" right="10" top="10"/>
-                </padding>
-                <StackPane fx:id="couponListPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-        </Scene>
-    </scene>
+  <scene>
+    <Scene>
+      <stylesheets>
+        <URL value="@DarkTheme.css"/>
+        <URL value="@Extensions.css"/>
+      </stylesheets>
+      <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600"
+            prefWidth="600" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <padding>
+          <Insets bottom="10" left="10" right="10" top="10"/>
+        </padding>
+        <StackPane fx:id="couponListPlaceholder" VBox.vgrow="ALWAYS"/>
+      </VBox>
+    </Scene>
+  </scene>
 </fx:root>

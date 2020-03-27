@@ -13,7 +13,7 @@ Class CouponStash
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class ReadOnlyUserPrefs <<Interface>>
 
 Package Coupon {
 Class Coupon

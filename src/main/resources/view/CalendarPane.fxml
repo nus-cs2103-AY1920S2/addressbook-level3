@@ -57,25 +57,25 @@
             </StackPane>
         </HBox>
         <GridPane alignment="BASELINE_CENTER" gridLinesVisible="false">
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="0">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="0">
                 <Text fill="white" text="M"/>
             </StackPane>
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="1">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="1">
                 <Text fill="white" text="T"/>
             </StackPane>
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="2">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="2">
                 <Text fill="white" text="W"/>
             </StackPane>
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="3">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="3">
                 <Text fill="white" text="T"/>
             </StackPane>
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="4">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="4">
                 <Text fill="white" text="F"/>
             </StackPane>
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="5">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="5">
                 <Text fill="white" text="S"/>
             </StackPane>
-            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="60" GridPane.columnIndex="6">
+            <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="40" GridPane.columnIndex="6">
                 <Text fill="white" text="S"/>
             </StackPane>
             <columnConstraints>
