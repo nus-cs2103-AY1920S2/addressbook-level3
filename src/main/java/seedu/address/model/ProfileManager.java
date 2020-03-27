@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Name;
@@ -31,7 +33,7 @@ public class ProfileManager implements Model {
     private ObservableList<Deadline> deadlineList;
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
-    private FilteredList<Deadline> filteredDeadlines;
+    private SortedList<Deadline> sortedDeadlines;
     private Optional<ObservableList<Module>> displayedView = Optional.empty();
 
     public ProfileManager(ProfileList profileList, ReadOnlyUserPrefs userPrefs) {
@@ -44,7 +46,8 @@ public class ProfileManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProfiles = new FilteredList<>(profileList.getProfileList());
         deadlineList = FXCollections.observableArrayList();
-        filteredDeadlines = new FilteredList<>((deadlineList));
+        sortedDeadlines = deadlineList.sorted(new DateTimeComparator());
+
 
     }
 
@@ -146,8 +149,8 @@ public class ProfileManager implements Model {
         return profileList.getProfileList().get(0);
     }
 
-    public ObservableList<Deadline> getFilteredDeadlineList() {
-        return filteredDeadlines;
+    public ObservableList<Deadline> getSortedDeadlineList() {
+        return sortedDeadlines;
     }
 
     @Override
@@ -203,5 +206,21 @@ public class ProfileManager implements Model {
     @Override
     public void setDisplayedView(ObservableList<Module> toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
+    }
+}
+
+class DateTimeComparator implements Comparator<Deadline> {
+
+    @Override
+    public int compare(Deadline d1, Deadline d2) {
+        if (d1.getDate() != null && d2.getDate() != null) {
+            if (d1.getDate().equals(d2.getDate())) {
+                return d1.getTime().compareTo(d2.getTime());
+            } else {
+                return d1.getDate().compareTo(d2.getDate());
+            }
+        } else {
+            return -2; //if no date/time, put it at the last
+        }
     }
 }

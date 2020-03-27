@@ -89,7 +89,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered profile list */
     ObservableList<Profile> getFilteredPersonList();
 
-    ObservableList<Deadline> getFilteredDeadlineList();
+    ObservableList<Deadline> getSortedDeadlineList();
 
     /**
      * Updates the filter of the filtered profile list to filter by the given {@code predicate}.

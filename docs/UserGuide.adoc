@@ -223,8 +223,6 @@ Examples:
 
 [[Clear]]
 === Resets the whole application : `clear`
-
-<<<<<<< HEAD
 This allows you to clear all entries from the application including your profile and its data.
 
 Format: `clear`

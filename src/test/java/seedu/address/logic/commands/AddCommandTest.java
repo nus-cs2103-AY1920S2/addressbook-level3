@@ -253,7 +253,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Deadline> getFilteredDeadlineList() {
+        public ObservableList<Deadline> getSortedDeadlineList() {
             throw new AssertionError("This method should not be called.");
         }
 

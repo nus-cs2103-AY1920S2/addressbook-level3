@@ -15,7 +15,6 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.Model;
-import seedu.address.model.ModuleList;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
@@ -108,7 +107,7 @@ public class LogicManager implements Logic {
                 model.loadDeadlines();
             }
         }
-        return model.getFilteredDeadlineList();
+        return model.getSortedDeadlineList();
     }
 
     @Override

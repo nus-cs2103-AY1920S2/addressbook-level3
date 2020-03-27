@@ -20,13 +20,13 @@
         <Label text="    " styleClass="quickStart"></Label>
 
         <TextFlow>
-            <Label text=" 2. Add modules using" styleClass="quickStart" ></Label>
+            <Label text=" 2. Add modules using " styleClass="quickStart" ></Label>
             <Label text="`add`" styleClass="command"></Label>
         </TextFlow>
         <Label text="format: add m/MODULE y/SEMESTER_INDEX" styleClass="command"></Label>
         <Label text="    " styleClass="quickStart"></Label>
         <TextFlow>
-            <Label text=" 3. Add deadlines using" styleClass="quickStart" ></Label>
+            <Label text=" 3. Add deadlines using " styleClass="quickStart" ></Label>
             <Label text="`add`" styleClass="command"></Label>
         </TextFlow>
         <Label text="format: add m/MODULE y/SEMESTER_INDEX t/TASK d/DEADLINE" styleClass="command"></Label>

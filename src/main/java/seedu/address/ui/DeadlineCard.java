@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -30,7 +32,7 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private Label date;
+    private Text date;
     @FXML
     private Label time;
 
@@ -42,9 +44,18 @@ public class DeadlineCard extends UiPart<Region> {
         description.setText("Task: " + deadline.getDescription());
         if (deadline.getDate() == null) {
             date.setText("Date: -");
+            this.date.setFill(Color.WHITE);
             time.setText("Time: -");
         } else {
             date.setText("Date: " + deadline.getStringDate());
+            if (deadline.getTag().equals("RED")) {
+                this.date.setFill(Color.valueOf("F05B5B"));
+            } else if (deadline.getTag().equals("YELLOW")) {
+                this.date.setFill(Color.YELLOW);
+            } else {
+                this.date.setFill(Color.LAWNGREEN);
+            }
+
             time.setText("Time: " + deadline.getStringTime());
         }
     }
