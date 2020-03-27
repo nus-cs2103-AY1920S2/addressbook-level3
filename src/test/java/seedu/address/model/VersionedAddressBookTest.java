@@ -10,6 +10,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 
 public class VersionedAddressBookTest {
 
@@ -25,7 +26,7 @@ public class VersionedAddressBookTest {
         versionedAddressBook.addPerson(ALICE);
         versionedAddressBook.commit();
         versionedAddressBook.undo();
-        assertFalse(versionedAddressBook.hasPerson(BENSON));
+        assertFalse(versionedAddressBook.hasPerson(ALICE));
     }
 
     @Test
@@ -59,5 +60,25 @@ public class VersionedAddressBookTest {
         versionedAddressBook.undo();
         assertFalse(versionedAddressBook.hasPerson(ALICE));
         assertFalse(versionedAddressBook.hasPerson(p));
+    }
+
+    @Test
+    public void commit_afterUndo_removesFutureHistory() {
+        versionedAddressBook.addPerson(ALICE);
+        versionedAddressBook.commit();
+        versionedAddressBook.addPerson(BENSON);
+        versionedAddressBook.commit();
+        versionedAddressBook.addPerson(CARL);
+        versionedAddressBook.commit();
+
+        // ensures the current state points to the most recent commit
+        versionedAddressBook.undo();
+        versionedAddressBook.addPerson(DANIEL);
+        assertTrue(versionedAddressBook.hasPerson(DANIEL));
+
+        // ensures that current state is not added on top of deleted history
+        versionedAddressBook.undo();
+        assertFalse(versionedAddressBook.hasPerson(DANIEL));
+        assertFalse(versionedAddressBook.hasPerson(CARL));
     }
 }

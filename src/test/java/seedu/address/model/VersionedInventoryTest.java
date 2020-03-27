@@ -10,6 +10,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGoods.APPLE;
 import static seedu.address.testutil.TypicalGoods.BANANA;
 import static seedu.address.testutil.TypicalGoods.CITRUS;
+import static seedu.address.testutil.TypicalGoods.DURIAN;
 
 public class VersionedInventoryTest {
 
@@ -52,14 +53,33 @@ public class VersionedInventoryTest {
 
     @Test
     public void undo_afterUnsavedChanges_removesUnsavedAndPreviousChanges() {
-        Good p = new GoodBuilder().build();
-        versionedInventory.addGood(p);
+        versionedInventory.addGood(APPLE);
         versionedInventory.commit();
 
-        Good p2 = new GoodBuilder().withGoodName("Erased Ignored").build();
+        Good g = new GoodBuilder().withGoodName("Erased Ignored").build();
         versionedInventory.undo();
-        assertFalse(versionedInventory.hasGood(p));
-        assertFalse(versionedInventory.hasGood(p2));
+        assertFalse(versionedInventory.hasGood(APPLE));
+        assertFalse(versionedInventory.hasGood(g));
+    }
+
+    @Test
+    public void commit_afterUndo_removesFutureHistory() {
+        versionedInventory.addGood(APPLE);
+        versionedInventory.commit();
+        versionedInventory.addGood(BANANA);
+        versionedInventory.commit();
+        versionedInventory.addGood(CITRUS);
+        versionedInventory.commit();
+
+        // ensures the current state points to the most recent commit
+        versionedInventory.undo();
+        versionedInventory.addGood(DURIAN);
+        assertTrue(versionedInventory.hasGood(DURIAN));
+
+        // ensures that current state is not added on top of deleted history
+        versionedInventory.undo();
+        assertFalse(versionedInventory.hasGood(DURIAN));
+        assertFalse(versionedInventory.hasGood(CITRUS));
     }
 }
 
