@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import com.notably.commons.core.GuiSettings;
+import com.notably.commons.GuiSettings;
 
 /**
  * Represents User's preferences.

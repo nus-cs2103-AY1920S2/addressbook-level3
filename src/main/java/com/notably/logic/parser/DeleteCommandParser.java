@@ -5,7 +5,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.List;
 import java.util.Optional;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;

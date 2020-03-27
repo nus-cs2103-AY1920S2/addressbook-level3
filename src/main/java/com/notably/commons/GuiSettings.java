@@ -1,4 +1,4 @@
-package com.notably.commons.core;
+package com.notably.commons;
 
 import java.awt.Point;
 import java.io.Serializable;

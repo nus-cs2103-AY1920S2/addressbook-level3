@@ -2,7 +2,7 @@ package com.notably.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.block.Block;

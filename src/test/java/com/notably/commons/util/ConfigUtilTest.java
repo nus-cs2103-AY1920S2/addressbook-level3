@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import com.notably.commons.core.Config;
+import com.notably.commons.Config;
 import com.notably.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {

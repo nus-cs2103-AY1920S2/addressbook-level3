@@ -1,5 +1,7 @@
 package com.notably.logic.suggestion.commands;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,15 +15,15 @@ import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionItemImpl;
 
 /**
- * Represents a suggestion command object to open a note.
+ * Represents a suggestion command object to delete a note.
  */
-public class OpenSuggestionCommand implements SuggestionCommand {
-    private static final String COMMAND_WORD = "open";
-    private static final String RESPONSE_MESSAGE = "Open a note";
+public class DeleteSuggestionCommand implements SuggestionCommand {
+    private static final String COMMAND_WORD = "delete";
+    private static final String RESPONSE_MESSAGE = "Delete a note";
 
     private AbsolutePath path;
 
-    public OpenSuggestionCommand(AbsolutePath path) {
+    public DeleteSuggestionCommand(AbsolutePath path) {
         Objects.requireNonNull(path);
         this.path = path;
     }
@@ -73,7 +75,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
      * @param possiblePaths The list of possible paths.
      */
     private void getChildDfs(BlockTreeItem curr, List<String> components,
-        List<AbsolutePath> possiblePaths) {
+                             List<AbsolutePath> possiblePaths) {
         List<String> newComponents = new ArrayList<>();
         newComponents.addAll(components);
         newComponents.add(curr.getTitle().getText());
@@ -98,7 +100,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
                     Runnable action = () -> {
-                        model.setInput(displayText);
+                        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + displayText);
                     };
                     return new SuggestionItemImpl(displayText, action);
                 })

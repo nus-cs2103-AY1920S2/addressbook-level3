@@ -2,7 +2,7 @@ package com.notably.view;
 
 import java.util.logging.Logger;
 
-import com.notably.commons.core.LogsCenter;
+import com.notably.commons.LogsCenter;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
