@@ -50,6 +50,7 @@ public class SellCommand extends Command {
         }
 
         decreaseQuantity(model, soldGood);
+        model.commit();
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 soldGood.getGoodQuantity().goodQuantity, soldGood.getGoodName().fullGoodName));
     }

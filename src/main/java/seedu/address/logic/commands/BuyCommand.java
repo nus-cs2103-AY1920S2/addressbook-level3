@@ -53,6 +53,7 @@ public class BuyCommand extends Command {
         } else {
             model.addGood(boughtGood);
         }
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 boughtGood.getGoodQuantity().goodQuantity, boughtGood.getGoodName().fullGoodName));
