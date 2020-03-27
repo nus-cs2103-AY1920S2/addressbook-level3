@@ -26,6 +26,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -167,6 +168,18 @@ public class CreateCommandTest {
 
         @Override
         public void stopSession(LocalDateTime currentDateTime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // -----------------------------------------------------------------------------------------
+        // Schedule
+        @Override
+        public boolean hasSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }
     }

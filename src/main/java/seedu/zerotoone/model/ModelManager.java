@@ -16,6 +16,8 @@ import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
@@ -30,6 +32,7 @@ public class ModelManager implements Model {
     private final ExerciseList exerciseList;
     private final FilteredList<Exercise> filteredExercises;
     private Optional<Session> currentSession;
+    private final ScheduleList scheduleList;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -43,6 +46,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
         this.currentSession = Optional.empty();
+        this.scheduleList = new ScheduleList();
     }
 
     public ModelManager() {
@@ -147,6 +151,20 @@ public class ModelManager implements Model {
         completedSession.finish(currentDateTime);
         // do smth like save completed workout
         this.currentSession = Optional.empty();
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Schedule
+    @Override
+    public boolean hasSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        return scheduleList.hasSchedule(schedule);
+    }
+
+    @Override
+    public void addSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        scheduleList.addSchedule(schedule);
     }
 
     // -----------------------------------------------------------------------------------------
