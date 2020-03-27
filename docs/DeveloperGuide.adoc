@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-T09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `iTrackPro Team`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -153,90 +153,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th customer in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new customer. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the customer was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the customer being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::managecustomer[]
-=== Add delete/edit/clear/list/find customer feature
+// tag::manageitem[]
+=== Add delete/edit/clear/list/find <<customer,customer>>/<<product,product>> feature
 The manage product mechanism is facilitated by `InventorySystemParser`.
 First, the InventorySystemParser class parses the user command.
 This results in a Command object which is executed by the LogicManager.
@@ -245,105 +163,114 @@ The result of the command execution is encapsulated as a CommandResult object wh
 
 The following commands are available to be parsed by InventorySystemParser:
 
-* `AddCustomerCommand` -- Adds a customer into the customer list in the inventory system.
-* `ListCustomerCommand` -- Lists all customers in the customer list.
-* `ClearCustomerCommand` -- Clears all customers in the customer list.
-* `DeleteCustomerCommand` -- Deletes a customer from the customer list in the inventory system.
-* `EditCustomerCommand` -- Edits a customer details (name, phone, email, address, tags)
-* `FindCustomerCommand` -- Finds customer with name containing given keyword(s)
+* `AddCustomerCommand/AddProductCommand`
+- Adds the customer/product into the list in the inventory system.
+* `ListCustomerCommand/ListProductCommand`
+- Lists all customer/product in the list.
+* `ClearCustomerCommand/ClearProductCommand`
+- Clears all customer/product in the list.
+* `DeleteCustomerCommand/DeleteProductCommand`
+- Deletes the selected customer/product from the list in the inventory system.
+* `EditCustomerCommand/EditProductCommand`
+- Edits the customer/product details.
+* `FindCustomerCommand/FindProductCommand`
+- Finds customer/product with attributes containing given keyword(s).
 
 The commands all inherit from superclass `Command`. Only add, delete, edit and find commands require a command parser to parse the arguments entered by the user.
 
 The following sequence diagram shows how the add operation works:
 
-image::AddCustomerSequenceDiagram.png[]
+image::AddItemSequenceDiagram.png[]
 
 The following sequence diagram shows how the list operation works:
 
-image::ListCustomerSequenceDiagram.png[]
+image::ListItemSequenceDiagram.png[]
 
 The following sequence diagram shows how the edit operation works:
 
-image::EditCustomerSequenceDiagram.png[]
+image::EditItemSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a command that changes the product list in the model:
-
-image::ProductActivityDiagram.png[]
-
-// end::managecustomer[]
-
-// tag::manageproduct[]
-=== [Proposed] Add/ delete/ edit/ clear/ list/ find product feature
-==== Proposed Implementation
-
-The manage product mechanism is facilitated by `InventorySystemParser`.
-First, the InventorySystemParser class parses the user command.
-This results in a Command object which is executed by the LogicManager.
-The command execution modifies Model's product list depending on the command.
-The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
-
-The following commands are available to be parsed by InventorySystemParser:
-
-* `AddProductCommand` -- Adds a product into the product list in the inventory system.
-* `ListProductCommand` -- Lists all products in the product list.
-* `ClearProductCommand` -- Clears all products in the product list.
-* `DeleteProductCommand` -- Deletes a product from the product list in the inventory system.
-* `EditProductCommand` -- Edits a product details (description, price, quantity, sales)
-* `FindProductCommand` -- Finds products with name containing given keyword(s)
-
-The commands all inherit from superclass `Command`. Only add, delete, edit and find commands require a command parser to parse the arguments entered by the user.
-
-The following sequence diagram shows how the add operation works:
-
-image::AddProductSequenceDiagram.png[]
-
-The following sequence diagram shows how the list operation works:
-
-image::ListProductSequenceDiagram.png[]
-
-The following sequence diagram shows how the edit operation works:
-
-image::EditProductSequenceDiagram.png[]
-
-The following activity diagram summarizes what happens when a user executes a command that changes the product list in the model:
+The following activity diagram summarizes what happens when a user executes a command that changes the customer/product list in the model:
 
 image::ProductActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How product commands are executed
+===== Aspect: How commands are executed
 
-* **Alternative 1 (current choice):** Keep products in the inventory system
+* **Alternative 1 (current choice):** Keep customers/products in the inventory system
 ** Pros: Easy to implement, use less memory
-** Cons: If inventory system is corrupted then product data is lost
-* **Alternative 2:** Keep products in a product management system, separate from the customers and transactions
+** Cons: If inventory system is corrupted then the data is lost
+* **Alternative 2:** Keep customers/products in individual management systems, separate each of the classes
 ** Pros: Keep implementation of products, customers and transactions separate
 ** Cons: Use more memory, tedious implementation
 
-===== Aspect: Data structure to support the product commands
+===== Aspect: Data structure to support the commands
 
-* **Alternative 1 (current choice):** Use a list (`ArrayList`) to store the products
+* **Alternative 1 (current choice):** Use a list (`ArrayList`) to store the customers/products
 ** Pros: Easy to sort and iterate through the list, get(index) method always gives an O(1) performance
 ** Cons: allows duplicates
-* **Alternative 2:** Use a hashmap to store the products
-** Pros: Finding a product is O(1), does not allow duplicate keys
+* **Alternative 2:** Use a hashmap to store the customers/products
+** Pros: Find can be done in O(1), does not allow duplicate keys
 ** Cons: Difficult to sort and iterate through hashmap, get(key) can be O(1) in the best case and O(n) in the worst case.
-// end::manageproduct[]
+// end::manageitem[]
 
-=== Add/ Edit/ Delete transactions
+// tag::managetransaction[]
+=== Add/ Edit/ Delete <<transaction,transactions>>
 The user input is handled by the `MainWindow` class in Ui first, then passed to the `LogicManager` and parsed into
 `AddTransactionCommand`, `EditTransactionCommand`, etc. Depending on the nature of each command, new transaction or
 updated transaction will be added to a new index or existing index of the `UniqueTransactionList`, hosted by the
 `InventorySystem` class. For the `deleteTransactionCommand`, a transaction will be dropped from the `internalList`.
 Since the `quantity` and `sales` attribute will affect the same attributes of a product, the affiliated `product` will
 also be edited. In the end, the `filteredTransactionList` of the system will be updated so that the user can view the change
-accordingly.
+accordingly. Three commands are implemented corresponding to these 3 operations in the logic module:
+
+* `AddTransactionCommand` -- Adds a transaction into the system and update the the quantity and sales attribute
+of the corresponding product.
+* `EditTransactionCommand` -- Edit detials of a transaction. If `quantity` is changed, edit the affected product
+as well.
+* `DeleteTransactionCommand` -- Delete a transaction from the system and edit the affiliated product.
+
+For each command, a parser is implemented to parse the input into arguments.
+
+* `AddTransactionCommmandParser` -- Parse the add transaction input and generates `AddTransactionCommand`. +
+* `EditTransactionCommandParser` -- Parse the edit transaction input and generates `EditTransactionCommand`. +
+* `DeleteTransactionCommandParser` --Parse the delete transaction input and generates `DeleteTransactionCommand`. +
 
 The following sequence diagram shows how each operation works.
 
+AddTransaction Operation:
+
 image::AddTransactionSequenceDiagram.png[]
+NOTE: The AddTransactionCommmandParser returns a transactionFacotry with `productIndex` and `customerIndex`, while a
+transaction is only generated in AddTransactionCommand.
 
+==== Design Considerations
 
+===== Aspect: How to store product & customer in transaction.
+
+* **Alternative 1 (current choice):** Store the product/ customer instance as an attribute.
+** Pros: Easy to construct a transaction and display product/ customer name.
+** Cons: Easy to generate bugs while any of the instance is editted.
+* **Alternative 2:** Store an unique id and name of the product/ customer.
+** Pros: Do not need to update transaction while product is editted.
+
+===== Aspect: How to change the quantity & sales attribute of product while edtting transactions.
+
+* **Alternative 1 (current choice):** If quantity/ product is changed,
+re-store the quantity & sales of the original product, check validation
+(whether the product has that much inventory as required on transaction), and then
+and update the quantity & sales of the new product.
+** Pros: Easy to implement.
+** Cons: Likely to generate bugs when the new quantity exceeds inventory, i.e. the edit operation is not valid.
+
+* **Alternative 2:** If quantity/ product is changed, check validation first,
+re-store the quantity & sales of the original product, and then
+and update the quantity & sales of the new product.
+** Pros: Straightforward logic, not likely to create bugs.
+** Cons: Validation checking would be very complex.
+
+// end::managetransaction[]
 
 === Logging
 
@@ -438,7 +365,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `iTrackPro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case:  UC01 - Delete an item (product/ customer/ transaction)
+=== Use case:  UC01 - Delete an <<item,item>>
 
 *MSS*
 
@@ -465,7 +392,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case:  UC02 - Add an item (product/ customer/ transaction)
+=== Use case:  UC02 - Add an <<item,item>>
 
 *MSS*
 
@@ -486,7 +413,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case:  UC03 - Edit an item (product/ customer/ transaction)
+=== Use case:  UC03 - Edit an <<item,item>>
 
 *MSS*
 
@@ -521,7 +448,7 @@ Use case resumes at step 2.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case:  UC04 - Find items (product/ customer/ transaction)
+=== Use case:  UC04 - Find <<item,items>>
 
 *MSS*
 
@@ -551,7 +478,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case:  UC05 - List items (product/ customer/ transaction)
+=== Use case:  UC05 - List <<item,items>>
 
 *MSS*
 
