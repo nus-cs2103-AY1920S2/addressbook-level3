@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
@@ -71,6 +72,8 @@ public class CommandTestUtil {
     public static final String COD_DESC_BOB = " " + PREFIX_COD + VALID_COD_BOB;
     public static final String COMMENT_DESC_NIL = " " + PREFIX_COMMENT + VALID_COMMENT_NIL;
     public static final String COMMENT_DESC_INSTRUCTION = " " + PREFIX_COMMENT + VALID_COMMENT_INSTRUCTION;
+    public static final String RETURN_TIMESTAMP_DESC_AMY = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_AMY;
+    public static final String RETURN_TIMESTAMP_DESC_BOB = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_BOB;
     public static final String TYPE_DESC_GLASS = " " + PREFIX_TYPE + VALID_TYPE_GLASS;
     public static final String TYPE_DESC_PLASTIC = " " + PREFIX_TYPE + VALID_TYPE_PLASTIC;
 
@@ -88,6 +91,14 @@ public class CommandTestUtil {
     public static final String INVALID_DELIVERY_TIMESTAMP_DATE = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-02-32 1500";
     // Invalid Time
     public static final String INVALID_DELIVERY_TIMESTAMP_TIME = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-10-02 2401";
+    // Date only
+    public static final String INVALID_RETURN_TIMESTAMP_DATE_ONLY = " " + PREFIX_RETURN_TIMESTAMP + "2019-10-02";
+    // Time only
+    public static final String INVALID_RETURN_TIMESTAMP_TIME_ONLY = " " + PREFIX_RETURN_TIMESTAMP + "2315";
+    // Invalid Date - 2019 is not a leap year
+    public static final String INVALID_RETURN_TIMESTAMP_DATE = " " + PREFIX_RETURN_TIMESTAMP + "2019-02-32 1500";
+    // Invalid Time
+    public static final String INVALID_RETURN_TIMESTAMP_TIME = " " + PREFIX_RETURN_TIMESTAMP + "2019-10-02 2401";
     public static final String INVALID_WAREHOUSE_DESC = " " + PREFIX_WAREHOUSE + ""; // empty string not allowed
     public static final String INVALID_COD_DESC = " " + PREFIX_COD + "3"; // empty '$' not allowed
     public static final String INVALID_COMMENT_DESC = " " + PREFIX_COMMENT; // empty string not allowed for comment

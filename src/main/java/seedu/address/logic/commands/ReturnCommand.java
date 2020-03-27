@@ -13,6 +13,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
@@ -47,25 +49,38 @@ public class ReturnCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "This return order has been created: %1$s";
     public static final String MESSAGE_DUPLICATE_RETURN = "This return order already exists in the returns book";
+    public static final String MESSAGE_ORDER_NOT_DELIVERED = "This order was not delivered. Return Order cannot be"
+            + " created";
+    public static final String MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID = "The input Transaction ID is not valid.";
 
-    private final ReturnOrder toBeCreated;
+    private ReturnOrder toBeCreated;
+    private final TransactionId tid;
 
     /**
      * Creates an ReturnCommand to add the specified {@code Order}
      */
-    public ReturnCommand(ReturnOrder returnOrder) {
-        requireNonNull(returnOrder);
+    public ReturnCommand(ReturnOrder returnOrder, TransactionId tid) {
+        requireNonNull(tid);
         toBeCreated = returnOrder;
+        this.tid = tid;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        if (toBeCreated == null) {
+            Order orderToBeReturned = model.getOrderBook().getOrderByTransactionId(tid);
+            if (orderToBeReturned == null) {
+                throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
+            }
+            if (!orderToBeReturned.isDelivered()) {
+                throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
+            }
+            toBeCreated = new ReturnOrder(orderToBeReturned);
+        }
         if (model.hasReturnOrder(toBeCreated)) {
             throw new CommandException(MESSAGE_DUPLICATE_RETURN);
         }
-
         model.addReturnOrder(toBeCreated);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeCreated));
     }
