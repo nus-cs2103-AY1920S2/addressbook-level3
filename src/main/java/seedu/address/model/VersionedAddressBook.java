@@ -101,7 +101,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         }
 
         statePointer--;
-        currentState = stateList.get(statePointer);
+        currentState = new AddressBook(stateList.get(statePointer));
     }
 
     @Override

@@ -105,7 +105,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
         }
 
         statePointer--;
-        currentState = stateList.get(statePointer);
+        currentState = new Inventory(stateList.get(statePointer));
     }
 
     @Override
