@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
 
@@ -28,6 +29,10 @@ public class UniqueStudentList implements Iterable<Student> {
     private final ObservableList<Student> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Returns true if the list contains an equivalent student as the given argument.
      */
@@ -36,12 +41,22 @@ public class UniqueStudentList implements Iterable<Student> {
         return internalList.stream().anyMatch(toCheck::isSameStudent);
     }
 
-    public int size() {
-        return internalList.size();
-    }
-
     public Student get(int n) {
         return internalList.get(n);
+    }
+
+    /**
+     * Returns the student in this list with the given student
+     * matriculation number (the student id).
+     * Returns null if no such student exists.
+     */
+    public Student get(Matric studentId) {
+        for (Student student : internalList) {
+            if (student.getMatric().equals(studentId)) {
+                return student;
+            }
+        }
+        return null; // Did not find a student with the given student id
     }
 
     /**
@@ -54,6 +69,17 @@ public class UniqueStudentList implements Iterable<Student> {
             throw new DuplicateStudentException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent student from the list.
+     * The student must exist in the list.
+     */
+    public void remove(Student toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new StudentNotFoundException();
+        }
     }
 
     /**
@@ -74,17 +100,6 @@ public class UniqueStudentList implements Iterable<Student> {
         }
 
         internalList.set(index, editedStudent);
-    }
-
-    /**
-     * Removes the equivalent student from the list.
-     * The student must exist in the list.
-     */
-    public void remove(Student toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new StudentNotFoundException();
-        }
     }
 
     public void setStudents(UniqueStudentList replacement) {

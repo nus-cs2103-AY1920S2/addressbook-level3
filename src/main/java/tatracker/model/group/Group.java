@@ -3,6 +3,7 @@ package tatracker.model.group;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
@@ -14,30 +15,65 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class Group {
 
+    //TODO: Convert GroupType to be an enum class (in order to have a toString method)
     /**
      * Represents a group type.
      * Can be a lab or a tutorial.
      */
     public enum GroupType {
         LAB,
-        TUTORIAL;
+        TUTORIAL
     }
 
     private final String identifier;
     private final GroupType groupType;
     private final UniqueStudentList students;
 
-
     /**
      * Constructs a group object.
      *
-     * @param identifier identifies the group. For example,
-     *                   the tutorial code for a tutorial, etc.
+     * @param identifier identifies the group.
+     *                   For example, the tutorial code for a tutorial, etc.
      */
     public Group(String identifier, GroupType groupType) {
         this.identifier = identifier;
-        students = new UniqueStudentList();
         this.groupType = groupType;
+        this.students = new UniqueStudentList();
+    }
+
+    /**
+     * Returns the group identifier.
+     */
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    /**
+     * Returns the group type of this group.
+     * For example, if it is a tutorial or lab.
+     */
+    public GroupType getGroupType() {
+        return groupType;
+    }
+
+    /**
+     * Returns the student list.
+     */
+    public ObservableList<Student> getStudentList() {
+        return students.asUnmodifiableObservableList();
+    }
+
+    public boolean hasStudent(Student student) {
+        return students.contains(student);
+    }
+
+    /**
+     * Returns the student enrolled in this module with the given
+     * matriculation number (the student id).
+     * Returns null if no such student exists.
+     */
+    public Student getStudent(Matric studentId) {
+        return students.get(studentId);
     }
 
     /**
@@ -48,33 +84,11 @@ public class Group {
     }
 
     /**
-     * Returns the student with given matric number.
-     * It returns null if no such student exists.
+     * Deletes the given student from the list of enrolled students,
+     * if it exists.
      */
-    public Student getStudent(Matric matric) {
-        Student student = null;
-        for (int i = 0; i < students.size(); ++i) {
-            student = students.get(i);
-            if (student.getMatric().equals(matric)) {
-                break;
-            }
-            student = null;
-        }
-        return student;
-    }
-
-    /**
-     * Returns the student list.
-     */
-    public ObservableList<Student> getStudentList() {
-        return students.asUnmodifiableObservableList();
-    }
-
-    /**
-     * Returns the group identifier.
-     */
-    public String getIdentifier() {
-        return identifier;
+    public void deleteStudent(Student student) {
+        students.remove(student);
     }
 
     /**
@@ -91,20 +105,17 @@ public class Group {
         }
 
         Group otherGroup = (Group) other;
-        return otherGroup.getIdentifier().equals(this.getIdentifier());
+        return this.identifier.equals(otherGroup.identifier);
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(identifier);
     }
 
     //TODO: edit once Student is made
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getIdentifier());
-        return builder.toString();
+        return String.format("%s", identifier);
     }
 }
