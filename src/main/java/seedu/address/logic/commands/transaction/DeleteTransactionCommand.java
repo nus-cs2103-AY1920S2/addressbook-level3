@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -50,9 +51,15 @@ public class DeleteTransactionCommand extends Command {
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         Product productToEdit = model.findProductById(transactionToDelete.getProductId());
+
         Quantity oldQuantity = productToEdit.getQuantity();
         Quantity newQuantity = oldQuantity.plus(transactionToDelete.getQuantity());
         editProductDescriptor.setQuantity(newQuantity);
+
+        Money oldSales = productToEdit.getSales();
+        Money newSales = oldSales.minus(transactionToDelete.getMoney());
+        editProductDescriptor.setSales(newSales);
+
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
 
         if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
