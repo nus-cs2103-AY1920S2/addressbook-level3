@@ -1,16 +1,21 @@
 package fithelper.ui.today;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.calculator.CalorieCalculator;
+import fithelper.model.calculator.FeedbackGenerator;
+import fithelper.model.calculator.PerformanceCalculator;
 import fithelper.model.entry.Entry;
 import fithelper.ui.FoodCard;
 import fithelper.ui.SportCard;
 import fithelper.ui.UiPart;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -27,6 +32,13 @@ public class TodayPage extends UiPart<AnchorPane> {
     private double foodCalorie;
     private double sportCalorie;
     private double difCalorie;
+
+    private int foodDone;
+    private int foodUndone;
+    private int sportDone;
+    private int sportUndone;
+
+    private double percentDone;
 
     @FXML
     private ListView<Entry> foodListView;
@@ -62,6 +74,9 @@ public class TodayPage extends UiPart<AnchorPane> {
     @FXML
     private Label feedback;
 
+    @FXML
+    private PieChart foodCaloriePieChart;
+
     /**
      * Creates an order page displaying orders from {@code orderList}.
      */
@@ -76,6 +91,8 @@ public class TodayPage extends UiPart<AnchorPane> {
 
         initializeFoodListView(foodList);
         initializeSportListView(sportList);
+
+        initializeFoodCaloriePirChart(foodList);
 
         initializeFoodListener(foodList);
         initializeSportListener(sportList);
@@ -97,6 +114,49 @@ public class TodayPage extends UiPart<AnchorPane> {
     private void initializeSportListView(ObservableList<Entry> sportList) {
         sportListView.setItems(sportList);
         sportListView.setCellFactory(listView -> new SportListViewCell());
+    }
+
+    /**
+     * Initializes the food calorie pie chart.
+     * @param foodList an observable list of sports entries
+     */
+    private void initializeFoodCaloriePirChart(ObservableList<Entry> foodList) {
+        ArrayList<PieChart.Data> pieChartDataList = getPieChartDataArrayList(foodList);
+
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(pieChartDataList);
+
+        foodCaloriePieChart.setData(pieChartData);
+        setFoodCaloriePieChartProperty();
+    }
+
+    /**
+     * Generates an arrayList of PieChart data from the foodList.
+     * @param foodList an observable list of sports entries
+     */
+    private ArrayList<PieChart.Data> getPieChartDataArrayList(ObservableList<Entry> foodList) {
+        ArrayList<PieChart.Data> pieChartDataList = new ArrayList<>();
+
+        for (int i = 0; i < foodList.size(); i++) {
+            Entry foodEntry = foodList.get(i);
+            if (foodEntry.isDone()) {
+                String foodName = foodEntry.getName().value;
+                int foodCalorie = (int) foodEntry.getCalorie().value;
+                pieChartDataList.add(new PieChart.Data(foodName, foodCalorie));
+            }
+        }
+
+        return pieChartDataList;
+    }
+
+    /**
+     * Sets the property of food calorie pie chart.
+     */
+    private void setFoodCaloriePieChartProperty() {
+        foodCaloriePieChart.setClockwise(true);
+        foodCaloriePieChart.setLabelLineLength(10);
+        foodCaloriePieChart.setBorder(null);
+
     }
 
     /**
@@ -128,6 +188,8 @@ public class TodayPage extends UiPart<AnchorPane> {
     private void updateFoodStatistics(ObservableList<Entry> foodList) {
         updateFoodCounter(foodList);
         updateFoodCalorie(foodList);
+        updateFoodCaloriePieChart(foodList);
+        updateFeedback();
     }
 
     /**
@@ -137,6 +199,8 @@ public class TodayPage extends UiPart<AnchorPane> {
     private void updateSportStatistics(ObservableList<Entry> sportList) {
         updateSportCounter(sportList);
         updateSportCalorie(sportList);
+        updatePerformance(sportList);
+        updateFeedback();
     }
 
     /**
@@ -144,19 +208,13 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param foodList an observable list of food entries
      */
     private void updateFoodCounter(ObservableList<Entry> foodList) {
-        int undoneCount = 0;
-        int doneCount = 0;
+        PerformanceCalculator foodPerformanceCalculator = new PerformanceCalculator(foodList);
 
-        for (Entry entry : foodList) {
-            if (entry.getStatus().value.equalsIgnoreCase("Done")) {
-                doneCount++;
-            } else {
-                undoneCount++;
-            }
-        }
+        this.foodUndone = foodPerformanceCalculator.getUndoneCounter();
+        this.foodDone = foodPerformanceCalculator.getDoneCounter();
 
-        undoneFoodCounter.setText(undoneCount + " undone");
-        doneFoodCounter.setText(doneCount + " completed");
+        undoneFoodCounter.setText(this.foodUndone + " undone");
+        doneFoodCounter.setText(this.foodDone + " completed");
     }
 
     /**
@@ -164,19 +222,13 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param sportList an observable list of food entries
      */
     private void updateSportCounter(ObservableList<Entry> sportList) {
-        int undoneCount = 0;
-        int doneCount = 0;
+        PerformanceCalculator sportPerformanceCalculator = new PerformanceCalculator(sportList);
 
-        for (Entry entry : sportList) {
-            if (entry.getStatus().value.equalsIgnoreCase("Undone")) {
-                undoneCount++;
-            } else {
-                doneCount++;
-            }
-        }
+        this.sportUndone = sportPerformanceCalculator.getUndoneCounter();
+        this.sportDone = sportPerformanceCalculator.getDoneCounter();
 
-        undoneSportCounter.setText(undoneCount + " sport plans undone");
-        doneSportCounter.setText(doneCount + " sport plans completed");
+        undoneSportCounter.setText(this.sportUndone + " sport plans undone");
+        doneSportCounter.setText(this.sportDone + " sport plans completed");
     }
 
 
@@ -188,9 +240,17 @@ public class TodayPage extends UiPart<AnchorPane> {
         CalorieCalculator foodCalorieCalculator = new CalorieCalculator(foodList);
         foodCalorie = foodCalorieCalculator.getFoodCalorie();
         logger.info("foodCalorie: " + foodCalorie);
-        calorieGain.setText("today food calorie: " + foodCalorie);
+        calorieGain.setText("food adds in: " + foodCalorie + " kcal");
         difCalorie = foodCalorie - sportCalorie;
-        totalCalorie.setText("total calorie for today: " + difCalorie);
+        totalCalorie.setText("total calorie: " + difCalorie + " kcal");
+    }
+
+    /**
+     * Updates the foodCaloriePieChart.
+     * @param foodList an observable list of food entries
+     */
+    private void updateFoodCaloriePieChart(ObservableList<Entry> foodList) {
+        initializeFoodCaloriePirChart(foodList);
     }
 
     /**
@@ -200,9 +260,19 @@ public class TodayPage extends UiPart<AnchorPane> {
     private void updateSportCalorie(ObservableList<Entry> sportList) {
         CalorieCalculator sportCalorieCalculator = new CalorieCalculator(sportList);
         sportCalorie = sportCalorieCalculator.getSportsCalorie();
-        calorieConsume.setText("today sports calorie: " + sportCalorie);
+        calorieConsume.setText("sports burn: " + sportCalorie + " kcal");
         difCalorie = foodCalorie - sportCalorie;
-        totalCalorie.setText("total calorie for today: " + difCalorie);
+        totalCalorie.setText("totdal calorie: " + difCalorie + " kcal");
+    }
+
+    /**
+     * Updates the performance calculation of today's food and sport list
+     * @param sportList an observable list of sport entries
+     */
+    private void updatePerformance(ObservableList<Entry> sportList) {
+        percentDone = this.sportDone * 100.0 / sportList.size();
+        performance.setText("Sports Task Completion: " + (int) this.percentDone + "%");
+        logger.info("task modification: " + this.percentDone);
     }
 
     /**
@@ -237,6 +307,16 @@ public class TodayPage extends UiPart<AnchorPane> {
                 setGraphic(new SportCard(sport, getIndex() + 1).getRoot());
             }
         }
+    }
+
+    /**
+     * Generates and updates the feedback box based on the task completion data.
+     */
+    private void updateFeedback() {
+        FeedbackGenerator feedbackGenerator = new FeedbackGenerator(this.percentDone, this.difCalorie);
+        logger.info("generate feedback: " + percentDone);
+        String todayFeedback = feedbackGenerator.generateFeedback();
+        feedback.setText(todayFeedback);
     }
 
 }

@@ -22,7 +22,11 @@ public class PerformanceCalculator {
         this.entries = entries;
         this.doneCounter = countDoneEntries(entries);
         this.undoneCounter = countUndoneEntries(entries);
-        this.performance = doneCounter / (doneCounter + undoneCounter);
+        if (doneCounter + undoneCounter == 0) {
+            this.performance = 0.0;
+        } else {
+            this.performance = doneCounter / (doneCounter + undoneCounter);
+        }
         assert doneCounter + undoneCounter == entries.size();
     }
 
