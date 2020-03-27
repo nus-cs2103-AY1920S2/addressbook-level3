@@ -181,7 +181,7 @@ The `CouponStash` will be initialized with the initial coupon stash state, and t
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th coupon in the coupon stash.
-The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to the newly inserted address book state.
+The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currStateIndex` is shifted to the newly inserted coupon stash state.
 
 image::UndoRedoState1.png[]
 
@@ -191,7 +191,7 @@ The `add` command also calls `Model#commitCouponStash(String commandText)`, caus
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the address book state and command text will not be saved.
+If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the coupon stash state and command text will not be saved.
 
 Step 4. The user now decides that adding the coupon was a mistake, and decides to undo that action by executing the `undo` command.
 The `undo` command will call `Model#undoCouponStash()`, which will shift the `currStateIndex` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
@@ -217,7 +217,7 @@ The `redo` command uses `Model#canRedoCouponStash()` to check if this is the cas
 If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`.
-Commands that do not modify the address book, such as `list`, will  not call `Model#commitCouponStash()`.
+Commands that do not modify the coupon stash, such as `list`, will  not call `Model#commitCouponStash()`.
 Thus, the `couponStashStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
@@ -242,7 +242,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* Use two lists to store the history of address book states and command text history.
+* Use two lists to store the history of coupons stash states and command text history.
 ** The lists are stored in a `HistoryManager` class, which includes a `currStateIndex`.
 // end::undoredo[]
 
