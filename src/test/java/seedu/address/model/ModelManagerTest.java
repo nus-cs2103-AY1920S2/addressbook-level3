@@ -164,8 +164,28 @@ public class ModelManagerTest {
         modelManager.commit();
         modelManager.addPerson(ALICE);
         modelManager.commit();
-
         modelManager.undo();
+
+        // check that commit saves both databases, so the first undo will not delete apple
+        assertEquals(modelManager, expectedModel);
+    }
+
+    @Test
+    public void commit_afterUndo_overwritesHistory() {
+        Model expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getUserPrefs());
+        expectedModel.addGood(APPLE);
+        expectedModel.addPerson(BENSON);
+
+        modelManager.addGood(APPLE);
+        modelManager.commit();
+        modelManager.addPerson(ALICE);
+        modelManager.commit();
+        modelManager.undo();
+        modelManager.addPerson(BENSON);
+        modelManager.commit();
+
+        // Alice should be absent
         assertEquals(modelManager, expectedModel);
     }
 
