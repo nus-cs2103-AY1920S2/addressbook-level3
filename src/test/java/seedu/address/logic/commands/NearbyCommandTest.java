@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
@@ -65,18 +66,20 @@ class NearbyCommandTest {
 
     @Test
     void execute_validAreaUnfilteredList_success() {
-        String searchTerm = "east";
+        String area = "east";
+        String searchTerm = FLAG_ORDER_LIST + " east";
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         expectedModel.updateFilteredOrderList(eastArea);
-        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, searchTerm);
+        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, area);
         assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     void execute_validAreaNoMatchingOrderFilteredList_success() {
-        String searchTerm = "east";
-        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, searchTerm);
+        String area = "east";
+        String searchTerm = FLAG_ORDER_LIST + " east";
+        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, area);
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         showNoOrder(expectedModel);
@@ -86,7 +89,7 @@ class NearbyCommandTest {
 
     @Test
     void execute_validPostalSectorUnfilteredList_success() {
-        String input = "64";
+        String input = FLAG_ORDER_LIST + " 64";
         Index postalSector = Index.fromOneBased(64);
         Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
         if (location.isEmpty()) {
@@ -104,7 +107,7 @@ class NearbyCommandTest {
 
     @Test
     void execute_validPostalSectorNoMatchingOrderFilteredList_success() {
-        String input = "7";
+        String input = FLAG_ORDER_LIST + " 7";
         Index postalSector = Index.fromOneBased(7);
         Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
         if (location.isEmpty()) {
