@@ -561,7 +561,7 @@ public class ModelManager implements Model {
   public void updateCourseStudents(){
     //Updates list of students for each course
     for (Course course : filteredCourses){
-      String courseString = course.getId().toString();
+      String courseString = course.getID().toString();
       ArrayList<NameIdTuple> assignedStudents = new ArrayList<>();
       for (CourseStudent curCourseStudent : filteredCourseStudents){
         if (curCourseStudent.getCourseid().toString().equals(courseString)){
@@ -592,7 +592,7 @@ public class ModelManager implements Model {
         if (curCourseStudent.getStudentid().toString().equals(studentString)){
           String course = curCourseStudent.getCourseid().toString();
           for (Course curCourse : filteredCourses){
-            if (curCourse.getId().toString().equals(course)){
+            if (curCourse.getID().toString().equals(course)){
               NameIdTuple t = new NameIdTuple(curCourse.getName().toString(), curCourseStudent.getCourseid().toString());
               assignedCourses.add(t);
             }
@@ -652,18 +652,18 @@ public class ModelManager implements Model {
       return this.name;
     }
 
-    public String getId(){
+    public String getID(){
       return this.id;
     }
 
     @Override
     public int compareTo(NameIdTuple o) {
-      return Integer.parseInt(id) - (Integer.parseInt(o.getId()));
+      return Integer.parseInt(id) - (Integer.parseInt(o.getID()));
     }
 
     @Override
     public String toString(){
-      return getName() + "(" + getId() + ")";
+      return getName() + "(" + getID() + ")";
     }
   }
 }

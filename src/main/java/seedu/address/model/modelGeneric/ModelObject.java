@@ -9,7 +9,7 @@ public abstract class ModelObject {
 
     public abstract boolean weakEquals(ModelObject other);
 
-    public abstract ID getId();
+    public abstract ID getID();
 
     public RuntimeException getNotFoundException() {
         return new NotFoundException(ENTITY_NAME);

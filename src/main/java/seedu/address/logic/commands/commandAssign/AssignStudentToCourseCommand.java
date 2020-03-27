@@ -67,7 +67,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         boolean studentExists = false;
 
         for (Course course : model.getFilteredCourseList()) {
-            if (course.getId().value.equals(courseidString)) {
+            if (course.getID().value.equals(courseidString)) {
                 courseName = course.getName().toString();
                 courseExists = true;
                 break;

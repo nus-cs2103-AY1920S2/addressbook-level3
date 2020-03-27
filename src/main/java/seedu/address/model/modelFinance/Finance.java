@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -48,6 +49,10 @@ public class Finance extends ModelObject {
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
+  }
+
+  public ID getID() {
+    return new ID("");
   }
 
   /**

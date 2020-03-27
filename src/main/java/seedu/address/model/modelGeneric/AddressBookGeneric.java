@@ -88,7 +88,7 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
 
     public boolean containsID(ID objectID) {
         for (K object : objects) {
-            if (object.getId().equals(objectID)) {
+            if (object.getID().equals(objectID)) {
                 return true;
             }
         }

@@ -51,7 +51,9 @@ public class CourseStudent extends ModelObject {
     return studentid;
   }
 
-
+  public ID getID() {
+    return new ID("");
+  }
 
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if

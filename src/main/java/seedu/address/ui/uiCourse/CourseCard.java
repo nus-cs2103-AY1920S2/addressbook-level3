@@ -47,7 +47,7 @@ public class CourseCard extends UiPart<Region> {
     this.course = course;
     name.setText(course.getName().fullName);
     teacherId.setText(course.getTeacherID().value);
-    courseID.setText(course.getId().value);
+    courseID.setText(course.getID().value);
     amount.setText(course.getAmount().value);
     assignedStudents.setText(course.getAssignedStudents());
 

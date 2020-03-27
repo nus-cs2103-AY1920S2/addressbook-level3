@@ -42,7 +42,7 @@ public class Assignment extends ModelObject {
     return name;
   }
 
-  public ID getId() {
+  public ID getID() {
     return assignmentId;
   }
 
@@ -75,7 +75,7 @@ public class Assignment extends ModelObject {
     Assignment otherAssignmentCast = (Assignment)otherAssignment;
     return otherAssignmentCast != null
         && otherAssignmentCast.getName().equals(getName())
-        && otherAssignmentCast.getId().equals(getId());
+        && otherAssignmentCast.getID().equals(getID());
   }
 
   /**
@@ -94,7 +94,7 @@ public class Assignment extends ModelObject {
 
     Assignment otherAssignment = (Assignment) other;
     return otherAssignment.getName().equals(getName())
-        && otherAssignment.getId().equals(getId())
+        && otherAssignment.getID().equals(getID())
         && otherAssignment.getDeadline().equals(getDeadline())
         && otherAssignment.getTags().equals(getTags());
   }
@@ -113,7 +113,7 @@ public class Assignment extends ModelObject {
             .append(getName())
             .append("\n")
             .append("Assignment ID: ")
-            .append(getId())
+            .append(getID())
             .append("\n")
             .append("Deadline: ")
             .append(getDeadline().toString())

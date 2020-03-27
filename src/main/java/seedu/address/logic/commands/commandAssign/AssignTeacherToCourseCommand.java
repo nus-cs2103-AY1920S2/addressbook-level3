@@ -39,7 +39,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         List<Course> lastShownList = model.getFilteredCourseList();
         // TODO: Override equals by checking ID only then no need for this "stupid" for loop
         for (Course course : lastShownList) {
-            if (course.getId().value.equals(this.assignDescriptor.getAssignID(PREFIX_COURSEID).value)) {
+            if (course.getID().value.equals(this.assignDescriptor.getAssignID(PREFIX_COURSEID).value)) {
                 Course targetCourse = course;
                 targetCourse.setTeacherID(this.assignDescriptor.getAssignID(PREFIX_TEACHERID));
                 model.setCourse(targetCourse, targetCourse);

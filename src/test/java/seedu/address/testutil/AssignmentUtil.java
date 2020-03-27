@@ -24,7 +24,7 @@ public class AssignmentUtil {
     public static String getAssignmentDetails(Assignment assignment) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + assignment.getName().fullName + " ");
-        sb.append(PREFIX_ASSIGNMENTID + assignment.getId().value + " ");
+        sb.append(PREFIX_ASSIGNMENTID + assignment.getID().value + " ");
         sb.append(PREFIX_DEADLINE + assignment.getDeadline().value + " ");
         assignment.getTags().stream().forEach(
                 s -> sb.append(PREFIX_TAG + s.tagName + " ")

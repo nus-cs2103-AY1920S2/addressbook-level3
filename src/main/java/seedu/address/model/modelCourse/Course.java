@@ -57,7 +57,7 @@ public class Course extends ModelObject {
     return name;
   }
 
-  public ID getId() {
+  public ID getID() {
     return id;
   }
 
@@ -103,7 +103,7 @@ public class Course extends ModelObject {
     Course otherCourseCast = (Course) otherCourse;
     return otherCourseCast != null
 //        && otherCourse.getName().equals(getName())
-            && otherCourseCast.getId().equals(getId());
+            && otherCourseCast.getID().equals(getID());
   }
 
   /**
@@ -122,7 +122,7 @@ public class Course extends ModelObject {
 
     Course otherCourse = (Course) other;
     return otherCourse.getName().equals(getName())
-        && otherCourse.getId().equals(getId())
+        && otherCourse.getID().equals(getID())
         && otherCourse.getAmount().equals(getAmount())
         && otherCourse.getTags().equals(getTags());
   }
@@ -138,7 +138,7 @@ public class Course extends ModelObject {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
         .append(" ID: ")
-        .append(getId())
+        .append(getID())
         .append(" Amount: ")
         .append(getAmount())
         .append(" Tags: ");
