@@ -7,17 +7,13 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
-import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
-import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
-import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
-import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.*;
@@ -63,10 +59,10 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyTeacherAddressBook getSampleTeacherAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Teacher> getSampleTeacherAddressBook() {
     TeacherAddressBook sampleAb = new TeacherAddressBook();
     for (Teacher sampleTeacher : getSampleTeachers()) {
-      sampleAb.addTeacher(sampleTeacher);
+      sampleAb.add(sampleTeacher);
     }
     return sampleAb;
   }
@@ -80,10 +76,10 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyStudentAddressBook getSampleStudentAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Student> getSampleStudentAddressBook() {
     StudentAddressBook sampleAb = new StudentAddressBook();
     for (Student sampleStudent : getSampleStudents()) {
-      sampleAb.addStudent(sampleStudent);
+      sampleAb.add(sampleStudent);
     }
     return sampleAb;
   }
@@ -99,10 +95,10 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyFinanceAddressBook getSampleFinanceAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Finance> getSampleFinanceAddressBook() {
     FinanceAddressBook sampleAb = new FinanceAddressBook();
     for (Finance sampleFinance : getSampleFinances()) {
-      sampleAb.addFinance(sampleFinance);
+      sampleAb.add(sampleFinance);
     }
     return sampleAb;
   }
@@ -120,10 +116,10 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyCourseAddressBook getSampleCourseAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Course> getSampleCourseAddressBook() {
     CourseAddressBook sampleAb = new CourseAddressBook();
     for (Course sampleCourse : getSampleCourses()) {
-      sampleAb.addCourse(sampleCourse);
+      sampleAb.add(sampleCourse);
     }
     return sampleAb;
   }
@@ -139,14 +135,13 @@ public class SampleDataUtil {
     };
   }
 
-  public static ReadOnlyAssignmentAddressBook getSampleAssignmentAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Assignment> getSampleAssignmentAddressBook() {
     AssignmentAddressBook sampleAb = new AssignmentAddressBook();
     for (Assignment sampleAssignment : getSampleAssignments()) {
-      sampleAb.addAssignment(sampleAssignment);
+      sampleAb.add(sampleAssignment);
     }
     return sampleAb;
   }
-
   /**
    * Returns a tag set containing the list of strings given.
    */

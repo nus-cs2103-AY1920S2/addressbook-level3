@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.AssignedStudents;
@@ -20,15 +20,18 @@ import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Studentid;
 import seedu.address.model.person.Teacherid;
+import seedu.address.model.person.exceptions.CourseNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateCourseException;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Course in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
-public class Course {
+public class Course extends ModelObject {
 
   // Identity fields
+  private final String ENTITY_NAME = "Course";
   private final Name name;
   private final ID id;
   private final Set<Tag> tags = new HashSet<>();
@@ -145,14 +148,18 @@ public class Course {
    * Returns true if both courses of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two courses.
    */
-  public boolean isSameCourse(Course otherCourse) {
+  public boolean weakEquals(ModelObject otherCourse) {
     if (otherCourse == this) {
       return true;
     }
 
-    return otherCourse != null
+    if (otherCourse instanceof Course == false) {
+      return false;
+    }
+    Course otherCourseCast = (Course) otherCourse;
+    return otherCourseCast != null
 //        && otherCourse.getName().equals(getName())
-        && otherCourse.getId().equals(getId());
+            && otherCourseCast.getId().equals(getId());
   }
 
   /**
