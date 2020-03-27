@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -23,47 +22,60 @@ public class VersionedAddressBookTest {
 
     @Test
     public void undo_afterOneCommit_removeChanges() {
+        AddressBook expectedAddressBook = new AddressBook(versionedAddressBook);
+
         versionedAddressBook.addPerson(ALICE);
         versionedAddressBook.commit();
         versionedAddressBook.undo();
-        assertFalse(versionedAddressBook.hasPerson(ALICE));
+        assertEquals(versionedAddressBook, expectedAddressBook);
     }
 
     @Test
     public void undo_afterMultipleCommits_returnsToMostRecentCommit() {
         versionedAddressBook.addPerson(ALICE);
         versionedAddressBook.commit();
+        AddressBook expectedAddressBookFirstCommit = new AddressBook(versionedAddressBook);
+
         versionedAddressBook.addPerson(BENSON);
         versionedAddressBook.commit();
+        AddressBook expectedAddressBookSecondCommit = new AddressBook(versionedAddressBook);
+
         versionedAddressBook.addPerson(CARL);
         versionedAddressBook.commit();
 
-        // first undo goes to second commit with Alice and Benson
+        // first undo goes to second commit
         versionedAddressBook.undo();
-        assertTrue(versionedAddressBook.hasPerson(ALICE));
-        assertTrue(versionedAddressBook.hasPerson(BENSON));
-        assertFalse(versionedAddressBook.hasPerson(CARL));
+        assertEquals(versionedAddressBook, expectedAddressBookSecondCommit);
 
-        // second undo goes to first commit with Alice only
+        // second undo goes to first commit
         versionedAddressBook.undo();
-        assertTrue(versionedAddressBook.hasPerson(ALICE));
-        assertFalse(versionedAddressBook.hasPerson(BENSON));
-        assertFalse(versionedAddressBook.hasPerson(CARL));
+        assertEquals(versionedAddressBook, expectedAddressBookFirstCommit);
     }
 
     @Test
     public void undo_afterUnsavedChanges_removesUnsavedAndPreviousChanges() {
+        AddressBook expectedAddressBook = new AddressBook(versionedAddressBook);
         versionedAddressBook.addPerson(ALICE);
         versionedAddressBook.commit();
 
         Person p = new PersonBuilder().withName("Erased Ignored").build();
+        versionedAddressBook.addPerson(p);
         versionedAddressBook.undo();
-        assertFalse(versionedAddressBook.hasPerson(ALICE));
-        assertFalse(versionedAddressBook.hasPerson(p));
+
+        assertEquals(versionedAddressBook, expectedAddressBook);
     }
 
     @Test
     public void commit_afterUndo_removesFutureHistory() {
+        AddressBook expectedAddressBookAfterRewrite = new AddressBook(versionedAddressBook);
+        expectedAddressBookAfterRewrite.addPerson(ALICE);
+        expectedAddressBookAfterRewrite.addPerson(BENSON);
+        expectedAddressBookAfterRewrite.addPerson(DANIEL);
+
+        AddressBook expectedAddressBookAfterUndoFromRewrite = new AddressBook(versionedAddressBook);
+        expectedAddressBookAfterUndoFromRewrite.addPerson(ALICE);
+        expectedAddressBookAfterUndoFromRewrite.addPerson(BENSON);
+
         versionedAddressBook.addPerson(ALICE);
         versionedAddressBook.commit();
         versionedAddressBook.addPerson(BENSON);
@@ -74,11 +86,11 @@ public class VersionedAddressBookTest {
         // ensures the current state points to the most recent commit
         versionedAddressBook.undo();
         versionedAddressBook.addPerson(DANIEL);
-        assertTrue(versionedAddressBook.hasPerson(DANIEL));
+        versionedAddressBook.commit();
+        assertEquals(versionedAddressBook, expectedAddressBookAfterRewrite);
 
         // ensures that current state is not added on top of deleted history
         versionedAddressBook.undo();
-        assertFalse(versionedAddressBook.hasPerson(DANIEL));
-        assertFalse(versionedAddressBook.hasPerson(CARL));
+        assertEquals(versionedAddressBook, expectedAddressBookAfterUndoFromRewrite);
     }
 }

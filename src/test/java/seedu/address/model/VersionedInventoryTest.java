@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.good.Good;
 import seedu.address.testutil.GoodBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGoods.APPLE;
 import static seedu.address.testutil.TypicalGoods.BANANA;
@@ -23,47 +22,60 @@ public class VersionedInventoryTest {
 
     @Test
     public void undo_afterOneCommit_removeChanges() {
+        Inventory expectedInventory = new Inventory(versionedInventory);
+
         versionedInventory.addGood(APPLE);
         versionedInventory.commit();
         versionedInventory.undo();
-        assertFalse(versionedInventory.hasGood(APPLE));
+        assertEquals(versionedInventory, expectedInventory);
     }
 
     @Test
     public void undo_afterMultipleCommits_returnsToMostRecentCommit() {
         versionedInventory.addGood(APPLE);
         versionedInventory.commit();
+        Inventory expectedInventoryFirstCommit = new Inventory(versionedInventory);
+
         versionedInventory.addGood(BANANA);
         versionedInventory.commit();
+        Inventory expectedInventorySecondCommit = new Inventory(versionedInventory);
+
         versionedInventory.addGood(CITRUS);
         versionedInventory.commit();
 
-        // first undo goes to second commit with apple and banana
+        // first undo goes to second commit
         versionedInventory.undo();
-        assertTrue(versionedInventory.hasGood(APPLE));
-        assertTrue(versionedInventory.hasGood(BANANA));
-        assertFalse(versionedInventory.hasGood(CITRUS));
+        assertEquals(versionedInventory, expectedInventorySecondCommit);
 
-        // second undo goes to first commit with apple only
+        // second undo goes to first commit
         versionedInventory.undo();
-        assertTrue(versionedInventory.hasGood(APPLE));
-        assertFalse(versionedInventory.hasGood(BANANA));
-        assertFalse(versionedInventory.hasGood(CITRUS));
+        assertEquals(versionedInventory, expectedInventoryFirstCommit);
     }
 
     @Test
     public void undo_afterUnsavedChanges_removesUnsavedAndPreviousChanges() {
+        Inventory expectedInventory = new Inventory(versionedInventory);
         versionedInventory.addGood(APPLE);
         versionedInventory.commit();
 
         Good g = new GoodBuilder().withGoodName("Erased Ignored").build();
+        versionedInventory.addGood(g);
         versionedInventory.undo();
-        assertFalse(versionedInventory.hasGood(APPLE));
-        assertFalse(versionedInventory.hasGood(g));
+
+        assertEquals(versionedInventory, expectedInventory);
     }
 
     @Test
     public void commit_afterUndo_removesFutureHistory() {
+        Inventory expectedInventoryAfterRewrite = new Inventory(versionedInventory);
+        expectedInventoryAfterRewrite.addGood(APPLE);
+        expectedInventoryAfterRewrite.addGood(BANANA);
+        expectedInventoryAfterRewrite.addGood(DURIAN);
+
+        Inventory expectedInventoryAfterUndoFromRewrite = new Inventory(versionedInventory);
+        expectedInventoryAfterUndoFromRewrite.addGood(APPLE);
+        expectedInventoryAfterUndoFromRewrite.addGood(BANANA);
+
         versionedInventory.addGood(APPLE);
         versionedInventory.commit();
         versionedInventory.addGood(BANANA);
@@ -74,12 +86,12 @@ public class VersionedInventoryTest {
         // ensures the current state points to the most recent commit
         versionedInventory.undo();
         versionedInventory.addGood(DURIAN);
-        assertTrue(versionedInventory.hasGood(DURIAN));
+        versionedInventory.commit();
+        assertEquals(versionedInventory, expectedInventoryAfterRewrite);
 
         // ensures that current state is not added on top of deleted history
         versionedInventory.undo();
-        assertFalse(versionedInventory.hasGood(DURIAN));
-        assertFalse(versionedInventory.hasGood(CITRUS));
+        assertEquals(versionedInventory, expectedInventoryAfterUndoFromRewrite);
     }
 }
 
