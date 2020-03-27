@@ -95,14 +95,14 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        ArrayList<Remark> updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
+        ArrayList<Remark> updatedRemark = editPersonDescriptor.getRemarks().orElse(personToEdit.getRemark());
         Birthday updatedBirthday = editPersonDescriptor.getBirthday().orElse(personToEdit.getBirthday());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Index updatedIndex = editPersonDescriptor.getIndex().orElse(personToEdit.getIndex());
@@ -155,6 +155,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setBirthday(toCopy.birthday);
+            setRemarks(toCopy.remarks);
             setTags(toCopy.tags);
             setIndex(toCopy.index);
         }
@@ -163,7 +164,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, birthday, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, remarks, birthday, tags);
         }
 
         public void setName(Name name) {
@@ -214,6 +215,23 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code remarks} to this object's {@code remarks}.
+         * A defensive copy of {@code remarks} is used internally.
+         */
+        public void setRemarks(ArrayList<Remark> remarks) {
+            this.remarks = (remarks != null) ? new ArrayList<>(remarks) : null;
+        }
+
+        /**
+         * Returns an unmodifiable remark set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code remarks} is null.
+         */
+        public Optional<ArrayList<Remark>> getRemarks() {
+            return (remarks != null) ? Optional.of(remarks) : Optional.empty();
+        }
+
+        /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
@@ -250,6 +268,7 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getBirthday().equals(e.getBirthday())
+                    && getRemarks().equals(e.getRemarks())
                     && getTags().equals(e.getTags());
         }
     }
