@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.notably.logic.commands.suggestion.NewSuggestionCommand;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.BlockModel;

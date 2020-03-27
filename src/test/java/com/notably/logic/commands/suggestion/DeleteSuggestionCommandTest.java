@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.commons.path.exceptions.InvalidPathException;
-import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
@@ -27,7 +26,7 @@ import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
-public class OpenSuggestionCommandTest {
+public class DeleteSuggestionCommandTest {
     private static AbsolutePath toRoot;
     private static AbsolutePath toCs2103;
     private static AbsolutePath toCs3230;
@@ -36,6 +35,9 @@ public class OpenSuggestionCommandTest {
     private static AbsolutePath toCs2103Week3;
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
+
+    private static final String COMMAND_WORD = "delete";
+    private static final String PREFIX_TITLE = "-t";
 
     @BeforeAll
     public static void setUp() throws InvalidPathException {
@@ -75,21 +77,21 @@ public class OpenSuggestionCommandTest {
 
     @Test
     public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(null));
+        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
-        assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toRoot);
+        assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 
     @Test
-    public void execute_displayText() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
-        openSuggestionCommand.execute(model);
+    public void execute_generateResponseCorrectly() {
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103);
+        deleteSuggestionCommand.execute(model);
 
-        assertEquals(Optional.of("Open a note"), model.responseTextProperty().getValue());
+        assertEquals(Optional.of("Delete a note"), model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -104,22 +106,19 @@ public class OpenSuggestionCommandTest {
         expectedSuggestions.add(cs2103Week2);
         expectedSuggestions.add(cs2103Week3);
 
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
         for (int i = 0; i < expectedSuggestions.size(); i++) {
-            SuggestionItem suggestion = model.getSuggestions().get(i);
+            SuggestionItem suggestion = suggestions.get(i);
             SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
             assertEquals(suggestion.getDisplayText(), expectedSuggestion.getDisplayText());
         }
-    }
-
-    @Test
-    public void execute_action() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
-        openSuggestionCommand.execute(model);
-        List<SuggestionItem> suggestions = model.getSuggestions();
 
         List<String> expectedInputs = new ArrayList<>();
-        expectedInputs.add(toCs2103Week1.getStringRepresentation());
-        expectedInputs.add(toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
@@ -129,5 +128,4 @@ public class OpenSuggestionCommandTest {
             assertEquals(expectedInput, input);
         }
     }
-
 }
