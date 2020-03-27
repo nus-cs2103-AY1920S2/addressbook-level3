@@ -34,11 +34,14 @@ activate CouponStash
 loop for each coupon
     CouponStash -> Coupon: getExpiryDate()
     activate Coupon
+    Coupon --> CouponStash : expiryDate
+    deactivate Coupon
 
-    alt has expired
-        Coupon --> CouponStash: archived coupon
-    else
-        Coupon --> CouponStash: coupon
+    opt has expired
+        CouponStash -> Coupon: archive()
+        activate Coupon
+        Coupon --> CouponStash: archivedCoupon
+        deactivate Coupon
     end
 end
 
