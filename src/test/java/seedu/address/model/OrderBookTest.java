@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.exceptions.DuplicateOrderException;
 import seedu.address.testutil.OrderBuilder;
 
@@ -96,6 +97,12 @@ public class OrderBookTest {
         @Override
         public ObservableList<Order> getOrderList() {
             return orders;
+        }
+
+        @Override
+        public Order getOrderByTransactionId(TransactionId transactionId) {
+            Order order = new OrderBook().getOrderByTransactionId(transactionId);
+            return order;
         }
     }
 
