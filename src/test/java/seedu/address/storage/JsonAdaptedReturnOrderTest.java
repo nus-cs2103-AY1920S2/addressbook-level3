@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.JsonAdaptedReturnOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalOrders.BENSON_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.BENSON_RETURN;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
@@ -27,7 +26,6 @@ public class JsonAdaptedReturnOrderTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_TIMESTAMP = "2019-02-32 1500";
     private static final String INVALID_WAREHOUSE = "";
-    private static final String INVALID_COD = "1";
     private static final String INVALID_COMMENT = " ";
     private static final String INVALID_TYPE = "#bottle";
 
@@ -38,10 +36,10 @@ public class JsonAdaptedReturnOrderTest {
     private static final String VALID_ADDRESS = BENSON_RETURN.getAddress().toString();
     private static final String VALID_TIMESTAMP = BENSON_RETURN.getTimestamp().toString();
     private static final String VALID_WAREHOUSE = BENSON_RETURN.getWarehouse().toString();
-    private static final String VALID_COD = BENSON_RETURN.getCash().toString();
     private static final String VALID_COMMENT = BENSON_RETURN.getComment().toString();
     private static final String VALID_TYPE = BENSON_RETURN.getItemType().toString();
     private static final boolean VALID_DELIVERY_STATUS = BENSON_RETURN.isDelivered();
+    private static final boolean VALID_RETURN_CHECK = BENSON_RETURN.isReturn();
 
     @Test
     public void toModelType_validReturnOrderDetails_returnsOrder() throws Exception {
@@ -52,8 +50,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullTid_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(null, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TransactionId.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -61,8 +59,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidTid_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(INVALID_TID, VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_EMAIL, VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = TransactionId.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -70,8 +68,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, INVALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_EMAIL, VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -79,8 +77,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, null, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, INVALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -88,8 +86,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, INVALID_PHONE,
-                VALID_EMAIL, VALID_TIMESTAMP, VALID_ADDRESS, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_EMAIL, VALID_TIMESTAMP, VALID_ADDRESS, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -97,8 +95,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, null, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -106,8 +104,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE,
-                INVALID_EMAIL, VALID_TIMESTAMP, VALID_ADDRESS, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                INVALID_EMAIL, VALID_TIMESTAMP, VALID_ADDRESS, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -115,8 +113,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, null,
-                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -124,8 +122,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                INVALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                INVALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -133,8 +131,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                null, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                null, VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -142,8 +140,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidTimeStamp_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, INVALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, INVALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = TimeStamp.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -151,8 +149,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullTimeStamp_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, null, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, null, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeStamp.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -160,8 +158,8 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_invalidWarehouse_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, INVALID_WAREHOUSE, VALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, VALID_TIMESTAMP, INVALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = Warehouse.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -169,26 +167,9 @@ public class JsonAdaptedReturnOrderTest {
     @Test
     public void toModelType_nullWarehouse_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, null, VALID_COD, VALID_COMMENT, VALID_TYPE, VALID_DELIVERY_STATUS);
+                VALID_ADDRESS, VALID_TIMESTAMP, null, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Warehouse.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidCashOnDelivery_throwsIllegalValueException() {
-        JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, INVALID_COD, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
-        String expectedMessage = CashOnDelivery.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullCashOnDelivery_throwsIllegalValueException() {
-        JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TIMESTAMP, VALID_WAREHOUSE, null, VALID_COMMENT, VALID_TYPE,
-                VALID_DELIVERY_STATUS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, CashOnDelivery.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
 
@@ -196,8 +177,8 @@ public class JsonAdaptedReturnOrderTest {
     public void toModelType_invalidComment_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder =
                 new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, INVALID_COMMENT, VALID_TYPE,
-                        VALID_DELIVERY_STATUS);
+                        VALID_TIMESTAMP, VALID_WAREHOUSE, INVALID_COMMENT, VALID_TYPE,
+                        VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = Comment.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
@@ -206,8 +187,8 @@ public class JsonAdaptedReturnOrderTest {
     public void toModelType_invalidItemType_throwsIllegalValueException() {
         JsonAdaptedReturnOrder returnOrder =
                 new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COD, VALID_COMMENT, INVALID_TYPE,
-                        VALID_DELIVERY_STATUS);
+                        VALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, INVALID_TYPE,
+                        VALID_DELIVERY_STATUS, VALID_RETURN_CHECK);
         String expectedMessage = TypeOfItem.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }

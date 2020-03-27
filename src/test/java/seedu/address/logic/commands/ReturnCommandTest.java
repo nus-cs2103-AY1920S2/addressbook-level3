@@ -17,64 +17,64 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.returnorder.ReturnOrder;
-import seedu.address.testutil.OrderBuilder;
+import seedu.address.testutil.ReturnOrderBuilder;
 
-public class InsertCommandTest {
+public class ReturnCommandTest {
 
     @Test
     public void constructor_nullOrder_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new InsertCommand(null));
+        assertThrows(NullPointerException.class, () -> new ReturnCommand(null));
     }
 
     @Test
-    public void execute_orderAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingOrderAdded modelStub = new ModelStubAcceptingOrderAdded();
-        Order validOrder = new OrderBuilder().build();
+    public void execute_returnAcceptedByModel_returnSuccessful() throws Exception {
+        ModelStubAcceptingReturnOrderAdded modelStub = new ModelStubAcceptingReturnOrderAdded();
+        ReturnOrder validReturnOrder = new ReturnOrderBuilder().build();
 
-        CommandResult commandResult = new InsertCommand(validOrder).execute(modelStub);
+        CommandResult commandResult = new ReturnCommand(validReturnOrder).execute(modelStub);
 
-        assertEquals(String.format(InsertCommand.MESSAGE_SUCCESS, validOrder), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validOrder), modelStub.ordersAdded);
+        assertEquals(String.format(ReturnCommand.MESSAGE_SUCCESS, validReturnOrder), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validReturnOrder), modelStub.returnOrdersAdded);
     }
 
     @Test
-    public void execute_duplicateOrder_throwsCommandException() {
-        Order validOrder = new OrderBuilder().build();
-        InsertCommand insertCommand = new InsertCommand(validOrder);
-        ModelStub modelStub = new ModelStubWithOrder(validOrder);
+    public void execute_duplicateReturn_throwsCommandException() {
+        ReturnOrder validReturnOrder = new ReturnOrderBuilder().build();
+        ReturnCommand returnCommand = new ReturnCommand(validReturnOrder);
+        ModelStub modelStub = new ModelStubWithReturnOrder(validReturnOrder);
 
         assertThrows(CommandException.class,
-                InsertCommand.MESSAGE_DUPLICATE_ORDER, () -> insertCommand.execute(modelStub));
+                ReturnCommand.MESSAGE_DUPLICATE_RETURN, () -> returnCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Order alice = new OrderBuilder().withName("Alice").build();
-        Order bob = new OrderBuilder().withName("Bob").build();
-        InsertCommand insertAliceCommand = new InsertCommand(alice);
-        InsertCommand insertBobCommand = new InsertCommand(bob);
+        ReturnOrder alice = new ReturnOrderBuilder().withName("Alice").build();
+        ReturnOrder bob = new ReturnOrderBuilder().withName("Bob").build();
+        ReturnCommand returnAliceCommand = new ReturnCommand(alice);
+        ReturnCommand returnBobCommand = new ReturnCommand(bob);
 
         // same object -> returns true
-        assertTrue(insertAliceCommand.equals(insertAliceCommand));
+        assertTrue(returnAliceCommand.equals(returnAliceCommand));
 
         // same values -> returns true
-        InsertCommand insertAliceCommandCopy = new InsertCommand(alice);
-        assertTrue(insertAliceCommand.equals(insertAliceCommandCopy));
+        ReturnCommand returnAliceCommandCopy = new ReturnCommand(alice);
+        assertTrue(returnAliceCommand.equals(returnAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(insertAliceCommand.equals(1));
+        assertFalse(returnAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(insertAliceCommand.equals(null));
+        assertFalse(returnAliceCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(insertAliceCommand.equals(insertBobCommand));
+        assertFalse(returnAliceCommand.equals(returnBobCommand));
     }
 
     /**
@@ -215,42 +215,42 @@ public class InsertCommandTest {
     /**
      * A Model stub that contains a single order.
      */
-    private class ModelStubWithOrder extends ModelStub {
-        private final Order order;
+    private class ModelStubWithReturnOrder extends ModelStub {
+        private final ReturnOrder returnOrder;
 
-        ModelStubWithOrder(Order order) {
-            requireNonNull(order);
-            this.order = order;
+        ModelStubWithReturnOrder(ReturnOrder returnOrder) {
+            requireNonNull(returnOrder);
+            this.returnOrder = returnOrder;
         }
 
         @Override
-        public boolean hasOrder(Order order) {
-            requireNonNull(order);
-            return this.order.isSameOrder(order);
+        public boolean hasReturnOrder(ReturnOrder returnOrder) {
+            requireNonNull(returnOrder);
+            return this.returnOrder.isSameReturn(returnOrder);
         }
     }
 
     /**
      * A Model stub that always accept the order being added.
      */
-    private class ModelStubAcceptingOrderAdded extends ModelStub {
-        final ArrayList<Order> ordersAdded = new ArrayList<>();
+    private class ModelStubAcceptingReturnOrderAdded extends ModelStub {
+        final ArrayList<ReturnOrder> returnOrdersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasOrder(Order order) {
-            requireNonNull(order);
-            return ordersAdded.stream().anyMatch(order::isSameOrder);
+        public boolean hasReturnOrder(ReturnOrder returnOrder) {
+            requireNonNull(returnOrder);
+            return returnOrdersAdded.stream().anyMatch(returnOrder::isSameReturn);
         }
 
         @Override
-        public void addOrder(Order order) {
-            requireNonNull(order);
-            ordersAdded.add(order);
+        public void addReturnOrder(ReturnOrder returnOrder) {
+            requireNonNull(returnOrder);
+            returnOrdersAdded.add(returnOrder);
         }
 
         @Override
-        public ReadOnlyOrderBook getOrderBook() {
-            return new OrderBook();
+        public ReadOnlyReturnOrderBook getReturnOrderBook() {
+            return new ReturnOrderBook();
         }
     }
 

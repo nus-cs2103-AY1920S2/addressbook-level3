@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalOrders.ALICE_RETURN;
-import static seedu.address.testutil.TypicalOrders.HOON_RETURN;
-import static seedu.address.testutil.TypicalOrders.IDA_RETURN;
-import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.ALICE_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.HOON_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.IDA_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.order.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.order.returnorder.ReturnOrderBook;
+import seedu.address.model.ReadOnlyReturnOrderBook;
+import seedu.address.model.ReturnOrderBook;
 
 public class JsonReturnOrderBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonReturnOrderBookStorageTest");

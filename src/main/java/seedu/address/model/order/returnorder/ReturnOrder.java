@@ -117,6 +117,14 @@ public class ReturnOrder extends Parcel {
         return isReturn;
     }
 
+    public void setDeliveryStatus(boolean deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
+    }
+
+    public void setIsReturn(boolean isReturn) {
+        this.isReturn = isReturn;
+    }
+
     /**
      * Returns true if both orders of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two orders.
@@ -155,9 +163,10 @@ public class ReturnOrder extends Parcel {
                 && otherOrder.getAddress().equals(getAddress())
                 && otherOrder.getTimestamp().equals(getTimestamp())
                 && otherOrder.getWarehouse().equals(getWarehouse())
-                && otherOrder.getWarehouse().equals(getComment())
+                && otherOrder.getComment().equals(getComment())
                 && otherOrder.getItemType().equals(getItemType())
-                && (otherOrder.isDelivered() == isDelivered());
+                && (otherOrder.isDelivered() == isDelivered())
+                && (otherOrder.isReturn() == isReturn());
     }
 
     @Override

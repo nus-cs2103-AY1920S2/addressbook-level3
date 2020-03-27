@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
-import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import org.junit.jupiter.api.Test;
 

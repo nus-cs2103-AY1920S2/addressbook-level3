@@ -21,7 +21,7 @@ import seedu.address.model.order.returnorder.ReturnOrder;
  */
 class JsonAdaptedReturnOrder {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Return Order's %s field is missing!";
 
     private final String tid;
     private final String name;
@@ -33,19 +33,23 @@ class JsonAdaptedReturnOrder {
     private final String comment;
     private final String itemType;
     private final boolean deliveryStatus;
+    private final boolean isReturn;
 
     /**
      * Constructs a {@code JsonAdaptedReturnOrder} with the given return order details.
      */
     @JsonCreator
-    public JsonAdaptedReturnOrder(@JsonProperty("tid") String tid, @JsonProperty("name") String name,
-                                  @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+    public JsonAdaptedReturnOrder(@JsonProperty("tid") String tid,
+                                  @JsonProperty("name") String name,
+                                  @JsonProperty("phone") String phone,
+                                  @JsonProperty("email") String email,
                                   @JsonProperty("address") String address,
                                   @JsonProperty("timestamp") String timeStamp,
                                   @JsonProperty("warehouse") String warehouse,
                                   @JsonProperty("comment") String comment,
                                   @JsonProperty("itemType") String itemType,
-                                  @JsonProperty("deliveryStatus") boolean deliveryStatus) {
+                                  @JsonProperty("deliveryStatus") boolean deliveryStatus,
+                                  @JsonProperty("isReturn") boolean isReturn) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
@@ -56,10 +60,11 @@ class JsonAdaptedReturnOrder {
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = deliveryStatus;
+        this.isReturn = isReturn;
     }
 
     /**
-     * Converts a given {@code Order} into this class for Jackson use.
+     * Converts a given {@code ReturnOrder} into this class for Jackson use.
      */
     public JsonAdaptedReturnOrder(ReturnOrder source) {
         tid = source.getTid().tid;
@@ -72,6 +77,7 @@ class JsonAdaptedReturnOrder {
         comment = source.getComment().commentMade;
         itemType = source.getItemType().itemType;
         deliveryStatus = source.isDelivered();
+        isReturn = source.isReturn();
     }
 
     /**
@@ -159,9 +165,11 @@ class JsonAdaptedReturnOrder {
             modelItem = new TypeOfItem(itemType);
         }
 
-        ReturnOrder finalOrder = new ReturnOrder(modelTid, modelName, modelPhone, modelEmail, modelAddress,
+        ReturnOrder finalReturnOrder = new ReturnOrder(modelTid, modelName, modelPhone, modelEmail, modelAddress,
                 modelTimeStamp, modelWarehouse, modelComment, modelItem);
-        return finalOrder;
+        //finalReturnOrder.setDeliveryStatus(true);
+        //finalReturnOrder.setIsReturn(true);
+        return finalReturnOrder;
     }
 
 }

@@ -10,6 +10,7 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class ShowWindow
 Class ResultDisplay
 Class OrderListPanel
 Class OrderCard
@@ -35,6 +36,7 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> OrderListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow --> ShowWindow
 
 OrderListPanel -down-> OrderCard
 
@@ -50,11 +52,13 @@ HelpWindow -down-|> UiPart
 OrderCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
+ShowWindow --|> UiPart
 
 OrderListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- ShowWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml

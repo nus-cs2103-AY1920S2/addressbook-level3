@@ -31,7 +31,7 @@ import seedu.address.model.order.Warehouse;
 /**
  * Parses input arguments and creates a new InsertCommand object
  */
-public class AddCommandParser implements Parser<InsertCommand> {
+public class InsertCommandParser implements Parser<InsertCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the InsertCommand

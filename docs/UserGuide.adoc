@@ -26,6 +26,38 @@ while still enjoying the benefits of a Graphical User Interface (GUI).
 Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
 Have a delightful journey using Delino!
 
+=== How to navigate this user guide
+Throughout this user guide, you might encounter additional symbols. These symbols are used to
+highlight important information. +
+This user guide uses the following symbols:
+
+[NOTE]
+====
+This block contains additional *notes*. +
+It contains more information regarding complex content that you should take note of.
+====
+
+[TIP]
+====
+This block contains additional *tips*.
+====
+
+[WARNING]
+====
+This block contains *warning* information.
+====
+
+[IMPORTANT]
+====
+This block contains *important* inforamtion that you should be mindful of.
+====
+
+You will also encounter the use of `text markup` to indicate keywords such as
+command arguments to Delino. (e.g. `exit`)
+
+Finally, you will encounter links to external webpages for additional information.
+These links will link:[look like this].
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -179,6 +211,22 @@ so that you can navigate the application easily.
 ==== Examples:
 * `help` +
 Returns a list of all commands available.
+
+[[show]]
+=== Show statistics : `show`
+
+==== Description
+* You can use the show command to open a new window to display statistics of the orders assigned to the courier.
+It shows the earnings the courier has made today, the number of orders delivered and the total number of orders
+he or she has to deliver today. The statistics include a PieChart at the bottom, which shows the percentage of
+delivered orders compared to the undelivered ones.
+
+==== Format:
+* `show`
+
+==== Examples:
+* `show` +
+Opens a new window that contains the statistics.
 
 [[insert]]
 === Inserting an order: `insert`
@@ -474,6 +522,7 @@ e.g. `edit` `2` `n/Xuan En`
 * <<search, *Search*>> : `search` `ORDER_ATTRIBUTE_PREFIX/KEYWORD` +
 e.g. `search` `tid/ac1e345x7s`
 * <<help, *Help*>> : `help`
+* <<show, *Show*>> : `show`
 * <<import, *Import*>> : `import` `FILE_NAME` +
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
@@ -553,7 +602,8 @@ e.g. `nearby` `north`
 
 
 [[area_table]]
-*Area Information of Singapore*
+
+=== Area Information of Singapore
 
 <<nearby, Click here>> to navigate back to the Nearby Command!
 

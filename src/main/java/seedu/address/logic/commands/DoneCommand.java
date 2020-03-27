@@ -76,7 +76,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code copyOrder} with the details of {@code orderToDeliver}
      * edited with {@code editPersonDescriptor}.
      */
     private static Order createEditedOrder(Order orderToDeliver, DoneOrderDescriptor doneOrderDescriptor) {
@@ -98,8 +98,6 @@ public class DoneCommand extends Command {
                 updateTimeStamp, updatedWarehouse, updatedCod, updatedComment, updatedType);
         copyOrder.setDeliveryStatus(updatedDeliveryStatus);
         return copyOrder;
-
-
     }
 
     @Override

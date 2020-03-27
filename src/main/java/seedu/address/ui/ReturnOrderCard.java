@@ -34,6 +34,8 @@ public class ReturnOrderCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label email;
+    @FXML
     private Label address;
     @FXML
     private Label warehouse;
@@ -57,6 +59,7 @@ public class ReturnOrderCard extends UiPart<Region> {
         tid.setText(returnOrder.getTid().tid);
         name.setText(returnOrder.getName().fullName);
         phone.setText(returnOrder.getPhone().value);
+        email.setText(returnOrder.getEmail().value);
         address.setText(returnOrder.getAddress().value);
         timeStamp.setText(returnOrder.getTimestamp().value);
         warehouse.setText(returnOrder.getWarehouse().address);

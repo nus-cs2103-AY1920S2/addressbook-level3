@@ -84,19 +84,20 @@
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: blue;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: red;
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-background-color: yellow;
 }
 
 .list-cell:filled:even {
@@ -133,21 +134,20 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: orange;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(white, 10%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: pink;
+     -fx-border-color: transparent;
 }
 
 .status-bar {
-    -fx-background-color: #32406F;
+    -fx-background-color: #69779B;
 }
 
 .result-display {
-    -fx-background-color: transparent;
+    -fx-background-color: #eed9c4;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
@@ -159,7 +159,7 @@
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+        -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -193,7 +193,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: #32406F;
+    -fx-background-color: #69779B;
 }
 
 .menu-bar .label {
@@ -282,11 +282,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derived(#faf0e6, 15%);
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: #69779b;
     -fx-background-insets: 3;
 }
 
@@ -318,9 +318,9 @@
 }
 
 #commandTextField {
-    -fx-background-color: derive(#32406F, 30%);
+    -fx-background-color: derive(#69779B, 30%);
     -fx-background-insets: 0;
-    -fx-border-color: black;
+    -fx-border-color: #69779B;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
@@ -344,7 +344,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: green;
     -fx-background-radius: 0;
 }
 
@@ -372,4 +372,12 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#orderListLabel, #returnOrderLabel {
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-background-color: #69779B;
+    -fx-text-fill: white;
 }

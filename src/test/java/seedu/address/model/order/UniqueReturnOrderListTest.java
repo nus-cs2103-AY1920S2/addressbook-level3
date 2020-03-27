@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalOrders.ALICE_RETURN;
-import static seedu.address.testutil.TypicalOrders.BOB_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.ALICE_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.BOB_RETURN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.order.exceptions.DuplicateReturnOrderException;
 import seedu.address.model.order.exceptions.OrderNotFoundException;
+import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.testutil.ReturnOrderBuilder;
 
 public class UniqueReturnOrderListTest {
@@ -42,7 +43,7 @@ public class UniqueReturnOrderListTest {
     @Test
     public void contains_returnOrderWithSameIdentityFieldsInList_returnsTrue() {
         uniqueReturnOrderList.add(ALICE_RETURN);
-        Order editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
+        ReturnOrder editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
         assertTrue(uniqueReturnOrderList.contains(editedAlice));
     }
@@ -86,7 +87,7 @@ public class UniqueReturnOrderListTest {
     @Test
     public void setReturnOrder_editedOrderHasSameIdentity_success() {
         uniqueReturnOrderList.add(ALICE_RETURN);
-        Order editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
+        ReturnOrder editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
         uniqueReturnOrderList.setReturnOrder(ALICE_RETURN, editedAlice);
         UniqueReturnOrderList expectedUniqueReturnOrderList = new UniqueReturnOrderList();
@@ -132,7 +133,7 @@ public class UniqueReturnOrderListTest {
     @Test
     public void setReturnOrders_nullUniqueReturnOrderList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-            uniqueReturnOrderList.setReturnOrders((UniqueReturnOrderList) null));
+            uniqueReturnOrderList.setReturns((UniqueReturnOrderList) null));
     }
 
     @Test
@@ -140,20 +141,20 @@ public class UniqueReturnOrderListTest {
         uniqueReturnOrderList.add(ALICE_RETURN);
         UniqueReturnOrderList expectedUniqueReturnOrderList = new UniqueReturnOrderList();
         expectedUniqueReturnOrderList.add(BOB_RETURN);
-        uniqueReturnOrderList.setReturnOrders(expectedUniqueReturnOrderList);
+        uniqueReturnOrderList.setReturns(expectedUniqueReturnOrderList);
         assertEquals(expectedUniqueReturnOrderList, uniqueReturnOrderList);
     }
 
     @Test
     public void setReturnOrders_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueReturnOrderList.setReturnOrders((List<Order>) null));
+        assertThrows(NullPointerException.class, () -> uniqueReturnOrderList.setReturns((List<ReturnOrder>) null));
     }
 
     @Test
     public void setReturnOrders_list_replacesOwnListWithProvidedList() {
         uniqueReturnOrderList.add(ALICE_RETURN);
-        List<Order> returnOrderList = Collections.singletonList(BOB_RETURN);
-        uniqueReturnOrderList.setReturnOrders(returnOrderList);
+        List<ReturnOrder> returnOrderList = Collections.singletonList(BOB_RETURN);
+        uniqueReturnOrderList.setReturns(returnOrderList);
         UniqueReturnOrderList expectedUniqueReturnOrderList = new UniqueReturnOrderList();
         expectedUniqueReturnOrderList.add(BOB_RETURN);
         assertEquals(expectedUniqueReturnOrderList, uniqueReturnOrderList);
@@ -161,9 +162,9 @@ public class UniqueReturnOrderListTest {
 
     @Test
     public void setReturnOrders_listWithDuplicateOrders_throwsDuplicateOrderException() {
-        List<Order> listWithDuplicateOrders = Arrays.asList(ALICE_RETURN, ALICE_RETURN);
+        List<ReturnOrder> listWithDuplicateOrders = Arrays.asList(ALICE_RETURN, ALICE_RETURN);
         assertThrows(DuplicateReturnOrderException.class, () ->
-            uniqueReturnOrderList.setReturnOrders(listWithDuplicateOrders));
+            uniqueReturnOrderList.setReturns(listWithDuplicateOrders));
     }
 
     @Test

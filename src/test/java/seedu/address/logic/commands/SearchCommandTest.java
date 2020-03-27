@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalOrders.CARL;
 import static seedu.address.testutil.TypicalOrders.ELLE;
 import static seedu.address.testutil.TypicalOrders.FIONA;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
-import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import java.util.Arrays;
 import java.util.Collections;

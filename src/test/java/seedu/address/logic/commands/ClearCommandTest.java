@@ -4,7 +4,7 @@ import static seedu.address.logic.commands.ClearCommand.MESSAGE_ENQUIRY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.FLAG_FORCE_CLEAR;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
-import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,8 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(null), model, new CommandResult(MESSAGE_ENQUIRY, false, false, true),
+        assertCommandSuccess(new ClearCommand(null), model,
+                new CommandResult(MESSAGE_ENQUIRY, false, false, true, false),
                 expectedModel);
     }
 
