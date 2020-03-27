@@ -45,22 +45,19 @@ public class AddCourseCommandParser extends AddCommandParser {
    */
   public AddCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSEID, PREFIX_AMOUNT, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_TAG);
 
-    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSEID, PREFIX_AMOUNT)
-        || !argMultimap.getPreamble().isEmpty()) {
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
+            || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
-          String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCourseCommand.MESSAGE_USAGE));
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCourseCommand.MESSAGE_USAGE));
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID courseID = ParserUtil.parseID(argMultimap.getValue(PREFIX_COURSEID).get());
     Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Course course = new Course(name, courseID, amount, tagList);
-
+    Course course = new Course(name, amount, tagList);
     return new AddCourseCommand(course);
   }
-
 }

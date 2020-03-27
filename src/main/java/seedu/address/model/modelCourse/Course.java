@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
@@ -35,8 +37,16 @@ public class Course extends ModelObject {
   /**
    * Every field must be present and not null.
    */
+  public Course(Name name, Amount amount, Set<Tag> tags) throws ParseException {
+    requireAllNonNull(name, tags);
+    this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.amount = amount;
+    this.tags.addAll(tags);
+  }
+
   public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
-    requireAllNonNull(name, id, tags);
+    requireAllNonNull(name, tags);
     this.name = name;
     this.id = id;
     this.amount = amount;
