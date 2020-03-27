@@ -364,27 +364,27 @@ Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
 * The start date and end date must follow a format of `yyyy-mm-dd`
-* The default period is the last month.
 ****
 
 Example:
 
-* `revenue` +
-Returns the revenue in line graph for the last month.
+* `revenue sd/2020-01-01 ed/2020-12-31` +
+Returns the revenue from Jan 1 to Dec 31
 
-=== Setting the low-inventory threshold : `lowinv`
+=== Setting the low-inventory threshold : `lowlimit`
 
 Sets the notification threshold.
-Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
+Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 
 ****
 * `THRESHOLD` must be non-negative integers, i.e. 1, 2, 3, ...
-* If the product id is not specified, the threshold applies to all products.
+* `PRODUCT_ID` refers to the index number shown in the displayed products list.
+* The index must be a positive integer 1, 2, 3, …​
 ****
 
 Examples:
 
-* `lowinv p/001 t/20` +
+* `lowlimit p/1 t/20` +
 Sets the low inventory threshold for product 001 as 20.
 
 === Receiving notification while a certain product is running low.
@@ -396,7 +396,7 @@ This is a passive feature.
 
 === Predicting the sales for the next month : `predict`.
 
-Displays a line graph representing the predicted sales for each day in the next month. +
+Predict sales for the next month based on sales in the previous three months +
 Format: `predict`
 
 === Exiting from the program : `exit`
