@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
@@ -37,7 +38,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     public StatisticsWindow(Stage root) {
         super(FXML, root);
         List<Product> list = new ArrayList<>();
-        list.add(new Product(new Description("1"), new Price("1"),
+        list.add(new Product(new Description("1"), new CostPrice("1"), new Price("1"),
                 new Quantity("1"), new Sales("1"), new QuantityThreshold("1")));
         statisticsListPanel = new StatisticsListPanel(FXCollections.observableList(list));
         statisticsListPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());

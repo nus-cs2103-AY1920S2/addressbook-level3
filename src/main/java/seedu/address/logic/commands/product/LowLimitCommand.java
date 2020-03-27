@@ -65,7 +65,7 @@ public class LowLimitCommand extends Command {
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
-        if (editedProduct.getQuantity().value < thresholdValue) {
+        if (editedProduct.getQuantity().value <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();
             window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }

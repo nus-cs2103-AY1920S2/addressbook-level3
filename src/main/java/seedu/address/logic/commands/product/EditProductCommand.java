@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
@@ -37,6 +39,7 @@ public class EditProductCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_COSTPRICE + "COST PRICE]"
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_SALES + "SALES] \n"
@@ -91,13 +94,14 @@ public class EditProductCommand extends Command {
         assert productToEdit != null;
 
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());
+        CostPrice updatedCostPrice = editProductDescriptor.getCostPrice().orElse(productToEdit.getCostPrice());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Sales updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
         UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
         QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
 
-        return new Product(updatedDescription, updatedPrice, updatedQuantity,
+        return new Product(updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
                 updatedSales, updatedThreshold, updatedId);
     }
 
@@ -125,6 +129,7 @@ public class EditProductCommand extends Command {
      */
     public static class EditProductDescriptor {
         private Description description;
+        private CostPrice costPrice;
         private Price price;
         private Quantity quantity;
         private Sales sales;
@@ -139,6 +144,7 @@ public class EditProductCommand extends Command {
          */
         public EditProductDescriptor(EditProductDescriptor toCopy) {
             setDescription(toCopy.description);
+            setCostPrice(toCopy.costPrice);
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
@@ -149,7 +155,7 @@ public class EditProductCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, price, quantity, sales);
+            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales);
         }
 
         public void setDescription(Description description) {
@@ -158,6 +164,14 @@ public class EditProductCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
+        }
+
+        public void setCostPrice(CostPrice costPrice) {
+            this.costPrice = costPrice;
+        }
+
+        public Optional<CostPrice> getCostPrice() {
+            return Optional.ofNullable(costPrice);
         }
 
         public void setPrice(Price price) {
@@ -216,6 +230,7 @@ public class EditProductCommand extends Command {
             EditProductDescriptor e = (EditProductDescriptor) other;
 
             return getDescription().equals(e.getDescription())
+                    && getCostPrice().equals(e.getCostPrice())
                     && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
                     && getSales().equals(e.getSales())

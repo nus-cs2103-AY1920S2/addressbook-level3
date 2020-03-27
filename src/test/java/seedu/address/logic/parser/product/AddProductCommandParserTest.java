@@ -1,6 +1,8 @@
 package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.COSTPRICE_DESC_BAG;
+import static seedu.address.logic.commands.CommandTestUtil.COSTPRICE_DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
@@ -42,32 +44,32 @@ public class AddProductCommandParserTest {
         Product expectedProduct = new ProductBuilder(WATCH).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + DESCRIPTION_DESC_WATCH + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH
-                + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
 
         // multiple descriptions - last description accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + DESCRIPTION_DESC_WATCH
+        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
                 + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH
                 + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
 
         // multiple prices - last price accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + PRICE_DESC_BAG + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH
-                + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_BAG
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
 
         // multiple quantities - last quantity accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + PRICE_DESC_WATCH + QUANTITY_DESC_BAG + QUANTITY_DESC_WATCH
-                + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
+                + QUANTITY_DESC_BAG + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
 
         // multiple sales - last sales accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_BAG
-                + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
+                + QUANTITY_DESC_WATCH + SALES_DESC_BAG + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         Product expectedProduct = new ProductBuilder(BAG).build();
-        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + PRICE_DESC_BAG + QUANTITY_DESC_BAG,
-                new AddProductCommand(expectedProduct));
+        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + COSTPRICE_DESC_BAG + PRICE_DESC_BAG
+                        + QUANTITY_DESC_BAG, new AddProductCommand(expectedProduct));
     }
 
     @Test
@@ -94,31 +96,29 @@ public class AddProductCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
-        assertParseFailure(parser, INVALID_DESCRIPTION_DESC + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH,
-               Description.MESSAGE_CONSTRAINTS);
+        // invalid description
+        assertParseFailure(parser, INVALID_DESCRIPTION_DESC + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
+                + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, Description.MESSAGE_CONSTRAINTS);
 
-        // invalid phone
-        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + INVALID_PRICE_DESC + QUANTITY_DESC_WATCH + SALES_DESC_WATCH,
-                Price.MESSAGE_CONSTRAINTS);
+        // invalid price
+        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + INVALID_PRICE_DESC
+                + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, Price.MESSAGE_CONSTRAINTS);
 
-        // invalid email
-        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + PRICE_DESC_WATCH + INVALID_QUANTITY_DESC + SALES_DESC_WATCH,
-                Quantity.MESSAGE_CONSTRAINTS);
+        // invalid quantity
+        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
+                + INVALID_QUANTITY_DESC + SALES_DESC_WATCH, Quantity.MESSAGE_CONSTRAINTS);
 
-        // invalid address
-        assertParseFailure(parser, DESCRIPTION_DESC_WATCH
-                        + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + INVALID_SALES_DESC,
-                Sales.MESSAGE_CONSTRAINTS);
+        // invalid sales
+        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + INVALID_SALES_DESC, Sales.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_DESCRIPTION_DESC
-                        + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + INVALID_SALES_DESC,
-                Description.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_DESCRIPTION_DESC + COSTPRICE_DESC_WATCH
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + INVALID_SALES_DESC, Description.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + DESCRIPTION_DESC_WATCH + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH
-                        + SALES_DESC_WATCH,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProductCommand.MESSAGE_USAGE));
     }
 }
