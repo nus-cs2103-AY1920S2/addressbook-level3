@@ -10,7 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FinanceType {
 
   public static final String MESSAGE_CONSTRAINTS =
-      "FinanceTypes should only contain alphanumeric characters and spaces, and it should not be blank";
+      "FinanceType should only be either m, cs or ct. \n"
+          + "m: Miscelleanous transactions such as Buying of textbooks\n"
+          + "cs: A student paying for a course\n"
+          + "ct: A teacher being paid for teaching a course";
 
   /*
    * The first character of the address must not be a whitespace,
@@ -35,7 +38,7 @@ public class FinanceType {
    * Returns true if a given string is a valid financeType.
    */
   public static boolean isValidFinanceType(String test) {
-    return test.matches(VALIDATION_REGEX);
+    return test.matches(VALIDATION_REGEX) && (test.equals("m") || test.equals("cs") || test.equals("ct"));
   }
 
 

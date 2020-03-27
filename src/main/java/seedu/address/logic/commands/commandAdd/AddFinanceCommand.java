@@ -26,7 +26,14 @@ public class AddFinanceCommand extends AddCommand {
 
   public static final String COMMAND_WORD = "add-finance";
 
-  public static final String MESSAGE_FINANCETYPE = "Finance type ft/ was not specified. ";
+  public static final String MESSAGE_FINANCETYPE = "Finance type ft/ was missing.\n";
+  public static final String MESSAGE_DATE = "Date " + PREFIX_DATE + " was missing.\n";
+  public static final String MESSAGE_NAME = "Name " + PREFIX_NAME + " was missing.\n";
+  public static final String MESSAGE_AMOUNT = "Amount " + PREFIX_AMOUNT + " was missing.\n";
+  public static final String MESSAGE_COURSEID = "CourseID " + PREFIX_COURSEID + " was missing.\n";
+  public static final String MESSAGE_STUDENTID = "StudentID " + PREFIX_STUDENTID + " was missing.\n";
+  public static final String MESSAGE_TEACHERID = "TeacherID " + PREFIX_TEACHERID + " was missing.\n";
+
   public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a finance to the address book. "
       + "\nType 1: Adding miscellaneous transactions(Specify ft/ as m "
       + "Parameters: "

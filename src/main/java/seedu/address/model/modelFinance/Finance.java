@@ -138,18 +138,18 @@ public class Finance extends ModelObject {
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
-        .append("FinanceType: ")
+        .append(" FinanceType: ")
         .append(getFinanceType())
-        .append("Date: ")
+        .append(" Date: ")
         .append(getDate())
-        .append("Amount: ")
+        .append(" Amount: ")
         .append(getAmount())
-        .append("CourseID: ")
-        .append(getCourseID())
-        .append("StudentID: ")
-        .append(getStudentID())
-        .append("TeacherID: ")
-        .append(getTeacherID())
+//        .append("CourseID: ")
+//        .append(getCourseID())
+//        .append("StudentID: ")
+//        .append(getStudentID())
+//        .append("TeacherID: ")
+//        .append(getTeacherID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

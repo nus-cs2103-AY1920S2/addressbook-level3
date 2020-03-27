@@ -59,11 +59,17 @@ public class AddFinanceCommandParser extends AddCommandParser {
     //If finance type is misc, then Name, Date, Amount must be provided
     //Else if finance type is CourseStudent, then Date, CourseID, StudentID must be provided
     //Else if finance type is CourseTeacher, then Date, CourseID, TeacherID must be provided
-    if (!arePrefixesPresent(argMultimap, PREFIX_FINANCETYPE, PREFIX_DATE)
-        || !argMultimap.getPreamble().isEmpty()) {
+    if (!arePrefixesPresent(argMultimap, PREFIX_FINANCETYPE)) {
+      throw new ParseException(
+          String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_FINANCETYPE + AddFinanceCommand.MESSAGE_USAGE));
+    } else if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+      throw new ParseException(
+          String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_DATE + AddFinanceCommand.MESSAGE_USAGE));
+    } else if (!argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
     }
+
     FinanceType financeType = ParserUtil.parseFinanceType(argMultimap.getValue(PREFIX_FINANCETYPE).get());
     Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
@@ -73,11 +79,17 @@ public class AddFinanceCommandParser extends AddCommandParser {
 
     switch (financeType.toString()) {
       case "m": {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+          throw new ParseException(
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_NAME + AddFinanceCommand.MESSAGE_USAGE));
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT)) {
+          throw new ParseException(
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_AMOUNT + AddFinanceCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getPreamble().isEmpty()) {
           throw new ParseException(
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Finance finance = new Finance(name, financeType, date, amount, emptyCourseid,
@@ -85,11 +97,17 @@ public class AddFinanceCommandParser extends AddCommandParser {
         return new AddFinanceCommand(finance);
       }
       case "cs": {
-        if (!arePrefixesPresent(argMultimap, PREFIX_COURSEID, PREFIX_STUDENTID)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_COURSEID)) {
+          throw new ParseException(
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_COURSEID + AddFinanceCommand.MESSAGE_USAGE));
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_STUDENTID)) {
+          throw new ParseException(
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_STUDENTID + AddFinanceCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getPreamble().isEmpty()) {
           throw new ParseException(
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
+
         Courseid courseid = (Courseid) ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
         Studentid studentid = (Studentid) ParserUtil
@@ -102,11 +120,17 @@ public class AddFinanceCommandParser extends AddCommandParser {
         return new AddFinanceCommand(finance);
       }
       case "ct": {
-        if (!arePrefixesPresent(argMultimap, PREFIX_COURSEID, PREFIX_TEACHERID)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_COURSEID)) {
+          throw new ParseException(
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_COURSEID + AddFinanceCommand.MESSAGE_USAGE));
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_TEACHERID)) {
+          throw new ParseException(
+              String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_TEACHERID + AddFinanceCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getPreamble().isEmpty()) {
           throw new ParseException(
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
+
         Courseid courseid = (Courseid) ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
         Teacherid teacherid = (Teacherid) ParserUtil
