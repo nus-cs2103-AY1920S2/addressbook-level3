@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
@@ -21,6 +22,7 @@ public class JsonAdaptedProduct {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Product's %s field is missing!";
 
     private final String description;
+    private final String costPrice;
     private final String price;
     private final String quantity;
     private final String sales;
@@ -31,10 +33,12 @@ public class JsonAdaptedProduct {
      * Constructs a {@code JsonAdaptedProduct} with the given product details.
      */
     @JsonCreator
-    public JsonAdaptedProduct(@JsonProperty("description") String description, @JsonProperty("price") String price,
+    public JsonAdaptedProduct(@JsonProperty("description") String description,
+                              @JsonProperty("costPrice") String costPrice, @JsonProperty("price") String price,
                              @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales,
                               @JsonProperty("threshold") String threshold, @JsonProperty("id") String id) {
         this.description = description;
+        this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
         this.sales = sales;
@@ -47,6 +51,7 @@ public class JsonAdaptedProduct {
      */
     public JsonAdaptedProduct(Product source) {
         description = source.getDescription().value;
+        costPrice = source.getCostPrice().value;
         price = source.getPrice().value;
         quantity = source.getQuantity().toString();
         sales = source.getSales().value;
@@ -68,6 +73,15 @@ public class JsonAdaptedProduct {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
+
+        if (costPrice == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CostPrice.class.getSimpleName()));
+        }
+        if (!CostPrice.isValidPrice(costPrice)) {
+            throw new IllegalValueException(CostPrice.MESSAGE_CONSTRAINTS);
+        }
+        final CostPrice modelCostPrice = new CostPrice(costPrice);
 
         if (price == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
@@ -108,7 +122,8 @@ public class JsonAdaptedProduct {
         }
         final UUID modelId = UUID.fromString(id);
 
-        return new Product(modelDescription, modelPrice, modelQuantity, modelSales, modelQuantityThreshold, modelId);
+        return new Product(modelDescription, modelCostPrice, modelPrice, modelQuantity,
+                modelSales, modelQuantityThreshold, modelId);
     }
 
 }

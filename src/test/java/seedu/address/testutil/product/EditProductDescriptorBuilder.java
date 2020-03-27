@@ -1,6 +1,7 @@
 package seedu.address.testutil.product;
 
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
+import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
@@ -28,6 +29,7 @@ public class EditProductDescriptorBuilder {
     public EditProductDescriptorBuilder(Product product) {
         descriptor = new EditProductDescriptor();
         descriptor.setDescription(product.getDescription());
+        descriptor.setCostPrice(product.getCostPrice());
         descriptor.setPrice(product.getPrice());
         descriptor.setQuantity(product.getQuantity());
         descriptor.setSales(product.getSales());
@@ -44,24 +46,32 @@ public class EditProductDescriptorBuilder {
     /**
      * Sets the {@code Price} of the {@code EditProductDescriptor} that we are building.
      */
-    public EditProductDescriptorBuilder withPrice(String phone) {
-        descriptor.setPrice(new Price(phone));
+    public EditProductDescriptorBuilder withCostPrice(String costPrice) {
+        descriptor.setCostPrice(new CostPrice(costPrice));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Price} of the {@code EditProductDescriptor} that we are building.
+     */
+    public EditProductDescriptorBuilder withPrice(String price) {
+        descriptor.setPrice(new Price(price));
         return this;
     }
 
     /**
      * Sets the {@code Quantity} of the {@code EditProductDescriptor} that we are building.
      */
-    public EditProductDescriptorBuilder withQuantity(String email) {
-        descriptor.setQuantity(new Quantity(email));
+    public EditProductDescriptorBuilder withQuantity(String quantity) {
+        descriptor.setQuantity(new Quantity(quantity));
         return this;
     }
 
     /**
      * Sets the {@code Sales} of the {@code EditProductDescriptor} that we are building.
      */
-    public EditProductDescriptorBuilder withSales(String address) {
-        descriptor.setSales(new Sales(address));
+    public EditProductDescriptorBuilder withSales(String sales) {
+        descriptor.setSales(new Sales(sales));
         return this;
     }
 

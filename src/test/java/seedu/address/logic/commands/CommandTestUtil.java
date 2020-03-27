@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -48,6 +49,8 @@ public class CommandTestUtil {
 
     public static final String VALID_DESCRIPTION_WATCH = "Black watch";
     public static final String VALID_DESCRIPTION_BAG = "Black bag";
+    public static final String VALID_COSTPRICE_WATCH = "249";
+    public static final String VALID_COSTPRICE_BAG = "149";
     public static final String VALID_PRICE_WATCH = "11";
     public static final String VALID_PRICE_BAG = "22";
     public static final String VALID_QUANTITY_WATCH = "1";
@@ -68,6 +71,8 @@ public class CommandTestUtil {
 
     public static final String DESCRIPTION_DESC_BAG = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BAG;
     public static final String DESCRIPTION_DESC_WATCH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_WATCH;
+    public static final String COSTPRICE_DESC_BAG = " " + PREFIX_COSTPRICE + VALID_COSTPRICE_BAG;
+    public static final String COSTPRICE_DESC_WATCH = " " + PREFIX_COSTPRICE + VALID_COSTPRICE_WATCH;
     public static final String PRICE_DESC_BAG = " " + PREFIX_PRICE + VALID_PRICE_BAG;
     public static final String PRICE_DESC_WATCH = " " + PREFIX_PRICE + VALID_PRICE_WATCH;
     public static final String QUANTITY_DESC_BAG = " " + PREFIX_QUANTITY + VALID_QUANTITY_BAG;
@@ -103,9 +108,11 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         DESC_BAG = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_BAG)
-                .withPrice(VALID_PRICE_BAG).withQuantity(VALID_QUANTITY_BAG).withSales(VALID_SALES_BAG).build();
+                .withCostPrice(VALID_COSTPRICE_BAG).withPrice(VALID_PRICE_BAG).withQuantity(VALID_QUANTITY_BAG)
+                .withSales(VALID_SALES_BAG).build();
         DESC_WATCH = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH)
-                .withPrice(VALID_PRICE_WATCH).withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH).build();
+                .withCostPrice(VALID_COSTPRICE_WATCH).withPrice(VALID_PRICE_WATCH)
+                .withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH).build();
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.logic.parser.product;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
@@ -29,7 +30,8 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
     public EditProductCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_SALES);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_COSTPRICE, PREFIX_PRICE,
+                        PREFIX_QUANTITY, PREFIX_SALES);
 
         Index index;
 
@@ -44,6 +46,10 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editProductDescriptor.setDescription(ParserUtil
                     .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_COSTPRICE).isPresent()) {
+            editProductDescriptor.setCostPrice(ParserUtil
+                    .parseCostPrice(argMultimap.getValue(PREFIX_COSTPRICE).get()));
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             editProductDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));

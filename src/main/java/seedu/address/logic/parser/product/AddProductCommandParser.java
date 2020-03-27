@@ -1,12 +1,12 @@
 package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_THRESHOLD;
-import static seedu.address.model.util.QuantityThreshold.DEFAULT_VALUE;
 
 import java.util.stream.Stream;
 
@@ -17,6 +17,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
@@ -36,30 +37,32 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
      */
     public AddProductCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_SALES);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_COSTPRICE,
+                        PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_SALES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_QUANTITY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_COSTPRICE, PREFIX_PRICE, PREFIX_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProductCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        CostPrice costPrice = ParserUtil.parseCostPrice(argMultimap.getValue(PREFIX_COSTPRICE).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Sales sales;
         if (arePrefixesPresent(argMultimap, PREFIX_SALES)) {
             sales = ParserUtil.parseSales(argMultimap.getValue(PREFIX_SALES).get());
         } else {
-            sales = new Sales("0");
+            sales = new Sales(Sales.DEFAULT_VALUE);
         }
         QuantityThreshold threshold;
         if (arePrefixesPresent(argMultimap, PREFIX_THRESHOLD)) {
             threshold = ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
         } else {
-            threshold = new QuantityThreshold(DEFAULT_VALUE);
+            threshold = new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE);
         }
 
-        Product product = new Product(description, price, quantity, sales, threshold);
+        Product product = new Product(description, costPrice, price, quantity, sales, threshold);
 
         return new AddProductCommand(product);
     }

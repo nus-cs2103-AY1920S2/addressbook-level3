@@ -83,6 +83,7 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
+
         Transaction toAdd = transactionFactory.createTransaction(model);
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);

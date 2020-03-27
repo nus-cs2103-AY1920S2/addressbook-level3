@@ -14,6 +14,7 @@ public class CliSyntax {
 
     /* Prefix definitions for product */
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_COSTPRICE = new Prefix("cp/");
     public static final Prefix PREFIX_PRICE = new Prefix("pr/");
     public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
     public static final Prefix PREFIX_SALES = new Prefix("s/");

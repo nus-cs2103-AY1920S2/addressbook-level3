@@ -11,6 +11,10 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
+import seedu.address.model.product.CostPrice;
+import seedu.address.model.product.Price;
+import seedu.address.model.product.Product;
+import seedu.address.model.product.Sales;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,10 +44,23 @@ public class SampleDataUtil {
         };
     }
 
+    public static Product[] getSampleProducts() {
+        return new Product[] {
+            new Product(new Description("iPad Pro"), new CostPrice("599"), new Price("1299"), new Quantity("40"),
+                    new Sales(Sales.DEFAULT_VALUE), new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE)),
+            new Product(new Description("Samsung Galaxy S10"), new CostPrice("399"), new Price("899"),
+                    new Quantity("100"), new Sales(Sales.DEFAULT_VALUE),
+                    new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE))
+        };
+    }
+
     public static ReadOnlyInventorySystem getSampleAddressBook() {
         InventorySystem sampleAb = new InventorySystem();
         for (Customer sampleCustomer : getSamplePersons()) {
             sampleAb.addPerson(sampleCustomer);
+        }
+        for (Product sampleProduct : getSampleProducts()) {
+            sampleAb.addProduct(sampleProduct);
         }
         return sampleAb;
     }

@@ -29,6 +29,17 @@
                 <Label fx:id="description" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <FlowPane fx:id="tags" />
+            <HBox>
+                <children>
+                    <Label text="Cost Price">
+                        <HBox.margin>
+                            <Insets right="10.0" />
+                        </HBox.margin>
+                    </Label>
+                    <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="costPrice" styleClass="cell_small_label" text="\$costPrice" />
+                </children>
+            </HBox>
          <HBox>
             <children>
                <Label text="Price">

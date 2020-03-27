@@ -4,39 +4,38 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Product's sales in the product list
- * Guarantees: immutable; is valid as declared in {@link #isValidSales(String)}
+ * Represents a Product's cost price in the product list
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
-public class Sales {
+public class CostPrice {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Sales can take any numeric values (up to 1000000), and it should not be blank";
+            "Price can take any positive integer values (up to 1000000), and it should not be blank";
 
     /*
      * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
-    public static final String DEFAULT_VALUE = "0";
 
     public static final int MAX_VALUE = 1000000;
 
     public final String value;
 
     /**
-     * Constructs an {@code Sales}.
+     * Constructs an {@code Price}.
      *
-     * @param sales A valid sales.
+     * @param price A valid price.
      */
-    public Sales(String sales) {
-        requireNonNull(sales);
-        checkArgument(isValidSales(sales), MESSAGE_CONSTRAINTS);
-        value = sales;
+    public CostPrice(String price) {
+        requireNonNull(price);
+        checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
+        value = price;
     }
 
     /**
-     * Returns true if a given string is a valid sales.
+     * Returns true if a given string is a valid price.
      */
-    public static boolean isValidSales(String test) {
+    public static boolean isValidPrice(String test) {
         if (test.matches(VALIDATION_REGEX)) {
             try {
                 int value = Integer.parseInt(test);
@@ -56,8 +55,8 @@ public class Sales {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Sales // instanceof handles nulls
-                && value.equals(((Sales) other).value)); // state check
+                || (other instanceof CostPrice // instanceof handles nulls
+                && value.equals(((CostPrice) other).value)); // state check
     }
 
     @Override
