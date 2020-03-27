@@ -1,4 +1,4 @@
-package seedu.zerotoone.logic.parser;
+package seedu.zerotoone.logic.parser.schedule;
 
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -7,30 +7,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.Command;
-import seedu.zerotoone.logic.commands.ExitCommand;
 import seedu.zerotoone.logic.commands.HelpCommand;
-import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
-import seedu.zerotoone.logic.commands.schedule.ScheduleCommand;
+import seedu.zerotoone.logic.commands.schedule.CreateCommand;
+import seedu.zerotoone.logic.commands.schedule.ListCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
-import seedu.zerotoone.logic.parser.schedule.ScheduleCommandParser;
 
 /**
- * Parses user input.
+ * STEPH_TODO_JAVADOC
  */
-public class ParserManager {
+public class ScheduleCommandParser {
 
-    /**
-     * Used for initial separation of command word and args.
-     */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * STEPH_TODO_JAVADOC
      *
-     * @param input full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @param input STEPH_TODO_JAVADOC
+     * @return STEPH_TODO_JAVADOC
+     * @throws ParseException STEPH_TODO_JAVADOC
      */
     public Command parse(String input) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
@@ -41,17 +35,12 @@ public class ParserManager {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        case ExerciseCommand.COMMAND_WORD:
-            return new ExerciseCommandParser().parse(arguments);
-        case ScheduleCommand.COMMAND_WORD:
-            return new ScheduleCommandParser().parse(arguments);
+        case CreateCommand.COMMAND_WORD:
+            return new CreateCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
