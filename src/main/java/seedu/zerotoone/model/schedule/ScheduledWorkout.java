@@ -14,4 +14,8 @@ public class ScheduledWorkout {
         this.workoutToSchedule = workoutToSchedule;
         this.dateTime = dateTime;
     }
+
+    public String getScheduledWorkoutName() {
+        return workoutToSchedule.getExerciseName().fullName; // TO_CHANGE_EXERCISE_TO_WORKOUT
+    }
 }

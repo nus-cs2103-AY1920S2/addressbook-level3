@@ -17,7 +17,8 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
-import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.schedule.Scheduler;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
@@ -32,7 +33,7 @@ public class ModelManager implements Model {
     private final ExerciseList exerciseList;
     private final FilteredList<Exercise> filteredExercises;
     private Optional<Session> currentSession;
-    private final ScheduleList scheduleList;
+    private final Scheduler scheduler;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -46,7 +47,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
         this.currentSession = Optional.empty();
-        this.scheduleList = new ScheduleList();
+        this.scheduler = new Scheduler(); // STEPH_TODO add storage
     }
 
     public ModelManager() {
@@ -157,14 +158,17 @@ public class ModelManager implements Model {
     // Schedule
     @Override
     public boolean hasSchedule(Schedule schedule) {
-        requireNonNull(schedule);
-        return scheduleList.hasSchedule(schedule);
+        return scheduler.hasSchedule(schedule);
     }
 
     @Override
     public void addSchedule(Schedule schedule) {
-        requireNonNull(schedule);
-        scheduleList.addSchedule(schedule);
+        scheduler.addSchedule(schedule);
+    }
+
+    @Override
+    public ObservableList<ScheduledWorkout> getFilteredScheduledWorkoutList() {
+        return scheduler.getFilteredScheduledWorkoutList();
     }
 
     // -----------------------------------------------------------------------------------------

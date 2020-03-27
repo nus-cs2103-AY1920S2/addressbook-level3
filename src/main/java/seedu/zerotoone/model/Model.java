@@ -9,6 +9,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 
 /**
@@ -110,4 +111,5 @@ public interface Model {
     // Schedule
     boolean hasSchedule(Schedule schedule);
     void addSchedule(Schedule schedule);
+    ObservableList<ScheduledWorkout> getFilteredScheduledWorkoutList();
 }
