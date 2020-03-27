@@ -1,8 +1,8 @@
 package fithelper.model.calculator;
 
 import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_DEFAULT;
-import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_TOO_MUCH;
 import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_NEGATIVE;
+import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_TOO_MUCH;
 import static fithelper.commons.core.Feedback.FEEDBACK_TASK_ALL_COMPLETE;
 import static fithelper.commons.core.Feedback.FEEDBACK_TASK_DEFAULT;
 import static fithelper.commons.core.Feedback.FEEDBACK_TASK_SOME_COMPLETE;
