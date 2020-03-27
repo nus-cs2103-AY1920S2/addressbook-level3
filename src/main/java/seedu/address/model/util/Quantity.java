@@ -9,15 +9,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Quantity implements Comparable<Quantity> {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Quantity should take positive integer values (up to 1000000), and it should not be blank";
-    public static final String MESSAGE_CONSTRAINTS_NOT_NEGATIVE =
-            "The numeric value of a Quantity must not be negative";
+    public static final String MESSAGE_CONSTRAINTS_FORMAT =
+            "Quantity should take positive integer values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS_VALUE =
+            "The numeric value of a Quantity must not be negative and smaller than 1000000";
 
     /*
      * There must be one or more digits entered.
      */
-    public static final String VALIDATION_REGEX = "\\d+";
+    public static final String VALIDATION_REGEX = "^\\d{1,7}$";
 
     public static final int MAX_VALUE = 1000000;
 
@@ -30,15 +30,15 @@ public class Quantity implements Comparable<Quantity> {
      */
     public Quantity(String quantity) {
         requireNonNull(quantity);
-        checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS_FORMAT);
         int numericValue = Integer.parseInt(quantity);
-        checkArgument(isValidValue(numericValue), MESSAGE_CONSTRAINTS_NOT_NEGATIVE);
+        checkArgument(isValidValue(numericValue), MESSAGE_CONSTRAINTS_VALUE);
         value = numericValue;
     }
 
     public Quantity(int q) {
         requireNonNull(q);
-        checkArgument(isValidValue(q), MESSAGE_CONSTRAINTS_NOT_NEGATIVE);
+        checkArgument(isValidValue(q), MESSAGE_CONSTRAINTS_VALUE);
         value = q;
     }
 

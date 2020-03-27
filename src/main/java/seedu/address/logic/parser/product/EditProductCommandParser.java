@@ -52,7 +52,7 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
             editProductDescriptor.setQuantity(ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get()));
         }
         if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
-            editProductDescriptor.setSales(ParserUtil.parseSales(argMultimap.getValue(PREFIX_SALES).get()));
+            editProductDescriptor.setSales(ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALES).get()));
         }
 
         if (!editProductDescriptor.isAnyFieldEdited()) {

@@ -20,8 +20,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
@@ -93,7 +93,7 @@ public class EditProductCommand extends Command {
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
-        Sales updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
+        Money updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
         UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
         QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
 
@@ -127,7 +127,7 @@ public class EditProductCommand extends Command {
         private Description description;
         private Price price;
         private Quantity quantity;
-        private Sales sales;
+        private Money sales;
         private UUID id;
         private QuantityThreshold threshold;
 
@@ -176,11 +176,11 @@ public class EditProductCommand extends Command {
             return Optional.ofNullable(quantity);
         }
 
-        public void setSales(Sales sales) {
+        public void setSales(Money sales) {
             this.sales = sales;
         }
 
-        public Optional<Sales> getSales() {
+        public Optional<Money> getSales() {
             return Optional.ofNullable(sales);
         }
 

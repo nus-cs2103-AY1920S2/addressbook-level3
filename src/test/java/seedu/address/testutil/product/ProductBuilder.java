@@ -2,8 +2,8 @@ package seedu.address.testutil.product;
 
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
@@ -20,7 +20,7 @@ public class ProductBuilder {
 
     private Description description;
     private Price price;
-    private Sales sales;
+    private Money sales;
     private Quantity quantity;
     private QuantityThreshold threshold;
 
@@ -28,7 +28,7 @@ public class ProductBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
-        sales = new Sales(DEFAULT_SALES);
+        sales = new Money(DEFAULT_SALES);
         threshold = new QuantityThreshold(DEFAULT_THRESHOLD);
     }
 
@@ -71,7 +71,7 @@ public class ProductBuilder {
      * Sets the {@code Sales} of the {@code Product} that we are building.
      */
     public ProductBuilder withSales(String sales) {
-        this.sales = new Sales(sales);
+        this.sales = new Money(sales);
         return this;
     }
 

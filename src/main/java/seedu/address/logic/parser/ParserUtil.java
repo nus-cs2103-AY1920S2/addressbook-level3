@@ -14,11 +14,10 @@ import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.product.Price;
-import seedu.address.model.product.Sales;
 import seedu.address.model.statistics.StartEndDate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
-import seedu.address.model.transaction.Money;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
@@ -170,24 +169,13 @@ public class ParserUtil {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
         if (!Quantity.isValidQuantity(trimmedQuantity)) {
-            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+
+        if (!Quantity.isValidValue(Integer.parseInt(trimmedQuantity))) {
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
         }
         return new Quantity(trimmedQuantity);
-    }
-
-    /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Sales parseSales(String sales) throws ParseException {
-        requireNonNull(sales);
-        String trimmedSales = sales.trim();
-        if (!Sales.isValidSales(trimmedSales)) {
-            throw new ParseException(Sales.MESSAGE_CONSTRAINTS);
-        }
-        return new Sales(trimmedSales);
     }
 
     /**
@@ -238,19 +226,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String product} into an {@code product}.
+     * Parses a {@code String money} into an {@code Money}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code product} is invalid.
+     * @throws ParseException if the given {@code money} is invalid.
      */
     public static Money parseMoney(String money) throws ParseException {
         requireNonNull(money);
         String trimmedMoney = money.trim();
         if (!Money.isValidMoney(trimmedMoney)) {
-            throw new ParseException(Money.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Money.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+
+        if (!Money.isValidAmount(Integer.parseInt(trimmedMoney))) {
+            throw new ParseException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
         return new Money(trimmedMoney);
     }
+
+
 
     /**
      * Parses a {@code String address} into an {@code Address}.

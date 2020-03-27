@@ -21,9 +21,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 import seedu.address.ui.NotificationWindow;
@@ -75,7 +75,7 @@ public class AddTransactionCommand extends Command {
         Quantity newQuantity = getNewQuantity(productToEdit);
         editProductDescriptor.setQuantity(newQuantity);
 
-        Sales newSales = getNewSales(productToEdit);
+        Money newSales = getNewSales(productToEdit);
         editProductDescriptor.setSales(newSales);
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
@@ -131,15 +131,16 @@ public class AddTransactionCommand extends Command {
         return oldQuantity.minus(transactionFactory.getQuantity());
     }
 
-    private Sales getNewSales(Product productToEdit) throws CommandException {
-        Sales oldSales = productToEdit.getSales();
-        int newSalesValue = Integer.parseInt(oldSales.value)
-                + Integer.parseInt(transactionFactory.getMoney().value);
+    private Money getNewSales(Product productToEdit) throws CommandException {
+        Money oldSales = productToEdit.getSales();
+        Money newSales;
 
-        if (newSalesValue > Sales.MAX_VALUE) {
-            throw new CommandException(Sales.MESSAGE_CONSTRAINTS);
+        try {
+            newSales = oldSales.plus(transactionFactory.getMoney());
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
 
-        return new Sales(String.valueOf(newSalesValue));
+        return newSales;
     }
 }

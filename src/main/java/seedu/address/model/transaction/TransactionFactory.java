@@ -7,6 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
 /**

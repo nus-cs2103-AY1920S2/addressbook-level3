@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
@@ -49,7 +49,7 @@ public class JsonAdaptedProduct {
         description = source.getDescription().value;
         price = source.getPrice().value;
         quantity = source.getQuantity().toString();
-        sales = source.getSales().value;
+        sales = source.getSales().toString();
         threshold = source.getThreshold().value;
         id = source.getId().toString();
     }
@@ -82,17 +82,23 @@ public class JsonAdaptedProduct {
                                             Quantity.class.getSimpleName()));
         }
         if (!Quantity.isValidQuantity(quantity)) {
-            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+        if (!Quantity.isValidValue(Integer.parseInt(quantity))) {
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
         }
         final Quantity modelQuantity = new Quantity(quantity);
 
         if (sales == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Money.class.getSimpleName()));
         }
-        if (!Sales.isValidSales(sales)) {
-            throw new IllegalValueException(Sales.MESSAGE_CONSTRAINTS);
+        if (!Money.isValidMoney(sales)) {
+            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_FORMAT);
         }
-        final Sales modelSales = new Sales(sales);
+        if (!Money.isValidAmount(Integer.parseInt(sales))) {
+            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_VALUE);
+        }
+        final Money modelSales = new Money(sales);
 
         if (threshold == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -104,7 +110,7 @@ public class JsonAdaptedProduct {
         final QuantityThreshold modelQuantityThreshold = new QuantityThreshold(threshold);
 
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
         final UUID modelId = UUID.fromString(id);
 

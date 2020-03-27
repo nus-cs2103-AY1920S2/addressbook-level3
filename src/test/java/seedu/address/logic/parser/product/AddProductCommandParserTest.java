@@ -29,8 +29,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.product.AddProductCommand;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.testutil.product.ProductBuilder;
 
@@ -104,12 +104,12 @@ public class AddProductCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, DESCRIPTION_DESC_WATCH + PRICE_DESC_WATCH + INVALID_QUANTITY_DESC + SALES_DESC_WATCH,
-                Quantity.MESSAGE_CONSTRAINTS);
+                Quantity.MESSAGE_CONSTRAINTS_FORMAT);
 
         // invalid address
         assertParseFailure(parser, DESCRIPTION_DESC_WATCH
                         + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + INVALID_SALES_DESC,
-                Sales.MESSAGE_CONSTRAINTS);
+                Money.MESSAGE_CONSTRAINTS_FORMAT);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_DESCRIPTION_DESC
