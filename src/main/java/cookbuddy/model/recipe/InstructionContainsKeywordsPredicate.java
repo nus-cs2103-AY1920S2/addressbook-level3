@@ -1,10 +1,9 @@
 package cookbuddy.model.recipe;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cookbuddy.commons.util.StringUtil;
-import cookbuddy.model.recipe.attribute.Instruction;
 
 /**
  * Tests that a {@code Recipe}'s {@code IngredientList} matches any of the keywords given.
@@ -18,15 +17,12 @@ public class InstructionContainsKeywordsPredicate implements ContainsKeywordsPre
 
     @Override
     public boolean test(Recipe recipe) {
-        List<Instruction> instructions = recipe.getInstructions().instructionData;
+        List<String> instructions = recipe.getInstructions().instructionData.stream()
+                .map(x -> x.instructionString)
+                .collect(Collectors.toList());
 
-        List<String> instructionValues = new ArrayList<String>();
-        for (Instruction i : instructions) {
-            instructionValues.add(i.instructionString);
-        }
-
-        return keywords.stream().anyMatch(keyword -> instructionValues.stream()
-                .anyMatch(ingredient -> StringUtil.containsWordIgnoreCase(ingredient, keyword)));
+        return keywords.stream().anyMatch(keyword -> instructions.stream()
+                .anyMatch(instruction -> StringUtil.containsWordIgnoreCase(instruction, keyword)));
     }
 
     @Override
