@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-  <Label  id="couponName" fx:id="label"/>
+  <StackPane style="-fx-background-color: #46998F; -fx-background-radius: 10; -fx-background-insets: 5;" minHeight="300">
+    <Label id="couponName" fx:id="label"/>
+  </StackPane>
 </StackPane>
