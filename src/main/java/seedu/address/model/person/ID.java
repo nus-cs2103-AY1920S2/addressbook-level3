@@ -26,6 +26,10 @@ public class ID {
     value = id;
   }
 
+  public ID() {
+    value = "";
+  }
+
   /**
    * Returns true if a given string is a valid id number.
    */

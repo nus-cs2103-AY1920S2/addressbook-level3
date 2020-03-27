@@ -21,6 +21,7 @@ public class CliSyntax {
   public static final Prefix PREFIX_TEACHERID = new Prefix("tid/");
   public static final Prefix PREFIX_STUDENTID = new Prefix("sid/");
   public static final Prefix PREFIX_DATE = new Prefix("d/");
+  public static final Prefix PREFIX_FINANCETYPE = new Prefix("ft/");
 
   public static final Prefix PREFIX_TEMP = new Prefix("cs/");
 }

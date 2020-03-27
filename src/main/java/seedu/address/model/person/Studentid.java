@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's studentid number in the address book. Guarantees: immutable; is valid as
  * declared in {@link #isValidStudentid(String)}
  */
-public class Studentid {
+public class Studentid extends ID{
 
 
   public static final String MESSAGE_CONSTRAINTS =
@@ -21,6 +21,7 @@ public class Studentid {
    * @param studentid A valid studentid number.
    */
   public Studentid(String studentid) {
+    super();
     requireNonNull(studentid);
     checkArgument(isValidStudentid(studentid), MESSAGE_CONSTRAINTS);
     value = studentid;
@@ -30,7 +31,7 @@ public class Studentid {
    * Returns true if a given string is a valid studentid number.
    */
   public static boolean isValidStudentid(String test) {
-    return test.matches(VALIDATION_REGEX);
+    return test.matches(VALIDATION_REGEX) || test.equals("");
   }
 
   @Override

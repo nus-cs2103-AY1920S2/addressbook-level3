@@ -7,11 +7,15 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.FinanceType;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Studentid;
+import seedu.address.model.person.Teacherid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,17 +30,23 @@ public class Finance extends ModelObject {
   private final FinanceType financeType;
   private final Date date;
   private final Amount amount;
+  private final Courseid courseid;
+  private final Studentid studentid;
+  private final Teacherid teacherid;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
    */
-  public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
-    requireAllNonNull(name, amount, tags);
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, Courseid courseid, Studentid studentid, Teacherid teacherid, Set<Tag> tags) {
+    requireAllNonNull(name, amount, courseid, studentid, teacherid, tags);
     this.name = name;
     this.financeType = financeType;
     this.date = date;
     this.amount = amount;
+    this.courseid = courseid;
+    this.studentid = studentid;
+    this.teacherid = teacherid;
     this.tags.addAll(tags);
   }
 
@@ -56,6 +66,17 @@ public class Finance extends ModelObject {
     return amount;
   }
 
+  public Courseid getCourseID() {
+    return courseid;
+  }
+
+  public Studentid getStudentID() {
+    return studentid;
+  }
+
+  public Teacherid getTeacherID() {
+    return teacherid;
+  }
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
@@ -101,6 +122,9 @@ public class Finance extends ModelObject {
         && otherFinance.getFinanceType().equals(getFinanceType())
         && otherFinance.getDate().equals(getDate())
         && otherFinance.getAmount().equals(getAmount())
+        && otherFinance.getCourseID().equals(getCourseID())
+        && otherFinance.getStudentID().equals(getStudentID())
+        && otherFinance.getTeacherID().equals(getTeacherID())
         && otherFinance.getTags().equals(getTags());
   }
 
@@ -120,6 +144,12 @@ public class Finance extends ModelObject {
         .append(getDate())
         .append("Amount: ")
         .append(getAmount())
+        .append("CourseID: ")
+        .append(getCourseID())
+        .append("StudentID: ")
+        .append(getStudentID())
+        .append("TeacherID: ")
+        .append(getTeacherID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

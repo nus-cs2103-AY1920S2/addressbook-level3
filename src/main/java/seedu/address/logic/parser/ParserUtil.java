@@ -48,6 +48,21 @@ public class ParserUtil {
     return new Name(trimmedName);
   }
 
+  /**
+   * Parses a {@code String financeType} into a {@code financeType}. Leading and trailing whitespaces will be
+   * trimmed.
+   *
+   * @throws ParseException if the given {@code financeType} is invalid.
+   */
+  public static FinanceType parseFinanceType(String financeType) throws ParseException {
+    requireNonNull(financeType);
+    String trimmedFinanceType = financeType.trim();
+    if (!FinanceType.isValidFinanceType(trimmedFinanceType)) {
+      throw new ParseException(FinanceType.MESSAGE_CONSTRAINTS);
+    }
+    return new FinanceType(trimmedFinanceType);
+  }
+
 
   /**
    * Parses a {@code String courseID} into a {@code ID}. Leading and trailing whitespaces will be
@@ -63,6 +78,7 @@ public class ParserUtil {
     }
     return new ID(trimmedID);
   }
+
 
   /**
    * Parses a {@code String assignmentID} into a {@code ID}. Leading and trailing whitespaces will be
