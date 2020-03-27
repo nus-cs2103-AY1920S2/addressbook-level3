@@ -174,6 +174,7 @@ Our module search function consists of 2 main implementation
 * Date
 * Weather
 * Mood
+
 === [Proposed] Pathing
 
 Given below is the consideration and proposed implementation for pathing in the future versions.
