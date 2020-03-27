@@ -75,7 +75,8 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime());
+                && otherTransaction.getDateTime().equals(getDateTime())
+                && otherTransaction.getQuantity().equals(getQuantity());
 
     }
 
@@ -93,7 +94,8 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime());
+                && otherTransaction.getDateTime().equals(getDateTime())
+                && otherTransaction.getQuantity().equals(getQuantity());
     }
 
     @Override

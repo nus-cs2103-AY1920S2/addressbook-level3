@@ -124,7 +124,7 @@ public class AddTransactionCommand extends Command {
         Quantity oldQuantity = productToEdit.getQuantity();
 
         if (oldQuantity.compareTo(transactionFactory.getQuantity()) < 0) {
-            throw new CommandException(String.format(Messages.MESSAGE_ZERO_PRODUCT_QUANTITY,
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
                     oldQuantity.value, productToEdit.getDescription().value));
         }
 
