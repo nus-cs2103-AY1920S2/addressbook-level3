@@ -31,6 +31,8 @@ public class ProductCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
+    private Label costPrice;
+    @FXML
     private Label price;
     @FXML
     private Label quantity;
@@ -44,6 +46,7 @@ public class ProductCard extends UiPart<Region> {
         this.product = product;
         id.setText(displayedIndex + ". ");
         description.setText(product.getDescription().value);
+        costPrice.setText("$" + product.getCostPrice().value);
         price.setText("$" + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantity().value));
         sales.setText("$" + product.getSales().value);

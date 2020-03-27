@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
@@ -22,6 +23,7 @@ public class AddProductCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a product to the product list.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_COSTPRICE + "COST PRICE"
             + PREFIX_PRICE + "PRICE "
             + PREFIX_QUANTITY + "QUANTITY "
             + "[" + PREFIX_SALES + "SALES] \n"
