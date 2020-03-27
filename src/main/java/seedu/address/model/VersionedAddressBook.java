@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,18 +12,24 @@ import java.util.List;
  */
 public class VersionedAddressBook extends AddressBook implements Version<AddressBook> {
     private AddressBook currentState;
+    int statePointer;
+    List<AddressBook> stateList;
 
     public VersionedAddressBook() {
+        statePointer = -1;
+        stateList = new ArrayList<>();
         currentState = new AddressBook();
+        commit();
     }
 
     /**
-     * Creates a VersionedAddressBook using the Persons in the {@code toBeCopied}.
-     * The history will be empty.
+     * Creates a VersionedAddressBook using the {@code Person}s in the {@code toBeCopied}.
      */
     public VersionedAddressBook(ReadOnlyList<Person> toBeCopied) {
-        this();
-        resetData(toBeCopied);
+        statePointer = -1;
+        stateList = new ArrayList<>();
+        currentState = new AddressBook(toBeCopied);
+        commit();
     }
 
     //// list overwrite operations
@@ -77,14 +84,24 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         currentState.removePerson(key);
     }
 
-    @Override
-    public void undo() {
-        return;
-    }
+    //// versioning methods
 
     @Override
     public void commit() {
-        return;
+        AddressBook i = new AddressBook(getCurrentState());
+        stateList = stateList.subList(0, statePointer + 1);
+        stateList.add(i);
+        statePointer++;
+    }
+
+    @Override
+    public void undo() {
+        if (statePointer == 0) {
+            throw new IllegalStateException("Cannot undo with no previous commits.");
+        }
+
+        statePointer--;
+        currentState = stateList.get(statePointer);
     }
 
     @Override

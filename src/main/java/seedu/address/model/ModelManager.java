@@ -173,12 +173,14 @@ public class ModelManager implements Model {
 
     @Override
     public void commit() {
-        return;
+        addressBook.commit();
+        inventory.commit();
     }
 
     @Override
     public void undo() {
-        return;
+        addressBook.undo();
+        inventory.undo();
     }
 
     //=========== Filtered Person List Accessors =============================================================

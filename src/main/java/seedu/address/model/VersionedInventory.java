@@ -4,27 +4,33 @@ import javafx.collections.ObservableList;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.UniqueGoodList;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * An {@code Inventory} that keeps track of its history. Snapshots of its state are done based on external commands.
  */
 public class VersionedInventory extends Inventory implements Version<Inventory> {
 
-    private Inventory currentState;
+    List<Inventory> stateList;
+    Inventory currentState;
+    int statePointer;
 
     public VersionedInventory() {
+        statePointer = -1;
+        stateList = new ArrayList<>();
         currentState = new Inventory();
+        commit();
     }
 
     /**
-     * Creates a VersionedInventory using the Goods in the {@code toBeCopied}.
+     * Creates a VersionedInventory using the {@code Good}s in the {@code toBeCopied}.
      */
     public VersionedInventory(ReadOnlyList<Good> toBeCopied) {
-        this();
-        resetData(toBeCopied);
+        statePointer = -1;
+        stateList = new ArrayList<>();
+        currentState = new Inventory(toBeCopied);
+        commit();
     }
 
     //// list overwrite operations
@@ -34,11 +40,11 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
      * {@code goods} must not contain duplicate goods.
      */
     public void setGoods(List<Good> goods) {
-        currentState.setGoods(goods);
+        getCurrentState().setGoods(goods);
     }
 
     public int index(Good toFind) {
-        return currentState.index(toFind);
+        return getCurrentState().index(toFind);
     }
 
     /**
@@ -54,7 +60,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
      * Returns true if a good with the same identity as {@code good} exists in the address book.
      */
     public boolean hasGood(Good good) {
-        return currentState.hasGood(good);
+        return getCurrentState().hasGood(good);
     }
 
     /**
@@ -62,7 +68,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
      * The good must not already exist in the current state.
      */
     public void addGood(Good p) {
-        currentState.addGood(p);
+        getCurrentState().addGood(p);
     }
 
     /**
@@ -71,7 +77,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
      * The good identity of {@code editedGood} must not be the same as another existing good in the current state.
      */
     public void setGood(Good target, Good editedGood) {
-        currentState.setGood(target, editedGood);
+        getCurrentState().setGood(target, editedGood);
     }
 
     /**
@@ -79,17 +85,27 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
      * {@code key} must exist in the current state.
      */
     public void removeGood(Good key) {
-        currentState.removeGood(key);
+        getCurrentState().removeGood(key);
     }
+
+    //// versioning methods
 
     @Override
     public void commit() {
-        return;
+        Inventory i = new Inventory(getCurrentState());
+        stateList = stateList.subList(0, statePointer + 1);
+        stateList.add(i);
+        statePointer++;
     }
 
     @Override
     public void undo() {
-        return;
+        if (statePointer == 0) {
+            throw new IllegalStateException("Cannot undo with no previous commits.");
+        }
+
+        statePointer--;
+        currentState = stateList.get(statePointer);
     }
 
     @Override
@@ -101,31 +117,31 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
 
     @Override
     public String toString() {
-        return currentState.toString();
+        return getCurrentState().toString();
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Good> getReadOnlyList() {
-        return currentState.getReadOnlyList();
+        return getCurrentState().getReadOnlyList();
     }
 
     @Override
     protected UniqueGoodList getGoods() {
-        return currentState.getGoods();
+        return getCurrentState().getGoods();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VersionedInventory // instanceof handles nulls
-                && currentState.equals(((VersionedInventory) other).currentState))
+                && getCurrentState().equals(((VersionedInventory) other).getCurrentState()))
                 || (other instanceof Inventory // instanceof handles nulls
-                && currentState.equals(((Inventory) other)));
+                && getCurrentState().equals(((Inventory) other)));
     }
 
     @Override
     public int hashCode() {
-        return currentState.hashCode();
+        return getCurrentState().hashCode();
     }
 }
