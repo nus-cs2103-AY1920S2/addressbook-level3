@@ -83,7 +83,7 @@ public class CouponCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tagsDup.getChildren().add(new Label(tag.tagName)));
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
-        condition.setText("Terms & Condition: " + coupon.getCondition().value);
+        condition.setText("T&C: " + coupon.getCondition().value);
     }
 
     @Override
