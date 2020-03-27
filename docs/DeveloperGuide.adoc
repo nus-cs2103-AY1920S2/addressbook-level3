@@ -492,7 +492,7 @@ This reminder feature is facilitated by the Remind attribute of a coupon. The fo
 * RemindCommand#ShowRemind - Will execute checking of all coupons and alert the user when
 
 
-=== Calculating amount saved
+=== Savings per use and total amount saved
 
 Just for reference, the image below shows the class diagram
 for the Savings class. It is compulsory for each Coupon to
@@ -537,13 +537,25 @@ PercentageAmount (it does not make much sense to have
 a voucher that says "10% and $5 off").
 
 In order to calculate the total amount saved, Coupons also
-store information about how much the user saves whenever
-the user uses the coupon. This information is stored
-in the form of PureMonetarySavings, which is a subclass
-of Savings that never holds PercentageAmounts. The
-class diagram below illustrates this.
+store information about how much the user saves, and storage
+is done at the moment the user uses the coupon. This
+information is stored in the form of PureMonetarySavings,
+which is a subclass of Savings that never holds
+PercentageAmounts. The class diagram below illustrates this.
 
-image:PureMonetarySavingsClassDiagram.png[]]
+image:PureMonetarySavingsClassDiagram.png[]
+
+[[dssm]]
+PureMonetarySavings are stored in
+a DateSavingsSumMap, which is a hash table that
+links the current date (LocalDate) to the savings
+earned (PureMonetarySavings) on that date.
+Each Coupon holds a DateSavingsSumMap. The
+next image shows the class diagram of the
+DateSavingsSumMap.
+
+image::DateSavingsSumMapClassDiagram.png[]
+
 
 The following section describes
 the processes that follow whenever a user marks a Coupon
@@ -591,11 +603,7 @@ image::UsedExecutionSeqDiagram.png[]
 
 In the end, the total savings value of the Coupon
 is updated. This total savings is represented by
-a DateSavingsSumMap, which is a hash table that
-links the current date (LocalDate) to the savings
-earned (PureMonetarySavings) on that date. The
-next image shows the class diagram of the
-DateSavingsSumMap.
+a <<DeveloperGuide.adoc#dssm, DateSavingsSumMap>>.
 
 ==== Implementation of saved command
 
