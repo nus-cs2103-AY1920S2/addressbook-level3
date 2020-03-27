@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W16-4/main
 
-By: `CS2103T-W16-4`      Since: `Feb 2020`      Licence: `MIT`
+By: `CS2103T-W16-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -153,20 +153,27 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Module Search 
+=== Module Search
 
-Our module search function consists of 2 main implementation 
+Our module search function consists of 2 main implementation
 
-  1.Retrieving information from NUSmods 
-  2.Retrieving information from cached data 
-  
+  1.Retrieving information from NUSmods
+  2.Retrieving information from cached data
+
   The implementation allows user to retrieve details about a module from NUSmods if the user have not query about the module before.
-  The search function will create a API call and retrieve the object as a JSON object, which will be decoded and parsed into different relevant attribute of the Module Class. 
-  
-  The moduleSearch function would first search its storage in data/addressbook.json whether the module information is queried before. 
-  If queried, the information would be retrieved from the storage instead of querying from the internet. 
+  The search function will create a API call and retrieve the object as a JSON object, which will be decoded and parsed into different relevant attribute of the Module Class.
+
+  The moduleSearch function would first search its storage in data/addressbook.json whether the module information is queried before.
+  If queried, the information would be retrieved from the storage instead of querying from the internet.
   This allows user to plan for module if they have queried the module before without the need for Internet access.
-   
+
+=== Diary
+- `diaryAdd` and `diaryLog` extends from `Command` class
+- `DiaryEntry` is another model which contains:
+* Diary Entry
+* Date
+* Weather
+* Mood
 
 === [Proposed] Pathing
 
