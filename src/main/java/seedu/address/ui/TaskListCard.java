@@ -2,10 +2,13 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.control.CheckBox;
+import javafx.geometry.Insets;
 import seedu.address.model.task.Task;
 
 /** An UI component that displays information of a {@code Task}. */
@@ -30,19 +33,51 @@ public class TaskListCard extends UiPart<Region> {
     @FXML private Label description;
     @FXML private Label reminder;
     @FXML private FlowPane tags;
+    @FXML private CheckBox done;
 
     public TaskListCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        name.setText(String.format("[%s] %s", task.getDone().toString(), task.getName().fullName));
-        priority.setText(task.getPriority().value);
+        name.setText(task.getName().fullName);
+        done.setSelected(task.getDone().getIsDone());
+        done.setDisable(true);
+        priority.setText(getPriorityString());
+        priority.setTextFill(Color.web(getPriorityColor()));
         description.setText(task.getDescription().value);
         task.getOptionalReminder().ifPresent(rem -> reminder.setText(rem.displayReminder()));
         task.getTags()
                 .stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private String getPriorityString() {
+        String value = task.getPriority().value;
+        switch (value) {
+            case "1":
+            return "low";
+            case "2":
+            return "medium";
+            case "3":
+            return "high";
+            default:
+            return "low";
+        }
+    }
+
+    private String getPriorityColor() {
+        String value = task.getPriority().value;
+        switch (value) {
+            case "1":
+            return "#2EBE04";
+            case "2":
+            return "#F8713D";
+            case "3":
+            return "#FF0000";
+            default:
+            return "#2EBE04";
+        }
     }
 
     @Override
