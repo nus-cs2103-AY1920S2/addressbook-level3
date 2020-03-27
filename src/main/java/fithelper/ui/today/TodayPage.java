@@ -141,7 +141,7 @@ public class TodayPage extends UiPart<AnchorPane> {
             Entry foodEntry = foodList.get(i);
             if (foodEntry.isDone()) {
                 String foodName = foodEntry.getName().value;
-                int foodCalorie = (int)foodEntry.getCalorie().value;
+                int foodCalorie = (int) foodEntry.getCalorie().value;
                 pieChartDataList.add(new PieChart.Data(foodName, foodCalorie));
             }
         }
@@ -271,7 +271,7 @@ public class TodayPage extends UiPart<AnchorPane> {
      */
     private void updatePerformance(ObservableList<Entry> sportList) {
         percentDone = this.sportDone * 100.0 / sportList.size();
-        performance.setText("Sports Task Completion: " + (int)this.percentDone + "%");
+        performance.setText("Sports Task Completion: " + (int) this.percentDone + "%");
         logger.info("task modification: " + this.percentDone);
     }
 

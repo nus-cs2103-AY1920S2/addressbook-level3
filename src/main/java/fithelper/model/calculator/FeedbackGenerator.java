@@ -1,6 +1,12 @@
 package fithelper.model.calculator;
 
-import static fithelper.commons.core.Feedback.*;
+import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_DEFAULT;
+import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_TOO_MUCH;
+import static fithelper.commons.core.Feedback.FEEDBACK_CALORIE_NEGATIVE;
+import static fithelper.commons.core.Feedback.FEEDBACK_TASK_ALL_COMPLETE;
+import static fithelper.commons.core.Feedback.FEEDBACK_TASK_DEFAULT;
+import static fithelper.commons.core.Feedback.FEEDBACK_TASK_SOME_COMPLETE;
+import static fithelper.commons.core.Feedback.FEEDBACK_TASL_NONE_COMPLETE;
 
 /**
  * This class generates feedbacks based on the task completion and calorie results.
@@ -15,6 +21,10 @@ public class FeedbackGenerator {
         this.totalCalorie = totalCalorie;
     }
 
+    /**
+     * Generates overall feedback.
+     * @return
+     */
     public String generateFeedback() {
         String calorieSummary = generateCalorieSummary();
         String performanceSummary = generatePerformanceSummary();
@@ -44,7 +54,7 @@ public class FeedbackGenerator {
             return FEEDBACK_TASL_NONE_COMPLETE;
         } else if (performance >= 100.0) {
             return FEEDBACK_TASK_ALL_COMPLETE;
-        } else if (performance >= 66.0){
+        } else if (performance >= 66.0) {
             return FEEDBACK_TASK_SOME_COMPLETE;
         } else {
             return FEEDBACK_TASK_DEFAULT;
