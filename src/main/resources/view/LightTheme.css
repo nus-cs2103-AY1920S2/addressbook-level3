@@ -29,8 +29,7 @@
 }
 
 .label {
-	//-fx-font-family: "SofiaProRegular";
-	-fx-text-fill: #453fe9;
+	-fx-font-family: "SofiaProRegular";
 	-fx-opacity: 0.9;
 }
 
@@ -109,7 +108,7 @@
 .table-view .column-header .label {
 	-fx-font-size: 20pt;
 	-fx-font-family: "SofiaProRegular";
-	-fx-text-fill: #453fe9;
+	/* -fx-text-fill: #453fe9; */
 	-fx-alignment: center-left;
 	-fx-opacity: 1;
 }
@@ -124,7 +123,7 @@
 }
 
 .split-pane {
-	-fx-border-radius: 1;
+	/* -fx-border-radius: 1; */
 	-fx-border-width: 1;
 	-fx-background-color: #f7f2f0;
 }
@@ -154,12 +153,22 @@
 }
 
 .list-cell:filled:selected #cardPane {
-	-fx-border-color: white;
+	/* -fx-border-color: white; */
 	-fx-border-width: 1;
 }
 
-.list-cell .label {
+.list-cell {
 	-fx-text-fill: #453fe9;
+}
+
+.checkbox {
+	-fx-background-color: #f7f2f0;
+}
+
+/* ====================== PersonListCard.fxml styling =========================== */
+.tasklist-card {
+	-fx-background-color: white;
+	-fx-background-radius: 15px;
 }
 
 .cell_big_label {
@@ -171,26 +180,22 @@
 .cell_small_label {
 	-fx-font-family: "SofiaProRegular";
 	-fx-font-size: 13px;
-	-fx-text-fill: #010504;
+}
+
+.reminder {
+	-fx-text-fill: #707070;
+}
+
+#priority {
+	-fx-text-alignment: right;
 }
 
 .stack-pane {
 	-fx-background-color: #f7f2f0;
 }
 
-.pane-with-border {
-	-fx-background-color: #f7f2f0;
-}
-
 .status-bar {
 	-fx-background-color: #f7f2f0;
-}
-
-.result-display {
-	-fx-background-color: white;
-	-fx-font-family: "SofiaProRegular";
-	-fx-font-size: 13pt;
-	-fx-text-fill: black;
 }
 
 .result-display .label {
@@ -257,7 +262,7 @@
 	-fx-padding: 5 22 5 22;
 	-fx-border-color: #e2e2e2;
 	-fx-border-width: 2;
-	-fx-background-radius: 0;
+	/* -fx-background-radius: 0; */
 	-fx-background-color: #f7f2f0;
 	-fx-font-family: "SofiaProRegular", Helvetica, Arial, sans-serif;
 	-fx-font-size: 11pt;
@@ -279,7 +284,7 @@
 	-fx-border-color: white, white;
 	-fx-border-width: 1, 1;
 	-fx-border-style: solid, segments(1, 1);
-	-fx-border-radius: 0, 0;
+	/* -fx-border-radius: 0, 0; */
 	-fx-border-insets: 1 1 1 1, 0;
 }
 
@@ -364,24 +369,18 @@
 	-fx-padding: 1px;
 }
 
-#cardPane {
-	-fx-background-color: white;
-	-fx-border-radius: 30px;
-	-fx-border-width: 0;
-}
-
 #commandTypeLabel {
 	-fx-font-size: 11px;
 	-fx-text-fill: #f70d1a;
 }
 
-#commandTextField {
+#commandTextField,
+#resultDisplay .content,
+#resultDisplay {
 	-fx-background-color: white;
-	-fx-background-insets: 0;
-	-fx-border-color: #ffffff #ffffff #ffffff #ffffff;
-	-fx-border-insets: 0;
-	-fx-border-width: 1;
 	-fx-border-radius: 30px;
+	-fx-background-radius: 30px;
+	-fx-border-width: 1;
 	-fx-font-family: "SofiaProRegular";
 	-fx-font-size: 13pt;
 	-fx-text-fill: black;
@@ -393,12 +392,6 @@
 	-fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#resultDisplay .content {
-	-fx-background-color: white;
-	-fx-border-radius: 30px;
-	-fx-background-radius: 0;
-}
-
 #tags {
 	-fx-hgap: 7;
 	-fx-vgap: 3;
@@ -406,9 +399,9 @@
 
 #tags .label {
 	-fx-text-fill: white;
-	-fx-background-color: #3e7b91;
+	-fx-background-color: #f8713d;
 	-fx-padding: 1 3 1 3;
-	-fx-border-radius: 2;
-	-fx-background-radius: 2;
+	-fx-border-radius: 10;
+	-fx-background-radius: 10;
 	-fx-font-size: 11;
 }
