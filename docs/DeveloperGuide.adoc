@@ -538,7 +538,14 @@ a voucher that says "10% and $5 off").
 
 In order to calculate the total amount saved, Coupons also
 store information about how much the user saves whenever
-the user uses the coupon. The following section describes
+the user uses the coupon. This information is stored
+in the form of PureMonetarySavings, which is a subclass
+of Savings that never holds PercentageAmounts. The
+class diagram below illustrates this.
+
+image:PureMonetarySavingsClassDiagram.png[]]
+
+The following section describes
 the processes that follow whenever a user marks a Coupon
 as "used" with the `used` command.
 
@@ -547,11 +554,39 @@ as "used" with the `used` command.
 When the user enters a used command, the actions taken by Coupon
 Stash change depending on whether the Coupon's Savings stores
 a MonetaryAmount of PercentageAmount. The following activity
-diagram shows the execution of a used command.
+diagram shows what happens when the user runs a used command.
 
 image::UsedCommandActivityDiagram.png[]
 
+In terms of the implementation, the next two images
+shows the sequence diagram that models the successful
+execution of a used command within the actual
+program components.
 
+More specifically, the used command executed is
+`used 1 $100`, and the state of the system is such that
+a Coupon with PercentageAmount in its Savings (no
+MonetaryAmount) and with Usage not at its Limit
+is located at index 1. Also, the money symbol
+set in the user preferences would be $, which
+makes this command a valid one that will execute
+successfully.
+
+image::UsedCommandSeqDiagram.png[]
+
+The money symbol set in the user preferences is
+retrieved by CouponStashParser, which passes it
+to UsedCommandParser that will use this symbol
+to parse the used command.
+
+Also, within UsedCommand, the execute() method
+will cause the creation of a new Coupon with the
+correct recorded number of uses and amount of
+savings earned. The next sequence diagram shows
+how the execute() method interacts with other
+components to produce the new Coupon.
+
+image::UsedExecutionSeqDiagram.png[]
 
 ==== Implementation of saved command
 
