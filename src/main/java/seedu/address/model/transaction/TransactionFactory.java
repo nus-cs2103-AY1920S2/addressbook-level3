@@ -37,11 +37,18 @@ public class TransactionFactory {
      * @return created transaction.
      */
     public Transaction createTransaction(Model model) {
+        Money updatedMoney;
+
         Customer customer = model.getFilteredCustomerList().get(customerIndex.getZeroBased());
         Product product = model.getFilteredProductList().get(productIndex.getZeroBased());
         UUID productId = model.getFilteredProductList().get(productIndex.getZeroBased()).getId();
 
-        return new Transaction(customer, product, productId, dateTime, quantity, money, description);
+        if (money.value == Money.DEFAULT_VALUE) {
+            updatedMoney = new Money(Integer.parseInt(product.getPrice().value) * quantity.value);
+        } else {
+            updatedMoney = money;
+        }
+        return new Transaction(customer, product, productId, dateTime, quantity, updatedMoney, description);
     }
 
     public Index getProductIndex() {

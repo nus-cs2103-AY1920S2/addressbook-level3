@@ -28,6 +28,8 @@ import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 import seedu.address.ui.NotificationWindow;
 
+import javax.swing.*;
+
 /**
  * Adds a transaction to the system.
  */
@@ -66,16 +68,16 @@ public class AddTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Transaction toAdd = transactionFactory.createTransaction(model);
         List<Product> lastShownList = model.getFilteredProductList();
 
         Index productIndex = getProductIndex(lastShownList);
-        Index customerIndex = getCustomerIndex(model.getFilteredCustomerList());
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        Quantity newQuantity = getNewQuantity(productToEdit);
+        Quantity newQuantity = getNewQuantity(toAdd, productToEdit);
         editProductDescriptor.setQuantity(newQuantity);
 
-        Money newSales = getNewSales(productToEdit);
+        Money newSales = getNewSales(toAdd, productToEdit);
         editProductDescriptor.setSales(newSales);
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
@@ -83,8 +85,6 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-
-        Transaction toAdd = transactionFactory.createTransaction(model);
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
@@ -113,31 +113,23 @@ public class AddTransactionCommand extends Command {
         return productIndex;
     }
 
-    private Index getCustomerIndex(List<Customer> lastShownList) throws CommandException {
-        Index customerIndex = transactionFactory.getCustomerIndex();
-        if (customerIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
-        }
-        return customerIndex;
-    }
-
-    private Quantity getNewQuantity(Product productToEdit) throws CommandException {
+    private Quantity getNewQuantity(Transaction toAdd, Product productToEdit) throws CommandException {
         Quantity oldQuantity = productToEdit.getQuantity();
 
-        if (oldQuantity.compareTo(transactionFactory.getQuantity()) < 0) {
+        if (oldQuantity.compareTo(toAdd.getQuantity()) < 0) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
                     oldQuantity.value, productToEdit.getDescription().value));
         }
 
-        return oldQuantity.minus(transactionFactory.getQuantity());
+        return oldQuantity.minus(toAdd.getQuantity());
     }
 
-    private Money getNewSales(Product productToEdit) throws CommandException {
+    private Money getNewSales(Transaction toAdd, Product productToEdit) throws CommandException {
         Money oldSales = productToEdit.getSales();
         Money newSales;
 
         try {
-            newSales = oldSales.plus(transactionFactory.getMoney());
+            newSales = oldSales.plus(toAdd.getMoney());
         } catch (IllegalArgumentException e) {
             throw new CommandException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
