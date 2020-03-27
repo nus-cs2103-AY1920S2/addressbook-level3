@@ -51,6 +51,7 @@ public class ReturnCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RETURN = "This return order already exists in the returns book";
     public static final String MESSAGE_ORDER_NOT_DELIVERED = "This order was not delivered. Return Order cannot be"
             + " created";
+    public static final String MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID = "The input Transaction ID is not valid.";
 
     private ReturnOrder toBeCreated;
     private final TransactionId tid;
@@ -69,6 +70,9 @@ public class ReturnCommand extends Command {
         requireNonNull(model);
         if (toBeCreated == null) {
             Order orderToBeReturned = model.getOrderBook().getOrderByTransactionId(tid);
+            if (orderToBeReturned == null) {
+                throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
+            }
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
             }

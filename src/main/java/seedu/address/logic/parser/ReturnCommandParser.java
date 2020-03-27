@@ -42,13 +42,14 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_TYPE,
                         PREFIX_COMMENT);
-        if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
-        }
-        if (arePrefixesPresent(argMultimap, PREFIX_TID) && !arePrefixesPresent(argMultimap, PREFIX_NAME,
-                PREFIX_ADDRESS, PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_EMAIL, PREFIX_PHONE)) {
+
+        if (arePrefixesPresent(argMultimap, PREFIX_TID)
+                && !arePrefixesPresent(argMultimap, PREFIX_NAME)
+                && !arePrefixesPresent(argMultimap, PREFIX_ADDRESS)
+                && !arePrefixesPresent(argMultimap, PREFIX_PHONE)
+                && !arePrefixesPresent(argMultimap, PREFIX_RETURN_TIMESTAMP)
+                && !arePrefixesPresent(argMultimap, PREFIX_WAREHOUSE)
+                && !arePrefixesPresent(argMultimap, PREFIX_EMAIL)) {
             try {
                 TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
                 return new ReturnCommand(null, tid);
@@ -56,6 +57,11 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE), pe);
             }
+        }
+        if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
         }
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
