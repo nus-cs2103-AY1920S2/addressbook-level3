@@ -29,8 +29,7 @@
 }
 
 .label {
-	//-fx-font-family: "SofiaProRegular";
-	-fx-text-fill: #453fe9;
+	-fx-font-family: "SofiaProRegular";
 	-fx-opacity: 0.9;
 }
 
@@ -109,7 +108,7 @@
 .table-view .column-header .label {
 	-fx-font-size: 20pt;
 	-fx-font-family: "SofiaProRegular";
-	-fx-text-fill: #453fe9;
+	/* -fx-text-fill: #453fe9; */
 	-fx-alignment: center-left;
 	-fx-opacity: 1;
 }
@@ -181,7 +180,14 @@
 .cell_small_label {
 	-fx-font-family: "SofiaProRegular";
 	-fx-font-size: 13px;
-	-fx-text-fill: #010504;
+}
+
+.reminder {
+	-fx-text-fill: #707070;
+}
+
+#priority {
+	-fx-text-alignment: right;
 }
 
 .stack-pane {

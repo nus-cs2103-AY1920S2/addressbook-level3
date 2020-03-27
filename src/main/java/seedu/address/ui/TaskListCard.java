@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -41,13 +42,42 @@ public class TaskListCard extends UiPart<Region> {
         name.setText(task.getName().fullName);
         done.setSelected(task.getDone().getIsDone());
         done.setDisable(true);
-        priority.setText(task.getPriority().value);
+        priority.setText(getPriorityString());
+        priority.setTextFill(Color.web(getPriorityColor()));
         description.setText(task.getDescription().value);
         task.getOptionalReminder().ifPresent(rem -> reminder.setText(rem.displayReminder()));
         task.getTags()
                 .stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private String getPriorityString() {
+        String value = task.getPriority().value;
+        switch (value) {
+            case "1":
+            return "low";
+            case "2":
+            return "medium";
+            case "3":
+            return "high";
+            default:
+            return "low";
+        }
+    }
+
+    private String getPriorityColor() {
+        String value = task.getPriority().value;
+        switch (value) {
+            case "1":
+            return "#2EBE04";
+            case "2":
+            return "#F8713D";
+            case "3":
+            return "#FF0000";
+            default:
+            return "#2EBE04";
+        }
     }
 
     @Override
