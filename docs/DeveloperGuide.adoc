@@ -164,13 +164,20 @@ image::SwitchActivityDiagram.png[]
 
 // tag::advancedfilter[]
 === Advanced Filter feature
+The advanced filter feature filters recipes by the set of parameters that the user specifies. Think of it as a greatly
+enhanced and more robust version of the `Find` command, which only allows the user to find recipes by their name.
+
 ==== Implementation
+The advanced filter feature makes use of existing `ArgumentTokenizer` and `ArgumentMultimap` capabilities to parse
+user input in the `FilterCommandParser` class.
+
+
 
 image::AdvancedFilterSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How recipes are filtered
+===== Aspect: Consistency of user input syntax
 
 // end::advancedfilter[]
 

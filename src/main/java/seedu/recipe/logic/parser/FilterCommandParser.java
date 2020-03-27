@@ -44,15 +44,17 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TIME, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
                         PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_OTHER, PREFIX_GOAL);
 
-        boolean isFilteredByFavourites = filterByFavourites(argMultimap);
+        List<Time> filterByTime = argMultimap.getValue(PREFIX_TIME).isPresent()
+                ? parseTimeForFilter(argMultimap.getValue(PREFIX_TIME).get())
+                : Collections.emptyList();
 
-        List<Time> filterByTime = filterByTime(argMultimap);
-        Set<Goal> filterByGoals = filterByGoals(argMultimap);
-        Set<Grain> filterByGrain = filterByGrain(argMultimap);
-        Set<Vegetable> filterByVeg = filterByVege(argMultimap);
-        Set<Protein> filterByProtein = filterByProtein(argMultimap);
-        Set<Fruit> filterByFruit = filterByFruit(argMultimap);
-        Set<Other> filterByOthers = filterByOthers(argMultimap);
+        boolean isFilteredByFavourites = filterByFavourites(argMultimap.getPreamble().toLowerCase());
+        Set<Goal> filterByGoals = filterByGoals(argMultimap.getAllValues(PREFIX_GOAL));
+        Set<Grain> filterByGrain = parseGrainsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN));
+        Set<Vegetable> filterByVeg = parseVegetablesForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE));
+        Set<Protein> filterByProtein = parseProteinsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN));
+        Set<Fruit> filterByFruit = parseFruitsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT));
+        Set<Other> filterByOthers = parseOthersForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER));
 
         if (!CollectionUtil.isAnyNonEmpty(filterByTime, filterByGoals, filterByGrain, filterByVeg,
                 filterByProtein, filterByFruit, filterByOthers) && !isFilteredByFavourites) {
@@ -64,22 +66,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Parses and returns the time input as a {@code List<Time>} if it is present. Otherwise, returns an empty list.
-     */
-    private List<Time> filterByTime(ArgumentMultimap argMultimap) throws ParseException {
-        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
-            return parseTimeForFilter(argMultimap.getValue(PREFIX_TIME).get());
-        } else {
-            return Collections.emptyList();
-        }
-    }
-
-    /**
      * Parses and returns the goals input as a {@code Set<Goal>} if it is present. Otherwise, returns an empty set.
      */
-    private Set<Goal> filterByGoals(ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getAllValues(PREFIX_GOAL).isEmpty()) {
-            return parseGoalsForFilter(argMultimap.getAllValues(PREFIX_GOAL));
+    private Set<Goal> filterByGoals(Collection<String> goals) throws ParseException {
+        assert goals != null;
+        if (!goals.isEmpty()) {
+            return parseGoalsForFilter(goals);
         } else {
             return Collections.emptySet();
         }
@@ -88,76 +80,15 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Returns whether user specified filtering by favourites.
      */
-    private boolean filterByFavourites(ArgumentMultimap argMultimap) throws ParseException {
-        String preamble = argMultimap.getPreamble().toLowerCase();
+    private boolean filterByFavourites(String preamble) throws ParseException {
+        assert preamble != null;
         if (preamble.isBlank()) {
             return false;
         }
-
         if (preamble.equals("favourites")) {
             return true;
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses and returns the Grain ingredient(s) input(s) as a {@code Set<Grain>} if present.
-     * Otherwise, returns an empty set.
-     */
-    private Set<Grain> filterByGrain(ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN).isEmpty()) {
-            return parseGrainsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN));
-        } else {
-            return Collections.emptySet();
-        }
-    }
-
-    /**
-     * Parses and returns the Vegetable ingredient(s) input(s) as a {@code Set<Vegetable>} if present.
-     * Otherwise, returns an empty set.
-     */
-    private Set<Vegetable> filterByVege(ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE).isEmpty()) {
-            return parseVegetablesForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE));
-        } else {
-            return Collections.emptySet();
-        }
-    }
-
-    /**
-     * Parses and returns the Protein ingredient(s) input(s) as a {@code Set<Protein>} if present.
-     * Otherwise, returns an empty set.
-     */
-    private Set<Protein> filterByProtein(ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN).isEmpty()) {
-            return parseProteinsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN));
-        } else {
-            return Collections.emptySet();
-        }
-    }
-
-    /**
-     * Parses and returns the Fruit ingredient(s) input(s) as a {@code Set<Fruit>} if present.
-     * Otherwise, returns an empty set.
-     */
-    private Set<Fruit> filterByFruit(ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT).isEmpty()) {
-            return parseFruitsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT));
-        } else {
-            return Collections.emptySet();
-        }
-    }
-
-    /**
-     * Parses and returns the Other ingredient(s) input(s) as a {@code Set<Other>} if present.
-     * Otherwise, returns an empty set.
-     */
-    private Set<Other> filterByOthers(ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER).isEmpty()) {
-            return parseOthersForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER));
-        } else {
-            return Collections.emptySet();
         }
     }
 
@@ -168,7 +99,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private Set<Grain> parseGrainsForFilter(Collection<String> grains) throws ParseException {
         assert grains != null;
-        Collection<String> grainSet = grains.size() == 1 && grains.contains("")
+        Collection<String> grainSet = (grains.size() == 1 && grains.contains("")) || grains.isEmpty()
                 ? Collections.emptySet()
                 : grains;
         return ParserUtil.parseGrainsNameOnly(grainSet);
@@ -181,7 +112,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private Set<Vegetable> parseVegetablesForFilter(Collection<String> vegetables) throws ParseException {
         assert vegetables != null;
-        Collection<String> vegetableSet = vegetables.size() == 1 && vegetables.contains("")
+        Collection<String> vegetableSet = (vegetables.size() == 1 && vegetables.contains("")) || vegetables.isEmpty()
                 ? Collections.emptySet()
                 : vegetables;
         return ParserUtil.parseVegetablesNameOnly(vegetableSet);
@@ -194,7 +125,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private Set<Protein> parseProteinsForFilter(Collection<String> proteins) throws ParseException {
         assert proteins != null;
-        Collection<String> proteinSet = proteins.size() == 1 && proteins.contains("")
+        Collection<String> proteinSet = (proteins.size() == 1 && proteins.contains("")) || proteins.isEmpty()
                 ? Collections.emptySet()
                 : proteins;
         return ParserUtil.parseProteinsNameOnly(proteinSet);
@@ -207,7 +138,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private Set<Fruit> parseFruitsForFilter(Collection<String> fruits) throws ParseException {
         assert fruits != null;
-        Collection<String> fruitSet = fruits.size() == 1 && fruits.contains("")
+        Collection<String> fruitSet = (fruits.size() == 1 && fruits.contains("")) || fruits.isEmpty()
                 ? Collections.emptySet()
                 : fruits;
         return ParserUtil.parseFruitsNameOnly(fruitSet);
@@ -220,7 +151,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private Set<Other> parseOthersForFilter(Collection<String> others) throws ParseException {
         assert others != null;
-        Collection<String> otherSet = others.size() == 1 && others.contains("")
+        Collection<String> otherSet = (others.size() == 1 && others.contains("")) || others.isEmpty()
                 ? Collections.emptySet()
                 : others;
         return ParserUtil.parseOthersNameOnly(otherSet);
@@ -248,5 +179,4 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 ? Collections.emptyList()
                 : Arrays.asList(ParserUtil.parseTimeRange(time));
     }
-
 }

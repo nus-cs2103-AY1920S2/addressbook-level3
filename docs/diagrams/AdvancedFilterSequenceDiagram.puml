@@ -2,16 +2,16 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant LogicManager LOGIC_COLOR
-participant RecipeBookParser LOGIC_COLOR
-participant FilterCommandParser LOGIC_COLOR
-participant RecipeMatchesKeywordsPredicate LOGIC_COLOR
-participant FilterCommand LOGIC_COLOR
-participant CommandResult LOGIC_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
+participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
+participant ":RecipeMatchesKeywordsPredicate" as RecipeMatchesKeywordsPredicate LOGIC_COLOR
+participant ":FilterCommand" as FilterCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant Model MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
 end box
 
 -> LogicManager: execute("filter favourites t/20 ig/Pasta")
@@ -40,9 +40,11 @@ deactivate FilterCommand
 
 FilterCommandParser --> RecipeBookParser: FilterCommand(predicate)
 deactivate FilterCommandParser
+destroy RecipeMatchesKeywordsPredicate
 
 RecipeBookParser --> LogicManager: FilterCommand(predicate)
 deactivate RecipeBookParser
+destroy FilterCommandParser
 
 LogicManager -> FilterCommand: execute(model)
 activate FilterCommand
@@ -55,13 +57,13 @@ create CommandResult
 FilterCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> FilterCommand: CommandResult(feedbackToUser)
+CommandResult --> FilterCommand: CommandResult
 deactivate CommandResult
 
-FilterCommand --> LogicManager: CommandResult(feedbackToUser)
+FilterCommand --> LogicManager: CommandResult
 deactivate FilterCommand
 
-<-- LogicManager: CommandResult(feedbackToUser)
+<-- LogicManager: CommandResult
 deactivate LogicManager
 
 @enduml
