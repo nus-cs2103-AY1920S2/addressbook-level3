@@ -2,9 +2,9 @@ package com.notably.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.Path;
-import com.notably.commons.core.path.RelativePath;
+import com.notably.commons.path.AbsolutePath;
+import com.notably.commons.path.Path;
+import com.notably.commons.path.RelativePath;
 import com.notably.model.Model;
 
 /**

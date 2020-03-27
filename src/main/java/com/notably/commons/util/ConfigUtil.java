@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import com.notably.commons.core.Config;
+import com.notably.commons.Config;
 import com.notably.commons.exceptions.DataConversionException;
 
 /**

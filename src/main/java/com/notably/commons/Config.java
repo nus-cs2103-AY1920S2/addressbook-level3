@@ -1,4 +1,4 @@
-package com.notably.commons.core;
+package com.notably.commons;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

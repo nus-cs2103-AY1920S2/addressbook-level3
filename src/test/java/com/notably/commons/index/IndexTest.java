@@ -1,4 +1,4 @@
-package com.notably.commons.core.index;
+package com.notably.commons.index;
 
 import static com.notably.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;

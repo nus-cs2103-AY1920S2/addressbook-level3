@@ -2,8 +2,8 @@ package com.notably.view;
 
 import java.util.logging.Logger;
 
-import com.notably.commons.core.GuiSettings;
-import com.notably.commons.core.LogsCenter;
+import com.notably.commons.GuiSettings;
+import com.notably.commons.LogsCenter;
 import com.notably.logic.Logic;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;

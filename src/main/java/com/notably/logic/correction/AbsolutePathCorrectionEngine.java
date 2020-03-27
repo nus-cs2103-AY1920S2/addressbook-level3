@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.correction.distance.EditDistanceCalculator;
 import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
 import com.notably.model.Model;
