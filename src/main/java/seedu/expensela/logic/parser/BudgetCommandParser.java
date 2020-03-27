@@ -27,8 +27,12 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
-        Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get());
-        return new BudgetCommand(budget.budgetAmount);
+        try {
+            Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get());
+            return new BudgetCommand(budget.budgetAmount);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 
     /**

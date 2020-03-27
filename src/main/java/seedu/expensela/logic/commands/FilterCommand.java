@@ -2,19 +2,19 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
 
-import java.util.function.Predicate;
-
 /**
  * Finds and lists all transactions in expenseLa whose category is of the argument keyword.
  * Keyword matching is case insensitive.
  */
-public class FilterCommand extends Command{
+public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 

@@ -1,15 +1,15 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.Arrays;
 
 import seedu.expensela.logic.commands.FilterCommand;
-import seedu.expensela.logic.commands.FindCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
-import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -22,30 +22,32 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FilterCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_CATEGORY);
+
+        if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_DATE).isPresent())
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        try {
+            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+                // set filter
+                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+                // sends the next word after "category" to see if it matches any transaction categories
+                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)));
+            }
 
-        if (nameKeywords.length != 2) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
-        } else if (nameKeywords[0].equals("category")) {
-            // set filter
-
-            // sends the next word after "category" to see if it matches any transaction categories
-            return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(nameKeywords[1])));
-        } else if (nameKeywords[0].equals("date")) {
-
-            // sends the next word after "date" to see if it matches any transaction dates
-            return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(nameKeywords[1])));
-        } else {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+            if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                // sends the next word after "date" to see if it matches any transaction dates
+                String date = argMultimap.getValue(PREFIX_DATE).get().trim();
+                return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(date)));
+            }
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
 }

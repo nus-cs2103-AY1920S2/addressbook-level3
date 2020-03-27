@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Filter;
-import seedu.expensela.model.monthlydata.MonthlyData;
 
 /**
  * Panel containing the list of transactions.
@@ -16,7 +15,7 @@ public class FilterPanel extends UiPart<Region> {
     private static final String FXML = "FilterPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(FilterPanel.class);
 
-    public final Filter filter;
+    private final Filter filter;
 
     @FXML
     private Label filterTypeLabel;

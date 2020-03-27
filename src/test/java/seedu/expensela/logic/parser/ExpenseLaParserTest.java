@@ -28,7 +28,7 @@ import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
 import seedu.expensela.testutil.TransactionBuilder;
 import seedu.expensela.testutil.TransactionUtil;
 
-public class DateBookParserTest {
+public class ExpenseLaParserTest {
 
     private final ExpenseLaParser parser = new ExpenseLaParser();
 
@@ -57,7 +57,8 @@ public class DateBookParserTest {
         Transaction transaction = new TransactionBuilder().build();
         EditCommand.EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_TRANSACTION.getOneBased() + " " + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
+                + INDEX_FIRST_TRANSACTION.getOneBased() + " "
+                + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_TRANSACTION, descriptor), command);
     }
 
@@ -89,12 +90,13 @@ public class DateBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class,
+                MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }

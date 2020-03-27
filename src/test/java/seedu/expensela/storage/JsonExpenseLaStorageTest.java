@@ -3,7 +3,10 @@ package seedu.expensela.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalTransactions.*;
+import static seedu.expensela.testutil.TypicalTransactions.APPLES;
+import static seedu.expensela.testutil.TypicalTransactions.HEALTH;
+import static seedu.expensela.testutil.TypicalTransactions.ICE_CREAM;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,7 +19,7 @@ import seedu.expensela.commons.exceptions.DataConversionException;
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 
-public class JsonDateBookStorageTest {
+public class JsonExpenseLaStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonExpenseLaStorageTest");
 

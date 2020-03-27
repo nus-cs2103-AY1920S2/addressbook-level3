@@ -2,10 +2,10 @@ package seedu.expensela.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.DESC_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.expensela.logic.commands.CommandTestUtil.showTransactionAtIndex;
@@ -54,7 +54,8 @@ public class EditCommandTest {
         Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
         TransactionBuilder transactionInList = new TransactionBuilder(lastTransaction);
-        Transaction editedTransaction = transactionInList.withName(VALID_NAME_AIRPODS).withAmount(VALID_AMOUNT_AIRPODS, false)
+        Transaction editedTransaction = transactionInList.withName(VALID_NAME_AIRPODS)
+                .withAmount(VALID_AMOUNT_AIRPODS, false)
                 .build();
 
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS)
@@ -85,8 +86,11 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction transactionInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList).withName(VALID_NAME_AIRPODS).build();
+        Transaction transactionInFilteredList = model.getFilteredTransactionList()
+                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList)
+                .withName(VALID_NAME_AIRPODS)
+                .build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
 
@@ -112,7 +116,8 @@ public class EditCommandTest {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
         // edit transaction in filtered list into a duplicate in expense la
-        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(INDEX_SECOND_TRANSACTION.getZeroBased());
+        Transaction transactionInList = model.getExpenseLa().getTransactionList()
+                .get(INDEX_SECOND_TRANSACTION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder(transactionInList).build());
 
@@ -122,7 +127,9 @@ public class EditCommandTest {
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build();
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+                .withName(VALID_NAME_AIRPODS)
+                .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);

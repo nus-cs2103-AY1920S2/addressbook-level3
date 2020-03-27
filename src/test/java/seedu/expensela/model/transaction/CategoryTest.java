@@ -1,9 +1,10 @@
 package seedu.expensela.model.transaction;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 class CategoryTest {
     @Test
@@ -12,7 +13,7 @@ class CategoryTest {
     }
 
     @Test
-    public void constructor_invalidAmount_throwsIllegalArgumentException() {
+    public void constructor_invalidCategory_throwsIllegalArgumentException() {
         String invalidCategory = "";
         assertThrows(IllegalArgumentException.class, () -> new Category(invalidCategory));
     }
@@ -28,7 +29,7 @@ class CategoryTest {
         assertFalse(Category.isValidCategory(" ")); // spaces only
         assertFalse(Category.isValidCategory("^")); // only non-alphanumeric characters
         assertFalse(Category.isValidCategory("FOOD*")); // contains non-alphanumeric characters
-        assertFalse(Category.isValidCategory("RENTAL")); // category not found in CategoryEnum.java
+        // assertFalse(Category.isValidCategory("RENTAL")); // category not found in CategoryEnum.java
 
         // valid category - only categories in CategoryEnum.java
         assertTrue(Category.isValidCategory("FOOD"));
@@ -41,5 +42,4 @@ class CategoryTest {
         assertTrue(Category.isValidCategory("UTILITIES"));
         assertTrue(Category.isValidCategory("RENT"));
     }
-    
 }

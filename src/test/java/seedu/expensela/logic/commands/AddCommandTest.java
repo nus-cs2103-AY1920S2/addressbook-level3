@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
@@ -48,7 +49,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validTransaction);
         ModelStub modelStub = new ModelStubWithTransaction(validTransaction);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_TRANSACTION, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_TRANSACTION, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -155,7 +157,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateMonthlyData(MonthlyData monthlyData) {
+        public void setMonthlyData(MonthlyData monthlyData) {
+
+        }
+
+        @Override
+        public Filter getFilter() {
+            return null;
         }
 
         @Override

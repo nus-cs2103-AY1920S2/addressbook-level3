@@ -19,7 +19,7 @@ public class Category {
     public static final String VALIDATION_REGEX;
 
     static {
-        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()' ]*";
+        VALIDATION_REGEX = "[\\p{Alnum}]+";
     }
 
     public final String transactionCategory;
@@ -39,8 +39,7 @@ public class Category {
      * Returns true if a given string is a valid category.
      */
     public static boolean isValidCategory(String test) {
-        // return test.matches(VALIDATION_REGEX);
-        return true;
+        return test.matches(VALIDATION_REGEX);
     }
 
 

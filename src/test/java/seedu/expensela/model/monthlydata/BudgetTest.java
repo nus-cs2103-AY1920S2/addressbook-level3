@@ -37,6 +37,6 @@ public class BudgetTest {
         // valid budget
         assertTrue(Budget.isValidAmount("88.80")); // both dollars and cents
         assertTrue(Budget.isValidAmount("87654321.88"));
-        assertFalse(Budget.isValidAmount("124293842033123.00")); // long budget
+        assertTrue(Budget.isValidAmount("124293842033123.00")); // long budget
     }
 }

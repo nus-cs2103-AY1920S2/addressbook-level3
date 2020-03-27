@@ -91,7 +91,7 @@ public interface Model {
     MonthlyData getMonthlyData();
 
     /** Updates monthly data by the given monthly data */
-    void updateMonthlyData(MonthlyData monthlyData);
+    void setMonthlyData(MonthlyData monthlyData);
 
     Filter getFilter();
 

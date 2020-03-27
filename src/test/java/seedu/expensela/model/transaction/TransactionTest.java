@@ -2,9 +2,12 @@ package seedu.expensela.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.*;
-import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_SHOPPING;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
+import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +37,8 @@ public class TransactionTest {
         assertFalse(PIZZA.isSameTransaction(editedPizza));
 
         // same name, same category, different amount, different remark -> returns false
-        editedPizza = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).withRemark(VALID_REMARK_AIRPODS)
+        editedPizza = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false)
+                .withRemark(VALID_REMARK_AIRPODS)
                 .build();
         assertFalse(PIZZA.isSameTransaction(editedPizza));
 

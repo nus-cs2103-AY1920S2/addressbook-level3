@@ -120,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
         monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
 
-        filterPanel = new FilterPanel(logic.getFilter());       // instantiate filterPanel
+        filterPanel = new FilterPanel(logic.getFilter()); // instantiate filterPanel
         filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

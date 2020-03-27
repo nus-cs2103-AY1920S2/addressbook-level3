@@ -1,21 +1,25 @@
 package seedu.expensela.testutil;
 
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_SHOPPING;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.monthlydata.Budget;
+import seedu.expensela.model.monthlydata.Expense;
+import seedu.expensela.model.monthlydata.Income;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -38,7 +42,7 @@ public class TypicalTransactions {
     public static final Transaction CAR_GAS = new TransactionBuilder().withName("Car Gas")
             .withAmount("50.49", false)
             .withDate("2020-02-28")
-            .withRemark("")
+            .withRemark("for my car")
             .withCategory("UTILITIES")
             .build();
     public static final Transaction DOMINOS = new TransactionBuilder().withName("Domino's Pizza")
@@ -50,7 +54,7 @@ public class TypicalTransactions {
     public static final Transaction ELECTRICITY = new TransactionBuilder().withName("Electricity bill")
             .withAmount("250.00", false)
             .withDate("2020-03-02")
-            .withRemark("")
+            .withRemark("expensive")
             .withCategory("UTILITIES")
             .build();
     public static final Transaction FLOWERS = new TransactionBuilder().withName("Flowers")
@@ -60,7 +64,7 @@ public class TypicalTransactions {
             .withCategory("SHOPPING")
             .build();
     public static final Transaction GRAB = new TransactionBuilder().withName("Grab to work")
-            .withAmount("1000.00", false)
+            .withAmount("100.00", false)
             .withDate("2020-03-04")
             .withRemark("Claim from boss")
             .withCategory("TRANSPORT")
@@ -76,7 +80,7 @@ public class TypicalTransactions {
     public static final Transaction ICE_CREAM = new TransactionBuilder().withName("Ice Cream from Udders")
             .withAmount("6.00", false)
             .withDate("2020-03-06")
-            .withRemark("Rum ice-cream is the best")
+            .withRemark("Rum ice cream is the best")
             .withCategory("FOOD")
             .build();
 
@@ -103,9 +107,11 @@ public class TypicalTransactions {
      */
     public static ExpenseLa getTypicalExpenseLa() {
         ExpenseLa el = new ExpenseLa();
+        MonthlyData monthlyData = new MonthlyData("1", new Budget("1000"), new Expense("500"), new Income("2000"));
         for (Transaction transaction : getTypicalTransactions()) {
             el.addTransaction(transaction);
         }
+        el.setMonthlyData(monthlyData);
         return el;
     }
 

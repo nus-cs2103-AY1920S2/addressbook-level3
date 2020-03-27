@@ -13,12 +13,14 @@ import seedu.expensela.commons.util.JsonUtil;
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.testutil.TypicalTransactions;
 
-public class JsonSerializableDateBookTest {
+public class JsonSerializableExpenseLaTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableExpenseLaTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonSerializableExpenseLaTest");
     private static final Path TYPICAL_TRANSACTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalTransactionsExpenseLa.json");
     private static final Path INVALID_TRANSACTION_FILE = TEST_DATA_FOLDER.resolve("invalidTransactionExpenseLa.json");
-    private static final Path DUPLICATE_TRANSACTION_FILE = TEST_DATA_FOLDER.resolve("duplicateTransactionExpenseLa.json");
+    private static final Path DUPLICATE_TRANSACTION_FILE = TEST_DATA_FOLDER
+            .resolve("duplicateTransactionExpenseLa.json");
 
     @Test
     public void toModelType_typicalTransactionsFile_success() throws Exception {

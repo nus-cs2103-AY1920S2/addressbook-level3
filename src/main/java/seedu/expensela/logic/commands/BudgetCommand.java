@@ -31,7 +31,7 @@ public class BudgetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         MonthlyData currentData = model.getMonthlyData();
-        model.updateMonthlyData(new MonthlyData("1", new Budget(budgetValue.toString()), currentData.getExpense(),
+        model.setMonthlyData(new MonthlyData("1", new Budget(budgetValue.toString()), currentData.getExpense(),
                 currentData.getIncome()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, budgetValue));
     }

@@ -12,7 +12,7 @@ public class Expense {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Expense should only contain numbers with 2 decimal places";
-    public static final String VALIDATION_REGEX = "^-?\\d*\\.?\\d{0,2}$";
+    public static final String VALIDATION_REGEX = "^-?\\d+\\.?\\d{0,2}$";
     public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
     public final Double expenseAmount;
 
@@ -45,7 +45,7 @@ public class Expense {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Expense // instanceof handles nulls
-                && expenseAmount == ((Expense) other).expenseAmount); // state check
+                && expenseAmount.equals(((Expense) other).expenseAmount)); // state check
     }
 
     @Override

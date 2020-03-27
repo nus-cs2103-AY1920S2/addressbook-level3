@@ -1,7 +1,12 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.*;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.stream.Stream;
 
@@ -32,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK,
                         PREFIX_CATEGORY, PREFIX_INCOME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INCOME)){
+        if (!arePrefixesPresent(argMultimap, PREFIX_INCOME)) {
             isNotIncome = false;
         }
 
@@ -41,15 +46,19 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        try {
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
+            Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+            Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
-        Transaction transaction = new Transaction(name, amount, date, remark, category);
+            Transaction transaction = new Transaction(name, amount, date, remark, category);
 
-        return new AddCommand(transaction);
+            return new AddCommand(transaction);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 
     /**

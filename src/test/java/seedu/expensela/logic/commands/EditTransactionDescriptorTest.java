@@ -2,7 +2,13 @@ package seedu.expensela.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.*;
+import static seedu.expensela.logic.commands.CommandTestUtil.DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_SHOPPING;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +36,9 @@ public class EditTransactionDescriptorTest {
         assertFalse(DESC_PIZZA.equals(DESC_AIRPODS));
 
         // different name -> returns false
-        EditTransactionDescriptor editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA).withName(VALID_NAME_AIRPODS).build();
+        EditTransactionDescriptor editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA)
+                .withName(VALID_NAME_AIRPODS)
+                .build();
         assertFalse(DESC_PIZZA.equals(editedPizza));
 
         // different amount -> returns false
