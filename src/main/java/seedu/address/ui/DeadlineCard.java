@@ -6,6 +6,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -28,7 +30,7 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label module;
+    private Text module;
     @FXML
     private Label description;
     @FXML
@@ -40,20 +42,44 @@ public class DeadlineCard extends UiPart<Region> {
     public DeadlineCard(Deadline deadline) {
         super(FXML);
         this.deadline = deadline;
+        for (Module mod : Profile.getCurModules().getModuleList()) {
+            if (mod.getModuleCode().moduleCode.equals(deadline.getModuleCode())) {
+                int tag = mod.getTag();
+                if (tag == 0) { //up to 8 modules
+                    module.setFill(Color.valueOf("84a9ac"));
+                } else if (tag == 1) {
+                    module.setFill(Color.valueOf("d45d79"));
+                } else if (tag == 2) {
+                    module.setFill(Color.valueOf("ff9933"));
+                } else if (tag == 3) {
+                    module.setFill(Color.valueOf("f6d186"));
+                } else if (tag == 4) {
+                    module.setFill(Color.valueOf("b590ca"));
+                } else if (tag == 5) {
+                    module.setFill(Color.valueOf("ea9085"));
+                } else if (tag == 6) {
+                    module.setFill(Color.valueOf("cae8d5"));
+                } else {
+
+                }
+            }
+        }
+        //module name
         module.setText(deadline.getModuleCode());
+
         description.setText("Task: " + deadline.getDescription());
         if (deadline.getDate() == null) {
             date.setText("Date: -");
-            this.date.setFill(Color.WHITE);
+            date.setFill(Color.WHITE);
             time.setText("Time: -");
         } else {
             date.setText("Date: " + deadline.getStringDate());
             if (deadline.getTag().equals("RED")) {
-                this.date.setFill(Color.valueOf("F05B5B"));
+                date.setFill(Color.valueOf("F05B5B"));
             } else if (deadline.getTag().equals("YELLOW")) {
-                this.date.setFill(Color.YELLOW);
+                date.setFill(Color.YELLOW);
             } else {
-                this.date.setFill(Color.LAWNGREEN);
+                date.setFill(Color.LAWNGREEN);
             }
 
             time.setText("Time: " + deadline.getStringTime());
@@ -69,7 +95,6 @@ public class DeadlineCard extends UiPart<Region> {
 
         // instanceof handles nulls
         if (!(other instanceof ProfileCard)) {
-            System.out.print("");
             return false;
         }
 

@@ -103,7 +103,7 @@ public class LogicManager implements Logic {
     public ObservableList<Deadline> getFilteredDeadlineList() {
         if (model.getFilteredPersonList().size() == 1) { //profile exists
             int curSem = Profile.getCurrentSemester(); //taking from static profile
-            if (model.getFirstProfile().getCurModules(curSem) != null) {
+            if (model.getFirstProfile().getCurModules() != null) {
                 model.loadDeadlines();
             }
         }

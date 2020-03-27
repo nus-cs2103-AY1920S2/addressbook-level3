@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -15,8 +13,6 @@ import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
-
-import java.util.ArrayList;
 
 /**
  * Displays details requested by user.
@@ -34,7 +30,8 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are: \n%1$s";
     public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are:\n%1$s";
     public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are:\n%1$s";
-    public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in this semester are shown: \n%1$s";
+    public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in this semester are shown: "
+            +"\nEnter [show m/MODULE_CODE] to find out more about the module";
 
     private final Object toShow;
 

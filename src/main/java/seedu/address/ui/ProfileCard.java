@@ -43,7 +43,7 @@ public class ProfileCard extends UiPart<Region> {
         course.setText("Course: " + profile.getCourseName().toString());
         curSem.setText("Current Semester: " + profile.getCurrentSemester());
         if (profile.getSpecialisation() != null) {
-            specialisation.setText("Specialisation: " + profile.getSpecialisation().toString().toUpperCase());
+            specialisation.setText("Specialisation: " + profile.getSpecialisation().toUpperCase());
         } else {
             specialisation.setText("Specialisation: -");
         }
@@ -58,7 +58,6 @@ public class ProfileCard extends UiPart<Region> {
 
         // instanceof handles nulls
         if (!(other instanceof ProfileCard)) {
-            System.out.print("");
             return false;
         }
 

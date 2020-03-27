@@ -45,6 +45,7 @@ public class Profile {
         Profile.moduleHash = new HashMap<>();
     }
 
+
     /**
      * Adds a module to the hashmap with the key being the semester
      */
@@ -56,6 +57,12 @@ public class Profile {
             moduleList.addModule(module);
             moduleHash.put(semester, moduleList);
         }
+
+        int id = 0;
+        for (Module mod : moduleHash.get(currentSemester)) { //for colourising module names
+            mod.setTag(id++);
+        }
+
     }
 
     public Name getName() {
@@ -122,7 +129,7 @@ public class Profile {
         return deadlineList;
     }
 
-    public ModuleList getCurModules(int currentSemester) {
+    public static ModuleList getCurModules() {
         return moduleHash.get(currentSemester);
     }
 

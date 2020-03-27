@@ -47,7 +47,6 @@ public class ModuleCard extends UiPart<Region> {
 
         // instanceof handles nulls
         if (!(other instanceof ModuleCard)) {
-            System.out.print("");
             return false;
         }
 
