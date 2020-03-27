@@ -584,9 +584,18 @@ will cause the creation of a new Coupon with the
 correct recorded number of uses and amount of
 savings earned. The next sequence diagram shows
 how the execute() method interacts with other
-components to produce the new Coupon.
+components to produce the new total savings
+value for the new Coupon.
 
 image::UsedExecutionSeqDiagram.png[]
+
+In the end, the total savings value of the Coupon
+is updated. This total savings is represented by
+a DateSavingsSumMap, which is a hash table that
+links the current date (LocalDate) to the savings
+earned (PureMonetarySavings) on that date. The
+next image shows the class diagram of the
+DateSavingsSumMap.
 
 ==== Implementation of saved command
 

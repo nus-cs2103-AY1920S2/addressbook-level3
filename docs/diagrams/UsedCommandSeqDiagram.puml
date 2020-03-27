@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":CouponStashParser" as CouponStashParser LOGIC_COLOR
 participant "ucp:UsedCommandParser" as UsedCommandParser LOGIC_COLOR
 participant "u:UsedCommand" as UsedCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -51,7 +51,6 @@ activate UsedCommand
 UsedCommand -> Model : setCoupon(couponToBeUsed, newCoupon)
 activate Model
 
-Model --> UsedCommand
 deactivate Model
 
 create CommandResult
@@ -63,6 +62,8 @@ deactivate CommandResult
 
 UsedCommand --> LogicManager : result
 deactivate UsedCommand
+UsedCommand -[hidden]-> UsedCommandParser
+destroy UsedCommand
 
 [<--LogicManager
 deactivate LogicManager
