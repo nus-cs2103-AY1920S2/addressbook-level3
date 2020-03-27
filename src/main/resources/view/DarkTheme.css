@@ -311,7 +311,7 @@
 
 #cardPaneProduct {
     // -fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #023448, #00868A);
-    -fx-background-color: rgb(31,203,255);
+    -fx-background-color: #1fcbff;
     -fx-border-width: 0;
     -fx-background-radius: 10px;
 }
@@ -324,6 +324,12 @@
 
 #cardPaneTransaction {
     -fx-background-color: #E797FD;
+    -fx-border-width: 0;
+    -fx-background-radius: 10px;
+}
+
+#cardPaneStatistics {
+    -fx-background-color: #1fcbff;
     -fx-border-width: 0;
     -fx-background-radius: 10px;
 }

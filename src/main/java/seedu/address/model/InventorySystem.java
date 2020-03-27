@@ -84,11 +84,11 @@ public class InventorySystem implements ReadOnlyInventorySystem {
     public void resetData(ReadOnlyInventorySystem newData, String commandWord) {
         requireNonNull(newData);
 
-        if (commandWord.equals("clearc")) {
+        if (commandWord.equals(ClearCustomerCommand.COMMAND_WORD)) {
             setPersons(newData.getPersonList());
-        } else if (commandWord.equals("clearp")) {
+        } else if (commandWord.equals(ClearProductCommand.COMMAND_WORD)) {
             setProducts(newData.getProductList());
-        } else if (commandWord.equals("cleart")) {
+        } else if (commandWord.equals(ClearTransactionCommand.COMMAND_WORD)) {
             setTransactions(newData.getTransactionList());
         }
     }
