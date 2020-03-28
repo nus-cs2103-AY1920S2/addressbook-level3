@@ -31,10 +31,11 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private CouponListPanel couponListPanel;
     private HelpWindow helpWindow;
     private CalendarWindow calendarWindow;
     private CalendarResultDisplayPane calendarResultPane;
+    private TabsPanel tabPanel;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -52,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem calendarMenuItem;
 
     @FXML
-    private StackPane couponListPanelPlaceholder;
+    private StackPane tabPanePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -112,9 +113,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        couponListPanel = new CouponListPanel(
-                logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
-        couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
+        tabPanel = new TabsPanel(logic);
+        tabPanePlaceholder.getChildren().add(tabPanel.getRoot());
+        tabPanel.fillInnerParts();
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -163,11 +164,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-
-    public CouponListPanel getCouponListPanel() {
-        return couponListPanel;
-    }
-
 
     /**
      * Opens the calendar window or focuses on it if it's already opened.

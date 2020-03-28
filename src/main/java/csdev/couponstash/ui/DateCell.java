@@ -10,6 +10,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -60,6 +61,11 @@ public class DateCell extends UiPart<Region> {
         displayCircle = formattedCircle;
     }
 
+    public void setCursor() {
+        displayCircle.setCursor(Cursor.HAND);
+        displayText.setCursor(Cursor.HAND);
+    }
+
     public void addChildren() {
         dateStackPane.getChildren().addAll(displayCircle, displayText);
     }
@@ -92,13 +98,23 @@ public class DateCell extends UiPart<Region> {
     }
 
     /**
-     * Returns the date of this {@code CalendarDateCell}.
+     * Returns the date of this {@code DateCell}.
      *
-     * @return The date of this {@code CalendarDateCell}.
+     * @return The date of this {@code DateCell}.
      */
     public LocalDate getDate() {
         return date;
     }
+
+    /**
+     * Returns the text of this {@code DateCell}.
+     *
+     * @return The date of this {@code DateCell}.
+     */
+    public Text getText() {
+        return displayText;
+    }
+
 
     /**
      * Returns the number of Coupons in this {@code DateCell}.

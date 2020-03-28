@@ -20,10 +20,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
- * The ui for the Calendar that is displayed at the right of the application.
+ * Calendar that is displayed at the right.
  */
 public class CalendarPane extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(CalendarPane.class);
@@ -54,7 +55,6 @@ public class CalendarPane extends UiPart<Region> {
      */
     public CalendarPane(Logic logic) {
         super(FXML);
-        calendarPaneHeader.setText(LocalDate.now().format(DATE_FORMATTER));
         currentYearMonth = YearMonth.now();
         dateCells = new ArrayList<>();
         this.coupons = logic.getFilteredCouponList();
@@ -172,14 +172,16 @@ public class CalendarPane extends UiPart<Region> {
         boolean visible = isVisible(date);
 
         Text dateText = new Text(String.format("%02d", date.getDayOfMonth()));
+        dateText.setFont(new Font("Segoe Ui SemiBold", 14));
+        dateText.setFill(Paint.valueOf("#FFFFFF"));
         if (visible) {
             if (dateIsInCurrentMonth(date)) {
-                dateText.setFill(Paint.valueOf("#FFFFFF"));
+                dateText.setOpacity(1);
             } else {
-                dateText.setFill(Paint.valueOf("#4D4E4F"));
+                dateText.setOpacity(0.5);
             }
         } else {
-            dateText.setFill(Paint.valueOf("#000000"));
+            dateText.setOpacity(0);
         }
         dateCell.setText(dateText);
     }
@@ -222,13 +224,17 @@ public class CalendarPane extends UiPart<Region> {
         StackPane.setAlignment(circle, Pos.CENTER);
         if (dateCell.getNumberOfCoupons() > 0 && dateIsInCurrentMonth(date)) {
             circle.setFill(Paint.valueOf("#02075D"));
+            dateCell.setCircle(circle);
+            dateCell.setCursor();
         } else if (date.isEqual(LocalDate.now())) {
-            circle.setFill(Paint.valueOf("#8D021F"));
+            circle.setFill(Paint.valueOf("#DF6D54"));
+            dateCell.setCircle(circle);
         } else {
             circle = new Circle(0);
+            dateCell.setCircle(circle);
         }
-        dateCell.setCircle(circle);
     }
+
 
     /**
      * Returns a boolean if the specified {@LocalDate} is in the current month.
