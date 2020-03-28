@@ -26,7 +26,7 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
      *   among constructors.
      */
     {
-        persons = new seedu.eylah.expensesplitter.model.person.UniquePersonList();
+        persons = new UniquePersonList();
     }
 
     public PersonAmountBook() {}

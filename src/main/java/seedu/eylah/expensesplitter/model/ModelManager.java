@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
+import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
 
 /**

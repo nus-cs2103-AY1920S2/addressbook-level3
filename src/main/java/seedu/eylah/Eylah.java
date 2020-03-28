@@ -23,7 +23,7 @@ import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
-import seedu.eylah.expensesplitter.model.Receipt;
+import seedu.eylah.expensesplitter.model.receipt.Receipt;
 import seedu.eylah.expensesplitter.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
 import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
@@ -147,7 +147,7 @@ public class Eylah {
 
             PersonAmountStorage personAmountStorage =
                     new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
-            storage = new StorageManager(personAmountStorage, userPrefsStorage);
+            storage = new StorageManager(personAmountStorage, userPrefsStorage, null);
 
             splitterModel = initModelManager(storage, userPrefs);
 

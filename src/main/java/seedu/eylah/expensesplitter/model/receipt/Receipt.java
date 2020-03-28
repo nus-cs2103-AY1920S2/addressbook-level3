@@ -1,4 +1,4 @@
-package seedu.eylah.expensesplitter.model;
+package seedu.eylah.expensesplitter.model.receipt;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public class Receipt {
      *
      * @param entry Entry to be added.
      */
-    void addEntry(Entry entry) {
+    public void addEntry(Entry entry) {
         this.receipt.add(entry);
     }
 
@@ -31,7 +31,7 @@ public class Receipt {
      *
      * @param index Index of Entry to be deleted.
      */
-    void deleteEntry(int index) {
+    public void deleteEntry(int index) {
         receipt.remove(index);
     }
 
@@ -46,6 +46,19 @@ public class Receipt {
      */
     public ArrayList<Entry> getReceipt() {
         return this.receipt;
+    }
+
+    /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameReceipt(Receipt otherReceipt) {
+        if (otherReceipt == this) {
+            return true;
+        }
+
+        return otherReceipt != null
+                && otherReceipt.getReceipt().equals(getReceipt());
     }
 
     @Override

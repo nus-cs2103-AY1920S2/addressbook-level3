@@ -6,13 +6,14 @@ import java.util.Optional;
 
 import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
 import seedu.eylah.expensesplitter.model.UserPrefs;
 
 /**
  * API of the Storage component.
  */
-public interface Storage extends PersonAmountStorage, UserPrefsStorage {
+public interface Storage extends PersonAmountStorage, UserPrefsStorage, ReceiptStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -29,4 +30,12 @@ public interface Storage extends PersonAmountStorage, UserPrefsStorage {
     @Override
     void savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook) throws IOException;
 
+    @Override
+    Path getReceiptBookFilePath();
+
+    @Override
+    Optional<ReadOnlyReceiptBook> readReceiptBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveReceiptBook(ReadOnlyReceiptBook receiptBook) throws IOException;
 }

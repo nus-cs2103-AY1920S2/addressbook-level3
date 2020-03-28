@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
-import seedu.eylah.expensesplitter.model.Entry;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.model.Model;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Amount;

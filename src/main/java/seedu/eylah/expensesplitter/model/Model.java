@@ -2,6 +2,7 @@ package seedu.eylah.expensesplitter.model;
 
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
 
 /**
  * The API of the Model component.
