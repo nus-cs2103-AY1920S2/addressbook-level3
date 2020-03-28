@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.math.BigDecimal;
 
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
 import seedu.eylah.expensesplitter.model.Model;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
@@ -18,15 +19,20 @@ public class PaidCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully deducted amount from Person named: ";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Deducts the amount of Person identified by the index number of the Person in listamount.\n"
+        + "Parameters: INDEX and AMOUNT (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1" + " 3.30";
+
 
     //private final Person personPaid;
-    private final int indexOfPersonPaid;
+    private final Index indexOfPersonPaid;
     private final String amountPaid;
 
     /**
      * Creates an PaidCommand to add the specified {@code Person}
      */
-    public PaidCommand (int indexOfPersonPaid, String amountPaid) {
+    public PaidCommand (Index indexOfPersonPaid, String amountPaid) {
         requireNonNull(indexOfPersonPaid);
         requireNonNull(amountPaid);
         this.indexOfPersonPaid = indexOfPersonPaid;
@@ -39,11 +45,12 @@ public class PaidCommand extends Command {
         ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
         //This ensures that the indexOfPersonPaid is correct.
-        if (indexOfPersonPaid < 0 || indexOfPersonPaid > book.getPersonList().size() - 1) {
+        if (indexOfPersonPaid.getZeroBased() < 0
+            || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
             throw new CommandException("Index of Person is incorrect. Please use `listamount` to get the index.");
         }
 
-        Person person = book.getPersonByIndex(indexOfPersonPaid);
+        Person person = book.getPersonByIndex(indexOfPersonPaid.getZeroBased());
         String initialAmount = person.getAmount().toString();
 
         //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID

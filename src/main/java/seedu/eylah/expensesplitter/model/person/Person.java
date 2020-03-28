@@ -5,6 +5,8 @@ import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import seedu.eylah.commons.util.CalculateUtil;
+
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -24,7 +26,6 @@ public class Person {
         requireAllNonNull(name);
         this.name = name;
         this.amount = amount;
-
     }
 
     public Name getName() {
@@ -89,8 +90,7 @@ public class Person {
     public void addAmount(Amount amount) {
         BigDecimal currAmount = this.amount.getBigDecimal();
         BigDecimal amountToBeAdded = amount.getBigDecimal();
-        BigDecimal newAmount = currAmount.add(amountToBeAdded);
-        this.amount = new Amount(newAmount);
+        this.amount = CalculateUtil.addAmount(currAmount, amountToBeAdded);
     }
 
     /**
@@ -99,7 +99,6 @@ public class Person {
     public void removeAmount(Amount amount) {
         BigDecimal currAmount = this.amount.getBigDecimal();
         BigDecimal amountToBeRemoved = amount.getBigDecimal();
-        BigDecimal newAmount = currAmount.subtract(amountToBeRemoved);
-        this.amount = new Amount(newAmount);
+        this.amount = CalculateUtil.removeAmount(currAmount, amountToBeRemoved);
     }
 }

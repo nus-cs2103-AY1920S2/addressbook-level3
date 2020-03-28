@@ -159,7 +159,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -1044,17 +1044,19 @@ or obese based on tissue mass (muscle, fat, and bone) and height
 A static class used in Diet Tracker to represent the user in the model.
 
 _Table 1. Diet Tracker Command Prefix_ +
-| Prefix | Description | Used in Following Commands |
-| --- | --- | --- |
-| -n | Name of Food | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>>  |
-| -c | Calories | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>> |
-| -g | Gain | <<Mode-Command,*Mode*>> |
-| -m | Maintain | <<Mode-Command,*Mode*>> |
-| -f | Foods | <<List-Command,*List*>> |
-| -d | Day | <<List-Command,*List*>> |
-| -t | Track | <<List-Command,*List*>> |
-| -h | Height | <<Bmi-Command,*Bmi*>> |
-| -w | Weight | <<Bmi-Command,*Bmi*>> |
+[width="59%",cols="22%,<23%,<25%,options="header",]
+|=======================================================================
+| Prefix | Description | Used in Following Commands
+| -n | Name of Food | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>>
+| -c | Calories | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>>
+| -g | Gain | <<Mode-Command,*Mode*>>
+| -m | Maintain | <<Mode-Command,*Mode*>>
+| -f | Foods | <<List-Command,*List*>>
+| -d | Day | <<List-Command,*List*>>
+| -t | Track | <<List-Command,*List*>>
+| -h | Height | <<Bmi-Command,*Bmi*>>
+| -w | Weight | <<Bmi-Command,*Bmi*>>
+|=======================================================================
 
 [appendix]
 == Product Survey
@@ -1091,6 +1093,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a Food in Diet Tracker
+
+. Adding a Food
+
+.. Test case: `add -n burger -c 170` +
+   Expected: Food is added to FoodBook. Details of the added Food are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add burger` +
+   Expected: No Food is added. Error details and the correct format to input will be shown to the user.
+.. Other incorrect add commands to try: `add`, `add` with no flags `-f` and `-c` appended to the command. +
+   Expected: Similar to previous.
+
 === Deleting a Food in Diet Tracker
 
 . Deleting a Food while all Foods are listed
@@ -1102,8 +1115,6 @@ _{ more test cases ... }_
    Expected: No Food is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Editing a Food in Diet Tracker
 
