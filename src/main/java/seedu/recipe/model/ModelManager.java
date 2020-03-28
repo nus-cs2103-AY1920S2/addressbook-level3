@@ -4,15 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.model.plan.Date;
-import seedu.recipe.model.plan.ScheduleMap;
+import seedu.recipe.model.plan.ReadOnlyScheduleBook;
+import seedu.recipe.model.plan.ScheduleBook;
+import seedu.recipe.model.plan.UniqueScheduleMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -22,25 +26,28 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final RecipeBook recipeBook;
+    private final ScheduleBook scheduleBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private final ScheduleMap plannedRecipes;
+    private ObservableMap<Date, List<Recipe>> scheduledRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyScheduleBook scheduleBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
         logger.fine("Initializing with recipe book: " + recipeBook + " and user prefs " + userPrefs);
 
         this.recipeBook = new RecipeBook(recipeBook);
+        this.scheduleBook = new ScheduleBook(scheduleBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        plannedRecipes = new ScheduleMap(); // todo: planned recipes cant be saved currently
+        // todo: planned recipes cant be saved currently
+        scheduledRecipes = new ObservableMap<>(this.sch)
     }
 
     public ModelManager() {
@@ -169,6 +176,18 @@ public class ModelManager implements Model {
         filteredRecipes.setPredicate(predicate);
     }
 
+    //=========== Planned Recipe List Accessors =============================================================
+
+    @Override
+    public void planRecipe(Recipe recipeToSet, Date atDate) {
+        plannedRecipes.add(recipeToSet, atDate);
+    }
+
+    @Override
+    public ObservableMap<Date, List<Recipe>> getScheduleMap() {
+        return scheduledRecipes;
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -188,11 +207,6 @@ public class ModelManager implements Model {
                 && filteredRecipes.equals(other.filteredRecipes);
     }
 
-    //=========== Planned Recipe List Accessors =============================================================
 
-    @Override
-    public void planRecipe(Recipe recipeToSet, Date atDate) {
-        plannedRecipes.add(recipeToSet, atDate);
-    }
 
 }
