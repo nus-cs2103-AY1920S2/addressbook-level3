@@ -22,9 +22,21 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
+Are you a Teaching Assistant at School of Computing who is tired of having to keep
+track of all your claimable hours in some unappealing excel spreadsheet just so you
+can fill up the TSS Claims form accurately at the end of the semester? Do you want
+a place where you can keep track of everything related to your teaching duties, including
+keeping a track of your strongest and weakest students? If so, TA-Tracker is the tool
+for you!
+
 TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
-who want to be able to track and manage all of their claimable hours in NUS.
-Interested? Jump to the <<Quick Start>> to get started!
+who want to be able to track and manage their students and all of their claimable
+hours in NUS in one place.
+
+TA-Tracker is tailored towards TAs who *prefer to use a desktop application to
+manage their teaching duties* and is well suited for those who *prefer to work with a Command
+Line Interface* (CLI) while still having the benefits of a Graphical User Interface
+(GUI).If you're interested, jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
