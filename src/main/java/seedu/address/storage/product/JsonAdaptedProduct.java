@@ -54,7 +54,7 @@ public class JsonAdaptedProduct {
         costPrice = source.getCostPrice().value;
         price = source.getPrice().value;
         quantity = source.getQuantity().toString();
-        sales = source.getSales().toString();
+        sales = source.getMoney().toString();
         threshold = source.getThreshold().value;
         id = source.getId().toString();
     }

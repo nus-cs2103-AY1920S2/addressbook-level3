@@ -125,7 +125,7 @@ public class AddTransactionCommand extends Command {
     }
 
     private Money getNewSales(Transaction toAdd, Product productToEdit) throws CommandException {
-        Money oldSales = productToEdit.getSales();
+        Money oldSales = productToEdit.getMoney();
         Money newSales;
 
         try {

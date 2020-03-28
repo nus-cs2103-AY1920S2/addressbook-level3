@@ -56,7 +56,7 @@ public class DeleteTransactionCommand extends Command {
         Quantity newQuantity = oldQuantity.plus(transactionToDelete.getQuantity());
         editProductDescriptor.setQuantity(newQuantity);
 
-        Money oldSales = productToEdit.getSales();
+        Money oldSales = productToEdit.getMoney();
         Money newSales = oldSales.minus(transactionToDelete.getMoney());
         editProductDescriptor.setSales(newSales);
 

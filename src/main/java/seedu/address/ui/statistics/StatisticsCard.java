@@ -46,7 +46,7 @@ public class StatisticsCard extends UiPart<Region> {
         description.setText(product.getDescription().value);
         price.setText("$" + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantity().value));
-        sales.setText("$" + product.getSales().value);
+        sales.setText("$" + product.getMoney().value);
         threshold.setText(product.getThreshold().value);
     }
 

@@ -32,7 +32,7 @@ public class EditProductDescriptorBuilder {
         descriptor.setCostPrice(product.getCostPrice());
         descriptor.setPrice(product.getPrice());
         descriptor.setQuantity(product.getQuantity());
-        descriptor.setSales(product.getSales());
+        descriptor.setSales(product.getMoney());
     }
 
     /**
