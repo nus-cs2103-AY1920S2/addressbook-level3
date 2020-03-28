@@ -72,6 +72,30 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Replaces the contents of the group list with {@code groups}.
+     * {@code groups} must not contain duplicate groups.
+     */
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
+
+    /**
+     * Replaces the contents of the modules list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
+    }
+
+    /**
+     * Replaces the contents of the donesession list with {@code donesessions}.
+     * {@code donesessions} must not contain duplicate donesessions.
+     */
+    public void setDoneSessions(List<Session> donesessions) {
+        this.doneSessions.setSessions(donesessions);
+    }
+
+    /**
      * Resets the existing data of this {@code TaTracker} with {@code newData}.
      */
     public void resetData(ReadOnlyTaTracker newData) {
@@ -79,6 +103,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         setStudents(newData.getStudentList());
         setSessions(newData.getSessionList());
+        setDoneSessions(newData.getDoneSessionList());
+        setModules(newData.getModuleList());
+        setGroups(newData.getGroupList());
     }
 
     //// session-level operations
