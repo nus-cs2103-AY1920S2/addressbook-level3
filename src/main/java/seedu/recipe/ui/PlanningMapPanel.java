@@ -1,6 +1,7 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
@@ -54,34 +55,34 @@ public class PlanningMapPanel extends UiPart<Region> {
         super(FXML);
 
         LocalDate timeNow = LocalDate.now(ZoneId.of("Singapore"));
-
-        Calendar cal = Calendar.getInstance();
-        TimeZone tz = TimeZone.getTimeZone("Asia/Singapore");
-        cal.setTimeZone(tz);
+        timeNow.withDayOfMonth(1);
+        System.out.println("First day of this month is: " + timeNow);
         Locale singaporeLocale = new Locale("en", "SGP");
+        int numDaysThisMonth = timeNow.lengthOfMonth();
 
-        //int numDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int numDaysInMonth = timeNow.lengthOfMonth();
-        String month = timeNow.getMonth().getDisplayName(TextStyle.FULL, singaporeLocale);
-        //monthHeader.setText(cal.getDisplayName(cal.MONTH, cal.LONG, singaporeLocale));
-        monthHeader.setText(month);
+        String thisMonth = timeNow.getMonth().getDisplayName(TextStyle.FULL, singaporeLocale);
+        monthHeader.setText(thisMonth);
+
         calendarPane.setGridLinesVisible(true);
         calendarPane.addRow(0,
-                new Label("Sunday"),
                 new Label("Monday"),
                 new Label("Tuesday"),
                 new Label("Wednesday"),
                 new Label("Thursday"),
                 new Label("Friday"),
-                new Label("Saturday"));
-        int dayOfWeek = cal.getFirstDayOfWeek() - 1;
+                new Label("Saturday"),
+                new Label("Sunday"));
+
+        DayOfWeek getFirstDay = timeNow.getDayOfWeek();
+        int dayOfWeek = getFirstDay.getValue() - 1;
         int weekOfMonth = 1;
-        System.out.println(numDaysInMonth);
+
+        System.out.println(numDaysThisMonth);
 
         List<Recipe> stubRecipes = new ArrayList<>();
         stubRecipes.add(recipes.get(0));
 
-        for (int i = 1; i <= numDaysInMonth; i++) {
+        for (int i = 1; i <= numDaysThisMonth; i++) {
             PlanningDayCard card = new PlanningDayCard(stubRecipes, i);
             calendarPane.add(card.getDayCard(), dayOfWeek, weekOfMonth);
 
