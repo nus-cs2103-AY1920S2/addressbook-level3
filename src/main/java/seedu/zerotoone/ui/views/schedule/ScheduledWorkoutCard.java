@@ -25,4 +25,22 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
         scheduledWorkoutId.setText(String.format("%d. ", displayedIndex));
         scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ScheduledWorkoutCard)) {
+            return false;
+        }
+
+        // state check
+        ScheduledWorkoutCard card = (ScheduledWorkoutCard) other;
+        return scheduledWorkoutId.getText().equals(card.scheduledWorkoutId.getText())
+                && scheduledWorkoutName.getText().equals(card.scheduledWorkoutName.getText());
+    }
 }
