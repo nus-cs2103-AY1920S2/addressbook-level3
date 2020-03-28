@@ -507,6 +507,7 @@ Sets the current hourly rate to 25$.
 
 == GLOSSARY
 
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
