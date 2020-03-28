@@ -28,10 +28,11 @@ public interface Model {
     /** Returns the PersonAmountBook */
     ReadOnlyPersonAmountBook getPersonAmountBook();
 
+    /** Returns the ReceiptBook */
+    ReadOnlyReceiptBook getReceiptBook();
+
     /**
      * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.
-     *
-     *
      */
     void paidPerson(Person person, String amountPaid);
 

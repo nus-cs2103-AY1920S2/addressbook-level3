@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private Path personAmountFilePath = Paths.get("data", "personamount.json");
+    private Path receiptFilePath = Paths.get("data", "receiptbook.json");
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -40,6 +42,25 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setPersonAmountBookFilePath(Path personAmountFilePath) {
         requireNonNull(personAmountFilePath);
         this.personAmountFilePath = personAmountFilePath;
+    }
+
+    /**
+     * Returns the Receipt file path.
+     *
+     * @return Receipt file path
+     */
+    public Path getReceiptFilePath() {
+        return receiptFilePath;
+    }
+
+    /**
+     * Set the Receipt file path based on the given path.
+     *
+     * @param receiptFilePath the given file path.
+     */
+    public void setReceiptFilePath(Path receiptFilePath) {
+        requireNonNull(receiptFilePath);
+        this.receiptFilePath = receiptFilePath;
     }
 
 

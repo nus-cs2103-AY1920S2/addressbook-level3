@@ -30,20 +30,19 @@ public class ReceiptBook implements ReadOnlyReceiptBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the receipt list with {@code receipts}.
+     * {@code receipts} must not contain duplicate receipts.
      */
-    public void setPersons(List<Receipt> receipts) {
+    public void setReceipts(List<Receipt> receipts) {
         this.receipts.setReceipts(receipts);
     }
 
     /**
-     * Resets the existing data of this {@code PersonAmountBook} with {@code newData}.
+     * Resets the existing data of this {@code ReceiptBook} with {@code newData}.
      */
     public void resetData(ReadOnlyReceiptBook newData) {
         requireNonNull(newData);
-
-        setPersons(newData.getReceiptList());
+        setReceipts(newData.getReceiptList());
     }
 
     // receipt-level operations
@@ -67,5 +66,10 @@ public class ReceiptBook implements ReadOnlyReceiptBook {
     @Override
     public ObservableList<Receipt> getReceiptList() {
         return receipts.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean isContainSingleReceipt() {
+        return receipts.isContainSingleReceipt();
     }
 }

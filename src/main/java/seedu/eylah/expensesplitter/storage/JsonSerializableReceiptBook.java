@@ -28,7 +28,7 @@ public class JsonSerializableReceiptBook {
      * Constructs a {@code JsonSerializableReceiptBook} with the given receipt.
      */
     @JsonCreator
-    public JsonSerializableReceiptBook(@JsonProperty("persons") List<JsonAdaptedReceipt> receipts) {
+    public JsonSerializableReceiptBook(@JsonProperty("receipts") List<JsonAdaptedReceipt> receipts) {
         this.receipts.addAll(receipts);
     }
 

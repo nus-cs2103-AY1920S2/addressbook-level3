@@ -98,6 +98,15 @@ public class UniqueReceiptList implements Iterable<Receipt> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Check if the list contain at least a receipt.
+     *
+     * @return true if contain at least a receipt, otherwise false.
+     */
+    public boolean isContainSingleReceipt() {
+        return internalList.size() != 0;
+    }
+
     @Override
     public Iterator<Receipt> iterator() {
         return internalList.iterator();
