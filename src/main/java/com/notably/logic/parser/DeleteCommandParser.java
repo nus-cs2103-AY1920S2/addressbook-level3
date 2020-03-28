@@ -5,7 +5,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.List;
 import java.util.Optional;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -15,13 +15,14 @@ import com.notably.model.Model;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
+    private static final int DISTANCE_THRESHOLD = 2;
+
     private Model notablyModel;
     private AbsolutePathCorrectionEngine correctionEngine;
-    private final int distanceThreshold = 2;
 
     public DeleteCommandParser(Model notablyModel) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, distanceThreshold);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD);
     }
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand

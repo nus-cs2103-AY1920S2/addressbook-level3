@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.notably.commons.core.GuiSettings;
-import com.notably.commons.core.LogsCenter;
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.GuiSettings;
+import com.notably.commons.LogsCenter;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockTree;

@@ -1,6 +1,6 @@
 package com.notably.testutil;
 
-import com.notably.commons.core.index.Index;
+import com.notably.commons.index.Index;
 
 /**
  * A utility class containing a list of {@code Index} objects to be used in tests.

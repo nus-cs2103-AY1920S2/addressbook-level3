@@ -3,7 +3,7 @@ package com.notably.view;
 import java.util.logging.Logger;
 
 import com.notably.MainApp;
-import com.notably.commons.core.LogsCenter;
+import com.notably.commons.LogsCenter;
 import com.notably.commons.util.StringUtil;
 import com.notably.logic.Logic;
 import com.notably.model.Model;

@@ -2,8 +2,8 @@ package com.notably.logic.parser;
 
 import java.util.stream.Stream;
 
-import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.RelativePath;
+import com.notably.commons.path.AbsolutePath;
+import com.notably.commons.path.RelativePath;
 import com.notably.logic.parser.exceptions.ParseException;
 
 /**

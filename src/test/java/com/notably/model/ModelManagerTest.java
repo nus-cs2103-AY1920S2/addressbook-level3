@@ -9,7 +9,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import com.notably.commons.core.GuiSettings;
+//import com.notably.commons.GuiSettings;
 //
 //public class ModelManagerTest {
 //

@@ -1,6 +1,6 @@
 package com.notably.model.block;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
 import javafx.beans.property.Property;

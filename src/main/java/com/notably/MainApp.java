@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.notably.commons.core.Config;
-import com.notably.commons.core.LogsCenter;
-import com.notably.commons.core.Version;
+import com.notably.commons.Config;
+import com.notably.commons.LogsCenter;
+import com.notably.commons.Version;
 import com.notably.commons.exceptions.DataConversionException;
 import com.notably.commons.util.ConfigUtil;
 import com.notably.commons.util.StringUtil;

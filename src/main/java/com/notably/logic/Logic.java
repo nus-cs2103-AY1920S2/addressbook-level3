@@ -2,7 +2,7 @@ package com.notably.logic;
 
 import java.nio.file.Path;
 
-import com.notably.commons.core.GuiSettings;
+import com.notably.commons.GuiSettings;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 
