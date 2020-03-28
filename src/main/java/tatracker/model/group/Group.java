@@ -1,5 +1,7 @@
 package tatracker.model.group;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
@@ -88,6 +90,16 @@ public class Group {
      */
     public void deleteStudent(Student student) {
         students.remove(student);
+    }
+
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the list of enrolled students.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the group.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        requireNonNull(editedStudent);
+        students.setStudent(target, editedStudent);
     }
 
     /**

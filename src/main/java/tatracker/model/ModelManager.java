@@ -171,8 +171,7 @@ public class ModelManager implements Model {
 
     public Module getModule(String code) {
         requireNonNull(code);
-        Module module = new Module(code, null);
-        return taTracker.getModule(module);
+        return taTracker.getModule(code);
     }
 
     @Override
@@ -215,8 +214,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasGroup(Group group, Module targetModule) {
         requireNonNull(group);
-        throw new UnsupportedOperationException("Method under construction");
-        // return taTracker.hasGroup(group);
+        return taTracker.hasGroup(group, targetModule);
     }
 
     @Override
@@ -228,22 +226,19 @@ public class ModelManager implements Model {
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
-        throw new UnsupportedOperationException("Method under construction");
-        // taTracker.addGroup(group);
+        taTracker.addGroup(group, targetModule);
     }
 
     @Override
     public void deleteGroup(Group target, Module targetModule) {
         requireNonNull(target);
-        throw new UnsupportedOperationException("Method under construction");
-        // taTracker.removeGroup(target);
+        taTracker.removeGroup(target, targetModule);
     }
 
     @Override
     public void setGroup(Group target, Group editedGroup, Module targetModule) {
         requireAllNonNull(target, editedGroup);
-        throw new UnsupportedOperationException("Method under construction");
-        // taTracker.setGroup(target, editedGroup);
+        taTracker.setGroup(target, editedGroup, targetModule);
     }
 
     @Override
@@ -268,7 +263,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
         requireNonNull(student);
-        return taTracker.hasStudent(student);
+        return taTracker.hasStudent(student, targetGroup, targetModule);
     }
 
     @Override
@@ -280,7 +275,7 @@ public class ModelManager implements Model {
     @Override
     public void addStudent(Student student, Group targetGroup, Module targetModule) {
         requireNonNull(student);
-        taTracker.addStudent(student);
+        taTracker.addStudent(student, targetGroup, targetModule);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
@@ -292,7 +287,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
         requireNonNull(target);
-        taTracker.removeStudent(target);
+        taTracker.deleteStudent(target, targetGroup, targetModule);
     }
 
     @Override
@@ -304,7 +299,7 @@ public class ModelManager implements Model {
     @Override
     public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
         requireAllNonNull(target, editedStudent);
-        taTracker.setStudent(target, editedStudent);
+        taTracker.setStudent(target, editedStudent, targetGroup, targetModule);
     }
 
     /**
@@ -340,6 +335,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return taTracker.equals(other.taTracker)
                 && userPrefs.equals(other.userPrefs)
-                && filteredStudents.equals(other.filteredStudents);
+                && filteredSessions.equals(other.filteredSessions)
+                && filteredModules.equals(other.filteredModules);
     }
 }
