@@ -17,7 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -65,7 +64,7 @@ public class AddCommandTest {
     private final String deadline;
 
     public AddCommandTest() {
-        Path moduleListFilePath = Paths.get("data/modules.json");
+        String moduleListFilePath = "/data/modulesPrereq.json";
         JsonModuleListStorage modules = new JsonModuleListStorage(moduleListFilePath);
         try {
             Optional<ModuleList> moduleListOptional = modules.readModuleList();

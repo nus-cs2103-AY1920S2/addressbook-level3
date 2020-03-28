@@ -178,7 +178,32 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === New Profile Feature
+The `new` feature allows the user to create a profile with the command `new`, appended with the tags.
 
+The tags are:
+
+* `n/name` for `Name`
+* `c/course` for `Course`
+* `cs/current_semester` for `Current Semester`
+* `s/specialisation` for `Specialisation`
+
+==== Current Implementations
+
+`NewCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `NewCommand` is parsed using `NewCommandParser` to split the user input into relevant fields.
+
+The following sequence diagram shows how the `new` operation works with the input: `new n/John c/Computer Science cs/4`
+
+image pending.
+
+==== Design Considerations (pending)
+
+* *Alternative 1:*
+** Pros:
+** Cons:
+
+* *Alternative 2:*
+** Pros:
+** Cons:
 
 === Add Feature
 
@@ -242,23 +267,37 @@ Eventually, we decided on alternative 1 due to the benefits of avoiding repeated
 
 === Edit Profile / Module Feature
 
-The `edit` feature supports editing of `Profile` with the command `edit`, and editing of `Module` with the command `edit` appended with `m/module_code`.
+The `edit` feature supports the editing of both `Profile` and `Module`, with the command `edit` and  `edit` appended with `m/module_code` respectively.
 
 ==== Current Implementations
 
-`edit` command is parsed using `EditCommandParser` to split the user input into relevant fields.
+The `edit` command is parsed using `EditCommandParser` to split the user input into relevant fields.
 
-To edit `profile`, the command `edit` should be appended with one or more of the tags `n/name`, `c/course`, `cs/current_semester`.
+To edit `profile`, the command `edit` should be appended with one or more of the tags:
 
-To edit `module`, the command `edit` should be appended with `m/module`, followed by one or more of the tags `s/semester` and  `g/grade`.
+- `n/NAME`
+- `c/COURSE`
+- `cs/CURRENT_SEMESTER`.
 
-`edit` command extends command class and uses inheritance to facilitate implementation. Hence it inherits the following methods:
+To edit `module`, the command `edit` should be appended with `m/module`, followed by one or more of the tags:
+
+- `s/SEMESTER`
+- `g/GRADE`.
+
+The feature to edit `Deadline` is coming soon.
+
+The `edit` command extends command class and uses inheritance to facilitate implementation. Hence it inherits the following methods:
 
 - `Command#execute(Model model)`
 
 The following sequence diagram shows how the `edit` command works: `edit m/CS2105 g/A`:
 
+.Interactions Inside the Logic Component for the `edit n/NAME` Command
+image::EditSequenceDiagram.png[]
+
 ==== Design Considerations
+
+- By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
 === Delete Profile / Module / Deadline Feature
 

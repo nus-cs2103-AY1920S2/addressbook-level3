@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -15,13 +14,13 @@ import seedu.address.model.ModuleList;
  */
 public class JsonModuleListStorage {
 
-    private Path filePath;
+    private String filePath;
 
-    public JsonModuleListStorage(Path filePath) {
+    public JsonModuleListStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public Path getFilePath() {
+    public String getFilePath() {
         return filePath;
     }
 
@@ -35,11 +34,12 @@ public class JsonModuleListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ModuleList> readModuleList(Path filePath) throws DataConversionException {
+    public Optional<ModuleList> readModuleList(String filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableModuleList> jsonModuleList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableModuleList.class);
+        Optional<JsonSerializableModuleList> jsonModuleList =
+                JsonUtil.readJsonFileStream(filePath, JsonSerializableModuleList.class);
+
         if (!jsonModuleList.isPresent()) {
             return Optional.empty();
         }
