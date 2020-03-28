@@ -306,7 +306,7 @@ Examples:
 * `listt` +
 `deletet 2` +
 Deletes the 2nd transaction in the displayed list.
-* `findt 2020-01-03` +
+* `findt dt/2020-01-03` +
 `deletet 1` +
 Deletes the 1st transaction in the results of the find command.
 
@@ -376,7 +376,7 @@ Sets the low inventory threshold for product 1 as 20.
 
 === Receiving notification while a certain product is running low.
 
-Pops up notification upon launching the application if any product’s stock is running low. +
+Pops up notification if quantity of product is below threshold. +
 
 [NOTE]
 This is a passive feature.
@@ -433,9 +433,9 @@ e.g. `findc n/Betsy` +
 * *Clearing all customers* : `clearc`
 * *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
 e.g. `addp d/iphone x pr/1000 q/10`
-* *Listing all products* : `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]` +
-e.g. `listp s/quantity o/ASC`
-* *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]` +
+* *Listing all products* : `listp` +
+e.g. `listp`
+* *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
 * *Finding products* : `findp KEYWORD` +
 e.g. `findp black`
@@ -443,21 +443,22 @@ e.g. `findp black`
 e.g. `listp` +
 `deletep 2`
 * *Clearing all entries* : `clearp`
-* *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPTION]` +
-e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount`
-* *Listing all transaction* : `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]` +
-e.g. `listt s/money_amount`
-* *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]` +
+* *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]` +
+e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
+* *Listing all transaction* : `listt` +
+e.g. `listt`
+* *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
 e.g. `editt 1 p/101 c/123`
-* *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]` +
+* *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
 e.g. `findt c/bob dt/2020-02-07`
-* *Deleting a transaction* : `delete INDEX` +
+* *Deleting a transaction* : `deletet INDEX` +
 e.g. `findt 2020-01-03` +
 `deletet 1`
 * *Clearing all transactions* : `cleart`
-* *Viewing the revenue trend in a certain period* : `revenue`
+* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE`
+* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE`
 * *Setting the low-inventory threshold* : `lowlimit [p/PRODUCT_ID] t/THRESHOLD` +
-e.g. `lowinv p/001 t/20`
+e.g. `lowlimit p/1 t/20`
 * *Predicting the sales for the next month* : `predict`
 * *Exiting from the program* : `exit`
 * *help* : `help`
