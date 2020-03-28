@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("nearby central")
+[-> LogicManager : execute("nearby -o central")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("nearby central")
+LogicManager -> OrderBookParser : parseCommand("nearby -o central")
 activate OrderBookParser
 
 create NearbyCommandParser
@@ -27,7 +27,7 @@ activate NearbyCommandParser
 NearbyCommandParser --> OrderBookParser
 deactivate NearbyCommandParser
 
-OrderBookParser -> NearbyCommandParser : parse("central")
+OrderBookParser -> NearbyCommandParser : parse(" -o central")
 activate NearbyCommandParser
 
 create NearbyCommand

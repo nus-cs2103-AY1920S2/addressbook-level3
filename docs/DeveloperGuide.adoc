@@ -191,6 +191,11 @@ display the original order book.
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
+
+The nearby feature must have a `FLAG` argument. This can be either `-o` or `-r`. +
+A `-o` `FLAG` argument indicates that the order list will be searched. +
+A `-r` `FLAG` argument indicates that the return order list will be searched. +
+
 There are currently two possible search options:
 
 . Searching by *postal sector*
