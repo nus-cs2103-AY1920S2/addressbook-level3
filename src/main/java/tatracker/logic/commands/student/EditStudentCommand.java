@@ -107,7 +107,7 @@ public class EditStudentCommand extends Command {
         Rating updatedRating = editStudentDescriptor.getRating().orElse(studentToEdit.getRating());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedMatric, updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Student(updatedMatric, updatedName, updatedPhone, updatedEmail, updatedRating, updatedTags);
     }
 
     @Override

@@ -23,6 +23,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -100,7 +101,7 @@ public class EditCommand extends Command {
         Matric updatedMatric = editStudentDescriptor.getMatric().orElse(studentToEdit.getMatric());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedMatric, updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Student(updatedMatric, updatedName, updatedPhone, updatedEmail, new Rating(), updatedTags);
     }
 
     @Override

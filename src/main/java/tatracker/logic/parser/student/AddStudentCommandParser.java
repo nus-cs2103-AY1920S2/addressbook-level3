@@ -80,7 +80,7 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         // ==== Build Student  ====
 
-        Student student = new Student(matric, name, phone, email, tagList);
+        Student student = new Student(matric, name, phone, email, rating, tagList);
 
         return new AddStudentCommand(student, group, module);
     }

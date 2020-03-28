@@ -21,7 +21,7 @@ public class StudentBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_MATRIC = "A0123456B";
-    public static final int DEFAULT_RATING = 3;
+    public static final int DEFAULT_RATING = 1;
 
     private Name name;
     private Phone phone;
@@ -47,6 +47,7 @@ public class StudentBuilder {
         phone = studentToCopy.getPhone();
         email = studentToCopy.getEmail();
         matric = studentToCopy.getMatric();
+        rating = studentToCopy.getRating();
         tags = new HashSet<>(studentToCopy.getTags());
     }
 
@@ -100,7 +101,7 @@ public class StudentBuilder {
     }
 
     public Student build() {
-        return new Student(matric, name, phone, email, tags);
+        return new Student(matric, name, phone, email, rating, tags);
     }
 
 }

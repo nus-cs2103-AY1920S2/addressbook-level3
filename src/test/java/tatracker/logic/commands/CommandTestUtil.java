@@ -8,6 +8,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
@@ -55,6 +56,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String MATRIC_DESC_AMY = " " + PREFIX_MATRIC + VALID_MATRIC_AMY;
     public static final String MATRIC_DESC_BOB = " " + PREFIX_MATRIC + VALID_MATRIC_BOB;
+    public static final String RATING_DESC_AMY = " " + PREFIX_RATING + VALID_MATRIC_AMY;
+    public static final String RATING_DESC_BOB = " " + PREFIX_RATING + VALID_MATRIC_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -67,6 +70,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_MATRIC_DESC = " " + PREFIX_MATRIC + "!0123456&"; // '&' not allow in matrics
+    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "!0123456&"; // rating
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

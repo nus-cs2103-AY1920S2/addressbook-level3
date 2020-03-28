@@ -28,14 +28,14 @@ public class Student {
     /**
      * Every field must be present and not null.
      */
-    public Student(Matric matric, Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(matric, name, phone, email, tags);
+    public Student(Matric matric, Name name, Phone phone, Email email, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(matric, name, phone, email, rating, tags);
         this.matric = matric;
         this.name = name;
 
         this.phone = phone;
         this.email = email;
-        this.rating = new Rating(3);
+        this.rating = rating;
 
         this.tags = new HashSet<>();
         this.tags.addAll(tags);
