@@ -7,6 +7,8 @@ import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.ARMS_WORKOUT;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.LEGS_WORKOUT;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -100,7 +102,7 @@ public class ModelManagerTest {
     public void equals() {
         ExerciseList exerciseList = new ExerciseListBuilder().withExercise(BENCH_PRESS).withExercise(DEADLIFT).build();
         ExerciseList differentExerciseList = new ExerciseList();
-        WorkoutList workoutList = new WorkoutListBuilder().withWorkout(BENCH_PRESS).withWorkout(DEADLIFT).build();
+        WorkoutList workoutList = new WorkoutListBuilder().withWorkout(ARMS_WORKOUT).withWorkout(LEGS_WORKOUT).build();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

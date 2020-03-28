@@ -19,6 +19,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
@@ -100,6 +101,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonWorkoutListIoExceptionThrowingStub extends WorkoutListStorageManager {
+        private JsonWorkoutListIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveWorkoutList(ReadOnlyWorkoutList workoutList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
