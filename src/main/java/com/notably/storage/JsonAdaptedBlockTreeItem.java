@@ -28,7 +28,8 @@ class JsonAdaptedBlockTreeItem {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedBlockTreeItem(@JsonProperty("title") String title, @JsonProperty("body") String body, @JsonProperty("children") List<JsonAdaptedBlockTreeItem> children) {
+    public JsonAdaptedBlockTreeItem(@JsonProperty("title") String title, @JsonProperty("body") String body,
+        @JsonProperty("children") List<JsonAdaptedBlockTreeItem> children) {
         this.title = title;
         this.body = body;
         if (children != null) {
