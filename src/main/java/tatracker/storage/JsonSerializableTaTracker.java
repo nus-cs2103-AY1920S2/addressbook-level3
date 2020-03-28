@@ -2,7 +2,6 @@ package tatracker.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,7 +36,7 @@ class JsonSerializableTaTracker {
      * @param source future changes to this will not affect the created {@code JsonSerializableTaTracker}.
      */
     public JsonSerializableTaTracker(ReadOnlyTaTracker source) {
-        students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
+        //students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
     }
 
     /**

@@ -15,7 +15,7 @@ public interface ReadOnlyTaTracker {
      * Returns an unmodifiable view of the student list.
      * This list will not contain any duplicate student.
      */
-    ObservableList<Student> getStudentList();
+    ObservableList<Student> getCurrentlyShownStudentList();
 
     /**
      * Returns an unmodifiable view of the modules list.
@@ -27,7 +27,7 @@ public interface ReadOnlyTaTracker {
      * Returns an unmodifiable view of the groups list.
      * This list will not contain any duplicate groups.
      */
-    ObservableList<Group> getGroupList();
+    ObservableList<Group> getCurrentlyShownGroupList();
 
     /**
      * Returns an unmodifiable view of the sessions list.

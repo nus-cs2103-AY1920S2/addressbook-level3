@@ -144,10 +144,6 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void addGroup(Group group) {
-        throw new AssertionError("This method should not be called.");
-    }
 
     @Override
     public void addGroup(Group group, Module targetModule) {
@@ -170,7 +166,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Group> predicate) {
+    public void updateFilteredGroupList(String moduleCode) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setFilteredGroupList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateGroupList(int n) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -215,12 +221,27 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateStudentList(int i, int j) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Student> getFilteredStudentList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredStudentList(Predicate<Student> predicate) {
+    public void updateFilteredStudentList(String groupCode, String moduleCode) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setFilteredStudentList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setFilteredStudentList(String moduleCode, int n) {
         throw new AssertionError("This method should not be called.");
     }
 
