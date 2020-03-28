@@ -111,6 +111,7 @@ Format: `(ab)edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/O
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Remarks cannot be edited using this command.
 * The name in 'n/' and phone number in 'p/' should not be empty.
 ****
 
@@ -349,6 +350,7 @@ Format: `(ab)delete INDEX`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the last sorted LIST function (see 2.4).
+* All remarks and tags will be deleted if specified.
 ****
 
 Examples:

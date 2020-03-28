@@ -161,7 +161,7 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> remarks} into a {@code Set<Remark>}.
      */
-    public static ArrayList<Remark> parseRemark(Collection<String> remarks) throws ParseException {
+    public static ArrayList<Remark> parseRemarks(Collection<String> remarks) throws ParseException {
         requireNonNull(remarks);
         final ArrayList<Remark> remarkArrayList = new ArrayList<>();
         for (String remarkName : remarks) {
