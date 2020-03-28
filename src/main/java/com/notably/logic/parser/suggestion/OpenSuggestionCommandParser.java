@@ -1,16 +1,16 @@
-package com.notably.logic.suggestion.parser;
+package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Optional;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.parser.ArgumentMultimap;
 import com.notably.logic.parser.ArgumentTokenizer;
 import com.notably.logic.parser.ParserUtil;
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.logic.suggestion.commands.OpenSuggestionCommand;
 import com.notably.model.Model;
 
 /**

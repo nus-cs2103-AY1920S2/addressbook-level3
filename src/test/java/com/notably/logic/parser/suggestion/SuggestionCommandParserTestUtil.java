@@ -2,9 +2,8 @@ package com.notably.logic.parser.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.logic.suggestion.SuggestionCommand;
-import com.notably.logic.suggestion.parser.SuggestionCommandParser;
 
 /**
  * Contains helper methods for testing suggestion command parsers.

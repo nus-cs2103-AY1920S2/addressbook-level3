@@ -5,10 +5,9 @@ import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUti
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.logic.suggestion.commands.OpenSuggestionCommand;
-import com.notably.logic.suggestion.parser.OpenSuggestionCommandParser;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
