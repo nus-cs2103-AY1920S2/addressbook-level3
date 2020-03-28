@@ -1,9 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.TeacherAddressBook;
 
 /**
  * A utility class to help with building Addressbook objects.

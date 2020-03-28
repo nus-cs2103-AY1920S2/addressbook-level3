@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Teacher;
 import seedu.address.ui.UiPart;
 
 /**

@@ -19,7 +19,6 @@ import static seedu.address.testutil.TypicalAssignment.ASSIGNMENT_EASY;
 import static seedu.address.testutil.TypicalAssignment.ASSIGNMENT_HARD;
 import static seedu.address.testutil.TypicalCourseStudent.COURSE_STUDENT_ONE;
 import static seedu.address.testutil.TypicalCourseStudent.COURSE_STUDENT_TWO;
-import static seedu.address.testutil.TypicalCourseStudent.COURSE_STUDENT_THREE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,7 +32,7 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.modelStaff.TeacherAddressBook;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.*;
 

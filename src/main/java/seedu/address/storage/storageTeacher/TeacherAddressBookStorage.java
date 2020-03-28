@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Teacher;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.

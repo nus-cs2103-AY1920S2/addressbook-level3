@@ -6,7 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.modelTeacher.TeacherNameContainsKeywordsPredicate;
+import seedu.address.model.modelStaff.TeacherNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all teachers in address book whose name contains any of the argument keywords.

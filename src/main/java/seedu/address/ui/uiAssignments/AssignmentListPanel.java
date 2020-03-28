@@ -7,7 +7,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.ui.UiPart;
 
 import java.util.logging.Logger;

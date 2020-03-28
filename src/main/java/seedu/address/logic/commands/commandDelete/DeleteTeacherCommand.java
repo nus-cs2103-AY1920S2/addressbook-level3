@@ -9,7 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Teacher;
 
 /**
  * Deletes a teacher identified using it's displayed index from the address book.

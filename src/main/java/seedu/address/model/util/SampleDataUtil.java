@@ -16,8 +16,8 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.TeacherAddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 

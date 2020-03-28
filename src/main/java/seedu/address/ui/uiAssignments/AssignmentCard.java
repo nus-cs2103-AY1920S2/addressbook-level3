@@ -2,14 +2,10 @@ package seedu.address.ui.uiAssignments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.ui.UiPart;
-
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Assignment}.

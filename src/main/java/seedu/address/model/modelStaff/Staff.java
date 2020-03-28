@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Staff in the address book. Guarantees: details are present and not null, field
  * values are validated, immutable.
- * A Staff can be a teacher or an admin. 
+ * A Staff can be a teacher or an admin. This can be check by isTeacher() method.
  */
 public class Staff extends ModelObject {
 

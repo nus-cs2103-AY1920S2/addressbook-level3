@@ -16,9 +16,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import seedu.address.model.AddressBook;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
+
+import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.TeacherAddressBook;
 
 /**
  * A utility class containing a list of {@code Teacher} objects to be used in tests.

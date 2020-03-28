@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.TeacherAddressBook;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

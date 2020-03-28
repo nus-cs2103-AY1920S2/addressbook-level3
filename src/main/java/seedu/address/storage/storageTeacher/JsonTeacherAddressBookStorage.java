@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Teacher;
 
 /**
  * A class to access TeacherAddressBook data stored as a json file on the hard disk.
