@@ -14,6 +14,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -28,19 +29,24 @@ class JsonAdaptedStudent {
     private final String phone;
     private final String email;
     private final String matric;
+    private final int rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
      */
     @JsonCreator
-    public JsonAdaptedStudent(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                              @JsonProperty("email") String email, @JsonProperty("matric") String matric,
+    public JsonAdaptedStudent(@JsonProperty("name") String name,
+                              @JsonProperty("phone") String phone,
+                              @JsonProperty("email") String email,
+                              @JsonProperty("matric") String matric,
+                              @JsonProperty("rating") int rating,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.matric = matric;
+        this.rating = rating;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,6 +60,7 @@ class JsonAdaptedStudent {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         matric = source.getMatric().value;
+        rating = source.getRating().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -102,8 +109,13 @@ class JsonAdaptedStudent {
         }
         final Matric modelMatric = new Matric(matric);
 
+        if (!Rating.isValidRating(rating)) {
+            throw new IllegalValueException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        final Rating modelRating = new Rating(rating);
+
         final Set<Tag> modelTags = new HashSet<>(studentTags);
-        return new Student(modelMatric, modelName, modelPhone, modelEmail, modelTags);
+        return new Student(modelMatric, modelName, modelPhone, modelEmail, modelRating, modelTags);
     }
 
 }

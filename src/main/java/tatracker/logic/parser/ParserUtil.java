@@ -18,6 +18,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.tag.Tag;
 
 /**
@@ -63,7 +64,6 @@ public class ParserUtil {
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @param phone
      * @throws ParseException if the given {@code phone} is invalid.
      */
     public static Phone parsePhone(String phone) throws ParseException {
@@ -79,7 +79,6 @@ public class ParserUtil {
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @param email
      * @throws ParseException if the given {@code email} is invalid.
      */
     public static Email parseEmail(String email) throws ParseException {
@@ -207,5 +206,25 @@ public class ParserUtil {
         default:
             return GroupType.TUTORIAL;
         }
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}
+     */
+    public static Rating parseRating(String rating) throws ParseException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+
+        int parsedRating = Integer.parseUnsignedInt(trimmedRating);
+
+        if (!Rating.isValidRating(parsedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Rating(parsedRating);
     }
 }
