@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.UniqueOrderList;
 
 /**
@@ -103,6 +104,10 @@ public class OrderBook implements ReadOnlyOrderBook {
     @Override
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
+    }
+
+    public Order getOrderByTransactionId(TransactionId transactionId) {
+        return orders.get(transactionId);
     }
 
     @Override

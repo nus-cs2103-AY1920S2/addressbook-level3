@@ -30,7 +30,6 @@
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
             <Label fx:id="timeStamp" styleClass="cell_small_label" text="\$timeStamp" />
             <Label fx:id="warehouse" styleClass="cell_small_label" text="\$warehouse" />
-            <Label fx:id="cashOnDelivery" styleClass="cell_small_label" text="\$cod" />
             <Label fx:id="comment" styleClass="cell_small_label" text="\$comment" />
             <Label fx:id="deliveryStatus" styleClass="cell_small_label" text="\$deliveryStatus" />
         </VBox>
