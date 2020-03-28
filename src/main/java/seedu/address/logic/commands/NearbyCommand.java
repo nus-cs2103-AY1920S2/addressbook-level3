@@ -19,7 +19,8 @@ import seedu.address.model.order.Order;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
- * Used to identify orders in the order book that belong to a given postal sector or area.
+ * Used to identify orders in the order book or return order book that belong to a given
+ * postal sector or area.
  */
 public class NearbyCommand extends Command {
     public static final String COMMAND_WORD = "nearby";
