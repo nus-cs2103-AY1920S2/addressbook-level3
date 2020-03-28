@@ -26,8 +26,7 @@ class NearbyCommandParserTest {
     private static Stream<Arguments> invalidArgs() {
         return Stream.of(
                 Arguments.of(""),
-                Arguments.of("    "),
-                Arguments.of("central 1000"));
+                Arguments.of("    "));
     }
 
     @Test
