@@ -17,7 +17,6 @@ public class Person {
     // Data fields
     private Amount amount;
 
-
     /**
      * Every field must be present and not null.
      */
@@ -35,8 +34,6 @@ public class Person {
     public Amount getAmount() {
         return amount;
     }
-
-
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -67,7 +64,6 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName());
-
     }
 
     @Override

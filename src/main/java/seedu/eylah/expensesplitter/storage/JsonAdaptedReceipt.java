@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.eylah.addressbook.model.person.Person;
+import seedu.eylah.commons.exceptions.IllegalValueException;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
 /**
@@ -15,26 +16,38 @@ import seedu.eylah.expensesplitter.model.receipt.Receipt;
  */
 public class JsonAdaptedReceipt {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Receipt's %s field is missing!";
-
-    private final List<JsonAdaptedPerson> itemPersons = new ArrayList<>();
+    private final List<JsonAdaptedEntry> entries = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedReceipt} with the given entries details.
      */
     @JsonCreator
-    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedPerson> itemPersons) {
-        if (itemPersons != null) {
-            this.itemPersons.addAll(itemPersons);
+    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedEntry> entries) {
+        if (entries != null) {
+            this.entries.addAll(entries);
         }
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Receipt} into this class for Jackson use.
      */
     public JsonAdaptedReceipt(Receipt source) {
-        itemPersons.addAll(source.getReceipt().stream()
-                .map(JsonAdaptedPerson::new)
+        entries.addAll(source.getReceipt().stream()
+                .map(JsonAdaptedEntry::new)
                 .collect(Collectors.toList()));
+    }
+
+    /**
+     * Converts this Jackson-friendly adapted receipt object into the model's {@code Receipt} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     */
+    public Receipt toModelType() throws IllegalValueException {
+        final ArrayList<Entry> modelEntries = new ArrayList<>();
+        for (JsonAdaptedEntry entry : entries) {
+            modelEntries.add(entry.toModelType());
+        }
+
+        return new Receipt(modelEntries);
     }
 }

@@ -15,7 +15,7 @@ public interface ReceiptStorage {
     /**
      * Returns the file path of the data file.
      */
-     Path getReceiptBookFilePath();
+    Path getReceiptBookFilePath();
 
     /**
      * Returns ReceiptBook data as a {@link ReadOnlyReceiptBook}.

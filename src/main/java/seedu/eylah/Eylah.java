@@ -1,4 +1,5 @@
 package seedu.eylah;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -23,8 +24,8 @@ import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
-import seedu.eylah.expensesplitter.model.receipt.Receipt;
 import seedu.eylah.expensesplitter.model.UserPrefs;
+import seedu.eylah.expensesplitter.model.receipt.Receipt;
 import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
 import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
 import seedu.eylah.expensesplitter.storage.JsonUserPrefsStorage;

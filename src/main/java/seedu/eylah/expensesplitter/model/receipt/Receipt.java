@@ -18,6 +18,14 @@ public class Receipt {
     }
 
     /**
+     * Every field must be present.
+     * Array of Entry must not be null.
+     */
+    public Receipt(ArrayList<Entry> receipt) {
+        this.receipt = receipt;
+    }
+
+    /**
      * Adds an Entry to the receipt.
      *
      * @param entry Entry to be added.

@@ -23,8 +23,8 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private ReceiptStorage receiptStorage;
 
-    public StorageManager(PersonAmountStorage personAmountStorage, UserPrefsStorage userPrefsStorage
-            , ReceiptStorage receiptStorage) {
+    public StorageManager(PersonAmountStorage personAmountStorage, UserPrefsStorage userPrefsStorage,
+            ReceiptStorage receiptStorage) {
 
         super();
         this.personAmountStorage = personAmountStorage;

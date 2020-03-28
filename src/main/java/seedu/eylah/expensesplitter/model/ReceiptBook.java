@@ -46,8 +46,26 @@ public class ReceiptBook implements ReadOnlyReceiptBook {
         setPersons(newData.getReceiptList());
     }
 
+    // receipt-level operations
+
+    /**
+     * Returns true if a receipt with the same identity as {@code receipt} exists in the receipt book.
+     */
+    public boolean hasReceipt(Receipt receipt) {
+        requireNonNull(receipt);
+        return receipts.contains(receipt);
+    }
+
+    /**
+     * Adds a receipt to the receipt book.
+     * The receipt must not already exist in the receipt book.
+     */
+    public void addReceipt(Receipt r) {
+        receipts.add(r);
+    }
+
     @Override
     public ObservableList<Receipt> getReceiptList() {
-        return null;
+        return receipts.asUnmodifiableObservableList();
     }
 }

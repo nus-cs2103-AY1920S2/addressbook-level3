@@ -1,6 +1,5 @@
 package seedu.eylah.expensesplitter.model.receipt;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
