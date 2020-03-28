@@ -72,16 +72,15 @@ public class MainApp extends Application {
         initLogging(config);
 
         //model = initModelManager(storage, userPrefs);
-        model = initProfileManager(storage, userPrefs);
+        profileManager = initProfileManager(storage, userPrefs);
 
         courseManager = initCourseManager(userPrefs);
+        moduleManager = initModuleManager(userPrefs);
 
-        logic = new LogicManager(model, storage, courseManager);
+        logic = new LogicManager(profileManager, storage, courseManager, moduleManager);
 
         ui = new UiManager(logic);
 
-        moduleManager = initModuleManager(userPrefs);
-        //profileManager = initProfileManager(userPrefs);
     }
 
     /**
