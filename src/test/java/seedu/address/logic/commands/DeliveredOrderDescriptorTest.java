@@ -14,15 +14,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.DoneCommand.DoneOrderDescriptor;
-import seedu.address.testutil.DoneOrderDescriptorBuilder;
+import seedu.address.logic.commands.DeliveredCommand.DeliveredOrderDescriptor;
+import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
 
-public class DoneOrderDescriptorTest {
+public class DeliveredOrderDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        DoneOrderDescriptor descriptorWithSameValues = new DoneOrderDescriptor(AMY_DESC);
+        DeliveredOrderDescriptor descriptorWithSameValues = new DeliveredOrderDescriptor(AMY_DESC);
         assertTrue(AMY_DESC.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -38,31 +38,31 @@ public class DoneOrderDescriptorTest {
         assertFalse(AMY_DESC.equals(BOB_DESC));
 
         // different name -> returns false
-        DoneOrderDescriptor editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withName(VALID_NAME_BOB).build();
+        DeliveredOrderDescriptor editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withName(VALID_NAME_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different TID -> returns false
-        editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withTid(VALID_TID_BOB).build();
+        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withTid(VALID_TID_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withPhone(VALID_PHONE_BOB).build();
+        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withPhone(VALID_PHONE_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different delivery timestamp -> returns false
-        editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withTimeStamp(VALID_TIMESTAMP_BOB).build();
+        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withTimeStamp(VALID_TIMESTAMP_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different comment -> returns false
-        editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withComment(VALID_COMMENT_NIL).build();
+        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withComment(VALID_COMMENT_NIL).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different Item Types -> returns false
-        editedAmy = new DoneOrderDescriptorBuilder(AMY_DESC).withItemType(VALID_TYPE_PLASTIC).build();
+        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withItemType(VALID_TYPE_PLASTIC).build();
         assertFalse(AMY_DESC.equals(editedAmy));
     }
 }

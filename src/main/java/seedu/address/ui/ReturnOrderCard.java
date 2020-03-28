@@ -48,8 +48,6 @@ public class ReturnOrderCard extends UiPart<Region> {
     @FXML
     private Label deliveryStatus;
     @FXML
-    private FlowPane isReturn;
-    @FXML
     private FlowPane itemType;
 
     public ReturnOrderCard(ReturnOrder returnOrder, int displayedIndex) {
@@ -69,15 +67,10 @@ public class ReturnOrderCard extends UiPart<Region> {
             itemType.getChildren().add(new Label(returnOrder.getItemType().itemType));
         }
 
-        if ((returnOrder.isDelivered())) {
-            deliveryStatus.setText("Delivered");
+        if (returnOrder.isDelivered()) {
+            deliveryStatus.setText("Returned to Warehouse");
         } else {
-            deliveryStatus.setText("Not Delivered");
-        }
-        if (!(returnOrder.isReturn())) {
-            isReturn.getChildren().add(new Label("Delivery Order"));
-        } else {
-            isReturn.getChildren().add(new Label("Return Order"));
+            deliveryStatus.setText("Not Returned to Warehouse");
         }
     }
 

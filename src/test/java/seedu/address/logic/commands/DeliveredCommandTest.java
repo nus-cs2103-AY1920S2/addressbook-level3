@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showReturnOrderAtIndex;
-import static seedu.address.logic.commands.DoneCommand.MESSAGE_DELIVERED_SUCCESS;
-import static seedu.address.logic.commands.DoneCommand.MESSAGE_ORDER_ALREADY_DELIVERED;
+import static seedu.address.logic.commands.DeliveredCommand.MESSAGE_DELIVERED_SUCCESS;
+import static seedu.address.logic.commands.DeliveredCommand.MESSAGE_ORDER_ALREADY_DELIVERED;
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
@@ -32,7 +32,7 @@ import seedu.address.testutil.ReturnOrderBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class DoneCommandTest {
+public class DeliveredCommandTest {
     private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
 
     @Test
@@ -41,8 +41,8 @@ public class DoneCommandTest {
 
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order deliveredOrder = new OrderBuilder(orderInFilteredList).build();
-        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor(deliveredOrder));
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(deliveredOrder));
 
         String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, deliveredOrder);
 
@@ -51,7 +51,7 @@ public class DoneCommandTest {
         deliveredOrder.setDeliveryStatus(true);
         expectedModel.setOrder(model.getFilteredOrderList().get(0), deliveredOrder);
 
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deliveredCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -61,8 +61,8 @@ public class DoneCommandTest {
         ReturnOrder returnOrderInFilteredList = model.getFilteredReturnOrderList()
                 .get(INDEX_FIRST_ORDER.getZeroBased());
         ReturnOrder deliveredReturnOrder = new ReturnOrderBuilder(returnOrderInFilteredList).build();
-        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor(deliveredReturnOrder));
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(deliveredReturnOrder));
 
         String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, deliveredReturnOrder);
 
@@ -71,22 +71,22 @@ public class DoneCommandTest {
         deliveredReturnOrder.setDeliveryStatus(true);
         expectedModel.setReturnOrder(model.getFilteredReturnOrderList().get(0), deliveredReturnOrder);
 
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deliveredCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_orderAlreadyDelivered_success() {
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order editedOrder = new OrderBuilder(orderInFilteredList).buildDelivered();
-        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor(editedOrder));
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(editedOrder));
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), model.getReturnOrderBook(),
                 new UserPrefs());
 
         String expectedMessage = String.format(MESSAGE_ORDER_ALREADY_DELIVERED, editedOrder);
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
         model.setOrder(model.getFilteredOrderList().get(0), editedOrder);
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deliveredCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -94,33 +94,33 @@ public class DoneCommandTest {
         ReturnOrder returnOrderInFilteredList = model.getFilteredReturnOrderList()
                 .get(INDEX_FIRST_ORDER.getZeroBased());
         ReturnOrder deliveredReturnOrder = new ReturnOrderBuilder(returnOrderInFilteredList).buildDelivered();
-        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor(deliveredReturnOrder));
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(deliveredReturnOrder));
         Model expectedModel = new ModelManager(model.getOrderBook(), new ReturnOrderBook(model.getReturnOrderBook()),
                 new UserPrefs());
 
         String expectedMessage = String.format(MESSAGE_ORDER_ALREADY_DELIVERED, deliveredReturnOrder);
         expectedModel.setReturnOrder(model.getFilteredReturnOrderList().get(0), deliveredReturnOrder);
         model.setReturnOrder(model.getFilteredReturnOrderList().get(0), deliveredReturnOrder);
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deliveredCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredOrderList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOrderList().size() + 1);
-        DoneCommand doneCommand = new DoneCommand(outOfBoundIndex, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor());
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor());
 
-        assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredReturnList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredReturnOrderList().size() + 1);
-        DoneCommand doneCommand = new DoneCommand(outOfBoundIndex, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor());
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor());
 
-        assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 
 
@@ -131,10 +131,10 @@ public class DoneCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
 
         assertTrue(outOfBoundIndex.getZeroBased() < model.getOrderBook().getOrderList().size());
-        DoneCommand doneCommand = new DoneCommand(outOfBoundIndex, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor());
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor());
 
-        assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 
     @Test
@@ -144,27 +144,27 @@ public class DoneCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
 
         assertTrue(outOfBoundIndex.getZeroBased() < model.getReturnOrderBook().getReturnOrderList().size());
-        DoneCommand doneCommand = new DoneCommand(outOfBoundIndex, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor());
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor());
 
-        assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
+        assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order order = new OrderBuilder(orderInFilteredList).build();
-        DoneCommand doneOrderFirstCommand = new DoneCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor(order));
-        DoneCommand doneOrderSecondCommand = new DoneCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor(order));
+        DeliveredCommand doneOrderFirstCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(order));
+        DeliveredCommand doneOrderSecondCommand = new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(order));
 
         // same object -> returns true
         assertTrue(doneOrderFirstCommand.equals(doneOrderFirstCommand));
 
         // same values -> returns true
-        DoneCommand doneFirstCommandCopy = new DoneCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
-                new DoneCommand.DoneOrderDescriptor(order));
+        DeliveredCommand doneFirstCommandCopy = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(order));
         assertTrue(doneOrderFirstCommand.equals(doneFirstCommandCopy));
 
         // different types -> returns false
@@ -178,17 +178,17 @@ public class DoneCommandTest {
         ReturnOrder returnOrderInFilteredList = model.getFilteredReturnOrderList()
                 .get(INDEX_FIRST_ORDER.getZeroBased());
         ReturnOrder returnOrder = new ReturnOrderBuilder(returnOrderInFilteredList).build();
-        DoneCommand doneReturnFirstCommand = new DoneCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor(returnOrder));
-        DoneCommand doneReturnSecondCommand = new DoneCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor(returnOrder));
+        DeliveredCommand doneReturnFirstCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(returnOrder));
+        DeliveredCommand doneReturnSecondCommand = new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(returnOrder));
 
         // same object -> returns true
         assertTrue(doneReturnFirstCommand.equals(doneReturnFirstCommand));
 
         // same values -> returns true
-        DoneCommand doneReturnFirstCommandCopy = new DoneCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
-                new DoneCommand.DoneOrderDescriptor(returnOrder));
+        DeliveredCommand doneReturnFirstCommandCopy = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+                new DeliveredCommand.DeliveredOrderDescriptor(returnOrder));
         assertTrue(doneReturnFirstCommand.equals(doneReturnFirstCommandCopy));
 
         // different types -> returns false

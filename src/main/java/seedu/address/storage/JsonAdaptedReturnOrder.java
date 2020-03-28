@@ -33,7 +33,6 @@ class JsonAdaptedReturnOrder {
     private final String comment;
     private final String itemType;
     private final boolean deliveryStatus;
-    private final boolean isReturn;
 
     /**
      * Constructs a {@code JsonAdaptedReturnOrder} with the given return order details.
@@ -48,8 +47,7 @@ class JsonAdaptedReturnOrder {
                                   @JsonProperty("warehouse") String warehouse,
                                   @JsonProperty("comment") String comment,
                                   @JsonProperty("itemType") String itemType,
-                                  @JsonProperty("deliveryStatus") boolean deliveryStatus,
-                                  @JsonProperty("isReturn") boolean isReturn) {
+                                  @JsonProperty("deliveryStatus") boolean deliveryStatus) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
@@ -60,7 +58,6 @@ class JsonAdaptedReturnOrder {
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = deliveryStatus;
-        this.isReturn = isReturn;
     }
 
     /**
@@ -77,7 +74,6 @@ class JsonAdaptedReturnOrder {
         comment = source.getComment().commentMade;
         itemType = source.getItemType().itemType;
         deliveryStatus = source.isDelivered();
-        isReturn = source.isReturn();
     }
 
     /**
