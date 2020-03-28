@@ -149,7 +149,7 @@ public class NearbyCommand extends Command {
                 if (generalLocation.isEmpty()) {
                     throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
                 }
-                showPostalSectors(model, postalSector);
+                showPostalSectors(model);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_POSTAL_SECTOR,
                         generalLocation.get()));
             }
@@ -181,7 +181,7 @@ public class NearbyCommand extends Command {
     /**
      * Show all postal sectors in the given {@code model}.
      */
-    private void showPostalSectors(Model model, Index postalSector) {
+    private void showPostalSectors(Model model) {
         if (isOrderListSearch) {
             Predicate<Order> orderPredicate = getPostalSectorPredicate();
             model.updateFilteredOrderList(orderPredicate);
