@@ -15,9 +15,6 @@ import tatracker.commons.core.LogsCenter;
  */
 public class StatisticWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "This is a test statistic";
-
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "StatisticWindow.fxml";
 
@@ -26,10 +23,6 @@ public class StatisticWindow extends UiPart<Stage> {
 
     @FXML
     private BarChart studentRatingBarChart;
-
-//
-//    @FXML
-//    private Label statisticMessage;
 
     /**
      * Creates a new HelpWindow.
