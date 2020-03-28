@@ -138,6 +138,14 @@ public class UniqueSessionList implements Iterable<Session> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Returns all sessions of type {@code type}
+     * @param type The type of session to return
+     */
+    public List<Session> getSessionsOfType(SessionType type) {
+        return internalList.filtered(s -> s.getSessionType() == type);
+    }
+
     @Override
     public Iterator<Session> iterator() {
         return internalList.iterator();
