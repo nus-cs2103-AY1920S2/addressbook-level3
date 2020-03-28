@@ -75,7 +75,8 @@ public class EditProductCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS_FORMAT); // invalid quantity
+        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC,
+                Quantity.MESSAGE_CONSTRAINTS_FORMAT); // invalid quantity
         assertParseFailure(parser, "1" + INVALID_SALES_DESC, Money.MESSAGE_CONSTRAINTS_FORMAT); // invalid sales
 
         // invalid phone followed by valid email
