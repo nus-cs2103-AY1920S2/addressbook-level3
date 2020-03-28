@@ -104,7 +104,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/csdev/couponstash/logic/Logic.java[`Logic.java`]
 
-. `Logic` uses the `AddressBookParser` class to parse the user command.
+. `Logic` uses the `CouponStashParser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (e.g. adding a coupon).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -128,13 +128,13 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Coupon Stash data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+As a more OOP model, we can store a `Tag` list in `Coupon Stash`, which `Person` can reference.
+This would allow `Coupon Stash` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
@@ -150,7 +150,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Coupon Stash data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
