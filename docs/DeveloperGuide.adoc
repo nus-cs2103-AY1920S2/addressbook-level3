@@ -195,7 +195,7 @@ The following sequence diagram shows how the `new` operation works with the inpu
 
 image::NewCommandSequenceDiagram.png[]
 
-==== Design Considerations
+==== Design Considerations (pending)
 
 * *Alternative 1:*
 ** Pros:
