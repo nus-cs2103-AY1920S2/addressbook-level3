@@ -3,6 +3,7 @@ package seedu.address.logic.commands.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 
 import java.util.function.Predicate;
@@ -26,10 +27,12 @@ public class FindTransactionCommand extends Command {
             + "Parameters: "
             + "[" + PREFIX_CUSTOMER + "CUSTOMER] "
             + "[" + PREFIX_PRODUCT + "PRODUCT] "
+            + "[" + PREFIX_MONEY + "MONEY] "
             + "[" + PREFIX_DATETIME + "DATETIME] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "Bob "
             + PREFIX_PRODUCT + "WaterMelon "
+            + PREFIX_MONEY + "30 "
             + PREFIX_DATETIME + "2020-02-20 10:00 ";
 
     private final Predicate<Transaction> predicate;
@@ -42,7 +45,6 @@ public class FindTransactionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTransactionList(predicate);
-        System.out.println("Find " + model.getFilteredTransactionList());
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size()));

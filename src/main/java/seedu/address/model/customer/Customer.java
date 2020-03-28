@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.tag.Tag;
 
@@ -19,6 +20,7 @@ public class Customer {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final UUID id;
 
     // Data fields
     private final Address address;
@@ -29,11 +31,29 @@ public class Customer {
      */
     public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.id = UUID.randomUUID();
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Customer(UUID id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(id, name, phone, email, address, tags);
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Name getName() {
@@ -70,8 +90,10 @@ public class Customer {
         }
 
         return otherCustomer != null
-                && otherCustomer.getName().equals(getName())
-                && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail()));
+                && (otherCustomer.getId().equals(getId())
+                || (otherCustomer.getName().equals(getName())
+                && otherCustomer.getPhone().equals(getPhone())
+                && otherCustomer.getEmail().equals(getEmail())));
     }
 
     /**
@@ -89,9 +111,10 @@ public class Customer {
         }
 
         Customer otherCustomer = (Customer) other;
-        return otherCustomer.getName().equals(getName())
+        return otherCustomer.getId().equals(getId())
+                || (otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getEmail().equals(getEmail());
+                && otherCustomer.getEmail().equals(getEmail()));
     }
 
     @Override
@@ -103,7 +126,7 @@ public class Customer {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getName() + " (" + getId() + ")")
                 .append("\nPhone: ")
                 .append(getPhone())
                 .append(" Email: ")

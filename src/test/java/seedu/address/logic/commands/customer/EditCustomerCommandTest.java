@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.customer.TypicalPersons.ALICE_ID;
 import static seedu.address.testutil.customer.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class EditCustomerCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Customer editedCustomer = new PersonBuilder().build();
+        Customer editedCustomer = new PersonBuilder(ALICE_ID).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedCustomer).build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -114,9 +115,14 @@ public class EditCustomerCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit customer in filtered list into a duplicate in address book
-        Customer customerInList = model.getInventorySystem().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(customerInList).build());
+        Customer secondCustomerInList =
+                model.getInventorySystem().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Customer firstCustomerInList =
+                model.getInventorySystem().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditPersonDescriptor editPersonDescriptor =
+                new EditPersonDescriptorBuilder(secondCustomerInList).withId(firstCustomerInList.getId()).build();
+        EditCustomerCommand editCustomerCommand =
+                new EditCustomerCommand(INDEX_FIRST_PERSON, editPersonDescriptor);
 
         assertCommandFailure(editCustomerCommand, model, EditCustomerCommand.MESSAGE_DUPLICATE_PERSON);
     }

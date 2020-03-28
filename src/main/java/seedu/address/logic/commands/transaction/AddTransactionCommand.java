@@ -53,6 +53,7 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the address book";
+    public static final String MESSAGE_MAXIMUM_SALES = "Maximum sales amount that can be stored is 1000000";
 
     private final TransactionFactory transactionFactory;
     private final EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
@@ -128,7 +129,7 @@ public class AddTransactionCommand extends Command {
         try {
             newSales = oldSales.plus(toAdd.getMoney());
         } catch (IllegalArgumentException e) {
-            throw new CommandException(Money.MESSAGE_CONSTRAINTS_VALUE);
+            throw new CommandException(MESSAGE_MAXIMUM_SALES);
         }
 
         return newSales;
