@@ -94,7 +94,7 @@
 }
 
 #savings #numericalAmount {
-  /* default font size */
+  /* default font size for number */
   -fx-font-size: 25px;
 }
 

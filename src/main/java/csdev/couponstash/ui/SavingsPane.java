@@ -10,8 +10,12 @@ import javafx.scene.layout.VBox;
 
 public class SavingsPane extends UiPart<Region> {
     private static final String FXML = "SavingsPane.fxml";
+    // to set certain elements to be invisible
     private static final String HIDDEN = "visibility: hidden;";
+    // allow CSS styles for each label in the FlowPane
     private static final String SAVEABLE_CLASS = "sv-label";
+    // controls font size of number amount
+    private static final int BASE_FONT_SIZE = 125;
 
     @FXML
     private VBox savingsPane;
@@ -37,7 +41,7 @@ public class SavingsPane extends UiPart<Region> {
         } else {
             this.numericalAmount.setText(savingsNumber);
             this.numericalAmount.setStyle("-fx-font-size: "
-                    + (125 / savingsNumber.length())
+                    + (SavingsPane.BASE_FONT_SIZE / savingsNumber.length())
                     + ";");
         }
         s.getSaveables().ifPresentOrElse(saveablesList -> saveablesList.stream()
@@ -49,6 +53,17 @@ public class SavingsPane extends UiPart<Region> {
             }), () -> this.saveables.setStyle(SavingsPane.HIDDEN));
     }
 
+    /**
+     * Given a Savings object and the money symbol, return
+     * a String containing a formatted numerical value for
+     * use in SavingsPane, or an empty String if the
+     * Savings does not have any MonetaryAmount
+     * or PercentageAmount (only Saveable).
+     *
+     * @param s The Savings object to access.
+     * @param moneySymbol The money symbol set in UserPrefs.
+     * @return Nicely formatted String of the numerical savings.
+     */
     private static String getSavingsString(Savings s, String moneySymbol) {
         // assumes that Savings only has either PercentageAmount
         // or MonetaryAmount, but never both
