@@ -8,12 +8,12 @@ import seedu.address.model.Model;
 import seedu.address.model.modelStudent.StudentAddressBook;
 
 /**
- * Clears the address book.
+ * Clears the Student address book.
  */
-public class ClearStudentCommand extends Command {
+public class ClearStudentCommand extends ClearCommand {
 
-  public static final String COMMAND_WORD = "clear-student";
-  public static final String MESSAGE_SUCCESS = "Student Address book has been cleared!";
+  public static final String COMMAND_WORD = "clear-students";
+  public static final String MESSAGE_SUCCESS = "All students in the database has been removed!";
 
 
   @Override

@@ -59,4 +59,8 @@ public class ArgumentMultimap {
   public String getPreamble() {
     return getValue(new Prefix("")).orElse("");
   }
+
+  public Map<Prefix, List<String>> getArgMultimap() {
+    return this.argMultimap;
+  }
 }

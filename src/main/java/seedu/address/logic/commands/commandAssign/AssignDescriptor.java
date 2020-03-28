@@ -23,11 +23,9 @@ public class AssignDescriptor {
     }
 
     // TODO: Throws exception
+    // TODO: Consider if checking should happen if assign descriptor is > 2
     public void setAssignEntity(Prefix assignEntity, ID assignID) {
-        // We only allow 2 entities in our assignment
-        if (IDMapping.entrySet().size() < 2) {
-            IDMapping.put(assignEntity, assignID);
-        }
+        IDMapping.put(assignEntity, assignID);
     }
 
     public HashMap<Prefix, ID> getIDMapping () {
