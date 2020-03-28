@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 
@@ -79,7 +80,7 @@ public class TypicalReturnOrders {
     public static final ReturnOrder AMY_RETURN = new ReturnOrderBuilder()
             .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY).withTimeStamp(VALID_TIMESTAMP_AMY)
-            .withEmail(VALID_EMAIL_AMY)
+            .withEmail(VALID_EMAIL_AMY).withItemType(VALID_TYPE_PLASTIC)
             .withComment(VALID_COMMENT_NIL).withWarehouse(VALID_WAREHOUSE_AMY)
             .build();
     public static final ReturnOrder BOB_RETURN = new ReturnOrderBuilder().withName(VALID_NAME_BOB)
@@ -87,7 +88,14 @@ public class TypicalReturnOrders {
             .withTid(VALID_TID_BOB).withAddress(VALID_ADDRESS_BOB).withTimeStamp(VALID_TIMESTAMP_BOB)
             .withEmail(VALID_EMAIL_BOB)
             .withWarehouse(VALID_WAREHOUSE_BOB)
-            .withComment(VALID_COMMENT_NIL)
+            .withComment(VALID_COMMENT_NIL).withItemType(VALID_TYPE_PLASTIC)
+            .build();
+    // Extra Bob name after Amy name
+    public static final ReturnOrder ADDITIONAL_NAME_AMY_RETURN = new ReturnOrderBuilder()
+            .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withName(VALID_NAME_BOB)
+            .withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY).withTimeStamp(VALID_TIMESTAMP_AMY)
+            .withEmail(VALID_EMAIL_AMY).withItemType(VALID_TYPE_PLASTIC)
+            .withComment(VALID_COMMENT_NIL).withWarehouse(VALID_WAREHOUSE_AMY)
             .build();
 
     private TypicalReturnOrders() {

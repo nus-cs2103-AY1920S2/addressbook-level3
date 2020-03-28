@@ -24,6 +24,7 @@ import java.util.List;
 
 import seedu.address.model.OrderBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * A utility class containing a list of {@code Order} objects to be used in tests.
@@ -130,6 +131,13 @@ public class TypicalOrders {
             .withWarehouse(VALID_WAREHOUSE_BOB)
             .withComment(VALID_COMMENT_NIL)
             .build();
+
+    public static final Order ADDITIONAL_NAME_AMY = new OrderBuilder().withName(VALID_NAME_AMY)
+            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+            .withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTimeStamp(VALID_TIMESTAMP_AMY).withCash(VALID_COD_AMY)
+            .withComment(VALID_COMMENT_NIL).withWarehouse(VALID_WAREHOUSE_AMY)
+            .withName(VALID_NAME_BOB).build();
 
     public TypicalOrders() {
         //prevents instantiation
