@@ -3,10 +3,11 @@ package tatracker.logic.parser;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAB;
 
+import java.util.stream.Stream;
+
 import tatracker.logic.commands.GotoCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new GotoCommand object

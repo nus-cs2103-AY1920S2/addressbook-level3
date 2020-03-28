@@ -1,6 +1,5 @@
 package tatracker.ui;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,13 +16,8 @@ import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.logic.parser.module.AddModuleCommandParser;
-import tatracker.logic.parser.module.DeleteModuleCommandParser;
-
-import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -280,6 +274,13 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * parses the user command to get the specified tab
+     * @param commandText the user command
+     * @return the specified tab
+     * @throws ParseException for invalid tab names
+     */
 
     private Tab parseTab(String commandText) throws ParseException {
         switch (commandText.trim()) {
