@@ -32,6 +32,8 @@ public class PersonCardBday extends UiPart<Region> {
     private Label remark;
     @FXML
     private Label birthday;
+    @FXML
+    private Label organization;
 
     public PersonCardBday(Person person, int displayedIndex) {
         super(FXML);
@@ -40,6 +42,7 @@ public class PersonCardBday extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         birthday.setText(person.getBirthday().toString());
+        organization.setText(person.getOrganization().toString());
         String remarkValue = "";
         int i = 0;
         while (i < person.getRemark().size()) {
