@@ -178,8 +178,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setCurrentlyOpenBlock(AbsolutePath p) {
-        System.out.println(p.toString());
-        System.out.println("------------------------------");
         blockModel.setCurrentlyOpenBlock(p);
     }
 
