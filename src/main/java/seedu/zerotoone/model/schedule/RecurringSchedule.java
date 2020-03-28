@@ -1,6 +1,5 @@
 package seedu.zerotoone.model.schedule;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +22,11 @@ public class RecurringSchedule implements Schedule {
         this.workoutToSchedule = workoutToSchedule;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    @Override
+    public Exercise getWorkoutToSchedule() {
+        return workoutToSchedule;
     }
 
     @Override

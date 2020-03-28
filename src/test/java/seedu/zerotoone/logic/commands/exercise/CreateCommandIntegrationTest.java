@@ -12,6 +12,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -24,7 +25,9 @@ public class CreateCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new UserPrefs(), getTypicalExerciseList());
+        model = new ModelManager(new UserPrefs(),
+                getTypicalExerciseList(),
+                new ScheduleList());
     }
 
     @Test
@@ -32,7 +35,9 @@ public class CreateCommandIntegrationTest {
         Exercise validExercise = new ExerciseBuilder()
                 .withExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS).build();
 
-        Model expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
+        Model expectedModel = new ModelManager(new UserPrefs(),
+                model.getExerciseList(),
+                model.getScheduleList());
         expectedModel.addExercise(validExercise);
 
         CreateCommand command = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS));

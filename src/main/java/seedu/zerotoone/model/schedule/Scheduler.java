@@ -18,10 +18,15 @@ public class Scheduler {
     private ScheduledWorkoutList scheduledWorkoutList;
     private SortedList<ScheduledWorkout> sortedScheduledWorkoutList;
 
-    public Scheduler() {
-        this.scheduleList = new ScheduleList();
+    public Scheduler(ScheduleList scheduleList) {
+        this.scheduleList = scheduleList;
         this.scheduledWorkoutList = new ScheduledWorkoutList();
         this.sortedScheduledWorkoutList = new SortedList<>(this.scheduledWorkoutList.getScheduledWorkoutList());
+        updateSortedScheduledWorkoutList();
+    }
+
+    public ScheduleList getScheduleList() {
+        return scheduleList;
     }
 
     public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {

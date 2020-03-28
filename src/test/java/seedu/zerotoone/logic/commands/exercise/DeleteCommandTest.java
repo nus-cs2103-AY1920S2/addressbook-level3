@@ -16,6 +16,7 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
@@ -24,7 +25,9 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(new UserPrefs(), getTypicalExerciseList());
+    private Model model = new ModelManager(new UserPrefs(),
+            getTypicalExerciseList(),
+            new ScheduleList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +37,9 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete.getExerciseName());
 
-        ModelManager expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
+        ModelManager expectedModel = new ModelManager(new UserPrefs(),
+                model.getExerciseList(),
+                model.getScheduleList());
         expectedModel.deleteExercise(exerciseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -58,7 +63,9 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete.getExerciseName());
 
-        Model expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
+        ModelManager expectedModel = new ModelManager(new UserPrefs(),
+                model.getExerciseList(),
+                model.getScheduleList());
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
 

@@ -17,6 +17,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.schedule.Scheduler;
 import seedu.zerotoone.model.session.Session;
@@ -38,20 +39,26 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
-    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyExerciseList exerciseList) {
+    public ModelManager(ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyExerciseList exerciseList,
+                        ScheduleList scheduleList) {
         super();
-        requireAllNonNull(exerciseList, userPrefs);
+        requireAllNonNull(exerciseList,
+                userPrefs,
+                scheduleList);
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.exerciseList = new ExerciseList(exerciseList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
         this.currentSession = Optional.empty();
-        this.scheduler = new Scheduler(); // STEPH_TODO add storage
+        this.scheduler = new Scheduler(scheduleList); // STEPH_TODO add storage
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new ExerciseList());
+        this(new UserPrefs(),
+                new ExerciseList(),
+                new ScheduleList());
     }
 
     // -----------------------------------------------------------------------------------------
@@ -157,6 +164,11 @@ public class ModelManager implements Model {
     // -----------------------------------------------------------------------------------------
     // Schedule
     @Override
+    public ScheduleList getScheduleList() {
+        return scheduler.getScheduleList();
+    }
+
+    @Override
     public boolean hasSchedule(Schedule schedule) {
         return scheduler.hasSchedule(schedule);
     }
@@ -194,5 +206,6 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises);
+        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
     }
 }

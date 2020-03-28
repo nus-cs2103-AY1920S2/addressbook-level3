@@ -27,6 +27,7 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
@@ -191,6 +192,11 @@ public class CreateCommandTest {
 
         @Override
         public void updateSortedScheduledWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ScheduleList getScheduleList() {
             throw new AssertionError("This method should not be called.");
         }
     }

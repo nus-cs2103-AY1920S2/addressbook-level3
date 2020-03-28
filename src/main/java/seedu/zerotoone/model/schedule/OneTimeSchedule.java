@@ -20,6 +20,15 @@ public class OneTimeSchedule implements Schedule {
     }
 
     @Override
+    public Exercise getWorkoutToSchedule() {
+        return workoutToSchedule;
+    }
+
+    public DateTime getDateTime() {
+        return dateTime;
+    }
+
+    @Override
     public Optional<List<ScheduledWorkout>> getScheduledWorkout() {
         ScheduledWorkout scheduledWorkout = new ScheduledWorkout(workoutToSchedule, dateTime);
         return Optional.of(Collections.singletonList(scheduledWorkout));

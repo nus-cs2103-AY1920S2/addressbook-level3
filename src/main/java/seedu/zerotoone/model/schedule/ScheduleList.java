@@ -1,6 +1,7 @@
 package seedu.zerotoone.model.schedule;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +14,10 @@ public class ScheduleList implements Iterable<Schedule> {
 
     public ScheduleList() {
         this.schedules = new ArrayList<>();
+    }
+
+    public List<Schedule> getScheduleList() {
+        return Collections.unmodifiableList(schedules);
     }
 
     public boolean hasSchedule(Schedule schedule) {

@@ -18,12 +18,16 @@ public class DateTime {
     public static final String MESSAGE_CONSTRAINTS =
             String.format("DateTime must be in the format %1$s.", DATE_TIME_PATTERN);
 
-    public final LocalDateTime dateTime;
+    private final LocalDateTime dateTime;
 
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
         checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS);
         this.dateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     /**
@@ -38,6 +42,11 @@ public class DateTime {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return dateTime.format(DATE_TIME_FORMATTER);
     }
 
     @Override
