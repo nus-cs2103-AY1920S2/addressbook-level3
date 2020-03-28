@@ -12,8 +12,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
 
-import java.lang.annotation.Inherited;
-
 /**
  * Represents the View-Controller for the SideBarTreeView component.
  */
