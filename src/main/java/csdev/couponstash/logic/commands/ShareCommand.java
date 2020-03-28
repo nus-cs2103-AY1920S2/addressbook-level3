@@ -22,7 +22,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 
 /**
- * Edits the details of an existing coupon in the CouponStash.
+ * Share a Coupon in the CouponStash.
  */
 public class ShareCommand extends Command {
 
