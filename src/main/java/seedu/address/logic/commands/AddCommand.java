@@ -8,9 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
+import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -40,42 +41,21 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_ADD_SUCCESS = "New Personal Object added: %1$s";
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
-    //public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the profile list";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
             + "please specify date or add a deadline";
 
-    private final Module toAdd;
+    private final ModuleCode toAdd;
     private int addSemester;
     private String addGrade;
     private String addTask;
     private String addDeadlineString;
 
-    /**
-     * Creates an AddCommand to add the specified {@code Profile}
-     */
-    /*
-    public AddCommand(Module module) {
-        requireNonNull(module);
-        toAdd = module;
-    }
-
-    public AddCommand(Module module, boolean isUpdated) {
-        requireNonNull(module);
-        toAdd = module;
-        MESSAGE_SUCCESS = "Existing module updated: %1$s";
-    }*/
-
     public AddCommand(ModuleCode moduleCode, int semester, String grade,
                       String task, String deadlineString) {
         requireNonNull(moduleCode);
         requireNonNull(semester);
-        Module tempMod;
-        try {
-            tempMod = ModuleManager.getModule(moduleCode);
-        } catch (ParseException e) {
-            tempMod = null; // Placeholder!
-        }
-        toAdd = tempMod;
+
+        toAdd = moduleCode;
         addSemester = semester;
         if (grade != null) {
             addGrade = grade;
@@ -89,29 +69,35 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
+                                 ModuleManager moduleManager) throws CommandException {
+        requireNonNull(profileManager);
+        requireNonNull(courseManager);
+        requireNonNull(moduleManager);
 
-        Profile profile = model.getFirstProfile();
+
+        Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
-        Module module = toAdd;
-        for (ModuleList list: profile.getHashMap().values()) {
-            for (Module moduleItr: list) {
-                if (toAdd.isSameModule(moduleItr)) {
+        Module moduleToAdd = moduleManager.getModule(toAdd);
+
+        // Check whether this module has been added to Profile semester HashMap
+        for (ModuleList semesterList: profile.getSemModHashMap().values()) {
+            for (Module moduleInSem: semesterList) {
+                if (moduleToAdd.isSameModule(moduleInSem)) {
                     hasModule = true;
-                    module = moduleItr;
+                    moduleToAdd = moduleInSem;
                 }
             }
         }
 
         Personal personal;
-        if (hasModule) { // Module exists
-            personal = module.getPersonal();
+        if (hasModule) { // Module already added to semester
+            personal = moduleToAdd.getPersonal();
             if (addGrade == null && addTask == null && addDeadlineString == null) {
                 /*throw new CommandException(String.format("Error: Module already exists as "
                         + module.getPersonal().getStatus() + ", "
                         + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));*/
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, module.getPersonal().getStatus()));
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, moduleToAdd.getPersonal().getStatus()));
             }
         } else { // Module does not exist
             // Create Personal object
@@ -123,7 +109,7 @@ public class AddCommand extends Command {
         }
         if (addTask != null) {
             Deadline deadline;
-            String moduleCode = toAdd.getModuleCode().toString();
+            String moduleCode = toAdd.toString();
             if (addDeadlineString != null) {
                 String date = addDeadlineString.split(" ")[0];
                 String time = addDeadlineString.split(" ")[1];
@@ -137,11 +123,11 @@ public class AddCommand extends Command {
             }
 
             personal.addDeadline(deadline);
-            model.addDeadline(deadline);
+            profileManager.addDeadline(deadline);
 
         }
 
-        int currentSemester = Profile.getCurrentSemester();
+        int currentSemester = profile.getCurrentSemester();
         if (addSemester < currentSemester) {
             personal.setStatus("completed");
         } else if (addSemester == currentSemester) {
@@ -150,10 +136,10 @@ public class AddCommand extends Command {
             personal.setStatus("not taken");
         }
 
-        module.setPersonal(personal);
+        moduleToAdd.setPersonal(personal);
 
         if (!hasModule) {
-            Profile.addModule(addSemester, module);
+            profile.addModule(addSemester, moduleToAdd);
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
         } else {
             return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd));
