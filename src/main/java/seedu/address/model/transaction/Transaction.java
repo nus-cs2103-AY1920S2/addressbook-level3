@@ -5,6 +5,7 @@ import java.util.UUID;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -75,7 +76,8 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime());
+                && otherTransaction.getDateTime().equals(getDateTime())
+                && otherTransaction.getQuantity().equals(getQuantity());
 
     }
 
@@ -93,7 +95,8 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime());
+                && otherTransaction.getDateTime().equals(getDateTime())
+                && otherTransaction.getQuantity().equals(getQuantity());
     }
 
     @Override

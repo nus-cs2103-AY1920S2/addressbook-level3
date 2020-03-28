@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
@@ -22,7 +23,7 @@ public class Product {
     private final CostPrice costPrice;
     private final Price price;
     private final Quantity quantity;
-    private final Sales sales;
+    private final Money sales;
     private final UUID id;
 
     private QuantityThreshold threshold;
@@ -31,7 +32,7 @@ public class Product {
      * Every field must be present and not null.
      */
     public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Sales sales, QuantityThreshold threshold) {
+                   Money sales, QuantityThreshold threshold) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.description = description;
         this.costPrice = costPrice;
@@ -45,7 +46,7 @@ public class Product {
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity, Sales sales,
+    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity, Money sales,
                    QuantityThreshold threshold, UUID id) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.description = description;
@@ -73,7 +74,7 @@ public class Product {
         return quantity;
     }
 
-    public Sales getSales() {
+    public Money getSales() {
         return sales;
     }
 

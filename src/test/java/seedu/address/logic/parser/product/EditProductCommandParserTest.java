@@ -31,8 +31,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import seedu.address.model.product.Price;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.testutil.product.EditProductDescriptorBuilder;
 
@@ -75,8 +75,8 @@ public class EditProductCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
-        assertParseFailure(parser, "1" + INVALID_SALES_DESC, Sales.MESSAGE_CONSTRAINTS); // invalid sales
+        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS_FORMAT); // invalid quantity
+        assertParseFailure(parser, "1" + INVALID_SALES_DESC, Money.MESSAGE_CONSTRAINTS_FORMAT); // invalid sales
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC + QUANTITY_DESC_BAG, Price.MESSAGE_CONSTRAINTS);

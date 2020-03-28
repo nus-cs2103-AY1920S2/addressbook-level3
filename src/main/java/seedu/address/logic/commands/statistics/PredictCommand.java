@@ -11,8 +11,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.product.Sales;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Money;
 
 /**
  * Predicts sales for the next month based on sales in the previous three months.
@@ -37,7 +37,7 @@ public class PredictCommand extends Command {
             throw new CommandException(MESSAGE_NO_PRODUCTS);
         }
 
-        Sales revenue = predictRevenue(model);
+        Money revenue = predictRevenue(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, revenue));
     }
@@ -48,18 +48,18 @@ public class PredictCommand extends Command {
      * @return calculated sales
      * @throws CommandException
      */
-    private Sales predictRevenue(Model model) throws CommandException {
+    private Money predictRevenue(Model model) throws CommandException {
         List<Transaction> transactionList = model.getFilteredTransactionList();
         LocalDate todayDate = LocalDate.now();
 
-        Sales firstMonthRevenue = calculateRevenueForMonth(transactionList, todayDate);
-        Sales secondMonthRevenue = calculateRevenueForMonth(transactionList, todayDate.minusMonths(1));
-        Sales thirdMonthRevenue = calculateRevenueForMonth(transactionList, todayDate.minusMonths(2));
-        int predictedRevenue = (Integer.parseInt(firstMonthRevenue.value)
-                + Integer.parseInt(secondMonthRevenue.value)
-                + Integer.parseInt(thirdMonthRevenue.value)) / 3;
+        Money firstMonthRevenue = calculateRevenueForMonth(transactionList, todayDate);
+        Money secondMonthRevenue = calculateRevenueForMonth(transactionList, todayDate.minusMonths(1));
+        Money thirdMonthRevenue = calculateRevenueForMonth(transactionList, todayDate.minusMonths(2));
+        int predictedRevenue = (firstMonthRevenue.value
+                + secondMonthRevenue.value
+                + thirdMonthRevenue.value) / 3;
 
-        return new Sales(String.valueOf(predictedRevenue));
+        return new Money(predictedRevenue);
     }
 
     /**
@@ -69,7 +69,7 @@ public class PredictCommand extends Command {
      * @return revenue for that month
      * @throws CommandException
      */
-    private Sales calculateRevenueForMonth(List<Transaction> transactionList, LocalDate date)
+    private Money calculateRevenueForMonth(List<Transaction> transactionList, LocalDate date)
             throws CommandException {
         int revenue = 0;
         for (int i = 0; i < transactionList.size(); i++) {
@@ -79,14 +79,14 @@ public class PredictCommand extends Command {
 
             if (transactionMonth == date.getMonth()) {
                 try {
-                    int price = Integer.parseInt(transaction.getMoney().value);
+                    int price = transaction.getMoney().value;
                     revenue += price;
                 } catch (Exception e) {
                     throw new CommandException(MESSAGE_NUMBER_FORMAT);
                 }
             }
         }
-        return new Sales(String.valueOf(revenue));
+        return new Money(revenue);
     }
 
     @Override

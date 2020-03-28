@@ -14,7 +14,6 @@ import seedu.address.model.customer.Phone;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,9 +46,9 @@ public class SampleDataUtil {
     public static Product[] getSampleProducts() {
         return new Product[] {
             new Product(new Description("iPad Pro"), new CostPrice("599"), new Price("1299"), new Quantity("40"),
-                    new Sales(Sales.DEFAULT_VALUE), new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE)),
+                    new Money(Money.DEFAULT_VALUE), new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE)),
             new Product(new Description("Samsung Galaxy S10"), new CostPrice("399"), new Price("899"),
-                    new Quantity("100"), new Sales(Sales.DEFAULT_VALUE),
+                    new Quantity("100"), new Money(Money.DEFAULT_VALUE),
                     new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE))
         };
     }

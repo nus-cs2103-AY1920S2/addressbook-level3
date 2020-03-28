@@ -86,7 +86,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         for (int i = 0; i < transactions.size(); i++) {
             Transaction transaction = transactions.get(i);
             if (transaction.getProduct().equals(product)) {
-                revenue += Integer.parseInt(transaction.getMoney().value);
+                revenue += transaction.getMoney().value;
             }
         }
 

@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 import seedu.address.storage.product.JsonAdaptedProduct;
@@ -75,7 +75,7 @@ public class JsonAdaptedProductTest {
         JsonAdaptedProduct product =
                 new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_COSTPRICE, VALID_PRICE,
                         INVALID_QUANTITY, VALID_SALES, VALID_THRESHOLD, VALID_ID);
-        String expectedMessage = Quantity.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Quantity.MESSAGE_CONSTRAINTS_FORMAT;
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 
@@ -92,7 +92,7 @@ public class JsonAdaptedProductTest {
         JsonAdaptedProduct product =
                 new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_COSTPRICE, VALID_PRICE,
                         VALID_QUANTITY, INVALID_SALES, VALID_THRESHOLD, VALID_ID);
-        String expectedMessage = Sales.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Money.MESSAGE_CONSTRAINTS_FORMAT;
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 
@@ -100,7 +100,7 @@ public class JsonAdaptedProductTest {
     public void toModelType_nullSales_throwsIllegalValueException() {
         JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_COSTPRICE, VALID_PRICE,
                 VALID_QUANTITY, null, VALID_THRESHOLD, VALID_ID);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Money.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 

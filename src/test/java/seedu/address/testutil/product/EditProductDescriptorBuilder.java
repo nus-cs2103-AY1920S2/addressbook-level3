@@ -4,8 +4,8 @@ import seedu.address.logic.commands.product.EditProductCommand.EditProductDescri
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -71,7 +71,7 @@ public class EditProductDescriptorBuilder {
      * Sets the {@code Sales} of the {@code EditProductDescriptor} that we are building.
      */
     public EditProductDescriptorBuilder withSales(String sales) {
-        descriptor.setSales(new Sales(sales));
+        descriptor.setSales(new Money(sales));
         return this;
     }
 

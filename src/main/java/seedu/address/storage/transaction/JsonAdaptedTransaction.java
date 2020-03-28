@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
-import seedu.address.model.transaction.Money;
+import seedu.address.model.util.Money;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
@@ -97,15 +97,22 @@ public class JsonAdaptedTransaction {
                     Quantity.class.getSimpleName()));
         }
         if (!Quantity.isValidQuantity(quantity)) {
-            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+        if (!Quantity.isValidValue(Integer.parseInt(quantity))) {
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
         }
         final Quantity modelQuantity = new Quantity(quantity);
 
         if (money == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Money.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Money.class.getSimpleName()));
         }
         if (!Money.isValidMoney(money)) {
-            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+        if (!Money.isValidAmount(Integer.parseInt(money))) {
+            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
         final Money modelMoney = new Money(money);
 
@@ -114,7 +121,7 @@ public class JsonAdaptedTransaction {
                     Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
 

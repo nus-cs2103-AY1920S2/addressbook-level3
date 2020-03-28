@@ -27,7 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
-import seedu.address.model.transaction.Money;
+import seedu.address.model.util.Money;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
@@ -50,12 +50,12 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_MONEY + "MONEY] "
             + "[" + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CUSTOMER + "Bob "
-            + PREFIX_PRODUCT + "WaterMelon "
+            + PREFIX_CUSTOMER + "1 "
+            + PREFIX_PRODUCT + "1 "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
-            + PREFIX_QUANTITY + "30 "
-            + PREFIX_MONEY + "30 "
-            + PREFIX_TRANS_DESCRIPTION + "under discount ";
+            + PREFIX_QUANTITY + "3 "
+            + PREFIX_MONEY + "40 "
+            + PREFIX_TRANS_DESCRIPTION + "normal price ";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -101,6 +101,11 @@ public class EditTransactionCommand extends Command {
         Quantity originalProductOldQuantity = originalProductToEdit.getQuantity();
         Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
         editOriginalProductDescriptor.setQuantity(originalProductNewQuantity);
+
+        Money originalProductOldSales = originalProductToEdit.getSales();
+        Money originalProductNewSales = originalProductOldSales.minus(transactionToEdit.getMoney());
+        editOriginalProductDescriptor.setSales(originalProductNewSales);
+
         editOriginalProductDescriptor.setId(originalProductToEdit.getId());
         Product editedOriginalProduct = createEditedProduct(originalProductToEdit, editOriginalProductDescriptor);
 
@@ -112,10 +117,13 @@ public class EditTransactionCommand extends Command {
 
         Product updatedProductToEdit = model.findProductById(editedTransaction.getProductId());
         Quantity updatedProductOldQuantity = updatedProductToEdit.getQuantity();
+        Money updatedProductOldSales = updatedProductToEdit.getSales();
 
         if (updatedProductOldQuantity.compareTo(editedTransaction.getQuantity()) >= 0) {
-            Quantity updateProductNewQuantity = updatedProductOldQuantity.minus(editedTransaction.getQuantity());
-            editUpdatedProductDescriptor.setQuantity(updateProductNewQuantity);
+            Quantity updatedProductNewQuantity = updatedProductOldQuantity.minus(editedTransaction.getQuantity());
+            Money updatedProductNewSales = updatedProductOldSales.plus(editedTransaction.getMoney());
+            editUpdatedProductDescriptor.setQuantity(updatedProductNewQuantity);
+            editUpdatedProductDescriptor.setSales(updatedProductNewSales);
         } else {
             model.setProduct(editedOriginalProduct, originalProductToEdit);
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
@@ -130,7 +138,6 @@ public class EditTransactionCommand extends Command {
 
         model.setProduct(updatedProductToEdit, editedUpdatedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
-
 
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);

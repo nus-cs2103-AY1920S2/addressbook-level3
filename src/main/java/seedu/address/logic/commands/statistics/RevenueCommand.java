@@ -13,9 +13,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.product.Sales;
 import seedu.address.model.statistics.StartEndDate;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Money;
 
 /**
  * Displays the revenue trend in a selected period.
@@ -57,7 +57,7 @@ public class RevenueCommand extends Command {
             throw new CommandException(MESSAGE_NO_PRODUCTS);
         }
 
-        Sales revenue = calculateRevenue(model);
+        Money revenue = calculateRevenue(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                                 startDate,
@@ -71,7 +71,7 @@ public class RevenueCommand extends Command {
      * @return calculated sales
      * @throws CommandException
      */
-    private Sales calculateRevenue(Model model) throws CommandException {
+    private Money calculateRevenue(Model model) throws CommandException {
         int revenue = 0;
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
@@ -83,7 +83,7 @@ public class RevenueCommand extends Command {
             if (transactionDate.compareTo(startDate.value) > 0
                     && transactionDate.compareTo(endDate.value) < 0) {
                 try {
-                    int price = Integer.parseInt(transaction.getMoney().value);
+                    int price = transaction.getMoney().value;
                     revenue += price;
                 } catch (Exception e) {
                     throw new CommandException(MESSAGE_NUMBER_FORMAT);
@@ -91,7 +91,7 @@ public class RevenueCommand extends Command {
             }
         }
 
-        return new Sales(String.valueOf(revenue));
+        return new Money(revenue);
     }
 
     @Override

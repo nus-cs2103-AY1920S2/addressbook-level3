@@ -21,12 +21,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 import seedu.address.ui.NotificationWindow;
+
+import javax.swing.*;
 
 /**
  * Adds a transaction to the system.
@@ -66,16 +68,16 @@ public class AddTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Transaction toAdd = transactionFactory.createTransaction(model);
         List<Product> lastShownList = model.getFilteredProductList();
 
         Index productIndex = getProductIndex(lastShownList);
-        Index customerIndex = getCustomerIndex(model.getFilteredCustomerList());
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        Quantity newQuantity = getNewQuantity(productToEdit);
+        Quantity newQuantity = getNewQuantity(toAdd, productToEdit);
         editProductDescriptor.setQuantity(newQuantity);
 
-        Sales newSales = getNewSales(productToEdit);
+        Money newSales = getNewSales(toAdd, productToEdit);
         editProductDescriptor.setSales(newSales);
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
@@ -83,8 +85,6 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-
-        Transaction toAdd = transactionFactory.createTransaction(model);
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
@@ -113,34 +113,27 @@ public class AddTransactionCommand extends Command {
         return productIndex;
     }
 
-    private Index getCustomerIndex(List<Customer> lastShownList) throws CommandException {
-        Index customerIndex = transactionFactory.getCustomerIndex();
-        if (customerIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
-        }
-        return customerIndex;
-    }
-
-    private Quantity getNewQuantity(Product productToEdit) throws CommandException {
+    private Quantity getNewQuantity(Transaction toAdd, Product productToEdit) throws CommandException {
         Quantity oldQuantity = productToEdit.getQuantity();
 
-        if (oldQuantity.compareTo(transactionFactory.getQuantity()) < 0) {
-            throw new CommandException(String.format(Messages.MESSAGE_ZERO_PRODUCT_QUANTITY,
+        if (oldQuantity.compareTo(toAdd.getQuantity()) < 0) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
                     oldQuantity.value, productToEdit.getDescription().value));
         }
 
-        return oldQuantity.minus(transactionFactory.getQuantity());
+        return oldQuantity.minus(toAdd.getQuantity());
     }
 
-    private Sales getNewSales(Product productToEdit) throws CommandException {
-        Sales oldSales = productToEdit.getSales();
-        int newSalesValue = Integer.parseInt(oldSales.value)
-                + Integer.parseInt(transactionFactory.getMoney().value);
+    private Money getNewSales(Transaction toAdd, Product productToEdit) throws CommandException {
+        Money oldSales = productToEdit.getSales();
+        Money newSales;
 
-        if (newSalesValue > Sales.MAX_VALUE) {
-            throw new CommandException(Sales.MESSAGE_CONSTRAINTS);
+        try {
+            newSales = oldSales.plus(toAdd.getMoney());
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
 
-        return new Sales(String.valueOf(newSalesValue));
+        return newSales;
     }
 }

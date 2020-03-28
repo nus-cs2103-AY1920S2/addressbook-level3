@@ -20,8 +20,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
@@ -49,11 +49,11 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         CostPrice costPrice = ParserUtil.parseCostPrice(argMultimap.getValue(PREFIX_COSTPRICE).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
-        Sales sales;
+        Money sales;
         if (arePrefixesPresent(argMultimap, PREFIX_SALES)) {
-            sales = ParserUtil.parseSales(argMultimap.getValue(PREFIX_SALES).get());
+            sales = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALES).get());
         } else {
-            sales = new Sales(Sales.DEFAULT_VALUE);
+            sales = new Money(Money.DEFAULT_VALUE);
         }
         QuantityThreshold threshold;
         if (arePrefixesPresent(argMultimap, PREFIX_THRESHOLD)) {
