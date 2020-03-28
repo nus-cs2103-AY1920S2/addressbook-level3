@@ -247,4 +247,6 @@ public abstract class Activity implements Regenerable<Activity> {
                 .append(getPriority());
         return builder.toString();
     }
+
+    public abstract boolean occurInMonth(int month);
 }

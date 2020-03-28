@@ -3,6 +3,7 @@ package nasa.model.activity;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+import java.time.LocalDateTime;
 
 /**
  * Represents Deadlines method in NASA.
@@ -82,5 +83,11 @@ public class Deadline extends Activity {
             setStatus(Status.ONGOING);
         }
         return this;
+    }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int dueDateMonth = dueDate.getDate().getMonth().getValue();
+        return month == dueDateMonth;
     }
 }

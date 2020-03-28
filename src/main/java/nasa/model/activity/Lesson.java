@@ -68,4 +68,10 @@ public class Lesson extends Activity {
     public Lesson regenerate() {
         return this;
     }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int startDateMonth = startDate.getDate().getMonth().getValue();
+        return month == startDateMonth;
+    }
 }
