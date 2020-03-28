@@ -12,7 +12,7 @@ import seedu.address.model.modelTeacher.TeacherAddressBook;
  */
 public class ClearTeacherCommand extends ClearCommand {
 
-  public static final String COMMAND_WORD = "clear-teacher";
+  public static final String COMMAND_WORD = "clear-teachers";
   public static final String MESSAGE_SUCCESS = "All teachers in the database has been removed!";
 
 

@@ -12,7 +12,7 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
  */
 public class ClearFinanceCommand extends ClearCommand {
 
-  public static final String COMMAND_WORD = "clear-finance";
+  public static final String COMMAND_WORD = "clear-finances";
   public static final String MESSAGE_SUCCESS = "Database of Finances has been cleared!";
 
 
