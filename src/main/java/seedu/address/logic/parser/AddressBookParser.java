@@ -10,6 +10,9 @@ import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.commandAdd.*;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandClear.ClearCommand;
@@ -188,6 +191,12 @@ public class AddressBookParser {
 
       case HelpCommand.COMMAND_WORD:
         return new HelpCommand();
+
+      case UndoCommand.COMMAND_WORD:
+        return new UndoCommand();
+
+      case RedoCommand.COMMAND_WORD:
+        return new RedoCommand();
 
       default:
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
