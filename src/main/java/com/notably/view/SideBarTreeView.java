@@ -112,6 +112,7 @@ public class SideBarTreeView extends ViewPart<Region> {
 
             if (empty || block == null) {
                 setText(null);
+                setGraphic(null);
             } else {
                 setText(getNoteTitle());
             }
