@@ -3,6 +3,7 @@ package tatracker.model.session;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -139,11 +140,23 @@ public class UniqueSessionList implements Iterable<Session> {
     }
 
     /**
-     * Returns all sessions of type {@code type}
-     * @param type The type of session to return
+     * Returns all sessions of type {@code type}.
+     * @param type The type of session to return.
      */
     public List<Session> getSessionsOfType(SessionType type) {
         return internalList.filtered(s -> s.getSessionType() == type);
+    }
+
+    /**
+     * @return the total duration of all sessions in this session list.
+     */
+    public Duration getTotalHours() {
+        Duration totalDuration = Duration.ofHours(0);
+        for (Session session : internalList) {
+            totalDuration.plus(session.getSessionDuration());
+        }
+
+        return totalDuration;
     }
 
     @Override
