@@ -53,11 +53,13 @@ public class LogicManager implements Logic {
   private final Model model;
   private final Storage storage;
   private final AddressBookParser addressBookParser;
+  private final UndoRedoStack undoRedoStack;
   private SummaryPanel summaryPanel;
 
   public LogicManager(Model model, Storage storage) {
     this.model = model;
     this.storage = storage;
+    this.undoRedoStack = new UndoRedoStack();
     addressBookParser = new AddressBookParser();
   }
 
@@ -67,7 +69,9 @@ public class LogicManager implements Logic {
 
     CommandResult commandResult;
     Command command = addressBookParser.parseCommand(commandText);
+    command.setData(undoRedoStack);
     commandResult = command.execute(model);
+    this.undoRedoStack.push(command);
     if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand
         || command instanceof ClearTeacherCommand || command instanceof EditTeacherCommand) {
       try {
