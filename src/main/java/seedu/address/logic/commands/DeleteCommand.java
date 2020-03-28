@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -33,6 +34,7 @@ public class DeleteCommand extends Command {
             + "[" + PREFIX_ADDRESS + "] "
             + "[" + PREFIX_BIRTHDAY + "] "
             + "[" + PREFIX_REMARK + "] "
+            + "[" + PREFIX_ORGANIZATION + "] "
             + "[" + PREFIX_TAG + "]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ADDRESS + " " + PREFIX_EMAIL;
 
