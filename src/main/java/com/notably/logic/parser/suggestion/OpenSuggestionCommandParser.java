@@ -37,6 +37,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
     public OpenSuggestionCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
+
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid input"));
@@ -47,7 +48,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 
         if (correctedPath.equals(Optional.empty())) {
-            throw new ParseException("Invalid Path");
+            throw new ParseException("Invalid path");
         }
 
         return new OpenSuggestionCommand(correctedPath.get());

@@ -1,12 +1,14 @@
 package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUtil.assertParseFailure;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
+import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -21,8 +23,6 @@ import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
 public class OpenSuggestionCommandParserTest {
-    private static final String PREFIX_TITLE = "-t";
-
     private static AbsolutePath toRoot;
     private static AbsolutePath toCs2103;
     private static AbsolutePath toCs3230;
@@ -32,8 +32,6 @@ public class OpenSuggestionCommandParserTest {
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
     private static OpenSuggestionCommandParser openSuggestionCommandParser;
-
-    private OpenSuggestionCommand openSuggestionCommand;
 
     @BeforeAll
     public static void setUp() {
@@ -75,30 +73,26 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() throws ParseException {
-        /*if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format("Invalid input"));
-        }*/
-        // If prefixes are not present
-        assertParseFailure(openSuggestionCommandParser, "open /CS2103/Week1",
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(openSuggestionCommandParser, " /CS2103",
             "Invalid input");
 
-        // If preamble is not empty
-        assertParseFailure(openSuggestionCommandParser, "open /CS2103/ Week1",
+        assertParseFailure(openSuggestionCommandParser, " /CS2 103",
+                "Invalid input");
+
+        assertParseFailure(openSuggestionCommandParser, " preamble -t /CS2103",
             "Invalid input");
     }
 
     @Test
-    public void parse_uncorrectedPath_throwsParseException() {
-        /*if (correctedPath.equals(Optional.empty())) {
-            throw new ParseException("Invalid Path");
-        }*/
+    public void parse_uncorrectedPath_throwsParseException() throws ParseException {
+        assertParseFailure(openSuggestionCommandParser, " -t randomBlock", "Invalid path");
     }
 
-    /*@Test
-    public void parse_validArgs_returnsOpenSuggestionCommand() {
+    @Test
+    public void parse_validArgs_returnsOpenSuggestionCommand() throws ParseException {
+        SuggestionCommand command = openSuggestionCommandParser.parse(" -t /CS2103/Week1/Lecture");
 
-        assertParseSuccess(openSuggestionCommandParser, "1", new OpenSuggestionCommand(INDEX_FIRST_PERSON));
-    }*/
+        assertTrue(command instanceof OpenSuggestionCommand);
+    }
 }
