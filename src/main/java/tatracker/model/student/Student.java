@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import tatracker.model.rating.Rating;
 import tatracker.model.tag.Tag;
 
 
@@ -15,6 +16,9 @@ import tatracker.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Student {
+
+    // Rating stub to be replaced by #147
+    public final Rating rating;
 
     // Identity fields
     private final Matric matric;
@@ -40,6 +44,7 @@ public class Student {
 
         this.tags = new HashSet<>();
         this.tags.addAll(tags);
+        this.rating = new Rating(3);
     }
 
     public Matric getMatric() {
