@@ -87,7 +87,7 @@ public class Module {
 
     public void setTag(int id) {
         this.tag = id;
-    }
+    } //if tag != null means module is taken before
 
     public int getTag() {
         return this.tag;

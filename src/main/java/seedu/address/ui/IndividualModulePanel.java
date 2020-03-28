@@ -7,26 +7,42 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.course.module.Module;
 
 /**
  * Panel containing the list of persons.
  */
-public class ModuleListPanel extends UiPart<Region> {
-    private static final String FXML = "ModuleListPanel.fxml";
+public class IndividualModulePanel extends UiPart<Region> {
+    private static final String FXML = "IndividualModulePanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
-    private Label yearSem;
+    private VBox individualModulePanel;
     @FXML
-    private ListView<Module> moduleListView;
+    private Label moduleCode;
+    @FXML
+    private Label moduleTitle;
+    @FXML
+    private Label preReqs;
+    @FXML
+    private Label modularCredits;
+    @FXML
+    private Label description;
 
-    public ModuleListPanel(ObservableList<Module> moduleList) {
+
+
+    public IndividualModulePanel(Module module) {
         super(FXML);
-        moduleListView.setItems(moduleList);
-        moduleListView.setCellFactory(listView -> new ModuleListViewCell());
+        moduleCode.setText(module.getModuleCode().toString());
+        moduleTitle.setText(module.getTitle().toString().toUpperCase());
+        preReqs.setText("Prerequisite: \n" + module.getPrereqs().prereqs);
+        modularCredits.setText("Modular Credits: " + module.getModularCredits().toString());
+        description.setText("Module Description: \n" + module.getDescription().description);
+
     }
 
     /**

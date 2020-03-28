@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="individualModulePanel" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="10" bottom="10" left="10" right="10"/>
+        </padding>
+        <Label fx:id="moduleCode" text="\$moduleCode" wrapText="true" styleClass="module_code"></Label>
+        <Label fx:id="moduleTitle" text="\$moduleTitle" wrapText="true" styleClass="module_title"></Label>
+        <Label fx:id="preReqs" text="\$prereqs" wrapText="true" styleClass="module_others"></Label>
+        <Label fx:id="modularCredits" text="\$mcs" wrapText="true" styleClass="module_others"></Label>
+        <Label fx:id="description" text="\$description" wrapText="true" styleClass="module_others"></Label>
+<!--        <Label fx:id="semesterData" text="\$description"></Label>-->
+
+
+    </VBox>
+
+</VBox>

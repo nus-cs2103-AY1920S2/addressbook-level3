@@ -21,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
 /**
@@ -46,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private WelcomeView welcomeViewPanel;
     private ModuleListPanel moduleListPanel;
     private OverviewPanel overviewPanel;
+    private IndividualModulePanel individualModulePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -202,10 +204,16 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         //adds module list panel
-        moduleListPanel = new ModuleListPanel(displayedView.get());
+//        moduleListPanel = new ModuleListPanel(displayedView.get());
 //        mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
-        overviewPanel = new OverviewPanel(profile);
-        mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
+
+        //adds overview panel
+//        overviewPanel = new OverviewPanel(profile);
+//        mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
+
+        //adds individual module panel
+//        individualModulePanel = new IndividualModulePanel(profile.getModule(new ModuleCode("CS2103T")));
+//        mainPanelPlaceholder.getChildren().addAll(individualModulePanel.getRoot());
 
     }
 

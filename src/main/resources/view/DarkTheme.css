@@ -406,3 +406,27 @@
     -fx-rotate: -90;
 }
 
+/*FOR THE INDIVIDUAL MODULE PAGE*/
+.module_code {
+    -fx-font-family: "Segoe Pro Display";
+    -fx-font-weight: bold;
+    -fx-font-size: 45px;
+    -fx-text-fill: #F7C4BB;
+    -fx-stroke: #ffffff;
+    -fx-stroke-width: 1;
+}
+
+.module_title {
+    -fx-font-family: "Segoe Pro Display";
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-text-fill: #ffffff;
+    -fx-stroke: #ffffff;
+    -fx-stroke-width: 1;
+}
+
+.module_others {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 17px;
+    -fx-text-fill: #ffffff;
+}
