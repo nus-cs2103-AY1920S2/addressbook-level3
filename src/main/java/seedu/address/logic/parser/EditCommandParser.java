@@ -9,18 +9,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
@@ -46,101 +40,49 @@ public class EditCommandParser implements Parser<EditCommand> {
             moduleCodeString = moduleCodeString.trim();
             moduleCodeString = moduleCodeString.toUpperCase();
             ModuleCode moduleCode = new ModuleCode(moduleCodeString);
-
-            Module existingModule = null;
-            ModuleList inList = null;
-            Module module = ModuleManager.getModule(moduleCode);
-            HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
-            for (ModuleList list: hashMap.values()) {
-                for (Module moduleItr: list) {
-                    if (module.isSameModule(moduleItr)) {
-                        existingModule = moduleItr;
-                        inList = list;
-                    }
-                }
-            }
-            if (existingModule == null) {
-                throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
-            }
-
-            int inSemester = getKey(hashMap, inList);
-
-            // Module exists
+            int intSemester = 0;
+            String grade = null;
             if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
                 String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
                 if (!ParserUtil.isInteger(semester)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
                 }
-                int intSemester = Integer.parseInt(semester);
-                hashMap.get(inSemester).removeModuleWithModuleCode(moduleCode);
-                Profile.addModule(intSemester, existingModule);
-                updateStatus(Profile.getCurrentSemester());
+                intSemester = Integer.parseInt(semester);
             }
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
-                String grade = argMultimap.getValue(PREFIX_GRADE).get();
-                existingModule.getPersonal().setGrade(grade);
+                grade = argMultimap.getValue(PREFIX_GRADE).get();
             }
-            return new EditCommand(existingModule);
+            return new EditCommand(moduleCode, intSemester, grade);
         } else { // EDIT PROFILE
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
                     && !arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)
                     && !arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
+
+            Name name = null;
+            CourseName courseName = null;
+            int currentSemester = 0;
+            String specialisation = null;
+
             if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-                Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-                Profile.setName(name);
+                name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
-                CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
-                Profile.setCourse(courseName);
+                courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)) {
                 String currentSemesterString = argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get();
                 if (!ParserUtil.isInteger(currentSemesterString)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
                 }
-                int currentSemester = Integer.parseInt(currentSemesterString);
-                Profile.setCurrentSemester(currentSemester);
-                updateStatus(currentSemester);
+                currentSemester = Integer.parseInt(currentSemesterString);
             }
             if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
-                String specialisation = argMultimap.getValue(PREFIX_GRADE).get();
-                Profile.setSpecialisation(specialisation);
+                specialisation = argMultimap.getValue(PREFIX_SPEC).get();
             }
-            return new EditCommand();
+            return new EditCommand(name, courseName, currentSemester, specialisation);
         }
-    }
-
-    /**
-     * Updates statuses of all modules in the Profile
-     */
-    private void updateStatus(int currentSemester) {
-        HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
-        for (ModuleList list: hashMap.values()) {
-            int semester = getKey(hashMap, list);
-            for (Module moduleItr: list) {
-                if (semester < currentSemester) {
-                    moduleItr.getPersonal().setStatus("completed");
-                } else if (semester == currentSemester) {
-                    moduleItr.getPersonal().setStatus("in progress");
-                } else {
-                    moduleItr.getPersonal().setStatus("not taken");
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns key of the given value
-     */
-    public <K, V> K getKey(Map<K, V> map, V value) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            if (entry.getValue().equals(value)) {
-                return entry.getKey();
-            }
-        }
-        return null;
     }
 
     /**
