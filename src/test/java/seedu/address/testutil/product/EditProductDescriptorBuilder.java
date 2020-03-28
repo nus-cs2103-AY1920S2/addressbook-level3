@@ -1,5 +1,7 @@
 package seedu.address.testutil.product;
 
+import java.util.UUID;
+
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
@@ -28,11 +30,20 @@ public class EditProductDescriptorBuilder {
      */
     public EditProductDescriptorBuilder(Product product) {
         descriptor = new EditProductDescriptor();
+        descriptor.setId(product.getId());
         descriptor.setDescription(product.getDescription());
         descriptor.setCostPrice(product.getCostPrice());
         descriptor.setPrice(product.getPrice());
         descriptor.setQuantity(product.getQuantity());
         descriptor.setSales(product.getMoney());
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code EditProductDescriptor} that we are building.
+     */
+    public EditProductDescriptorBuilder withId(UUID id) {
+        descriptor.setId(id);
+        return this;
     }
 
     /**

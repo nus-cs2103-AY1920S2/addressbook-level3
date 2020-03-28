@@ -106,7 +106,6 @@ public class EditTransactionCommand extends Command {
         Money originalProductNewSales = originalProductOldSales.minus(transactionToEdit.getMoney());
         editOriginalProductDescriptor.setSales(originalProductNewSales);
 
-        editOriginalProductDescriptor.setId(originalProductToEdit.getId());
         Product editedOriginalProduct = createEditedProduct(originalProductToEdit, editOriginalProductDescriptor);
 
         if (!originalProductToEdit.isSameProduct(editedOriginalProduct) && model.hasProduct(editedOriginalProduct)) {
@@ -157,6 +156,7 @@ public class EditTransactionCommand extends Command {
         List<Product> lastShownProductList = model.getFilteredProductList();
 
         Customer updatedCustomer;
+        UUID updatedCustomerId;
         if (editTransactionDescriptor.getCustomerIndex().isPresent()) {
             Index updatedCustomerIndex = editTransactionDescriptor.getCustomerIndex().get();
 
@@ -165,8 +165,10 @@ public class EditTransactionCommand extends Command {
             }
 
             updatedCustomer = model.getFilteredCustomerList().get(updatedCustomerIndex.getZeroBased());
+            updatedCustomerId = model.getFilteredProductList().get(updatedCustomerIndex.getZeroBased()).getId();
         } else {
             updatedCustomer = transactionToEdit.getCustomer();
+            updatedCustomerId = transactionToEdit.getCustomerId();
         }
 
         Product updatedProduct;
@@ -191,7 +193,7 @@ public class EditTransactionCommand extends Command {
         Description updatedDescription = editTransactionDescriptor.getDescription()
                 .orElse(transactionToEdit.getDescription());
 
-        return new Transaction(updatedCustomer, updatedProduct, updatedProductId,
+        return new Transaction(updatedCustomer, updatedProduct, updatedCustomerId, updatedProductId,
                 updatedDateTime, updatedQuantity, updatedMoney, updatedDescription);
     }
 

@@ -250,6 +250,7 @@ public class ParserUtil {
     public static Money parseMoney(String money) throws ParseException {
         requireNonNull(money);
         String trimmedMoney = money.trim();
+
         if (!Money.isValidMoney(trimmedMoney)) {
             throw new ParseException(Money.MESSAGE_CONSTRAINTS_FORMAT);
         }
@@ -257,6 +258,7 @@ public class ParserUtil {
         if (!Money.isValidAmount(Integer.parseInt(trimmedMoney))) {
             throw new ParseException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
+
         return new Money(trimmedMoney);
     }
 

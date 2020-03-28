@@ -34,28 +34,32 @@ public class Product {
     public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
                    Money money, QuantityThreshold threshold) {
         requireAllNonNull(description, costPrice, price, quantity);
+        this.id = UUID.randomUUID();
         this.description = description;
         this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
         this.money = money;
         this.threshold = threshold;
-        this.id = UUID.randomUUID();
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity, Money money,
-                   QuantityThreshold threshold, UUID id) {
-        requireAllNonNull(description, costPrice, price, quantity);
+    public Product(UUID id, Description description, CostPrice costPrice, Price price, Quantity quantity,
+                   Money money, QuantityThreshold threshold) {
+        requireAllNonNull(id, description, costPrice, price, quantity);
+        this.id = id;
         this.description = description;
         this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
         this.money = money;
-        this.id = id;
         this.threshold = threshold;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Description getDescription() {
@@ -78,10 +82,6 @@ public class Product {
         return money;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
     public QuantityThreshold getThreshold() {
         return threshold;
     }
@@ -99,9 +99,10 @@ public class Product {
         }
 
         return otherProduct != null
-                && otherProduct.getDescription().equals(getDescription())
+                && otherProduct.getId().equals(getId())
+                || (otherProduct.getDescription().equals(getDescription())
                 && otherProduct.getCostPrice().equals(getCostPrice())
-                && otherProduct.getPrice().equals(getPrice());
+                && otherProduct.getPrice().equals(getPrice()));
     }
 
     /**
@@ -118,9 +119,10 @@ public class Product {
         }
 
         Product otherProduct = (Product) other;
-        return otherProduct.getDescription().equals(getDescription())
+        return otherProduct.getId().equals(getId())
+                || (otherProduct.getDescription().equals(getDescription())
                 && otherProduct.getCostPrice().equals(getCostPrice())
-                && otherProduct.getPrice().equals(getPrice());
+                && otherProduct.getPrice().equals(getPrice()));
     }
 
     @Override
@@ -132,7 +134,7 @@ public class Product {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDescription())
+        builder.append(getDescription() + " (" + getId() + ")")
                 .append("\nCost Price: $")
                 .append(getCostPrice())
                 .append(" Price: $")
