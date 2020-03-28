@@ -92,7 +92,7 @@ public class EditTeacherCommand extends Command {
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
-    List<Teacher> lastShownList = model.getFilteredTeacherList();
+    List<Teacher> lastShownList = model.getFilteredStaffList();
 
     if (index.getZeroBased() >= lastShownList.size()) {
       throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
@@ -101,12 +101,12 @@ public class EditTeacherCommand extends Command {
     Teacher teacherToEdit = lastShownList.get(index.getZeroBased());
     Teacher editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
 
-    if (!teacherToEdit.weakEquals(editedTeacher) && model.hasTeacher(editedTeacher)) {
+    if (!teacherToEdit.weakEquals(editedTeacher) && model.hasStaff(editedTeacher)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
-    model.setTeacher(teacherToEdit, editedTeacher);
-    model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
+    model.setStaff(teacherToEdit, editedTeacher);
+    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_TEACHERS);
     return new CommandResult(String.format(MESSAGE_EDIT_TEACHER_SUCCESS, editedTeacher));
   }
 

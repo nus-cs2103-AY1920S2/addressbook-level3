@@ -131,14 +131,14 @@ public class ModelManager implements Model {
   }
 
   @Override
-  public Path getTeacherAddressBookFilePath() {
+  public Path getStaffAddressBookFilePath() {
     return userPrefs.getTeacherAddressBookFilePath();
   }
 
   @Override
-  public void setTeacherAddressBookFilePath(Path teacherAddressBookFilePath) {
-    requireNonNull(teacherAddressBookFilePath);
-    userPrefs.setTeacherAddressBookFilePath(teacherAddressBookFilePath);
+  public void setStaffAddressBookFilePath(Path staffAddressBookFilePath) {
+    requireNonNull(staffAddressBookFilePath);
+    userPrefs.setTeacherAddressBookFilePath(staffAddressBookFilePath);
   }
 
   @Override
@@ -259,7 +259,7 @@ public class ModelManager implements Model {
   @Override
   public void addTeacher(Teacher teacher) {
     staffAddressBook.add(teacher);
-    updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
+    updateFilteredStaffList(PREDICATE_SHOW_ALL_TEACHERS);
   }
   @Override
   public void setTeacher(Teacher target, Teacher editedTeacher) {
@@ -473,7 +473,7 @@ public class ModelManager implements Model {
    * {@code versionedTeacherAddressBook}
    */
   @Override
-  public ObservableList<Teacher> getFilteredTeacherList() {
+  public ObservableList<Teacher> getFilteredStaffList() {
     return filteredTeachers;
   }
 

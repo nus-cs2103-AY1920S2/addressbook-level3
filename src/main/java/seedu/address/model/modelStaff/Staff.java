@@ -21,7 +21,7 @@ public class Staff extends ModelObject {
   // Identity fields
   private final Name name;
   //private final ID id;
-  //private final boolean isTeacher;
+  private final boolean isTeacher;
   private final Phone phone;
   private final Email email;
   private final Address address;
@@ -34,10 +34,10 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Staff(Name name, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
+  public Staff(Name name, Boolean isTeacher, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
     requireAllNonNull(name, phone, email, address, tags);
     this.name = name;
-    //this.isTeacher = isTeacher;
+    this.isTeacher = isTeacher;
     this.phone = phone;
     this.email = email;
     this.salary = salary;

@@ -152,12 +152,12 @@ public class LogicManager implements Logic {
 
   @Override
   public ObservableList<Teacher> getFilteredTeacherList() {
-    return model.getFilteredTeacherList();
+    return model.getFilteredStaffList();
   }
 
   @Override
   public Path getTeacherAddressBookFilePath() {
-    return model.getTeacherAddressBookFilePath();
+    return model.getStaffAddressBookFilePath();
   }
 
   ///

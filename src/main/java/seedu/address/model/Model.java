@@ -9,8 +9,8 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelStaff.Teacher;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,7 +22,7 @@ public interface Model {
    * {@code Predicate} that always evaluate to true
    */
   Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-  Predicate<Teacher> PREDICATE_SHOW_ALL_TEACHERS = unused -> true;
+  Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
   Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
   Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
   Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
@@ -110,57 +110,57 @@ public interface Model {
   /**
    * Returns the user prefs' address book file path.
    */
-  Path getTeacherAddressBookFilePath();
+  Path getStaffAddressBookFilePath();
 
   /**
    * Sets the user prefs' address book file path.
    */
-  void setTeacherAddressBookFilePath(Path teacherAddressBookFilePath);
+  void setStaffAddressBookFilePath(Path staffAddressBookFilePath);
 
   /**
-   * Returns the teacherAddressBook
+   * Returns the staffAddressBook
    */
-  ReadOnlyAddressBookGeneric<Teacher> getStaffAddressBook();
+  ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook();
 
   /**
-   * Replaces teacher address book data with the data in {@code teacerAddressBook}.
+   * Replaces staff address book data with the data in {@code staffAddressBook}.
    */
-  void setStaffAddressBook(ReadOnlyAddressBookGeneric<Teacher> staffAddressBook);
+  void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook);
 
   /**
-   * Returns true if a teacher with the same identity as {@code teacher} exists in the address
+   * Returns true if a staff with the same identity as {@code staff} exists in the address
    * book.
    */
-  boolean hasTeacher(Teacher teacher);
+  boolean hasStaff(Staff staff);
 
   /**
-   * Deletes the given teacher. The teacher must exist in the address book.
+   * Deletes the given staff. The staff must exist in the address book.
    */
-  void deleteTeacher(Teacher target);
+  void deleteStaff(Staff target);
 
   /**
-   * Adds the given teacher. {@code teacher} must not already exist in the address book.
+   * Adds the given staff. {@code staff} must not already exist in the address book.
    */
-  void addTeacher(Teacher teacher);
+  void addStaff(Staff staff);
 
   /**
-   * Replaces the given teacher {@code target} with {@code editedTeacher}. {@code target} must exist
-   * in the address book. The teacher identity of {@code editedTeacher} must not be the same as
-   * another existing teacher in the address book.
+   * Replaces the given staff {@code target} with {@code editedStaff}. {@code target} must exist
+   * in the address book. The staff identity of {@code editedStaff} must not be the same as
+   * another existing staff in the address book.
    */
-  void setTeacher(Teacher target, Teacher editedTeacher);
+  void setStaff(Staff target, Staff editedStaff);
 
   /**
-   * Returns an unmodifiable view of the filtered teacher list
+   * Returns an unmodifiable view of the filtered staff list
    */
-  ObservableList<Teacher> getFilteredTeacherList();
+  ObservableList<Staff> getFilteredStaffList();
 
   /**
-   * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+   * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
    *
    * @throws NullPointerException if {@code predicate} is null.
    */
-  void updateFilteredTeacherList(Predicate<Teacher> predicate);
+  void updateFilteredStaffList(Predicate<Staff> predicate);
 
   ///
 
@@ -180,7 +180,7 @@ public interface Model {
   ReadOnlyAddressBookGeneric<Student> getStudentAddressBook();
 
   /**
-   * Replaces student address book data with the data in {@code teacherAddressBook}.
+   * Replaces student address book data with the data in {@code studentAddressBook}.
    */
   void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook);
 

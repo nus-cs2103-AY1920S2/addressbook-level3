@@ -31,10 +31,10 @@ public class FindTeacherCommand extends Command {
   @Override
   public CommandResult execute(Model model) {
     requireNonNull(model);
-    model.updateFilteredTeacherList(predicate);
+    model.updateFilteredStaffList(predicate);
     return new CommandResult(
         String.format(Messages.MESSAGE_TEACHERS_LISTED_OVERVIEW,
-            model.getFilteredTeacherList().size()));
+            model.getFilteredStaffList().size()));
   }
 
   @Override
