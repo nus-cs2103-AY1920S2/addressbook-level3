@@ -42,6 +42,9 @@ public class DeleteStudentCommand extends Command {
     public static final String MESSAGE_INVALID_STUDENT_FORMAT =
             "There is no student in the (%s) group (%s) with the given matric number: %s";
 
+    public static final int FIRST_GROUP_INDEX = 0;
+    public static final int FIRST_MODULE_INDEX = 0;
+
     private final Matric toDelete;
     private final Group targetGroup;
     private final Module targetModule;
@@ -88,11 +91,11 @@ public class DeleteStudentCommand extends Command {
             model.setFilteredGroupList();
             model.setFilteredStudentList();
         } else {
-            model.updateGroupList(0);
+            model.updateGroupList(FIRST_MODULE_INDEX);
             if (model.getFilteredGroupList().isEmpty()) {
                 model.setFilteredStudentList();
             } else {
-                model.updateStudentList(0, 0);
+                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
             }
         }
 

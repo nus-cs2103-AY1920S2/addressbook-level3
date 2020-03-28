@@ -99,9 +99,7 @@ public class UniqueGroupList implements Iterable<Group> {
 
     public void setGroups(UniqueGroupList replacement) {
         requireNonNull(replacement);
-        System.out.println("inside group list 1");
         internalList.setAll(replacement.internalList);
-        System.out.println("inside group list 2");
     }
 
     /**

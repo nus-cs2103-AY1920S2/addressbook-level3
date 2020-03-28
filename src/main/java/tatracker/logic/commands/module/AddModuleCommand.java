@@ -27,6 +27,7 @@ public class AddModuleCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Module added: %s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the TA-Tracker";
+    public static final int FIRST_GROUP_INDEX = 0;
 
     private final Module toAdd;
 
@@ -51,7 +52,7 @@ public class AddModuleCommand extends Command {
         if (model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
-            model.setFilteredStudentList(toAdd.getIdentifier(), 0);
+            model.setFilteredStudentList(toAdd.getIdentifier(), FIRST_GROUP_INDEX);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

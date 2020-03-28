@@ -248,8 +248,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateGroupList(int n) {
-        taTracker.setCurrentlyShownGroups(n);
+    public void updateGroupList(int moduleIndex) {
+        taTracker.setCurrentlyShownGroups(moduleIndex);
     }
 
     // ======== Student Methods ================================================
@@ -301,8 +301,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateStudentList(int i, int j) {
-        taTracker.setCurrentlyShownStudents(i, j);
+    public void updateStudentList(int moduleIndex, int groupIndex) {
+        taTracker.setCurrentlyShownStudents(moduleIndex, groupIndex);
     }
 
     /**
@@ -320,8 +320,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setFilteredStudentList(String moduleCode, int n) {
-        taTracker.setCurrentlyShownStudents(moduleCode, n);
+    public void setFilteredStudentList(String moduleCode, int groupIndex) {
+        taTracker.setCurrentlyShownStudents(moduleCode, groupIndex);
     }
 
     @Override

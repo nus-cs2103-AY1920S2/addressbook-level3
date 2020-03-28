@@ -26,6 +26,9 @@ public class DeleteModuleCommand extends Command {
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with this module code.";
 
+    public static final int FIRST_GROUP_INDEX = 0;
+    public static final int FIRST_MODULE_INDEX = 0;
+
     private final Module module;
 
     public DeleteModuleCommand(Module module) {
@@ -46,11 +49,11 @@ public class DeleteModuleCommand extends Command {
             model.setFilteredGroupList();
             model.setFilteredStudentList();
         } else {
-            model.updateGroupList(0);
+            model.updateGroupList(FIRST_MODULE_INDEX);
             if (model.getFilteredGroupList().isEmpty()) {
                 model.setFilteredStudentList();
             } else {
-                model.updateStudentList(0, 0);
+                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
             }
         }
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));

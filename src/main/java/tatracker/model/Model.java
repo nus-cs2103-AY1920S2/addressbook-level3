@@ -213,9 +213,9 @@ public interface Model {
     void setFilteredGroupList();
 
     /**
-     * Updates the group list to show the groups in the module with index n.
+     * Updates the group list to show the groups in the module with the given index.
      */
-    void updateGroupList(int n);
+    void updateGroupList(int index);
 
     // ======== Student Methods ================================================
 
@@ -278,9 +278,9 @@ public interface Model {
     void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule);
 
     /**
-     * Sets the student list to be of group of index j in the module of index i.
+     * Sets the student list to be of group of index groupIndex in the module of index moduleIndex.
      */
-    void updateStudentList(int i, int j);
+    void updateStudentList(int moduleIndex, int groupIndex);
 
     // TODO: Student filter methods. Javadoc comments should mention students are inside group -> inside module
 
@@ -301,5 +301,5 @@ public interface Model {
     /**
      * Sets the filtered student list to be an that of given index group in given module.
      */
-    void setFilteredStudentList(String moduleCode, int n);
+    void setFilteredStudentList(String moduleCode, int groupIndex);
 }

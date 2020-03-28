@@ -259,9 +259,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code groups} must not contain duplicate groups.
      */
     public void setCurrentlyShownGroups(List<Group> groups) {
-        System.out.println("inside ta tracker 2");
         this.currentlyShownGroups.setGroups(groups);
-        System.out.println("inside ta tracker 3");
     }
 
     /**
@@ -269,9 +267,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * module index.
      */
     public void setCurrentlyShownGroups(int n) {
-        System.out.println("inside ta tracker 2");
         setCurrentlyShownGroups(((modules.get(n)).getGroupList()));
-        System.out.println("inside ta tracker 3");
     }
 
     /**
@@ -279,7 +275,6 @@ public class TaTracker implements ReadOnlyTaTracker {
      * code.
      */
     public void updateCurrentlyShownGroups(String moduleCode) {
-        System.out.println("inside ta tracker");
         setCurrentlyShownGroups((modules.getModule(moduleCode)).getGroupList());
     }
 
