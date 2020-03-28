@@ -23,16 +23,21 @@ public class CommandResult {
     /** The third panel should should display the assignment list. */
     private final boolean assignment;
 
+    /** The third panel should should display the restaurant list. */
+    private final boolean restaurant;
+
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean get, boolean assignment) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean get,
+                         boolean assignment, boolean restaurant) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.get = get;
         this.assignment = assignment;
+        this.restaurant = restaurant;
     }
 
     /**
@@ -40,7 +45,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -63,6 +68,10 @@ public class CommandResult {
         return assignment;
     }
 
+    public boolean isRestaurant() {
+        return restaurant;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -77,12 +86,15 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && get == otherCommandResult.get
+                && assignment == otherCommandResult.assignment
+                && restaurant == otherCommandResult.restaurant;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, get, assignment, restaurant);
     }
 
 }

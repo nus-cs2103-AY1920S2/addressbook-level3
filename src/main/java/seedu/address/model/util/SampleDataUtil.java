@@ -23,6 +23,7 @@ import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Visit;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -70,7 +71,8 @@ public class SampleDataUtil {
                     new Hours("0000:0000"),
                     new Price("$"),
                     new Cuisine("Fast Food"),
-                    SOMEMORE_REMARK)
+                    SOMEMORE_REMARK,
+                    new Visit("Yes"))
         };
     }
 

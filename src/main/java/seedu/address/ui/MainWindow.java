@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private PersonListPanelDetail personListPanel2;
     private AssignmentListPanel assignmentListPanel;
+    private RestaurantListPanel restaurantListPanel;
     private PersonListBdayPanel personBdayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -190,6 +191,15 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder2.getChildren().add(assignmentListPanel.getRoot());
     }
 
+    /**
+     * Display restaurants on third panel.
+     */
+    @FXML
+    private void handleRestaurant() {
+        restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+        personListPanelPlaceholder2.getChildren().add(restaurantListPanel.getRoot());
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -215,6 +225,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleGet();
             } else if (commandResult.isAssignment()) {
                 handleAssignment();
+            } else if (commandResult.isRestaurant()) {
+                handleRestaurant();
             }
 
             return commandResult;

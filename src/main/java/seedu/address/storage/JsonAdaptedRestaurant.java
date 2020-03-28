@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -15,6 +14,7 @@ import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Visit;
 
 /**
  * Jackson-friendly version of {@link Restaurant}
@@ -29,6 +29,7 @@ class JsonAdaptedRestaurant {
     private final String price;
     private final ArrayList<JsonAdaptedRemarkR> remark = new ArrayList<>();
     private final String cuisine;
+    private final String visit;
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -38,7 +39,7 @@ class JsonAdaptedRestaurant {
                                  @JsonProperty("hours") String hours, @JsonProperty("price") String price,
                                  @JsonProperty("remark") ArrayList<JsonAdaptedRemarkR> remark,
                                  @JsonProperty("cuisine") String cuisine,
-                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                                 @JsonProperty("visit") String visit) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -47,6 +48,7 @@ class JsonAdaptedRestaurant {
         if (remark != null) {
             this.remark.addAll(remark);
         }
+        this.visit = visit;
     }
 
     /**
@@ -61,6 +63,7 @@ class JsonAdaptedRestaurant {
         remark.addAll(source.getRemark().stream()
                 .map(JsonAdaptedRemarkR::new)
                 .collect(Collectors.toList()));
+        visit = source.getVisit().visit;
     }
 
     /**
@@ -113,6 +116,13 @@ class JsonAdaptedRestaurant {
         for (JsonAdaptedRemarkR r : remark) {
             modelRemark.add(r.toModelType());
         }
-        return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark);
+        if (visit == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Visit.class.getSimpleName()));
+        }
+        if (!Visit.isValidVisit(visit)) {
+            throw new IllegalValueException(Visit.MESSAGE_CONSTRAINTS);
+        }
+        final Visit modelVisit = new Visit(visit);
+        return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark, modelVisit);
     }
 }

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITED;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -21,6 +22,7 @@ import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Visit;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object.
@@ -36,9 +38,9 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
     public AddRestaurantCommand parse(String args, Model model) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RESTAURANT, PREFIX_LOCATION, PREFIX_OPERATING_HOURS,
-                        PREFIX_PRICE, PREFIX_CUISINE);
+                        PREFIX_PRICE, PREFIX_CUISINE, PREFIX_VISITED);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_RESTAURANT, PREFIX_LOCATION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_RESTAURANT, PREFIX_LOCATION, PREFIX_VISITED)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRestaurantCommand.MESSAGE_USAGE));
         }
@@ -49,8 +51,9 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).orElse(""));
         Cuisine cuisine = ParserUtil.parseCuisine(argMultimap.getValue(PREFIX_CUISINE).orElse(""));
         ArrayList<Remark> remark = new ArrayList<>(); // add command does not allow adding remarks straight away
+        Visit visit = ParserUtil.parseVisit(argMultimap.getValue(PREFIX_VISITED).orElse(""));
 
-        Restaurant restaurant = new Restaurant(name, location, hours, price, cuisine, remark);
+        Restaurant restaurant = new Restaurant(name, location, hours, price, cuisine, remark, visit);
 
         return new AddRestaurantCommand(restaurant);
     }
