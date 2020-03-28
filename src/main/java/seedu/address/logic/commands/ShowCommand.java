@@ -8,15 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ProfileManager;
 import seedu.address.model.CourseManager;
-import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
-import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.Module;
 
 /**
  * Displays details requested by user.

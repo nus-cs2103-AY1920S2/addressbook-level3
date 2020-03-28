@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Terminates the program.

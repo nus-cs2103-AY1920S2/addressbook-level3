@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -97,7 +96,8 @@ public class AddCommand extends Command {
                 /*throw new CommandException(String.format("Error: Module already exists as "
                         + module.getPersonal().getStatus() + ", "
                         + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));*/
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, moduleToAdd.getPersonal().getStatus()));
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
+                        moduleToAdd.getPersonal().getStatus()));
             }
         } else { // Module does not exist
             // Create Personal object
