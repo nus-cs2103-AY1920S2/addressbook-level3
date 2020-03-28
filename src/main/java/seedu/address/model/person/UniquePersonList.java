@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
@@ -146,7 +147,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> getBdayList() {
         ObservableList<Person> result = FXCollections.observableArrayList();
-        LocalDate currDate = LocalDate.now();
+        LocalDate currDate = LocalDate.now(ZoneId.of("Singapore"));
 
         for (int i = 0; i < internalList.size(); i++) {
             String bDay = internalList.get(i).getBirthday().birthday;

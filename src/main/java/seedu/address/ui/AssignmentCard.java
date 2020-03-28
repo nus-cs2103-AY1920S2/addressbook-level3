@@ -41,7 +41,7 @@ public class AssignmentCard extends UiPart<Region> {
         super(FXML);
         this.assignment = assignment;
         id.setText(displayedIndex + ". ");
-        deadline.setText(assignment.getDeadline().date + " " + assignment.getDeadline().time);
+        deadline.setText(assignment.getDeadline().toString());
         title.setText(assignment.getTitle().title);
         status.getChildren().add(new Label(assignment.getStatus().status));
         workload.setText(assignment.getWorkload().estHours);

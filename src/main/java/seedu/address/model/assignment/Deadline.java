@@ -4,12 +4,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 
 /**
  * Represents an Assignment's Deadline in the Schoolwork Tracker.
@@ -17,17 +14,13 @@ import java.time.temporal.ChronoField;
  */
 public class Deadline {
     public static final String MESSAGE_CONSTRAINTS =
-            "Deadline cannot be empty and has to be in MM-dd HH:mm (24-hour clock) format";
-    private static final DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
-            .parseDefaulting(ChronoField.YEAR, 2020).toFormatter();
-    private static final DateTimeFormatter inputTimeFormat = new DateTimeFormatterBuilder()
-            .appendPattern("HH:mm").toFormatter();
-    private static final DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("dd MMM");
-    private static final DateTimeFormatter outputTimeFormat = DateTimeFormatter.ofPattern("hh:mm a");
+            "Deadline cannot be empty and has to be in yyyy-MM-dd HH:mm (24-hour clock) format. "
+                + "Make sure deadline is also after "
+                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+    private static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
 
     // Instance variables
-    public final String date;
-    public final String time;
     public final LocalDateTime dateTime;
 
     /**
@@ -36,18 +29,11 @@ public class Deadline {
      * @param date The due date of the assignment.
      * @param time The time by which the assignment needs to be submitted on the due date.
      */
-    public Deadline(String date, String time) {
-        requireAllNonNull(date, time);
-        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
+    public Deadline(String deadline) {
+        requireAllNonNull(deadline);
+        checkArgument(isValidDeadline(deadline), MESSAGE_CONSTRAINTS);
 
-        LocalDate parsedDate = LocalDate.parse(date, inputDateFormat);
-        LocalTime parsedTime = LocalTime.parse(time, inputTimeFormat);
-        LocalDateTime dt = LocalDateTime.of(parsedDate, parsedTime);
-
-        this.date = date;
-        this.time = time;
-        dateTime = dt;
+        dateTime = LocalDateTime.parse(deadline, inputFormat);
     }
 
     /**
@@ -59,13 +45,13 @@ public class Deadline {
     }
 
     /**
-     * @param test The input date to be tested.
+     * @param testDeadline The input deadline to be tested.
      *
-     * Returns true if date is not an empty string and follows the required format.
+     * Returns true if deadline is not an empty string, follows the required format.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidDeadline(String testDeadline) {
         try {
-            LocalDate.parse(test, inputDateFormat);
+            LocalDateTime.parse(testDeadline, inputFormat);
             return true;
         } catch (DateTimeException e) {
             return false;
@@ -73,30 +59,30 @@ public class Deadline {
     }
 
     /**
-     * @param test The input time to be tested.
+     * @param testDeadline The input deadline to be tested.
      *
-     * Returns true if time is not an empty string and requires the required format.
+     * Returns true if the deadline that the user is trying to set for a new assignment is already past the current
+     * date and time.
      */
-    public static boolean isValidTime(String test) {
-        try {
-            LocalTime.parse(test, inputTimeFormat);
+    public static boolean hasDeadlinePassed(String testDeadline) {
+        LocalDateTime dateTime = LocalDateTime.parse(testDeadline, inputFormat);
+
+        if (dateTime.compareTo(LocalDateTime.now(ZoneId.of("Singapore"))) < 0) {
             return true;
-        } catch (DateTimeException e) {
+        } else {
             return false;
         }
     }
 
     @Override
     public String toString() {
-        LocalDate parsedDate = LocalDate.parse(date, inputDateFormat);
-        LocalTime parsedTime = LocalTime.parse(time, inputTimeFormat);
-        return parsedDate.format(outputDateFormat) + " " + parsedTime.format(outputTimeFormat);
+        return dateTime.format(outputFormat);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls
-                && date.equals(((Deadline) other).date) && time.equals(((Deadline) other).time)); // state check
+                && dateTime.compareTo(((Deadline) other).dateTime) == 0); // state check
     }
 }

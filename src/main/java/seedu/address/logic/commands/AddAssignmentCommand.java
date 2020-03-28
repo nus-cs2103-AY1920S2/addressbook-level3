@@ -55,4 +55,11 @@ public class AddAssignmentCommand extends Command {
     public String toString() {
         return COMMAND_WORD;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddAssignmentCommand // instanceof handles nulls
+                && toAdd.equals(((AddAssignmentCommand) other).toAdd));
+    }
 }

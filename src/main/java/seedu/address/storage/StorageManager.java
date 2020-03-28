@@ -24,7 +24,6 @@ public class StorageManager implements Storage {
     private SchedulerStorage schedulerStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
     public StorageManager(AddressBookStorage addressBookStorage,
                           RestaurantBookStorage restaurantBookStorage,
                           SchedulerStorage schedulerStorage,
@@ -141,5 +140,4 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         schedulerStorage.saveScheduler(scheduler, filePath);
     }
-
 }

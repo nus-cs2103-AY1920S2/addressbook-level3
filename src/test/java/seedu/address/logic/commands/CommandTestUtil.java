@@ -65,13 +65,22 @@ public class CommandTestUtil {
     public static final String INVALID_BIRTHDAY_DESC = " " + PREFIX_BIRTHDAY + "31-05"; // wrong format for date
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final String VALID_TITLE = "CS2103";
-    public static final String VALID_DEADLINE = "03-31 23:59";
-    public static final String VALID_ESTHOURS = "24";
+    public static final String VALID_TITLE_CS2103 = "CS2103 tP";
+    public static final String VALID_DEADLINE_CS2103 = "2020-04-27 14:00";
+    public static final String VALID_ESTHOURS_CS2103 = "11.5";
+    public static final String VALID_STATUS_CS2103 = "Completed";
 
-    public static final String TITLE_DESC = " " + PREFIX_TITLE + VALID_TITLE;
-    public static final String DEADLINE_DESC = " " + PREFIX_DEADLINE + VALID_DEADLINE;
-    public static final String ESTHOURS_DESC = " " + PREFIX_ESTHOURS + VALID_ESTHOURS;
+    public static final String INVALID_TITLE_CS2103 = "";
+    public static final String INVALID_DEADLINE_CS2103 = "2020-16-05 13:00";
+    public static final String INVALID_ESTHOURS_CS2103 = "ghjgj";
+
+    public static final String VALID_TITLE_DESC = " " + PREFIX_TITLE + VALID_TITLE_CS2103;
+    public static final String VALID_DEADLINE_DESC = " " + PREFIX_DEADLINE + VALID_DEADLINE_CS2103;
+    public static final String VALID_ESTHOURS_DESC = " " + PREFIX_ESTHOURS + VALID_ESTHOURS_CS2103;
+
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + INVALID_TITLE_CS2103;
+    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_DEADLINE + INVALID_DEADLINE_CS2103;
+    public static final String INVALID_ESTHOURS_DESC = " " + PREFIX_ESTHOURS + INVALID_ESTHOURS_CS2103;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

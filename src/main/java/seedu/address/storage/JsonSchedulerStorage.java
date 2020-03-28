@@ -54,6 +54,7 @@ public class JsonSchedulerStorage implements SchedulerStorage {
             return Optional.of(jsonScheduler.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+
             throw new DataConversionException(ive);
         }
     }
