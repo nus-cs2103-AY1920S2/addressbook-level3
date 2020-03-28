@@ -38,17 +38,17 @@ public class AddTransactionCommand extends Command {
             + "Parameters: "
             + PREFIX_CUSTOMER + "CUSTOMER "
             + PREFIX_PRODUCT + "PRODUCT "
-            + PREFIX_DATETIME + "DATETIME "
             + PREFIX_QUANTITY + "QUANTITY "
+            + PREFIX_DATETIME + "DATETIME "
             + PREFIX_MONEY + "MONEY "
             + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
-            + PREFIX_DATETIME + "2020-02-20 10:00 "
             + PREFIX_QUANTITY + "1 "
-            + PREFIX_MONEY + "30 (Optional Field)"
-            + PREFIX_TRANS_DESCRIPTION + "under discount (Optional Field)";
+            + PREFIX_DATETIME + "2020-02-20 10:00 (Optional Field) "
+            + PREFIX_MONEY + "30 (Optional Field) "
+            + PREFIX_TRANS_DESCRIPTION + "under discount (Optional Field) ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
