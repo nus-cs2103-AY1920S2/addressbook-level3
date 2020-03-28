@@ -82,7 +82,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<ScheduledWorkout> getFilteredScheduledWorkoutList() {
-        return model.getFilteredScheduledWorkoutList();
+    public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+        return model.getSortedScheduledWorkoutList();
     }
 }

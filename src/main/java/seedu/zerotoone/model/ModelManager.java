@@ -167,8 +167,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<ScheduledWorkout> getFilteredScheduledWorkoutList() {
-        return scheduler.getFilteredScheduledWorkoutList();
+    public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+        return scheduler.getSortedScheduledWorkoutList();
     }
 
     // -----------------------------------------------------------------------------------------

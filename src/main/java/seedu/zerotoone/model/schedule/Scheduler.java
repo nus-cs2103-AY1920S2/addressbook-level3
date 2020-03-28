@@ -3,7 +3,7 @@ package seedu.zerotoone.model.schedule;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * STEPH_TODO_JAVADOC
@@ -12,16 +12,16 @@ public class Scheduler {
 
     private final ScheduleList scheduleList;
     private final ScheduledWorkoutList scheduledWorkoutList;
-    private final FilteredList<ScheduledWorkout> filteredScheduledWorkoutList;
+    private final SortedList<ScheduledWorkout> sortedScheduledWorkoutList;
 
     public Scheduler() {
         this.scheduleList = new ScheduleList();
         this.scheduledWorkoutList = new ScheduledWorkoutList();
-        this.filteredScheduledWorkoutList = new FilteredList<>(this.scheduledWorkoutList.getScheduledWorkoutList());
+        this.sortedScheduledWorkoutList = new SortedList<>(this.scheduledWorkoutList.getScheduledWorkoutList());
     }
 
-    public ObservableList<ScheduledWorkout> getFilteredScheduledWorkoutList() {
-        return filteredScheduledWorkoutList;
+    public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+        return sortedScheduledWorkoutList;
     }
 
     /**

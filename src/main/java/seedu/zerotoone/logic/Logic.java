@@ -53,5 +53,5 @@ public interface Logic {
      */
     Path getExerciseListFilePath();
 
-    ObservableList<ScheduledWorkout> getFilteredScheduledWorkoutList();
+    ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
 }
