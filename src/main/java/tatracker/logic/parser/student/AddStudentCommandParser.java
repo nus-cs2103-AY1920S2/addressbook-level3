@@ -71,9 +71,9 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         }
 
-        Rating rating = new Rating(3);
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Rating rating = new Rating();
+        if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
+            rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
         }
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
