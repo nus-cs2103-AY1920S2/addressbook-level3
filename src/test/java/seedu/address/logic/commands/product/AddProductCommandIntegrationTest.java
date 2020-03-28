@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.product.Product;
-import seedu.address.testutil.product.ProductBuilder;
+import seedu.address.testutil.product.TypicalProducts;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCustomerCommand}.
@@ -27,7 +27,7 @@ public class AddProductCommandIntegrationTest {
 
     @Test
     public void execute_newProduct_success() {
-        Product validProduct = new ProductBuilder().build();
+        Product validProduct = TypicalProducts.WATCH;
 
         Model expectedModel = new ModelManager(model.getInventorySystem(), new UserPrefs());
         expectedModel.addProduct(validProduct);

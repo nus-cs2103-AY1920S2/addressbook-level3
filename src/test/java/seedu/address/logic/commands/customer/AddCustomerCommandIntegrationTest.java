@@ -27,7 +27,7 @@ public class AddCustomerCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Customer validCustomer = new PersonBuilder().build();
+        Customer validCustomer = new PersonBuilder("a4365691-ea10-47ad-b33b-fc038f1e5e80").build();
 
         Model expectedModel = new ModelManager(model.getInventorySystem(), new UserPrefs());
         expectedModel.addPerson(validCustomer);

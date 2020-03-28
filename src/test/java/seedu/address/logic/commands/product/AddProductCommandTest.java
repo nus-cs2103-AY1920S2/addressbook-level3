@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.product.TypicalProducts.ABACUS_ID;
+import static seedu.address.testutil.product.TypicalProducts.BOOK_ID;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class AddProductCommandTest {
     @Test
     public void execute_productAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingProductAdded modelStub = new ModelStubAcceptingProductAdded();
-        Product validProduct = new ProductBuilder().build();
+        Product validProduct = new ProductBuilder(ABACUS_ID).build();
 
         CommandResult commandResult = new AddProductCommand(validProduct).execute(modelStub);
 
@@ -48,7 +50,7 @@ public class AddProductCommandTest {
 
     @Test
     public void execute_duplicateProduct_throwsCommandException() {
-        Product validProduct = new ProductBuilder().build();
+        Product validProduct = new ProductBuilder(ABACUS_ID).build();
         AddProductCommand addProductCommand = new AddProductCommand(validProduct);
         ModelStub modelStub = new ModelStubWithProduct(validProduct);
 
@@ -58,8 +60,8 @@ public class AddProductCommandTest {
 
     @Test
     public void equals() {
-        Product alice = new ProductBuilder().withDescription("Alice").build();
-        Product bob = new ProductBuilder().withDescription("Bob").build();
+        Product alice = new ProductBuilder(ABACUS_ID).withDescription("Abacus").build();
+        Product bob = new ProductBuilder(BOOK_ID).withDescription("Book").build();
         AddProductCommand addAliceCommand = new AddProductCommand(alice);
         AddProductCommand addBobCommand = new AddProductCommand(bob);
 

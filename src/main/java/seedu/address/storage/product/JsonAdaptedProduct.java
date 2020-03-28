@@ -128,8 +128,8 @@ public class JsonAdaptedProduct {
         }
         final UUID modelId = UUID.fromString(id);
 
-        return new Product(modelDescription, modelCostPrice, modelPrice, modelQuantity,
-                modelSales, modelQuantityThreshold, modelId);
+        return new Product(modelId, modelDescription, modelCostPrice, modelPrice, modelQuantity,
+                modelSales, modelQuantityThreshold);
     }
 
 }

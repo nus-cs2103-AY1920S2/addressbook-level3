@@ -1,6 +1,7 @@
 package seedu.address.testutil.customer;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,11 +33,20 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(Customer customer) {
         descriptor = new EditPersonDescriptor();
+        descriptor.setId(customer.getId());
         descriptor.setName(customer.getName());
         descriptor.setPhone(customer.getPhone());
         descriptor.setEmail(customer.getEmail());
         descriptor.setAddress(customer.getAddress());
         descriptor.setTags(customer.getTags());
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withId(UUID id) {
+        descriptor.setId(id);
+        return this;
     }
 
     /**

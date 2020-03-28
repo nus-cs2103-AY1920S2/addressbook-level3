@@ -17,17 +17,19 @@ public class Transaction {
     private final Customer customer;
     private final Product product;
     private final UUID productId;
+    private final UUID customerId;
     private final DateTime dateTime;
     private final Quantity quantity;
     private final Money money;
     private final Description description;
 
 
-    public Transaction(Customer customer, Product product, UUID productId, DateTime dateTime,
-                       Quantity quantity, Money money, Description description) {
+    public Transaction(Customer customer, Product product, UUID customerId, UUID productId,
+                       DateTime dateTime, Quantity quantity, Money money, Description description) {
         this.customer = customer;
         this.product = product;
         this.productId = productId;
+        this.customerId = customerId;
         this.quantity = quantity;
         this.money = money;
         this.dateTime = dateTime;
@@ -44,6 +46,10 @@ public class Transaction {
 
     public UUID getProductId() {
         return productId;
+    }
+
+    public UUID getCustomerId() {
+        return customerId;
     }
 
     public DateTime getDateTime() {
@@ -73,12 +79,10 @@ public class Transaction {
             return true;
         }
 
-        return otherTransaction.getCustomer().equals(getCustomer())
-                && otherTransaction.getProduct().equals(getProduct())
+        return otherTransaction.getCustomerId().equals(getCustomerId())
                 && otherTransaction.getProductId().equals(getProductId())
                 && otherTransaction.getDateTime().equals(getDateTime())
                 && otherTransaction.getQuantity().equals(getQuantity());
-
     }
 
     @Override
@@ -92,8 +96,7 @@ public class Transaction {
         }
 
         Transaction otherTransaction = (Transaction) other;
-        return otherTransaction.getCustomer().equals(getCustomer())
-                && otherTransaction.getProduct().equals(getProduct())
+        return otherTransaction.getCustomerId().equals(getCustomerId())
                 && otherTransaction.getProductId().equals(getProductId())
                 && otherTransaction.getDateTime().equals(getDateTime())
                 && otherTransaction.getQuantity().equals(getQuantity());

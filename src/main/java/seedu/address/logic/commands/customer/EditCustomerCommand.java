@@ -7,12 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -27,6 +29,7 @@ import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Edits the details of an existing customer in the address book.
@@ -79,13 +82,61 @@ public class EditCustomerCommand extends Command {
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedPerson(customerToEdit, editPersonDescriptor);
 
-        if (!customerToEdit.isSamePerson(editedCustomer) && model.hasPerson(editedCustomer)) {
+        if (modelHasDuplicateCustomer(model, editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        updateTransactionList(model, editedCustomer);
+
         model.setPerson(customerToEdit, editedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer));
+    }
+
+    /**
+     * Check whether model has duplicate customer
+     * @param model
+     * @param editedCustomer
+     * @return true if model has duplicate customer, else false
+     */
+    private boolean modelHasDuplicateCustomer(Model model, Customer editedCustomer) {
+        List<Customer> customers = model.getInventorySystem().getPersonList();
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            if (customer.getId() != editedCustomer.getId()) {
+                if (customer.equals(editedCustomer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Update transaction list with new customer info.
+     * @param model
+     * @param editedCustomer
+     */
+    private void updateTransactionList(Model model, Customer editedCustomer) {
+        List<Transaction> transactions = model.getInventorySystem().getTransactionList();
+
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+            Transaction newTransaction = transaction;
+            if (editedCustomer.getId().equals(transaction.getCustomerId())) {
+                newTransaction = new Transaction(editedCustomer,
+                        transaction.getProduct(),
+                        transaction.getCustomerId(),
+                        transaction.getProductId(),
+                        transaction.getDateTime(),
+                        transaction.getQuantity(),
+                        transaction.getMoney(),
+                        transaction.getDescription());
+            }
+            model.setTransaction(transaction, newTransaction);
+        }
     }
 
     /**
@@ -95,13 +146,14 @@ public class EditCustomerCommand extends Command {
     private static Customer createEditedPerson(Customer customerToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert customerToEdit != null;
 
+        UUID id = customerToEdit.getId();
         Name updatedName = editPersonDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(customerToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(customerToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(customerToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(customerToEdit.getTags());
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Customer(id, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -127,6 +179,7 @@ public class EditCustomerCommand extends Command {
      * corresponding field value of the customer.
      */
     public static class EditPersonDescriptor {
+        private UUID id;
         private Name name;
         private Phone phone;
         private Email email;
@@ -140,6 +193,7 @@ public class EditCustomerCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+            setId(toCopy.id);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -152,6 +206,14 @@ public class EditCustomerCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+        }
+
+        public void setId(UUID id) {
+            this.id = id;
+        }
+
+        public Optional<UUID> getId() {
+            return Optional.ofNullable(id);
         }
 
         public void setName(Name name) {
@@ -218,11 +280,24 @@ public class EditCustomerCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getId().equals(e.getId())
+                    && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
+        }
+
+        @Override
+        public String toString() {
+            return "EditPersonDescriptor{"
+                    + "id=" + id
+                    + ", name="
+                    + name + ", phone="
+                    + phone + ", email="
+                    + email + ", address="
+                    + address + ", tags="
+                    + tags + '}';
         }
     }
 }
