@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+IVLE was developed by our team that is based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore] +
+
+{empty}
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Huang Ge Xiang
 
-Role: Project Advisor
+image::gx-huang.png[width="150",align= "left"]
+{empty}[http://github.com/gx-huang[github]]
 
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Testing + Deadlines
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Wang Yuting
 
-Role: Developer +
-Responsibilities: Data
+image::wyt-sonia.png[width="150",align="left"]
+{empty}[http://github.com/wyt-sonia[github]]
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Team Lead + Integration
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Teik Jun Tan
 
-Role: Developer +
-Responsibilities: UI
+image::teikjun.png[width="150",align="left"]
+{empty}[http://github.com/teikjun[github]]
+
+Responsibilities: Team lead (assistant) + Integration + Testing
+
+'''
+
+=== Souwmyaa Sabarinathann
+
+image::souwmyaa.png[width="150",align="left"]
+{empty}[http://github.com/souwmyaa[github]]
+
+Responsibilities: Documentation + Deliverables + deadlines
+
+'''
+
+=== Hong Wen
+
+image::aegis-bot.png[width="150",align="left"]
+{empty}[http://github.com/aegis-bot[github]]
+
+Responsibilities: Code Quality
 
 '''
