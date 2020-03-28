@@ -321,21 +321,22 @@ List down all the orders that are uncompleted.
 === View orders located at the same area or postal sector: `nearby`
 ==== Description
 The `nearby` command can be used to search either the order list or return order list. +
-You *must* give either a `-o` flag for viewing nearby orders in the order list
+You *may* give either a `-o` flag for viewing nearby orders in the order list
 or a `-r` flag for viewing nearby orders in the returns list. +
+By default, the `nearby` command will search both the order list and return order list.
 
 There are two possible search criteria for the `nearby` command:
 
 . By *postal sector*: +
-Command Usage: `nearby` `FLAG` `POSTAL_SECTOR`
+Command Usage: `nearby` `[FLAG]` `POSTAL_SECTOR`
 
 
 [NOTE]
 ====
 A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
-A `FLAG` refers to either `-o` or `-r`. +
-A `-o` flag is used to indicate searching on the order list +
-A `-r` flag is used to indicate searching on the return order list
+A `FLAG` refers to either `-o` or `-r` and is *optional*. +
+A `-o` flag is used to indicate searching on the order list. +
+A `-r` flag is used to indicate searching on the return order list.
 ====
 * You can view the orders at a specified Singapore *postal sector*.
 * The general location for the order will be identified if a valid postal sector is given.
@@ -379,7 +380,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 
 [start=2]
 . By *area*: +
-Command Usage: `nearby` `FLAG` `AREA`
+Command Usage: `nearby` `[FLAG]` `AREA`
 
 [NOTE]
 ====
@@ -393,9 +394,9 @@ An *area* refers to one of the five areas of Singapore +
 
 A quick reference for the five areas of Singapore can be <<area_table, found here>>
 
-A `FLAG` refers to either `-o` or `-r`. +
-A `-o` flag is used to indicate searching on the order list +
-A `-r` flag is used to indicate searching on the return order list
+A `FLAG` refers to either `-o` or `-r` and is *optional*. +
+A `-o` flag is used to indicate searching on the order list. +
+A `-r` flag is used to indicate searching on the return order list.
 ====
 * You can view all the orders located at a specified *area*.
 
@@ -404,16 +405,16 @@ https://keylocation.sg/singapore/districts-map[this website]
 
 
 ==== Format
-. `nearby` `FLAG` `POSTAL_SECTOR` +
+. `nearby` `[FLAG]` `POSTAL_SECTOR` +
 
 [IMPORTANT]
 ====
 `POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
 Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
 
-A `FLAG` refers to either `-o` or `-r`. +
-A `-o` flag is used to indicate searching on the order list +
-A `-r` flag is used to indicate searching on the return order list
+A `FLAG` refers to either `-o` or `-r` and is *optional*. +
+A `-o` flag is used to indicate searching on the order list. +
+A `-r` flag is used to indicate searching on the return order list.
 ====
 
 [start=2]
@@ -424,8 +425,8 @@ A `-r` flag is used to indicate searching on the return order list
 You will view all orders in the order list located in the general location of `Queenstown, Tiong Bahru`.
 * `nearby` `-r` `04` +
 You will view all return orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
-* `nearby` `-o` `north` +
-You will view all orders in the order list located in the north area of Singapore.
+* `nearby` `north` +
+You will view all orders in the order list and return order list located in the north area of Singapore.
 
 [[return]]
 === Returning an order: `return`
@@ -544,9 +545,10 @@ e.g. `import` `orders.csv`
 e.g. `list` `done`
 * <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
 e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<nearby, *Nearby*>> : `nearby` `FLAG` `POSTAL_SECTOR` or `nearby` `FLAG` `AREA` +
+* <<nearby, *Nearby*>> : `nearby` `[FLAG]` `POSTAL_SECTOR` or `nearby` `[FLAG]` `AREA` +
 e.g. `nearby` `-o` `14` +
-e.g. `nearby` `-r` `north`
+e.g. `nearby` `-r` `north` +
+e.g. `nearby` `east`
 * <<undo, *Undo*>> : `undo`
 
 == Appendix A: Glossary
