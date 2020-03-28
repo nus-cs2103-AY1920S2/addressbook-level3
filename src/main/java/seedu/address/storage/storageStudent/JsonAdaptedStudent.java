@@ -23,7 +23,7 @@ class JsonAdaptedStudent {
 
   private final String name;
   private final String studentID;
-  private final String assignedCourses;
+  private final List<JsonStudentAdaptedID> assignedCoursesID = new ArrayList<>();
   private final List<JsonStudentAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -33,10 +33,13 @@ class JsonAdaptedStudent {
   public JsonAdaptedStudent(@JsonProperty("name") String name,
       @JsonProperty("studentID") String studentID,
       @JsonProperty("assignedCourses") String assignedCourses,
+      @JsonProperty("assignedCoursesID") List<JsonStudentAdaptedID> assignedCoursesID,
       @JsonProperty("tagged") List<JsonStudentAdaptedTag> tagged) {
     this.name = name;
     this.studentID = studentID;
-    this.assignedCourses = assignedCourses;
+    if (assignedCoursesID != null) {
+      this.assignedCoursesID.addAll(assignedCoursesID);
+    }
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -48,7 +51,9 @@ class JsonAdaptedStudent {
   public JsonAdaptedStudent(Student source) {
     name = source.getName().fullName;
     studentID = source.getID().value;
-    assignedCourses = source.getAssignedCourses().toString();
+    assignedCoursesID.addAll(source.getAssignedCoursesID().stream()
+        .map(JsonStudentAdaptedID::new)
+        .collect(Collectors.toList()));
     tagged.addAll(source.getTags().stream()
         .map(JsonStudentAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -61,11 +66,6 @@ class JsonAdaptedStudent {
    *                               course.
    */
   public Student toModelType() throws IllegalValueException {
-    final List<Tag> courseTags = new ArrayList<>();
-    for (JsonStudentAdaptedTag tag : tagged) {
-      courseTags.add(tag.toModelType());
-    }
-
     if (name == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -84,17 +84,19 @@ class JsonAdaptedStudent {
     }
     final ID modelID = new ID(studentID);
 
-    if (assignedCourses == null) {
-      throw new IllegalValueException(
-          String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignedCourses.class.getSimpleName()));
+    final List<ID> StudentAssignedCoursesID = new ArrayList<>();
+    for (JsonStudentAdaptedID id : assignedCoursesID) {
+      StudentAssignedCoursesID.add(id.toModelType());
     }
-    if (!AssignedCourses.isValidAssignedCourses(assignedCourses)) {
-      throw new IllegalValueException(AssignedCourses.MESSAGE_CONSTRAINTS);
+    final Set<ID> modelAssignedCoursesID = new HashSet<>(StudentAssignedCoursesID);
+
+    final List<Tag> courseTags = new ArrayList<>();
+    for (JsonStudentAdaptedTag tag : tagged) {
+      courseTags.add(tag.toModelType());
     }
-    final AssignedCourses modelAssignedCourses = new AssignedCourses(assignedCourses);
 
     final Set<Tag> modelTags = new HashSet<>(courseTags);
-    return new Student(modelName, modelID, modelAssignedCourses, modelTags);
+    return new Student(modelName, modelID, modelAssignedCoursesID, modelTags);
   }
 
 }

@@ -126,7 +126,7 @@ public class Course extends ModelObject {
           if (count == assignedStudentsID.size()) {
             comma = "";
           }
-          s.append(student.getName()).append(studentid).append(comma);
+          s.append(student.getName()).append("(").append(studentid).append(")").append(comma);
         }
       }
       count++;

@@ -56,7 +56,7 @@ public class AddStudentCommandParser extends AddCommandParser {
     AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Student student = new Student(name, id, assignedCourses, tagList);
+    Student student = new Student(name, id, tagList);
 
     return new AddStudentCommand(student);
   }

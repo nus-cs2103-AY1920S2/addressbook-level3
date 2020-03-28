@@ -90,7 +90,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
     */
 
-    Teacher teacher = new Teacher(name, id, phone, email, salary, address, assignedCourses, tagList);
+    Teacher teacher = new Teacher(name, id, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);
   }

@@ -38,7 +38,7 @@ class JsonAdaptedCourse {
       @JsonProperty("courseID") String courseID,
       @JsonProperty("amount") String amount,
       @JsonProperty("assignedTeacher") String assignedTeacher,
-      @JsonProperty("assignedStudentIDs") List<JsonCourseAdaptedID> assignedStudentsID,
+      @JsonProperty("assignedStudentsID") List<JsonCourseAdaptedID> assignedStudentsID,
       @JsonProperty("tagged") List<JsonCourseAdaptedTag> tagged) {
     this.name = name;
     this.courseID = courseID;
@@ -124,6 +124,7 @@ class JsonAdaptedCourse {
       CourseTags.add(tag.toModelType());
     }
     final Set<Tag> modelTags = new HashSet<>(CourseTags);
+
     Course courseReadFromFile = new Course(modelName, modelId, modelAmount, modelTags);
 
     courseReadFromFile.assignTeacher(modelAssignedTeacher);

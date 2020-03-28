@@ -18,25 +18,30 @@ import seedu.address.model.tag.Tag;
  */
 public class Teacher extends Person {
   private final Salary salary;
-  private AssignedCourses assignedCourses;
+  private Set<ID> assignedCoursesID = new HashSet<>();
   private String assignedCoursesWithNames;
   private final ID id;
 
   /**
    * Every field must be present and not null.
    */
-  public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address, AssignedCourses assignedCourses,
+  public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address,
       Set<Tag> tags) {
     super(name, phone, email, address, tags);
     this.id = id;
-    this.assignedCourses = assignedCourses;
     this.assignedCoursesWithNames = "None";
     this.salary = salary;
     this.tags.addAll(tags);
+  }
 
-    if (assignedCourses == null){
-      this.assignedCourses = new AssignedCourses("");
-    }
+  public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address, Set<ID> assignedCoursesID,
+      Set<Tag> tags) {
+    super(name, phone, email, address, tags);
+    this.id = id;
+    this.assignedCoursesWithNames = "None";
+    this.salary = salary;
+    this.assignedCoursesID.addAll(assignedCoursesID);
+    this.tags.addAll(tags);
   }
 
   /**
@@ -46,8 +51,12 @@ public class Teacher extends Person {
     return id;
   }
 
-  public AssignedCourses getAssignedCourses() {
-    return assignedCourses;
+  /**
+   * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
+   * modification is attempted.
+   */
+  public Set<ID> getAssignedCoursesID() {
+    return Collections.unmodifiableSet(assignedCoursesID);
   }
 
   public String getAssignedCoursesWithNames(){
@@ -57,19 +66,19 @@ public class Teacher extends Person {
    * Converts internal list of assigned student IDs into the name with the IDs
    */
   public void processAssignedCourses(FilteredList<Course> filteredCourses){
-    String[] courseids = this.assignedCourses.toString().split(",");
     StringBuilder s = new StringBuilder();
-    for (int i = 0; i < courseids.length; i++) {
-      String courseid = courseids[i];
+    int count = 1;
+    for (ID courseid : assignedCoursesID) {
       for (Course course : filteredCourses) {
-        if (courseid.equals(course.getId().toString())) {
+        if (courseid.toString().equals(course.getId().toString())) {
           String comma = ", ";
-          if (i == courseids.length - 1) {
+          if (count == assignedCoursesID.size()) {
             comma = "";
           }
           s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
         }
       }
+      count++;
     }
 
     if (s.toString().equals("")) {
@@ -87,11 +96,11 @@ public class Teacher extends Person {
   }
 
   public void addCourse(ID courseid) {
-    if (this.assignedCourses.toString().equals("")) {
-      this.assignedCourses = new AssignedCourses(courseid.toString());
-    } else {
-      this.assignedCourses = new AssignedCourses(this.assignedCourses.toString() + "," + courseid.toString());
-    }
+    this.assignedCoursesID.add(courseid);
+  }
+
+  public void addCourses(Set<ID> courseid) {
+    this.assignedCoursesID.addAll(courseid);
   }
 
   /**

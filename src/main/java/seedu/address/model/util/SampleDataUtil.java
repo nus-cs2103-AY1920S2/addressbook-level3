@@ -49,12 +49,12 @@ public class SampleDataUtil {
         new Teacher(new Name("Bob Ross"), new ID("21"), new Phone("88283902"), new Email("bob.ross@gmail.com"),
             new Salary("9000"),
             new Address("Serangoon"),
-            new AssignedCourses("829,182"),
+            getIDSet("182"),
             getTagSet("Friendly", "LovesArt")),
         new Teacher(new Name("Martin Henz"), new ID("31"), new Phone("98765432"), new Email("henz@gmail.com"),
             new Salary("100"),
             new Address("311, Clementi Ave 2, #02-25"),
-            new AssignedCourses("829,182"),
+            getIDSet("829"),
             getTagSet("WishfulThinking", "Experienced")),
     };
   }
@@ -69,9 +69,9 @@ public class SampleDataUtil {
 
   public static Student[] getSampleStudents() {
     return new Student[]{
-        new Student(new Name("Sim Sheng Xue"), new ID("33"), new AssignedCourses("829,182"),
+        new Student(new Name("Sim Sheng Xue"), new ID("33"), getIDSet("829","182"),
             getTagSet("Loyal", "10Year")),
-        new Student(new Name("John AppleSeed"), new ID("44"), new AssignedCourses("182"),
+        new Student(new Name("John AppleSeed"), new ID("44"), getIDSet("182"),
             getTagSet("Lazy", "Old"))
     };
   }
@@ -115,11 +115,11 @@ public class SampleDataUtil {
             getTagSet("Robot", "Fun")),
         new Course(new Name("Advanced Java"), new ID("182"), new Amount("2000"),
             new ID("21"),
-            getIDSet( "44"),
+            getIDSet( "33","44"),
             getTagSet("OOP", "Difficult")),
         new Course(new Name("Advance C"), new ID("426"), new Amount("2000"),
-            new ID("31"),
-            getIDSet( "33","44"),
+            new ID(""),
+            getIDSet( "",""),
             getTagSet("File", "Difficult"))
     };
   }
