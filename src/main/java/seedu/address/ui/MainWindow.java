@@ -150,7 +150,7 @@ public class MainWindow extends UiPart<Stage> {
     commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
     studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-    teacherListPanel = new TeacherListPanel(logic.getFilteredTeacherList());
+    teacherListPanel = new TeacherListPanel(logic.getFilteredStaffList());
     courseListPanel = new CourseListPanel(logic.getFilteredCourseList());
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
@@ -159,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
     SummaryPanel summaryPanel = new SummaryPanel();
     summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
-    summaryPanel.updateTotalTeachers(logic.getFilteredTeacherList().size());
+    summaryPanel.updateTotalTeachers(logic.getFilteredStaffList().size());
     summaryPanel.updateTotalCourses(logic.getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(logic.getFilteredFinanceList().size());
     summaryPanel.updateTotalAssignments(logic.getFilteredAssignmentList().size());

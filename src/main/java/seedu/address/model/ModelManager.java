@@ -259,7 +259,7 @@ public class ModelManager implements Model {
   @Override
   public void addTeacher(Teacher teacher) {
     staffAddressBook.add(teacher);
-    updateFilteredStaffList(PREDICATE_SHOW_ALL_TEACHERS);
+    updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
   }
   @Override
   public void setTeacher(Teacher target, Teacher editedTeacher) {

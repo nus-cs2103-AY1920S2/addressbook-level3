@@ -237,7 +237,7 @@ public interface Model {
  ReadOnlyAddressBookGeneric<Course> getCourseAddressBook();
 
   /**
-   * Replaces course address book data with the data in {@code teacerAddressBook}.
+   * Replaces course address book data with the data in {@code courseAddressBook}.
    */
   void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook);
 
@@ -293,7 +293,7 @@ public interface Model {
   ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook();
 
   /**
-   * Replaces finance address book data with the data in {@code teacerAddressBook}.
+   * Replaces finance address book data with the data in {@code financeAddressBook}.
    */
   void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook);
 
@@ -350,7 +350,7 @@ public interface Model {
   ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook();
 
   /**
-   * Replaces assignment address book data with the data in {@code teacerAddressBook}.
+   * Replaces assignment address book data with the data in {@code assignmentAddressBook}.
    */
   void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook);
 
@@ -407,7 +407,7 @@ public interface Model {
   ReadOnlyAddressBookGeneric<CourseStudent> getCourseStudentAddressBook();
 
   /**
-   * Replaces courseStudent address book data with the data in {@code teacerAddressBook}.
+   * Replaces courseStudent address book data with the data in {@code courseStudentAddressBook}.
    */
   void setCourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook);
 

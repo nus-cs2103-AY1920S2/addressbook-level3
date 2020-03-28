@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -106,7 +106,7 @@ public class EditTeacherCommand extends Command {
     }
 
     model.setStaff(teacherToEdit, editedTeacher);
-    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_TEACHERS);
+    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
     return new CommandResult(String.format(MESSAGE_EDIT_TEACHER_SUCCESS, editedTeacher));
   }
 
