@@ -44,7 +44,7 @@ public class ModelManager implements Model {
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
-        this.historyManager = new HistoryManager(historyBook);
+        this.historyManager = new HistoryManager<>(historyBook);
         initialisation();
     }
 
@@ -147,7 +147,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyHistory getHistoryBook() {
+    public ReadOnlyHistory<UniqueModuleList> getHistoryBook() {
         return historyManager.getHistoryBook();
     }
 
