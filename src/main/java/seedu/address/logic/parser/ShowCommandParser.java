@@ -1,10 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.profile.Profile.getModules;
 
 import java.util.stream.Stream;
@@ -14,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
+import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
@@ -33,7 +31,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
     public ShowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER, PREFIX_COURSE_NAME,
-                        PREFIX_MODULE, PREFIX_FOCUS_AREA);
+                        PREFIX_MODULE, PREFIX_FOCUS_AREA, PREFIX_NAME);
 
         if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
             String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
@@ -62,6 +60,13 @@ public class ShowCommandParser implements Parser<ShowCommand> {
             String focusArea = argMultimap.getValue(PREFIX_FOCUS_AREA).get();
             CourseFocusArea courseFocusArea = CourseManager.getCourseFocusArea(focusArea);
             return new ShowCommand(courseFocusArea);
+        }
+
+        Name name;
+        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+            String strName = argMultimap.getValue(PREFIX_NAME).get();
+            name = ParserUtil.parseName(strName);
+            return new ShowCommand(name);
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));

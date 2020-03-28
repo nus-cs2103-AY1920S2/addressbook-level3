@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -24,7 +22,7 @@ public class DeadlineListPanel extends UiPart<Region> {
 
     public DeadlineListPanel(ObservableList<Deadline> deadlineList) {
         super(FXML);
-        deadlineListView.setItems(deadlineList);
+        deadlineListView.setItems(deadlineList); //sets an observable list
         deadlineListView.setCellFactory(listView -> new DeadlineListViewCell());
     }
 

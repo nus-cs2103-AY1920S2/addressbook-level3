@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
@@ -44,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     // Ui parts in the main panel (dynamic)
     private WelcomeView welcomeViewPanel;
     private ModuleListPanel moduleListPanel;
+    private OverviewPanel overviewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -185,8 +187,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleShowCommand() {
+    private void handleShowCommand() throws ParseException {
         Optional<ObservableList<Module>> displayedView = logic.getDisplayedView();
+        Profile profile = logic.getProfileList().getProfileList().get(0);
 
         // Removes the current displayed module
         if (moduleListPanel != null) {
@@ -198,8 +201,12 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
 
+        //adds module list panel
         moduleListPanel = new ModuleListPanel(displayedView.get());
-        mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+//        mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        overviewPanel = new OverviewPanel(profile);
+        mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
+
     }
 
     /**

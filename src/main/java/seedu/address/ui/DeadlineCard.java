@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -37,35 +38,40 @@ public class DeadlineCard extends UiPart<Region> {
     private Text date;
     @FXML
     private Label time;
+    @FXML
+    private Pane moduleColour;
 
 
     public DeadlineCard(Deadline deadline) {
         super(FXML);
         this.deadline = deadline;
+//                <Pane styleClass="tag-tracked" GridPane.columnIndex="0" minWidth="10" maxWidth="10"/>
         for (Module mod : Profile.getCurModules().getModuleList()) {
             if (mod.getModuleCode().moduleCode.equals(deadline.getModuleCode())) {
                 int tag = mod.getTag();
                 if (tag == 0) { //up to 8 modules
-                    module.setFill(Color.valueOf("84a9ac"));
+                    moduleColour.setStyle("-fx-background-color: \"84a9ac\"; -fx-border-color: #3a3a3a;");
                 } else if (tag == 1) {
-                    module.setFill(Color.valueOf("d45d79"));
+                    moduleColour.setStyle("-fx-background-color: \"d45d79\"; -fx-border-color: #3a3a3a;");
                 } else if (tag == 2) {
-                    module.setFill(Color.valueOf("ff9933"));
+                    moduleColour.setStyle("-fx-background-color: \"ff9933\"; -fx-border-color: #3a3a3a;");
                 } else if (tag == 3) {
-                    module.setFill(Color.valueOf("f6d186"));
+                    moduleColour.setStyle("-fx-background-color: \"f6d186\"; -fx-border-color: #3a3a3a;");
                 } else if (tag == 4) {
-                    module.setFill(Color.valueOf("b590ca"));
+                    moduleColour.setStyle("-fx-background-color: \"b590ca\"; -fx-border-color: #3a3a3a;");
                 } else if (tag == 5) {
-                    module.setFill(Color.valueOf("ea9085"));
+                    moduleColour.setStyle("-fx-background-color: \"ea9085\"; -fx-border-color: #3a3a3a;");
                 } else if (tag == 6) {
-                    module.setFill(Color.valueOf("cae8d5"));
+                    moduleColour.setStyle("-fx-background-color: \"cae8d5\"; -fx-border-color: #3a3a3a;");
                 } else {
 
                 }
             }
         }
+
         //module name
         module.setText(deadline.getModuleCode());
+        module.setFill(Color.WHITE);
 
         description.setText("Task: " + deadline.getDescription());
         if (deadline.getDate() == null) {

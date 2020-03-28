@@ -199,7 +199,7 @@ public class ProfileManager implements Model {
 
     //To change main panel according to show command
     @Override
-    public Optional<ObservableList<Module>> getDisplayedView() {
+    public Optional<ObservableList<Module>> getDisplayedView() { //getModuleListDisplayedView()
         return displayedView;
     }
 

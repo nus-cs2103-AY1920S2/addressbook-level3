@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.CourseName;
@@ -121,6 +122,7 @@ public class Profile {
     }
 
     public List<Deadline> getDeadlines() {
+        System.out.println(moduleHash.keySet());
         ModuleList modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
         List<Deadline> deadlineList = new ArrayList<>();
         for (Module module: modules) {
