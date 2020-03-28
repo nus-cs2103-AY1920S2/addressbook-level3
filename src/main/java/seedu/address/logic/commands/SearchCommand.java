@@ -65,16 +65,31 @@ public class SearchCommand extends Command {
 
         return orderPredicate == null
             ? new CommandResult(
-            String.format(
-                Messages.MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW, model.getFilteredReturnOrderList().size()))
+            String.format(Messages.MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW, model.getFilteredReturnOrderList().size()))
             : new CommandResult(
             String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, model.getFilteredOrderList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
+        boolean shortCircuitCheck = other == this;
+        if (orderPredicate == null) {
+            assert (returnPredicate != null);
+            return shortCircuitCheck
+                || (other instanceof SearchCommand
+                && (((SearchCommand) other).orderPredicate == null)
+                && returnPredicate.equals(((SearchCommand) other).returnPredicate));
+        }
+        if (returnPredicate == null) {
+            return shortCircuitCheck
+                || (other instanceof SearchCommand
+                && (((SearchCommand) other).returnPredicate == null)
+                && orderPredicate.equals(((SearchCommand) other).orderPredicate));
+        }
+
+        return shortCircuitCheck // short circuit if same object
             || (other instanceof SearchCommand // instanceof handles nulls
-            && orderPredicate.equals(((SearchCommand) other).orderPredicate)); // state check
+            && orderPredicate.equals(((SearchCommand) other).orderPredicate)
+            && returnPredicate.equals(((SearchCommand) other).returnPredicate)); // state check
     }
 }

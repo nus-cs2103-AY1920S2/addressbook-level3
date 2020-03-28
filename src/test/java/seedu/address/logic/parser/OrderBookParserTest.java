@@ -25,6 +25,7 @@ import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
+import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
@@ -73,7 +74,8 @@ public class OrderBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new OrderContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new SearchCommand(new OrderContainsKeywordsPredicate(keywords),
+            new ReturnOrderContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

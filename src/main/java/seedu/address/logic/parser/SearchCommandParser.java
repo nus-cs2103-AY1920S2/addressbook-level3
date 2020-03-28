@@ -13,12 +13,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
@@ -57,12 +58,14 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        List<String> keywords = argMultimap.getAllPrefixValues();
+        List<String> keywords =
+            Arrays.asList(addPrefixKeywordsToList(argMultimap).toString().trim().split("\\s"));
+        keywords = processKeywords(keywords);
 
         if (flag == null) {
             return prefixesPresent
                 ? new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap),
-                    new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
+                new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
                 : new SearchCommand(new OrderContainsKeywordsPredicate(keywords),
                 new ReturnOrderContainsKeywordsPredicate(keywords));
         }
@@ -80,7 +83,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
 
         return prefixesPresent
             ? new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap),
-                new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
+            new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
             : new SearchCommand(new OrderContainsKeywordsPredicate(keywords),
             new ReturnOrderContainsKeywordsPredicate(keywords));
     }
@@ -103,9 +106,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private static StringBuilder addPrefixKeywordsToList(ArgumentMultimap argumentMultimap) {
         StringBuilder keywords = new StringBuilder();
         List<String> currentPrefixListOfKeywords = argumentMultimap.getAllPrefixValues();
-        for (String each : currentPrefixListOfKeywords) {
-            keywords.append(each + " ");
-        }
+        currentPrefixListOfKeywords.stream().map(each -> each + " ").forEach(keywords::append);
         return keywords;
     }
 
@@ -114,16 +115,16 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @return
      */
     private boolean areFlagsPresent(String string) {
-        return Arrays.stream(string.trim().split("\\s"))
-            .anyMatch(str ->
-                StringUtil.containsWordIgnoreCase(CliSyntax.FLAG_ORDER_LIST.getFlag(), str)
-                    || StringUtil.containsWordIgnoreCase(CliSyntax.FLAG_RETURN_LIST.getFlag(), str));
+        List<String> listOfStr = Arrays.asList(string.split("\\s"));
+        return Stream
+            .of(CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST, CliSyntax.FLAG_ORDER_RETURN_LIST)
+            .anyMatch(flag -> listOfStr.contains(flag.getFlag()));
     }
 
     private Flag extractFlag(String arg) {
         List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
         if ((argArr.contains(CliSyntax.FLAG_ORDER_LIST.getFlag())
-                && argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag()))
+            && argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag()))
             || argArr.contains(CliSyntax.FLAG_ORDER_RETURN_LIST.getFlag())) {
             return CliSyntax.FLAG_ORDER_RETURN_LIST;
         } else if (argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag())) {
@@ -135,15 +136,12 @@ public class SearchCommandParser implements Parser<SearchCommand> {
 
     private String removeFlags(String args) {
         List<String> listOfArgs = Arrays.asList(args.split("\\s"));
-        StringBuilder returnString = new StringBuilder();
-        for (String each : listOfArgs) {
-            if (each.equals(CliSyntax.FLAG_ORDER_RETURN_LIST.getFlag())
-                || each.equals(CliSyntax.FLAG_RETURN_LIST.getFlag())
-                || each.equals(CliSyntax.FLAG_ORDER_LIST.getFlag())) {
-                continue;
-            }
-            returnString.append(each + " ");
-        }
-        return returnString.toString().trim();
+        String returnString = listOfArgs.stream().filter(each -> Stream.of(CliSyntax.FLAG_ORDER_RETURN_LIST, CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST).noneMatch(flag -> each.equals(flag.getFlag()))).map(each -> each + " ").collect(Collectors.joining());
+        return returnString;
+    }
+
+    private List<String> processKeywords(List<String> keywords) {
+        List<String> returnList = keywords.stream().filter(each -> !each.isEmpty()).collect(Collectors.toList());
+        return returnList;
     }
 }
