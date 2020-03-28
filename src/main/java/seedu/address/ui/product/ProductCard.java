@@ -2,6 +2,7 @@ package seedu.address.ui.product;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.product.Product;
@@ -40,6 +41,10 @@ public class ProductCard extends UiPart<Region> {
     private Label sales;
     @FXML
     private Label threshold;
+    @FXML
+    private ProgressBar progressBar;
+
+    private double progress;
 
     public ProductCard(Product product, int displayedIndex) {
         super(FXML);
@@ -51,6 +56,8 @@ public class ProductCard extends UiPart<Region> {
         quantity.setText(String.valueOf(product.getQuantity().value));
         sales.setText("$" + product.getMoney().value);
         threshold.setText(product.getThreshold().value);
+        progress = product.getQuantity().value / (Double.parseDouble(product.getThreshold().value) * 5);
+        progressBar.setProgress(progress);
     }
 
     @Override
