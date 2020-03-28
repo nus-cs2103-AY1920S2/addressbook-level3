@@ -1,4 +1,6 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
+
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +8,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.model.suggestion.SuggestionItem;
@@ -98,7 +99,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
                     Runnable action = () -> {
-                        model.setInput(displayText);
+                        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + displayText);
                     };
                     return new SuggestionItemImpl(displayText, action);
                 })
