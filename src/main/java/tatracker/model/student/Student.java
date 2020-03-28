@@ -16,10 +16,10 @@ import tatracker.model.tag.Tag;
 public class Student {
 
     // Identity fields
-    private final Name name;
     private final Matric matric;
+    private final Name name;
 
-    // Data fields
+    // Optional fields
     private final Phone phone;
     private final Email email;
     private final Set<Tag> tags = new HashSet<>();
@@ -27,13 +27,17 @@ public class Student {
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Matric matric, Set<Tag> tags) {
+    public Student(Matric matric, Name name, Phone phone, Email email, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, matric, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.matric = matric;
         this.tags.addAll(tags);
+    }
+
+    public Matric getMatric() {
+        return matric;
     }
 
     public Name getName() {
@@ -46,10 +50,6 @@ public class Student {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Matric getMatric() {
-        return matric;
     }
 
     /**
@@ -117,5 +117,4 @@ public class Student {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

@@ -25,6 +25,10 @@ public class UniqueGroupList implements Iterable<Group> {
     private final ObservableList<Group> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Returns true if the list contains an equivalent group as the given argument.
      */
@@ -33,12 +37,21 @@ public class UniqueGroupList implements Iterable<Group> {
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
-    public int size() {
-        return internalList.size();
-    }
-
     public Group get(int n) {
         return internalList.get(n);
+    }
+
+    /**
+     * Returns the group in this list with the given group id.
+     * Returns null if no such group exists.
+     */
+    public Group get(String groupId) {
+        for (Group group : internalList) {
+            if (group.getIdentifier().equals(groupId)) {
+                return group;
+            }
+        }
+        return null; // Did not find a group with the given group id
     }
 
     /**
@@ -51,6 +64,17 @@ public class UniqueGroupList implements Iterable<Group> {
             throw new DuplicateGroupException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent group from the list.
+     * The group must exist in the list.
+     */
+    public void remove(Group toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new GroupNotFoundException();
+        }
     }
 
     /**
@@ -73,17 +97,6 @@ public class UniqueGroupList implements Iterable<Group> {
         internalList.set(index, editedGroup);
     }
 
-    /**
-     * Removes the equivalent group from the list.
-     * The group must exist in the list.
-     */
-    public void remove(Group toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new GroupNotFoundException();
-        }
-    }
-
     public void setGroups(UniqueGroupList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -101,23 +114,6 @@ public class UniqueGroupList implements Iterable<Group> {
 
         internalList.setAll(groups);
     }
-
-    /**
-    * Gets group with given group code.
-    * Returns null if no such group exists.
-    */
-    public Group getGroup(String code) {
-        Group group = null;
-        for (int i = 0; i < this.size(); ++i) {
-            group = this.get(i);
-            if (group.getIdentifier().equals(code)) {
-                break;
-            }
-            group = null;
-        }
-        return group;
-    }
-
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
