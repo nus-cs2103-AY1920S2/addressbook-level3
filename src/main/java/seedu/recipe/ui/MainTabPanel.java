@@ -26,12 +26,12 @@ public class MainTabPanel extends UiPart<Region> {
     @FXML
     private TabPane mainTabPanel;
 
-    public MainTabPanel(RecipeListPanel recipeListPanel, PlanningListPanel planningListPanel) {
+    public MainTabPanel(RecipeListPanel recipeListPanel, PlanningMapPanel planningMapPanel) {
         super(FXML);
 
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
-        planningListPanelPlaceholder.getChildren().add(planningListPanel.getRoot());
+        planningListPanelPlaceholder.getChildren().add(planningMapPanel.getRoot());
 
     }
 

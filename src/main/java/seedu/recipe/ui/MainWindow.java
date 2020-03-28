@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private MainTabPanel mainTabPanel;
-    private PlanningListPanel planningListPanel;
+    private PlanningMapPanel planningMapPanel;
     private RecipeListPanel recipeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -127,9 +127,9 @@ public class MainWindow extends UiPart<Stage> {
 
         //using recipe list as stub for planning list, to be editted later todo
         ObservableMap<Date, List<Recipe>> planningList = logic.getPlannedMap();
-        planningListPanel = new PlanningListPanel(planningList);
+        planningMapPanel = new PlanningMapPanel(planningList);
 
-        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel);
+        mainTabPanel = new MainTabPanel(recipeListPanel, planningMapPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

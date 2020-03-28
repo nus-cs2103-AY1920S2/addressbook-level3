@@ -1,9 +1,11 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -15,17 +17,17 @@ import seedu.recipe.model.recipe.Recipe;
 /**
  * Panel containing the list of recipes.
  */
-public class PlanningListPanel extends UiPart<Region> {
-    private static final String FXML = "PlanningListPanel.fxml";
+public class PlanningMapPanel extends UiPart<Region> {
+    private static final String FXML = "PlanningMapPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     @FXML
-    private ListView<Recipe> planningListView;
+    private ListView<Recipe> planningMapView;
 
-    public PlanningListPanel(ObservableList<Recipe> recipeList) {
+    public PlanningMapPanel(ObservableMap<Date, List<Recipe>> plannedMap) {
         super(FXML);
-        planningListView.setItems(recipeList);
-        planningListView.setCellFactory(listView -> new PlanningListViewCell());
+        planningMapView.setItems(recipeList);
+        planningMapView.setCellFactory(listView -> new PlanningListViewCell());
     }
 
     /**
@@ -40,7 +42,7 @@ public class PlanningListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 try {
-                    setGraphic(new PlanningListCard(recipe, getIndex() + 1).getRoot());
+                    setGraphic(new PlanningMapCard(recipe, getIndex() + 1).getRoot());
                 } catch (IOException e) {
                     logger.warning("Failed to favourites icon : " + StringUtil.getDetails(e));
                 }

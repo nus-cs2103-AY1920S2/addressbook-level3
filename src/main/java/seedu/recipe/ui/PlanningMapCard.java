@@ -21,9 +21,9 @@ import seedu.recipe.model.recipe.Recipe;
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class PlanningListCard extends UiPart<Region> {
+public class PlanningMapCard extends UiPart<Region> {
 
-    private static final String FXML = "PlanningListCard.fxml";
+    private static final String FXML = "PlanningMapCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -67,7 +67,7 @@ public class PlanningListCard extends UiPart<Region> {
     @FXML
     private Label stepsHeader;
 
-    public PlanningListCard(Recipe recipe, int displayedIndex) throws IOException {
+    public PlanningMapCard(Recipe recipe, int displayedIndex) throws IOException {
         super(FXML);
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
@@ -128,12 +128,12 @@ public class PlanningListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PlanningListCard)) {
+        if (!(other instanceof PlanningMapCard)) {
             return false;
         }
 
         // state check
-        PlanningListCard card = (PlanningListCard) other;
+        PlanningMapCard card = (PlanningMapCard) other;
         return id.getText().equals(card.id.getText())
                 && recipe.equals(card.recipe);
     }
