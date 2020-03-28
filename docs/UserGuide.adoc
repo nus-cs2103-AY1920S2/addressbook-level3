@@ -22,9 +22,21 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
+Are you a Teaching Assistant at School of Computing who is tired of having to keep
+track of all your claimable hours in some unappealing excel spreadsheet just so you
+can fill up the TSS Claims form accurately at the end of the semester? Do you want
+a place where you can keep track of everything related to your teaching duties, including
+keeping a track of your strongest and weakest students? If so, TA-Tracker is the tool
+for you!
+
 TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
-who want to be able to track and manage all of their claimable hours in NUS.
-Interested? Jump to the <<Quick Start>> to get started!
+who want to be able to track and manage their students and all of their claimable
+hours in NUS in one place.
+
+TA-Tracker is tailored towards TAs who *prefer to use a desktop application to
+manage their teaching duties* and is well suited for those who *prefer to work with a Command
+Line Interface* (CLI) while still having the benefits of a Graphical User Interface
+(GUI).If you're interested, jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -32,6 +44,7 @@ Interested? Jump to the <<Quick Start>> to get started!
 .  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your TA tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+
 +
 image::Ui.png[width="790"]
 +
@@ -40,25 +53,42 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Usage>> for details of each command.
 
+NOTE: TA-Tracker data is saved periodically.
+
 [[Layout]]
 == Layout
-A brief overview of the layout of the TATracker.
-
-=== Dashboard
-Home page.
+This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
+into three different views - the Student View, the Session View and the Claims View.
 
 === Student View
-This view will show you the list of all your students. It will show you information such as student name, matriculation number, attendance, ratings you give the student(such as for participation), any notes you have on the student and contact details (email and telegram id).
+Under tha students tab, the Student View is used to show you the students that you're teaching. The students
+have been grouped according to module and group. The Student view has been divided into
+three sections.
+
+The first section shows a list of all the modules that you are a teaching
+assistant for.
+
+The second section shows a list of all groups in a module of your choice.
+If you haven't chosen anything, by default you will be shown the groups of the module
+in the first index in the list of modules.
+
+The third section shows a list of all students in the group of your choice. If you
+haven't chosen anything, by default you will be shown the students of the group in the
+first index in the list of groups.
+
+The purpose of the student view is to allow a TA to keep track of their students. It will
+show you information such as student name, matriculation number, ratings you have given
+the student and contact details such as email and telegram id.
 
 === Session View
-This view will contain the upcoming tasks and statistics.
+Under the sessions tab, the Session View contains the upcoming tasks that you have.
 
-=== TSS View
-This will show you all your claimable hours up till now in the same format as that used in the TSS claim files.
+=== Claims View
+Under the claims tab, the Claim View contains the list of all the claimable hours you
+have completed so far.
 
-=== Automatic Backups
-TATracker data is automatically saved in the hard disk as backup files after any command that changes the data. These automatic backups will preserve all data and settings within the program at the time of use. These backups will also be automatically loaded into the program when it is opened.
-
+The purpose of this view is to allow a TA to keep track of all their claims so that
+they can easily enter it into the TSS claims form at the end of the semester.
 
 [[Usage]]
 == Usage
@@ -74,20 +104,23 @@ TATracker data is automatically saved in the hard disk as backup files after any
 *Common Parameters*
 
 * `PAGE_NAME` - one of the following pages:
-** home - Dashboard: the default view you first see when you open the GUI
-** session - Sessions: list of sessions according to date
+** sessions - Sessions: list of sessions according to date
 ** students - Students: list of students you are teaching
-** tss - TSS Form: list of claimable sessions (only sessions that have been marked as done
-* `CATEGORY_UID` - a category unique id
+** claims - Claims Form: list of claimable sessions (only sessions that have been marked as done will be included here)
+* `INDEX` - The position of an item in a list
 * `MATRIC_NUMBER` - the matriculation number of a student
 ** Must start with an ‘A’
 ** Must end with an letter
-** Must have x numbers in between the start and end letter
-* `MOD_CODE` - replace with the unique code for the module
-* `CLASS_CODE` - replace with the unique code for the tutorial/class
-* `SESSION_UID` - the unique numeric identifier of a session
-** Must be a positive integer (eg. 1, 2, 3, ...)
-* `SESSION_TYPE` - replace with one of the following:
+** Must have 7 numbers in between the start and end letters
+* `MOD_CODE` - the unique code for the module
+* `NAME` - based on the command, could mean student name or module name
+* `GROUP_CODE` - the unique code for the group
+* `GROUP_TYPE` - Could be one of the following:
+** tutorial
+** lab
+** recitations
+** other
+* `SESSION_TYPE` - Could be one of the following:
 ** consult - Consultations
 ** tutorial - Tutorials
 ** grading - Grading and assessments
@@ -106,229 +139,235 @@ TATracker data is automatically saved in the hard disk as backup files after any
 
 Format: `help`
 
+==== Changing tabs : `goto`
+
+TODO - NOT IMPLEMENTED YET
+
 ==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Data Management
+=== Student View
 
-==== Adding data: `add`
-Adds different categories of data into the program.
+[[AddModule]]
+==== Adding a Module `module add`
 
-Format: `add c/CATEGORY ./CATEGORY_UID ->`
+Adds a new module to the TA-Tracker.
 
-****
-[.big]#List of categories:#
+When a new module is created, the Student View will show the groups
+and students of the new module (which will initially be empty).
 
-[%hardbreaks]
-<<AddStudent, 1. Adding a student: `add c/student`>>
-<<AddModule, 2. Adding a module: `add c/module`>>
-<<AddSessionType, 3. Adding a type of session: `add c/SESSION_TYPE`>>
-<<AddSession, 4. Adding a session: `add c/session`>>
-****
+Format: `module add m/MOD_CODE n/NAME`
 
-[[AddStudent]]
-===== Adding a student: `add c/student`
-Adds a new student into the program.
-The `CATEGORY_UID` for this command is the student’s matriculation number.
+[NOTE]
+====
+No module with the given module code should exist in the TA-Tracker before adding
+a new module.
+====
 
-Format: `add c/student m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+====
+Examples:
+
+* `module add m/CS2103 n/Software Engineering`
++
+Adds a module with the module code CS2103 and name 'Software Engineering'
+to the TA-Tracker.
+====
+
+[[DeleteModule]]
+==== Deleting a Module `module delete`
+
+Deletes a module from the TA-Tracker.
+
+When a module is deleted, the student view will go back to its default
+setting and show the details for the first module and first group in the
+TA-Tracker. If there is no module and no group, it will show empty lists.
+
+When a module is deleted, all groups, students and sessions associated with
+the module will also be deleted.
+
+Format: `module delete m/MOD_CODE`
+
+[NOTE]
+====
+A module with the given module code must exist in the TA-Tracker before
+you delete it.
+====
+
+====
+Examples:
+
+* `module delete m/CS2103`
++
+Deletes the module with the module code CS2103 from the TA-Tracker.
+Adds a module with the module code CS2103 and name 'Software Engineering'
+====
+
+[[AddGroup]]
+==== Adding a Group `group add`
+
+Adds a new group to the TA-Tracker.
+
+When a new group is created, the Student View will show the groups of the module
+this group belongs to and students of the new group (which will initially be an empty list).
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 [NOTE]
 ====
 [horizontal]
-`MATRIC_NUMBER`:: see Common Parameters
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* No group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[DeleteGroup]]
+==== Deleting a Group `group delete`
+Deletes a group from the TA-Tracker.
+
+When a group is deleted, the Student View will show the details of the first group
+in the given module. If there is no group in the module, it will show the empty lists.
+
+Format: `group delete g/GROUP_CODE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* A group with the given group code must exist inside the module.
+====
+
+====
+Examples:
+
+* `group delete g/G03 m/CS2103`
++
+Deletes the group with the group code G03 from the module that
+has module code CS2103.
+====
+
+[[EditGroup]]
+==== Editing a Group `group edit`
+
+TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
+
+Edits a group in the TA-Tracker.
+
+This command can change the group code and group type of the group. It will keep
+the students inside the group intact.
+
+When a group is edited, the Student View will show the groups of the module
+this group belongs to and students of the edited group.
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* No group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[AddStudent]]
+==== Adding a Student `student add`
+
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Adds a new student to the TA-Tracker.
+
+When a new student is added, the Student View will show the groups and students
+of the module the new student belongs to.
+
+Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+
+[NOTE]
+====
+[horizontal]
 `NAME`:: the name of the student
 `EMAIL`:: the email address of the student
 `RATING`:: a number between 1 (poor) to 5 (excellent)
 `TAG`:: a remark(s) for this student
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+`GROUP_CODE`:: A group with the given group code should exist inside the module.
 ====
 ====
 Examples:
 
-* `add c/student m/A0123456J n/Alice`
+* `student add id/A0123456J n/Alice m/CS2103 g/G03`
 +
 Adds the student with the matriculation number A0123456J
-and the name Alice.
+and the name Alice inside group G03 of module CS2103.
 ====
-
-[[AddModule]]
-===== Adding a module: `add c/module`
-Adds a new module group into the program.
-The `CATEGORY_UID` for this command is the module code.
-
-Format: `add c/module m/MOD_CODE`
-
-[NOTE]
-====
-[horizontal]
-`MOD_CODE`:: see Common Parameters
-====
-====
-Examples:
-
-* `add c/module m/CS2103T`
-+
-Adds the CS2103T module group.
-====
-
-[[AddSessionType]]
-===== Adding a type of session: `add c/SESSION_TYPE`
-Adds a new type of session for an existing module group in the program.
-The `CATEGORY_UID` for this command is the SESSION_TYPE code.
-
-Format: `add c/SESSION_TYPE t/SESSION_TYPE m/MOD_CODE`
-
-[NOTE]
-====
-[horizontal]
-`SESSION_TYPE` `TUT_CODE` `MOD_CODE`:: see Common Parameters
-====
-====
-Examples:
-
-* `add c/tutorial t/W17 m/CS2103T`
-+
-Adds a tutorial with the tutorial code W17,
-and links it to the CS2103T module group.
-====
-
-[[AddSession]]
-===== Adding a session: `add c/session`
-Adds a session into the program for a specific module.
-There is no need to provide the `CATEGORY_UID`,
-as a unique session id (`SESSION_UID`) will be automatically generated for it.
-
-Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/NOTES]`
-[NOTE]
-====
-[horizontal]
-`START` `END` `DATE`:: see Common Parameters
-
-`[-r]`::  makes the session recur at the same time every week
-
-`MOD_CODE` `SESSION_TYPE`:: see Common Parameters
-
-`NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
---
-* The session will automatically be given a `SESSION_UID`
---
-====
-====
-Examples:
-
-* `add c/session s/14:00 e/16:00 d/19-02-2020 m/CS2103T t/consult n/with Alice and Bob`
-+
-Adds a consultation session on 19 Feb 2020,
-from 2pm to 4pm,
-with Alice and Bob.
-====
-
-==== Deleting data: `delete`
-Deletes different categories of data from the program.
-
-Format: `delete c/CATEGORY ./CATEGORY_UID ->`
-
-****
-[.big]#List of categories:#
-
-[%hardbreaks]
-<<DeleteStudent, 1. Deleting a student: `delete c/student`>>
-<<DeleteModule, 2. Deleting a module: `delete c/module`>>
-<<DeleteTutorial, 3. Deleting a tutorial: `delete c/tutorial`>>
-<<DeleteSession, 4. Deleting a session: `delete c/session`>>
-****
 
 [[DeleteStudent]]
-===== Deleting a student: `delete c/student`
-Deletes a student from the program.
-The `CATEGORY_UID` for this command is the student’s matriculation number.
+==== Deleting a Student `student delete`
 
-Format: `delete c/student m/MATRIC_NUMBER`
+TODO: WRITE HOW THIS WORKS PROPERLY
 
-[NOTE]
-====
-[horizontal]
-`MATRIC_NUMBER`:: see Common Parameters
-====
-====
-Examples:
+Deletes a student from the TA-Tracker.
 
-* `delete c/student m/A0123456J`
-+
-Deletes the student with the matriculation number A0123456J from the program.
-====
+When a student is deleted, the Student View will show the groups of the module the
+student was removed from and the students of the group the student was removed from.
+If there is no student inside the group, an empty list will be shown.
 
-[[DeleteModule]]
-===== Deleting a module: `delete c/module`
-Deletes a module group from the program, and all the tutorials and sessions that are linked to it.
-The `CATEGORY_UID` for this command is the module code.
-
-Format: `delete c/module m/MOD_CODE`
+Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
 [NOTE]
 ====
 [horizontal]
-`MOD_CODE`:: see Common Parameters
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+`GROUP_CODE`:: A group with the given group code should exist inside the module.
+`MATRIC_NUMBER`:: A student with the given matric number must exist inside the group.
 ====
 ====
 Examples:
 
-* `delete c/module m/CS2101`
+* `delete c/student m/A0123456J g/G03 m/CS2103`
 +
-Deletes the module group CS2101, and all of the tutorials or sessions that are linked to it.
+Deletes the student with the matriculation number A0123456J from the group G03 inside
+the module CS2103.
 ====
 
-[[DeleteTutorial]]
-===== Deleting a tutorial: `delete c/tutorial`
-Deletes a tutorial from the program.
-The `CATEGORY_UID` for this command is the tutorial code.
+[[EditStudent]]
+==== Editing a Student `student edit`
 
-Format: `delete c/tutorial t/TUT_CODE m/MOD_CODE`
+TODO: WRITE HOW THIS WORKS PROPERLY
 
-****
-* `TUT_CODE`, `MOD_CODE` - see Common Parameters
-****
+Edits a student in the TA-Tracker.
 
-Examples:
+When a student is edited, the Student View will show the groups of the module the
+edited student is from and the students of the group the edited student exists in.
 
-* `delete c/tutorial t/G06 m/CS2101`
-Deletes the CS2101 tutorial with the code G06 from the program.
-
-[[DeleteSession]]
-===== Deleting a session: `delete c/session`
-Deletes a session from the program.
-The `CATEGORY_UID` used in this case is the session’s unique id.
-
-Format: `delete c/session i/SESSION_UID`
-
-****
-* `SESSION_UID` - see Common Parameters
-****
-
-Examples:
-
-* delete c/session i/10
-Deletes the session with the identifier of 10
-
-==== Editing existing data: `edit`
-edit - Editing existing data
-
-Format: `edit c/CATEGORY …/CATEGORY_UID...`
-
-****
-*List of categories:*
-
-1. Editing an existing student: `edit c/student`
-2. Editing an existing session: `edit c/session`
-****
-
-===== Editing an existing student: `edit c/student`
 Edits the student with the specified matriculation number.
 The CATEGORY_UID used in this case is the student’s matriculation number.
 
-Format: `edit c/student m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
+Format: `student edit m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
 
 ****
 * `MATRIC_NUMBER` - see Common Parameters
@@ -359,128 +398,114 @@ and `johndoe@example.com` as their email address.
 Edits student `A9876543K` to have `Betsy Crower` as their name.
 In addition, all existing tags will be removed.
 
-==== Editing an existing session: `edit c/session`
-Edits an existing session with the specified session unique id.
+[[Sort]]
+==== Sort `sort`
 
-Format: `edit c/session i/SESSION_UID [s/START] [e/END] [d/DATE] [-r] [m/MOD_CODE] [t/SESSION_TYPE] [n/NOTES]`
+TODO: ADD DETAILS ONCE IMPLEMENTED
 
-****
-* `SESSION_UID` - see Common Parameters
-At least one of the optional fields must be provided.
-* `START`, `END`, `DATE`, `MOD_CODE`, `SESSION_TYPE` - see Common Parameters
-* `[-r]` - Make the session recur at the same time every week
-* `NOTES` - notes for this session (eg: weekly tutorials or prep sessions)
-****
+[[FilterStudent]]
+==== Filter `filter`
 
+TODO: ADD DETAILS ONCE IMPLEMENTED
+
+=== Session View
+
+[[AddSession]]
+==== Adding a Session `session add`
+
+TODO - UPDATE
+
+Adds a new type of session for an existing module group in the program.
+The `CATEGORY_UID` for this command is the SESSION_TYPE code.
+
+Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/NOTES]`
+
+[NOTE]
+====
+[horizontal]
+`START` `END` `DATE`:: see Common Parameters
+
+`[-r]`::  makes the session recur at the same time every week
+
+`MOD_CODE` `SESSION_TYPE`:: see Common Parameters
+
+`NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
+
+====
+====
 Examples:
 
-* `edit c/session i/7 d/20-02-2020`
-Edits the date of a session with uid 7 to 20 Feb 2020.
+* `add c/session s/14:00 e/16:00 d/19-02-2020 m/CS2103T t/consult n/with Alice and Bob`
++
+Adds a consultation session on 19 Feb 2020,
+from 2pm to 4pm,
+with Alice and Bob.
+====
+==== Deleting a Session `session delete`
 
-=== Student Management
+TODO - UPDATE
 
-==== Enrolling a student in a class : `enroll`
+Deletes a session from the TA-Tracker.
 
-Enrolls a student in a class in the program. +
+Format: `session delete i/SESSION_UID`
 
-Format: `enroll MATRIC_NUMBER CLASS_CODE MOD_CODE`
-
-****
-* Enrolls the student with the given matriculation number in the specified class.
-* The class should belong to the module with the given MOD_CODE.
-* The class should already exist in the TA-Tracker with the given CLASS_CODE.
-****
-
+====
 Examples:
 
-* `enroll A01234567J G06 CS2101` +
-Enrolls the student with the matriculation number A01234567J in tutorial G06 of module CS2101.
+* delete c/session i/10
+Deletes the session with the identifier of 10
+====
 
-==== Removing a student from a class : `kick`
+==== Editing a Session `session edit`
+TODO - ADD DETAILS
 
-Removes a student from a class in the program.
-
-Format: `kick MATRIC_NUMBER CLASS_CODE MOD_CODE`
-
-****
-* Removes the student with the given matriculation number from the specified class.
-* The class should belong to the module with the given MOD_CODE.
-* The class should already exist in the TA-Tracker with the given CLASS_CODE.
-****
-
-Examples:
-
-* `kick A01234567J G06 CS2101` +
-Removes the student with the matriculation number A01234567J from tutorial G06 of module CS2101.
-
-=== Session Management
-
-==== Labelling a session as completed : `done`
+==== Marking a Session as Done `session done`
 
 Labels a session as done.
 If the session is claimable, it will appear as a new claim in the TSS view.
 
-Format: `done SESSION_UID`
+Format: `session done INDEX`
 
-****
-* Marks the session with the given unique session identifier as done.
-****
+Marks the session with the given unique session identifier as done.
 
+====
 Examples:
 
 * `done 25` +
 Marks the session with the unique session id of 25 as done.
+====
 
-==== Labelling a session as a makeup : `makeup`
+==== Filter `filter`
 
-Labels a session as a makeup session.
-If the session is claimable, it will appear as a new claim in the TSS view.
+TODO: ADD DETAILS ONCE IMPLEMENTED
 
-Format: `makeup SESSION_UID`
+=== Claims View
 
-****
-* Marks the session with the given unique session identifier as a makeup.
-****
+==== Filter `filter`
 
-Examples:
+TODO: ADD DETAILS ONCE IMPLEMENTED
 
-* `makeup 25` +
-Marks the session with the unique session id of 25 as a makeup.
+==== Changing the hourly rate `set`
 
-=== Settings
+TODO: EDIT ONCE IMPLEMENTED
 
-==== Adjusting the settings : `set`
-
-Adjusts the chosen settings.
-
-Format: `set SETTING`
-
-Here are the things that you can set:
-
-*rate:* Adjusts the hourly rate. +
 Sets the hourly rate for the total income and claim computation.
 
 Format: `set rate AMOUNT`
-****
+
+[NOTE]
+====
 * AMOUNT is the amount you want to change the hourly rate to.
 * To specify in exact dollars, you can write it as just the number (example: 20).
 * To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
-****
+====
 
 Examples:
 
 * `set rate 25` +
 Sets the current hourly rate to 25$.
 
-*default:* Adjusts the default layout +
-Change the default view shown when the GUI is first opened.
-
-Format: `set default PAGE_NAME`
-
-Examples:
-
-* `set default sessions` +
-Sets the default view to be the list of sessions every time you open the GUI.
+== GLOSSARY
 
 == FAQ
 
@@ -489,15 +514,29 @@ Sets the default view to be the list of sessions every time you open the GUI.
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL m/MATRIC [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [m/MATRIC] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
+
+=== Student View
+* *Add Module* `module add m/MOD_CODE`
+* *Delete Module* `module delete m/MOD_CODE`
+* *Add Group* `group add g/GROUP_CODE m/MOD_CODE`
+* *Edit Group*
+* *Delete Group* `group delete g/GROUP_CODE m/MOD_CODE`
+* *Add Student*
+* *Delete Student*
+* *Edit Student*
+* *Sort*
+* *Filter*
+
+=== Session View
+* *Add Session*
+* *Delete Session*
+* *Edit Session*
+* *Mark as Done*
+* *Filter*
+
+=== Claims View
+* *Set Rate*
+* *Filter*
+
 
