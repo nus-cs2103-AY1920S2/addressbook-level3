@@ -76,7 +76,6 @@ public class EditProductCommand extends Command {
         }
 
         Product productToEdit = lastShownList.get(index.getZeroBased());
-        System.out.println("exe " + lastShownList);
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
 
         if (modelHasDuplicateProduct(model, editedProduct)) {
@@ -87,6 +86,9 @@ public class EditProductCommand extends Command {
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
+        System.out.println("epc" + String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
+
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
     }
 
@@ -142,7 +144,6 @@ public class EditProductCommand extends Command {
         assert productToEdit != null;
 
         UUID id = productToEdit.getId();
-        System.out.println("cep" + id);
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());
         CostPrice updatedCostPrice = editProductDescriptor.getCostPrice().orElse(productToEdit.getCostPrice());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());

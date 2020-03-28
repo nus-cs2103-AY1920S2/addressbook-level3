@@ -16,11 +16,11 @@ import seedu.address.model.util.QuantityThreshold;
 public class ProductBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Abacus";
-    public static final String DEFAULT_COSTPRICE = "0";
-    public static final String DEFAULT_PRICE = "12";
-    public static final String DEFAULT_QUANTITY = "1";
-    public static final String DEFAULT_SALES = "100000";
-    public static final String DEFAULT_THRESHOLD = "Null";
+    public static final String DEFAULT_COSTPRICE = "1";
+    public static final String DEFAULT_PRICE = "11";
+    public static final String DEFAULT_QUANTITY = "11";
+    public static final String DEFAULT_SALES = "10000";
+    public static final String DEFAULT_THRESHOLD = "1";
 
     private UUID id;
     private Description description;
@@ -110,7 +110,7 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(description, costPrice, price, quantity, money, threshold);
+        return new Product(id, description, costPrice, price, quantity, money, threshold);
     }
 
 }
