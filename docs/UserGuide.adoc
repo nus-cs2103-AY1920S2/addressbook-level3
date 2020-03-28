@@ -18,19 +18,45 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
+Welcome to MODdy! MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
 It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-Currently, MODdy targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
-If you are from SoC and is looking for an application to manage all your modules throughout your degree progression, jump to <<Quick Start>> to get started.
-Enjoy!
+This user guide aims to give you a clearer understanding on how to use MODdy as well as a summary of its features.
 
-== Quick Start (coming in v2.0)
+Currently, MODdy targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
+If you are from SoC and is looking for an application to manage all your modules and tasks throughout your degree progression, what are you waiting for?
+Jump to <<Quick Start>> to get started. Hope you enjoy the company of MODdy!
+
+== About the User Guide
+This user guide presents to you the following features of MODdy:
+
+. View help
+. New user profile
+. Add module & task
+. Edit profile & module
+. Show profile, semester, course, focus area & module
+. Delete profile, module & task
+. Reset MODdy
+. Exit MODdy
+
+Please note the following which may serve as points of interests:
+
+kbd:[Enter] : This grey highlight with white outline indicates a keyboard's key
+
+`word` : This grey highlight indicates commands that you can type into MODdy's command box
+
+NOTE : This symbol indicates information that you may wish to note
+
+TIP : This symbol indicates examples or tips provided by us
+
+== Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MODdy.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your personalised MODdy.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI, as shown in the figure below, should appear in a few seconds.
 +
+.GUI of MODdy
+[caption="Figure 1: "]
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -38,7 +64,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Create your own profile using `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 .  Some example commands you can try:
 
-* **`add`**`m/CS2103T y/1` : adds CS2103T into your Module List under semester 1
+* **`add`**`m/CS2103T y/1` : adds CS2103T into your Module List under Year 1 Semester 1
 * **`delete`**`n/NAME` : deletes your whole profile and its data
 * *`exit`* : exits the app
 
@@ -51,123 +77,160 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters supplied by you e.g. in `add m/MODULE`, `MODULE` is a parameter which can be used as `add m/CS2103`
-* Parameters can be entered in any format, unless stated otherwise
+* Parameters can be entered in any format and are case-insensitive, unless stated otherwise
 * Items in square brackets are optional e.g `m/MODULE [g/GRADE]` can be used as `m/CS2103 g/A+` or as `m/CS2103`
 * Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`
 ====
 
+
 [[Help]]
 === Viewing help : `help`
 
-You will be directed to MODdy's User Guide. +
+This command provides you with a link as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in MODdy. +
 
 Format: `help`
+
+image::Help.png[width="790"]
+
+
 
 [[New]]
 === New user profile : `new`
 
-This helps you to create a new Profile. +
+This command creates a new profile for you as shown in the figure below. You will have to provide your details as parameters.
+
 Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
+
+image::New.png[width="790"]
 
 ****
 * Fields in brackets [] are optional.
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<delete,`delete`>> feature mentioned below
+* `cs/CURRENT_SEMESTER` must be entered as an integer, e.g. if you are currently in Year 2 Semester 1, you will enter `cs/3`
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in 4.6.
 ****
 
-Examples:
-
-* `new n/John c/Computer Science cs/4` +
+TIP: `new n/John c/Computer Science cs/4` +
 Creates a new profile with the name "John", currently majoring in "Computer Science" and is in his 4th semester of study.
+
+
 
 [[Add]]
 === Adding: `add`
 
-Adds a module or a task to an existing module in MODdy. +
+This command adds a module or a task to an existing module in MODdy.
 
 There are *two* ways you can use the `add` command: +
 
 1) Add a current/completed module to MODdy +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
+image::AddModule.png[width="790"]
+
 ****
+* `m/MODULE` is case-sensitive and must be entered in capital letters
+* `y/SEMESTER_INDEX` must be entered as an integer, e.g. if you took the module in Year 2 Semester 1, you will enter `y/3`
+* As you have already specified the current semester you are currently in when creating your profile, MODdy will indicate modules added to prior semesters as *"completed"*, and modules that are added to the current semester or to future semesters are indicated as *"currently taking"* or *"planning to take"* respectively
 * `g/GRADE` is optional
-* `y/SEMESTER_INDEX` must be in the format `y/INTEGER` (eg. A module taken in Year 2 Semester 1 will be y/3)
-* As you have already specified the current semester you currently are in your academic journey at the start, MODdy will indicate modules added to prior semesters as "completed", while modules that are added to the current semester or to future semesters are indicated as "currently taking" or "planning to take" respectively
 ****
+
+TIP: `add m/CS2105 y/3 g/A+` +
+Adds CS2105 to the list of modules under the 3rd semester (Year 2 Semester 1) with the resulting grade, A+
 
 2) Add a task with a deadline to a module in MODdy +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK d/DEADLINE` +
 
+image::AddTask.png[width="790"]
+
 ****
 * The module must already exist in MODdy before a task can be added
-* `d/DEADLINE` must be in the format `YYYY-MM-DD HH:mm` (e.g. 2020-03-31 23:59)
-* `t/TASK d/DEADLINE` should be deleted using the `delete` command when completed
+* `d/DEADLINE` must be entered in the format `YYYY-MM-DD HH:mm` (e.g. 2020-03-31 23:59)
+* Completed `t/TASK d/DEADLINE` should be deleted by you using the <<Delete, `delete`>> feature
 ****
 
-Examples:
-
-* `add m/CS2105 y/3 g/A+` +
-Adds CS2105 to the list of modules in the MODdy profile with the semester the module was taken in (3) and the resulting grade (A+)
-* `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
+TIP: `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
 Adds a task named "Assignment" with the deadline "31 March 2020 23:59" to the already-existing module CS2105
+
 
 
 [[Edit]]
 === Editing: `edit`
 
-Edits an existing profile or module in MODdy. +
+This command edits your profile or a module in MODdy. +
 
 There are *two* ways you can use the `edit` command: +
 
-1) Edit the Profile of the user +
+1) Edit your profile +
 Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
+
+image::EditProfile.png[width="790"]
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited
+* If you did not specify your specialisation when you created your profile, `edit s/SPECIALISATION` adds the specialisation to your profile
 ****
 
-Examples:
-
-* `edit n/Brad c/Information Security` +
-Edits your current profile name to "Brad" and your current course to "Information Security" from what they were previously
+TIP: `edit n/Brad c/Information Security s/Software Engineering` +
+Edits your profile name to "Brad", your course to "Information Security", and your specialisation to "Software Engineering" from what they were previously
 
 2) Edit a module previously added in MODdy +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
+
+image::EditModule.png[width="790"]
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited
 * Feature to edit tasks and deadlines will be coming in later versions
 ****
 
-Examples:
+TIP: `edit m/CS2103 g/A+` +
+Edits your grade of the module CS2103 to A+
 
-* `edit s/Algorithms & Theory` +
-Edits current profile's specialisation to "Algorithms & Theory". If you did not previously specify your specialisation, this adds the specialisation to your profile.
-* `edit m/CS2103 g/A+` +
-Edits the grade of the module CS2103 to A+
+
 
 [[Show]]
 === Showing: `show`
 
-There are *three* ways you can use the `show` command:
+This command displays the details of your parameter. +
 
-1) Show all modules in a given semester
+There are *four* ways you can use the `show` command:
 
+1) Show your profile +
+Format: `show n/NAME`
+
+image::ShowProfile.png[width="790"]
+
+NOTE: All the modules under every semester, grades of completed modules, as well as your current Cumulative Average Point (CAP) will be displayed
+
+
+2) Show modules in the specified semester +
 Format: `show y/SEMESTER_INDEX`
 
-This lists the modules that have been added in this given semester.
+image::ShowSemester.png[width="790"]
 
-2) Show all modules in a course's requirements
+TIP: `show y/4` +
+Shows all the modules added to the 3rd semester (Year 2 Semester 2)
 
+[[showCourse]]
+3) Show the course's requirements +
 Format: `show c/COURSE_NAME`
 
-This lists the module requirements under this course.
+image::ShowCourse.png[width="790"]
 
-3) Show details of a module
+NOTE: All required modules as well as modules under focus areas of the course will be displayed
 
+4) Show modules under the specified focus area +
+Format: `show f/FOCUS_AREA`
+
+image::ShowFocusArea.png[width="790"]
+
+TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/COURSE`>> command
+
+5) Show details of a module +
 Format: `show m/MODULE_CODE`
 
-This displays all the details of the specified module.
+image::ShowModule.png[width="790"]
+
+NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered will be displayed
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`
@@ -177,69 +240,63 @@ This displays all the details of the specified module.
 //* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 //****
 
-Examples:
-
-* `show y/3` +
-Shows all the modules added to the 3rd semester (Year 2 Semester 1)
-* `show c/computer science` +
-Shows the module requirements and focus areas under Computer Science
-* `show m/CS2107` +
-Shows the module name, prerequisites, modular credits, description and semesters CS2107 is offered in
 
 
 [[Delete]]
 === Deleting: `delete`
+This command deletes the data in MODdy according to your parameters.
 
 There are *three* ways you can use the `delete` command:
 
-1) Delete a user profile
-
+1) Delete your profile +
 Format: `delete n/NAME`
 
-This deletes the profile of the specified user, including all modules, tasks and deadlines of that profile.
+image::DeleteProfile.png[width="790"]
 
-2) Delete a module
+NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from MODdy
 
+2) Delete a module +
 Format: `delete m/MODULE_CODE`
 
-This deletes the specified module from the current profile, including all tasks and deadlines of that module.
+image::DeleteModule.png[width="790"]
 
-3) Delete a task
+NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from MODdy
 
+3) Delete a task +
 Format: `delete m/MODULE_CODE t/TASK`
 
-This deletes the specified task and its deadline from the specified module.
+image::DeleteTask.png[width="790"]
 
-Examples:
+NOTE: The specified task and its deadline will be deleted from the specified module
 
-- `delete n/John` +
-  Deletes the profile of the user "John".
+TIP: `delete m/CS2103T t/Assignment` +
+Deletes the task "Assignment" from the module CS2103T in your profile
 
-- `delete m/CS2103T` +
-  Deletes the module CS2103T from the current profile.
 
-- `delete m/CS2103T t/Assignment` +
-  Deletes the task "Assignment" from the module CS2103T in the current profile.
 
 [[Clear]]
-=== Resets the whole application : `clear`
+=== Resetting MODdy : `clear`
 
-<<<<<<< HEAD
-This allows you to clear all entries from the application including your profile and its data.
+This command clears all entries from MODdy including your profile and its data.
 
 Format: `clear`
 
-[[Exit]]
-=== Exiting the program : `exit`
+image::Clear.png[width="790"]
 
-Exits the program.
+
+[[Exit]]
+=== Exiting MODdy : `exit`
+
+This command closes the GUI and exits MODdy.
 
 Format: `exit`
 
-=== Saving the data
+image::Exit.png[width="790"]
 
-MODdy data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+
+=== Saving your data
+
+Your MODdy's data are saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually.
 
 
 == FAQ
@@ -249,18 +306,29 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add m/MODULE y/SEMESTER_INDEX [g/GRADE] [t/TASK d/DEADLINE]` +
-e.g. `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59`
-* *Clear* : `clear`
-* *Delete* : Either `delete n/NAME` or `delete m/MODULE_CODE [t/TASK]` +
-e.g. `delete m/CS2103T t/Assignment`
-* *Edit* : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
-e.g. `edit n/Brad c/Information Security`
-//* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-//e.g. `find James Jake`
-//* *List* : `list`
-* *Help* : `help`
-* *New* : `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]` +
+* <<Help, *Help*>> : `help`
+* <<New, *New*>> : `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]` +
 e.g. `new n/John c/Computer Science cs/4`
-* *Show* : `show [y/SEMESTER_INDEX] [c/COURSE_NAME] [m/MODULE_CODE]` +
-e.g. `show c/computer science`
+
+* <<Add, *Add*>> : `add m/MODULE y/SEMESTER_INDEX [g/GRADE] [t/TASK] [d/DEADLINE]` +
+e.g. `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59`
+
+* <<Edit, *Edit*>> : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
+e.g. `edit n/Brad c/Information Security s/Software Engineering` +
+or `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]` +
+e.g. `edit m/CS2103 g/A+`
+
+* <<Show, *Show*>> : `show [y/SEMESTER_INDEX] [c/COURSE_NAME] [f/FOCUS_AREA] [m/MODULE_CODE]` +
+e.g. `show y/4`, `show c/computer science`, `show f/software engineering`, `show m/CS2103T`
+
+* <<Delete, *Delete*>> : `delete n/NAME` +
+e.g. `delete n/Brad` +
+or `delete m/MODULE_CODE [t/TASK]` +
+e.g. `delete m/CS2103T`, `delete m/CS2103T t/Assignment`
+
+* <<Clear, *Clear*>> : `clear`
+
+
+
+
+
