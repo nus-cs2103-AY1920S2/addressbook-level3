@@ -10,7 +10,7 @@ public class GotoCommand extends Command {
     public static final String COMMAND_WORD = "goto";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches to the specified tab.\n"
-            + "Example: " + COMMAND_WORD + "Student";
+            + "Example: " + COMMAND_WORD + " Student";
 
     private static String tabName;
 
