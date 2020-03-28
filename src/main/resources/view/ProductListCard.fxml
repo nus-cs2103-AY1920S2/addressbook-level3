@@ -11,11 +11,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.ProgressBar?>
+<?import java.net.URL?>
 <HBox id="cardPaneProduct" fx:id="cardPaneProduct" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
+        <stylesheets>
+            <URL value="@Progress.css"/>
+        </stylesheets>
         <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />

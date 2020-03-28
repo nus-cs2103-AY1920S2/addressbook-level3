@@ -45,6 +45,11 @@ public class ProductCard extends UiPart<Region> {
     private ProgressBar progressBar;
 
     private double progress;
+    private static final String RED_BAR    = "red-bar";
+    private static final String ORANGE_BAR = "orange-bar";
+    private static final String YELLOW_BAR = "yellow-bar";
+    private static final String GREEN_BAR  = "green-bar";
+    private static final String[] barColorStyleClasses = { RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR };
 
     public ProductCard(Product product, int displayedIndex) {
         super(FXML);
@@ -56,8 +61,26 @@ public class ProductCard extends UiPart<Region> {
         quantity.setText(String.valueOf(product.getQuantity().value));
         sales.setText("$" + product.getMoney().value);
         threshold.setText(product.getThreshold().value);
-        progress = product.getQuantity().value / (Double.parseDouble(product.getThreshold().value) * 5);
+        updateProgressBar();
+    }
+
+    private void updateProgressBar() {
+        progress = product.getQuantity().value / (product.getThreshold().getDouble() * 5);
         progressBar.setProgress(progress);
+        if (progress <= 0.2) {
+            setBarStyleClass(progressBar, RED_BAR);
+        } else if (progress <= 0.4) {
+            setBarStyleClass(progressBar, ORANGE_BAR);
+        } else if (progress <= 0.6) {
+            setBarStyleClass(progressBar, YELLOW_BAR);
+        } else {
+            setBarStyleClass(progressBar, GREEN_BAR);
+        }
+    }
+
+    private void setBarStyleClass(ProgressBar bar, String barStyleClass) {
+        bar.getStyleClass().removeAll(barColorStyleClasses);
+        bar.getStyleClass().add(barStyleClass);
     }
 
     @Override
