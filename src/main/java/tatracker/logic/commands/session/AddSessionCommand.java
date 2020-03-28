@@ -16,6 +16,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
+
 /**
  * Adds a session to the TATracker.
  */

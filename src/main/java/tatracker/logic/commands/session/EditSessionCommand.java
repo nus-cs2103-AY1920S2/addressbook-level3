@@ -1,7 +1,5 @@
 package tatracker.logic.commands.session;
 
-// import static java.util.Objects.requireNonNull;
-
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
@@ -26,6 +24,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+
 
 /**
  * Edits the details of an existing session in TAT.
