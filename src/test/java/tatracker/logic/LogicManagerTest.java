@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
+import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalStudents.AMY;
 
@@ -26,6 +30,8 @@ import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.UserPrefs;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 import tatracker.model.student.Student;
 import tatracker.storage.JsonTaTrackerStorage;
 import tatracker.storage.JsonUserPrefsStorage;
@@ -41,12 +47,19 @@ public class LogicManagerTest {
     private Model model = new ModelManager();
     private Logic logic;
 
+    private Module module = new Module(VALID_MODULE_CS2030);
+    private Group group = new Group(VALID_GROUP_T04);
+
     @BeforeEach
     public void setUp() {
         JsonTaTrackerStorage taTrackerStorage =
                 new JsonTaTrackerStorage(temporaryFolder.resolve("tatracker.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(taTrackerStorage, userPrefsStorage);
+
+        module.addGroup(group);
+        model.addModule(module);
+
         logic = new LogicManager(model, storage);
     }
 
@@ -78,11 +91,16 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(taTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = AddStudentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + MATRIC_DESC_AMY;
-        Student expectedStudent = new StudentBuilder(AMY).withTags().build();
+        // Setup Model
         ModelManager expectedModel = new ModelManager();
+        expectedModel.addModule(module);
+
+        // Execute add command
+        String addCommand = AddStudentCommand.COMMAND_WORD + MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04
+                + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+
+        Student expectedStudent = new StudentBuilder(AMY).withTags().build();
+
         expectedModel.addStudent(expectedStudent);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);

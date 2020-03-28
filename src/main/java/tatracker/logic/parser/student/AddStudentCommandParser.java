@@ -2,7 +2,9 @@ package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,6 +19,8 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -36,9 +40,10 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
      */
     public AddStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MATRIC, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_MATRIC, PREFIX_MODULE, PREFIX_GROUP,
+                        PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MATRIC, PREFIX_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MATRIC, PREFIX_MODULE, PREFIX_GROUP, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
         }
@@ -46,6 +51,10 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
         // ==== Identity fields ====
 
         Matric matric = ParserUtil.parseMatric(argMultimap.getValue(PREFIX_MATRIC).get());
+
+        Module module = new Module(argMultimap.getValue(PREFIX_MODULE).get());
+        Group group = new Group(argMultimap.getValue(PREFIX_GROUP).get());
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         // ==== Optional fields ====
@@ -66,7 +75,7 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         Student student = new Student(matric, name, phone, email, tagList);
 
-        return new AddStudentCommand(student);
+        return new AddStudentCommand(student, group, module);
     }
 
     /**

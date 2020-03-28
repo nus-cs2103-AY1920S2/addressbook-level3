@@ -3,7 +3,9 @@ package tatracker.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
@@ -38,6 +40,11 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_MODULE_CS2030 = "CS2030";
+    public static final String VALID_MODULE_CS2040 = "CS2040";
+    public static final String VALID_GROUP_T04 = "T04";
+    public static final String VALID_GROUP_L08 = "L08";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -48,6 +55,11 @@ public class CommandTestUtil {
     public static final String MATRIC_DESC_BOB = " " + PREFIX_MATRIC + VALID_MATRIC_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
+    public static final String MODULE_DESC_CS2040 = " " + PREFIX_MODULE + VALID_MODULE_CS2040;
+    public static final String GROUP_DESC_T04 = " " + PREFIX_GROUP + VALID_GROUP_T04;
+    public static final String GROUP_DESC_L08 = " " + PREFIX_GROUP + VALID_GROUP_L08;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
