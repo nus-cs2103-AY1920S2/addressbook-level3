@@ -638,9 +638,72 @@ has earned on a particular day, `saved` retrieves
 the amount of savings earned as recorded by Coupon
 Stash, given a particular time period.
 
+The saved command works similarly to the used command,
+where a SavedCommandParser will be created by Logic
+to split up the raw String into its arguments,
+creating a SavedCommand. Let's look at how a SavedCommand
+from the String "saved sd/03-03-2020 e/05-03-2020"
+would be executed.
+
+
+
+
+
 ==== Design considerations
 
+Based on the User Stories, there is a desire for tracking
+how much one has saved by using Coupon Stash, as well
+as for viewing total savings easily. Below are
+some alternative implementations of savings tracking
+and viewing that were considered by the developers,
+but were rejected in favour of the current
+implementation.
 
+Alternatives:
+
+* Restrict each Savings to a concrete monetary value
+
+This would make the implementation of Savings much
+simpler, as there would not be a need for separate
+classes like PercentageAmount, MonetaryAmount and
+Saveables. However, this might burden the user with
+calculating how much they would save in terms of
+dollars and cents, when many coupons and discounts
+come in the form of certain percentage reductions
+of the original price, as well as free gifts of
+benefits that cannot be translatable to a concrete
+monetary amount.
+
+Hence, it was decided to rely on a few different
+representations of Savings that can be earned from
+using a Coupon, as well as a Savings class that
+could refer to any of these representations, or
+even a logical combination of these representations.
+
+* Each Coupon stores a MonetaryAmount, PercentageAmount
+and Saveables directly
+
+This would eliminate the need for the intermediary
+Savings class and reduce complication in the program
+code slightly. But, it would be difficult to ensure
+that at least one such field exists in the Coupon,
+or guarantee that the Coupon would have one such field.
+
+The Coupon class would have to hold the logic for
+determining whether it had a valid combination of
+MonetaryAmount, PercentageAmount and Saveables,
+which does violate Single Responsibility Principle
+as the Coupon class now has another reason to change
+(if we would want to allow both MonetaryAmount and
+PercentageAmount on a Coupon for instance).
+
+Hence the Savings class was decided to handle this
+responsibility, as well as abstract away the
+implementation details of the multiple possible
+values and combinations of these values. This allows
+the Coupon to think in terms of an entire Savings
+object, rather than handle multiple different scenarios
+depending on which fields it has.
 
 == Documentation
 
