@@ -13,7 +13,9 @@ import java.util.Arrays;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.NameContainsKeywordsPredicate;
 import seedu.address.model.profile.Profile;
 
@@ -64,39 +66,45 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager, CourseManager actualCourseManager,
+                                            ModuleManager actualModuleManager, CommandResult expectedCommandResult,
+                                            ProfileManager expectedProfileManager, CourseManager expectedCourseManager,
+                                            ModuleManager expectedModuleManager) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualProfileManager, actualCourseManager, actualModuleManager);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedProfileManager, actualProfileManager);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, ProfileManager, CourseManager, ModuleManager,
+     * CommandResult, ProfileManager, CourseManager, ModuleManager)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager, CourseManager actualCourseManager,
+                                            ModuleManager actualModuleManager, String expectedMessage,
+                                            ProfileManager expectedProfileManager, CourseManager expectedCourseManager,
+                                            ModuleManager expectedModuleManager) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, actualProfileManager, actualCourseManager, actualModuleManager,
+                expectedCommandResult, expectedProfileManager, expectedCourseManager, expectedModuleManager);
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the profile at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showPersonAtIndex(ProfileManager profileManager, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < profileManager.getFilteredPersonList().size());
 
-        Profile profile = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Profile profile = profileManager.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = profile.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        profileManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, profileManager.getFilteredPersonList().size());
     }
 
 }
