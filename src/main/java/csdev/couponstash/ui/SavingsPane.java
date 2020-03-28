@@ -2,6 +2,7 @@ package csdev.couponstash.ui;
 
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -16,6 +17,8 @@ public class SavingsPane extends UiPart<Region> {
     private static final String SAVEABLE_CLASS = "sv-label";
     // controls font size of number amount
     private static final int BASE_FONT_SIZE = 125;
+    // if no saveables, translate numerical amount
+    private static final int NUMERICAL_AMOUNT_TRANSLATE_AMOUNT = 12;
 
     @FXML
     private VBox savingsPane;
@@ -35,22 +38,29 @@ public class SavingsPane extends UiPart<Region> {
      * @param moneySymbol Money symbol for the display.
      */
     public void setSavings(Savings s, String moneySymbol) {
-        String savingsNumber = getSavingsString(s, moneySymbol);
-        if (savingsNumber.isBlank()) {
-            this.numericalAmount.setStyle(SavingsPane.HIDDEN);
-        } else {
-            this.numericalAmount.setText(savingsNumber);
-            this.numericalAmount.setStyle("-fx-font-size: "
-                    + (SavingsPane.BASE_FONT_SIZE / savingsNumber.length())
-                    + ";");
-        }
+        // handle saveables
         s.getSaveables().ifPresentOrElse(saveablesList -> saveablesList.stream()
             .forEach(sva -> {
                 Label label = new Label(sva.getValue());
                 // ensure that label has the correct CSS style
                 label.getStyleClass().add(SavingsPane.SAVEABLE_CLASS);
                 saveables.getChildren().add(label);
-            }), () -> this.saveables.setStyle(SavingsPane.HIDDEN));
+            }), () -> {
+                this.saveables.setStyle(SavingsPane.HIDDEN);
+                this.numericalAmount.setTranslateY(SavingsPane.NUMERICAL_AMOUNT_TRANSLATE_AMOUNT);
+            });
+
+        // handle numerical value
+        String savingsNumber = getSavingsString(s, moneySymbol);
+        if (savingsNumber.isBlank()) {
+            this.numericalAmount.setStyle(SavingsPane.HIDDEN);
+        } else {
+            this.numericalAmount.setText(savingsNumber);
+            // resize numerical amount dynamically
+            this.numericalAmount.setStyle("-fx-font-size: "
+                    + (SavingsPane.BASE_FONT_SIZE / savingsNumber.length())
+                    + ";");
+        }
     }
 
     /**

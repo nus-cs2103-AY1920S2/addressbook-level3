@@ -91,6 +91,7 @@
   -fx-background-color: -fx-primary-blue;
   -fx-background-radius: 10;
   -fx-text-fill: white;
+  -fx-alignment: top-center;
 }
 
 #savings #numericalAmount {
@@ -104,6 +105,7 @@
 
 #savings #saveables .sv-label {
   -fx-font-size: 14;
+  -fx-label-padding: 0 3 0 3;
 }
 
 #couponName  {
