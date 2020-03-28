@@ -356,11 +356,13 @@ The archiving of coupons is facilitated by the `Archived` attribute of a coupon.
 * `Usage#isUsageAtLimit` - Returns true if the current usage is at its limit (abstracted by the `Limit` field).
 * `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A Predicate function that filters out archived coupons from a given CouponStash.
 
+[#img-archiving]
+.Overview class diagram representation of the the coupon archiving implementation
+image::ArchivingClassDiagram.png[ArchivingClassDiagram]
+
 Given below is two example usage scenarios and how the archiving mechanism behaves at each step of each scenario.
 
-image::ArchivingClassDiagram.png[]
-
-===== Archiving of Expired Coupons
+**Archiving of Expired Coupons**
 
 Expired coupons are automatically archived by Coupon Stash upon start up of the application. The following steps describe
 how this behaviour is implemented.
@@ -375,9 +377,11 @@ and returns a new updated `CouponStash`.
 Step 3. The `ModelManager` will proceed to filter out the archived coupons from the newly updated `CouponStash`, and return
 a filtered list of active coupons. This filtering is facilitated by the predicate `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
 
+[#img-archiveexpired]
+.Sequence diagram representation of archiving expired coupons
 image::ArchiveExpiredSequenceDiagram.png[]
 
-===== Archiving of Exhausted Coupons
+**Archiving of Exhausted Coupons**
 
 Coupons that have exhausted its usages will be automatically archived by the application. The following steps describe how
 this behaviour is implemented.
@@ -394,6 +398,11 @@ Step 3. The coupon will have a new `Archived` value, which will be set to `true`
 Step 4. The `CouponStash` will be updated with this used coupon with the `ModelManager#setCoupon()` method. Under the hood of
 this method, the current filtered list will be be updated to show active coupons only, facilitated by the predicate
 `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS`.
+
+[#img-archiveexhausted]
+.Sequence diagram representation of archiving exhausted coupons
+image::ArchiveExhaustedSequenceDiagram.png[]
+
 
 ==== Design Considerations
 
@@ -1152,7 +1161,6 @@ Use case ends.
 . **source code** - a set of instructions, written in a programming language that determine the final application’s internal and external behaviour.
 . **Stash** - a group of something valuable that the user would like to keep securely, ideally using our `_Coupon Stash_` application.
 . **UI (User Interface)** - a catch-all term referring to how a computer system and a coupon interacts, usually referring to specific elements displayed on the computer screen that the user may interact with such as buttons or text boxes, as well as areas where the computer application displays certain outputs to the user.
-=======
 
 [appendix]
 == Product Survey
