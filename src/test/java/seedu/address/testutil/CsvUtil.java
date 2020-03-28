@@ -4,7 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_INSTRUCTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_NIL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -72,7 +71,7 @@ public class CsvUtil {
             .withCod(0, 3, 0, VALID_COD_BOB).withComment(0, 3, 0, VALID_COMMENT_NIL)
             .withEmail(0, 0, 0, VALID_EMAIL_BOB).build();
 
-    //==================================== Return Orders without order type prefix ======================================
+    //==================================== Return Orders without order type prefix ====================================
 
     public static final String VALID_CSV_RETURN_ORDER_AMY = new CsvBuilder()
             .withOutOrderTypePrefix(OT_RETURN).withTid(0, 0, 0, VALID_TID_AMY)
@@ -104,7 +103,7 @@ public class CsvUtil {
             .withComment(0, 0, 0, VALID_COMMENT_NIL).withEmail(0, 0, 0, VALID_EMAIL_BOB)
             .withTypeOfItem(0, 0, 0, VALID_TYPE_PLASTIC).build();
 
-    public static final String ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY= new CsvBuilder()
+    public static final String ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY = new CsvBuilder()
             .withOutOrderTypePrefix(OT_RETURN).withTid(0, 0, 0, VALID_TID_AMY).withName(0, 0, 0, VALID_NAME_AMY)
             .withAddress(0, 0, 0, VALID_ADDRESS_AMY).withPhone(0, 0, 0, VALID_PHONE_AMY)
             .withReturnTimeStamp(0, 0, 0, VALID_TIMESTAMP_AMY).withWarehouse(0, 0, 0, VALID_WAREHOUSE_AMY)

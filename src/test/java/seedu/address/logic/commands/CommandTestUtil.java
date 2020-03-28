@@ -74,8 +74,6 @@ public class CommandTestUtil {
     public static final String COD_DESC_BOB = " " + PREFIX_COD + VALID_COD_BOB;
     public static final String COMMENT_DESC_NIL = " " + PREFIX_COMMENT + VALID_COMMENT_NIL;
     public static final String COMMENT_DESC_INSTRUCTION = " " + PREFIX_COMMENT + VALID_COMMENT_INSTRUCTION;
-    public static final String RETURN_TIMESTAMP_DESC_AMY = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_AMY;
-    public static final String RETURN_TIMESTAMP_DESC_BOB = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_BOB;
     public static final String TYPE_DESC_GLASS = " " + PREFIX_TYPE + VALID_TYPE_GLASS;
     public static final String TYPE_DESC_PLASTIC = " " + PREFIX_TYPE + VALID_TYPE_PLASTIC;
 

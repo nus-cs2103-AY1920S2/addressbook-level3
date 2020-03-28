@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CsvUtil.ADDTIONAL_NAME_CSV_ORDER_AMY;
 import static seedu.address.testutil.CsvUtil.ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY;
 import static seedu.address.testutil.CsvUtil.INVALID_CSV_ORDER_AMY;
@@ -11,7 +12,6 @@ import static seedu.address.testutil.CsvUtil.INVALID_CSV_RETURN_ORDER_BOB;
 import static seedu.address.testutil.CsvUtil.VALID_CSV_ORDER_AMY;
 import static seedu.address.testutil.CsvUtil.VALID_CSV_ORDER_BOB;
 import static seedu.address.testutil.CsvUtil.VALID_CSV_RETURN_ORDER_AMY;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CsvUtil.VALID_CSV_RETURN_ORDER_BOB;
 import static seedu.address.testutil.CsvUtil.VALID_WHITESPACE_IN_BETWEEN_ORDER_BOB;
 import static seedu.address.testutil.CsvUtil.VALID_WHITESPACE_IN_BETWEEN_RETURN_ORDER_BOB;
@@ -33,8 +33,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.ReturnOrderBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.storage.CsvProcessor;
 
 class ImportCommandTest {
@@ -60,7 +60,7 @@ class ImportCommandTest {
         assertCommandSuccess(new ImportCommand(new ArrayList<>()), model, expectedMessage, expectedModel);
     }
 
-        @Test
+    @Test
     public void execute_allValidReturnOrderFormat_returnCorrectCounter() {
         ModelManager expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(),
                 new UserPrefs());
@@ -195,7 +195,7 @@ class ImportCommandTest {
     public void equals() throws Exception {
         List<String> sentence = new ArrayList<>();
         sentence.add("order,tid/1023456789,n/Amwos Cheong,a/Blk 572 Hougang st 51 #11-37 S530572,p/90010019,"
-            + "dts/2020-03-10 1650,w/Marsiling,cod/$9.50,c/Leave it at the riser,type/glass");
+                + "dts/2020-03-10 1650,w/Marsiling,cod/$9.50,c/Leave it at the riser,type/glass");
         ImportCommand expectedCommand = new ImportCommand(sentence);
         assertTrue(new ImportCommand(CsvProcessor.retrieveData(VALID_CSV_FILE)).equals(expectedCommand));
     }
