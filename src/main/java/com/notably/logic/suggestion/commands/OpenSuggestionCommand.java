@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTreeItem;

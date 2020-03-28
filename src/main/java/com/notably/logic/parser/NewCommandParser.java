@@ -7,7 +7,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;

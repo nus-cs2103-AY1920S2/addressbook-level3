@@ -1,4 +1,4 @@
-package com.notably.commons.core;
+package com.notably.commons;
 
 import java.io.IOException;
 import java.util.Arrays;

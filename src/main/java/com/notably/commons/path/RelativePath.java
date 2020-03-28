@@ -1,11 +1,11 @@
-package com.notably.commons.core.path;
+package com.notably.commons.path;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import com.notably.commons.core.path.exceptions.InvalidPathException;
+import com.notably.commons.path.exceptions.InvalidPathException;
 
 /**
  * Represents a path to the block relative to the current directory.

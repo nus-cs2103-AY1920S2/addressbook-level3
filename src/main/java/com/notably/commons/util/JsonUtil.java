@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import com.notably.commons.core.LogsCenter;
+import com.notably.commons.LogsCenter;
 import com.notably.commons.exceptions.DataConversionException;
 
 /**

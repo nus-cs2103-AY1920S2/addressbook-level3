@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import com.notably.commons.core.LogsCenter;
+import com.notably.commons.LogsCenter;
 import com.notably.commons.util.FileUtil;
 
 import javafx.application.Application;

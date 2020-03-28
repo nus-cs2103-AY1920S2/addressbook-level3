@@ -1,4 +1,4 @@
-package com.notably.commons.core;
+package com.notably.commons;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

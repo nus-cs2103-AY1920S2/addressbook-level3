@@ -1,4 +1,4 @@
-package com.notably.commons.core.index;
+package com.notably.commons.index;
 
 /**
  * Represents a zero-based or one-based index.
