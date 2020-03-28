@@ -39,7 +39,7 @@ public class CourseRequirementCard extends UiPart<Region> {
         requirement.setText(courseRequirement.getRequirementName()
                 + " (" + courseRequirement.getModularCredits().toString() + " MCs)");
         requirementInfo.setText("Requirements: " + courseRequirement.getRequirementInfo());
-        modules.setText("Modules: \n" + courseRequirement.getModules());
+        modules.setText("\nModules: \n" + courseRequirement.getModules());
     }
 
 }

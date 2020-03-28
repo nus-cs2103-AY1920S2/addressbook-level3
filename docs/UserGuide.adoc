@@ -227,6 +227,12 @@ This allows you to clear all entries from the application including your profile
 
 Format: `clear`
 
+[[Home]]
+=== Return to the home screen : `home`
+This allows you to return to the startup home screen.
+
+Format: `home`
+
 [[Exit]]
 === Exiting the program : `exit`
 
