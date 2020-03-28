@@ -15,14 +15,8 @@ import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
-import seedu.address.logic.commands.commandClear.ClearCourseCommand;
-import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
-import seedu.address.logic.commands.commandClear.ClearStudentCommand;
-import seedu.address.logic.commands.commandClear.ClearTeacherCommand;
-import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
-import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
-import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
-import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
+import seedu.address.logic.commands.commandClear.*;
+import seedu.address.logic.commands.commandDelete.*;
 import seedu.address.logic.commands.commandEdit.EditCourseCommand;
 import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
 import seedu.address.logic.commands.commandEdit.EditStudentCommand;
@@ -67,6 +61,7 @@ public class LogicManager implements Logic {
 
     CommandResult commandResult;
     Command command = addressBookParser.parseCommand(commandText);
+    logger.info("----------------[is instance of AddAssignmentCommand][" + (command instanceof AddAssignmentCommand) + "]");
     commandResult = command.execute(model);
     if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand
         || command instanceof ClearTeacherCommand || command instanceof EditTeacherCommand) {
@@ -78,6 +73,7 @@ public class LogicManager implements Logic {
     } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand
         || command instanceof ClearStudentCommand || command instanceof EditStudentCommand) {
       try {
+        logger.info("Attempting to save student address book");
         storage.saveStudentAddressBook(model.getStudentAddressBook());
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -97,8 +93,10 @@ public class LogicManager implements Logic {
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
-    } else if (command instanceof AddAssignmentCommand) {
+    } else if (command instanceof AddAssignmentCommand || command instanceof DeleteAssignmentCommand ||
+            command instanceof ClearAssignmentCommand) {
       try {
+        logger.info("Attempting to save assignment address book");
         storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
