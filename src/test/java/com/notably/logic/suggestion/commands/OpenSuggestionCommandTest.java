@@ -36,6 +36,9 @@ public class OpenSuggestionCommandTest {
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
 
+    private static final String COMMAND_WORD = "open";
+    private static final String PREFIX_TITLE = "-t";
+
     @BeforeAll
     public static void setUp() throws InvalidPathException {
         // Set up paths
@@ -84,7 +87,7 @@ public class OpenSuggestionCommandTest {
     }
 
     @Test
-    public void execute_displayText() {
+    public void execute_generateResponseCorrectly() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
         openSuggestionCommand.execute(model);
 
@@ -103,22 +106,19 @@ public class OpenSuggestionCommandTest {
         expectedSuggestions.add(cs2103Week2);
         expectedSuggestions.add(cs2103Week3);
 
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
         for (int i = 0; i < expectedSuggestions.size(); i++) {
-            SuggestionItem suggestion = model.getSuggestions().get(i);
+            SuggestionItem suggestion = suggestions.get(i);
             SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
             assertEquals(suggestion.getDisplayText(), expectedSuggestion.getDisplayText());
         }
-    }
-
-    @Test
-    public void execute_action() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
-        openSuggestionCommand.execute(model);
-        List<SuggestionItem> suggestions = model.getSuggestions();
 
         List<String> expectedInputs = new ArrayList<>();
-        expectedInputs.add(toCs2103Week1.getStringRepresentation());
-        expectedInputs.add(toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
@@ -128,5 +128,4 @@ public class OpenSuggestionCommandTest {
             assertEquals(expectedInput, input);
         }
     }
-
 }
