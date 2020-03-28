@@ -141,6 +141,8 @@ Format: `help`
 
 ==== Changing tabs : `goto`
 
+TODO - NOT IMPLEMENTED YET
+
 ==== Exiting the program : `exit`
 
 Exits the program. +
@@ -170,6 +172,7 @@ Adds a module with the module code CS2103 and name 'Software Engineering'
 to the TA-Tracker.
 ====
 
+[[DeleteModule]]
 ==== Deleting a Module `module delete`
 
 Deletes a module from the TA-Tracker.
@@ -195,6 +198,7 @@ Deletes the module with the module code CS2103 from the TA-Tracker.
 Adds a module with the module code CS2103 and name 'Software Engineering'
 ====
 
+[[AddGroup]]
 ==== Adding a Group `group add`
 
 Adds a new group to the TA-Tracker.
@@ -216,28 +220,181 @@ you add a group to it.
 ====
 Examples:
 
-* `module add m/CS2103 n/Software Engineering`
+* `group add g/G03 m/CS2103 t/tutorial`
 +
-Adds a module with the module code CS2103 and name 'Software Engineering'
-to the TA-Tracker.
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
 ====
 
+[[DeleteGroup]]
 ==== Deleting a Group `group delete`
+Deletes a group from the TA-Tracker.
 
+When a group is deleted, the Student View will show the details of the first group
+in the given module. If there is no group in the module, it will show the empty lists.
+
+Format: `group delete g/GROUP_CODE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* A group with the given group code must exist inside the module.
+====
+
+====
+Examples:
+
+* `group delete g/G03 m/CS2103`
++
+Deletes the group with the group code G03 from the module that
+has module code CS2103.
+====
+
+[[EditGroup]]
 ==== Editing a Group `group edit`
 
+TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
+
+
+Edits a group in the TA-Tracker.
+
+This command can change the group code and group type of the group. It will keep
+the students inside the group intact.
+
+When a group is edited, the Student View will show the groups of the module
+this group belongs to and students of the edited group.
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* No group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[AddStudent]]
 ==== Adding a Student `student add`
 
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Adds a new student to the TA-Tracker.
+
+When a new student is added, the Student View will show the groups and students
+of the module the new student belongs to.
+
+Format: `student add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* A group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[DeleteStudent]]
 ==== Deleting a Student `student delete`
 
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Deletes a student from the TA-Tracker.
+
+When a student is deleted, the Student View will show the groups of the module the
+student was removed from and the students of the group the student was removed from.
+If there is no student inside the group, an empty list will be shown.
+
+Format: `student delete g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* A group with the given group code should exist inside the module.
+
+* A student with the given matriculation number should exist inside the group.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[EditStudent]]
 ==== Editing a Student `student edit`
 
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Edits a student in the TA-Tracker.
+
+When a student is edited, the Student View will show the groups of the module the
+edited student is from and the students of the group the edited student exists in.
+
+Format: `student edit g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* A group with the given group code should exist inside the module.
+
+* A student with the given matricultaion number should exist inside the group.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[Sort]]
 ==== Sort `sort`
 
+TODO: ADD DETAILS ONCE IMPLEMENTED
+
+[[FilterStudent]]
 ==== Filter `filter`
+
+TODO: ADD DETAILS ONCE IMPLEMENTED
 
 === Session View
 
+[[AddSession]]
 ==== Adding a Session `session add`
 
 ==== Deleting a Session `session delete`
@@ -247,6 +404,8 @@ to the TA-Tracker.
 ==== Marking a Session as Done `session done`
 
 ==== Filter `filter`
+
+TODO: ADD DETAILS ONCE IMPLEMENTED
 
 === Claims View
 
