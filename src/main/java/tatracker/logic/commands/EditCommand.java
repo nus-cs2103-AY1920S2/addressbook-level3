@@ -1,3 +1,4 @@
+/*
 package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -28,8 +29,8 @@ import tatracker.model.tag.Tag;
 
 /**
  * Edits the details of an existing student in the TA-Tracker.
- */
-public class EditCommand extends Command {
+ *//*
+//public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -53,11 +54,11 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;
-
+*/
     /**
      * @param index of the student in the filtered student list to edit
      * @param editStudentDescriptor details to edit the student with
-     */
+     *//*
     public EditCommand(Index index, EditStudentDescriptor editStudentDescriptor) {
         requireNonNull(index);
         requireNonNull(editStudentDescriptor);
@@ -85,12 +86,12 @@ public class EditCommand extends Command {
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
-    }
+    }*/
 
     /**
      * Creates and returns a {@code Student} with the details of {@code studentToEdit}
      * edited with {@code editStudentDescriptor}.
-     */
+     *//*
     private static Student createEditedStudent(Student studentToEdit, EditStudentDescriptor editStudentDescriptor) {
         assert studentToEdit != null;
 
@@ -119,12 +120,12 @@ public class EditCommand extends Command {
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
                 && editStudentDescriptor.equals(e.editStudentDescriptor);
-    }
+    }*/
 
     /**
      * Stores the details to edit the student with. Each non-empty field value will replace the
      * corresponding field value of the student.
-     */
+     *//*
     public static class EditStudentDescriptor {
         private Name name;
         private Phone phone;
@@ -133,11 +134,11 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
 
         public EditStudentDescriptor() {}
-
+*/
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
-         */
+         *//*
         public EditStudentDescriptor(EditStudentDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -145,10 +146,10 @@ public class EditCommand extends Command {
             setMatric(toCopy.matric);
             setTags(toCopy.tags);
         }
-
+*/
         /**
          * Returns true if at least one field is edited.
-         */
+         *//*
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, matric, tags);
         }
@@ -184,24 +185,25 @@ public class EditCommand extends Command {
         public Optional<Matric> getMatric() {
             return Optional.ofNullable(matric);
         }
-
+*/
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
-         */
+         *//*
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
+        }*/
 
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
+         *//*
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
-
+*/
+        /*
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -225,3 +227,4 @@ public class EditCommand extends Command {
         }
     }
 }
+*/

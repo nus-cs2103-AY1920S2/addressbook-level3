@@ -83,6 +83,19 @@ public class DeleteStudentCommand extends Command {
         }
 
         model.deleteStudent(studentToDelete, targetGroup, targetModule);
+
+        if(model.getFilteredModuleList().isEmpty()) {
+            model.setFilteredGroupList();
+            model.setFilteredStudentList();
+        } else {
+            model.updateGroupList(0);
+            if (model.getFilteredGroupList().isEmpty()) {
+                model.setFilteredStudentList();
+            } else {
+                model.updateStudentList(0, 0);
+            }
+        }
+
         return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
     }
 

@@ -37,7 +37,7 @@ class JsonSerializableTaTracker {
      * @param source future changes to this will not affect the created {@code JsonSerializableTaTracker}.
      */
     public JsonSerializableTaTracker(ReadOnlyTaTracker source) {
-        students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
+        //students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
     }
 
     /**

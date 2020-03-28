@@ -45,10 +45,10 @@ public class StudentCommandParser {
 
         case CommandWords.DELETE_MODEL:
             return new DeleteStudentCommandParser().parse(arguments);
-
+/*
         case CommandWords.EDIT_MODEL:
             return new EditStudentCommandParser().parse(arguments);
-
+*/
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

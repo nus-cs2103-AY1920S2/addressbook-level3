@@ -56,10 +56,24 @@ public class Module {
     }
 
     /**
+     * Returns module at index n.
+     */
+    public Group get(int n) {
+        return groups.get(n);
+    }
+
+    /**
      * Returns the group list.
      */
     public ObservableList<Group> getGroupList() {
         return groups.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns the unique group list.
+     */
+    public UniqueGroupList getUniqueGroupList() {
+        return groups;
     }
 
     /**
@@ -140,23 +154,7 @@ public class Module {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) %s", name, identifier, groupsString());
+        return String.format("%s (%s)", name, identifier);
     }
 
-    /**
-     * Returns a string that shows the value inside the groups list.
-     */
-    private String groupsString() {
-        // TODO: test groups are printed correctly
-        StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < groups.size(); ++i) {
-            if (i > 0) {
-                str.append(", ");
-            }
-            groups.get(i);
-        }
-        str.append("]");
-        return str.toString();
-    }
 }

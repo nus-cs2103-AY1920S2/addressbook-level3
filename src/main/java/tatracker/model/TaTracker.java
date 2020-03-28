@@ -25,18 +25,18 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
-    private final UniqueStudentList students;
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
-    private final UniqueGroupList groups;
+    private final UniqueGroupList currentlyShownGroups;
+    private final UniqueStudentList currentlyShownStudents;
 
     public TaTracker() {
-        students = new UniqueStudentList();
         sessions = new UniqueSessionList();
         doneSessions = new UniqueDoneSessionList();
         modules = new UniqueModuleList();
-        groups = new UniqueGroupList();
+        currentlyShownGroups = new UniqueGroupList();
+        currentlyShownStudents = new UniqueStudentList();
     }
 
     /**
@@ -56,8 +56,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         setSessions(newData.getSessionList());
         setDoneSessions(newData.getDoneSessionList());
         setModules(newData.getModuleList());
-        setGroups(newData.getGroupList());
-        setStudents(newData.getStudentList());
+        setCurrentlyShownGroups(newData.getCurrentlyShownGroupList());
+        setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
     }
 
     // ======== Session Methods ================================================
@@ -218,13 +218,6 @@ public class TaTracker implements ReadOnlyTaTracker {
     /**
      * Adds a group to the TATracker.
      */
-    public void addGroup(Group group) {
-        groups.add(group);
-    }
-
-    /**
-     * Adds a group to the TATracker.
-     */
     public void addGroup(Group group, Module targetModule) {
         if (!hasModule(targetModule)) {
             throw new ModuleNotFoundException();
@@ -265,13 +258,34 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Replaces the contents of the group list with {@code groups}.
      * {@code groups} must not contain duplicate groups.
      */
-    public void setGroups(List<Group> groups) {
-        this.groups.setGroups(groups);
+    public void setCurrentlyShownGroups(List<Group> groups) {
+        System.out.println("inside ta tracker 2");
+        this.currentlyShownGroups.setGroups(groups);
+        System.out.println("inside ta tracker 3");
+    }
+
+    /**
+     * Replaces the contents of the group list with the groups at the given
+     * module index.
+     */
+    public void setCurrentlyShownGroups(int n) {
+        System.out.println("inside ta tracker 2");
+        setCurrentlyShownGroups(((modules.get(n)).getGroupList()));
+        System.out.println("inside ta tracker 3");
+    }
+
+    /**
+     * Updates the currently shown groups to be that of the currently shown module
+     * code.
+     */
+    public void updateCurrentlyShownGroups(String moduleCode) {
+        System.out.println("inside ta tracker");
+        setCurrentlyShownGroups((modules.getModule(moduleCode)).getGroupList());
     }
 
     @Override
-    public ObservableList<Group> getGroupList() {
-        return groups.asUnmodifiableObservableList();
+    public ObservableList<Group> getCurrentlyShownGroupList() {
+        return currentlyShownGroups.asUnmodifiableObservableList();
     }
 
     // ======== Student Methods ================================================
@@ -299,7 +313,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
-        return students.contains(student);
+        return currentlyShownStudents.contains(student);
     }
 
     /**
@@ -327,7 +341,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * The student must not already exist in the ta-tracker.
      */
     public void addStudent(Student p) {
-        students.add(p);
+        currentlyShownStudents.add(p);
     }
 
     /**
@@ -355,7 +369,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code key} must exist in the ta-tracker.
      */
     public void removeStudent(Student key) {
-        students.remove(key);
+        currentlyShownStudents.remove(key);
     }
 
     /**
@@ -388,39 +402,63 @@ public class TaTracker implements ReadOnlyTaTracker {
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
 
-        students.setStudent(target, editedStudent);
+        currentlyShownStudents.setStudent(target, editedStudent);
     }
 
     /**
      * Replaces the contents of the student list with {@code students}.
      * {@code students} must not contain duplicate students.
      */
-    public void setStudents(List<Student> students) {
-        this.students.setStudents(students);
+    public void setCurrentlyShownStudents(List<Student> students) {
+        this.currentlyShownStudents.setStudents(students);
+    }
+
+    /**
+     * Replaces the contents of the student list with the students at the given
+     * group index of the given module.
+     */
+    public void setCurrentlyShownStudents(String moduleCode, int n) {
+        setCurrentlyShownStudents(((modules.getModule(moduleCode).get(n)).getStudentList()));
+    }
+
+    /**
+     * Replaces the contents of the student list with the students at the given
+     * group index of the given module.
+     */
+    public void setCurrentlyShownStudents(int i, int n) {
+        setCurrentlyShownStudents(((modules.get(i).get(n)).getStudentList()));
+    }
+
+    /**
+     * Updates the currently shown groups to be that of the currently shown module
+     * code.
+     */
+    public void updateCurrentlyShownStudents(String groupCode, String moduleCode) {
+        setCurrentlyShownStudents(((modules.getModule(moduleCode)).getGroup(groupCode)).getStudentList());
     }
 
     @Override
-    public ObservableList<Student> getStudentList() {
-        return students.asUnmodifiableObservableList();
+    public ObservableList<Student> getCurrentlyShownStudentList() {
+        return currentlyShownStudents.asUnmodifiableObservableList();
     }
 
     // ======== Utility Methods ================================================
 
     @Override
     public int hashCode() {
-        return students.hashCode();
+        return modules.hashCode();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaTracker // instanceof handles nulls
-                && students.equals(((TaTracker) other).students));
+                && modules.equals(((TaTracker) other).modules));
     }
 
     @Override
     public String toString() {
-        return students.asUnmodifiableObservableList().size() + " students";
+        return modules.asUnmodifiableObservableList().size() + " students";
         // TODO: refine later
     }
 }

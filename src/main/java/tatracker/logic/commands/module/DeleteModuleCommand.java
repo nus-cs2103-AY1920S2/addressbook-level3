@@ -42,6 +42,17 @@ public class DeleteModuleCommand extends Command {
 
         Module moduleToDelete = model.getModule(module.getIdentifier());
         model.deleteModule(moduleToDelete);
+        if(model.getFilteredModuleList().isEmpty()) {
+            model.setFilteredGroupList();
+            model.setFilteredStudentList();
+        } else {
+            model.updateGroupList(0);
+            if (model.getFilteredGroupList().isEmpty()) {
+                model.setFilteredStudentList();
+            } else {
+                model.updateStudentList(0, 0);
+            }
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
