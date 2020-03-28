@@ -1,13 +1,13 @@
 package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.PREFIX_EMAIL;
+import static tatracker.logic.parser.Prefixes.PREFIX_GROUP;
+import static tatracker.logic.parser.Prefixes.PREFIX_MATRIC;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_NAME;
+import static tatracker.logic.parser.Prefixes.PREFIX_PHONE;
+import static tatracker.logic.parser.Prefixes.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;

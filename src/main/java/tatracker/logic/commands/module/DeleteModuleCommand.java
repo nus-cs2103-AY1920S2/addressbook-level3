@@ -3,7 +3,7 @@ package tatracker.logic.commands.module;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
 import static tatracker.logic.commands.CommandWords.MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;

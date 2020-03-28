@@ -2,13 +2,13 @@ package tatracker.logic.parser.session;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.PREFIX_DATE;
+import static tatracker.logic.parser.Prefixes.PREFIX_ENDTIME;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_NOTES;
+import static tatracker.logic.parser.Prefixes.PREFIX_RECUR;
+import static tatracker.logic.parser.Prefixes.PREFIX_SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.PREFIX_STARTTIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

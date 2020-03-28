@@ -1,8 +1,8 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_NAME;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;

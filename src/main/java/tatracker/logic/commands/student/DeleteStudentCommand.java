@@ -1,9 +1,9 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_GROUP;
+import static tatracker.logic.parser.Prefixes.PREFIX_MATRIC;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;

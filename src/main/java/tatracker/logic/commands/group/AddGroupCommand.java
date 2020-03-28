@@ -3,9 +3,9 @@ package tatracker.logic.commands.group;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.CommandWords.ADD_MODEL;
 import static tatracker.logic.commands.CommandWords.GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.PREFIX_GROUP;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_TYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;

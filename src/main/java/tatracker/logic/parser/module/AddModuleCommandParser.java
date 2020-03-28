@@ -1,8 +1,8 @@
 package tatracker.logic.parser.module;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static tatracker.logic.parser.Prefixes.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
