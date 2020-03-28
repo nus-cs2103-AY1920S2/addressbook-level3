@@ -11,7 +11,7 @@ import seedu.zerotoone.ui.util.UiPart;
  *
  */
 public class ScheduledWorkoutCard extends UiPart<Region> {
-    private static final String FXML = "scheduledWorkout/ScheduledWorkoutCard.fxml";
+    private static final String FXML = "schedule/ScheduledWorkoutCard.fxml";
 
     @javafx.fxml.FXML
     private HBox cardPane;
