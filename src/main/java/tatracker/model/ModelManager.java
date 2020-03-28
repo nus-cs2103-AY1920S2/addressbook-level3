@@ -171,8 +171,7 @@ public class ModelManager implements Model {
 
     public Module getModule(String code) {
         requireNonNull(code);
-        Module module = new Module(code, null);
-        return taTracker.getModule(module);
+        return taTracker.getModule(code);
     }
 
     @Override
@@ -215,8 +214,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasGroup(Group group, Module targetModule) {
         requireNonNull(group);
-        throw new UnsupportedOperationException("Method under construction");
-        // return taTracker.hasGroup(group);
+        return taTracker.hasGroup(group, targetModule);
     }
 
     @Override
@@ -228,22 +226,19 @@ public class ModelManager implements Model {
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
-        throw new UnsupportedOperationException("Method under construction");
-        // taTracker.addGroup(group);
+        taTracker.addGroup(group, targetModule);
     }
 
     @Override
     public void deleteGroup(Group target, Module targetModule) {
         requireNonNull(target);
-        throw new UnsupportedOperationException("Method under construction");
-        // taTracker.removeGroup(target);
+        taTracker.removeGroup(target, targetModule);
     }
 
     @Override
     public void setGroup(Group target, Group editedGroup, Module targetModule) {
         requireAllNonNull(target, editedGroup);
-        throw new UnsupportedOperationException("Method under construction");
-        // taTracker.setGroup(target, editedGroup);
+        taTracker.setGroup(target, editedGroup, targetModule);
     }
 
     @Override
