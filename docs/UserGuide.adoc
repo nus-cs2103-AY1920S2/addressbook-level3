@@ -160,8 +160,11 @@ and students of the new module (which will initially be empty).
 
 Format: `module add m/MOD_CODE n/NAME`
 
-NOTE: No module with the given module code should exist in the TA-Tracker before adding
+[NOTE]
+====
+No module with the given module code should exist in the TA-Tracker before adding
 a new module.
+====
 
 ====
 Examples:
@@ -186,8 +189,11 @@ the module will also be deleted.
 
 Format: `module delete m/MOD_CODE`
 
-NOTE: A module with the given module code must exist in the TA-Tracker before
+[NOTE]
+====
+A module with the given module code must exist in the TA-Tracker before
 you delete it.
+====
 
 ====
 Examples:
@@ -258,7 +264,6 @@ has module code CS2103.
 
 TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
 
-
 Edits a group in the TA-Tracker.
 
 This command can change the group code and group type of the group. It will keep
@@ -296,47 +301,27 @@ Adds a new student to the TA-Tracker.
 
 When a new student is added, the Student View will show the groups and students
 of the module the new student belongs to.
-Adds a new student into the program.
-The `CATEGORY_UID` for this command is the student’s matriculation number.
 
-Format: `add c/student m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
 
 [NOTE]
 ====
 [horizontal]
-`MATRIC_NUMBER`:: see Common Parameters
 `NAME`:: the name of the student
 `EMAIL`:: the email address of the student
 `RATING`:: a number between 1 (poor) to 5 (excellent)
 `TAG`:: a remark(s) for this student
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+`GROUP_CODE`:: A group with the given group code should exist inside the module.
 ====
 ====
 Examples:
 
-* `add c/student m/A0123456J n/Alice`
+* `student add id/A0123456J n/Alice m/CS2103 g/G03`
 +
 Adds the student with the matriculation number A0123456J
-and the name Alice.
-====
-
-Format: `student add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
-
-[NOTE]
-====
-[horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
-
-* A group with the given group code should exist inside the module.
-====
-
-====
-Examples:
-
-* `group add g/G03 m/CS2103 t/tutorial`
-+
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+and the name Alice inside group G03 of module CS2103.
 ====
 
 [[DeleteStudent]]
@@ -350,44 +335,23 @@ When a student is deleted, the Student View will show the groups of the module t
 student was removed from and the students of the group the student was removed from.
 If there is no student inside the group, an empty list will be shown.
 
-Deletes a student from the program.
-The `CATEGORY_UID` for this command is the student’s matriculation number.
-
-Format: `delete c/student m/MATRIC_NUMBER`
+Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
 [NOTE]
 ====
 [horizontal]
-`MATRIC_NUMBER`:: see Common Parameters
-====
-====
-Examples:
-
-* `delete c/student m/A0123456J`
-+
-Deletes the student with the matriculation number A0123456J from the program.
-====
-
-Format: `student delete g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
-
-[NOTE]
-====
-[horizontal]
-* A module with the given module code must exist in the TA-Tracker before
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
 you add a group to it.
-
-* A group with the given group code should exist inside the module.
-
-* A student with the given matriculation number should exist inside the group.
+`GROUP_CODE`:: A group with the given group code should exist inside the module.
+`MATRIC_NUMBER`:: A student with the given matric number must exist inside the group.
 ====
-
 ====
 Examples:
 
-* `group add g/G03 m/CS2103 t/tutorial`
+* `delete c/student m/A0123456J g/G03 m/CS2103`
 +
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+Deletes the student with the matriculation number A0123456J from the group G03 inside
+the module CS2103.
 ====
 
 [[EditStudent]]
@@ -400,11 +364,10 @@ Edits a student in the TA-Tracker.
 When a student is edited, the Student View will show the groups of the module the
 edited student is from and the students of the group the edited student exists in.
 
-
 Edits the student with the specified matriculation number.
 The CATEGORY_UID used in this case is the student’s matriculation number.
 
-Format: `edit c/student m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
+Format: `student edit m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
 
 ****
 * `MATRIC_NUMBER` - see Common Parameters
@@ -435,29 +398,6 @@ and `johndoe@example.com` as their email address.
 Edits student `A9876543K` to have `Betsy Crower` as their name.
 In addition, all existing tags will be removed.
 
-
-Format: `student edit g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
-
-[NOTE]
-====
-[horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
-
-* A group with the given group code should exist inside the module.
-
-* A student with the given matricultaion number should exist inside the group.
-====
-
-====
-Examples:
-
-* `group add g/G03 m/CS2103 t/tutorial`
-+
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
-====
-
 [[Sort]]
 ==== Sort `sort`
 
@@ -472,31 +412,14 @@ TODO: ADD DETAILS ONCE IMPLEMENTED
 
 [[AddSession]]
 ==== Adding a Session `session add`
+
+TODO - UPDATE
+
 Adds a new type of session for an existing module group in the program.
 The `CATEGORY_UID` for this command is the SESSION_TYPE code.
 
-Format: `add c/SESSION_TYPE t/SESSION_TYPE m/MOD_CODE`
-
-[NOTE]
-====
-[horizontal]
-`SESSION_TYPE` `TUT_CODE` `MOD_CODE`:: see Common Parameters
-====
-====
-Examples:
-
-* `add c/tutorial t/W17 m/CS2103T`
-+
-Adds a tutorial with the tutorial code W17,
-and links it to the CS2103T module group.
-====
-
-===== Adding a session: `add c/session`
-Adds a session into the program for a specific module.
-There is no need to provide the `CATEGORY_UID`,
-as a unique session id (`SESSION_UID`) will be automatically generated for it.
-
 Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/NOTES]`
+
 [NOTE]
 ====
 [horizontal]
@@ -507,9 +430,7 @@ Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/
 `MOD_CODE` `SESSION_TYPE`:: see Common Parameters
 
 `NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
---
-* The session will automatically be given a `SESSION_UID`
---
+
 ====
 ====
 Examples:
@@ -522,40 +443,37 @@ with Alice and Bob.
 ====
 ==== Deleting a Session `session delete`
 
+TODO - UPDATE
 
-===== Deleting a session: `delete c/session`
-Deletes a session from the program.
-The `CATEGORY_UID` used in this case is the session’s unique id.
+Deletes a session from the TA-Tracker.
 
-Format: `delete c/session i/SESSION_UID`
+Format: `session delete i/SESSION_UID`
 
-****
-* `SESSION_UID` - see Common Parameters
-****
-
+====
 Examples:
 
 * delete c/session i/10
 Deletes the session with the identifier of 10
+====
 
 ==== Editing a Session `session edit`
+TODO - ADD DETAILS
 
 ==== Marking a Session as Done `session done`
 
 Labels a session as done.
 If the session is claimable, it will appear as a new claim in the TSS view.
 
-Format: `done SESSION_UID`
+Format: `session done INDEX`
 
-****
-* Marks the session with the given unique session identifier as done.
-****
+Marks the session with the given unique session identifier as done.
 
+====
 Examples:
 
 * `done 25` +
 Marks the session with the unique session id of 25 as done.
-
+====
 
 ==== Filter `filter`
 
@@ -565,28 +483,29 @@ TODO: ADD DETAILS ONCE IMPLEMENTED
 
 ==== Filter `filter`
 
-==== Adjusting the settings : `set`
+TODO: ADD DETAILS ONCE IMPLEMENTED
 
-Adjusts the chosen settings.
+==== Changing the hourly rate `set`
 
-Format: `set SETTING`
+TODO: EDIT ONCE IMPLEMENTED
 
-Here are the things that you can set:
-
-*rate:* Adjusts the hourly rate. +
 Sets the hourly rate for the total income and claim computation.
 
 Format: `set rate AMOUNT`
-****
+
+[NOTE]
+====
 * AMOUNT is the amount you want to change the hourly rate to.
 * To specify in exact dollars, you can write it as just the number (example: 20).
 * To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
-****
+====
 
 Examples:
 
 * `set rate 25` +
 Sets the current hourly rate to 25$.
+
+== GLOSSARY
 
 == FAQ
 
@@ -595,15 +514,29 @@ Sets the current hourly rate to 25$.
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL m/MATRIC [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [m/MATRIC] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
+
+=== Student View
+* *Add Module* `module add m/MOD_CODE`
+* *Delete Module* `module delete m/MOD_CODE`
+* *Add Group* `group add g/GROUP_CODE m/MOD_CODE`
+* *Edit Group*
+* *Delete Group* `group delete g/GROUP_CODE m/MOD_CODE`
+* *Add Student*
+* *Delete Student*
+* *Edit Student*
+* *Sort*
+* *Filter*
+
+=== Session View
+* *Add Session*
+* *Delete Session*
+* *Edit Session*
+* *Mark as Done*
+* *Filter*
+
+=== Claims View
+* *Set Rate*
+* *Filter*
+
 
