@@ -2,7 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PREFIX;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,7 +62,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             editPersonDescriptor.setBirthday(ParserUtil.parseBirthday(""));
         }
         if (argMultimap.getValue(PREFIX_ORGANIZATION).isPresent()) {
-            editPersonDescriptor.setBirthday(ParserUtil.parseBirthday(""));
+            editPersonDescriptor.setOrganization(ParserUtil.parseOrganization(""));
         }
         parseRemarksToDelete(argMultimap.getAllValues(PREFIX_REMARK)).ifPresent(editPersonDescriptor::setRemarks);
         parseTagsToDelete(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
