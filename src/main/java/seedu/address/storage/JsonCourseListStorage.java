@@ -15,13 +15,13 @@ import seedu.address.model.CourseList;
  */
 public class JsonCourseListStorage {
 
-    private Path filePath;
+    private String filePath;
 
-    public JsonCourseListStorage(Path filePath) {
+    public JsonCourseListStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public Path getFilePath() {
+    public String getFilePath() {
         return filePath;
     }
 
@@ -35,10 +35,10 @@ public class JsonCourseListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<CourseList> readCourseList(Path filePath) throws DataConversionException {
+    public Optional<CourseList> readCourseList(String filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableCourseList> jsonCourseList = JsonUtil.readJsonFile(
+        Optional<JsonSerializableCourseList> jsonCourseList = JsonUtil.readJsonFileStream(
                 filePath, JsonSerializableCourseList.class);
         if (!jsonCourseList.isPresent()) {
             return Optional.empty();

@@ -1,0 +1,11 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 800.0,
+    "windowHeight" : 600.0,
+    "windowCoordinates" : null
+  },
+  "addressBookFilePath" : "data\\addressbook.json",
+  "moduleListFilePath" : "data\\modules.json",
+  "profileListFilePath" : "data\\userProfiles.json",
+  "courseListFilePath" : "data\\courses.json"
+}

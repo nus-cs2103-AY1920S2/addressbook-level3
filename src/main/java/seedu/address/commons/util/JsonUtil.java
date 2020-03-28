@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -68,6 +69,29 @@ public class JsonUtil {
 
         try {
             jsonFile = deserializeObjectFromJsonFile(filePath, classOfObjectToDeserialize);
+        } catch (IOException e) {
+            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(jsonFile);
+    }
+
+    public static <T> Optional<T> readJsonFileStream(
+            String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
+        requireNonNull(filePath);
+
+        // We must make sure that the modulesPrereq file exists
+        //if (!Files.exists(filePath)) {
+        /*if (!(new File(filePath)).exists()) {
+            logger.info("Json file " + filePath + " not found");
+            return Optional.empty();
+        }*/
+
+        T jsonFile;
+
+        try {
+            jsonFile = fromJsonString(FileUtil.readFromFileStream(filePath), classOfObjectToDeserialize);
         } catch (IOException e) {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
