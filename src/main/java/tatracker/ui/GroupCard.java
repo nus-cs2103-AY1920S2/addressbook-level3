@@ -37,7 +37,7 @@ public class GroupCard extends UiPart<Region> {
         this.group = group;
         id.setText(displayedIndex + ". ");
         name.setText(group.getIdentifier());
-        type.setText(group.getType().toString());
+        type.setText(group.getGroupType().toString());
     }
 
     @Override
