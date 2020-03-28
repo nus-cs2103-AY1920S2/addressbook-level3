@@ -47,8 +47,6 @@ public class Assignment {
         this.status = status;
     }
 
-
-
     public Title getTitle() {
         return title;
     }
@@ -90,7 +88,28 @@ public class Assignment {
         }
 
         return otherAssignment != null
-                && otherAssignment.getDeadline().equals(getDeadline())
+                && otherAssignment.getDeadline().dateTime.compareTo(getDeadline().dateTime) == 0
                 && (otherAssignment.getTitle().equals(getTitle()));
+    }
+
+    /**
+     * Returns true if both assignments have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Assignment)) {
+            return false;
+        }
+
+        Assignment otherAssignment = (Assignment) other;
+        return otherAssignment.getTitle().equals(getTitle())
+                && otherAssignment.getStatus().equals(getStatus())
+                && otherAssignment.getWorkload().equals(getWorkload())
+                && otherAssignment.getDeadline().dateTime.compareTo(getDeadline().dateTime) == 0;
     }
 }

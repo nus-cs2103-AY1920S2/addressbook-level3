@@ -9,8 +9,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Workload {
     public static final String MESSAGE_CONSTRAINTS = "Estimated workload cannot be left empty, "
-            + "if no estimates can be made enter '0'. Round off estimates to the nearest hour.";
-    public static final String VALIDATION_REGEX = "\\d{1,}";
+            + "if no estimates can be made enter '0'. Round off estimates to the nearest half an hour.";
+    public static final String VALIDATION_REGEX = "^\\d+\\.?(\\d{0,1}[5])?";
 
     // Instance fields
     public final String estHours;
@@ -22,7 +22,7 @@ public class Workload {
      */
     public Workload(String estHours) {
         requireAllNonNull(estHours);
-        checkArgument(isValidDuration(estHours), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidWorkload(estHours), MESSAGE_CONSTRAINTS);
         this.estHours = estHours;
     }
 
@@ -31,15 +31,19 @@ public class Workload {
      *
      * Returns true if the input duration contains only numbers and contains at least one digit.
      */
-    public static boolean isValidDuration(String test) {
-        if (test.isEmpty()) {
-            return true;
-        }
+    public static boolean isValidWorkload(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
         return estHours + " hours";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Workload // instanceof handles nulls
+                && estHours.equals(((Workload) other).estHours)); // state check
     }
 }

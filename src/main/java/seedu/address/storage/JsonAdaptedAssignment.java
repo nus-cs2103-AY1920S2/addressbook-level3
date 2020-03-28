@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.time.format.DateTimeFormatter;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -38,7 +40,7 @@ public class JsonAdaptedAssignment {
      * Converts a given {@code Assignment} into this class for Jackson use.
      */
     public JsonAdaptedAssignment(Assignment source) {
-        deadline = source.getDeadline().date + " " + source.getDeadline().time;
+        deadline = source.getDeadline().dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         title = source.getTitle().title;
         estHours = source.getWorkload().estHours;
         status = source.getStatus().status;
@@ -50,16 +52,15 @@ public class JsonAdaptedAssignment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted assignment.
      */
     public Assignment toModelType() throws IllegalValueException {
-        String[] timings = deadline.split(" ");
 
         if (deadline == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));
         }
-        if (!Deadline.isValidDate(timings[0]) || !Deadline.isValidTime(timings[1])) {
+        if (!Deadline.isValidDeadline(deadline)) {
             throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
         }
-        final Deadline modelDeadline = new Deadline(timings[0], timings[1]);
+        final Deadline modelDeadline = new Deadline(deadline);
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
@@ -73,7 +74,7 @@ public class JsonAdaptedAssignment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Workload.class.getSimpleName()));
         }
-        if (!Workload.isValidDuration(estHours)) {
+        if (!Workload.isValidWorkload(estHours)) {
             throw new IllegalValueException(Workload.MESSAGE_CONSTRAINTS);
         }
         final Workload modelEstHours = new Workload(estHours);

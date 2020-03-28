@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
@@ -45,6 +44,10 @@ public class AssignmentList {
      */
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
+
+        if (contains(toAdd)) {
+            throw new DuplicateAssignmentException();
+        }
         internalList.add(toAdd);
     }
 
@@ -72,9 +75,6 @@ public class AssignmentList {
      */
     public void sort(Comparator<Assignment> comparator) {
         FXCollections.sort(internalList, comparator);
-        //Comparator<Assignment> titleComparator = new TitleComparator();
-        //SortedList<Assignment> sortedList = new SortedList<>(internalList, titleComparator);
-        //internalList.setAll(sortedList);
     }
 
     /**
@@ -104,9 +104,8 @@ public class AssignmentList {
             throw new AssignmentNotFoundException();
         }
         if (!target.isSameAssignment(markedAssignment) && contains(markedAssignment)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateAssignmentException();
         }
-
 
         internalList.set(index, markedAssignment);
     }

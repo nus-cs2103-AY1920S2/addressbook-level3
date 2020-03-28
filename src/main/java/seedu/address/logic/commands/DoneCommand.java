@@ -29,11 +29,10 @@ public class DoneCommand extends Command {
     private final Index index;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index of the assignment in the filtered assignment list to edit
      */
     public DoneCommand(Index index) {
         requireNonNull(index);
-
         this.index = index;
     }
 
@@ -54,12 +53,11 @@ public class DoneCommand extends Command {
         }
 
         model.setAssignment(assignmentToUpdate, updatedAssignment);
-        return new CommandResult(String.format(MESSAGE_UPDATE_STATUS_SUCCESS, updatedAssignment.getTitle().toString()));
+        return new CommandResult(String.format(MESSAGE_UPDATE_STATUS_SUCCESS, updatedAssignment.getTitle()));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Assignment} with the details of {@code assignmentToUpdate}.
      */
     private static Assignment createUpdatedAssignment(Assignment assignmentToUpdate) {
         assert assignmentToUpdate != null;

@@ -24,10 +24,10 @@ public class BirthdayTest {
         // null birthday
         assertThrows(NullPointerException.class, () -> Birthday.isValidDate(null));
 
-        // invalid addresses
+        // invalid birthday
         assertFalse(Birthday.isValidDate("31-05")); // Wrong date format
 
-        // valid addresses
+        // valid birthday
         assertTrue(Birthday.isValidDate("05-31"));
     }
 }

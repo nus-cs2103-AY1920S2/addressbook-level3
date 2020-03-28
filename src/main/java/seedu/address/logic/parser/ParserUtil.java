@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -262,12 +261,12 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        String[] inputs = trimmedDeadline.split(" ");
 
-        if (inputs.length != 2 || !Deadline.isValidDate(inputs[0]) || !Deadline.isValidTime(inputs[1])) {
+        if (!Deadline.isValidDeadline(trimmedDeadline) || Deadline.hasDeadlinePassed(trimmedDeadline)) {
             throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
         }
-        return new Deadline(inputs[0], inputs[1]);
+
+        return new Deadline(trimmedDeadline);
     }
 
     /**
@@ -296,7 +295,7 @@ public class ParserUtil {
         requireNonNull(estTime);
         String trimmedEstTime = estTime.trim();
 
-        if (!Workload.isValidDuration(trimmedEstTime)) {
+        if (!Workload.isValidWorkload(trimmedEstTime)) {
             throw new ParseException(Workload.MESSAGE_CONSTRAINTS);
         }
         return new Workload(trimmedEstTime);

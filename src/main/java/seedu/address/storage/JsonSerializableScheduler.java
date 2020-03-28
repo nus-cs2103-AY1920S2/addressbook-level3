@@ -52,6 +52,7 @@ public class JsonSerializableScheduler {
             if (scheduler.hasAssignment(assignment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
             }
+
             scheduler.addAssignment(assignment);
         }
         return scheduler;

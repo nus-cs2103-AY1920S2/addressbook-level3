@@ -49,7 +49,7 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command.toString().contains("(st")) {
+        } else if (command.toString().contains("(st)")) {
             try {
                 storage.saveScheduler(model.getScheduler());
             } catch (IOException ioe) {

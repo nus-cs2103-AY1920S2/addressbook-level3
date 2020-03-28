@@ -1,0 +1,34 @@
+{
+  "_comment": "Scheduler save file which contains the same Assignment values as in TypicalAssignments#getTypicalScheduler()",
+  "assignments" : [ {
+    "title" : "CS3243 Tut",
+    "deadline" : "2020-04-25 13:00",
+    "status" : "Not completed",
+    "estHours" : "4"
+  }, {
+    "title" : "CS2106 Assignment",
+    "deadline" : "2020-04-26 14:00",
+    "status" : "Not completed",
+    "estHours" : "10"
+  }, {
+    "title" : "CS3244 Tut",
+    "deadline" : "2020-04-27 12:00",
+    "status" : "Not completed",
+    "estHours" : "5"
+  }, {
+    "title" : "CS2103 tP",
+    "deadline" : "2020-04-27 14:00",
+    "status" : "Not completed",
+    "estHours" : "11.5"
+  }, {
+    "title" : "CS3243 Project",
+    "deadline" : "2020-05-03 23:59",
+    "status" : "Not completed",
+    "estHours" : "40"
+  }, {
+    "title" : "CS3244 Project",
+    "deadline" : "2020-05-11 23:59",
+    "status" : "Completed",
+    "estHours" : "40"
+  } ]
+}
