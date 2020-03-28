@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
@@ -77,20 +78,26 @@ public class UsedCommand extends Command {
 
         // checks if original amount of purchase is provided if the type of Savings is of percentage amount
         if (hasPercentageSavings && (originalAmount.equals(new MonetaryAmount(0.0)))) {
-
             throw new CommandException(String.format(MESSAGE_MISSING_ORIGINAL_AMOUNT));
         }
 
-        Coupon newUsedCoupon;
+        Coupon usedCoupon;
         if (hasPercentageSavings) {
-            newUsedCoupon = createUsedCouponPercentageValue(couponToBeUsed, originalAmount);
+            usedCoupon = createUsedCouponPercentageValue(couponToBeUsed, originalAmount);
         } else {
-            newUsedCoupon = createUsedCouponMonetaryValue(couponToBeUsed);
+            usedCoupon = createUsedCouponMonetaryValue(couponToBeUsed);
         }
 
-        model.setCoupon(couponToBeUsed, newUsedCoupon, commandText);
+        Optional<Coupon> archivedUsedCoupon = Optional.empty();
+        Usage newUsage = usedCoupon.getUsage();
+        if (Usage.isUsageAtLimit(newUsage, limit)) {
+            archivedUsedCoupon = Optional.of(usedCoupon.archive());
+        }
+
+        Coupon newCoupon = archivedUsedCoupon.orElse(usedCoupon);
+        model.setCoupon(couponToBeUsed, newCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
-        return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, newUsedCoupon.getName())));
+        return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, usedCoupon.getName())));
     }
 
     @Override

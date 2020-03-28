@@ -1,16 +1,26 @@
 @startuml
 !include style.puml
 
-box "<color:black>Model</color>"
+skinparam ParticipantPadding 0
+
+box <color:black>Application</color> #999999
+participant ":MainApp" as MainApp #333333
+end box
+
+
+box "<color:black>Model</color>" MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 participant ":CouponStash" as CouponStash MODEL_COLOR
 participant ":FilteredList" as FilteredList MODEL_COLOR
 participant ":Coupon" as Coupon MODEL_COLOR
 end box
 
+activate MainApp
+
 create ModelManager
-[-> ModelManager: initModelManager(storage, userPrefs)
 activate ModelManager
+
+MainApp -> ModelManager: new ModelManager()
 
 create CouponStash
 ModelManager -> CouponStash: new CouponStash(couponStash)
@@ -24,11 +34,14 @@ activate CouponStash
 loop for each coupon
     CouponStash -> Coupon: getExpiryDate()
     activate Coupon
+    Coupon --> CouponStash : expiryDate
+    deactivate Coupon
 
-    alt has expired
-        Coupon --> CouponStash: archived coupon
-    else
-        Coupon --> CouponStash: coupon
+    opt has expired
+        CouponStash -> Coupon: archive()
+        activate Coupon
+        Coupon --> CouponStash: archivedCoupon
+        deactivate Coupon
     end
 end
 
