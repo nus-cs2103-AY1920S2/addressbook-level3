@@ -1,0 +1,84 @@
+package seedu.zerotoone.logic.commands.workout.exercise;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.zerotoone.model.workout.WorkoutModel.PREDICATE_SHOW_ALL_WORKOUTS;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.zerotoone.commons.core.Messages;
+
+import seedu.zerotoone.commons.core.index.Index;
+import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.logic.commands.workout.exercise.ExerciseCommand;
+import seedu.zerotoone.model.Model;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.workout.Workout;
+
+/**
+ * Edits the details of an existing exercise in the exercise list.
+ */
+public class AddCommand extends ExerciseCommand {
+    public static final String COMMAND_WORD = "add";
+    public static final String MESSAGE_USAGE = "Usage: exercise set add WORKOUT_ID EXERCISE_ID";
+    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Added workout exercise: %1$s";
+
+    private final Index workoutId;
+    private final Index exerciseId;
+
+    /**
+     * @param index of the exercise in the filtered exercise list to edit
+     * @param exerciseSet details to edit the exercise with
+     */
+    public AddCommand(Index workoutId, Index exerciseId) {
+        requireNonNull(workoutId);
+        requireNonNull(exerciseId);
+
+        this.workoutId = workoutId;
+        this.exerciseId = exerciseId;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        List<Workout> lastShownWorkoutList = model.getFilteredWorkoutList();
+        List<Exercise> lastShownExerciseList = model.getFilteredExerciseList();
+
+        if (workoutId.getZeroBased() >= lastShownWorkoutList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
+        }
+
+        if (exerciseId.getZeroBased() >= lastShownExerciseList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
+        }
+
+        Workout workoutToEdit = lastShownWorkoutList.get(workoutId.getZeroBased());
+        Exercise exerciseToAdd = lastShownExerciseList.get(exerciseId.getZeroBased());
+
+        List<Exercise> updatedWorkoutExercises = new ArrayList<>(workoutToEdit.getWorkoutExercises());
+        updatedWorkoutExercises.add(exerciseToAdd);
+
+        Workout editedWorkout = new Workout(workoutToEdit.getWorkoutName(), updatedWorkoutExercises);
+
+        model.setWorkout(workoutToEdit, editedWorkout);
+        model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
+
+        String outputMessage = String.format(MESSAGE_EDIT_WORKOUT_SUCCESS, editedWorkout);
+        return new CommandResult(outputMessage);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (!(other instanceof AddCommand)) {
+            return false;
+        }
+
+        // state check
+        AddCommand otherCommand = (AddCommand) other;
+        return workoutId.equals(otherCommand.workoutId)
+                && exerciseId.equals(otherCommand.exerciseId);
+    }
+}
