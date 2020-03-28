@@ -10,12 +10,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
 
 /**
  * Edits Profile or Module specified by user.
@@ -49,33 +57,100 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
 
     private boolean toEditProfile = false;
-    private Module toEditModule = null;
+    private Name name = null;
+    private CourseName courseName = null;
+    private int currentSemester = 0;
+    private String specialisation = null;
 
-    public EditCommand() {
+    private Module toEditModule = null;
+    private ModuleCode moduleCode;
+    private int intSemester = 0;
+    private String grade = null;
+    private int inSemester = 0;
+
+    public EditCommand(Name name, CourseName courseName, int currentSemester, String specialisation) {
         toEditProfile = true;
+        this.name = name;
+        this.courseName = courseName;
+        this.currentSemester = currentSemester;
+        this.specialisation = specialisation;
     }
 
-    public EditCommand(Module toEditModule) {
-        this.toEditModule = toEditModule;
+    public EditCommand(ModuleCode moduleCode, int intSemester, String grade) throws ParseException {
+        this.moduleCode = moduleCode;
+        this.intSemester = intSemester;
+        this.grade = grade;
+        Module existingModule = null;
+        ModuleList inList = null;
+        Module module = ModuleManager.getModule(moduleCode);
+        HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
+        if (hashMap.isEmpty()) {
+            throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
+        }
+        for (ModuleList list: hashMap.values()) {
+            for (Module moduleItr: list) {
+                if (module.isSameModule(moduleItr)) {
+                    existingModule = moduleItr;
+                    inList = list;
+                }
+            }
+        }
+        if (existingModule == null) {
+            throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
+        }
+
+        this.inSemester = getKey(hashMap, inList);
+        this.toEditModule = existingModule;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Profile> lastShownList = model.getFilteredPersonList();
+        Profile profileToEdit;
+        try {
+            profileToEdit = lastShownList.get(0); //accessing only first profile in list
+        } catch (Exception e) {
+            throw new CommandException("Error: There is no existing profile.");
+        }
 
-        Profile profileToEdit = lastShownList.get(0); //accessing only first profile in list
-        Profile editedPerson = createEditedPerson(profileToEdit);
-
-        model.setPerson(profileToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        System.out.println(model.getFilteredPersonList().get(0).getDeadlines());
-
-        if (toEditProfile) {
-            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
-        } else if (toEditModule != null) {
+        if (toEditModule != null) {
+            if (intSemester != 0) {
+                HashMap<Integer, ModuleList> hashMap = profileToEdit.getHashMap();
+                try {
+                    hashMap.get(inSemester).removeModuleWithModuleCode(moduleCode);
+                } catch (ParseException e) {
+                    throw new CommandException("Error deleting exiting module.");
+                }
+                profileToEdit.addModule(intSemester, toEditModule);
+                updateStatus(profileToEdit, profileToEdit.getCurrentSemester());
+            }
+            if (grade != null) {
+                toEditModule.getPersonal().setGrade(grade);
+            }
             return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule));
+        } else if (toEditProfile) {
+            if (name != null) {
+                profileToEdit.setName(name);
+            }
+            if (courseName != null) {
+                profileToEdit.setCourse(courseName);
+            }
+            if (currentSemester != 0) {
+                profileToEdit.setCurrentSemester(currentSemester);
+                updateStatus(profileToEdit, currentSemester);
+            }
+            if (specialisation != null) {
+                profileToEdit.setSpecialisation(specialisation);
+            }
+
+            Profile editedPerson = createEditedPerson(profileToEdit);
+
+            model.setPerson(profileToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
         } else {
             throw new CommandException("Error: Edit Command cannot be executed");
         }
@@ -88,5 +163,36 @@ public class EditCommand extends Command {
     private static Profile createEditedPerson(Profile person) {
         assert person != null;
         return person;
+    }
+
+    /**
+     * Returns key of the given value
+     */
+    public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Updates statuses of all modules in the Profile
+     */
+    private void updateStatus(Profile profileToEdit, int currentSemester) {
+        HashMap<Integer, ModuleList> hashMap = profileToEdit.getHashMap();
+        for (ModuleList list: hashMap.values()) {
+            int semester = getKey(hashMap, list);
+            for (Module moduleItr: list) {
+                if (semester < currentSemester) {
+                    moduleItr.getPersonal().setStatus("completed");
+                } else if (semester == currentSemester) {
+                    moduleItr.getPersonal().setStatus("in progress");
+                } else {
+                    moduleItr.getPersonal().setStatus("not taken");
+                }
+            }
+        }
     }
 }
