@@ -5,7 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.logic.parser.InsertCommandParser;
+import seedu.address.logic.parser.ReturnCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
@@ -39,22 +40,17 @@ public class ImportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+
         requireNonNull(model);
 
         for (String data : ordersData) {
             data = data.replaceAll(",", " ").stripTrailing();
             try {
-                //int endOfOrderType = data.indexOf("tid/");
-                //String orderType = data.substring(0, endOfOrderType).stripTrailing();
-
-                //if (orderType.equals(OT_ORDER)) {
                 if (data.startsWith(OT_ORDER)) {
-                    //new AddCommandParser().parse(data.substring(endOfOrderType - 1)).execute(model);
-                    new AddCommandParser().parse(data.substring(6)).execute(model);
+                    new InsertCommandParser().parse(data.substring(5)).execute(model);
                     processedOrderCounter++;
-                    //} else if (orderType.equals(OT_RETURN)) {
                 } else if (data.startsWith(OT_RETURN)) {
-                    //new ReturnCommandParser().parse(data.substring(endOfOrderType - 1)).execute(model);
+                    new ReturnCommandParser().parse(data.substring(6)).execute(model);
                     processedReturnOrderCounter++;
                 } else {
                     // Invalid data type
@@ -68,14 +64,16 @@ public class ImportCommand extends Command {
 
         }
 
-        return new CommandResult(printResult());
+        return new CommandResult(printResult(processedOrderCounter, processedReturnOrderCounter, duplicateCounter,
+                invalidCounter));
     }
 
     /**
      * Print the result based on the various counters.
      * @return message to pass back to user.
      */
-    private String printResult() {
+    public static String printResult(int processedOrderCounter, int processedReturnOrderCounter, int duplicateCounter,
+                               int invalidCounter) {
         String message = processedOrderCounter + " delivery order(s) and " + processedReturnOrderCounter
                 + " return order(s) being imported.\n";
         if (duplicateCounter != 0) {
@@ -85,7 +83,7 @@ public class ImportCommand extends Command {
             message = message + invalidCounter + " invalid order(s) found!\n";
             message = message + "Please refer to the user guide for the correct format of the data in csv file.";
         }
-
+        System.out.println(message);
         return message;
     }
 
