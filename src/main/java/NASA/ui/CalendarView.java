@@ -9,6 +9,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -18,12 +19,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.activity.Lesson;
 import nasa.model.module.Module;
 
+/**
+ * UI component to represent the calendar view.
+ */
 public class CalendarView extends UiPart<Region> {
 
     private static final String FXML = "CalendarView.fxml";
@@ -36,6 +41,10 @@ public class CalendarView extends UiPart<Region> {
     @FXML
     private GridPane calendarGrid;
 
+    /**
+     * Constructor for the controller.
+     * @param moduleObservableList modules listed
+     */
     public CalendarView(ObservableList<Module> moduleObservableList) {
         super(FXML);
 
@@ -54,6 +63,9 @@ public class CalendarView extends UiPart<Region> {
         loadActivities(moduleObservableList);
     }
 
+    /**
+     * Initialize the header for the calendar.
+     */
     private void initializeCalendarHeader() {
         for (int i = 1; i <= 7; i++) {
             VBox dayHeader = new VBox();
@@ -65,6 +77,9 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Initialize the date grids for the calendar.
+     */
     private void initializeDateGrids() {
         LocalDateTime monthDetails = LocalDateTime.of(currentYear, currentMonth, 1, 0, 0);
         int firstDayOfMonth = monthDetails.getDayOfWeek().getValue(); // get when the first date lies on which day
@@ -124,6 +139,10 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Load all activities into the calendar.
+     * @param moduleObservableList modules in the application
+     */
     private void loadActivities(ObservableList<Module> moduleObservableList) {
         HashMap<Integer, ArrayList<Activity>> activityHashMap = new HashMap<>();
         for (Module module : moduleObservableList) {
@@ -166,6 +185,11 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Get the label representing the activity.
+     * @param activity activity to be listed in calendar
+     * @return
+     */
     private Label getActivityLabel(Activity activity) {
         Label activityLabel = new Label();
         activityLabel.setText(activity.toString());
@@ -183,11 +207,19 @@ public class CalendarView extends UiPart<Region> {
         return activityLabel;
     }
 
+    /**
+     * Initialize the whole calendar.
+     */
     private void initializeWholeCalendar() {
         initializeCalendarHeader();
         initializeDateGrids();
     }
 
+    /**
+     * Get the start months of the activities.
+     * @param activity activity to be listed on calendar
+     * @return
+     */
     private int getMonth(Activity activity) {
         if (activity instanceof Deadline) {
             return ((Deadline) activity).getDueDate().getDate().getDayOfMonth();
