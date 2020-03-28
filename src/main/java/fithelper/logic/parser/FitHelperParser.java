@@ -6,24 +6,7 @@ import static fithelper.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fithelper.logic.commands.AddCommand;
-import fithelper.logic.commands.CalendarCommand;
-import fithelper.logic.commands.CheckCommand;
-import fithelper.logic.commands.ClearCommand;
-import fithelper.logic.commands.Command;
-import fithelper.logic.commands.DeleteCommand;
-import fithelper.logic.commands.EditCommand;
-import fithelper.logic.commands.ExitCommand;
-import fithelper.logic.commands.FindCommand;
-import fithelper.logic.commands.HelpCommand;
-import fithelper.logic.commands.HomeCommand;
-import fithelper.logic.commands.ListCommand;
-import fithelper.logic.commands.ProfileCommand;
-import fithelper.logic.commands.ReminderCommand;
-import fithelper.logic.commands.ReportCommand;
-import fithelper.logic.commands.TodayCommand;
-import fithelper.logic.commands.UpdateCommand;
-import fithelper.logic.commands.WeightCommand;
+import fithelper.logic.commands.*;
 
 import fithelper.logic.commands.diary.AddDiaryCommand;
 import fithelper.logic.commands.diary.DiaryCommand;
@@ -31,6 +14,8 @@ import fithelper.logic.commands.diary.EditDiaryCommand;
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.diary.EditDiaryCommandParser;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.logic.parser.revoke.RedoCommandParser;
+import fithelper.logic.parser.revoke.UndoCommandParser;
 
 /**
  * Parses user input.
@@ -121,6 +106,11 @@ public class FitHelperParser {
 
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
