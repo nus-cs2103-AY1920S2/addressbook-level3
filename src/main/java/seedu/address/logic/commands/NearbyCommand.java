@@ -19,7 +19,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
- * Used to identify orders in the order book or return order book that belong to a given
+ * Used to identify orders in the order book, return order book that belong to a given
  * postal sector or area.
  */
 public class NearbyCommand extends Command {
@@ -27,14 +27,15 @@ public class NearbyCommand extends Command {
     public static final String NEWLINE = System.lineSeparator();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": View all orders located at the same postal sector based on the displayed order list."
-            + NEWLINE + "Parameters: POSTAL_SECTOR or AREA"
-            + NEWLINE + "A flag must be given to indicate the list to be searched for."
+            + ": View all orders located at the same postal sector based on the displayed list."
+            + NEWLINE + "Parameters: [FLAG] POSTAL_SECTOR or AREA"
+            + NEWLINE + "An optional flag may be given to indicate the list to be searched for."
             + NEWLINE + "The flag can be either -o for orders for -r for return orders"
             + NEWLINE + "A postal sector is the first two digits of a six digit Singapore postal code"
             + NEWLINE + "An area is one of the following: Central, East, North-East, West, North"
             + NEWLINE + "Example: " + COMMAND_WORD + " -o 14"
-            + NEWLINE + "Example: " + COMMAND_WORD + " -r central";
+            + NEWLINE + "Example: " + COMMAND_WORD + " -r central"
+            + NEWLINE + "Example: " + COMMAND_WORD + " east";
 
     public static final String MESSAGE_SUCCESS_POSTAL_SECTOR = "Displayed all orders in postal sector."
             + NEWLINE + "General Location: %1$s";
@@ -50,21 +51,30 @@ public class NearbyCommand extends Command {
         String validFlagRegex = "\\s*%s\\s+";
         String orderListRegex = String.format(validFlagRegex, FLAG_ORDER_LIST.toString());
         String returnListRegex = String.format(validFlagRegex, FLAG_RETURN_LIST.toString());
-
-        Pattern p = Pattern.compile(orderListRegex);
-        Matcher m = p.matcher(searchTerm);
-        this.isOrderListSearch = m.find();
-
-        p = Pattern.compile(returnListRegex);
-        m = p.matcher(searchTerm);
-        this.isReturnListSearch = m.find();
+        this.isOrderListSearch = hasRegexInSearchTerm(orderListRegex, searchTerm);
+        this.isReturnListSearch = hasRegexInSearchTerm(returnListRegex, searchTerm);
         if (this.isOrderListSearch) {
             this.searchTerm = searchTerm.replaceFirst(orderListRegex, "");
         } else if (this.isReturnListSearch) {
             this.searchTerm = searchTerm.replaceFirst(returnListRegex, "");
         } else {
+            this.isOrderListSearch = true;
+            this.isReturnListSearch = true;
             this.searchTerm = searchTerm;
         }
+    }
+
+    /**
+     * Checks if the given {@code regex} is contained in the given {@code searchTerm}.
+     *
+     * @param regex      used for checking {@code searchTerm}
+     * @param searchTerm String to search
+     * @return boolean indicating whether the given {@code regex} was found
+     */
+    private boolean hasRegexInSearchTerm(String regex, String searchTerm) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(searchTerm);
+        return m.find();
     }
 
     /**
@@ -135,13 +145,20 @@ public class NearbyCommand extends Command {
         if (isPostalSectorSearch()) {
             Index postalSector = Index.fromOneBased(Integer.parseInt(searchTerm));
             if (isValidPostalSector(postalSector)) {
-                return showPostalSectors(model, postalSector);
+                Optional<String> generalLocation = getGeneralLocation(postalSector);
+                if (generalLocation.isEmpty()) {
+                    throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
+                }
+                showPostalSectors(model, postalSector);
+                return new CommandResult(String.format(MESSAGE_SUCCESS_POSTAL_SECTOR,
+                        generalLocation.get()));
             }
             throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
         }
 
         if (DistrictInfo.isValidArea(searchTerm)) {
-            return showArea(model);
+            showArea(model);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_AREA, searchTerm));
         } else {
             throw new CommandException(MESSAGE_FAILURE_AREA);
         }
@@ -150,7 +167,7 @@ public class NearbyCommand extends Command {
     /**
      * Shows all orders at an area in the given {@code model}.
      */
-    private CommandResult showArea(Model model) {
+    private void showArea(Model model) {
         if (isOrderListSearch) {
             Predicate<Order> orderPredicate = getAreaPredicate();
             model.updateFilteredOrderList(orderPredicate);
@@ -159,13 +176,12 @@ public class NearbyCommand extends Command {
             Predicate<ReturnOrder> returnOrderPredicate = getAreaReturnPredicate();
             model.updateFilteredReturnOrderList(returnOrderPredicate);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS_AREA, searchTerm));
     }
 
     /**
      * Show all postal sectors in the given {@code model}.
      */
-    private CommandResult showPostalSectors(Model model, Index postalSector) throws CommandException {
+    private void showPostalSectors(Model model, Index postalSector) {
         if (isOrderListSearch) {
             Predicate<Order> orderPredicate = getPostalSectorPredicate();
             model.updateFilteredOrderList(orderPredicate);
@@ -174,12 +190,6 @@ public class NearbyCommand extends Command {
             Predicate<ReturnOrder> returnOrderPredicate = getPostalSectorReturnPredicate();
             model.updateFilteredReturnOrderList(returnOrderPredicate);
         }
-        Optional<String> generalLocation = getGeneralLocation(postalSector);
-        if (generalLocation.isEmpty()) {
-            throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
-        }
-        return new CommandResult(String.format(MESSAGE_SUCCESS_POSTAL_SECTOR,
-                generalLocation.get()));
     }
 
     /**
