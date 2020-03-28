@@ -53,7 +53,7 @@ public class SortGroupCommand extends SortCommand {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        module = model.getModule(module);
+        module = model.getModule(module.getIdentifier());
         Group group = new Group(groupCode, null);
 
         if (!module.hasGroup(group)) {
@@ -65,10 +65,24 @@ public class SortGroupCommand extends SortCommand {
         if (type.equalsIgnoreCase("alphabetically")
                 || type.equalsIgnoreCase("alpha")) {
             group.sortStudentsAlphabetically();
+        } else if (type.equalsIgnoreCase("rating asc")) {
+            group.sortStudentsByRatingAscending();
         } else {
-            //TODO: Sort students by rating
-            //group.sortStudentsByRating();
+            group.sortStudentsByRatingDescending();
         }
+
+        if (model.getFilteredModuleList().isEmpty()) {
+            model.setFilteredGroupList();
+            model.setFilteredStudentList();
+        } else {
+            model.updateFilteredGroupList(module.getIdentifier());
+            if (model.getFilteredGroupList().isEmpty()) {
+                model.setFilteredStudentList();
+            } else {
+                model.updateFilteredStudentList(group.getIdentifier(), module.getIdentifier());
+            }
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, group));
     }
 }

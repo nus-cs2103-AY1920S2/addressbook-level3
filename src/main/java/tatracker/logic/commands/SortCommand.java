@@ -23,6 +23,8 @@ public class SortCommand extends Command {
             + "\nOther variations include group code and module code.";
 
     public static final String MESSAGE_SUCCESS = "The modules have been sorted.";
+    private static final int FIRST_MODULE_INDEX = 0;
+    private static final int FIRST_GROUP_INDEX = 0;
 
     private final String type;
 
@@ -37,9 +39,24 @@ public class SortCommand extends Command {
         if (type.equalsIgnoreCase("alphabetically")
                 || type.equalsIgnoreCase("alpha")) {
             model.sortModulesAlphabetically();
+        } else if (type.equalsIgnoreCase("rating asc")) {
+            model.sortModulesByRatingAscending();
         } else {
-            model.sortModulesByRating();
+            model.sortModulesByRatingDescending();
         }
+
+        if (model.getFilteredModuleList().isEmpty()) {
+            model.setFilteredGroupList();
+            model.setFilteredStudentList();
+        } else {
+            model.updateGroupList(FIRST_MODULE_INDEX);
+            if (model.getFilteredGroupList().isEmpty()) {
+                model.setFilteredStudentList();
+            } else {
+                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
+            }
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 }

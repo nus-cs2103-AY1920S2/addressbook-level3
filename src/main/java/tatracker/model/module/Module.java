@@ -133,20 +133,23 @@ public class Module {
     }
 
     /**
-     * Sorts the students in the groups by rating.
+     * Sorts the students in the groups by rating in ascending order.
      */
-    public void sortGroupsByRating() {
+    public void sortGroupsByRatingAscending() {
         for (int i = 0; i < groups.size(); ++i) {
-            groups.get(i).sortStudentsByRating();
+            groups.get(i).sortStudentsByRatingAscending();
         }
     }
 
     /**
-     * Returns the group list.
+     * Sorts the students in the groups by rating in descending order.
      */
-    public ObservableList<Group> getGroupList() {
-        return groups.asUnmodifiableObservableList();
+    public void sortGroupsByRatingDescending() {
+        for (int i = 0; i < groups.size(); ++i) {
+            groups.get(i).sortStudentsByRatingDescending();
+        }
     }
+
 
     /**
      * Adds a done session to the list of done sessions for this module.

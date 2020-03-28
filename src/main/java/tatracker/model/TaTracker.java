@@ -196,11 +196,20 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Sorts modules by rating.
+     * Sorts modules by rating in ascending order.
      */
-    public void sortModulesByRating() {
+    public void sortModulesByRatingAscending() {
         for (int i = 0; i < modules.size(); ++i) {
-            modules.get(i).sortGroupsByRating();
+            modules.get(i).sortGroupsByRatingAscending();
+        }
+    }
+
+    /**
+     * Sorts modules alphabetically.
+     */
+    public void sortModulesByRatingDescending() {
+        for (int i = 0; i < modules.size(); ++i) {
+            modules.get(i).sortGroupsByRatingDescending();
         }
     }
 

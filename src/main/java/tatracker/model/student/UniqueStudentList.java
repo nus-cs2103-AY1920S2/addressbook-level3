@@ -35,6 +35,18 @@ public class UniqueStudentList implements Iterable<Student> {
             return (student.getName().toString()).compareTo(other.getName().toString());
         }
     };
+    private Comparator<Student> ratingAscending = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getRating().toString()).compareTo(other.getName().toString());
+        }
+    };
+    private Comparator<Student> ratingDescending = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (-1) * (student.getRating().toString()).compareTo(other.getName().toString());
+        }
+    };
 
     public int size() {
         return internalList.size();
@@ -141,10 +153,20 @@ public class UniqueStudentList implements Iterable<Student> {
         FXCollections.sort(internalList, alphabetically);
     }
 
-    //TODO
-    public void sortByRating() {
-
+    /**
+     * Sorts the students by rating in ascending order.
+     */
+    public void sortByRatingAscending() {
+        FXCollections.sort(internalList, ratingAscending);
     }
+
+    /**
+     * Sorts the students by rating in descending order.
+     */
+    public void sortByRatingDescending() {
+        FXCollections.sort(internalList, ratingDescending);
+    }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

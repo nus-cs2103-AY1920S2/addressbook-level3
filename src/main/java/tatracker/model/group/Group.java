@@ -50,10 +50,17 @@ public class Group {
     }
 
     /**
-     * Sorts students by rating.
+     * Sorts students by rating in ascending order.
      */
-    public void sortStudentsByRating() {
-        students.sortByRating();
+    public void sortStudentsByRatingAscending() {
+        students.sortByRatingAscending();
+    }
+
+    /**
+     * Sorts students by rating in descending order.
+     */
+    public void sortStudentsByRatingDescending() {
+        students.sortByRatingDescending();
     }
 
     /**

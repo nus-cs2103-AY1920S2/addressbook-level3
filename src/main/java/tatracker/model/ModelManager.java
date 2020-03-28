@@ -201,9 +201,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortModulesByRating() {
-        taTracker.sortModulesByRating();
+    public void sortModulesByRatingAscending() {
+        taTracker.sortModulesByRatingAscending();;
     }
+
+    @Override
+    public void sortModulesByRatingDescending() {
+        taTracker.sortModulesByRatingDescending();;
+    }
+
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {
