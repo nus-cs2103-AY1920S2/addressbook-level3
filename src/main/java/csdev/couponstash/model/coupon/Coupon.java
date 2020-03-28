@@ -215,11 +215,9 @@ public class Coupon {
      */
     public Coupon increaseUsageByOne() {
         Usage newUsage = this.usage.increaseUsageByOne();
-        String isCouponUsageAtLimit = String.valueOf(Usage.isUsageAtLimit(newUsage, this.limit));
-        Archived newArchived = new Archived(isCouponUsageAtLimit);
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, newUsage,
-                this.limit, this.tags, this.totalSavings, this.remind, this.condition, newArchived);
+                this.limit, this.tags, this.totalSavings, this.remind, this.condition, this.archived);
     }
 
     /**

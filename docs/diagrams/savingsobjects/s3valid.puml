@@ -1,0 +1,17 @@
+@startuml
+!include savingsStyle.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+
+class Savings as "__s3:Savings__" \
+SAVINGS_COLOUR
+class Saveable as "__saveable:Saveable__" \
+SAVEABLE_COLOUR {
+    savedItem: "Pencil"
+    count: 2
+}
+
+Savings --> Saveable
+
+@enduml

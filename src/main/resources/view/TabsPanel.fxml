@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <TabPane fx:id="tabPane" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab fx:id="couponTab" text="Coupons">
+          <content>
+            <VBox alignment="TOP_LEFT" styleClass="background">
+              <StackPane fx:id="couponListPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+            </VBox>
+          </content>
+        </Tab>
+        <Tab fx:id="summaryTab" text="Summary">
+          <content>
+            <VBox alignment="TOP_LEFT" styleClass="background">
+              <StackPane fx:id="summaryPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+            </VBox>
+          </content>
+        </Tab>
+      </tabs>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+    </TabPane>
+  </children>
+</StackPane>

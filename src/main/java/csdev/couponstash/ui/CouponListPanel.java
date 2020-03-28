@@ -59,12 +59,7 @@ public class CouponListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(
-                        new CouponCard(
-                                coupon,
-                                getIndex() + 1,
-                                this.moneySymbol.getString()
-                        ).getRoot());
+                setGraphic(new CouponCard(coupon, getIndex() + 1, this.moneySymbol.getString()).getRoot());
             }
         }
     }
