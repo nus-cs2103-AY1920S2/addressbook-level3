@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class PlanningDayCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    //public final Recipe recipe;
+    public final List<Recipe> recipes;
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n";
@@ -47,13 +48,14 @@ public class PlanningDayCard extends UiPart<Region> {
     @FXML
     private VBox recipeVBox;
 
-    public PlanningDayCard(String recipeName, int dayOfMonth) { // throw IO Exception?
+    public PlanningDayCard(List<Recipe> recipes, int dayOfMonth) { // throw IO Exception?
         super(FXML);
+        this.recipes = recipes;
         dayHeader.setText("" + dayOfMonth);
-        recipeVBox.getChildren().add(new Label(recipeName));
     }
 
     public VBox getDayCard() {
+        recipes.forEach(recipe -> recipeVBox.getChildren().add(new Label(recipe.getName().toString())));
         return dayCard;
     }
 

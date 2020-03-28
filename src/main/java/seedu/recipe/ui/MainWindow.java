@@ -125,8 +125,8 @@ public class MainWindow extends UiPart<Stage> {
 
         //using recipe list as stub for planning list, to be editted later todo
         //ObservableMap<Date, List<Recipe>> planningList = logic.getPlannedMap();
-        LocalDate date = LocalDate.parse("2020-03-01"); // stub with date
-        planningMapPanel = new PlanningMapPanel(date);
+        LocalDate date = LocalDate.parse("2020-03-01"); // stub with date, wasnt used!
+        planningMapPanel = new PlanningMapPanel(date, recipeList);
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningMapPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());

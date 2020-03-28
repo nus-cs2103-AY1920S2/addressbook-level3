@@ -2,11 +2,14 @@ package seedu.recipe.ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableMap;
@@ -19,7 +22,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.util.StringUtil;
+import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.Time;
+import seedu.recipe.model.recipe.ingredient.Quantity;
+import seedu.recipe.model.recipe.ingredient.Unit;
+import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
  * Panel containing the list of recipes.
@@ -40,7 +48,7 @@ public class PlanningMapPanel extends UiPart<Region> {
     @FXML
     private Label monthHeader;
 
-    public PlanningMapPanel(LocalDate date) {
+    public PlanningMapPanel(LocalDate date, List<Recipe> recipes) {
         super(FXML);
 
         Calendar cal = Calendar.getInstance();
@@ -67,10 +75,20 @@ public class PlanningMapPanel extends UiPart<Region> {
         int dayOfWeek = cal.getFirstDayOfWeek() - 1;
         int weekOfMonth = 1;
         System.out.println(numDaysInMonth);
+
+        List<Recipe> stubRecipes = new ArrayList<>();
+        Set<Vegetable> set = new TreeSet<>();
+        set.add(new Vegetable("vegetableee", new Quantity(30, Unit.GRAM)));
+
+        stubRecipes.add(recipes.get(0));
+        /*stubRecipes.add(new Recipe(new Name("hi"), new Time("15"), new TreeSet<>().add(""), set,
+                new TreeSet<>(), new TreeSet<>(), new TreeSet<>(), new ArrayList<>(), null, false));*/
+
         for (int i = 1; i <= numDaysInMonth; i++) {
-            PlanningDayCard card = new PlanningDayCard("name of recipe", i);
+            PlanningDayCard card = new PlanningDayCard(stubRecipes, i);
             calendarPane.add(card.getDayCard(), dayOfWeek, weekOfMonth);
-            //calendarPane.add(new Label("" + i), dayOfWeek, weekOfMonth);
+            //calendarPane.add(new Label("" + i), dayOfWeek, weekOfMonth);/
+
             dayOfWeek++;
             if (dayOfWeek > 6) {
                 dayOfWeek = 0;
