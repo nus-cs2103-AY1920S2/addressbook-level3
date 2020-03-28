@@ -122,6 +122,11 @@ public interface Model {
      */
     Module getModule(Module target);
 
+    /**
+     * Returns the TaTracker module with the given module identifier.
+     */
+    Module getModule(String moduleId);
+
     /** Returns an unmodifiable view of the filtered done session list */
     ObservableList<Session> getFilteredDoneSessionList();
 
@@ -130,11 +135,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDoneSessionList(Predicate<Session> predicate);
-
-    /**
-     * Returns the TaTracker module with the given module identifier.
-     */
-    Module getModule(String moduleId);
 
     /**
      * Returns true if a given module with the same identity as {@code module}
