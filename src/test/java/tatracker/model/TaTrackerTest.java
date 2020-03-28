@@ -8,9 +8,7 @@ import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalStudents.ALICE;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +18,6 @@ import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
-import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.testutil.StudentBuilder;
 
 public class TaTrackerTest {

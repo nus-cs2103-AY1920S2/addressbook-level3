@@ -9,7 +9,6 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;

@@ -1,8 +1,6 @@
 package tatracker.logic.commands;
 
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
-import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.BeforeEach;

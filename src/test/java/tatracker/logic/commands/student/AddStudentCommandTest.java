@@ -1,18 +1,13 @@
 package tatracker.logic.commands.student;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
-import tatracker.model.ModelStub.ModelStubAcceptingStudentAdded;
 import tatracker.model.ModelStub.ModelStubWithStudent;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
