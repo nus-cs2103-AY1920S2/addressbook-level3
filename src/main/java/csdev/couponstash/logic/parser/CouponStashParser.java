@@ -24,6 +24,7 @@ import csdev.couponstash.logic.commands.RedoCommand;
 import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.commands.SetPrefCommand;
+import csdev.couponstash.logic.commands.ShareCommand;
 import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.commands.UndoCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
@@ -119,6 +120,9 @@ public class CouponStashParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case ShareCommand.COMMAND_WORD:
+            return new ShareCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
