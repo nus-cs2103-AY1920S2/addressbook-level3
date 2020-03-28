@@ -1,27 +1,17 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.hirelah.*;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.hirelah.AppPhase;
-import seedu.address.model.hirelah.Attribute;
-import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.InterviewSession;
-import seedu.address.model.hirelah.Interviewee;
-import seedu.address.model.hirelah.IntervieweeList;
-import seedu.address.model.hirelah.Metric;
-import seedu.address.model.hirelah.MetricList;
-import seedu.address.model.hirelah.Question;
-import seedu.address.model.hirelah.QuestionList;
-import seedu.address.model.hirelah.Transcript;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -128,6 +118,16 @@ public class ModelManager implements Model {
     @Override
     public Interviewee getCurrentInterviewee() {
         return currentInterviewee;
+    }
+
+    /**
+     * Checks whether there is an interviewee currently in focus
+     *
+     * @return boolean whether there is an interviewee in focus.
+     */
+    @Override
+    public boolean hasCurrentInterviewee() {
+        return !(this.currentInterviewee == null);
     }
 
     @Override
