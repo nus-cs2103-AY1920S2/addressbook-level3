@@ -282,17 +282,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private Tab parseTab(String commandText) throws ParseException {
-        switch (commandText) {
-        case "goto student":
+        switch (commandText.trim()) {
+        case "goto t/student":
             return studentListTab;
 
-        case "goto session":
+        case "goto t/session":
             return sessionListTab;
 
-        case "goto claims":
+        case "goto t/claims":
             return claimsListTab;
 
         default:
+            System.out.println(commandText.trim());
             throw new ParseException(MESSAGE_INVALID_TAB);
         }
     }

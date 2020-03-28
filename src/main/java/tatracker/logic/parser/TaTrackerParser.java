@@ -71,6 +71,9 @@ public class TaTrackerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case GotoCommand.COMMAND_WORD:
+            return new GotoCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -82,9 +85,6 @@ public class TaTrackerParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case GotoCommand.COMMAND_WORD:
-            return new GotoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

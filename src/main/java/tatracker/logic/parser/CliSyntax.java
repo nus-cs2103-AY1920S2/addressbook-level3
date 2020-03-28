@@ -21,5 +21,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_MODULE = new Prefix("m/");
     public static final Prefix PREFIX_GROUP = new Prefix("g/");
     public static final Prefix PREFIX_TYPE = new Prefix("t/");
-
+    public static final Prefix PREFIX_TAB = new Prefix("t/");
 }
