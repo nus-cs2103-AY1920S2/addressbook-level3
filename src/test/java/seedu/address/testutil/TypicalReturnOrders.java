@@ -52,7 +52,7 @@ public class TypicalReturnOrders {
             .withName("Carl Kurz")
             .withEmail("example@example.com")
             .withPhone("95352563")
-            .withAddress("elok Blangah Heights, #01-22 S100058")
+            .withAddress("Telok Blangah Heights, #01-22 S100058")
             .withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
             .build();
