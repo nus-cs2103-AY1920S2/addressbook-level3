@@ -24,20 +24,22 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-
         <SplitPane VBox.vgrow="ALWAYS">
-          <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false"
-                     minWidth="180"/>
+          <VBox VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false" minWidth="180">
+            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+              <Menu mnemonicParsing="false" text="File">
+                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+              </Menu>
+              <Menu mnemonicParsing="false" text="Help">
+                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+              </Menu>
+            </MenuBar>
+            <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
           <VBox>
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" minWidth="180">
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-without-border"
+                       minWidth="180">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
