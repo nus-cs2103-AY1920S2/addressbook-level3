@@ -1,8 +1,11 @@
 package seedu.foodiebot.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -38,6 +41,7 @@ public class StallCard extends UiPart<Region> {
     private Label cuisine;
     @FXML
     private Label overallPriceRating;
+    @FXML private FlowPane tags;
 
     public StallCard(Stall stall, int displayedIndex) {
         super(FXML);
@@ -48,6 +52,13 @@ public class StallCard extends UiPart<Region> {
         stallNumber.setText(String.valueOf(stall.getStallNumber()));
         cuisine.setText(stall.getCuisine());
         overallPriceRating.setText(stall.getOverallPriceRating());
+        try {
+            stall.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        } catch (ClassCastException e) {
+            System.out.println(e);
+        }
     }
 
     @Override
