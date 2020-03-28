@@ -212,6 +212,14 @@ public class ModelManager implements Model {
         return filter;
     }
 
+    /**
+     * Update filter object
+     */
+    @Override
+    public void setFilter(Filter filter) {
+        expenseLa.setFilter(filter);
+    }
+
     @Override
     public Double getTotalBalance() {
         return userPrefs.getTotalBalance();

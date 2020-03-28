@@ -95,6 +95,8 @@ public interface Model {
 
     Filter getFilter();
 
+    public void setFilter(Filter filter);
+
     /**
      * Get Total balance of the user.
      * @return

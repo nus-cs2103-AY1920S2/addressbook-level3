@@ -8,26 +8,34 @@ import java.time.LocalDate;
 public class Filter {
 
     private String categoryName;
-    private LocalDate dateMonth;
+    private String dateMonth;
 
-    public Filter(String categoryName, LocalDate dateMonth) {
+    public Filter(String categoryName, String dateMonth) {
         this.categoryName = categoryName;
         this.dateMonth = dateMonth;
     }
 
     public String getFilterCategoryName() {
-        return this.categoryName;
+        if (this.categoryName == null) {
+            return "All";
+        } else {
+            return this.categoryName;
+        }
     }
 
     public void setFilterCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public LocalDate getDateMonth() {
-        return this.dateMonth;
+    public String getDateMonth() {
+        if (this.dateMonth == null) {
+            return "All";
+        } else {
+            return this.dateMonth.toString();
+        }
     }
 
-    public void setDateMonth(LocalDate dateMonth) {
+    public void setDateMonth(String dateMonth) {
         this.dateMonth = dateMonth;
     }
 }

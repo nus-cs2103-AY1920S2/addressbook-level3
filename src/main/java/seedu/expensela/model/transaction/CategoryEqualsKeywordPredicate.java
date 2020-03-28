@@ -28,4 +28,9 @@ public class CategoryEqualsKeywordPredicate implements Predicate<Transaction> {
                 && keyword.equals(((CategoryEqualsKeywordPredicate) other).keyword)); // state check
     }
 
+    @Override
+    public String toString() {
+        return this.keyword.get(0);
+    }
+
 }

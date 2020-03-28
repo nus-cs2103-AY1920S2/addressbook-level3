@@ -57,6 +57,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         this.monthlyData.setIncome(monthlyData.getIncome());
     }
 
+    public void setFilter(Filter filter) {
+        this.filter.setFilterCategoryName(filter.getFilterCategoryName());
+        this.filter.setDateMonth(filter.getDateMonth());
+    }
+
     /**
      * Resets the existing data of this {@code ExpenseLa} with {@code newData}.
      */
