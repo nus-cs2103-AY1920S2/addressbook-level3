@@ -23,16 +23,21 @@ public class CommandResult {
     /** The third panel should should display the assignment list. */
     private final boolean assignment;
 
+    /** The third panel should display the upcoming birthdays for the next five days (Including current day). */
+    private final boolean showBirthday;
+
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean get, boolean assignment) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean get, boolean assignment, boolean birthday) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.get = get;
         this.assignment = assignment;
+        this.showBirthday = birthday;
     }
 
     /**
@@ -40,7 +45,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -63,6 +68,10 @@ public class CommandResult {
         return assignment;
     }
 
+    public boolean isShowBirthday() {
+        return showBirthday;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -77,7 +86,8 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showHelp == otherCommandResult.showHelp;
     }
 
     @Override
