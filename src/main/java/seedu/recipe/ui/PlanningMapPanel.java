@@ -68,7 +68,9 @@ public class PlanningMapPanel extends UiPart<Region> {
         int weekOfMonth = 1;
         System.out.println(numDaysInMonth);
         for (int i = 1; i <= numDaysInMonth; i++) {
-            calendarPane.add(new Label("" + i), dayOfWeek, weekOfMonth);
+            PlanningDayCard card = new PlanningDayCard("name of recipe", i);
+            calendarPane.add(card.getDayCard(), dayOfWeek, weekOfMonth);
+            //calendarPane.add(new Label("" + i), dayOfWeek, weekOfMonth);
             dayOfWeek++;
             if (dayOfWeek > 6) {
                 dayOfWeek = 0;
