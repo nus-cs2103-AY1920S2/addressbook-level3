@@ -91,6 +91,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Interviewee> getBestNIntervieweesView() {
+        return model.getBestNInterviewees();
+    }
+
+    @Override
     public Path getSessionsDirectory() {
         return model.getSessionsDirectory();
     }

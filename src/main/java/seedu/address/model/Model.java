@@ -78,6 +78,12 @@ public interface Model {
     /** Returns the list of metrics that describes certain weight */
     MetricList getMetricList();
 
+    /** Returns the list of best N interviewees based on certain measures */
+    ObservableList<Interviewee> getBestNInterviewees();
+
+    /** Sets the list of best N interviewees */
+    void setBestNInterviewees(ObservableList<Interviewee> interviewees);
+
     /** Sets the current mode of the App */
     void setAppPhase(AppPhase phase);
 

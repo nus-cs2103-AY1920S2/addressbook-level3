@@ -37,7 +37,7 @@ public class ModelManager implements Model {
     private final QuestionList questionList;
     private final MetricList metricList;
     private final UserPrefs userPrefs;
-
+    private ObservableList<Interviewee> bestNIntervieweeList;
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -201,6 +201,16 @@ public class ModelManager implements Model {
     @Override
     public MetricList getMetricList() {
         return metricList;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getBestNInterviewees() {
+        return bestNIntervieweeList;
+    }
+
+    @Override
+    public void setBestNInterviewees(ObservableList<Interviewee> interviewees) {
+        this.bestNIntervieweeList = interviewees;
     }
 
     /**
