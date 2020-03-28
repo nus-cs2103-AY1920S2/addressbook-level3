@@ -31,7 +31,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
      * Parses user input in the context of the OpenSuggestionCommand.
      * @param userInput The user's input.
      * @return An OpenSuggestionCommand object with a corrected absolute path.
-     * @throws ParseException if the user input path cannot be found.
+     * @throws ParseException if the user input is in a wrong format and/ or path cannot be found.
      */
     @Override
     public OpenSuggestionCommand parse(String userInput) throws ParseException {
