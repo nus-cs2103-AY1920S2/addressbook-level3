@@ -12,19 +12,19 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelStaff.Teacher;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageCourseStudent.CourseStudentAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
-import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
+import seedu.address.storage.storageStaff.StaffAddressBookStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
+public interface Storage extends AddressBookStorage, StaffAddressBookStorage,
     StudentAddressBookStorage,
     FinanceAddressBookStorage, CourseAddressBookStorage, AssignmentAddressBookStorage,
     CourseStudentAddressBookStorage,
@@ -49,14 +49,14 @@ public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
 
   ///
   @Override
-  Path getTeacherAddressBookFilePath();
+  Path getStaffAddressBookFilePath();
 
   @Override
-  Optional<ReadOnlyAddressBookGeneric<Teacher>> readTeacherAddressBook()
+  Optional<ReadOnlyAddressBookGeneric<Staff>> readStaffAddressBook()
       throws DataConversionException, IOException;
 
   @Override
-  void saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) throws IOException;
+  void saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook) throws IOException;
 
   ///
   @Override

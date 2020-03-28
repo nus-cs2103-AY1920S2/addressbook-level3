@@ -64,7 +64,7 @@ public interface Logic {
   /**
    * Returns the TeacherAddressBook.
    *
-   * @see seedu.address.model.Model#getTeacherAddressBook()
+   * @see seedu.address.model.Model#getStaffAddressBook()
    */
   ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook();
 

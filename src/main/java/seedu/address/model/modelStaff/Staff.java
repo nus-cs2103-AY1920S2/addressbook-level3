@@ -20,8 +20,8 @@ public class Staff extends ModelObject {
 
   // Identity fields
   private final Name name;
-  private final ID id;
-  private final boolean isTeacher;
+  //private final ID id;
+  //private final boolean isTeacher;
   private final Phone phone;
   private final Email email;
   private final Address address;
@@ -34,11 +34,10 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Staff(Name name, ID id, Boolean isTeacher,Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
+  public Staff(Name name, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
     requireAllNonNull(name, phone, email, address, tags);
     this.name = name;
-    this.id = id;
-    this.isTeacher = isTeacher;
+    //this.isTeacher = isTeacher;
     this.phone = phone;
     this.email = email;
     this.salary = salary;
@@ -56,17 +55,21 @@ public class Staff extends ModelObject {
   /**
    * Get ID of a staff.
    */
+  /*
   public ID getID() {
     return id;
   }
+  */
 
   /**
    * Check if this staff is a teacher.
    * @return true if this is a teacher, false if this is an admin.
    */
+  /*
   public boolean isTeacher() {
     return isTeacher;
   }
+  */
 
   /**
    * Get phone of a staff.
@@ -116,17 +119,11 @@ public class Staff extends ModelObject {
    * Get set an assigned course to a staff. The staff need to be a teacher to be assigned a course.
    */
   public void setAssignedCourses(String assignedCourses) {
-    if (isTeacher) {
       this.assignedCourses = assignedCourses;
-    }
   }
 
   public String getAssignedCourses() {
-    if (isTeacher) {
       return this.assignedCourses;
-    } else {
-      return "";
-    }
   }
 
   /**
@@ -174,7 +171,7 @@ public class Staff extends ModelObject {
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, id, isTeacher, phone, email, salary, address, tags);
+    return Objects.hash(name, phone, email, salary, address, tags);
   }
 
   @Override

@@ -9,13 +9,13 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson
  * comparison)
  */
-public class TeacherAddressBook extends AddressBookGeneric<Teacher> {
+public class StaffAddressBook extends AddressBookGeneric<Staff> {
 
-  public TeacherAddressBook() {
+  public StaffAddressBook() {
     super();
   }
 
-  public TeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> toBeCopied) {
+  public StaffAddressBook(ReadOnlyAddressBookGeneric<Staff> toBeCopied) {
     super(toBeCopied);
   }
 

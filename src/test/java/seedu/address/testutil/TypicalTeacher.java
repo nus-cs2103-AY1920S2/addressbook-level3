@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.modelStaff.Teacher;
-import seedu.address.model.modelStaff.TeacherAddressBook;
+import seedu.address.model.modelStaff.StaffAddressBook;
 
 /**
  * A utility class containing a list of {@code Teacher} objects to be used in tests.
@@ -67,8 +67,8 @@ public class TypicalTeacher {
     /**
      * Returns an {@code AddressBook} with all the typical teachers.
      */
-    public static TeacherAddressBook getTypicalTeacherAddressBook() {
-        TeacherAddressBook ab = new TeacherAddressBook();
+    public static StaffAddressBook getTypicalTeacherAddressBook() {
+        StaffAddressBook ab = new StaffAddressBook();
         for (Teacher teacher : getTypicalTeachers()) {
             ab.add(teacher);
         }

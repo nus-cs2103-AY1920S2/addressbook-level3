@@ -16,5 +16,5 @@ import seedu.address.model.modelGeneric.UniqueList;
  * Supports a minimal set of list operations.
  *
  */
-public class UniqueTeacherList extends UniqueList<Teacher> {
+public class UniqueStaffList extends UniqueList<Staff> {
 }

@@ -1,4 +1,4 @@
-package seedu.address.storage.storageTeacher;
+package seedu.address.storage.storageStaff;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -8,7 +8,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-class JsonTeacherAdaptedTag {
+class JsonStaffAdaptedTag {
 
   private final String tagName;
 
@@ -16,14 +16,14 @@ class JsonTeacherAdaptedTag {
    * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
    */
   @JsonCreator
-  public JsonTeacherAdaptedTag(String tagName) {
+  public JsonStaffAdaptedTag(String tagName) {
     this.tagName = tagName;
   }
 
   /**
    * Converts a given {@code Tag} into this class for Jackson use.
    */
-  public JsonTeacherAdaptedTag(Tag source) {
+  public JsonStaffAdaptedTag(Tag source) {
     tagName = source.tagName;
   }
 

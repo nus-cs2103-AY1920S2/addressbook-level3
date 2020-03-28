@@ -24,7 +24,7 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelStaff.Teacher;
-import seedu.address.model.modelStaff.TeacherAddressBook;
+import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -35,7 +35,7 @@ public class ModelManager implements Model {
   private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
   private final AddressBook addressBook;
-  private final TeacherAddressBook teacherAddressBook;
+  private final StaffAddressBook staffAddressBook;
   private final StudentAddressBook studentAddressBook;
   private final FinanceAddressBook financeAddressBook;
   private final CourseAddressBook courseAddressBook;
@@ -68,7 +68,7 @@ public class ModelManager implements Model {
         + userPrefs);
 
     this.addressBook = new AddressBook(addressBook);
-    this.teacherAddressBook = new TeacherAddressBook(teacherAddressBook);
+    this.staffAddressBook = new StaffAddressBook(teacherAddressBook);
     this.studentAddressBook = new StudentAddressBook(studentAddressBook);
     this.financeAddressBook = new FinanceAddressBook(financeAddressBook);
     this.courseAddressBook = new CourseAddressBook(courseAddressBook);
@@ -77,7 +77,7 @@ public class ModelManager implements Model {
 
     this.userPrefs = new UserPrefs(userPrefs);
     filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    filteredTeachers = new FilteredList<>(this.teacherAddressBook.getList());
+    filteredTeachers = new FilteredList<>(this.staffAddressBook.getList());
     filteredStudents = new FilteredList<>(this.studentAddressBook.getList());
     filteredFinances = new FilteredList<>(this.financeAddressBook.getList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
@@ -89,7 +89,7 @@ public class ModelManager implements Model {
   }
 
   public ModelManager() {
-    this(new AddressBook(), new TeacherAddressBook(), new StudentAddressBook(),
+    this(new AddressBook(), new StaffAddressBook(), new StudentAddressBook(),
         new FinanceAddressBook(), new CourseAddressBook(),
             new AssignmentAddressBook(), new CourseStudentAddressBook(),
             new UserPrefs());
@@ -235,37 +235,37 @@ public class ModelManager implements Model {
 
   ///
   @Override
-  public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
-    return teacherAddressBook;
+  public ReadOnlyAddressBookGeneric<Teacher> getStaffAddressBook() {
+    return staffAddressBook;
   }
 
 
   @Override
-  public void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) {
-    this.teacherAddressBook.resetData(teacherAddressBook);
+  public void setStaffAddressBook(ReadOnlyAddressBookGeneric<Teacher> staffAddressBook) {
+    this.staffAddressBook.resetData(staffAddressBook);
   }
 
   @Override
   public boolean hasTeacher(Teacher teacher) {
     requireNonNull(teacher);
-    return teacherAddressBook.has(teacher);
+    return staffAddressBook.has(teacher);
   }
 
   @Override
   public void deleteTeacher(Teacher target) {
-    teacherAddressBook.remove(target);
+    staffAddressBook.remove(target);
   }
 
   @Override
   public void addTeacher(Teacher teacher) {
-    teacherAddressBook.add(teacher);
+    staffAddressBook.add(teacher);
     updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
   }
   @Override
   public void setTeacher(Teacher target, Teacher editedTeacher) {
     requireAllNonNull(target, editedTeacher);
 
-    teacherAddressBook.set(target, editedTeacher);
+    staffAddressBook.set(target, editedTeacher);
   }
 
   ///
@@ -624,7 +624,7 @@ public class ModelManager implements Model {
     // state check
     ModelManager other = (ModelManager) obj;
     return userPrefs.equals(other.userPrefs)
-        && teacherAddressBook.equals(other.teacherAddressBook)
+        && staffAddressBook.equals(other.staffAddressBook)
         && studentAddressBook.equals(other.studentAddressBook)
         && courseAddressBook.equals(other.courseAddressBook)
         && financeAddressBook.equals(other.financeAddressBook)

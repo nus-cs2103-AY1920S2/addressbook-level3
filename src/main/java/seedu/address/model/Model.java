@@ -118,12 +118,12 @@ public interface Model {
   /**
    * Returns the teacherAddressBook
    */
-  ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook();
+  ReadOnlyAddressBookGeneric<Teacher> getStaffAddressBook();
 
   /**
    * Replaces teacher address book data with the data in {@code teacerAddressBook}.
    */
-  void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook);
+  void setStaffAddressBook(ReadOnlyAddressBookGeneric<Teacher> staffAddressBook);
 
   /**
    * Returns true if a teacher with the same identity as {@code teacher} exists in the address

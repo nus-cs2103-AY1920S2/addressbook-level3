@@ -71,7 +71,7 @@ public class LogicManager implements Logic {
     if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand
         || command instanceof ClearTeacherCommand || command instanceof EditTeacherCommand) {
       try {
-        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+        storage.saveStaffAddressBook(model.getStaffAddressBook());
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
@@ -143,7 +143,7 @@ public class LogicManager implements Logic {
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
-    return model.getTeacherAddressBook();
+    return model.getStaffAddressBook();
   }
 
   @Override

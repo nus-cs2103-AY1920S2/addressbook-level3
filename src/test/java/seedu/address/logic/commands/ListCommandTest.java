@@ -31,7 +31,7 @@ public class ListCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
             getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
+        expectedModel = new ModelManager(model.getAddressBook(), model.getStaffAddressBook(),
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
                 model.getAssignmentAddressBook() , model.getCourseStudentAddressBook(), new UserPrefs());
     }
