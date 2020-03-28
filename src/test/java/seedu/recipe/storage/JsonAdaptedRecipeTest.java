@@ -105,6 +105,7 @@ public class JsonAdaptedRecipeTest {
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
+    /* todo: convert to toModelType_nullIngredient_throwsIllegalValueException()
     @Test
     public void toModelType_nullStep_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
@@ -112,7 +113,7 @@ public class JsonAdaptedRecipeTest {
                 null, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
-    }
+    }*/
 
     @Test
     public void toModelType_invalidGoals_throwsIllegalValueException() {

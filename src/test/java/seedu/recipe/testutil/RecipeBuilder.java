@@ -47,6 +47,8 @@ public class RecipeBuilder {
     private Set<Other> others;
     private List<Step> steps;
     private Set<Goal> goals;
+    //private boolean isDefaultGrainPresent;
+    // flag is added to check whether the default grain ingredient has been replaced
 
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -54,6 +56,8 @@ public class RecipeBuilder {
         isFavourite = DEFAULT_FAVOURITE;
 
         grains = new TreeSet<>();
+        //grains.add(DEFAULT_GRAIN);
+        //isDefaultGrainPresent = true;
         vegetables = new TreeSet<>();
         proteins = new TreeSet<>();
         fruits = new TreeSet<>();
@@ -125,6 +129,11 @@ public class RecipeBuilder {
      * the {@code Recipe} that we are building.
      */
     public RecipeBuilder withVegetables(String ... vegetables) {
+        /*        if (isDefaultGrainPresent) {
+            // replaces default grain with the given vegetable(s)
+            this.grains = SampleDataUtil.emptyGrainSet();
+            isDefaultGrainPresent = false;
+        }*/
         this.vegetables = SampleDataUtil.getVegetableSet(vegetables);
         return this;
     }
@@ -133,6 +142,11 @@ public class RecipeBuilder {
      * Parses the {@code proteins} into a {@code Set<Protein>} and set it to the {@code Recipe} that we are building.
      */
     public RecipeBuilder withProteins(String ... proteins) {
+        /*        if (isDefaultGrainPresent) {
+            // replaces default grain with the given protein(s)
+            this.grains = SampleDataUtil.emptyGrainSet();
+            isDefaultGrainPresent = false;
+        }*/
         this.proteins = SampleDataUtil.getProteinSet(proteins);
         return this;
     }
@@ -141,6 +155,11 @@ public class RecipeBuilder {
      * Parses the {@code fruits} into a {@code Set<Fruit>} and set it to the {@code Recipe} that we are building.
      */
     public RecipeBuilder withFruits(String ... fruits) {
+        /*        if (isDefaultGrainPresent) {
+            // replaces default grain with the given fruit(s)
+            this.grains = SampleDataUtil.emptyGrainSet();
+            isDefaultGrainPresent = false;
+        }*/
         this.fruits = SampleDataUtil.getFruitSet(fruits);
         return this;
     }
@@ -149,6 +168,11 @@ public class RecipeBuilder {
      * Parses the {@code others} into a {@code Set<Other>} and set it to the {@code Recipe} that we are building.
      */
     public RecipeBuilder withOthers(String ... others) {
+        /*        if (isDefaultGrainPresent) {
+            // replaces default grain with the given other(s)
+            this.grains = SampleDataUtil.emptyGrainSet();
+            isDefaultGrainPresent = false;
+        }*/
         this.others = SampleDataUtil.getOtherSet(others);
         return this;
     }

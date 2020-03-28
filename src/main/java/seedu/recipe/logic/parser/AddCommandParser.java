@@ -49,7 +49,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT, PREFIX_INGREDIENT_OTHER);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TIME)
-                || !argMultimap.getPreamble().isEmpty() || !isAtLeastOneIngredientPresent) {
+                || !argMultimap.getPreamble().isEmpty()) {
+            //|| !argMultimap.getPreamble().isEmpty() || !isAtLeastOneIngredientPresent) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 

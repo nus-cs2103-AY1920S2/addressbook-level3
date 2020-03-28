@@ -11,13 +11,13 @@ public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters, spaces, or special characters from "
-                    + "this set {&, %, (, ), -, /}. The name should also not be blank.";
+                    + "this set {&, %, (, ), -, /, ', ,}. The name should also not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%-/]+$+";
+    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%/',-]+$+";
 
     public final String fullName;
 
