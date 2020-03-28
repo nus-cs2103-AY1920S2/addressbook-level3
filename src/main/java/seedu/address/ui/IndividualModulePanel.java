@@ -2,19 +2,16 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.course.module.Module;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing information related to specific Module.
  */
 public class IndividualModulePanel extends UiPart<Region> {
     private static final String FXML = "IndividualModulePanel.fxml";
@@ -32,6 +29,8 @@ public class IndividualModulePanel extends UiPart<Region> {
     private Label modularCredits;
     @FXML
     private Label description;
+    @FXML
+    private Label semData;
 
 
 
@@ -42,7 +41,8 @@ public class IndividualModulePanel extends UiPart<Region> {
         preReqs.setText("Prerequisite: \n" + module.getPrereqs().prereqs);
         modularCredits.setText("Modular Credits: " + module.getModularCredits().toString());
         description.setText("Module Description: \n" + module.getDescription().description);
-
+        semData.setText("Semester Data: \nThis module is available in Semesters "
+                + module.getSemesterData().toString());
     }
 
     /**

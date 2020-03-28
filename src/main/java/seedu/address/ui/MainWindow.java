@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -18,10 +19,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ModuleList;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
 /**
@@ -48,6 +49,8 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private OverviewPanel overviewPanel;
     private IndividualModulePanel individualModulePanel;
+    private CoursePanel coursePanel;
+    private FocusAreaPanel focusAreaPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -188,32 +191,38 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Handles show command by updating Main Panel.
+     */
     @FXML
     private void handleShowCommand() throws ParseException {
-        Optional<ObservableList<Module>> displayedView = logic.getDisplayedView();
+        Optional<Object> displayedView = logic.getDisplayedView();
         Profile profile = logic.getProfileList().getProfileList().get(0);
 
-        // Removes the current displayed module
+        // Removes the current displayed view
         if (moduleListPanel != null) {
             mainPanelPlaceholder.getChildren().remove(moduleListPanel.getRoot());
         }
 
-        // Early return if nothing to display
+        //return to home page
         if (displayedView.isEmpty()) {
             return;
+        } else if (displayedView.get() instanceof FilteredList) {
+            moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
+            mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        } else if (displayedView.get() instanceof Profile) {
+            overviewPanel = new OverviewPanel(profile);
+            mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
+        } else if (displayedView.get() instanceof Module) {
+            individualModulePanel = new IndividualModulePanel((Module) displayedView.get());
+            mainPanelPlaceholder.getChildren().addAll(individualModulePanel.getRoot());
+        } else if (displayedView.get() instanceof Course) {
+            coursePanel = new CoursePanel((Course) displayedView.get());
+            mainPanelPlaceholder.getChildren().addAll(coursePanel.getRoot());
+        } else if (displayedView.get() instanceof CourseFocusArea) {
+            focusAreaPanel = new FocusAreaPanel((CourseFocusArea) displayedView.get());
+            mainPanelPlaceholder.getChildren().addAll(focusAreaPanel.getRoot());
         }
-
-        //adds module list panel
-//        moduleListPanel = new ModuleListPanel(displayedView.get());
-//        mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
-
-        //adds overview panel
-//        overviewPanel = new OverviewPanel(profile);
-//        mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
-
-        //adds individual module panel
-//        individualModulePanel = new IndividualModulePanel(profile.getModule(new ModuleCode("CS2103T")));
-//        mainPanelPlaceholder.getChildren().addAll(individualModulePanel.getRoot());
 
     }
 

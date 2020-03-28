@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.profile.course.module.Module;
 
 /**
- * An UI component that displays information of a {@code Profile}.
+ * An UI component that displays information of a {@code Module}.
  */
 public class ModuleCard extends UiPart<Region> {
 

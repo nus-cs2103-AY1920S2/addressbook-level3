@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -113,8 +115,16 @@ public interface Model {
 
     void deleteModuleDeadlines(ModuleCode mc);
 
-    Optional<ObservableList<Module>> getDisplayedView();
+    Optional<Object> getDisplayedView();
 
     void setDisplayedView(ObservableList<Module> toDisplay);
+
+    void setDisplayedView(Profile toDisplay);
+
+    void setDisplayedView(Module toDisplay);
+
+    void setDisplayedView(Course toDisplay);
+
+    void setDisplayedView(CourseFocusArea toDisplay);
 
 }

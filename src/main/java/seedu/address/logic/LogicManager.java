@@ -17,7 +17,6 @@ import seedu.address.model.CourseManager;
 import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.storage.Storage;
@@ -111,7 +110,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Optional<ObservableList<Module>> getDisplayedView() {
+    public Optional<Object> getDisplayedView() {
         return model.getDisplayedView();
     }
 }

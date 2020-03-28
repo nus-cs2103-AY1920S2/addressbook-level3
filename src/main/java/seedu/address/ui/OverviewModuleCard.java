@@ -4,13 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 
 /**
- * An UI component that displays information of a {@code Profile}.
+ * An UI component that displays information of a {@code Module} in Overview Panel.
  */
 public class OverviewModuleCard extends UiPart<Region> {
 

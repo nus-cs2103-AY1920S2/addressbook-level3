@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -12,14 +11,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.course.module.Module;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list modules.
  */
 public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
-    @FXML
-    private Label yearSem;
     @FXML
     private ListView<Module> moduleListView;
 

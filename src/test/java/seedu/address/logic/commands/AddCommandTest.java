@@ -41,6 +41,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.AcceptedCourses;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Description;
 import seedu.address.model.profile.course.module.ModularCredits;
@@ -299,6 +301,37 @@ public class AddCommandTest {
 
         @Override
         public void deleteModuleDeadlines(ModuleCode mc) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Object> getDisplayedView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDisplayedView(ObservableList<Module> toDisplay) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void setDisplayedView(Profile toDisplay) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDisplayedView(Module toDisplay) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDisplayedView(Course toDisplay) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDisplayedView(CourseFocusArea toDisplay) {
             throw new AssertionError("This method should not be called.");
         }
 

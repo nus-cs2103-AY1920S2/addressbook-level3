@@ -15,8 +15,7 @@
         <Label fx:id="preReqs" text="\$prereqs" wrapText="true" styleClass="module_others"></Label>
         <Label fx:id="modularCredits" text="\$mcs" wrapText="true" styleClass="module_others"></Label>
         <Label fx:id="description" text="\$description" wrapText="true" styleClass="module_others"></Label>
-<!--        <Label fx:id="semesterData" text="\$description"></Label>-->
-
+        <Label fx:id="semData" text="\$semData" wrapText="true" styleClass="module_others"></Label>
 
     </VBox>
 

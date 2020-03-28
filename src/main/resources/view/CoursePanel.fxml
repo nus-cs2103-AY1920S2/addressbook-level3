@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="coursePanel" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="6">
+        <padding>
+            <Insets top="10" bottom="10" left="10" right="10"/>
+        </padding>
+        <Label fx:id="courseName" text="\$courseName" wrapText="true" styleClass="module_code"></Label>
+
+        <HBox minWidth="520" spacing="10">
+            <ListView fx:id="requirements" styleClass="pane-with-border" VBox.vgrow="ALWAYS" minWidth="320"/>
+            <ListView fx:id="focusAreas" styleClass="pane-with-border" VBox.vgrow="ALWAYS" minWidth="320"/>
+        </HBox>
+
+
+    </VBox>
+
+</VBox>

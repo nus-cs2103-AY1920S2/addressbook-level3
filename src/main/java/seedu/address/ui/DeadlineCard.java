@@ -45,7 +45,6 @@ public class DeadlineCard extends UiPart<Region> {
     public DeadlineCard(Deadline deadline) {
         super(FXML);
         this.deadline = deadline;
-//                <Pane styleClass="tag-tracked" GridPane.columnIndex="0" minWidth="10" maxWidth="10"/>
         for (Module mod : Profile.getCurModules().getModuleList()) {
             if (mod.getModuleCode().moduleCode.equals(deadline.getModuleCode())) {
                 int tag = mod.getTag();

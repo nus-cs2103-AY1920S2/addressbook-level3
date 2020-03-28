@@ -11,9 +11,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
+
 
 /**
  * Displays details requested by user.
@@ -28,11 +30,11 @@ public class ShowCommand extends Command {
             + "Module, with " + PREFIX_MODULE + "MODULE_CODE\n"
             + "Modules taken in a semester, with " + PREFIX_CURRENT_SEMESTER + "SEMESTER_NUMBER\n";
 
-    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are: \n%1$s";
-    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are:\n%1$s";
-    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are:\n%1$s";
+    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are: ";
+    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are: ";
+    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are:\n";
     public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in semester are shown: "
-            +"\nEnter [show m/MODULE_CODE] to find out more about the module";
+            + "\nEnter [show m/MODULE_CODE] to find out more about the module";
     public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
 
 
@@ -54,22 +56,26 @@ public class ShowCommand extends Command {
 
         String message = "";
         if (toShow instanceof Course) {
+            model.setDisplayedView((Course) toShow);
             message = MESSAGE_SUCCESS_COURSE; //no panel yet
         } else if (toShow instanceof CourseFocusArea) {
+            model.setDisplayedView((CourseFocusArea) toShow);
             message = MESSAGE_SUCCESS_FOCUS_AREA; //no panel yet
         } else if (toShow instanceof Module) {
+            model.setDisplayedView((Module) toShow);
             message = MESSAGE_SUCCESS_MODULE;
         } else if (toShow instanceof ModuleList) { //show module list
             FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
             model.setDisplayedView(filteredModules); //show module list
             message = MESSAGE_SUCCESS_MODULE_LIST;
-            return new CommandResult(String.format(message, toShow), true);
         } else if (toShow instanceof Name) { //show overview
+            Profile profile = model.getFirstProfile();
+            model.setDisplayedView(profile);
             message = MESSAGE_SUCCESS_NAME;
-            return new CommandResult(String.format(message, toShow), true);
+            System.out.println(String.format(message, toShow));
         }
 
-        return new CommandResult(String.format(message, toShow), false);
+        return new CommandResult(String.format(message, toShow), true);
     }
 
     @Override

@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.CourseName;

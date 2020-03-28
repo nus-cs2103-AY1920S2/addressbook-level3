@@ -52,6 +52,14 @@ public class Course {
         return new CourseName(courseName);
     }
 
+    public List<CourseRequirement> getCourseRequirement() {
+        return this.requirements;
+    }
+
+    public List<CourseFocusArea> getCourseFocusArea() {
+        return this.focusAreas;
+    }
+
     public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
         requireNonNull(focusAreaName);
         for (CourseFocusArea courseFocusArea : focusAreas) {

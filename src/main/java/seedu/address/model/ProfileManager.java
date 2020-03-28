@@ -18,6 +18,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -34,7 +36,8 @@ public class ProfileManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
     private SortedList<Deadline> sortedDeadlines;
-    private Optional<ObservableList<Module>> displayedView = Optional.empty();
+
+    private Optional<Object> displayedView = Optional.empty();
 
     public ProfileManager(ProfileList profileList, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -197,18 +200,42 @@ public class ProfileManager implements Model {
         }
     }
 
-    //To change main panel according to show command
+    //MODULE LIST VIEW
     @Override
-    public Optional<ObservableList<Module>> getDisplayedView() { //getModuleListDisplayedView()
-        return displayedView;
+    public Optional<Object> getDisplayedView() {
+        return this.displayedView;
     }
 
     @Override
     public void setDisplayedView(ObservableList<Module> toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
+
+
+    @Override
+    public void setDisplayedView(Profile toDisplay) {
+        this.displayedView = Optional.ofNullable(toDisplay);
+    }
+
+    @Override
+    public void setDisplayedView(Module toDisplay) {
+        this.displayedView = Optional.ofNullable(toDisplay);
+    }
+
+    @Override
+    public void setDisplayedView(Course toDisplay) {
+        this.displayedView = Optional.ofNullable(toDisplay);
+    }
+
+    @Override
+    public void setDisplayedView(CourseFocusArea toDisplay) {
+        this.displayedView = Optional.ofNullable(toDisplay);
+    }
 }
 
+/**
+ * Comparator to compare date and time in Deadline object.
+ */
 class DateTimeComparator implements Comparator<Deadline> {
 
     @Override

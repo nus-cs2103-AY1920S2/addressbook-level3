@@ -1,9 +1,7 @@
 package seedu.address.ui;
 
-import java.awt.*;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,12 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,7 +25,7 @@ import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the overview of a Profile.
  */
 public class OverviewPanel extends UiPart<Region> {
     private static final String FXML = "OverviewPanel.fxml";
@@ -97,8 +97,8 @@ public class OverviewPanel extends UiPart<Region> {
 
             listTitle.setRotate(-90);
             listTitle.setWrapText(true);
-            listTitle.setStyle("-fx-font-family: \"Segoe Pro Display\"; -fx-font-weight: bold; " +
-                    "-fx-font-size: 15; -fx-text-fill: #f7c4bb;");
+            listTitle.setStyle("-fx-font-family: \"Segoe Pro Display\"; -fx-font-weight: bold; "
+                    + "-fx-font-size: 15; -fx-text-fill: #f7c4bb;");
 
             temp.getChildren().addAll(new Group(listTitle));
 

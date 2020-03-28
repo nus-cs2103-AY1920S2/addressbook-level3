@@ -57,4 +57,12 @@ public class CourseFocusArea {
     }
     // Implement getter setter
     // equals
+
+    public List<ModuleCode> getPrimaries() {
+        return this.primaries;
+    }
+
+    public List<ModuleCode> getElectives() {
+        return this.electives;
+    }
 }
