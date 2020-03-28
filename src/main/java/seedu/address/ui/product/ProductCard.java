@@ -15,6 +15,11 @@ public class ProductCard extends UiPart<Region> {
 
     private static final String FXML = "ProductListCard.fxml";
 
+    private static final String RED_BAR = "red-bar";
+    private static final String ORANGE_BAR = "orange-bar";
+    private static final String YELLOW_BAR = "yellow-bar";
+    private static final String GREEN_BAR = "green-bar";
+    private static final String[] barColorStyleClasses = { RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR };
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -45,11 +50,6 @@ public class ProductCard extends UiPart<Region> {
     private ProgressBar progressBar;
 
     private double progress;
-    private static final String RED_BAR    = "red-bar";
-    private static final String ORANGE_BAR = "orange-bar";
-    private static final String YELLOW_BAR = "yellow-bar";
-    private static final String GREEN_BAR  = "green-bar";
-    private static final String[] barColorStyleClasses = { RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR };
 
     public ProductCard(Product product, int displayedIndex) {
         super(FXML);
@@ -64,6 +64,9 @@ public class ProductCard extends UiPart<Region> {
         updateProgressBar();
     }
 
+    /**
+     * Updates the progress bar to visualise remaining stock quantity.
+     */
     private void updateProgressBar() {
         progress = product.getQuantity().value / (product.getThreshold().getDouble() * 5);
         progressBar.setProgress(progress);

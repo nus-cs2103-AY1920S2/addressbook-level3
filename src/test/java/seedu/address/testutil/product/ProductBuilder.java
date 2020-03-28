@@ -18,9 +18,9 @@ public class ProductBuilder {
     public static final String DEFAULT_DESCRIPTION = "Abacus";
     public static final String DEFAULT_COSTPRICE = "0";
     public static final String DEFAULT_PRICE = "12";
-    public static final String DEFAULT_QUANTITY = "1";
+    public static final String DEFAULT_QUANTITY = "100";
     public static final String DEFAULT_SALES = "100000";
-    public static final String DEFAULT_THRESHOLD = "Null";
+    public static final String DEFAULT_THRESHOLD = "20";
 
     private UUID id;
     private Description description;
