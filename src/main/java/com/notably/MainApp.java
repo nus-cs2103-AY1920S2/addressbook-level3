@@ -22,8 +22,8 @@ import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
-import com.notably.storage.AddressBookStorage;
-import com.notably.storage.JsonAddressBookStorage;
+import com.notably.storage.BlockStorage;
+import com.notably.storage.JsonBlockStorage;
 import com.notably.storage.JsonUserPrefsStorage;
 import com.notably.storage.Storage;
 import com.notably.storage.StorageManager;
@@ -59,7 +59,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        BlockStorage addressBookStorage = new JsonBlockStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);

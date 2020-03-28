@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import com.notably.commons.LogsCenter;
 import com.notably.commons.exceptions.DataConversionException;
-import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.ReadOnlyUserPrefs;
 import com.notably.model.UserPrefs;
+import com.notably.model.block.BlockTree;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Block data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private BlockStorage blockStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(BlockStorage blockStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.blockStorage = blockStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Block methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getBlockTreeFilePath() {
+        return blockStorage.getBlockTreeFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<BlockTree> readBlockTree() throws DataConversionException, IOException {
+        return readBlockTree(blockStorage.getBlockTreeFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<BlockTree> readBlockTree(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return blockStorage.readBlockTree(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveBlockTree(BlockTree blockTree) throws IOException {
+        saveBlockTree(blockTree, blockStorage.getBlockTreeFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveBlockTree(BlockTree blockTree, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        blockStorage.saveBlockTree(blockTree, filePath);
     }
 
 }
