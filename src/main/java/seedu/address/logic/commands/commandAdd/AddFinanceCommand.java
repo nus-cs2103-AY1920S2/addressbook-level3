@@ -124,7 +124,7 @@ public class AddFinanceCommand extends AddCommand {
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = course.getAmount();
-          assignedStudents = course.getAssignedStudents().toString();
+          assignedStudents = course.getAssignedStudentsID().toString();
           foundCourse = true;
           break;
         }
@@ -173,7 +173,7 @@ public class AddFinanceCommand extends AddCommand {
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = new Amount("-" + course.getAmount().toString());
-          assignedTeacher = course.getAssignedTeacher().toString();
+          assignedTeacher = course.getAssignedTeacherID().toString();
           foundCourse = true;
           break;
         }

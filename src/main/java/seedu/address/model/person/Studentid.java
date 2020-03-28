@@ -31,12 +31,12 @@ public class Studentid extends ID{
    * Returns true if a given string is a valid studentid number.
    */
   public static boolean isValidStudentid(String test) {
-    return test.matches(VALIDATION_REGEX) || test.equals("");
+    return test.matches(VALIDATION_REGEX)  || test.equals("");
   }
 
   @Override
   public String toString() {
-    return value;
+    return  value ;
   }
 
   @Override

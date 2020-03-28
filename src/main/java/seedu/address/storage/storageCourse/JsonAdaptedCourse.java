@@ -17,6 +17,8 @@ import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Studentid;
+import seedu.address.model.person.Teacherid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,7 +32,7 @@ class JsonAdaptedCourse {
   private final String courseID;
   private final String amount;
   private final String assignedTeacher;
-  private final String assignedStudents;
+  private final List<JsonCourseAdaptedID> assignedStudentsID = new ArrayList<>();
   private final List<JsonCourseAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -41,13 +43,16 @@ class JsonAdaptedCourse {
       @JsonProperty("courseID") String courseID,
       @JsonProperty("amount") String amount,
       @JsonProperty("assignedTeacher") String assignedTeacher,
-      @JsonProperty("assignedStudents") String assignedStudents,
+      @JsonProperty("assignedStudentIDs") List<JsonCourseAdaptedID> assignedStudentsID,
       @JsonProperty("tagged") List<JsonCourseAdaptedTag> tagged) {
     this.name = name;
     this.courseID = courseID;
     this.amount = amount;
+
     this.assignedTeacher = assignedTeacher;
-    this.assignedStudents = assignedStudents;
+    if (assignedStudentsID != null) {
+      this.assignedStudentsID.addAll(assignedStudentsID);
+    }
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -60,8 +65,11 @@ class JsonAdaptedCourse {
     name = source.getName().fullName;
     courseID = source.getId().value;
     amount = source.getAmount().value;
-    assignedTeacher = source.getAssignedTeacher().toString();
-    assignedStudents = source.getAssignedStudents().toString();
+    assignedTeacher = source.getAssignedTeacherID().toString();
+    assignedStudentsID.addAll(source.getAssignedStudentsID().stream()
+        .map(JsonCourseAdaptedID::new)
+        .collect(Collectors.toList()));
+
     tagged.addAll(source.getTags().stream()
         .map(JsonCourseAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -74,11 +82,6 @@ class JsonAdaptedCourse {
    *                               Assignment.
    */
   public Course toModelType() throws IllegalValueException {
-    final List<Tag> CourseTags = new ArrayList<>();
-    for (JsonCourseAdaptedTag tag : tagged) {
-      CourseTags.add(tag.toModelType());
-    }
-
     if (name == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -113,19 +116,24 @@ class JsonAdaptedCourse {
     if (!AssignedTeacher.isValidAssignedTeacher(assignedTeacher)) {
       throw new IllegalValueException(AssignedTeacher.MESSAGE_CONSTRAINTS);
     }
-    final AssignedTeacher modelAssignedTeacher = new AssignedTeacher(assignedTeacher);
+    final Teacherid modelAssignedTeacher = new Teacherid(assignedTeacher);
 
-    if (assignedStudents == null) {
-      throw new IllegalValueException(
-          String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignedStudents.class.getSimpleName()));
+    final List<ID> CourseAssignedStudentsID = new ArrayList<>();
+    for (JsonCourseAdaptedID id : assignedStudentsID) {
+      CourseAssignedStudentsID.add(id.toModelType());
     }
-    if (!AssignedStudents.isValidAssignedStudents(assignedStudents)) {
-      throw new IllegalValueException(AssignedStudents.MESSAGE_CONSTRAINTS);
-    }
-    final AssignedStudents modelAssignedStudents = new AssignedStudents(assignedStudents);
+    final Set<ID> modelAssignedStudentsID = new HashSet<ID>(CourseAssignedStudentsID);
 
+    final List<Tag> CourseTags = new ArrayList<>();
+    for (JsonCourseAdaptedTag tag : tagged) {
+      CourseTags.add(tag.toModelType());
+    }
     final Set<Tag> modelTags = new HashSet<>(CourseTags);
-    return new Course(modelName, modelId, modelAmount, modelAssignedTeacher, modelAssignedStudents, modelTags);
+    Course courseReadFromFile = new Course(modelName, modelId, modelAmount, modelTags);
+    courseReadFromFile.assignTeacher(modelAssignedTeacher);
+    courseReadFromFile.addStudents(modelAssignedStudentsID);
+
+    return courseReadFromFile;
   }
 
 }

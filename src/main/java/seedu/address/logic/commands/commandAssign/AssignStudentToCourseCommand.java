@@ -91,8 +91,8 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
         } else {
-            Courseid courseid = ParserUtil.parseCourseid(courseidString);
-            Studentid studentid = ParserUtil.parseStudentid(studentidString);
+            ID courseid = ParserUtil.parseCourseid(courseidString);
+            ID studentid = ParserUtil.parseStudentid(studentidString);
             foundCourse.addStudent(studentid);
             foundStudent.addCourse(courseid);
             foundCourse.processAssignedStudents(

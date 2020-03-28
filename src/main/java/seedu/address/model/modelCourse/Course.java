@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
@@ -36,28 +37,35 @@ public class Course extends ModelObject {
   private final ID id;
   private final Set<Tag> tags = new HashSet<>();
   private Amount amount;
-  private AssignedTeacher assignedTeacher;
-  private AssignedStudents assignedStudents;
+  private ID assignedTeacherID;
+  private Set<ID> assignedStudentsID = new HashSet<>();
   private String assignedTeacherWithName;
   private String assignedStudentsWithNames;
   /**
    * Every field must be present and not null.
    */
-  public Course(Name name, ID id, Amount amount, AssignedTeacher assignedTeacher, AssignedStudents assignedStudents, Set<Tag> tags) {
-    requireAllNonNull(name, id, tags);
+  public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
+    requireAllNonNull(name, id, amount, tags);
     this.name = name;
     this.id = id;
     this.amount = amount;
-    this.assignedTeacher = assignedTeacher;
-    this.assignedStudents = assignedStudents;
     this.tags.addAll(tags);
     this.assignedTeacherWithName = "None";
     this.assignedStudentsWithNames = "None";
-
-    if (assignedStudents == null){
-      this.assignedStudents = new AssignedStudents("");
-    }
   }
+
+  public Course(Name name, ID id, Amount amount, ID assignedTeacherID, Set<ID> assignedStudentsID, Set<Tag> tags) {
+    requireAllNonNull(name, id, amount, tags);
+    this.name = name;
+    this.id = id;
+    this.amount = amount;
+    this.assignedTeacherID = assignedTeacherID;
+    this.assignedStudentsID.addAll(assignedStudentsID);
+    this.tags.addAll(tags);
+    this.assignedTeacherWithName = "None";
+    this.assignedStudentsWithNames = "None";
+  }
+
 
   public Name getName() {
     return name;
@@ -71,25 +79,29 @@ public class Course extends ModelObject {
     return amount;
   }
 
-  public AssignedTeacher getAssignedTeacher() {
-    return assignedTeacher;
+  public ID getAssignedTeacherID() {
+    return assignedTeacherID;
   }
 
 
-  public void addStudent(Studentid studentid) {
-    if (this.assignedStudents.toString().equals("")) {
-      this.assignedStudents = new AssignedStudents(studentid.toString());
-    } else {
-      this.assignedStudents = new AssignedStudents(this.assignedStudents.toString() + "," + studentid.toString());
-    }
+  public void addStudent(ID studentid) {
+    this.assignedStudentsID.add(studentid);
   }
 
-  public void assignTeacher(Teacherid teacherid) {
-    this.assignedTeacher = new AssignedTeacher(teacherid.toString());
+  public void addStudents(Set<ID> studentid) {
+    this.assignedStudentsID.addAll(studentid);
   }
 
-  public AssignedStudents getAssignedStudents(){
-    return this.assignedStudents;
+  public void assignTeacher(ID teacherid) {
+    this.assignedTeacherID =teacherid;
+  }
+
+  /**
+   * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
+   * modification is attempted.
+   */
+  public Set<ID> getAssignedStudentsID() {
+    return Collections.unmodifiableSet(assignedStudentsID);
   }
 
   public String getAssignedStudentsWithNames(){
@@ -105,7 +117,7 @@ public class Course extends ModelObject {
   public void processAssignedTeacher(FilteredList<Teacher> filteredTeachers){
     this.assignedTeacherWithName = "None";
     for (Teacher teacher : filteredTeachers) {
-      if (teacher.getID().toString().equals(this.assignedTeacher.toString())) {
+      if (teacher.getID().toString().equals(this.assignedTeacherID.toString())) {
         this.assignedTeacherWithName = teacher.getName().toString() + "(" + teacher.getID().toString() + ")";
       }
     }
@@ -115,19 +127,19 @@ public class Course extends ModelObject {
    * Converts internal list of assigned student IDs into the name with the IDs
    */
   public void processAssignedStudents(FilteredList<Student> filteredStudents){
-    String[] studentids = this.assignedStudents.toString().split(",");
     StringBuilder s = new StringBuilder();
-    for (int i = 0; i < studentids.length; i++) {
-      String studentid = studentids[i];
+    int count = 1;
+    for (ID studentid : assignedStudentsID) {
       for (Student student : filteredStudents) {
-        if (studentid.equals(student.getID().toString())) {
+        if (studentid.toString().equals(student.getID().toString())) {
           String comma = ", ";
-          if (i == studentids.length - 1) {
+          if (count == assignedStudentsID.size()) {
             comma = "";
           }
-          s.append(student.getName().toString()).append("(").append(studentid).append(")").append(comma);
+          s.append(student.getName()).append(studentid).append(comma);
         }
       }
+      count++;
     }
 
     if (s.toString().equals("")) {
@@ -180,8 +192,8 @@ public class Course extends ModelObject {
     return otherCourse.getName().equals(getName())
         && otherCourse.getId().equals(getId())
         && otherCourse.getAmount().equals(getAmount())
-        && otherCourse.getAssignedTeacher().equals(getAssignedTeacher())
-        && otherCourse.getAssignedStudents().equals(getAssignedStudents())
+        && otherCourse.getAssignedTeacherID().equals(getAssignedTeacherID())
+        && otherCourse.getAssignedStudentsID().equals(getAssignedStudentsID())
         && otherCourse.getTags().equals(getTags());
   }
 
@@ -200,7 +212,11 @@ public class Course extends ModelObject {
         .append(" Amount: ")
         .append(getAmount())
         .append(" AssignedTeacher: ")
-        .append(getAssignedTeacher())
+        .append(getAssignedTeacherID())
+        .append(" Assigned Students: ");
+    getAssignedStudentsID().forEach(builder::append);
+
+    builder
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

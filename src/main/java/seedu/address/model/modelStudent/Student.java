@@ -93,7 +93,7 @@ public class Student extends ModelObject {
     return Collections.unmodifiableSet(tags);
   }
 
-  public void addCourse(Courseid courseid) {
+  public void addCourse(ID courseid) {
     if (this.assignedCourses.toString().equals("")) {
       this.assignedCourses = new AssignedCourses(courseid.toString());
     } else {
