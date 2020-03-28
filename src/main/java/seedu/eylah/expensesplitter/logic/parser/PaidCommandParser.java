@@ -1,7 +1,10 @@
 package seedu.eylah.expensesplitter.logic.parser;
 
+import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
 import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 
@@ -19,10 +22,20 @@ public class PaidCommandParser implements Parser<PaidCommand> {
     @Override
     public PaidCommand parse(String args) throws ParseException {
 
+        Index indexOfPerson;
+        String[] helper = args.trim().split(" ");
+        try {
+            indexOfPerson = ParserUtil.parseIndex(helper[0]);
+
+        } catch (ParseException ex) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PaidCommand.MESSAGE_USAGE), ex);
+        }
+
         //System.out.println(args.trim().split(" ")[0]);
         //System.out.println(args.substring(2).trim());
-        int index = Integer.valueOf(args.trim().split(" ")[0]);
-        String amountPaid = args.substring(2).trim();
+        //int index = Integer.valueOf(args.trim().split(" ")[0]);
+        String amountPaid = helper[1];
 
 
         /*
@@ -38,8 +51,7 @@ public class PaidCommandParser implements Parser<PaidCommand> {
 
          */
 
-
-        return new PaidCommand(index - 1, amountPaid);
+        return new PaidCommand(indexOfPerson, amountPaid);
     }
 
     /**
