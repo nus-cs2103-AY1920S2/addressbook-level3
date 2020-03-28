@@ -259,7 +259,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isSwitchTab()) {
-                handleGoto(parseTab(commandText)); //TODO: parser
+                handleGoto(parseTab(commandText));
             }
 
             if (commandResult.isExit()) {
