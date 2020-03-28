@@ -197,17 +197,17 @@ public class ModelManager implements Model {
 
     @Override
     public void sortModulesAlphabetically() {
-        taTracker.sortModulesAlphabetically();;
+        taTracker.sortModulesAlphabetically();
     }
 
     @Override
     public void sortModulesByRatingAscending() {
-        taTracker.sortModulesByRatingAscending();;
+        taTracker.sortModulesByRatingAscending();
     }
 
     @Override
     public void sortModulesByRatingDescending() {
-        taTracker.sortModulesByRatingDescending();;
+        taTracker.sortModulesByRatingDescending();
     }
 
 

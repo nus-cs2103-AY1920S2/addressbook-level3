@@ -38,13 +38,13 @@ public class UniqueStudentList implements Iterable<Student> {
     private Comparator<Student> ratingAscending = new Comparator<Student>() {
         @Override
         public int compare(Student student, Student other) {
-            return (student.getRating().toString()).compareTo(other.getName().toString());
+            return (student.getRating().toString()).compareTo(other.getRating().toString());
         }
     };
     private Comparator<Student> ratingDescending = new Comparator<Student>() {
         @Override
         public int compare(Student student, Student other) {
-            return (-1) * (student.getRating().toString()).compareTo(other.getName().toString());
+            return (-1) * (student.getRating().toString()).compareTo(other.getRating().toString());
         }
     };
 
