@@ -202,7 +202,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Removes the current displayed view
         if (displayedView != null) {
-            System.out.println(" SAVE ME ");
             mainPanelPlaceholder.getChildren().remove(displayedView);
         }
 
@@ -210,7 +209,6 @@ public class MainWindow extends UiPart<Stage> {
 
         //return to home page
         if (displayedView.isEmpty()) {
-            System.out.println("TESTTTTT");
             mainPanelPlaceholder.getChildren().add(home.getRoot());
         } else if (displayedView.get() instanceof FilteredList) {
             moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
