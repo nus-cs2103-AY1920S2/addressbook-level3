@@ -13,10 +13,19 @@ import tatracker.model.session.UniqueSessionList;
  * Represents a module in the TAT.
  */
 public class Module {
+    private static final String DEFAULT_NAME = "";
+
     private final String identifier;
     private final String name;
     private final UniqueGroupList groups;
     private final UniqueSessionList doneSessions;
+
+    /**
+     * Constructs a module object with no name.
+     */
+    public Module(String identifier) {
+        this(identifier, DEFAULT_NAME);
+    }
 
     /**
      * Constructs a module object.
@@ -65,18 +74,18 @@ public class Module {
     }
 
     /**
+     * Adds a group to the list of module groups.
+     */
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
+
+    /**
      * Returns the group in this module with the given group id.
      * Returns null if no such group exists.
      */
     public Group getGroup(String groupId) {
         return groups.get(groupId);
-    }
-
-    /**
-     * Adds a group to the list of module groups.
-     */
-    public void addGroup(Group group) {
-        groups.add(group);
     }
 
     /**

@@ -169,11 +169,6 @@ public class ModelManager implements Model {
 
     // ======== Module Methods =================================================
 
-    public Module getModule(Module module) {
-        requireNonNull(module);
-        return taTracker.getModule(module);
-    }
-
     public Module getModule(String code) {
         requireNonNull(code);
         Module module = new Module(code, null);
