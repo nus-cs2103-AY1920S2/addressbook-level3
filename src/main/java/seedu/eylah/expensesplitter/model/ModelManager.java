@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
+import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
 
 /**
@@ -19,25 +21,38 @@ public class ModelManager implements Model {
     private final Receipt receipt;
     private final UserPrefs userPrefs;
     private final PersonAmountBook personAmountBook;
+    private final ReceiptBook receiptBook;
 
     /**
      * Initializes a ModelManager with a new Receipt (and data from existing storage).
      */
-    public ModelManager(Receipt receipt, ReadOnlyPersonAmountBook personAmountBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyReceiptBook receiptBook, ReadOnlyPersonAmountBook personAmountBook,
+            ReadOnlyUserPrefs userPrefs) {
         super();
 
         logger.fine("Initializing new receipt (and data from existing storage");
 
         this.personAmountBook = new PersonAmountBook(personAmountBook);
-        this.receipt = receipt;
+        this.receiptBook = new ReceiptBook(receiptBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
+        if (receiptBook.isContainSingleReceipt()) {
+            this.receipt = receiptBook.getReceiptList().get(0); // current only have 1 receipt in receipt book.
+        } else {
+            this.receipt = new Receipt();
+        }
     }
 
     public ModelManager() {
-        this(new Receipt(), new PersonAmountBook(), new UserPrefs());
+        this(new ReceiptBook(), new PersonAmountBook(), new UserPrefs());
     }
 
     //=========== Receipt ===============================================================================
+
+    @Override
+    public ReadOnlyReceiptBook getReceiptBook() {
+        return receiptBook;
+    }
 
     /**
      * Adds an entry to the receipt.
@@ -70,9 +85,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void listReceipt() {
-
         System.out.println(receipt.toString());
-
     }
 
     /**

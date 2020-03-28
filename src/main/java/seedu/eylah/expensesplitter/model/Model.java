@@ -2,6 +2,7 @@ package seedu.eylah.expensesplitter.model;
 
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
 
 /**
  * The API of the Model component.
@@ -27,10 +28,11 @@ public interface Model {
     /** Returns the PersonAmountBook */
     ReadOnlyPersonAmountBook getPersonAmountBook();
 
+    /** Returns the ReceiptBook */
+    ReadOnlyReceiptBook getReceiptBook();
+
     /**
      * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.
-     *
-     *
      */
     void paidPerson(Person person, String amountPaid);
 

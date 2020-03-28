@@ -10,7 +10,7 @@ import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
 import seedu.eylah.expensesplitter.logic.parser.ExpenseSplitterParser;
 import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.model.Model;
-import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
+import seedu.eylah.expensesplitter.storage.Storage;
 
 /**
  * Logic Manager for ExpenseSpliter.
@@ -20,10 +20,10 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final PersonAmountStorage storage;
+    private final Storage storage;
     private final ExpenseSplitterParser expenseSplitterParser;
 
-    public LogicManager(Model model, PersonAmountStorage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         expenseSplitterParser = new ExpenseSplitterParser();
@@ -38,13 +38,12 @@ public class LogicManager implements Logic {
 
         commandResult = command.execute(model);
 
-
         try {
             storage.savePersonAmountBook(model.getPersonAmountBook());
+            storage.saveReceiptBook(model.getReceiptBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
 
 
         return commandResult;
