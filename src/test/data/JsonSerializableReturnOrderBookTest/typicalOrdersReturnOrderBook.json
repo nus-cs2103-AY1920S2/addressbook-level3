@@ -1,5 +1,5 @@
 {
-  "_comment": "Delino save file which contains the same Order values as in TypicalOrders#getTypicalOrderBook()",
+  "_comment": "Delino save file which contains the same Return Order values as in TypicalReturnOrders#getTypicalReturnOrderBook()",
   "returnOrders" : [ {
     "tid": "A93939393",
     "name" : "Alice Pauline",
