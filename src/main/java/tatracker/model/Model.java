@@ -107,6 +107,14 @@ public interface Model {
      */
     void updateFilteredSessionList(Predicate<Session> predicate);
 
+    // ======== Done Session Methods =================================================
+
+    /**
+     * Adds the given session to the list of completed sessions.
+     * The session must exist in the ta-tracker.
+     */
+    void addDoneSession(Session session);
+
     // ======== Module Methods =================================================
 
     /**
@@ -118,6 +126,15 @@ public interface Model {
      * Returns the TaTracker module with the given module identifier.
      */
     Module getModule(String moduleId);
+
+    /** Returns an unmodifiable view of the filtered done session list */
+    ObservableList<Session> getFilteredDoneSessionList();
+
+    /**
+     * Updates the filter of the filtered done session list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDoneSessionList(Predicate<Session> predicate);
 
     /**
      * Returns true if a given module with the same identity as {@code module}
@@ -164,6 +181,12 @@ public interface Model {
     boolean hasGroup(Group group, Module targetModule);
 
     /**
+     * Adds a group.
+     * @param group group to be added.
+     */
+    void addGroup(Group group);
+
+    /**
      * Adds the given group into a module that is in TaTracker.
      * @param group group to add, which must not already exist in the TaTracker module.
      * @param targetModule module to add {@code group} into, which must exist in the TaTracker.
@@ -186,7 +209,14 @@ public interface Model {
      */
     void setGroup(Group target, Group editedGroup, Module targetModule);
 
-    // TODO: Group filter methods.
+    /** Returns an unmodifiable view of the filtered group list */
+    ObservableList<Group> getFilteredGroupList();
+
+    /**
+     * Updates the filter of the filtered group list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredGroupList(Predicate<Group> predicate);
 
     // ======== Student Methods ================================================
 

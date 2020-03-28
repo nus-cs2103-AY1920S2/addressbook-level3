@@ -65,6 +65,7 @@ public class AddGroupCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_GROUP);
         }
 
+        model.addGroup(toAdd);
         module.addGroup(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
