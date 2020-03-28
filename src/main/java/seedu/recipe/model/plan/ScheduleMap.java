@@ -1,10 +1,14 @@
 package seedu.recipe.model.plan;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -13,11 +17,14 @@ import seedu.recipe.model.recipe.Recipe;
  *
  * The value of each key (date) currently holds only one recipe.
  */
-public class PlannedRecipeMap {
+public class ScheduleMap {
 
     private TreeMap<Date, List<Recipe>> plannedRecipes;
+    private ObservableMap<Date, List<Recipe>> observableMap = FXCollections.observableMap(plannedRecipes);
+    private ObservableMap<Date, List<Recipe>> unmodifiableObservableMap = FXCollections
+            .unmodifiableObservableMap(observableMap);
 
-    public PlannedRecipeMap() {
+    public ScheduleMap() {
         plannedRecipes = new TreeMap<>();
     }
 
@@ -25,13 +32,23 @@ public class PlannedRecipeMap {
      * Adds a planned recipe to a date in the tree.
      */
     public void add(Recipe toAdd, Date date) {
-        if (plannedRecipes.containsKey(date)) {
-            plannedRecipes.get(date).add(toAdd);
+        requireNonNull(toAdd);
+        requireNonNull(date);
+        if (observableMap.containsKey(date)) {
+            observableMap.get(date).add(toAdd);
         } else {
             List<Recipe> recipes = new ArrayList<Recipe>();
             recipes.add(toAdd);
-            plannedRecipes.put(date, recipes);
+            observableMap.put(date, recipes);
         }
+    }
+
+    /**
+     * Removes all recipes planned on the specified day.
+     * If date does not exist, throw an error todo
+     */
+    public void remove(Date date) {
+        plannedRecipes.remove(date);
     }
 
     /**
@@ -60,12 +77,7 @@ public class PlannedRecipeMap {
         return plannedRecipes.higherKey(date) != null;
     }
 
-    /**
-     * Removes all recipes planned on the specified day.
-     */
-    public void remove(Date date) {
-        plannedRecipes.remove(date);
-    }
+
 
     /**
      * Gets all recipes that were planned.
@@ -81,5 +93,12 @@ public class PlannedRecipeMap {
             recipes.forEach(recipe -> sb.append(recipe));
         }
         return sb.toString();
+    }
+
+    /**
+     * Returns the map as an unmodifiable {@code ObservableMap}.
+     */
+    public ObservableMap<Date, List<Recipe>> asUnmodifiableObservableMap() {
+        return unmodifiableObservableMap;
     }
 }

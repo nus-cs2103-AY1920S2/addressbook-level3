@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.model.plan.Date;
-import seedu.recipe.model.plan.PlannedRecipeMap;
+import seedu.recipe.model.plan.ScheduleMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -25,7 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private final PlannedRecipeMap plannedRecipes;
+    private final ScheduleMap plannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -40,7 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        plannedRecipes = new PlannedRecipeMap(); // todo: planned recipes cant be saved currently
+        plannedRecipes = new ScheduleMap(); // todo: planned recipes cant be saved currently
     }
 
     public ModelManager() {

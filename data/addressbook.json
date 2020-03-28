@@ -175,5 +175,16 @@
     "others" : [ ],
     "steps" : [ ],
     "goals" : [ ]
+  }, {
+    "name" : "new recipe",
+    "time" : "15",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "30.0g,  one vege" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ ]
   } ]
 }
