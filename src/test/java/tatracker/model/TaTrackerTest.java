@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
@@ -89,8 +90,10 @@ public class TaTrackerTest {
      */
     private static class TaTrackerStub implements ReadOnlyTaTracker {
         private final ObservableList<Session> sessions = FXCollections.observableArrayList();
+        private final ObservableList<Session> doneSessions = FXCollections.observableArrayList();
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
         private final ObservableList<Student> students = FXCollections.observableArrayList();
+        private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
         TaTrackerStub(Collection<Student> students) {
             this.students.setAll(students);
@@ -107,8 +110,18 @@ public class TaTrackerTest {
         }
 
         @Override
+        public ObservableList<Session> getDoneSessionList() {
+            return doneSessions;
+        }
+
+        @Override
         public ObservableList<Module> getModuleList() {
             return modules;
+        }
+
+        @Override
+        public ObservableList<Group> getGroupList() {
+            return groups;
         }
     }
 

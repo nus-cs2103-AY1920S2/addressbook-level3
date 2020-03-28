@@ -32,7 +32,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
+    private GroupListPanel groupListPanel;
+    private ModuleListPanel moduleListPanel;
+    private ModuleListPanelCopy moduleListPanelCopy;
     private SessionListPanel sessionListPanel;
+    private ClaimsListPanel claimsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -46,7 +50,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane studentListPanelPlaceholder;
 
     @FXML
+    private StackPane groupListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholderCopy;
+
+    @FXML
     private StackPane sessionListPanelPlaceholder;
+
+    @FXML
+    private StackPane claimsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -114,8 +130,20 @@ public class MainWindow extends UiPart<Stage> {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        moduleListPanelCopy = new ModuleListPanelCopy(logic.getFilteredModuleList());
+        moduleListPanelPlaceholderCopy.getChildren().add(moduleListPanelCopy.getRoot());
+
         sessionListPanel = new SessionListPanel(logic.getFilteredSessionList());
         sessionListPanelPlaceholder.getChildren().add(sessionListPanel.getRoot());
+
+        claimsListPanel = new ClaimsListPanel(logic.getFilteredDoneSessionList());
+        claimsListPanelPlaceholder.getChildren().add(claimsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -171,8 +199,24 @@ public class MainWindow extends UiPart<Stage> {
         return studentListPanel;
     }
 
+    public GroupListPanel getGroupListPanel() {
+        return groupListPanel;
+    }
+
+    public ModuleListPanel getModuleListPanel() {
+        return moduleListPanel;
+    }
+
+    public ModuleListPanelCopy getModuleListPanelCopy() {
+        return moduleListPanelCopy;
+    }
+
     public SessionListPanel getSessionListPanel() {
         return sessionListPanel;
+    }
+
+    public ClaimsListPanel getClaimsListPanel() {
+        return claimsListPanel;
     }
 
     /**

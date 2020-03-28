@@ -15,7 +15,7 @@ import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
-import tatracker.model.group.Group.GroupType;
+import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
 
 /**

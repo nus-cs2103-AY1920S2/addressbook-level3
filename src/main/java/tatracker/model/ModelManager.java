@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -26,8 +27,14 @@ public class ModelManager implements Model {
     private final TaTracker taTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Session> filteredSessions;
+    private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Student> filteredStudents;
+    private final FilteredList<Group> filteredGroups;
     private final FilteredList<Module> filteredModules;
+
+    private long totalHours = 0;
+    private int rate;
+    private long totalEarnings;
 
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
@@ -40,9 +47,11 @@ public class ModelManager implements Model {
 
         this.taTracker = new TaTracker(taTracker);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
-        this.filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
-        this.filteredModules = new FilteredList<>(this.taTracker.getModuleList());
+        filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
+        filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
+        filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
+        filteredGroups = new FilteredList<>(this.taTracker.getGroupList());
+        filteredModules = new FilteredList<>(this.taTracker.getModuleList());
     }
 
     public ModelManager() {
@@ -132,6 +141,32 @@ public class ModelManager implements Model {
         filteredSessions.setPredicate(predicate);
     }
 
+    // ======== Done Session Methods =================================================
+
+    @Override
+    public void addDoneSession(Session session) {
+        taTracker.addDoneSession(session);
+        totalHours += Math.ceil(Duration.between
+                (session.getEndDateTime(), session.getStartDateTime())
+                .toHours());
+        updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Session} backed by the internal list of
+     * {@code versionedTaTracker}
+     */
+    @Override
+    public ObservableList<Session> getFilteredDoneSessionList() {
+        return filteredDoneSessions;
+    }
+
+    @Override
+    public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+        requireNonNull(predicate);
+        filteredDoneSessions.setPredicate(predicate);
+    }
+
     // ======== Module Methods =================================================
 
     public Module getModule(String code) {
@@ -185,6 +220,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addGroup(Group group) {
+        requireNonNull(group);
+        taTracker.addGroup(group);
+    }
+
+    @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
         throw new UnsupportedOperationException("Method under construction");
@@ -206,12 +247,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return filteredGroups;
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
+        requireNonNull(predicate);
+        filteredGroups.setPredicate(predicate);
+    }
+
+    // ======== Student Methods ================================================
+
+    @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return taTracker.hasStudent(student);
     }
-
-    // ======== Student Methods ================================================
 
     @Override
     public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {

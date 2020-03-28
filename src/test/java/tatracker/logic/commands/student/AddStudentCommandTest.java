@@ -155,6 +155,21 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void addDoneSession(Session session) {
+
+        }
+
+        @Override
+        public ObservableList<Session> getFilteredDoneSessionList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+
+        }
+
+        @Override
         public boolean hasModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -195,6 +210,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void addGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addGroup(Group group, Module targetModule) {
 
         }
@@ -207,6 +227,16 @@ public class AddStudentCommandTest {
         @Override
         public void setGroup(Group target, Group editedGroup, Module targetModule) {
 
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredGroupList(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
