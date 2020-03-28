@@ -29,6 +29,8 @@ public interface Model {
   Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
   Predicate<CourseStudent> PREDICATE_SHOW_ALL_COURSESTUDENTS = unused -> true;
 
+  String COURSE_ENTITY_NAME = "course";
+
   /**
    * Returns the user prefs.
    */

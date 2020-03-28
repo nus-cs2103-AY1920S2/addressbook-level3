@@ -111,10 +111,7 @@ public class Course extends ModelObject {
     }
 
     Course otherCourse = (Course) other;
-    return otherCourse.getName().equals(getName())
-        && otherCourse.getId().equals(getId())
-        && otherCourse.getAmount().equals(getAmount())
-        && otherCourse.getTags().equals(getTags());
+    return otherCourse.getId().equals(getId());
   }
 
   @Override

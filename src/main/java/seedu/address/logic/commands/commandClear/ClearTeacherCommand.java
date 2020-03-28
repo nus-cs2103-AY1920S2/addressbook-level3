@@ -10,10 +10,10 @@ import seedu.address.model.modelStaff.StaffAddressBook;
 /**
  * Clears the address book.
  */
-public class ClearTeacherCommand extends Command {
+public class ClearTeacherCommand extends ClearCommand {
 
-  public static final String COMMAND_WORD = "clear-teacher";
-  public static final String MESSAGE_SUCCESS = "Teacher Address book has been cleared!";
+  public static final String COMMAND_WORD = "clear-teachers";
+  public static final String MESSAGE_SUCCESS = "All teachers in the database has been removed!";
 
 
   @Override

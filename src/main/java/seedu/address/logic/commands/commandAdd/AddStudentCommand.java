@@ -43,8 +43,12 @@ public class AddStudentCommand extends AddCommand {
     toAdd = student;
   }
 
+  protected void generateOppositeCommand() {
+
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
     if (model.hasStudent(toAdd)) {
@@ -61,4 +65,6 @@ public class AddStudentCommand extends AddCommand {
         || (other instanceof AddStudentCommand // instanceof handles nulls
         && toAdd.equals(((AddStudentCommand) other).toAdd));
   }
+
+
 }

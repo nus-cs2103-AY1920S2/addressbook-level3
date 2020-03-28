@@ -10,9 +10,9 @@ import seedu.address.model.Model;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListTeacherCommand extends Command {
+public class ListTeacherCommand extends ListCommand {
 
-  public static final String COMMAND_WORD = "list-teacher";
+  public static final String COMMAND_WORD = "list-teachers";
 
   public static final String MESSAGE_SUCCESS = "Listed all teachers";
 
