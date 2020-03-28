@@ -26,8 +26,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * InterviewParser parses the input entered by the client
  * when HireLah! is not in interviewing mode.
  */
-
-
 public class InterviewParser {
     /**
      * Used for initial separation of command word and args.

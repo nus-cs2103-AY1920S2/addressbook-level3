@@ -15,6 +15,7 @@ import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
  * The API of the Model component.
@@ -99,8 +100,11 @@ public interface Model {
     /** Returns the interviewee currently in focus */
     Interviewee getCurrentInterviewee();
 
-    /** Starts an interview with the given interviewee */
-    void startInterview(Interviewee interviewee);
+    /** Returns the transcript of the current interviewee */
+    Transcript getCurrentTranscript();
+
+    /** Starts an interview with the given interviewee. Error if the interviewee has been interviewed. */
+    void startInterview(Interviewee interviewee) throws IllegalActionException ;
 
     /** Gets information about the current Interview Session */
     InterviewSession getInterviewSession();
