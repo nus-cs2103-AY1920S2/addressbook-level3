@@ -70,7 +70,7 @@
                 <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
-            <Tab fx:id="claimsListTab" text="Claim">
+            <Tab fx:id="claimsListTab" text="Claims">
                <content>
                  <SplitPane dividerPositions="0.8">
                    <items>

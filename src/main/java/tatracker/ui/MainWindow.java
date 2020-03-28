@@ -283,7 +283,7 @@ public class MainWindow extends UiPart<Stage> {
      */
 
     private Tab parseTab(String commandText) throws ParseException {
-        switch (commandText.trim()) {
+        switch (commandText.trim().toLowerCase()) {
         case "goto t/student":
             return studentListTab;
 
