@@ -89,12 +89,12 @@ public class SampleDataUtil {
         new Finance(new Name("Renovated Staff Lounge"), new FinanceType("m"),
             new Date("2020-08-20"),
             new Amount("2000"),
-            new Courseid(""), new Studentid(""), new Teacherid(""),
+            new ID(""), new ID(""), new ID(""),
             getTagSet("BLK71", "AirCon")),
         new Finance(new Name("Received Payment From NUS"), new FinanceType("m"),
             new Date("2020-08-21"),
             new Amount("1000"),
-            new Courseid(""), new Studentid(""), new Teacherid(""),
+            new ID(""), new ID(""), new ID(""),
             getTagSet("Contract"))
     };
   }

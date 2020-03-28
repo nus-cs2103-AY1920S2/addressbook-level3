@@ -21,12 +21,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Studentid;
-import seedu.address.model.person.Teacherid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -80,9 +78,9 @@ public class EditFinanceCommand extends Command {
     Date updatedDate = editFinanceDescriptor.getDate().orElse(financeToEdit.getDate());
     FinanceType updatedFinanceType = editFinanceDescriptor.getFinanceType().orElse(financeToEdit.getFinanceType());
     Amount updatedAmount = editFinanceDescriptor.getAmount().orElse(financeToEdit.getAmount());
-    Courseid updatedCourseID = editFinanceDescriptor.getCourseID().orElse(financeToEdit.getCourseID());
-    Studentid updatedStudentiD = editFinanceDescriptor.getStudentID().orElse(financeToEdit.getStudentID());
-    Teacherid updatedTeacherID = editFinanceDescriptor.getTeacherID().orElse(financeToEdit.getTeacherID());
+    ID updatedCourseID = editFinanceDescriptor.getCourseID().orElse(financeToEdit.getCourseID());
+    ID updatedStudentiD = editFinanceDescriptor.getStudentID().orElse(financeToEdit.getStudentID());
+    ID updatedTeacherID = editFinanceDescriptor.getTeacherID().orElse(financeToEdit.getTeacherID());
     Set<Tag> updatedTags = editFinanceDescriptor.getTags().orElse(financeToEdit.getTags());
 
     return new Finance(updatedName, updatedFinanceType, updatedDate, updatedAmount, updatedCourseID, updatedStudentiD, updatedTeacherID, updatedTags);
@@ -137,9 +135,9 @@ public class EditFinanceCommand extends Command {
     private FinanceType financeType;
     private Date date;
     private Amount amount;
-    private Courseid courseid;
-    private Studentid studentid;
-    private Teacherid teacherid;
+    private ID courseid;
+    private ID studentid;
+    private ID teacherid;
     private Set<Tag> tags;
 
     public EditFinanceDescriptor() {
@@ -195,27 +193,27 @@ public class EditFinanceCommand extends Command {
       this.amount = amount;
     }
 
-    public Optional<Courseid> getCourseID() {
+    public Optional<ID> getCourseID() {
       return Optional.ofNullable(courseid);
     }
 
-    public void setCourseID(Courseid courseID) {
+    public void setCourseID(ID courseID) {
       this.courseid = courseID;
     }
 
-    public Optional<Studentid> getStudentID() {
+    public Optional<ID> getStudentID() {
       return Optional.ofNullable(studentid);
     }
 
-    public void setStudentID(Studentid studentID) {
+    public void setStudentID(ID studentID) {
       this.studentid = studentID;
     }
 
-    public Optional<Teacherid> getTeacherID() {
+    public Optional<ID> getTeacherID() {
       return Optional.ofNullable(teacherid);
     }
 
-    public void setTeacherID(Teacherid teacherID) {
+    public void setTeacherID(ID teacherID) {
       this.teacherid = teacherID;
     }
 

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.commandAssign;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 
 import javafx.collections.transformation.FilteredList;
@@ -12,20 +11,14 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.person.Courseid;
-import seedu.address.model.person.ID;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
 
-import java.util.List;
 import java.util.Set;
-import seedu.address.model.person.Studentid;
-import seedu.address.model.person.Teacherid;
+import seedu.address.model.person.ID;
 
 /** This class will be in charge of assigning stuff (e.g students, teacher, etc) to a course. */
 public class AssignTeacherToCourseCommand extends AssignCommandBase {
@@ -83,8 +76,8 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         } else if (!teacherExists) {
             throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
         } else {
-            Courseid courseid = ParserUtil.parseCourseid(courseidString);
-            Teacherid teacherid = ParserUtil.parseTeacherid(teacheridString);
+            ID courseid = ParserUtil.parseCourseid(courseidString);
+            ID teacherid = ParserUtil.parseTeacherid(teacheridString);
             foundCourse.assignTeacher(teacherid);
             foundTeacher.addCourse(courseid);
 

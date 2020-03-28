@@ -10,7 +10,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.AssignedCourses;
-import seedu.address.model.person.Courseid;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;

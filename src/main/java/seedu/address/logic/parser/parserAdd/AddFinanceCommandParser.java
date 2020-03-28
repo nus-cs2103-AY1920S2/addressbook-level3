@@ -17,19 +17,15 @@ import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Studentid;
-import seedu.address.model.person.Teacherid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -73,9 +69,9 @@ public class AddFinanceCommandParser extends AddCommandParser {
     FinanceType financeType = ParserUtil.parseFinanceType(argMultimap.getValue(PREFIX_FINANCETYPE).get());
     Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-    Courseid emptyCourseid = new Courseid("");
-    Studentid emptyStudentid = new Studentid("");
-    Teacherid emptyTeacherid = new Teacherid("");
+    ID emptyCourseid = new ID("");
+    ID emptyStudentid = new ID("");
+    ID emptyTeacherid = new ID("");
 
     switch (financeType.toString()) {
       case "m": {
@@ -108,9 +104,9 @@ public class AddFinanceCommandParser extends AddCommandParser {
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
 
-        Courseid courseid = ParserUtil
+        ID courseid = ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
-        Studentid studentid = ParserUtil
+        ID studentid = ParserUtil
             .parseStudentid(argMultimap.getValue(PREFIX_STUDENTID).get());
         Name name = new Name("None");
         Amount amount = new Amount("999");
@@ -130,9 +126,9 @@ public class AddFinanceCommandParser extends AddCommandParser {
               String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
 
-        Courseid courseid = ParserUtil
+        ID courseid = ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
-        Teacherid teacherid = ParserUtil
+        ID teacherid = ParserUtil
             .parseTeacherid(argMultimap.getValue(PREFIX_TEACHERID).get());
         Name name = new Name("None");
         Amount amount = new Amount("999");

@@ -2,10 +2,8 @@ package seedu.address.model.modelCourse;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
@@ -13,16 +11,8 @@ import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.AssignedCourses;
-import seedu.address.model.person.AssignedStudents;
-import seedu.address.model.person.AssignedTeacher;
-import seedu.address.model.person.Courseid;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Studentid;
-import seedu.address.model.person.Teacherid;
-import seedu.address.model.person.exceptions.CourseNotFoundException;
-import seedu.address.model.person.exceptions.DuplicateCourseException;
 import seedu.address.model.tag.Tag;
 
 /**

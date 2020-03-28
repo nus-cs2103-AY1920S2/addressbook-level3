@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,11 +18,9 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.Courseid;
 import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Studentid;
-import seedu.address.model.person.Teacherid;
 
 /**
  * Adds a finance to the address book.
@@ -110,8 +107,8 @@ public class AddFinanceCommand extends AddCommand {
 
     FinanceType financeType = toAdd.getFinanceType();
     if (financeType.toString().equals("cs")) {
-      Courseid courseid = toAdd.getCourseID();
-      Studentid studentid = toAdd.getStudentID();
+      ID courseid = toAdd.getCourseID();
+      ID studentid = toAdd.getStudentID();
       Amount amount = new Amount("999");
       String courseName = "";
       String studentName = "";
@@ -160,8 +157,8 @@ public class AddFinanceCommand extends AddCommand {
       toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
           toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getTeacherID(), toAdd.getTags());
     } else if (financeType.toString().equals("ct")) {
-      Courseid courseid = toAdd.getCourseID();
-      Teacherid teacherid = toAdd.getTeacherID();
+      ID courseid = toAdd.getCourseID();
+      ID teacherid = toAdd.getTeacherID();
       Amount amount = new Amount("999");
       String courseName = "";
       String teacherName = "";

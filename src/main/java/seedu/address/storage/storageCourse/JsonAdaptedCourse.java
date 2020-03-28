@@ -10,15 +10,10 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.AssignedCourses;
-import seedu.address.model.person.AssignedStudents;
 import seedu.address.model.person.AssignedTeacher;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Studentid;
-import seedu.address.model.person.Teacherid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -116,13 +111,13 @@ class JsonAdaptedCourse {
     if (!AssignedTeacher.isValidAssignedTeacher(assignedTeacher)) {
       throw new IllegalValueException(AssignedTeacher.MESSAGE_CONSTRAINTS);
     }
-    final Teacherid modelAssignedTeacher = new Teacherid(assignedTeacher);
+    final ID modelAssignedTeacher = new ID(assignedTeacher);
 
     final List<ID> CourseAssignedStudentsID = new ArrayList<>();
     for (JsonCourseAdaptedID id : assignedStudentsID) {
       CourseAssignedStudentsID.add(id.toModelType());
     }
-    final Set<ID> modelAssignedStudentsID = new HashSet<ID>(CourseAssignedStudentsID);
+    final Set<ID> modelAssignedStudentsID = new HashSet<>(CourseAssignedStudentsID);
 
     final List<Tag> CourseTags = new ArrayList<>();
     for (JsonCourseAdaptedTag tag : tagged) {
@@ -130,6 +125,7 @@ class JsonAdaptedCourse {
     }
     final Set<Tag> modelTags = new HashSet<>(CourseTags);
     Course courseReadFromFile = new Course(modelName, modelId, modelAmount, modelTags);
+
     courseReadFromFile.assignTeacher(modelAssignedTeacher);
     courseReadFromFile.addStudents(modelAssignedStudentsID);
 
