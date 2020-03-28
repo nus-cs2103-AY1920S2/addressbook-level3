@@ -2,20 +2,6 @@ package tatracker.logic.commands.session;
 
 // import static java.util.Objects.requireNonNull;
 
-import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
@@ -26,6 +12,20 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
+import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
 /**
  * Edits the details of an existing session in TAT.
@@ -42,7 +42,7 @@ public class EditSessionCommand extends Command {
             + "[" + PREFIX_ENDTIME + "END] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
+            + "[" + PREFIX_MODULE + "MOD_CODE] "
             + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
             + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 2 "

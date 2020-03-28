@@ -1,17 +1,10 @@
 package tatracker.logic.parser;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import tatracker.logic.commands.ClearCommand;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.DeleteCommand;
 import tatracker.logic.commands.ExitCommand;
-import tatracker.logic.commands.FindCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
 import tatracker.logic.commands.student.EditStudentCommand;
@@ -21,6 +14,12 @@ import tatracker.logic.parser.module.ModuleCommandParser;
 import tatracker.logic.parser.session.SessionCommandParser;
 import tatracker.logic.parser.student.EditStudentCommandParser;
 import tatracker.logic.parser.student.StudentCommandParser;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
@@ -66,9 +65,6 @@ public class TaTrackerParser {
 
         case EditStudentCommand.COMMAND_WORD:
             return new EditStudentCommandParser().parse(arguments);
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
