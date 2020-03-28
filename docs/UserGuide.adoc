@@ -113,7 +113,13 @@ they can easily enter it into the TSS claims form at the end of the semester.
 ** Must end with an letter
 ** Must have 7 numbers in between the start and end letters
 * `MOD_CODE` - the unique code for the module
+* `NAME` - based on the command, could mean student name or module name
 * `GROUP_CODE` - the unique code for the group
+* `GROUP_TYPE` - Could be one of the following:
+** tutorial
+** lab
+** recitations
+** other
 * `SESSION_TYPE` - Could be one of the following:
 ** consult - Consultations
 ** tutorial - Tutorials
@@ -142,11 +148,79 @@ Format: `exit`
 
 === Student View
 
+[[AddModule]]
 ==== Adding a Module `module add`
+
+Adds a new module to the TA-Tracker.
+
+When a new module is created, the Student View will show the groups
+and students of the new module (which will initially be empty).
+
+Format: `module add m/MOD_CODE n/NAME`
+
+NOTE: No module with the given module code should exist in the TA-Tracker before adding
+a new module.
+
+====
+Examples:
+
+* `module add m/CS2103 n/Software Engineering`
++
+Adds a module with the module code CS2103 and name 'Software Engineering'
+to the TA-Tracker.
+====
 
 ==== Deleting a Module `module delete`
 
+Deletes a module from the TA-Tracker.
+
+When a module is deleted, the student view will go back to its default
+setting and show the details for the first module and first group in the
+TA-Tracker. If there is no module and no group, it will show empty lists.
+
+When a module is deleted, all groups, students and sessions associated with
+the module will also be deleted.
+
+Format: `module delete m/MOD_CODE`
+
+NOTE: A module with the given module code must exist in the TA-Tracker before
+you delete it.
+
+====
+Examples:
+
+* `module delete m/CS2103`
++
+Deletes the module with the module code CS2103 from the TA-Tracker.
+Adds a module with the module code CS2103 and name 'Software Engineering'
+====
+
 ==== Adding a Group `group add`
+
+Adds a new group to the TA-Tracker.
+
+When a new group is created, the Student View will show the groups of the module
+this group belongs to and students of the new group (which will initially be an empty list).
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* No group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `module add m/CS2103 n/Software Engineering`
++
+Adds a module with the module code CS2103 and name 'Software Engineering'
+to the TA-Tracker.
+====
 
 ==== Deleting a Group `group delete`
 
@@ -220,25 +294,6 @@ Adds the student with the matriculation number A0123456J
 and the name Alice.
 ====
 
-[[AddModule]]
-===== Adding a module: `add c/module`
-Adds a new module group into the program.
-The `CATEGORY_UID` for this command is the module code.
-
-Format: `add c/module m/MOD_CODE`
-
-[NOTE]
-====
-[horizontal]
-`MOD_CODE`:: see Common Parameters
-====
-====
-Examples:
-
-* `add c/module m/CS2103T`
-+
-Adds the CS2103T module group.
-====
 
 [[AddSessionType]]
 ===== Adding a type of session: `add c/SESSION_TYPE`
