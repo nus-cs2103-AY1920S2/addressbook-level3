@@ -15,7 +15,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.workout.Workout;
 
 /**
- * Deletes a exerciseSet identified using it's displayed index from the exerciseSet list.
+ * Deletes a workout exercise identified using its displayed index from the workout exercise list.
  */
 public class DeleteCommand extends WorkoutExerciseCommand {
     public static final String COMMAND_WORD = "delete";
@@ -25,6 +25,10 @@ public class DeleteCommand extends WorkoutExerciseCommand {
     private final Index workoutId;
     private final Index exerciseId;
 
+    /**
+     * @param workoutId of the workout in the filtered workout list to edit
+     * @param exerciseId of the exercise in the workout exercise list to delete
+     */
     public DeleteCommand(Index workoutId, Index exerciseId) {
         requireNonNull(workoutId);
         requireNonNull(exerciseId);
@@ -62,6 +66,6 @@ public class DeleteCommand extends WorkoutExerciseCommand {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && workoutId.equals(((DeleteCommand) other).workoutId)
-                && exerciseId.equals(((DeleteCommand) other).exerciseId); // state check
+                && exerciseId.equals(((DeleteCommand) other).exerciseId)); // state check
     }
 }
