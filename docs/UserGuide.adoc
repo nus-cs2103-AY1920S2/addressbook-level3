@@ -69,7 +69,7 @@ Format: `help`
 === Adding a person: `(ab)add`
 
 Adds a person to the address book +
-Format: `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
+Format: `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [g/ORGANIZATION] [b/BIRTHDAY]`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -78,7 +78,7 @@ Fields inside square brackets are optional.
 
 Examples:
 
-* `(ab)add n/Akshay`
+* `(ab)add n/Akshay g/NUS`
 * `(ab)add n/Joel HH e/joel@yahoo.com.sg p/12345678 o/NUS a/Pasir Ris St. 71, Blk 123, #01-79`
 * `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 b/02-12 o/NUS`
 * `(ab)add n/ Benjamin t/CS2103`
@@ -111,6 +111,7 @@ Format: `(ab)edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/O
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Remarks cannot be edited using this command.
 * The name in 'n/' and phone number in 'p/' should not be empty.
 ****
 
@@ -349,6 +350,7 @@ Format: `(ab)delete INDEX`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the last sorted LIST function (see 2.4).
+* All remarks and tags will be deleted if specified.
 ****
 
 Examples:

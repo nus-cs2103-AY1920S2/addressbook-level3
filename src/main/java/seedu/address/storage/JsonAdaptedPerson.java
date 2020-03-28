@@ -15,6 +15,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final ArrayList<JsonAdaptedRemark> remark = new ArrayList<>();
     private final String birthday;
+    private final String organization;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String index;
 
@@ -40,15 +42,21 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") ArrayList<JsonAdaptedRemark> remark, @JsonProperty("birthday") String birthday,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("index") String index) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("address") String address,
+                             @JsonProperty("remark") ArrayList<JsonAdaptedRemark> remark,
+                             @JsonProperty("birthday") String birthday,
+                             @JsonProperty("organization") String organization,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("index") String index) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
+        this.organization = organization;
         if (remark != null) {
             this.remark.addAll(remark);
         }
@@ -67,6 +75,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         birthday = source.getBirthday().birthday;
+        organization = source.getOrganization().organization;
         remark.addAll(source.getRemark().stream()
                 .map(JsonAdaptedRemark::new)
                 .collect(Collectors.toList()));
@@ -133,10 +142,16 @@ class JsonAdaptedPerson {
         }
         final Birthday modelBirthday = new Birthday(birthday);
 
+        if (organization == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Organization.class.getSimpleName()));
+        }
+        final Organization modelOrganization = new Organization(organization);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Index modelIndex = new Index(Integer.parseInt(index));
         return new Person(modelName, modelPhone, modelEmail, modelAddress,
-                modelRemark, modelBirthday, modelTags, modelIndex);
+                modelRemark, modelBirthday, modelOrganization, modelTags, modelIndex);
     }
 
 }

@@ -9,6 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -26,6 +27,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "She likes aardvarks.";
     public static final String DEFAULT_BIRTHDAY = "01-15";
+    public static final String DEFAULT_ORGANIZATION = "SOC Comp Club";
     public static final int DEFAULT_INDEX = 0;
 
     private Name name;
@@ -34,6 +36,7 @@ public class PersonBuilder {
     private Address address;
     private ArrayList<Remark> remark;
     private Birthday birthday;
+    private Organization organization;
     private Set<Tag> tags;
     private Index index;
 
@@ -45,6 +48,7 @@ public class PersonBuilder {
         remark = new ArrayList<>();
         remark.add(new Remark(DEFAULT_REMARK));
         birthday = new Birthday(DEFAULT_BIRTHDAY);
+        organization = new Organization(DEFAULT_ORGANIZATION);
         tags = new HashSet<>();
         index = new Index(DEFAULT_INDEX);
     }
@@ -60,6 +64,7 @@ public class PersonBuilder {
         remark = new ArrayList<>();
         remark.addAll(personToCopy.getRemark());
         birthday = personToCopy.getBirthday();
+        organization = personToCopy.getOrganization();
         tags = new HashSet<>(personToCopy.getTags());
         index = personToCopy.getIndex();
     }
@@ -121,6 +126,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Organization} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withOrganization(String organization) {
+        this.organization = new Organization(organization);
+        return this;
+    }
+
+    /**
      * Sets the {@code Index} of the {@code Person} that we are building.
      */
     public PersonBuilder withIndex(String index) {
@@ -129,7 +142,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, remark, birthday, tags, index);
+        return new Person(name, phone, email, address, remark, birthday, organization, tags, index);
     }
 
 }
