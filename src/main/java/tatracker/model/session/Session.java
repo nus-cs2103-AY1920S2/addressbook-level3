@@ -10,17 +10,18 @@ import java.time.format.DateTimeFormatter;
  * A session is any claimable duty that has a start and end time.
  * Guarantees: Date, Start Time and End Time are not null.
  */
-public class Session {
+public class Session implements Comparable<Session> {
 
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private boolean isRecurring;
     private String moduleCode;
     private SessionType type;
     private String description;
+    private boolean isRecurring;
+    private boolean isDone;
 
     /**
      * Default Constructor for Session.
@@ -33,6 +34,7 @@ public class Session {
         this.moduleCode = "";
         this.type = SessionType.OTHER;
         this.description = "Default Session";
+        this.isDone = false;
     }
 
     /**
@@ -52,6 +54,7 @@ public class Session {
         this.moduleCode = moduleCode;
         this.type = type;
         this.description = description;
+        this.isDone = false;
     }
 
     /**
@@ -102,6 +105,20 @@ public class Session {
      */
     public boolean getIsRecurring() {
         return this.isRecurring;
+    }
+
+    /**
+     * Returns true if session is already completed; false otherwise.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Marks the session as done.
+     */
+    public void done() {
+        this.isDone = true;
     }
 
     /**
@@ -187,5 +204,13 @@ public class Session {
 
         Session otherSession = (Session) other;
         return isSameSession(otherSession);
+    }
+
+    /**
+     * Compare Sessions based on the session that will occur first.
+     */
+    @Override
+    public int compareTo(Session other) {
+        return getDate().compareTo(other.getDate());
     }
 }

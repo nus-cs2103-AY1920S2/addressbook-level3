@@ -103,7 +103,7 @@ class JsonAdaptedStudent {
         final Matric modelMatric = new Matric(matric);
 
         final Set<Tag> modelTags = new HashSet<>(studentTags);
-        return new Student(modelName, modelPhone, modelEmail, modelMatric, modelTags);
+        return new Student(modelMatric, modelName, modelPhone, modelEmail, modelTags);
     }
 
 }

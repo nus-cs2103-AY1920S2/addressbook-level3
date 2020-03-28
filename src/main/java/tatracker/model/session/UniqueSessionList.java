@@ -3,6 +3,7 @@ package tatracker.model.session;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -131,6 +132,10 @@ public class UniqueSessionList implements Iterable<Session> {
      * Returns the session list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Session> asUnmodifiableObservableList() {
+
+        FXCollections.sort(internalList, Comparator.comparing(Session::getDate)
+                                                    .thenComparing(Session::getStartDateTime)
+                                                    .thenComparing(Session::getEndDateTime));
         return internalUnmodifiableList;
     }
 

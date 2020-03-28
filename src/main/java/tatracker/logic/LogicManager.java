@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.commands.Command;
@@ -14,6 +15,8 @@ import tatracker.logic.parser.TaTrackerParser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.ReadOnlyTaTracker;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 import tatracker.storage.Storage;
@@ -32,7 +35,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        taTrackerParser = new TaTrackerParser();
+        this.taTrackerParser = new TaTrackerParser();
     }
 
     @Override
@@ -58,16 +61,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Student> getFilteredStudentList() {
-        return model.getFilteredStudentList();
-    }
-
-    @Override
-    public ObservableList<Session> getFilteredSessionList() {
-        return model.getFilteredSessionList();
-    }
-
-    @Override
     public Path getTaTrackerFilePath() {
         return model.getTaTrackerFilePath();
     }
@@ -80,5 +73,30 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Session> getFilteredSessionList() {
+        return model.getFilteredSessionList();
+    }
+
+    @Override
+    public ObservableList<Session> getFilteredDoneSessionList() {
+        return model.getFilteredDoneSessionList();
+    }
+
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return model.getFilteredModuleList();
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return model.getFilteredGroupList();
+    }
+
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return model.getFilteredStudentList();
     }
 }

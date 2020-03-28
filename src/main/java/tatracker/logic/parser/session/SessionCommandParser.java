@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.HelpCommand;
+import tatracker.logic.commands.session.DoneSessionCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -48,6 +49,9 @@ public class SessionCommandParser {
 
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);
+
+        case DoneSessionCommand.COMMAND_WORD_DONE:
+            return new DoneSessionCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

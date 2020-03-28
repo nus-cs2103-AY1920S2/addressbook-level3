@@ -100,7 +100,7 @@ public class EditCommand extends Command {
         Matric updatedMatric = editStudentDescriptor.getMatric().orElse(studentToEdit.getMatric());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedName, updatedPhone, updatedEmail, updatedMatric, updatedTags);
+        return new Student(updatedMatric, updatedName, updatedPhone, updatedEmail, updatedTags);
     }
 
     @Override
