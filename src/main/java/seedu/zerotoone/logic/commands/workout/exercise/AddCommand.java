@@ -11,7 +11,7 @@ import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.logic.commands.workout.exercise.ExerciseCommand;
+import seedu.zerotoone.logic.commands.workout.exercise.WorkoutExerciseCommand;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.workout.Workout;
@@ -19,7 +19,7 @@ import seedu.zerotoone.model.workout.Workout;
 /**
  * Edits the details of an existing exercise in the exercise list.
  */
-public class AddCommand extends ExerciseCommand {
+public class AddCommand extends WorkoutExerciseCommand {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = "Usage: exercise set add WORKOUT_ID EXERCISE_ID";
     public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Added workout exercise: %1$s";
