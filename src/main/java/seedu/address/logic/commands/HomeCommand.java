@@ -23,6 +23,7 @@ public class HomeCommand extends Command {
         }
 
         model.setDisplayedView((Profile) null);
+        System.out.println("HELLOOOOO");
         return new CommandResult(MESSAGE, false, false, true);
     }
 }

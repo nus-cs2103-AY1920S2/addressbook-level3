@@ -51,6 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private IndividualModulePanel individualModulePanel;
     private CoursePanel coursePanel;
     private FocusAreaPanel focusAreaPanel;
+    private WelcomeView homePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -200,13 +201,17 @@ public class MainWindow extends UiPart<Stage> {
         Profile profile = logic.getProfileList().getProfileList().get(0);
 
         // Removes the current displayed view
-        if (moduleListPanel != null) {
-            mainPanelPlaceholder.getChildren().remove(moduleListPanel.getRoot());
+        if (displayedView != null) {
+            System.out.println(" SAVE ME ");
+            mainPanelPlaceholder.getChildren().remove(displayedView);
         }
+
+        WelcomeView home = new WelcomeView();
 
         //return to home page
         if (displayedView.isEmpty()) {
-            return;
+            System.out.println("TESTTTTT");
+            mainPanelPlaceholder.getChildren().add(home.getRoot());
         } else if (displayedView.get() instanceof FilteredList) {
             moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
             mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());

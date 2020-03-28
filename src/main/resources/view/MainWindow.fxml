@@ -67,7 +67,7 @@
 
 
 
-    <!--Arrange profile panel, maine panel and deadline panel side-by-side-->
+    <!--Arrange main panel and deadline panel side-by-side-->
           <SplitPane dividerPositions="0.4" VBox.vgrow="ALWAYS">
 
     <!--Main result-->

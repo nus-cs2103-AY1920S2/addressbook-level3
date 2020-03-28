@@ -121,7 +121,6 @@ public class Profile {
     }
 
     public List<Deadline> getDeadlines() {
-        System.out.println(moduleHash.keySet());
         ModuleList modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
         List<Deadline> deadlineList = new ArrayList<>();
         for (Module module: modules) {

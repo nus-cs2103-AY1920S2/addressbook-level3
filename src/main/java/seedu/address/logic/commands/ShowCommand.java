@@ -30,9 +30,9 @@ public class ShowCommand extends Command {
             + "Module, with " + PREFIX_MODULE + "MODULE_CODE\n"
             + "Modules taken in a semester, with " + PREFIX_CURRENT_SEMESTER + "SEMESTER_NUMBER\n";
 
-    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are: ";
-    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are: ";
-    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are:\n";
+    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are show below: ";
+    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are shown below: ";
+    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are show below:";
     public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in semester are shown: "
             + "\nEnter [show m/MODULE_CODE] to find out more about the module";
     public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
@@ -72,7 +72,6 @@ public class ShowCommand extends Command {
             Profile profile = model.getFirstProfile();
             model.setDisplayedView(profile);
             message = MESSAGE_SUCCESS_NAME;
-            System.out.println(String.format(message, toShow));
         }
 
         return new CommandResult(String.format(message, toShow), true);

@@ -58,11 +58,33 @@ public class CourseFocusArea {
     // Implement getter setter
     // equals
 
-    public List<ModuleCode> getPrimaries() {
+    public String getPrimaries() {
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (ModuleCode mc : primaries) {
+            sb.append(i + ". ");
+            sb.append(mc.toString() + "\n");
+            i++;
+        }
+        return sb.toString();
+    }
+
+    public String getElectives() {
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (ModuleCode mc : electives) {
+            sb.append(i + ". ");
+            sb.append(mc.toString() + "\n");
+            i++;
+        }
+        return sb.toString();
+    }
+
+    public List<ModuleCode> getPrim() {
         return this.primaries;
     }
 
-    public List<ModuleCode> getElectives() {
+    public List<ModuleCode> getElec() {
         return this.electives;
     }
 }

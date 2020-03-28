@@ -6,14 +6,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox fx:id="focusAreaPanel" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+    <VBox fx:id="focusAreaPanel" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="6">
         <padding>
             <Insets top="10" bottom="10" left="10" right="10"/>
         </padding>
         <Label fx:id="focusArea" text="\$focusArea" wrapText="true" styleClass="module_code"></Label>
 
-        <ListView fx:id="primaries" VBox.vgrow="ALWAYS"/>
-        <ListView fx:id="electives" VBox.vgrow="ALWAYS"/>
+        <VBox>
+            <Label text="PRIMARIES" styleClass="title"/>
+            <ListView fx:id="primaries" VBox.vgrow="ALWAYS" styleClass="pane-with-border"/>
+
+        </VBox>
+
+        <VBox>
+            <Label text="ELECTIVES" styleClass="title"/>
+            <ListView fx:id="electives" VBox.vgrow="ALWAYS" styleClass="pane-with-border"/>
+        </VBox>
 
     </VBox>
 

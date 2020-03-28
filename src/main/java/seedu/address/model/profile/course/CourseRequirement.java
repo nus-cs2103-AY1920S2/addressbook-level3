@@ -29,6 +29,39 @@ public class CourseRequirement {
         this.requirementInfo = requirementInfo;
     }
 
+    public String getRequirementName() {
+        return requirementName;
+    }
+
+    public String getModules() {
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (ModuleCode mc : modules) {
+            sb.append(i + ". ");
+            sb.append(mc.toString() + "\n");
+            i++;
+        }
+        return sb.toString();
+    }
+
+    public ModularCredits getModularCredits() {
+        return modularCredits;
+    }
+
+    public String getRequirementInfo() {
+        StringBuilder sb = new StringBuilder();
+        if (requirementInfo != null) {
+            sb.append("\n");
+            for (String str : requirementInfo) {
+                sb.append("\u2022 ");
+                sb.append(str);
+            }
+        } else {
+            sb.append("-");
+        }
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
