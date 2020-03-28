@@ -2,6 +2,8 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import seedu.expensela.commons.core.Messages;
@@ -38,7 +40,11 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTransactionList(predicate);
-        model.setFilter(new Filter(predicate.toString(), null));
+        if (predicate.getClass() == CategoryEqualsKeywordPredicate.class) {
+            model.setFilter(new Filter(predicate.toString(), model.getFilter().getDateMonth()));
+        } else {
+            model.setFilter(new Filter(model.getFilter().getFilterCategoryName(), predicate.toString()));
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
     }

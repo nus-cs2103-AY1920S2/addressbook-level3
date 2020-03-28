@@ -28,4 +28,9 @@ public class DateEqualsKeywordPredicate implements Predicate<Transaction> {
                 && keyword.equals(((DateEqualsKeywordPredicate) other).keyword)); // state check
     }
 
+    @Override
+    public String toString() {
+        return this.keyword.get(0);
+    }
+
 }
