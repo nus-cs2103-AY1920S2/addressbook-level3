@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import com.notably.commons.compiler.tokenizer.Token;
 
 /**
- * TODO: Add Javadoc
+ * Represents a rule that dictates how to convert a single space character into a space {@link Token}.
  */
 public class SpaceRule implements Rule {
     private static final Pattern PATTERN = Pattern.compile("^ ");

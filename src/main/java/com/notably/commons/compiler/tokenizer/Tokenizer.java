@@ -14,7 +14,7 @@ import com.notably.commons.compiler.tokenizer.rule.SpaceRule;
 import com.notably.commons.compiler.tokenizer.rule.TextRule;
 
 /**
- * TODO: Add Javadoc
+ * A class capable of breaking down a plain string into a sequence of {@link Token}s.
  */
 public class Tokenizer {
     private static final List<Rule> RULES = List.of(
@@ -27,7 +27,10 @@ public class Tokenizer {
     );
 
     /**
-     * TODO: Add Javadoc
+     * Breaks down a string input into a list of {@link Token}s.
+     *
+     * @param input A string input
+     * @return A list of {@link Token}s
      */
     public static List<Token> tokenize(String input) {
         String remainingInput = input;

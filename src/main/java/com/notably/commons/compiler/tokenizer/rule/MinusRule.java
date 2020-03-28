@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import com.notably.commons.compiler.tokenizer.Token;
 
 /**
- * TODO: Add Javadoc
+ * Represents a rule that dictates how to convert a minus hash character into a minus {@link Token}.
  */
 public class MinusRule implements Rule {
     private static final Pattern PATTERN = Pattern.compile("^-");

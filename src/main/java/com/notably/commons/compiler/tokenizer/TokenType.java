@@ -1,7 +1,7 @@
 package com.notably.commons.compiler.tokenizer;
 
 /**
- * TODO: Add Javadoc
+ * Represents the possible types of {@link Token}s.
  */
 public enum TokenType {
     MINUS,

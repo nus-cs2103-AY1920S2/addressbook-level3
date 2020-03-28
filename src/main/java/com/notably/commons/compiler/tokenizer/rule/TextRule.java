@@ -8,7 +8,7 @@ import com.notably.commons.compiler.tokenizer.Token;
 import com.notably.commons.compiler.tokenizer.TokenType;
 
 /**
- * TODO: Add Javadoc
+ * Represents a rule that dictates how to convert a bunch of characters into a text {@link Token}.
  */
 public class TextRule implements Rule {
     private static final Pattern PATTERN = Pattern.compile("^([^-# \\r\\n]+)");

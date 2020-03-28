@@ -3,7 +3,7 @@ package com.notably.commons.compiler.tokenizer;
 import java.util.Objects;
 
 /**
- * TODO: Add Javadoc
+ * A representation of a single/a bunch of character(s) in a standalone form.
  */
 public class Token {
     public static final Token MINUS = new Token(TokenType.MINUS, "-");

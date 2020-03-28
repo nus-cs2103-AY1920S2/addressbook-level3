@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 import com.notably.commons.compiler.tokenizer.Token;
 
 /**
- * TODO: Add Javadoc
+ * Represents a rule that dictates how to convert a single carriage return character into a carriage return
+ * {@link Token}.
  */
 public class CarriageReturnRule implements Rule {
     private static final Pattern PATTERN = Pattern.compile("^\\r");
