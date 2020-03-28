@@ -1,5 +1,6 @@
 package tatracker.ui;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,8 +17,13 @@ import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.logic.parser.module.AddModuleCommandParser;
+import tatracker.logic.parser.module.DeleteModuleCommandParser;
+
+import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -26,6 +32,8 @@ import tatracker.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_INVALID_TAB = "Invalid Tab. Enter goto and one of the following tabs:"
+            + " student, session, claims.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -257,7 +265,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isSwitchTab()) {
-                handleGoto(studentListTab); //TODO: parser
+                handleGoto(parseTab(commandText)); //TODO: parser
             }
 
             if (commandResult.isExit()) {
@@ -270,6 +278,22 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    private Tab parseTab(String commandText) throws ParseException {
+        switch (commandText) {
+        case "goto student":
+            return studentListTab;
+
+        case "goto session":
+            return sessionListTab;
+
+        case "goto claims":
+            return claimsListTab;
+
+        default:
+            throw new ParseException(MESSAGE_INVALID_TAB);
         }
     }
 }
