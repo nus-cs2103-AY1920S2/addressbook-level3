@@ -80,7 +80,6 @@ public class Student {
 
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
-                && (otherStudent.getPhone().equals(getPhone()) || otherStudent.getEmail().equals(getEmail()))
                 && otherStudent.getMatric().equals(getMatric());
     }
 
