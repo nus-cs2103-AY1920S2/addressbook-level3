@@ -263,7 +263,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
         requireNonNull(student);
-        return taTracker.hasStudent(student);
+        return taTracker.hasStudent(student, targetGroup, targetModule);
     }
 
     @Override
@@ -275,7 +275,7 @@ public class ModelManager implements Model {
     @Override
     public void addStudent(Student student, Group targetGroup, Module targetModule) {
         requireNonNull(student);
-        taTracker.addStudent(student);
+        taTracker.addStudent(student, targetGroup, targetModule);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
@@ -287,7 +287,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
         requireNonNull(target);
-        taTracker.removeStudent(target);
+        taTracker.deleteStudent(target, targetGroup, targetModule);
     }
 
     @Override
@@ -299,7 +299,7 @@ public class ModelManager implements Model {
     @Override
     public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
         requireAllNonNull(target, editedStudent);
-        taTracker.setStudent(target, editedStudent);
+        taTracker.setStudent(target, editedStudent, targetGroup, targetModule);
     }
 
     /**
@@ -335,6 +335,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return taTracker.equals(other.taTracker)
                 && userPrefs.equals(other.userPrefs)
-                && filteredStudents.equals(other.filteredStudents);
+                && filteredSessions.equals(other.filteredSessions)
+                && filteredModules.equals(other.filteredModules);
     }
 }
