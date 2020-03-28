@@ -12,6 +12,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -27,6 +28,7 @@ public class EditPersonDescriptor {
     private Email email;
     private Address address;
     private Birthday birthday;
+    private Organization organization;
     private ArrayList<Remark> remarks;
     private Set<Tag> tags;
     private Index index;
@@ -43,6 +45,7 @@ public class EditPersonDescriptor {
         setEmail(toCopy.email);
         setAddress(toCopy.address);
         setBirthday(toCopy.birthday);
+        setOrganization(toCopy.organization);
         setRemarks(toCopy.remarks);
         setTags(toCopy.tags);
         setIndex(toCopy.index);
@@ -52,7 +55,7 @@ public class EditPersonDescriptor {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, phone, email, address, remarks, birthday, tags);
+        return CollectionUtil.isAnyNonNull(name, phone, email, address, remarks, birthday, organization, tags);
     }
 
     public void setName(Name name) {
@@ -93,6 +96,14 @@ public class EditPersonDescriptor {
 
     public Optional<Birthday> getBirthday() {
         return Optional.ofNullable(birthday);
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public Optional<Organization> getOrganization() {
+        return Optional.ofNullable(organization);
     }
 
     public Optional<Index> getIndex() {
@@ -149,11 +160,12 @@ public class EditPersonDescriptor {
         Address updatedAddress = getAddress().orElse(personToEdit.getAddress());
         ArrayList<Remark> updatedRemark = getRemarks().orElse(personToEdit.getRemark());
         Birthday updatedBirthday = getBirthday().orElse(personToEdit.getBirthday());
+        Organization updatedOrganization = getOrganization().orElse(personToEdit.getOrganization());
         Set<Tag> updatedTags = getTags().orElse(personToEdit.getTags());
         Index updatedIndex = getIndex().orElse(personToEdit.getIndex());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
-                updatedBirthday, updatedTags, updatedIndex);
+                updatedBirthday, updatedOrganization, updatedTags, updatedIndex);
     }
 
     @Override
@@ -176,6 +188,7 @@ public class EditPersonDescriptor {
                 && getEmail().equals(e.getEmail())
                 && getAddress().equals(e.getAddress())
                 && getBirthday().equals(e.getBirthday())
+                && getOrganization().equals(e.getOrganization())
                 && getRemarks().equals(e.getRemarks())
                 && getTags().equals(e.getTags());
     }
