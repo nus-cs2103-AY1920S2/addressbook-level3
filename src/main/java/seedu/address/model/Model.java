@@ -1,20 +1,10 @@
 package seedu.address.model;
 
-import java.nio.file.Path;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.hirelah.AppPhase;
-import seedu.address.model.hirelah.Attribute;
-import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.InterviewSession;
-import seedu.address.model.hirelah.Interviewee;
-import seedu.address.model.hirelah.IntervieweeList;
-import seedu.address.model.hirelah.Metric;
-import seedu.address.model.hirelah.MetricList;
-import seedu.address.model.hirelah.Question;
-import seedu.address.model.hirelah.QuestionList;
-import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.*;
+
+import java.nio.file.Path;
 
 /**
  * The API of the Model component.
@@ -99,6 +89,9 @@ public interface Model {
     /** Returns the interviewee currently in focus */
     Interviewee getCurrentInterviewee();
 
+    /** Checks whether there is an interviewee on focus at the current state */
+    boolean hasCurrentInterviewee();
+
     /** Starts an interview with the given interviewee */
     void startInterview(Interviewee interviewee);
 
@@ -113,4 +106,5 @@ public interface Model {
 
     /** Checks whether the interviewees, questions and attributes has been finalised */
     boolean isFinalisedInterviewProperties();
+
 }
