@@ -12,10 +12,19 @@ public class Rating {
     public static final String MESSAGE_CONSTRAINTS = "Ratings should be a number"
             + " between 1 (POOR) to 5 (EXCELLENT) inclusive";
 
+    private static final int DEFAULT_VALUE = 3;
+
     private static final int MIN_RATING = 1;
     private static final int MAX_RATING = 5;
 
     public final int value;
+
+    /**
+     * Constructs a default {@code Rating} (The default rating is 3 for AVERAGE).
+     */
+    public Rating() {
+        this.value = DEFAULT_VALUE;
+    }
 
     /**
      * Constructs a {@code Rating}.
