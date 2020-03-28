@@ -23,7 +23,7 @@ public class CommandResult {
     /** The third panel should should display the assignment list. */
     private final boolean assignment;
 
-    /** The third panel should display the upcoming birthdays for the next five days (Including current day). */
+    /** The third panel should display the upcoming birthdays for the next five days (Including today). */
     private final boolean showBirthday;
 
 
@@ -87,12 +87,14 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && showHelp == otherCommandResult.showHelp;
+                && showBirthday == otherCommandResult.showBirthday
+                && get == otherCommandResult.get
+                && assignment == otherCommandResult.assignment;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, assignment, get, showBirthday);
     }
 
 }

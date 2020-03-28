@@ -195,9 +195,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleShowBirthday() {
         personBdayPanel = new PersonListBdayPanel(logic.getBdayList());
+        personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(personBdayPanel.getRoot());
     }
-
 
     /**
      * Executes the command and returns the result.

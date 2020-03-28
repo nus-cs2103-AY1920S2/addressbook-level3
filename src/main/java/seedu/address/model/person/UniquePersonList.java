@@ -9,7 +9,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -150,8 +149,6 @@ public class UniquePersonList implements Iterable<Person> {
         ObservableList<Person> result = FXCollections.observableArrayList();
         LocalDate currDate = LocalDate.now(ZoneId.of("Singapore"));
 
-        System.out.println(currDate);
-
         for (int i = 0; i < internalList.size(); i++) {
             String bDay = internalList.get(i).getBirthday().birthday;
 
@@ -165,16 +162,16 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Checks whether the birthday of the user's contact is within 5 days from the current date.
+     * Checks whether the birthday of the user's contact is in the next 5 days from current date including today.
      * @param bDay Birthday of contact.
      * @param currDate Today's date.
      * @param currDateAfter5Days Date 5 days from today.
-     * @return Returns true if the contact's birthday is within the next 5 days from today.
+     * @return Returns true if the contact's birthday is in the next 5 days from current date, including today.
      * @throws ParseException Thrown when bDay is empty.
      */
-    private boolean withinRange(String bDay, LocalDate currDate, LocalDate currDateAfter5Days) {
+    public boolean withinRange(String bDay, LocalDate currDate, LocalDate currDateAfter5Days) {
         DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
-                .parseDefaulting(ChronoField.YEAR, LocalDate.now(ZoneId.of("Singapore")).getYear())
+            .parseDefaulting(ChronoField.YEAR, LocalDate.now(ZoneId.of("Singapore")).getYear())
             .toFormatter(Locale.ENGLISH);
         LocalDate date = LocalDate.parse(bDay, inputFormat);
 

@@ -216,6 +216,9 @@ Format: `(ab)deletenote INDEX [-l/LINE_NUMBER]`
 * [-k] Delete all lines that contain this keyword
 ****
 
+=== List contacts with birthdays in the next 5 days (current day included): `(ab)birthday`
+Format: `(ab)birthday`
+
 === Obtain gift suggestions for a particular contact using the Birthday Tracker `(coming in v2.0)`
 
 === Adds a new restaurant: `(rt)add`
@@ -273,16 +276,15 @@ Adds a new assignment to your list of assignments and projects. +
 Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 ****
-* DEADLINE must be entered in a yyyymmdd HHMM format.
+* DEADLINE must be entered in a yyyy-mm-dd HH:mm format.
+* DEADLINE cannot be one that has already passed.
 * ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment.
 ****
 
-
 Examples:
 
-* `(st)add t/CS2103 post lecture quiz d/20200211 2359 e/1` +
+* `(st)add t/CS2103 post lecture quiz d/2020-02-11 2359 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
-
 
 === List current assignments: `(st)list`
 

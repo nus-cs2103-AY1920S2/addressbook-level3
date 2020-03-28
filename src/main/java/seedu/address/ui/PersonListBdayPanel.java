@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
 /**
- * Panel containing the list of Persons whose birthday is upcoming (in the next 5 days).
+ * Panel containing the list of Persons whose birthday is upcoming in the next 5 days (including today).
  */
 public class PersonListBdayPanel extends UiPart<Region> {
     private static final String FXML = "personListBdayPanel.fxml";

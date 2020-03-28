@@ -4,6 +4,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Lists all contacts with birthdays that are upcoming in the next five days (including today).
+ */
 public class ShowBirthdayCommand extends Command {
     public static final String COMMAND_WORD = "(ab)birthday";
 
