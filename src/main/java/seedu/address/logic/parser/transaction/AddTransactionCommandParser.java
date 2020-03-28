@@ -19,9 +19,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.DateTime;
-import seedu.address.model.util.Money;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
 /**

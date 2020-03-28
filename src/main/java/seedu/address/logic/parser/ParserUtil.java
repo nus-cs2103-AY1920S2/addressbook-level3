@@ -18,8 +18,8 @@ import seedu.address.model.product.Price;
 import seedu.address.model.statistics.StartEndDate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
-import seedu.address.model.util.Money;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 

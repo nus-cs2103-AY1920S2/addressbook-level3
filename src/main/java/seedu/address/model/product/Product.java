@@ -23,7 +23,7 @@ public class Product {
     private final CostPrice costPrice;
     private final Price price;
     private final Quantity quantity;
-    private final Money sales;
+    private final Money money;
     private final UUID id;
 
     private QuantityThreshold threshold;
@@ -32,13 +32,13 @@ public class Product {
      * Every field must be present and not null.
      */
     public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money sales, QuantityThreshold threshold) {
+                   Money money, QuantityThreshold threshold) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.description = description;
         this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
-        this.sales = sales;
+        this.money = money;
         this.threshold = threshold;
         this.id = UUID.randomUUID();
     }
@@ -46,14 +46,14 @@ public class Product {
     /**
      * Every field must be present and not null.
      */
-    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity, Money sales,
+    public Product(Description description, CostPrice costPrice, Price price, Quantity quantity, Money money,
                    QuantityThreshold threshold, UUID id) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.description = description;
         this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
-        this.sales = sales;
+        this.money = money;
         this.id = id;
         this.threshold = threshold;
     }
@@ -74,8 +74,8 @@ public class Product {
         return quantity;
     }
 
-    public Money getSales() {
-        return sales;
+    public Money getMoney() {
+        return money;
     }
 
     public UUID getId() {
@@ -126,7 +126,7 @@ public class Product {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, costPrice, price, quantity, sales);
+        return Objects.hash(description, costPrice, price, quantity, money);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class Product {
                 .append(" Quantity: ")
                 .append(getQuantity())
                 .append(" Sales: $")
-                .append(getSales())
+                .append(getMoney())
                 .append(" Threshold: ")
                 .append(getThreshold());
         return builder.toString();

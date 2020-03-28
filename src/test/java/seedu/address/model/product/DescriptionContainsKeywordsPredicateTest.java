@@ -75,6 +75,6 @@ public class DescriptionContainsKeywordsPredicateTest {
         // Keywords match phone, email and address, but does not match name
         predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("12345", "10", "Main", "Street"));
         assertFalse(predicate.test(new ProductBuilder().withDescription("Bag").withPrice("12345")
-                .withQuantity("10").withSales("10").build()));
+                .withQuantity("10").withMoney("10").build()));
     }
 }

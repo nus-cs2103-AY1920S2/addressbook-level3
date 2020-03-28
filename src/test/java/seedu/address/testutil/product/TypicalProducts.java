@@ -24,26 +24,26 @@ public class TypicalProducts {
 
     public static final Product ABACUS = new ProductBuilder().withDescription("Abacus")
             .withPrice("12").withQuantity("1")
-            .withSales("100000").build();
+            .withMoney("100000").build();
     public static final Product BOOK = new ProductBuilder().withDescription("Beige Book")
             .withPrice("311")
-            .withQuantity("2").withSales("98").build();
+            .withQuantity("2").withMoney("98").build();
     public static final Product CAMERA = new ProductBuilder().withDescription("Camera").withPrice("93")
-            .withQuantity("2").withSales("123").build();
+            .withQuantity("2").withMoney("123").build();
     public static final Product DISC = new ProductBuilder().withDescription("Disc").withPrice("83")
-            .withQuantity("3").withSales("154").build();
+            .withQuantity("3").withMoney("154").build();
     public static final Product EGG = new ProductBuilder().withDescription("Egg").withPrice("94")
-            .withQuantity("5").withSales("543").build();
+            .withQuantity("5").withMoney("543").build();
     public static final Product FAN = new ProductBuilder().withDescription("Fan").withPrice("94")
-            .withQuantity("4").withSales("678").build();
+            .withQuantity("4").withMoney("678").build();
     public static final Product GAME = new ProductBuilder().withDescription("Game").withPrice("92")
-            .withQuantity("8").withSales("468").build();
+            .withQuantity("8").withMoney("468").build();
 
     // Manually added
     public static final Product HAT = new ProductBuilder().withDescription("Hat").withPrice("84")
-            .withQuantity("22").withSales("456").build();
+            .withQuantity("22").withMoney("456").build();
     public static final Product IPAD = new ProductBuilder().withDescription("Ipad").withPrice("81")
-            .withQuantity("37").withSales("854").build();
+            .withQuantity("37").withMoney("854").build();
 
     // Manually added - Customer's details found in {@code CommandTestUtil}
     public static final Product WATCH = new ProductBuilder()
@@ -51,7 +51,7 @@ public class TypicalProducts {
             .withCostPrice(VALID_COSTPRICE_WATCH)
             .withPrice(VALID_PRICE_WATCH)
             .withQuantity(VALID_QUANTITY_WATCH)
-            .withSales(VALID_SALES_WATCH)
+            .withMoney(VALID_SALES_WATCH)
             .build();
     public static final Product BAG = new ProductBuilder()
             .withDescription(VALID_DESCRIPTION_BAG)

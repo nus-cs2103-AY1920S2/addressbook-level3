@@ -1,7 +1,9 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.product.EditProductCommand.*;
+import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
+import static seedu.address.logic.commands.product.EditProductCommand.MESSAGE_DUPLICATE_PRODUCT;
+import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
@@ -56,7 +58,7 @@ public class DeleteTransactionCommand extends Command {
         Quantity newQuantity = oldQuantity.plus(transactionToDelete.getQuantity());
         editProductDescriptor.setQuantity(newQuantity);
 
-        Money oldSales = productToEdit.getSales();
+        Money oldSales = productToEdit.getMoney();
         Money newSales = oldSales.minus(transactionToDelete.getMoney());
         editProductDescriptor.setSales(newSales);
 

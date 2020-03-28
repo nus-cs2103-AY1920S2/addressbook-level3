@@ -27,9 +27,9 @@ import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
-import seedu.address.model.util.Money;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
+import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -102,7 +102,7 @@ public class EditTransactionCommand extends Command {
         Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
         editOriginalProductDescriptor.setQuantity(originalProductNewQuantity);
 
-        Money originalProductOldSales = originalProductToEdit.getSales();
+        Money originalProductOldSales = originalProductToEdit.getMoney();
         Money originalProductNewSales = originalProductOldSales.minus(transactionToEdit.getMoney());
         editOriginalProductDescriptor.setSales(originalProductNewSales);
 
@@ -117,7 +117,7 @@ public class EditTransactionCommand extends Command {
 
         Product updatedProductToEdit = model.findProductById(editedTransaction.getProductId());
         Quantity updatedProductOldQuantity = updatedProductToEdit.getQuantity();
-        Money updatedProductOldSales = updatedProductToEdit.getSales();
+        Money updatedProductOldSales = updatedProductToEdit.getMoney();
 
         if (updatedProductOldQuantity.compareTo(editedTransaction.getQuantity()) >= 0) {
             Quantity updatedProductNewQuantity = updatedProductOldQuantity.minus(editedTransaction.getQuantity());

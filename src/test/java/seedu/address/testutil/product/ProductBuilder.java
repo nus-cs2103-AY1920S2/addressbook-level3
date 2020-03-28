@@ -23,7 +23,7 @@ public class ProductBuilder {
     private Description description;
     private CostPrice costPrice;
     private Price price;
-    private Money sales;
+    private Money money;
     private Quantity quantity;
     private QuantityThreshold threshold;
 
@@ -32,7 +32,7 @@ public class ProductBuilder {
         costPrice = new CostPrice(DEFAULT_COSTPRICE);
         price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
-        sales = new Money(DEFAULT_SALES);
+        money = new Money(DEFAULT_SALES);
         threshold = new QuantityThreshold(DEFAULT_THRESHOLD);
     }
 
@@ -44,7 +44,7 @@ public class ProductBuilder {
         costPrice = productToCopy.getCostPrice();
         price = productToCopy.getPrice();
         quantity = productToCopy.getQuantity();
-        sales = productToCopy.getSales();
+        money = productToCopy.getMoney();
         threshold = productToCopy.getThreshold();
     }
 
@@ -81,10 +81,10 @@ public class ProductBuilder {
     }
 
     /**
-     * Sets the {@code Sales} of the {@code Product} that we are building.
+     * Sets the {@code Money} of the {@code Product} that we are building.
      */
-    public ProductBuilder withSales(String sales) {
-        this.sales = new Money(sales);
+    public ProductBuilder withMoney(String money) {
+        this.money = new Money(money);
         return this;
     }
 
@@ -97,7 +97,7 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(description, costPrice, price, quantity, sales, threshold);
+        return new Product(description, costPrice, price, quantity, money, threshold);
     }
 
 }

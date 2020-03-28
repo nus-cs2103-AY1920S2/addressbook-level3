@@ -97,7 +97,7 @@ public class EditProductCommand extends Command {
         CostPrice updatedCostPrice = editProductDescriptor.getCostPrice().orElse(productToEdit.getCostPrice());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
-        Money updatedSales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
+        Money updatedSales = editProductDescriptor.getMoney().orElse(productToEdit.getMoney());
         UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
         QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
 
@@ -194,7 +194,7 @@ public class EditProductCommand extends Command {
             this.sales = sales;
         }
 
-        public Optional<Money> getSales() {
+        public Optional<Money> getMoney() {
             return Optional.ofNullable(sales);
         }
 
@@ -233,7 +233,7 @@ public class EditProductCommand extends Command {
                     && getCostPrice().equals(e.getCostPrice())
                     && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
-                    && getSales().equals(e.getSales())
+                    && getMoney().equals(e.getMoney())
                     && getId().equals(e.getId());
         }
     }

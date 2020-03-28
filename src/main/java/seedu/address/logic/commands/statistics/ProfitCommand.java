@@ -18,14 +18,14 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Money;
 
 /**
- * Displays the revenue trend in a selected period.
+ * Displays the profit trend in a selected period.
  */
-public class RevenueCommand extends Command {
+public class ProfitCommand extends Command {
 
-    public static final String COMMAND_WORD = "revenue";
+    public static final String COMMAND_WORD = "profit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays the revenue trend in a selected period. \n"
+            + ": Displays the profit trend in a selected period. \n"
             + "Parameters: "
             + PREFIX_START_DATE + "START DATE "
             + PREFIX_END_DATE + "END DATE \n"
@@ -33,17 +33,18 @@ public class RevenueCommand extends Command {
             + PREFIX_START_DATE + "2020-01-01 "
             + PREFIX_END_DATE + "2020-12-12";
 
-    public static final String MESSAGE_SUCCESS = "Revenue from %1$s to %2$s: $%3$s";
-    public static final String MESSAGE_NUMBER_FORMAT = "Price of product is invalid";
+    public static final String MESSAGE_SUCCESS = "Profit from %1$s to %2$s: $%3$s";
+    public static final String MESSAGE_NUMBER_FORMAT = "Price/ quantity/ cost price of product is invalid";
     public static final String MESSAGE_NO_PRODUCTS = "At least one product is required";
+    public static final String MESSAGE_NEGATIVE_PROFIT = "You have made a loss of $%1$s!";
 
     private final StartEndDate startDate;
     private final StartEndDate endDate;
 
     /**
-     * Creates an RevenueCommand to display the revenue.
+     * Creates an ProfitCommand to display the profit.
      */
-    public RevenueCommand(StartEndDate startDate, StartEndDate endDate) {
+    public ProfitCommand(StartEndDate startDate, StartEndDate endDate) {
         requireNonNull(startDate);
         requireNonNull(endDate);
         this.startDate = startDate;
@@ -58,22 +59,22 @@ public class RevenueCommand extends Command {
             throw new CommandException(MESSAGE_NO_PRODUCTS);
         }
 
-        Money revenue = calculateRevenue(model);
+        Money profit = calculateProfit(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                                startDate,
-                                endDate,
-                                revenue));
+                startDate,
+                endDate,
+                profit));
     }
 
     /**
-     * Calculates the revenue in a given time period
+     * Calculates the profit in a given time period
      * @param model
-     * @return calculated sales
+     * @return calculated profit
      * @throws CommandException
      */
-    private Money calculateRevenue(Model model) throws CommandException {
-        int revenue = 0;
+    private Money calculateProfit(Model model) throws CommandException {
+        int profit = 0;
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
         for (int i = 0; i < transactionList.size(); i++) {
@@ -85,21 +86,27 @@ public class RevenueCommand extends Command {
                     && transactionDate.compareTo(endDate.value) < 0) {
                 try {
                     int price = transaction.getMoney().value;
-                    revenue += price;
+                    int quantity = transaction.getQuantity().value;
+                    int costPrice = Integer.parseInt(transaction.getProduct().getCostPrice().value);
+                    profit += (price - costPrice * quantity);
                 } catch (Exception e) {
                     throw new CommandException(MESSAGE_NUMBER_FORMAT);
                 }
             }
         }
 
-        return new Money(revenue);
+        if (profit < 0) {
+            throw new CommandException(String.format(MESSAGE_NEGATIVE_PROFIT, -profit));
+        }
+
+        return new Money(profit);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RevenueCommand // instanceof handles nulls
-                && startDate.equals(((RevenueCommand) other).startDate)
-                && endDate.equals(((RevenueCommand) other).endDate));
+                || (other instanceof ProfitCommand // instanceof handles nulls
+                && startDate.equals(((ProfitCommand) other).startDate)
+                && endDate.equals(((ProfitCommand) other).endDate));
     }
 }

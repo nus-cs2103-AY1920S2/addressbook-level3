@@ -19,7 +19,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
@@ -27,8 +26,6 @@ import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 import seedu.address.ui.NotificationWindow;
-
-import javax.swing.*;
 
 /**
  * Adds a transaction to the system.
@@ -125,7 +122,7 @@ public class AddTransactionCommand extends Command {
     }
 
     private Money getNewSales(Transaction toAdd, Product productToEdit) throws CommandException {
-        Money oldSales = productToEdit.getSales();
+        Money oldSales = productToEdit.getMoney();
         Money newSales;
 
         try {

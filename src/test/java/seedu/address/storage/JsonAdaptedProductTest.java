@@ -26,7 +26,7 @@ public class JsonAdaptedProductTest {
     private static final String VALID_COSTPRICE = BAG.getCostPrice().toString();
     private static final String VALID_PRICE = BAG.getPrice().toString();
     private static final String VALID_QUANTITY = BAG.getQuantity().toString();
-    private static final String VALID_SALES = BAG.getSales().toString();
+    private static final String VALID_SALES = BAG.getMoney().toString();
     private static final String VALID_THRESHOLD = BAG.getThreshold().toString();
     private static final String VALID_ID = BAG.getId().toString();
 

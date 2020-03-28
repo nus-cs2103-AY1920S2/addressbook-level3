@@ -38,15 +38,18 @@ public class StatisticsCard extends UiPart<Region> {
     private Label sales;
     @FXML
     private Label threshold;
+    @FXML
+    private Label costPrice;
 
     public StatisticsCard(Product product, int displayedIndex) {
         super(FXML);
         this.product = product;
         id.setText(displayedIndex + ". ");
         description.setText(product.getDescription().value);
+        costPrice.setText("$" + product.getCostPrice().value);
         price.setText("$" + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantity().value));
-        sales.setText("$" + product.getSales().value);
+        sales.setText("$" + product.getMoney().value);
         threshold.setText(product.getThreshold().value);
     }
 
