@@ -18,12 +18,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import tatracker.model.TaTracker;
+import tatracker.model.group.Group;
+import tatracker.model.group.GroupType;
+import tatracker.model.module.Module;
 import tatracker.model.student.Student;
 
 /**
  * A utility class containing a list of {@code Student} objects to be used in tests.
  */
 public class TypicalStudents {
+
+    public static final Module CS3243 = new Module("CS3243", "Introduction to AI");
+    public static final Module CS2030 = new Module("CS2030", "Programming Methodology II");
+    public static final Group G06 = new Group("G06", GroupType.LAB);
+    public static final Group T04 = new Group("T04", GroupType.TUTORIAL);
 
     public static final Student ALICE = new StudentBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
@@ -105,11 +113,18 @@ public class TypicalStudents {
      * Returns an {@code TaTracker} with all the typical students.
      */
     public static TaTracker getTypicalTaTracker() {
-        TaTracker ab = new TaTracker();
+        Module typicalCS3243 = new Module("CS3243", "Introduction to AI");
+        Group typicalG06 = new Group("G06", GroupType.LAB);
+
+        typicalCS3243.addGroup(typicalG06);
+
         for (Student student : getTypicalStudents()) {
-            ab.addStudent(student);
+            typicalG06.addStudent(student);
         }
-        return ab;
+
+        TaTracker tat = new TaTracker();
+        tat.addModule(typicalCS3243);
+        return tat;
     }
 
     public static List<Student> getTypicalStudents() {
