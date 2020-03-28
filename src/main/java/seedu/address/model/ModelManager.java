@@ -355,6 +355,7 @@ public class ModelManager implements Model {
   @Override
   public void deleteCourse(Course target) {
     courseAddressBook.remove(target);
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
   }
 
   @Override

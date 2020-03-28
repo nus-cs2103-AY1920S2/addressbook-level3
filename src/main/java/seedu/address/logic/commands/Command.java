@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -8,7 +9,7 @@ import seedu.address.model.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-
+  UndoRedoStack undoRedoStack;
   /**
    * Executes the command and returns the result message.
    *
@@ -17,5 +18,9 @@ public abstract class Command {
    * @throws CommandException If an error occurs during command execution.
    */
   public abstract CommandResult execute(Model model) throws CommandException, ParseException;
+
+  public void setData(UndoRedoStack undoRedoStack) {
+    this.undoRedoStack = undoRedoStack;
+  }
 
 }

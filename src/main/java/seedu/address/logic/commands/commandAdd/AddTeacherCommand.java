@@ -54,8 +54,12 @@ public class AddTeacherCommand extends AddCommand {
     toAdd = teacher;
   }
 
+  protected void generateOppositeCommand() {
+
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
     if (model.hasTeacher(toAdd)) {

@@ -10,13 +10,12 @@ import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.commandAdd.*;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.commands.commandClear.ClearCommand;
-import seedu.address.logic.commands.commandClear.ClearCourseCommand;
-import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
-import seedu.address.logic.commands.commandClear.ClearStudentCommand;
-import seedu.address.logic.commands.commandClear.ClearTeacherCommand;
+import seedu.address.logic.commands.commandClear.*;
 import seedu.address.logic.commands.commandDelete.DeleteCommand;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
@@ -32,11 +31,7 @@ import seedu.address.logic.commands.commandFind.FindCourseCommand;
 import seedu.address.logic.commands.commandFind.FindFinanceCommand;
 import seedu.address.logic.commands.commandFind.FindStudentCommand;
 import seedu.address.logic.commands.commandFind.FindTeacherCommand;
-import seedu.address.logic.commands.commandList.ListCommand;
-import seedu.address.logic.commands.commandList.ListCourseCommand;
-import seedu.address.logic.commands.commandList.ListFinanceCommand;
-import seedu.address.logic.commands.commandList.ListStudentCommand;
-import seedu.address.logic.commands.commandList.ListTeacherCommand;
+import seedu.address.logic.commands.commandList.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.parserAdd.*;
 import seedu.address.logic.parser.parserDelete.DeleteCommandParser;
@@ -83,10 +78,10 @@ public class AddressBookParser {
     final String commandWord = matcher.group("commandWord");
     final String arguments = matcher.group("arguments");
     switch (commandWord) {
-
       case AssignCommandBase.COMMAND_WORD:
         return new AssignCommandParser().parse(arguments);
 
+        // Add Operations
       case AddTeacherCommand.COMMAND_WORD:
         return new AddTeacherCommandParser().parse(arguments);
 
@@ -102,6 +97,7 @@ public class AddressBookParser {
       case AddAssignmentCommand.COMMAND_WORD:
         return new AddAssignmentCommandParser().parse(arguments);
 
+        // Delete Operations
       case DeleteTeacherCommand.COMMAND_WORD:
         return new DeleteTeacherCommandParser().parse(arguments);
 
@@ -114,6 +110,8 @@ public class AddressBookParser {
       case DeleteCourseCommand.COMMAND_WORD:
         return new DeleteCourseCommandParser().parse(arguments);
 
+
+        // Find Operations
       case FindTeacherCommand.COMMAND_WORD:
         return new FindTeacherCommandParser().parse(arguments);
 
@@ -126,12 +124,14 @@ public class AddressBookParser {
       case FindCourseCommand.COMMAND_WORD:
         return new FindCourseCommandParser().parse(arguments);
 
+        // Finance Specific Operations
       case CalculateExpensesFinanceCommand.COMMAND_WORD:
         return new CalculateExpensesFinanceCommand();
 
       case CalculateEarningsFinanceCommand.COMMAND_WORD:
         return new CalculateEarningsFinanceCommand();
 
+        // List Operations
       case ListTeacherCommand.COMMAND_WORD:
         return new ListTeacherCommand();
 
@@ -144,6 +144,10 @@ public class AddressBookParser {
       case ListCourseCommand.COMMAND_WORD:
         return new ListCourseCommand();
 
+      case ListAssignmentCommand.COMMAND_WORD:
+        return new ListAssignmentCommand();
+
+      // Clear Operations
       case ClearTeacherCommand.COMMAND_WORD:
         return new ClearTeacherCommand();
 
@@ -156,6 +160,10 @@ public class AddressBookParser {
       case ClearCourseCommand.COMMAND_WORD:
         return new ClearCourseCommand();
 
+      case ClearAssignmentCommand.COMMAND_WORD:
+        return new ClearAssignmentCommand();
+
+        // Edit Operations
       case EditTeacherCommand.COMMAND_WORD:
         return new EditTeacherCommandParser().parse(arguments);
 
@@ -168,26 +176,17 @@ public class AddressBookParser {
       case EditCourseCommand.COMMAND_WORD:
         return new EditCourseCommandParser().parse(arguments);
 
-      case EditCommand.COMMAND_WORD:
-        return new EditCommandParser().parse(arguments);
-
-      case DeleteCommand.COMMAND_WORD:
-        return new DeleteCommandParser().parse(arguments);
-
-      case ClearCommand.COMMAND_WORD:
-        return new ClearCommand();
-
-      case FindCommand.COMMAND_WORD:
-        return new FindCommandParser().parse(arguments);
-
-      case ListCommand.COMMAND_WORD:
-        return new ListCommand();
-
       case ExitCommand.COMMAND_WORD:
         return new ExitCommand();
 
       case HelpCommand.COMMAND_WORD:
         return new HelpCommand();
+
+      case UndoCommand.COMMAND_WORD:
+        return new UndoCommand();
+
+      case RedoCommand.COMMAND_WORD:
+        return new RedoCommand();
 
       default:
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

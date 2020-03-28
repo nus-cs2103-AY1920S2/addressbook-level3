@@ -102,8 +102,12 @@ public class AddFinanceCommand extends AddCommand {
     toAdd = finance;
   }
 
+  protected void generateOppositeCommand() {
+
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
     FinanceType financeType = toAdd.getFinanceType();
