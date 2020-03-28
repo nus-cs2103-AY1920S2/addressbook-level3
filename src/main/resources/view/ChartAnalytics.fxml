@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BarChart fx:id="barChart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <xAxis>
+        <CategoryAxis fx:id="xAxis" side="BOTTOM" />
+    </xAxis>
+    <yAxis>
+        <NumberAxis side="LEFT" fx:id="yAxis" />
+    </yAxis>
+</BarChart>
+</AnchorPane>
