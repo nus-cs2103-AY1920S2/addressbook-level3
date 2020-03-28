@@ -112,4 +112,5 @@ public interface Model {
     boolean hasSchedule(Schedule schedule);
     void addSchedule(Schedule schedule);
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
+    void updateSortedScheduledWorkoutList();
 }

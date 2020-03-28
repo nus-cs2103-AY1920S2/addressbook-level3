@@ -171,6 +171,11 @@ public class ModelManager implements Model {
         return scheduler.getSortedScheduledWorkoutList();
     }
 
+    @Override
+    public void updateSortedScheduledWorkoutList() {
+        scheduler.updateSortedScheduledWorkoutList();
+    }
+
     // -----------------------------------------------------------------------------------------
     @Override
     public boolean equals(Object obj) {

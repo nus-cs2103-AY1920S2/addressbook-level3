@@ -188,6 +188,11 @@ public class CreateCommandTest {
         public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateSortedScheduledWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

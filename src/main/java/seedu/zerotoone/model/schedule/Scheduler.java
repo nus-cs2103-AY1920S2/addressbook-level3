@@ -2,6 +2,10 @@ package seedu.zerotoone.model.schedule;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
@@ -11,8 +15,8 @@ import javafx.collections.transformation.SortedList;
 public class Scheduler {
 
     private final ScheduleList scheduleList;
-    private final ScheduledWorkoutList scheduledWorkoutList;
-    private final SortedList<ScheduledWorkout> sortedScheduledWorkoutList;
+    private ScheduledWorkoutList scheduledWorkoutList;
+    private SortedList<ScheduledWorkout> sortedScheduledWorkoutList;
 
     public Scheduler() {
         this.scheduleList = new ScheduleList();
@@ -41,5 +45,21 @@ public class Scheduler {
     public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
         scheduleList.addSchedule(schedule);
+    }
+
+    /**
+     *
+     */
+    public void updateSortedScheduledWorkoutList() {
+        List<ScheduledWorkout> newScheduledWorkouts = new ArrayList<>();
+        for (Schedule schedule : scheduleList) {
+            Optional<List<ScheduledWorkout>> scheduledWorkouts = schedule.getScheduledWorkout();
+            scheduledWorkouts.ifPresent(newScheduledWorkouts::addAll);
+        }
+        setScheduledWorkouts(newScheduledWorkouts);
+    }
+
+    public void setScheduledWorkouts(List<ScheduledWorkout> scheduledWorkouts) {
+        this.scheduledWorkoutList.setScheduledWorkouts(scheduledWorkouts);
     }
 }
