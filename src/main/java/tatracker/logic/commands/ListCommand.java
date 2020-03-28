@@ -1,7 +1,6 @@
 package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import tatracker.model.Model;
 

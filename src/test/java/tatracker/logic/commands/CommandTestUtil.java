@@ -12,7 +12,6 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import tatracker.commons.core.index.Index;
@@ -20,7 +19,6 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
-import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
 import tatracker.testutil.EditStudentDescriptorBuilder;
 
@@ -137,7 +135,7 @@ public class CommandTestUtil {
 
         Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
         final String[] splitName = student.getName().fullName.split("\\s+");
-        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        //model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
     }

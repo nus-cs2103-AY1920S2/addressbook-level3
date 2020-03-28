@@ -42,7 +42,7 @@ public class DeleteModuleCommand extends Command {
 
         Module moduleToDelete = model.getModule(module.getIdentifier());
         model.deleteModule(moduleToDelete);
-        if(model.getFilteredModuleList().isEmpty()) {
+        if (model.getFilteredModuleList().isEmpty()) {
             model.setFilteredGroupList();
             model.setFilteredStudentList();
         } else {

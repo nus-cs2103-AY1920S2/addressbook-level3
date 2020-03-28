@@ -320,14 +320,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setFilteredStudentList(String moduleCode, int n) {
+        taTracker.setCurrentlyShownStudents(moduleCode, n);
+    }
+
+    @Override
     public void updateFilteredStudentList(String groupCode, String moduleCode) {
         taTracker.updateCurrentlyShownStudents(groupCode, moduleCode);
     }
 
-    @Override
-    public void setFilteredStudentList(String moduleCode, int n) {
-        taTracker.setCurrentlyShownStudents(moduleCode, n);
-    }
 
     // ======== Others Methods =================================================
 

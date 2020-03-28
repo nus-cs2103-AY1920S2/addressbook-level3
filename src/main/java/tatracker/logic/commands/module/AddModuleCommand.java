@@ -4,16 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
-import tatracker.model.student.Student;
 
 /**
  * Adds a module to the TA-Tracker.
@@ -52,7 +48,7 @@ public class AddModuleCommand extends Command {
 
         model.addModule(toAdd);
         model.updateFilteredGroupList(toAdd.getIdentifier());
-        if(model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.setFilteredStudentList(toAdd.getIdentifier(), 0);

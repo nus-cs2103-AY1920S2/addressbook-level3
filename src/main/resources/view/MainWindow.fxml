@@ -58,9 +58,9 @@
               <content>
                 <SplitPane dividerPositions="0.6, 0.8">
                   <items>
-                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                     <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                     <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                   </items>
                 </SplitPane>
               </content>
