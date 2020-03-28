@@ -106,9 +106,9 @@ public class SideBarTreeView extends ViewPart<Region> {
         protected void updateItem(Block block, boolean empty) {
             super.updateItem(block, empty);
 
+            setGraphic(null);
             if (empty || block == null) {
                 setText(null);
-                setGraphic(null);
             } else {
                 setText(getNoteTitle());
                 setSelectedProperty(block);
