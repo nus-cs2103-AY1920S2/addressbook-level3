@@ -293,7 +293,7 @@ The `edit` command extends command class and uses inheritance to facilitate impl
 The following sequence diagram shows how the `edit` command works: `edit m/CS2105 g/A`:
 
 .Interactions Inside the Logic Component for the `edit n/NAME` Command
-(EditSequenceDiagram.puml)
+image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
 
