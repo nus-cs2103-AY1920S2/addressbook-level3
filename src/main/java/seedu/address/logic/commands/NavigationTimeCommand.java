@@ -36,7 +36,7 @@ public class NavigationTimeCommand extends Command {
         Optional<Transcript> transcriptOfCurrentInterviewee = model.getCurrentInterviewee().getTranscript();
         return transcriptOfCurrentInterviewee
                 .map(x -> x.getIndexAtTime(timeQuery))
-                .map(x -> new CommandResult(String.format(MESSAGE_NAVIGATION_TIME_SUCCESS,
+                .map(x -> new NavigationCommandResult(String.format(MESSAGE_NAVIGATION_TIME_SUCCESS,
                         timeQuery.toMinutes(), timeQuery.toSeconds()), ToggleView.TRANSCRIPT, x))
                 .orElseThrow(() -> new CommandException(
                         String.format("Interviewee %1$s has not been interviewed.",
