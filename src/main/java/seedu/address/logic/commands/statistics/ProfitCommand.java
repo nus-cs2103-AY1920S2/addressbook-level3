@@ -37,6 +37,7 @@ public class ProfitCommand extends Command {
     public static final String MESSAGE_NUMBER_FORMAT = "Price/ quantity/ cost price of product is invalid";
     public static final String MESSAGE_NO_PRODUCTS = "At least one product is required";
     public static final String MESSAGE_NEGATIVE_PROFIT = "You have made a loss of $%1$s!";
+    public static final String MESSAGE_DATE_CONFLICT = "Start date must be after end date";
 
     private final StartEndDate startDate;
     private final StartEndDate endDate;
@@ -57,6 +58,10 @@ public class ProfitCommand extends Command {
 
         if (model.getFilteredProductList().size() == 0) {
             throw new CommandException(MESSAGE_NO_PRODUCTS);
+        }
+
+        if (startDate.value.compareTo(endDate.value) > 0) {
+            throw new CommandException(MESSAGE_DATE_CONFLICT);
         }
 
         Money profit = calculateProfit(model);

@@ -12,7 +12,7 @@ public class Quantity implements Comparable<Quantity> {
     public static final String MESSAGE_CONSTRAINTS_FORMAT =
             "Quantity should take positive integer values, and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS_VALUE =
-            "The numeric value of a Quantity must not be negative and smaller than 1000000";
+            "The numeric value of Quantity must not be negative and smaller than 1000000";
 
     /*
      * There must be one or more digits entered.

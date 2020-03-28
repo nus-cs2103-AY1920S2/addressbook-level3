@@ -36,6 +36,7 @@ public class RevenueCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Revenue from %1$s to %2$s: $%3$s";
     public static final String MESSAGE_NUMBER_FORMAT = "Price of product is invalid";
     public static final String MESSAGE_NO_PRODUCTS = "At least one product is required";
+    public static final String MESSAGE_DATE_CONFLICT = "Start date must be after end date";
 
     private final StartEndDate startDate;
     private final StartEndDate endDate;
@@ -56,6 +57,10 @@ public class RevenueCommand extends Command {
 
         if (model.getFilteredProductList().size() == 0) {
             throw new CommandException(MESSAGE_NO_PRODUCTS);
+        }
+
+        if (startDate.value.compareTo(endDate.value) > 0) {
+            throw new CommandException(MESSAGE_DATE_CONFLICT);
         }
 
         Money revenue = calculateRevenue(model);
