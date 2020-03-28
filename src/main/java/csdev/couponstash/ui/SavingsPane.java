@@ -2,13 +2,16 @@ package csdev.couponstash.ui;
 
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+/**
+ * The UI element that holds the Savings, this is
+ * displayed as a blue box beside the Coupon.
+ */
 public class SavingsPane extends UiPart<Region> {
     private static final String FXML = "SavingsPane.fxml";
     // to set certain elements to be invisible
