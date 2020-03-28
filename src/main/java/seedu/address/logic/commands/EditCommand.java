@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -25,6 +26,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -46,6 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_BIRTHDAY + "BIRTHDAY] "
+            + "[" + PREFIX_ORGANIZATION + "ORGANIZATION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -104,11 +107,12 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         ArrayList<Remark> updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
         Birthday updatedBirthday = editPersonDescriptor.getBirthday().orElse(personToEdit.getBirthday());
+        Organization updatedOrganization = editPersonDescriptor.getOrganization().orElse(personToEdit.getOrganization());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Index updatedIndex = editPersonDescriptor.getIndex().orElse(personToEdit.getIndex());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
-                updatedBirthday, updatedTags, updatedIndex);
+                updatedBirthday, updatedOrganization, updatedTags, updatedIndex);
     }
 
     @Override
@@ -139,6 +143,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Birthday birthday;
+        private Organization organization;
         private ArrayList<Remark> remarks;
         private Set<Tag> tags;
         private Index index;
@@ -155,6 +160,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setBirthday(toCopy.birthday);
+            setOrganization(toCopy.organization);
             setTags(toCopy.tags);
             setIndex(toCopy.index);
         }
@@ -206,6 +212,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(birthday);
         }
 
+        public void setOrganization(Organization organization) {
+            this.organization = organization;
+        }
+
+        public Optional<Organization> getOrganization() {
+            return Optional.ofNullable(organization);
+        }
+
         public Optional<Index> getIndex() {
             return Optional.ofNullable(index);
         }
@@ -250,6 +264,7 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getBirthday().equals(e.getBirthday())
+                    && getOrganization().equals(e.getOrganization())
                     && getTags().equals(e.getTags());
         }
     }

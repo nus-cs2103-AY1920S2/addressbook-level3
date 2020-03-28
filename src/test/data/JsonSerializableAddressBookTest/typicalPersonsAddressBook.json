@@ -7,6 +7,7 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "remark" : [],
     "birthday" : "01-15",
+    "organization" : "Yoga Club",
     "tagged" : [ "friends" ],
     "index": "0"
   }, {
@@ -16,6 +17,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "remark" : [],
     "birthday" : "02-15",
+    "organization" : "NTU Business Club",
     "tagged" : [ "owesMoney", "friends" ],
     "index": "1"
   }, {
@@ -25,6 +27,7 @@
     "address" : "wall street",
     "remark" : [],
     "birthday" : "",
+    "organization" : "Track & Field Sports Club",
     "tagged" : [ ],
     "index": "2"
   }, {
@@ -34,6 +37,7 @@
     "address" : "10th street",
     "remark" : [],
     "birthday" : "",
+    "organization" : "",
     "tagged" : [ "friends" ],
     "index":"3"
   }, {
@@ -43,6 +47,7 @@
     "address" : "michegan ave",
     "remark" : [],
     "birthday" : "",
+    "organization" : "",
     "tagged" : [ ],
     "index": "4"
   }, {
@@ -52,6 +57,7 @@
     "address" : "little tokyo",
     "remark" : [],
     "birthday" : "",
+    "organization" : "",
     "tagged" : [ ],
     "index": "5"
   }, {
@@ -61,6 +67,7 @@
     "address" : "4th street",
     "remark" : [],
     "birthday" : "",
+    "organization" : "OCBC",
     "tagged" : [ ],
     "index": "6"
   } ]
