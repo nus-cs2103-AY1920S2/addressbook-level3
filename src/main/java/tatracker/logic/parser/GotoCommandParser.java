@@ -3,7 +3,6 @@ package tatracker.logic.parser;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAB;
 
-import tatracker.logic.commands.Command;
 import tatracker.logic.commands.GotoCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
@@ -30,8 +29,6 @@ public class GotoCommandParser implements Parser<GotoCommand> {
         }
 
         String tab = ParserUtil.parseValue(argMultimap.getValue(PREFIX_TAB).get());
-        System.out.println("input tab is " + tab);
-        System.out.println("Got appropriate tab");
         return new GotoCommand(tab);
     }
 

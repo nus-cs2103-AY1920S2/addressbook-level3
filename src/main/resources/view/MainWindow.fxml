@@ -54,7 +54,7 @@
 
         <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
           <tabs>
-            <Tab fx:id="studentListTab" text="Students">
+            <Tab fx:id="studentListTab" text="Student">
               <content>
                 <SplitPane dividerPositions="0.6, 0.8">
                   <items>
@@ -65,12 +65,12 @@
                 </SplitPane>
               </content>
             </Tab>
-            <Tab fx:id="sessionListTab" text="Sessions">
+            <Tab fx:id="sessionListTab" text="Session">
               <content>
                 <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
-            <Tab fx:id="claimsListTab" text="Claims">
+            <Tab fx:id="claimsListTab" text="Claim">
                <content>
                  <SplitPane dividerPositions="0.8">
                    <items>

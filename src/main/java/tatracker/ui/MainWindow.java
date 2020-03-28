@@ -293,7 +293,6 @@ public class MainWindow extends UiPart<Stage> {
             return claimsListTab;
 
         default:
-            System.out.println(commandText.trim());
             throw new ParseException(MESSAGE_INVALID_TAB);
         }
     }
