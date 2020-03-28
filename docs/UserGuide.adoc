@@ -238,23 +238,25 @@ ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, d
 |===
 * Examples:
 ** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`,
-`e/amos@example.com`, `dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
+`e/amos@example.com`, `dts/2020-05-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
 
 [format=csv]
 .Return data format
 |===
-ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
 |===
 
 * Examples:
 ** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com` +
-`rts/12-12-2020 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
+`rts/2020-05-10 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
 
 * Note:
 ** Commas `,` are required in between of the different fields.
 ** Prefixes are required before any value for that field.
 ** `ORDER_TYPE` can only be either `order` or `return`.
 ** Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
+** `ORDER_TYPE` denote the start of an delivery order or return order.
+** The last value of the same type will be stored if duplicate prefix type is found in a single order sentence.
 
 ==== Examples
 
