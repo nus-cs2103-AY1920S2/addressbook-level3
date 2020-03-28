@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -20,9 +21,8 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class UniquePlannedMap {
 
-    //private TreeMap<Recipe, List<Date>> plannedDates; // store this in Model instead,
-    private ObservableMap<Date, List<Recipe>> observableMap = FXCollections.observableMap(new TreeMap<>());
-    private ObservableMap<Date, List<Recipe>> unmodifiableObservableMap = FXCollections
+    private ObservableMap<Date, ObservableList<Recipe>> observableMap = FXCollections.observableMap(new TreeMap<>());
+    private ObservableMap<Date, ObservableList<Recipe>> unmodifiableObservableMap = FXCollections
             .unmodifiableObservableMap(observableMap);
 
     // todo: add contains boolean check, and before adding, check if duplicate recipe on the same day is present.
@@ -32,7 +32,7 @@ public class UniquePlannedMap {
      * Replaces the contents of this map with {@code plannedRecipes}.
      * {@code plannedRecipes} must not contain duplicate recipes on the same date.
      */
-    public void setPlannedRecipes(Map<Date, List<Recipe>> plannedRecipes) {
+    public void setPlannedRecipes(Map<Date, ObservableList<Recipe>> plannedRecipes) {
         requireAllNonNull(plannedRecipes);
         /*if (!scheduledRecipesAreUnique(scheduledRecipes)) { todo later
             throw new DuplicateScheduledRecipeException();
@@ -51,7 +51,7 @@ public class UniquePlannedMap {
         if (observableMap.containsKey(date)) {
             observableMap.get(date).add(toAdd);
         } else {
-            List<Recipe> recipes = new ArrayList<Recipe>();
+            ObservableList<Recipe> recipes = FXCollections.observableList(new ArrayList<>());
             recipes.add(toAdd);
             observableMap.put(date, recipes);
         }
@@ -66,6 +66,17 @@ public class UniquePlannedMap {
         if (observableMap.remove(date) == null) {
             throw new DateNotFoundException();
         }
+    }
+
+    public ObservableMap<Date, ObservableList<Recipe>> getSubMapInRange(Date start, Date end) {
+        TreeMap<Date, ObservableList<Recipe>> treeMap = (TreeMap<Date, ObservableList<Recipe>>) observableMap;
+        return FXCollections.observableMap(treeMap.subMap(start, true, end, true));
+    }
+
+    public ObservableMap<Date, ObservableList<Recipe>> getSubMapOfMonth(Date date) {
+        Date start = date.onFirstDayOfMonth();
+        Date end = date.onLastDayOfMonth();
+        return getSubMapInRange(start, end);
     }
 
     /**
@@ -113,7 +124,7 @@ public class UniquePlannedMap {
     /**
      * Returns the map as an unmodifiable {@code ObservableMap}.
      */
-    public ObservableMap<Date, List<Recipe>> asUnmodifiableObservableMap() {
+    public ObservableMap<Date, ObservableList<Recipe>> asUnmodifiableObservableMap() {
         return unmodifiableObservableMap;
     }
 

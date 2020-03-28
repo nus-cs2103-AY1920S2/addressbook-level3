@@ -135,5 +135,5 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the planned recipes.
      */
-    ObservableMap<Date, List<Recipe>> getPlannedMap();
+    ObservableMap<Date, ObservableList<Recipe>> getPlannedMap();
 }

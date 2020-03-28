@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Map;
 
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -29,7 +30,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Replaces the contents of the planned recipe map with {@code plannedRecipes}.
      * {@code plannedRecipes} must not contain duplicate recipes on the same day.
      */
-    public void setPlannedRecipes(Map<Date, List<Recipe>> plannedRecipes) {
+    public void setPlannedRecipes(Map<Date, ObservableList<Recipe>> plannedRecipes) {
         this.plannedRecipes.setPlannedRecipes(plannedRecipes);
     }
 
@@ -65,7 +66,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     // ===== Util methods =====
 
     @Override
-    public ObservableMap<Date, List<Recipe>> getPlannedMap() {
+    public ObservableMap<Date, ObservableList<Recipe>> getPlannedMap() {
         return plannedRecipes.asUnmodifiableObservableMap();
     }
 

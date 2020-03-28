@@ -1,5 +1,6 @@
 package seedu.recipe.model.plan;
 
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
@@ -34,6 +35,11 @@ public class Date implements Comparable<Date> {
         this.date = LocalDate.parse(date);
     }
 
+    public Date(LocalDate date) {
+        requireNonNull(date);
+        this.date = date;
+    }
+
     /**
      * Returns true if a given string is a valid date
      */
@@ -49,6 +55,18 @@ public class Date implements Comparable<Date> {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public Date onFirstDayOfMonth() {
+        return new Date(date.withDayOfMonth(1));
+    }
+
+    public Date onLastDayOfMonth() {
+        return new Date(date.with(lastDayOfMonth()));
+    }
+
+    public int getDateOfMonth() {
+        return date.getDayOfMonth();
     }
 
     @Override

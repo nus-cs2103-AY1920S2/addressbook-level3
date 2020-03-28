@@ -2,6 +2,8 @@ package seedu.recipe.ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,18 +53,18 @@ public class PlanningMapPanel extends UiPart<Region> {
     public PlanningMapPanel(LocalDate date, List<Recipe> recipes) {
         super(FXML);
 
+        LocalDate timeNow = LocalDate.now(ZoneId.of("Singapore"));
+
         Calendar cal = Calendar.getInstance();
         TimeZone tz = TimeZone.getTimeZone("Asia/Singapore");
         cal.setTimeZone(tz);
         Locale singaporeLocale = new Locale("en", "SGP");
 
-        int numDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        monthHeader.setText(cal.getDisplayName(cal.MONTH, cal.LONG, singaporeLocale));
-
-        //Date currentDate = cal.getTime();
-        //monthHeader.setText(cal.get(Calendar.MONTH));
-        //System.out.println("" + cal.get(cal.DAY_OF_MONTH) + cal.get(cal.MONTH) + cal.get(cal.YEAR));
+        //int numDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int numDaysInMonth = timeNow.lengthOfMonth();
+        String month = timeNow.getMonth().getDisplayName(TextStyle.FULL, singaporeLocale);
+        //monthHeader.setText(cal.getDisplayName(cal.MONTH, cal.LONG, singaporeLocale));
+        monthHeader.setText(month);
         calendarPane.setGridLinesVisible(true);
         calendarPane.addRow(0,
                 new Label("Sunday"),
@@ -77,17 +79,11 @@ public class PlanningMapPanel extends UiPart<Region> {
         System.out.println(numDaysInMonth);
 
         List<Recipe> stubRecipes = new ArrayList<>();
-        Set<Vegetable> set = new TreeSet<>();
-        set.add(new Vegetable("vegetableee", new Quantity(30, Unit.GRAM)));
-
         stubRecipes.add(recipes.get(0));
-        /*stubRecipes.add(new Recipe(new Name("hi"), new Time("15"), new TreeSet<>().add(""), set,
-                new TreeSet<>(), new TreeSet<>(), new TreeSet<>(), new ArrayList<>(), null, false));*/
 
         for (int i = 1; i <= numDaysInMonth; i++) {
             PlanningDayCard card = new PlanningDayCard(stubRecipes, i);
             calendarPane.add(card.getDayCard(), dayOfWeek, weekOfMonth);
-            //calendarPane.add(new Label("" + i), dayOfWeek, weekOfMonth);/
 
             dayOfWeek++;
             if (dayOfWeek > 6) {

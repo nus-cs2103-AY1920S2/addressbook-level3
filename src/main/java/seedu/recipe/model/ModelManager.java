@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private ObservableMap<Date, List<Recipe>> plannedRecipes;
+    private ObservableMap<Date, ObservableList<Recipe>> plannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -183,7 +183,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableMap<Date, List<Recipe>> getPlannedMap() {
+    public ObservableMap<Date, ObservableList<Recipe>> getPlannedMap() {
         return plannedRecipes;
     }
 
