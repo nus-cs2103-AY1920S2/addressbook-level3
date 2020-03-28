@@ -39,4 +39,18 @@ public class DateTime {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DateTime)) {
+            return false;
+        }
+
+        DateTime otherDateTime = (DateTime) other;
+        return this.dateTime.equals(otherDateTime.dateTime);
+    }
 }
