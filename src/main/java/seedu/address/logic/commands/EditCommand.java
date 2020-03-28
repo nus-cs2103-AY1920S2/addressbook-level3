@@ -114,11 +114,7 @@ public class EditCommand extends Command {
         } catch (Exception e) {
             throw new CommandException("Error: There is no existing profile.");
         }
-
-        if (toEditProfile) {
-            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile), false);
-        } else if (toEditModule != null) {
-            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule), false);
+        
 
         if (toEditModule != null) {
             if (intSemester != 0) {
@@ -134,7 +130,7 @@ public class EditCommand extends Command {
             if (grade != null) {
                 toEditModule.getPersonal().setGrade(grade);
             }
-            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule));
+            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule), false);
         } else if (toEditProfile) {
             if (name != null) {
                 profileToEdit.setName(name);
@@ -155,7 +151,7 @@ public class EditCommand extends Command {
             model.setPerson(profileToEdit, editedPerson);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
+            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile), false);
         } else {
             throw new CommandException("Error: Edit Command cannot be executed");
         }
