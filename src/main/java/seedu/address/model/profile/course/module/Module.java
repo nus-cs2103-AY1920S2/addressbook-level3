@@ -3,6 +3,7 @@ package seedu.address.model.profile.course.module;
 import java.util.List;
 
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.course.module.personal.DeadlineList;
 import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
@@ -74,6 +75,10 @@ public class Module {
 
     public String getGrade() {
         return personal.getGrade();
+    }
+
+    public DeadlineList getDeadlineList() {
+        return personal.getDeadlineList();
     }
 
     public List<Deadline> getDeadlines() {

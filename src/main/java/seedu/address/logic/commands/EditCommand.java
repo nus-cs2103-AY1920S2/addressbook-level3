@@ -24,6 +24,8 @@ import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * Edits Profile or Module specified by user.
@@ -66,6 +68,9 @@ public class EditCommand extends Command {
     private ModuleCode moduleCode;
     private int intSemester = 0;
     private String grade = null;
+    private String oldTask = null;
+    private String newTask = null;
+    private String newDeadline = null;
     private int inSemester = 0;
 
     public EditCommand(Name name, CourseName courseName, int currentSemester, String specialisation) {
@@ -76,15 +81,20 @@ public class EditCommand extends Command {
         this.specialisation = specialisation;
     }
 
-    public EditCommand(ModuleCode moduleCode, int intSemester, String grade) throws ParseException {
+    public EditCommand(ModuleCode moduleCode, int intSemester, String grade, String oldTask, String newTask
+            , String newDeadline) throws ParseException {
         this.moduleCode = moduleCode;
         this.intSemester = intSemester;
         this.grade = grade;
+        this.oldTask = oldTask;
+        this.newTask = newTask;
+        this.newDeadline = newDeadline;
         Module existingModule = null;
         ModuleList inList = null;
         Module module = ModuleManager.getModule(moduleCode);
         HashMap<Integer, ModuleList> hashMap = Profile.getHashMap();
         if (hashMap.isEmpty()) {
+            System.out.println("hashmap is empty");
             throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
         }
         for (ModuleList list: hashMap.values()) {
@@ -96,6 +106,7 @@ public class EditCommand extends Command {
             }
         }
         if (existingModule == null) {
+            System.out.println("existing module is null");
             throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
         }
 
@@ -128,6 +139,21 @@ public class EditCommand extends Command {
             }
             if (grade != null) {
                 toEditModule.getPersonal().setGrade(grade);
+            }
+            //TODO: edit task and deadlines
+            if (newTask != null) {
+                Deadline deadline = toEditModule.getDeadlineList().getTask(oldTask);
+                deadline.setDescription(newTask);
+            }
+            if (newDeadline != null) {
+                Deadline deadline = toEditModule.getDeadlineList().getTask(oldTask);
+                String date = newDeadline.split(" ")[0];
+                String time = newDeadline.split(" ")[1];
+                try {
+                    deadline.setDateTime(date, time);
+                } catch (DateTimeException e) {
+                    throw new CommandException("Invalid date or time!");
+                }
             }
             return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, toEditModule));
         } else if (toEditProfile) {

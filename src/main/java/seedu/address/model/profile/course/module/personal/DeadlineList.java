@@ -47,6 +47,16 @@ public class DeadlineList {
         list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()));
     }
 
+    public Deadline getTask(String description) {
+        Deadline deadline = null;
+        for (Deadline d: list) {
+            if (d.getDescription() == description) {
+                deadline = d;
+            }
+        }
+        return deadline;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
