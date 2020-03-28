@@ -58,13 +58,6 @@ public class SideBarTreeView extends ViewPart<Region> {
         sideBarTreeView.setEditable(false);
     }
 
-    /**
-     * Configures the SideBarTreeView to only display a 3-level nested hierarchy of Notes,
-     * ie (Parent -> currently opened Note and its siblings -> direct children of currently opened Note).
-     *
-     * If the currently open Note is the root, the hierarchy is modified to look like:
-     * (Root -> Root's children -> Root's grandchildren)
-     */
     private void setTreeStructure() {
         sideBarTreeView.setCellFactory(treeView -> new SideBarTreeViewCell());
         useLevelDisplayStrategy();
