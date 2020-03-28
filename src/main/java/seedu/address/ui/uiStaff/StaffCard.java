@@ -1,4 +1,4 @@
-package seedu.address.ui.uiTeacher;
+package seedu.address.ui.uiStaff;
 
 import java.util.Comparator;
 import javafx.fxml.FXML;
@@ -6,13 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Teacher}.
  */
-public class TeacherCard extends UiPart<Region> {
+public class StaffCard extends UiPart<Region> {
 
   private static final String FXML = "TeacherListCard.fxml";
 
@@ -25,7 +25,7 @@ public class TeacherCard extends UiPart<Region> {
    * level 4</a>
    */
 
-  public final Teacher teacher;
+  public final Staff staff;
 
   @FXML
   private HBox cardPane;
@@ -44,16 +44,16 @@ public class TeacherCard extends UiPart<Region> {
   @FXML
   private FlowPane tags;
 
-  public TeacherCard(Teacher teacher, int displayedIndex) {
+  public StaffCard(Staff staff, int displayedIndex) {
     super(FXML);
-    this.teacher = teacher;
+    this.staff = staff;
     id.setText(displayedIndex + ". ");
-    name.setText(teacher.getName().fullName);
-    phone.setText(teacher.getPhone().value);
-    address.setText(teacher.getAddress().value);
-    email.setText(teacher.getEmail().value);
-    salary.setText(teacher.getSalary().value);
-    teacher.getTags().stream()
+    name.setText(staff.getName().fullName);
+    phone.setText(staff.getPhone().value);
+    address.setText(staff.getAddress().value);
+    email.setText(staff.getEmail().value);
+    salary.setText(staff.getSalary().value);
+    staff.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
@@ -66,13 +66,13 @@ public class TeacherCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof TeacherCard)) {
+    if (!(other instanceof StaffCard)) {
       return false;
     }
 
     // state check
-    TeacherCard card = (TeacherCard) other;
+    StaffCard card = (StaffCard) other;
     return id.getText().equals(card.id.getText())
-        && teacher.equals(card.teacher);
+        && staff.equals(card.staff);
   }
 }

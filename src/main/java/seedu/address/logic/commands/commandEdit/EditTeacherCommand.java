@@ -21,7 +21,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -74,7 +74,7 @@ public class EditTeacherCommand extends Command {
    * Creates and returns a {@code Teacher} with the details of {@code teacherToEdit} edited with
    * {@code editTeacherDescriptor}.
    */
-  private static Teacher createEditedTeacher(Teacher teacherToEdit,
+  private static Staff createEditedTeacher(Staff teacherToEdit,
       EditTeacherDescriptor editTeacherDescriptor) {
     assert teacherToEdit != null;
 
@@ -85,21 +85,21 @@ public class EditTeacherCommand extends Command {
     Address updatedAddress = editTeacherDescriptor.getAddress().orElse(teacherToEdit.getAddress());
     Set<Tag> updatedTags = editTeacherDescriptor.getTags().orElse(teacherToEdit.getTags());
 
-    return new Teacher(updatedName, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
+    return new Staff(updatedName, true, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
         updatedTags);
   }
 
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
-    List<Teacher> lastShownList = model.getFilteredStaffList();
+    List<Staff> lastShownList = model.getFilteredStaffList();
 
     if (index.getZeroBased() >= lastShownList.size()) {
       throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
     }
 
-    Teacher teacherToEdit = lastShownList.get(index.getZeroBased());
-    Teacher editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
+    Staff teacherToEdit = lastShownList.get(index.getZeroBased());
+    Staff editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
 
     if (!teacherToEdit.weakEquals(editedTeacher) && model.hasStaff(editedTeacher)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);

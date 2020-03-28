@@ -9,7 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.Staff;
 
 /**
  * Deletes a teacher identified using it's displayed index from the address book.
@@ -34,13 +34,13 @@ public class DeleteTeacherCommand extends Command {
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
-    List<Teacher> lastShownList = model.getFilteredStaffList();
+    List<Staff> lastShownList = model.getFilteredStaffList();
 
     if (targetIndex.getZeroBased() >= lastShownList.size()) {
       throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
     }
 
-    Teacher teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
+    Staff teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
     model.deleteStaff(teacherToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_TEACHER_SUCCESS, teacherToDelete));
   }

@@ -14,9 +14,9 @@ import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelStaff.Teacher;
 import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
@@ -46,23 +46,23 @@ public class SampleDataUtil {
     return sampleAb;
   }
 
-  public static Teacher[] getSampleTeachers() {
-    return new Teacher[]{
-        new Teacher(new Name("Bob Ross"), new Phone("88283902"), new Email("bob.ross@gmail.com"),
+  public static Staff[] getSampleTeachers() {
+    return new Staff[]{
+        new Staff(new Name("Bob Ross"), true ,new Phone("88283902"), new Email("bob.ross@gmail.com"),
             new Salary("9000"),
             new Address("Serangoon"),
             getTagSet("Friendly", "LovesArt")),
-        new Teacher(new Name("Martin Henz"), new Phone("98765432"), new Email("henz@gmail.com"),
+        new Staff(new Name("Martin Henz"), false, new Phone("98765432"), new Email("henz@gmail.com"),
             new Salary("100"),
             new Address("311, Clementi Ave 2, #02-25"),
             getTagSet("WishfulThinking", "Experienced")),
     };
   }
 
-  public static ReadOnlyAddressBookGeneric<Teacher> getSampleTeacherAddressBook() {
+  public static ReadOnlyAddressBookGeneric<Staff> getSampleStaffAddressBook() {
     StaffAddressBook sampleAb = new StaffAddressBook();
-    for (Teacher sampleTeacher : getSampleTeachers()) {
-      sampleAb.add(sampleTeacher);
+    for (Staff sampleStaff : getSampleTeachers()) {
+      sampleAb.add(sampleStaff);
     }
     return sampleAb;
   }

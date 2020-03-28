@@ -65,11 +65,9 @@ public class Staff extends ModelObject {
    * Check if this staff is a teacher.
    * @return true if this is a teacher, false if this is an admin.
    */
-  /*
   public boolean isTeacher() {
     return isTeacher;
   }
-  */
 
   /**
    * Get phone of a staff.

@@ -31,7 +31,7 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -84,7 +84,7 @@ public class MainApp extends Application {
     AddressBookStorage addressBookStorage = new JsonAddressBookStorage(
         userPrefs.getAddressBookFilePath());
     StaffAddressBookStorage staffAddressBookStorage = new JsonStaffAddressBookStorage(
-        userPrefs.getTeacherAddressBookFilePath());
+        userPrefs.getStaffAddressBookFilePath());
     StudentAddressBookStorage studentAddressBookStorage = new JsonStudentAddressBookStorage(
         userPrefs.getStudentAddressBookFilePath());
     CourseAddressBookStorage courseAddressBookStorage = new JsonCourseAddressBookStorage(
@@ -134,23 +134,23 @@ public class MainApp extends Application {
       initialData = new AddressBook();
     }
 
-    Optional<ReadOnlyAddressBookGeneric<Teacher>> teacherAddressBookOptional;
-    ReadOnlyAddressBookGeneric<Teacher> teacherInitialData;
+    Optional<ReadOnlyAddressBookGeneric<Staff>> staffAddressBookOptional;
+    ReadOnlyAddressBookGeneric<Staff> staffInitialData;
     try {
-      teacherAddressBookOptional = storage.readStaffAddressBook();
-      if (!teacherAddressBookOptional.isPresent()) {
+      staffAddressBookOptional = storage.readStaffAddressBook();
+      if (!staffAddressBookOptional.isPresent()) {
         logger.info("Data file not found. Will be starting with a sample AddressBook");
       }
-      teacherInitialData = teacherAddressBookOptional
-          .orElseGet(SampleDataUtil::getSampleTeacherAddressBook);
+      staffInitialData = staffAddressBookOptional
+          .orElseGet(SampleDataUtil::getSampleStaffAddressBook);
     } catch (DataConversionException e) {
       logger.warning(
           "Data file not in the correct format. Will be starting with an empty AddressBook");
-      teacherInitialData = new StaffAddressBook();
+      staffInitialData = new StaffAddressBook();
     } catch (IOException e) {
       logger.warning(
           "Problem while reading from the file. Will be starting with an empty AddressBook");
-      teacherInitialData = new StaffAddressBook();
+      staffInitialData = new StaffAddressBook();
     }
 
     Optional<ReadOnlyAddressBookGeneric<Student>> studentAddressBookOptional;
@@ -250,10 +250,10 @@ public class MainApp extends Application {
       courseStudentInitialData = new CourseStudentAddressBook();
     }
 
-    return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
+    return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
         courseInitialData, assignmentInitialData, courseStudentInitialData, userPrefs);
   /*
-    return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
+    return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
             courseInitialData, userPrefs);
   */
   }

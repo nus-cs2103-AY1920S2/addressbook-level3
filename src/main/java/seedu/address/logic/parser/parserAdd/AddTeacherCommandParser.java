@@ -18,7 +18,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelStaff.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -85,7 +85,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
     */
 
-    Teacher teacher = new Teacher(name, phone, email, salary, address, tagList);
+    Staff teacher = new Staff(name, true, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);
   }

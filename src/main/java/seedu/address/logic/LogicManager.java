@@ -36,6 +36,7 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -145,12 +146,12 @@ public class LogicManager implements Logic {
 
   ///
   @Override
-  public ReadOnlyAddressBookGeneric<Teacher> getStaffAddressBook() {
+  public ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook() {
     return model.getStaffAddressBook();
   }
 
   @Override
-  public ObservableList<Teacher> getFilteredStaffList() {
+  public ObservableList<Staff> getFilteredStaffList() {
     return model.getFilteredStaffList();
   }
 
