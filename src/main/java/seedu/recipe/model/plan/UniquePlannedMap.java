@@ -29,8 +29,8 @@ public class UniquePlannedMap {
     // if it is, throw exception.
 
     /**
-     * Replaces the contents of this map with {@code scheduledRecipes}.
-     * {@code scheduledRecipes} must not contain duplicate recipes on the same date.
+     * Replaces the contents of this map with {@code plannedRecipes}.
+     * {@code plannedRecipes} must not contain duplicate recipes on the same date.
      */
     public void setPlannedRecipes(Map<Date, List<Recipe>> plannedRecipes) {
         requireAllNonNull(plannedRecipes);

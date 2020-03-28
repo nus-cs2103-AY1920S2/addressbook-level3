@@ -25,27 +25,27 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final RecipeBook recipeBook;
-    private final PlannedBook scheduleBook;
+    private final PlannedBook plannedBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private ObservableMap<Date, List<Recipe>> scheduledRecipes;
+    private ObservableMap<Date, List<Recipe>> plannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook scheduleBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook plannedBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
         logger.fine("Initializing with recipe book: " + recipeBook + " and user prefs " + userPrefs);
 
         this.recipeBook = new RecipeBook(recipeBook);
-        this.scheduleBook = new PlannedBook(scheduleBook);
+        this.plannedBook = new PlannedBook(plannedBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        scheduledRecipes = this.scheduleBook.getPlannedMap();
+        plannedRecipes = this.plannedBook.getPlannedMap();
         // todo: planned recipes cant be saved currently
     }
 
@@ -178,13 +178,13 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addScheduledRecipe(Recipe recipeToSet, Date atDate) {
-        scheduleBook.addPlannedRecipe(recipeToSet, atDate);
+    public void addPlannedRecipe(Recipe recipeToSet, Date atDate) {
+        plannedBook.addPlannedRecipe(recipeToSet, atDate);
     }
 
     @Override
-    public ObservableMap<Date, List<Recipe>> getScheduleMap() {
-        return scheduledRecipes;
+    public ObservableMap<Date, List<Recipe>> getPlannedMap() {
+        return plannedRecipes;
     }
 
     @Override
@@ -202,7 +202,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return recipeBook.equals(other.recipeBook)
-                && scheduleBook.equals(other.scheduleBook)
+                && plannedBook.equals(other.plannedBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredRecipes.equals(other.filteredRecipes);
     }

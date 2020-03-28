@@ -54,5 +54,5 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the scheduled recipes.
      */
-    ObservableMap<Date, List<Recipe>> getScheduleMap();
+    ObservableMap<Date, List<Recipe>> getPlannedMap();
 }

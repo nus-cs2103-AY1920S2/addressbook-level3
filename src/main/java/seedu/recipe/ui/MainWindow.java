@@ -126,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(recipeList);
 
         //using recipe list as stub for planning list, to be editted later todo
-        ObservableMap<Date, List<Recipe>> planningList = logic.getScheduleMap();
+        ObservableMap<Date, List<Recipe>> planningList = logic.getPlannedMap();
         planningListPanel = new PlanningListPanel(planningList);
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel);

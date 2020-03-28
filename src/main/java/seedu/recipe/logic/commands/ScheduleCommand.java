@@ -54,7 +54,7 @@ public class ScheduleCommand extends Command {
 
         Recipe recipeToPlan = lastShownList.get(index.getZeroBased());
 
-        model.addScheduledRecipe(recipeToPlan, atDate);
+        model.addPlannedRecipe(recipeToPlan, atDate);
         model.commitRecipeBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToPlan.toString(), atDate.toString()));
     }

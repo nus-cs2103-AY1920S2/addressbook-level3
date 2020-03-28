@@ -130,10 +130,10 @@ public interface Model {
     /**
      * Adds a recipe to a date in the plannedRecipe list
      */
-    void addScheduledRecipe(Recipe recipeToSet, Date atDate);
+    void addPlannedRecipe(Recipe recipeToSet, Date atDate);
 
     /**
-     * Returns an unmodifiable view of the scheduled recipes.
+     * Returns an unmodifiable view of the planned recipes.
      */
-    ObservableMap<Date, List<Recipe>> getScheduleMap();
+    ObservableMap<Date, List<Recipe>> getPlannedMap();
 }

@@ -79,7 +79,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableMap<Date, List<Recipe>> getScheduleMap() {
-        return model.getScheduleMap();
+    public ObservableMap<Date, List<Recipe>> getPlannedMap() {
+        return model.getPlannedMap();
     }
 }
