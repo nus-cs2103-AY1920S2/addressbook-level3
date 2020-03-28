@@ -45,6 +45,9 @@ public class Course extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  /**
+   * Overloaded constructor for edited object, loaded from storage, or sample data
+   */
   public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
     requireAllNonNull(name, tags);
     this.name = name;

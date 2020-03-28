@@ -38,20 +38,19 @@ public class AddAssignmentCommandParser extends AddCommandParser {
    */
   public AddCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ASSIGNMENTID, PREFIX_DEADLINE, PREFIX_TAG);
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE, PREFIX_TAG);
 
-    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ASSIGNMENTID, PREFIX_DEADLINE)
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DEADLINE)
         || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID assignmentID = ParserUtil.parseAssignmentID(argMultimap.getValue(PREFIX_ASSIGNMENTID).get());
     Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Assignment Assignment = new Assignment(name, assignmentID, deadline, tagList);
+    Assignment Assignment = new Assignment(name, deadline, tagList);
 
     return new AddAssignmentCommand(Assignment);
   }
