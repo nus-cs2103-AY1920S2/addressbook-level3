@@ -34,7 +34,7 @@ public class FavoritesCommandParser implements Parser<FavoritesCommand> {
                 break;
             }
         case "remove":
-            return new FavoritesCommand("remove");
+            return new FavoritesCommand(ParserUtil.parseIndex(enteredText[1]), "remove");
         case "view":
             return new FavoritesCommand("view");
         default:

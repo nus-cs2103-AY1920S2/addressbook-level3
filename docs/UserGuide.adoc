@@ -35,8 +35,7 @@ This symbol indicates tips for the particular feature.
 `list` - A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
 
 === How to Use this Document
-Section 4. Features will introduce you the commands to enter in the application.
-
+Section 4. Features will introduce you to the commands for the application.
 
 == Quick Start
 
@@ -47,7 +46,7 @@ Section 4. Features will introduce you the commands to enter in the application.
 .  Double-click the file to start the app. The Graphical User Interface(GUI) similar to the image shown below should appear in a few seconds.
 
 +
-image::Ui.png[width="790"]
+image::Ui_labeled.png[width="850"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -125,7 +124,7 @@ NOTE: The stall's rating is determined from the user's past experiences of the f
 
 === Select the Food : `*select*`
 
-Stalls the selected food in the database of food to help the user track his history of food consumption.
+Saves the selected food into transactions to help the user track his history of food consumption.
 
 Format: `select`
 
