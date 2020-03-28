@@ -54,7 +54,7 @@ public class EditCommand extends Command {
             + "(" + PREFIX_SEMESTER + "4) "
             + "(" + PREFIX_GRADE + "A+) ";
 
-    public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: " + Profile.getStaticName();
+    public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: ";
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
 
     private boolean toEditProfile = false;
