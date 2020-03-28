@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
+import java.util.Set;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -112,7 +113,7 @@ public class AddFinanceCommand extends AddCommand {
       Amount amount = new Amount("999");
       String courseName = "";
       String studentName = "";
-      String assignedStudents = "";
+      Set<ID> assignedStudentsID = null;
       boolean foundCourse = false;
       boolean foundStudent = false;
       boolean foundCourseStudent = false;
@@ -121,7 +122,7 @@ public class AddFinanceCommand extends AddCommand {
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = course.getAmount();
-          assignedStudents = course.getAssignedStudentsID().toString();
+          assignedStudentsID = course.getAssignedStudentsID();
           foundCourse = true;
           break;
         }
@@ -141,9 +142,10 @@ public class AddFinanceCommand extends AddCommand {
         throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
       }
 
-      for (String studentStr : assignedStudents.split(",")) {
-        if (studentid.toString().equals(studentStr)) {
+      for (ID assignedStudentID : assignedStudentsID) {
+        if (assignedStudentID.equals(studentid)) {
           foundCourseStudent = true;
+          break;
         }
       }
 
@@ -190,7 +192,7 @@ public class AddFinanceCommand extends AddCommand {
         throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
       }
 
-      if (assignedTeacher.equals("")) {
+      if (!assignedTeacher.equals(teacherid.toString())) {
         throw new CommandException(MESSAGE_INVALID_COURSETEACHER);
       }
 

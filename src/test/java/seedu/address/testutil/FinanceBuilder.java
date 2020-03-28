@@ -6,6 +6,7 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -27,9 +28,9 @@ public class FinanceBuilder {
     private FinanceType financeType;
     private Date date;
     private Amount amount;
-    private Courseid courseid;
-    private Studentid studentid;
-    private Teacherid teacherid;
+    private ID courseid;
+    private ID studentid;
+    private ID teacherid;
     private Set<Tag> tags;
 
     public FinanceBuilder() {
@@ -37,9 +38,9 @@ public class FinanceBuilder {
         financeType = new FinanceType(DEFAULT_FINANCETYPE);
         date = new Date(DEFAULT_DATE);
         amount = new Amount(DEFAULT_AMOUNT);
-        courseid = new Courseid(DEFAULT_COURSEID);
-        studentid = new Studentid(DEFAULT_STUDENTID);
-        teacherid = new Teacherid(DEFAULT_TEACHERID);
+        courseid = new ID(DEFAULT_COURSEID);
+        studentid = new ID(DEFAULT_STUDENTID);
+        teacherid = new ID(DEFAULT_TEACHERID);
         tags = new HashSet<>();
     }
 
@@ -101,7 +102,7 @@ public class FinanceBuilder {
      * Sets the {@code courseID} of the {@code Finance} that we are building.
      */
     public FinanceBuilder withCourseID(String courseID) {
-        this.courseid = new Courseid(courseID);
+        this.courseid = new ID(courseID);
         return this;
     }
 
@@ -109,7 +110,7 @@ public class FinanceBuilder {
      * Sets the {@code studnetID} of the {@code Finance} that we are building.
      */
     public FinanceBuilder withStudentID(String studentID) {
-        this.studentid = new Studentid(studentID);
+        this.studentid = new ID(studentID);
         return this;
     }
 
@@ -117,7 +118,7 @@ public class FinanceBuilder {
      * Sets the {@code teacherID} of the {@code Finance} that we are building.
      */
     public FinanceBuilder withTeacherID(String teacherID) {
-        this.teacherid = new Teacherid(teacherID);
+        this.teacherid = new ID(teacherID);
         return this;
     }
 

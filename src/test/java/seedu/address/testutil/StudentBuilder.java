@@ -20,13 +20,13 @@ public class StudentBuilder {
 
     private Name name;
     private ID id;
-    private AssignedCourses assignedCourses;
+    private Set<ID> assignedCourses;
     private Set<Tag> tags;
 
     public StudentBuilder() {
         name = new Name(DEFAULT_NAME);
         id = new ID(DEFAULT_ID);
-        assignedCourses = new AssignedCourses(DEFAULT_ASSIGNEDCOURSES);
+        assignedCourses = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -36,7 +36,7 @@ public class StudentBuilder {
     public StudentBuilder(Student studentToCopy) {
         name = studentToCopy.getName();
         id = studentToCopy.getID();
-        assignedCourses = studentToCopy.getAssignedCourses();
+        assignedCourses = studentToCopy.getAssignedCoursesID();
         tags = new HashSet<>(studentToCopy.getTags());
     }
 
@@ -68,7 +68,7 @@ public class StudentBuilder {
      * Sets the {@code AssignedCourse} of the {@code Student} that we are building.
      */
     public StudentBuilder withAssignedCourse(String assignedCourse) {
-        this.assignedCourses = new AssignedCourses(assignedCourse);
+        this.assignedCourses = SampleDataUtil.getIDSet(assignedCourse);
         return this;
     }
 

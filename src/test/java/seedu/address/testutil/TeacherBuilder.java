@@ -33,7 +33,7 @@ public class TeacherBuilder {
     private Email email;
     private Salary salary;
     private Address address;
-    private AssignedCourses assignedCourses;
+    private Set<ID> assignedCourses;
     private Set<Tag> tags;
 
     public TeacherBuilder() {
@@ -42,7 +42,7 @@ public class TeacherBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         salary = new Salary(DEFAULT_SALARY);
-        assignedCourses = new AssignedCourses(DEFAULT_ASSIGNEDCOURSES);
+        assignedCourses = new HashSet<>();
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -56,7 +56,7 @@ public class TeacherBuilder {
         phone = teacherToCopy.getPhone();
         email = teacherToCopy.getEmail();
         salary = teacherToCopy.getSalary();
-        assignedCourses = teacherToCopy.getAssignedCourses();
+        assignedCourses = teacherToCopy.getAssignedCoursesID();
         address = teacherToCopy.getAddress();
         tags = new HashSet<>(teacherToCopy.getTags());
     }
@@ -89,7 +89,7 @@ public class TeacherBuilder {
      * Sets the {@code AssignedCourses} of the {@code Teacher} that we are building.
      */
     public TeacherBuilder withAssignedCourses(String assignedCourses) {
-        this.assignedCourses = new AssignedCourses(assignedCourses);
+        this.assignedCourses = SampleDataUtil.getIDSet(assignedCourses);
         return this;
     }
 

@@ -20,21 +20,20 @@ public class CourseBuilder {
     public static final String DEFAULT_ID = "102";
     public static final String DEFAULT_AMOUNT = "100";
     public static final String DEFAULT_ASSIGNEDTEACHER = "";
-    public static final String DEFAULT_ASSIGNEDSTUDENTS = "";
 
     private Name name;
     private ID id;
     private Amount amount;
-    private AssignedTeacher assignedTeacher;
-    private AssignedStudents assignedStudents;
+    private ID assignedTeacher;
+    private Set<ID> assignedStudents;
     private Set<Tag> tags;
 
     public CourseBuilder() {
         name = new Name(DEFAULT_NAME);
         id = new ID(DEFAULT_ID);
         amount = new Amount(DEFAULT_AMOUNT);
-        assignedTeacher = new AssignedTeacher(DEFAULT_ASSIGNEDTEACHER);
-        assignedStudents = new AssignedStudents(DEFAULT_ASSIGNEDSTUDENTS);
+        assignedTeacher = new ID(DEFAULT_ASSIGNEDTEACHER);
+        assignedStudents = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -45,8 +44,8 @@ public class CourseBuilder {
         name = courseToCopy.getName();
         id = courseToCopy.getId();
         amount = courseToCopy.getAmount();
-        assignedTeacher = courseToCopy.getAssignedTeacher();
-        assignedStudents = courseToCopy.getAssignedStudents();
+        assignedTeacher = courseToCopy.getAssignedTeacherID();
+        assignedStudents = courseToCopy.getAssignedStudentsID();
         tags = new HashSet<>(courseToCopy.getTags());
     }
 
@@ -86,7 +85,7 @@ public class CourseBuilder {
      * Sets the {@code AssignedStudents} of the {@code Assignment} that we are building.
      */
     public CourseBuilder withAssignedStudent(String assignedStudent) {
-        this.assignedStudents = new AssignedStudents(assignedStudent);
+        this.assignedStudents = SampleDataUtil.getIDSet(assignedStudent);
         return this;
     }
 
@@ -94,7 +93,7 @@ public class CourseBuilder {
      * Sets the {@code AssignedTeacher} of the {@code Assignment} that we are building.
      */
     public CourseBuilder withAssignedTeacher(String assignedTeacher) {
-        this.assignedTeacher = new AssignedTeacher(assignedTeacher);
+        this.assignedTeacher = new ID(assignedTeacher);
         return this;
     }
 
