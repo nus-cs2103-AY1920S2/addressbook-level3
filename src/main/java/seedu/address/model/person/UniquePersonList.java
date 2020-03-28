@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -149,6 +150,8 @@ public class UniquePersonList implements Iterable<Person> {
         ObservableList<Person> result = FXCollections.observableArrayList();
         LocalDate currDate = LocalDate.now(ZoneId.of("Singapore"));
 
+        System.out.println(currDate);
+
         for (int i = 0; i < internalList.size(); i++) {
             String bDay = internalList.get(i).getBirthday().birthday;
 
@@ -158,8 +161,7 @@ public class UniquePersonList implements Iterable<Person> {
                 }
             }
         }
-
-        return result;
+        return result.sorted(new BirthdayComparator());
     }
 
     /**
@@ -172,10 +174,11 @@ public class UniquePersonList implements Iterable<Person> {
      */
     private boolean withinRange(String bDay, LocalDate currDate, LocalDate currDateAfter5Days) {
         DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
-                .parseDefaulting(ChronoField.YEAR, 2020).toFormatter(Locale.ENGLISH);
+                .parseDefaulting(ChronoField.YEAR, LocalDate.now(ZoneId.of("Singapore")).getYear())
+            .toFormatter(Locale.ENGLISH);
         LocalDate date = LocalDate.parse(bDay, inputFormat);
 
-        if (date.compareTo(currDate) > 0 && date.compareTo(currDateAfter5Days) < 0) {
+        if (date.compareTo(currDate) >= 0 && date.compareTo(currDateAfter5Days) < 0) {
             return true;
         }
         return false;
