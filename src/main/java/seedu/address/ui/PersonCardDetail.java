@@ -44,6 +44,8 @@ public class PersonCardDetail extends UiPart<Region> {
     private Label remark;
     @FXML
     private Label birthday;
+    @FXML
+    private Label organization;
 
     public PersonCardDetail(Person person, int displayedIndex) {
         super(FXML);
@@ -53,6 +55,7 @@ public class PersonCardDetail extends UiPart<Region> {
         address.setText("Address: " + person.getAddress().value);
         email.setText("Email: " + person.getEmail().value);
         birthday.setText("Birthday: " + person.getBirthday().toString());
+        organization.setText("Organization: " + person.getOrganization().toString());
         String remarkValue = "\nRemarks:\n";
         int i = 0;
         while (i < person.getRemark().size()) {

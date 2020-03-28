@@ -20,8 +20,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-    // for sarah's use
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     // Identity fields
     private Index index;
@@ -32,6 +30,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Birthday birthday;
+    private final Organization organization;
     private final ArrayList<Remark> remarks = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
@@ -39,13 +38,14 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, ArrayList<Remark> remark,
-                Birthday birthday, Set<Tag> tags, Index index) {
-        requireAllNonNull(name, phone, email, address, tags);
+                Birthday birthday, Organization organization, Set<Tag> tags, Index index) {
+        requireAllNonNull(name, phone, email, address, tags); // do I need to put organization here?
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
+        this.organization = organization;
         this.remarks.addAll(remark);
         this.tags.addAll(tags);
         this.index = index;
@@ -77,6 +77,10 @@ public class Person {
 
     public Birthday getBirthday() {
         return birthday;
+    }
+
+    public Organization getOrganization() {
+        return organization;
     }
 
     /**
@@ -137,13 +141,14 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getBirthday().equals(getBirthday())
+                && otherPerson.getOrganization().equals(getOrganization())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, birthday, tags, index);
+        return Objects.hash(name, phone, email, address, birthday, organization, tags, index);
     }
 
     @Override
@@ -160,6 +165,8 @@ public class Person {
                 .append(getRemark())
                 .append(" Birthday: ")
                 .append(getBirthday())
+                .append(" Organization: ")
+                .append(getOrganization())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -17,6 +17,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Organization;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.restaurant.Cuisine;
@@ -46,10 +47,9 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String birthday} into a {@code Birthday}.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code Birthday} is invalid.
      */
     public static Birthday parseBirthday(String birthday) throws ParseException {
         requireNonNull(birthday);
@@ -61,9 +61,22 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String birthday} into a {@code Birthday}.
+     * Parses a {@code String organization} into a {@code Organization}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Birthday} is invalid.
+     * @throws ParseException if the given {@code organization} is invalid.
+     */
+    public static Organization parseOrganization(String organization) throws ParseException {
+        requireNonNull(organization);
+        String trimmedOrganization = organization.trim();
+        return new Organization(trimmedOrganization);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
