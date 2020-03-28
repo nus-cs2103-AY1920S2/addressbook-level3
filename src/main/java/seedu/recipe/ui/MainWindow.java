@@ -1,10 +1,9 @@
 package seedu.recipe.ui;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,7 +18,6 @@ import seedu.recipe.logic.Logic;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
-import seedu.recipe.model.plan.Date;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -126,8 +124,9 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(recipeList);
 
         //using recipe list as stub for planning list, to be editted later todo
-        ObservableMap<Date, List<Recipe>> planningList = logic.getPlannedMap();
-        planningMapPanel = new PlanningMapPanel(planningList);
+        //ObservableMap<Date, List<Recipe>> planningList = logic.getPlannedMap();
+        LocalDate date = LocalDate.parse("2020-03-01"); // stub with date
+        planningMapPanel = new PlanningMapPanel(date);
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningMapPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());

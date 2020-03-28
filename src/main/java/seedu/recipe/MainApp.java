@@ -21,6 +21,8 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.util.SampleDataUtil;
 import seedu.recipe.storage.JsonRecipeBookStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
@@ -76,6 +78,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
+        ReadOnlyPlannedBook initialPlannedData = new PlannedBook(); // todo implement storage for planned items
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
@@ -90,7 +93,7 @@ public class MainApp extends Application {
             initialData = new RecipeBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, initialPlannedData, userPrefs);
     }
 
     private void initLogging(Config config) {

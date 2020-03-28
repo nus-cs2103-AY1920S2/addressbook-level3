@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="planningMapView" VBox.vgrow="ALWAYS" />
+  <BorderPane fx:id="borderPane"
+    prefHeight="200" prefWidth="320">
+    <top>
+      <Label fx:id="monthHeader"/>
+    </top>
+    <center>
+      <GridPane fx:id="calendarPane" />
+    </center>
+  </BorderPane>
+
+
 </VBox>

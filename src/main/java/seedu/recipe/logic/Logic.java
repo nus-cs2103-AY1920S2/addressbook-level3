@@ -1,6 +1,7 @@
 package seedu.recipe.logic;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -55,4 +56,5 @@ public interface Logic {
      * Returns an unmodifiable view of the scheduled recipes.
      */
     ObservableMap<Date, List<Recipe>> getPlannedMap();
+
 }
