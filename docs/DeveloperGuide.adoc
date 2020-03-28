@@ -642,12 +642,13 @@ The saved command works similarly to the used command,
 where a SavedCommandParser will be created by Logic
 to split up the raw String into its arguments,
 creating a SavedCommand. Let's look at how a SavedCommand
-from the String "saved sd/03-03-2020 e/05-03-2020"
 would be executed.
 
+image::SavedExecutionSeqDiagram.png[]
 
-
-
+Hence the SavedCommand loops through all Coupons to add
+up the savings earned from a particular time period,
+or from all dates if no time period is specified.
 
 ==== Design considerations
 
