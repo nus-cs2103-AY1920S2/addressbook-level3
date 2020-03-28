@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +16,7 @@ import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
-public class NewSuggestionCommandTest {
+public class ExitSuggestionCommandTest {
     private static Model model;
 
     @BeforeAll
@@ -31,12 +31,12 @@ public class NewSuggestionCommandTest {
     @Test
     public void execute() {
         // Instantiate command
-        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand();
+        ExitSuggestionCommand exitSuggestionCommand = new ExitSuggestionCommand();
 
-        newSuggestionCommand.execute(model);
+        exitSuggestionCommand.execute(model);
 
         // Expected result
-        String expectedResponseText = "Create a new note";
+        String expectedResponseText = "Exit Notably app";
 
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }

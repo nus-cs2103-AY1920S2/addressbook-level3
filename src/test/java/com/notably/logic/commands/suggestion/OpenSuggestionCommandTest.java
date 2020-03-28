@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.commands.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +26,7 @@ import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
-public class DeleteSuggestionCommandTest {
+public class OpenSuggestionCommandTest {
     private static AbsolutePath toRoot;
     private static AbsolutePath toCs2103;
     private static AbsolutePath toCs3230;
@@ -36,7 +36,7 @@ public class DeleteSuggestionCommandTest {
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
 
-    private static final String COMMAND_WORD = "delete";
+    private static final String COMMAND_WORD = "open";
     private static final String PREFIX_TITLE = "-t";
 
     @BeforeAll
@@ -77,21 +77,21 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(null));
+        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toRoot);
-        assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
+        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
+        assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
     }
 
     @Test
     public void execute_generateResponseCorrectly() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103);
-        deleteSuggestionCommand.execute(model);
+        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
+        openSuggestionCommand.execute(model);
 
-        assertEquals(Optional.of("Delete a note"), model.responseTextProperty().getValue());
+        assertEquals(Optional.of("Open a note"), model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
