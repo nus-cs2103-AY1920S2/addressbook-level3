@@ -23,13 +23,14 @@ public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "exit", "open", "help");
-    private final int distanceThreshold = 2;
+    private static final int DISTANCE_THRESHOLD = 2;
+
     private Model notablyModel;
     private StringCorrectionEngine correctionEngine;
 
     public NotablyParser(Model notablyModel) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new StringCorrectionEngine(COMMAND_LIST, distanceThreshold);
+        this.correctionEngine = new StringCorrectionEngine(COMMAND_LIST, DISTANCE_THRESHOLD);
     }
     /**
      * Create list of different Commands base on user input.
