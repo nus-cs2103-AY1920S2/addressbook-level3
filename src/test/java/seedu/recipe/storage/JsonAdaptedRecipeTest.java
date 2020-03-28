@@ -15,6 +15,7 @@ import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
+import seedu.recipe.model.recipe.ingredient.Ingredient;
 
 public class JsonAdaptedRecipeTest {
     private static final String INVALID_NAME = "R@chel";
@@ -105,15 +106,14 @@ public class JsonAdaptedRecipeTest {
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
-    /* todo: convert to toModelType_nullIngredient_throwsIllegalValueException()
     @Test
-    public void toModelType_nullStep_throwsIllegalValueException() {
+    public void toModelType_nullIngredient_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
-                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
-                null, VALID_GOALS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName());
+                null, null, null, null, null,
+                VALID_STEP, VALID_GOALS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Ingredient.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
-    }*/
+    }
 
     @Test
     public void toModelType_invalidGoals_throwsIllegalValueException() {

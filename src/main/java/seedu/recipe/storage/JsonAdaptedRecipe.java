@@ -19,6 +19,7 @@ import seedu.recipe.model.recipe.Time;
 
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
+import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
@@ -120,31 +121,41 @@ class JsonAdaptedRecipe {
             recipeGoals.add(goal.toModelType());
         }
 
+        boolean isOneIngredientPresent = false;
         final List<Grain> recipeGrains = new ArrayList<>();
         for (JsonAdaptedGrain grain : grains) {
             recipeGrains.add(grain.toModelType());
+            isOneIngredientPresent = true;
         }
 
         final List<Vegetable> recipeVegetables = new ArrayList<>();
         for (JsonAdaptedVegetable vegetable : vegetables) {
             recipeVegetables.add(vegetable.toModelType());
+            isOneIngredientPresent = true;
         }
 
         final List<Protein> recipeProteins = new ArrayList<>();
         for (JsonAdaptedProtein protein : proteins) {
             recipeProteins.add(protein.toModelType());
+            isOneIngredientPresent = true;
         }
 
         final List<Fruit> recipeFruits = new ArrayList<>();
         for (JsonAdaptedFruit fruit : fruits) {
             recipeFruits.add(fruit.toModelType());
+            isOneIngredientPresent = true;
         }
 
         final List<Other> recipeOthers = new ArrayList<>();
         for (JsonAdaptedOther other : others) {
             recipeOthers.add(other.toModelType());
+            isOneIngredientPresent = true;
         }
-        // todo: throw illegalvalue if ingredients list is empty
+
+        if (!isOneIngredientPresent) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Ingredient.class.getSimpleName()));
+        }
 
         final List<Step> recipeSteps = new ArrayList<>();
         for (JsonAdaptedStep step : steps) {

@@ -165,13 +165,13 @@
     "steps" : [ "In a slow cooker, combine all ingredients and set to low heat. Cover and let cook for 8 to 9 hours.", "Stir and remove to serving bowls. This method works best if started before you go to bed." ],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
-    "name" : "hihi",
+    "name" : "testMissingIngredient",
     "time" : "13",
     "isFavourite" : false,
     "grains" : [ ],
     "vegetables" : [ ],
     "proteins" : [ ],
-    "fruits" : [ ],
+    "fruits" : [ "1.0cup,  dried cranberries", "1.0cup,  dried figs" ],
     "others" : [ ],
     "steps" : [ ],
     "goals" : [ ]
