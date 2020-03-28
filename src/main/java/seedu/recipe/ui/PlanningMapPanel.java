@@ -40,10 +40,10 @@ public class PlanningMapPanel extends UiPart<Region> {
     //private ListView<Recipe> planningMapView;
 
     @FXML
-    private GridPane calendarPane;
+    private BorderPane borderPane;
 
     @FXML
-    private BorderPane borderPane;
+    private GridPane calendarPane;
 
     @FXML
     private Label monthHeader;
