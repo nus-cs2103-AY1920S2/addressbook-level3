@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
-import static seedu.address.logic.parser.CliSyntax.FLAG_FORCE_CLEAR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
@@ -168,7 +167,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand(FLAG_FORCE_CLEAR.toString())));
+        assertFalse(standardCommand.equals(new ClearCommand(null)));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ORDER, DESC_AMY)));
