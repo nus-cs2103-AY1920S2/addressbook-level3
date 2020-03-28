@@ -149,6 +149,9 @@ public class EditProductCommand extends Command {
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
             setId(toCopy.id);
+            int lowLimit = toCopy.quantity.value / 5;
+            QuantityThreshold newThreshold = new QuantityThreshold(String.valueOf(lowLimit));
+            setThreshold(newThreshold);
         }
 
         /**
