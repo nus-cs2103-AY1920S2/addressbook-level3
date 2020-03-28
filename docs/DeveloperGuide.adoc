@@ -1142,35 +1142,35 @@ A *postal sector* is the first *two* digits of a six digit Singapore postal code
 The list of postal sectors and their corresponding general locations can be found
 https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
-.. Nearby command format: `nearby` `POSTAL_SECTOR`
+.. Nearby command format: `nearby` `FLAG` `POSTAL_SECTOR`
 
 .. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
-.. Test case: `nearby` `79` +
+.. Test case: `nearby` `-o` `79` +
    Expected: Obtain all orders located in postal sector 79 (Seletar)
-.. Test case: `nearby` `07` +
-   Expected: Obtain all orders located in postal sector 07 (Anson, Tanjong Pagar)
-.. Test case: `nearby` `99` +
+.. Test case: `nearby` `-r` `07` +
+   Expected: Obtain all return orders located in postal sector 07 (Anson, Tanjong Pagar)
+.. Test case: `nearby` `-o` `99` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby` `600` +
+.. Test case: `nearby` `-o` `600` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby` +
+.. Test case: `nearby -o` +
    Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 
 . Obtain all orders located in the same area. +
 There are *5* different areas in Singapore: Central, East, North East, West, North +
-.. Nearby command format: `nearby` `AREA`
+.. Nearby command format: `nearby` `FLAG` `AREA`
 .. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
-.. Test case: `nearby` `central` +
+.. Test case: `nearby` `-o` `central` +
    Expected: Obtain all orders located in central area of Singapore
-.. Test case: `nearby` `east` +
+.. Test case: `nearby` `-r` `east` +
+   Expected: Obtain all return orders located in east area of Singapore
+.. Test case: `nearby` `-o` `north east` +
    Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `north east` +
-   Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `west` +
-   Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `north` +
-   Expected: Obtain all orders located in east area of Singapore
+.. Test case: `nearby` `-r` `west` +
+   Expected: Obtain all return orders located in east area of Singapore
+.. Test case: `nearby` `-r` `north` +
+   Expected: Obtain all return orders located in east area of Singapore
 
 .. Information about each area was obtained from
 https://keylocation.sg/singapore/districts-map[this website] +
