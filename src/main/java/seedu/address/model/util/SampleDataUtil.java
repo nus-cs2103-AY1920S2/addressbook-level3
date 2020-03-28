@@ -110,13 +110,17 @@ public class SampleDataUtil {
   public static Course[] getSampleCourses() {
     return new Course[]{
         new Course(new Name("Cozmo Programming"), new ID("829"), new Amount("1000"),
-            new ID("1"),
+            new ID("31"),
             getIDSet("33"),
             getTagSet("Robot", "Fun")),
         new Course(new Name("Advanced Java"), new ID("182"), new Amount("2000"),
-            new ID("2"),
-            getIDSet("33", "44"),
-            getTagSet("OOP", "Difficult"))
+            new ID("21"),
+            getIDSet( "44"),
+            getTagSet("OOP", "Difficult")),
+        new Course(new Name("Advance C"), new ID("426"), new Amount("2000"),
+            new ID("31"),
+            getIDSet( "33","44"),
+            getTagSet("File", "Difficult"))
     };
   }
 
