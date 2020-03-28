@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.BiFunction;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 
 /**
  * Holds a tree of (Date, List(Recipe)) (key, value) pairs which stores the
@@ -20,7 +18,7 @@ import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
  *
  * The value of each key (date) currently holds only one recipe.
  */
-public class UniqueScheduleMap {
+public class UniquePlannedMap {
 
     //private TreeMap<Recipe, List<Date>> plannedDates; // store this in Model instead,
     private ObservableMap<Date, List<Recipe>> observableMap = FXCollections.observableMap(new TreeMap<>());
@@ -34,14 +32,14 @@ public class UniqueScheduleMap {
      * Replaces the contents of this map with {@code scheduledRecipes}.
      * {@code scheduledRecipes} must not contain duplicate recipes on the same date.
      */
-    public void setScheduledRecipes(Map<Date, List<Recipe>> scheduledRecipes) {
-        requireAllNonNull(scheduledRecipes);
+    public void setPlannedRecipes(Map<Date, List<Recipe>> plannedRecipes) {
+        requireAllNonNull(plannedRecipes);
         /*if (!scheduledRecipesAreUnique(scheduledRecipes)) { todo later
             throw new DuplicateScheduledRecipeException();
         }*/
 
         observableMap.clear();
-        observableMap.putAll(scheduledRecipes);
+        observableMap.putAll(plannedRecipes);
     }
 
     /**
@@ -127,7 +125,7 @@ public class UniqueScheduleMap {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueScheduleMap // instanceof handles nulls
-                && observableMap.equals(((UniqueScheduleMap) other).observableMap));
+                || (other instanceof UniquePlannedMap // instanceof handles nulls
+                && observableMap.equals(((UniquePlannedMap) other).observableMap));
     }
 }

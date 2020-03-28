@@ -185,7 +185,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void planRecipe(Recipe recipeToSet, Date atDate) {
+        public void addScheduledRecipe(Recipe recipeToSet, Date atDate) {
             throw new AssertionError("This method should not be called.");
         }
     }

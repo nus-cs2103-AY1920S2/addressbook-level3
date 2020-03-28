@@ -8,11 +8,11 @@ import seedu.recipe.model.recipe.Recipe;
 /**
  * Unmodifiable view of a schedule book
  */
-public interface ReadOnlyScheduleBook {
+public interface ReadOnlyPlannedBook {
 
     /**
-     * Returns an unmodifiable view of the scheduled recipes map.
+     * Returns an unmodifiable view of the planned recipes map.
      * This map will not contain duplicate recipes on the same day.
      */
-    ObservableMap<Date, List<Recipe>> getScheduleMap();
+    ObservableMap<Date, List<Recipe>> getPlannedMap();
 }

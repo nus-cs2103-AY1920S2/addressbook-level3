@@ -130,7 +130,7 @@ public interface Model {
     /**
      * Adds a recipe to a date in the plannedRecipe list
      */
-    void planRecipe(Recipe recipeToSet, Date atDate);
+    void addScheduledRecipe(Recipe recipeToSet, Date atDate);
 
     /**
      * Returns an unmodifiable view of the scheduled recipes.
