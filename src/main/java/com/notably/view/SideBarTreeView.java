@@ -12,33 +12,35 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
 
+import java.lang.annotation.Inherited;
+
 /**
  * Represents the View-Controller for the SideBarTreeView component.
  */
 public class SideBarTreeView extends ViewPart<Region> {
 
     private static final String FXML = "SideBarTreeView.fxml";
-    private BlockTreeItem treeRoot;
+    private BlockTreeItem currentlyOpenedNote;
 
     @FXML
     private TreeView<Block> sideBarTreeView;
 
     public SideBarTreeView(BlockTree blockTree, Property<AbsolutePath> currentlyOpenPathProperty) {
         super(FXML);
-        this.treeRoot = blockTree.getRootBlock();
+        this.currentlyOpenedNote = blockTree.getRootBlock();
         autoUpdateTree(blockTree, currentlyOpenPathProperty);
         initializeTree();
     }
 
     /**
      * Listens to changes in the structure of the tree in the Model, and accordingly updates the
-     * root of the tree that is to be displayed.
+     * currently opened Note in the SidebarTreeView.
      * @param blockTree A custom object that represents the tree-like hierarchy of Notes.
      * @param currentlyOpenPathProperty The path to the currently opened Note.
      */
     private void autoUpdateTree(BlockTree blockTree, Property<AbsolutePath> currentlyOpenPathProperty) {
         currentlyOpenPathProperty.addListener((observable, oldValue, newValue) -> {
-            this.treeRoot = blockTree.get(AbsolutePath.fromString(newValue.toString()));
+            this.currentlyOpenedNote = blockTree.get(AbsolutePath.fromString(newValue.toString()));
             initializeTree();
         });
     }
@@ -79,11 +81,11 @@ public class SideBarTreeView extends ViewPart<Region> {
      * (Root -> Root's children -> Root's grandchildren)
      */
     private void useLevelDisplayStrategy() {
-        TreeItem<Block> treeParent = this.treeRoot.getTreeItem().getParent();
+        TreeItem<Block> treeParent = this.currentlyOpenedNote.getTreeItem().getParent();
         if (treeParent != null) {
             sideBarTreeView.setRoot(treeParent);
         } else {
-            sideBarTreeView.setRoot(this.treeRoot.getTreeItem());
+            sideBarTreeView.setRoot(this.currentlyOpenedNote.getTreeItem());
         }
     }
 
@@ -115,11 +117,20 @@ public class SideBarTreeView extends ViewPart<Region> {
                 setGraphic(null);
             } else {
                 setText(getNoteTitle());
+                setSelectedProperty(block);
             }
         }
 
         private String getNoteTitle() {
             return getItem().getTitle().getText();
+        }
+
+        private void setSelectedProperty(Block block) {
+            if ((block == currentlyOpenedNote.getBlock())) {
+                updateSelected(true);
+            } else {
+                updateSelected(false);
+            }
         }
     }
 }
