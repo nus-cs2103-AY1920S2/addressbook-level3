@@ -90,6 +90,17 @@ Replaces the instructions in the recipe from 'boil eggs' to 'slice apples'
 === List Recipes — `list`
 Lists out all the recipes with their respective indexes in the CookBuddy program.
 
+=== Find Recipes — `find`
+Find recipes by one attribute.
+
+Format: `find [n/names [...]] [ing/ingredient [...]] [ins/instruction [...]]`
+
+Example: `find n/sandwich`
+Finds recipes that contain the word `sandwich` in their name
+
+Example: `find ing/bread`
+Finds recipes that contain the word `bread` in their ingredients
+
 === Count Recipes — `count`
 Displays the total number of recipes stored in the CookBuddy program.
 
