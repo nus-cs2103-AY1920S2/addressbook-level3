@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showProductAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
@@ -16,7 +15,6 @@ import static seedu.address.testutil.product.TypicalProducts.getTypicalAddressBo
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import seedu.address.model.InventorySystem;
