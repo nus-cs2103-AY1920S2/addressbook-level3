@@ -104,20 +104,17 @@ they can easily enter it into the TSS claims form at the end of the semester.
 *Common Parameters*
 
 * `PAGE_NAME` - one of the following pages:
-** home - Dashboard: the default view you first see when you open the GUI
-** session - Sessions: list of sessions according to date
+** sessions - Sessions: list of sessions according to date
 ** students - Students: list of students you are teaching
-** tss - TSS Form: list of claimable sessions (only sessions that have been marked as done
-* `CATEGORY_UID` - a category unique id
+** claims - Claims Form: list of claimable sessions (only sessions that have been marked as done will be included here)
+* `INDEX` - The position of an item in a list
 * `MATRIC_NUMBER` - the matriculation number of a student
 ** Must start with an ‘A’
 ** Must end with an letter
-** Must have x numbers in between the start and end letter
-* `MOD_CODE` - replace with the unique code for the module
-* `CLASS_CODE` - replace with the unique code for the tutorial/class
-* `SESSION_UID` - the unique numeric identifier of a session
-** Must be a positive integer (eg. 1, 2, 3, ...)
-* `SESSION_TYPE` - replace with one of the following:
+** Must have 7 numbers in between the start and end letters
+* `MOD_CODE` - the unique code for the module
+* `GROUP_CODE` - the unique code for the group
+* `SESSION_TYPE` - Could be one of the following:
 ** consult - Consultations
 ** tutorial - Tutorials
 ** grading - Grading and assessments
@@ -136,10 +133,50 @@ they can easily enter it into the TSS claims form at the end of the semester.
 
 Format: `help`
 
+==== Changing tabs : `goto`
+
 ==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+
+=== Student View
+
+==== Adding a Module `module add`
+
+==== Deleting a Module `module delete`
+
+==== Adding a Group `group add`
+
+==== Deleting a Group `group delete`
+
+==== Editing a Group `group edit`
+
+==== Adding a Student `student add`
+
+==== Deleting a Student `student delete`
+
+==== Editing a Student `student edit`
+
+==== Sort `sort`
+
+==== Filter `filter`
+
+=== Session View
+
+==== Adding a Session `session add`
+
+==== Deleting a Session `session delete`
+
+==== Editing a Session `session edit`
+
+==== Marking a Session as Done `session done`
+
+==== Filter `filter`
+
+=== Claims View
+
+==== Filter `filter`
 
 === Data Management
 
