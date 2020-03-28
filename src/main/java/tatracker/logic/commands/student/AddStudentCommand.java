@@ -88,6 +88,10 @@ public class AddStudentCommand extends Command {
         }
 
         model.addStudent(toAdd, targetGroup, targetModule);
+
+        model.updateFilteredGroupList(targetModule.getIdentifier());
+        model.updateFilteredStudentList(targetGroup.getIdentifier(), targetModule.getIdentifier());
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, targetModule, targetGroup));
     }
 
