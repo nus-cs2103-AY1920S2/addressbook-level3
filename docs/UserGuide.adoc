@@ -24,7 +24,7 @@ This user guide aims to give you a clearer understanding on how to use MODdy as 
 
 Currently, MODdy targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
 If you are from SoC and is looking for an application to manage all your modules and tasks throughout your degree progression, what are you waiting for?
-Jump to <<Quick Start>> to get started. Hope you enjoy the company of MODdy!
+Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of MODdy on your SoC journey!
 
 == About the User Guide
 This user guide presents to you the following features of MODdy:
@@ -50,8 +50,8 @@ TIP : This symbol indicates examples or tips provided by us
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `MODdy.jar` link:{repoURL}/releases[here].
+.  Ensure you have Java *11* or above installed in your Computer.
+.  Download the latest *MODdy.jar* link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your personalised MODdy.
 .  Double-click the file to start the app. The GUI, as shown in the figure below, should appear in a few seconds.
 +
@@ -64,8 +64,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Create your own profile using `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 .  Some example commands you can try:
 
-* **`add`**`m/CS2103T y/1` : adds CS2103T into your Module List under Year 1 Semester 1
-* **`delete`**`n/NAME` : deletes your whole profile and its data
+* **`add`**`m/CS2103T y/1` : adds CS2103T into your list of modules under Year 1 Semester 1
+* **`delete`**`n/NAME` : deletes your entire profile and its data
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -106,7 +106,7 @@ image::New.png[width="790"]
 ****
 * Fields in brackets [] are optional.
 * `cs/CURRENT_SEMESTER` must be entered as an integer, e.g. if you are currently in Year 2 Semester 1, you will enter `cs/3`
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in 4.6.
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6.>>
 ****
 
 TIP: `new n/John c/Computer Science cs/4` +
@@ -277,7 +277,7 @@ Deletes the task "Assignment" from the module CS2103T in your profile
 [[Clear]]
 === Resetting MODdy : `clear`
 
-This command clears all entries from MODdy including your profile and its data.
+This command clears all entries from MODdy including your profile and its data, as shown in the figure below.
 
 Format: `clear`
 
