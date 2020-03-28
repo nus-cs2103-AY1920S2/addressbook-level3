@@ -24,11 +24,12 @@ public class RevenueCommand extends Command {
 
     public static final String COMMAND_WORD = "revenue";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the revenue trend in a selected period. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Displays the revenue trend in a selected period. \n"
             + "Parameters: "
             + PREFIX_START_DATE + "START DATE "
-            + PREFIX_END_DATE + "END DATE "
-            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_END_DATE + "END DATE \n"
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_START_DATE + "2020-01-01 "
             + PREFIX_END_DATE + "2020-12-12";
 
