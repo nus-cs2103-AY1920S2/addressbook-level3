@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,6 +76,13 @@ public class JsonUtil {
         return Optional.of(jsonFile);
     }
 
+    /**
+     * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
+     * If any values are missing from the file, default values will be used, as long as the file is a valid json file.
+     * @param filePath cannot be null.
+     * @param classOfObjectToDeserialize Json file has to correspond to the structure in the class given here.
+     * @throws DataConversionException if the file format is not as expected.
+     */
     public static <T> Optional<T> readJsonFileStream(
             String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
         requireNonNull(filePath);

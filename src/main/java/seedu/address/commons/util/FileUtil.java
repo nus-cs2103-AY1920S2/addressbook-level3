@@ -1,19 +1,15 @@
 package seedu.address.commons.util;
 
-import seedu.address.MainApp;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import seedu.address.MainApp;
 
 /**
  * Writes and reads files
@@ -81,6 +77,9 @@ public class FileUtil {
         return new String(Files.readAllBytes(file), CHARSET);
     }
 
+    /**
+     * Reads file packaged in jar
+     */
     public static String readFromFileStream(String file) throws IOException {
         InputStream inputStream = MainApp.class.getResourceAsStream(file);
         StringBuilder responseStrBuilder = new StringBuilder();

@@ -2,8 +2,6 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.*;
-import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -38,18 +36,6 @@ public class JsonModuleListStorage {
      */
     public Optional<ModuleList> readModuleList(String filePath) throws DataConversionException {
         requireNonNull(filePath);
-
-        /*Optional<JsonSerializableModuleList> jsonModuleList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableModuleList.class);
-        if (!jsonModuleList.isPresent()) {
-            return Optional.empty();
-        }
-        try {
-            return Optional.of(jsonModuleList.get().toModelType());
-        } catch (IllegalValueException ive) {
-            //logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }*/
 
         Optional<JsonSerializableModuleList> jsonModuleList =
                 JsonUtil.readJsonFileStream(filePath, JsonSerializableModuleList.class);
