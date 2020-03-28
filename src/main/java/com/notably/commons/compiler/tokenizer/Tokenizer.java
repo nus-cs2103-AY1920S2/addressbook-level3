@@ -37,11 +37,11 @@ public class Tokenizer {
         List<Token> tokens = new ArrayList<>();
 
         while (remainingInput.length() > 0) {
-            int i = 0;
-            Optional<Token> nextTokenOptional = RULES.get(i).extractFront(remainingInput);
-            while (nextTokenOptional.isEmpty() && i < RULES.size()) {
-                nextTokenOptional = RULES.get(i).extractFront(remainingInput);
-                i += 1;
+            int ruleIndex = 0;
+            Optional<Token> nextTokenOptional = RULES.get(ruleIndex).extractFront(remainingInput);
+            while (nextTokenOptional.isEmpty() && ruleIndex < RULES.size()) {
+                nextTokenOptional = RULES.get(ruleIndex).extractFront(remainingInput);
+                ruleIndex += 1;
             }
 
             Token nextToken = nextTokenOptional.orElseThrow(UnknownTokenException::new);
