@@ -52,7 +52,7 @@
           </padding>
         </StackPane>
 
-        <TabPane prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
           <tabs>
             <Tab fx:id="studentListTab" text="Students">
               <content>

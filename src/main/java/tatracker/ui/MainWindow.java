@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -45,6 +47,18 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab studentListTab;
+
+    @FXML
+    private Tab sessionListTab;
+
+    @FXML
+    private Tab claimsListTab;
 
     @FXML
     private StackPane studentListPanelPlaceholder;
@@ -179,6 +193,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches between tabs.
+     */
+    @FXML
+    public void handleGoto(Tab tabToSwitchTo) {
+        tabPane.getSelectionModel().select(tabToSwitchTo);
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -234,11 +256,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isSwitchTab()) {
+                handleGoto(studentListTab); //TODO: parser
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
 
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
