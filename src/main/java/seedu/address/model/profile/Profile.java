@@ -25,11 +25,11 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 public class Profile {
 
     // Identity fields
-    private static HashMap<Integer, ModuleList> semModHashMap;
-    private static int currentSemester = 0;
-    private static String specialisation;
-    private static Name name;
-    private static CourseName courseName;
+    private HashMap<Integer, ModuleList> semModHashMap;
+    private int currentSemester = 0;
+    private String specialisation;
+    private Name name;
+    private CourseName courseName;
 
     /**
      * Every field must be present and not null.
@@ -38,11 +38,11 @@ public class Profile {
         requireAllNonNull(name);
         requireAllNonNull(courseName);
         requireAllNonNull(currentSemester);
-        Profile.name = name;
-        Profile.courseName = courseName;
-        Profile.currentSemester = currentSemester;
-        Profile.specialisation = specialisation;
-        Profile.semModHashMap = new HashMap<>();
+        this.name = name;
+        this.courseName = courseName;
+        this.currentSemester = currentSemester;
+        this.specialisation = specialisation;
+        this.semModHashMap = new HashMap<>();
     }
 
     /**
@@ -62,10 +62,6 @@ public class Profile {
         return name;
     }
 
-    public static Name getStaticName() {
-        return name;
-    }
-
     public CourseName getCourseName() {
         return courseName;
     }
@@ -78,20 +74,20 @@ public class Profile {
         return specialisation;
     }
 
-    public static void setName(Name name) {
-        Profile.name = name;
+    public void setName(Name name) {
+        this.name = name;
     }
 
-    public static void setCourse(CourseName courseName) {
-        Profile.courseName = courseName;
+    public void setCourse(CourseName courseName) {
+        this.courseName = courseName;
     }
 
-    public static void setCurrentSemester(int currentSemester) {
-        Profile.currentSemester = currentSemester;
+    public void setCurrentSemester(int currentSemester) {
+        this.currentSemester = currentSemester;
     }
 
-    public static void setSpecialisation(String specialisation) {
-        Profile.specialisation = specialisation;
+    public void setSpecialisation(String specialisation) {
+        this.specialisation = specialisation;
     }
 
     public ModuleList getModules(Integer semester) throws ParseException {
@@ -101,7 +97,7 @@ public class Profile {
         return semModHashMap.get(semester);
     }
 
-    public static HashMap<Integer, ModuleList> getAllModules() {
+    public HashMap<Integer, ModuleList> getAllModules() {
         return semModHashMap;
     }
 
