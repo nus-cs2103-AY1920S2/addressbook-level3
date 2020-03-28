@@ -95,6 +95,17 @@ class NearbyCommandTest {
     }
 
     @Test
+    void execute_validAreaUnfilteredBothLists_success() {
+        String searchTerm = "east";
+        NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
+        expectedModel.updateFilteredReturnOrderList(eastAreaReturn);
+        expectedModel.updateFilteredOrderList(eastArea);
+        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, searchTerm);
+        assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     void execute_validAreaNoMatchingOrderFilteredOrderList_success() {
         String area = "east";
         String searchTerm = FLAG_ORDER_LIST + " " + area;
@@ -152,6 +163,24 @@ class NearbyCommandTest {
     }
 
     @Test
+    void execute_validPostalSectorUnfilteredBothLists_success() {
+        String input = "64";
+        Index postalSector = Index.fromOneBased(64);
+        Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
+        if (location.isEmpty()) {
+            fail("Given postal sector is not valid");
+        }
+
+        NearbyCommand nearbyCommand = new NearbyCommand(input);
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
+        expectedModel.updateFilteredReturnOrderList(returnOrdersInJurong);
+        expectedModel.updateFilteredOrderList(ordersInJurong);
+        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_POSTAL_SECTOR,
+                location.get());
+        assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     void execute_validPostalSectorNoMatchingOrderFilteredOrderList_success() {
         String input = FLAG_ORDER_LIST + " 7";
         Index postalSector = Index.fromOneBased(7);
@@ -181,6 +210,24 @@ class NearbyCommandTest {
                 location.get());
         NearbyCommand nearbyCommand = new NearbyCommand(input);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
+        showNoReturn(expectedModel);
+        assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    void execute_validPostalSectorNoMatchingOrderFilteredBothLists_success() {
+        String input = "7";
+        Index postalSector = Index.fromOneBased(7);
+        Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
+        if (location.isEmpty()) {
+            fail("Given postal sector is not valid");
+        }
+
+        String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_POSTAL_SECTOR,
+                location.get());
+        NearbyCommand nearbyCommand = new NearbyCommand(input);
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
+        showNoOrder(expectedModel);
         showNoReturn(expectedModel);
         assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
     }
