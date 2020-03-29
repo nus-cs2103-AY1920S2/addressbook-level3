@@ -20,4 +20,6 @@ public class CliSyntax {
 
     /* Flag definitions */
     public static final Flag FLAG_FORCE_CLEAR = new Flag("-f");
+    public static final Flag FLAG_ORDER_BOOK = new Flag("-o");
+    public static final Flag FLAG_RETURN_BOOK = new Flag("-r");
 }
