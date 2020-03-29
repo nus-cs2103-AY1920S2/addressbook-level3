@@ -7,6 +7,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -25,6 +26,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -41,7 +43,7 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
     public AddStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MATRIC, PREFIX_MODULE, PREFIX_GROUP,
-                        PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+                        PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RATING, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MATRIC, PREFIX_MODULE, PREFIX_GROUP, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -69,11 +71,16 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         }
 
+        Rating rating = new Rating();
+        if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
+            rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
+        }
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // ==== Build Student  ====
 
-        Student student = new Student(matric, name, phone, email, tagList);
+        Student student = new Student(matric, name, phone, email, rating, tagList);
 
         return new AddStudentCommand(student, group, module);
     }

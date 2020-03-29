@@ -8,11 +8,11 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import tatracker.commons.core.index.Index;
@@ -20,7 +20,6 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
-import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
 import tatracker.testutil.EditStudentDescriptorBuilder;
 
@@ -37,6 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_MATRIC_AMY = "A0123456J";
     public static final String VALID_MATRIC_BOB = "A0987654K";
+    public static final int VALID_RATING_AMY = 5;
+    public static final int VALID_RATING_BOB = 2;
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -53,6 +54,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String MATRIC_DESC_AMY = " " + PREFIX_MATRIC + VALID_MATRIC_AMY;
     public static final String MATRIC_DESC_BOB = " " + PREFIX_MATRIC + VALID_MATRIC_BOB;
+    public static final String RATING_DESC_AMY = " " + PREFIX_RATING + VALID_MATRIC_AMY;
+    public static final String RATING_DESC_BOB = " " + PREFIX_RATING + VALID_MATRIC_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -65,6 +68,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_MATRIC_DESC = " " + PREFIX_MATRIC + "!0123456&"; // '&' not allow in matrics
+    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "!0123456&"; // rating
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -137,7 +141,7 @@ public class CommandTestUtil {
 
         Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
         final String[] splitName = student.getName().fullName.split("\\s+");
-        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        //model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
     }

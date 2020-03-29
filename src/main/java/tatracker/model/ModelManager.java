@@ -5,6 +5,7 @@ import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -28,8 +29,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Session> filteredDoneSessions;
-    private final FilteredList<Student> filteredStudents;
-    private final FilteredList<Group> filteredGroups;
     private final FilteredList<Module> filteredModules;
 
     private long totalHours = 0;
@@ -49,8 +48,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
         filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
-        filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
-        filteredGroups = new FilteredList<>(this.taTracker.getGroupList());
         filteredModules = new FilteredList<>(this.taTracker.getModuleList());
     }
 
@@ -218,12 +215,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addGroup(Group group) {
-        requireNonNull(group);
-        taTracker.addGroup(group);
-    }
-
-    @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
         taTracker.addGroup(group, targetModule);
@@ -243,13 +234,22 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Group> getFilteredGroupList() {
-        return filteredGroups;
+        return taTracker.getCurrentlyShownGroupList();
     }
 
     @Override
-    public void updateFilteredGroupList(Predicate<Group> predicate) {
-        requireNonNull(predicate);
-        filteredGroups.setPredicate(predicate);
+    public void updateFilteredGroupList(String moduleCode) {
+        taTracker.updateCurrentlyShownGroups(moduleCode);
+    }
+
+    @Override
+    public void setFilteredGroupList() {
+        taTracker.setCurrentlyShownGroups(new ArrayList<Group>());
+    }
+
+    @Override
+    public void updateGroupList(int moduleIndex) {
+        taTracker.setCurrentlyShownGroups(moduleIndex);
     }
 
     // ======== Student Methods ================================================
@@ -269,14 +269,12 @@ public class ModelManager implements Model {
     @Override
     public void addStudent(Student student) {
         taTracker.addStudent(student);
-        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
     public void addStudent(Student student, Group targetGroup, Module targetModule) {
         requireNonNull(student);
         taTracker.addStudent(student, targetGroup, targetModule);
-        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
@@ -302,20 +300,35 @@ public class ModelManager implements Model {
         taTracker.setStudent(target, editedStudent, targetGroup, targetModule);
     }
 
+    @Override
+    public void updateStudentList(int moduleIndex, int groupIndex) {
+        taTracker.setCurrentlyShownStudents(moduleIndex, groupIndex);
+    }
+
     /**
      * TODO: Review filter functions.
      */
 
     @Override
     public ObservableList<Student> getFilteredStudentList() {
-        return filteredStudents;
+        return taTracker.getCurrentlyShownStudentList();
     }
 
     @Override
-    public void updateFilteredStudentList(Predicate<Student> predicate) {
-        requireNonNull(predicate);
-        filteredStudents.setPredicate(predicate);
+    public void setFilteredStudentList() {
+        taTracker.setCurrentlyShownStudents(new ArrayList<Student>());
     }
+
+    @Override
+    public void setFilteredStudentList(String moduleCode, int groupIndex) {
+        taTracker.setCurrentlyShownStudents(moduleCode, groupIndex);
+    }
+
+    @Override
+    public void updateFilteredStudentList(String groupCode, String moduleCode) {
+        taTracker.updateCurrentlyShownStudents(groupCode, moduleCode);
+    }
+
 
     // ======== Others Methods =================================================
 
