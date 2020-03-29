@@ -178,38 +178,9 @@ public class ProfileManager implements Model {
         }
     }
 
-//    public void replaceTask(Deadline oldDeadline, Deadline newDeadline) {
-//        Iterator<Deadline> iter = this.deadlineList.iterator();
-//        Boolean flag = false;
-//        while (iter.hasNext()) {
-//            Deadline dl = iter.next();
-//            if (dl.getModuleCode().equals(oldDeadline.getModuleCode())
-//                    && dl.getDescription().equals(oldDeadline.getDescription())) {
-//                dl.setDescription(newDeadline.getDescription());
-//                flag = true;
-//            }
-//        }
-//        if (!flag) {
-//            throw new DeadlineNotFoundException();
-//        }
-//    }
-//
-//    public void replaceDateTime(Deadline oldDeadline, Deadline newDeadline) throws DateTimeException {
-//        Iterator<Deadline> iter = this.deadlineList.iterator();
-//        Boolean flag = false;
-//        while (iter.hasNext()) {
-//            Deadline dl = iter.next();
-//            if (dl.getModuleCode().equals(oldDeadline.getModuleCode())
-//                    && dl.getDescription().equals(oldDeadline.getDescription())) {
-//                dl.setDateTime(newDeadline.getStringDate(), newDeadline.getStringTime());
-//                flag = true;
-//            }
-//        }
-//        if (!flag) {
-//            throw new DeadlineNotFoundException();
-//        }
-//    }
-
+    /**
+     * To be used when deadline is edited.
+     */
     public void replaceDeadline(Deadline oldDeadline, Deadline newDeadline) {
         Iterator<Deadline> iter = this.deadlineList.iterator();
         Boolean flag = false;

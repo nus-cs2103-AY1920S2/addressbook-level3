@@ -82,8 +82,8 @@ public class EditCommand extends Command {
         this.specialisation = specialisation;
     }
 
-    public EditCommand(ModuleCode moduleCode, int intSemester, String grade, String oldTask, String newTask
-                , String newDeadline) {
+    public EditCommand(ModuleCode moduleCode, int intSemester, String grade, String oldTask, String newTask,
+                       String newDeadline) {
         editModule = true;
         this.moduleCode = moduleCode;
         this.intSemester = intSemester;
