@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.statistics;
 
+import static seedu.address.model.transaction.DateTime.populateDates;
+
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -15,7 +17,6 @@ import seedu.address.model.transaction.ProductIdEqualsPredicate;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Quantity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -57,34 +58,30 @@ public class PlotProductSalesCommand extends Command {
         predicates.add(new DateTimeInRangePredicate(startDateTime, endDateTime));
         Predicate<Transaction> jointPredicate = new JointTransactionPredicate(predicates);
         List<Transaction> transactions =  model.filterTransaction(jointPredicate);
-        XYChart.Series dataSeries = new XYChart.Series();
 
-
-        List<LocalDate> localDates = populateDates(startDateTime, endDateTime);
-        localDates.forEach(date -> {
-            Quantity sales = new Quantity(0);
-            for (Transaction t: transactions) {
-                if (t.getDateTime().value.toLocalDate().equals(date)) {
-                    sales = sales.plus(t.getQuantity());
-                }
-            }
-
-            dataSeries.getData().add(new XYChart.Data(date.toString(), sales.value));
-        });
+        XYChart.Series dataSeries = generateDataSeries(transactions);
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, productToPlot.getDescription()),
                 dataSeries, false, true, false);
     }
 
-    public static List<LocalDate> populateDates(DateTime startDateTime, DateTime endDateTime) {
-        List<LocalDate> localDates = new ArrayList<>();
-        LocalDate localDate = startDateTime.value.toLocalDate();
-        while (localDate.isBefore(endDateTime.value.toLocalDate())) {
-            localDates.add(localDate);
-            localDate = localDate.plusDays(1);
-        }
-        return localDates;
+    private XYChart.Series generateDataSeries(List<Transaction> transactions) {
+        XYChart.Series dataSeries = new XYChart.Series();
+
+        List<DateTime> dateTimes = populateDates(startDateTime, endDateTime);
+        dateTimes.forEach(date -> {
+            Quantity sales = new Quantity(0);
+            for (Transaction t: transactions) {
+                if (t.getDateTime().isOnSameDay(date)) {
+                    sales = sales.plus(t.getQuantity());
+                }
+            }
+
+            dataSeries.getData().add(new XYChart.Data(date.toDateString(), sales.value));
+        });
+
+        return dataSeries;
     }
 
 }

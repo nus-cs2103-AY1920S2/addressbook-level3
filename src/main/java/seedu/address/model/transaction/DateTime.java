@@ -24,7 +24,8 @@ public class DateTime {
      * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "(\\d{4}-\\d{2}-\\d{2})\\s+\\d{2}:\\d{2}";
-    public static final LocalDateTime DEFAULT_VALUE = LocalDateTime.now(ZoneId.of("Asia/Singapore"));
+    public static final ZoneId DEFAULT_ZONE = ZoneId.of("Asia/Singapore");
+    public static final LocalDateTime DEFAULT_VALUE = LocalDateTime.now(DEFAULT_ZONE);
 
     public final LocalDateTime value;
 
@@ -77,12 +78,38 @@ public class DateTime {
      */
     public boolean isAfter(DateTime other) {
         requireNonNull(other);
+        LocalDate a = value.toLocalDate();
+        a.atStartOfDay();
         return value.isAfter(other.value);
+    }
+
+    /**
+     * Returns true if the current date time is on the same day with other date time.
+     */
+    public boolean isOnSameDay(DateTime other) {
+        return value.toLocalDate().equals(other.value.toLocalDate());
+    }
+
+    public static List<DateTime> populateDates(DateTime startDateTime, DateTime endDateTime) {
+        List<DateTime> dateTimes = new ArrayList<>();
+        LocalDate localDate = startDateTime.value.toLocalDate();
+        while (localDate.isBefore(endDateTime.value.toLocalDate())) {
+            dateTimes.add(new DateTime(localDate.atStartOfDay()));
+            localDate = localDate.plusDays(1);
+        }
+        return dateTimes;
     }
 
     @Override
     public String toString() {
         return value.format(DATE_TIME_FORMAT);
+    }
+
+    /**
+     * Returns the string representation of only year and date.
+     */
+    public String toDateString() {
+        return value.toLocalDate().toString();
     }
 
     @Override
