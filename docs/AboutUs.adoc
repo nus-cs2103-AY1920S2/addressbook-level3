@@ -20,7 +20,7 @@ Responsibilities: Team Facilitation, code integration & UI design
 
 === Eng Xuan En
 image::exeexe93.png[width="150", align="left"]
-{empty}[https://github.com/Exeexe93[github]] [<<engxuanen#, portfolio>>]
+{empty}[https://github.com/Exeexe93[github]] [<<exeexe93#, portfolio>>]
 
 Role: Co-Team Lead +
 Responsibilities: Scheduling, tracking and deadlines
