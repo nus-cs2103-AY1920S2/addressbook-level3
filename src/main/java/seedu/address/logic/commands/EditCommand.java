@@ -114,7 +114,6 @@ public class EditCommand extends Command {
         } catch (Exception e) {
             throw new CommandException("Error: There is no existing profile.");
         }
-        
 
         if (toEditModule != null) {
             if (intSemester != 0) {
