@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
@@ -9,6 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Statistics;
+import seedu.address.model.dayData.Date;
+import seedu.address.model.dayData.DayData;
+import seedu.address.model.dayData.TasksDoneData;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
@@ -56,12 +61,15 @@ public class DoneCommand extends Command {
 
             Task editedTask = createDoneTask(taskToEdit);
 
+            // Normal statistics update
+
             // If task to be done is being pommed...
             if (taskToEdit.equals(model.getPomodoro().getRunningTask())) {
                 pommedTask = taskToEdit;
             } else {
                 tasksDone.append(String.format("%n%s", editedTask));
                 model.setTask(taskToEdit, editedTask);
+                updateStatisticsRegularDone(model);
             }
             // increment Pet EXP after completing a task
             model.incrementExp();
@@ -83,6 +91,12 @@ public class DoneCommand extends Command {
         return new CommandResult(tasksDone.toString());
     }
 
+    private static Date getCurrentDate() {
+        LocalDateTime now = LocalDateTime.now();
+        Date date = new Date(now.format(Date.dateFormatter));
+        return date;
+    }
+
     private static Task createDoneTask(Task taskToEdit) {
         assert taskToEdit != null;
 
@@ -92,6 +106,19 @@ public class DoneCommand extends Command {
         Set<Tag> updatedTags = taskToEdit.getTags();
 
         return new Task(updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
+    }
+
+    private static void updateStatisticsRegularDone(Model model) {
+        model.updateDataDatesStatistics();
+        Date dateOnDone = getCurrentDate();
+        Statistics stats = model.getStatistics();
+        DayData dayData = stats.getDayDataFromDate(dateOnDone);
+        DayData updatedDayData =
+                new DayData(
+                        dateOnDone,
+                        dayData.getPomDurationData(),
+                        new TasksDoneData("" + (dayData.getTasksDoneData().value + 1)));
+        stats.updatesDayData(updatedDayData);
     }
 
     @Override

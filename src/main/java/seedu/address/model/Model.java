@@ -94,5 +94,7 @@ public interface Model {
 
     PomodoroManager getPomodoroManager();
 
-    ReadOnlyStatistics getStatistics();
+    Statistics getStatistics();
+
+    public void updateDataDatesStatistics();
 }

@@ -133,10 +133,9 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the
-     * internal list of
-     * 
-     * @FXML Serves as a reference point for TaskListPanel.java to update display
-     *       {@code versionedTaskList}
+     * internal list of @FXML Serves as a reference point for TaskListPanel.java to
+     * update display {@code
+     * versionedTaskList}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
@@ -224,7 +223,7 @@ public class ModelManager implements Model {
 
     // ============================ Statistics Manager
 
-    public ReadOnlyStatistics getStatistics() {
+    public Statistics getStatistics() {
         return statistics;
     }
 
