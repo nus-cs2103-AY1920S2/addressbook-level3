@@ -107,7 +107,7 @@ public class BuyCommandTest {
     }
 
     @Test
-    public void execute_validPerson_callsModelCommit() throws CommandException {
+    public void execute_validTransaction_callsModelCommit() throws CommandException {
         ModelStubCommit modelStub = new ModelStubCommit();
         new BuyCommand(boughtGood).execute(modelStub);
 

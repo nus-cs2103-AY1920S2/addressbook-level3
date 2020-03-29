@@ -99,7 +99,7 @@ public class SellCommandTest {
     }
 
     @Test
-    public void execute_validPerson_callsModelCommit() throws CommandException {
+    public void execute_validTransaction_callsModelCommit() throws CommandException {
         ModelStubCommit modelStub = new ModelStubCommit();
         modelStub.addGood(soldGood);
         new SellCommand(soldGood).execute(modelStub);
