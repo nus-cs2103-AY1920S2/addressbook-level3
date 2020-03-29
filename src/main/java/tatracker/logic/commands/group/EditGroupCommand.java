@@ -65,7 +65,7 @@ public class EditGroupCommand extends Command {
         Group editedGroup = actualModule.getGroup(group.getIdentifier());
         editedGroup.setIdentifier(newGroupCode);
 
-        if(newGroupType != null) {
+        if (newGroupType != null) {
             editedGroup.setGroupType(newGroupType);
         }
 

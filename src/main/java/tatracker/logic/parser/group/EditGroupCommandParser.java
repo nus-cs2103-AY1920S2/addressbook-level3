@@ -5,11 +5,9 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NEWGROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NEWTYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
-import tatracker.logic.commands.group.AddGroupCommand;
 import tatracker.logic.commands.group.EditGroupCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -37,7 +35,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUP, PREFIX_MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
         }
 
         String groupCode = argMultimap.getValue(PREFIX_GROUP).get();
