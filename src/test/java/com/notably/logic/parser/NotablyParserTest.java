@@ -71,6 +71,17 @@ public class NotablyParserTest {
     }
 
     @Test
+    public void parseCommand_newCommandShortHandInput() throws Exception {
+        Command command = parser.parseCommand("n -t 1234 -b Hi").get(0);
+
+        assertTrue(command instanceof NewCommand);
+
+        command.execute(model);
+
+        assertTrue(model.hasPath(ParserUtil.createAbsolutePath("1234", model.getCurrentlyOpenPath())));
+    }
+
+    @Test
     public void parseCommand_newCommandInputJump_false() throws Exception {
         List<? extends Command> commands = parser.parseCommand("new -t CS2103 -b Hi");
 
@@ -95,8 +106,26 @@ public class NotablyParserTest {
     }
 
     @Test
+    public void parseCommand_openCommandShorthandInput() throws Exception {
+        Command command = parser.parseCommand("o -t CS2104").get(0);
+
+        assertTrue(command instanceof OpenCommand);
+
+        command.execute(model);
+
+        assertEquals(AbsolutePath.fromString("/another/CS2103"), model.getCurrentlyOpenPath());
+    }
+
+    @Test
     public void parseCommand_deleteCommandInput_deleteCommand() throws Exception {
         Command command = parser.parseCommand("delete -t ../CS2103").get(0);
+
+        assertTrue(command instanceof DeleteCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteCommandShorthandInput_deleteCommand() throws Exception {
+        Command command = parser.parseCommand("d -t ../CS2103").get(0);
 
         assertTrue(command instanceof DeleteCommand);
     }
@@ -108,5 +137,11 @@ public class NotablyParserTest {
         assertTrue(command instanceof HelpCommand);
     }
 
+    @Test
+    public void parseCommand_helpCommandShorthandInput_helpCommand() throws Exception {
+        Command command = parser.parseCommand("h").get(0);
+
+        assertTrue(command instanceof HelpCommand);
+    }
 
 }
