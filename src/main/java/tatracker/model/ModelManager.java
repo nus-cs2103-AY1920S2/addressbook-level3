@@ -24,9 +24,12 @@ import tatracker.model.student.Student;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final int FIRST_GROUP_INDEX = 0;
+    private static final int FIRST_MODULE_INDEX = 0;
 
     private final TaTracker taTracker;
     private final UserPrefs userPrefs;
+
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Module> filteredModules;
@@ -49,6 +52,7 @@ public class ModelManager implements Model {
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
         filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
         filteredModules = new FilteredList<>(this.taTracker.getModuleList());
+        this.setDefaultStudentViewList();
     }
 
     public ModelManager() {
@@ -100,6 +104,21 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void setDefaultStudentViewList() {
+        if (this.getFilteredModuleList().isEmpty()) {
+            this.setFilteredGroupList();
+            this.setFilteredStudentList();
+        } else {
+            this.updateGroupList(FIRST_MODULE_INDEX);
+            if (this.getFilteredGroupList().isEmpty()) {
+                this.setFilteredStudentList();
+            } else {
+                this.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
+            }
+        }
     }
 
     // ======== Session Methods ================================================

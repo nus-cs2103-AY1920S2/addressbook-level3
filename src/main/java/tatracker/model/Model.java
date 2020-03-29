@@ -70,6 +70,11 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Sets default settings of the student view.
+     */
+    void setDefaultStudentViewList();
+
     // ======== Session Methods ================================================
 
     /**
