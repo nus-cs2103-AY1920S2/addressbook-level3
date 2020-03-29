@@ -282,23 +282,28 @@ ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, d
 |===
 * Examples:
 ** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`,
-`e/amos@example.com`, `dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
+`e/amos@example.com`, `dts/2020-05-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
 
 [format=csv]
 .Return data format
 |===
-ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
 |===
 
 * Examples:
-** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com` +
-`rts/12-12-2020 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
+** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com`, +
+`rts/2020-05-10 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
 
-* Note:
-** Commas `,` are required in between of the different fields.
-** Prefixes are required before any value for that field.
-** `ORDER_TYPE` can only be either `order` or `return`.
-** Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
+[NOTE]
+====
+* Commas `,` are required in between of the different fields.
+* Prefixes are required before any value for that field.
+* `ORDER_TYPE` can only be either `order` or `return`.
+* Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
+* `ORDER_TYPE` denote the start of an delivery order or return order.
+* The last value of the same type will be stored if duplicate prefix type is found in a single order sentence.
+* Duplicate and invalid order or return order will not be imported into Delino.
+====
 
 ==== Examples
 
@@ -454,10 +459,10 @@ You will view all orders in the order list and return order list located in the 
 ====
 
 ==== Examples:
-* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/2020-12-12 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
 Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
-* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
+* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/2020-12-12 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
 Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
 
 [[search]]
@@ -537,7 +542,7 @@ delivery), number of deliveries completed in a day}_
 == Command Summary
 
 * <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/E,MAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
+e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-05-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
 * <<clear, *Clear*>> : `clear` `[FLAG]` +
 e.g. `clear` `-f`
 * <<delete, *Delete*>> : `delete` `INDEX` +
@@ -556,7 +561,7 @@ e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
 e.g. `list` `done`
 * <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
-e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
+e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/2020-12-12 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
 * <<nearby, *Nearby*>> : `nearby` `[FLAG]` `POSTAL_SECTOR` or `nearby` `[FLAG]` `AREA` +
 e.g. `nearby` `-o` `14` +
 e.g. `nearby` `-r` `north` +
@@ -576,47 +581,47 @@ e.g. `nearby` `east`
 
 |tid/
 |Transaction ID
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |n/
 |Customer Name
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |a/
 |Address
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |p/
 |Phone Number
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |e/
 |Email
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |dts/
 |Delivery Date And Time
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |rts/
 |Return Date and Time
-|<<return, Return>>, <<search, Search>>
+|<<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |w/
 |Warehouse Location
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |cod/
 |Cash On Delivery
-|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>, <<import, Import>>
 
 |c/
 |Comments by Customer
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |type/
 |Type of Item
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 |===
 
 [[command_flags]]

@@ -43,12 +43,12 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_ADDRESS_AMY = "Block 312 Amy Street 1";
+    public static final String VALID_ADDRESS_BOB = "Block 123 Bobby Street 3";
     public static final String VALID_TIMESTAMP_AMY = "2020-05-13 2200";
     public static final String VALID_TIMESTAMP_BOB = "2020-05-20 1500";
-    public static final String VALID_WAREHOUSE_AMY = "5 Toh Guan Rd E, #02-30 S608831";
-    public static final String VALID_WAREHOUSE_BOB = "5 Jurong East Rd, #02-30 S608831";
+    public static final String VALID_WAREHOUSE_AMY = "5 Toh Guan Rd E #02-30 S608831";
+    public static final String VALID_WAREHOUSE_BOB = "5 Jurong East Rd #02-30 S608831";
     public static final String VALID_COD_AMY = "$4";
     public static final String VALID_COD_BOB = "$4.10";
     public static final String VALID_COMMENT_NIL = "NIL";
@@ -68,14 +68,14 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String DELIVERY_TIMESTAMP_DESC_AMY = " " + PREFIX_DELIVERY_TIMESTAMP + VALID_TIMESTAMP_AMY;
     public static final String DELIVERY_TIMESTAMP_DESC_BOB = " " + PREFIX_DELIVERY_TIMESTAMP + VALID_TIMESTAMP_BOB;
+    public static final String RETURN_TIMESTAMP_DESC_AMY = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_AMY;
+    public static final String RETURN_TIMESTAMP_DESC_BOB = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_BOB;
     public static final String WAREHOUSE_DESC_AMY = " " + PREFIX_WAREHOUSE + VALID_WAREHOUSE_AMY;
     public static final String WAREHOUSE_DESC_BOB = " " + PREFIX_WAREHOUSE + VALID_WAREHOUSE_BOB;
     public static final String COD_DESC_AMY = " " + PREFIX_COD + VALID_COD_AMY;
     public static final String COD_DESC_BOB = " " + PREFIX_COD + VALID_COD_BOB;
     public static final String COMMENT_DESC_NIL = " " + PREFIX_COMMENT + VALID_COMMENT_NIL;
     public static final String COMMENT_DESC_INSTRUCTION = " " + PREFIX_COMMENT + VALID_COMMENT_INSTRUCTION;
-    public static final String RETURN_TIMESTAMP_DESC_AMY = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_AMY;
-    public static final String RETURN_TIMESTAMP_DESC_BOB = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_BOB;
     public static final String TYPE_DESC_GLASS = " " + PREFIX_TYPE + VALID_TYPE_GLASS;
     public static final String TYPE_DESC_PLASTIC = " " + PREFIX_TYPE + VALID_TYPE_PLASTIC;
 

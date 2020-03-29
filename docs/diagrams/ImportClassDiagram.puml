@@ -1,18 +1,22 @@
 @startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
 class ImportCommandParser implements Parser {
     /' Methods '/
-    + {static} parse(args : String) : ImportCommand
+    + parse(args : String) : ImportCommand
 }
 
-interface Parser<T> {
+interface Parser<T> <<interface>> {
     parse(userInput : String) : ImportCommand
 }
 
-abstract class Command {
-    {abstract} execute(Model model) : CommandResult
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
 }
 
-class ImportCommand extends Command {
+class ImportCommand {
     /' Fields '/
     + {static} OT_RETURN : String
     + {static} OT_ORDER : String
@@ -29,5 +33,5 @@ class ImportCommand extends Command {
     + equals(Object other) : boolean
     - printResult() : String
 }
-
+ImportCommand --up|> "{abstract}\nCommand"
 @enduml

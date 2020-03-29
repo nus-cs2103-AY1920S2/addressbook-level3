@@ -42,9 +42,6 @@ public class ClearCommandParser implements Parser<ClearCommand> {
         for (String flag : values) {
             if (flag.equals(FLAG_FORCE_CLEAR.toString()) || flag.equals(FLAG_ORDER_BOOK.toString())
                     || flag.equals(FLAG_RETURN_BOOK.toString())) {
-                if (flags.contains(flag)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
-                }
                 if (flag.equals(FLAG_RETURN_BOOK.toString()) && flags.contains(FLAG_ORDER_BOOK.toString())) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
                 } else if (flag.equals(FLAG_ORDER_BOOK.toString()) && flags.contains(FLAG_RETURN_BOOK.toString())) {
