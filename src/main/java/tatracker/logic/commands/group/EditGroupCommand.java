@@ -64,7 +64,10 @@ public class EditGroupCommand extends Command {
 
         Group editedGroup = actualModule.getGroup(group.getIdentifier());
         editedGroup.setIdentifier(newGroupCode);
-        editedGroup.setGroupType(newGroupType);
+
+        if(newGroupType != null) {
+            editedGroup.setGroupType(newGroupType);
+        }
 
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
