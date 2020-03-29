@@ -2,7 +2,9 @@ package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NAME;
 import static tatracker.logic.parser.Prefixes.PHONE;
 import static tatracker.logic.parser.Prefixes.RATING;
@@ -21,6 +23,8 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -36,6 +40,13 @@ import tatracker.model.tag.Tag;
 public class EditStudentCommand extends Command {
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.EDIT_MODEL;
+
+    public static final List<Prefix> PARAMETERS = List.of(MATRIC, MODULE, GROUP);
+    public static final List<Prefix> OPTIONALS = List.of(NAME, PHONE, EMAIL, RATING, TAG);
+
+    public static final String INFO = "Edits the student at the displayed list index.";
+    public static final String USAGE = Prefixes.getUsages(PARAMETERS, OPTIONALS);
+    public static final String EXAMPLE = Prefixes.getExamples(MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
             + "by the index number used in the displayed student list. "
