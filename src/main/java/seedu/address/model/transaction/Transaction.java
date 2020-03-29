@@ -1,6 +1,5 @@
 package seedu.address.model.transaction;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 import javafx.scene.chart.XYChart;

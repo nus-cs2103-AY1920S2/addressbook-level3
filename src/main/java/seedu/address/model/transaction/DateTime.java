@@ -90,6 +90,12 @@ public class DateTime {
         return value.toLocalDate().equals(other.value.toLocalDate());
     }
 
+    /**
+     * Generate a range of dates.
+     * @param startDateTime the start date.
+     * @param endDateTime the end date.
+     * @return a list of dates between start and end.
+     */
     public static List<DateTime> populateDates(DateTime startDateTime, DateTime endDateTime) {
         List<DateTime> dateTimes = new ArrayList<>();
         LocalDate localDate = startDateTime.value.toLocalDate().plusDays(1);

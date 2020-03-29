@@ -1,6 +1,5 @@
 package seedu.address.model.transaction;
 
-import javax.xml.crypto.Data;
 import java.util.function.Predicate;
 
 /**

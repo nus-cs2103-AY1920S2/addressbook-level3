@@ -1,6 +1,11 @@
 package seedu.address.logic.commands.statistics;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.model.transaction.DateTime.populateDates;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.Messages;
@@ -17,12 +22,9 @@ import seedu.address.model.transaction.ProductIdEqualsPredicate;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Quantity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Plot sales of a product in a given period.
+ */
 public class PlotProductSalesCommand extends Command {
     public static final String COMMAND_WORD = "plotsales";
 
@@ -58,7 +60,7 @@ public class PlotProductSalesCommand extends Command {
         predicates.add(new ProductIdEqualsPredicate(productToPlot.getId()));
         predicates.add(new DateTimeInRangePredicate(startDateTime, endDateTime));
         Predicate<Transaction> jointPredicate = new JointTransactionPredicate(predicates);
-        List<Transaction> transactions =  model.filterTransaction(jointPredicate);
+        List<Transaction> transactions = model.filterTransaction(jointPredicate);
 
         XYChart.Series dataSeries = generateDataSeries(transactions);
 
@@ -70,6 +72,10 @@ public class PlotProductSalesCommand extends Command {
                 false, true, false);
     }
 
+    /**
+     * Generates data series usable to the bar chart plot.
+     * @param transactions a list of transactions.
+     */
     private XYChart.Series generateDataSeries(List<Transaction> transactions) {
         XYChart.Series dataSeries = new XYChart.Series();
 

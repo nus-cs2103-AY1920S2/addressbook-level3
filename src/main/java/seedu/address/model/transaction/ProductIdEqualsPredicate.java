@@ -1,6 +1,5 @@
 package seedu.address.model.transaction;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 

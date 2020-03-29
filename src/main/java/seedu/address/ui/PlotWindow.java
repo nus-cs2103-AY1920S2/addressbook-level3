@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -7,8 +9,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.logging.Logger;
-
+/**
+ * Controller of a plot page.
+ */
 public class PlotWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(PlotWindow.class);
     private static final String FXML = "PlotWindow.fxml";
