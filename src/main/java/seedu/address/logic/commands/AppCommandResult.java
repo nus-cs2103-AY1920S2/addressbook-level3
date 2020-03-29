@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.bluetooth.BluetoothPings;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import static java.util.Objects.requireNonNull;
@@ -64,7 +63,7 @@ public class AppCommandResult {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CommandResult)) {
+        if (!(other instanceof AppCommandResult)) {
             return false;
         }
 

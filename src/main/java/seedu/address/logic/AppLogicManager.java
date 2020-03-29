@@ -6,9 +6,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.AppCommandResult;
 import seedu.address.logic.conditions.Conditions;
-import seedu.address.logic.parser.CommandRouter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
+import seedu.address.logic.parser.CommandRouter;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
