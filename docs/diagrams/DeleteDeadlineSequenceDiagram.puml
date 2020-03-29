@@ -8,7 +8,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ModdyParser" as ModdyParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -30,17 +30,17 @@ activate MainWindow
 MainWindow -> LogicManager : execute("delete m/CS2101 t/work")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete m/CS2101 t/work")
-activate AddressBookParser
+LogicManager -> ModdyParser : parseCommand("delete m/CS2101 t/work")
+activate ModdyParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+ModdyParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> ModdyParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("m/CS2101 t/work")
+ModdyParser -> DeleteCommandParser : parse("m/CS2101 t/work")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -50,14 +50,14 @@ activate DeleteCommand
 DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser --> ModdyParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+DeleteCommandParser -[hidden]-> ModdyParser
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+ModdyParser --> LogicManager : d
+deactivate ModdyParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand

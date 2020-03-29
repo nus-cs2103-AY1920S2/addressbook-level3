@@ -8,7 +8,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":MODdyParser" as MODdyParser LOGIC_COLOR
+participant ":ModdyParser" as ModdyParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -28,17 +28,17 @@ activate MainWindow
 MainWindow -> LogicManager : execute("edit n/John")
 activate LogicManager
 
-LogicManager -> MODdyParser : parseCommand("edit n/John")
-activate MODdyParser
+LogicManager -> ModdyParser : parseCommand("edit n/John")
+activate ModdyParser
 
 create EditCommandParser
-MODdyParser -> EditCommandParser : parse("n/John")
+ModdyParser -> EditCommandParser : parse("n/John")
 activate EditCommandParser
 
-EditCommandParser --> MODdyParser
+EditCommandParser --> ModdyParser
 deactivate EditCommandParser
 
-MODdyParser --> EditCommandParser : parse("n/John")
+ModdyParser --> EditCommandParser : parse("n/John")
 activate EditCommandParser
 
 create EditCommand
@@ -48,11 +48,11 @@ activate EditCommand
 EditCommand --> EditCommandParser : e
 deactivate EditCommand
 
-EditCommandParser --> MODdyParser : e
+EditCommandParser --> ModdyParser : e
 destroy EditCommandParser
 
-MODdyParser --> LogicManager : e
-deactivate MODdyParser
+ModdyParser --> LogicManager : e
+deactivate ModdyParser
 
 
 LogicManager --> EditCommand : execute()
