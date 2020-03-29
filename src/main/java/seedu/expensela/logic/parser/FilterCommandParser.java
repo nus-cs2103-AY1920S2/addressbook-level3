@@ -43,7 +43,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 // sends the next word after "date" to see if it matches any transaction dates
                 String date = argMultimap.getValue(PREFIX_DATE).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
-                String dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
+                String dateMinusDay;
+                if (date.equals("all")) {
+                    dateMinusDay = "all";
+                } else {
+                    dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
+                }
 
                 return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
             }

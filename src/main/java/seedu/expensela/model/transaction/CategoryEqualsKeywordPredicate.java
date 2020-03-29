@@ -17,6 +17,9 @@ public class CategoryEqualsKeywordPredicate implements Predicate<Transaction> {
 
     @Override
     public boolean test(Transaction transaction) {
+        if (keyword.get(0).equals("all")) {
+            return true;
+        }
         return keyword.stream()
                 .anyMatch(keyword -> StringUtil.equals(transaction.getCategory().transactionCategory, keyword));
     }

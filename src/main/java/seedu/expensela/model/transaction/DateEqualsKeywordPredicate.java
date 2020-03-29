@@ -27,6 +27,9 @@ public class DateEqualsKeywordPredicate implements Predicate<Transaction> {
 //        return keyword.stream()
 //                .anyMatch(keyword -> StringUtil.equals(transaction.getDate().transactionDate.toString(), keyword));
         String transactionDateString = transaction.getDate().transactionDate.toString();
+        if (keyword.get(0).equals("all")) {
+            return true;
+        }
         return keyword.stream()
                 .anyMatch(keyword -> StringUtil.equals(transactionDateString.split("-")[0] + "-" +
                 transactionDateString.split("-")[1], keyword));
