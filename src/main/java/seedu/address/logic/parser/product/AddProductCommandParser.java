@@ -59,7 +59,9 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_THRESHOLD)) {
             threshold = ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
         } else {
-            threshold = new QuantityThreshold(QuantityThreshold.DEFAULT_VALUE);
+            // sets the default threshold at 20% of initial quantity
+            String lowLimit = String.valueOf(quantity.value / 5);
+            threshold = new QuantityThreshold(lowLimit);
         }
 
         Product product = new Product(description, costPrice, price, quantity, sales, threshold);

@@ -198,6 +198,9 @@ public class EditProductCommand extends Command {
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
+            int lowLimit = toCopy.quantity.value / 5;
+            QuantityThreshold newThreshold = new QuantityThreshold(String.valueOf(lowLimit));
+            setThreshold(newThreshold);
         }
 
         /**

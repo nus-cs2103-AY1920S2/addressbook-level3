@@ -26,6 +26,7 @@ public class LowLimitCommand extends Command {
     public static final String COMMAND_WORD = "lowlimit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the notification threshold for products."
+            + " Updates the balance indicator, as the threshold represents 20% of desired quantity. \n"
             + "Alerts the user when the product quantity reached the threshold set by the user. \n"
             + "Parameters: "
             + PREFIX_PRODUCT + "PRODUCT_INDEX "

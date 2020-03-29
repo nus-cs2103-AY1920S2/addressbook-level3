@@ -41,6 +41,10 @@ public class QuantityThreshold {
                 && Integer.parseInt(test) < MAX_VALUE);
     }
 
+    public double getDouble() {
+        return Double.parseDouble(value);
+    }
+
     @Override
     public String toString() {
         return value;
