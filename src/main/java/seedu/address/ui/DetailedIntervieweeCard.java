@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.io.File;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,8 +31,8 @@ public class DetailedIntervieweeCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label alias;
-    @FXML
-    private Label resume;
+    //@FXML
+    //private Label resume;
 
     public DetailedIntervieweeCard(Interviewee interviewee) {
         super(FXML);
@@ -42,7 +40,7 @@ public class DetailedIntervieweeCard extends UiPart<Region> {
         id.setText(String.valueOf(interviewee.getId()));
         name.setText(interviewee.getFullName());
         alias.setText(interviewee.getAlias().orElse("No alias has been set."));
-        resume.setText(interviewee.getResume().orElse(new File("")).getName());
+        //resume.setText(interviewee.getResume().map(File::getName).orElse(""));
     }
 
     @Override
