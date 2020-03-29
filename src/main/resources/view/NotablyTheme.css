@@ -105,11 +105,11 @@
 }
 
 .menu:hover, .menu:showing {
-    -fx-background-color: #E8E7E4;
+    -fx-background-color: #a9a9a9;
 }
 
 .menu-item:focused {
-    -fx-background-color: #E8E7E4;
+    -fx-background-color: #a9a9a9;
 }
 
 .menu-bar {
