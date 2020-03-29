@@ -1115,11 +1115,10 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    Expected: Both order list and return order list will be cleared. Notify the user that both order lists have been cleared in the status message.
 .. Test case: `clear` `-f` `-r` +
     Expected: Only return order list will be cleared. Notify the user that return order list has been cleared in the status message.
+.. Test case: `clear` `-r` `-r` `-f`+
+Expected: Only return order list will be cleared. Notify the user that return order list has been cleared in the status message.
 .. Test case: `clear` `-r` `-o` +
    Expected: Invalid command input, as both `-r` and `-o` cannot be in a single command. +
-   Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
-.. Test case: `clear` `-r` `-r` +
-   Expected: Invalid command input, as duplicate flag is not allowed. +
    Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 .. Test case: `clear` `-r-f`+
 Expected: Invalid command input, as space is required in between flags. +
