@@ -19,6 +19,7 @@ public class Food {
     public static final String[] FOOD = new String[]{"Combo Set", "Ayam Penyet", "Cai fan", "Fried Fish"};
     public static final String IMAGE_FOLDER = "/images/canteen/";
     public static final String MESSAGE_CONSTRAINTS = "Food name should be from " + Arrays.toString(FOOD);
+    public static final String INVALID_FOOD_INDEX = "Please provide a valid food index";
 
     // Identity fields
     private final String name;
@@ -105,8 +106,7 @@ public class Food {
 
         return otherCanteen != null
                 && otherCanteen.getName().equals(getName())
-                && (otherCanteen.getPrice() == (getPrice()))
-                && otherCanteen.getTags().equals(getTags());
+                && (otherCanteen.getPrice() == (getPrice()));
     }
 
     /**
@@ -133,8 +133,7 @@ public class Food {
 
         Food otherCanteen = (Food) other;
         return otherCanteen.getName().equals(getName())
-                && otherCanteen.getPrice() == (getPrice())
-                && otherCanteen.getTags().equals(getTags());
+                && otherCanteen.getPrice() == (getPrice());
     }
 
     @Override
