@@ -52,14 +52,14 @@ public class ReturnOrderCard extends UiPart<Region> {
         super(FXML);
         this.returnOrder = returnOrder;
         id.setText(displayedIndex + ". ");
-        tid.setText(returnOrder.getTid().tid);
-        name.setText(returnOrder.getName().fullName);
-        phone.setText(returnOrder.getPhone().value);
-        email.setText(returnOrder.getEmail().value);
-        address.setText(returnOrder.getAddress().value);
-        timeStamp.setText(returnOrder.getTimestamp().value);
-        warehouse.setText(returnOrder.getWarehouse().address);
-        comment.setText(returnOrder.getComment().commentMade);
+        tid.setText("Transaction ID: " + returnOrder.getTid().tid);
+        name.setText("Name: " + returnOrder.getName().fullName);
+        phone.setText("Phone: " + returnOrder.getPhone().value);
+        email.setText("Email: " + returnOrder.getEmail().value);
+        address.setText("Address: " + returnOrder.getAddress().value);
+        timeStamp.setText("Return Date: " + returnOrder.getTimestamp().value);
+        warehouse.setText("Warehouse: " + returnOrder.getWarehouse().address);
+        comment.setText("Comment: " + returnOrder.getComment().commentMade);
 
         if (!(returnOrder.getItemType().itemType).equals("NIL")) {
             itemType.getChildren().add(new Label(returnOrder.getItemType().itemType));
