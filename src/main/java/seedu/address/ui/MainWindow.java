@@ -198,11 +198,11 @@ public class MainWindow extends UiPart<Stage> {
         restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
         personListPanelPlaceholder2.getChildren().add(restaurantListPanel.getRoot());
     }
-
+    
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
-    
+
     /**
      * Display upcoming birthdays on third panel.
      */
