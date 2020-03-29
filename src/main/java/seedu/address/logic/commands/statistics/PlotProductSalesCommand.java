@@ -12,15 +12,16 @@ import seedu.address.model.transaction.ProductIdEqualsPredicate;
 import seedu.address.model.transaction.Transaction;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
 public class PlotProductSalesCommand extends Command {
-    public static final String COMMAND_WORD = "addt";
+    public static final String COMMAND_WORD = "plotsales";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plot the sales of product to the screen";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plot the sales of product to the screen"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Sales for product %1$s plotted.";
 
