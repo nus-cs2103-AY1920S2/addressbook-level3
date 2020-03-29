@@ -89,6 +89,14 @@ public class AddCommand extends Command {
             }
         }
 
+        // Check if grade is being added to future semester, reject if so
+        int currentUserSemester = profile.getCurrentSemester();
+        if (addGrade != null) {
+            if (addSemester > currentUserSemester) {
+                throw new CommandException("You cannot add a grade to future semesters!");
+            }
+        }
+
         Personal personal;
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
