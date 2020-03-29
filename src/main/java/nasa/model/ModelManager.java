@@ -324,6 +324,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Module getModule(ModuleCode moduleCode) {
+        return nasaBook.getModule(moduleCode);
+    }
+
+    @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);

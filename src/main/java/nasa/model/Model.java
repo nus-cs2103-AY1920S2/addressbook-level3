@@ -66,6 +66,8 @@ public interface Model {
     /** Returns the HistoryBook */
     ReadOnlyHistory getHistoryBook();
 
+    Module getModule(ModuleCode moduleCode);
+
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      */

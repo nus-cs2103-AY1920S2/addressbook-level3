@@ -404,4 +404,8 @@ public class NasaBook implements ReadOnlyNasaBook {
     public int hashCode() {
         return moduleList.hashCode();
     }
+
+    public Module getModule(ModuleCode moduleCode) {
+        return moduleList.getModule(moduleCode);
+    }
 }
