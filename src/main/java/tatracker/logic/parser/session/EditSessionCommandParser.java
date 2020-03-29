@@ -1,5 +1,17 @@
 package tatracker.logic.parser.session;
 
+import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.session.EditSessionCommand;
+import tatracker.logic.parser.ArgumentMultimap;
+import tatracker.logic.parser.ArgumentTokenizer;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.exceptions.ParseException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
@@ -9,18 +21,6 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import tatracker.commons.core.index.Index;
-import tatracker.logic.commands.session.EditSessionCommand;
-import tatracker.logic.parser.ArgumentMultimap;
-import tatracker.logic.parser.ArgumentTokenizer;
-import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.exceptions.ParseException;
 
 /*
  * === BUGS ===
@@ -76,7 +76,8 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            editSessionDescriptor.setIsRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
+            editSessionDescriptor.setRecurring(Integer.parseInt(
+                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_RECUR).get())));
         }
 
         if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {

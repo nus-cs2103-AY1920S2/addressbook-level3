@@ -20,7 +20,7 @@ public class Session implements Comparable<Session> {
     private String moduleCode;
     private SessionType type;
     private String description;
-    private boolean isRecurring;
+    private int recurring;
     private boolean isDone;
 
     /**
@@ -30,7 +30,7 @@ public class Session implements Comparable<Session> {
     public Session() {
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = LocalDateTime.now();
-        this.isRecurring = false;
+        this.recurring = 0;
         this.moduleCode = "";
         this.type = SessionType.OTHER;
         this.description = "Default Session";
@@ -41,7 +41,7 @@ public class Session implements Comparable<Session> {
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
      */
-    public Session(LocalDateTime start, LocalDateTime end, SessionType type, boolean isRecurring, String moduleCode,
+    public Session(LocalDateTime start, LocalDateTime end, SessionType type, int recurring, String moduleCode,
                    String description) throws IllegalArgumentException {
 
         if (start.compareTo(end) > 0) {
@@ -50,7 +50,7 @@ public class Session implements Comparable<Session> {
 
         this.startDateTime = start;
         this.endDateTime = end;
-        this.isRecurring = isRecurring;
+        this.recurring = recurring;
         this.moduleCode = moduleCode;
         this.type = type;
         this.description = description;
@@ -98,10 +98,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Returns true if session will recur every week; false otherwise.
+     * Returns a value that states how long a session will occur. weekly basis.
      */
-    public boolean getIsRecurring() {
-        return this.isRecurring;
+    public int getRecurring() {
+        return this.recurring;
     }
 
     /**
@@ -119,10 +119,10 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Sets whether the session is a recurring session.
+     * Sets whether the session's recurring value.
      */
-    public void setRecurring(boolean recurring) {
-        isRecurring = recurring;
+    public void setRecurring(int recurring) {
+        this.recurring = recurring;
     }
 
     /**
@@ -182,7 +182,7 @@ public class Session implements Comparable<Session> {
                 .append(" End: ").append(endDateTime.format(FORMAT_DATE_TIME))
                 .append(" Module Code: ").append(moduleCode)
                 .append(" Description: ").append(description)
-                .append(" Recurs: ").append(isRecurring);
+                .append(" Recurs: ").append(recurring);
         return builder.toString();
     }
 

@@ -1,10 +1,5 @@
 package tatracker.logic.commands.session;
 
-import static java.util.Objects.requireNonNull;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
@@ -14,6 +9,11 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Marks a session as done in TAT.
@@ -53,17 +53,17 @@ public class DoneSessionCommand extends Command {
 
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
-        if (session.getIsRecurring()) {
+        if (session.getRecurring() != 0) {
 
-            LocalDateTime startTime = session.getStartDateTime().plusWeeks(1);
-            LocalDateTime endTime = session.getEndDateTime().plusWeeks(1);
+            int recurring = session.getRecurring();
+            LocalDateTime startTime = session.getStartDateTime().plusWeeks(recurring);
+            LocalDateTime endTime = session.getEndDateTime().plusWeeks(recurring);
             SessionType sessionType = session.getSessionType();
-            boolean isRecurring = session.getIsRecurring();
             String moduleCode = session.getModuleCode();
             String description = session.getDescription();
 
             Session newSession = new Session(startTime, endTime, sessionType,
-                    isRecurring, moduleCode, description);
+                    recurring, moduleCode, description);
 
             model.addSession(newSession);
             model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
