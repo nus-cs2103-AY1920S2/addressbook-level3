@@ -50,7 +50,7 @@ public class UniqueStudentList implements Iterable<Student> {
     private Comparator<Student> matric = new Comparator<Student>() {
         @Override
         public int compare(Student student, Student other) {
-            return (-1) * (student.getMatric().toString()).compareTo(other.getMatric().toString());
+            return (student.getMatric().toString()).compareTo(other.getMatric().toString());
         }
     };
 
