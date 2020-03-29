@@ -65,6 +65,8 @@ public class SortGroupCommand extends SortCommand {
         if (type.equalsIgnoreCase("alphabetically")
                 || type.equalsIgnoreCase("alpha")) {
             group.sortStudentsAlphabetically();
+        } else if (type.equalsIgnoreCase("matric")) {
+            group.sortStudentsByMatricNumber();
         } else if (type.equalsIgnoreCase("rating asc")) {
             group.sortStudentsByRatingAscending();
         } else {

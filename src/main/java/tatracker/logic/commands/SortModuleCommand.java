@@ -53,6 +53,8 @@ public class SortModuleCommand extends SortCommand {
         if (type.equalsIgnoreCase("alphabetically")
                 || type.equalsIgnoreCase("alpha")) {
             module.sortGroupsAlphabetically();
+        } else if (type.equalsIgnoreCase("matric")) {
+            module.sortGroupsByMatricNumber();
         } else if (type.equalsIgnoreCase("rating asc")) {
             module.sortGroupsByRatingAscending();
         } else {
