@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 public class ListRestaurantCommand extends Command {
 
     public static final String COMMAND_WORD = "(rt)list";
-    public static final String COMMAND_FUNCTION = "Shows a list of all restaurants in the RestaurantBook";
+    public static final String COMMAND_FUNCTION = "Shows a list of all restaurants in the RestaurantBook.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":  " + COMMAND_FUNCTION + "\n"
             + "Example: " + COMMAND_WORD;
 
