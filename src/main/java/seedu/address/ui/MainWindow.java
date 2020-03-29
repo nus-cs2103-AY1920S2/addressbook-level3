@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private AssignmentListPanel assignmentListPanel;
     private RestaurantListPanel restaurantListPanel;
     private PersonListBdayPanel personBdayPanel;
+    private ScheduleVisualPanel schedulePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -124,6 +126,8 @@ public class MainWindow extends UiPart<Stage> {
         personBdayPanel = new PersonListBdayPanel(logic.getBdayList());
         personListPanelPlaceholder2.getChildren().add(personBdayPanel.getRoot());
 
+        resultDisplay.setFeedbackToUser(Messages.WELCOME_MESSAGE);
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -146,7 +150,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
-
     @FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
@@ -202,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
-  
+
     /**
      * Display upcoming birthdays on third panel.
      */
@@ -211,6 +214,17 @@ public class MainWindow extends UiPart<Stage> {
         personBdayPanel = new PersonListBdayPanel(logic.getBdayList());
         personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(personBdayPanel.getRoot());
+    }
+
+    /**
+     * Display estimated workload for the next 5 days (excluding today) based on stored assignments, their deadlines
+     * and estimated work hours per assignment.
+     */
+    @FXML
+    private void handleShowSchedule() {
+        schedulePanel = new ScheduleVisualPanel(logic.getScheduleVisual());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(schedulePanel.getRoot());
     }
 
     /**
@@ -234,6 +248,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleRestaurant();
             } else if (commandResult.isShowBirthday()) {
                 handleShowBirthday();
+            } else if (commandResult.isShowSchedule()) {
+                handleShowSchedule();
             }
 
             return commandResult;
