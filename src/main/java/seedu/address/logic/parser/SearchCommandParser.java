@@ -111,8 +111,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     }
 
     /**
-     * @param string
-     * @return
+     * Checks for presence of any flag given by user, return true if there is any.
+     * @param string String object representing the user input.
+     * @return Return boolean value representing the presence of any flags.
      */
     private boolean areFlagsPresent(String string) {
         List<String> listOfStr = Arrays.asList(string.split("\\s"));
@@ -121,6 +122,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             .anyMatch(flag -> listOfStr.contains(flag.getFlag()));
     }
 
+    /**
+     * Returns a {@code Flag} object according to the flag user provided in.
+     * @param arg String object representing the user input.
+     * @return {@code Flag} object representing the flag given.
+     */
     private Flag extractFlag(String arg) {
         List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
         if ((argArr.contains(CliSyntax.FLAG_ORDER_LIST.getFlag())
@@ -134,12 +140,29 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
     }
 
+    /**
+     * Returns a String object with all flags removed from it.
+     * @param args String object representing the input given by the user.
+     * @return a String object with all flags removed from it.
+     */
     private String removeFlags(String args) {
         List<String> listOfArgs = Arrays.asList(args.split("\\s"));
-        String returnString = listOfArgs.stream().filter(each -> Stream.of(CliSyntax.FLAG_ORDER_RETURN_LIST, CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST).noneMatch(flag -> each.equals(flag.getFlag()))).map(each -> each + " ").collect(Collectors.joining());
+        String returnString = listOfArgs
+            .stream()
+            .filter(each -> Stream
+                .of(CliSyntax.FLAG_ORDER_RETURN_LIST, CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST)
+                .noneMatch(flag -> each.equals(flag.getFlag())))
+            .map(each -> each + " ")
+            .collect(Collectors.joining());
         return returnString;
     }
 
+    /**
+     * Given a {@code List<String>} object of all the keywords user want to search for,
+     * ensure all element in the list of string is a word.
+     * @param keywords A {@code List<String>} of keywords given by the user.
+     * @return {@code List<String} object with one word as each element.
+     */
     private List<String> processKeywords(List<String> keywords) {
         List<String> returnList = keywords.stream().filter(each -> !each.isEmpty()).collect(Collectors.toList());
         return returnList;
