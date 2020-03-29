@@ -11,6 +11,9 @@ import tatracker.model.TaTracker;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+
+    public static final String INFO = "Clears all TA-Tracker stored data.";
+
     public static final String MESSAGE_SUCCESS = "TA-Tracker has been cleared!";
 
 
