@@ -78,6 +78,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3, approved on forum for StopWatch use
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 }
 
 shadowJar {

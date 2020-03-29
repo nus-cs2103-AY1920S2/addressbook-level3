@@ -7,8 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.Command;
+import seedu.zerotoone.logic.commands.DoneCommand;
 import seedu.zerotoone.logic.commands.ExitCommand;
 import seedu.zerotoone.logic.commands.HelpCommand;
+import seedu.zerotoone.logic.commands.SkipCommand;
 import seedu.zerotoone.logic.commands.StartCommand;
 import seedu.zerotoone.logic.commands.StopCommand;
 import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
@@ -46,6 +48,10 @@ public class ParserManager {
             return new StartCommandParser().parse(arguments);
         case StopCommand.COMMAND_WORD:
             return new StopCommand();
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommand();
+        case SkipCommand.COMMAND_WORD:
+            return new SkipCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case HelpCommand.COMMAND_WORD:

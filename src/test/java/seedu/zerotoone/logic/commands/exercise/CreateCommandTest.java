@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -161,12 +163,17 @@ public class CreateCommandTest {
         }
 
         @Override
-        public void startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
+        public Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void stopSession(LocalDateTime currentDateTime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Session> getCurrentSession() {
             throw new AssertionError("This method should not be called.");
         }
     }
