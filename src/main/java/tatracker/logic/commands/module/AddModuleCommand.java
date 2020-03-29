@@ -2,12 +2,17 @@ package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.MODULE_NAME;
 import static tatracker.logic.parser.Prefixes.NAME;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
 
@@ -17,6 +22,13 @@ import tatracker.model.module.Module;
 public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = CommandWords.MODULE + " " + CommandWords.ADD_MODEL;
+
+    public static final List<Prefix> PARAMETERS = List.of(MODULE, MODULE_NAME);
+
+    public static final String INFO = "Adds a module to the TA-Tracker.";
+    public static final String USAGE = Prefixes.getUsages(PARAMETERS);
+    public static final String EXAMPLE = Prefixes.getExamples(MODULE, MODULE_NAME);
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a module to the TA-Tracker. "
             + "Parameters: "
             + NAME + "MODULE NAME "
