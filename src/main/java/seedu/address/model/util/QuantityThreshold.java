@@ -8,14 +8,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class QuantityThreshold {
     public static final String MESSAGE_CONSTRAINTS =
-            "Quantity threshold should be a positive integer value (up to 1000000), or Null";
-    public static final String DEFAULT_VALUE = "Null";
+            "Quantity threshold can take any positive integer values (up to 1000000), and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * There must be one or more digits entered.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "\\d+";
 
     public static final int MAX_VALUE = 1000000;
 
@@ -36,9 +34,8 @@ public class QuantityThreshold {
      * Returns true if a given string is a valid quantity threshold.
      */
     public static boolean isValidQuantity(String test) {
-        return test.equals(DEFAULT_VALUE)
-                || (test.matches(VALIDATION_REGEX)
-                && Integer.parseInt(test) < MAX_VALUE);
+        return test.matches(VALIDATION_REGEX)
+                && Integer.parseInt(test) < MAX_VALUE;
     }
 
     public double getDouble() {

@@ -76,7 +76,6 @@ public class EditProductCommand extends Command {
         }
 
         Product productToEdit = lastShownList.get(index.getZeroBased());
-        System.out.println("exe " + lastShownList);
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
 
         if (modelHasDuplicateProduct(model, editedProduct)) {
@@ -87,6 +86,9 @@ public class EditProductCommand extends Command {
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
+        System.out.println("epc" + String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
+
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
     }
 
@@ -142,13 +144,15 @@ public class EditProductCommand extends Command {
         assert productToEdit != null;
 
         UUID id = productToEdit.getId();
-        System.out.println("cep" + id);
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());
         CostPrice updatedCostPrice = editProductDescriptor.getCostPrice().orElse(productToEdit.getCostPrice());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Money updatedSales = editProductDescriptor.getMoney().orElse(productToEdit.getMoney());
-        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
+        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(
+                new QuantityThreshold(String.valueOf(updatedQuantity.value / 5))
+        );
+        System.out.println("cep" + updatedQuantity + " " + updatedThreshold);
 
         return new Product(id, updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
                 updatedSales, updatedThreshold);
@@ -198,6 +202,7 @@ public class EditProductCommand extends Command {
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
+            System.out.println("epc" + toCopy);
             int lowLimit = toCopy.quantity.value / 5;
             QuantityThreshold newThreshold = new QuantityThreshold(String.valueOf(lowLimit));
             setThreshold(newThreshold);
@@ -207,7 +212,7 @@ public class EditProductCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales);
+            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales, threshold);
         }
 
         public void setId(UUID id) {

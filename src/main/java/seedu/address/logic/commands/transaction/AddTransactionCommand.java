@@ -24,7 +24,6 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
-import seedu.address.model.util.QuantityThreshold;
 import seedu.address.ui.NotificationWindow;
 
 /**
@@ -39,16 +38,16 @@ public class AddTransactionCommand extends Command {
             + PREFIX_CUSTOMER + "CUSTOMER "
             + PREFIX_PRODUCT + "PRODUCT "
             + PREFIX_QUANTITY + "QUANTITY "
-            + PREFIX_DATETIME + "DATETIME "
-            + PREFIX_MONEY + "MONEY "
-            + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION \n"
+            + "[" + PREFIX_DATETIME + "DATETIME] "
+            + "[" + PREFIX_MONEY + "MONEY] "
+            + "[" + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
             + PREFIX_QUANTITY + "1 "
-            + PREFIX_DATETIME + "2020-02-20 10:00 (Optional Field) "
-            + PREFIX_MONEY + "30 (Optional Field) "
-            + PREFIX_TRANS_DESCRIPTION + "under discount (Optional Field) ";
+            + PREFIX_DATETIME + "2020-02-20 10:00 "
+            + PREFIX_MONEY + "30 "
+            + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
@@ -90,13 +89,11 @@ public class AddTransactionCommand extends Command {
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
-        if (!editedProduct.getThreshold().value.equals(QuantityThreshold.DEFAULT_VALUE)) {
-            int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
+        int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
 
-            if (editedProduct.getQuantity().value < thresholdValue) {
-                NotificationWindow window = new NotificationWindow();
-                window.show(editedProduct.getDescription(), editedProduct.getQuantity());
-            }
+        if (editedProduct.getQuantity().value < thresholdValue) {
+            NotificationWindow window = new NotificationWindow();
+            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }
 
         model.addTransaction(toAdd);

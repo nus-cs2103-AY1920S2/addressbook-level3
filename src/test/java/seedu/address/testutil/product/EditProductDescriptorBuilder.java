@@ -9,6 +9,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * A utility class to help with building EditProductDescriptor objects.
@@ -36,6 +37,7 @@ public class EditProductDescriptorBuilder {
         descriptor.setPrice(product.getPrice());
         descriptor.setQuantity(product.getQuantity());
         descriptor.setSales(product.getMoney());
+        descriptor.setThreshold(product.getThreshold());
     }
 
     /**
@@ -83,6 +85,14 @@ public class EditProductDescriptorBuilder {
      */
     public EditProductDescriptorBuilder withSales(String sales) {
         descriptor.setSales(new Money(sales));
+        return this;
+    }
+
+    /**
+     * Sets the {@code QuantityThreshold} of the {@code EditProductDescriptor} that we are building.
+     */
+    public EditProductDescriptorBuilder withThreshold(String threshold) {
+        descriptor.setThreshold(new QuantityThreshold(threshold));
         return this;
     }
 

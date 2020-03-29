@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showProductAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
@@ -15,6 +16,7 @@ import static seedu.address.testutil.product.TypicalProducts.getTypicalAddressBo
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import seedu.address.model.InventorySystem;
@@ -36,17 +38,15 @@ public class EditProductCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Product editedProduct = new ProductBuilder(ABACUS_ID).build();
-        System.out.println("ep" + editedProduct);
         EditProductDescriptor descriptor = new EditProductDescriptorBuilder(editedProduct).build();
-        System.out.println("epd" + descriptor);
         EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT, descriptor);
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
         Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setProduct(model.getFilteredProductList().get(0), editedProduct);
-        System.out.println("expected" + expectedModel.getFilteredProductList());
-        // assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
+
+        assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -57,30 +57,33 @@ public class EditProductCommandTest {
         ProductBuilder productInList = new ProductBuilder(lastProduct);
         Product editedProduct = productInList.withDescription(VALID_DESCRIPTION_WATCH)
                 .withPrice(VALID_PRICE_WATCH).build();
+        editedProduct.setThreshold("1");
 
-        EditProductDescriptor descriptor = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH)
+        EditProductDescriptor descriptor = new EditProductDescriptorBuilder(editedProduct)
+                .withDescription(VALID_DESCRIPTION_WATCH)
                 .withPrice(VALID_PRICE_WATCH).build();
-        //        EditProductCommand editProductCommand = new EditProductCommand(indexLastProduct, descriptor);
+        EditProductCommand editProductCommand = new EditProductCommand(indexLastProduct, descriptor);
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
         Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setProduct(lastProduct, editedProduct);
 
-        // assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        //        EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT,
-        //                new EditProductDescriptor());
         Product editedProduct = model.getFilteredProductList().get(INDEX_FIRST_PRODUCT.getZeroBased());
+        editedProduct.setThreshold("0");
 
+        EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT,
+                new EditProductDescriptorBuilder(editedProduct).build());
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
         Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
 
-        //        assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -90,16 +93,19 @@ public class EditProductCommandTest {
         Product productInFilteredList = model.getFilteredProductList()
                 .get(INDEX_FIRST_PRODUCT.getZeroBased());
         Product editedProduct = new
-                ProductBuilder(productInFilteredList).withDescription(VALID_DESCRIPTION_WATCH).build();
-        //        EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT,
-        //                new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH).build());
+                ProductBuilder(productInFilteredList).withDescription(VALID_DESCRIPTION_WATCH)
+                .withThreshold("0").build();
+
+        EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT,
+                new EditProductDescriptorBuilder(productInFilteredList)
+                        .withDescription(VALID_DESCRIPTION_WATCH).build());
 
         String expectedMessage = String.format(EditProductCommand.MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct);
 
         Model expectedModel = new ModelManager(new InventorySystem(model.getInventorySystem()), new UserPrefs());
         expectedModel.setProduct(model.getFilteredProductList().get(0), editedProduct);
 
-        // assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editProductCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -108,7 +114,7 @@ public class EditProductCommandTest {
         EditProductDescriptor descriptor = new EditProductDescriptorBuilder(firstProduct).build();
         EditProductCommand editProductCommand = new EditProductCommand(INDEX_SECOND_PRODUCT, descriptor);
 
-        // assertCommandFailure(editProductCommand, model, EditProductCommand.MESSAGE_DUPLICATE_PRODUCT);
+        assertCommandFailure(editProductCommand, model, EditProductCommand.MESSAGE_DUPLICATE_PRODUCT);
     }
 
     @Test
@@ -126,11 +132,11 @@ public class EditProductCommandTest {
     @Test
     public void execute_invalidProductIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredProductList().size() + 1);
-        EditProductDescriptor descriptor = new
-                EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH).build();
-        //        EditProductCommand editProductCommand = new EditProductCommand(outOfBoundIndex, descriptor);
+        Product editedProduct = new ProductBuilder(ABACUS_ID).build();
+        EditProductDescriptor descriptor = new EditProductDescriptorBuilder(editedProduct).build();
+        EditProductCommand editProductCommand = new EditProductCommand(outOfBoundIndex, descriptor);
 
-        //        assertCommandFailure(editProductCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        assertCommandFailure(editProductCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
     }
 
     /**
@@ -144,10 +150,12 @@ public class EditProductCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventorySystem().getProductList().size());
 
-        //        EditProductCommand editProductCommand = new EditProductCommand(outOfBoundIndex,
-        //                new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH).build());
-        //
-        //        assertCommandFailure(editProductCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        Product editedProduct = new ProductBuilder(ABACUS_ID).build();
+        EditProductDescriptor descriptor = new EditProductDescriptorBuilder(editedProduct).build();
+
+        EditProductCommand editProductCommand = new EditProductCommand(outOfBoundIndex, descriptor);
+
+        assertCommandFailure(editProductCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
     }
 
     @Test
