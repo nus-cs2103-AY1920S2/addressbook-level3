@@ -50,7 +50,7 @@ public class SessionCommandParser {
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);
 
-        case DoneSessionCommand.COMMAND_WORD_DONE:
+        case DoneSessionCommand.DONE_MODEL:
             return new DoneSessionCommandParser().parse(arguments);
 
         default:

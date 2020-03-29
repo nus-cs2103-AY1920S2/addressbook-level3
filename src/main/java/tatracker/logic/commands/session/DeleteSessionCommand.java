@@ -1,10 +1,9 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
-import static tatracker.logic.commands.CommandWords.SESSION;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.INDEX;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NOTES;
 import static tatracker.logic.parser.Prefixes.RECUR;
@@ -17,7 +16,10 @@ import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -27,7 +29,13 @@ import tatracker.model.session.Session;
  */
 public class DeleteSessionCommand extends Command {
 
-    public static final String COMMAND_WORD = SESSION + " " + DELETE_MODEL;
+    public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.DELETE_MODEL;
+
+    public static final List<Prefix> PARAMETERS = List.of(INDEX);
+
+    public static final String INFO = "Deletes the session identified by its index.";
+    public static final String USAGE = Prefixes.getUsages(PARAMETERS);
+    public static final String EXAMPLE = Prefixes.getExamples(INDEX);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the session identified by its index.\n"

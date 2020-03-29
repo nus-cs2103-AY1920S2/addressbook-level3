@@ -3,6 +3,7 @@ package tatracker.logic.commands.session;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.INDEX;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NOTES;
 import static tatracker.logic.parser.Prefixes.RECUR;
@@ -21,6 +22,8 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
@@ -30,7 +33,16 @@ import tatracker.model.session.SessionType;
  */
 public class EditSessionCommand extends Command {
 
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, CommandWords.EDIT_MODEL);
+    public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.EDIT_MODEL;
+
+    public static final List<Prefix> PARAMETERS = List.of(INDEX);
+    public static final List<Prefix> OPTIONALS = List.of(
+            START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
+
+    public static final String INFO = "Edits a session in the TA-Tracker.";
+    public static final String USAGE = Prefixes.getUsages(PARAMETERS, OPTIONALS);
+    public static final String EXAMPLE = Prefixes.getExamples(INDEX,
+            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "

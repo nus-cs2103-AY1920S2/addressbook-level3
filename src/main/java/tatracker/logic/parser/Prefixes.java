@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import tatracker.commons.core.index.Index;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -17,13 +18,16 @@ import tatracker.model.tag.Tag;
  */
 public class Prefixes {
 
+    /* Placeholders */
+    public static final Prefix INDEX = new Prefix("", Index.MESSAGE_CONSTRAINTS, "INDEX", "1");
+
     /* Session definitions */
-    public static final Prefix START_TIME = new Prefix("s/");
-    public static final Prefix END_TIME = new Prefix("e/");
-    public static final Prefix DATE = new Prefix("d/");
+    public static final Prefix START_TIME = new Prefix("s/", "", "START_TIME", "14:00");
+    public static final Prefix END_TIME = new Prefix("e/", "", "END_TIME", "16:00");
+    public static final Prefix DATE = new Prefix("d/", "", "DATE", "19-02-2020");
     public static final Prefix RECUR = new Prefix("w/");
-    public static final Prefix SESSION_TYPE = new Prefix("t/");
-    public static final Prefix NOTES = new Prefix("n/");
+    public static final Prefix SESSION_TYPE = new Prefix("t/", "", "SESSION_TYPE", "grading");
+    public static final Prefix NOTES = new Prefix("n/", "", "NOTES", "Location: PLAB 04");
 
     /* Module definitions */
     public static final Prefix MODULE = new Prefix("m/", "", "MODULE", "CS3243");

@@ -1,6 +1,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.Prefixes.INDEX;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -18,8 +21,14 @@ import tatracker.model.session.Session;
  */
 public class DoneSessionCommand extends Command {
 
-    public static final String COMMAND_WORD_DONE = "done";
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, COMMAND_WORD_DONE);
+    public static final String DONE_MODEL = "done";
+    public static final String COMMAND_WORD = CommandWords.SESSION + " " + DONE_MODEL;
+
+    public static final List<Prefix> PARAMETERS = List.of(INDEX);
+
+    public static final String INFO = "Marks a session as done in TA-Tracker.";
+    public static final String USAGE = Prefixes.getUsages(PARAMETERS);
+    public static final String EXAMPLE = Prefixes.getExamples(INDEX);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a session as done in TA-Tracker. "
