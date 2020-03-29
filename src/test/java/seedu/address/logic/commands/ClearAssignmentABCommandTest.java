@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalFinance.getTypicalFinanceAddressBook
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStudent.getTypicalStudentAddressBook;
 import static seedu.address.testutil.TypicalTeacher.getTypicalTeacherAddressBook;
-import static seedu.address.testutil.TypicalCourseStudent.getTypicalCourseStudentAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +30,9 @@ public class ClearAssignmentABCommandTest {
     @Test
     public void execute_nonEmptyAssignmentAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(),new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearAssignmentCommand(), model, ClearAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
