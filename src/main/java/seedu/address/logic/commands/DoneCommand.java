@@ -68,6 +68,8 @@ public class DoneCommand extends Command {
             // If task to be done is being pommed...
             if (taskToEdit.equals(model.getPomodoro().getRunningTask())) {
                 pommedTask = taskToEdit;
+                model.setPomodoroTask(null);
+                updateStatisticsPomDone(model);
             } else {
                 tasksDone.append(String.format("%n%s", editedTask));
                 model.setTask(taskToEdit, editedTask);
@@ -121,6 +123,11 @@ public class DoneCommand extends Command {
                         dayData.getPomDurationData(),
                         new TasksDoneData("" + (dayData.getTasksDoneData().value + 1)));
         stats.updatesDayData(updatedDayData);
+    }
+
+    private static void updateStatisticsPomDone(Model model) {
+        // Get the data from pomodoro manager
+        model.getPomodoroManager().updateStatistics(model);
     }
 
     @Override

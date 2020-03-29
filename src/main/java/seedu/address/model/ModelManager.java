@@ -212,16 +212,6 @@ public class ModelManager implements Model {
         this.pomodoro.setTask(task);
     }
 
-    // ============================ Statistics Manager
-
-    public Statistics getStatistics() {
-        return statistics;
-    }
-
-    public void updateDataDatesStatistics() {
-        statistics.updateDataDates();
-    }
-
     public void setPomodoroManager(PomodoroManager pomodoroManager) {
         this.pomodoroManager = pomodoroManager;
     }
@@ -231,6 +221,14 @@ public class ModelManager implements Model {
     }
 
     // ============================ Statistics Manager
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void updateDataDatesStatistics() {
+        statistics.updateDataDates();
+    }
 
     public void updatesDayDataStatistics(DayData dayData) {
         statistics.updatesDayData(dayData);
