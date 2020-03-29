@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -116,7 +117,7 @@ public class DistrictInfo {
         requireNonNull(searchTerm);
         String term = searchTerm.toUpperCase();
         return Stream.of(CENTRAL, EAST, NORTH_EAST, WEST, NORTH)
-                .anyMatch(term::contains);
+                .anyMatch(area -> Pattern.matches(area, term));
     }
 
     /**
