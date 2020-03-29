@@ -161,7 +161,9 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the clear warning window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleClearWarning() {
+    public void handleClearWarning(String warningMessage) {
+        clearWindow.setWarningMessage(warningMessage);
+
         if (!clearWindow.isShowing()) {
             clearWindow.show();
         } else {
@@ -219,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isClearList()) {
-                handleClearWarning();
+                handleClearWarning(commandResult.getFeedbackToUser());
                 clearWindow.setComponent(resultDisplay);
             }
 
