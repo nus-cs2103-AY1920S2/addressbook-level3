@@ -25,7 +25,9 @@ public class FavoritesCommandParser implements Parser<FavoritesCommand> {
         switch (action) {
         case "set":
             if (!ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)) {
-                throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext());
+                throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext()
+                        + "\n" + ParserContext.SUGGESTED_CONTEXT_MESSAGE
+                        + ParserContext.STALL_CONTEXT);
             }
 
             try {
