@@ -56,7 +56,10 @@ class JsonAdaptedTask {
         done = source.getDone().toString();
         tagged.addAll(
                 source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
-        reminder = (source.getOptionalReminder().isPresent()) ? source.getOptionalReminder().get().toString() : "";
+        reminder =
+                (source.getOptionalReminder().isPresent())
+                        ? source.getOptionalReminder().get().toString()
+                        : "";
     }
 
     /**
@@ -104,13 +107,14 @@ class JsonAdaptedTask {
         final Done modelDone = new Done(done);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        
+
         Optional<Reminder> optReminder = Optional.empty();
         if (reminder == null || reminder.equals("")) {
             optReminder = Optional.empty();
         } else {
             optReminder = Optional.of(new Reminder(reminder));
         }
-        return new Task(modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder);
+        return new Task(
+                modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder);
     }
 }

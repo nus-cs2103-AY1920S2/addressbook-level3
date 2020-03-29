@@ -38,8 +38,7 @@ public class JsonAdaptedDayDataTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedDayData dayData =
-                new JsonAdaptedDayData(
-                        null, VALID_POM_DURATION_DATA, VALID_TASKS_DONE_DATA);
+                new JsonAdaptedDayData(null, VALID_POM_DURATION_DATA, VALID_TASKS_DONE_DATA);
         String expectedMessage =
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, dayData::toModelType);

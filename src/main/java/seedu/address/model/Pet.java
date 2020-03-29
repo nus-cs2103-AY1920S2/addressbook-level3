@@ -10,7 +10,7 @@ public class Pet implements ReadOnlyPet {
     private static final String DEFAULT_LAST_DONE_TASK_TIME = LocalDateTime.now().toString();
 
     public final String HANGRY_MOOD_STRING = "HANGRY";
-    public final String HAPPY_MOOD_STRING = "HAPPY"; 
+    public final String HAPPY_MOOD_STRING = "HAPPY";
 
     public String exp;
     public String level;
@@ -62,7 +62,6 @@ public class Pet implements ReadOnlyPet {
         int levelInteger = (int) Math.ceil(expInteger / 99.0);
         this.level = Integer.toString(levelInteger);
         setLastDoneTaskTime(LocalDateTime.now().toString());
-
     }
 
     public void changeHangry() {

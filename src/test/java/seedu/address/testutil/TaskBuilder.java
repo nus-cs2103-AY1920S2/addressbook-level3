@@ -9,9 +9,9 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.InvalidReminderException;
-import seedu.address.model.task.Reminder;
 import seedu.address.model.util.SampleDataUtil;
 
 /** A utility class to help with building Person objects. */

@@ -19,8 +19,11 @@ class JsonAdaptedPet {
 
     /** Constructs a {@code JsonAdaptedTask} with the given person details. */
     @JsonCreator
-    public JsonAdaptedPet(@JsonProperty("name") String name, @JsonProperty("exp") String exp,
-            @JsonProperty("level") String level, @JsonProperty("mood") String mood,
+    public JsonAdaptedPet(
+            @JsonProperty("name") String name,
+            @JsonProperty("exp") String exp,
+            @JsonProperty("level") String level,
+            @JsonProperty("mood") String mood,
             @JsonProperty("lastDoneTaskTime") String lastDoneTaskTime) {
         this.name = name;
         this.exp = exp;
@@ -39,11 +42,10 @@ class JsonAdaptedPet {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's
-     * {@code Task} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Task} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in
-     *                               the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted
+     *     person.
      */
     public ReadOnlyPet toModelType() throws IllegalValueException {
         // TODO set up proper model for all attributes of the Pet

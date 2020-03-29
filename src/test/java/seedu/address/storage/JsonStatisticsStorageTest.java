@@ -27,7 +27,8 @@ public class JsonStatisticsStorageTest {
         assertThrows(NullPointerException.class, () -> readStatistics(null));
     }
 
-    private java.util.Optional<ReadOnlyStatistics> readStatistics(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyStatistics> readStatistics(String filePath)
+            throws Exception {
         return new JsonStatisticsStorage(Paths.get(filePath))
                 .readStatistics(addToTestDataPathIfNotNull(filePath));
     }
@@ -46,7 +47,8 @@ public class JsonStatisticsStorageTest {
     @Test
     public void read_notJsonFormat_exceptionThrown() {
         assertThrows(
-                DataConversionException.class, () -> readStatistics("notJsonFormatStatistics.json"));
+                DataConversionException.class,
+                () -> readStatistics("notJsonFormatStatistics.json"));
     }
 
     @Test
@@ -101,6 +103,4 @@ public class JsonStatisticsStorageTest {
     public void saveStatistics_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveStatistics(new Statistics(), null));
     }
-
 }
-

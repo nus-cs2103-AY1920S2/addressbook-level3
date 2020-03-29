@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import java.util.List;
 
+import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.Date;
@@ -19,8 +19,8 @@ public class Statistics implements ReadOnlyStatistics {
         customQueue = new CustomQueue();
         try {
             customQueue.init();
-        } catch (InvalidTableException e) { }
-
+        } catch (InvalidTableException e) {
+        }
     }
 
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
@@ -41,7 +41,8 @@ public class Statistics implements ReadOnlyStatistics {
         customQueue.clear();
         try {
             customQueue.setDayDatas(dayDataList);
-        } catch (InvalidTableException e) { }
+        } catch (InvalidTableException e) {
+        }
     }
 
     /** Resets the existing data of this {@code Statistics} with {@code newData}. */
@@ -71,7 +72,8 @@ public class Statistics implements ReadOnlyStatistics {
     public void updatesDayData(DayData dayData) throws DayDataNotFoundException {
         try {
             customQueue.updatesDayDataCustom(dayData);
-        } catch (DayDataNotFoundException | InvalidTableException e) { }
+        } catch (DayDataNotFoundException | InvalidTableException e) {
+        }
     }
 
     /**

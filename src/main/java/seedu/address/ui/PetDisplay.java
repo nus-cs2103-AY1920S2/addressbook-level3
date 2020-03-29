@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.ReadOnlyPet;
 
 /** An UI component that displays Pet {@code Pet}. */
 public class PetDisplay extends UiPart<Region> {
@@ -27,18 +26,12 @@ public class PetDisplay extends UiPart<Region> {
     private String expBarText; // mutable
     private String levelText; // mutable
 
-    @FXML
-    private VBox petPane;
-    @FXML
-    private ImageView petPic;
-    @FXML
-    private Label expBarView;
-    @FXML
-    private ImageView expBarPic;
-    @FXML
-    private ImageView accessoryPic;
-    @FXML
-    private Label levelView;
+    @FXML private VBox petPane;
+    @FXML private ImageView petPic;
+    @FXML private Label expBarView;
+    @FXML private ImageView expBarPic;
+    @FXML private ImageView accessoryPic;
+    @FXML private Label levelView;
 
     public PetDisplay() {
         super(FXML);
@@ -60,9 +53,9 @@ public class PetDisplay extends UiPart<Region> {
         Image expBarImage = new Image(String.valueOf(expBarFilepath));
         expBarPic.setImage(expBarImage);
     }
-    
+
     public void setExpBarText(String expBarInt) {
-        this.expBarText =  expBarInt;
+        this.expBarText = expBarInt;
         expBarView.setText(expBarText);
     }
 

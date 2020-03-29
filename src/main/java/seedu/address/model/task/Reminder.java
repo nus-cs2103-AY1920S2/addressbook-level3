@@ -1,12 +1,9 @@
 package seedu.address.model.task;
 
-import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-
 import seedu.address.model.task.exceptions.InvalidReminderException;
 
 /**
@@ -17,7 +14,8 @@ public class Reminder implements Comparable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Reminder should be in format DD/MM/YY@HH:mm eg 04/11/20@10:30";
-    public static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
+    public static final DateTimeFormatter stringFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
     private final LocalDateTime reminderDateTime;
     private boolean hasFired;
     private long delay;
@@ -95,7 +93,7 @@ public class Reminder implements Comparable {
     public String toString() {
         return reminderDateTime.format(stringFormatter);
     }
-    
+
     @Override
     public int compareTo(Object other) {
         if (!(other instanceof Reminder)) {

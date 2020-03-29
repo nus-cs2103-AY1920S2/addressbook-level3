@@ -2,13 +2,12 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 import javafx.fxml.FXML;
-import javafx.scene.paint.Color;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.control.CheckBox;
-import javafx.geometry.Insets;
+import javafx.scene.paint.Color;
 import seedu.address.model.task.Task;
 
 /** An UI component that displays information of a {@code Task}. */
@@ -56,13 +55,13 @@ public class TaskListCard extends UiPart<Region> {
         String value = task.getPriority().value;
         switch (value) {
             case "1":
-            return "low";
+                return "low";
             case "2":
-            return "medium";
+                return "medium";
             case "3":
-            return "high";
+                return "high";
             default:
-            return "low";
+                return "low";
         }
     }
 
@@ -70,13 +69,13 @@ public class TaskListCard extends UiPart<Region> {
         String value = task.getPriority().value;
         switch (value) {
             case "1":
-            return "#2EBE04";
+                return "#2EBE04";
             case "2":
-            return "#F8713D";
+                return "#F8713D";
             case "3":
-            return "#FF0000";
+                return "#FF0000";
             default:
-            return "#2EBE04";
+                return "#2EBE04";
         }
     }
 

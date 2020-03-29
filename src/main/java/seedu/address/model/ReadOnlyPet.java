@@ -10,5 +10,4 @@ public interface ReadOnlyPet {
     public String getMood();
 
     public String getLastDoneTaskTime();
-
 }

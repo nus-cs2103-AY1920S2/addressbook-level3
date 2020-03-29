@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PetManager;
+import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
@@ -34,8 +34,12 @@ public class ModelManager implements Model {
     private PetManager petManager;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
-    public ModelManager(ReadOnlyTaskList taskList, ReadOnlyPet pet, ReadOnlyPomodoro pomodoro,
-            ReadOnlyStatistics statistics, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(
+            ReadOnlyTaskList taskList,
+            ReadOnlyPet pet,
+            ReadOnlyPomodoro pomodoro,
+            ReadOnlyStatistics statistics,
+            ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(taskList, userPrefs);
 
@@ -132,9 +136,8 @@ public class ModelManager implements Model {
     // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Task} backed by the
-     * internal list of @FXML Serves as a reference point for TaskListPanel.java to
-     * update display {@code
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of @FXML
+     * Serves as a reference point for TaskListPanel.java to update display {@code
      * versionedTaskList}
      */
     @Override
@@ -173,8 +176,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return taskList.equals(other.taskList) && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks) && comparators.equals(other.comparators);
+        return taskList.equals(other.taskList)
+                && userPrefs.equals(other.userPrefs)
+                && filteredTasks.equals(other.filteredTasks)
+                && comparators.equals(other.comparators);
     }
 
     // ============================ Pet Manager
