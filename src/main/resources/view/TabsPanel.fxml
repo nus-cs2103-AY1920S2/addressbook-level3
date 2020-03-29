@@ -17,8 +17,15 @@
         </Tab>
         <Tab fx:id="summaryTab" text="Summary">
           <content>
+            <VBox alignment="TOP_LEFT" styleClass="background" >
+              <StackPane fx:id="summaryPanePlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" style="-fx-background-insets: 4 8 5 8;"/>
+            </VBox>
+          </content>
+        </Tab>
+        <Tab fx:id="helpTab" text="Help">
+          <content>
             <VBox alignment="TOP_LEFT" styleClass="background">
-              <StackPane fx:id="summaryPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+              <StackPane fx:id="helpPanePlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
             </VBox>
           </content>
         </Tab>

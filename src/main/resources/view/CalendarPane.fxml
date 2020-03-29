@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" prefHeight="328">
   <VBox fx:id="calendarPane" spacing="0"
         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="CENTER">
@@ -38,7 +38,7 @@
           <Font name="Segoe UI Bold" size="18.0"/>
         </font>
         <HBox.margin>
-          <Insets bottom="10.0" top="10.0"/>
+          <Insets bottom="12.0" top="12.0"/>
         </HBox.margin>
       </Text>
       <StackPane>

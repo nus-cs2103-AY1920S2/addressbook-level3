@@ -15,7 +15,8 @@ public class TabsPanel extends UiPart<Region> {
 
     // Independent Ui parts residing in this Ui container
     private CouponListPanel couponListPanel;
-    private SummaryPane summaryPanel;
+    private SummaryPane summaryPane;
+    private HelpPane helpPane;
     private Logic logic;
 
     @FXML
@@ -25,10 +26,16 @@ public class TabsPanel extends UiPart<Region> {
     private Tab summaryTab;
 
     @FXML
+    private Tab helpTab;
+
+    @FXML
     private StackPane couponListPanelPlaceholder;
 
     @FXML
-    private StackPane summaryPanelPlaceholder;
+    private StackPane summaryPanePlaceholder;
+
+    @FXML
+    private StackPane helpPanePlaceholder;
 
     @FXML
     private TabPane tabPane;
@@ -46,7 +53,10 @@ public class TabsPanel extends UiPart<Region> {
                 logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        summaryPanel = new SummaryPane(logic);
-        summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
+        summaryPane = new SummaryPane(logic);
+        summaryPanePlaceholder.getChildren().add(summaryPane.getRoot());
+
+        helpPane = new HelpPane(logic);
+        helpPanePlaceholder.getChildren().add(helpPane.getRoot());
     }
 }

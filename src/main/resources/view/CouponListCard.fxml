@@ -95,7 +95,7 @@
           </children>
         </HBox>
         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true"
-                   AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="55.0">
+                   AnchorPane.rightAnchor="7.5" AnchorPane.topAnchor="55.0">
           <image>
             <Image url="@../images/scissors.png"/>
           </image>
