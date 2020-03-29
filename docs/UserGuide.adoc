@@ -564,47 +564,47 @@ e.g. `nearby` `north`
 
 |tid/
 |Transaction ID
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |n/
 |Customer Name
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |a/
 |Address
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |p/
 |Phone Number
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |e/
 |Email
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |dts/
 |Delivery Date And Time
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |rts/
 |Return Date and Time
-|<<return, Return>>, <<search, Search>>
+|<<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |w/
 |Warehouse Location
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |cod/
 |Cash On Delivery
-|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>, <<import, Import>>
 
 |c/
 |Comments by Customer
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |type/
 |Type of Item
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 |===
 
 [[command_flags]]
