@@ -54,15 +54,15 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
-        tid.setText(order.getTid().tid);
-        name.setText(order.getName().fullName);
-        phone.setText(order.getPhone().value);
-        email.setText(order.getEmail().value);
-        address.setText(order.getAddress().value);
-        timeStamp.setText(order.getTimestamp().value);
-        warehouse.setText(order.getWarehouse().address);
-        comment.setText(order.getComment().commentMade);
-        cashOnDelivery.setText(order.getCash().cashOnDelivery);
+        tid.setText("Transaction ID: " + order.getTid().tid);
+        name.setText("Name: " + order.getName().fullName);
+        phone.setText("Phone: " + order.getPhone().value);
+        email.setText("Email: " + order.getEmail().value);
+        address.setText("Address: " + order.getAddress().value);
+        timeStamp.setText("Delivery Date: " + order.getTimestamp().value);
+        warehouse.setText("Warehouse: " + order.getWarehouse().address);
+        comment.setText("Comment: " + order.getComment().commentMade);
+        cashOnDelivery.setText("Cash: " + order.getCash().cashOnDelivery);
 
         if (!(order.getItemType().itemType).equals("NIL")) {
             itemType.getChildren().add(new Label(order.getItemType().itemType));
