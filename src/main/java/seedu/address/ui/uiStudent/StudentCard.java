@@ -30,6 +30,8 @@ public class StudentCard extends UiPart<Region> {
   @FXML
   private HBox cardPane;
   @FXML
+  private Label id;
+  @FXML
   private Label name;
   @FXML
   private Label studentID;
@@ -41,6 +43,7 @@ public class StudentCard extends UiPart<Region> {
   public StudentCard(Student student, int displayedIndex) {
     super(FXML);
     this.student = student;
+    id.setText(displayedIndex + ". ");
     studentID.setText(student.getID().value);
     name.setText(student.getName().fullName);
     assignedCourses.setText(student.getAssignedCoursesWithNames());

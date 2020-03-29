@@ -32,6 +32,8 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private Label name;
   @FXML
+  private Label id;
+  @FXML
   private Label teacherID;
   @FXML
   private Label courseID;
@@ -48,6 +50,7 @@ public class CourseCard extends UiPart<Region> {
     super(FXML);
     this.course = course;
     name.setText(course.getName().fullName);
+    id.setText(displayedIndex + ". ");
     teacherID.setText(course.getId().value);
     courseID.setText(course.getId().value);
     amount.setText(course.getAmount().value);
