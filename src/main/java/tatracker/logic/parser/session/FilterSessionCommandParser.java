@@ -17,6 +17,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 
+
 /**
  * Parses input arguments and creates a new FilterSessionCommand object
  */

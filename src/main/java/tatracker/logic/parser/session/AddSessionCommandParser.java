@@ -21,6 +21,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
+
 /*
  * === BUGS ===
  * TODO: No error when end time is after start time.

@@ -1,18 +1,19 @@
 package tatracker.model.student;
 
-import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.BOB;
+import tatracker.testutil.StudentBuilder;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import tatracker.testutil.StudentBuilder;
+import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalStudents.ALICE;
+import static tatracker.testutil.TypicalStudents.BOB;
 
 public class StudentTest {
 
@@ -30,33 +31,23 @@ public class StudentTest {
         // null -> returns false
         Assertions.assertFalse(ALICE.isSameStudent(null));
 
-        // different phone and email -> returns false
+        // different optional fields -> returns true
         Student editedAlice = new StudentBuilder(ALICE)
                 .withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).build();
+                .withEmail(VALID_EMAIL_BOB)
+                .withRating(VALID_RATING_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+        Assertions.assertTrue(ALICE.isSameStudent(editedAlice));
+
+        // different matric -> returns false
+        editedAlice = new StudentBuilder(ALICE)
+                .withMatric(VALID_MATRIC_BOB).build();
         Assertions.assertFalse(ALICE.isSameStudent(editedAlice));
 
         // different name -> returns false
         editedAlice = new StudentBuilder(ALICE)
                 .withName(VALID_NAME_BOB).build();
         Assertions.assertFalse(ALICE.isSameStudent(editedAlice));
-
-        // same name, same phone, same matric, different attributes -> returns true
-        editedAlice = new StudentBuilder(ALICE)
-                .withEmail(VALID_EMAIL_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        Assertions.assertTrue(ALICE.isSameStudent(editedAlice));
-
-        // same name, same email, same matric, different attributes -> returns true
-        editedAlice = new StudentBuilder(ALICE)
-                .withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        Assertions.assertTrue(ALICE.isSameStudent(editedAlice));
-
-        // same name, same phone, same email, same matric different attributes -> returns true
-        editedAlice = new StudentBuilder(ALICE)
-                .withTags(VALID_TAG_HUSBAND).build();
-        Assertions.assertTrue(ALICE.isSameStudent(editedAlice));
     }
 
     @Test

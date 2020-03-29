@@ -1,10 +1,12 @@
 package tatracker.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.student.Email;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Name;
+import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
+import tatracker.model.tag.Tag;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,12 +15,11 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.tag.Tag;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -192,5 +193,53 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseRating_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRating(null));
+    }
+
+    @Test
+    public void parseRating_signedValue_throwsParseException() {
+        // Cannot have '+' or '-' symbol when parsing
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("-1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("+3"));
+    }
+
+    @Test
+    public void parseRating_zeroValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("0"));
+    }
+
+    @Test
+    public void parseRating_outOfRangeValue_throwsParseException() {
+        // rating is not between 1 - 5
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("6"));
+    }
+
+    @Test
+    public void parseRating_invalidValue_throwsParseException() {
+        // trailing characters
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("3 3333"));
+
+        // non-numeric
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("3potato"));
+
+        // symbols
+        assertThrows(ParseException.class, () -> ParserUtil.parseRating("4+-"));
+    }
+
+    @Test
+    public void parseRating_validValueWithoutWhitespace_returnsRating() throws Exception {
+        Rating expectedRating = new Rating(3);
+        assertEquals(expectedRating, ParserUtil.parseRating("3"));
+    }
+
+    @Test
+    public void parseRating_validValueWithWhitespace_returnsTrimmedRating() throws Exception {
+        String ratingWithWhitespace = WHITESPACE + "3" + WHITESPACE;
+        Rating expectedRating = new Rating(3);
+        assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
     }
 }

@@ -25,7 +25,6 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
-
 /**
  * Edits the details of an existing session in TAT.
  */
@@ -41,8 +40,8 @@ public class EditSessionCommand extends Command {
             + "[" + PREFIX_ENDTIME + "END] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MODULE + "MOD_CODE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
+            + "[" + PREFIX_MODULE + "MODULE CODE] "
+            + "[" + PREFIX_SESSION_TYPE + "SESSION TYPE] "
             + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_DATE + "20-02-2020 ";

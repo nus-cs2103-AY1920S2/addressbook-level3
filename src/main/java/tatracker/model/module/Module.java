@@ -1,13 +1,12 @@
 package tatracker.model.module;
 
-import java.util.Objects;
-
 import javafx.collections.ObservableList;
-
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueSessionList;
+
+import java.util.Objects;
 
 /**
  * Represents a module in the TAT.
@@ -56,10 +55,24 @@ public class Module {
     }
 
     /**
+     * Returns module at index n.
+     */
+    public Group get(int n) {
+        return groups.get(n);
+    }
+
+    /**
      * Returns the group list.
      */
     public ObservableList<Group> getGroupList() {
         return groups.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns the unique group list.
+     */
+    public UniqueGroupList getUniqueGroupList() {
+        return groups;
     }
 
     /**
@@ -94,6 +107,15 @@ public class Module {
      */
     public void deleteGroup(Group group) {
         groups.remove(group);
+    }
+
+    /**
+     * Replaces the given group {@code target} in the list with {@code editedGroup}.
+     * {@code target} must exist in the list of groups.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the module.
+     */
+    public void setGroup(Group target, Group editedGroup) {
+        groups.setGroup(target, editedGroup);
     }
 
     public boolean hasDoneSession(Session session) {
@@ -131,23 +153,7 @@ public class Module {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) %s", name, identifier, groupsString());
+        return String.format("%s (%s)", name, identifier);
     }
 
-    /**
-     * Returns a string that shows the value inside the groups list.
-     */
-    private String groupsString() {
-        // TODO: test groups are printed correctly
-        StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < groups.size(); ++i) {
-            if (i > 0) {
-                str.append(", ");
-            }
-            groups.get(i);
-        }
-        str.append("]");
-        return str.toString();
-    }
 }

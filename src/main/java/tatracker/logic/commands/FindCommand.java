@@ -1,10 +1,10 @@
 package tatracker.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import tatracker.commons.core.Messages;
 import tatracker.model.Model;
 import tatracker.model.student.NameContainsKeywordsPredicate;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all students in TA-Tracker whose name contains any of the argument keywords.
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredStudentList(predicate);
+        model.setFilteredStudentList();
         return new CommandResult(
                 String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW, model.getFilteredStudentList().size()));
     }

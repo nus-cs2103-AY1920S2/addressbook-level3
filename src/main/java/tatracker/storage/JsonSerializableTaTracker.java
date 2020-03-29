@@ -1,17 +1,16 @@
 package tatracker.storage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 import tatracker.commons.exceptions.IllegalValueException;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.TaTracker;
 import tatracker.model.student.Student;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * An Immutable TaTracker that is serializable to JSON format.
@@ -37,7 +36,7 @@ class JsonSerializableTaTracker {
      * @param source future changes to this will not affect the created {@code JsonSerializableTaTracker}.
      */
     public JsonSerializableTaTracker(ReadOnlyTaTracker source) {
-        students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
+        //students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
     }
 
     /**

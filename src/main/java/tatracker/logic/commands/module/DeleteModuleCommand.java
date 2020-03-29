@@ -1,15 +1,15 @@
 package tatracker.logic.commands.module;
 
-import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
-import static tatracker.logic.commands.CommandWords.MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
+
+import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
+import static tatracker.logic.commands.CommandWords.MODULE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 /**
  * Deletes a module identified using it's module code.
@@ -25,6 +25,9 @@ public class DeleteModuleCommand extends Command {
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with this module code.";
+
+    public static final int FIRST_GROUP_INDEX = 0;
+    public static final int FIRST_MODULE_INDEX = 0;
 
     private final Module module;
 
@@ -42,6 +45,17 @@ public class DeleteModuleCommand extends Command {
 
         Module moduleToDelete = model.getModule(module.getIdentifier());
         model.deleteModule(moduleToDelete);
+        if (model.getFilteredModuleList().isEmpty()) {
+            model.setFilteredGroupList();
+            model.setFilteredStudentList();
+        } else {
+            model.updateGroupList(FIRST_MODULE_INDEX);
+            if (model.getFilteredGroupList().isEmpty()) {
+                model.setFilteredStudentList();
+            } else {
+                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
+            }
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
