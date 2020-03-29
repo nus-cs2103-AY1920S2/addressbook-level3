@@ -3,6 +3,7 @@ package seedu.eylah.expensesplitter.model;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
+import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
 /**
  * The API of the Model component.
@@ -51,6 +52,10 @@ public interface Model {
      * Going back to EYLAH Main Menu.
      */
     void backToMainMenu();
+
+    boolean isReceiptDone();
+
+    Receipt getReceipt();
 
     /**
      * Returns true if a person with the same identity as

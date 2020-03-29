@@ -24,6 +24,8 @@ public class PaidCommand extends Command {
         + "Parameters: INDEX and AMOUNT (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1" + " 3.30";
 
+    public static final String MESSAGE_RECEIPT_UNDONE = "The current receipt is marked as incomplete. You may not " +
+            "use the paid command.";
 
     //private final Person personPaid;
     private final Index indexOfPersonPaid;
@@ -42,28 +44,34 @@ public class PaidCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
-
-        //This ensures that the indexOfPersonPaid is correct.
-        if (indexOfPersonPaid.getZeroBased() < 0
-            || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
-            throw new CommandException("Index of Person is incorrect. Please use `listamount` to get the index.");
+        if (!model.isReceiptDone()) {
+            return new CommandResult(MESSAGE_RECEIPT_UNDONE);
         }
+        else {
+            ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
-        Person person = book.getPersonByIndex(indexOfPersonPaid.getZeroBased());
-        String initialAmount = person.getAmount().toString();
 
-        //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
-        if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
-            throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
-                + "to get the index.");
+            //This ensures that the indexOfPersonPaid is correct.
+            if (indexOfPersonPaid.getZeroBased() < 0
+                    || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
+                throw new CommandException("Index of Person is incorrect. Please use `listamount` to get the index.");
+            }
+
+            Person person = book.getPersonByIndex(indexOfPersonPaid.getZeroBased());
+            String initialAmount = person.getAmount().toString();
+
+            //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
+            if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
+                throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
+                        + "to get the index.");
+            }
+
+            model.paidPerson(person, amountPaid);
+            String finalAmount = person.getAmount().toString();
+
+            return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
+                    + initialAmount + " to " + finalAmount + ".");
         }
-
-        model.paidPerson(person, amountPaid);
-        String finalAmount = person.getAmount().toString();
-
-        return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
-            + initialAmount + " to " + finalAmount + ".");
     }
 
 }
