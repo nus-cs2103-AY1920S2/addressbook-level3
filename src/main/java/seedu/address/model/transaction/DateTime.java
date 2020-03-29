@@ -3,9 +3,12 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the date time of a transaction.
@@ -59,6 +62,22 @@ public class DateTime {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns true if the current date time is before the other date time.
+     */
+    public boolean isBefore(DateTime other) {
+        requireNonNull(other);
+        return value.isBefore(other.value);
+    }
+
+    /**
+     * Returns true if the current date time is after the other date time.
+     */
+    public boolean isAfter(DateTime other) {
+        requireNonNull(other);
+        return value.isAfter(other.value);
     }
 
     @Override

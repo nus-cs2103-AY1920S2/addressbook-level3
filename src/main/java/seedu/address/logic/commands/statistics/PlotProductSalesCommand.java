@@ -8,9 +8,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.DateTime;
+import seedu.address.model.transaction.DateTimeInRangePredicate;
+import seedu.address.model.transaction.JointTransactionPredicate;
 import seedu.address.model.transaction.ProductIdEqualsPredicate;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Quantity;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -26,14 +32,19 @@ public class PlotProductSalesCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Sales for product %1$s plotted.";
 
     private final Index targetIndex;
+    private final DateTime startDateTime;
+    private final DateTime endDateTime;
 
-    public PlotProductSalesCommand(Index targetIndex) {
+    public PlotProductSalesCommand(Index targetIndex, DateTime startDateTime, DateTime endDateTime) {
         this.targetIndex = targetIndex;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Predicate<Transaction>> predicates = new ArrayList<>();
         List<Product> lastShownList = model.getFilteredProductList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -42,17 +53,38 @@ public class PlotProductSalesCommand extends Command {
 
         Product productToPlot = lastShownList.get(targetIndex.getZeroBased());
 
-        Predicate<Transaction> predicate = new ProductIdEqualsPredicate(productToPlot.getId());
-
-        List<Transaction> transactions =  model.filterTransaction(predicate);
-
+        predicates.add(new ProductIdEqualsPredicate(productToPlot.getId()));
+        predicates.add(new DateTimeInRangePredicate(startDateTime, endDateTime));
+        Predicate<Transaction> jointPredicate = new JointTransactionPredicate(predicates);
+        List<Transaction> transactions =  model.filterTransaction(jointPredicate);
         XYChart.Series dataSeries = new XYChart.Series();
 
-        transactions.forEach(t -> dataSeries.getData().add(t.toData()));
+
+        List<LocalDate> localDates = populateDates(startDateTime, endDateTime);
+        localDates.forEach(date -> {
+            Quantity sales = new Quantity(0);
+            for (Transaction t: transactions) {
+                if (t.getDateTime().value.toLocalDate().equals(date)) {
+                    sales = sales.plus(t.getQuantity());
+                }
+            }
+
+            dataSeries.getData().add(new XYChart.Data(date.toString(), sales.value));
+        });
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, productToPlot.getDescription()),
                 dataSeries, false, true, false);
+    }
+
+    public static List<LocalDate> populateDates(DateTime startDateTime, DateTime endDateTime) {
+        List<LocalDate> localDates = new ArrayList<>();
+        LocalDate localDate = startDateTime.value.toLocalDate();
+        while (localDate.isBefore(endDateTime.value.toLocalDate())) {
+            localDates.add(localDate);
+            localDate = localDate.plusDays(1);
+        }
+        return localDates;
     }
 
 }
