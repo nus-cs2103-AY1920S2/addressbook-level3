@@ -1,11 +1,11 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.UniqueGoodList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An {@code Inventory} that keeps track of its history. Snapshots of its state are done based on external commands.

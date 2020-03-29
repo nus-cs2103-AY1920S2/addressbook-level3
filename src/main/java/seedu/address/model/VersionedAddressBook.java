@@ -1,11 +1,11 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.supplier.UniqueSupplierList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An {@code AddressBook} that keeps track of its history. Snapshots of its state are done based on external commands.
@@ -70,7 +70,8 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
     /**
      * Replaces the given supplier {@code target} in the current state with {@code editedSupplier}.
      * {@code target} must exist in the current state.
-     * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier in the current state.
+     * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier in the
+     * current state.
      */
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         currentState.setSupplier(target, editedSupplier);

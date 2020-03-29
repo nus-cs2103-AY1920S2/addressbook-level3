@@ -1,12 +1,15 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.UniqueTransactionList;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.transaction.Transaction;
+
+/**
+ * A {@code TransactionHistory} that keeps track of its history. Snapshots of its state are done based on external
+ * commands.
+ */
 public class VersionedTransactionHistory extends TransactionHistory implements Version<TransactionHistory> {
     private TransactionHistory currentState;
     private int statePointer;
@@ -109,7 +112,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
     public ObservableList<Transaction> getReadOnlyList() {
         return currentState.getReadOnlyList();
     }
-    
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -5,7 +5,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.StateNotFoundException;
 
+/**
+ * Returns to a version of the application before the last execution of a data-modifying Command.
+ */
 public class UndoCommand extends Command {
+
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_SUCCESS = "Managed to undo previous action!";
