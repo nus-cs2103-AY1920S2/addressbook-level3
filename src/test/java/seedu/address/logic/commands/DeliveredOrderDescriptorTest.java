@@ -38,7 +38,8 @@ public class DeliveredOrderDescriptorTest {
         assertFalse(AMY_DESC.equals(BOB_DESC));
 
         // different name -> returns false
-        DeliveredOrderDescriptor editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withName(VALID_NAME_BOB).build();
+        DeliveredOrderDescriptor editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC)
+                .withName(VALID_NAME_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different TID -> returns false
