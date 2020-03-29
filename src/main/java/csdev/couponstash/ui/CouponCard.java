@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * An UI component that displays information of a {@code Coupon}.
@@ -37,7 +38,7 @@ public class CouponCard extends UiPart<Region> {
     @FXML
     private Label promoCode;
     @FXML
-    private Label savings;
+    private VBox savings;
     @FXML
     private Label expiryDate;
     @FXML
@@ -72,7 +73,6 @@ public class CouponCard extends UiPart<Region> {
         idDup.setText(displayedIndex + ""); // duplicate is needed for UI purposes
         name.setText(coupon.getName().fullName);
         promoCode.setText("Promo Code: " + coupon.getPromoCode());
-        savings.setText(coupon.getSavingsForEachUse().getStringWithMoneySymbol(moneySymbol));
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
@@ -84,6 +84,10 @@ public class CouponCard extends UiPart<Region> {
                 .forEach(tag -> tagsDup.getChildren().add(new Label(tag.tagName)));
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("T&C: " + coupon.getCondition().value);
+        // set savings pane
+        SavingsPane savingsPane = new SavingsPane();
+        savingsPane.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
+        savings.getChildren().add(savingsPane.getRoot());
     }
 
     @Override

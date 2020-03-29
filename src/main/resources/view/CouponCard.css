@@ -1,13 +1,29 @@
 * {
     -fx-primary-blue: #19568E;
     -fx-paneShadow: dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
+    -fx-text-fill: white;
 }
 
-//For CouponCard
+/* For CouponCard */
 #savings {
   -fx-background-color: -fx-primary-blue;
   -fx-background-radius: 10;
   -fx-text-fill: white;
+  -fx-alignment: top-center;
+}
+
+#savings #numericalAmount {
+  /* default font size for number */
+  -fx-font-size: 25px;
+}
+
+#savings #saveables {
+  -fx-alignment: center;
+}
+
+#savings #saveables .sv-label {
+  -fx-font-size: 14;
+  -fx-label-padding: 0 3 0 3;
 }
 
 #couponName  {
@@ -16,7 +32,6 @@
   -fx-font-style: italic;
   -fx-font-size: 26.0;
   -fx-fill: white;
-  -fx-text-fill: white;
 }
 
 #couponFields {
@@ -24,7 +39,6 @@
  -fx-font-style: italic;
  -fx-fill: white;
  -fx-font-size: 14;
- -fx-text-fill: white;
 }
 
 #id, #idDup {
@@ -32,14 +46,13 @@
   -fx-font-weight: bold;
   -fx-font-family: arial;
   -fx-font-size: 16;
-  -fx-text-fill: white;
 }
 
 #couponPane {
   -fx-effect: -fx-paneShadow;
 }
 
-// For tags
+/* For tags */
 #tags {
   -fx-hgap: 7;
   -fx-vgap: 3;
