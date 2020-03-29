@@ -13,8 +13,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
-import seedu.address.model.Model;
+import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -27,15 +28,18 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final ProfileManager profileManager;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CourseManager courseManager;
+    private final ModuleManager moduleManager;
 
-    public LogicManager(Model model, Storage storage, CourseManager courseManager) {
-        this.model = model;
+    public LogicManager(ProfileManager profileManager, Storage storage, CourseManager courseManager,
+                        ModuleManager moduleManager) {
+        this.profileManager = profileManager;
         this.storage = storage;
         this.courseManager = courseManager;
+        this.moduleManager = moduleManager;
         addressBookParser = new AddressBookParser();
     }
 
@@ -48,13 +52,13 @@ public class LogicManager implements Logic {
         //parse user input from String to a Command
         Command command = addressBookParser.parseCommand(commandText);
         //executes the Command and stores the result
-        commandResult = command.execute(model);
+        commandResult = command.execute(profileManager, courseManager, moduleManager);
 
         try {
             //can assume that previous line of code modifies model in some way
             //since it is being stored here
             //storage.saveAddressBook(model.getAddressBook());
-            storage.saveProfileList(model.getProfileList());
+            storage.saveProfileList(profileManager.getProfileList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -64,7 +68,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ProfileList getProfileList() {
-        return model.getProfileList();
+        return profileManager.getProfileList();
     }
 
     /*@Override
@@ -74,12 +78,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Profile> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return profileManager.getFilteredPersonList();
     }
 
     @Override
     public Path getProfileListFilePath() {
-        return model.getProfileListFilePath();
+        return profileManager.getProfileListFilePath();
     }
 
     /*@Override
@@ -89,23 +93,23 @@ public class LogicManager implements Logic {
 
     @Override
     public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
+        return profileManager.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
+        profileManager.setGuiSettings(guiSettings);
     }
 
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
-        if (model.getFilteredPersonList().size() == 1) { //profile exists
-            int curSem = Profile.getCurrentSemester(); //taking from static profile
-            System.out.println(model.getFirstProfile().getCurModules(curSem));
-            if (model.getFirstProfile().getCurModules(curSem) != null) {
-                model.loadDeadlines();
+        if (profileManager.getFilteredPersonList().size() == 1) { //profile exists
+            int curSem = profileManager.getFirstProfile().getCurrentSemester(); //taking from static profile
+            System.out.println(profileManager.getFirstProfile().getCurModules(curSem));
+            if (profileManager.getFirstProfile().getCurModules(curSem) != null) {
+                profileManager.loadDeadlines();
             }
         }
-        return model.getFilteredDeadlineList();
+        return profileManager.getFilteredDeadlineList();
     }
 }

@@ -7,11 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ModuleList;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
-import seedu.address.model.profile.course.module.Module;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.module.ModuleCode;
 
 /**
  * Displays details requested by user.
@@ -31,34 +32,57 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are:\n%1$s";
     public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in this semester are shown: \n%1$s";
 
-    private final Object toShow;
-
+    private final Object itemParsed;
+    private Object toShow;
     /**
      * Creates a ShowCommand to show the specified object
-     * @param toShow - Can be any object from this list: (Course,
+     * @param itemParsed - Can be any object from this list: (Course,
      *               CourseFocusArea, Module, List of Modules in a semester)
      */
-    public ShowCommand(Object toShow) {
-        requireNonNull(toShow);
-        this.toShow = toShow;
+    public ShowCommand(Object itemParsed) {
+        requireNonNull(itemParsed);
+        this.itemParsed = itemParsed;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
+                                 ModuleManager moduleManager) throws CommandException {
+        requireNonNull(profileManager);
+        requireNonNull(courseManager);
+        requireNonNull(moduleManager);
 
         String message = "";
-        if (toShow instanceof Course) {
-            message = MESSAGE_SUCCESS_COURSE;
-        } else if (toShow instanceof CourseFocusArea) {
-            message = MESSAGE_SUCCESS_FOCUS_AREA;
-        } else if (toShow instanceof Module) {
-            message = MESSAGE_SUCCESS_MODULE;
-        } else if (toShow instanceof ModuleList) {
-            message = MESSAGE_SUCCESS_MODULE_LIST;
-        }
+        try {
+            if (itemParsed instanceof CourseName) {
 
-        return new CommandResult(String.format(message, toShow));
+                message = MESSAGE_SUCCESS_COURSE;
+                CourseName courseName = (CourseName) itemParsed;
+                toShow = courseManager.getCourse(courseName);
+
+            } else if (itemParsed instanceof Integer) {
+
+                message = MESSAGE_SUCCESS_MODULE_LIST;
+                Integer semester = (Integer) itemParsed;
+                toShow = profileManager.getFirstProfile().getModules(semester);
+
+            } else if (itemParsed instanceof ModuleCode) {
+
+                message = MESSAGE_SUCCESS_MODULE;
+                ModuleCode moduleCode = (ModuleCode) itemParsed;
+                toShow = moduleManager.getModule(moduleCode);
+
+            } else if (itemParsed instanceof String) {
+
+                message = MESSAGE_SUCCESS_FOCUS_AREA;
+                String focusArea = (String) itemParsed;
+                toShow = courseManager.getCourseFocusArea(focusArea);
+
+            }
+            return new CommandResult(String.format(message, toShow));
+
+        } catch (ParseException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override

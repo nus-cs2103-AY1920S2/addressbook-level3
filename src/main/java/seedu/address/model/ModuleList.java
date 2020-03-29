@@ -50,11 +50,9 @@ public class ModuleList implements Iterable<Module> {
      * Returns the module with module code {@code moduleCode} in the module list, if it exists.
      * @throws ParseException No module in the module list contains {@code moduleCode}.
      */
-    public Module getModuleWithModuleCode(ModuleCode moduleCode) throws ParseException {
+    public Module getModuleWithModuleCode(ModuleCode moduleCode) {
         requireNonNull(moduleCode);
-        if (!hasModuleWithModuleCode(moduleCode)) {
-            throw new ParseException(MESSAGE_INVALID_MODULE);
-        }
+
         for (Module mod: moduleList) {
             if (mod.getModuleCode().equals(moduleCode)) {
                 return mod;

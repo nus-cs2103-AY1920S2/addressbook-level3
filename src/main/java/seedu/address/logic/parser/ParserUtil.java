@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -59,7 +60,7 @@ public class ParserUtil {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
         if (!ModuleCode.isValidCode(moduleCode)) {
-            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
+            throw new ParseException(MESSAGE_INVALID_MODULE);
         }
         return new ModuleCode(trimmedModuleCode);
     }

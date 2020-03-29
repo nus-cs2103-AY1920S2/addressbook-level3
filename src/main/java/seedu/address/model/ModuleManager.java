@@ -11,7 +11,7 @@ import seedu.address.model.profile.course.module.ModuleCode;
  */
 public class ModuleManager {
 
-    private static ModuleList moduleList;
+    private ModuleList moduleList;
 
     public ModuleManager(ModuleList moduleList) {
         requireNonNull(moduleList);
@@ -23,11 +23,11 @@ public class ModuleManager {
         this(new ModuleList());
     }
 
-    public boolean hasModule(ModuleCode moduleCode) {
-        return this.moduleList.hasModuleWithModuleCode(moduleCode);
+    public boolean hasModule(ModuleCode moduleCode) throws ParseException {
+        return moduleList.hasModuleWithModuleCode(moduleCode);
     }
 
-    public static Module getModule(ModuleCode moduleCode) throws ParseException {
+    public Module getModule(ModuleCode moduleCode) {
         return moduleList.getModuleWithModuleCode(moduleCode);
     }
 }
