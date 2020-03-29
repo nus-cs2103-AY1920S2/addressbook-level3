@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -46,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
+    private PlotWindow plotWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -82,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statisticsWindow = new StatisticsWindow(logic);
+        plotWindow = new PlotWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -181,6 +184,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Plot the sales of a product.
+     */
+    @FXML
+    public void handlePlot(XYChart.Series dataSeries, String title) {
+        if (!plotWindow.isShowing()) {
+            plotWindow.show(dataSeries, title);
+        } else {
+            plotWindow.focus();
+        }
+    }
+
+    /**
      * Opens the statistics window or focuses on it if it's already opened.
      */
     @FXML
@@ -222,6 +237,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowPlot()) {
+                handlePlot(commandResult.getDataSeries(), commandResult.getTitle());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

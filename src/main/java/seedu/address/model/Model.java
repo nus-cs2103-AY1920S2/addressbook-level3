@@ -147,6 +147,12 @@ public interface Model {
      */
     void addTransaction(Transaction transaction);
 
+    /**
+     * Return a filtered observable transactions list.
+     * @param predicate specifies the matching condition.
+     */
+    ObservableList<Transaction> filterTransaction(Predicate<Transaction> predicate);
+
     void updateFilteredCustomerList(Predicate<Customer> predicate);
 
     /**
