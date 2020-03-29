@@ -83,7 +83,6 @@ public class ImportCommand extends Command {
             message = message + invalidCounter + " invalid order(s) found!\n";
             message = message + "Please refer to the user guide for the correct format of the data in csv file.";
         }
-        System.out.println(message);
         return message;
     }
 
