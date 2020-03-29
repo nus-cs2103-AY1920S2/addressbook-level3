@@ -9,6 +9,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -36,6 +37,7 @@ public class EditStudentDescriptorBuilder {
         descriptor.setPhone(student.getPhone());
         descriptor.setEmail(student.getEmail());
         descriptor.setMatric(student.getMatric());
+        descriptor.setRating(student.getRating());
         descriptor.setTags(student.getTags());
     }
 
@@ -60,6 +62,14 @@ public class EditStudentDescriptorBuilder {
      */
     public EditStudentDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code EditStudentDescriptor} that we are building.
+     */
+    public EditStudentDescriptorBuilder withRating(int rating) {
+        descriptor.setRating(new Rating(rating));
         return this;
     }
 
