@@ -86,7 +86,7 @@ public class EditGroupCommand extends Command {
             return true; // short circuit if same object
         }
 
-        if (!(other instanceof DeleteGroupCommand)) {
+        if (!(other instanceof EditGroupCommand)) {
             return false; // instanceof handles nulls
         }
 
