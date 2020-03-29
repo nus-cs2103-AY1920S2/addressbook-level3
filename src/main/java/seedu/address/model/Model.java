@@ -12,7 +12,7 @@ import seedu.address.model.transaction.Transaction;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model extends Versionable {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Supplier> PREDICATE_SHOW_ALL_SUPPLIERS = unused -> true;
 
@@ -59,10 +59,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyList<Supplier> addressBook);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyList<Supplier> getAddressBook();
 
     /**
      * Returns true if a supplier with the same identity as {@code supplier} exists in the address book.
@@ -113,10 +113,10 @@ public interface Model {
     /**
      * Replaces inventory data with the data in {@code inventory}.
      */
-    void setInventory(ReadOnlyInventory inventory);
+    void setInventory(ReadOnlyList<Good> inventory);
 
     /** Returns the Inventory */
-    ReadOnlyInventory getInventory();
+    ReadOnlyList<Good> getInventory();
 
     /**
      * Returns true if a good with the same identity as {@code good} exists in the inventory.
@@ -173,10 +173,10 @@ public interface Model {
     /**
      * Replaces transaction history data with the data in {@code transactionHistory}.
      */
-    void setTransactionHistory(ReadOnlyTransactionHistory transactionHistory);
+    void setTransactionHistory(ReadOnlyList<Transaction> transactionHistory);
 
     /** Returns the transaction history */
-    ReadOnlyTransactionHistory getTransactionHistory();
+    ReadOnlyList<Transaction> getTransactionHistory();
 
     /**
      * Returns true if a person with the same identity as {@code transaction} exists in the transaction history.

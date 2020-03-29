@@ -19,12 +19,13 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TransactionHistory;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.good.Good;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InventoryStorage;
@@ -91,13 +92,12 @@ public class MainApp extends Application {
      * {@code storage}'s transaction history.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        Optional<ReadOnlyInventory> inventoryOptional;
-        Optional<ReadOnlyTransactionHistory> transactionHistoryOptional;
-
-        ReadOnlyAddressBook initialAddressBookData;
-        ReadOnlyInventory initialInventoryData;
-        ReadOnlyTransactionHistory initialTransactionHistoryData;
+        Optional<ReadOnlyList<Supplier>> addressBookOptional;
+        Optional<ReadOnlyList<Good>> inventoryOptional;
+        Optional<ReadOnlyList<Transaction>> transactionHistoryOptional;
+        ReadOnlyList<Supplier> initialAddressBookData;
+        ReadOnlyList<Good> initialInventoryData;
+        ReadOnlyList<Transaction> initialTransactionHistoryData;
 
         try {
             addressBookOptional = storage.readAddressBook();

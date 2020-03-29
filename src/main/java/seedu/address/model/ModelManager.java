@@ -21,9 +21,9 @@ import seedu.address.model.transaction.Transaction;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final Inventory inventory;
-    private final TransactionHistory transactionHistory;
+    private final VersionedAddressBook addressBook;
+    private final VersionedInventory inventory;
+    private final VersionedTransactionHistory transactionHistory;
     private final UserPrefs userPrefs;
     private final FilteredList<Supplier> filteredSuppliers;
     private final FilteredList<Good> filteredGoods;
@@ -32,8 +32,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, inventory, transaction history and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyInventory inventory,
-                        ReadOnlyTransactionHistory transactionHistory, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyList<Supplier> addressBook, ReadOnlyList<Good> inventory,
+                        ReadOnlyList<Transaction> transactionHistory, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, inventory, transactionHistory, userPrefs);
 
@@ -42,13 +42,13 @@ public class ModelManager implements Model {
                 + ", transaction history: " + transactionHistory
                 + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.inventory = new Inventory(inventory);
-        this.transactionHistory = new TransactionHistory(transactionHistory);
+        this.addressBook = new VersionedAddressBook(addressBook);
+        this.inventory = new VersionedInventory(inventory);
+        this.transactionHistory = new VersionedTransactionHistory(transactionHistory);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredSuppliers = new FilteredList<>(this.addressBook.getSupplierList());
-        filteredGoods = new FilteredList<>(this.inventory.getGoodList());
-        filteredTransactions = new FilteredList<>(this.transactionHistory.getTransactionList());
+        filteredSuppliers = new FilteredList<>(this.addressBook.getReadOnlyList());
+        filteredGoods = new FilteredList<>(this.inventory.getReadOnlyList());
+        filteredTransactions = new FilteredList<>(this.transactionHistory.getReadOnlyList());
     }
 
     public ModelManager() {
@@ -115,12 +115,12 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyList<Supplier> addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyList<Supplier> getAddressBook() {
         return addressBook;
     }
 
@@ -151,13 +151,13 @@ public class ModelManager implements Model {
     //=========== Inventory ================================================================================
 
     @Override
-    public void setInventory(ReadOnlyInventory inventory) {
+    public void setInventory(ReadOnlyList<Good> inventory) {
         this.inventory.resetData(inventory);
     }
 
     @Override
-    public ReadOnlyInventory getInventory() {
-        return inventory;
+    public ReadOnlyList<Good> getInventory() {
+        return inventory.getCurrentState();
     }
 
     @Override
@@ -189,16 +189,15 @@ public class ModelManager implements Model {
         inventory.setGood(target, editedGood);
     }
 
-    //=========== Filtered Supplier List Accessors =============================================================
     //=========== Transaction History ================================================================================
 
     @Override
-    public void setTransactionHistory(ReadOnlyTransactionHistory transactionHistory) {
+    public void setTransactionHistory(ReadOnlyList<Transaction> transactionHistory) {
         this.transactionHistory.resetData(transactionHistory);
     }
 
     @Override
-    public ReadOnlyTransactionHistory getTransactionHistory() {
+    public ReadOnlyList<Transaction> getTransactionHistory() {
         return transactionHistory;
     }
 
@@ -219,7 +218,7 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Supplier List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Supplier} backed by the internal list of
@@ -253,7 +252,7 @@ public class ModelManager implements Model {
         filteredGoods.setPredicate(predicate);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Transaction List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
@@ -268,6 +267,22 @@ public class ModelManager implements Model {
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
+    }
+
+    //=========== Versioning Commands ===========================================================================
+
+    @Override
+    public void commit() {
+        addressBook.commit();
+        inventory.commit();
+        transactionHistory.commit();
+    }
+
+    @Override
+    public void undo() throws StateNotFoundException {
+        addressBook.undo();
+        inventory.undo();
+        transactionHistory.undo();
     }
 
     @Override

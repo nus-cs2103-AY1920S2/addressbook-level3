@@ -13,9 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.good.Good;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
@@ -68,7 +66,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyList<Supplier> getAddressBook() {
         return model.getAddressBook();
     }
 
@@ -83,7 +81,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyInventory getInventory() {
+    public ReadOnlyList<Good> getInventory() {
         return model.getInventory();
     }
 
@@ -98,7 +96,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyTransactionHistory getTransactionHistory() {
+    public ReadOnlyList<Transaction> getTransactionHistory() {
         return model.getTransactionHistory();
     }
 

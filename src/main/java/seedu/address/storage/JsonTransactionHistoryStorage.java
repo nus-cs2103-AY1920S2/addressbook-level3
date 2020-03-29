@@ -12,7 +12,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * A class to access TransactionHistory data stored as a json file on the hard disk.
@@ -32,7 +33,7 @@ public class JsonTransactionHistoryStorage implements TransactionHistoryStorage 
     }
 
     @Override
-    public Optional<ReadOnlyTransactionHistory> readTransactionHistory() throws DataConversionException {
+    public Optional<ReadOnlyList<Transaction>> readTransactionHistory() throws DataConversionException {
         return readTransactionHistory(filePath);
     }
 
@@ -42,7 +43,7 @@ public class JsonTransactionHistoryStorage implements TransactionHistoryStorage 
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTransactionHistory> readTransactionHistory(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyList<Transaction>> readTransactionHistory(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableTransactionHistory> jsonTransactionHistory = JsonUtil.readJsonFile(
@@ -60,16 +61,16 @@ public class JsonTransactionHistoryStorage implements TransactionHistoryStorage 
     }
 
     @Override
-    public void saveTransactionHistory(ReadOnlyTransactionHistory transactionHistory) throws IOException {
+    public void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory) throws IOException {
         saveTransactionHistory(transactionHistory, filePath);
     }
 
     /**
-     * Similar to {@link #saveTransactionHistory(ReadOnlyTransactionHistory)}.
+     * Similar to {@link #saveTransactionHistory(seedu.address.model.ReadOnlyList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTransactionHistory(ReadOnlyTransactionHistory transactionHistory,
+    public void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory,
                                        Path filePath) throws IOException {
         requireNonNull(transactionHistory);
         requireNonNull(filePath);

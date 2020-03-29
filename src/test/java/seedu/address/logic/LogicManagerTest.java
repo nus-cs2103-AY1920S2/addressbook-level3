@@ -24,11 +24,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.good.Good;
 import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonInventoryStorage;
 import seedu.address.storage.JsonTransactionHistoryStorage;
@@ -180,7 +180,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyList<Supplier> addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
@@ -194,7 +194,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
+        public void saveInventory(ReadOnlyList<Good> inventory, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
@@ -208,7 +208,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveTransactionHistory(ReadOnlyTransactionHistory transactionHistory, Path filePath)
+        public void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory, Path filePath)
                 throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }

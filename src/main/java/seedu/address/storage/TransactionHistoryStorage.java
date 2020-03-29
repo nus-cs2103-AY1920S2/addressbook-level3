@@ -5,7 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents a storage for {@link seedu.address.model.TransactionHistory}.
@@ -18,31 +19,31 @@ public interface TransactionHistoryStorage {
     Path getTransactionHistoryFilePath();
 
     /**
-     * Returns TransactionHistory data as a {@link ReadOnlyTransactionHistory}.
+     * Returns TransactionHistory data as a {@link ReadOnlyList}&lt;Transaction&gt;.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException             if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTransactionHistory> readTransactionHistory() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Transaction>> readTransactionHistory() throws DataConversionException, IOException;
 
     /**
      * @see #getTransactionHistoryFilePath()
      */
-    Optional<ReadOnlyTransactionHistory> readTransactionHistory(Path filePath)
+    Optional<ReadOnlyList<Transaction>> readTransactionHistory(Path filePath)
             throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyTransactionHistory} to the storage.
+     * Saves the given {@link seedu.address.model.ReadOnlyList}&lt;Transaction&gt; to the storage.
      *
      * @param transactionHistory cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTransactionHistory(ReadOnlyTransactionHistory transactionHistory) throws IOException;
+    void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory) throws IOException;
 
     /**
-     * @see #saveTransactionHistory(ReadOnlyTransactionHistory)
+     * @see #saveTransactionHistory(ReadOnlyList)
      */
-    void saveTransactionHistory(ReadOnlyTransactionHistory transactionHistory, Path filePath) throws IOException;
+    void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory, Path filePath) throws IOException;
 
 }

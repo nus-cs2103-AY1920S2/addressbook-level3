@@ -7,9 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.good.Good;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
@@ -32,14 +30,14 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyList<Supplier> getAddressBook();
 
     /**
      * Returns the Inventory.
      *
      * @see seedu.address.model.Model#getInventory()
      */
-    ReadOnlyInventory getInventory();
+    ReadOnlyList<Good> getInventory();
 
     /** Returns an unmodifiable view of the filtered list of suppliers */
     ObservableList<Supplier> getFilteredSupplierList();
@@ -48,7 +46,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getTransactionHistory()
      */
-    ReadOnlyTransactionHistory getTransactionHistory();
+    ReadOnlyList<Transaction> getTransactionHistory();
 
     /** Returns an unmodifiable view of the filtered list of goods */
     ObservableList<Good> getFilteredGoodList();

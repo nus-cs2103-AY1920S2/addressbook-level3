@@ -17,6 +17,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -76,6 +77,14 @@ public class FindSupplierCommandTest {
         expectedModel.updateFilteredSupplierList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredSupplierList());
+    }
+
+    @Test
+    public void execute_doesNotCallModelCommit() throws CommandException {
+        ModelStubCommit modelStub = new ModelStubCommit();
+        new FindSupplierCommand(preparePredicate("commit")).execute(modelStub);
+
+        assertFalse(modelStub.isCommitted());
     }
 
     /**

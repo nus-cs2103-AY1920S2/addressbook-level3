@@ -16,8 +16,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.TransactionHistory;
+import seedu.address.model.transaction.Transaction;
 
 public class JsonTransactionHistoryStorageTest {
     private static final Path TEST_DATA_FOLDER =
@@ -31,7 +32,7 @@ public class JsonTransactionHistoryStorageTest {
         assertThrows(NullPointerException.class, () -> readTransactionHistory(null));
     }
 
-    private java.util.Optional<ReadOnlyTransactionHistory> readTransactionHistory(String filePath)
+    private java.util.Optional<ReadOnlyList<Transaction>> readTransactionHistory(String filePath)
             throws Exception {
         return new JsonTransactionHistoryStorage(Paths.get(filePath))
                 .readTransactionHistory(addToTestDataPathIfNotNull(filePath));
@@ -75,7 +76,7 @@ public class JsonTransactionHistoryStorageTest {
 
         // Save in new file and read back
         jsonTransactionHistoryStorage.saveTransactionHistory(original, filePath);
-        ReadOnlyTransactionHistory readBack = jsonTransactionHistoryStorage.readTransactionHistory(filePath).get();
+        ReadOnlyList<Transaction> readBack = jsonTransactionHistoryStorage.readTransactionHistory(filePath).get();
         assertEquals(original, new TransactionHistory(readBack));
 
         // Modify data, overwrite exiting file, and read back
@@ -102,7 +103,7 @@ public class JsonTransactionHistoryStorageTest {
     /**
      * Saves {@code transactionHistory} at the specified {@code filePath}.
      */
-    private void saveTransactionHistory(ReadOnlyTransactionHistory transactionHistory, String filePath) {
+    private void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory, String filePath) {
         try {
             new JsonTransactionHistoryStorage(Paths.get(filePath))
                     .saveTransactionHistory(transactionHistory, addToTestDataPathIfNotNull(filePath));

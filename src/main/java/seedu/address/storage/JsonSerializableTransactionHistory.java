@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.TransactionHistory;
 import seedu.address.model.transaction.Transaction;
 
@@ -36,8 +36,8 @@ class JsonSerializableTransactionHistory {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableTransactionHistory}.
      */
-    public JsonSerializableTransactionHistory(ReadOnlyTransactionHistory source) {
-        transactions.addAll(source.getTransactionList()
+    public JsonSerializableTransactionHistory(ReadOnlyList<Transaction> source) {
+        transactions.addAll(source.getReadOnlyList()
                 .stream().map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
     }
 

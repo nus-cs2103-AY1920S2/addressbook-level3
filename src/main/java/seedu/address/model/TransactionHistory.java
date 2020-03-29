@@ -12,7 +12,7 @@ import seedu.address.model.transaction.UniqueTransactionList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameTransaction comparison)
  */
-public class TransactionHistory implements ReadOnlyTransactionHistory {
+public class TransactionHistory implements ReadOnlyList<Transaction> {
 
     private final UniqueTransactionList transactions;
 
@@ -33,12 +33,12 @@ public class TransactionHistory implements ReadOnlyTransactionHistory {
     /**
      * Creates an TransactionHistory using the Transactions in the {@code toBeCopied}
      */
-    public TransactionHistory(ReadOnlyTransactionHistory toBeCopied) {
+    public TransactionHistory(ReadOnlyList<Transaction> toBeCopied) {
         this();
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the transaction list with {@code transactions}.
@@ -51,13 +51,13 @@ public class TransactionHistory implements ReadOnlyTransactionHistory {
     /**
      * Resets the existing data of this {@code TransactionHistory} with {@code newData}.
      */
-    public void resetData(ReadOnlyTransactionHistory newData) {
+    public void resetData(ReadOnlyList<Transaction> newData) {
         requireNonNull(newData);
 
-        setTransactions(newData.getTransactionList());
+        setTransactions(newData.getReadOnlyList());
     }
 
-    //// transaction-level operations
+    //=========== Transaction-Level Operations =========================================================================
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the transaction history.
@@ -83,7 +83,7 @@ public class TransactionHistory implements ReadOnlyTransactionHistory {
         transactions.remove(key);
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {
@@ -92,7 +92,7 @@ public class TransactionHistory implements ReadOnlyTransactionHistory {
     }
 
     @Override
-    public ObservableList<Transaction> getTransactionList() {
+    public ObservableList<Transaction> getReadOnlyList() {
         return transactions.asUnmodifiableObservableList();
     }
 

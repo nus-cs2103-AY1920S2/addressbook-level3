@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.address.testutil.TypicalGoods.getTypicalInventory;
@@ -10,6 +11,7 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalTransactionHi
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -39,5 +41,13 @@ public class ListSupplierCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showSupplierAtIndex(model, INDEX_FIRST_SUPPLIER);
         assertCommandSuccess(new ListSupplierCommand(), model, ListSupplierCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_doesNotCallModelCommit() throws CommandException {
+        ModelStubCommit modelStub = new ModelStubCommit();
+        new ListSupplierCommand().execute(modelStub);
+
+        assertFalse(modelStub.isCommitted());
     }
 }

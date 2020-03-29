@@ -15,11 +15,12 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.TransactionHistory;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.good.Good;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 
 public class StorageManagerTest {
 
@@ -67,7 +68,7 @@ public class StorageManagerTest {
          */
         AddressBook original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        ReadOnlyList<Supplier> retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
     }
 
@@ -90,7 +91,7 @@ public class StorageManagerTest {
          */
         Inventory original = getTypicalInventory();
         storageManager.saveInventory(original);
-        ReadOnlyInventory retrieved = storageManager.readInventory().get();
+        ReadOnlyList<Good> retrieved = storageManager.readInventory().get();
         assertEquals(original, new Inventory(retrieved));
     }
 
@@ -108,7 +109,7 @@ public class StorageManagerTest {
          */
         TransactionHistory original = getTypicalTransactionHistory();
         storageManager.saveTransactionHistory(original);
-        ReadOnlyTransactionHistory retrieved = storageManager.readTransactionHistory().get();
+        ReadOnlyList<Transaction> retrieved = storageManager.readTransactionHistory().get();
         assertEquals(original, new TransactionHistory(retrieved));
     }
 

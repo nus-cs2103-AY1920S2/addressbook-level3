@@ -18,10 +18,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StateNotFoundException;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
@@ -107,6 +106,13 @@ public class BuyCommandTest {
         //TODO: JD: implement this after you have fixed the BuyCommand overflow bug
     }
 
+    @Test
+    public void execute_validTransaction_callsModelCommit() throws CommandException {
+        ModelStubCommit modelStub = new ModelStubCommit();
+        new BuyCommand(boughtGood).execute(modelStub);
+
+        assertTrue(modelStub.isCommitted());
+    }
 
     private class ModelStubWithExistingGood extends ModelStub {
         private ArrayList<Good> inventory = new ArrayList<>();
@@ -192,12 +198,12 @@ public class BuyCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        public void setAddressBook(ReadOnlyList<Supplier> addressBook) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyList<Supplier> getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -242,12 +248,12 @@ public class BuyCommandTest {
         }
 
         @Override
-        public void setInventory(ReadOnlyInventory inventory) {
+        public void setInventory(ReadOnlyList<Good> inventory) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyInventory getInventory() {
+        public ReadOnlyList<Good> getInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -297,12 +303,12 @@ public class BuyCommandTest {
         }
 
         @Override
-        public void setTransactionHistory(ReadOnlyTransactionHistory transactionHistory) {
+        public void setTransactionHistory(ReadOnlyList<Transaction> transactionHistory) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyTransactionHistory getTransactionHistory() {
+        public ReadOnlyList<Transaction> getTransactionHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -328,6 +334,16 @@ public class BuyCommandTest {
 
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commit() {
+            return;
+        }
+
+        @Override
+        public void undo() throws StateNotFoundException {
             throw new AssertionError("This method should not be called.");
         }
     }

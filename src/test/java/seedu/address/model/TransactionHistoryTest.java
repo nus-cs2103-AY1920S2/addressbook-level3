@@ -28,7 +28,7 @@ public class TransactionHistoryTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), transactionHistory.getTransactionList());
+        assertEquals(Collections.emptyList(), transactionHistory.getReadOnlyList());
     }
 
     @Test
@@ -80,13 +80,13 @@ public class TransactionHistoryTest {
 
     @Test
     public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> transactionHistory.getTransactionList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> transactionHistory.getReadOnlyList().remove(0));
     }
 
     /**
      * A stub ReadOnlyTransactionHistory whose transactions list can violate interface constraints.
      */
-    private static class TransactionHistoryStub implements ReadOnlyTransactionHistory {
+    private static class TransactionHistoryStub implements ReadOnlyList<Transaction> {
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
         TransactionHistoryStub(Collection<Transaction> transactions) {
@@ -94,7 +94,7 @@ public class TransactionHistoryTest {
         }
 
         @Override
-        public ObservableList<Transaction> getTransactionList() {
+        public ObservableList<Transaction> getReadOnlyList() {
             return transactions;
         }
     }

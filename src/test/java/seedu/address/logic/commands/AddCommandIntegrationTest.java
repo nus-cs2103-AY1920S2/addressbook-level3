@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateSupplier_throwsCommandException() {
-        Supplier supplierInList = model.getAddressBook().getSupplierList().get(0);
+        Supplier supplierInList = model.getAddressBook().getReadOnlyList().get(0);
         assertCommandFailure(new AddCommand(supplierInList), model, AddCommand.MESSAGE_DUPLICATE_SUPPLIER);
     }
 

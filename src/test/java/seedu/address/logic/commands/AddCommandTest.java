@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalSuppliers.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,9 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ReadOnlyTransactionHistory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.good.Good;
 import seedu.address.model.supplier.Supplier;
@@ -46,7 +45,15 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicateSupplier_throwsCommandException() {
+    public void execute_validPerson_callsModelCommit() throws CommandException {
+        ModelStubCommit modelStub = new ModelStubCommit();
+        new AddCommand(ALICE).execute(modelStub);
+
+        assertTrue(modelStub.isCommitted());
+    }
+
+    @Test
+    public void execute_duplicatePerson_throwsCommandException() {
         Supplier validSupplier = new SupplierBuilder().build();
         AddCommand addCommand = new AddCommand(validSupplier);
         ModelStub modelStub = new ModelStubWithSupplier(validSupplier);
@@ -119,12 +126,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyList<Supplier> newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyList<Supplier> getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -164,12 +171,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setInventory(ReadOnlyInventory inventory) {
+        public void setInventory(ReadOnlyList<Good> inventory) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyInventory getInventory() {
+        public ReadOnlyList<Good> getInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -209,6 +216,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void commit() {
+            return;
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getTransactionHistoryFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -219,12 +236,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTransactionHistory(ReadOnlyTransactionHistory transactionHistory) {
+        public void setTransactionHistory(ReadOnlyList<Transaction> transactionHistory) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyTransactionHistory getTransactionHistory() {
+        public ReadOnlyList<Transaction> getTransactionHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -266,6 +283,10 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyList<Supplier> getAddressBook() {
+            return new AddressBook();
+        }
+
         public boolean hasSupplier(Supplier supplier) {
             requireNonNull(supplier);
             return this.supplier.isSameSupplier(supplier);
@@ -290,8 +311,7 @@ public class AddCommandTest {
             suppliersAdded.add(supplier);
         }
 
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyList<Supplier> getAddressBook() {
             return new AddressBook();
         }
     }

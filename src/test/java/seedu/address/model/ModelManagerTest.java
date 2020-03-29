@@ -10,7 +10,9 @@ import static seedu.address.testutil.TypicalGoods.APPLE;
 import static seedu.address.testutil.TypicalGoods.BANANA;
 import static seedu.address.testutil.TypicalSuppliers.ALICE;
 import static seedu.address.testutil.TypicalSuppliers.BENSON;
+import static seedu.address.testutil.TypicalTransactions.BUY_APPLE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BUY_BANANA_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.SELL_APPLE_TRANSACTION;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -134,6 +136,69 @@ public class ModelManagerTest {
     @Test
     public void getFilteredGoodList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredGoodList().remove(0));
+    }
+
+    @Test
+    public void undo_noCommits_throwsStateNotFoundException() {
+        assertThrows(StateNotFoundException.class, () -> modelManager.undo());
+    }
+
+    @Test
+    public void undo_affectsAllDatabases() {
+        Model expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getTransactionHistory(), modelManager.getUserPrefs());
+
+        modelManager.addGood(APPLE);
+        modelManager.addSupplier(ALICE);
+        modelManager.addTransaction(SELL_APPLE_TRANSACTION);
+        modelManager.commit();
+
+        modelManager.undo();
+        assertEquals(modelManager, expectedModel);
+    }
+
+    @Test
+    public void commit_savesAllDatabases() {
+        Model expectedModelAfterFirstUndo = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getTransactionHistory(), modelManager.getUserPrefs());
+        expectedModelAfterFirstUndo.addGood(APPLE);
+        expectedModelAfterFirstUndo.addSupplier(ALICE);
+
+        Model expectedModelAfterSecondUndo = new ModelManager(modelManager.getAddressBook(),
+                modelManager.getInventory(), modelManager.getTransactionHistory(), modelManager.getUserPrefs());
+        expectedModelAfterSecondUndo.addGood(APPLE);
+
+        modelManager.addGood(APPLE);
+        modelManager.commit();
+        modelManager.addSupplier(ALICE);
+        modelManager.commit();
+        modelManager.addTransaction(BUY_APPLE_TRANSACTION);
+        modelManager.commit();
+        modelManager.undo();
+
+        // check that commit saves both databases, so one undo will only remove one item here
+        assertEquals(modelManager, expectedModelAfterFirstUndo);
+        modelManager.undo();
+        assertEquals(modelManager, expectedModelAfterSecondUndo);
+    }
+
+    @Test
+    public void commit_afterUndo_overwritesHistory() {
+        Model expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getTransactionHistory(), modelManager.getUserPrefs());
+        expectedModel.addGood(APPLE);
+        expectedModel.addSupplier(BENSON);
+
+        modelManager.addGood(APPLE);
+        modelManager.commit();
+        modelManager.addSupplier(ALICE);
+        modelManager.commit();
+        modelManager.undo();
+        modelManager.addSupplier(BENSON);
+        modelManager.commit();
+
+        // Alice should be absent
+        assertEquals(modelManager, expectedModel);
     }
 
     @Test
