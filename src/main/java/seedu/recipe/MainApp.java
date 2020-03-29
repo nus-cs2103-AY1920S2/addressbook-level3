@@ -22,7 +22,9 @@ import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.util.SampleDataUtil;
+import seedu.recipe.storage.CookedRecordStorage;
 import seedu.recipe.storage.JsonRecipeBookStorage;
+import seedu.recipe.storage.JsonCookedRecordStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
 import seedu.recipe.storage.RecipeBookStorage;
 import seedu.recipe.storage.Storage;
@@ -57,7 +59,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipeBookFilePath());
-        storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        CookedRecordStorage cookedRecordStorage = new JsonCookedRecordStorage(userPrefs.getCookedRecordFilePath());
+        storage = new StorageManager(recipeBookStorage, cookedRecordStorage, userPrefsStorage);
 
         initLogging(config);
 
