@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -36,8 +38,6 @@ public class OverviewPanel extends UiPart<Region> {
     @FXML
     private ListView<Profile> profile;
     @FXML
-    private TextFlow profileDetails;
-    @FXML
     private Label cap;
     @FXML
     private ScrollPane modulesPanel;
@@ -54,31 +54,10 @@ public class OverviewPanel extends UiPart<Region> {
 
         Profile profile = profileList.get(0);
 
-        //Profile details
-//        Text name = new Text("Name: " + profile.getName().fullName + "\n");
-//        name.setFont(Font.font("Segoe UI", 16));
-//        name.setFill(Color.WHITE);
-//
-//        Text course = new Text("Course: " + profile.getCourseName().courseName + "\n");
-//        course.setFont(Font.font("Segoe UI", 14));
-//        course.setFill(Color.WHITE);
-//
-//        Text specialisation;
-//        if (profile.getSpecialisation() != null) {
-//            specialisation = new Text("Specialisation: " + profile.getSpecialisation() + "\n");
-//        } else {
-//            specialisation = new Text("Specialisation: - \n");
-//        }
-//        specialisation.setFont(Font.font("Segoe UI", 14));
-//        specialisation.setFill(Color.WHITE);
-//
-//        Text currentSem = new Text("Current Semester: " + profile.getCurrentSemester());
-//        currentSem.setFont(Font.font("Segoe UI", 14));
-//        currentSem.setFill(Color.WHITE);
-//
-//        profileDetails.getChildren().addAll(name, course, specialisation, currentSem);
-
         cap.setText("Current CAP: \n" + profile.getCap().toString());
+        StringProperty sp = new SimpleStringProperty();
+        cap.textProperty().bind(sp);
+
 
         //Modules panel
         HBox modPane = new HBox();

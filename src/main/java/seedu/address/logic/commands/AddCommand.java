@@ -119,6 +119,7 @@ public class AddCommand extends Command {
             }
             // Create Personal object
             personal = new Personal();
+
         }
 
         if (addGrade != null) {
@@ -159,13 +160,14 @@ public class AddCommand extends Command {
         if (!hasModule) {
             profile.addModule(addSemester, moduleToAdd);
             messageShown = MESSAGE_ADD_SUCCESS;
+            profileManager.setDisplayedView(profile);
+            return new CommandResult(String.format(messageShown, toAdd), true);
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;
         }
 
         profile.updateCap();
-        profileManager.setDisplayedView(profile);
-        return new CommandResult(String.format(messageShown, toAdd), true);
+        return new CommandResult(String.format(messageShown, toAdd), false);
     }
 
     @Override
