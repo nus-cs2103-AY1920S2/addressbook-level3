@@ -1,6 +1,7 @@
 package com.notably.logic.parser.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -13,11 +14,7 @@ public class SuggestionCommandParserTestUtil {
      * equals to {@code expectedMessage}.
      */
     public static void assertParseFailure(SuggestionCommandParser parser, String userInput, String expectedMessage) {
-        try {
-            parser.parse(userInput);
-            throw new AssertionError("The expected ParseException was not thrown.");
-        } catch (ParseException pe) {
-            assertEquals(expectedMessage, pe.getMessage());
-        }
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(expectedMessage, exception.getMessage());
     }
 }
