@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Money {
     public static final String MESSAGE_CONSTRAINTS_FORMAT =
-            "Money should take positive integer values, and it should not be blank";
+            "Money should take positive integer values (up to 1000000), and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS_VALUE =
-            "The numeric value of a Quantity must not be negative and smaller than 1000000";
+            "The numeric value of Money must not be negative and must be smaller than 1000000";
 
     /*
      * There must be one or more digits entered.

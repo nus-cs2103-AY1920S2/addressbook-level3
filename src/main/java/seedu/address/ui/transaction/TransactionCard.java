@@ -46,9 +46,9 @@ public class TransactionCard extends UiPart<Region> {
         this.transaction = transaction;
         id.setText(displayedIndex
                 + ". "
-                + transaction.getCustomer().getName().toString()
+                + transaction.getCustomer().getName()
                 + " bought "
-                + transaction.getProduct().getDescription().toString());
+                + transaction.getProduct().getDescription());
         customer.setText(transaction.getCustomer().getName().toString());
         product.setText(transaction.getProduct().getDescription().toString());
         dateTime.setText(transaction.getDateTime().toString());

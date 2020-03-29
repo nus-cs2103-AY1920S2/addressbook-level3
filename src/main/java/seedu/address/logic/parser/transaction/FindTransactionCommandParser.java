@@ -3,6 +3,7 @@ package seedu.address.logic.parser.transaction;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 
 import java.util.ArrayList;
@@ -22,8 +23,10 @@ import seedu.address.model.transaction.CustomerContainsKeywordPredicate;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.DateTimeEqualsPredicate;
 import seedu.address.model.transaction.JointTransactionPredicate;
+import seedu.address.model.transaction.MoneyEqualsPredicate;
 import seedu.address.model.transaction.ProductContainsKeywordPredicate;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Money;
 
 /**
  * Parse input arguments and creates a new FindCommand object.
@@ -38,9 +41,9 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
      */
     public FindTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME, PREFIX_MONEY);
 
-        if (!anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME)
+        if (!anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME, PREFIX_MONEY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindTransactionCommand.MESSAGE_USAGE));
@@ -59,6 +62,10 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         if (anyPrefixesPresent(argMultimap, PREFIX_DATETIME)) {
             DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
             predicates.add(new DateTimeEqualsPredicate(dateTime));
+        }
+        if (anyPrefixesPresent(argMultimap, PREFIX_MONEY)) {
+            Money money = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
+            predicates.add(new MoneyEqualsPredicate(money));
         }
 
         return new FindTransactionCommand(new JointTransactionPredicate(predicates));

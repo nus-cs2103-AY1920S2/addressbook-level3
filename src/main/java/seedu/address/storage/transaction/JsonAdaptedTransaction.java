@@ -26,6 +26,7 @@ public class JsonAdaptedTransaction {
     private final JsonAdaptedCustomer customer;
     private final JsonAdaptedProduct product;
     private final String productId;
+    private final String customerId;
     private final String dateTime;
     private final String quantity;
     private final String money;
@@ -37,11 +38,13 @@ public class JsonAdaptedTransaction {
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("customer") JsonAdaptedCustomer customer,
                                   @JsonProperty("product") JsonAdaptedProduct product,
+                                  @JsonProperty("customerId") String customerId,
                                   @JsonProperty("productId") String productId,
                                @JsonProperty("dateTime") String dateTime, @JsonProperty("quantity") String quantity,
                                @JsonProperty("money") String money, @JsonProperty("description") String description) {
         this.customer = customer;
         this.product = product;
+        this.customerId = customerId;
         this.productId = productId;
         this.dateTime = dateTime;
         this.quantity = quantity;
@@ -55,6 +58,7 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(Transaction source) {
         customer = new JsonAdaptedCustomer(source.getCustomer());
         product = new JsonAdaptedProduct(source.getProduct());
+        customerId = source.getCustomerId().toString();
         productId = source.getProductId().toString();
         dateTime = source.getDateTime().toString();
         quantity = source.getQuantity().toString();
@@ -77,6 +81,11 @@ public class JsonAdaptedTransaction {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
         final Product modelProduct = product.toModelType();
+
+        if (customerId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
+        }
+        final UUID modelCustomerId = UUID.fromString(customerId);
 
         if (productId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
@@ -125,7 +134,7 @@ public class JsonAdaptedTransaction {
         }
         final Description modelDescription = new Description(description);
 
-        return new Transaction(modelCustomer, modelProduct, modelProductId,
+        return new Transaction(modelCustomer, modelProduct, modelCustomerId, modelProductId,
                 modelDateTime, modelQuantity, modelMoney, modelDescription);
     }
 

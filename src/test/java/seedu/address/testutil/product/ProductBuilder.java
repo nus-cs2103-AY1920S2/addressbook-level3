@@ -1,5 +1,7 @@
 package seedu.address.testutil.product;
 
+import java.util.UUID;
+
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
@@ -13,13 +15,13 @@ import seedu.address.model.util.QuantityThreshold;
  */
 public class ProductBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "Black watch";
-    public static final String DEFAULT_COSTPRICE = "10";
-    public static final String DEFAULT_PRICE = "22";
-    public static final String DEFAULT_QUANTITY = "12";
-    public static final String DEFAULT_SALES = "44";
-    public static final String DEFAULT_THRESHOLD = "5";
+    public static final String DEFAULT_DESCRIPTION = "Abacus";
+    public static final String DEFAULT_COSTPRICE = "1";
+    public static final String DEFAULT_PRICE = "11";
+    public static final String DEFAULT_QUANTITY = "11";
+    public static final String DEFAULT_SALES = "10000";
 
+    private UUID id;
     private Description description;
     private CostPrice costPrice;
     private Price price;
@@ -27,25 +29,36 @@ public class ProductBuilder {
     private Quantity quantity;
     private QuantityThreshold threshold;
 
-    public ProductBuilder() {
+    public ProductBuilder(String id) {
+        this.id = UUID.fromString(id);
         description = new Description(DEFAULT_DESCRIPTION);
         costPrice = new CostPrice(DEFAULT_COSTPRICE);
         price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         money = new Money(DEFAULT_SALES);
-        threshold = new QuantityThreshold(DEFAULT_THRESHOLD);
+        int calculatedThreshold = Integer.parseInt(DEFAULT_QUANTITY) / 5;
+        threshold = new QuantityThreshold(String.valueOf(calculatedThreshold));
     }
 
     /**
      * Initializes the ProductBuilder with the data of {@code productToCopy}.
      */
     public ProductBuilder(Product productToCopy) {
+        id = productToCopy.getId();
         description = productToCopy.getDescription();
         costPrice = productToCopy.getCostPrice();
         price = productToCopy.getPrice();
         quantity = productToCopy.getQuantity();
         money = productToCopy.getMoney();
         threshold = productToCopy.getThreshold();
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code Product} that we are building.
+     */
+    public ProductBuilder withId(String id) {
+        this.id = UUID.fromString(id);
+        return this;
     }
 
     /**
@@ -97,7 +110,7 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(description, costPrice, price, quantity, money, threshold);
+        return new Product(id, description, costPrice, price, quantity, money, threshold);
     }
 
 }

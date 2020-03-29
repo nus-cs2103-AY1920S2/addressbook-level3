@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
@@ -77,13 +78,62 @@ public class EditProductCommand extends Command {
         Product productToEdit = lastShownList.get(index.getZeroBased());
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
 
-        if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
+        if (modelHasDuplicateProduct(model, editedProduct)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
+        updateTransactionList(model, editedProduct);
+
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
+        System.out.println("epc" + String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
+
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
+    }
+
+    /**
+     * Check whether model has duplicate product
+     * @param model
+     * @param editedProduct
+     * @return true if model has duplicate product, else false
+     */
+    private boolean modelHasDuplicateProduct(Model model, Product editedProduct) {
+        List<Product> products = model.getInventorySystem().getProductList();
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            if (product.getId() != editedProduct.getId()) {
+                if (product.equals(editedProduct)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Update transaction list with new product info.
+     * @param model
+     * @param editedProduct
+     */
+    private void updateTransactionList(Model model, Product editedProduct) {
+        List<Transaction> transactions = model.getInventorySystem().getTransactionList();
+
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+            Transaction newTransaction = transaction;
+            if (editedProduct.getId().equals(transaction.getProductId())) {
+                newTransaction = new Transaction(transaction.getCustomer(),
+                        editedProduct,
+                        transaction.getCustomerId(),
+                        transaction.getProductId(),
+                        transaction.getDateTime(),
+                        transaction.getQuantity(),
+                        transaction.getMoney(),
+                        transaction.getDescription());
+            }
+            model.setTransaction(transaction, newTransaction);
+        }
     }
 
     /**
@@ -93,16 +143,19 @@ public class EditProductCommand extends Command {
     public static Product createEditedProduct(Product productToEdit, EditProductDescriptor editProductDescriptor) {
         assert productToEdit != null;
 
+        UUID id = productToEdit.getId();
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());
         CostPrice updatedCostPrice = editProductDescriptor.getCostPrice().orElse(productToEdit.getCostPrice());
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Money updatedSales = editProductDescriptor.getMoney().orElse(productToEdit.getMoney());
-        UUID updatedId = editProductDescriptor.getId().orElse(productToEdit.getId());
-        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
+        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(
+                new QuantityThreshold(String.valueOf(updatedQuantity.value / 5))
+        );
+        System.out.println("cep" + updatedQuantity + " " + updatedThreshold);
 
-        return new Product(updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
-                updatedSales, updatedThreshold, updatedId);
+        return new Product(id, updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
+                updatedSales, updatedThreshold);
     }
 
     @Override
@@ -128,12 +181,12 @@ public class EditProductCommand extends Command {
      * corresponding field value of the product.
      */
     public static class EditProductDescriptor {
+        private UUID id;
         private Description description;
         private CostPrice costPrice;
         private Price price;
         private Quantity quantity;
         private Money sales;
-        private UUID id;
         private QuantityThreshold threshold;
 
         public EditProductDescriptor() {}
@@ -143,19 +196,31 @@ public class EditProductCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditProductDescriptor(EditProductDescriptor toCopy) {
+            setId(toCopy.id);
             setDescription(toCopy.description);
             setCostPrice(toCopy.costPrice);
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
-            setId(toCopy.id);
+            System.out.println("epc" + toCopy);
+            int lowLimit = toCopy.quantity.value / 5;
+            QuantityThreshold newThreshold = new QuantityThreshold(String.valueOf(lowLimit));
+            setThreshold(newThreshold);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales);
+            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales, threshold);
+        }
+
+        public void setId(UUID id) {
+            this.id = id;
+        }
+
+        public Optional<UUID> getId() {
+            return Optional.ofNullable(id);
         }
 
         public void setDescription(Description description) {
@@ -198,14 +263,6 @@ public class EditProductCommand extends Command {
             return Optional.ofNullable(sales);
         }
 
-        public void setId(UUID id) {
-            this.id = id;
-        }
-
-        public Optional<UUID> getId() {
-            return Optional.ofNullable(id);
-        }
-
         public void setThreshold(QuantityThreshold threshold) {
             this.threshold = threshold;
         }
@@ -229,12 +286,24 @@ public class EditProductCommand extends Command {
             // state check
             EditProductDescriptor e = (EditProductDescriptor) other;
 
-            return getDescription().equals(e.getDescription())
+            return getId().equals(e.getId())
+                    && getDescription().equals(e.getDescription())
                     && getCostPrice().equals(e.getCostPrice())
                     && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
-                    && getMoney().equals(e.getMoney())
-                    && getId().equals(e.getId());
+                    && getMoney().equals(e.getMoney());
+        }
+
+        @Override
+        public String toString() {
+            return "EditProductDescriptor{"
+                    + "id=" + id + ", description="
+                    + description + ", costPrice="
+                    + costPrice + ", price="
+                    + price + ", quantity="
+                    + quantity + ", sales="
+                    + sales + ", threshold="
+                    + threshold + '}';
         }
     }
 }

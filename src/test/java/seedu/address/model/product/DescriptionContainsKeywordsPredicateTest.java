@@ -2,6 +2,7 @@ package seedu.address.model.product;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.product.TypicalProducts.ABACUS_ID;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,20 +46,20 @@ public class DescriptionContainsKeywordsPredicateTest {
     public void test_descriptionContainsKeywords_returnsTrue() {
         // One keyword
         DescriptionContainsKeywordsPredicate predicate = new
-                DescriptionContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new ProductBuilder().withDescription("Alice Bob").build()));
+                DescriptionContainsKeywordsPredicate(Collections.singletonList("Abacus"));
+        assertTrue(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus Bob").build()));
 
         // Multiple keywords
-        predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new ProductBuilder().withDescription("Alice Bob").build()));
+        predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("Abacus", "Bob"));
+        assertTrue(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus Bob").build()));
 
         // Only one matching keyword
         predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new ProductBuilder().withDescription("Alice Carol").build()));
+        assertTrue(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus Carol").build()));
 
         // Mixed-case keywords
-        predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new ProductBuilder().withDescription("Alice Bob").build()));
+        predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("aBacus", "bOB"));
+        assertTrue(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus Bob").build()));
     }
 
     @Test
@@ -66,15 +67,15 @@ public class DescriptionContainsKeywordsPredicateTest {
         // Zero keywords
         DescriptionContainsKeywordsPredicate predicate = new
                 DescriptionContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new ProductBuilder().withDescription("Alice").build()));
+        assertFalse(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus").build()));
 
         // Non-matching keyword
         predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new ProductBuilder().withDescription("Alice Bob").build()));
+        assertFalse(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
         predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("12345", "10", "Main", "Street"));
-        assertFalse(predicate.test(new ProductBuilder().withDescription("Bag").withPrice("12345")
+        assertFalse(predicate.test(new ProductBuilder(ABACUS_ID).withDescription("Abacus").withPrice("12345")
                 .withQuantity("10").withMoney("10").build()));
     }
 }

@@ -112,11 +112,11 @@ Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 Examples:
 
-* `findc n/ John` +
+* `findc n/John` +
 Returns john and John Doe from the customer list.
-* `findc n/ Betsy Tim John` +
+* `findc n/Betsy Tim John` +
 Returns any customer having names Betsy, Tim, or John in the customer list.
-* `findc a/ serangoon yishun` +
+* `findc a/serangoon yishun` +
 Returns all customers with address in Serangoon and Yishun.
 
 === Deleting a customer: `deletec`
@@ -147,41 +147,27 @@ Format: `clearc`
 === Adding a product: `addp`
 
 Adds a product to the product list. +
-Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]`
+Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]`
 
 [TIP]
-A product created without providing values for sales (in SGD) or quantity will be created with 0 sales and quantity as 0.
+A product created without providing values for sales (in SGD) will be created with 0 sales.
 
 Examples:
 
-* `addp d/iphone x pr/1000 q/10`
-* `addp d/camera pr/2000 q/90 s/100`
+* `addp d/iphone x pr/1000 q/10 cp/300`
+* `addp d/camera pr/2000 q/90 s/100 cp/1000`
 
 === Listing all products : `listp`
 
 image::Ui.png[width="790"]
 
 Shows a list of all products in the product list. It could be sorted by the amount of sales, inventory left, etc. +
-Format: `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]`
-
-****
-* The order field shows up only if the sort field is provided.
-* The sorting order by default will be descending.
-****
-
-Examples:
-
-* `listp`
-Returns all products in the list unsorted.
-* `listp s/sales`
-Returns all products sorted by the number of sales in descending order.
-* `listp s/quantity o/ASC`
-Returns all products sorted by quantity in ascending order.
+Format: `listp`
 
 === Editing a product : `editp`
 
 Edits an existing product in the product list. +
-Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]`
+Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [cp/COSTPRICE] [s/SALES]`
 
 ****
 * Edits the product at the specified `INDEX`. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
@@ -247,14 +233,14 @@ Format: `clearp`
 === Adding a transaction : `addt`
 
 Adds a specified transaction to the system. +
-Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPTION]` +
+Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATETIME q/QUANTITY m/MONEY [d/DESCRIPTION]` +
 
 Examples:
 
-* `addt p/1 c/10 dt/2020-02-19 19:00 m/20` +
-Adds a transaction with product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
-* `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount` +
-Adds a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10:00.
+* `addt p/1 c/10 dt/2020-02-19 19:00 q/10 m/20` +
+Adds a transaction with product 1 and customer 10 of 20 dollars for 10 products at 2020-02-19 19:00.
+* `addt p/20 c/2 dt/2020-02-20 10:00 q/10 m/30 d/under discount` +
+Adds a transaction with product 20 and customer 2 of 30 dollars for 10 products at 2020-02-20 10:00.
 
 
 === Listing all transaction : `listt`
@@ -262,25 +248,12 @@ Adds a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10
 image::Ui.png[]
 
 Lists all the transactions. +
-Format: `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]`
-
-****
-* The order field shows up only if the sort field is provided.
-* The transactions can only be sorted by the amount of money.
-* The sorting order by default will be descending.
-****
-
-Examples:
-
-* `listt` +
-Returns transactions in an unsorted manner.
-* `listt s/money_amount` +
-Returns transactions sorted by the amount of money by descending order.
+Format: `listt`
 
 === Editing a transaction : `editt`
 
 Edits a transaction in the system. +
-Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]`
+Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]`
 
 ****
 * Edits the transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​
@@ -296,27 +269,23 @@ Edits the product id and customer id of the 1st transaction to be 101 and 123 re
 === Locating transaction : `findt`
 
 Finds transactions whose attributes match the given attributes. +
-Format: `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]`
+Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
 
 ****
-* Ideally, the user would keep a receipt and find the transaction by id printed on the receipt.
 * The search is case insensitive. e.g blue will match Blue
 * At least one of the option fields must be provided.
-* `MONEY_LOW` must be smaller than `MONEY_HIGH`
 * Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
 
-* `findt id/001` +
-Returns the transaction dettails with id 001.
 * `findt p/iphone` +
 Returns all transactions that involve the product `iphone`.
 * `findt c/bob` +
 Returns all transactions that involve a customer named Bob.
 * `findt dt/2020-02-07` +
 Returns all transactions made on 7th February 2020.
-* `findt m/100-400` +
+* `findt m/100` +
 Returns all transactions that have a selling price ranging from 100-400 dollars.
 * `findt c/bob dt/2020-02-07` +
 Returns all transactions that Bob made on the 7th February 2020.
@@ -337,7 +306,7 @@ Examples:
 * `listt` +
 `deletet 2` +
 Deletes the 2nd transaction in the displayed list.
-* `findt 2020-01-03` +
+* `findt dt/2020-01-03` +
 `deletet 1` +
 Deletes the 1st transaction in the results of the find command.
 
@@ -357,19 +326,37 @@ Example:
 
 image::TopSellingProduct.png[]
 
-=== Viewing the revenue trend in a certain period : `revenue`
+=== Get the revenue made in a certain period : `revenue`
 
-Displays the revenue trend in a selected period.
+Gets the revenue made in a selected period.
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
 * The start date and end date must follow a format of `yyyy-mm-dd`
+* The start date must be after end date
+* At least one product must be present
 ****
 
 Example:
 
 * `revenue sd/2020-01-01 ed/2020-12-31` +
-Returns the revenue from Jan 1 to Dec 31
+Returns the revenue from Jan 1 2020 to Dec 31 2020
+
+=== Get the profit made in a certain period : `profit`
+
+Gets the profit made in a selected period.
+Format: `profit [sd/START_DATE] [ed/END_DATE]`
+
+****
+* The start date and end date must follow a format of `yyyy-mm-dd`
+* The start date must be after end date
+* At least one product must be present
+****
+
+Example:
+
+* `profit sd/2020-01-01 ed/2020-12-31` +
+Returns the profit from Jan 1 2020 to Dec 31 2020
 
 === Setting the low-inventory threshold : `lowlimit`
 
@@ -385,11 +372,11 @@ Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 Examples:
 
 * `lowlimit p/1 t/20` +
-Sets the low inventory threshold for product 001 as 20.
+Sets the low inventory threshold for product 1 as 20.
 
 === Receiving notification while a certain product is running low.
 
-Pops up notification upon launching the application if any product’s stock is running low. +
+Pops up notification if quantity of product is below threshold. +
 
 [NOTE]
 This is a passive feature.
@@ -446,9 +433,9 @@ e.g. `findc n/Betsy` +
 * *Clearing all customers* : `clearc`
 * *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
 e.g. `addp d/iphone x pr/1000 q/10`
-* *Listing all products* : `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]` +
-e.g. `listp s/quantity o/ASC`
-* *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]` +
+* *Listing all products* : `listp` +
+e.g. `listp`
+* *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
 * *Finding products* : `findp KEYWORD` +
 e.g. `findp black`
@@ -456,21 +443,22 @@ e.g. `findp black`
 e.g. `listp` +
 `deletep 2`
 * *Clearing all entries* : `clearp`
-* *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPTION]` +
-e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount`
-* *Listing all transaction* : `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]` +
-e.g. `listt s/money_amount`
-* *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]` +
+* *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]` +
+e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
+* *Listing all transaction* : `listt` +
+e.g. `listt`
+* *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
 e.g. `editt 1 p/101 c/123`
-* *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]` +
+* *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
 e.g. `findt c/bob dt/2020-02-07`
-* *Deleting a transaction* : `delete INDEX` +
+* *Deleting a transaction* : `deletet INDEX` +
 e.g. `findt 2020-01-03` +
 `deletet 1`
 * *Clearing all transactions* : `cleart`
-* *Viewing the revenue trend in a certain period* : `revenue`
+* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE`
+* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE`
 * *Setting the low-inventory threshold* : `lowlimit [p/PRODUCT_ID] t/THRESHOLD` +
-e.g. `lowinv p/001 t/20`
+e.g. `lowlimit p/1 t/20`
 * *Predicting the sales for the next month* : `predict`
 * *Exiting from the program* : `exit`
 * *help* : `help`

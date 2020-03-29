@@ -2,6 +2,7 @@ package seedu.address.testutil.customer;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
@@ -21,13 +22,15 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
+    private UUID id;
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public PersonBuilder(String id) {
+        this.id = UUID.fromString(id);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -39,11 +42,20 @@ public class PersonBuilder {
      * Initializes the PersonBuilder with the data of {@code customerToCopy}.
      */
     public PersonBuilder(Customer customerToCopy) {
+        id = customerToCopy.getId();
         name = customerToCopy.getName();
         phone = customerToCopy.getPhone();
         email = customerToCopy.getEmail();
         address = customerToCopy.getAddress();
         tags = new HashSet<>(customerToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code Customer} that we are building.
+     */
+    public PersonBuilder withId(String id) {
+        this.id = UUID.fromString(id);
+        return this;
     }
 
     /**
@@ -87,7 +99,7 @@ public class PersonBuilder {
     }
 
     public Customer build() {
-        return new Customer(name, phone, email, address, tags);
+        return new Customer(id, name, phone, email, address, tags);
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -25,6 +26,7 @@ public class JsonAdaptedCustomer {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Customer's %s field is missing!";
 
+    private final String id;
     private final String name;
     private final String phone;
     private final String email;
@@ -35,9 +37,11 @@ public class JsonAdaptedCustomer {
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                               @JsonProperty("email") String email, @JsonProperty("address") String address,
+    public JsonAdaptedCustomer(@JsonProperty("id") String id, @JsonProperty("name") String name,
+                               @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+                               @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -51,6 +55,7 @@ public class JsonAdaptedCustomer {
      * Converts a given {@code Customer} into this class for Jackson use.
      */
     public JsonAdaptedCustomer(Customer source) {
+        id = source.getId().toString();
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -70,6 +75,11 @@ public class JsonAdaptedCustomer {
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
+
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
+        }
+        final UUID uuid = UUID.fromString(id);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
