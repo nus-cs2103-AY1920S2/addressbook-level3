@@ -186,12 +186,8 @@ public class MainWindow extends UiPart<Stage> {
             if (currentInterviewee.equals(this.currentInterviewee)) {
                 break;
             }
-            // remarkListPanel = new RemarkListPanel(FXCollections
-            //         .unmodifiableObservableList(logic.getCurrentInterviewee()
-            //         .getTranscript()
-            //         .get()
-            //         .getRemarkList()));
-            remarkListPanel = new RemarkListPanel(null);
+            // TODO: Improve the getting process for the remark list. Shouldn't it need the whole Transcript?
+            remarkListPanel = new RemarkListPanel(currentInterviewee.getTranscript().get().getRemarkListView());
             detailedIntervieweeCard = new DetailedIntervieweeCard(currentInterviewee);
             listPanelStackPane.getChildren().addAll(remarkListPanel.getRoot(), detailedIntervieweeCard.getRoot());
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);

@@ -54,6 +54,7 @@ public class ModelManager implements Model {
         this.questionList = new QuestionList();
         this.metricList = new MetricList();
         this.userPrefs = new UserPrefs(userPrefs);
+        this.bestNIntervieweeList = FXCollections.observableArrayList();
     }
 
     public ModelManager() {
@@ -210,11 +211,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Interviewee> getBestNInterviewees() {
         return bestNIntervieweeList;
-    }
-
-    @Override
-    public void setBestNInterviewees(ObservableList<Interviewee> interviewees) {
-        this.bestNIntervieweeList = interviewees;
     }
 
     /**

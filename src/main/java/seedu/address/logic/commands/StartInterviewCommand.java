@@ -5,6 +5,10 @@ import seedu.address.model.Model;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
+/**
+ * Changes the app to the interview phase to interview the given interviewee. Fails if no interviewee can
+ * be identified via the String given, or the interviewee is already interviewed.
+ */
 public class StartInterviewCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Interview with %s started!";
 

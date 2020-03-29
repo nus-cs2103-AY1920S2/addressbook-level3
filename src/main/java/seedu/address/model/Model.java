@@ -82,9 +82,6 @@ public interface Model {
     /** Returns the list of best N interviewees based on certain measures */
     ObservableList<Interviewee> getBestNInterviewees();
 
-    /** Sets the list of best N interviewees */
-    void setBestNInterviewees(ObservableList<Interviewee> interviewees);
-
     /** Sets the current mode of the App */
     void setAppPhase(AppPhase phase);
 
@@ -104,7 +101,7 @@ public interface Model {
     Transcript getCurrentTranscript();
 
     /** Starts an interview with the given interviewee. Error if the interviewee has been interviewed. */
-    void startInterview(Interviewee interviewee) throws IllegalActionException ;
+    void startInterview(Interviewee interviewee) throws IllegalActionException;
 
     /** Gets information about the current Interview Session */
     InterviewSession getInterviewSession();
