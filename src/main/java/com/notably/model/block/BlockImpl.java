@@ -44,4 +44,17 @@ public class BlockImpl implements Block {
     public Body getBody() {
         return this.body;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Block // instanceof handles nulls
+                && title.getText().equals(((Block) other).getTitle().getText())
+                && body.getText().equals(((Block) other).getBody().getText())); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
