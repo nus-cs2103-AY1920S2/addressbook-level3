@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+
 import seedu.address.model.hirelah.AppPhase;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
@@ -125,6 +126,16 @@ public class ModelManager implements Model {
     @Override
     public Interviewee getCurrentInterviewee() {
         return currentInterviewee;
+    }
+
+    /**
+     * Checks whether there is an interviewee currently in focus
+     *
+     * @return boolean whether there is an interviewee in focus.
+     */
+    @Override
+    public boolean hasCurrentInterviewee() {
+        return !(this.currentInterviewee == null);
     }
 
     @Override
