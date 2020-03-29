@@ -51,7 +51,7 @@ public class ReturnOrder extends Parcel {
         this.warehouse = warehouse;
         this.comment = comment;
         this.itemType = itemType;
-        this.deliveryStatus = true;
+        this.deliveryStatus = false;
         this.isReturn = true;
     }
 
@@ -69,7 +69,7 @@ public class ReturnOrder extends Parcel {
         this.warehouse = order.getWarehouse();
         this.comment = order.getComment();
         this.itemType = order.getItemType();
-        this.deliveryStatus = true;
+        this.deliveryStatus = false;
         this.isReturn = true;
     }
 
@@ -197,7 +197,11 @@ public class ReturnOrder extends Parcel {
                 .append(getItemType())
                 .append(" Parcel Status: ")
                 .append("Return Order");
+        if (this.isDelivered()) {
+            builder.append(" Return Status: ").append("Returned to Warehouse" + getWarehouse());
+        } else {
+            builder.append(" Return Status: ").append("Not Returned to Warehouse" + getWarehouse());
+        }
         return builder.toString();
     }
-
 }
