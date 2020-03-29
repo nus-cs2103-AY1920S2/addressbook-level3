@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_
 import static seedu.address.logic.commands.CommandTestUtility.VALID_PROPERTY_ATTRIBUTE;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_PROPERTY_INTERVIEWEE;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_PROPERTY_QUESTION;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_WHAT;
 import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteAttributeCommand;
 import seedu.address.logic.commands.DeleteIntervieweeCommand;
-import seedu.address.logic.commands.DeleteQuestionCommand;
 
 
 class DeleteCommandParserTest {
@@ -33,12 +31,6 @@ class DeleteCommandParserTest {
                         + WHITESPACE
                         + VALID_ATTRIBUTE_PERSISTENCE,
                 new DeleteAttributeCommand("persistence"));
-
-        assertParseSuccess(parser, WHITESPACE
-                        + VALID_PROPERTY_QUESTION
-                        + WHITESPACE
-                        + VALID_QUESTION_WHAT,
-                new DeleteQuestionCommand("What is this question?"));
     }
 
     @Test

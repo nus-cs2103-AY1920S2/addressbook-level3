@@ -23,10 +23,10 @@ public class EditQuestionCommand extends Command {
 
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Successfully edited question: %s to %s";
 
-    private final String questionIndex;
+    private final int questionIndex;
     private final String updatedDescription;
 
-    public EditQuestionCommand(String questionIndex, String updatedDescription) {
+    public EditQuestionCommand(int questionIndex, String updatedDescription) {
         this.questionIndex = questionIndex;
         this.updatedDescription = updatedDescription;
     }
@@ -53,7 +53,7 @@ public class EditQuestionCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EditQuestionCommand // instanceof handles nulls
-                && questionIndex.equals(((EditQuestionCommand) other).questionIndex)
+                && questionIndex == ((EditQuestionCommand) other).questionIndex
                 && updatedDescription.equals(((EditQuestionCommand) other).updatedDescription)); // state check
     }
 }

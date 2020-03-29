@@ -128,7 +128,9 @@ public class MetricList {
      */
 
     public Metric delete(String metricPrefix) throws IllegalValueException {
-        return find(metricPrefix);
+        Metric metric = find(metricPrefix);
+        metrics.remove(metric);
+        return metric;
     }
 
     /**
