@@ -148,9 +148,9 @@ public class AddCommand extends Command {
 
         if (!hasModule) {
             profile.addModule(addSemester, moduleToAdd);
-            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), false);
         } else {
-            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd), false);
         }
     }
 

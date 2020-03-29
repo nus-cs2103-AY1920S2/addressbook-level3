@@ -138,7 +138,7 @@ public class EditCommand extends Command {
                 existingModule.getPersonal().setGrade(grade);
             }
 
-            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule));
+            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), false);
 
         } else if (toEditProfile) {
 
@@ -161,7 +161,7 @@ public class EditCommand extends Command {
             profileManager.setPerson(profileToEdit, editedPerson);
             profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
+            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile), false);
         } else {
             throw new CommandException("Error: Edit Command cannot be executed");
         }

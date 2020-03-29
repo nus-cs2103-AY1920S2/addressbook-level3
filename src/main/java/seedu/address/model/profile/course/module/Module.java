@@ -19,6 +19,7 @@ public class Module {
     private final SemesterData semesterData;
 
     private Personal personal;
+    private int tag; //for colour changing in Deadline panel
 
     /**
      * Every field must be present and not null.
@@ -82,6 +83,14 @@ public class Module {
 
     public void deleteDeadline(Deadline deadline) {
         personal.deleteDeadline(deadline);
+    }
+
+    public void setTag(int id) {
+        this.tag = id;
+    } //if tag != null means module is taken before
+
+    public int getTag() {
+        return this.tag;
     }
 
     // To think of whether Personal stuff should have getters and setters here, since it will be largely repetition

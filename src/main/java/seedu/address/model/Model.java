@@ -1,12 +1,16 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
@@ -87,7 +91,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered profile list */
     ObservableList<Profile> getFilteredPersonList();
 
-    ObservableList<Deadline> getFilteredDeadlineList();
+    ObservableList<Deadline> getSortedDeadlineList();
 
     /**
      * Updates the filter of the filtered profile list to filter by the given {@code predicate}.
@@ -110,5 +114,17 @@ public interface Model {
     void loadDeadlines();
 
     void deleteModuleDeadlines(ModuleCode mc);
+
+    Optional<Object> getDisplayedView();
+
+    void setDisplayedView(ObservableList<Module> toDisplay);
+
+    void setDisplayedView(Profile toDisplay);
+
+    void setDisplayedView(Module toDisplay);
+
+    void setDisplayedView(Course toDisplay);
+
+    void setDisplayedView(CourseFocusArea toDisplay);
 
 }

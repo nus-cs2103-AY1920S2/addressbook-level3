@@ -6,13 +6,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+
+
 
 /**
  * Displays details requested by user.
@@ -27,10 +36,13 @@ public class ShowCommand extends Command {
             + "Module, with " + PREFIX_MODULE + "MODULE_CODE\n"
             + "Modules taken in a semester, with " + PREFIX_CURRENT_SEMESTER + "SEMESTER_NUMBER\n";
 
-    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are: \n%1$s";
-    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are:\n%1$s";
-    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are:\n%1$s";
-    public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in this semester are shown: \n%1$s";
+    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are show below: ";
+    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are shown below: ";
+    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are show below:";
+    public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in semester are shown: "
+            + "\nEnter [show m/MODULE_CODE] to find out more about the module";
+    public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
+
 
     private final Object itemParsed;
     private Object toShow;
@@ -58,27 +70,39 @@ public class ShowCommand extends Command {
                 message = MESSAGE_SUCCESS_COURSE;
                 CourseName courseName = (CourseName) itemParsed;
                 toShow = courseManager.getCourse(courseName);
+                profileManager.setDisplayedView((Course) toShow);
 
             } else if (itemParsed instanceof Integer) {
 
                 message = MESSAGE_SUCCESS_MODULE_LIST;
                 Integer semester = (Integer) itemParsed;
                 toShow = profileManager.getFirstProfile().getModules(semester);
+                FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
+                profileManager.setDisplayedView(filteredModules);
 
             } else if (itemParsed instanceof ModuleCode) {
 
                 message = MESSAGE_SUCCESS_MODULE;
                 ModuleCode moduleCode = (ModuleCode) itemParsed;
                 toShow = moduleManager.getModule(moduleCode);
+                profileManager.setDisplayedView((Module) toShow);
 
             } else if (itemParsed instanceof String) {
 
                 message = MESSAGE_SUCCESS_FOCUS_AREA;
                 String focusArea = (String) itemParsed;
                 toShow = courseManager.getCourseFocusArea(focusArea);
+                profileManager.setDisplayedView((CourseFocusArea) toShow);
 
+            } else if (itemParsed instanceof Name) {
+
+                message = MESSAGE_SUCCESS_NAME;
+                Profile profile = profileManager.getFirstProfile();
+                toShow = profile;
+                profileManager.setDisplayedView((Profile) toShow);
             }
-            return new CommandResult(String.format(message, toShow));
+
+            return new CommandResult(String.format(message, toShow), true);
 
         } catch (ParseException e) {
             throw new CommandException(e.getMessage());

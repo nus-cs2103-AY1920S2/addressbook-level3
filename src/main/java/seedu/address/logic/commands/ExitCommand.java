@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
         requireNonNull(courseManager);
         requireNonNull(moduleManager);
 
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
     }
 
 }

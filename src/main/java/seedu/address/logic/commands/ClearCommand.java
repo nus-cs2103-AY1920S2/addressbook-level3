@@ -25,6 +25,6 @@ public class ClearCommand extends Command {
 
         profileManager.setProfileList(new ProfileList());
         profileManager.clearDeadlineList();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false);
     }
 }

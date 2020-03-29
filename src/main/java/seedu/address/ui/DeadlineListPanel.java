@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of deadlines.
  */
 public class DeadlineListPanel extends UiPart<Region> {
     private static final String FXML = "DeadlineListPanel.fxml";
@@ -22,7 +22,7 @@ public class DeadlineListPanel extends UiPart<Region> {
 
     public DeadlineListPanel(ObservableList<Deadline> deadlineList) {
         super(FXML);
-        deadlineListView.setItems(deadlineList);
+        deadlineListView.setItems(deadlineList); //sets an observable list
         deadlineListView.setCellFactory(listView -> new DeadlineListViewCell());
     }
 

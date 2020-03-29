@@ -3,7 +3,10 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -26,25 +29,40 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label module;
+    private Text module;
     @FXML
     private Label description;
     @FXML
-    private Label date;
+    private Text date;
     @FXML
     private Label time;
+    @FXML
+    private Pane moduleColour;
 
 
     public DeadlineCard(Deadline deadline) {
         super(FXML);
         this.deadline = deadline;
+
+        //module name
         module.setText(deadline.getModuleCode());
+        module.setFill(Color.WHITE);
+
         description.setText("Task: " + deadline.getDescription());
         if (deadline.getDate() == null) {
             date.setText("Date: -");
+            date.setFill(Color.WHITE);
             time.setText("Time: -");
         } else {
             date.setText("Date: " + deadline.getStringDate());
+            if (deadline.getTag().equals("RED")) {
+                date.setFill(Color.valueOf("F05B5B"));
+            } else if (deadline.getTag().equals("YELLOW")) {
+                date.setFill(Color.YELLOW);
+            } else {
+                date.setFill(Color.LAWNGREEN);
+            }
+
             time.setText("Time: " + deadline.getStringTime());
         }
     }
@@ -58,7 +76,6 @@ public class DeadlineCard extends UiPart<Region> {
 
         // instanceof handles nulls
         if (!(other instanceof ProfileCard)) {
-            System.out.print("");
             return false;
         }
 
@@ -67,3 +84,29 @@ public class DeadlineCard extends UiPart<Region> {
         return deadline.equals(card.deadline);
     }
 }
+
+//        ProfileManager pm = new ProfileManager();
+//        Profile profile = pm.getFirstProfile();
+//
+//        for (Module mod : profile.getCurModules().getModuleList()) {
+//            if (mod.getModuleCode().moduleCode.equals(deadline.getModuleCode())) {
+//                int tag = mod.getTag();
+//                if (tag == 0) { //up to 8 modules
+//                    moduleColour.setStyle("-fx-background-color: \"84a9ac\"; -fx-border-color: #3a3a3a;");
+//                } else if (tag == 1) {
+//                    moduleColour.setStyle("-fx-background-color: \"d45d79\"; -fx-border-color: #3a3a3a;");
+//                } else if (tag == 2) {
+//                    moduleColour.setStyle("-fx-background-color: \"ff9933\"; -fx-border-color: #3a3a3a;");
+//                } else if (tag == 3) {
+//                    moduleColour.setStyle("-fx-background-color: \"f6d186\"; -fx-border-color: #3a3a3a;");
+//                } else if (tag == 4) {
+//                    moduleColour.setStyle("-fx-background-color: \"b590ca\"; -fx-border-color: #3a3a3a;");
+//                } else if (tag == 5) {
+//                    moduleColour.setStyle("-fx-background-color: \"ea9085\"; -fx-border-color: #3a3a3a;");
+//                } else if (tag == 6) {
+//                    moduleColour.setStyle("-fx-background-color: \"cae8d5\"; -fx-border-color: #3a3a3a;");
+//                } else {
+//
+//                }
+//            }
+//        }

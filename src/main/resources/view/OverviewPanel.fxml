@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+    <SplitPane minHeight="100" dividerPositions="0.5">
+        <VBox styleClass="pane-with-border">
+            <padding>
+                <Insets top="3" bottom="3" left="5" right="0"/>
+            </padding>
+            <TextFlow fx:id="profileDetails" styleClass="text_profile"/>
+        </VBox>
+
+
+<!--        cap panel-->
+        <TextFlow fx:id="capDetails" styleClass="pane-with-border" minWidth="200" maxWidth="200">
+            <padding>
+                <Insets top="3" bottom="3" left="5" right="0"/>
+            </padding>
+            <Text text="Current CAP: " styleClass="text_title"/>
+        </TextFlow>
+
+        <padding>
+            <Insets top="7" right="0" bottom="10" left="0" />
+        </padding>
+
+    </SplitPane>
+
+    <ScrollPane fx:id="modulesPanel" VBox.vgrow="ALWAYS" maxHeight="420"
+                vmax="0" vbarPolicy="NEVER" styleClass="pane-with-border">
+
+    </ScrollPane>
+</VBox>

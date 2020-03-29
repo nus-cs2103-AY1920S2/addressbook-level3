@@ -20,6 +20,7 @@ public class Deadline {
     protected String description;
     protected LocalDate date;
     protected LocalTime time;
+    private String tag;
 
     private String inputTimePattern = "HH:mm";
     private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
@@ -30,6 +31,16 @@ public class Deadline {
         try {
             this.date = LocalDate.parse(date);
             this.time = LocalTime.parse(time, inputTimeFormatter);
+
+            LocalDate today = LocalDate.now();
+            if (this.date.isBefore(today.plusDays(5))) {
+                tag = "RED";
+            } else if (this.date.isBefore(today.plusDays(10))) {
+                tag = "YELLOW";
+            } else {
+                tag = "GREEN";
+            }
+
         } catch (DateTimeParseException e) {
             throw new DateTimeException("Try: d/YYYY-MM-DD HH:mm");
         }
@@ -64,6 +75,10 @@ public class Deadline {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formattedString = time.format(formatter);
         return formattedString;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public DateTimeFormatter getInputTimeFormatter() {

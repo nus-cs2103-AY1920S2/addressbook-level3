@@ -88,7 +88,7 @@ public class CommandTestUtil {
                                             CourseManager actualCourseManager, ModuleManager actualModuleManager,
                                             String expectedMessage, ProfileManager expectedProfileManager,
                                             CourseManager expectedCourseManager, ModuleManager expectedModuleManager) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false);
         assertCommandSuccess(command, actualProfileManager, actualCourseManager, actualModuleManager,
                 expectedCommandResult, expectedProfileManager, expectedCourseManager, expectedModuleManager);
     }

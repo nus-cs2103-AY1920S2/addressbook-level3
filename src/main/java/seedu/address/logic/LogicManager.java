@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -104,12 +105,15 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
         if (profileManager.getFilteredPersonList().size() == 1) { //profile exists
-            int curSem = profileManager.getFirstProfile().getCurrentSemester(); //taking from static profile
-            System.out.println(profileManager.getFirstProfile().getCurModules(curSem));
-            if (profileManager.getFirstProfile().getCurModules(curSem) != null) {
+            if (profileManager.getFirstProfile().getCurModules() != null) {
                 profileManager.loadDeadlines();
             }
         }
-        return profileManager.getFilteredDeadlineList();
+        return profileManager.getSortedDeadlineList();
+    }
+
+    @Override
+    public Optional<Object> getDisplayedView() {
+        return profileManager.getDisplayedView();
     }
 }

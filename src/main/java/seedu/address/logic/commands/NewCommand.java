@@ -45,7 +45,7 @@ public class NewCommand extends Command {
         requireNonNull(moduleManager);
 
         profileManager.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false);
     }
 
     @Override

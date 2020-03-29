@@ -31,7 +31,7 @@ public class ModularCredits {
 
     @Override
     public String toString() {
-        return String.valueOf(modularCredits);
+        return String.valueOf((int) modularCredits);
     }
 
     @Override
