@@ -32,7 +32,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         commit();
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the current state with {@code suppliers}.
@@ -50,7 +50,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         setSuppliers(newData.getReadOnlyList());
     }
 
-    //// supplier-level operations
+    //=========== Supplier-Level Operations =========================================================================
 
     /**
      * Returns true if a supplier with the same identity as {@code supplier} exists in the current state.
@@ -85,7 +85,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         currentState.removeSupplier(key);
     }
 
-    //// versioning methods
+    //=========== Versioning Methods =========================================================================
 
     @Override
     public void commit() {
@@ -110,7 +110,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
         return currentState;
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {

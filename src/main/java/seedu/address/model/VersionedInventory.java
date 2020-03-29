@@ -33,7 +33,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
         commit();
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the goods list in current state with {@code goods}.
@@ -54,7 +54,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
         setGoods(newData.getReadOnlyList());
     }
 
-    //// good-level operations
+    //=========== Good-Level Operations =========================================================================
 
     /**
      * Returns true if a good with the same identity as {@code good} exists in the address book.
@@ -88,7 +88,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
         getCurrentState().removeGood(key);
     }
 
-    //// versioning methods
+    //=========== Versioning Methods =========================================================================
 
     @Override
     public void commit() {
@@ -113,7 +113,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
         return currentState;
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {

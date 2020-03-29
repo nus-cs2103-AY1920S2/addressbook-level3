@@ -38,7 +38,7 @@ public class TransactionHistory implements ReadOnlyList<Transaction> {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the transaction list with {@code transactions}.
@@ -57,7 +57,7 @@ public class TransactionHistory implements ReadOnlyList<Transaction> {
         setTransactions(newData.getReadOnlyList());
     }
 
-    //// transaction-level operations
+    //=========== Transaction-Level Operations =========================================================================
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the transaction history.
@@ -83,7 +83,7 @@ public class TransactionHistory implements ReadOnlyList<Transaction> {
         transactions.remove(key);
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {

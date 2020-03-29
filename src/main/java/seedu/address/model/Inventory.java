@@ -38,7 +38,7 @@ public class Inventory implements ReadOnlyList<Good> {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the good list with {@code goods}.
@@ -61,7 +61,7 @@ public class Inventory implements ReadOnlyList<Good> {
         setGoods(newData.getReadOnlyList());
     }
 
-    //// good-level operations
+    //=========== Good-Level Operations =========================================================================
 
     /**
      * Returns true if a good with the same identity as {@code good} exists in the address book.
@@ -98,7 +98,7 @@ public class Inventory implements ReadOnlyList<Good> {
         goods.remove(key);
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {

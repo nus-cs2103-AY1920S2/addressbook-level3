@@ -37,7 +37,7 @@ public class AddressBook implements ReadOnlyList<Supplier> {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the supplier list with {@code suppliers}.
@@ -56,7 +56,7 @@ public class AddressBook implements ReadOnlyList<Supplier> {
         setSuppliers(newData.getReadOnlyList());
     }
 
-    //// supplier-level operations
+    //=========== Supplier-Level Operations =========================================================================
 
     /**
      * Returns true if a supplier with the same identity as {@code supplier} exists in the address book.
@@ -98,7 +98,7 @@ public class AddressBook implements ReadOnlyList<Supplier> {
         return suppliers;
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {

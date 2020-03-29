@@ -32,7 +32,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
         commit();
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations =========================================================================
 
     /**
      * Replaces the contents of the current state with {@code transactions}.
@@ -50,7 +50,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
         setTransactions(newData.getReadOnlyList());
     }
 
-    //// transaction-level operations
+    //=========== Transaction-Level Operations =========================================================================
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the current state.
@@ -75,7 +75,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
         currentState.removeTransaction(key);
     }
 
-    //// versioning methods
+    //=========== Versioning Methods =========================================================================
 
     @Override
     public void commit() {
@@ -100,7 +100,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
         return currentState;
     }
 
-    //// util methods
+    //=========== Util Methods =========================================================================
 
     @Override
     public String toString() {
