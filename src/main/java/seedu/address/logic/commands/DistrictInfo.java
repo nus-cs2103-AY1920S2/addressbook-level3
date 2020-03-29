@@ -117,7 +117,7 @@ public class DistrictInfo {
         requireNonNull(searchTerm);
         String term = searchTerm.toUpperCase();
         return Stream.of(CENTRAL, EAST, NORTH_EAST, WEST, NORTH)
-                .anyMatch(area -> Pattern.matches(area, searchTerm));
+                .anyMatch(area -> Pattern.matches(area, term));
     }
 
     /**
