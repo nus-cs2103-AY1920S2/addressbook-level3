@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
+import javafx.collections.transformation.FilteredList;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
@@ -16,16 +17,75 @@ import seedu.address.model.tag.Tag;
  * values are validated, immutable.
  */
 public class Teacher extends Person {
-
   private final Salary salary;
+  private Set<ID> assignedCoursesID = new HashSet<>();
+  private String assignedCoursesWithNames;
+  private final ID id;
 
   /**
    * Every field must be present and not null.
    */
-  public Teacher(Name name, Phone phone, Email email, Salary salary, Address address,
+  public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address,
       Set<Tag> tags) {
     super(name, phone, email, address, tags);
+    this.id = id;
+    this.assignedCoursesWithNames = "None";
     this.salary = salary;
+    this.tags.addAll(tags);
+  }
+
+  public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address, Set<ID> assignedCoursesID,
+      Set<Tag> tags) {
+    super(name, phone, email, address, tags);
+    this.id = id;
+    this.assignedCoursesWithNames = "None";
+    this.salary = salary;
+    this.assignedCoursesID.addAll(assignedCoursesID);
+    this.tags.addAll(tags);
+  }
+
+  /**
+   * Get id of the teacher.
+   */
+  public ID getID() {
+    return id;
+  }
+
+  /**
+   * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
+   * modification is attempted.
+   */
+  public Set<ID> getAssignedCoursesID() {
+    return Collections.unmodifiableSet(assignedCoursesID);
+  }
+
+  public String getAssignedCoursesWithNames(){
+    return this.assignedCoursesWithNames;
+  }
+  /**
+   * Converts internal list of assigned student IDs into the name with the IDs
+   */
+  public void processAssignedCourses(FilteredList<Course> filteredCourses){
+    StringBuilder s = new StringBuilder();
+    int count = 1;
+    for (ID courseid : assignedCoursesID) {
+      for (Course course : filteredCourses) {
+        if (courseid.toString().equals(course.getId().toString())) {
+          String comma = ", ";
+          if (count == assignedCoursesID.size()) {
+            comma = "";
+          }
+          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
+        }
+      }
+      count++;
+    }
+
+    if (s.toString().equals("")) {
+      this.assignedCoursesWithNames = "None";
+    } else {
+      this.assignedCoursesWithNames = "[" + s.toString() + "]";
+    }
   }
 
   /**
@@ -33,6 +93,14 @@ public class Teacher extends Person {
    */
   public Salary getSalary() {
     return salary;
+  }
+
+  public void addCourse(ID courseid) {
+    this.assignedCoursesID.add(courseid);
+  }
+
+  public void addCourses(Set<ID> courseid) {
+    this.assignedCoursesID.addAll(courseid);
   }
 
   /**
@@ -72,6 +140,7 @@ public class Teacher extends Person {
 
     Teacher otherTeacher = (Teacher) other;
     return otherTeacher.getName().equals(getName())
+        && otherTeacher.getID().equals(getID())
         && otherTeacher.getPhone().equals(getPhone())
         && otherTeacher.getEmail().equals(getEmail())
         && otherTeacher.getSalary().equals(getSalary())
@@ -91,6 +160,7 @@ public class Teacher extends Person {
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName());
+    builder.append(" TeacherID: ").append(getID());
     if (getPhone().isKnown()) {
       builder.append(" Phone: ").append(getPhone());
     }

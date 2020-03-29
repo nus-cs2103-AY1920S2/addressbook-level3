@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.AssignedTeacher;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,6 +26,8 @@ class JsonAdaptedCourse {
   private final String name;
   private final String courseID;
   private final String amount;
+  private final String assignedTeacher;
+  private final List<JsonCourseAdaptedID> assignedStudentsID = new ArrayList<>();
   private final List<JsonCourseAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -35,10 +37,17 @@ class JsonAdaptedCourse {
   public JsonAdaptedCourse(@JsonProperty("name") String name,
       @JsonProperty("courseID") String courseID,
       @JsonProperty("amount") String amount,
+      @JsonProperty("assignedTeacher") String assignedTeacher,
+      @JsonProperty("assignedStudentsID") List<JsonCourseAdaptedID> assignedStudentsID,
       @JsonProperty("tagged") List<JsonCourseAdaptedTag> tagged) {
     this.name = name;
     this.courseID = courseID;
     this.amount = amount;
+
+    this.assignedTeacher = assignedTeacher;
+    if (assignedStudentsID != null) {
+      this.assignedStudentsID.addAll(assignedStudentsID);
+    }
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -51,6 +60,11 @@ class JsonAdaptedCourse {
     name = source.getName().fullName;
     courseID = source.getId().value;
     amount = source.getAmount().value;
+    assignedTeacher = source.getAssignedTeacherID().toString();
+    assignedStudentsID.addAll(source.getAssignedStudentsID().stream()
+        .map(JsonCourseAdaptedID::new)
+        .collect(Collectors.toList()));
+
     tagged.addAll(source.getTags().stream()
         .map(JsonCourseAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -63,11 +77,6 @@ class JsonAdaptedCourse {
    *                               Assignment.
    */
   public Course toModelType() throws IllegalValueException {
-    final List<Tag> CourseTags = new ArrayList<>();
-    for (JsonCourseAdaptedTag tag : tagged) {
-      CourseTags.add(tag.toModelType());
-    }
-
     if (name == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -95,8 +104,33 @@ class JsonAdaptedCourse {
     }
     final Amount modelAmount = new Amount(amount);
 
+    if (assignedTeacher == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignedTeacher.class.getSimpleName()));
+    }
+    if (!AssignedTeacher.isValidAssignedTeacher(assignedTeacher)) {
+      throw new IllegalValueException(AssignedTeacher.MESSAGE_CONSTRAINTS);
+    }
+    final ID modelAssignedTeacher = new ID(assignedTeacher);
+
+    final List<ID> CourseAssignedStudentsID = new ArrayList<>();
+    for (JsonCourseAdaptedID id : assignedStudentsID) {
+      CourseAssignedStudentsID.add(id.toModelType());
+    }
+    final Set<ID> modelAssignedStudentsID = new HashSet<>(CourseAssignedStudentsID);
+
+    final List<Tag> CourseTags = new ArrayList<>();
+    for (JsonCourseAdaptedTag tag : tagged) {
+      CourseTags.add(tag.toModelType());
+    }
     final Set<Tag> modelTags = new HashSet<>(CourseTags);
-    return new Course(modelName, modelId, modelAmount, modelTags);
+
+    Course courseReadFromFile = new Course(modelName, modelId, modelAmount, modelTags);
+
+    courseReadFromFile.assignTeacher(modelAssignedTeacher);
+    courseReadFromFile.addStudents(modelAssignedStudentsID);
+
+    return courseReadFromFile;
   }
 
 }

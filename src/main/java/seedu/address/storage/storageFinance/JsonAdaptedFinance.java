@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -23,7 +26,12 @@ class JsonAdaptedFinance {
   public static final String MISSING_FIELD_MESSAGE_FORMAT = "Finance's %s field is missing!";
 
   private final String name;
+  private final String financeType;
+  private final String date;
   private final String amount;
+  private final String courseid;
+  private final String studentid;
+  private final String teacherid;
   private final List<JsonFinanceAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -31,10 +39,20 @@ class JsonAdaptedFinance {
    */
   @JsonCreator
   public JsonAdaptedFinance(@JsonProperty("name") String name,
+      @JsonProperty("financeType") String financeType,
+      @JsonProperty("date") String date,
       @JsonProperty("amount") String amount,
+      @JsonProperty("courseid") String courseid,
+      @JsonProperty("studentid") String studentid,
+      @JsonProperty("teacherid") String teacherid,
       @JsonProperty("tagged") List<JsonFinanceAdaptedTag> tagged) {
     this.name = name;
+    this.financeType = financeType;
+    this.date = date;
     this.amount = amount;
+    this.courseid = courseid;
+    this.studentid = studentid;
+    this.teacherid = teacherid;
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -45,7 +63,12 @@ class JsonAdaptedFinance {
    */
   public JsonAdaptedFinance(Finance source) {
     name = source.getName().fullName;
+    financeType = source.getFinanceType().toString();
+    date = source.getDate().toString();
     amount = source.getAmount().value;
+    courseid = source.getCourseID().value;
+    studentid = source.getStudentID().value;
+    teacherid = source.getTeacherID().value;
     tagged.addAll(source.getTags().stream()
         .map(JsonFinanceAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -72,6 +95,24 @@ class JsonAdaptedFinance {
     }
     final Name modelName = new Name(name);
 
+    if (financeType == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, FinanceType.class.getSimpleName()));
+    }
+    if (!FinanceType.isValidFinanceType(financeType)) {
+      throw new IllegalValueException(FinanceType.MESSAGE_CONSTRAINTS);
+    }
+    final FinanceType modelFinanceType = new FinanceType(financeType);
+
+    if (date == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+    }
+    if (!Date.isValidDate(date)) {
+      throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+    }
+    final Date modelDate = new Date(date);
+
     if (amount == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, Finance.class.getSimpleName()));
@@ -81,8 +122,35 @@ class JsonAdaptedFinance {
     }
     final Amount modelAmount = new Amount(amount);
 
+    if (courseid == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
+    }
+    if (!ID.isValidId(courseid)) {
+      throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
+    }
+    final ID modelCourseID = new ID(courseid);
+
+    if (studentid == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
+    }
+    if (!ID.isValidId(studentid)) {
+      throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
+    }
+    final ID modelStudentID = new ID(studentid);
+
+    if (teacherid == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
+    }
+    if (!ID.isValidId(teacherid)) {
+      throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
+    }
+    final ID modelTeacherID = new ID(teacherid);
+
     final Set<Tag> modelTags = new HashSet<>(financeTags);
-    return new Finance(modelName, modelAmount, modelTags);
+    return new Finance(modelName, modelFinanceType, modelDate, modelAmount, modelCourseID, modelStudentID, modelTeacherID, modelTags);
   }
 
 }
