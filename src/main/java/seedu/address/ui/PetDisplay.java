@@ -15,6 +15,10 @@ public class PetDisplay extends UiPart<Region> {
 
     private static final String FXML = "PetDisplay.fxml";
     private Path DEFAULT_ACCESSORY_PLACEHOLDER = Paths.get("images", "pet", "medal.png");
+    private Path DEFAULT_PET_FILEPATH = Paths.get("images", "pet", "level1.png");
+    private Path DEFAULT_EXPBAR_FILEPATH = Paths.get("images", "pet", "ProgressBar0%.png");
+    private String DEFAULT_EXPBAR_TEXT = "0";
+    private String DEFAULT_LEVEL_TEXT = "1";
 
     private Path petFilepath; // mutable
     private Path accessoryFilepath; // mutable
@@ -22,8 +26,6 @@ public class PetDisplay extends UiPart<Region> {
     private Path expBarFilepath; // mutable
     private String expBarText; // mutable
     private String levelText; // mutable
-
-    private ReadOnlyPet pet;
 
     @FXML
     private VBox petPane;
@@ -38,122 +40,35 @@ public class PetDisplay extends UiPart<Region> {
     @FXML
     private Label levelView;
 
-    public PetDisplay(ReadOnlyPet pet) {
+    public PetDisplay() {
         super(FXML);
-        this.pet = pet;
-        update();
+        this.accessoryFilepath = DEFAULT_ACCESSORY_PLACEHOLDER;
+        this.petFilepath = DEFAULT_PET_FILEPATH;
+        this.expBarFilepath = DEFAULT_EXPBAR_FILEPATH;
+        this.expBarText = DEFAULT_EXPBAR_TEXT;
+        this.levelText = DEFAULT_LEVEL_TEXT;
     }
 
-    public void update() {
-
-        int exp = Integer.parseInt(this.pet.getExp());
-        int expBarInt = exp % 100;
-        this.expBarText = String.format("%d XP / 100 XP", expBarInt);
-
-        this.levelText = this.pet.getLevel();
-
-        String mood = pet.getMood();
-        if (this.levelText.equals("1")) {
-            Path path = (mood.equals("HAPPY") ? Paths.get("images", "pet", "level1.png")
-                    : Paths.get("images", "pet", "level1hangry.png"));
-            this.petFilepath = path;
-        } else if (this.levelText.equals("2")) {
-            Path path = (mood.equals("HAPPY") ? Paths.get("images", "pet", "level1.png")
-                    : Paths.get("images", "pet", "level1hangry.png"));
-            this.petFilepath = path;
-        } else {
-            this.petFilepath = Paths.get("images", "pet", "level3.png");
-        }
-
-        int expBarPerc = expBarInt / 10;
-
-        switch (expBarPerc) {
-        case 0:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar0%.png");
-            break;
-
-        case 1:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar10%.png");
-            break;
-
-        case 2:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar20%.png");
-            break;
-
-        case 3:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar30%.png");
-            break;
-
-        case 4:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar40%.png");
-            break;
-
-        case 5:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar50%.png");
-            break;
-
-        case 6:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar60%.png");
-            break;
-
-        case 7:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar70%.png");
-            break;
-
-        case 8:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar80%.png");
-            break;
-
-        case 9:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar90%.png");
-            break;
-
-        case 10:
-            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar100%.png");
-            break;
-        }
-
-        this.accessoryFilepath = DEFAULT_ACCESSORY_PLACEHOLDER;
-
-        // if (accessoryFilepath != null) {
-        // this.accessoryFilepath = accessoryFilepath;
-        // Image image = new Image(String.valueOf(accessoryFilepath));
-        // accessoryPic.setImage(image);
-        // }
-
-        expBarView.setText(expBarText);
-        levelView.setText(levelText);
-
-        // set up pet image
+    public void setPetImage(Path path) {
+        petFilepath = path;
         Image petImage = new Image(String.valueOf(petFilepath));
         petPic.setImage(petImage);
+    }
 
-        // set up experience bar image
+    public void setExpBarImage(Path path) {
+        expBarFilepath = path;
         Image expBarImage = new Image(String.valueOf(expBarFilepath));
         expBarPic.setImage(expBarImage);
     }
-
-    public void changeToHangry() {
-        if (this.levelText.equals("1")) {
-            System.out.println("level 1 : change image to hangry");
-            this.petFilepath = Paths.get("images", "pet", "level1hangry.png");
-        } else if (this.levelText.equals("2")) {
-            this.petFilepath = Paths.get("images", "pet", "level2hangry.png");
-        } else {
-            this.petFilepath = Paths.get("images", "pet", "level3.png");
-        }
-        Image petImage = new Image(String.valueOf(petFilepath));
-        petPic.setImage(petImage);
+    
+    public void setExpBarText(String expBarInt) {
+        this.expBarText =  expBarInt;
+        expBarView.setText(expBarText);
     }
 
-    public void changeToHappy() {
-        if (this.levelText.equals("1")) {
-            this.petFilepath = Paths.get("images", "pet", "level1.png");
-        } else if (this.levelText.equals("2")) {
-            this.petFilepath = Paths.get("images", "pet", "level2.png");
-        } else {
-            this.petFilepath = Paths.get("images", "pet", "level3.png");
-        }
+    public void setLevelText(String levelText) {
+        this.levelText = levelText;
+        levelView.setText(levelText);
     }
 
     @Override

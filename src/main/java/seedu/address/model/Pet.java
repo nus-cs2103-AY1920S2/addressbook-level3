@@ -8,6 +8,10 @@ public class Pet implements ReadOnlyPet {
     private static final String DEFAULT_LEVEL = "1";
     private static final String DEFAULT_MOOD = "HAPPY";
     private static final String DEFAULT_LAST_DONE_TASK_TIME = LocalDateTime.now().toString();
+
+    public final String HANGRY_MOOD_STRING = "HANGRY";
+    public final String HAPPY_MOOD_STRING = "HAPPY"; 
+
     public String exp;
     public String level;
     public String name;
@@ -59,16 +63,14 @@ public class Pet implements ReadOnlyPet {
         this.level = Integer.toString(levelInteger);
         setLastDoneTaskTime(LocalDateTime.now().toString());
 
-        System.out.println("SETTING LASTDONETASK AS " + LocalDateTime.now().toString());
     }
 
     public void changeHangry() {
-        this.mood = "HANGRY";
+        this.mood = HANGRY_MOOD_STRING;
     }
 
     public void changeHappy() {
-        System.out.println("changing pet mood to happy");
-        this.mood = "HAPPY";
+        this.mood = HAPPY_MOOD_STRING;
     }
 
     public void setLastDoneTaskTime(String lastDoneTaskTime) {

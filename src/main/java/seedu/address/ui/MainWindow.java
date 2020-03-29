@@ -147,9 +147,10 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         petManager.updateMoodWhenLogIn();
-        petDisplay = new PetDisplay(this.getPet());
-        petPlaceholder.getChildren().add(petDisplay.getRoot());
+        petDisplay = new PetDisplay();
         petManager.setPetDisplay(petDisplay);
+        petManager.updatePetDisplay();
+        petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -269,7 +270,7 @@ public class MainWindow extends UiPart<Stage> {
                 petManager.handleExit();
                 handleExit();
             }
-            petDisplay.update();
+            petManager.updatePetDisplay();
             // update because sorting returns a new list
 
             this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
@@ -302,7 +303,7 @@ public class MainWindow extends UiPart<Stage> {
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
         case CHECK_DONE:
-            petDisplay.update();
+            petManager.updatePetDisplay();
             if (commandText.toLowerCase().equals("y")) {
                 CommandResult commandResult = new CommandResult("Good job! " + pomodoro.CHECK_TAKE_BREAK_MESSAGE, false,
                         false);
@@ -419,7 +420,4 @@ public class MainWindow extends UiPart<Stage> {
         alert.show();
     }
 
-    private ReadOnlyPet getPet() {
-        return logic.getPet();
-    }
 }
