@@ -10,7 +10,9 @@ import static seedu.address.testutil.TypicalGoods.APPLE;
 import static seedu.address.testutil.TypicalGoods.BANANA;
 import static seedu.address.testutil.TypicalSuppliers.ALICE;
 import static seedu.address.testutil.TypicalSuppliers.BENSON;
+import static seedu.address.testutil.TypicalTransactions.BUY_APPLE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BUY_BANANA_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.SELL_APPLE_TRANSACTION;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -150,6 +152,7 @@ public class ModelManagerTest {
 
         modelManager.addGood(APPLE);
         modelManager.addSupplier(ALICE);
+        modelManager.addTransaction(SELL_APPLE_TRANSACTION);
         modelManager.commit();
 
         modelManager.undo();
@@ -158,18 +161,27 @@ public class ModelManagerTest {
 
     @Test
     public void commit_savesAllDatabases() {
-        Model expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+        Model expectedModelAfterFirstUndo = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
                 modelManager.getTransactionHistory(), modelManager.getUserPrefs());
-        expectedModel.addGood(APPLE);
+        expectedModelAfterFirstUndo.addGood(APPLE);
+        expectedModelAfterFirstUndo.addSupplier(ALICE);
+
+        Model expectedModelAfterSecondUndo = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
+                modelManager.getTransactionHistory(), modelManager.getUserPrefs());
+        expectedModelAfterSecondUndo.addGood(APPLE);
 
         modelManager.addGood(APPLE);
         modelManager.commit();
         modelManager.addSupplier(ALICE);
         modelManager.commit();
+        modelManager.addTransaction(BUY_APPLE_TRANSACTION);
+        modelManager.commit();
         modelManager.undo();
 
-        // check that commit saves both databases, so the first undo will not delete apple
-        assertEquals(modelManager, expectedModel);
+        // check that commit saves both databases, so one undo will only remove one item here
+        assertEquals(modelManager, expectedModelAfterFirstUndo);
+        modelManager.undo();
+        assertEquals(modelManager, expectedModelAfterSecondUndo);
     }
 
     @Test
