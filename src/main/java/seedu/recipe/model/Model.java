@@ -1,13 +1,12 @@
 package seedu.recipe.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.recipe.commons.core.GuiSettings;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -130,10 +129,10 @@ public interface Model {
     /**
      * Adds a recipe to a date in the plannedRecipe list
      */
-    void addPlannedRecipe(Recipe recipeToSet, Date atDate);
+    void addPlannedRecipe(Recipe recipeToSet, PlannedDate atDate);
 
     /**
      * Returns an unmodifiable view of the planned recipes.
      */
-    ObservableMap<Date, ObservableList<Recipe>> getPlannedMap();
+    ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date);
 }

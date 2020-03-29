@@ -9,14 +9,14 @@ import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
  * Schedules a recipe to a date.
  */
 
-public class ScheduleCommand extends Command {
+public class PlanCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
 
@@ -31,12 +31,12 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Recipe planned: %1$s, %2$s";
 
     private final Index index;
-    private final Date atDate;
+    private final PlannedDate atDate;
 
     /**
-     * Creates an ScheduleCommand to set the specified {@code Recipe} on a certain date
+     * Creates an PlanCommand to set the specified {@code Recipe} on a certain date
      */
-    public ScheduleCommand(Index index, Date date) {
+    public PlanCommand(Index index, PlannedDate date) {
         requireNonNull(index);
         requireNonNull(date);
         this.index = index;

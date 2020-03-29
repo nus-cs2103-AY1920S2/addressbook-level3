@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,7 +13,7 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -29,7 +29,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private ObservableMap<Date, ObservableList<Recipe>> plannedRecipes;
+    private final FilteredMap<PlannedDate, ObservableList<Recipe>> filteredPlannedRecipes;
+    private ObservableMap<PlannedDate, ObservableList<Recipe>> plannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -45,6 +46,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
+        filteredPlannedRecipes = new Map<>(this.plannedBook.getFilteredPlannedMap());
         plannedRecipes = this.plannedBook.getPlannedMap();
         // todo: planned recipes cant be saved currently
     }
@@ -178,13 +180,13 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addPlannedRecipe(Recipe recipeToSet, Date atDate) {
+    public void addPlannedRecipe(Recipe recipeToSet, PlannedDate atDate) {
         plannedBook.addPlannedRecipe(recipeToSet, atDate);
     }
 
     @Override
-    public ObservableMap<Date, ObservableList<Recipe>> getPlannedMap() {
-        return plannedRecipes;
+    public ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date) {
+        return plannedBook.getSubMap(date);
     }
 
     @Override

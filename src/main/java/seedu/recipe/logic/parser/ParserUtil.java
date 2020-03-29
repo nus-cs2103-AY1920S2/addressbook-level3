@@ -15,7 +15,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.goal.Goal;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
@@ -514,16 +514,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String date} into a {@code Date}.
+     * Parses {@code String date} into a {@code PlannedDate}.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Date parseDate(String date) throws ParseException {
+    public static PlannedDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Date.isValidDate(trimmedDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        if (!PlannedDate.isValidDate(trimmedDate)) {
+            throw new ParseException(PlannedDate.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedDate);
+        return new PlannedDate(trimmedDate);
     }
 }

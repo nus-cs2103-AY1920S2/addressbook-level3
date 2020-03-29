@@ -2,8 +2,6 @@ package seedu.recipe.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -17,7 +15,7 @@ import seedu.recipe.logic.parser.RecipeBookParser;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.Storage;
 
@@ -80,8 +78,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableMap<Date, ObservableList<Recipe>> getPlannedMap() {
-        return model.getPlannedMap();
+    public ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date) {
+        return model.getPlannedMap(date);
     }
 
 }

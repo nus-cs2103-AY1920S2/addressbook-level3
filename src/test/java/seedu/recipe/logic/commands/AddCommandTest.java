@@ -20,7 +20,7 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -185,7 +185,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPlannedRecipe(Recipe recipeToSet, Date atDate) {
+        public void addPlannedRecipe(Recipe recipeToSet, PlannedDate atDate) {
             throw new AssertionError("This method should not be called.");
         }
     }

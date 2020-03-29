@@ -15,5 +15,5 @@ public interface ReadOnlyPlannedBook {
      * Returns an unmodifiable view of the planned recipes map.
      * This map will not contain duplicate recipes on the same day.
      */
-    ObservableMap<Date, ObservableList<Recipe>> getPlannedMap();
+    ObservableList<PlannedRecipe> getPlannedList();
 }

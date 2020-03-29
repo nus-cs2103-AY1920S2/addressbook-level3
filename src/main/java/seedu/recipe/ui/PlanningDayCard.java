@@ -8,15 +8,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -34,7 +38,7 @@ public class PlanningDayCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final List<Recipe> recipes;
+    public final ObservableList<Recipe> recipes;
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n";
@@ -46,17 +50,33 @@ public class PlanningDayCard extends UiPart<Region> {
     private Label dayHeader;
 
     @FXML
-    private VBox recipeVBox;
+    private ListView<Recipe> recipeListView;
 
-    public PlanningDayCard(List<Recipe> recipes, int dayOfMonth) { // throw IO Exception?
+    public PlanningDayCard(ObservableList<Recipe> recipes, int dayOfMonth) { // throw IO Exception?
         super(FXML);
         this.recipes = recipes;
         dayHeader.setText("" + dayOfMonth);
+        if (recipes != null) {
+            recipeListView.setItems(recipes);
+            recipeListView.setCellFactory(listView -> new plannedRecipeListViewCell());
+        }
+    }
+    class plannedRecipeListViewCell extends ListCell<Recipe> {
+        @Override
+        protected void updateItem(Recipe recipe, boolean empty) {
+            super.updateItem(recipe, empty);
+            if (empty || recipe == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new Label(recipe.getName().toString()));
+            }
+        }
     }
 
-    public VBox getDayCard() {
-        recipes.forEach(recipe -> recipeVBox.getChildren().add(new Label(recipe.getName().toString())));
-        return dayCard;
-    }
+    //public VBox getDayCard() {
+        //recipes.forEach(recipe -> recipeVBox.getChildren().add(new Label(recipe.getName().toString())));
+        //return dayCard;
+    //}
 
 }

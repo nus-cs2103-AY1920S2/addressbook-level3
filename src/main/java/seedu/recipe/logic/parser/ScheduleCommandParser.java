@@ -6,21 +6,21 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 import java.util.stream.Stream;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.ScheduleCommand;
+import seedu.recipe.logic.commands.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 
 /**
- * Parses input arguments and creates a new ScheduleCommand object
+ * Parses input arguments and creates a new PlanCommand object
  */
-public class ScheduleCommandParser implements Parser<ScheduleCommand> {
+public class ScheduleCommandParser implements Parser<PlanCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ScheduleCommand
-     * and returns an ScheduleCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PlanCommand
+     * and returns an PlanCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
-    public ScheduleCommand parse(String args) throws ParseException {
+    public PlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
@@ -29,17 +29,17 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE), pe);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        PlannedDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         // When recipe is first added, it will not be marked as favourite by default.
 
-        return new ScheduleCommand(index, date);
+        return new PlanCommand(index, date);
     }
 
     /**

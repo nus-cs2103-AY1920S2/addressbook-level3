@@ -1,8 +1,6 @@
 package seedu.recipe.logic;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -11,7 +9,7 @@ import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -55,6 +53,6 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the scheduled recipes.
      */
-    ObservableMap<Date, ObservableList<Recipe>> getPlannedMap();
+    ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date);
 
 }
