@@ -105,7 +105,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
         if (profileManager.getFilteredPersonList().size() == 1) { //profile exists
-            System.out.println(profileManager.getFirstProfile().getCurModules());
             if (profileManager.getFirstProfile().getCurModules() != null) {
                 profileManager.loadDeadlines();
             }

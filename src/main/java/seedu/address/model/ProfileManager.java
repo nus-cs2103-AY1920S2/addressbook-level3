@@ -148,7 +148,6 @@ public class ProfileManager implements Model {
      * Consider temporarily storing the name of the current user in memory (when dealing with multiple profiles.
      */
     public Profile getFirstProfile() {
-        System.out.println("test: " + profileList.getProfileList().get(0));
         return profileList.getProfileList().get(0);
     }
 
