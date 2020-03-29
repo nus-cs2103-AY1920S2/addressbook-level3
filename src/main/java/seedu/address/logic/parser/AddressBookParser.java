@@ -23,6 +23,8 @@ import seedu.address.logic.commands.GetCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListRestaurantCommand;
+import seedu.address.logic.commands.VisitedRestaurantCommand;
 import seedu.address.logic.commands.ShowBirthdayCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -58,6 +60,12 @@ public class AddressBookParser {
 
         case AddRestaurantCommand.COMMAND_WORD:
             return new AddRestaurantCommandParser().parse(arguments, model);
+
+        case ListRestaurantCommand.COMMAND_WORD:
+            return new ListRestaurantCommand();
+
+        case VisitedRestaurantCommand.COMMAND_WORD:
+            return new VisitedRestaurantCommandParser().parse(arguments, model);
 
         case AddAssignmentCommand.COMMAND_WORD:
             return new AddAssignmentCommandParser().parse(arguments, model);

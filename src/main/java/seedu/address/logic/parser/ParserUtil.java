@@ -24,6 +24,7 @@ import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Price;
+import seedu.address.model.restaurant.Visit;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -251,6 +252,20 @@ public class ParserUtil {
             throw new ParseException(Cuisine.MESSAGE_CONSTRAINTS);
         }
         return new Cuisine(trimmedCuisine);
+    }
+
+    /**
+     * Parses a {@code String visit} into a {@code Visit}.
+     *
+     * @throws ParseException if the given {@code Visit} is invalid.
+     */
+    public static Visit parseVisit(String visit) throws ParseException {
+        requireNonNull(visit);
+        String trimmedVisit = visit.trim();
+        if (!Visit.isValidVisit(trimmedVisit)) {
+            throw new ParseException(Visit.MESSAGE_CONSTRAINTS);
+        }
+        return new Visit(trimmedVisit);
     }
 
     /**

@@ -38,8 +38,10 @@ public class HelpCommand extends Command {
             + "12. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
             + "13. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "14. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "15. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "16. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "15. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "16. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "17. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "18. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
@@ -79,8 +81,10 @@ public class HelpCommand extends Command {
         commands.add("12. " + DoneCommand.MESSAGE_USAGE + "\n");
         commands.add("13. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("14. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("15. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("16. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("15. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("16. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("17. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("18. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }
@@ -93,11 +97,11 @@ public class HelpCommand extends Command {
         }
 
         if (type < 0) {
-            return new CommandResult(MESSAGE, true, false, false, false, false);
+            return new CommandResult(MESSAGE, true, false, false, false, false, false);
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"
-                + "Type help to return to the list of commands.", true, false, false, false, false);
+                + "Type help to return to the list of commands.", true, false, false, false, false, false);
     }
 
 }

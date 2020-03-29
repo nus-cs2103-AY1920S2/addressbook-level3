@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.Storage;
 
 /**
@@ -55,6 +56,12 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
+        } else if (command.toString().contains("(rt)")) {
+            try {
+                storage.saveRestaurantBook(model.getRestaurantBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         return commandResult;
@@ -78,6 +85,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return model.getFilteredAssignmentList();
+    }
+
+    @Override
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return model.getFilteredRestaurantList();
     }
 
     @Override
