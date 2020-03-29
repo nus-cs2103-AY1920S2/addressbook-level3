@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.logic.commands.Command;
@@ -15,7 +14,7 @@ import seedu.recipe.logic.parser.RecipeBookParser;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.Storage;
 
@@ -78,8 +77,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date) {
-        return model.getPlannedMap(date);
+    public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+        return model.getFilteredPlannedList();
     }
 
 }

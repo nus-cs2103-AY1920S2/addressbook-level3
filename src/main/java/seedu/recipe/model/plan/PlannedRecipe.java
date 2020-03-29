@@ -14,6 +14,14 @@ public class PlannedRecipe {
         this.date = date;
     }
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public PlannedDate getDate() {
+        return date;
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

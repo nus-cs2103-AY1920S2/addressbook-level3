@@ -119,7 +119,7 @@ public class RecipeBookParser {
             return new EditIngredientCommandParser().parse(arguments);
 
         case PlanCommand.COMMAND_WORD:
-            return new ScheduleCommandParser().parse(arguments);
+            return new PlanCommandParser().parse(arguments);
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);

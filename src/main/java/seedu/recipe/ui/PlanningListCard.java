@@ -16,14 +16,16 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class PlanningMapCard extends UiPart<Region> {
+public class PlanningListCard extends UiPart<Region> {
 
-    private static final String FXML = "PlanningMapCard.fxml";
+    private static final String FXML = "PlanningListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,6 +35,8 @@ public class PlanningMapCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
+    public final PlannedRecipe plannedRecipeObject;
+    public final PlannedDate plannedDate;
     public final Recipe recipe;
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
@@ -67,9 +71,12 @@ public class PlanningMapCard extends UiPart<Region> {
     @FXML
     private Label stepsHeader;
 
-    public PlanningMapCard(Recipe recipe, int displayedIndex) throws IOException {
+    public PlanningListCard(PlannedRecipe plannedRecipe, int displayedIndex) throws IOException {
         super(FXML);
-        this.recipe = recipe;
+        this.plannedRecipeObject = plannedRecipe;
+        this.plannedDate = plannedRecipe.getDate();
+        this.recipe = plannedRecipe.getRecipe();
+
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         name.setWrapText(true);
@@ -128,12 +135,12 @@ public class PlanningMapCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PlanningMapCard)) {
+        if (!(other instanceof PlanningListCard)) {
             return false;
         }
 
         // state check
-        PlanningMapCard card = (PlanningMapCard) other;
+        PlanningListCard card = (PlanningListCard) other;
         return id.getText().equals(card.id.getText())
                 && recipe.equals(card.recipe);
     }

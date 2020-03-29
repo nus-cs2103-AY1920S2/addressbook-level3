@@ -9,11 +9,12 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipe;
 
 /**
  * Parses input arguments and creates a new PlanCommand object
  */
-public class ScheduleCommandParser implements Parser<PlanCommand> {
+public class PlanCommandParser implements Parser<PlanCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the PlanCommand

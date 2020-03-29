@@ -20,6 +20,7 @@ import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -38,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private MainTabPanel mainTabPanel;
-    private PlanningMapPanel planningMapPanel;
+    private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -126,13 +127,10 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(recipeList);
 
         //using recipe list as stub for planning list, to be editted later todo
-        //ObservableMap<PlannedDate, List<Recipe>> planningList = logic.getPlannedMap();
-        LocalDate date = LocalDate.parse("2020-03-01"); // stub with date, wasnt used!
-        ObservableMap<PlannedDate, ObservableList<Recipe>> plannedMap = logic.getPlannedMap(new PlannedDate(LocalDate.parse("2020-03-01")));
+        ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
+        planningListPanel = new PlanningListPanel(plannedList);
 
-        planningMapPanel = new PlanningMapPanel(plannedMap, recipeList);
-
-        mainTabPanel = new MainTabPanel(recipeListPanel, planningMapPanel);
+        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

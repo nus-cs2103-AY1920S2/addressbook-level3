@@ -2,6 +2,8 @@ package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
+import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -18,7 +21,7 @@ import seedu.recipe.model.recipe.Recipe;
 
 public class PlanCommand extends Command {
 
-    public static final String COMMAND_WORD = "schedule";
+    public static final String COMMAND_WORD = "plan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans a recipe to be cooked on a certain date. "
             + "Parameters: "
@@ -54,7 +57,10 @@ public class PlanCommand extends Command {
 
         Recipe recipeToPlan = lastShownList.get(index.getZeroBased());
 
-        model.addPlannedRecipe(recipeToPlan, atDate);
+        PlannedRecipe plannedRecipe = new PlannedRecipe(recipeToPlan, atDate);
+
+        model.addPlannedRecipe(plannedRecipe);
+        model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToPlan.toString(), atDate.toString()));
     }

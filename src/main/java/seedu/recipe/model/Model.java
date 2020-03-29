@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -15,6 +16,9 @@ import seedu.recipe.model.recipe.Recipe;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<PlannedRecipe> PREDICATE_SHOW_ALL_PLANNED_RECIPES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -129,10 +133,12 @@ public interface Model {
     /**
      * Adds a recipe to a date in the plannedRecipe list
      */
-    void addPlannedRecipe(Recipe recipeToSet, PlannedDate atDate);
+    void addPlannedRecipe(PlannedRecipe plannedRecipe);
 
     /**
      * Returns an unmodifiable view of the planned recipes.
      */
-    ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date);
+    ObservableList<PlannedRecipe> getFilteredPlannedList();
+
+    void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
 }

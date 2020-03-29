@@ -15,6 +15,7 @@ import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -29,8 +30,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private final FilteredMap<PlannedDate, ObservableList<Recipe>> filteredPlannedRecipes;
-    private ObservableMap<PlannedDate, ObservableList<Recipe>> plannedRecipes;
+    private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -46,8 +46,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        filteredPlannedRecipes = new Map<>(this.plannedBook.getFilteredPlannedMap());
-        plannedRecipes = this.plannedBook.getPlannedMap();
+        filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
         // todo: planned recipes cant be saved currently
     }
 
@@ -180,14 +179,21 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addPlannedRecipe(Recipe recipeToSet, PlannedDate atDate) {
-        plannedBook.addPlannedRecipe(recipeToSet, atDate);
+    public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
+        plannedBook.addPlannedRecipe(plannedRecipe);
     }
 
     @Override
-    public ObservableMap<PlannedDate, ObservableList<Recipe>> getPlannedMap(PlannedDate date) {
-        return plannedBook.getSubMap(date);
+    public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+        return filteredPlannedRecipes;
     }
+
+    @Override
+    public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
+        requireNonNull(predicate);
+        filteredPlannedRecipes.setPredicate(predicate);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
