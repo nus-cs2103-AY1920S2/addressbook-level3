@@ -160,7 +160,6 @@ public class ModelManager implements Model {
     @Override
     public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder) {
         requireAllNonNull(target, editedReturnOrder);
-
         returnOrderBook.setReturnOrder(target, editedReturnOrder);
     }
 

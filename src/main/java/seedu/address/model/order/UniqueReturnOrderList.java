@@ -13,18 +13,18 @@ import seedu.address.model.order.exceptions.OrderNotFoundException;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
- * A list of orders that enforces uniqueness between its elements and does not allow nulls.
- * An order is considered unique by comparing using {@code Order#isSameOrder(Order)}. As such, adding and
- * updating of
- * orders uses Order#isSameOrder(Order) for equality so as to ensure that the order being added or
- * updated is
- * unique in terms of identity in the UniqueOrderList. However, the removal of an order uses Order#equals
- * (Order) so
- * as to ensure that the order with exactly the same fields will be removed.
+ * A list of return orders that enforces uniqueness between its elements and does not allow nulls.
+ * A return order is considered unique by comparing using {@code ReturnOrder#isSameReturn(ReturnOrder)}.
+ * As such, adding and updating of
+ * return orders uses ReturnOrder#isSameReturn(ReturnOrder) for equality so as to ensure that the order being added or
+ * updated is unique in terms of identity in the UniqueReturnOrderList.
+ * However, the removal of an return order uses ReturnOrder#equals
+ * (ReturnOrder) so
+ * as to ensure that the return order with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Order#isSameOrder(Order)
+ * @see ReturnOrder#isSameReturn(ReturnOrder)
  */
 public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
 
@@ -53,9 +53,9 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     }
 
     /**
-     * Replaces the order {@code target} in the list with {@code editedOrder}.
+     * Replaces the return order {@code target} in the list with {@code editedReturn}.
      * {@code target} must exist in the list.
-     * The order identity of {@code editedOrder} must not be the same as another existing order in the list.
+     * The order identity of {@code editedReturn} must not be the same as another existing return order in the list.
      */
     public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturn) {
         requireAllNonNull(target, editedReturn);
@@ -73,8 +73,8 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     }
 
     /**
-     * Removes the equivalent order from the list.
-     * The order must exist in the list.
+     * Removes the equivalent return order from the list.
+     * The return order must exist in the list.
      */
     public void remove(ReturnOrder toRemove) {
         requireNonNull(toRemove);
@@ -94,7 +94,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
      */
     public void setReturns(List<ReturnOrder> returnOrders) {
         requireAllNonNull(returnOrders);
-        if (!ordersAreUnique(returnOrders)) {
+        if (!returnOrdersAreUnique(returnOrders)) {
             throw new DuplicateReturnOrderException();
         }
 
@@ -102,7 +102,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     }
 
     /**
-     * Marks a return order in the list as done.
+     * Marks a return order in the list as delivered.
      */
     public void deliver(ReturnOrder toBeDelivered) {
         requireNonNull(toBeDelivered);
@@ -134,9 +134,9 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     }
 
     /**
-     * Returns true if {@code orders} contains only unique orders.
+     * Returns true if {@code returnOrders} contains only unique return orders.
      */
-    private boolean ordersAreUnique(List<ReturnOrder> returnOrders) {
+    private boolean returnOrdersAreUnique(List<ReturnOrder> returnOrders) {
         for (int i = 0; i < returnOrders.size() - 1; i++) {
             for (int j = i + 1; j < returnOrders.size(); j++) {
                 if (returnOrders.get(i).isSameReturn(returnOrders.get(j))) {

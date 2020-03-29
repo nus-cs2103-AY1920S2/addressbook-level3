@@ -27,7 +27,6 @@ public class Order extends Parcel {
     private final Comment comment;
     private final TypeOfItem itemType;
     private boolean deliveryStatus;
-    private boolean isReturn;
     /**
      * Every field must be present and not null.
      */
@@ -45,7 +44,6 @@ public class Order extends Parcel {
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = false;
-        this.isReturn = false;
     }
 
     public TransactionId getTid() {
@@ -94,14 +92,6 @@ public class Order extends Parcel {
 
     public void setDeliveryStatus(boolean status) {
         deliveryStatus = status;
-    }
-
-    public void setIsReturn(boolean isReturn) {
-        this.isReturn = isReturn;
-    }
-
-    public boolean isReturn() {
-        return isReturn;
     }
 
     /**
@@ -174,13 +164,9 @@ public class Order extends Parcel {
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Item Type: ")
-                .append(getItemType());
-        if (this.isReturn()) {
-            builder.append(" Parcel Status: ").append("Return Order");
-        } else {
-            builder.append(" Parcel Status: ").append("Delivery Order");
-        }
+                .append(getItemType())
+                .append(" Parcel Status: ")
+                .append("Delivery Order");
         return builder.toString();
     }
-
 }

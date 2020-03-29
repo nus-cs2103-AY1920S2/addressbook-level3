@@ -16,7 +16,7 @@ import seedu.address.model.order.Order;
 /**
  * An Immutable OrderBook that is serializable to JSON format.
  */
-@JsonRootName(value = "DeliveryOrderBook")
+@JsonRootName(value = "OrderBook")
 class JsonSerializableDeliveryOrderBook {
     public static final String MESSAGE_DUPLICATE_ORDER = "Delivery order list contains duplicate order(s).";
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();

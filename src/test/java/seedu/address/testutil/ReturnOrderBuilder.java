@@ -39,7 +39,6 @@ public class ReturnOrderBuilder {
     private Comment comment;
     private TypeOfItem itemType;
     private boolean deliveryStatus;
-    private boolean isReturn;
 
     public ReturnOrderBuilder() {
         tid = new TransactionId(DEFAULT_TID);
@@ -53,24 +52,22 @@ public class ReturnOrderBuilder {
         comment = new Comment(DEFAULT_COMMENT);
         itemType = new TypeOfItem(DEFAULT_TYPE);
         deliveryStatus = false;
-        isReturn = true;
     }
 
     /**
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
-    public ReturnOrderBuilder(ReturnOrder orderToCopy) {
-        tid = orderToCopy.getTid();
-        name = orderToCopy.getName();
-        phone = orderToCopy.getPhone();
-        email = orderToCopy.getEmail();
-        address = orderToCopy.getAddress();
-        timeStamp = orderToCopy.getTimestamp();
-        warehouse = orderToCopy.getWarehouse();
-        comment = orderToCopy.getComment();
-        itemType = orderToCopy.getItemType();
-        deliveryStatus = orderToCopy.isDelivered();
-        isReturn = orderToCopy.isReturn();
+    public ReturnOrderBuilder(ReturnOrder returnOrderToCopy) {
+        tid = returnOrderToCopy.getTid();
+        name = returnOrderToCopy.getName();
+        phone = returnOrderToCopy.getPhone();
+        email = returnOrderToCopy.getEmail();
+        address = returnOrderToCopy.getAddress();
+        timeStamp = returnOrderToCopy.getTimestamp();
+        warehouse = returnOrderToCopy.getWarehouse();
+        comment = returnOrderToCopy.getComment();
+        itemType = returnOrderToCopy.getItemType();
+        deliveryStatus = returnOrderToCopy.isDelivered();
     }
 
     /**
@@ -158,19 +155,21 @@ public class ReturnOrderBuilder {
      * @return A delivered {@Code ReturnOrder} with the given attributes
      */
     public ReturnOrder buildDelivered() {
-        ReturnOrder toBuild = new ReturnOrder(tid, name, phone, email, address, timeStamp, warehouse, comment, itemType);
+        ReturnOrder toBuild = new ReturnOrder(tid, name, phone, email, address, timeStamp, warehouse,
+                comment, itemType);
         toBuild.setDeliveryStatus(true);
         return toBuild;
     }
 
 
     /**
-     * Builds a default order based on attributes given.
-     * @return A default {@Code Order} with the given attributes
+     * Builds a default return order based on attributes given.
+     * @return A default {@Code ReturnOrder} with the given attributes
      */
     public ReturnOrder build() {
         ReturnOrder toBuild = new ReturnOrder(tid, name, phone, email, address,
                 timeStamp, warehouse, comment, itemType);
+        toBuild.setDeliveryStatus(false);
         return toBuild;
     }
 }
