@@ -18,7 +18,7 @@ import java.util.Locale;
 public class Birthday {
     public static final String MESSAGE_CONSTRAINTS = "Birthday has to be in MM-dd format";
     private static final DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
-            .parseDefaulting(ChronoField.YEAR, 2020).toFormatter(Locale.ENGLISH);
+        .parseDefaulting(ChronoField.YEAR, 2020).toFormatter(Locale.ENGLISH);
     private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM");
 
     // Instance variables
