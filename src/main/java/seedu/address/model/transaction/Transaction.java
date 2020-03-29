@@ -116,7 +116,7 @@ public class Transaction {
         return builder.toString();
     }
 
-    public XYChart.Data<LocalDate, Integer> toData() {
-        return new XYChart.Data<>(dateTime.value.toLocalDate(), quantity.value);
+    public XYChart.Data<String, Integer> toData() {
+        return new XYChart.Data<>(dateTime.value.toLocalDate().toString(), quantity.value);
     }
 }

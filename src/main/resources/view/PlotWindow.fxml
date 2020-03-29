@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="Alert!" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage">
+   <icons>
+      <Image url="@/images/info_icon.png" />
+   </icons>
+   <scene>
+      <Scene>
+         <root>
+            <HBox alignment="CENTER" style="-fx-background-color: #101010;">
+               <children>
+                  <AnchorPane style="-fx-background-color: #101010;" styleClass="notification-window">
+                     <children>
+                        <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <children>
+                              <BarChart fx:id="barChart">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </AnchorPane>
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </padding>
+            </HBox>
+         </root>
+      </Scene>
+   </scene>
+</fx:root>

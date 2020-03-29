@@ -2,9 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import javafx.scene.chart.XYChart;
 
@@ -48,6 +45,8 @@ public class CommandResult {
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
+
+    public XYChart.Series getDataSeries() { return dataSeries; }
 
     public boolean isShowPlot() { return showPlot; }
 
