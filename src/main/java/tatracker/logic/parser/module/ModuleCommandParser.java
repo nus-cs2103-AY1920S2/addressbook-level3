@@ -10,7 +10,7 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.logic.parser.session.FilterModuleCommandParser;
+import tatracker.logic.parser.session.FilterModuleTSSCommandParser;
 
 /**
  * Parses user input into commands that interact with Module models.
@@ -42,7 +42,7 @@ public class ModuleCommandParser {
         switch (commandWord) {
 
         case CommandWords.FILTER_MODEL:
-            return new FilterModuleCommandParser().parse(arguments);
+            return new FilterModuleTSSCommandParser().parse(arguments);
 
         case CommandWords.ADD_MODEL:
             return new AddModuleCommandParser().parse(arguments);

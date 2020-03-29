@@ -13,7 +13,7 @@ import tatracker.model.session.DoneSessionPredicate;
  * Filter Module based on user's inputs.
  * Used under TSS view.
  */
-public class FilterModuleCommand extends Command {
+public class FilterModuleTSSCommand extends Command {
 
         public static final String COMMAND_WORD = String.format("%s %s", CommandWords.MODULE, CommandWords.FILTER_MODEL);
 
@@ -28,7 +28,7 @@ public class FilterModuleCommand extends Command {
 
         private final DoneSessionPredicate predicate;
 
-        public FilterModuleCommand(DoneSessionPredicate predicate) {
+        public FilterModuleTSSCommand(DoneSessionPredicate predicate) {
                 this.predicate = predicate;
         }
 
@@ -44,8 +44,8 @@ public class FilterModuleCommand extends Command {
         @Override
         public boolean equals(Object other) {
                 return other == this // short circuit if same object
-                        || (other instanceof FilterModuleCommand // instanceof handles nulls
-                        && predicate.equals(((FilterModuleCommand) other).predicate)); // state check
+                        || (other instanceof FilterModuleTSSCommand // instanceof handles nulls
+                        && predicate.equals(((FilterModuleTSSCommand) other).predicate)); // state check
         }
 
 }
