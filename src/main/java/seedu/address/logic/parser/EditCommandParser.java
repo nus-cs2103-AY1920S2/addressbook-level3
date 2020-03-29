@@ -40,6 +40,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
             if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
                     && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                System.out.println("here");
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
 
