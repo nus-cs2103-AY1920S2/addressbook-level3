@@ -169,6 +169,11 @@ public interface Model {
      */
     void sortModulesAlphabetically();
 
+    /**
+     * Sorts all students of all groups in all the modules by matric number.
+     */
+    void sortModulesByMatricNumber();
+
 
     /**
      * Replaces the given module {@code target} in the TaTracker with {@code editedModule}.

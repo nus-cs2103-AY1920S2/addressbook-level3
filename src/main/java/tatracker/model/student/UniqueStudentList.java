@@ -162,7 +162,7 @@ public class UniqueStudentList implements Iterable<Student> {
     /**
      * Sorts the students by matric number.
      */
-    public void sortByRating() {
+    public void sortByMatric() {
         FXCollections.sort(internalList, matric);
     }
 

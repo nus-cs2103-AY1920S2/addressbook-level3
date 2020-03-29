@@ -229,6 +229,11 @@ public class ModelManager implements Model {
         taTracker.sortModulesByRatingDescending();
     }
 
+    @Override
+    public void sortModulesByMatricNumber() {
+        taTracker.sortModulesByMatricNumber();
+    }
+
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {
@@ -252,10 +257,6 @@ public class ModelManager implements Model {
 
     //=========== Filtered Student List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code versionedTaTracker}
-     */
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);

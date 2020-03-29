@@ -127,8 +127,8 @@ public class Module {
      * Sorts students in the groups alphabetically.
      */
     public void sortGroupsAlphabetically() {
-        for (int i = 0; i < groups.size(); ++i) {
-            groups.get(i).sortStudentsAlphabetically();
+        for (Group group : groups) {
+            group.sortStudentsAlphabetically();
         }
     }
 
@@ -136,8 +136,8 @@ public class Module {
      * Sorts the students in the groups by rating in ascending order.
      */
     public void sortGroupsByRatingAscending() {
-        for (int i = 0; i < groups.size(); ++i) {
-            groups.get(i).sortStudentsByRatingAscending();
+        for (Group group : groups) {
+            group.sortStudentsByRatingAscending();
         }
     }
 
@@ -145,8 +145,17 @@ public class Module {
      * Sorts the students in the groups by rating in descending order.
      */
     public void sortGroupsByRatingDescending() {
-        for (int i = 0; i < groups.size(); ++i) {
-            groups.get(i).sortStudentsByRatingDescending();
+        for (Group group : groups) {
+            group.sortStudentsByRatingDescending();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by matric number in descending order.
+     */
+    public void sortGroupsByMatricNumber() {
+        for (Group group : groups) {
+            group.sortStudentsByMatricNumber();
         }
     }
 
