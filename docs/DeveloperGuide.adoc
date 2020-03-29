@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -1098,7 +1098,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    Expected: The first order in the currently displayed list will be marked as done
 .. Test case: `done` `2` +
    Expected: The second order in the currently displayed list will be marked as done
-.. Test case: Invalid syntax
+.. Test case: Invalid syntax +
    Expected: No order is marked as done. The error message will be displayed on the error response box describing the error
 
 === Clear orders
@@ -1108,11 +1108,22 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 .. Clear command format: `clear` `[FLAG]`
 
 .. Test case: `clear` +
-   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
+   Expected: Confirmation message will display in status message. +
+   ... If *Yes* button is pressed, the both order and return order lists will be cleared. Notify the user that both order lists have been cleared in the status message. +
+   ... If *No* button is pressed, no order list is cleared.
 .. Test case: `clear` `-f` +
-   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
-.. Test case: Invalid syntax
-   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+   Expected: Both order list and return order list will be cleared. Notify the user that both order lists have been cleared in the status message.
+.. Test case: `clear` `-f` `-r` +
+    Expected: Only return order list will be cleared. Notify the user that return order list has been cleared in the status message.
+.. Test case: `clear` `-r` `-o` +
+   Expected: Invalid command input, as both `-r` and `-o` cannot be in a single command. +
+   Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+.. Test case: `clear` `-r` `-r` +
+   Expected: Invalid command input, as duplicate flag is not allowed. +
+   Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+.. Test case: `clear` `-r-f`+
+Expected: Invalid command input, as space is required in between flags. +
+   Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 
 === Help
 
@@ -1120,7 +1131,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 .. Test case: `help` +
    Expected: A list of commands will be displayed and the response box will indicate a successful command.
-.. Test case: Invalid syntax
+.. Test case: Invalid syntax +
    Expected: An error will occur and the response box will show an error message
 
 === Show
@@ -1198,4 +1209,4 @@ https://keylocation.sg/singapore/districts-map[this website] +
 .. Test case: `exit` +
    Expected: The GUI window will be closed
 .. Test case: Adding any other words as the second argument of the `exit` command
-   Expected: The response box will display an invalid command message
+Expected: The response box will display an invalid command message
