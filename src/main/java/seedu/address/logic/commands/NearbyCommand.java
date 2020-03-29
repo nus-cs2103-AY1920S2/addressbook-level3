@@ -54,9 +54,9 @@ public class NearbyCommand extends Command {
         this.isOrderListSearch = hasRegexInSearchTerm(orderListRegex, searchTerm);
         this.isReturnListSearch = hasRegexInSearchTerm(returnListRegex, searchTerm);
         if (this.isOrderListSearch) {
-            this.searchTerm = searchTerm.replaceFirst(orderListRegex, "");
+            this.searchTerm = searchTerm.replaceAll(orderListRegex, "");
         } else if (this.isReturnListSearch) {
-            this.searchTerm = searchTerm.replaceFirst(returnListRegex, "");
+            this.searchTerm = searchTerm.replaceAll(returnListRegex, "");
         } else {
             this.isOrderListSearch = true;
             this.isReturnListSearch = true;
