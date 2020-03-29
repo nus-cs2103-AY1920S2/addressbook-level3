@@ -1,20 +1,25 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
+
 public class Pet implements ReadOnlyPet {
     private static final String DEFAULT_NAME = "BB Productive";
     private static final String DEFAULT_EXP = "0";
     private static final String DEFAULT_LEVEL = "1";
     private static final String DEFAULT_MOOD = "HAPPY";
+    private static final String DEFAULT_LAST_DONE_TASK_TIME = LocalDateTime.now().toString();
     public String exp;
     public String level;
     public String name;
     public String mood;
+    public String lastDoneTaskTime;
 
-    public Pet(String name, String exp, String level, String mood) {
+    public Pet(String name, String exp, String level, String mood, String lastDoneTaskTime) {
+        this.name = name;
         this.exp = exp;
         this.level = level;
-        this.name = name;
         this.mood = mood;
+        this.lastDoneTaskTime = lastDoneTaskTime;
     }
 
     public Pet(ReadOnlyPet source) {
@@ -22,10 +27,11 @@ public class Pet implements ReadOnlyPet {
         this.level = source.getLevel();
         this.name = source.getName();
         this.mood = source.getMood();
+        this.lastDoneTaskTime = source.getLastDoneTaskTime();
     }
 
     public Pet() {
-        this(DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LEVEL, DEFAULT_MOOD);
+        this(DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LEVEL, DEFAULT_MOOD, DEFAULT_LAST_DONE_TASK_TIME);
     }
 
     public void setName(String name) {
@@ -51,6 +57,22 @@ public class Pet implements ReadOnlyPet {
         int expInteger = Integer.parseInt(this.exp);
         int levelInteger = (int) Math.ceil(expInteger / 99.0);
         this.level = Integer.toString(levelInteger);
+        setLastDoneTaskTime(LocalDateTime.now().toString());
+
+        System.out.println("SETTING LASTDONETASK AS " + LocalDateTime.now().toString());
+    }
+
+    public void changeHangry() {
+        this.mood = "HANGRY";
+    }
+
+    public void changeHappy() {
+        System.out.println("changing pet mood to happy");
+        this.mood = "HAPPY";
+    }
+
+    public void setLastDoneTaskTime(String lastDoneTaskTime) {
+        this.lastDoneTaskTime = lastDoneTaskTime;
     }
 
     @Override
@@ -71,6 +93,11 @@ public class Pet implements ReadOnlyPet {
     @Override
     public String getMood() {
         return this.mood;
+    }
+
+    @Override
+    public String getLastDoneTaskTime() {
+        return this.lastDoneTaskTime;
     }
 
     @Override

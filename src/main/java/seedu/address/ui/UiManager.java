@@ -11,6 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.logic.PetManager;
 
 /** The manager of the UI component. */
 public class UiManager implements Ui {
@@ -23,11 +24,13 @@ public class UiManager implements Ui {
     private Logic logic;
     private MainWindow mainWindow;
     private PomodoroManager pomodoro;
+    private PetManager petManager;
 
-    public UiManager(Logic logic, PomodoroManager pomodoro) {
+    public UiManager(Logic logic, PomodoroManager pomodoro, PetManager petManager) {
         super();
         this.logic = logic;
         this.pomodoro = pomodoro;
+        this.petManager = petManager;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic, pomodoro);
+            mainWindow = new MainWindow(primaryStage, logic, pomodoro, petManager);
             mainWindow.show(); // This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -52,17 +55,16 @@ public class UiManager implements Ui {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    void showAlertDialogAndWait(
-            Alert.AlertType type, String title, String headerText, String contentText) {
+    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**
-     * Shows an alert dialog on {@code owner} with the given parameters. This method only returns
-     * after the user has closed the alert dialog.
+     * Shows an alert dialog on {@code owner} with the given parameters. This method
+     * only returns after the user has closed the alert dialog.
      */
-    private static void showAlertDialogAndWait(
-            Stage owner, AlertType type, String title, String headerText, String contentText) {
+    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
+            String contentText) {
         final Alert alert = new Alert(type);
         alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
         alert.initOwner(owner);
@@ -74,8 +76,8 @@ public class UiManager implements Ui {
     }
 
     /**
-     * Shows an error alert dialog with {@code title} and error message, {@code e}, and exits the
-     * application after the user has closed the alert dialog.
+     * Shows an error alert dialog with {@code title} and error message, {@code e},
+     * and exits the application after the user has closed the alert dialog.
      */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));

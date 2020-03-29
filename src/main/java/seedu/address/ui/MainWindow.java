@@ -19,6 +19,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.PomCommand;
@@ -31,8 +32,8 @@ import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
- * The Main Window. Provides the basic application layout containing a menu bar and space where
- * other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -44,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private CommandCompletor commandCompletor;
     private PomodoroManager pomodoro;
+    private PetManager petManager;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel personListPanel;
@@ -55,31 +57,41 @@ public class MainWindow extends UiPart<Stage> {
 
     private CommandBox commandBox;
 
-    @FXML private StackPane commandBoxPlaceholder;
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
-    @FXML private MenuItem helpMenuItem;
+    @FXML
+    private MenuItem helpMenuItem;
 
-    @FXML private StackPane personListPanelPlaceholder;
+    @FXML
+    private StackPane personListPanelPlaceholder;
 
-    @FXML private StackPane resultDisplayPlaceholder;
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
-    @FXML private StackPane statusbarPlaceholder;
+    @FXML
+    private StackPane statusbarPlaceholder;
 
-    @FXML private StackPane petPlaceholder;
+    @FXML
+    private StackPane petPlaceholder;
 
-    @FXML private StackPane pomodoroPlaceholder;
+    @FXML
+    private StackPane pomodoroPlaceholder;
 
-    @FXML private StackPane statisticsPlaceholder;
+    @FXML
+    private StackPane statisticsPlaceholder;
 
-    @FXML private TabPane tabPanePlaceholder;
+    @FXML
+    private TabPane tabPanePlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic, PomodoroManager pomodoro) {
+    public MainWindow(Stage primaryStage, Logic logic, PomodoroManager pomodoro, PetManager petManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.pomodoro = pomodoro;
+        this.petManager = petManager;
         this.commandCompletor = new CommandCompletor();
 
         // Configure the UI
@@ -121,16 +133,12 @@ public class MainWindow extends UiPart<Stage> {
          * help window purposely so to support accelerators even when focus is in
          * CommandBox or ResultDisplay.
          */
-        getRoot()
-                .addEventFilter(
-                        KeyEvent.KEY_PRESSED,
-                        event -> {
-                            if (event.getTarget() instanceof TextInputControl
-                                    && keyCombination.match(event)) {
-                                menuItem.getOnAction().handle(new ActionEvent());
-                                event.consume();
-                            }
-                        });
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
     }
 
     /** Fills up all the placeholders of this window. */
@@ -138,8 +146,10 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        petManager.updateMoodWhenLogIn();
         petDisplay = new PetDisplay(this.getPet());
         petPlaceholder.getChildren().add(petDisplay.getRoot());
+        petManager.setPetDisplay(petDisplay);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -190,12 +200,8 @@ public class MainWindow extends UiPart<Stage> {
     /** Closes the application. */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings =
-                new GuiSettings(
-                        primaryStage.getWidth(),
-                        primaryStage.getHeight(),
-                        (int) primaryStage.getX(),
-                        (int) primaryStage.getY());
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -225,8 +231,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
 
         try {
             CommandResult commandResult = logic.execute(commandText);
@@ -235,11 +240,8 @@ public class MainWindow extends UiPart<Stage> {
 
             // Switch tabs related results
             try {
-                SwitchTabCommandResult switchTabCommandResult =
-                        (SwitchTabCommandResult) commandResult;
-                tabPanePlaceholder
-                        .getSelectionModel()
-                        .select(switchTabCommandResult.getTabToSwitchIndex());
+                SwitchTabCommandResult switchTabCommandResult = (SwitchTabCommandResult) commandResult;
+                tabPanePlaceholder.getSelectionModel().select(switchTabCommandResult.getTabToSwitchIndex());
             } catch (ClassCastException ce) {
             }
 
@@ -250,9 +252,7 @@ public class MainWindow extends UiPart<Stage> {
                 if (!pomCommandResult.getIsPause() && !pomCommandResult.getIsContinue()) {
                     pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
                     pomodoro.start(pomCommandResult.getTimerAmountInMin());
-                    pomodoro.setDoneParams(
-                            pomCommandResult.getModel(),
-                            pomCommandResult.getOriginList(),
+                    pomodoro.setDoneParams(pomCommandResult.getModel(), pomCommandResult.getOriginList(),
                             pomCommandResult.getTaskIndex());
                 }
             } catch (ClassCastException ce) {
@@ -266,6 +266,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExit()) {
+                petManager.handleExit();
                 handleExit();
             }
             petDisplay.update();
@@ -273,9 +274,9 @@ public class MainWindow extends UiPart<Stage> {
 
             this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
 
-            //* Old implementation for sort
+            // * Old implementation for sort
             // personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-            // personListPanelPlaceholder.getChildren().clear(); 
+            // personListPanelPlaceholder.getChildren().clear();
             // personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
             return commandResult;
@@ -296,105 +297,90 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private CommandResult pomExecuteCommand(String commandText)
-            throws CommandException, ParseException {
+    private CommandResult pomExecuteCommand(String commandText) throws CommandException, ParseException {
 
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
-            case CHECK_DONE:
-                petDisplay.update();
-                if (commandText.toLowerCase().equals("y")) {
-                    CommandResult commandResult =
-                            new CommandResult(
-                                    "Good job! " + pomodoro.CHECK_TAKE_BREAK_MESSAGE, false, false);
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                    pomodoro.doneTask();
-                    pomodoro.checkBreakActions();
-                    // logic.incrementPomExp();
-                    return commandResult;
-                    // Continue to next prompt from break-timer
-                } else if (commandText.toLowerCase().equals("n")) {
-                    CommandResult commandResult =
-                            new CommandResult(
-                                    "Alright, lets try again the next round! "
-                                            + pomodoro.CHECK_TAKE_BREAK_MESSAGE,
-                                    false,
-                                    false);
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                    pomodoro.checkBreakActions();
-                    // logic.incrementPomExp();
-                    return commandResult;
+        case CHECK_DONE:
+            petDisplay.update();
+            if (commandText.toLowerCase().equals("y")) {
+                CommandResult commandResult = new CommandResult("Good job! " + pomodoro.CHECK_TAKE_BREAK_MESSAGE, false,
+                        false);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                pomodoro.doneTask();
+                pomodoro.checkBreakActions();
+                // logic.incrementPomExp();
+                return commandResult;
+                // Continue to next prompt from break-timer
+            } else if (commandText.toLowerCase().equals("n")) {
+                CommandResult commandResult = new CommandResult(
+                        "Alright, lets try again the next round! " + pomodoro.CHECK_TAKE_BREAK_MESSAGE, false, false);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                pomodoro.checkBreakActions();
+                // logic.incrementPomExp();
+                return commandResult;
+            } else {
+                throw new ParseException("(Please confirm) Did you manage to finish the last task?\n"
+                        + "(Y) - Task will be set to done. (N) - No changes");
+            }
+        case CHECK_TAKE_BREAK:
+            if (commandText.toLowerCase().equals("y")) {
+                CommandResult commandResult = new CommandResult("Okie doke! Rest easy now...", false, false);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                pomodoro.takeABreak();
+                pomodoro.setPromptState(PROMPT_STATE.NONE);
+                return commandResult;
+                // Continue to next prompt from break-timer
+            } else if (commandText.toLowerCase().equals("n")) {
+                CommandResult commandResult = new CommandResult("Alright, back to neutral!", false, false);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                pomodoro.setPromptState(PROMPT_STATE.NONE);
+                pomodoro.reset();
+                this.setDefaultCommandExecutor();
+                return commandResult;
+            } else {
+                throw new ParseException("(Please confirm) Shall we take a 5-min break?\n"
+                        + "(Y) - 5-min timer begins. (N) - App goes neutral.");
+            }
+        case CHECK_DONE_MIDPOM:
+            if (commandText.toLowerCase().equals("n")) {
+                CommandResult commandResult = new CommandResult("Alright, back to neutral!", false, false);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                pomodoro.setPromptState(PROMPT_STATE.NONE);
+                pomodoro.reset();
+                this.setDefaultCommandExecutor();
+                return commandResult;
+            }
+            try {
+                PomCommand pc = (PomCommand) (new TaskListParser().parseCommand(commandText));
+                // if continuedPom was created, user put in a valid pom request. Execute as per
+                // normal
+                PomCommandResult pomCommandResult = (PomCommandResult) logic.execute(commandText);
+                logger.info("Result: " + pomCommandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(pomCommandResult.getFeedbackToUser());
+                if (pomCommandResult.getIsPause()) {
+                    pomodoro.pause();
+                } else if (pomCommandResult.getIsContinue()) {
+                    pomodoro.unpause();
                 } else {
-                    throw new ParseException(
-                            "(Please confirm) Did you manage to finish the last task?\n"
-                                    + "(Y) - Task will be set to done. (N) - No changes");
+                    pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
+                    // pomodoro.start(pomCommandResult.getTimerAmountInMin());
+                    pomodoro.unpause();
+                    pomodoro.setDoneParams(pomCommandResult.getModel(), pomCommandResult.getOriginList(),
+                            pomCommandResult.getTaskIndex());
                 }
-            case CHECK_TAKE_BREAK:
-                if (commandText.toLowerCase().equals("y")) {
-                    CommandResult commandResult =
-                            new CommandResult("Okie doke! Rest easy now...", false, false);
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                    pomodoro.takeABreak();
-                    pomodoro.setPromptState(PROMPT_STATE.NONE);
-                    return commandResult;
-                    // Continue to next prompt from break-timer
-                } else if (commandText.toLowerCase().equals("n")) {
-                    CommandResult commandResult =
-                            new CommandResult("Alright, back to neutral!", false, false);
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                    pomodoro.setPromptState(PROMPT_STATE.NONE);
-                    pomodoro.reset();
-                    this.setDefaultCommandExecutor();
-                    return commandResult;
-                } else {
-                    throw new ParseException(
-                            "(Please confirm) Shall we take a 5-min break?\n"
-                                    + "(Y) - 5-min timer begins. (N) - App goes neutral.");
-                }
-            case CHECK_DONE_MIDPOM:
-                if (commandText.toLowerCase().equals("n")) {
-                    CommandResult commandResult =
-                            new CommandResult("Alright, back to neutral!", false, false);
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                    pomodoro.setPromptState(PROMPT_STATE.NONE);
-                    pomodoro.reset();
-                    this.setDefaultCommandExecutor();
-                    return commandResult;
-                }
-                try {
-                    PomCommand pc = (PomCommand) (new TaskListParser().parseCommand(commandText));
-                    // if continuedPom was created, user put in a valid pom request. Execute as per
-                    // normal
-                    PomCommandResult pomCommandResult =
-                            (PomCommandResult) logic.execute(commandText);
-                    logger.info("Result: " + pomCommandResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(pomCommandResult.getFeedbackToUser());
-                    if (pomCommandResult.getIsPause()) {
-                        pomodoro.pause();
-                    } else if (pomCommandResult.getIsContinue()) {
-                        pomodoro.unpause();
-                    } else {
-                        pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
-                        // pomodoro.start(pomCommandResult.getTimerAmountInMin());
-                        pomodoro.unpause();
-                        pomodoro.setDoneParams(
-                                pomCommandResult.getModel(),
-                                pomCommandResult.getOriginList(),
-                                pomCommandResult.getTaskIndex());
-                    }
-                    pomodoro.setPromptState(PROMPT_STATE.NONE);
-                    this.setDefaultCommandExecutor();
-                    return pomCommandResult;
-                } catch (ParseException | CommandException | ClassCastException e) {
-                    String message =
-                            "(Please confirm) Would you like to continue with another task (not done yet)\n"
-                                    + "(pom <index>) - next task pommed with remaining time. (N) - App goes neutral.";
-                    resultDisplay.setFeedbackToUser(message);
-                    throw new ParseException(message);
-                }
-            case NONE:
-            default:
-                break;
+                pomodoro.setPromptState(PROMPT_STATE.NONE);
+                this.setDefaultCommandExecutor();
+                return pomCommandResult;
+            } catch (ParseException | CommandException | ClassCastException e) {
+                String message = "(Please confirm) Would you like to continue with another task (not done yet)\n"
+                        + "(pom <index>) - next task pommed with remaining time. (N) - App goes neutral.";
+                resultDisplay.setFeedbackToUser(message);
+                throw new ParseException(message);
+            }
+        case NONE:
+        default:
+            break;
         }
 
         try {
@@ -413,14 +399,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public static void triggerReminder(Reminder reminder, String name, String description) {
         long delay = reminder.getDelay();
-        Timeline timeline =
-                new Timeline(
-                        new KeyFrame(
-                                Duration.seconds(delay),
-                                ae -> {
-                                    MainWindow.showReminder(name, description);
-                                    reminder.setHasFired();
-                                }));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(delay), ae -> {
+            MainWindow.showReminder(name, description);
+            reminder.setHasFired();
+        }));
         timeline.play();
     }
 

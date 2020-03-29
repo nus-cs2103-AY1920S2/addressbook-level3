@@ -14,6 +14,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -56,11 +57,11 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected PomodoroManager pomodoro;
+    protected PetManager petManager;
 
     @Override
     public void init() throws Exception {
-        logger.info(
-                "=============================[ Initializing TaskList ]===========================");
+        logger.info("=============================[ Initializing TaskList ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -71,16 +72,9 @@ public class MainApp extends Application {
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         PetStorage petStorage = new JsonPetStorage(userPrefs.getPetFilePath());
         PomodoroStorage pomodoroStorage = new JsonPomodoroStorage(userPrefs.getPomodoroFilePath());
-        StatisticsStorage statisticsStorage =
-                new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
+        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
 
-        storage =
-                new StorageManager(
-                        taskListStorage,
-                        petStorage,
-                        pomodoroStorage,
-                        statisticsStorage,
-                        userPrefsStorage);
+        storage = new StorageManager(taskListStorage, petStorage, pomodoroStorage, statisticsStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -90,17 +84,22 @@ public class MainApp extends Application {
 
         pomodoro = new PomodoroManager();
 
+        petManager = new PetManager();
+
         model.setPomodoroManager(pomodoro);
 
-        ui = new UiManager(logic, pomodoro);
+        model.setPetManager(petManager);
+
+        ui = new UiManager(logic, pomodoro, petManager);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address
+     * book and {@code
      * userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book
-     * is not found, or an empty address book will be used instead if errors occur when reading
-     * {@code storage}'s address book.
+     * The data from the sample address book will be used instead if
+     * {@code storage}'s address book is not found, or an empty address book will be
+     * used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> taskListOptional;
@@ -120,12 +119,10 @@ public class MainApp extends Application {
             }
             initialData = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Data file not in the correct format. Will be starting with an empty TaskList");
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
             initialData = new TaskList();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty TaskList");
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaskList");
             initialData = new TaskList();
         }
 
@@ -136,12 +133,10 @@ public class MainApp extends Application {
             }
             initialPet = petOptional.orElse(new Pet());
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Data file not in the correct format. Will be starting with an empty Pet");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Pet");
             initialPet = new Pet();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty Pet");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Pet");
             initialPet = new Pet();
         }
 
@@ -152,12 +147,10 @@ public class MainApp extends Application {
             }
             initialPomodoro = pomodoroOptional.orElse(new Pomodoro());
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Data file not in the correct format. Will be starting with an empty Pomodoro");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Pomodoro");
             initialPomodoro = new Pomodoro();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty Pomodoro");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Pomodoro");
             initialPomodoro = new Pomodoro();
         }
 
@@ -168,17 +161,14 @@ public class MainApp extends Application {
             }
             initialDayDataList = statisticsOptional.orElse(new Statistics());
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Data file not in the correct format. Will be starting with an empty Statistics");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Statistics");
             initialDayDataList = new Statistics();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty Statistics");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Statistics");
             initialDayDataList = new Statistics();
         }
 
-        return new ModelManager(
-                initialData, initialPet, initialPomodoro, initialDayDataList, userPrefs);
+        return new ModelManager(initialData, initialPet, initialPomodoro, initialDayDataList, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -187,7 +177,8 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead if {@code
+     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * if {@code
      * configFilePath} is null.
      */
     protected Config initConfig(Path configFilePath) {
@@ -207,15 +198,13 @@ public class MainApp extends Application {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Config file at "
-                            + configFilePathUsed
-                            + " is not in the correct format. "
-                            + "Using default config properties");
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+                    + "Using default config properties");
             initializedConfig = new Config();
         }
 
-        // Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
@@ -225,8 +214,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path, or a
-     * new {@code UserPrefs} with default configuration if errors occur when reading from the file.
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs
+     * file path, or a new {@code UserPrefs} with default configuration if errors
+     * occur when reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
@@ -237,19 +227,16 @@ public class MainApp extends Application {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning(
-                    "UserPrefs file at "
-                            + prefsFilePath
-                            + " is not in the correct format. "
-                            + "Using default user prefs");
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                    + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty TaskList");
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaskList");
             initializedPrefs = new UserPrefs();
         }
 
-        // Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
@@ -267,8 +254,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info(
-                "============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

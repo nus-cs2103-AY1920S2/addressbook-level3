@@ -16,18 +16,16 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 
-/** Deletes a person identified using it's displayed index from the address book. */
+/**
+ * Deletes a person identified using it's displayed index from the address book.
+ */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_USAGE =
-            COMMAND_WORD
-                    + ": Marks the task identified by the index number used in the displayed task list as done.\n"
-                    + "Parameters: 1-INDEXed (must be a positive integer)\n"
-                    + "Example: "
-                    + COMMAND_WORD
-                    + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks the task identified by the index number used in the displayed task list as done.\n"
+            + "Parameters: 1-INDEXed (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Done Task(s): ";
 
@@ -67,6 +65,7 @@ public class DoneCommand extends Command {
             }
             // increment Pet EXP after completing a task
             model.incrementExp();
+            model.updateMoodWhenDone();
         }
 
         // The last task to show is the pommed task
@@ -92,8 +91,7 @@ public class DoneCommand extends Command {
         Description updatedDescription = taskToEdit.getDescription();
         Set<Tag> updatedTags = taskToEdit.getTags();
 
-        return new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
+        return new Task(updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
     }
 
     @Override

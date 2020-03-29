@@ -25,12 +25,18 @@ public class PetDisplay extends UiPart<Region> {
 
     private ReadOnlyPet pet;
 
-    @FXML private VBox petPane;
-    @FXML private ImageView petPic;
-    @FXML private Label expBarView;
-    @FXML private ImageView expBarPic;
-    @FXML private ImageView accessoryPic;
-    @FXML private Label levelView;
+    @FXML
+    private VBox petPane;
+    @FXML
+    private ImageView petPic;
+    @FXML
+    private Label expBarView;
+    @FXML
+    private ImageView expBarPic;
+    @FXML
+    private ImageView accessoryPic;
+    @FXML
+    private Label levelView;
 
     public PetDisplay(ReadOnlyPet pet) {
         super(FXML);
@@ -46,10 +52,15 @@ public class PetDisplay extends UiPart<Region> {
 
         this.levelText = this.pet.getLevel();
 
+        String mood = pet.getMood();
         if (this.levelText.equals("1")) {
-            this.petFilepath = Paths.get("images", "pet", "level1.png");
+            Path path = (mood.equals("HAPPY") ? Paths.get("images", "pet", "level1.png")
+                    : Paths.get("images", "pet", "level1hangry.png"));
+            this.petFilepath = path;
         } else if (this.levelText.equals("2")) {
-            this.petFilepath = Paths.get("images", "pet", "level2.png");
+            Path path = (mood.equals("HAPPY") ? Paths.get("images", "pet", "level1.png")
+                    : Paths.get("images", "pet", "level1hangry.png"));
+            this.petFilepath = path;
         } else {
             this.petFilepath = Paths.get("images", "pet", "level3.png");
         }
@@ -57,57 +68,57 @@ public class PetDisplay extends UiPart<Region> {
         int expBarPerc = expBarInt / 10;
 
         switch (expBarPerc) {
-            case 0:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar0%.png");
-                break;
+        case 0:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar0%.png");
+            break;
 
-            case 1:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar10%.png");
-                break;
+        case 1:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar10%.png");
+            break;
 
-            case 2:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar20%.png");
-                break;
+        case 2:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar20%.png");
+            break;
 
-            case 3:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar30%.png");
-                break;
+        case 3:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar30%.png");
+            break;
 
-            case 4:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar40%.png");
-                break;
+        case 4:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar40%.png");
+            break;
 
-            case 5:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar50%.png");
-                break;
+        case 5:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar50%.png");
+            break;
 
-            case 6:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar60%.png");
-                break;
+        case 6:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar60%.png");
+            break;
 
-            case 7:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar70%.png");
-                break;
+        case 7:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar70%.png");
+            break;
 
-            case 8:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar80%.png");
-                break;
+        case 8:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar80%.png");
+            break;
 
-            case 9:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar90%.png");
-                break;
+        case 9:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar90%.png");
+            break;
 
-            case 10:
-                this.expBarFilepath = Paths.get("images", "pet", "ProgressBar100%.png");
-                break;
+        case 10:
+            this.expBarFilepath = Paths.get("images", "pet", "ProgressBar100%.png");
+            break;
         }
 
         this.accessoryFilepath = DEFAULT_ACCESSORY_PLACEHOLDER;
 
         // if (accessoryFilepath != null) {
-        //     this.accessoryFilepath = accessoryFilepath;
-        //     Image image = new Image(String.valueOf(accessoryFilepath));
-        //     accessoryPic.setImage(image);
+        // this.accessoryFilepath = accessoryFilepath;
+        // Image image = new Image(String.valueOf(accessoryFilepath));
+        // accessoryPic.setImage(image);
         // }
 
         expBarView.setText(expBarText);
@@ -120,6 +131,29 @@ public class PetDisplay extends UiPart<Region> {
         // set up experience bar image
         Image expBarImage = new Image(String.valueOf(expBarFilepath));
         expBarPic.setImage(expBarImage);
+    }
+
+    public void changeToHangry() {
+        if (this.levelText.equals("1")) {
+            System.out.println("level 1 : change image to hangry");
+            this.petFilepath = Paths.get("images", "pet", "level1hangry.png");
+        } else if (this.levelText.equals("2")) {
+            this.petFilepath = Paths.get("images", "pet", "level2hangry.png");
+        } else {
+            this.petFilepath = Paths.get("images", "pet", "level3.png");
+        }
+        Image petImage = new Image(String.valueOf(petFilepath));
+        petPic.setImage(petImage);
+    }
+
+    public void changeToHappy() {
+        if (this.levelText.equals("1")) {
+            this.petFilepath = Paths.get("images", "pet", "level1.png");
+        } else if (this.levelText.equals("2")) {
+            this.petFilepath = Paths.get("images", "pet", "level2.png");
+        } else {
+            this.petFilepath = Paths.get("images", "pet", "level3.png");
+        }
     }
 
     @Override
