@@ -6,6 +6,18 @@
       "emails": ["jeremyloh03@gmail.com"],
       "displayName": "Jeremy Loh",
       "authorNames": ["JeremyLoh", "Jeremy Loh"]
+    },
+    {
+      "githubID": "khsc96",
+      "emails": "khsc96@gmail.com",
+      "displayName": "Kenny Ho",
+      "authorNames": "Kenny Ho"
+    },
+    {
+      "githubID": "Exeexe93",
+      "emails": "e0318484@u.nus.edu",
+      "displayName": "Eng Xuan En",
+      "authorNames": "Exeexe93"
     }
   ]
 }
