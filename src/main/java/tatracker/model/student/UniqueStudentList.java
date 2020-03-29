@@ -47,6 +47,12 @@ public class UniqueStudentList implements Iterable<Student> {
             return (-1) * (student.getRating().toString()).compareTo(other.getRating().toString());
         }
     };
+    private Comparator<Student> matric = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (-1) * (student.getMatric().toString()).compareTo(other.getMatric().toString());
+        }
+    };
 
     public int size() {
         return internalList.size();
@@ -140,13 +146,6 @@ public class UniqueStudentList implements Iterable<Student> {
     }
 
     /**
-     * returns alphabetical comparator.
-     */
-    public Comparator<Student> getAlphabetically() {
-        return alphabetically;
-    }
-
-    /**
      * Sorts the students alphabetically.
      */
     public void sortAlphabetically() {
@@ -158,6 +157,13 @@ public class UniqueStudentList implements Iterable<Student> {
      */
     public void sortByRatingAscending() {
         FXCollections.sort(internalList, ratingAscending);
+    }
+
+    /**
+     * Sorts the students by matric number.
+     */
+    public void sortByRating() {
+        FXCollections.sort(internalList, matric);
     }
 
     /**
