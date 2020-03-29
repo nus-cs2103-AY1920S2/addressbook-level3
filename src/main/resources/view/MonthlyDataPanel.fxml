@@ -5,11 +5,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Separator?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Arc?>
 <GridPane fx:id="monthlyDataContainer" prefHeight="250" prefWidth="370"
           hgap="40" vgap="20"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2"
-           text="Placeholder for graphics"/>
+    <StackPane fx:id="circleContainer" minWidth="130" maxWidth="130"
+               GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+        <Arc fx:id="outer" StackPane.alignment="TOP_RIGHT"/>
+        <Arc fx:id="inner" StackPane.alignment="CENTER"/>
+    </StackPane>
     <Label fx:id="expenditure" GridPane.columnIndex="1" GridPane.rowIndex="0"
            styleClass="monthly-data-label" text="Total expenditure for this month: "/>
     <Label fx:id="budget" GridPane.columnIndex="1" GridPane.rowIndex="1"
