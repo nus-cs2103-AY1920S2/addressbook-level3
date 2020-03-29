@@ -53,19 +53,23 @@ public class CsvProcessor {
         if (!fileDataTrimmed.startsWith(PREFIX_ORDERTYPE.toString())) {
             throw new ParseException(MESSAGE_INVALID_FORMAT);
         }
-        // Remove the first order type prefix and pass to StringUtil for process.
-        String[] result = getCsvData(fileDataTrimmed.substring(3));
-        Collections.addAll(data, result);
 
-        return data;
+        return getCsvData(fileDataTrimmed);
     }
 
     /**
-     * Return String array which contains Strings which spilt by order type prefix.
-     * @param sentence to be split.
+     * Get the Csv string and remove the first order type prefix. Eventually, it will split the string
+     * by subsequence order type prefix and copy to list.
+     * @param sentence to be processed.
+     * @return List of String that individual order data has been split.
      */
-    private static String[] getCsvData(String sentence) {
+    private static List<String> getCsvData(String sentence) {
         requireNonNull(sentence);
-        return sentence.split(PREFIX_ORDERTYPE.toString());
+        List<String> data = new ArrayList<>();
+
+        // Remove the first order type prefix and split the data according to order type prefix.
+        String[] result = sentence.replaceFirst(PREFIX_ORDERTYPE.toString(), "").split(PREFIX_ORDERTYPE.toString());
+        Collections.addAll(data, result);
+        return data;
     }
 }
