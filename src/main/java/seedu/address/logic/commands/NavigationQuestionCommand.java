@@ -22,9 +22,9 @@ public class NavigationQuestionCommand extends Command {
             + "Parameters: questionNumber\n"
             + "Example:  " + COMMAND_WORD + " q10";
 
-    private final String questionIndex;
+    private final int questionIndex;
 
-    public NavigationQuestionCommand(String questionIndex) {
+    public NavigationQuestionCommand(int questionIndex) {
         this.questionIndex = questionIndex;
     }
 
@@ -52,6 +52,7 @@ public class NavigationQuestionCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NavigationQuestionCommand);
+                || (other instanceof NavigationQuestionCommand
+                && questionIndex == ((NavigationQuestionCommand) other).questionIndex);
     }
 }

@@ -57,6 +57,6 @@ class RemarkListTest {
         actualRemarks.add(RemarkTest.REMARK_QUARTER_WITH_QUESTION_1);
         actualRemarks.add(RemarkTest.REMARK_MIDDLE_WITH_QUESTION_2);
         actualRemarks.add(RemarkTest.REMARK_STOP_WITHOUT_QUESTION);
-        assertEquals(2, actualRemarks.getIndexOfQuestion("2"));
+        assertEquals(2, actualRemarks.getIndexOfQuestion(2));
     }
 }

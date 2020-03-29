@@ -100,18 +100,10 @@ public class RemarkList {
      * @throws IllegalActionException If the question queried has not been answered.
      * @throws IllegalValueException If the question index queried is out of bound or is not a number.
      */
-    public int getIndexOfQuestion(String questionIndex) throws IllegalActionException, IllegalValueException {
-        try {
-            int index = Integer.parseInt(questionIndex);
-            if (!isQuestionAnswered(index)) {
-                throw new IllegalActionException("This question was not answered!");
-            }
-            if (index > questionIndices.length - 1 || index <= 0) {
-                throw new IllegalValueException("The question index is out of bound");
-            }
-            return questionIndices[index];
-        } catch (NumberFormatException e) {
-            throw new IllegalValueException("The input is not a number.");
+    public int getIndexOfQuestion(int questionIndex) throws IllegalActionException, IllegalValueException {
+        if (!isQuestionAnswered(questionIndex)) {
+            throw new IllegalActionException("This question was not answered!");
         }
+        return questionIndices[questionIndex];
     }
 }

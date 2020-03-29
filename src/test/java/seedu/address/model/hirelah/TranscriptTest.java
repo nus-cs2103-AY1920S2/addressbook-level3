@@ -40,7 +40,7 @@ class TranscriptTest {
     void getTranscriptAtQuestion_unansweredQuestion_failure() throws IllegalValueException {
         Transcript actualTranscript = getTranscript();
         assertThrows(IllegalActionException.class, () ->
-                actualTranscript.getIndexOfQuestion("1"));
+                actualTranscript.getIndexOfQuestion(1));
     }
 
     @Test
@@ -49,7 +49,7 @@ class TranscriptTest {
         actualTranscript.addRemark(RemarkTest.REMARK_START_WITHOUT_QUESTION);
         actualTranscript.addRemark(RemarkTest.REMARK_QUARTER_WITH_QUESTION_1);
         actualTranscript.addRemark(RemarkTest.REMARK_STOP_WITHOUT_QUESTION);
-        assertEquals(1, actualTranscript.getIndexOfQuestion("1"));
+        assertEquals(1, actualTranscript.getIndexOfQuestion(1));
     }
 
 }

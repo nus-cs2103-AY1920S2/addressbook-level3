@@ -93,7 +93,7 @@ public class Transcript {
      * @return The index of the {@code Remark} in the RemarkList
      *         that was first associated with this {@code Question}.
      */
-    public int getIndexOfQuestion(String questionIndex) throws IllegalActionException, IllegalValueException {
+    public int getIndexOfQuestion(int questionIndex) throws IllegalActionException, IllegalValueException {
         return remarkList.getIndexOfQuestion(questionIndex);
     }
 
