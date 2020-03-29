@@ -224,12 +224,6 @@ public class ModelManager implements Model {
     // ======== Group Methods ==================================================
 
     @Override
-    public boolean getGroup(String moduleId, String groupId) {
-        requireNonNull(groupId);
-        return taTracker.getGroup(moduleId, groupId);
-    }
-
-    @Override
     public boolean hasGroup(Group group, Module targetModule) {
         requireNonNull(group);
         return taTracker.hasGroup(group, targetModule);

@@ -184,11 +184,6 @@ public interface Model {
 
     // ======== Group Methods ==================================================
 
-     /**
-      * Returns the TaTracker group
-      * with the given module identifier and group identifier.
-      */
-     boolean getGroup(String moduleId, String groupId);
 
     /**
      * Returns true if a given group with the same identity as {@code group}

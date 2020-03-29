@@ -2,7 +2,6 @@ package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;

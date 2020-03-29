@@ -4,6 +4,8 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.model.module.Module;
+import tatracker.model.group.Group;
 import tatracker.model.Model;
 
 import java.util.ArrayList;
@@ -71,13 +73,19 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterGroup(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getModule(argsList.get(MODULE_INDEX)) == null) {
+        String moduleCode = argsList.get(MODULE_INDEX);
+        String groupCode = argsList.get(GROUP_INDEX);
+
+        Module module = new Module(moduleCode);
+        Group group = new Group(groupCode);
+
+        if (!model.hasModule(module)) {
             throw new CommandException((MESSAGE_INVALID_MODULE_CODE));
         } else {
-            if (!model.getGroup(argsList.get(MODULE_INDEX), argsList.get(GROUP_INDEX))) {
+            if (!model.hasGroup(group, module)) {
                 throw new CommandException(((MESSAGE_INVALID_GROUP_CODE)));
             } else {
-                model.updateFilteredStudentList(argsList.get(GROUP_INDEX), argsList.get(MODULE_INDEX));
+                model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS));
@@ -92,10 +100,16 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterModule(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getModule(argsList.get(MODULE_INDEX)) == null) {
+        String moduleCode = argsList.get(MODULE_INDEX);
+        String groupCode = argsList.get(GROUP_INDEX);
+
+        Module module = new Module(moduleCode);
+        Group group = new Group(groupCode);
+
+        if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         } else {
-            model.setFilteredStudentList(argsList.get(MODULE_INDEX), FIRST_GROUP_INDEX);
+            model.updateFilteredStudentList(groupCode, moduleCode);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
