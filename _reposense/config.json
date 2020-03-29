@@ -9,15 +9,15 @@
     },
     {
       "githubId": "khsc96",
-      "emails": "khsc96@gmail.com",
+      "emails": ["khsc96@gmail.com"],
       "displayName": "Kenny Ho",
-      "authorNames": "Kenny Ho"
+      "authorNames": ["Kenny Ho"]
     },
     {
       "githubId": "Exeexe93",
-      "emails": "e0318484@u.nus.edu",
+      "emails": ["e0318484@u.nus.edu"],
       "displayName": "Eng Xuan En",
-      "authorNames": "Exeexe93"
+      "authorNames": ["Exeexe93"]
     }
   ]
 }
