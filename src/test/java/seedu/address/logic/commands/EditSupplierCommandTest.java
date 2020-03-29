@@ -160,8 +160,9 @@ public class EditSupplierCommandTest {
     public void execute_valid_callsModelCommit() throws CommandException {
         ModelStubCommit modelStub = new ModelStubCommit();
         modelStub.addSupplier(CARL);
-        new EditSupplierCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB).build())
-                .execute(modelStub);
+        new EditSupplierCommand(
+                INDEX_FIRST_SUPPLIER, new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB).build()
+        ).execute(modelStub);
 
         assertTrue(modelStub.isCommitted());
     }

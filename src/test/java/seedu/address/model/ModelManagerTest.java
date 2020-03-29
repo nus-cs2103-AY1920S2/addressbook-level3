@@ -21,11 +21,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodNameContainsKeywordsPredicate;
 import seedu.address.model.supplier.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.GoodBuilder;
 import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.TransactionHistoryBuilder;
 
@@ -166,8 +164,8 @@ public class ModelManagerTest {
         expectedModelAfterFirstUndo.addGood(APPLE);
         expectedModelAfterFirstUndo.addSupplier(ALICE);
 
-        Model expectedModelAfterSecondUndo = new ModelManager(modelManager.getAddressBook(), modelManager.getInventory(),
-                modelManager.getTransactionHistory(), modelManager.getUserPrefs());
+        Model expectedModelAfterSecondUndo = new ModelManager(modelManager.getAddressBook(),
+                modelManager.getInventory(), modelManager.getTransactionHistory(), modelManager.getUserPrefs());
         expectedModelAfterSecondUndo.addGood(APPLE);
 
         modelManager.addGood(APPLE);

@@ -1,16 +1,17 @@
 package seedu.address.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.BuyTransactionBuilder;
-import seedu.address.testutil.GoodBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.BUY_APPLE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.BUY_DURIAN_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.SELL_BANANA_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.SELL_CITRUS_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.BUY_DURIAN_TRANSACTION;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.transaction.Transaction;
+import seedu.address.testutil.BuyTransactionBuilder;
+import seedu.address.testutil.GoodBuilder;
 
 public class VersionedTransactionHistoryTest {
     private VersionedTransactionHistory versionedTransactionHistory = new VersionedTransactionHistory();
@@ -74,7 +75,8 @@ public class VersionedTransactionHistoryTest {
         expectedTransactionHistoryAfterRewrite.addTransaction(SELL_BANANA_TRANSACTION);
         expectedTransactionHistoryAfterRewrite.addTransaction(BUY_DURIAN_TRANSACTION);
 
-        TransactionHistory expectedTransactionHistoryAfterUndoFromRewrite = new TransactionHistory(versionedTransactionHistory);
+        TransactionHistory expectedTransactionHistoryAfterUndoFromRewrite =
+                new TransactionHistory(versionedTransactionHistory);
         expectedTransactionHistoryAfterUndoFromRewrite.addTransaction(BUY_APPLE_TRANSACTION);
         expectedTransactionHistoryAfterUndoFromRewrite.addTransaction(SELL_BANANA_TRANSACTION);
 

@@ -1,15 +1,16 @@
 package seedu.address.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.good.Good;
-import seedu.address.testutil.GoodBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGoods.APPLE;
 import static seedu.address.testutil.TypicalGoods.BANANA;
 import static seedu.address.testutil.TypicalGoods.CITRUS;
 import static seedu.address.testutil.TypicalGoods.DURIAN;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.good.Good;
+import seedu.address.testutil.GoodBuilder;
 
 public class VersionedInventoryTest {
 

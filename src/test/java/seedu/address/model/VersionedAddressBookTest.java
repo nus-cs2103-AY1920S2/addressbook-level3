@@ -1,15 +1,16 @@
 package seedu.address.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.testutil.SupplierBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSuppliers.ALICE;
 import static seedu.address.testutil.TypicalSuppliers.BENSON;
 import static seedu.address.testutil.TypicalSuppliers.CARL;
 import static seedu.address.testutil.TypicalSuppliers.DANIEL;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.supplier.Supplier;
+import seedu.address.testutil.SupplierBuilder;
 
 public class VersionedAddressBookTest {
 
