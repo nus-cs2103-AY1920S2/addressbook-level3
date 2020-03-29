@@ -1,22 +1,32 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.*;
-
-import java.time.Duration;
-
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtility.*;
+import static seedu.address.logic.commands.CommandTestUtility.INVALID_DUMMY_VALUE;
+import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_1;
+import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_2;
+import static seedu.address.logic.commands.CommandTestUtility.INVALID_TIME_123;
+import static seedu.address.logic.commands.CommandTestUtility.INVALID_TIME_1234;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_NUMBER_1;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_NUMBER_14;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_TIME_123;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_TIME_30;
 import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.NavigationQuestionCommand;
+import seedu.address.logic.commands.NavigationTimeCommand;
 
 class NavigationCommandParserTest {
 
     private NavigationCommandParser parser = new NavigationCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_navigationQuestion_success() {
+    public void parse_allFieldsPresentNavigationQuestion_success() {
 
         assertParseSuccess(parser, WHITESPACE + VALID_QUESTION_NUMBER_14,
                 new NavigationQuestionCommand(14));
@@ -27,7 +37,7 @@ class NavigationCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsPresent_navigationTime_success() {
+    public void parse_allFieldsPresentNavigationTime_success() {
 
         Duration thirtyMin = Duration.ofMinutes(30);
         assertParseSuccess(parser, WHITESPACE + VALID_TIME_30,
@@ -41,7 +51,7 @@ class NavigationCommandParserTest {
     }
 
     @Test
-    public void parse_invalidFields_navigationQuestion_failure() {
+    public void parse_invalidFieldsNavigationQuestion_failure() {
 
         assertParseFailure(parser, WHITESPACE + INVALID_QUESTION_NUMBER_1,
                 MESSAGE_UNKNOWN_COMMAND);
@@ -52,7 +62,7 @@ class NavigationCommandParserTest {
     }
 
     @Test
-    public void parse_invalidFields_navigationTime_failure() {
+    public void parse_invalidFieldsNavigationTime_failure() {
 
         assertParseFailure(parser, WHITESPACE + INVALID_TIME_123,
                 MESSAGE_UNKNOWN_COMMAND);
