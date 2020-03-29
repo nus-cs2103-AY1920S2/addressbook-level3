@@ -27,6 +27,9 @@ import seedu.address.logic.commands.ListRestaurantCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowBirthdayCommand;
 import seedu.address.logic.commands.VisitedRestaurantCommand;
+import seedu.address.logic.commands.ShowBirthdayCommand;
+import seedu.address.logic.commands.VisitedRestaurantCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
