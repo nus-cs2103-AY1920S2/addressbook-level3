@@ -22,6 +22,7 @@ import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -53,6 +54,7 @@ public class ModelManager implements Model {
         this.questionList = new QuestionList();
         this.metricList = new MetricList();
         this.userPrefs = new UserPrefs(userPrefs);
+        this.bestNIntervieweeList = FXCollections.observableArrayList();
     }
 
     public ModelManager() {
@@ -120,18 +122,21 @@ public class ModelManager implements Model {
         this.currentInterviewee = interviewee;
     }
 
-    /**
-     * Returns the interviewee currently in focus
-     *
-     * @return the current interviewee in focus.
-     */
     @Override
     public Interviewee getCurrentInterviewee() {
         return currentInterviewee;
     }
 
     @Override
-    public void startInterview(Interviewee interviewee) {
+    public Transcript getCurrentTranscript() {
+        return currentInterviewee.getTranscript().get();
+    }
+
+    @Override
+    public void startInterview(Interviewee interviewee) throws IllegalActionException {
+        if (interviewee.getTranscript().isPresent()) {
+            throw new IllegalActionException("Interviewee has been interviewed already!");
+        }
         setCurrentInterviewee(interviewee);
         currentInterviewee.setTranscript(new Transcript(questionList));
         interviewSession = new InterviewSession();
@@ -206,11 +211,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Interviewee> getBestNInterviewees() {
         return bestNIntervieweeList;
-    }
-
-    @Override
-    public void setBestNInterviewees(ObservableList<Interviewee> interviewees) {
-        this.bestNIntervieweeList = interviewees;
     }
 
     /**
