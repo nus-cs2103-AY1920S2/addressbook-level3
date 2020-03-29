@@ -193,7 +193,7 @@ The tags are:
 
 The following sequence diagram shows how the `new` operation works with the input: `new n/John c/Computer Science cs/4`
 
-image pending.
+image::NewCommandSequenceDiagram.png[]
 
 ==== Design Considerations (pending)
 
@@ -230,7 +230,7 @@ image::AddSequenceDiagram.png[]
 
 * *Alternative 2:* The `date` is compulsory while `time` is optional for a `deadline`
 ** Pros: Gives user the flexibility to input different types of tasks
-** Cons: Bugs in `deadline` related method calls
+** Cons: More bugs in `deadline` related method calls
 
 Eventually, we decided on alternative 1 due to the benefits of consistency in types of tasks allowed in MODdy as well as to reduce the bugs faced.
 
