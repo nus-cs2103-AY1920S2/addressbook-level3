@@ -3,11 +3,21 @@
     "name": "Same recipe name",
     "time": "50",
     "isFavourite": false,
+    "grains" : [ "50g, Rice" ],
+    "vegetables" : [  ],
+    "proteins" : [  ],
+    "fruits" : [  ],
+    "others" : [  ],
     "steps": [ "Step 1" , "Step 2" ],
     "goals": [ "Hulk like the Bulk" ]
   }, {
     "name": "Same recipe name",
     "time": "50",
+    "grains" : [ "50g, Rice" ],
+    "vegetables" : [  ],
+    "proteins" : [  ],
+    "fruits" : [  ],
+    "others" : [  ],
     "isFavourite": false,
     "steps": [ "Step 1" , "Step 2" ]
   } ]

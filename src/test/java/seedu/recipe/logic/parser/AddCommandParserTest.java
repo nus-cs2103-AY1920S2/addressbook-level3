@@ -95,7 +95,7 @@ public class AddCommandParserTest {
         // missing time prefix
         assertParseFailure(parser, NAME_DESC_FISH + VALID_TIME_FISH + STEP_DESC_FISH, expectedMessage);
 
-        // missing step prefix
+        // missing ingredient prefix
         assertParseFailure(parser, NAME_DESC_FISH + TIME_DESC_FISH + VALID_STEP_FISH, expectedMessage);
 
         // all prefixes missing

@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Recipe validRecipe = new RecipeBuilder().build();
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
-        System.out.println(validRecipe); // todo
+        // System.out.println(validRecipe); // todo remove later
         expectedModel.addRecipe(validRecipe);
 
         assertCommandSuccess(new AddCommand(validRecipe), model,

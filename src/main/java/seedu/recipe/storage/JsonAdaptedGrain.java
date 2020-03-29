@@ -22,9 +22,9 @@ class JsonAdaptedGrain {
      */
     @JsonCreator
     public JsonAdaptedGrain(String grain) {
-        String[] details = grain.split(",");
-        this.grainName = details[0].trim();
-        this.quantity = QuantityUtil.parseQuantity(details[1].trim());
+        String[] details = grain.split(",", 2);
+        this.grainName = details[1].trim();
+        this.quantity = QuantityUtil.parseQuantity(details[0].trim());
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonAdaptedGrain {
 
     @JsonValue
     public String getGrain() {
-        return grainName + ",  " + quantity;
+        return quantity + ",  " + grainName;
     }
 
     /**

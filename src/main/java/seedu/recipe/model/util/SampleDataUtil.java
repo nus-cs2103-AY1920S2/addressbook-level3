@@ -98,7 +98,7 @@ public class SampleDataUtil {
         Set<Grain> grainSet = new TreeSet<>();
         for (String grain: grains) {
             if (!grain.isBlank()) {
-                String[] splitDetails = grain.split(",");
+                String[] splitDetails = grain.split(",", 2);
                 String name = splitDetails[1].trim();
                 Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
@@ -115,7 +115,7 @@ public class SampleDataUtil {
         Set<Vegetable> vegetableSet = new TreeSet<>();
         for (String vegetable: vegetables) {
             if (!vegetable.isBlank()) {
-                String[] splitDetails = vegetable.split(",");
+                String[] splitDetails = vegetable.split(",", 2);
                 String name = splitDetails[1].trim();
                 Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
@@ -133,7 +133,7 @@ public class SampleDataUtil {
         Set<Protein> proteinSet = new TreeSet<>();
         for (String protein: proteins) {
             if (!protein.isBlank()) {
-                String[] splitDetails = protein.split(",");
+                String[] splitDetails = protein.split(",", 2);
                 String name = splitDetails[1].trim();
                 Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
@@ -150,7 +150,7 @@ public class SampleDataUtil {
         Set<Fruit> fruitSet = new TreeSet<>();
         for (String fruit: fruits) {
             if (!fruit.isBlank()) {
-                String[] splitDetails = fruit.split(",");
+                String[] splitDetails = fruit.split(",", 2);
                 String name = splitDetails[1].trim();
                 Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
@@ -168,7 +168,7 @@ public class SampleDataUtil {
         Set<Other> otherSet = new TreeSet<>();
         for (String other: others) {
             if (!other.isBlank()) {
-                String[] splitDetails = other.split(",");
+                String[] splitDetails = other.split(",", 2);
                 String name = splitDetails[1].trim();
                 Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
@@ -186,6 +186,13 @@ public class SampleDataUtil {
         return Arrays.stream(steps)
                 .map(Step::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns an empty grain set, to be used to replace the default grain ingredient.
+     */
+    public static Set<Grain> emptyGrainSet() {
+        return new TreeSet<Grain>();
     }
 
 }

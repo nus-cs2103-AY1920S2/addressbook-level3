@@ -21,9 +21,9 @@ class JsonAdaptedVegetable {
      */
     @JsonCreator
     public JsonAdaptedVegetable(String vegetable) {
-        String[] details = vegetable.split(",");
-        this.vegetableName = details[0].trim();
-        this.quantity = QuantityUtil.parseQuantity(details[1].trim());
+        String[] details = vegetable.split(",", 2);
+        this.vegetableName = details[1].trim();
+        this.quantity = QuantityUtil.parseQuantity(details[0].trim());
     }
 
     /**
@@ -36,7 +36,7 @@ class JsonAdaptedVegetable {
 
     @JsonValue
     public String getVegetable() {
-        return vegetableName + ",  " + quantity;
+        return quantity + ",  " + vegetableName;
     }
 
     /**
