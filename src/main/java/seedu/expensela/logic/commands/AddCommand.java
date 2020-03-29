@@ -1,11 +1,7 @@
 package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.expensela.logic.parser.CliSyntax.*;
 
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
@@ -18,19 +14,20 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the expensela. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the expensela. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "DATE "
             + PREFIX_REMARK + "REMARK "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + PREFIX_CATEGORY + "CATEGORY\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Dominoes Pizza "
             + PREFIX_AMOUNT + "24 "
             + PREFIX_DATE + "2020-02-02 "
             + PREFIX_REMARK + "Food for group project "
-            + PREFIX_CATEGORY + "FOOD ";
+            + PREFIX_CATEGORY + "FOOD. \n"
+            + "Hint: Add " + PREFIX_INCOME + " for any positive transactions.";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists "

@@ -29,8 +29,14 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTransactionList(predicate);
-        return new CommandResult(
+
+        if (model.getFilteredTransactionList().size() == 0) {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_WORD_NOT_FOUND, model.getFilteredTransactionList().size()));
+        } else {
+            return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+        }
     }
 
     @Override

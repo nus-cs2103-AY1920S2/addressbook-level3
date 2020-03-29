@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.expensela.model.transaction.Transaction;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 /**
  * An UI component that displays information of a {@code Transaction}.
  */
@@ -44,7 +47,7 @@ public class TransactionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(transaction.getName().transactionName);
         amount.setText(transaction.getAmount().toString());
-        date.setText(transaction.getDate().transactionDate.toString());
+        date.setText(transaction.getDate().transactionDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)).toString());
         remark.setText(transaction.getRemark().transactionRemark);
         category.setText(transaction.getCategory().transactionCategory);
     }

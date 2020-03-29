@@ -1,6 +1,6 @@
 package seedu.expensela.logic.parser;
 
-import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.expensela.commons.core.Messages.*;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
 
@@ -28,7 +28,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_DATE).isPresent())
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
         }
 
         try {
