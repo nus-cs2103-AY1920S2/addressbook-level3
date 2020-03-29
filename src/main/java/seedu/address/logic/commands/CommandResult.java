@@ -48,7 +48,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -102,7 +102,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, get, assignment, showBirthday, restaurant)
+        return Objects.hash(feedbackToUser, showHelp, exit, get, assignment, showBirthday, restaurant);
     }
 
 }
