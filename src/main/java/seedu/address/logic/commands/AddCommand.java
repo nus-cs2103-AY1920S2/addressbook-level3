@@ -108,6 +108,9 @@ public class AddCommand extends Command {
                         moduleToAdd.getPersonal().getStatus()));
             }
         } else { // Module does not exist
+            if (addSemester == 0) {
+                throw new CommandException("Error: Please specify semester.");
+            }
             // Create Personal object
             personal = new Personal();
         }

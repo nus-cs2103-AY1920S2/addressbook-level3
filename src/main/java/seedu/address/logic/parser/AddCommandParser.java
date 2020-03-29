@@ -30,19 +30,22 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_TASK, PREFIX_DEADLINE);
 
         // To check if Module argument exists since it is compulsory
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_SEMESTER)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         // Create module object
         String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
         ModuleCode moduleCode = ParserUtil.parseModuleCode(moduleCodeString);
-        int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
 
         String grade = null;
         String task = null;
         String deadlineString = null;
+        int intSemester = 0;
+
+        if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
+            intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+        }
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
             grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().toUpperCase());
         }
