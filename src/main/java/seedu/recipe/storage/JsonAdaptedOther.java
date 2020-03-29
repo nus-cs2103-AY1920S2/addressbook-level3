@@ -21,9 +21,9 @@ class JsonAdaptedOther {
      */
     @JsonCreator
     public JsonAdaptedOther(String other) {
-        String[] details = other.split(",");
-        this.otherName = details[0].trim();
-        this.quantity = QuantityUtil.parseQuantity(details[1].trim());
+        String[] details = other.split(",", 2);
+        this.otherName = details[1].trim();
+        this.quantity = QuantityUtil.parseQuantity(details[0].trim());
     }
 
     /**
@@ -36,7 +36,7 @@ class JsonAdaptedOther {
 
     @JsonValue
     public String getOther() {
-        return otherName + ",  " + quantity;
+        return quantity + ",  " + otherName;
     }
 
     /**

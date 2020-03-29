@@ -21,9 +21,9 @@ class JsonAdaptedProtein {
      */
     @JsonCreator
     public JsonAdaptedProtein(String protein) {
-        String[] details = protein.split(",");
-        this.proteinName = details[0].trim();
-        this.quantity = QuantityUtil.parseQuantity(details[1].trim());
+        String[] details = protein.split(",", 2);
+        this.proteinName = details[1].trim();
+        this.quantity = QuantityUtil.parseQuantity(details[0].trim());
     }
 
     /**
@@ -36,7 +36,7 @@ class JsonAdaptedProtein {
 
     @JsonValue
     public String getProtein() {
-        return proteinName + ",  " + quantity;
+        return quantity + ",  " + proteinName;
     }
 
     /**

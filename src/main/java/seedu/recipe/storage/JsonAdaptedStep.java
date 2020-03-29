@@ -34,7 +34,7 @@ public class JsonAdaptedStep {
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Step} object.
+     * Converts this Jackson-friendly adapted step object into the model's {@code Step} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted step.
      */
