@@ -51,7 +51,7 @@ public class AddItemCommand extends Command {
         requireAllNonNull(item, persons, amount);
         this.persons = persons;
         this.amount = amount;
-        toBeAdded = new Entry(item, persons);
+        this.toBeAdded = new Entry(item, persons);
     }
 
     @Override
