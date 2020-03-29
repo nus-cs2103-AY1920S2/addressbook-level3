@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.text.TextFlow?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.geometry.Insets?>
-<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.ListView?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
-    <SplitPane minHeight="100" dividerPositions="0.5">
-        <VBox styleClass="pane-with-border">
+    <SplitPane minHeight="100" dividerPositions="0.5" maxHeight="135">
+        <ListView fx:id="profile" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
             <padding>
                 <Insets top="3" bottom="3" left="5" right="0"/>
             </padding>
-            <TextFlow fx:id="profileDetails" styleClass="text_profile"/>
-        </VBox>
+        </ListView>
 
 
 <!--        cap panel-->
-        <TextFlow fx:id="capDetails" styleClass="pane-with-border" minWidth="200" maxWidth="200">
+        <VBox styleClass="pane-with-border" minWidth="200" maxWidth="200" minHeight="100" alignment="TOP_LEFT">
             <padding>
                 <Insets top="3" bottom="3" left="5" right="0"/>
             </padding>
-            <Text text="Current CAP: " styleClass="text_title"/>
-        </TextFlow>
+            <Label fx:id="cap" alignment="TOP_LEFT" styleClass="module_others"/>
+        </VBox>
 
         <padding>
             <Insets top="7" right="0" bottom="10" left="0" />

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,9 +17,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Profile;
@@ -32,48 +30,36 @@ public class OverviewPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
-    private TextFlow profileDetails;
+    private ListView<Profile> profile;
+    @FXML
+    private Label cap;
     @FXML
     private ScrollPane modulesPanel;
     @FXML
     private ListView<Module> moduleSemesterPanel;
 
 
-    public OverviewPanel(Profile profile) throws ParseException {
+    public OverviewPanel(ObservableList<Profile> profileList) throws ParseException {
         super(FXML);
 
-        //Profile details
-        Text name = new Text("Name: " + profile.getName().fullName + "\n");
-        name.setFont(Font.font("Segoe UI", 16));
-        name.setFill(Color.WHITE);
 
-        Text course = new Text("Course: " + profile.getCourseName().courseName + "\n");
-        course.setFont(Font.font("Segoe UI", 14));
-        course.setFill(Color.WHITE);
+        profile.setItems(profileList);
+        profile.setCellFactory(listView -> new ProfileListViewCell());
 
-        Text specialisation;
-        if (profile.getSpecialisation() != null) {
-            specialisation = new Text("Specialisation: " + profile.getSpecialisation() + "\n");
-        } else {
-            specialisation = new Text("Specialisation: - \n");
-        }
-        specialisation.setFont(Font.font("Segoe UI", 14));
-        specialisation.setFill(Color.WHITE);
+        Profile profile = profileList.get(0);
 
-        Text currentSem = new Text("Current Semester: " + profile.getCurrentSemester());
-        currentSem.setFont(Font.font("Segoe UI", 14));
-        currentSem.setFill(Color.WHITE);
+        cap.setText("Current CAP: \n" + profile.getCap().toString());
 
-        profileDetails.getChildren().addAll(name, course, specialisation, currentSem);
 
         //Modules panel
         HBox modPane = new HBox();
-        int totalNoOfSem = profile.getAllModules().keySet().size();
-        for (int i = 1; i <= totalNoOfSem; i++) {
+
+        for (Integer i : profile.getAllModules().keySet()) {
             HBox temp = new HBox();
             temp.setAlignment(Pos.CENTER);
             temp.setMaxWidth(40);
-
+            temp.setBackground(new Background(
+                    new BackgroundFill(Color.valueOf("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
             String yearSem;
             if (i == 1) {
                 yearSem = "Year 1 Semester 1";
@@ -111,7 +97,9 @@ public class OverviewPanel extends UiPart<Region> {
             modPane.setSpacing(5);
             modPane.getChildren().addAll(temp, moduleSemPanel);
         }
+
         modulesPanel.setContent(modPane);
+
     }
 
     /**
@@ -127,6 +115,22 @@ public class OverviewPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new OverviewModuleCard(module).getRoot());
+            }
+        }
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Profile} using a {@code DeadlineCard}.
+     */
+    class ProfileListViewCell extends ListCell<Profile> {
+        @Override
+        protected void updateItem(Profile profile, boolean empty) {
+            super.updateItem(profile, empty);
+            if (empty || profile == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new ProfileCard(profile).getRoot());
             }
         }
     }

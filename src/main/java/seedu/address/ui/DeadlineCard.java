@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import seedu.address.model.ModuleList;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -40,9 +42,36 @@ public class DeadlineCard extends UiPart<Region> {
     private Pane moduleColour;
 
 
-    public DeadlineCard(Deadline deadline) {
+    public DeadlineCard(Deadline deadline, ModuleList moduleList) {
         super(FXML);
         this.deadline = deadline;
+
+        //to colourise modules pane
+        Module thisMod = null;
+        for (Module mod : moduleList) {
+            if (deadline.getModuleCode().equals(mod.getModuleCode().toString())) {
+                thisMod = mod;
+            }
+        }
+
+        int tag = thisMod.getTag();
+        if (tag == 0) { //up to 8 modules
+            moduleColour.setStyle("-fx-background-color: \"84a9ac\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 1) {
+            moduleColour.setStyle("-fx-background-color: \"d45d79\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 2) {
+            moduleColour.setStyle("-fx-background-color: \"ff9933\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 3) {
+            moduleColour.setStyle("-fx-background-color: \"f6d186\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 4) {
+            moduleColour.setStyle("-fx-background-color: \"b590ca\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 5) {
+            moduleColour.setStyle("-fx-background-color: \"ea9085\"; -fx-border-color: #3a3a3a;");
+        } else if (tag == 6) {
+            moduleColour.setStyle("-fx-background-color: \"cae8d5\"; -fx-border-color: #3a3a3a;");
+        } else {
+
+        }
 
         //module name
         module.setText(deadline.getModuleCode());

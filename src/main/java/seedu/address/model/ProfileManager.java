@@ -155,6 +155,10 @@ public class ProfileManager implements Model {
         return sortedDeadlines;
     }
 
+    public void deleteDeadlineList() {
+        deadlineList.clear();
+    }
+
     @Override
     public void addDeadline(Deadline deadline) {
         this.deadlineList.add(deadline);

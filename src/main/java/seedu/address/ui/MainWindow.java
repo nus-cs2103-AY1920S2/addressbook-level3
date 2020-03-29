@@ -139,7 +139,7 @@ public class MainWindow extends UiPart<Stage> {
         profileListPanel = new ProfileListPanel(logic.getFilteredPersonList());
         profileListPanelPlaceholder.getChildren().add(profileListPanel.getRoot());
 
-        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList());
+        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList(), logic.getProfileManager());
         deadlineListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -196,9 +196,9 @@ public class MainWindow extends UiPart<Stage> {
      * Handles show command by updating Main Panel.
      */
     @FXML
+    @SuppressWarnings("unchecked")
     private void handleShowCommand() throws ParseException {
         Optional<Object> displayedView = logic.getDisplayedView();
-        Profile profile = logic.getProfileList().getProfileList().get(0);
 
         // Removes the current displayed view
         if (displayedView != null) {
@@ -214,7 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
             mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
         } else if (displayedView.get() instanceof Profile) {
-            overviewPanel = new OverviewPanel(profile);
+            overviewPanel = new OverviewPanel(logic.getProfileList().getProfileList());
             mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
         } else if (displayedView.get() instanceof Module) {
             individualModulePanel = new IndividualModulePanel((Module) displayedView.get());
