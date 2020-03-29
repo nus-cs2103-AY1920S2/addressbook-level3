@@ -110,13 +110,19 @@ class NearbyCommand {
     + {static} MESSAGE_FAILURE_POSTAL_SECTOR : String
     + {static} MESSAGE_FAILURE_AREA : String
     - searchTerm : String
+    - isOrderListSearch : boolean
+    - isReturnListSearch : boolean
 
     /' Methods '/
     + execute(model : Model) : CommandResult
     - getPostalSectorPredicate() : Predicate<Order>
+    - getPostalSectorReturnPredicate() : Predicate<ReturnOrder>
     - getAreaPredicate() : Predicate<Order>
-    - showPostalSectors(model : Model, postalSector : Index) : CommandResult
+    - getAreaReturnPredicate() : Predicate<ReturnOrder>
+    - showPostalSectors(model : Model) : CommandResult
+    - showArea(model : Model) : void
     - isPostalSectorSearch() : boolean
+    - hasRegexInSearchTerm(regex : String, searchTerm : String) : boolean
 }
 
 abstract class "{abstract}\nCommand" {
