@@ -3,6 +3,7 @@ package seedu.address.logic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.AppCommandResult;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.parser.CommandRouter;
@@ -53,7 +54,8 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
     public AppCommandResult execute(String command) throws ParseException {
         logger.info("----------------[USER COMMAND][" + command + "]");
 
-        AppCommandResult result = new CommandRouter().parse(command);
+        AppCommand appCommand = new CommandRouter().parse(command);
+        AppCommandResult result = appCommand.execute(dao);
         return result;
     }
 }

@@ -35,6 +35,11 @@ public class AppMainWindow extends UiPart<Stage> {
     @FXML
     private StackPane bluetoothPingPanelPlaceholder;
 
+    private void renderToPanel() {
+        this.bluetoothPingPanelPlaceholder.getChildren().clear();
+
+    }
+
     public AppMainWindow(Stage primaryStage, AppLogic logic) {
         super(FXML, primaryStage);
 
@@ -45,6 +50,14 @@ public class AppMainWindow extends UiPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void renderToDisplay(AppCommandResult commandResult) {
+        if (commandResult.getRenderFlag()) {
+            this.bluetoothPingPanelPlaceholder.getChildren().clear();
+            this.bluetoothPingPanel = new BluetoothPingPanel(commandResult.getDisplayAsObservable());
+            this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
+        }
     }
 
     /**
@@ -85,6 +98,7 @@ public class AppMainWindow extends UiPart<Stage> {
             AppCommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            this.renderToDisplay(commandResult);
 
             if (commandResult.isExit()) {
                 handleExit();
