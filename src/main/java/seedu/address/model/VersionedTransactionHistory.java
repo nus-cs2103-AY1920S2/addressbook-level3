@@ -9,8 +9,8 @@ import java.util.List;
 
 public class VersionedTransactionHistory extends TransactionHistory implements Version<TransactionHistory> {
     private TransactionHistory currentState;
-    int statePointer;
-    List<TransactionHistory> stateList;
+    private int statePointer;
+    private List<TransactionHistory> stateList;
 
     public VersionedTransactionHistory() {
         statePointer = -1;

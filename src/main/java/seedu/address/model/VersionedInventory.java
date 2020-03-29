@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class VersionedInventory extends Inventory implements Version<Inventory> {
 
-    List<Inventory> stateList;
-    Inventory currentState;
-    int statePointer;
+    private List<Inventory> stateList;
+    private Inventory currentState;
+    private int statePointer;
 
     public VersionedInventory() {
         statePointer = -1;

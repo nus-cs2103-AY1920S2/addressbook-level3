@@ -3,7 +3,6 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.supplier.UniqueSupplierList;
-import seedu.address.model.supplier.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,8 @@ import java.util.List;
  */
 public class VersionedAddressBook extends AddressBook implements Version<AddressBook> {
     private AddressBook currentState;
-    int statePointer;
-    List<AddressBook> stateList;
+    private int statePointer;
+    private List<AddressBook> stateList;
 
     public VersionedAddressBook() {
         statePointer = -1;
