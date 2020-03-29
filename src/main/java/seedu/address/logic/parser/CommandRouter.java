@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.AppCommand;
-import seedu.address.logic.commands.AppCommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.commands.FilterTimestampCommand;
+import seedu.address.logic.commands.FilterUserIDCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +26,9 @@ public class CommandRouter {
         switch (commandWord) {
         case FilterTimestampCommand.COMMAND_WORD:
             return new FilterTimestampCommand().validate(arguments);
+
+        case FilterUserIDCommand.COMMAND_WORD:
+            return new FilterUserIDCommand().validate(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -18,7 +18,7 @@
         </padding>
         <FlowPane fx:id="tags" />
 
-        <Label text="Time recorded: " GridPane.columnIndex="0"
+        <Label text="Ping timestamp: " GridPane.columnIndex="0"
                GridPane.rowIndex="0" GridPane.columnSpan="1"
                GridPane.rowSpan="1" >
             <font>
@@ -42,7 +42,7 @@
         </Label>
 
         <!--<Label text="" />-->
-        <Label text="Contacts: " GridPane.columnIndex="0"
+        <Label text="Contact IDs: " GridPane.columnIndex="0"
                GridPane.rowIndex="1" GridPane.columnSpan="1"
                GridPane.rowSpan="1" >
             <font>
