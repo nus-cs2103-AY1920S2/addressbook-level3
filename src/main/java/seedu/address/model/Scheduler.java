@@ -48,7 +48,6 @@ public class Scheduler implements ReadOnlyScheduler {
      */
     public void resetData(ReadOnlyScheduler newData) {
         requireNonNull(newData);
-
         setAssignments(newData.getAssignmentsList());
     }
 
@@ -78,7 +77,6 @@ public class Scheduler implements ReadOnlyScheduler {
 
     public void setAssignment(Assignment target, Assignment markedAssignment) {
         requireNonNull(markedAssignment);
-
         assignments.setAssignment(target, markedAssignment);
     }
 

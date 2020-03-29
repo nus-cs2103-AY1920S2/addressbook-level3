@@ -29,19 +29,19 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false, false, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false, false, false, false)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false, false, false)));
 
         //different get value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true, false, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true, false, false, false)));
 
         // different assignment value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, true, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, true, false, false)));
 
         // different restaurant value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, false, true)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, false, false, true)));
     }
 
     @Test
@@ -56,22 +56,22 @@ public class CommandResultTest {
 
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false,
-                false, false, false).hashCode());
+                false, false, false, false).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true,
-                false, false, false).hashCode());
+                false, false, false, false).hashCode());
 
         // different get value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false,
-                true, false, false).hashCode());
+                true, false, false, false).hashCode());
 
         // different assignment value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false,
-                false, true, false).hashCode());
+                false, true, false, false).hashCode());
 
         // different restaurant value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false,
-                false, false, true).hashCode());
+                false, false, false, true).hashCode());
     }
 }

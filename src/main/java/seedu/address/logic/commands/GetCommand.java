@@ -24,7 +24,6 @@ public class GetCommand extends Command {
      */
     public GetCommand(PersonExistPredicate index) {
         requireNonNull(index);
-
         this.index = index;
     }
 

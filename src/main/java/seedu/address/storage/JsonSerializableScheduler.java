@@ -49,6 +49,7 @@ public class JsonSerializableScheduler {
         Scheduler scheduler = new Scheduler();
         for (JsonAdaptedAssignment jsonAdaptedAssignment : assignments) {
             Assignment assignment = jsonAdaptedAssignment.toModelType();
+
             if (scheduler.hasAssignment(assignment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
             }
