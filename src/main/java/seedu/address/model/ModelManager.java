@@ -23,7 +23,7 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook addressBook;
     private final VersionedInventory inventory;
-    private final TransactionHistory transactionHistory;
+    private final VersionedTransactionHistory transactionHistory;
     private final UserPrefs userPrefs;
     private final FilteredList<Supplier> filteredSuppliers;
     private final FilteredList<Good> filteredGoods;
@@ -44,7 +44,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new VersionedAddressBook(addressBook);
         this.inventory = new VersionedInventory(inventory);
-        this.transactionHistory = new TransactionHistory(transactionHistory);
+        this.transactionHistory = new VersionedTransactionHistory(transactionHistory);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredSuppliers = new FilteredList<>(this.addressBook.getReadOnlyList());
         filteredGoods = new FilteredList<>(this.inventory.getReadOnlyList());
@@ -189,7 +189,6 @@ public class ModelManager implements Model {
         inventory.setGood(target, editedGood);
     }
 
-    //=========== Filtered Supplier List Accessors =============================================================
     //=========== Transaction History ================================================================================
 
     @Override
@@ -219,7 +218,7 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Supplier List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Supplier} backed by the internal list of
@@ -276,12 +275,14 @@ public class ModelManager implements Model {
     public void commit() {
         addressBook.commit();
         inventory.commit();
+        transactionHistory.commit();
     }
 
     @Override
     public void undo() throws StateNotFoundException {
         addressBook.undo();
         inventory.undo();
+        transactionHistory.undo();
     }
 
     @Override
