@@ -1,13 +1,14 @@
 package seedu.address.model.hirelah;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 import java.time.Duration;
 import java.util.stream.IntStream;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A list of remarks that are associated  with a particular interview session of an {@code Interviewee}.
@@ -93,14 +94,24 @@ public class RemarkList {
      * Retrieves the index of the Remark when this {@code Question}
      * was first asked.
      *
-     * @param questionNumber Question number that is queried.
+     * @param questionIndex Question number that is queried.
      * @return The index of the {@code Remark} in the RemarkList
      *         that was first associated with this {@code Question}.
+     * @throws IllegalActionException If the question queried has not been answered.
+     * @throws IllegalValueException If the question index queried is out of bound or is not a number.
      */
-    public int getIndexOfQuestion(int questionNumber) throws IllegalActionException {
-        if (!isQuestionAnswered(questionNumber)) {
-            throw new IllegalActionException("This question was not answered!");
+    public int getIndexOfQuestion(String questionIndex) throws IllegalActionException, IllegalValueException {
+        try {
+            int index = Integer.parseInt(questionIndex);
+            if (!isQuestionAnswered(index)) {
+                throw new IllegalActionException("This question was not answered!");
+            }
+            if (index > questionIndices.length - 1 || index <= 0) {
+                throw new IllegalValueException("The question index is out of bound");
+            }
+            return questionIndices[index];
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("The input is not a number.");
         }
-        return questionIndices[questionNumber];
     }
 }

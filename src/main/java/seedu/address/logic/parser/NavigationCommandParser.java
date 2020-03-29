@@ -9,16 +9,27 @@ import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
- * Parses input command and creates a new NavigationQuestionCommand object
+ * Parses input command and creates a new Command object
  */
 public class NavigationCommandParser implements Parser<Command> {
 
+    private static final String INPUT_WORD = "to";
+    private static final String INPUT_FORMAT = INPUT_WORD + ": Navigate to a particular remark of an interviewee.\n"
+            + "Includes:\n"
+            + "navigating to a particular time of an interview with an interviewee\n"
+            + "\tParameters: questionNumber\n"
+            + "\tExample:  " + INPUT_WORD + " q10"
+            + "navigating to the answer to a particular question from an interviewee\n"
+            + "\tParameters: minutes.seconds of the interview\n"
+            + "\tExample:  " + INPUT_WORD + " 30.00";
+
     /**
-     * Parses the given {@code String} of commandWord in the context of the ListCommand
-     * and returns an ListCommand object for execution.
+     * Parses the given {@code String} of commandWord in the context of the Command
+     * and returns an Command object that will navigate to a certain part
+     * of an interviewee's remark for execution.
      *
      * @param commandWord the command word to be parsed
      * @throws ParseException if the user input is not a valid command word
@@ -43,8 +54,7 @@ public class NavigationCommandParser implements Parser<Command> {
             Duration query = minutesDuration.plus(secondsDuration);
             return new NavigationTimeCommand(query);
         } else {
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, INPUT_FORMAT));
         }
-
     }
 }

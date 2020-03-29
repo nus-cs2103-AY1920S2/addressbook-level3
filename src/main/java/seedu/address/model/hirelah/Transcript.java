@@ -1,11 +1,12 @@
 package seedu.address.model.hirelah;
 
-import java.time.Duration;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
+
+import java.time.Duration;
 
 /**
  * Encapsulates all the details that are put by the interviewer during the interview session
@@ -88,12 +89,12 @@ public class Transcript {
      * Retrieves the index of the Remark when this {@code Question}
      * was first asked.
      *
-     * @param questionNumber Question number that is queried.
+     * @param questionIndex Index of the question that is queried.
      * @return The index of the {@code Remark} in the RemarkList
      *         that was first associated with this {@code Question}.
      */
-    public int getIndexOfQuestion(int questionNumber) throws IllegalActionException {
-        return remarkList.getIndexOfQuestion(questionNumber);
+    public int getIndexOfQuestion(String questionIndex) throws IllegalActionException, IllegalValueException {
+        return remarkList.getIndexOfQuestion(questionIndex);
     }
 
 }
