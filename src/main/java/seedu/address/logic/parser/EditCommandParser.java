@@ -3,11 +3,14 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.stream.Stream;
 
@@ -32,16 +35,26 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC,
-                        PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE);
+                        PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE, PREFIX_TASK, PREFIX_NEW_TASK, PREFIX_DEADLINE);
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
-            // Check that module already exists
+            if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                System.out.println("here");
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+
             String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get();
             moduleCodeString = moduleCodeString.trim();
             moduleCodeString = moduleCodeString.toUpperCase();
             ModuleCode moduleCode = new ModuleCode(moduleCodeString);
+
             int intSemester = 0;
             String grade = null;
+            String oldTask = null;
+            String newTask = null;
+            String newDeadline = null;
+
             if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
                 String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
                 if (!ParserUtil.isInteger(semester)) {
@@ -52,7 +65,20 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
                 grade = argMultimap.getValue(PREFIX_GRADE).get();
             }
-            return new EditCommand(moduleCode, intSemester, grade);
+            if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                oldTask = argMultimap.getValue(PREFIX_TASK).get();
+                if (!arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
+                        && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
+                    throw new ParseException("Error: Please specify which edits to make to this task.");
+                }
+                if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
+                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();
+                }
+                if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
+                    newDeadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+                }
+            }
+            return new EditCommand(moduleCode, intSemester, grade, oldTask, newTask, newDeadline);
         } else { // EDIT PROFILE
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
                     && !arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)

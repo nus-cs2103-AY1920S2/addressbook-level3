@@ -25,6 +25,8 @@ import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * Edits Profile or Module specified by user.
@@ -67,6 +69,10 @@ public class EditCommand extends Command {
     private ModuleCode moduleCode;
     private int intSemester = 0;
     private String grade = null;
+    private String oldTask = null;
+    private String newTask = null;
+    private String newDeadlineString = null;
+    private int inSemester = 0;
 
     public EditCommand(Name name, CourseName courseName, int updatedSemester, String specialisation) {
         toEditProfile = true;
@@ -76,11 +82,15 @@ public class EditCommand extends Command {
         this.specialisation = specialisation;
     }
 
-    public EditCommand(ModuleCode moduleCode, int intSemester, String grade) {
+    public EditCommand(ModuleCode moduleCode, int intSemester, String grade, String oldTask, String newTask,
+                       String newDeadline) {
         editModule = true;
         this.moduleCode = moduleCode;
         this.intSemester = intSemester;
         this.grade = grade;
+        this.oldTask = oldTask;
+        this.newTask = newTask;
+        this.newDeadlineString = newDeadline;
     }
 
     @Override
@@ -123,7 +133,7 @@ public class EditCommand extends Command {
                 throw new CommandException("This module has not been added before");
             }
 
-            if (oldSemester != 0) {
+            if (oldSemester != 0 && intSemester != 0) {
                 try {
                     hashMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
                 } catch (ParseException e) {
@@ -136,6 +146,32 @@ public class EditCommand extends Command {
 
             if (grade != null) {
                 existingModule.getPersonal().setGrade(grade);
+            }
+
+            //TODO: edit task and deadlines
+            Deadline oldDeadline = null;
+            Deadline newDeadline = null;
+            if (newTask != null) {
+                try {
+                    newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                    oldDeadline = newDeadline;
+                    newDeadline.setDescription(newTask);
+                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                } catch (Exception e) {
+                    throw new CommandException("Error: Deadline does not exist");
+                }
+            }
+            if (newDeadlineString != null) {
+                newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                oldDeadline = newDeadline;
+                String date = newDeadlineString.split(" ")[0];
+                String time = newDeadlineString.split(" ")[1];
+                try {
+                    newDeadline.setDateTime(date, time);
+                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                } catch (DateTimeException e) {
+                    throw new CommandException("Invalid date or time!");
+                }
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), false);

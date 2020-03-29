@@ -178,6 +178,27 @@ public class ProfileManager implements Model {
         }
     }
 
+    /**
+     * To be used when deadline is edited.
+     */
+    public void replaceDeadline(Deadline oldDeadline, Deadline newDeadline) {
+        Iterator<Deadline> iter = this.deadlineList.iterator();
+        Boolean flag = false;
+        while (iter.hasNext()) {
+            Deadline dl = iter.next();
+            if (dl.getModuleCode().equals(oldDeadline.getModuleCode())
+                    && dl.getDescription().equals(oldDeadline.getDescription())) {
+                iter.remove();
+                flag = true;
+            }
+        }
+        if (!flag) {
+            throw new DeadlineNotFoundException();
+        } else {
+            this.deadlineList.add(newDeadline);
+        }
+    }
+
     @Override
     public void clearDeadlineList() {
         this.deadlineList.clear();

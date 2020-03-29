@@ -81,6 +81,19 @@ public class Deadline {
         return tag;
     }
 
+    public void setDescription(String newTask) {
+        this.description = newTask;
+    }
+
+    public void setDateTime(String newDate, String newTime) throws DateTimeException {
+        try {
+            this.date = LocalDate.parse(newDate);
+            this.time = LocalTime.parse(newTime, inputTimeFormatter);
+        } catch (Exception e) {
+            throw new DateTimeException("Try: d/YYYY-MM-DD HH:mm");
+        }
+    }
+
     public DateTimeFormatter getInputTimeFormatter() {
         return inputTimeFormatter;
     }
