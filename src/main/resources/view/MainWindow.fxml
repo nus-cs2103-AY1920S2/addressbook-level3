@@ -26,7 +26,7 @@
       <VBox>
         <SplitPane VBox.vgrow="ALWAYS">
           <VBox VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false" minWidth="180">
-            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" focusTraversable="true">
               <Menu mnemonicParsing="false" text="File">
                 <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
               </Menu>
