@@ -68,22 +68,18 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                 new ReturnOrderContainsKeywordsPredicate(keywords));
         }
 
-
-        if (flag.equals(CliSyntax.FLAG_ORDER_LIST)) {
+        if (flag.equals(CliSyntax.FLAG_ORDER_BOOK)) {
             return prefixesPresent
                 ? new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap))
                 : new SearchCommand(new OrderContainsKeywordsPredicate(keywords));
-        } else if (flag.equals(CliSyntax.FLAG_RETURN_LIST)) {
+        } else if (flag.equals(CliSyntax.FLAG_RETURN_BOOK)) {
             return prefixesPresent
                 ? new SearchCommand(new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
                 : new SearchCommand(new ReturnOrderContainsKeywordsPredicate(keywords));
         }
 
-        return prefixesPresent
-            ? new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap),
-            new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
-            : new SearchCommand(new OrderContainsKeywordsPredicate(keywords),
-            new ReturnOrderContainsKeywordsPredicate(keywords));
+        throw new ParseException(String.format(
+            MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
     }
 
     /**
@@ -116,7 +112,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private boolean areFlagsPresent(String string) {
         List<String> listOfStr = Arrays.asList(string.split("\\s"));
         return Stream
-            .of(CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST)
+            .of(CliSyntax.FLAG_RETURN_BOOK, CliSyntax.FLAG_ORDER_BOOK)
             .anyMatch(flag -> listOfStr.contains(flag.getFlag()));
     }
 
@@ -128,15 +124,15 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      */
     private Flag extractFlag(String arg) throws ParseException {
         List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
-        if (argArr.contains(CliSyntax.FLAG_ORDER_LIST.getFlag())
-            && argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag())) {
+        if (argArr.contains(CliSyntax.FLAG_ORDER_BOOK.getFlag())
+            && argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
             throw new ParseException(SearchCommand.MULTIPLE_FLAGS_DETECTED);
         }
 
-        if (argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag())) {
-            return CliSyntax.FLAG_RETURN_LIST;
+        if (argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
+            return CliSyntax.FLAG_RETURN_BOOK;
         } else {
-            return CliSyntax.FLAG_ORDER_LIST;
+            return CliSyntax.FLAG_ORDER_BOOK;
         }
     }
 
@@ -150,7 +146,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         String returnString = listOfArgs
             .stream()
             .filter(each -> Stream
-                .of(CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST)
+                .of(CliSyntax.FLAG_RETURN_BOOK, CliSyntax.FLAG_ORDER_BOOK)
                 .noneMatch(flag -> each.equals(flag.getFlag())))
             .map(each -> each + " ")
             .collect(Collectors.joining());
