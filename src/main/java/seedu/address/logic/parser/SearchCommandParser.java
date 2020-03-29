@@ -13,9 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -118,7 +116,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private boolean areFlagsPresent(String string) {
         List<String> listOfStr = Arrays.asList(string.split("\\s"));
         return Stream
-            .of(CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST, CliSyntax.FLAG_ORDER_RETURN_LIST)
+            .of(CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST)
             .anyMatch(flag -> listOfStr.contains(flag.getFlag()));
     }
 
@@ -126,14 +124,16 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * Returns a {@code Flag} object according to the flag user provided in.
      * @param arg String object representing the user input.
      * @return {@code Flag} object representing the flag given.
+     * @throws ParseException ParseException is thrown when multiple different flags are detected.
      */
-    private Flag extractFlag(String arg) {
+    private Flag extractFlag(String arg) throws ParseException {
         List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
-        if ((argArr.contains(CliSyntax.FLAG_ORDER_LIST.getFlag())
-            && argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag()))
-            || argArr.contains(CliSyntax.FLAG_ORDER_RETURN_LIST.getFlag())) {
-            return CliSyntax.FLAG_ORDER_RETURN_LIST;
-        } else if (argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag())) {
+        if (argArr.contains(CliSyntax.FLAG_ORDER_LIST.getFlag())
+            && argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag())) {
+            throw new ParseException(SearchCommand.MULTIPLE_FLAGS_DETECTED);
+        }
+
+        if (argArr.contains(CliSyntax.FLAG_RETURN_LIST.getFlag())) {
             return CliSyntax.FLAG_RETURN_LIST;
         } else {
             return CliSyntax.FLAG_ORDER_LIST;
@@ -150,7 +150,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         String returnString = listOfArgs
             .stream()
             .filter(each -> Stream
-                .of(CliSyntax.FLAG_ORDER_RETURN_LIST, CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST)
+                .of(CliSyntax.FLAG_RETURN_LIST, CliSyntax.FLAG_ORDER_LIST)
                 .noneMatch(flag -> each.equals(flag.getFlag())))
             .map(each -> each + " ")
             .collect(Collectors.joining());

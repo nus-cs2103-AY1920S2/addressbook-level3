@@ -22,6 +22,5 @@ public class CliSyntax {
     public static final Flag FLAG_FORCE_CLEAR = new Flag("-f");
     public static final Flag FLAG_ORDER_LIST = new Flag("-o");
     public static final Flag FLAG_RETURN_LIST = new Flag("-r");
-    public static final Flag FLAG_ORDER_RETURN_LIST = new Flag("-or");
 
 }

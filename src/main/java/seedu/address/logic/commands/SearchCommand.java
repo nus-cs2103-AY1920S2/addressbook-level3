@@ -13,17 +13,25 @@ import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicat
  */
 public class SearchCommand extends Command {
 
+    private static final String NEWLINE = System.lineSeparator();
+
     public static final String COMMAND_WORD = "search";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Default, search command searches for all orders "
-        + "that contain any of the specified keywords in any of it's field (case-insensitive) "
-        + "and displays them as a list with index numbers.\n"
-        + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-        + "Example: " + COMMAND_WORD + " alice bob charlie 999 Geylang\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Default, search command searches for all parcels "
+        + "(orders/returns) that contain any of the specified keywords in any of it's field (case-insensitive) "
+        + "and displays them as a list with index numbers." + NEWLINE
+        + "If -o flag is given order is searched, If -r flag is given return is searched." + NEWLINE
+        + "Parameters: [FLAG] ORDER_ATTRIBUTE_PREFIX/KEYWORD [ORDER_ATTRIBUTE_PREFIX/MORE_KEYWORDS]..." + NEWLINE
+        + "Example: " + COMMAND_WORD + " -o alice bob charlie 999 Geylang" + NEWLINE
         + "If given a Prefix followed by a set of keywords, "
-        + "only orders with that set of keywords under that specific prefix will be displayed.\n"
+        + "only orders with that set of keywords under that specific prefix will be displayed." + NEWLINE
         + "However, do note that adding any KEYWORD before any prefix given will result in default search "
         + "and everything given with prefixes after that will not be considered!";
+
+    public static final String MULTIPLE_FLAGS_DETECTED = "Different flags detected, please check your input." + NEWLINE
+        + "Format example: " + COMMAND_WORD + " -o alice bob charlie 999 Geylang" + NEWLINE
+        + "OR " + COMMAND_WORD + " -r alice bob charlie 999 Geylang" + NEWLINE
+        + "OR " + COMMAND_WORD + " alice bob charlie 999 Geylang" + NEWLINE;
 
     private final OrderContainsKeywordsPredicate orderPredicate;
     private final ReturnOrderContainsKeywordsPredicate returnPredicate;
