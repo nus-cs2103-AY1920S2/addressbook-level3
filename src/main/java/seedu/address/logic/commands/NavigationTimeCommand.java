@@ -1,13 +1,23 @@
 package seedu.address.logic.commands;
 
+<<<<<<< HEAD
 import static java.util.Objects.requireNonNull;
+=======
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.hirelah.Transcript;
+>>>>>>> 9f6d0768dd1bb7365d76ce8530c4d9f974e5ac53
 
 import java.time.Duration;
 import java.util.Optional;
 
+<<<<<<< HEAD
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Transcript;
+=======
+import static java.util.Objects.requireNonNull;
+>>>>>>> 9f6d0768dd1bb7365d76ce8530c4d9f974e5ac53
 
 /**
  * NavigationTimeCommand describes the behavior when the
