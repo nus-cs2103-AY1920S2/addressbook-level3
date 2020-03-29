@@ -4,6 +4,7 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 
 import javafx.application.Platform;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -22,12 +23,22 @@ public class CommandBox extends ViewPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, StringProperty stringProperty) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         Platform.runLater(() -> commandTextField.requestFocus());
+        initializeListeners(stringProperty);
+    }
+
+    /**
+     * Sets up weak and strong listeners for view-state management.
+     * @param stringProperty A property that, upon method execution, reflects the data that
+     * the user types in the model, and also reflects changes in the model to the text field.
+     */
+    private void initializeListeners(StringProperty stringProperty) {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().bindBidirectional(stringProperty);
     }
 
     /**
