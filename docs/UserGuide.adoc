@@ -100,14 +100,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Description
 * You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
-* If an additional flag is given -f, no user confirmation will be requested.
+* If an `-f` flag is given, no user confirmation will be requested.
+
+[NOTE]
+====
+* Space is required in between the flags and command.
+* If *no* `-o` or `-r` flag is given, it will be treated as both. *Both* order book and return order book will be cleared.
+====
 
 ==== Format:
 * `clear` `[FLAG]`
 
 ==== Examples
-* `clear`
-* `clear` `-f`
+* `clear` +
+    Popup will appeared and ask the user for double confirm to clear both order and return order book.
+* `clear` `-f` +
+    Both order book and return order book will be cleared immediately.
+* `clear` `-f` `-r` +
+    Only return order book is cleared immediately.
+* `clear` `-o` `-f` +
+    Only order book is cleared immediately.
 
 [[delete]]
 === Deleting an order : `delete`
@@ -597,6 +609,14 @@ e.g. `nearby` `north`
 
 |-f
 |Force clear, no user confirmation will be requested
+|<<clear, Clear>>
+
+|-o
+|Order flag, Operation on order list
+|<<clear, Clear>>
+
+|-r
+|Return Order flag, Operation on return order list
 |<<clear, Clear>>
 |===
 
