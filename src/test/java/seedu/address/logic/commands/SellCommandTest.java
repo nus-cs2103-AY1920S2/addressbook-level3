@@ -99,6 +99,15 @@ public class SellCommandTest {
     }
 
     @Test
+    public void execute_validPerson_callsModelCommit() throws CommandException {
+        ModelStubCommit modelStub = new ModelStubCommit();
+        modelStub.addGood(soldGood);
+        new SellCommand(soldGood).execute(modelStub);
+
+        assertTrue(modelStub.isCommitted());
+    }
+
+    @Test
     public void execute_sellMoreThanInventoryQuantity_throwCommandException() {
         ModelStubInsufficientInventory modelStub = new ModelStubInsufficientInventory();
 

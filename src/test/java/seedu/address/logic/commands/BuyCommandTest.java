@@ -106,6 +106,13 @@ public class BuyCommandTest {
         //TODO: JD: implement this after you have fixed the BuyCommand overflow bug
     }
 
+    @Test
+    public void execute_validPerson_callsModelCommit() throws CommandException {
+        ModelStubCommit modelStub = new ModelStubCommit();
+        new BuyCommand(boughtGood).execute(modelStub);
+
+        assertTrue(modelStub.isCommitted());
+    }
 
     private class ModelStubWithExistingGood extends ModelStub {
         private ArrayList<Good> inventory = new ArrayList<>();
