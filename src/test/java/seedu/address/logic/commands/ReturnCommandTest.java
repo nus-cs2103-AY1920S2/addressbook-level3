@@ -191,6 +191,11 @@ public class ReturnCommandTest {
         }
 
         @Override
+        public void deliverReturnOrder(ReturnOrder target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setReturnOrder(ReturnOrder target, ReturnOrder editedOrder) {
             throw new AssertionError("This method should not be called.");
         }

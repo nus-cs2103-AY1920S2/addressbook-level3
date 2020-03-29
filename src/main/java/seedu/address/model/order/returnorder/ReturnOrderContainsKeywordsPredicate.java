@@ -6,6 +6,10 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 
+/**
+ * Tests that a {@code Order}'s {@code TransactionId}, {@code Name}, {@code Phone}, {@code Address}, {@code TimeStamp},
+ * {@code Warehouse}, {@code CashOnDeliver}, {@code Comment} and {@code TypeOfItem} matches any of the keywords given.
+ */
 public class ReturnOrderContainsKeywordsPredicate implements Predicate<ReturnOrder> {
     private final List<String> keywords;
     private final ArgumentMultimap argumentMultimap;

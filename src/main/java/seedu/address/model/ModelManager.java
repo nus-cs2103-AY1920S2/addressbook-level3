@@ -160,7 +160,6 @@ public class ModelManager implements Model {
     @Override
     public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder) {
         requireAllNonNull(target, editedReturnOrder);
-
         returnOrderBook.setReturnOrder(target, editedReturnOrder);
     }
 
@@ -206,6 +205,11 @@ public class ModelManager implements Model {
     public void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) {
         requireNonNull(predicate);
         filteredReturnOrders.setPredicate(predicate);
+    }
+
+    @Override
+    public void deliverReturnOrder(ReturnOrder target) {
+        returnOrderBook.deliverReturnOrder(target);
     }
 
     @Override

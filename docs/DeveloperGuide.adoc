@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -191,6 +191,12 @@ display the original order book.
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
+
+The nearby feature can have an optional `FLAG` argument. This can be either `-o` or `-r`. +
+A `-o` `FLAG` argument indicates that the order list will be searched. +
+A `-r` `FLAG` argument indicates that the return order list will be searched. +
+By default, if no `FLAG` arguments are provided, both order list and return order list will be searched.
+
 There are currently two possible search options:
 
 . Searching by *postal sector*
@@ -1148,35 +1154,35 @@ A *postal sector* is the first *two* digits of a six digit Singapore postal code
 The list of postal sectors and their corresponding general locations can be found
 https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
-.. Nearby command format: `nearby` `POSTAL_SECTOR`
+.. Nearby command format: `nearby` `[FLAG]` `POSTAL_SECTOR`
 
 .. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
-.. Test case: `nearby` `79` +
+.. Test case: `nearby` `-o` `79` +
    Expected: Obtain all orders located in postal sector 79 (Seletar)
-.. Test case: `nearby` `07` +
-   Expected: Obtain all orders located in postal sector 07 (Anson, Tanjong Pagar)
-.. Test case: `nearby` `99` +
+.. Test case: `nearby` `-r` `07` +
+   Expected: Obtain all return orders located in postal sector 07 (Anson, Tanjong Pagar)
+.. Test case: `nearby` `-o` `99` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby` `600` +
+.. Test case: `nearby` `-o` `600` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby` +
+.. Test case: `nearby -o` +
    Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 
 . Obtain all orders located in the same area. +
 There are *5* different areas in Singapore: Central, East, North East, West, North +
-.. Nearby command format: `nearby` `AREA`
+.. Nearby command format: `nearby` `[FLAG]` `AREA`
 .. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
-.. Test case: `nearby` `central` +
+.. Test case: `nearby` `-o` `central` +
    Expected: Obtain all orders located in central area of Singapore
-.. Test case: `nearby` `east` +
+.. Test case: `nearby` `-r` `east` +
+   Expected: Obtain all return orders located in east area of Singapore
+.. Test case: `nearby` `-o` `north east` +
    Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `north east` +
-   Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `west` +
-   Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `north` +
-   Expected: Obtain all orders located in east area of Singapore
+.. Test case: `nearby` `-r` `west` +
+   Expected: Obtain all return orders located in east area of Singapore
+.. Test case: `nearby` `-r` `north` +
+   Expected: Obtain all return orders located in east area of Singapore
 
 .. Information about each area was obtained from
 https://keylocation.sg/singapore/districts-map[this website] +
