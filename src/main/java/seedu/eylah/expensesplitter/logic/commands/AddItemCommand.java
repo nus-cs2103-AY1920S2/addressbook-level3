@@ -34,8 +34,8 @@ public class AddItemCommand extends Command {
     // note:
     // if receipt is done, can only do paid, back, listamount and listreceipt. CANNOT: add/deleteitem.
     // if receipt is undone, can only additem, back, deleteitem, listreceipt, listamount. CANNOT: paid.
-    public static final String MESSAGE_RECEIPT_DONE = "The current receipt is marked as completed. You may not use " +
-            "the additem command.";
+    public static final String MESSAGE_RECEIPT_DONE = "The current receipt is marked as completed. You may not use "
+            + "the additem command.";
 
     private Entry toBeAdded;
     private ArrayList<Person> persons;

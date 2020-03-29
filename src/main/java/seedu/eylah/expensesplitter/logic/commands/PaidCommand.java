@@ -24,8 +24,8 @@ public class PaidCommand extends Command {
         + "Parameters: INDEX and AMOUNT (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1" + " 3.30";
 
-    public static final String MESSAGE_RECEIPT_UNDONE = "The current receipt is marked as incomplete. You may not " +
-            "use the paid command.";
+    public static final String MESSAGE_RECEIPT_UNDONE = "The current receipt is marked as incomplete. You may not "
+            + "use the paid command.";
 
     //private final Person personPaid;
     private final Index indexOfPersonPaid;
@@ -46,8 +46,7 @@ public class PaidCommand extends Command {
         requireNonNull(model);
         if (!model.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_UNDONE);
-        }
-        else {
+        } else {
             ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
 
