@@ -100,16 +100,12 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #fbd1a2;
-    -fx-border-color: #f79256;
-    -fx-border-width: 3;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #736DFF, #6A26FF);
 
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #f47c27;
-    -fx-border-color: #f79256;
-    -fx-border-width: 3;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #D182FF, #736DFF);
 }
 
 .list-cell:filled:selected {
@@ -122,7 +118,7 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 
 .cell_big_label {

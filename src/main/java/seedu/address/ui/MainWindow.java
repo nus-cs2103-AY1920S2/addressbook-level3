@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     SummaryPanel summaryPanel = new SummaryPanel();
-    summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
+    //summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
     summaryPanel.updateTotalTeachers(logic.getFilteredTeacherList().size());
     summaryPanel.updateTotalCourses(logic.getFilteredCourseList().size());
