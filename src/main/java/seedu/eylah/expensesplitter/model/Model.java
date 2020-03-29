@@ -57,6 +57,8 @@ public interface Model {
 
     Receipt getReceipt();
 
+    void clearReceipt();
+
     /**
      * Returns true if a person with the same identity as
      * {@code person} exists in the person amount book.
