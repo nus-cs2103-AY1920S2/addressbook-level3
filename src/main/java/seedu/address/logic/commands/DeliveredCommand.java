@@ -43,7 +43,6 @@ public class DeliveredCommand extends Command {
 
     private final Index targetIndex;
     private final DeliveredCommand.DeliveredOrderDescriptor deliveredOrderDescriptor;
-    private final DeliveredCommand.DeliveredReturnOrderDescriptor deliveredReturnOrderDescriptor;
     private final Flag flag;
 
     /**
@@ -59,15 +58,14 @@ public class DeliveredCommand extends Command {
         this.targetIndex = targetIndex;
         this.flag = flag;
         this.deliveredOrderDescriptor = new DeliveredOrderDescriptor(deliveredOrderDescriptor);
-        this.deliveredReturnOrderDescriptor = null;
     }
 
-    /**
+    /*
      * @param targetIndex                of the order in the filtered order list to edit
      * @param flag to identify which list this command is targeting
      * @param deliveredReturnOrderDescriptor details to edit the order with
      */
-    public DeliveredCommand(Index targetIndex, Flag flag, DeliveredReturnOrderDescriptor deliveredReturnOrderDescriptor) {
+    /*public DeliveredCommand(Index targetIndex, Flag flag, DeliveredReturnOrderDescriptor deliveredReturnOrderDescriptor) {
         requireNonNull(targetIndex);
         requireNonNull(flag);
         requireNonNull(deliveredReturnOrderDescriptor);
@@ -76,7 +74,7 @@ public class DeliveredCommand extends Command {
         this.flag = flag;
         this.deliveredOrderDescriptor = null;
         this.deliveredReturnOrderDescriptor = new DeliveredReturnOrderDescriptor(deliveredReturnOrderDescriptor);
-    }
+    }*/
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -84,8 +82,8 @@ public class DeliveredCommand extends Command {
         List<Order> orderList = model.getFilteredOrderList();
         List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();
 
-        if (targetIndex.getZeroBased() >= orderList.size() || targetIndex.getZeroBased() < 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        if (targetIndex.getZeroBased() >= orderList.size() || targetIndex.getZeroBased() == -1) {
+            return new CommandResult(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
         }
 
         if (flag.toString().trim().equals("-o")) {
@@ -101,12 +99,12 @@ public class DeliveredCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
             }
         } else if (flag.toString().trim().equals("-r")) {
-            if (targetIndex.getZeroBased() >= returnOrderList.size() || targetIndex.getZeroBased() < 0) {
-                throw new CommandException(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
+            if (targetIndex.getZeroBased() >= returnOrderList.size()) {
+                return new CommandResult(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
             }
             ReturnOrder returnOrderToBeDelivered = returnOrderList.get(targetIndex.getZeroBased());
             ReturnOrder editedReturnOrder = createDeliveredReturnOrder(returnOrderToBeDelivered,
-                    deliveredReturnOrderDescriptor);
+                    deliveredOrderDescriptor);
             if (!returnOrderToBeDelivered.isDelivered()) {
                 model.setReturnOrder(returnOrderToBeDelivered, editedReturnOrder);
                 model.deliverReturnOrder(editedReturnOrder);
@@ -151,20 +149,20 @@ public class DeliveredCommand extends Command {
      * edited with {@code donePersonDescriptor}.
      */
     private static ReturnOrder createDeliveredReturnOrder(ReturnOrder returnOrderToDeliver,
-                                                    DeliveredReturnOrderDescriptor deliveredReturnOrderDescriptor) {
+                                                    DeliveredOrderDescriptor deliveredOrderDescriptor) {
         assert returnOrderToDeliver != null;
 
-        TransactionId updatedTid = deliveredReturnOrderDescriptor.getTid().orElse(returnOrderToDeliver.getTid());
-        Name updatedName = deliveredReturnOrderDescriptor.getName().orElse(returnOrderToDeliver.getName());
-        Phone updatedPhone = deliveredReturnOrderDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
-        Email updatedEmail = deliveredReturnOrderDescriptor.getEmail().orElse(returnOrderToDeliver.getEmail());
-        Address updatedAddress = deliveredReturnOrderDescriptor.getAddress().orElse(returnOrderToDeliver.getAddress());
-        TimeStamp updateTimeStamp = deliveredReturnOrderDescriptor.getTimeStamp().orElse(returnOrderToDeliver.getTimestamp());
-        Warehouse updatedWarehouse = deliveredReturnOrderDescriptor.getWarehouse().orElse(returnOrderToDeliver
+        TransactionId updatedTid = deliveredOrderDescriptor.getTid().orElse(returnOrderToDeliver.getTid());
+        Name updatedName = deliveredOrderDescriptor.getName().orElse(returnOrderToDeliver.getName());
+        Phone updatedPhone = deliveredOrderDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
+        Email updatedEmail = deliveredOrderDescriptor.getEmail().orElse(returnOrderToDeliver.getEmail());
+        Address updatedAddress = deliveredOrderDescriptor.getAddress().orElse(returnOrderToDeliver.getAddress());
+        TimeStamp updateTimeStamp = deliveredOrderDescriptor.getTimeStamp().orElse(returnOrderToDeliver.getTimestamp());
+        Warehouse updatedWarehouse = deliveredOrderDescriptor.getWarehouse().orElse(returnOrderToDeliver
                 .getWarehouse());
-        Comment updatedComment = deliveredReturnOrderDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
-        TypeOfItem updatedType = deliveredReturnOrderDescriptor.getItemType().orElse(returnOrderToDeliver.getItemType());
-        boolean updatedDeliveryStatus = deliveredReturnOrderDescriptor.getDeliveryStatus();
+        Comment updatedComment = deliveredOrderDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
+        TypeOfItem updatedType = deliveredOrderDescriptor.getItemType().orElse(returnOrderToDeliver.getItemType());
+        boolean updatedDeliveryStatus = deliveredOrderDescriptor.getDeliveryStatus();
 
         ReturnOrder deliveredReturnOrder = new ReturnOrder(updatedTid, updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updateTimeStamp, updatedWarehouse, updatedComment, updatedType);
@@ -214,7 +212,7 @@ public class DeliveredCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        /*public DeliveredOrderDescriptor(Order toCopy) {
+        public DeliveredOrderDescriptor(Order toCopy) {
             setTid(toCopy.getTid());
             setName(toCopy.getName());
             setPhone(toCopy.getPhone());
@@ -232,7 +230,7 @@ public class DeliveredCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        /*public DeliveredOrderDescriptor(ReturnOrder toCopy) {
+        public DeliveredOrderDescriptor(ReturnOrder toCopy) {
             setTid(toCopy.getTid());
             setName(toCopy.getName());
             setPhone(toCopy.getPhone());
@@ -243,7 +241,7 @@ public class DeliveredCommand extends Command {
             setComment(toCopy.getComment());
             setItemType(toCopy.getItemType());
             setDeliveryStatus(toCopy.isDelivered());
-        }*/
+        }
 
         /**
          * Copy constructor.
@@ -384,7 +382,7 @@ public class DeliveredCommand extends Command {
      * Stores the details to edit the order with. Each non-empty field value will replace the
      * corresponding field value of the order.
      */
-    public static class DeliveredReturnOrderDescriptor {
+    /*public static class DeliveredReturnOrderDescriptor {
         private TransactionId tid;
         private Name name;
         private Phone phone;
@@ -403,7 +401,7 @@ public class DeliveredCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        /*public DeliveredOrderDescriptor(Order toCopy) {
+        /*public DeliveredReturnOrderDescriptor(Order toCopy) {
             setTid(toCopy.getTid());
             setName(toCopy.getName());
             setPhone(toCopy.getPhone());
@@ -411,7 +409,6 @@ public class DeliveredCommand extends Command {
             setAddress(toCopy.getAddress());
             setTimeStamp(toCopy.getTimestamp());
             setWarehouse(toCopy.getWarehouse());
-            setCash(toCopy.getCash());
             setComment(toCopy.getComment());
             setItemType(toCopy.getItemType());
             setDeliveryStatus(toCopy.isDelivered());
@@ -421,7 +418,7 @@ public class DeliveredCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        /*public DeliveredOrderDescriptor(ReturnOrder toCopy) {
+        /*public DeliveredReturnOrderDescriptor(ReturnOrder toCopy) {
             setTid(toCopy.getTid());
             setName(toCopy.getName());
             setPhone(toCopy.getPhone());
@@ -432,13 +429,13 @@ public class DeliveredCommand extends Command {
             setComment(toCopy.getComment());
             setItemType(toCopy.getItemType());
             setDeliveryStatus(toCopy.isDelivered());
-        }*/
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public DeliveredReturnOrderDescriptor(DeliveredReturnOrderDescriptor toCopy) {
+        /*public DeliveredReturnOrderDescriptor(DeliveredReturnOrderDescriptor toCopy) {
             setTid(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -448,7 +445,7 @@ public class DeliveredCommand extends Command {
             setWarehouse(toCopy.warehouse);
             setComment(toCopy.comment);
             setItemType(toCopy.itemType);
-            setDeliveryStatus(true);
+            setDeliveryStatus(toCopy.deliveryStatus);
         }
 
         public void setTid(TransactionId tid) {
@@ -557,6 +554,6 @@ public class DeliveredCommand extends Command {
                     && getItemType().equals(e.getItemType())
                     && (getDeliveryStatus() == (e.getDeliveryStatus()));
         }
-    }
+    }*/
 }
 

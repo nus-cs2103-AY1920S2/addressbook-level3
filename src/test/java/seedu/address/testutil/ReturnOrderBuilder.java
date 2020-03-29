@@ -39,7 +39,6 @@ public class ReturnOrderBuilder {
     private Comment comment;
     private TypeOfItem itemType;
     private boolean deliveryStatus;
-    private boolean isReturn;
 
     public ReturnOrderBuilder() {
         tid = new TransactionId(DEFAULT_TID);
@@ -53,24 +52,22 @@ public class ReturnOrderBuilder {
         comment = new Comment(DEFAULT_COMMENT);
         itemType = new TypeOfItem(DEFAULT_TYPE);
         deliveryStatus = false;
-        isReturn = true;
     }
 
     /**
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
-    public ReturnOrderBuilder(ReturnOrder orderToCopy) {
-        tid = orderToCopy.getTid();
-        name = orderToCopy.getName();
-        phone = orderToCopy.getPhone();
-        email = orderToCopy.getEmail();
-        address = orderToCopy.getAddress();
-        timeStamp = orderToCopy.getTimestamp();
-        warehouse = orderToCopy.getWarehouse();
-        comment = orderToCopy.getComment();
-        itemType = orderToCopy.getItemType();
-        deliveryStatus = orderToCopy.isDelivered();
-        isReturn = orderToCopy.isReturn();
+    public ReturnOrderBuilder(ReturnOrder returnOrderToCopy) {
+        tid = returnOrderToCopy.getTid();
+        name = returnOrderToCopy.getName();
+        phone = returnOrderToCopy.getPhone();
+        email = returnOrderToCopy.getEmail();
+        address = returnOrderToCopy.getAddress();
+        timeStamp = returnOrderToCopy.getTimestamp();
+        warehouse = returnOrderToCopy.getWarehouse();
+        comment = returnOrderToCopy.getComment();
+        itemType = returnOrderToCopy.getItemType();
+        deliveryStatus = returnOrderToCopy.isDelivered();
     }
 
     /**

@@ -163,6 +163,7 @@ class JsonAdaptedReturnOrder {
 
         ReturnOrder finalReturnOrder = new ReturnOrder(modelTid, modelName, modelPhone, modelEmail, modelAddress,
                 modelTimeStamp, modelWarehouse, modelComment, modelItem);
+        finalReturnOrder.setDeliveryStatus(deliveryStatus);
         return finalReturnOrder;
     }
 

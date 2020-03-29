@@ -26,13 +26,11 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
         ArrayList<String> splitInputList = new ArrayList<>(Arrays.asList(trimmedArgs));
         DeliveredCommand.DeliveredOrderDescriptor deliveredOrderDescriptor =
                 new DeliveredCommand.DeliveredOrderDescriptor();
-        DeliveredCommand.DeliveredReturnOrderDescriptor deliveredReturnOrderDescriptor =
-                new DeliveredCommand.DeliveredReturnOrderDescriptor();
         if (splitInputList.contains("-r")) {
             splitInputList.remove("-r");
             int indexAsInt = Integer.parseInt(splitInputList.get(0));
             Index index = Index.fromOneBased(indexAsInt);
-            return new DeliveredCommand(index, FLAG_RETURN_LIST, deliveredReturnOrderDescriptor);
+            return new DeliveredCommand(index, FLAG_RETURN_LIST, deliveredOrderDescriptor);
         } else if (splitInputList.contains("-o")) {
             splitInputList.remove("-o");
             int indexAsInt = Integer.parseInt(splitInputList.get(0));

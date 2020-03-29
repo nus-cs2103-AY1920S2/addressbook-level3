@@ -40,8 +40,6 @@ public class ReturnOrderCard extends UiPart<Region> {
     @FXML
     private Label warehouse;
     @FXML
-    private Label cashOnDelivery;
-    @FXML
     private Label comment;
     @FXML
     private Label timeStamp;
