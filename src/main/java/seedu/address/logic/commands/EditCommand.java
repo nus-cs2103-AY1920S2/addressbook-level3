@@ -71,7 +71,7 @@ public class EditCommand extends Command {
     private String grade = null;
     private String oldTask = null;
     private String newTask = null;
-    private String newDeadline = null;
+    private String newDeadlineString = null;
     private int inSemester = 0;
 
     public EditCommand(Name name, CourseName courseName, int updatedSemester, String specialisation) {
@@ -90,7 +90,7 @@ public class EditCommand extends Command {
         this.grade = grade;
         this.oldTask = oldTask;
         this.newTask = newTask;
-        this.newDeadline = newDeadline;
+        this.newDeadlineString = newDeadline;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class EditCommand extends Command {
                 throw new CommandException("This module has not been added before");
             }
 
-            if (oldSemester != 0) {
+            if (oldSemester != 0 && intSemester != 0) {
                 try {
                     hashMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
                 } catch (ParseException e) {
@@ -149,20 +149,31 @@ public class EditCommand extends Command {
             }
 
             //TODO: edit task and deadlines
+            Deadline oldDeadline = null;
+            Deadline newDeadline = null;
             if (newTask != null) {
-                Deadline deadline = existingModule.getDeadlineList().getTask(oldTask);
-                deadline.setDescription(newTask);
-            }
-            if (newDeadline != null) {
-                Deadline deadline = existingModule.getDeadlineList().getTask(oldTask);
-                String date = newDeadline.split(" ")[0];
-                String time = newDeadline.split(" ")[1];
                 try {
-                    deadline.setDateTime(date, time);
+                    newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                    oldDeadline = newDeadline;
+                    newDeadline.setDescription(newTask);
+                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                } catch (Exception e) {
+                    throw new CommandException("Error: Deadline does not exist");
+                }
+            }
+            if (newDeadlineString != null) {
+                newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                oldDeadline = newDeadline;
+                String date = newDeadlineString.split(" ")[0];
+                String time = newDeadlineString.split(" ")[1];
+                try {
+                    newDeadline.setDateTime(date, time);
+                    profileManager.replaceDeadline(oldDeadline, newDeadline);
                 } catch (DateTimeException e) {
                     throw new CommandException("Invalid date or time!");
                 }
             }
+
             return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule));
 
         } else if (toEditProfile) {

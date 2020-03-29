@@ -35,7 +35,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC,
-                        PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE);
+                        PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE, PREFIX_TASK, PREFIX_NEW_TASK, PREFIX_DEADLINE);
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
             if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
@@ -72,7 +72,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     throw new ParseException("Error: Please specify which edits to make to this task.");
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
-                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get();
+                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                     newDeadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
