@@ -47,6 +47,9 @@ public class Prefixes {
     public static final Prefix RATING = new Prefix("r/", Rating.MESSAGE_CONSTRAINTS, "RATING", "3");
     public static final Prefix TAG = new Prefix("t/", Tag.MESSAGE_CONSTRAINTS, "TAG", "friends", "owes money");
 
+    /* Action definitions */
+    public static final Prefix SORT_TYPE = new Prefix("t/", "", "SORT_TYPE", "alphabetically");
+
     public static String getExamples(Prefix ... prefixes) {
         return formatPrefixes(Arrays.asList(prefixes), Prefix::getExamples);
     }
