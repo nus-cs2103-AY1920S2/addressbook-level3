@@ -128,6 +128,14 @@ public class ModelManager implements Model {
         return this.receipt;
     }
 
+    /**
+     * Clears the receipt by making a new ArrayList of Entry.
+     */
+    @Override
+    public void clearReceipt() {
+        receipt.clearReceipt();
+    }
+
     //=========== PersonAmountBook ===============================================================================
 
 

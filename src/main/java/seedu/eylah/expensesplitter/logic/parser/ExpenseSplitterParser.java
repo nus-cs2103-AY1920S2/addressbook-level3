@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.eylah.addressbook.logic.commands.HelpCommand;
 import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.BackCommand;
+import seedu.eylah.expensesplitter.logic.commands.ClearReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.Command;
 import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.DoneReceiptCommand;
@@ -67,6 +68,9 @@ public class ExpenseSplitterParser {
 
         case DoneReceiptCommand.COMMAND_WORD:
             return new DoneReceiptCommand();
+
+        case ClearReceiptCommand.COMMAND_WORD:
+            return new ClearReceiptCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

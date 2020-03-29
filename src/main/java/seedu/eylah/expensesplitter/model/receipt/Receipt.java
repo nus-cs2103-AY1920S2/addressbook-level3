@@ -58,6 +58,13 @@ public class Receipt {
     }
 
     /**
+     * Clears the receipt by making a new ArrayList of Entry.
+     */
+    public void clearReceipt() {
+        this.receipt = new ArrayList<>();
+    }
+
+    /**
      * Returns the ArrayList of Entries.
      *
      * @return the ArrayList of Entries.
