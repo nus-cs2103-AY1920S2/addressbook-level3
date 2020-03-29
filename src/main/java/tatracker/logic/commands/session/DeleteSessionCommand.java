@@ -3,13 +3,13 @@ package tatracker.logic.commands.session;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
 import static tatracker.logic.commands.CommandWords.SESSION;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NOTES;
+import static tatracker.logic.parser.Prefixes.RECUR;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import java.util.List;
 
@@ -33,14 +33,14 @@ public class DeleteSessionCommand extends Command {
             + ": Deletes the session identified by its index.\n"
             + "Parameters: "
             + "index"
-            + "[" + PREFIX_STARTTIME + "START] "
-            + "[" + PREFIX_ENDTIME + "END] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MODULE + "MODULE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
-            + "[" + PREFIX_NOTES + "NOTES] "
-            + "Example: " + COMMAND_WORD + " 2" + PREFIX_DATE + "20-02-2020 ";
+            + "[" + START_TIME + "START] "
+            + "[" + END_TIME + "END] "
+            + "[" + DATE + "DATE] "
+            + "[" + RECUR + "] "
+            + "[" + MODULE + "MODULE] "
+            + "[" + SESSION_TYPE + "SESSION_TYPE] "
+            + "[" + NOTES + "NOTES] "
+            + "Example: " + COMMAND_WORD + " 2" + DATE + "20-02-2020 ";
 
     public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted Session: %1$s";
     public static final String MESSAGE_INVALID_INDEX = "Index does not exists";

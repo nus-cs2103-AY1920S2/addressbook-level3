@@ -1,9 +1,9 @@
 package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.stream.Stream;
 
@@ -30,18 +30,18 @@ public class DeleteStudentCommandParser implements Parser<DeleteStudentCommand> 
      */
     public DeleteStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MATRIC, PREFIX_GROUP, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, MATRIC, GROUP, MODULE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MATRIC, PREFIX_GROUP, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, MATRIC, GROUP, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteStudentCommand.MESSAGE_USAGE));
         }
 
-        Matric matric = ParserUtil.parseMatric(argMultimap.getValue(PREFIX_MATRIC).get());
+        Matric matric = ParserUtil.parseMatric(argMultimap.getValue(MATRIC).get());
 
-        String groupCode = argMultimap.getValue(PREFIX_GROUP).get();
-        String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get();
+        String moduleCode = argMultimap.getValue(MODULE).get();
 
         Group group = new Group(groupCode);
         Module module = new Module(moduleCode);

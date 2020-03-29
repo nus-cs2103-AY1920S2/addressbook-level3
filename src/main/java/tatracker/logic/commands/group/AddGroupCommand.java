@@ -2,14 +2,14 @@ package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.CommandWords.ADD_MODEL;
-import static tatracker.logic.commands.CommandWords.GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.TYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -23,13 +23,13 @@ public class AddGroupCommand extends Command {
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a group into TA-Tracker. "
             + "Parameters: "
-            + PREFIX_GROUP + "GROUP CODE "
-            + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_TYPE + "GROUP TYPE "
+            + Prefixes.GROUP + "GROUP CODE "
+            + MODULE + "MODULE CODE "
+            + TYPE + "GROUP TYPE "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_GROUP + "G06 "
-            + PREFIX_MODULE + "CS2100 "
-            + PREFIX_TYPE + "lab";
+            + Prefixes.GROUP + "G06 "
+            + MODULE + "CS2100 "
+            + TYPE + "lab";
 
     public static final String MESSAGE_SUCCESS = "New Group added: %s";
     public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";

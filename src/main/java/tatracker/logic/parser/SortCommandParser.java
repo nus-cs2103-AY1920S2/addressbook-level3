@@ -1,9 +1,9 @@
 package tatracker.logic.parser;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.TYPE;
 
 import tatracker.logic.commands.SortCommand;
 import tatracker.logic.commands.SortGroupCommand;
@@ -21,20 +21,20 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE,
-                PREFIX_MODULE, PREFIX_GROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, TYPE,
+                MODULE, GROUP);
 
-        if (!argMultimap.getValue(PREFIX_TYPE).isPresent()) {
+        if (!argMultimap.getValue(TYPE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        String type = ParserUtil.parseValue(argMultimap.getValue(PREFIX_TYPE).get());
+        String type = ParserUtil.parseValue(argMultimap.getValue(TYPE).get());
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            String moduleCode = ParserUtil.parseValue(argMultimap.getValue(MODULE).get());
 
-            if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
-                String groupCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get());
+            if (argMultimap.getValue(GROUP).isPresent()) {
+                String groupCode = ParserUtil.parseValue(argMultimap.getValue(GROUP).get());
                 return new SortGroupCommand(groupCode, moduleCode, type);
             } else {
                 return new SortModuleCommand(moduleCode, type);

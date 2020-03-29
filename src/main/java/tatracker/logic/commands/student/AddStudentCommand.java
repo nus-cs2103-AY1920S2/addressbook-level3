@@ -1,14 +1,14 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
@@ -29,25 +29,25 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a student to the into the given module group.\n"
             + "Parameters:\n"
-            + PREFIX_MATRIC + "MATRIC "
-            + PREFIX_MODULE + "MODULE "
-            + PREFIX_GROUP + "GROUP "
-            + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_RATING + "RATING] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + MATRIC + "MATRIC "
+            + MODULE + "MODULE "
+            + GROUP + "GROUP "
+            + NAME + "NAME "
+            + "[" + PHONE + "PHONE] "
+            + "[" + EMAIL + "EMAIL] "
+            + "[" + RATING + "RATING] "
+            + "[" + TAG + "TAG]...\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_MATRIC + "A0181234G "
-            + PREFIX_MODULE + "CS3243 "
-            + PREFIX_GROUP + "G06 "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_RATING + "3 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + MATRIC + "A0181234G "
+            + MODULE + "CS3243 "
+            + GROUP + "G06 "
+            + NAME + "John Doe "
+            + PHONE + "98765432 "
+            + EMAIL + "johnd@example.com "
+            + RATING + "3 "
+            + TAG + "friends "
+            + TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New student added: %s\n To Module: %s\n To Group: %s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";

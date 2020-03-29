@@ -1,9 +1,9 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
@@ -25,14 +25,14 @@ public class DeleteStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the student with the given matric number from the given module group.\n"
             + "Parameters:\n"
-            + PREFIX_MATRIC + "MATRIC "
-            + PREFIX_MODULE + "MODULE "
-            + PREFIX_GROUP + "GROUP\n"
+            + MATRIC + "MATRIC "
+            + MODULE + "MODULE "
+            + GROUP + "GROUP\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_MATRIC + "A0181234G "
-            + PREFIX_MODULE + "CS3243 "
-            + PREFIX_GROUP + "G06 ";
+            + MATRIC + "A0181234G "
+            + MODULE + "CS3243 "
+            + GROUP + "G06 ";
 
     public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
     public static final String MESSAGE_INVALID_MODULE_FORMAT =

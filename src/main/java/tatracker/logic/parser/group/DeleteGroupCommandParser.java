@@ -1,8 +1,8 @@
 package tatracker.logic.parser.group;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.stream.Stream;
 
@@ -27,15 +27,15 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
      */
     public DeleteGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_GROUP, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, GROUP, MODULE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_GROUP, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
                  || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteGroupCommand.MESSAGE_USAGE));
         }
 
-        String groupCode = argMultimap.getValue(PREFIX_GROUP).get();
-        String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get();
+        String moduleCode = argMultimap.getValue(MODULE).get();
 
         Group group = new Group(groupCode);
         Module module = new Module(moduleCode);

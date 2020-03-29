@@ -1,13 +1,13 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NOTES;
+import static tatracker.logic.parser.Prefixes.RECUR;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,15 +36,15 @@ public class EditSessionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_STARTTIME + "START] "
-            + "[" + PREFIX_ENDTIME + "END] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MODULE + "MODULE CODE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION TYPE] "
-            + "[" + PREFIX_NOTES + "NOTES] "
+            + "[" + START_TIME + "START] "
+            + "[" + END_TIME + "END] "
+            + "[" + DATE + "DATE] "
+            + "[" + RECUR + "] "
+            + "[" + MODULE + "MODULE CODE] "
+            + "[" + SESSION_TYPE + "SESSION TYPE] "
+            + "[" + NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 2 "
-            + PREFIX_DATE + "20-02-2020 ";
+            + DATE + "20-02-2020 ";
 
     public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

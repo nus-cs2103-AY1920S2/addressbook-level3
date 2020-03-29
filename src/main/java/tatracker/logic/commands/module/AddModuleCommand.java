@@ -1,8 +1,8 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
@@ -19,11 +19,11 @@ public class AddModuleCommand extends Command {
     public static final String COMMAND_WORD = CommandWords.MODULE + " " + CommandWords.ADD_MODEL;
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a module to the TA-Tracker. "
             + "Parameters: "
-            + PREFIX_NAME + "MODULE NAME "
-            + PREFIX_MODULE + "MODULE CODE "
+            + NAME + "MODULE NAME "
+            + MODULE + "MODULE CODE "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Introduction to AI "
-            + PREFIX_MODULE + "CS3243 ";
+            + NAME + "Introduction to AI "
+            + MODULE + "CS3243 ";
 
     public static final String MESSAGE_SUCCESS = "New Module added: %s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the TA-Tracker";

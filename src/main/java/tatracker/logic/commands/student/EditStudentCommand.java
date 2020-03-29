@@ -1,12 +1,12 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,16 +41,16 @@ public class EditStudentCommand extends Command {
             + "by the index number used in the displayed student list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_MATRIC + "MATRIC] "
-            + "[" + PREFIX_RATING + "RATING] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + NAME + "NAME] "
+            + "[" + PHONE + "PHONE] "
+            + "[" + EMAIL + "EMAIL] "
+            + "[" + MATRIC + "MATRIC] "
+            + "[" + RATING + "RATING] "
+            + "[" + TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
-            + PREFIX_MATRIC + "A0181234J";
+            + PHONE + "91234567 "
+            + EMAIL + "johndoe@example.com "
+            + MATRIC + "A0181234J";
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

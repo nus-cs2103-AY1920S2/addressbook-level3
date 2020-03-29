@@ -1,8 +1,8 @@
 package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.TYPE;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -19,11 +19,11 @@ public class SortModuleCommand extends SortCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"
             + "all groups of the given module. "
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_TYPE + "SORT TYPE "
+            + MODULE + "MODULE CODE "
+            + TYPE + "SORT TYPE "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS2100 "
-            + PREFIX_TYPE + "alphabetically";
+            + MODULE + "CS2100 "
+            + TYPE + "alphabetically";
 
     public static final String MESSAGE_SUCCESS = "Module %s has been sorted.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";

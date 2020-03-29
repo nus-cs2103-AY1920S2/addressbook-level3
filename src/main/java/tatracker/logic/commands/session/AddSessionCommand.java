@@ -1,13 +1,13 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NOTES;
+import static tatracker.logic.parser.Prefixes.RECUR;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
@@ -25,20 +25,20 @@ public class AddSessionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a session in TA-Tracker. "
             + "Parameters: "
-            + "[" + PREFIX_STARTTIME + "START] "
-            + "[" + PREFIX_ENDTIME + "END] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_RECUR + "RECURS] "
-            + "[" + PREFIX_MODULE + "MODULE CODE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION TYPE] "
-            + "[" + PREFIX_NOTES + "NOTES] "
+            + "[" + START_TIME + "START] "
+            + "[" + END_TIME + "END] "
+            + "[" + DATE + "DATE] "
+            + "[" + RECUR + "RECURS] "
+            + "[" + MODULE + "MODULE CODE] "
+            + "[" + SESSION_TYPE + "SESSION TYPE] "
+            + "[" + NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_STARTTIME + "14:00 "
-            + PREFIX_ENDTIME + "16:00 "
-            + PREFIX_DATE + "19-02-2020 "
-            + PREFIX_MODULE + "CS2103T "
-            + PREFIX_SESSION_TYPE + "tutorial "
-            + PREFIX_NOTES + "Location: PLAB 04";
+            + START_TIME + "14:00 "
+            + END_TIME + "16:00 "
+            + DATE + "19-02-2020 "
+            + MODULE + "CS2103T "
+            + SESSION_TYPE + "tutorial "
+            + NOTES + "Location: PLAB 04";
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
