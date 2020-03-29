@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.ClearCommand.MESSAGE_ENQUIRY_ORDER_BOOK;
+import static seedu.address.logic.commands.ClearCommand.MESSAGE_ENQUIRY_RETURN_BOOK;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -40,7 +43,6 @@ public class ClearWindow extends UiPart<Stage> {
      */
     public ClearWindow(Stage root) {
         super(FXML, root);
-        warningMessage.setText(WARNING_MESSAGE);
     }
 
     /**
@@ -49,6 +51,10 @@ public class ClearWindow extends UiPart<Stage> {
     public ClearWindow(Logic logic) {
         this(new Stage());
         this.logic = logic;
+    }
+
+    public void setWarningMessage(String warningMessage) {
+        this.warningMessage.setText(warningMessage);
     }
 
     /**
@@ -91,7 +97,7 @@ public class ClearWindow extends UiPart<Stage> {
      */
     @FXML
     private void agreeToClearOrderBookList() {
-        String commandText = "clear -f";
+        String commandText = setCommandText();
         try {
             CommandResult commandResult = logic.execute(commandText);
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -99,6 +105,21 @@ public class ClearWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
         }
         hide();
+    }
+
+    /**
+     * Set commmand text according to the warning message.
+     * @return command string back.
+     */
+    private String setCommandText() {
+        switch (warningMessage.getText()) {
+        case MESSAGE_ENQUIRY_RETURN_BOOK:
+            return "clear -r -f";
+        case MESSAGE_ENQUIRY_ORDER_BOOK:
+            return "clear -o -f";
+        default:
+            return "clear -f";
+        }
     }
 
     /**
