@@ -85,7 +85,7 @@ public interface Model {
      * Updates the filter of the unfiltered transaction list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+    void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2);
 
     /** Returns a view of monthly data object */
     MonthlyData getMonthlyData();

@@ -121,11 +121,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = PIZZA.getName().transactionName.split("\\s+");
-        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)), null);
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
