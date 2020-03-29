@@ -55,6 +55,24 @@ public class Metric {
     }
 
     /**
+     * Get the name given to a metric.
+     *
+     * @return String name of the metric
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Get the map of attribute to weight.
+     *
+     * @return HashMap of Attribute to Weight.
+     */
+    public HashMap<Attribute, Double> getMap() {
+        return this.attributeToWeight;
+    }
+
+    /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidMetricName(String test) {
@@ -64,6 +82,7 @@ public class Metric {
     public Metric setName(String updatedName) throws IllegalValueException {
         return Metric.of(updatedName, new HashMap<>(attributeToWeight));
     }
+
     /**
      * Set a particular attribute to a value.
      * @param attribute The attribute that the value wants to be set.

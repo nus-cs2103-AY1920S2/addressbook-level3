@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.QuestionList;
  * client wants to update a question from the list.
  */
 
-public class EditQuestionCommand extends EditCommand {
+public class EditQuestionCommand extends Command {
     public static final String COMMAND_WORD = "question";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -37,7 +37,7 @@ public class EditQuestionCommand extends EditCommand {
         QuestionList questions = model.getQuestionList();
 
         try {
-            if (model.isfinalisedInterviewProperties()) {
+            if (model.isFinalisedInterviewProperties()) {
                 throw new CommandException("The interview session's questions has been finalised."
                         + " You can no longer edit a question.");
             }

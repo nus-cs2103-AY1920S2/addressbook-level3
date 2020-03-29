@@ -6,8 +6,9 @@ package seedu.address.logic.commands;
 public enum ToggleView {
     ATTRIBUTE,
     INTERVIEWEE,
+    METRIC,
     QUESTION,
     SESSION,
     TRANSCRIPT,
-    METRIC
+    BEST_INTERVIEWEE
 }

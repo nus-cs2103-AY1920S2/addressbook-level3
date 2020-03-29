@@ -15,8 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.Question;
-import seedu.address.model.hirelah.Transcript;
 import seedu.address.storage.Storage;
 
 /**
@@ -45,8 +45,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command;
         switch (model.getAppPhase()) {
-        case PRE_SESSION:
-            // TODO: PreSession parser
         case NORMAL:
             command = normalParser.parseCommand(commandText);
             break;
@@ -78,13 +76,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Transcript> getTranscriptListView(Interviewee interviewee) {
-        return model.getTranscriptListView(interviewee);
+    public ObservableList<Metric> getMetricListView() {
+        return model.getMetricListView();
+    }
+
+    @Override
+    public Interviewee getCurrentInterviewee() {
+        return null;
     }
 
     @Override
     public ObservableList<Interviewee> getFilteredIntervieweeListView() {
         return model.getFilteredIntervieweeListView();
+    }
+
+    @Override
+    public ObservableList<Interviewee> getBestNIntervieweesView() {
+        return model.getBestNInterviewees();
     }
 
     @Override

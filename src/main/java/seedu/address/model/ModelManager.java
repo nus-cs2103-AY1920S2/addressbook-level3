@@ -14,8 +14,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.hirelah.AppPhase;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.InterviewSession;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
@@ -26,14 +28,16 @@ import seedu.address.model.hirelah.Transcript;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private boolean finalisedInterviewProperties;
     private AppPhase appPhase;
+    private Interviewee currentInterviewee;
+    private InterviewSession interviewSession;
     private final IntervieweeList intervieweeList;
     private final AttributeList attributeList;
     private final QuestionList questionList;
     private final MetricList metricList;
     private final UserPrefs userPrefs;
-    private boolean finalisedInterviewProperties;
-
+    private ObservableList<Interviewee> bestNIntervieweeList;
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -42,7 +46,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
-        this.appPhase = AppPhase.PRE_SESSION;
+        this.appPhase = AppPhase.NORMAL;
 
         this.intervieweeList = new IntervieweeList();
         this.attributeList = new AttributeList();
@@ -105,6 +109,47 @@ public class ModelManager implements Model {
         return appPhase;
     }
 
+    /**
+     * Sets the interviewee currently in focus, either when viewing his/her transcript or
+     * when interviewing him/her.
+     *
+     * @param interviewee the interviewee in focus.
+     */
+    @Override
+    public void setCurrentInterviewee(Interviewee interviewee) {
+        this.currentInterviewee = interviewee;
+    }
+
+    /**
+     * Returns the interviewee currently in focus
+     *
+     * @return the current interviewee in focus.
+     */
+    @Override
+    public Interviewee getCurrentInterviewee() {
+        return currentInterviewee;
+    }
+
+    @Override
+    public void startInterview(Interviewee interviewee) {
+        setCurrentInterviewee(interviewee);
+        currentInterviewee.setTranscript(new Transcript(questionList));
+        interviewSession = new InterviewSession();
+        setAppPhase(AppPhase.INTERVIEW);
+    }
+
+    @Override
+    public InterviewSession getInterviewSession() {
+        return interviewSession;
+    }
+
+    @Override
+    public void endInterview() {
+        setCurrentInterviewee(null);
+        interviewSession = null;
+        setAppPhase(AppPhase.NORMAL);
+    }
+
     //=========== Observable accessors =============================================================
 
 
@@ -126,6 +171,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Interviewee> getFilteredIntervieweeListView() {
         return FXCollections.unmodifiableObservableList(intervieweeList.getObservableList());
+    }
+
+    @Override
+    public ObservableList<Metric> getMetricListView() {
+        return FXCollections.unmodifiableObservableList(metricList.getObservableList());
     }
 
     //=========== Model component accessors ========================================================
@@ -153,17 +203,26 @@ public class ModelManager implements Model {
         return metricList;
     }
 
+    @Override
+    public ObservableList<Interviewee> getBestNInterviewees() {
+        return bestNIntervieweeList;
+    }
+
+    @Override
+    public void setBestNInterviewees(ObservableList<Interviewee> interviewees) {
+        this.bestNIntervieweeList = interviewees;
+    }
+
     /**
      * Finalizes the questions and attributes so they do not change between interviews.
      */
-
     public void finaliseInterviewProperties() {
         this.finalisedInterviewProperties = true;
     }
 
-    /** Checks whether the interviewees, questions and attributes has been finalised */
+    /** Checks whether the questions and attributes has been finalised */
     @Override
-    public boolean isfinalisedInterviewProperties() {
+    public boolean isFinalisedInterviewProperties() {
         return this.finalisedInterviewProperties;
     }
 
