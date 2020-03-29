@@ -163,7 +163,7 @@ public class ModelManager implements Model {
     public ObservableList<Transaction> filterTransaction(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         FilteredList<Transaction> newFilteredTransactions =
-                new FilteredList<>(this.inventorySystem.getTransactionList());
+                new FilteredList<>(inventorySystem.getTransactionList());
         newFilteredTransactions.setPredicate(predicate);
         return newFilteredTransactions;
     }
