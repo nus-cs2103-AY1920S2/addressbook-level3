@@ -47,6 +47,7 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
 
     public void add(T item) {
         moduleListHistory.push(item);
+        moduleListHistoryCollector.resetItem();
     }
 
     /**

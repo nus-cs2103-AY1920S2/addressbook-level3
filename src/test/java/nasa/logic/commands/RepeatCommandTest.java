@@ -1,6 +1,5 @@
 package nasa.logic.commands;
 
-import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.Assert.assertThrows;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +13,7 @@ import nasa.model.activity.Name;
 
 class RepeatCommandTest {
 
-    Model model = new ModelManager();;
+    private Model model = new ModelManager();
 
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
@@ -26,21 +25,20 @@ class RepeatCommandTest {
 
         Name name = new Name("Homework");
 
-        Index correct_index = Index.fromZeroBased(1);
-        Index wrong_index = Index.fromZeroBased(4);
+        Index correctIndex = Index.fromZeroBased(1);
+        Index wrongIndex = Index.fromZeroBased(4);
 
         model.addModule(CS2103T);
 
         CommandResult expectedResult = new CommandResult(String.format("%s for %s %s %s", RepeatCommand.MESSAGE_SUCCESS,
-                CS2103T.getModuleCode(), name, correct_index));
+                CS2103T.getModuleCode(), name, correctIndex.getZeroBased()));
 
-        RepeatCommand repeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, correct_index);
+        RepeatCommand repeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, correctIndex);
 
-        RepeatCommand incorrect_repeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, wrong_index);
-
+        RepeatCommand incorrectRepeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, wrongIndex);
 
         assertEquals(expectedResult, repeatCommand.execute(model));
 
-        assertThrows(IllegalArgumentException.class, () -> incorrect_repeatCommand.execute(model));
+        assertThrows(IllegalArgumentException.class, () -> incorrectRepeatCommand.execute(model));
     }
 }

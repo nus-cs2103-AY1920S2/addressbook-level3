@@ -195,6 +195,16 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
+     * Check if it has activity name {@code activity} in {@code module}
+     */
+    public boolean hasActivity(ModuleCode moduleCode, Name activity) {
+        requireNonNull(activity);
+
+        Module toEditModule = moduleList.getModule(moduleCode);
+        return toEditModule.hasActivity(activity);
+    }
+
+    /**
      * Resets the existing data of this {@code NasaBook} with {@code newData}
      */
     public void resetData(ReadOnlyNasaBook newData) {
@@ -332,8 +342,15 @@ public class NasaBook implements ReadOnlyNasaBook {
                         .forEach(y -> y.regenerate()));
     }
 
-    public void setSchedule(ModuleCode module, Name activity, Index type) {
-        moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
+    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
+        if (hasModule(module)) {
+            Module item = moduleList.getModule(module);
+            if (item.hasActivity(activity)) {
+                moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

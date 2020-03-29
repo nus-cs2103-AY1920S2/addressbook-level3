@@ -3,6 +3,7 @@ package nasa.logic.commands;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 import nasa.commons.core.index.Index;
+import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Name;
 import nasa.model.module.ModuleCode;
@@ -20,6 +21,15 @@ public class RepeatCommand extends Command {
             + "Example for twice weekly repetition: " + COMMAND_WORD + " m/CS3233 a/Lab r/2\n"
             + "Example for monthly repetition: " + COMMAND_WORD + " m/CS3233 a/Lab r/3";
 
+    public static final String MESSAGE_SUCCESS = "Successfully added a repeat!";
+
+    public static final String MESSAGE_FAILURE = "Unsuccessfully added. Please check for correctness in module code or"
+            + "activity name.";
+
+    public static final String MESSAGE_NO_MODULE = "No such module, try again with a correct module.";
+
+    public static final String MESSAGE_NO_ACTIVITY = "No such activity, try again with a correct activity.";
+
     private ModuleCode module;
     private Name activity;
     private Index schedule;
@@ -32,13 +42,24 @@ public class RepeatCommand extends Command {
         this.schedule = schedule;
     }
 
-    public static final String MESSAGE_SUCCESS = "Successfully added a repeat!";
-
     @Override
-    public CommandResult execute(Model model) {
-        model.setSchedule(module, activity, schedule);
-        return new CommandResult(String.format("%s for %s %s %s", MESSAGE_SUCCESS, module, activity, schedule.getZeroBased()),
-                false, false);
+    public CommandResult execute(Model model) throws CommandException {
+
+        if (!model.hasModule(module)) {
+            throw new CommandException(MESSAGE_NO_MODULE);
+        } else {
+            if (!model.hasActivity(module, activity)) {
+                throw new CommandException(MESSAGE_NO_ACTIVITY);
+            }
+        }
+
+        if (model.setSchedule(module, activity, schedule)) {
+            return new CommandResult(String.format("%s for %s %s %s", MESSAGE_SUCCESS, module, activity,
+                    schedule.getZeroBased()),
+                    false, false);
+        } else {
+            return new CommandResult(MESSAGE_FAILURE, false, false);
+        }
     }
 
     @Override

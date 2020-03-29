@@ -229,7 +229,7 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.parallelStream()
                 .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 
     public ObservableList<Module> getDeepCopyList() {

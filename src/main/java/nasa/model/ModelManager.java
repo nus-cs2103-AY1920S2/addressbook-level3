@@ -61,7 +61,7 @@ public class ModelManager implements Model {
      */
     public void initialisation() {
         updateSchedule();
-        updateHistory();
+        //updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -92,11 +92,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void redoHistory() {
-        if (historyManager.redo()) {
+    public boolean redoHistory() {
+        boolean hasRedo = historyManager.redo();
+        if (hasRedo) {
             nasaBook.setModuleList(historyManager.getItem());
             updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         }
+        return hasRedo;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -297,10 +299,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setSchedule(ModuleCode module, Name activity, Index type) {
+    public boolean hasActivity(ModuleCode target, Name activity) {
+        requireAllNonNull(target, activity);
+        return nasaBook.hasActivity(target, activity);
+    }
+
+    @Override
+    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
         requireAllNonNull(module, activity, type);
-        nasaBook.setSchedule(module, activity, type);
+        boolean hasExecuted = nasaBook.setSchedule(module, activity, type);
         updateHistory();
+        return hasExecuted;
     }
 
     //=========== Filtered Module List Accessors =============================================================

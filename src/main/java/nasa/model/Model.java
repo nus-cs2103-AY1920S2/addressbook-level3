@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
+import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Name;
 import nasa.model.module.Module;
@@ -143,6 +144,11 @@ public interface Model {
     boolean hasActivity(ModuleCode target, Activity activity);
 
     /**
+     * Returns true if a module code {@code target} has activity {@code name} exists in the nasa book.
+     */
+    boolean hasActivity(ModuleCode target, Name name);
+
+    /**
      * Replaces the given activity in {@code target} with {@code editedActivity}.
      * {@code target} must exist in the nasa book.
      * The activity identity of {@code editedActivity} must not be the same as another existing activity
@@ -183,6 +189,6 @@ public interface Model {
     void removeActivityByIndex(ModuleCode moduleCode, Index index);
     HistoryManager<UniqueModuleList> getHistoryManager();
     void undoHistory();
-    void redoHistory();
-    void setSchedule(ModuleCode module, Name activity, Index type);
+    boolean redoHistory();
+    boolean setSchedule(ModuleCode module, Name activity, Index type);
 }

@@ -78,6 +78,10 @@ public class Module {
         return activityList;
     }
 
+    public boolean hasActivity(Name name) {
+        return activityList.hasActivity(name);
+    }
+
     public void setActivities(UniqueActivityList replacement) {
         activityList.setActivities(replacement);
     }

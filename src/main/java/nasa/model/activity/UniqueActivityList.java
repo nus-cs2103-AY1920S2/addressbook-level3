@@ -40,6 +40,11 @@ public class UniqueActivityList implements Iterable<Activity> {
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
+    public boolean hasActivity(Name name) {
+        requireNonNull(name);
+        return internalList.stream().anyMatch(x -> x.getName().equals(name));
+    }
+
     /**
      * Adds a activity to the list.
      * The activity must not already exist in the list.
