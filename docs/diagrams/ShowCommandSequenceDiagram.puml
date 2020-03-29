@@ -8,7 +8,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":MODdyParser" as MODdyParser LOGIC_COLOR
+participant ":ModdyParser" as ModdyParser LOGIC_COLOR
 participant ":ShowCommandParser" as ShowCommandParser LOGIC_COLOR
 participant "s:ShowCommand" as ShowCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -27,17 +27,17 @@ activate MainWindow
 MainWindow -> LogicManager : execute("show m/CS2105 \ny/4")
 activate LogicManager
 
-LogicManager -> MODdyParser : parseCommand("show m/CS2105 \ny/4")
-activate MODdyParser
+LogicManager -> ModdyParser : parseCommand("show m/CS2105 \ny/4")
+activate ModdyParser
 
 create ShowCommandParser
-MODdyParser -> ShowCommandParser
+ModdyParser -> ShowCommandParser
 activate ShowCommandParser
 
-ShowCommandParser --> MODdyParser
+ShowCommandParser --> ModdyParser
 deactivate ShowCommandParser
 
-MODdyParser -> ShowCommandParser : parse("m/CS2105 y/4")
+ModdyParser -> ShowCommandParser : parse("m/CS2105 y/4")
 activate ShowCommandParser
 
 create ShowCommand
@@ -47,14 +47,14 @@ activate ShowCommand
 ShowCommand --> ShowCommandParser : s
 deactivate ShowCommand
 
-ShowCommandParser --> MODdyParser : s
+ShowCommandParser --> ModdyParser : s
 deactivate ShowCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ShowCommandParser -[hidden]-> MODdyParser
+ShowCommandParser -[hidden]-> ModdyParser
 destroy ShowCommandParser
 
-MODdyParser --> LogicManager : s
-deactivate MODdyParser
+ModdyParser --> LogicManager : s
+deactivate ModdyParser
 
 LogicManager -> ShowCommand : execute()
 activate ShowCommand

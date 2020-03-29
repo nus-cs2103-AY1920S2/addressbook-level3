@@ -10,7 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.ModdyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
@@ -30,7 +30,7 @@ public class LogicManager implements Logic {
 
     private final ProfileManager profileManager;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final ModdyParser moddyParser;
     private final CourseManager courseManager;
     private final ModuleManager moduleManager;
 
@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.courseManager = courseManager;
         this.moduleManager = moduleManager;
-        addressBookParser = new AddressBookParser();
+        moddyParser = new ModdyParser();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         //parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = moddyParser.parseCommand(commandText);
         //executes the Command and stores the result
         commandResult = command.execute(profileManager, courseManager, moduleManager);
 

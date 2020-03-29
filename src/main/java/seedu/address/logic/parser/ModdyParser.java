@@ -24,7 +24,7 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ModdyParser {
 
     /**
      * Used for initial separation of command word and args.

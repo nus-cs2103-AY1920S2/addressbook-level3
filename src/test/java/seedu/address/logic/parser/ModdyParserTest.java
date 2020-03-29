@@ -20,9 +20,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.NameContainsKeywordsPredicate;
 
-public class AddressBookParserTest {
+public class ModdyParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ModdyParser parser = new ModdyParser();
 
     @Test
     public void parseCommand_add() throws Exception {
