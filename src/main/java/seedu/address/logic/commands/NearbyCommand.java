@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.NearbyCommandUtil.getGeneralLocation;
 import static seedu.address.logic.commands.NearbyCommandUtil.isValidPostalSector;
-import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
-import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,8 +49,8 @@ public class NearbyCommand extends Command {
 
     public NearbyCommand(String searchTerm) {
         String validFlagRegex = "\\s*%s\\s+";
-        String orderListRegex = String.format(validFlagRegex, FLAG_ORDER_LIST.toString());
-        String returnListRegex = String.format(validFlagRegex, FLAG_RETURN_LIST.toString());
+        String orderListRegex = String.format(validFlagRegex, FLAG_ORDER_BOOK.toString());
+        String returnListRegex = String.format(validFlagRegex, FLAG_RETURN_BOOK.toString());
         this.isOrderListSearch = hasRegexInSearchTerm(orderListRegex, searchTerm);
         this.isReturnListSearch = hasRegexInSearchTerm(returnListRegex, searchTerm);
         if (this.isOrderListSearch) {

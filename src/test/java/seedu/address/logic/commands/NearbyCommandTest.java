@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
-import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
@@ -75,7 +75,7 @@ class NearbyCommandTest {
     @Test
     void execute_validAreaUnfilteredOrderList_success() {
         String area = "east";
-        String searchTerm = FLAG_ORDER_LIST + " east";
+        String searchTerm = FLAG_ORDER_BOOK + " east";
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         expectedModel.updateFilteredOrderList(eastArea);
@@ -86,7 +86,7 @@ class NearbyCommandTest {
     @Test
     void execute_validAreaUnfilteredReturnList_success() {
         String area = "east";
-        String searchTerm = FLAG_RETURN_LIST + " " + area;
+        String searchTerm = FLAG_RETURN_BOOK + " " + area;
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         expectedModel.updateFilteredReturnOrderList(eastAreaReturn);
@@ -108,7 +108,7 @@ class NearbyCommandTest {
     @Test
     void execute_validAreaNoMatchingOrderFilteredOrderList_success() {
         String area = "east";
-        String searchTerm = FLAG_ORDER_LIST + " " + area;
+        String searchTerm = FLAG_ORDER_BOOK + " " + area;
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, area);
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
@@ -119,7 +119,7 @@ class NearbyCommandTest {
     @Test
     void execute_validAreaNoMatchingReturnFilteredReturnList_success() {
         String area = "east";
-        String searchTerm = FLAG_RETURN_LIST + " " + area;
+        String searchTerm = FLAG_RETURN_BOOK + " " + area;
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, area);
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
         expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
@@ -129,7 +129,7 @@ class NearbyCommandTest {
 
     @Test
     void execute_validPostalSectorUnfilteredOrderList_success() {
-        String input = FLAG_ORDER_LIST + " 64";
+        String input = FLAG_ORDER_BOOK + " 64";
         Index postalSector = Index.fromOneBased(64);
         Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
         if (location.isEmpty()) {
@@ -147,7 +147,7 @@ class NearbyCommandTest {
 
     @Test
     void execute_validPostalSectorUnfilteredReturnList_success() {
-        String input = FLAG_RETURN_LIST + " 64";
+        String input = FLAG_RETURN_BOOK + " 64";
         Index postalSector = Index.fromOneBased(64);
         Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
         if (location.isEmpty()) {
@@ -182,7 +182,7 @@ class NearbyCommandTest {
 
     @Test
     void execute_validPostalSectorNoMatchingOrderFilteredOrderList_success() {
-        String input = FLAG_ORDER_LIST + " 7";
+        String input = FLAG_ORDER_BOOK + " 7";
         Index postalSector = Index.fromOneBased(7);
         Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
         if (location.isEmpty()) {
@@ -199,7 +199,7 @@ class NearbyCommandTest {
 
     @Test
     void execute_validPostalSectorNoMatchingReturnFilteredReturnList_success() {
-        String input = FLAG_RETURN_LIST + " 7";
+        String input = FLAG_RETURN_BOOK + " 7";
         Index postalSector = Index.fromOneBased(7);
         Optional<String> location = NearbyCommandUtil.getGeneralLocation(postalSector);
         if (location.isEmpty()) {

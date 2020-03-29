@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
-import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -31,7 +31,7 @@ class NearbyCommandParserTest {
 
     @Test
     void parse_validArgs_returnsNearbyCommand() {
-        String orderListFlag = FLAG_ORDER_LIST.toString();
+        String orderListFlag = FLAG_ORDER_BOOK.toString();
         assertParseSuccess(parser, " " + orderListFlag + " 1",
                 new NearbyCommand(orderListFlag + " 1"));
         assertParseSuccess(parser, "  " + orderListFlag + "  1   ",
@@ -47,7 +47,7 @@ class NearbyCommandParserTest {
         assertParseSuccess(parser, " " + orderListFlag + " north",
                 new NearbyCommand(orderListFlag + " north"));
 
-        String returnListFlag = FLAG_RETURN_LIST.toString();
+        String returnListFlag = FLAG_RETURN_BOOK.toString();
         assertParseSuccess(parser, " " + returnListFlag + " 1",
                 new NearbyCommand(returnListFlag + " 1"));
         assertParseSuccess(parser, " " + returnListFlag + " central",
