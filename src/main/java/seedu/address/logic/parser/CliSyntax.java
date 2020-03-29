@@ -11,6 +11,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_GRADE = new Prefix("g/");
     public static final Prefix PREFIX_TASK = new Prefix("t/");
     public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
+    public static final Prefix PREFIX_NEW_TASK = new Prefix("nt/");
 
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_COURSE_NAME = new Prefix("c/");
