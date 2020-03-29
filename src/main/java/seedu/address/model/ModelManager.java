@@ -160,6 +160,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Transaction> filterTransaction(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        FilteredList<Transaction> newFilteredTransactions =
+                new FilteredList<>(this.inventorySystem.getTransactionList());
+        newFilteredTransactions.setPredicate(predicate);
+        return newFilteredTransactions;
+    }
+
+    @Override
     public void setPerson(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
         inventorySystem.setPerson(target, editedCustomer);

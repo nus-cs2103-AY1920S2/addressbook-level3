@@ -2,7 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import javafx.scene.chart.XYChart;
 
 /**
  * Represents the result of a command execution.
@@ -11,8 +15,13 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    private final XYChart.Series dataSeries;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
+
+    /** Plot should be displayed to the user */
+    private final boolean showPlot;
 
     /** The application should exit. */
     private final boolean exit;
@@ -20,9 +29,11 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, XYChart.Series dataSeries, boolean showHelp, boolean showPlot, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.dataSeries = dataSeries;
         this.showHelp = showHelp;
+        this.showPlot = showPlot;
         this.exit = exit;
     }
 
@@ -31,12 +42,14 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, null, false, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
+
+    public boolean isShowPlot() { return showPlot; }
 
     public boolean isShowHelp() {
         return showHelp;

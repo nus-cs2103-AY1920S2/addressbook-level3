@@ -1,7 +1,9 @@
 package seedu.address.model.transaction;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
+import javafx.scene.chart.XYChart;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
@@ -112,5 +114,9 @@ public class Transaction {
                 .append(" Amount: ")
                 .append(getMoney());
         return builder.toString();
+    }
+
+    public XYChart.Data<LocalDate, Integer> toData() {
+        return new XYChart.Data<>(dateTime.value.toLocalDate(), quantity.value);
     }
 }
