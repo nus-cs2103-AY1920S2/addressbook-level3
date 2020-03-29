@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 
@@ -32,6 +34,8 @@ public class OverviewPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
+    private ListView<Profile> profile;
+    @FXML
     private TextFlow profileDetails;
     @FXML
     private Label cap;
@@ -41,32 +45,38 @@ public class OverviewPanel extends UiPart<Region> {
     private ListView<Module> moduleSemesterPanel;
 
 
-    public OverviewPanel(Profile profile) throws ParseException {
+    public OverviewPanel(ObservableList<Profile> profileList) throws ParseException {
         super(FXML);
 
+
+        profile.setItems(profileList);
+        profile.setCellFactory(listView -> new ProfileListViewCell());
+
+        Profile profile = profileList.get(0);
+
         //Profile details
-        Text name = new Text("Name: " + profile.getName().fullName + "\n");
-        name.setFont(Font.font("Segoe UI", 16));
-        name.setFill(Color.WHITE);
-
-        Text course = new Text("Course: " + profile.getCourseName().courseName + "\n");
-        course.setFont(Font.font("Segoe UI", 14));
-        course.setFill(Color.WHITE);
-
-        Text specialisation;
-        if (profile.getSpecialisation() != null) {
-            specialisation = new Text("Specialisation: " + profile.getSpecialisation() + "\n");
-        } else {
-            specialisation = new Text("Specialisation: - \n");
-        }
-        specialisation.setFont(Font.font("Segoe UI", 14));
-        specialisation.setFill(Color.WHITE);
-
-        Text currentSem = new Text("Current Semester: " + profile.getCurrentSemester());
-        currentSem.setFont(Font.font("Segoe UI", 14));
-        currentSem.setFill(Color.WHITE);
-
-        profileDetails.getChildren().addAll(name, course, specialisation, currentSem);
+//        Text name = new Text("Name: " + profile.getName().fullName + "\n");
+//        name.setFont(Font.font("Segoe UI", 16));
+//        name.setFill(Color.WHITE);
+//
+//        Text course = new Text("Course: " + profile.getCourseName().courseName + "\n");
+//        course.setFont(Font.font("Segoe UI", 14));
+//        course.setFill(Color.WHITE);
+//
+//        Text specialisation;
+//        if (profile.getSpecialisation() != null) {
+//            specialisation = new Text("Specialisation: " + profile.getSpecialisation() + "\n");
+//        } else {
+//            specialisation = new Text("Specialisation: - \n");
+//        }
+//        specialisation.setFont(Font.font("Segoe UI", 14));
+//        specialisation.setFill(Color.WHITE);
+//
+//        Text currentSem = new Text("Current Semester: " + profile.getCurrentSemester());
+//        currentSem.setFont(Font.font("Segoe UI", 14));
+//        currentSem.setFill(Color.WHITE);
+//
+//        profileDetails.getChildren().addAll(name, course, specialisation, currentSem);
 
         cap.setText("Current CAP: \n" + profile.getCap().toString());
 
@@ -134,6 +144,22 @@ public class OverviewPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new OverviewModuleCard(module).getRoot());
+            }
+        }
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Profile} using a {@code DeadlineCard}.
+     */
+    class ProfileListViewCell extends ListCell<Profile> {
+        @Override
+        protected void updateItem(Profile profile, boolean empty) {
+            super.updateItem(profile, empty);
+            if (empty || profile == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new ProfileCard(profile).getRoot());
             }
         }
     }

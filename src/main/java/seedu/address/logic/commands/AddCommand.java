@@ -164,7 +164,8 @@ public class AddCommand extends Command {
         }
 
         profile.updateCap();
-        return new CommandResult(String.format(messageShown, toAdd), false);
+        profileManager.setDisplayedView(profile);
+        return new CommandResult(String.format(messageShown, toAdd), true);
     }
 
     @Override

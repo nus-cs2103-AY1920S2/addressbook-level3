@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
@@ -214,8 +215,7 @@ public class MainWindow extends UiPart<Stage> {
             moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
             mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
         } else if (displayedView.get() instanceof Profile) {
-            Profile profile = logic.getProfileList().getProfileList().get(0);
-            overviewPanel = new OverviewPanel(profile);
+            overviewPanel = new OverviewPanel(logic.getProfileList().getProfileList());
             mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
         } else if (displayedView.get() instanceof Module) {
             individualModulePanel = new IndividualModulePanel((Module) displayedView.get());
