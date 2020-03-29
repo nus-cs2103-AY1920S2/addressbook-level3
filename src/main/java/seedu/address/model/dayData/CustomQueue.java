@@ -151,7 +151,7 @@ public class CustomQueue implements Iterable<DayData> {
         return internalList.stream().anyMatch(toCheck::isSameDayData);
     }
 
-    /** Adds a dayData to the end of the queue. The dayData must not already exist in the list. */
+    /** Adds a dayData to the end of the queue. */
     public void add(DayData toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);

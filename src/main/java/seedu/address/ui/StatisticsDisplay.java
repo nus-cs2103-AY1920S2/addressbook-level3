@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -12,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
@@ -27,7 +30,6 @@ public class StatisticsDisplay extends UiPart<Region> {
     private static final String X_AXIS = "Day";
 
     public String barChartTitleText; // mutable
-    public int[][] data; //
     public Path progressBarDailyFilepath;
     public String progressDailyText;
     public String medalsText;
@@ -43,7 +45,6 @@ public class StatisticsDisplay extends UiPart<Region> {
     public StatisticsDisplay() {
         super(FXML);
         this.barChartTitleText = DEFAULT_BAR_CHART_TITLE;
-        this.data = null; // TODO *******************
         this.progressBarDailyFilepath = DEFAULT_PROGRESS_BAR_DAILY__PLACEHOLDER;
         this.progressDailyText = DEFAULT_PROGRESS_DAILY;
         this.medalsText = DEFAULT_MEDALS;
@@ -73,6 +74,18 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeries1.getData().add(new XYChart.Data<>("Day 7", 80));
 
         barChart.getData().add(dataSeries1);
+    }
+
+    public void updateGraph(String[] dates, int[] pomDurationDatas) {
+        XYChart.Series<String, Integer> dataSeries = new XYChart.Series<>();
+        dataSeries.setName("You");
+
+        for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
+            dataSeries.getData().add(new XYChart.Data<>(dates[i], pomDurationDatas[i]));
+        }
+
+        barChart.getData().add(dataSeries);
+
     }
 
     @Override

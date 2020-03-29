@@ -50,9 +50,7 @@ public class Statistics implements ReadOnlyStatistics {
         setDayDatas(newData.getDayDataList());
     }
 
-    //// dayData-level operations
-
-    // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH SIR
+    //// customQueue operations
 
     /** reinitialises dayDataList to current day while retaining stored data. */
     public void updateDataDates() {
@@ -87,16 +85,15 @@ public class Statistics implements ReadOnlyStatistics {
         }
     }
 
-    // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH end
-
-    /** Adds a dayData to the list. The person must not already exist in the address book. */
-    public void addDayData(DayData dayData) {
-        customQueue.add(dayData);
-    }
-
-    //// util methods
+    // util methods
+    /** Removes the dayData at the head of the internallist. */
     public void pop() {
         customQueue.pop();
+    }
+
+    /** Adds a dayData to the end of the internallist. */
+    public void addDayData(DayData dayData) {
+        customQueue.add(dayData);
     }
 
     @Override
