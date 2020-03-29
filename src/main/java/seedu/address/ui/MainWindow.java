@@ -199,7 +199,6 @@ public class MainWindow extends UiPart<Stage> {
     @SuppressWarnings("unchecked")
     private void handleShowCommand() throws ParseException {
         Optional<Object> displayedView = logic.getDisplayedView();
-        Profile profile = logic.getProfileList().getProfileList().get(0);
 
         // Removes the current displayed view
         if (displayedView != null) {
@@ -215,6 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             moduleListPanel = new ModuleListPanel((ObservableList<Module>) displayedView.get());
             mainPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
         } else if (displayedView.get() instanceof Profile) {
+            Profile profile = logic.getProfileList().getProfileList().get(0);
             overviewPanel = new OverviewPanel(profile);
             mainPanelPlaceholder.getChildren().add(overviewPanel.getRoot());
         } else if (displayedView.get() instanceof Module) {

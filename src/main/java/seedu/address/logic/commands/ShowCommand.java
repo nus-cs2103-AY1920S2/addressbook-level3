@@ -97,13 +97,18 @@ public class ShowCommand extends Command {
             } else if (itemParsed instanceof Name) {
 
                 message = MESSAGE_SUCCESS_NAME;
-                Profile profile = profileManager.getFirstProfile();
 
-                if ((profile.getName().toString().toLowerCase()).equals(itemParsed.toString().toLowerCase())) {
-                    toShow = profile;
-                    profileManager.setDisplayedView((Profile) toShow);
+                if (profileManager.getFilteredPersonList().size() != 0) {
+                    Profile profile = profileManager.getFirstProfile();
+
+                    if ((profile.getName().toString().toLowerCase()).equals(itemParsed.toString().toLowerCase())) {
+                        toShow = profile;
+                        profileManager.setDisplayedView((Profile) toShow);
+                    } else {
+                        throw new CommandException("Profile with name does not exist.");
+                    }
                 } else {
-                    throw new CommandException("Profile with name does not exist.");
+                    throw new CommandException("Profile does not exist.");
                 }
             }
 
