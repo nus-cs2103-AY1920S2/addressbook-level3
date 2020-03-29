@@ -30,6 +30,7 @@ public class Profile {
     private String specialisation;
     private Name name;
     private CourseName courseName;
+    private Cap cap;
 
     /**
      * Every field must be present and not null.
@@ -43,6 +44,7 @@ public class Profile {
         this.currentSemester = currentSemester;
         this.specialisation = specialisation;
         this.semModHashMap = new HashMap<>();
+        this.cap = new Cap();
     }
 
 
@@ -59,10 +61,11 @@ public class Profile {
         }
 
         int id = 0;
-        for (Module mod : semModHashMap.get(currentSemester)) { //for colourising module names
-            mod.setTag(id++);
+        if (semModHashMap.containsKey(currentSemester)) {
+            for (Module mod : semModHashMap.get(currentSemester)) { //for colourising module names
+                mod.setTag(id++);
+            }
         }
-
     }
 
     public Name getName() {
@@ -125,6 +128,14 @@ public class Profile {
         return deadlineList;
     }
 
+    public void updateCap() {
+        cap.updateCap(semModHashMap);
+    }
+
+    public Cap getCap() {
+        return cap;
+    }
+
     public ModuleList getCurModules() {
         return semModHashMap.get(currentSemester);
     }
@@ -175,7 +186,17 @@ public class Profile {
         throw new ParseException(name.toString() + " is not taking " + moduleCode.toString());
     }
 
-
+    /**
+     * Returns key of the given value
+     */
+    public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -219,5 +240,6 @@ public class Profile {
         builder.append(getName());
         return builder.toString();
     }
+
 
 }

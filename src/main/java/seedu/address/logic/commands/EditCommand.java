@@ -67,7 +67,7 @@ public class EditCommand extends Command {
 
     private boolean editModule = false;
     private ModuleCode moduleCode;
-    private int intSemester = 0;
+    private int editSemester = 0;
     private String grade = null;
     private String oldTask = null;
     private String newTask = null;
@@ -82,11 +82,11 @@ public class EditCommand extends Command {
         this.specialisation = specialisation;
     }
 
-    public EditCommand(ModuleCode moduleCode, int intSemester, String grade, String oldTask, String newTask,
+    public EditCommand(ModuleCode moduleCode, int editSemester, String grade, String oldTask, String newTask,
                        String newDeadline) {
         editModule = true;
         this.moduleCode = moduleCode;
-        this.intSemester = intSemester;
+        this.editSemester = editSemester;
         this.grade = grade;
         this.oldTask = oldTask;
         this.newTask = newTask;
@@ -133,19 +133,23 @@ public class EditCommand extends Command {
                 throw new CommandException("This module has not been added before");
             }
 
-            if (oldSemester != 0 && intSemester != 0) {
+            if (grade != null) {
+                int currentUserSemester = profileToEdit.getCurrentSemester();
+                if (oldSemester > currentUserSemester) {
+                    throw new CommandException("You cannot add a grade to future semesters!");
+                }
+                existingModule.getPersonal().setGrade(grade);
+            }
+
+            if (oldSemester != 0 && editSemester != 0) {
                 try {
                     hashMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
                 } catch (ParseException e) {
-                    throw new CommandException("Error deleting exiting module.");
+                    throw new CommandException("Error deleting existing module.");
                 }
 
-                profileToEdit.addModule(intSemester, existingModule);
+                profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
-            }
-
-            if (grade != null) {
-                existingModule.getPersonal().setGrade(grade);
             }
 
             //TODO: edit task and deadlines
@@ -174,6 +178,7 @@ public class EditCommand extends Command {
                 }
             }
 
+            profileToEdit.updateCap();
             return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), false);
 
         } else if (toEditProfile) {
