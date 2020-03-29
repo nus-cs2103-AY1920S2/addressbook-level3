@@ -1,7 +1,9 @@
 package tatracker.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -10,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tatracker.commons.exceptions.IllegalValueException;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 /**
@@ -69,20 +72,19 @@ class JsonAdaptedGroup {
         final GroupType modelGroupType = GroupType.valueOf(type);
 
         // ==== Students ====
-        final List<Student> modelStudents = new ArrayList<>();
+        final Map<Matric, Student> modelStudents = new HashMap<>();
         for (JsonAdaptedStudent jsonAdaptedStudent : students) {
             Student student = jsonAdaptedStudent.toModelType();
-            if (modelStudents.contains(student)) {
-                throw new IllegalArgumentException(MESSAGE_DUPLICATE_STUDENTS);
+            if (modelStudents.containsKey(student.getMatric())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENTS);
             }
-            modelStudents.add(student);
+            modelStudents.put(student.getMatric(), student);
         }
 
         // ==== Build ====
         Group group = new Group(id, modelGroupType);
-        modelStudents.forEach(group::addStudent);
+        modelStudents.forEach((matric, student) -> group.addStudent(student));
 
         return group;
     }
-
 }
