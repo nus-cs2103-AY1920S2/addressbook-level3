@@ -12,7 +12,7 @@ import seedu.address.model.profile.course.CourseName;
  */
 public class CourseManager {
 
-    private static CourseList courseList;
+    private CourseList courseList;
 
     public CourseManager(CourseList courseList) {
         requireNonNull(courseList);
@@ -23,11 +23,11 @@ public class CourseManager {
         this(new CourseList());
     }
 
-    public static Course getCourse(CourseName courseName) throws ParseException {
+    public Course getCourse(CourseName courseName) throws ParseException {
         return courseList.getCourse(courseName);
     }
 
-    public static CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
+    public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
         return courseList.getCourseFocusArea(focusAreaName);
     }
     /*

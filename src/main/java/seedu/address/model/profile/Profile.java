@@ -25,11 +25,11 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 public class Profile {
 
     // Identity fields
-    private static HashMap<Integer, ModuleList> moduleHash;
-    private static int currentSemester = 0;
-    private static String specialisation;
-    private static Name name;
-    private static CourseName courseName;
+    private HashMap<Integer, ModuleList> semModHashMap;
+    private int currentSemester = 0;
+    private String specialisation;
+    private Name name;
+    private CourseName courseName;
 
     /**
      * Every field must be present and not null.
@@ -38,24 +38,24 @@ public class Profile {
         requireAllNonNull(name);
         requireAllNonNull(courseName);
         requireAllNonNull(currentSemester);
-        Profile.name = name;
-        Profile.courseName = courseName;
-        Profile.currentSemester = currentSemester;
-        Profile.specialisation = specialisation;
-        Profile.moduleHash = new HashMap<>();
+        this.name = name;
+        this.courseName = courseName;
+        this.currentSemester = currentSemester;
+        this.specialisation = specialisation;
+        this.semModHashMap = new HashMap<>();
     }
 
 
     /**
      * Adds a module to the hashmap with the key being the semester
      */
-    public static void addModule(Integer semester, Module module) {
-        if (!moduleHash.isEmpty() && moduleHash.containsKey(semester)) {
-            moduleHash.get(semester).addModule(module);
+    public void addModule(Integer semester, Module module) {
+        if (!semModHashMap.isEmpty() && semModHashMap.containsKey(semester)) {
+            semModHashMap.get(semester).addModule(module);
         } else {
             ModuleList moduleList = new ModuleList();
             moduleList.addModule(module);
-            moduleHash.put(semester, moduleList);
+            semModHashMap.put(semester, moduleList);
         }
 
         int id = 0;
@@ -69,15 +69,11 @@ public class Profile {
         return name;
     }
 
-    public static Name getStaticName() {
-        return name;
-    }
-
     public CourseName getCourseName() {
         return courseName;
     }
 
-    public static int getCurrentSemester() {
+    public int getCurrentSemester() {
         return currentSemester;
     }
 
@@ -85,43 +81,43 @@ public class Profile {
         return specialisation;
     }
 
-    public static void setName(Name name) {
-        Profile.name = name;
+    public void setName(Name name) {
+        this.name = name;
     }
 
-    public static void setCourse(CourseName courseName) {
-        Profile.courseName = courseName;
+    public void setCourse(CourseName courseName) {
+        this.courseName = courseName;
     }
 
-    public static void setCurrentSemester(int currentSemester) {
-        Profile.currentSemester = currentSemester;
+    public void setCurrentSemester(int currentSemester) {
+        this.currentSemester = currentSemester;
     }
 
-    public static void setSpecialisation(String specialisation) {
-        Profile.specialisation = specialisation;
+    public void setSpecialisation(String specialisation) {
+        this.specialisation = specialisation;
     }
 
-    public static ModuleList getModules(Integer semester) throws ParseException {
-        if (!moduleHash.containsKey(semester)) {
+    public ModuleList getModules(Integer semester) throws ParseException {
+        if (!semModHashMap.containsKey(semester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
-        return moduleHash.get(semester);
+        return semModHashMap.get(semester);
     }
 
-    public static HashMap<Integer, ModuleList> getAllModules() {
-        return moduleHash;
+    public HashMap<Integer, ModuleList> getAllModules() {
+        return semModHashMap;
     }
 
     public Set<Map.Entry<Integer, ModuleList>> getMappings() {
-        return moduleHash.entrySet();
+        return semModHashMap.entrySet();
     }
 
-    public static HashMap<Integer, ModuleList> getHashMap() {
-        return moduleHash;
+    public HashMap<Integer, ModuleList> getSemModHashMap() {
+        return semModHashMap;
     }
 
     public List<Deadline> getDeadlines() {
-        ModuleList modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
+        ModuleList modules = semModHashMap.get(currentSemester); // Deadlines should only be from the current semester
         List<Deadline> deadlineList = new ArrayList<>();
         for (Module module: modules) {
             deadlineList.addAll(module.getDeadlines());
@@ -129,13 +125,13 @@ public class Profile {
         return deadlineList;
     }
 
-    public static ModuleList getCurModules() {
-        return moduleHash.get(currentSemester);
+    public ModuleList getCurModules(int currentSemester) {
+        return semModHashMap.get(currentSemester);
     }
 
     public int getModuleSemester(ModuleCode moduleCode) {
-        for (int semester: moduleHash.keySet()) {
-            for (Module module: moduleHash.get(semester)) {
+        for (int semester: semModHashMap.keySet()) {
+            for (Module module: semModHashMap.get(semester)) {
                 if (module.getModuleCode().equals(moduleCode)) {
                     return semester;
                 }
@@ -145,7 +141,7 @@ public class Profile {
     }
 
     public Module getModule(ModuleCode moduleCode) throws ParseException {
-        for (ModuleList moduleList: moduleHash.values()) {
+        for (ModuleList moduleList: semModHashMap.values()) {
             for (Module module: moduleList) {
                 if (module.getModuleCode().equals(moduleCode)) {
                     return module;
@@ -159,7 +155,7 @@ public class Profile {
      * Returns true if a module with module code {@code moduleCode} exists in {@code moduleHash}.
      */
     public boolean hasModule(ModuleCode moduleCode) {
-        for (ModuleList moduleList: moduleHash.values()) {
+        for (ModuleList moduleList: semModHashMap.values()) {
             if (moduleList.hasModuleWithModuleCode(moduleCode)) {
                 return true;
             }
@@ -173,7 +169,7 @@ public class Profile {
     public void deleteModule(ModuleCode moduleCode) throws ParseException {
         if (hasModule(moduleCode)) {
             int semester = getModuleSemester(moduleCode);
-            moduleHash.get(semester).removeModuleWithModuleCode(moduleCode);
+            semModHashMap.get(semester).removeModuleWithModuleCode(moduleCode);
             return;
         }
         throw new ParseException(name.toString() + " is not taking " + moduleCode.toString());

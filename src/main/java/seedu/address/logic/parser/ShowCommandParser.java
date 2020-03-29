@@ -6,20 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.model.profile.Profile.getModules;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CourseManager;
-import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
 /**
@@ -42,28 +34,25 @@ public class ShowCommandParser implements Parser<ShowCommand> {
             if (!ParserUtil.isInteger(semester)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
             }
-            int intSemester = Integer.parseInt(semester);
-            ModuleList modulesList = getModules(intSemester);
-
-            return new ShowCommand(modulesList);
+            Integer intSemester = Integer.parseInt(semester);
+            return new ShowCommand(intSemester); // returns int
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
             String name = argMultimap.getValue(PREFIX_COURSE_NAME).get();
-            Course course = CourseManager.getCourse(new CourseName(name));
-            return new ShowCommand(course);
+            CourseName courseName = new CourseName(name);
+            return new ShowCommand(courseName); // returns CourseName
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            String name = argMultimap.getValue(PREFIX_MODULE).get();
-            Module module = ModuleManager.getModule(new ModuleCode(name));
-            return new ShowCommand(module);
+            String name = argMultimap.getValue(PREFIX_MODULE).get().toUpperCase();
+            ModuleCode moduleCode = new ModuleCode(name);
+            return new ShowCommand(moduleCode); // returns ModuleCode
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
             String focusArea = argMultimap.getValue(PREFIX_FOCUS_AREA).get();
-            CourseFocusArea courseFocusArea = CourseManager.getCourseFocusArea(focusArea);
-            return new ShowCommand(courseFocusArea);
+            return new ShowCommand(focusArea); // returns String
         }
 
         Name name;
