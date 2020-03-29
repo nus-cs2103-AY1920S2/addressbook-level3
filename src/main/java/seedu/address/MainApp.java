@@ -211,20 +211,26 @@ public class MainApp extends Application {
 
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();
+
+      if (assignmentAddressBookOptional.isPresent()) {
+        logger.info("Data file found!");
+      }
+
       if (!assignmentAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        logger.info("Data file not found. Will be starting with a sample AssignmentAddressBook");
       }
       assignmentInitialData = assignmentAddressBookOptional
               .orElseGet(SampleDataUtil::getSampleAssignmentAddressBook);
     } catch (DataConversionException e) {
       logger.warning(
-              "Data file not in the correct format. Will be starting with an empty AddressBook");
+              "Data file not in the correct format. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     } catch (IOException e) {
       logger.warning(
-              "Problem while reading from the file. Will be starting with an empty AddressBook");
+              "Problem while reading from the file. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     }
+    logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
         courseInitialData, assignmentInitialData, userPrefs);
