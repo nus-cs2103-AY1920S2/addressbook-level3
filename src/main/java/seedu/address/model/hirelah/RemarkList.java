@@ -1,14 +1,14 @@
 package seedu.address.model.hirelah;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.util.stream.IntStream;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
  * A list of remarks that are associated  with a particular interview session of an {@code Interviewee}.

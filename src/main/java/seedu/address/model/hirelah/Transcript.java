@@ -1,12 +1,12 @@
 package seedu.address.model.hirelah;
 
+import java.time.Duration;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
-
-import java.time.Duration;
 
 /**
  * Encapsulates all the details that are put by the interviewer during the interview session

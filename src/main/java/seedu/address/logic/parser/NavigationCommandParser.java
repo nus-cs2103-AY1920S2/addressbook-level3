@@ -1,15 +1,15 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.NavigationQuestionCommand;
-import seedu.address.logic.commands.NavigationTimeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.NavigationQuestionCommand;
+import seedu.address.logic.commands.NavigationTimeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input command and creates a new Command object

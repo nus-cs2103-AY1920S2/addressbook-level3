@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
-
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * NavigationQuestionCommand describes the behavior when the
@@ -17,7 +17,8 @@ import static java.util.Objects.requireNonNull;
 public class NavigationQuestionCommand extends Command {
     public static final String COMMAND_WORD = "to";
     public static final String MESSAGE_NAVIGATION_QUESTION_SUCCESS = "Here is the remark of question %s!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Navigate to a particular answer of a question from an interviewee.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Navigate to a particular answer of a question from an interviewee.\n"
             + "Parameters: questionNumber\n"
             + "Example:  " + COMMAND_WORD + " q10";
 
@@ -31,8 +32,8 @@ public class NavigationQuestionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!model.hasCurrentInterviewee()) {
-            throw new CommandException("You need to open a transcript of a particular interviewee " +
-                    "to go to the answer of a question.");
+            throw new CommandException("You need to open a transcript of a particular interviewee "
+                    + "to go to the answer of a question.");
         }
         Optional<Transcript> transcriptOfCurrentInterviewee = model.getCurrentInterviewee().getTranscript();
         try {

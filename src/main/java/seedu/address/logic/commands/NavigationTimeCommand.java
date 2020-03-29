@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.hirelah.Transcript;
+import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.util.Optional;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.hirelah.Transcript;
 
 /**
  * NavigationTimeCommand describes the behavior when the
@@ -16,7 +16,8 @@ import static java.util.Objects.requireNonNull;
 public class NavigationTimeCommand extends Command {
     public static final String COMMAND_WORD = "to";
     public static final String MESSAGE_NAVIGATION_TIME_SUCCESS = "Here is the remark at time %d.%d: ";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Navigate to a particular time of an interviewee's interview.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Navigate to a particular time of an interviewee's interview.\n"
             + "Parameters: minutes.seconds of the interview\n"
             + "Example:  " + COMMAND_WORD + " 30.00";
 
@@ -31,8 +32,8 @@ public class NavigationTimeCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasCurrentInterviewee()) {
-            throw new CommandException("You need to open a transcript of a particular interviewee " +
-                    "to go to the answer of a question.");
+            throw new CommandException("You need to open a transcript of a particular interviewee "
+                    + "to go to the answer of a question.");
         }
         Optional<Transcript> transcriptOfCurrentInterviewee = model.getCurrentInterviewee().getTranscript();
         return transcriptOfCurrentInterviewee

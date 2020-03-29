@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 class RemarkListTest {
@@ -50,12 +51,12 @@ class RemarkListTest {
     }
 
     @Test
-    void getInstantOfQuestion_firstQuestion_success() throws IllegalActionException {
+    void getInstantOfQuestion_firstQuestion_success() throws IllegalActionException, IllegalValueException {
         RemarkList actualRemarks = new RemarkList(3);
         actualRemarks.add(RemarkTest.REMARK_START_WITHOUT_QUESTION);
         actualRemarks.add(RemarkTest.REMARK_QUARTER_WITH_QUESTION_1);
         actualRemarks.add(RemarkTest.REMARK_MIDDLE_WITH_QUESTION_2);
         actualRemarks.add(RemarkTest.REMARK_STOP_WITHOUT_QUESTION);
-        assertEquals(2, actualRemarks.getIndexOfQuestion(2));
+        assertEquals(2, actualRemarks.getIndexOfQuestion("2"));
     }
 }
