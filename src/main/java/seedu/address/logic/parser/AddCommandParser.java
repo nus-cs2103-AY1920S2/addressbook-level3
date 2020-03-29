@@ -36,9 +36,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         // Create module object
-        String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get();
-        moduleCodeString = moduleCodeString.trim();
-        moduleCodeString = moduleCodeString.toUpperCase();
+        String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
         ModuleCode moduleCode = ParserUtil.parseModuleCode(moduleCodeString);
         int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
 
@@ -46,8 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         String task = null;
         String deadlineString = null;
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
-            grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get());
-            grade.toUpperCase();
+            grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().toUpperCase());
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_DEADLINE)) {
             task = argMultimap.getValue(PREFIX_TASK).get();

@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -75,29 +77,32 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
+                                 ModuleManager moduleManager) throws CommandException {
+        requireNonNull(profileManager);
+        requireNonNull(courseManager);
+        requireNonNull(moduleManager);
 
         // Deleting a user profile
         if (deleteName != null) {
-            if (model.hasProfile(deleteName)) {
-                Profile profileToDelete = model.getProfile(deleteName);
-                model.deletePerson(profileToDelete);
-                model.setProfileList(new ProfileList());
-                model.clearDeadlineList();
+            if (profileManager.hasProfile(deleteName)) {
+                Profile profileToDelete = profileManager.getProfile(deleteName);
+                profileManager.deletePerson(profileToDelete);
+                profileManager.setProfileList(new ProfileList());
+                profileManager.clearDeadlineList();
                 return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete));
             } else {
                 throw new CommandException("Profile with name " + deleteName + " does not exist!");
             }
         } else if (deleteModuleCode != null) {
-            Profile profile = model.getFirstProfile(); // To edit when dealing with multiple profiles
+            Profile profile = profileManager.getFirstProfile(); // To edit when dealing with multiple profiles
             if (!profile.hasModule(deleteModuleCode)) {
                 throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
             }
             if (deleteDeadline == null) { // Deleting a module
                 try {
                     profile.deleteModule(deleteModuleCode);
-                    model.deleteModuleDeadlines(deleteModuleCode);
+                    profileManager.deleteModuleDeadlines(deleteModuleCode);
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 }
@@ -108,7 +113,7 @@ public class DeleteCommand extends Command {
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 }
-                model.deleteDeadline(deleteDeadline); //delete from observablelist
+                profileManager.deleteDeadline(deleteDeadline); //delete from observablelist
                 return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline));
             }
         }

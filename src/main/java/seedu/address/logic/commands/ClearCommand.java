@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.Model;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
+import seedu.address.model.ProfileManager;
 
 /**
  * Clears the address book.
@@ -15,10 +17,14 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.setProfileList(new ProfileList());
-        model.clearDeadlineList();
+    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
+                                 ModuleManager moduleManager) {
+        requireNonNull(profileManager);
+        requireNonNull(courseManager);
+        requireNonNull(moduleManager);
+
+        profileManager.setProfileList(new ProfileList());
+        profileManager.clearDeadlineList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
