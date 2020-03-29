@@ -20,6 +20,8 @@ public class Prefixes {
 
     /* Placeholders */
     public static final Prefix INDEX = new Prefix("", Index.MESSAGE_CONSTRAINTS, "INDEX", "1");
+    public static final Prefix KEYWORD = new Prefix("", "", "KEYWORD", "alice");
+    public static final Prefix MORE_KEYWORDS = new Prefix("", "", "MORE_KEYWORDS", "bob", "charlie");
 
     /* Session definitions */
     public static final Prefix START_TIME = new Prefix("s/", "", "START_TIME", "14:00");
