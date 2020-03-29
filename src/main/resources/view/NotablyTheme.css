@@ -101,11 +101,15 @@
 }
 
 .context-menu {
+    -fx-background-color: #F7F6F3;
+}
+
+.menu:hover, .menu:showing {
     -fx-background-color: #E8E7E4;
 }
 
-.context-menu .label {
-    -fx-text-fill: white;
+.menu-item:focused {
+    -fx-background-color: #E8E7E4;
 }
 
 .menu-bar {
@@ -124,6 +128,7 @@
  * Author: Pedro Duque Vieira
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
+
 .button {
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
