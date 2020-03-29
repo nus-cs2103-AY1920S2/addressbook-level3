@@ -145,6 +145,10 @@ public class InsertCommandTest {
         public void deliverOrder(Order target) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void deliverReturnOrder(ReturnOrder target) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void renewDeliveryStatus(Order target) {

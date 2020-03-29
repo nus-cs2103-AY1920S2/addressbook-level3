@@ -126,6 +126,12 @@ public interface Model {
     void addReturnOrder(ReturnOrder returnOrder);
 
     /**
+     * Delivers the given return order.
+     * {@code returnOrder} must exist in the return order book.
+     */
+    void deliverReturnOrder(ReturnOrder returnOrder);
+
+    /**
      * Replaces the given order {@code target} with {@code editedReturnOrder}.
      * {@code target} must exist in the return order book.
      * The return order identity of {@code editedReturnOrder} must not be the same as another existing return order
