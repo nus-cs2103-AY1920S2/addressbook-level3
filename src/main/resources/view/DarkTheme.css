@@ -33,11 +33,64 @@
     -fx-padding: 0 0 0 1;
 }
 
-.tab-pane .tab-header-area {
+#diaryTab {
+    -font-size: 100;
+}
+ 
+
+.tab-pane .tab-header-area .tab-header-background {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
 }
+
+/* ================ For tabs ================*/
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+    -fx-background-color: #3c3c3c;
+    /* change the colour here if you want to change the colour for the tabpane*/
+
+}
+
+#month .content{
+    -fx-text-fill: white; 
+
+
+ }
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #3c3c3c;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #ffb385;
+}
+
+
+
 
 .table-view {
     -fx-base: #1d1d1d;
