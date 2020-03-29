@@ -30,7 +30,7 @@ public class SampleReceiptDataUtil {
         entries.add(new Entry(new Item(new ItemName("cheese fries"), new ItemPrice(new BigDecimal("9.0")),
                 new Amount(new BigDecimal("3"))), personList));
 
-        return new Receipt[] { new Receipt(entries) };
+        return new Receipt[] { new Receipt(entries, false) };
     }
 
     public static ReadOnlyReceiptBook getSampleReceiptBook() {
