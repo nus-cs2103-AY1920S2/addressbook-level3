@@ -142,7 +142,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -190,8 +189,14 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder2.getChildren().add(assignmentListPanel.getRoot());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Display upcoming birthdays on third panel.
+     */
+    @FXML
+    private void handleShowBirthday() {
+        personBdayPanel = new PersonListBdayPanel(logic.getBdayList());
+        personListPanelPlaceholder2.getChildren().clear();
+        personListPanelPlaceholder2.getChildren().add(personBdayPanel.getRoot());
     }
 
     /**
@@ -205,16 +210,14 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            /*if (commandResult.isShowHelp()) {
-                handleHelp();
-            }*/
-
             if (commandResult.isExit()) {
                 handleExit();
             } else if (commandResult.isGet()) {
                 handleGet();
             } else if (commandResult.isAssignment()) {
                 handleAssignment();
+            } else if (commandResult.isShowBirthday()) {
+                handleShowBirthday();
             }
 
             return commandResult;

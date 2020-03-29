@@ -15,5 +15,6 @@ public class Messages {
     public static final String MESSAGE_TOO_MANY_FILTERS = "Too many filters! Either deadline or estimated completion "
             + "time can be used to sort each time.";
     public static final String MESSAGE_INVALID_PREFIX = "Name and phone cannot be deleted!";
-
+    public static final String MESSAGE_BIRTHDAYS_LISTED =
+        "Birthdays for the next five days (today inclusive) is listed!";
 }

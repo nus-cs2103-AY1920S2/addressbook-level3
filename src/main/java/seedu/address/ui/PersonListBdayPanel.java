@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -11,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
 /**
- * Panel containing the list of Persons whose birthday is upcoming (in the next 5 days).
+ * Panel containing the list of Persons whose birthday is upcoming in the next 5 days (including today).
  */
 public class PersonListBdayPanel extends UiPart<Region> {
     private static final String FXML = "personListBdayPanel.fxml";
@@ -20,8 +21,13 @@ public class PersonListBdayPanel extends UiPart<Region> {
     @FXML
     private ListView<Person> personListView;
 
+    @FXML
+    private Label title;
+
     public PersonListBdayPanel(ObservableList<Person> bdayList) {
         super(FXML);
+        title.setText("Upcoming Birthdays:");
+
         personListView.setItems(bdayList);
         personListView.setCellFactory(listView -> new PersonListBdayPanel.PersonBdayViewCell());
     }
@@ -38,9 +44,8 @@ public class PersonListBdayPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCardBday(person).getRoot());
             }
         }
     }
-
 }

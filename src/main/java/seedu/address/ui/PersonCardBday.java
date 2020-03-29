@@ -1,12 +1,20 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,6 +23,8 @@ import seedu.address.model.person.Person;
 public class PersonCardBday extends UiPart<Region> {
 
     private static final String FXML = "PersonListBdayCard.fxml";
+    private static final DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
+        .parseDefaulting(ChronoField.YEAR, 2020).toFormatter(Locale.ENGLISH);
 
     public final Person person;
 
@@ -23,26 +33,34 @@ public class PersonCardBday extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label id;
-    @FXML
     private Label phone;
-    @FXML
-    private FlowPane tags;
     @FXML
     private Label remark;
     @FXML
     private Label birthday;
-    @FXML
-    private Label organization;
 
-    public PersonCardBday(Person person, int displayedIndex) {
+    public PersonCardBday(Person person) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        birthday.setText(person.getBirthday().toString());
-        organization.setText(person.getOrganization().toString());
+
+        birthday.setStyle("-fx-text-fill: #000");
+        if (LocalDate.parse(person.getBirthday().birthday, inputFormat).compareTo(LocalDate.now()) == 0) {
+            birthday.setText(" Today ");
+            birthday.setBackground(new Background(new BackgroundFill(Color.rgb(255, 87, 51),
+                CornerRadii.EMPTY, Insets.EMPTY)));
+        } else if (LocalDate.parse(person.getBirthday().birthday, inputFormat)
+            .compareTo(LocalDate.now().plusDays(1)) == 0) {
+            birthday.setText(" Tomorrow ");
+            birthday.setBackground(new Background(new BackgroundFill(Color.rgb(255, 195, 0),
+                CornerRadii.EMPTY, Insets.EMPTY)));
+        } else {
+            birthday.setText(" Upcoming: " + person.getBirthday().toString() + " ");
+            birthday.setBackground(new Background(new BackgroundFill(Color.rgb(218, 247, 166),
+                CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+
         String remarkValue = "";
         int i = 0;
         while (i < person.getRemark().size()) {
@@ -53,9 +71,6 @@ public class PersonCardBday extends UiPart<Region> {
             i++;
         }
         remark.setText(remarkValue);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -72,8 +87,6 @@ public class PersonCardBday extends UiPart<Region> {
 
         // state check
         PersonCardBday card = (PersonCardBday) other;
-        return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+        return person.equals(card.person);
     }
-
 }

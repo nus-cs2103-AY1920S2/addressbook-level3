@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.PersonExistPredicate;
 
 /**
- * Parses input arguments and creates a new GetCommand object
+ * Parses input arguments and creates a new GetCommand object.
  */
 public class GetCommandParser implements Parser<GetCommand> {
 
@@ -28,5 +28,4 @@ public class GetCommandParser implements Parser<GetCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }
