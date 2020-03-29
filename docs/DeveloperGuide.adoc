@@ -275,24 +275,27 @@ The `edit` command is parsed using `EditCommandParser` to split the user input i
 
 To edit `profile`, the command `edit` should be appended with one or more of the tags:
 
-- `n/NAME`
-- `c/COURSE`
-- `cs/CURRENT_SEMESTER`.
+- `n/NAME` : New name
+- `c/COURSE` : New course
+- `cs/CURRENT_SEMESTER` : New current semester
 
-To edit `module`, the command `edit` should be appended with `m/module`, followed by one or more of the tags:
+To edit `module`, the command `edit` should be appended with `m/MODULE`, followed by one or more of the tags:
 
-- `s/SEMESTER`
-- `g/GRADE`.
+- `s/SEMESTER` : New semester where module is taken
+- `g/GRADE` : New grade for the module
+- `t/TASK` : Old task description
+- `nt/NEW_TASK` : New task description
+- `d/DEADLINE` : New date and time
 
-The feature to edit `Deadline` is coming soon.
+To edit a deadline, append `edit m/MODULE` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
 
 The `edit` command extends command class and uses inheritance to facilitate implementation. Hence it inherits the following methods:
 
 - `Command#execute(Model model)`
 
-The following sequence diagram shows how the `edit` command works: `edit m/CS2105 g/A`:
+The following sequence diagram shows how the `edit` command works: `edit n/John`:
 
-.Interactions Inside the Logic Component for the `edit n/NAME` Command
+.Interactions Inside the Logic Component for the `edit n/John` Command
 image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
