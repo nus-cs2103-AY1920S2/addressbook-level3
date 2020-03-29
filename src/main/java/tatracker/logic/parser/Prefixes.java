@@ -31,9 +31,9 @@ public class Prefixes {
 
     /* Group definitions */
     public static final Prefix GROUP = new Prefix("g/", "", "GROUP", "G06");
+    public static final Prefix NEWGROUP = new Prefix("ng/", "", "NEW_GROUP", "G05");
     public static final Prefix TYPE = new Prefix("t/", "", "GROUP_TYPE", "tutorial");
-    public static final Prefix NEWTYPE = new Prefix("nt/");
-    public static final Prefix NEWGROUP = new Prefix("ng/");
+    public static final Prefix NEWTYPE = new Prefix("nt/", "", "NEW_TYPE", "lab");
 
     /* Student definitions */
     public static final Prefix MATRIC = new Prefix("id/", Matric.MESSAGE_CONSTRAINTS, "MATRIC", "A0181234G");
@@ -45,6 +45,10 @@ public class Prefixes {
 
     public static String getExamples(Prefix ... prefixes) {
         return formatPrefixes(Arrays.asList(prefixes), Prefix::getExamples);
+    }
+
+    public static String getUsages(List<Prefix> parameters) {
+        return getUsages(parameters, List.of());
     }
 
     public static String getUsages(List<Prefix> parameters, List<Prefix> optionals) {

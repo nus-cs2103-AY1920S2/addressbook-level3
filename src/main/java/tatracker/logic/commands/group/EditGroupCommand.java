@@ -1,15 +1,18 @@
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandWords.EDIT_MODEL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NEWGROUP;
 import static tatracker.logic.parser.Prefixes.NEWTYPE;
 
+import java.util.List;
+
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -21,7 +24,14 @@ import tatracker.model.module.Module;
  */
 public class EditGroupCommand extends Command {
 
-    public static final String COMMAND_WORD = GROUP + " " + EDIT_MODEL;
+    public static final String COMMAND_WORD = CommandWords.GROUP + " " + CommandWords.EDIT_MODEL;
+
+    public static final List<Prefix> PARAMETERS = List.of(MODULE, GROUP);
+    public static final List<Prefix> OPTIONALS = List.of(NEWGROUP, NEWTYPE); // TODO: new type not needed?
+
+    public static final String INFO = "Edits the group identified by the group code.";
+    public static final String USAGE = Prefixes.getUsages(PARAMETERS, OPTIONALS);
+    public static final String EXAMPLE = Prefixes.getExamples(MODULE, GROUP, NEWGROUP, NEWTYPE);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the  group identified by the group code.\n"
