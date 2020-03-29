@@ -22,8 +22,8 @@ import com.notably.model.Model;
 public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final List<String> COMMAND_LIST = List.of("new", "n", "edit", "e", "delete", "d"
-            , "open", "o", "help", "h", "exit");
+    private static final List<String> COMMAND_LIST = List.of("new", "n", "edit", "e", "delete", "d",
+            "open", "o", "help", "h", "exit");
     private static final int DISTANCE_THRESHOLD = 2;
 
     private Model notablyModel;

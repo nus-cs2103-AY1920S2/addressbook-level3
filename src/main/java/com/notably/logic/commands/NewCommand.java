@@ -12,7 +12,7 @@ import com.notably.model.block.Block;
  */
 public class NewCommand extends Command {
     public static final String COMMAND_WORD = "new";
-    public static final String COMMAND_SHORTHAND= "n";
+    public static final String COMMAND_SHORTHAND = "n";
     private final Block toAdd;
     private AbsolutePath path;
 
