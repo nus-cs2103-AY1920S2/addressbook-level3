@@ -1,6 +1,7 @@
 package csdev.couponstash.model;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
@@ -159,14 +160,14 @@ public class ModelManager implements Model {
     public void sortCoupons(Prefix prefixToSortBy, String commandText) {
         requireNonNull(prefixToSortBy);
 
-        Comparator<Coupon> cmp;
+        Comparator<Coupon> cmp = null;
 
         if (prefixToSortBy.equals(PREFIX_NAME)) {
             cmp = (x, y) -> x
                     .toString()
                     .toLowerCase()
                     .compareTo(y.toString().toLowerCase());
-        } else {
+        } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
             cmp = (x, y) -> x
                     .getExpiryDate()
                     .getDate()
