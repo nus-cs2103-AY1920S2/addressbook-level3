@@ -3,12 +3,12 @@
     "windowWidth" : 1000.0,
     "windowHeight" : 800.0,
     "windowCoordinates" : {
-      "x" : 84,
-      "y" : 18
+      "x" : 229,
+      "y" : 23
     }
   },
   "addressBookFilePath" : "data\\addressbook.json",
   "moduleListFilePath" : "/data/modulesPrereq.json",
-  "profileListFilePath" : "data\\userProfiles.json",
+  "profileListFilePath" : "data/userProfiles.json",
   "courseListFilePath" : "/data/courses.json"
 }

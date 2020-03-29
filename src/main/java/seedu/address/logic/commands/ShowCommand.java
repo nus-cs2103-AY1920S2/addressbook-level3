@@ -98,8 +98,13 @@ public class ShowCommand extends Command {
 
                 message = MESSAGE_SUCCESS_NAME;
                 Profile profile = profileManager.getFirstProfile();
-                toShow = profile;
-                profileManager.setDisplayedView((Profile) toShow);
+
+                if ((profile.getName().toString().toLowerCase()).equals(itemParsed.toString().toLowerCase())) {
+                    toShow = profile;
+                    profileManager.setDisplayedView((Profile) toShow);
+                } else {
+                    throw new CommandException("Profile with name does not exist.");
+                }
             }
 
             return new CommandResult(String.format(message, toShow), true);

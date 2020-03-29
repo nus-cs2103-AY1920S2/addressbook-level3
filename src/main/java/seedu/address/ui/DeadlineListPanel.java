@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -15,13 +16,15 @@ import seedu.address.model.profile.course.module.personal.Deadline;
  */
 public class DeadlineListPanel extends UiPart<Region> {
     private static final String FXML = "DeadlineListPanel.fxml";
+    private static ProfileManager pm;
     private final Logger logger = LogsCenter.getLogger(DeadlineListPanel.class);
 
     @FXML
     private ListView<Deadline> deadlineListView;
 
-    public DeadlineListPanel(ObservableList<Deadline> deadlineList) {
+    public DeadlineListPanel(ObservableList<Deadline> deadlineList, ProfileManager pm) {
         super(FXML);
+        this.pm = pm;
         deadlineListView.setItems(deadlineList); //sets an observable list
         deadlineListView.setCellFactory(listView -> new DeadlineListViewCell());
     }
@@ -38,7 +41,7 @@ public class DeadlineListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DeadlineCard(deadline).getRoot());
+                setGraphic(new DeadlineCard(deadline, pm.getFirstProfile().getCurModules()).getRoot());
             }
         }
     }

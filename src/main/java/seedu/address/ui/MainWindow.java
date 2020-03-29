@@ -139,7 +139,7 @@ public class MainWindow extends UiPart<Stage> {
         profileListPanel = new ProfileListPanel(logic.getFilteredPersonList());
         profileListPanelPlaceholder.getChildren().add(profileListPanel.getRoot());
 
-        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList());
+        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList(), logic.getProfileManager());
         deadlineListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -196,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
      * Handles show command by updating Main Panel.
      */
     @FXML
+    @SuppressWarnings("unchecked")
     private void handleShowCommand() throws ParseException {
         Optional<Object> displayedView = logic.getDisplayedView();
         Profile profile = logic.getProfileList().getProfileList().get(0);

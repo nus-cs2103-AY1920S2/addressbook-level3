@@ -172,6 +172,7 @@ public class EditCommand extends Command {
                 String time = newDeadlineString.split(" ")[1];
                 try {
                     newDeadline.setDateTime(date, time);
+                    newDeadline.addTag();
                     profileManager.replaceDeadline(oldDeadline, newDeadline);
                 } catch (DateTimeException e) {
                     throw new CommandException("Invalid date or time!");
@@ -192,6 +193,7 @@ public class EditCommand extends Command {
             if (updatedSemester != 0) {
                 profileToEdit.setCurrentSemester(updatedSemester);
                 updateStatus(profileToEdit);
+                profileManager.deleteDeadlineList();
             }
             if (specialisation != null) {
                 profileToEdit.setSpecialisation(specialisation);

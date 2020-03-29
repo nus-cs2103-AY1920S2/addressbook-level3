@@ -34,6 +34,8 @@ public class OverviewPanel extends UiPart<Region> {
     @FXML
     private TextFlow profileDetails;
     @FXML
+    private Label cap;
+    @FXML
     private ScrollPane modulesPanel;
     @FXML
     private ListView<Module> moduleSemesterPanel;
@@ -66,14 +68,17 @@ public class OverviewPanel extends UiPart<Region> {
 
         profileDetails.getChildren().addAll(name, course, specialisation, currentSem);
 
+        cap.setText("Current CAP: \n" + profile.getCap().toString());
+
         //Modules panel
         HBox modPane = new HBox();
-        int totalNoOfSem = profile.getAllModules().keySet().size();
-        for (int i = 1; i <= totalNoOfSem; i++) {
+
+        for (Integer i : profile.getAllModules().keySet()) {
             HBox temp = new HBox();
             temp.setAlignment(Pos.CENTER);
             temp.setMaxWidth(40);
-
+            temp.setBackground(new Background(
+                    new BackgroundFill(Color.valueOf("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
             String yearSem;
             if (i == 1) {
                 yearSem = "Year 1 Semester 1";
@@ -111,7 +116,9 @@ public class OverviewPanel extends UiPart<Region> {
             modPane.setSpacing(5);
             modPane.getChildren().addAll(temp, moduleSemPanel);
         }
+
         modulesPanel.setContent(modPane);
+
     }
 
     /**

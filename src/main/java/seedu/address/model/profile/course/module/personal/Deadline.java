@@ -119,6 +119,20 @@ public class Deadline {
         return this.moduleCode;
     }
 
+    /**
+     * Adds tag to new Deadline so that UI changes colour according to date.
+     */
+    public void addTag() {
+        LocalDate today = LocalDate.now();
+        if (this.date.isBefore(today.plusDays(5))) {
+            tag = "RED";
+        } else if (this.date.isBefore(today.plusDays(10))) {
+            tag = "YELLOW";
+        } else {
+            tag = "GREEN";
+        }
+    }
+
     @Override
     public String toString() {
         String result = this.moduleCode + ": " + this.description;

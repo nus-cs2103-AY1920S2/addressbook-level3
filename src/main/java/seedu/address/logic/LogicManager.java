@@ -116,4 +116,9 @@ public class LogicManager implements Logic {
     public Optional<Object> getDisplayedView() {
         return profileManager.getDisplayedView();
     }
+
+    @Override
+    public ProfileManager getProfileManager() {
+        return profileManager;
+    }
 }
