@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showReturnOrderAtIndex;
 import static seedu.address.logic.commands.DeliveredCommand.MESSAGE_DELIVERED_SUCCESS;
 import static seedu.address.logic.commands.DeliveredCommand.MESSAGE_ORDER_ALREADY_DELIVERED;
-import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
-import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
@@ -41,7 +41,7 @@ public class DeliveredCommandTest {
 
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order deliveredOrder = new OrderBuilder(orderInFilteredList).build();
-        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(deliveredOrder));
 
         String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, deliveredOrder);
@@ -61,7 +61,7 @@ public class DeliveredCommandTest {
         ReturnOrder returnOrderInFilteredList = model.getFilteredReturnOrderList()
                 .get(INDEX_FIRST_ORDER.getZeroBased());
         ReturnOrder deliveredReturnOrder = new ReturnOrderBuilder(returnOrderInFilteredList).build();
-        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(deliveredReturnOrder));
 
         String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, deliveredReturnOrder);
@@ -78,7 +78,7 @@ public class DeliveredCommandTest {
     public void execute_orderAlreadyDelivered_success() {
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order editedOrder = new OrderBuilder(orderInFilteredList).buildDelivered();
-        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(editedOrder));
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), model.getReturnOrderBook(),
                 new UserPrefs());
@@ -94,7 +94,7 @@ public class DeliveredCommandTest {
         ReturnOrder returnOrderInFilteredList = model.getFilteredReturnOrderList()
                 .get(INDEX_FIRST_ORDER.getZeroBased());
         ReturnOrder deliveredReturnOrder = new ReturnOrderBuilder(returnOrderInFilteredList).buildDelivered();
-        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(deliveredReturnOrder));
         Model expectedModel = new ModelManager(model.getOrderBook(), new ReturnOrderBook(model.getReturnOrderBook()),
                 new UserPrefs());
@@ -108,7 +108,7 @@ public class DeliveredCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredOrderList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOrderList().size() + 1);
-        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_ORDER_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor());
 
         assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
@@ -117,7 +117,7 @@ public class DeliveredCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredReturnList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredReturnOrderList().size() + 1);
-        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor());
 
         assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
@@ -131,7 +131,7 @@ public class DeliveredCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
 
         assertTrue(outOfBoundIndex.getZeroBased() < model.getOrderBook().getOrderList().size());
-        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_ORDER_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor());
 
         assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
@@ -144,7 +144,7 @@ public class DeliveredCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
 
         assertTrue(outOfBoundIndex.getZeroBased() < model.getReturnOrderBook().getReturnOrderList().size());
-        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_LIST,
+        DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor());
 
         assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
@@ -154,16 +154,16 @@ public class DeliveredCommandTest {
     public void equals() {
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order order = new OrderBuilder(orderInFilteredList).build();
-        DeliveredCommand doneOrderFirstCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+        DeliveredCommand doneOrderFirstCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(order));
-        DeliveredCommand doneOrderSecondCommand = new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST,
+        DeliveredCommand doneOrderSecondCommand = new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(order));
 
         // same object -> returns true
         assertTrue(doneOrderFirstCommand.equals(doneOrderFirstCommand));
 
         // same values -> returns true
-        DeliveredCommand doneFirstCommandCopy = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+        DeliveredCommand doneFirstCommandCopy = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(order));
         assertTrue(doneOrderFirstCommand.equals(doneFirstCommandCopy));
 
@@ -178,16 +178,16 @@ public class DeliveredCommandTest {
         ReturnOrder returnOrderInFilteredList = model.getFilteredReturnOrderList()
                 .get(INDEX_FIRST_ORDER.getZeroBased());
         ReturnOrder returnOrder = new ReturnOrderBuilder(returnOrderInFilteredList).build();
-        DeliveredCommand doneReturnFirstCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+        DeliveredCommand doneReturnFirstCommand = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(returnOrder));
-        DeliveredCommand doneReturnSecondCommand = new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST,
+        DeliveredCommand doneReturnSecondCommand = new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(returnOrder));
 
         // same object -> returns true
         assertTrue(doneReturnFirstCommand.equals(doneReturnFirstCommand));
 
         // same values -> returns true
-        DeliveredCommand doneReturnFirstCommandCopy = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+        DeliveredCommand doneReturnFirstCommandCopy = new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredOrderDescriptor(returnOrder));
         assertTrue(doneReturnFirstCommand.equals(doneReturnFirstCommandCopy));
 

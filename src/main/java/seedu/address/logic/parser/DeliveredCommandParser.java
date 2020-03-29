@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
-import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,16 +26,16 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
         ArrayList<String> splitInputList = new ArrayList<>(Arrays.asList(trimmedArgs));
         DeliveredCommand.DeliveredOrderDescriptor deliveredOrderDescriptor =
                 new DeliveredCommand.DeliveredOrderDescriptor();
-        if (splitInputList.contains("-r")) {
+        if (splitInputList.contains("-r") && !splitInputList.contains("-o")) {
             splitInputList.remove("-r");
             int indexAsInt = Integer.parseInt(splitInputList.get(0));
             Index index = Index.fromOneBased(indexAsInt);
-            return new DeliveredCommand(index, FLAG_RETURN_LIST, deliveredOrderDescriptor);
-        } else if (splitInputList.contains("-o")) {
+            return new DeliveredCommand(index, FLAG_RETURN_BOOK, deliveredOrderDescriptor);
+        } else if (splitInputList.contains("-o") && !splitInputList.contains("-r")) {
             splitInputList.remove("-o");
             int indexAsInt = Integer.parseInt(splitInputList.get(0));
             Index index = Index.fromOneBased(indexAsInt);
-            return new DeliveredCommand(index, FLAG_ORDER_LIST, deliveredOrderDescriptor);
+            return new DeliveredCommand(index, FLAG_ORDER_BOOK, deliveredOrderDescriptor);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeliveredCommand.MESSAGE_USAGE));
         }

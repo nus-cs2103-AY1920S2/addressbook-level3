@@ -163,12 +163,13 @@ public class ReturnOrderBuilder {
 
 
     /**
-     * Builds a default order based on attributes given.
-     * @return A default {@Code Order} with the given attributes
+     * Builds a default return order based on attributes given.
+     * @return A default {@Code ReturnOrder} with the given attributes
      */
     public ReturnOrder build() {
         ReturnOrder toBuild = new ReturnOrder(tid, name, phone, email, address,
                 timeStamp, warehouse, comment, itemType);
+        toBuild.setDeliveryStatus(false);
         return toBuild;
     }
 }

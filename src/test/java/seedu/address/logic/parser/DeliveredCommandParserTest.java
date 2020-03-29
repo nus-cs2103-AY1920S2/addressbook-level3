@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_LIST;
-import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_LIST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
@@ -20,32 +20,32 @@ public class DeliveredCommandParserTest {
     @Test
     public void parse_validArgs_returnsDoneCommand() {
         DeliveredCommand.DeliveredOrderDescriptor descriptor = new DeliveredCommand.DeliveredOrderDescriptor();
-        assertParseSuccess(parser, "1 -o", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
+        assertParseSuccess(parser, "1 -o", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
-        assertParseSuccess(parser, "2 -o", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST,
+        assertParseSuccess(parser, "2 -o", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
-        assertParseSuccess(parser, "3 -o", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_ORDER_LIST,
-                descriptor));
-
-        assertParseSuccess(parser, "-o 1", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_LIST,
-                descriptor));
-        assertParseSuccess(parser, "-o 2", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_LIST,
-                descriptor));
-        assertParseSuccess(parser, "-o 3", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_ORDER_LIST,
+        assertParseSuccess(parser, "3 -o", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
 
-        assertParseSuccess(parser, "1 -r", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+        assertParseSuccess(parser, "-o 1", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
-        assertParseSuccess(parser, "2 -r", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST,
+        assertParseSuccess(parser, "-o 2", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
-        assertParseSuccess(parser, "3 -r", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_RETURN_LIST,
+        assertParseSuccess(parser, "-o 3", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
 
-        assertParseSuccess(parser, "-r 1", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_LIST,
+        assertParseSuccess(parser, "1 -r", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
                 descriptor));
-        assertParseSuccess(parser, "-r 2", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_LIST,
+        assertParseSuccess(parser, "2 -r", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_BOOK,
                 descriptor));
-        assertParseSuccess(parser, "-r 3", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_RETURN_LIST,
+        assertParseSuccess(parser, "3 -r", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_RETURN_BOOK,
+                descriptor));
+
+        assertParseSuccess(parser, "-r 1", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK,
+                descriptor));
+        assertParseSuccess(parser, "-r 2", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_RETURN_BOOK,
+                descriptor));
+        assertParseSuccess(parser, "-r 3", new DeliveredCommand(INDEX_THIRD_ORDER, FLAG_RETURN_BOOK,
                 descriptor));
     }
 
