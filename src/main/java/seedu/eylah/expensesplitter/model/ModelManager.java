@@ -97,8 +97,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Intentionally left empty.
-     * To be implemented later.
+     * This method is used to subtract the {@code amountPaid} from the current amount owed from the {@code person}
      */
     @Override
     public void paidPerson(Person person, String amountPaid) {
@@ -116,6 +115,9 @@ public class ModelManager implements Model {
 
     }
 
+    /**
+     * Checks if the current receipt is marked as completed.
+     */
     @Override
     public boolean isReceiptDone() {
         return this.receipt.isDone();
