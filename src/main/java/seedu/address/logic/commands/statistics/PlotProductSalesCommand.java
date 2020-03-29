@@ -31,6 +31,7 @@ public class PlotProductSalesCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Sales for product %1$s plotted.";
+    public static final String TITLE = "Sales of %1$s between %2$s and %3$s";
 
     private final Index targetIndex;
     private final DateTime startDateTime;
@@ -63,7 +64,10 @@ public class PlotProductSalesCommand extends Command {
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, productToPlot.getDescription()),
-                dataSeries, false, true, false);
+                dataSeries,
+                String.format(TITLE,
+                        productToPlot.getDescription(), startDateTime.toDateString(), endDateTime.toDateString()),
+                false, true, false);
     }
 
     private XYChart.Series generateDataSeries(List<Transaction> transactions) {

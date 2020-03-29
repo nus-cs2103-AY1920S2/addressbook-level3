@@ -14,6 +14,9 @@ public class CommandResult {
 
     private final XYChart.Series dataSeries;
 
+    /** Title of the plot. */
+    private final String title;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -26,9 +29,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, XYChart.Series dataSeries, boolean showHelp, boolean showPlot, boolean exit) {
+    public CommandResult(String feedbackToUser, XYChart.Series dataSeries, String title, boolean showHelp, boolean showPlot, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.dataSeries = dataSeries;
+        this.title = title;
         this.showHelp = showHelp;
         this.showPlot = showPlot;
         this.exit = exit;
@@ -39,7 +43,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, null, false, false, false);
+        this(feedbackToUser, null, "", false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -47,6 +51,8 @@ public class CommandResult {
     }
 
     public XYChart.Series getDataSeries() { return dataSeries; }
+
+    public String getTitle() { return title; }
 
     public boolean isShowPlot() { return showPlot; }
 

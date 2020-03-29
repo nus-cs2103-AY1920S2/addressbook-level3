@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
@@ -14,6 +15,9 @@ public class PlotWindow extends UiPart<Stage> {
 
     @FXML
     private BarChart barChart;
+
+    @FXML
+    private Label title;
 
     /**
      * Creates a new PlotWindow.
@@ -49,9 +53,10 @@ public class PlotWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show(XYChart.Series dataSeries) {
+    public void show(XYChart.Series dataSeries, String title) {
         logger.fine("Showing plot window.");
-        barChart.getData().add(dataSeries);
+        barChart.getData().setAll(dataSeries);
+        this.title.setText(title);
         getRoot().show();
         getRoot().centerOnScreen();
     }

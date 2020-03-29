@@ -187,9 +187,9 @@ public class MainWindow extends UiPart<Stage> {
      * Plot the sales of a product.
      */
     @FXML
-    public void handlePlot(XYChart.Series dataSeries) {
+    public void handlePlot(XYChart.Series dataSeries, String title) {
         if (!plotWindow.isShowing()) {
-            plotWindow.show(dataSeries);
+            plotWindow.show(dataSeries, title);
         } else {
             plotWindow.focus();
         }
@@ -239,7 +239,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowPlot()) {
-                handlePlot(commandResult.getDataSeries());
+                handlePlot(commandResult.getDataSeries(), commandResult.getTitle());
             }
 
             if (commandResult.isShowHelp()) {
