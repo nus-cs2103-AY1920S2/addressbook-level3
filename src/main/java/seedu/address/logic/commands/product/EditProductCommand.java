@@ -149,7 +149,10 @@ public class EditProductCommand extends Command {
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Money updatedSales = editProductDescriptor.getMoney().orElse(productToEdit.getMoney());
-        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
+        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(
+                new QuantityThreshold(String.valueOf(updatedQuantity.value / 5))
+        );
+        System.out.println("cep" + updatedQuantity + " " + updatedThreshold);
 
         return new Product(id, updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
                 updatedSales, updatedThreshold);
@@ -199,13 +202,17 @@ public class EditProductCommand extends Command {
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
+            System.out.println("epc" + toCopy);
+            int lowLimit = toCopy.quantity.value / 5;
+            QuantityThreshold newThreshold = new QuantityThreshold(String.valueOf(lowLimit));
+            setThreshold(newThreshold);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales);
+            return CollectionUtil.isAnyNonNull(description, costPrice, price, quantity, sales, threshold);
         }
 
         public void setId(UUID id) {

@@ -20,7 +20,6 @@ public class ProductBuilder {
     public static final String DEFAULT_PRICE = "11";
     public static final String DEFAULT_QUANTITY = "11";
     public static final String DEFAULT_SALES = "10000";
-    public static final String DEFAULT_THRESHOLD = "1";
 
     private UUID id;
     private Description description;
@@ -37,7 +36,8 @@ public class ProductBuilder {
         price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         money = new Money(DEFAULT_SALES);
-        threshold = new QuantityThreshold(DEFAULT_THRESHOLD);
+        int calculatedThreshold = Integer.parseInt(DEFAULT_QUANTITY) / 5;
+        threshold = new QuantityThreshold(String.valueOf(calculatedThreshold));
     }
 
     /**
