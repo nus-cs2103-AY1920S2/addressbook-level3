@@ -66,10 +66,10 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager, CourseManager actualCourseManager,
-                                            ModuleManager actualModuleManager, CommandResult expectedCommandResult,
-                                            ProfileManager expectedProfileManager, CourseManager expectedCourseManager,
-                                            ModuleManager expectedModuleManager) {
+    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager,
+                                            CourseManager actualCourseManager, ModuleManager actualModuleManager,
+                                            CommandResult expectedCommandResult, ProfileManager expectedProfileManager,
+                                            CourseManager expectedCourseManager, ModuleManager expectedModuleManager) {
         try {
             CommandResult result = command.execute(actualProfileManager, actualCourseManager, actualModuleManager);
             assertEquals(expectedCommandResult, result);
@@ -84,10 +84,10 @@ public class CommandTestUtil {
      * CommandResult, ProfileManager, CourseManager, ModuleManager)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager, CourseManager actualCourseManager,
-                                            ModuleManager actualModuleManager, String expectedMessage,
-                                            ProfileManager expectedProfileManager, CourseManager expectedCourseManager,
-                                            ModuleManager expectedModuleManager) {
+    public static void assertCommandSuccess(Command command, ProfileManager actualProfileManager,
+                                            CourseManager actualCourseManager, ModuleManager actualModuleManager,
+                                            String expectedMessage, ProfileManager expectedProfileManager,
+                                            CourseManager expectedCourseManager, ModuleManager expectedModuleManager) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualProfileManager, actualCourseManager, actualModuleManager,
                 expectedCommandResult, expectedProfileManager, expectedCourseManager, expectedModuleManager);
