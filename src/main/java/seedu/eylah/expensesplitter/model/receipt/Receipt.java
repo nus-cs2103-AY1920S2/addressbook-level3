@@ -9,9 +9,11 @@ import java.util.Objects;
 public class Receipt {
 
     private ArrayList<Entry> receipt;
+    private boolean isDone;
 
     /**
      * Initialises a Receipt object with an ArrayList to contain Entries.
+     * Initialised as undone.
      */
     public Receipt() {
         this.receipt = new ArrayList<>();
@@ -45,6 +47,14 @@ public class Receipt {
 
     public Entry getEntry(int index) {
         return this.receipt.get(index);
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public void toggleDoneStatus() {
+        this.isDone = true;
     }
 
     /**
