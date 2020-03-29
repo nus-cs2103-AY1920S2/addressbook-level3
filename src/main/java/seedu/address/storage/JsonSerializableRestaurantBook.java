@@ -18,7 +18,6 @@ import seedu.address.model.restaurant.Restaurant;
  */
 @JsonRootName(value = "restaurantbook")
 class JsonSerializableRestaurantBook {
-
     public static final String MESSAGE_DUPLICATE_PERSON = "Restaurants list contains duplicate restaurant(s).";
 
     private final List<JsonAdaptedRestaurant> restaurants = new ArrayList<>();

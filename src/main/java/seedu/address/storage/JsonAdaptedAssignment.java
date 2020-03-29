@@ -52,7 +52,6 @@ public class JsonAdaptedAssignment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted assignment.
      */
     public Assignment toModelType() throws IllegalValueException {
-
         if (deadline == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));

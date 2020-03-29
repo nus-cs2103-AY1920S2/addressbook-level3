@@ -26,10 +26,11 @@ public class Restaurant {
     private final Price price;
     private final Cuisine cuisine;
     private final ArrayList<Remark> remarks = new ArrayList<>();
+    private final Visit visit;
 
 
     public Restaurant(Name name, Location location, Hours hours, Price price, Cuisine cuisine,
-                      ArrayList<Remark> remark) {
+                      ArrayList<Remark> remark, Visit visit) {
         requireAllNonNull(name, location);
         this.name = name;
         this.location = location;
@@ -37,6 +38,7 @@ public class Restaurant {
         this.price = price;
         this.cuisine = cuisine;
         this.remarks.addAll(remark);
+        this.visit = visit;
     }
 
     public Name getName() {
@@ -61,6 +63,10 @@ public class Restaurant {
 
     public ArrayList<Remark> getRemark() {
         return remarks;
+    }
+
+    public Visit getVisit() {
+        return visit;
     }
 
     /**
@@ -97,13 +103,14 @@ public class Restaurant {
                 && otherRestaurant.getHours().equals(getHours())
                 && otherRestaurant.getPrice().equals(getPrice())
                 && otherRestaurant.getCuisine().equals(getCuisine())
-                && otherRestaurant.getRemark().equals(getRemark());
+                && otherRestaurant.getRemark().equals(getRemark())
+                && otherRestaurant.getVisit().equals(getVisit());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, hours, price, cuisine, remarks);
+        return Objects.hash(name, location, hours, price, cuisine, remarks, visit);
     }
 
     @Override
@@ -119,6 +126,8 @@ public class Restaurant {
                 .append(getPrice())
                 .append("\nCuisine: ")
                 .append(getCuisine())
+                .append("\nVisited: ")
+                .append(getVisit())
                 .append("\nRemarks: ");
         getRemark().forEach(builder::append);
         return builder.toString();

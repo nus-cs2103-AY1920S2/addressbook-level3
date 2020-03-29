@@ -158,24 +158,24 @@ public class UniquePersonList implements Iterable<Person> {
                 }
             }
         }
-
-        return result;
+        return result.sorted(new BirthdayComparator());
     }
 
     /**
-     * Checks whether the birthday of the user's contact is within 5 days from the current date.
+     * Checks whether the birthday of the user's contact is in the next 5 days from current date including today.
      * @param bDay Birthday of contact.
      * @param currDate Today's date.
      * @param currDateAfter5Days Date 5 days from today.
-     * @return Returns true if the contact's birthday is within the next 5 days from today.
+     * @return Returns true if the contact's birthday is in the next 5 days from current date, including today.
      * @throws ParseException Thrown when bDay is empty.
      */
-    private boolean withinRange(String bDay, LocalDate currDate, LocalDate currDateAfter5Days) {
+    public boolean withinRange(String bDay, LocalDate currDate, LocalDate currDateAfter5Days) {
         DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
-                .parseDefaulting(ChronoField.YEAR, 2020).toFormatter(Locale.ENGLISH);
+            .parseDefaulting(ChronoField.YEAR, LocalDate.now(ZoneId.of("Singapore")).getYear())
+            .toFormatter(Locale.ENGLISH);
         LocalDate date = LocalDate.parse(bDay, inputFormat);
 
-        if (date.compareTo(currDate) > 0 && date.compareTo(currDateAfter5Days) < 0) {
+        if (date.compareTo(currDate) >= 0 && date.compareTo(currDateAfter5Days) < 0) {
             return true;
         }
         return false;
