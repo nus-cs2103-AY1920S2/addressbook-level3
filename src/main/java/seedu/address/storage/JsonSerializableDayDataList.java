@@ -17,6 +17,7 @@ import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
 
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
+import static seedu.address.model.dayData.CustomQueue.tableConstraintsAreEnforced;
 
 /** An Immutable TaskList that is serializable to JSON format. */
 @JsonRootName(value = "statistics")
@@ -50,38 +51,20 @@ class JsonSerializableDayDataList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public Statistics toModelType() throws IllegalValueException, InvalidTableException, DateTimeParseException {
-        Statistics dayDataList = new Statistics();
-        dayDataList.clearList(); // workaround to create empty list
-
-        int count = 0;
-
-        try {
-            String dateCheckPointer = dayDatas.get(0).getDateJson();
-            LocalDate localDateCheckPointer = LocalDate.parse(dateCheckPointer);
-            String currentDate = null;
-
-            for (JsonAdaptedDayData jsonAdaptedDayData : dayDatas) {
-                DayData dayData = jsonAdaptedDayData.toModelType();
-                dayDataList.addDayData(dayData);
-                count++;
-
-                currentDate = jsonAdaptedDayData.getDateJson();
-                LocalDate currentLocalDate = LocalDate.parse(currentDate);
-                if (!currentLocalDate.equals(localDateCheckPointer)) {
-                    throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS); // days must be continuous
-                }
-
-                localDateCheckPointer = localDateCheckPointer.plusDays(1);
-            }
-        } catch (DateTimeParseException | NullPointerException | IndexOutOfBoundsException e) {
-
+    public Statistics toModelType() throws IllegalValueException, InvalidTableException {
+        List<DayData> dayDataList = new ArrayList<>();
+        for (JsonAdaptedDayData jsonAdaptedDayData : dayDatas) {
+            DayData dayData = jsonAdaptedDayData.toModelType();
+            dayDataList.add(dayData);
         }
+        if (!tableConstraintsAreEnforced(dayDataList)) {
+            throw new InvalidTableException(
+                    CustomQueue.MESSAGE_CONSTRAINTS);
+        } else {
+            Statistics statistics = new Statistics();
+            statistics.setDayDatas(dayDataList);
 
-        if (count != CONSTANT_SIZE) {
-            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS); // table is not size FIXED_SIZE
+            return statistics;
         }
-
-        return dayDataList;
     }
 }

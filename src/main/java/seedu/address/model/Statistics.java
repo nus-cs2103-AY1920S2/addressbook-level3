@@ -89,12 +89,6 @@ public class Statistics implements ReadOnlyStatistics {
 
     // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH end
 
-    /** Returns true if a dayData with the same identity as {@code dayData} exists in the list. */
-    public boolean hasDayData(DayData dayData) {
-        requireNonNull(dayData);
-        return customQueue.contains(dayData);
-    }
-
     /** Adds a dayData to the list. The person must not already exist in the address book. */
     public void addDayData(DayData dayData) {
         customQueue.add(dayData);
