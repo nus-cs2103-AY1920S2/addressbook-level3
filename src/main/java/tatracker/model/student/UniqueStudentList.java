@@ -3,6 +3,7 @@ package tatracker.model.student;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +29,24 @@ public class UniqueStudentList implements Iterable<Student> {
     private final ObservableList<Student> internalList = FXCollections.observableArrayList();
     private final ObservableList<Student> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private Comparator<Student> alphabetically = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getName().toString()).compareTo(other.getName().toString());
+        }
+    };
+    private Comparator<Student> ratingAscending = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getRating().toString()).compareTo(other.getRating().toString());
+        }
+    };
+    private Comparator<Student> ratingDescending = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (-1) * (student.getRating().toString()).compareTo(other.getRating().toString());
+        }
+    };
 
     public int size() {
         return internalList.size();
@@ -119,6 +138,35 @@ public class UniqueStudentList implements Iterable<Student> {
 
         internalList.setAll(students);
     }
+
+    /**
+     * returns alphabetical comparator.
+     */
+    public Comparator<Student> getAlphabetically() {
+        return alphabetically;
+    }
+
+    /**
+     * Sorts the students alphabetically.
+     */
+    public void sortAlphabetically() {
+        FXCollections.sort(internalList, alphabetically);
+    }
+
+    /**
+     * Sorts the students by rating in ascending order.
+     */
+    public void sortByRatingAscending() {
+        FXCollections.sort(internalList, ratingAscending);
+    }
+
+    /**
+     * Sorts the students by rating in descending order.
+     */
+    public void sortByRatingDescending() {
+        FXCollections.sort(internalList, ratingDescending);
+    }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

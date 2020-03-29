@@ -42,6 +42,27 @@ public class Group {
     }
 
     /**
+     * Sorts students alphabetically.
+     */
+    public void sortStudentsAlphabetically() {
+        students.sortAlphabetically();
+    }
+
+    /**
+     * Sorts students by rating in ascending order.
+     */
+    public void sortStudentsByRatingAscending() {
+        students.sortByRatingAscending();
+    }
+
+    /**
+     * Sorts students by rating in descending order.
+     */
+    public void sortStudentsByRatingDescending() {
+        students.sortByRatingDescending();
+    }
+
+    /**
      * Returns the group identifier.
      */
     public String getIdentifier() {

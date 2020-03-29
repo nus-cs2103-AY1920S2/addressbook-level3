@@ -36,12 +36,4 @@ public class JsonSerializableTaTrackerTest {
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
-    @Test
-    public void toModelType_duplicateStudents_throwsIllegalValueException() throws Exception {
-        JsonSerializableTaTracker dataFromFile = JsonUtil.readJsonFile(DUPLICATE_STUDENT_FILE,
-                JsonSerializableTaTracker.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableTaTracker.MESSAGE_DUPLICATE_STUDENT,
-                dataFromFile::toModelType);
-    }
-
 }

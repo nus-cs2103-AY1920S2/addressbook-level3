@@ -3,9 +3,8 @@ package tatracker.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.HOON;
-import static tatracker.testutil.TypicalStudents.IDA;
+import static tatracker.testutil.TypicalStudents.CS2030;
+import static tatracker.testutil.TypicalStudents.CS3243;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import java.io.IOException;
@@ -18,6 +17,10 @@ import org.junit.jupiter.api.io.TempDir;
 import tatracker.commons.exceptions.DataConversionException;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.TaTracker;
+
+// import static tatracker.testutil.TypicalStudents.ALICE;
+// import static tatracker.testutil.TypicalStudents.HOON;
+// import static tatracker.testutil.TypicalStudents.IDA;
 
 public class JsonTaTrackerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTaTrackerStorageTest");
@@ -72,14 +75,14 @@ public class JsonTaTrackerStorageTest {
         assertEquals(original, new TaTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addStudent(HOON);
-        original.removeStudent(ALICE);
+        original.addModule(CS2030);
+        original.deleteModule(CS3243);
         jsonTaTrackerStorage.saveTaTracker(original, filePath);
         readBack = jsonTaTrackerStorage.readTaTracker(filePath).get();
         assertEquals(original, new TaTracker(readBack));
 
         // Save and read without specifying file path
-        original.addStudent(IDA);
+        original.addModule(CS3243);
         jsonTaTrackerStorage.saveTaTracker(original); // file path not specified
         readBack = jsonTaTrackerStorage.readTaTracker().get(); // file path not specified
         assertEquals(original, new TaTracker(readBack));
