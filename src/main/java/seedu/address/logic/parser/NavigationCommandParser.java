@@ -38,7 +38,7 @@ public class NavigationCommandParser implements Parser<Command> {
 
         final String navigationCommandWord = commandWord.trim().toLowerCase();
 
-        Pattern question = Pattern.compile("q(?<questionNumber>.+)");
+        Pattern question = Pattern.compile("q(?<questionNumber>[0-9]*\\S+)");
         Pattern time = Pattern.compile("(?<minutes>[0-9]+).(?<seconds>[0-9][0-9])");
         final Matcher questionMatcher = question.matcher(navigationCommandWord);
         final Matcher timeMatcher = time.matcher(navigationCommandWord);
