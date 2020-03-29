@@ -194,12 +194,18 @@
 }
 
 .scroll-bar {
-    -fx-background-color: #E8E7E4;
+    -fx-background-color: #F7F6F3;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #E8E7E4;
+    -fx-background-color: derive(#a9a9a9, 50%);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
     -fx-background-insets: 3;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #a9a9a9;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
