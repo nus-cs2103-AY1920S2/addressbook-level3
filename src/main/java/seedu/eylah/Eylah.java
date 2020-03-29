@@ -86,8 +86,12 @@ public class Eylah {
      * Starting point for whole application.
      */
     public static void main(String[] args) {
-        Eylah eylah = new Eylah();
-        eylah.run();
+        try {
+            Eylah eylah = new Eylah();
+            eylah.run();
+        } catch (Exception e) {
+            logger.warning(e.toString());
+        }
     }
 
     /**
