@@ -17,14 +17,16 @@ public class Receipt {
      */
     public Receipt() {
         this.receipt = new ArrayList<>();
+        this.isDone = false;
     }
 
     /**
      * Every field must be present.
-     * Array of Entry must not be null.
+     * Array of Entry and isDone must not be null.
      */
-    public Receipt(ArrayList<Entry> receipt) {
+    public Receipt(ArrayList<Entry> receipt, boolean isDone) {
         this.receipt = receipt;
+        this.isDone = isDone;
     }
 
     /**
