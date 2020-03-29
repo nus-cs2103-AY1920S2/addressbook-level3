@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.eylah.commons.exceptions.IllegalValueException;
-import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
@@ -24,7 +23,8 @@ public class JsonAdaptedReceipt {
      * Constructs a {@code JsonAdaptedReceipt} with the given entries details.
      */
     @JsonCreator
-    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedEntry> entries, @JsonProperty("isDone") boolean isDone) {
+    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedEntry> entries,
+            @JsonProperty("isDone") boolean isDone) {
         if (entries != null) {
             this.entries.addAll(entries);
         }
