@@ -70,6 +70,11 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Sets default settings of the student view.
+     */
+    void setDefaultStudentViewList();
+
     // ======== Session Methods ================================================
 
     /**
@@ -163,6 +168,11 @@ public interface Model {
      * Sorts all the students of all groups in all the modules alphabetically.
      */
     void sortModulesAlphabetically();
+
+    /**
+     * Sorts all students of all groups in all the modules by matric number.
+     */
+    void sortModulesByMatricNumber();
 
 
     /**

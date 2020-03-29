@@ -39,6 +39,8 @@ public class SortCommand extends Command {
         if (type.equalsIgnoreCase("alphabetically")
                 || type.equalsIgnoreCase("alpha")) {
             model.sortModulesAlphabetically();
+        } else if (type.equalsIgnoreCase("matric")) {
+            model.sortModulesByMatricNumber();
         } else if (type.equalsIgnoreCase("rating asc")) {
             model.sortModulesByRatingAscending();
         } else {

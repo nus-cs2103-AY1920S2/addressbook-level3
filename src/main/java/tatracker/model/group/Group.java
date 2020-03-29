@@ -64,6 +64,13 @@ public class Group {
     }
 
     /**
+     * Sorts students by matric number in ascending order.
+     */
+    public void sortStudentsByMatricNumber() {
+        students.sortByMatric();
+    }
+
+    /**
      * Returns the group identifier.
      */
     public String getIdentifier() {
