@@ -25,7 +25,7 @@ public class CommandResult {
 
     /** The third panel should should display the restaurant list. */
     private final boolean restaurant;
-  
+
     /** The third panel should display the upcoming birthdays for the next five days (Including today). */
     private final boolean showBirthday;
 
