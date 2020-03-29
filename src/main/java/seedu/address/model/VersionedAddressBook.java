@@ -1,8 +1,9 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.supplier.UniqueSupplierList;
+import seedu.address.model.supplier.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,9 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
     }
 
     /**
-     * Creates a VersionedAddressBook using the {@code Person}s in the {@code toBeCopied}.
+     * Creates a VersionedAddressBook using the {@code Supplier}s in the {@code toBeCopied}.
      */
-    public VersionedAddressBook(ReadOnlyList<Person> toBeCopied) {
+    public VersionedAddressBook(ReadOnlyList<Supplier> toBeCopied) {
         statePointer = -1;
         stateList = new ArrayList<>();
         currentState = new AddressBook(toBeCopied);
@@ -35,53 +36,53 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the current state with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the current state with {@code suppliers}.
+     * {@code suppliers} must not contain duplicate suppliers.
      */
-    public void setPersons(List<Person> persons) {
-        currentState.setPersons(persons);
+    public void setSuppliers(List<Supplier> suppliers) {
+        currentState.setSuppliers(suppliers);
     }
 
     /**
      * Resets the existing data of this {@code VersionedAddressBook} with {@code newData}.
      * Resets the history to an empty state as well.
      */
-    public void resetData(ReadOnlyList<Person> newData) {
-        setPersons(newData.getReadOnlyList());
+    public void resetData(ReadOnlyList<Supplier> newData) {
+        setSuppliers(newData.getReadOnlyList());
     }
 
-    //// person-level operations
+    //// supplier-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the current state.
+     * Returns true if a supplier with the same identity as {@code supplier} exists in the current state.
      */
-    public boolean hasPerson(Person person) {
-        return currentState.hasPerson(person);
+    public boolean hasSupplier(Supplier supplier) {
+        return currentState.hasSupplier(supplier);
     }
 
     /**
-     * Adds a person to the current state.
-     * The person must not already exist in the current state.
+     * Adds a supplier to the current state.
+     * The supplier must not already exist in the current state.
      */
-    public void addPerson(Person p) {
-        currentState.addPerson(p);
+    public void addSupplier(Supplier p) {
+        currentState.addSupplier(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the current state with {@code editedPerson}.
+     * Replaces the given supplier {@code target} in the current state with {@code editedSupplier}.
      * {@code target} must exist in the current state.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the current state.
+     * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier in the current state.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        currentState.setPerson(target, editedPerson);
+    public void setSupplier(Supplier target, Supplier editedSupplier) {
+        currentState.setSupplier(target, editedSupplier);
     }
 
     /**
      * Removes {@code key} from the current state.
      * {@code key} must exist in the current state.
      */
-    public void removePerson(Person key) {
-        currentState.removePerson(key);
+    public void removeSupplier(Supplier key) {
+        currentState.removeSupplier(key);
     }
 
     //// versioning methods
@@ -118,13 +119,13 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
     }
 
     @Override
-    public ObservableList<Person> getReadOnlyList() {
+    public ObservableList<Supplier> getReadOnlyList() {
         return currentState.getReadOnlyList();
     }
 
     @Override
-    protected UniquePersonList getPersons() {
-        return currentState.getPersons();
+    protected UniqueSupplierList getSuppliers() {
+        return currentState.getSuppliers();
     }
 
     @Override

@@ -9,12 +9,14 @@ import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.good.Good;
-import seedu.address.model.person.Person;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, InventoryStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, InventoryStorage,
+        TransactionHistoryStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -26,10 +28,10 @@ public interface Storage extends AddressBookStorage, InventoryStorage, UserPrefs
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyList<Person>> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Supplier>> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyList<Person> addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyList<Supplier> addressBook) throws IOException;
 
     @Override
     Path getInventoryFilePath();
@@ -39,5 +41,14 @@ public interface Storage extends AddressBookStorage, InventoryStorage, UserPrefs
 
     @Override
     void saveInventory(ReadOnlyList<Good> inventory) throws IOException;
+
+    @Override
+    Path getTransactionHistoryFilePath();
+
+    @Override
+    Optional<ReadOnlyList<Transaction>> readTransactionHistory() throws DataConversionException, IOException;
+
+    @Override
+    void saveTransactionHistory(ReadOnlyList<Transaction> transactionHistory) throws IOException;
 
 }

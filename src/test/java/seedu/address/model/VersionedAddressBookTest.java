@@ -1,15 +1,15 @@
 package seedu.address.model;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.testutil.SupplierBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalSuppliers.ALICE;
+import static seedu.address.testutil.TypicalSuppliers.BENSON;
+import static seedu.address.testutil.TypicalSuppliers.CARL;
+import static seedu.address.testutil.TypicalSuppliers.DANIEL;
 
 public class VersionedAddressBookTest {
 
@@ -24,7 +24,7 @@ public class VersionedAddressBookTest {
     public void undo_afterOneCommit_removeChanges() {
         AddressBook expectedAddressBook = new AddressBook(versionedAddressBook);
 
-        versionedAddressBook.addPerson(ALICE);
+        versionedAddressBook.addSupplier(ALICE);
         versionedAddressBook.commit();
         versionedAddressBook.undo();
         assertEquals(versionedAddressBook, expectedAddressBook);
@@ -32,15 +32,15 @@ public class VersionedAddressBookTest {
 
     @Test
     public void undo_afterMultipleCommits_returnsToMostRecentCommit() {
-        versionedAddressBook.addPerson(ALICE);
+        versionedAddressBook.addSupplier(ALICE);
         versionedAddressBook.commit();
         AddressBook expectedAddressBookFirstCommit = new AddressBook(versionedAddressBook);
 
-        versionedAddressBook.addPerson(BENSON);
+        versionedAddressBook.addSupplier(BENSON);
         versionedAddressBook.commit();
         AddressBook expectedAddressBookSecondCommit = new AddressBook(versionedAddressBook);
 
-        versionedAddressBook.addPerson(CARL);
+        versionedAddressBook.addSupplier(CARL);
         versionedAddressBook.commit();
 
         // first undo goes to second commit
@@ -55,11 +55,11 @@ public class VersionedAddressBookTest {
     @Test
     public void undo_afterUnsavedChanges_removesUnsavedAndPreviousChanges() {
         AddressBook expectedAddressBook = new AddressBook(versionedAddressBook);
-        versionedAddressBook.addPerson(ALICE);
+        versionedAddressBook.addSupplier(ALICE);
         versionedAddressBook.commit();
 
-        Person p = new PersonBuilder().withName("Erased Ignored").build();
-        versionedAddressBook.addPerson(p);
+        Supplier p = new SupplierBuilder().withName("Erased Ignored").build();
+        versionedAddressBook.addSupplier(p);
         versionedAddressBook.undo();
 
         assertEquals(versionedAddressBook, expectedAddressBook);
@@ -68,24 +68,24 @@ public class VersionedAddressBookTest {
     @Test
     public void commit_afterUndo_removesFutureHistory() {
         AddressBook expectedAddressBookAfterRewrite = new AddressBook(versionedAddressBook);
-        expectedAddressBookAfterRewrite.addPerson(ALICE);
-        expectedAddressBookAfterRewrite.addPerson(BENSON);
-        expectedAddressBookAfterRewrite.addPerson(DANIEL);
+        expectedAddressBookAfterRewrite.addSupplier(ALICE);
+        expectedAddressBookAfterRewrite.addSupplier(BENSON);
+        expectedAddressBookAfterRewrite.addSupplier(DANIEL);
 
         AddressBook expectedAddressBookAfterUndoFromRewrite = new AddressBook(versionedAddressBook);
-        expectedAddressBookAfterUndoFromRewrite.addPerson(ALICE);
-        expectedAddressBookAfterUndoFromRewrite.addPerson(BENSON);
+        expectedAddressBookAfterUndoFromRewrite.addSupplier(ALICE);
+        expectedAddressBookAfterUndoFromRewrite.addSupplier(BENSON);
 
-        versionedAddressBook.addPerson(ALICE);
+        versionedAddressBook.addSupplier(ALICE);
         versionedAddressBook.commit();
-        versionedAddressBook.addPerson(BENSON);
+        versionedAddressBook.addSupplier(BENSON);
         versionedAddressBook.commit();
-        versionedAddressBook.addPerson(CARL);
+        versionedAddressBook.addSupplier(CARL);
         versionedAddressBook.commit();
 
         // ensures the current state points to the most recent commit
         versionedAddressBook.undo();
-        versionedAddressBook.addPerson(DANIEL);
+        versionedAddressBook.addSupplier(DANIEL);
         versionedAddressBook.commit();
         assertEquals(versionedAddressBook, expectedAddressBookAfterRewrite);
 

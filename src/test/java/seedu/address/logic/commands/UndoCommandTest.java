@@ -8,16 +8,17 @@ import seedu.address.model.ModelManager;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalGoods.APPLE;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalSuppliers.ALICE;
 
 public class UndoCommandTest {
     private Model model = new ModelManager();
 
     @Test
     public void execute_changesCommitted_success() {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getInventory(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getInventory(),
+                model.getTransactionHistory(), model.getUserPrefs());
         model.addGood(APPLE);
-        model.addPerson(ALICE);
+        model.addSupplier(ALICE);
         model.commit();
 
         assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);

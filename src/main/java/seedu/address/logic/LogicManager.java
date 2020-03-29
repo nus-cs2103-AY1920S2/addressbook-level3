@@ -15,7 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyList;
 import seedu.address.model.good.Good;
-import seedu.address.model.person.Person;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.storage.Storage;
 
 /**
@@ -55,17 +56,23 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.saveTransactionHistory(model.getTransactionHistory());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         return commandResult;
     }
 
     @Override
-    public ReadOnlyList<Person> getAddressBook() {
+    public ReadOnlyList<Supplier> getAddressBook() {
         return model.getAddressBook();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Supplier> getFilteredSupplierList() {
+        return model.getFilteredSupplierList();
     }
 
     @Override
@@ -86,6 +93,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getInventoryFilePath() {
         return model.getInventoryFilePath();
+    }
+
+    @Override
+    public ReadOnlyList<Transaction> getTransactionHistory() {
+        return model.getTransactionHistory();
+    }
+
+    @Override
+    public ObservableList<Transaction> getFilteredTransactionList() {
+        return model.getFilteredTransactionList();
+    }
+
+    @Override
+    public Path getTransactionHistoryFilePath() {
+        return model.getTransactionHistoryFilePath();
     }
 
     @Override

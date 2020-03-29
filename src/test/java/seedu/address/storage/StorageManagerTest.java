@@ -3,7 +3,8 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalGoods.getTypicalInventory;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSuppliers.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTransactions.getTypicalTransactionHistory;
 
 import java.nio.file.Path;
 
@@ -15,9 +16,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyList;
+import seedu.address.model.TransactionHistory;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.good.Good;
-import seedu.address.model.person.Person;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 
 public class StorageManagerTest {
 
@@ -30,8 +33,12 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonInventoryStorage inventoryStorage = new JsonInventoryStorage(getTempFilePath("inventory"));
+        JsonTransactionHistoryStorage transactionHistoryStorage =
+                new JsonTransactionHistoryStorage(getTempFilePath("transactionHistory"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, inventoryStorage, userPrefsStorage);
+
+        storageManager = new StorageManager(addressBookStorage, inventoryStorage,
+                transactionHistoryStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -61,7 +68,7 @@ public class StorageManagerTest {
          */
         AddressBook original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyList<Person> retrieved = storageManager.readAddressBook().get();
+        ReadOnlyList<Supplier> retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
     }
 
@@ -86,6 +93,24 @@ public class StorageManagerTest {
         storageManager.saveInventory(original);
         ReadOnlyList<Good> retrieved = storageManager.readInventory().get();
         assertEquals(original, new Inventory(retrieved));
+    }
+
+    @Test
+    public void getTransactionHistoryFilePath() {
+        assertNotNull(storageManager.getTransactionHistoryFilePath());
+    }
+
+    @Test
+    public void transactionHistoryReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonInventoryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonInventoryStorageTest} class.
+         */
+        TransactionHistory original = getTypicalTransactionHistory();
+        storageManager.saveTransactionHistory(original);
+        ReadOnlyList<Transaction> retrieved = storageManager.readTransactionHistory().get();
+        assertEquals(original, new TransactionHistory(retrieved));
     }
 
 }

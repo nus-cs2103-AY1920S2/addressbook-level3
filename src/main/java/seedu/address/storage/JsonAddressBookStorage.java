@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyList;
-import seedu.address.model.person.Person;
+import seedu.address.model.supplier.Supplier;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -33,7 +33,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyList<Person>> readAddressBook() throws DataConversionException {
+    public Optional<ReadOnlyList<Supplier>> readAddressBook() throws DataConversionException {
         return readAddressBook(filePath);
     }
 
@@ -43,7 +43,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyList<Person>> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyList<Supplier>> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
@@ -61,7 +61,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyList<Person> addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyList<Supplier> addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
 
@@ -70,7 +70,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyList<Person> addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyList<Supplier> addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
