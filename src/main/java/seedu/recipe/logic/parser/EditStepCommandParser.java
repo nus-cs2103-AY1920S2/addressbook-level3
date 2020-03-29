@@ -37,7 +37,7 @@ public class EditStepCommandParser implements Parser<EditStepCommand> {
             index = ParserUtil.parseIndex(argsArray[0]);
             stepNumber = ParserUtil.parseIndex(argsArray[1]).getZeroBased();
         } catch (ParseException pe) {
-            throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
+            throw new ParseException(pe.getMessage());
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStepCommand.MESSAGE_USAGE));
         }

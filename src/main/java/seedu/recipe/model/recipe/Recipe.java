@@ -127,6 +127,13 @@ public class Recipe {
     }
 
     /**
+     * Returns the total number of ingredients that this recipe has.
+     */
+    public int getTotalNumberOfIngredients() {
+        return grains.size() + vegetables.size() + proteins.size() + fruits.size() + others.size();
+    }
+
+    /**
      * Returns true if both recipes of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two recipes.
      */
