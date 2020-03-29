@@ -124,6 +124,34 @@ public class Module {
     }
 
     /**
+     * Sorts students in the groups alphabetically.
+     */
+    public void sortGroupsAlphabetically() {
+        for (int i = 0; i < groups.size(); ++i) {
+            groups.get(i).sortStudentsAlphabetically();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating in ascending order.
+     */
+    public void sortGroupsByRatingAscending() {
+        for (int i = 0; i < groups.size(); ++i) {
+            groups.get(i).sortStudentsByRatingAscending();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating in descending order.
+     */
+    public void sortGroupsByRatingDescending() {
+        for (int i = 0; i < groups.size(); ++i) {
+            groups.get(i).sortStudentsByRatingDescending();
+        }
+    }
+
+
+    /**
      * Adds a done session to the list of done sessions for this module.
      */
     public void addDoneSession(Session session) {

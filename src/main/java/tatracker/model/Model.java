@@ -150,6 +150,22 @@ public interface Model {
     void deleteModule(Module target);
 
     /**
+     * Sorts the modules by rating in ascending order.
+     */
+    void sortModulesByRatingAscending();
+
+    /**
+     * Sorts the modules by rating in descending order.
+     */
+    void sortModulesByRatingDescending();
+
+    /**
+     * Sorts all the students of all groups in all the modules alphabetically.
+     */
+    void sortModulesAlphabetically();
+
+
+    /**
      * Replaces the given module {@code target} in the TaTracker with {@code editedModule}.
      * @param target module to edit, which must exist in the TaTracker.
      * @param editedModule the edited module {@code target}.
@@ -281,6 +297,7 @@ public interface Model {
      * Sets the student list to be of group of index groupIndex in the module of index moduleIndex.
      */
     void updateStudentList(int moduleIndex, int groupIndex);
+
 
     // TODO: Student filter methods. Javadoc comments should mention students are inside group -> inside module
 
