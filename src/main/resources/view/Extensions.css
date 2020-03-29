@@ -1,4 +1,4 @@
-// CouponCard styles have been moved to CouponCard.css
+/* CouponCard styles have been moved to CouponCard.css */
 
 * {
   -fx-primary-blue: #19568E;
@@ -24,7 +24,7 @@
     -fx-text-fill: white;
 }
 
-//For Calendar
+/* For Calendar */
 #calendarPanePlaceholder {
   -fx-effect: -fx-paneShadow;
   -fx-padding: 0 0 10 0
@@ -36,7 +36,7 @@
   -fx-padding: 0px 10px 10px;
 }
 
-// For tabs
+/* For tabs */
 .tab {
   -fx-background-color: -fx-secondary-blue;
   -fx-background-radius: 2;
@@ -88,9 +88,9 @@
   -fx-border-color: transparent;
 }
 
-// CouponCard styles moved to CouponCard.css
+/* CouponCard styles moved to CouponCard.css */
 
-//For CommandBox
+/* For CommandBox */
 #commandTypeLabel {
   -fx-font-size: 11px;
   -fx-text-fill: #F70D1A;
@@ -110,7 +110,7 @@
   -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-//For TextArea component of ResultDisplay
+/* For TextArea component of ResultDisplay */
 .text-area {
   -fx-background-color: -fx-secondary-blue;
   -fx-background-radius: 10px;
