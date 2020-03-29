@@ -4,59 +4,121 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
+package Model {
+    Class HiddenModel #FFFFFF
+}
+
 package Logic {
+    package Parser as ParserPkg {
 
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
+        note as Note1
+        <size:16>Each <u>ActionY</u> modifies the UI view of TA-Tracker</size>
 
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
+        ----
+        eg. Clear, Find, Help, Filter
+        end note
 
-Interface Logic <<Interface>>
-Class LogicManager
-}
+        package ModelX as ModelParser {
+            Class ModelXCommandParser
+            Class ActionXModelXCommandParser
+            ModelXCommandParser .down.> ActionXModelXCommandParser
 
-package Model{
-Class HiddenModel #FFFFFF
+            note as Note2
+            <size:16>Each <u>ModelX</u> has a set of valid <u>ActionX</u></size>
+
+            ----
+            <u><b>ModelX:  ActionX</b></u>
+
+            Module: Add, Delete
+
+            Group: Add, Delete
+
+            Student: Add, Delete, Edit
+
+            Session: Add, Delete, Edit, Done, Start, Stop
+            end note
+        }
+
+        Class ActionYCommandParser
+        Class TaTrackerParser
+
+        TaTrackerParser .down.> ModelXCommandParser
+
+
+        Class ArgumentMultimap
+        Class ArgumentTokenizer
+        Class Prefixes
+        Class ParserUtil
+        Interface Parser <<Interface>>
+        Class Prefix
+
+
+        Prefixes -right[hidden]- Parser
+'        ArgumentMultimap -right[hidden]- ArgumentTokenizer
+'        Prefixes -left[hidden]- ParserUtil
+'        ArgumentTokenizer -right[hidden]- Prefixes
+'        ParserUtil -right[hidden]- Parser
+
+        ActionXModelXCommandParser ..down..|> Parser
+        ActionXModelXCommandParser ..down..> ArgumentMultimap
+        ActionXModelXCommandParser ..down..> ArgumentTokenizer
+        ActionXModelXCommandParser ..down..> Prefixes
+        ActionXModelXCommandParser ..down..> ParserUtil
+
+        ActionYCommandParser .down.|> Parser
+        ActionYCommandParser .down.> ArgumentMultimap
+        ActionYCommandParser .down.> ArgumentTokenizer
+        ActionYCommandParser .down.> Prefixes
+        ActionYCommandParser .down.> ParserUtil
+
+        ArgumentMultimap <.left. ArgumentTokenizer
+
+        ArgumentTokenizer .down.> Prefix
+        ParserUtil .down.> Prefix
+        Prefixes .down.> Prefix
+
+'        ActionXModelXCommandParser -right- ActionYCommandParser
+    }
+
+    package Command as ModelCommand {
+        package ModelX {
+            Class ActionXModelXCommand
+        }
+
+        Class ActionYCommand
+
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        Command .up.> CommandResult
+        ActionXModelXCommand -up-|> Command
+
+        ActionYCommand -right-|> Command
+    }
+
+    Interface Logic <<Interface>>
+    Class LogicManager
+
+    Logic .down.> CommandResult
+
+    LogicManager .up.|> Logic
+    LogicManager -down-> "1" TaTrackerParser
+    LogicManager .down.> CommandResult
+    LogicManager .down.> Command
+
+    ActionYCommandParser <.right. TaTrackerParser
+
+    ActionXModelXCommandParser .right.> ActionXModelXCommand
+    ActionYCommandParser .right.> ActionYCommand
+
+    ModelXCommandParser .left[hidden].> ActionYCommandParser
+    ActionYCommandParser .left[hidden].> ActionXModelXCommand
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+HiddenOutside .down.> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+Model <-left- LogicManager
+Model <.left. Command
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
 @enduml

@@ -1,0 +1,16 @@
+@startuml
+start
+:A DoneSessionCommand is called;
+
+:The duration of the session is calculated
+(duration = Math.ceil(endDateTime - startDateTime));
+
+:TotalHours is incremented based on the duration of the session;
+
+:TotalEarnings is calculated based on the rate input
+by the user (TotalEarnings = TotalHours * Rate);
+
+:return TotalEarnings to UI;
+
+stop
+@enduml

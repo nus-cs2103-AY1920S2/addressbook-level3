@@ -1,0 +1,34 @@
+@startuml
+start
+:SortCommandParser's parse
+        method is called;
+
+:ArgumentMultimap is created;
+
+:The sort type is extracted from
+            the multimap;
+
+if() then ([something with\n prefix module is\n present])
+    :The module code is extracted
+            from the multimap;
+
+if() then ([somthing with\n prefix group is\n present])
+    :The group code is extracted;
+    :SortGroupCommand with the parameters as
+    the group code and module code and type
+                            is returned;
+
+else ([else])
+    :SortModuleCommand with the parameters
+    as module code and type is returned;
+
+endif
+
+else ([else])
+    :SortCommand with the parameter type
+    is returned;
+
+endif
+
+stop
+@enduml

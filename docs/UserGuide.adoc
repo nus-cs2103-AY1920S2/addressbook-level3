@@ -1,9 +1,13 @@
-= AddressBook Level 3 - User Guide
+= TA-Tracker - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,36 +16,82 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Are you a Teaching Assistant at School of Computing who is tired of having to keep
+track of all your claimable hours in some unappealing excel spreadsheet just so you
+can fill up the TSS Claims form accurately at the end of the semester? Do you want
+a place where you can keep track of everything related to your teaching duties, including
+keeping a track of your strongest and weakest students? If so, TA-Tracker is the tool
+for you!
+
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage their students and all of their claimable
+hours in NUS in one place.
+
+TA-Tracker is tailored towards TAs who *prefer to use a desktop application to
+manage their teaching duties* and is well suited for those who *prefer to work with a Command
+Line Interface* (CLI) while still having the benefits of a Graphical User Interface
+(GUI).If you're interested, jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TA tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Refer to <<Usage>> for details of each command.
 
-.  Refer to <<Features>> for details of each command.
+NOTE: TA-Tracker data is saved periodically.
 
-[[Features]]
-== Features
+[[Layout]]
+== Layout
+This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
+into three different views - the Student View, the Session View and the Claims View.
+
+=== Student View
+Under tha students tab, the Student View is used to show you the students that you're teaching. The students
+have been grouped according to module and group. The Student view has been divided into
+three sections.
+
+The first section shows a list of all the modules that you are a teaching
+assistant for.
+
+The second section shows a list of all groups in a module of your choice.
+If you haven't chosen anything, by default you will be shown the groups of the module
+in the first index in the list of modules.
+
+The third section shows a list of all students in the group of your choice. If you
+haven't chosen anything, by default you will be shown the students of the group in the
+first index in the list of groups.
+
+The purpose of the student view is to allow a TA to keep track of their students. It will
+show you information such as student name, matriculation number, ratings you have given
+the student and contact details such as email and telegram id.
+
+=== Session View
+Under the sessions tab, the Session View contains the upcoming tasks that you have.
+
+=== Claims View
+Under the claims tab, the Claim View contains the list of all the claimable hours you
+have completed so far.
+
+The purpose of this view is to allow a TA to keep track of all their claims so that
+they can easily enter it into the TSS claims form at the end of the semester.
+
+[[Usage]]
+== Usage
 
 ====
 *Command Format*
@@ -50,128 +100,443 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+*Common Parameters*
+
+* `PAGE_NAME` - one of the following pages:
+** sessions - Sessions: list of sessions according to date
+** students - Students: list of students you are teaching
+** claims - Claims Form: list of claimable sessions (only sessions that have been marked as done will be included here)
+* `INDEX` - The position of an item in a list
+* `MATRIC_NUMBER` - the matriculation number of a student
+** Must start with an ‘A’
+** Must end with an letter
+** Must have 7 numbers in between the start and end letters
+* `MOD_CODE` - the unique code for the module
+* `NAME` - based on the command, could mean student name or module name
+* `GROUP_CODE` - the unique code for the group
+* `GROUP_TYPE` - Could be one of the following:
+** tutorial
+** lab
+** recitations
+** other
+* `SESSION_TYPE` - Could be one of the following:
+** consult - Consultations
+** tutorial - Tutorials
+** grading - Grading and assessments
+** prep - Class preparation
+** todo - other tasks and notes
+** lab - Lab
+* `START`, `END` - a time parameter, in the following format: HH:mm
+* `DATE` - a date parameter, in the following format: dd-MM-yyyy
+* `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
+* `./` - indicates the presence of a tag that will be specified in a later section of the guide.
 ====
 
-=== Viewing help : `help`
+=== Navigation
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Changing tabs : `goto`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+TODO - NOT IMPLEMENTED YET
 
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Student View
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[[AddModule]]
+==== Adding a Module `module add`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Adds a new module to the TA-Tracker.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+When a new module is created, the Student View will show the groups
+and students of the new module (which will initially be empty).
+
+Format: `module add m/MOD_CODE n/NAME`
+
+[NOTE]
+====
+No module with the given module code should exist in the TA-Tracker before adding
+a new module.
+====
+
+====
+Examples:
+
+* `module add m/CS2103 n/Software Engineering`
++
+Adds a module with the module code CS2103 and name 'Software Engineering'
+to the TA-Tracker.
+====
+
+[[DeleteModule]]
+==== Deleting a Module `module delete`
+
+Deletes a module from the TA-Tracker.
+
+When a module is deleted, the student view will go back to its default
+setting and show the details for the first module and first group in the
+TA-Tracker. If there is no module and no group, it will show empty lists.
+
+When a module is deleted, all groups, students and sessions associated with
+the module will also be deleted.
+
+Format: `module delete m/MOD_CODE`
+
+[NOTE]
+====
+A module with the given module code must exist in the TA-Tracker before
+you delete it.
+====
+
+====
+Examples:
+
+* `module delete m/CS2103`
++
+Deletes the module with the module code CS2103 from the TA-Tracker.
+Adds a module with the module code CS2103 and name 'Software Engineering'
+====
+
+[[AddGroup]]
+==== Adding a Group `group add`
+
+Adds a new group to the TA-Tracker.
+
+When a new group is created, the Student View will show the groups of the module
+this group belongs to and students of the new group (which will initially be an empty list).
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* No group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[DeleteGroup]]
+==== Deleting a Group `group delete`
+Deletes a group from the TA-Tracker.
+
+When a group is deleted, the Student View will show the details of the first group
+in the given module. If there is no group in the module, it will show the empty lists.
+
+Format: `group delete g/GROUP_CODE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* A group with the given group code must exist inside the module.
+====
+
+====
+Examples:
+
+* `group delete g/G03 m/CS2103`
++
+Deletes the group with the group code G03 from the module that
+has module code CS2103.
+====
+
+[[EditGroup]]
+==== Editing a Group `group edit`
+
+TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
+
+Edits a group in the TA-Tracker.
+
+This command can change the group code and group type of the group. It will keep
+the students inside the group intact.
+
+When a group is edited, the Student View will show the groups of the module
+this group belongs to and students of the edited group.
+
+Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+
+* No group with the given group code should exist inside the module.
+====
+
+====
+Examples:
+
+* `group add g/G03 m/CS2103 t/tutorial`
++
+Adds a group with the group code G03 which is a tutorial inside the module that
+has module code CS2103.
+====
+
+[[AddStudent]]
+==== Adding a Student `student add`
+
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Adds a new student to the TA-Tracker.
+
+When a new student is added, the Student View will show the groups and students
+of the module the new student belongs to.
+
+Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+
+[NOTE]
+====
+[horizontal]
+`NAME`:: the name of the student
+`EMAIL`:: the email address of the student
+`RATING`:: a number between 1 (poor) to 5 (excellent)
+`TAG`:: a remark(s) for this student
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+`GROUP_CODE`:: A group with the given group code should exist inside the module.
+====
+====
+Examples:
+
+* `student add id/A0123456J n/Alice m/CS2103 g/G03`
++
+Adds the student with the matriculation number A0123456J
+and the name Alice inside group G03 of module CS2103.
+====
+
+[[DeleteStudent]]
+==== Deleting a Student `student delete`
+
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Deletes a student from the TA-Tracker.
+
+When a student is deleted, the Student View will show the groups of the module the
+student was removed from and the students of the group the student was removed from.
+If there is no student inside the group, an empty list will be shown.
+
+Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
+you add a group to it.
+`GROUP_CODE`:: A group with the given group code should exist inside the module.
+`MATRIC_NUMBER`:: A student with the given matric number must exist inside the group.
+====
+====
+Examples:
+
+* `delete c/student m/A0123456J g/G03 m/CS2103`
++
+Deletes the student with the matriculation number A0123456J from the group G03 inside
+the module CS2103.
+====
+
+[[EditStudent]]
+==== Editing a Student `student edit`
+
+TODO: WRITE HOW THIS WORKS PROPERLY
+
+Edits a student in the TA-Tracker.
+
+When a student is edited, the Student View will show the groups of the module the
+edited student is from and the students of the group the edited student exists in.
+
+Edits the student with the specified matriculation number.
+The CATEGORY_UID used in this case is the student’s matriculation number.
+
+Format: `student edit m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
+
+****
+* `MATRIC_NUMBER` - see Common Parameters
+
+* At least one of the optional fields must be provided.
+** `NAME` - the name of the student
+** `EMAIL` - the email address of the student
+** `RATING` - a number between 1 (poor) to 5 (excellent)
+** `TAG` - other notes about this student
+
+* Existing fields will be updated to the input values.
+
+* All existing `TAG(s)` on a student will be removed,
+then replaced with the new tags,
+i.e adding of tags is not cumulative.
+
+[TIP]
+You can remove all the student’s tags by typing t/ without specifying any tags after it.
+****
+
+Examples:
+
+* `edit A0123456J p/91234567 e/johndoe@example.com`
+Edits student `A0123456J` to have `91234567` as their phone number,
+and `johndoe@example.com` as their email address.
+
+* `edit A9876543K n/Betsy Crower t/`
+Edits student `A9876543K` to have `Betsy Crower` as their name.
+In addition, all existing tags will be removed.
+
+[[Sort]]
+==== Sort `sort`
+
+TODO: ADD DETAILS ONCE IMPLEMENTED
+
+[[FilterStudent]]
+==== Filter `filter`
+
+TODO: ADD DETAILS ONCE IMPLEMENTED
+
+=== Session View
+
+[[AddSession]]
+==== Adding a Session `session add`
+
+TODO - UPDATE
+
+Adds a new type of session for an existing module group in the program.
+The `CATEGORY_UID` for this command is the SESSION_TYPE code.
+
+Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/NOTES]`
+
+[NOTE]
+====
+[horizontal]
+`START` `END` `DATE`:: see Common Parameters
+
+`[-r]`::  makes the session recur at the same time every week
+
+`MOD_CODE` `SESSION_TYPE`:: see Common Parameters
+
+`NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
+
+====
+====
+Examples:
+
+* `add c/session s/14:00 e/16:00 d/19-02-2020 m/CS2103T t/consult n/with Alice and Bob`
++
+Adds a consultation session on 19 Feb 2020,
+from 2pm to 4pm,
+with Alice and Bob.
+====
+==== Deleting a Session `session delete`
+
+TODO - UPDATE
+
+Deletes a session from the TA-Tracker.
+
+Format: `session delete i/SESSION_UID`
+
+====
+Examples:
+
+* delete c/session i/10
+Deletes the session with the identifier of 10
+====
+
+==== Editing a Session `session edit`
+TODO - ADD DETAILS
+
+==== Marking a Session as Done `session done`
+
+Labels a session as done.
+If the session is claimable, it will appear as a new claim in the TSS view.
+
+Format: `session done INDEX`
+
+Marks the session with the given unique session identifier as done.
+
+====
+Examples:
+
+* `done 25` +
+Marks the session with the unique session id of 25 as done.
+====
+
+==== Filter `filter`
+
+TODO: ADD DETAILS ONCE IMPLEMENTED
+
+=== Claims View
+
+==== Filter `filter`
+
+TODO: ADD DETAILS ONCE IMPLEMENTED
+
+==== Changing the hourly rate `set`
+
+TODO: EDIT ONCE IMPLEMENTED
+
+Sets the hourly rate for the total income and claim computation.
+
+Format: `set rate AMOUNT`
+
+[NOTE]
+====
+* AMOUNT is the amount you want to change the hourly rate to.
+* To specify in exact dollars, you can write it as just the number (example: 20).
+* To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
+====
+
+Examples:
+
+* `set rate 25` +
+Sets the current hourly rate to 25$.
+
+== GLOSSARY
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TA-Tracker folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
+
+=== Student View
+* *Add Module* `module add m/MOD_CODE`
+* *Delete Module* `module delete m/MOD_CODE`
+* *Add Group* `group add g/GROUP_CODE m/MOD_CODE`
+* *Edit Group*
+* *Delete Group* `group delete g/GROUP_CODE m/MOD_CODE`
+* *Add Student*
+* *Delete Student*
+* *Edit Student*
+* *Sort*
+* *Filter*
+
+=== Session View
+* *Add Session*
+* *Delete Session*
+* *Edit Session*
+* *Mark as Done*
+* *Filter*
+
+=== Claims View
+* *Set Rate*
+* *Filter*
+
+
