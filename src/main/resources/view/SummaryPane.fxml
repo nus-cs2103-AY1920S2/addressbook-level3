@@ -2,9 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-  <StackPane style="-fx-background-color: #46998F; -fx-background-radius: 10; -fx-background-insets: 5;" minHeight="300">
+  <VBox style="-fx-background-color: #46998F; -fx-background-radius: 10; -fx-background-insets: 4 8 5 8;" minHeight="300">
     <Label id="couponName" fx:id="label"/>
-  </StackPane>
+  </VBox>
 </StackPane>
