@@ -103,6 +103,7 @@ class JsonProfile {
             }
         }
 
+        profile.updateCap();
         return profile;
     }
 }

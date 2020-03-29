@@ -103,6 +103,8 @@ public class DeleteCommand extends Command {
                 try {
                     profile.deleteModule(deleteModuleCode);
                     profileManager.deleteModuleDeadlines(deleteModuleCode);
+                    profile.updateCap();
+
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 }

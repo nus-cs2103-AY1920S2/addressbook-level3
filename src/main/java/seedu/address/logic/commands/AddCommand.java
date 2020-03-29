@@ -6,6 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
@@ -78,6 +81,7 @@ public class AddCommand extends Command {
         Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
         Module moduleToAdd = moduleManager.getModule(toAdd);
+        int semesterOfModule = 0;
 
         // Check whether this module has been added to Profile semester HashMap
         for (ModuleList semesterList: profile.getSemModHashMap().values()) {
@@ -85,6 +89,8 @@ public class AddCommand extends Command {
                 if (moduleToAdd.isSameModule(moduleInSem)) {
                     hasModule = true;
                     moduleToAdd = moduleInSem;
+                    HashMap<Integer, ModuleList> hashMap = profile.getSemModHashMap();
+                    semesterOfModule = getKey(hashMap, semesterList);
                 }
             }
         }
@@ -92,7 +98,7 @@ public class AddCommand extends Command {
         // Check if grade is being added to future semester, reject if so
         int currentUserSemester = profile.getCurrentSemester();
         if (addGrade != null) {
-            if (addSemester > currentUserSemester) {
+            if (addSemester > currentUserSemester || semesterOfModule > currentUserSemester) {
                 throw new CommandException("You cannot add a grade to future semesters!");
             }
         }
@@ -149,12 +155,16 @@ public class AddCommand extends Command {
 
         moduleToAdd.setPersonal(personal);
 
+        String messageShown;
         if (!hasModule) {
             profile.addModule(addSemester, moduleToAdd);
-            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), false);
+            messageShown = MESSAGE_ADD_SUCCESS;
         } else {
-            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd), false);
+            messageShown = MESSAGE_EDIT_SUCCESS;
         }
+
+        profile.updateCap();
+        return new CommandResult(String.format(messageShown, toAdd), false);
     }
 
     @Override
@@ -162,5 +172,17 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
+    }
+
+    /**
+     * Returns key of the given value
+     */
+    public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 }
