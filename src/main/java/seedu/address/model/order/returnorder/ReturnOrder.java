@@ -34,7 +34,6 @@ public class ReturnOrder extends Parcel {
     private final Comment comment;
     private final TypeOfItem itemType;
     private boolean deliveryStatus;
-    private boolean isReturn;
 
     /**
      * Every field must be present and not null.
@@ -51,8 +50,7 @@ public class ReturnOrder extends Parcel {
         this.warehouse = warehouse;
         this.comment = comment;
         this.itemType = itemType;
-        this.deliveryStatus = true;
-        this.isReturn = true;
+        this.deliveryStatus = false;
     }
 
     /**
@@ -69,8 +67,7 @@ public class ReturnOrder extends Parcel {
         this.warehouse = order.getWarehouse();
         this.comment = order.getComment();
         this.itemType = order.getItemType();
-        this.deliveryStatus = true;
-        this.isReturn = true;
+        this.deliveryStatus = false;
     }
 
     public TransactionId getTid() {
@@ -110,19 +107,11 @@ public class ReturnOrder extends Parcel {
     }
 
     public boolean isDelivered() {
-        return deliveryStatus;
-    }
-
-    public boolean isReturn() {
-        return isReturn;
+        return this.deliveryStatus;
     }
 
     public void setDeliveryStatus(boolean deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
-    }
-
-    public void setIsReturn(boolean isReturn) {
-        this.isReturn = isReturn;
     }
 
     /**
@@ -165,8 +154,7 @@ public class ReturnOrder extends Parcel {
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
                 && otherOrder.getItemType().equals(getItemType())
-                && (otherOrder.isDelivered() == isDelivered())
-                && (otherOrder.isReturn() == isReturn());
+                && (otherOrder.isDelivered() == isDelivered());
     }
 
     @Override
@@ -197,7 +185,11 @@ public class ReturnOrder extends Parcel {
                 .append(getItemType())
                 .append(" Parcel Status: ")
                 .append("Return Order");
+        if (this.isDelivered()) {
+            builder.append(" Return Status: ").append("Returned to Warehouse: " + getWarehouse());
+        } else {
+            builder.append(" Return Status: ").append("Not Returned to Warehouse: " + getWarehouse());
+        }
         return builder.toString();
     }
-
 }

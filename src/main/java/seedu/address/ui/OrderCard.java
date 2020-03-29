@@ -48,8 +48,6 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label deliveryStatus;
     @FXML
-    private FlowPane isReturn;
-    @FXML
     private FlowPane itemType;
 
     public OrderCard(Order order, int displayedIndex) {
@@ -70,15 +68,10 @@ public class OrderCard extends UiPart<Region> {
             itemType.getChildren().add(new Label(order.getItemType().itemType));
         }
 
-        if ((order.isDelivered())) {
+        if (order.isDelivered()) {
             deliveryStatus.setText("Delivered");
         } else {
             deliveryStatus.setText("Not Delivered");
-        }
-        if (!(order.isReturn())) {
-            isReturn.getChildren().add(new Label("Delivery Order"));
-        } else {
-            isReturn.getChildren().add(new Label("Return Order"));
         }
     }
 

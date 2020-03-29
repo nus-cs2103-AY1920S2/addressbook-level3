@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -60,33 +59,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private Label allOrdersLabel;
-
-    @FXML
-    private Label todayOrdersLabel;
-
-    @FXML
-    private Label completedLabel;
-
-    @FXML
-    private Label urgentLabel;
-
-    @FXML
-    private Label warehouseLabel;
-
-    @FXML
-    private Label returnLabel;
-
-    @FXML
-    private Label earningLabel;
-
-    @FXML
-    private Label importLabel;
-
-    @FXML
-    private Label settingLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -151,14 +123,11 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
-        //returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
-        //returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
+        returnOrderListPanel = new ReturnOrderListPanel(logic.getFilteredReturnOrderList());
+        returnOrderListPanelPlaceholder.getChildren().add(returnOrderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getReturnOrderBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -192,7 +161,9 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the clear warning window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleClearWarning() {
+    public void handleClearWarning(String warningMessage) {
+        clearWindow.setWarningMessage(warningMessage);
+
         if (!clearWindow.isShowing()) {
             clearWindow.show();
         } else {
@@ -250,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isClearList()) {
-                handleClearWarning();
+                handleClearWarning(commandResult.getFeedbackToUser());
                 clearWindow.setComponent(resultDisplay);
             }
 

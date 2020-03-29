@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.testutil.ReturnOrderBuilder;
 
@@ -29,15 +30,16 @@ public class ReturnCommandTest {
 
     @Test
     public void constructor_nullOrder_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ReturnCommand(null));
+        assertThrows(NullPointerException.class, () -> new ReturnCommand(null, null));
     }
 
     @Test
     public void execute_returnAcceptedByModel_returnSuccessful() throws Exception {
         ModelStubAcceptingReturnOrderAdded modelStub = new ModelStubAcceptingReturnOrderAdded();
         ReturnOrder validReturnOrder = new ReturnOrderBuilder().build();
+        TransactionId validTid = validReturnOrder.getTid();
 
-        CommandResult commandResult = new ReturnCommand(validReturnOrder).execute(modelStub);
+        CommandResult commandResult = new ReturnCommand(validReturnOrder, validTid).execute(modelStub);
 
         assertEquals(String.format(ReturnCommand.MESSAGE_SUCCESS, validReturnOrder), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validReturnOrder), modelStub.returnOrdersAdded);
@@ -46,7 +48,8 @@ public class ReturnCommandTest {
     @Test
     public void execute_duplicateReturn_throwsCommandException() {
         ReturnOrder validReturnOrder = new ReturnOrderBuilder().build();
-        ReturnCommand returnCommand = new ReturnCommand(validReturnOrder);
+        TransactionId validTid = validReturnOrder.getTid();
+        ReturnCommand returnCommand = new ReturnCommand(validReturnOrder, validTid);
         ModelStub modelStub = new ModelStubWithReturnOrder(validReturnOrder);
 
         assertThrows(CommandException.class,
@@ -57,14 +60,15 @@ public class ReturnCommandTest {
     public void equals() {
         ReturnOrder alice = new ReturnOrderBuilder().withName("Alice").build();
         ReturnOrder bob = new ReturnOrderBuilder().withName("Bob").build();
-        ReturnCommand returnAliceCommand = new ReturnCommand(alice);
-        ReturnCommand returnBobCommand = new ReturnCommand(bob);
-
+        TransactionId aliceTid = alice.getTid();
+        TransactionId bobTid = bob.getTid();
+        ReturnCommand returnAliceCommand = new ReturnCommand(alice, aliceTid);
+        ReturnCommand returnBobCommand = new ReturnCommand(bob, bobTid);
         // same object -> returns true
         assertTrue(returnAliceCommand.equals(returnAliceCommand));
 
         // same values -> returns true
-        ReturnCommand returnAliceCommandCopy = new ReturnCommand(alice);
+        ReturnCommand returnAliceCommandCopy = new ReturnCommand(alice, aliceTid);
         assertTrue(returnAliceCommand.equals(returnAliceCommandCopy));
 
         // different types -> returns false
@@ -183,6 +187,11 @@ public class ReturnCommandTest {
 
         @Override
         public void deleteReturnOrder(ReturnOrder target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deliverReturnOrder(ReturnOrder target) {
             throw new AssertionError("This method should not be called.");
         }
 

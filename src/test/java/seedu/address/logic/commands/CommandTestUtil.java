@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
@@ -24,7 +25,9 @@ import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
-import seedu.address.testutil.DoneOrderDescriptorBuilder;
+import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
 /**
@@ -71,6 +74,8 @@ public class CommandTestUtil {
     public static final String COD_DESC_BOB = " " + PREFIX_COD + VALID_COD_BOB;
     public static final String COMMENT_DESC_NIL = " " + PREFIX_COMMENT + VALID_COMMENT_NIL;
     public static final String COMMENT_DESC_INSTRUCTION = " " + PREFIX_COMMENT + VALID_COMMENT_INSTRUCTION;
+    public static final String RETURN_TIMESTAMP_DESC_AMY = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_AMY;
+    public static final String RETURN_TIMESTAMP_DESC_BOB = " " + PREFIX_RETURN_TIMESTAMP + VALID_TIMESTAMP_BOB;
     public static final String TYPE_DESC_GLASS = " " + PREFIX_TYPE + VALID_TYPE_GLASS;
     public static final String TYPE_DESC_PLASTIC = " " + PREFIX_TYPE + VALID_TYPE_PLASTIC;
 
@@ -88,6 +93,14 @@ public class CommandTestUtil {
     public static final String INVALID_DELIVERY_TIMESTAMP_DATE = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-02-32 1500";
     // Invalid Time
     public static final String INVALID_DELIVERY_TIMESTAMP_TIME = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-10-02 2401";
+    // Date only
+    public static final String INVALID_RETURN_TIMESTAMP_DATE_ONLY = " " + PREFIX_RETURN_TIMESTAMP + "2019-10-02";
+    // Time only
+    public static final String INVALID_RETURN_TIMESTAMP_TIME_ONLY = " " + PREFIX_RETURN_TIMESTAMP + "2315";
+    // Invalid Date - 2019 is not a leap year
+    public static final String INVALID_RETURN_TIMESTAMP_DATE = " " + PREFIX_RETURN_TIMESTAMP + "2019-02-32 1500";
+    // Invalid Time
+    public static final String INVALID_RETURN_TIMESTAMP_TIME = " " + PREFIX_RETURN_TIMESTAMP + "2019-10-02 2401";
     public static final String INVALID_WAREHOUSE_DESC = " " + PREFIX_WAREHOUSE + ""; // empty string not allowed
     public static final String INVALID_COD_DESC = " " + PREFIX_COD + "3"; // empty '$' not allowed
     public static final String INVALID_COMMENT_DESC = " " + PREFIX_COMMENT; // empty string not allowed for comment
@@ -98,8 +111,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditOrderDescriptor DESC_AMY;
     public static final EditCommand.EditOrderDescriptor DESC_BOB;
 
-    public static final DoneCommand.DoneOrderDescriptor AMY_DESC;
-    public static final DoneCommand.DoneOrderDescriptor BOB_DESC;
+    public static final DeliveredCommand.DeliveredOrderDescriptor AMY_DESC;
+    public static final DeliveredCommand.DeliveredOrderDescriptor BOB_DESC;
 
     static {
         DESC_AMY = new EditOrderDescriptorBuilder().withTid(VALID_TID_AMY)
@@ -118,7 +131,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_BOB)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        AMY_DESC = new DoneOrderDescriptorBuilder().withTid(VALID_TID_AMY)
+        AMY_DESC = new DeliveredOrderDescriptorBuilder().withTid(VALID_TID_AMY)
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
@@ -126,7 +139,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS).build();
-        BOB_DESC = new DoneOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        BOB_DESC = new DeliveredOrderDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
@@ -192,6 +205,20 @@ public class CommandTestUtil {
         model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredOrderList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the return order at the given {@code targetIndex} in the
+     * {@code model}'s return order book.
+     */
+    public static void showReturnOrderAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredReturnOrderList().size());
+
+        ReturnOrder returnOrder = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
+        final String[] splitName = returnOrder.getName().fullName.split("\\s+");
+        model.updateFilteredReturnOrderList(new ReturnOrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredReturnOrderList().size());
     }
 
 }
