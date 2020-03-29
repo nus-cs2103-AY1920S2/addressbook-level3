@@ -18,14 +18,18 @@ public class ReviewCommandParser implements Parser<ReviewCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         if (!ParserContext.getCurrentContext().equals(ParserContext.TRANSACTIONS_CONTEXT)) {
-            throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext());
+            throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext()
+                    + "\n" + ParserContext.SUGGESTED_CONTEXT_MESSAGE
+                    + ParserContext.TRANSACTIONS_CONTEXT);
         }
 
         String[] enteredText = argMultimap.getPreamble().split(" ", 2);
-        Index index = Index.fromOneBased(Integer.parseInt(enteredText[0]));
-        Review review = new Review(enteredText[1]);
-
-        return new ReviewCommand(index, review);
+        try {
+            Index index = Index.fromOneBased(Integer.parseInt(enteredText[0]));
+            Review review = new Review(enteredText[1]);
+            return new ReviewCommand(index, review);
+        } catch (NumberFormatException e) {
+            throw new ParseException("Invalid command input!");
+        }
     }
-
 }
