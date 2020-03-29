@@ -42,5 +42,4 @@ public class PersonListPanelDetail extends UiPart<Region> {
             }
         }
     }
-
 }

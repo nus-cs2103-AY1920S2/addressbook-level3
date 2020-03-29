@@ -13,6 +13,7 @@ import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -186,6 +187,11 @@ public class ModelStub implements Model {
     }
 
     public ObservableList<Person> getBdayListResult() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Day> getScheduleVisualResult() {
         throw new AssertionError("This method should not be called.");
     }
 }
