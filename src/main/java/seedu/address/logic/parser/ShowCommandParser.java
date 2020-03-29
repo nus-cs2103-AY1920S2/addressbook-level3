@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.ModuleCode;
 

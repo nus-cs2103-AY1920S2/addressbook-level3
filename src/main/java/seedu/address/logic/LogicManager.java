@@ -105,17 +105,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
         if (profileManager.getFilteredPersonList().size() == 1) { //profile exists
-            int curSem = profileManager.getFirstProfile().getCurrentSemester(); //taking from static profile
-            System.out.println(profileManager.getFirstProfile().getCurModules(curSem));
-            if (profileManager.getFirstProfile().getCurModules(curSem) != null) {
+            System.out.println(profileManager.getFirstProfile().getCurModules());
+            if (profileManager.getFirstProfile().getCurModules() != null) {
                 profileManager.loadDeadlines();
             }
         }
-        return profileManager.getFilteredDeadlineList();
+        return profileManager.getSortedDeadlineList();
     }
 
     @Override
     public Optional<Object> getDisplayedView() {
-        return model.getDisplayedView();
+        return profileManager.getDisplayedView();
     }
 }

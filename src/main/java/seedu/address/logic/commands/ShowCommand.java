@@ -10,10 +10,17 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
+
 
 
 /**
@@ -63,40 +70,38 @@ public class ShowCommand extends Command {
                 message = MESSAGE_SUCCESS_COURSE;
                 CourseName courseName = (CourseName) itemParsed;
                 toShow = courseManager.getCourse(courseName);
-              
-                model.setDisplayedView((CourseName) toShow);
+                profileManager.setDisplayedView((Course) toShow);
 
-                
             } else if (itemParsed instanceof Integer) {
 
                 message = MESSAGE_SUCCESS_MODULE_LIST;
                 Integer semester = (Integer) itemParsed;
                 toShow = profileManager.getFirstProfile().getModules(semester);
-              
                 FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
-                model.setDisplayedView(filteredModules);
+                profileManager.setDisplayedView(filteredModules);
 
             } else if (itemParsed instanceof ModuleCode) {
 
                 message = MESSAGE_SUCCESS_MODULE;
                 ModuleCode moduleCode = (ModuleCode) itemParsed;
                 toShow = moduleManager.getModule(moduleCode);
-              
-                model.setDisplayedView((Module) toShow);
+                profileManager.setDisplayedView((Module) toShow);
 
             } else if (itemParsed instanceof String) {
-              
+
                 message = MESSAGE_SUCCESS_FOCUS_AREA;
                 String focusArea = (String) itemParsed;
                 toShow = courseManager.getCourseFocusArea(focusArea);
-              
-                model.setDisplayedView((CourseFocusArea) toShow);
+                profileManager.setDisplayedView((CourseFocusArea) toShow);
+
+            } else if (itemParsed instanceof Name) {
+
+                message = MESSAGE_SUCCESS_NAME;
+                Profile profile = profileManager.getFirstProfile();
+                toShow = profile;
+                profileManager.setDisplayedView((Profile) toShow);
             }
 
-//             } else if (toShow instanceof Name) { //show overview
-//             Profile profile = model.getFirstProfile();
-//             model.setDisplayedView(profile);
-//             message = MESSAGE_SUCCESS_NAME;
             return new CommandResult(String.format(message, toShow), true);
 
         } catch (ParseException e) {

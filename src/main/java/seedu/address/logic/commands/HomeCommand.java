@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.Model;
+import seedu.address.model.CourseManager;
+import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 
 /**
@@ -15,14 +17,15 @@ public class HomeCommand extends Command {
     public static final String MESSAGE = "";
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
+    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
+                                 ModuleManager moduleManager) {
+        requireNonNull(profileManager);
 
-        if (model.getDisplayedView().isEmpty()) {
+        if (profileManager.getDisplayedView().isEmpty()) {
             return new CommandResult(MESSAGE, false, false, true);
         }
 
-        model.setDisplayedView((Profile) null);
+        profileManager.setDisplayedView((Profile) null);
         return new CommandResult(MESSAGE, false, false, true);
     }
 }

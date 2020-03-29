@@ -59,7 +59,7 @@ public class Profile {
         }
 
         int id = 0;
-        for (Module mod : moduleHash.get(currentSemester)) { //for colourising module names
+        for (Module mod : semModHashMap.get(currentSemester)) { //for colourising module names
             mod.setTag(id++);
         }
 
@@ -125,7 +125,7 @@ public class Profile {
         return deadlineList;
     }
 
-    public ModuleList getCurModules(int currentSemester) {
+    public ModuleList getCurModules() {
         return semModHashMap.get(currentSemester);
     }
 

@@ -36,7 +36,8 @@ public class FindCommand extends Command {
 
         profileManager.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, profileManager.getFilteredPersonList().size()), false);
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, profileManager.getFilteredPersonList().size()),
+                false);
     }
 
     @Override

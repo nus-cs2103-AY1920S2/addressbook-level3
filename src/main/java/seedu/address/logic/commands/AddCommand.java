@@ -105,7 +105,7 @@ public class AddCommand extends Command {
                         + module.getPersonal().getStatus() + ", "
                         + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));*/
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
-                        moduleToAdd.getPersonal().getStatus()), false);
+                        moduleToAdd.getPersonal().getStatus()));
             }
         } else { // Module does not exist
             // Create Personal object

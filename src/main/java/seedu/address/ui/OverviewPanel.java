@@ -60,7 +60,7 @@ public class OverviewPanel extends UiPart<Region> {
         specialisation.setFont(Font.font("Segoe UI", 14));
         specialisation.setFill(Color.WHITE);
 
-        Text currentSem = new Text("Current Semester: " + Profile.getCurrentSemester());
+        Text currentSem = new Text("Current Semester: " + profile.getCurrentSemester());
         currentSem.setFont(Font.font("Segoe UI", 14));
         currentSem.setFill(Color.WHITE);
 
@@ -68,7 +68,7 @@ public class OverviewPanel extends UiPart<Region> {
 
         //Modules panel
         HBox modPane = new HBox();
-        int totalNoOfSem = Profile.getAllModules().keySet().size();
+        int totalNoOfSem = profile.getAllModules().keySet().size();
         for (int i = 1; i <= totalNoOfSem; i++) {
             HBox temp = new HBox();
             temp.setAlignment(Pos.CENTER);
@@ -103,7 +103,7 @@ public class OverviewPanel extends UiPart<Region> {
             temp.getChildren().addAll(new Group(listTitle));
 
             ListView<Module> moduleSemPanel = new ListView<>();
-            moduleSemPanel.setItems(Profile.getModules(i).getModuleList());
+            moduleSemPanel.setItems(profile.getModules(i).getModuleList());
             moduleSemPanel.setCellFactory(listView -> new ModuleListViewCell());
 
             modPane.setBackground(new Background(
