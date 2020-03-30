@@ -28,6 +28,7 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
@@ -233,7 +234,7 @@ public class MainApp extends Application {
     logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
-        courseInitialData, assignmentInitialData, userPrefs);
+        courseInitialData, assignmentInitialData, new ProgressAddressBook(), userPrefs);
   /*
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
             courseInitialData, userPrefs);

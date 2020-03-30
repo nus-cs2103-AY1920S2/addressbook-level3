@@ -8,6 +8,7 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
@@ -386,5 +387,41 @@ public interface Model {
    * @throws NullPointerException if {@code predicate} is null.
    */
   void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+  // ====================================================================== //
+  // There is no CRUD operations for Progress objects for now
+
+    /**
+     * Returns the user prefs' assignment address book file path.
+     */
+    Path getProgressAddressBookFilePath();
+
+    /**
+     * Sets the user prefs' address book file path.
+     */
+    void setProgressAddressBookFilePath(Path progressAddressBookFilePath);
+
+    /**
+     * Returns the progressAddressBook
+     */
+    ReadOnlyAddressBookGeneric<Progress> getProgressAddressBook();
+
+    /**
+     * Replaces progress address book data with the data in {@code teacerAddressBook}.
+     */
+    void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook);
+
+    /**
+     * Returns an unmodifiable view of the filtered finance list
+     */
+    ObservableList<Progress> getFilteredProgressList();
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredProgressList(Predicate<Progress> predicate);
+
 
 }
