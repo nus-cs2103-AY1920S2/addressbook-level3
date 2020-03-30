@@ -53,6 +53,7 @@ public class OrderContainsKeywordsPredicateTest {
         // different predicate -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
+
     @ParameterizedTest
     @MethodSource("generaliseParametersGeneralSearchForSuccess")
     public void test_ordersContainKeywordsGeneralSearch_returnTrue(OrderContainsKeywordsPredicate predicate,
@@ -197,6 +198,11 @@ public class OrderContainsKeywordsPredicateTest {
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("Gold", "Silver", "Plastic")),
                 new OrderBuilder().withItemType("Gold").build()
+            ),
+            // email checks
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("e123@gmail.com", "example@gmail.com")),
+                new OrderBuilder().withEmail("example@gmail.com").build()
             )
         );
     }
@@ -299,6 +305,14 @@ public class OrderContainsKeywordsPredicateTest {
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("Go", "ld")),
                 new OrderBuilder().withItemType("Gold").build()
+            ),
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("e123@gmail.com", "example@hotmail.com")),
+                new OrderBuilder().withEmail("example@gmail.com").build()
+            ),
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("e123@gmail.com", "example@gmail.com")),
+                new OrderBuilder().withEmail("examle@gmail.com").build()
             )
         );
     }
@@ -426,7 +440,12 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withItemType("Plastic").build()),
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("Gold", "Silver", "Plastic"), am9),
-                new OrderBuilder().withItemType("Gold").build())
+                new OrderBuilder().withItemType("Gold").build()),
+            // Email checks
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("e123@gmail.com", "example@gmail.com"), am10),
+                new OrderBuilder().withEmail("example@gmail.com").build()
+            )
         );
     }
 
@@ -476,7 +495,12 @@ public class OrderContainsKeywordsPredicateTest {
             // Delivery time stamp not in given prefix
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("2020-10-02", "1500"), am2),
-                new OrderBuilder().withTimeStamp("2020-10-02 1500").build())
+                new OrderBuilder().withTimeStamp("2020-10-02 1500").build()),
+            // email checks
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("e123@gmail.com", "example@hotmail.com"), am2),
+                new OrderBuilder().withEmail("example@hotmail.com").build()
+            )
         );
     }
 }

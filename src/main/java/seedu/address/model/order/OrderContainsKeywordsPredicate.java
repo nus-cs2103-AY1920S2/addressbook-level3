@@ -56,7 +56,7 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                     && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
                 || (argumentMultimap.getHasAddress()
                     && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
-                || (argumentMultimap.getHasTimeStamp()
+                || (argumentMultimap.getHasDeliveryTimeStamp()
                     && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
                 || (argumentMultimap.getHasWarehouse()
                     && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
@@ -75,7 +75,9 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof OrderContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((OrderContainsKeywordsPredicate) other).keywords)); // state check
+                && keywords.equals(((OrderContainsKeywordsPredicate) other).keywords)
+                && argumentMultimap.equals(((OrderContainsKeywordsPredicate) other).argumentMultimap)
+                && isGeneralSearch == (((OrderContainsKeywordsPredicate) other).isGeneralSearch)); // state check
     }
 
 }

@@ -54,13 +54,13 @@ public class ReturnOrderContainsKeywordsPredicate implements Predicate<ReturnOrd
                 && StringUtil.containsWordIgnoreCase(returnOrder.getPhone().value, keyword))
                 || (argumentMultimap.getHasAddress()
                 && StringUtil.containsWordIgnoreCase(returnOrder.getAddress().value, keyword))
-                || (argumentMultimap.getHasTimeStamp()
+                || (argumentMultimap.getHasReturnTimeStamp()
                 && StringUtil.containsWordIgnoreCase(returnOrder.getTimestamp().value, keyword))
                 || (argumentMultimap.getHasWarehouse()
                 && StringUtil.containsWordIgnoreCase(returnOrder.getWarehouse().address, keyword))
                 || (argumentMultimap.getHasComment()
                 && StringUtil.containsWordIgnoreCase(returnOrder.getComment().commentMade, keyword))
-                || (argumentMultimap.getHasCod()
+                || (argumentMultimap.getHasItemType()
                 && StringUtil.containsWordIgnoreCase(returnOrder.getItemType().itemType, keyword))
                 || (argumentMultimap.getHasEmail()
                 && StringUtil.containsWordIgnoreCase(returnOrder.getEmail().value, keyword))
@@ -72,6 +72,7 @@ public class ReturnOrderContainsKeywordsPredicate implements Predicate<ReturnOrd
         return obj == this // short circuit if same object
             || (obj instanceof ReturnOrderContainsKeywordsPredicate // instanceof handles nulls
             && keywords.equals(((ReturnOrderContainsKeywordsPredicate) obj).keywords)
-            && argumentMultimap.equals(((ReturnOrderContainsKeywordsPredicate) obj).argumentMultimap)); // state check
+            && argumentMultimap.equals(((ReturnOrderContainsKeywordsPredicate) obj).argumentMultimap)
+            && this.isGeneralSearch == (((ReturnOrderContainsKeywordsPredicate) obj).isGeneralSearch)); // state check
     }
 }
