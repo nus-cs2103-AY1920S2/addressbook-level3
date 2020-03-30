@@ -29,7 +29,7 @@ public class ArchiveCommand extends Command {
     private final Index targetIndex;
 
     /**
-     * Creates an ArchivedCommand to archive the {@code Coupon} at the specified {@code targetIndex}.
+     * Creates an ArchiveCommand to archive the {@code Coupon} at the specified {@code targetIndex}.
      * @param targetIndex Index of the coupon to be archived.
      */
     public ArchiveCommand(Index targetIndex) {
