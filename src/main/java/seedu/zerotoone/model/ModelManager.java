@@ -189,8 +189,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateSortedScheduledWorkoutList() {
-        scheduler.updateSortedScheduledWorkoutList();
+    public void populateSortedScheduledWorkoutList() {
+        scheduler.populateSortedScheduledWorkoutList();
     }
 
     // -----------------------------------------------------------------------------------------

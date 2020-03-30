@@ -23,7 +23,7 @@ public class Scheduler {
         this.scheduleList = new ScheduleList(scheduleList);
         this.scheduledWorkoutList = new ScheduledWorkoutList();
         this.sortedScheduledWorkoutList = new SortedList<>(this.scheduledWorkoutList.getScheduledWorkoutList());
-        updateSortedScheduledWorkoutList();
+        populateSortedScheduledWorkoutList();
     }
 
     public ScheduleList getScheduleList() {
@@ -60,7 +60,7 @@ public class Scheduler {
     /**
      *
      */
-    public void updateSortedScheduledWorkoutList() {
+    public void populateSortedScheduledWorkoutList() {
         // List<ScheduledWorkout> newScheduledWorkouts = new ArrayList<>();
         // for (Schedule schedule : scheduleList) {
         //     Optional<List<ScheduledWorkout>> scheduledWorkouts = schedule.getScheduledWorkout();

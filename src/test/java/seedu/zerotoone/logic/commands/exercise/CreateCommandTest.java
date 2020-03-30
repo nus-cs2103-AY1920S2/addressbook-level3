@@ -196,7 +196,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public void updateSortedScheduledWorkoutList() {
+        public void populateSortedScheduledWorkoutList() {
             throw new AssertionError("This method should not be called.");
         }
 
