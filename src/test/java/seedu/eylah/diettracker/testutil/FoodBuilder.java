@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.eylah.addressbook.model.util.SampleDataUtil;
 import seedu.eylah.diettracker.model.food.Calories;
+import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;
@@ -19,11 +20,13 @@ public class FoodBuilder {
 
     private Name name;
     private Calories calories;
+    private Date date;
     private Set<Tag> tags;
 
     public FoodBuilder() {
         name = new Name(DEFAULT_NAME);
         calories = new Calories(DEFAULT_CALORIES);
+        date = new Date();
         tags = new HashSet<>();
     }
 
@@ -33,6 +36,7 @@ public class FoodBuilder {
     public FoodBuilder(Food foodToCopy) {
         name = foodToCopy.getName();
         calories = foodToCopy.getCalories();
+        date = foodToCopy.getDate();
         tags = new HashSet<>(foodToCopy.getTags());
     }
 
@@ -59,7 +63,7 @@ public class FoodBuilder {
      */
 
     public Food build() {
-        return new Food(name, calories, tags);
+        return new Food(name, calories, date, tags);
     }
 
 }

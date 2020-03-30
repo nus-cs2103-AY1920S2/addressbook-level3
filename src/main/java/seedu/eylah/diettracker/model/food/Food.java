@@ -18,6 +18,7 @@ public class Food {
     // Identity fields
     private final Name name;
     private final Calories calories;
+    private final Date date;
 
     // Data Fields
     private final Set<Tag> tags = new HashSet<>();
@@ -31,6 +32,15 @@ public class Food {
         this.name = name;
         this.calories = calories;
         this.tags.addAll(tags);
+        this.date = new Date();
+    }
+
+    public Food(Name name, Calories calories, Date date, Set<Tag> tags) {
+        requireAllNonNull(name, calories);
+        this.name = name;
+        this.calories = calories;
+        this.date = date;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -39,6 +49,10 @@ public class Food {
 
     public Calories getCalories() {
         return calories;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     /**
@@ -80,13 +94,14 @@ public class Food {
         Food otherFood = (Food) other;
         return otherFood.getName().equals(getName())
                 && otherFood.getCalories().equals(getCalories())
+                && otherFood.getDate().equals(getDate())
                 && otherFood.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, calories, tags);
+        return Objects.hash(name, calories, date, tags);
     }
 
     @Override
@@ -94,7 +109,9 @@ public class Food {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Calories: ")
-                .append(getCalories());
+                .append(getCalories())
+                .append(" At: ")
+                .append(getDate());
         if (!tags.isEmpty()) {
             builder.append(" Tags: ");
             getTags().forEach(builder::append);
