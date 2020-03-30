@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F09-1/main
 
@@ -24,61 +25,117 @@ By: Team F09-1
 |=========================================
 |*Contents* |*Section Number*
 a|
-*Introduction*
+*Introduction* |1
 
- |1
 a|
-*Quick Start*
+*About This Document* |2
 
- |2
 a|
+*Quick Start* |3
 
+a|
 *Features*
 
-   1.  Viewing help: help
-   2.  Adding a coupon: add
-   3.  Listing all coupons: list
-   4.  Editing a coupon: edit
-   5.  Locating coupons by name: find
-   6.  Sorting coupons: sort
-   7.  Deleting a coupon: delete
-   8.  Listing all expiring coupons: expiring
-   9.  Clearing all entries: clear
-   10.  Exiting the program: exit
-   11. Saving the data
-   12. Adding a reminder: remind
-   13. Viewing savings: saved
-   14. Use a coupon: used
-   15. Undo the previous command: undo
-   16. Redo the undone command: redo
-   17. Archive a coupon: archive
-   18. Export a coupon: export
-   19. Set user preferences: setpref
-
- |3
-
-a|
-*FAQ*
-
+   . Adding a coupon: add
+   . Editing a coupon: edit
+   . Deleting a coupon: delete
+   . Listing all coupons: list
+   . Locating coupons by name: find
+   . Sorting coupons: sort
+   . Listing all expiring coupons: expiring
+   . Adding a reminder: remind
+   . Use a coupon: used
+   . Viewing savings: saved
+   . Archive a coupon: archive
+   . Export a coupon: export
+   . Sharing a coupon: share
+   . Undo the previous command: undo
+   . Redo the undone command: redo
+   . Set user preferences: setpref
+   . Viewing help: help
+   . Clearing all entries: clear
+   . Exiting the program: exit
+   . Saving the data
  |4
-a|
-*Command Summary*
 
- |5
 a|
-*Appendix*
+*FAQ*|5
 
- |6
+a|
+*Command Summary* |6
+
+a|
+*Appendix*|7
 |=========================================
+
+Welcome to the Coupon Stash User Guide! Thank you so much for choosing
+Coupon Stash, the world's most popular command-line coupon management desktop
+application*!
+
+This guide will help you get started quickly, providing useful tips and hints
+along the way.
+
+*as of March 2020
 
 == Introduction
 
-Coupon Stash is for SoC students and staff who rightfully *prefer to use a desktop
-app for managing coupons*. More importantly, CS is *optimized for those who prefer
-to work with a Command Line Interface* (CLI) while still having the benefits of a
-Graphical User Interface (GUI). If you can type fast, CS can get your coupon
-management tasks done faster than traditional GUI apps. Interested?
-You should be! Jump to the <<Quick Start, Quick Start section>> to get started. Enjoy!
+Coupon Stash is meant for School of Computing (SoC) students and staff who enjoy
+managing their coupons with a desktop command-line interface. It is optimised
+for efficient usage in this aspect, while still offering a sleek Graphical User
+Interface (GUI).
+
+Jump to the <<Quick Start, Quick Start section>> to get started now. We
+sincerely hope you enjoy using Coupon Stash!
+
+=== How to Use This Guide
+
+[TIP]
+Tips are used to describe small features or techniques
+that may come in handy when using Coupon Stash!
+
+[WARNING]
+Warnings bring your attention to certain practices
+that may have unintended consequences!
+
+[NOTE]
+A note describes certain features or behaviour that may
+not be so obvious!
+
+====
+Boxes like this contain useful information, for
+emphasis and easy reference!
+====
+
+* Coupon Stash command words are enclosed in `code blocks`
+
+[[link]]
+* Blue, underlined words are <<UserGuide.adoc#link, links>>!
+Try clicking on the link above!
+
+
+== About This Document
+This document introduces the features of Coupon Stash. +
+
+The following are symbols and formatting used in this document:
+
+[cols="a, d"]
+|===
+|*Symbol/Format* | *Description*
+| [TIP]
+| This symbol indicates tips on how you can use Coupon Stash.
+
+| [NOTE]
+| This symbol indicates important information for you to take note of.
+
+| [WARNING]
+| This symbol indicates a warning for you to pay extra attention to a matter.
+
+| `add`
+| A grey highlight (called a mark-up) indicates a command that can be entered into the command line and executed by Coupon Stash.
+
+
+|===
+
 
 == Quick Start
 
@@ -91,8 +148,8 @@ You should be! Jump to the <<Quick Start, Quick Start section>> to get started. 
 e.g. typing *help* and pressing Enter will open the help window.
 .  Some example commands you can try:
 * *list* : lists all coupons
-* *add:* `add n/Domino's Pizaa Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
-          t/pizza t/delivery`: adds a coupon named Domino's Pizaa Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
+* *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
+          t/pizza t/delivery`: adds a coupon named Domino's Pizza Extra Large to the Coupon Stash, with an expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a limit of 5 usages.
 * *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
 * *exit* : exits the app (your data will be saved automatically)
 .  Refer to the <<Features, Section 3, "Features">> for details of each command.
@@ -101,29 +158,28 @@ e.g. typing *help* and pressing Enter will open the help window.
 [[Features]]
 == Features
 
+[NOTE]
 ====
-*Command Format*
+****
+*Command Format* +
 
-* Words in UPPER_CASE are the parameters to be supplied by the user
+* Words in UPPER_CASE are the parameters to be supplied by you (the user)
 e.g. in add n/NAME, NAME is a parameter which can be used as add
 n/The Deck Chicken Rice.
 * Items in square brackets are optional e.g n/NAME [t/TAG] can be
 used as n/The Deck Chicken Rice t/value or as n/The Deck Chicken Rice.
 * Items with ... after them can be used multiple times including zero
-times e.g. [t/TAG]...​ can be used as (i.e. 0 times), t/value,
+times e.g. [t/TAG]...​ can be used as (i.e. 0 times), t/pizza or
 t/friend t/value etc.
-* Parameters can be in any order e.g. if the command specifies n/NAME,
+* Parameters can be in any order e.g. if the command specifies n/NAME
 s/SAVINGS, s/SAVINGS n/NAME is also acceptable. (Note: the app will only take the last specified parameter
 if there are multiple of the same parameters, but only one is required)
 * Dates are all in the D-M-YYYY format. (Coupon Stash date format)
 ** D and M can be one or two digits, but YYYY has to be four digits
 ** e.g. 1-1-2020, 01-01-2020 are both valid dates
+****
 ====
 
-=== Viewing help: `help`
-A help window will pop up aiding the user in the usage of Coupon Stash.
-
-Format: `help`
 
 === Adding a coupon: `add`
 
@@ -146,12 +202,6 @@ image:ug_deck_chicken.png[]
 +
 Adds a new Coupon:
 image:ug_pgp_mala.png[]
-
-=== Listing all coupons: `list`
-
-Shows a list of all coupons in the coupon stash.
-
-Format: `list`
 
 === Editing a coupon: `edit`
 
@@ -185,6 +235,44 @@ Edits the savings of the 1st coupon to be 50% off
 * `edit 2 n/The Deck Nasi Ayam Hainan t/` +
 Edits the name of the 2nd coupon to be The Deck Nasi Ayam Hainan and
 clears all existing tags.
+
+// tag::delete[]
+=== Deleting a coupon: `delete`
+
+Deletes the specified coupon from the coupon stash.
+
+Version 2.0 will bring new features like confirmation
+of coupons before they are deleted!
+
+Also, a "recycle bin" is in the works for version 3.0,
+similar to the Recycle Bin in Microsoft Windows.
+
+Format: `delete INDEX`
+
+****
+* Deletes the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon
+list.
+* The index *must be a positive integer* 1, 2, 3, …​
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd coupon in the coupon stash.
+* `find rice` +
+`delete 1` +
+Deletes the 1st coupon in the results of the find command.
+
+// end::delete[]
+
+=== Listing all coupons: `list`
+
+Shows a list of all coupons in the coupon stash.
+
+Format: `list`
+
 
 === Locating coupons by name: `find`
 
@@ -225,40 +313,11 @@ Sorts the coupon stash by name in ascending order.
 * `sort e/` +
 Sorts the coupon stash by expiry date from earliest to latest.
 
-// tag::delete[]
-=== Deleting a coupon: `delete`
 
-Deletes the specified coupon from the coupon stash.
-
-Version 2.0 will bring new features like confirmation
-of coupons before they are deleted!
-
-Also, a "recycle bin" is in the works for version 3.0,
-similar to the Recycle Bin in Microsoft Windows.
-
-Format: `delete INDEX`
-
-****
-* Deletes the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon
-list.
-* The index *must be a positive integer* 1, 2, 3, …​
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd coupon in the coupon stash.
-* `find rice` +
-`delete 1` +
-Deletes the 1st coupon in the results of the find command.
-
-// end::delete[]
 
 === Listing all expiring coupons: `expiring`
 
-Lists all your expiring coupons.
+Shows a list of all your expiring coupons before a date.
 
 Format: `expiring DATE`
 
@@ -270,23 +329,6 @@ Examples:
 * `expiring 2-3-2020` +
 Shows you all the coupons that will expire before 2 March 2020.
 
-
-=== Clearing all entries: `clear`
-
-Clears all entries from the coupon stash. +
-Format: `clear`
-
-=== Exiting the program: `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Coupon data is saved in the hard disk automatically after any
-command that changes the data.
-
-There is no need to save manually.
 
 === Adding a reminder: `remind`
 
@@ -306,6 +348,37 @@ Examples:
 * `remind 5 d/1-5-2020` +
 Reminds you about the 5th coupon in the list on 1 May 2020.
 Reminders will be displayed as a pop up when you launch the app.
+
+
+=== Use a coupon: `used`
+Uses a coupon if its usage has yet to reached its limit.
+Requires an original amount of purchase if the coupon has savings in a percentage value. +
+Format: `used INDEX` or `used INDEX MONETARY_AMOUNT`
+where `MONETARY_AMOUNT` is a number prefixed by a user-defined currency
+symbol e.g. ($4.50, where the currency symbol is "$").
+
+****
+* Uses the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon.
+list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The monetary symbol is the one preset by the user e.g. $, RM ...
+* The original amount *must be a positive double* e.g. 10.00, 23.11, 0.50 ...
+****
+
+Examples:
+
+* `used 1` +
+Uses the first coupon in the coupon stash.
+If coupon usage limit has been reached previously, an error message will appear,
+stating the maximum number of usages for first coupon.
+
+
+* `used 1 $10.0` +
+Uses the first coupon in the coupon stash, which also has a percentage savings.
+The total savings of the coupon will be calculated, and can be seen with the command `saved`.
+
+
 
 === Viewing savings: `saved`
 
@@ -345,75 +418,6 @@ A message will be displayed: You have saved $6.50 as well as earned 2x Brattby B
 A message will be displayed: You have saved $117.15 as well as earned
 5x Brattby Bag, 7x Water Bottle, 12x Free Coffee, 1x Plush Toy.
 
-=== Use a coupon: `used`
-Uses a coupon if its usage has yet to reached its limit.
-Requires an original amount of purchase if the coupon has savings in a percentage value. +
-Format: `used INDEX` or `used INDEX MONETARY_AMOUNT`
-where `MONETARY_AMOUNT` is a number prefixed by a user-defined currency
-symbol e.g. ($4.50, where the currency symbol is "$").
-
-****
-* Uses the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon.
-list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The monetary symbol is the one preset by the user e.g. $, RM ...
-* The original amount *must be a positive double* e.g. 10.00, 23.11, 0.50 ...
-****
-
-Examples:
-
-* `used 1` +
-Uses the first coupon in the coupon stash.
-If coupon usage limit has been reached previously, an error message will appear,
-stating the maximum number of usages for first coupon.
-
-
-* `used 1 $10.0` +
-Uses the first coupon in the coupon stash, which also has a percentage savings.
-The total savings of the coupon will be calculated, and can be seen with the command `saved`.
-
-
-=== Undo the previous command: `undo`
-Undo previous operation. Only works on the following commands: (i.e. commands that change the coupons in the coupon stash)
-
-* `add`
-* `archive`
-* `clear`
-* `delete`
-* `edit`
-* `remind`
-
-Note that changes to user preferences cannot be undone.
-Format: `undo`
-
-Examples:
-
-* `remind 1 r/ 25-12-2020` +
-  `undo` +
-Undo the `remind` command. Reminder is removed.
-
-
-* `edit 1 n/ Duck Rice` +
-  `undo` +
-Revert the edit that was performed.
-
-=== Redo the undone command: `redo`
-Redo the previously undone command. +
-Format: `redo`
-
-Examples:
-
-* `remind 1 r/ 25-12-2020` +
-  `undo` +
-  `redo` +
-Un-undo the `remind` command.
-
-
-* `edit 1 n/ Duck Rice` +
-  `undo` +
-  `redo`
-Un-undo the `edit` command.
 
 === Archive a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your current stash of coupons.
@@ -451,17 +455,16 @@ list.
 
 [NOTE]
 ====
-The exported add command will only contain the following fields: +
 ****
-* Name
-* Savings
-* Expiry Date
-* Limit
-* Promo Code (if any)
-* Condition (if any)
+* Statistics like number of times used or amount of savings accumulated will not be exported.
+* The exported add command will only contain the following fields: +
+** Name
+** Savings
+** Expiry Date
+** Limit
+** Promo Code (if any)
+** Condition (if any)
 ****
-Statistics like number of times used or amount of
-savings accumulated will not be exported.
 ====
 
 Examples:
@@ -472,6 +475,56 @@ Exports the 2nd coupon in the coupon stash to an `add` command and copies it to 
 * `find chicken` +
 `export 1` +
 Exports the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
+
+=== Sharing a coupon: `share`
+//to be updated
+Format: `share INDEX`
+
+
+=== Undo the previous command: `undo`
+Undo previous operation.
+
+Format: `undo`
+====
+Only works on the following commands: (i.e. commands that change the coupons in the coupon stash) +
+
+* `add`
+* `edit`
+* `delete`
+* `remind`
+* `archive`
+* `clear`
+
+Note that changes to user preferences cannot be undone.
+====
+
+Examples:
+
+* `remind 1 r/ 25-12-2020` +
+  `undo` +
+Undo the `remind` command. Reminder is removed.
+
+
+* `edit 1 n/ Duck Rice` +
+  `undo` +
+Revert the edit that was performed.
+
+=== Redo the undone command: `redo`
+Redo the previously undone command. +
+Format: `redo`
+
+Examples:
+
+* `remind 1 r/ 25-12-2020` +
+  `undo` +
+  `redo` +
+Un-undo the `remind` command.
+
+
+* `edit 1 n/ Duck Rice` +
+  `undo` +
+  `redo`
+Un-undo the `edit` command.
 
 === Set user preferences: `setpref`
 Sets the user preferences in Coupon Stash. Available user
@@ -488,6 +541,28 @@ Format: `setpref [ms/NEW_MONEY_SYMBOL]`
 * The preferences may affect the visual look of the
 program, as well as modify commands entered
 ****
+
+=== Viewing help: `help`
+A help window will pop up aiding the user in the usage of Coupon Stash.
+
+Format: `help`
+
+=== Clearing all entries: `clear`
+
+Clears all entries from the coupon stash. +
+Format: `clear`
+
+=== Exiting the program: `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Coupon data is saved in the hard disk automatically after any
+command that changes the data.
+
+There is no need to save manually.
 
 
 Examples:
