@@ -21,7 +21,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Visit;
@@ -35,12 +35,12 @@ public class SampleDataUtil {
     public static final ArrayList<Remark> EMPTY_REMARK = new ArrayList<>();
     public static final ArrayList<Remark> SOME_REMARK = new ArrayList<>();
     public static final ArrayList<seedu.address.model.restaurant.Remark> SOMEMORE_REMARK = new ArrayList<>();
-    public static final ArrayList<Notes> EMPTY_RECOMMENDED_NOTE = new ArrayList<>();
-    public static final ArrayList<Notes> EMPTY_GOOD_NOTE = new ArrayList<>();
-    public static final ArrayList<Notes> EMPTY_BAD_NOTE = new ArrayList<>();
-    public static final ArrayList<Notes> SOME_RECOMMENDED_NOTE = new ArrayList<>();
-    public static final ArrayList<Notes> SOME_GOOD_NOTE = new ArrayList<>();
-    public static final ArrayList<Notes> SOME_BAD_NOTE = new ArrayList<>();
+    public static final ArrayList<Note> EMPTY_RECOMMENDED_NOTE = new ArrayList<>();
+    public static final ArrayList<Note> EMPTY_GOOD_NOTE = new ArrayList<>();
+    public static final ArrayList<Note> EMPTY_BAD_NOTE = new ArrayList<>();
+    public static final ArrayList<Note> SOME_RECOMMENDED_NOTE = new ArrayList<>();
+    public static final ArrayList<Note> SOME_GOOD_NOTE = new ArrayList<>();
+    public static final ArrayList<Note> SOME_BAD_NOTE = new ArrayList<>();
     public static final Birthday EMPTY_BIRTHDAY = new Birthday("");
     public static final Organization EMPTY_ORGANIZATION = new Organization("");
 
@@ -72,9 +72,9 @@ public class SampleDataUtil {
 
     public static Restaurant[] getSampleRestaurants() {
         SOMEMORE_REMARK.add(new seedu.address.model.restaurant.Remark("Place is clean"));
-        SOME_RECOMMENDED_NOTE.add(new Notes("Mcspicy"));
-        SOME_GOOD_NOTE.add(new Notes("Fries"));
-        SOME_BAD_NOTE.add(new Notes("Salad"));
+        SOME_RECOMMENDED_NOTE.add(new Note("Mcspicy"));
+        SOME_GOOD_NOTE.add(new Note("Fries"));
+        SOME_BAD_NOTE.add(new Note("Salad"));
         return new Restaurant[] {
             new Restaurant(new seedu.address.model.restaurant.Name("McDonalds"),
                     new Location("West Coast"),

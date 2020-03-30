@@ -11,7 +11,7 @@ import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
@@ -31,9 +31,9 @@ class JsonAdaptedRestaurant {
     private final ArrayList<JsonAdaptedRemarkR> remark = new ArrayList<>();
     private final String cuisine;
     private final String visit;
-    private final ArrayList<JsonAdaptedNotes> recommendedNotes = new ArrayList<>();
-    private final ArrayList<JsonAdaptedNotes> goodNotes = new ArrayList<>();
-    private final ArrayList<JsonAdaptedNotes> badNotes = new ArrayList<>();
+    private final ArrayList<JsonAdaptedNote> recommendedNote = new ArrayList<>();
+    private final ArrayList<JsonAdaptedNote> goodNote = new ArrayList<>();
+    private final ArrayList<JsonAdaptedNote> badNote = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -44,9 +44,9 @@ class JsonAdaptedRestaurant {
                                  @JsonProperty("remark") ArrayList<JsonAdaptedRemarkR> remark,
                                  @JsonProperty("cuisine") String cuisine,
                                  @JsonProperty("visit") String visit,
-                                 @JsonProperty("recommendedNotes") ArrayList<JsonAdaptedNotes> recommendedNotes,
-                                 @JsonProperty("goodNotes") ArrayList<JsonAdaptedNotes> goodNotes,
-                                 @JsonProperty("badNotes") ArrayList<JsonAdaptedNotes> badNotes) {
+                                 @JsonProperty("recommendedNotes") ArrayList<JsonAdaptedNote> recommendedNotes,
+                                 @JsonProperty("goodNotes") ArrayList<JsonAdaptedNote> goodNotes,
+                                 @JsonProperty("badNotes") ArrayList<JsonAdaptedNote> badNotes) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -57,13 +57,13 @@ class JsonAdaptedRestaurant {
         }
         this.visit = visit;
         if (recommendedNotes != null) {
-            this.recommendedNotes.addAll(recommendedNotes);
+            this.recommendedNote.addAll(recommendedNotes);
         }
         if (goodNotes != null) {
-            this.goodNotes.addAll(goodNotes);
+            this.goodNote.addAll(goodNotes);
         }
         if (badNotes != null) {
-            this.badNotes.addAll(badNotes);
+            this.badNote.addAll(badNotes);
         }
     }
 
@@ -80,14 +80,14 @@ class JsonAdaptedRestaurant {
                 .map(JsonAdaptedRemarkR::new)
                 .collect(Collectors.toList()));
         visit = source.getVisit().visit;
-        recommendedNotes.addAll(source.getRecommendedFood().stream()
-                .map(JsonAdaptedNotes::new)
+        recommendedNote.addAll(source.getRecommendedFood().stream()
+                .map(JsonAdaptedNote::new)
                 .collect(Collectors.toList()));
-        goodNotes.addAll(source.getGoodFood().stream()
-                .map(JsonAdaptedNotes::new)
+        goodNote.addAll(source.getGoodFood().stream()
+                .map(JsonAdaptedNote::new)
                 .collect(Collectors.toList()));
-        badNotes.addAll(source.getBadFood().stream()
-                .map(JsonAdaptedNotes::new)
+        badNote.addAll(source.getBadFood().stream()
+                .map(JsonAdaptedNote::new)
                 .collect(Collectors.toList()));
     }
 
@@ -148,19 +148,19 @@ class JsonAdaptedRestaurant {
             throw new IllegalValueException(Visit.MESSAGE_CONSTRAINTS);
         }
         final Visit modelVisit = new Visit(visit);
-        final ArrayList<Notes> modelRecommendedNotes = new ArrayList<>();
-        for (JsonAdaptedNotes rnotes : recommendedNotes) {
-            modelRecommendedNotes.add(rnotes.toModelType());
+        final ArrayList<Note> modelRecommendedNote = new ArrayList<>();
+        for (JsonAdaptedNote rnote : recommendedNote) {
+            modelRecommendedNote.add(rnote.toModelType());
         }
-        final ArrayList<Notes> modelGoodNotes = new ArrayList<>();
-        for (JsonAdaptedNotes gnotes : goodNotes) {
-            modelGoodNotes.add(gnotes.toModelType());
+        final ArrayList<Note> modelGoodNote = new ArrayList<>();
+        for (JsonAdaptedNote gnote : goodNote) {
+            modelGoodNote.add(gnote.toModelType());
         }
-        final ArrayList<Notes> modelBadNotes = new ArrayList<>();
-        for (JsonAdaptedNotes bnotes : badNotes) {
-            modelBadNotes.add(bnotes.toModelType());
+        final ArrayList<Note> modelBadNote = new ArrayList<>();
+        for (JsonAdaptedNote bnote : badNote) {
+            modelBadNote.add(bnote.toModelType());
         }
         return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark, modelVisit,
-                modelRecommendedNotes, modelGoodNotes, modelBadNotes);
+                modelRecommendedNote, modelGoodNote, modelBadNote);
     }
 }

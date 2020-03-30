@@ -6,7 +6,7 @@ import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
@@ -34,9 +34,9 @@ public class RestaurantBuilder {
     private Cuisine cuisine;
     private ArrayList<Remark> remarks;
     private Visit visit;
-    private ArrayList<Notes> recommendedFood;
-    private ArrayList<Notes> goodFood;
-    private ArrayList<Notes> badFood;
+    private ArrayList<Note> recommendedFood;
+    private ArrayList<Note> goodFood;
+    private ArrayList<Note> badFood;
 
     /**
      * Initialises RestaurantBuilder with the data of {@Restaurant toCopy}.
@@ -64,11 +64,11 @@ public class RestaurantBuilder {
         remarks.add(new Remark(DEFAULT_REMARKS));
         this.visit = new Visit(DEFAULT_VISIT);
         this.recommendedFood = new ArrayList<>();
-        recommendedFood.add(new Notes(DEFAULT_RECOMMENDED));
+        recommendedFood.add(new Note(DEFAULT_RECOMMENDED));
         this.goodFood = new ArrayList<>();
-        goodFood.add(new Notes(DEFAULT_GOOD));
+        goodFood.add(new Note(DEFAULT_GOOD));
         this.badFood = new ArrayList<>();
-        badFood.add(new Notes(DEFAULT_BAD));
+        badFood.add(new Note(DEFAULT_BAD));
     }
 
     /**
@@ -131,7 +131,7 @@ public class RestaurantBuilder {
      * Sets the {@Notes} of the {@Restaurant} that we are building.
      */
     public RestaurantBuilder withRecommended(String recommendedFood) {
-        this.recommendedFood.add(new Notes(recommendedFood));
+        this.recommendedFood.add(new Note(recommendedFood));
         return this;
     }
 
@@ -139,7 +139,7 @@ public class RestaurantBuilder {
      * Sets the {@Notes} of the {@Restaurant} that we are building.
      */
     public RestaurantBuilder withGood(String goodFood) {
-        this.goodFood.add(new Notes(goodFood));
+        this.goodFood.add(new Note(goodFood));
         return this;
     }
 
@@ -147,7 +147,7 @@ public class RestaurantBuilder {
      * Sets the {@Notes} of the {@Restaurant} that we are building.
      */
     public RestaurantBuilder withBad(String badFood) {
-        this.badFood.add(new Notes(badFood));
+        this.badFood.add(new Note(badFood));
         return this;
     }
 

@@ -12,7 +12,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -40,9 +40,9 @@ public class AddRestaurantNoteCommand extends Command {
     public static final String MESSAGE_EMPTY = "No note added to Restaurant: %1$s";
 
     private final Index index;
-    private final Notes recommendedFood;
-    private final Notes goodFood;
-    private final Notes badFood;
+    private final Note recommendedFood;
+    private final Note goodFood;
+    private final Note badFood;
 
     /**
      *
@@ -51,7 +51,7 @@ public class AddRestaurantNoteCommand extends Command {
      * @param goodFood notes of the restaurant to be updated to
      * @param badFood notes of the restaurant to be updated to
      */
-    public AddRestaurantNoteCommand(Index index, Notes recommendedFood, Notes goodFood, Notes badFood) {
+    public AddRestaurantNoteCommand(Index index, Note recommendedFood, Note goodFood, Note badFood) {
         requireAllNonNull(index, recommendedFood, goodFood, badFood);
 
         this.index = index;

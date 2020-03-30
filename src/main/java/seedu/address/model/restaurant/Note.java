@@ -6,16 +6,16 @@ import static java.util.Objects.requireNonNull;
  * Represents a Restaurant's name in the restaurant book.
  * Guarantees: immutable.
  */
-public class Notes {
+public class Note {
 
     public final String note;
 
     /**
-     * Constructs a {@code Notes}.
+     * Constructs a {@code Note}.
      *
      * @param note A valid note.
      */
-    public Notes(String note) {
+    public Note(String note) {
         requireNonNull(note);
         this.note = note;
     }
@@ -28,8 +28,8 @@ public class Notes {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Notes // instanceof handles nulls
-                && note.equals(((Notes) other).note)); // state check
+                || (other instanceof Note // instanceof handles nulls
+                && note.equals(((Note) other).note)); // state check
     }
 
     @Override

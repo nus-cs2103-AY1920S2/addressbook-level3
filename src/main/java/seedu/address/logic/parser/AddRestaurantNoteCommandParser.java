@@ -13,7 +13,7 @@ import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.commands.AddRestaurantNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 
 /**
  * Parses input arguments and creates a new {@code AddInfoCommand} object
@@ -46,7 +46,7 @@ public class AddRestaurantNoteCommandParser implements Parser<AddRestaurantNoteC
         String goodFood = argMultimap.getValue(PREFIX_GOOD).orElse("");
         String badFood = argMultimap.getValue(PREFIX_BAD).orElse("");
 
-        return new AddRestaurantNoteCommand(index, new Notes(recommendedFood), new Notes(goodFood), new Notes(badFood));
+        return new AddRestaurantNoteCommand(index, new Note(recommendedFood), new Note(goodFood), new Note(badFood));
     }
 
 }

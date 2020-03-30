@@ -27,14 +27,14 @@ public class Restaurant {
     private final Cuisine cuisine;
     private final ArrayList<Remark> remarks = new ArrayList<>();
     private final Visit visit;
-    private final ArrayList<Notes> recommendedFood;
-    private final ArrayList<Notes> goodFood;
-    private final ArrayList<Notes> badFood;
+    private final ArrayList<Note> recommendedFood;
+    private final ArrayList<Note> goodFood;
+    private final ArrayList<Note> badFood;
 
 
     public Restaurant(Name name, Location location, Hours hours, Price price, Cuisine cuisine,
-                      ArrayList<Remark> remark, Visit visit, ArrayList<Notes> recommendedFood,
-                      ArrayList<Notes> goodFood, ArrayList<Notes> badFood) {
+                      ArrayList<Remark> remark, Visit visit, ArrayList<Note> recommendedFood,
+                      ArrayList<Note> goodFood, ArrayList<Note> badFood) {
         requireAllNonNull(name, location);
         this.name = name;
         this.location = location;
@@ -76,15 +76,15 @@ public class Restaurant {
         return visit;
     }
 
-    public ArrayList<Notes> getRecommendedFood() {
+    public ArrayList<Note> getRecommendedFood() {
         return recommendedFood;
     }
 
-    public ArrayList<Notes> getGoodFood() {
+    public ArrayList<Note> getGoodFood() {
         return goodFood;
     }
 
-    public ArrayList<Notes> getBadFood() {
+    public ArrayList<Note> getBadFood() {
         return badFood;
     }
 

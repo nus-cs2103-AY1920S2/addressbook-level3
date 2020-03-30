@@ -4,32 +4,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 
 /**
- * Jackson-friendly version of {@link Notes}.
+ * Jackson-friendly version of {@link Note}.
  */
-public class JsonAdaptedNotes {
-    private final String notes;
+public class JsonAdaptedNote {
+    private final String note;
 
     /**
-     * Constructs a {@code JsonAdaptedNotes} with the given {@code notes}.
+     * Constructs a {@code JsonAdaptedNote} with the given {@code note}.
      */
     @JsonCreator
-    public JsonAdaptedNotes(String notes) {
-        this.notes = notes;
+    public JsonAdaptedNote(String note) {
+        this.note = note;
     }
 
     /**
      * Converts a given {@code Notes} into this class for Jackson use.
      */
-    public JsonAdaptedNotes(Notes source) {
-        notes = source.note;
+    public JsonAdaptedNote(Note source) {
+        note = source.note;
     }
 
     @JsonValue
-    public String getNotes() {
-        return notes;
+    public String getNote() {
+        return note;
     }
 
     /**
@@ -37,8 +37,8 @@ public class JsonAdaptedNotes {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted remark.
      */
-    public Notes toModelType() {
-        return new Notes(notes);
+    public Note toModelType() {
+        return new Note(note);
     }
 
 }

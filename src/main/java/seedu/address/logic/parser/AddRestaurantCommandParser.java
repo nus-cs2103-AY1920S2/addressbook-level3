@@ -19,7 +19,7 @@ import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
@@ -53,9 +53,9 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
         Cuisine cuisine = ParserUtil.parseCuisine(argMultimap.getValue(PREFIX_CUISINE).orElse(""));
         ArrayList<Remark> remark = new ArrayList<>(); // add command does not allow adding remarks straight away
         Visit visit = ParserUtil.parseVisit(argMultimap.getValue(PREFIX_VISITED).orElse(""));
-        ArrayList<Notes> recommendedFood = new ArrayList<>(); //add command does not allow adding notes straight away
-        ArrayList<Notes> goodFood = new ArrayList<>(); //add command does not allow adding notes straight away
-        ArrayList<Notes> badFood = new ArrayList<>(); //add command does not allow adding notes straight away
+        ArrayList<Note> recommendedFood = new ArrayList<>(); //add command does not allow adding notes straight away
+        ArrayList<Note> goodFood = new ArrayList<>(); //add command does not allow adding notes straight away
+        ArrayList<Note> badFood = new ArrayList<>(); //add command does not allow adding notes straight away
 
         Restaurant restaurant = new Restaurant(name, location, hours, price, cuisine, remark,
                 visit, recommendedFood, goodFood, badFood);
