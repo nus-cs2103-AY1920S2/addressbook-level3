@@ -139,6 +139,10 @@ public class EditCommand extends Command {
                     throw new CommandException("You cannot add a grade to future semesters!");
                 }
                 existingModule.getPersonal().setGrade(grade);
+                profileManager.setDisplayedView(profileToEdit);
+                profileToEdit.updateCap();
+                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), true);
+
             }
 
             if (oldSemester != 0 && editSemester != 0) {
@@ -179,7 +183,6 @@ public class EditCommand extends Command {
                 }
             }
 
-            profileToEdit.updateCap();
             return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), false);
 
         } else if (toEditProfile) {
