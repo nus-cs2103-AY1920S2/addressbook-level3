@@ -3,7 +3,6 @@ package com.notably.commons.compiler.parser.block;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import com.notably.commons.compiler.parser.exceptions.InvalidLineException;
 
@@ -56,11 +55,45 @@ public class ListItemBlock extends Block {
         String text = matcher.group("text");
 
         ListItemBlock listItem = new ListItemBlock(indentation);
-        if (Block.canCreateStructuralBlock(text)) {
-            listItem.addChild(Block.createStructuralBlock(text));
+        if (canCreateChildBlock(text)) {
+            listItem.addChild(createChildBlock(text));
         }
 
         return listItem;
+    }
+
+    /**
+     * Checks whether or not a child block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a child block can be created
+     */
+    private static boolean canCreateChildBlock(String line) {
+        return HeaderBlock.isHeader(line)
+                || ListBlock.isList(line)
+                || TextBlock.isText(line);
+    }
+
+    /**
+     * Creates a child block from a supplied line.
+     *
+     * @param line Input line
+     * @return Child block
+     */
+    private static Block createChildBlock(String line) {
+        Objects.requireNonNull(line);
+
+        if (!canCreateChildBlock(line)) {
+            throw new InvalidLineException(String.format("Cannot create child block from \"%s\"", line));
+        }
+
+        if (HeaderBlock.isHeader(line)) {
+            return HeaderBlock.fromLine(line);
+        }
+        if (ListBlock.isList(line)) {
+            return ListBlock.fromLine(line);
+        }
+        return TextBlock.fromLine(line);
     }
 
     @Override
@@ -68,9 +101,7 @@ public class ListItemBlock extends Block {
         Objects.requireNonNull(line);
 
         Matcher matcher = NEXT_PATTERN.matcher(line);
-        if (!matcher.find()) {
-            throw new InvalidLineException(String.format("\"%s\" is not a valid list item", line));
-        }
+        matcher.find();
 
         int nextIndentation = matcher.group("leader").length();
         if (nextIndentation < indentation) {
@@ -80,8 +111,8 @@ public class ListItemBlock extends Block {
 
         String text = matcher.group("text");
 
-        if (Block.canCreateStructuralBlock(text)) {
-            addChild(Block.createStructuralBlock(text));
+        if (canCreateChildBlock(text)) {
+            addChild(createChildBlock(text));
         }
 
         return true;
@@ -89,8 +120,20 @@ public class ListItemBlock extends Block {
 
     @Override
     public String toHtml() {
-        return String.format("<li>%s</li>",
-                getChildren().stream().map(Block::toHtml).collect(Collectors.joining()));
+        StringBuilder sb = new StringBuilder();
+        sb.append("<li>");
+
+        for (int i = 0; i < getChildren().size(); i++) {
+            sb.append(getChildren().get(i).toHtml());
+            if (i + 1 < getChildren().size()
+                    && (getChildren().get(i) instanceof TextBlock)
+                    && (getChildren().get(i + 1) instanceof TextBlock)) {
+                sb.append("<br>");
+            }
+        }
+
+        sb.append("</li>");
+        return sb.toString();
     }
 }
 

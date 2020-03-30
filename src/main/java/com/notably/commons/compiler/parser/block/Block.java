@@ -32,53 +32,6 @@ public abstract class Block {
     }
 
     /**
-     * Checks whether or not a structural block can be created from a supplied line.
-     * A structural block refers to:
-     * <ul>
-     *   <li>A {@link HeaderBlock},</li>
-     *   <li>A {@link ListBlock}, and</li>
-     *   <li>A {@link ParagraphBlock}</li>
-     * </ul>
-     *
-     * @param line Input line
-     * @return Whether or not a structural block can be created
-     */
-    public static boolean canCreateStructuralBlock(String line) {
-        return HeaderBlock.isHeader(line)
-                || ListBlock.isList(line)
-                || ParagraphBlock.isParagraph(line);
-    }
-
-    /**
-     * Creates a structural block from a supplied line.
-     * A structural block refers to:
-     * <ul>
-     *   <li>A {@link HeaderBlock},</li>
-     *   <li>A {@link ListBlock}, and</li>
-     *   <li>A {@link ParagraphBlock}</li>
-     * </ul>
-     *
-     * @param line Input line
-     * @return The created structural block
-     * @throws InvalidLineException If no structural block can be constructed from the supplied line
-     */
-    public static Block createStructuralBlock(String line) {
-        Objects.requireNonNull(line);
-
-        if (!canCreateStructuralBlock(line)) {
-            throw new InvalidLineException("No structural block can be created from \"%s\"");
-        }
-
-        if (HeaderBlock.isHeader(line)) {
-            return HeaderBlock.fromLine(line);
-        }
-        if (ListBlock.isList(line)) {
-            return ListBlock.fromLine(line);
-        }
-        return ParagraphBlock.fromLine(line);
-    }
-
-    /**
      * Accepts the next input line, which might cause:
      * <ul>
      *   <li>One or more children is/are closed, or</li>
