@@ -1,5 +1,8 @@
 package seedu.eylah.expensesplitter.model;
 
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
@@ -59,6 +62,8 @@ public interface Model {
 
     void clearReceipt();
 
+    void newReceipt();
+
     /**
      * Returns true if a person with the same identity as
      * {@code person} exists in the person amount book.
@@ -68,5 +73,15 @@ public interface Model {
     Person getPerson(Person person);
     void addAmount(Person person, Amount amount);
     void removeAmount(Person person, Amount amount);
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
 }
 

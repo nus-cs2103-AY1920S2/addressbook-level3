@@ -55,8 +55,12 @@ public class Receipt {
         return this.isDone;
     }
 
-    public void toggleDoneStatus() {
+    public void makeDone() {
         this.isDone = true;
+    }
+
+    public void makeUndone() {
+        this.isDone = false;
     }
 
     /**
@@ -86,6 +90,14 @@ public class Receipt {
 
         return otherReceipt != null
                 && otherReceipt.getReceipt().equals(getReceipt());
+    }
+
+    /**
+     * Restarts the receipt.
+     */
+    public void newReceipt() {
+        clearReceipt();
+        this.isDone = false;
     }
 
     @Override

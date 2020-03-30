@@ -3,8 +3,11 @@ package seedu.eylah.expensesplitter.model;
 import static java.util.Objects.requireNonNull;
 
 import java.math.BigDecimal;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
@@ -22,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final PersonAmountBook personAmountBook;
     private final ReceiptBook receiptBook;
+    private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with a new Receipt (and data from existing storage).
@@ -35,6 +39,7 @@ public class ModelManager implements Model {
         this.personAmountBook = new PersonAmountBook(personAmountBook);
         this.receiptBook = new ReceiptBook(receiptBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(this.personAmountBook.getPersonList());
 
         if (receiptBook.isContainSingleReceipt()) {
             this.receipt = receiptBook.getReceiptList().get(0); // current only have 1 receipt in receipt book.
@@ -136,6 +141,11 @@ public class ModelManager implements Model {
         receipt.clearReceipt();
     }
 
+    @Override
+    public void newReceipt() {
+        receipt.newReceipt();
+    }
+
     //=========== PersonAmountBook ===============================================================================
 
 
@@ -191,4 +201,20 @@ public class ModelManager implements Model {
         return receipt.equals(other.receipt);
     }
 
+
+    //=========== Filtered Person List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
 }

@@ -18,12 +18,27 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
 
 == Introduction
 
-Ease Your Life At Halls (EYLAH) is for those who *prefer to use a desktop app to solve issues related to Halls of
-Residences in National University of Singapore (NUS)*. More importantly, EYLAH is *optimized for those who prefer to
-work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+Are you someone who often goes out to eat with friends? And do you also sometimes feel that you might be eating too much?
+If yes, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that will make your life much easier!
+
+EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
+app to solve issues. More importantly, EYLAH is *optimized for residents who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI).
+
 If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
-and splitting the cost after each outing or late-night party session. Interested?
+and splitting the cost after each outing or late-night party session with a few pokes of your keyboard. Interested?
 Jump to <<Getting Started>> to get started. Enjoy!
+
+=== How to use?
+Below is some special syntax used throughout the documentation:
+
+* `Markup` - Text in markup are inputs into the application through the CLI.
+* NOTE - Text in NOTE indicates important things to consider to prevent unexpected behaviour.
+* TIP - Text in TIP shows certain actions to make using the application easier.
+
+=== Purpose
+* This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
+to use the application to improve their lives on campus.
 
 == Features Summary
 
@@ -112,13 +127,14 @@ Example: `add Fishball Noodles 383`
 ==== List items `list`
 List all the items in your current diet tracker. Show different data based on flags.
 
-* List all food and data in tabular format (-l)
-* Food consumed for the day (-g)
-* Track calories over past number of days (-m)
+* List all food and data in tabular format (-f)
+* Food consumed for the day (-d)
+* Track calories over past number of days (-t)
+* List items filtered by a specific tag (-e)
 
 NOTE: Default value of list is food consumed for the day. Default number of days for track calories is past week
 
-Format: `list [-f] [-d] [-t [numDays]]` +
+Format: `list [-f] [-d] [-t [numDays]] [-e [tagName]] ` +
 Example: `list -t 3`
 
 ==== Delete Food Item `delete`

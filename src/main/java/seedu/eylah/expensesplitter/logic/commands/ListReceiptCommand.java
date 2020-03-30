@@ -3,7 +3,7 @@ package seedu.eylah.expensesplitter.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.eylah.expensesplitter.model.Model;
-//import seedu.eylah.expensesplitter.logic.commands.CommandResult;
+
 
 /**
  *  Lists the current receipt to the user.
