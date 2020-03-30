@@ -59,7 +59,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
         if (correctedCommand.equals(Optional.empty())) {
             return new ErrorSuggestionCommand(
-                    "Invalid command format. To see the list of available commands, type: help");
+                    "Invalid command. To see the list of available commands, type: help");
         }
 
         commandWord = correctedCommand.get();
@@ -93,7 +93,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
 
         default:
             return new ErrorSuggestionCommand(
-                "Invalid command format. To see the list of available commands, type: help");
+                "Invalid command. To see the list of available commands, type: help");
         }
     }
 
