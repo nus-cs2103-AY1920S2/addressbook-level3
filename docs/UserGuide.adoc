@@ -32,7 +32,7 @@ This user guide presents to you the following features of MODdy:
 . View help
 . New user profile
 . Add module & task
-. Edit profile & module
+. Edit profile, module & task
 . Show profile, semester, course, focus area & module
 . Delete task, module & profile
 . Return to homepage
@@ -188,20 +188,20 @@ image::EditProfile.png[width="790"]
 TIP: `edit n/Brad c/Information Security s/Software Engineering` +
 Edits your profile name to "Brad", your course to "Information Security", and your specialisation to "Software Engineering" from what they were previously
 
-==== Edit a module's details previously added in MODdy +
+==== Edit a module's details in MODdy +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited
 ****
 
-.Module detail is edited
+.Module detail of CS2103 edited
 image::EditModule.png[width="790"]
 
 TIP: `edit m/CS2103 g/A+` +
 Edits your grade of the module CS2103 to A+
 
-==== Edit a Deadline in a module previously added in MODdy +
+==== Edit a task's description or deadline +
 Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
 
 ****
@@ -212,6 +212,9 @@ Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
 
 .Deadline is edited
 image::EditDeadline.png[width="790"]
+
+TIP: `edit m/CS2105 t/Assignment nt/Project` +
+Edits "Assignment" under CS2105 to "Project"
 
 [[Show]]
 === Showing: `show`
@@ -361,7 +364,11 @@ e.g. `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59`
 * <<Edit, *Edit*>> : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
 e.g. `edit n/Brad c/Information Security s/Software Engineering` +
 or `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]` +
-e.g. `edit m/CS2103 g/A+`
+e.g. `edit m/CS2103 g/A+` +
+or `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]` +
+e.g. `edit m/CS2105 t/Assignment nt/Project`
+
+
 
 * <<Show, *Show*>> : `show [y/SEMESTER_INDEX] [c/COURSE_NAME] [f/FOCUS_AREA] [m/MODULE_CODE]` +
 e.g. `show y/4`, `show c/information systems`, `show f/electronic commerce`, `show m/CS3230`
