@@ -25,13 +25,16 @@ By: Team F09-1
 |=========================================
 |*Contents* |*Section Number*
 a|
-*Introduction* |1
+*Introduction*
+|1
 
 a|
-*About This Document* |2
+*About This Document*
+|2
 
 a|
-*Quick Start* |3
+*Quick Start*
+|3
 
 a|
 *Features*
