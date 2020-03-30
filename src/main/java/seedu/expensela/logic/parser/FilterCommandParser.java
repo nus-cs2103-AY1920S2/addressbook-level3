@@ -1,8 +1,7 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.expensela.logic.parser.CliSyntax.*;
 
 import java.util.Arrays;
 
@@ -24,9 +23,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     public FilterCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_CATEGORY);
 
-        if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_DATE).isPresent())
+        if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_MONTH).isPresent())
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
@@ -39,9 +38,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 //                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)));
 //            }
 //
-//            if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+//            if (argMultimap.getValue(PREFIX_MONTH).isPresent()) {
 //                // sends the next word after "date" to see if it matches any transaction dates
-//                String date = argMultimap.getValue(PREFIX_DATE).get().trim();
+//                String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
 //                // removes the day in the string version of transaction date, so we filter by month
 //                String dateMinusDay;
 //                if (date.equals("all")) {
@@ -51,12 +50,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 //                }
 //
 //                return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
-            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() && argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() && argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
                 String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
 
                 // sends the next word after "date" to see if it matches any transaction dates
-                String date = argMultimap.getValue(PREFIX_DATE).get().trim();
+                String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
                 String dateMinusDay;
                 if (date.equals("all")) {
@@ -68,7 +67,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                         new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
             }
             else if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
-                    !argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                    !argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
                 String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
                 // set date as all transaction dates
@@ -78,12 +77,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                         new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
             }
             else if (!argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
-                    argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                    argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
                 String cat = "all";
 
                 // sends the next word after "date" to see if it matches any transaction dates
-                String date = argMultimap.getValue(PREFIX_DATE).get().trim();
+                String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
                 String dateMinusDay;
                 if (date.equals("all")) {
