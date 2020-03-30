@@ -15,13 +15,22 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /**
-     * {@code Predicate} that always evaluate to true
+     * {@code Predicate} to filter active coupons only
      */
-    Predicate<Coupon> PREDICATE_SHOW_ALL_ACTIVE_COUPONS = coupon -> !(Boolean.valueOf(coupon.getArchived().toString()));
+    Predicate<Coupon> PREDICATE_SHOW_ALL_ACTIVE_COUPONS = coupon ->
+            !Boolean.valueOf(coupon.getArchived().toString());
 
-    Predicate<Coupon> PREDICATE_SHOW_ALL_ARCHIVED_COUPONS = coupon -> Boolean.valueOf(coupon.getArchived().toString());
+    /**
+     * {@code Predicate} to filter archived coupons only
+     */
+    Predicate<Coupon> PREDICATE_SHOW_ALL_ARCHIVED_COUPONS = coupon ->
+            Boolean.valueOf(coupon.getArchived().toString());
 
-    Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = coupon -> (Integer.parseInt(coupon.getUsage().toString()) > 0);
+    /**
+     * {@code Predicate} to filter used coupons only
+     */
+    Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = coupon ->
+            Integer.parseInt(coupon.getUsage().toString()) > 0;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

@@ -59,4 +59,17 @@ public class TabsPanel extends UiPart<Region> {
         helpPane = new HelpPane(logic);
         helpPanePlaceholder.getChildren().add(helpPane.getRoot());
     }
+
+    /**
+     * Returns the enum of the current selected tab.
+     */
+    public CsTab selectedTab() {
+        if (couponTab.isSelected()) {
+            return CsTab.COUPONS;
+        } else if (summaryTab.isSelected()) {
+            return CsTab.SAVED;
+        } else {
+            return CsTab.HELP;
+        }
+    }
 }

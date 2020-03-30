@@ -224,9 +224,24 @@ public class Coupon {
      * Returns a new archived Coupon.
      */
     public Coupon archive() {
+        return setArchive(true);
+    }
+
+    /**
+     * Returns a new active Coupon.
+     */
+    public Coupon unarchive() {
+        return setArchive(false);
+    }
+
+    /**
+     * Helper function to set the state of archival for a Coupon.
+     * @param state State of archival.
+     */
+    private Coupon setArchive(boolean state) {
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
-                this.expiryDate, this.startDate, this.usage,
-                this.limit, this.tags, this.totalSavings, this.remind, this.condition, new Archived("true"));
+                this.expiryDate, this.startDate, this.usage, this.limit,
+                this.tags, this.totalSavings, this.remind, this.condition, new Archived(String.valueOf(state)));
     }
 
     /**
