@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
+import seedu.zerotoone.storage.schedule.ScheduleListStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 
 /**
@@ -20,11 +22,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private UserPrefsStorage userPrefsStorage;
     private ExerciseListStorage exerciseListStorage;
+    private ScheduleListStorage scheduleListStorage;
 
-    public StorageManager(UserPrefsStorage userPrefsStorage, ExerciseListStorage exerciseListStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage,
+                          ExerciseListStorage exerciseListStorage,
+                          ScheduleListStorage scheduleListStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
         this.exerciseListStorage = exerciseListStorage;
+        this.scheduleListStorage = scheduleListStorage;
     }
 
     // -----------------------------------------------------------------------------------------
@@ -71,5 +77,34 @@ public class StorageManager implements Storage {
     public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         exerciseListStorage.saveExerciseList(exerciseList, filePath);
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Schedule List
+    @Override
+    public Path getScheduleListFilePath() {
+        return scheduleListStorage.getScheduleListFilePath();
+    }
+
+    @Override
+    public Optional<ScheduleList> readScheduleList() throws DataConversionException, IOException {
+        return readScheduleList(scheduleListStorage.getScheduleListFilePath());
+    }
+
+    @Override
+    public Optional<ScheduleList> readScheduleList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return scheduleListStorage.readScheduleList(filePath);
+    }
+
+    @Override
+    public void saveScheduleList(ScheduleList scheduleList) throws IOException {
+        saveScheduleList(scheduleList, scheduleListStorage.getScheduleListFilePath());
+    }
+
+    @Override
+    public void saveScheduleList(ScheduleList scheduleList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        scheduleListStorage.saveScheduleList(scheduleList, filePath);
     }
 }

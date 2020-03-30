@@ -6,15 +6,17 @@ import java.util.Optional;
 
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
+import seedu.zerotoone.storage.schedule.ScheduleListStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExerciseListStorage, UserPrefsStorage {
+public interface Storage extends UserPrefsStorage, ExerciseListStorage, ScheduleListStorage {
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
     @Override
@@ -33,4 +35,15 @@ public interface Storage extends ExerciseListStorage, UserPrefsStorage {
 
     @Override
     void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
+
+    // -----------------------------------------------------------------------------------------
+    // Schedule List
+    @Override
+    Path getScheduleListFilePath();
+
+    @Override
+    Optional<ScheduleList> readScheduleList() throws DataConversionException, IOException;
+
+    @Override
+    void saveScheduleList(ScheduleList scheduleList) throws IOException;
 }

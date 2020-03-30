@@ -23,7 +23,7 @@ import seedu.zerotoone.ui.util.UiPart;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
-import seedu.zerotoone.ui.views.schedule.ScheduleListPanel;
+import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
 import seedu.zerotoone.ui.views.workout.WorkoutListPanel;
 
 /**
@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private HomePanel homePanel;
     private ExerciseListPanel exerciseListPanel;
     private WorkoutListPanel workoutListPanel;
-    private ScheduleListPanel scheduleListPanel;
+    private ScheduledWorkoutListPanel scheduledWorkoutListPanel;
     private LogListPanel logListPanel;
 
     private ResultDisplay resultDisplay;
@@ -150,8 +150,8 @@ public class MainWindow extends UiPart<Stage> {
         workoutListPanel = new WorkoutListPanel();
         workoutContentPlaceholder.getChildren().add(workoutListPanel.getRoot());
 
-        scheduleListPanel = new ScheduleListPanel();
-        scheduleContentPlaceholder.getChildren().add(scheduleListPanel.getRoot());
+        scheduledWorkoutListPanel = new ScheduledWorkoutListPanel(logic.getSortedScheduledWorkoutList());
+        scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
 
         logListPanel = new LogListPanel();
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());

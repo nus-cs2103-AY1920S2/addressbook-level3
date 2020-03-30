@@ -21,6 +21,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.testutil.LogicManagerTestUtil;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
@@ -40,7 +41,11 @@ public class LogicManagerTest {
                 new ExerciseListStorageManager(temporaryFolder.resolve("exerciseList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+        ScheduleListStorageManager scheduleListStorage =
+                new ScheduleListStorageManager(temporaryFolder.resolve("scheduleList.json"));
+        StorageManager storage = new StorageManager(userPrefsStorage,
+                exerciseListStorage,
+                scheduleListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -64,7 +69,11 @@ public class LogicManagerTest {
                 new JsonExerciseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+        ScheduleListStorageManager scheduleListStorage =
+                new ScheduleListStorageManager(temporaryFolder.resolve("ioExceptionScheduleList.json"));
+        StorageManager storage = new StorageManager(userPrefsStorage,
+                exerciseListStorage,
+                scheduleListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

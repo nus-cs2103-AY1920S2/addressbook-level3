@@ -8,6 +8,9 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 
 /**
@@ -104,4 +107,12 @@ public interface Model {
     void startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
 
     void stopSession(LocalDateTime currentDateTime);
+
+    // -----------------------------------------------------------------------------------------
+    // Schedule
+    boolean hasSchedule(Schedule schedule);
+    void addSchedule(Schedule schedule);
+    void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
+    ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
+    ScheduleList getScheduleList();
 }
