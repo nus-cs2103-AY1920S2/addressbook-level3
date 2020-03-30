@@ -11,6 +11,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.notably.commons.GuiSettings;
 import com.notably.model.UserPrefs;
+import com.notably.model.block.BlockTree;
+import com.notably.testutil.TypicalBlockTree;
 
 public class StorageManagerTest {
 
@@ -21,9 +23,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonBlockStorage blockStorage = new JsonBlockStorage(getTempFilePath("blocks"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(blockStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -45,18 +47,20 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void blockReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonBlockStorage} class.
+         * More extensive testing of BlockTree saving/reading is done in {@link JsonBlockStorageTest} class.
          */
-
+        BlockTree original = TypicalBlockTree.getTypicalBlockTree();
+        storageManager.saveBlockTree(original);
+        BlockTree retrieved = storageManager.readBlockTree().get();
+        assertEquals(original, retrieved);
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getBlockTreeFilePath() {
+        assertNotNull(storageManager.getBlockTreeFilePath());
     }
-
 }
