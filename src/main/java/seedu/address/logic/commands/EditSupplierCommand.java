@@ -56,7 +56,7 @@ public class EditSupplierCommand extends Command {
     private final Index index;
     private final EditSupplierDescriptor editSupplierDescriptor;
 
-    public static Set<Offer> supplierToEditOffer;
+    private static Set<Offer> supplierToEditOffer;
 
     /**
      * @param index of the supplier in the filtered supplier list to edit
