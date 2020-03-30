@@ -1,9 +1,9 @@
 package tatracker.model.session;
 
-import tatracker.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import tatracker.commons.util.StringUtil;
 
 
 /**

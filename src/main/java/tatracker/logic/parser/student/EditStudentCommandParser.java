@@ -1,5 +1,19 @@
 package tatracker.logic.parser.student;
 
+import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
+import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
+import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
@@ -9,20 +23,6 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.tag.Tag;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Parses input arguments and creates a new EditStudentCommand object

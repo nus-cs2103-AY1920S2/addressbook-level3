@@ -1,9 +1,9 @@
 package tatracker.logic.commands;
 
-import tatracker.model.Model;
-
 import static java.util.Objects.requireNonNull;
 import static tatracker.model.Model.PREDICATE_SHOW_ALL_SESSIONS;
+
+import tatracker.model.Model;
 
 /**
  * Lists all students in the TA-Tracker to the user.

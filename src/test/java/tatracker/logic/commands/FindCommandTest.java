@@ -1,18 +1,18 @@
 package tatracker.logic.commands;
 
-import tatracker.model.Model;
-import tatracker.model.ModelManager;
-import tatracker.model.UserPrefs;
-import tatracker.model.student.NameContainsKeywordsPredicate;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import tatracker.model.Model;
+import tatracker.model.ModelManager;
+import tatracker.model.UserPrefs;
+import tatracker.model.student.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

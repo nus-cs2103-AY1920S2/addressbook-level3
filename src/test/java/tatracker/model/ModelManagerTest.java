@@ -1,19 +1,19 @@
 package tatracker.model;
 
-import tatracker.commons.core.GuiSettings;
-import tatracker.testutil.TaTrackerBuilder;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalStudents.ALICE;
 import static tatracker.testutil.TypicalStudents.BENSON;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.Test;
+
+import tatracker.commons.core.GuiSettings;
+import tatracker.testutil.TaTrackerBuilder;
 
 public class ModelManagerTest {
 

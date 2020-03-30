@@ -1,5 +1,18 @@
 package tatracker.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
+
 import tatracker.logic.commands.ClearCommand;
 import tatracker.logic.commands.DeleteCommand;
 import tatracker.logic.commands.ExitCommand;
@@ -16,19 +29,6 @@ import tatracker.model.student.Student;
 import tatracker.testutil.EditStudentDescriptorBuilder;
 import tatracker.testutil.StudentBuilder;
 import tatracker.testutil.StudentUtil;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 public class TaTrackerParserTest {
 

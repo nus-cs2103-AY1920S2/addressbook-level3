@@ -1,15 +1,15 @@
 package tatracker.logic.parser.student;
 
-import tatracker.logic.commands.Command;
-import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.HelpCommand;
-import tatracker.logic.parser.exceptions.ParseException;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandWords;
+import tatracker.logic.commands.HelpCommand;
+import tatracker.logic.parser.exceptions.ParseException;
 
 
 /**

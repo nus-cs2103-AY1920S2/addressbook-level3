@@ -1,5 +1,14 @@
 package tatracker.model;
 
+import static java.util.Objects.requireNonNull;
+import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.nio.file.Path;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tatracker.commons.core.GuiSettings;
@@ -8,15 +17,6 @@ import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
-
-import java.nio.file.Path;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
-import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the ta-tracker data.

@@ -1,5 +1,10 @@
 package tatracker.logic.commands.student;
 
+import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
@@ -9,11 +14,6 @@ import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
-
-import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 /**
  * Deletes a student identified using it's displayed index from the TA-Tracker.

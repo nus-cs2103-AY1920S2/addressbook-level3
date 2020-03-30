@@ -1,17 +1,17 @@
 package tatracker.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A default model stub that have all of the methods failing.

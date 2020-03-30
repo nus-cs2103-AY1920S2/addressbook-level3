@@ -1,5 +1,14 @@
 package tatracker.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.parser.exceptions.ParseException;
@@ -11,15 +20,6 @@ import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
 import tatracker.model.student.Rating;
 import tatracker.model.tag.Tag;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

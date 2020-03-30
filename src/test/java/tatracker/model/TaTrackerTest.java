@@ -1,17 +1,5 @@
 package tatracker.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-import tatracker.model.session.Session;
-import tatracker.model.student.Student;
-import tatracker.testutil.StudentBuilder;
-
-import java.util.Collection;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,6 +7,18 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalStudents.ALICE;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+
+import java.util.Collection;
+
+import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.session.Session;
+import tatracker.model.student.Student;
+import tatracker.testutil.StudentBuilder;
 
 public class TaTrackerTest {
 

@@ -1,16 +1,5 @@
 package tatracker.logic.commands;
 
-import tatracker.commons.core.index.Index;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.commands.student.EditStudentCommand;
-import tatracker.model.Model;
-import tatracker.model.TaTracker;
-import tatracker.model.student.Student;
-import tatracker.testutil.EditStudentDescriptorBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -22,6 +11,17 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.student.EditStudentCommand;
+import tatracker.model.Model;
+import tatracker.model.TaTracker;
+import tatracker.model.student.Student;
+import tatracker.testutil.EditStudentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

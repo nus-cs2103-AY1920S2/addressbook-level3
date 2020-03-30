@@ -1,18 +1,18 @@
 package tatracker.logic.commands.group;
 
-import tatracker.logic.commands.Command;
-import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.model.Model;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
 import static tatracker.logic.commands.CommandWords.GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.model.Model;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 
 /**
  * Deletes a group identified using it's group code.

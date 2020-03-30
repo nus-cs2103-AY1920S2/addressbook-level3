@@ -1,14 +1,5 @@
 package tatracker.storage;
 
-import tatracker.commons.exceptions.IllegalValueException;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.student.Rating;
-import tatracker.model.student.Student;
-import tatracker.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +8,15 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import tatracker.commons.exceptions.IllegalValueException;
+import tatracker.model.student.Email;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Name;
+import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
+import tatracker.model.student.Student;
+import tatracker.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Student}.

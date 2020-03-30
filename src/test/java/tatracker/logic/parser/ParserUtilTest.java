@@ -1,12 +1,10 @@
 package tatracker.logic.parser;
 
-import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.student.Rating;
-import tatracker.model.tag.Tag;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,11 +13,13 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.student.Email;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Name;
+import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
+import tatracker.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

@@ -1,14 +1,14 @@
 package tatracker.model;
 
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
 
 
 /**

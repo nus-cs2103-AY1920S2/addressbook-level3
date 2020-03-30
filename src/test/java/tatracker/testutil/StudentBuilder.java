@@ -1,5 +1,8 @@
 package tatracker.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -8,9 +11,6 @@ import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 import tatracker.model.util.SampleDataUtil;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A utility class to help with building Student objects.

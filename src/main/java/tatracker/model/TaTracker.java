@@ -1,5 +1,9 @@
 package tatracker.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
@@ -12,10 +16,6 @@ import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.session.UniqueSessionList;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 
 /**

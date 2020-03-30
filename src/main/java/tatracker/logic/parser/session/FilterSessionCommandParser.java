@@ -1,5 +1,13 @@
 package tatracker.logic.parser.session;
 
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import tatracker.logic.commands.session.AddSessionCommand;
 import tatracker.logic.commands.session.FilterSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
@@ -8,14 +16,6 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.SessionPredicate;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 
 
 /**

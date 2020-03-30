@@ -1,13 +1,13 @@
 package tatracker.model.group;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Objects;
+
 import javafx.collections.ObservableList;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
-
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a group in TAT.

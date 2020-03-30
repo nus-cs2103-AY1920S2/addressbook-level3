@@ -1,13 +1,13 @@
 package tatracker.model.student;
 
-import tatracker.model.tag.Tag;
+import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
+import tatracker.model.tag.Tag;
 
 
 /**

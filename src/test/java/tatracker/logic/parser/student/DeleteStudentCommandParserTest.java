@@ -1,12 +1,5 @@
 package tatracker.logic.parser.student;
 
-import tatracker.logic.commands.student.DeleteStudentCommand;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-import tatracker.model.student.Matric;
-
-import org.junit.jupiter.api.Test;
-
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_BOB;
@@ -16,6 +9,13 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import tatracker.logic.commands.student.DeleteStudentCommand;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.student.Matric;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

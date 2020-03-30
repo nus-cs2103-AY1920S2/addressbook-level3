@@ -1,5 +1,26 @@
 package tatracker.logic;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
+import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
+import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
+import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
+import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalStudents.AMY;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.ListCommand;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -16,27 +37,6 @@ import tatracker.storage.JsonTaTrackerStorage;
 import tatracker.storage.JsonUserPrefsStorage;
 import tatracker.storage.StorageManager;
 import tatracker.testutil.StudentBuilder;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
-import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
-import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
-import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
-import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.AMY;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

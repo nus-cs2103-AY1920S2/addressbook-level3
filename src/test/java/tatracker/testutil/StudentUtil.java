@@ -1,14 +1,5 @@
 package tatracker.testutil;
 
-import tatracker.logic.commands.student.AddStudentCommand;
-import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-import tatracker.model.student.Student;
-import tatracker.model.tag.Tag;
-
-import java.util.Set;
-
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
@@ -17,6 +8,15 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+
+import tatracker.logic.commands.student.AddStudentCommand;
+import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.student.Student;
+import tatracker.model.tag.Tag;
 
 /**
  * A utility class for Student.

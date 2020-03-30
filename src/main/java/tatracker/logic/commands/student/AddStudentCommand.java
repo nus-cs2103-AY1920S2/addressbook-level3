@@ -1,14 +1,5 @@
 package tatracker.logic.commands.student;
 
-import tatracker.logic.commands.Command;
-import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.model.Model;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-import tatracker.model.student.Student;
-
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
@@ -18,6 +9,15 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.model.Model;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.student.Student;
 
 /**
  * Adds a student to the TA-Tracker.

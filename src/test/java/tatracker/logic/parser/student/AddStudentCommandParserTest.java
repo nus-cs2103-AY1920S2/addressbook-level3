@@ -1,16 +1,5 @@
 package tatracker.logic.parser.student;
 
-import tatracker.logic.commands.student.AddStudentCommand;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.tag.Tag;
-
-import org.junit.jupiter.api.Test;
-
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
@@ -33,6 +22,17 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
+
+import org.junit.jupiter.api.Test;
+
+import tatracker.logic.commands.student.AddStudentCommand;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.student.Email;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Name;
+import tatracker.model.student.Phone;
+import tatracker.model.tag.Tag;
 
 public class AddStudentCommandParserTest {
     private static final Module MODULE = new Module(VALID_MODULE_CS2030);

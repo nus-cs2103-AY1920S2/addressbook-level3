@@ -14,14 +14,15 @@ import tatracker.logic.commands.ExitCommand;
 import tatracker.logic.commands.FindCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
-//import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.SortCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
 import tatracker.logic.parser.session.SessionCommandParser;
-//import tatracker.logic.parser.student.EditStudentCommandParser;
 import tatracker.logic.parser.student.StudentCommandParser;
+
+//import tatracker.logic.commands.student.EditStudentCommand;
+//import tatracker.logic.parser.student.EditStudentCommandParser;
 
 /**
  * Parses user input.

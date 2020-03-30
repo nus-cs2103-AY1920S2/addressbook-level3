@@ -1,5 +1,9 @@
 package tatracker.model.util;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.TaTracker;
 import tatracker.model.student.Email;
@@ -9,10 +13,6 @@ import tatracker.model.student.Phone;
 import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
-
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Contains utility methods for populating {@code TaTracker} with sample data.

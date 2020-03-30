@@ -1,20 +1,20 @@
 package tatracker.logic.commands.student;
 
-import tatracker.logic.commands.Command;
-import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.model.module.Module;
-import tatracker.model.group.Group;
-import tatracker.model.Model;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.group.DeleteGroupCommand.MESSAGE_INVALID_GROUP_CODE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.model.Model;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 
 /**
  *Filters by Group and/or Module under Student View.

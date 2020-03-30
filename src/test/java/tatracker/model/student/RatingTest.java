@@ -1,11 +1,11 @@
 package tatracker.model.student;
 
-import tatracker.testutil.Assert;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import tatracker.testutil.Assert;
 
 public class RatingTest {
 

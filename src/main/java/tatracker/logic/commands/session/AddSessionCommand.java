@@ -1,12 +1,5 @@
 package tatracker.logic.commands.session;
 
-import tatracker.logic.commands.Command;
-import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.model.Model;
-import tatracker.model.session.Session;
-
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
@@ -15,6 +8,13 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.model.Model;
+import tatracker.model.session.Session;
 
 /**
  * Adds a session to the TATracker.

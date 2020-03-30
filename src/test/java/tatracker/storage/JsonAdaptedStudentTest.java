@@ -1,11 +1,9 @@
 package tatracker.storage;
 
-import tatracker.commons.exceptions.IllegalValueException;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.student.Rating;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tatracker.storage.JsonAdaptedStudent.MISSING_FIELD_MESSAGE_FORMAT;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalStudents.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +11,12 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tatracker.storage.JsonAdaptedStudent.MISSING_FIELD_MESSAGE_FORMAT;
-import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.BENSON;
+import tatracker.commons.exceptions.IllegalValueException;
+import tatracker.model.student.Email;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Name;
+import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 
 public class JsonAdaptedStudentTest {
     private static final String INVALID_NAME = "R@chel";

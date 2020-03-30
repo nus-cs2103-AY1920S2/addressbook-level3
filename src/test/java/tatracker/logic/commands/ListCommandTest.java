@@ -1,14 +1,14 @@
 package tatracker.logic.commands;
 
-import tatracker.model.Model;
-import tatracker.model.ModelManager;
-import tatracker.model.UserPrefs;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import tatracker.model.Model;
+import tatracker.model.ModelManager;
+import tatracker.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
