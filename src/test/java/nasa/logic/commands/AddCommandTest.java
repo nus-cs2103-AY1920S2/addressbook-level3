@@ -408,7 +408,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasActivity(ModuleCode target, Name name) { return false; }
+        public boolean hasActivity(ModuleCode target, Name name) {
+            return false;
+        }
 
         @Override
         public void setActivityByIndex(Module module, Index index, Activity activity) {
