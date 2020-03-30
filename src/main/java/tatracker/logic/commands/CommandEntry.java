@@ -1,15 +1,7 @@
-package tatracker.logic;
+package tatracker.logic.commands;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import tatracker.logic.commands.ClearCommand;
-import tatracker.logic.commands.ExitCommand;
-import tatracker.logic.commands.HelpCommand;
-import tatracker.logic.commands.SortCommand;
-import tatracker.logic.commands.SortGroupCommand;
-import tatracker.logic.commands.SortModuleCommand;
 import tatracker.logic.commands.group.AddGroupCommand;
 import tatracker.logic.commands.group.DeleteGroupCommand;
 import tatracker.logic.commands.group.EditGroupCommand;
@@ -26,7 +18,7 @@ import tatracker.logic.parser.Prefix;
 /**
  * Stores a list of all the commands.
  */
-public enum Commands {
+public enum CommandEntry {
     STUDENT_ADD(
             AddStudentCommand.COMMAND_WORD,
             AddStudentCommand.INFO,
@@ -108,27 +100,27 @@ public enum Commands {
             EditSessionCommand.USAGE,
             EditSessionCommand.EXAMPLE
     ),
-    SORT_STUDENT(
-            SortCommand.COMMAND_WORD,
-            SortCommand.INFO,
-            SortCommand.PARAMETERS,
-            SortCommand.USAGE,
-            SortCommand.EXAMPLE
-    ),
-    SORT_GROUP(
-            SortGroupCommand.COMMAND_WORD,
-            SortGroupCommand.INFO,
-            SortGroupCommand.PARAMETERS,
-            SortGroupCommand.USAGE,
-            SortGroupCommand.EXAMPLE
-    ),
-    SORT_MODULE(
-            SortModuleCommand.COMMAND_WORD,
-            SortModuleCommand.INFO,
-            SortModuleCommand.PARAMETERS,
-            SortModuleCommand.USAGE,
-            SortModuleCommand.EXAMPLE
-    ),
+    // SORT_STUDENT(
+    //         SortCommand.COMMAND_WORD,
+    //         SortCommand.INFO,
+    //         SortCommand.PARAMETERS,
+    //         SortCommand.USAGE,
+    //         SortCommand.EXAMPLE
+    // ),
+    // SORT_GROUP(
+    //         SortGroupCommand.COMMAND_WORD,
+    //         SortGroupCommand.INFO,
+    //         SortGroupCommand.PARAMETERS,
+    //         SortGroupCommand.USAGE,
+    //         SortGroupCommand.EXAMPLE
+    // ),
+    // SORT_MODULE(
+    //         SortModuleCommand.COMMAND_WORD,
+    //         SortModuleCommand.INFO,
+    //         SortModuleCommand.PARAMETERS,
+    //         SortModuleCommand.USAGE,
+    //         SortModuleCommand.EXAMPLE
+    // ),
     CLEAR(
             ClearCommand.COMMAND_WORD,
             ClearCommand.INFO
@@ -142,11 +134,6 @@ public enum Commands {
             ExitCommand.INFO
     );
 
-    private static final String HELP_MESSAGE = Arrays
-            .stream(values())
-            .map(command -> command.getCommandWord() + ": " + command.getInfo())
-            .collect(Collectors.joining("\n\n"));
-
     private final String commandWord;
     private final String info;
 
@@ -156,12 +143,12 @@ public enum Commands {
     private final String usage;
     private final String example;
 
-    Commands(String commandWord,
-             String info,
-             List<Prefix> parameters,
-             List<Prefix> optionals,
-             String usage,
-             String example) {
+    CommandEntry(String commandWord,
+                 String info,
+                 List<Prefix> parameters,
+                 List<Prefix> optionals,
+                 String usage,
+                 String example) {
 
         this.commandWord = commandWord;
         this.info = info;
@@ -171,16 +158,16 @@ public enum Commands {
         this.example = example;
     }
 
-    Commands(String commandWord,
-             String info,
-             List<Prefix> parameters,
-             String usage,
-             String example) {
+    CommandEntry(String commandWord,
+                 String info,
+                 List<Prefix> parameters,
+                 String usage,
+                 String example) {
         this(commandWord, info, parameters, List.of(), usage, example);
     }
 
-    Commands(String commandWord,
-             String info) {
+    CommandEntry(String commandWord,
+                 String info) {
         this(commandWord, info, List.of(), List.of(), "", "");
     }
 
@@ -206,12 +193,5 @@ public enum Commands {
 
     public String getExample() {
         return example;
-    }
-
-    /**
-     * Returns the message information of all the commands.
-     */
-    public static String getHelpMessage() {
-        return HELP_MESSAGE;
     }
 }
