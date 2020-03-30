@@ -26,6 +26,9 @@ while still enjoying the benefits of a Graphical User Interface (GUI).
 Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
 Have a delightful journey using Delino!
 
+.Graphical User Interface (GUI) of Delino
+image::Delino.svg[width="790"]
+
 === Product Information
 Are you still using pen and papers or Excel to keep track of all your orders? +
 
@@ -55,17 +58,18 @@ This block contains *warning* information.
 
 [IMPORTANT]
 ====
-This block contains *important* inforamtion that you should be mindful of.
+This block contains *important* information that you should be mindful of.
 ====
 
-You will also encounter the use of `text markup` to indicate keywords such as
-command arguments to Delino. (e.g. `exit`)
+`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`)
 
-[WARNING]
-====
-For the various commands, you might encounter arguments in square brackets (e.g. `nearby` `[FLAG]` `AREA`).  +
-These arguments are optional.
-====
+`[FLAG]` : For the various commands, you might encounter *keywords* placed in square brackets. +
+(e.g. `nearby` `[FLAG]` `AREA`) +
+These indicate the optional arguments to a command.
+
+Keywords that are capitalized represent all possible combinations of an argument. +
+(e.g. `[FLAG]` represents all possible flag arguments available). +
+For the list of all possible combinations of an argument, you can refer to the <<glossary, glossary>>
 
 Finally, you will encounter links to external web pages for additional information.
 These links will link:[look like this].
@@ -76,9 +80,6 @@ These links will link:[look like this].
 .  Download the latest `Delino.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Delino.svg[width="790"]
-+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -564,36 +565,90 @@ delivery), number of deliveries completed in a day}_
 
 
 == Command Summary
+If you would like to know more about a specific command, you can view more information by clicking
+the provided link in the table below.
 
-* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
-* <<clear, *Clear*>> : `clear` `[FLAG]` +
-e.g. `clear` `-f`
-* <<delete, *Delete*>> : `delete` `FLAG` `INDEX` +
-e.g. `delete` `-o` `2`
-* <<delivered, *Delivered*>> : `delivered` `FLAG` `INDEX` +
-e.g. `delivered` `-r` `2`
-<<edit, *Edit*>> : `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
-e.g. `edit` `-r` `2` `n/Xuan En`
-* <<exit, *Exit*>> : `exit`
-<<search, *Search*>> : `search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`  +
- e.g. `search` `-r` `tid/ac1e345x7s`
-* <<help, *Help*>> : `help`
-* <<show, *Show*>> : `show`
-* <<import, *Import*>> : `import` `FILE_NAME` +
-e.g. `import` `orders.csv`
-* <<list, *List*>> : `list` `[DONE_STATUS]` +
-e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
-e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` +
-e.g. `return` `tid/ac17s2a`
-* <<nearby, *Nearby*>> : `nearby` `[FLAG]` `POSTAL_SECTOR` or `nearby` `[FLAG]` `AREA` +
-e.g. `nearby` `-o` `14` +
-e.g. `nearby` `-r` `north` +
-e.g. `nearby` `east`
+.Command Summary
+|===
+|Command |Format |Example
 
-== Appendix A: Glossary
+|<<insert, *Insert*>>
+|`insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+|`insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
+
+|<<clear, *Clear*>>
+|`clear` `[FLAG]`
+|`clear` +
+`clear` `-f` +
+`clear` `-r` +
+`clear` `-f` `-r` +
+`clear` `-o` +
+`clear` `-o` `-f`
+
+|<<delete, *Delete*>>
+|`delete` `FLAG` `INDEX`
+|`delete` `-o` `2`
+
+|<<delivered, *Delivered*>>
+|`delivered` `FLAG` `INDEX`
+|`delivered` `-r` `2` +
+delivered` `-o` `1`
+
+|<<edit, *Edit*>>
+|`edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE`
+|`edit` `-r` `2` `n/Xuan En` +
+`edit` `-o` `2` `p/9999 4444` +
+`edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+`edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+
+|<<exit, *Exit*>>
+|`exit`
+|`exit`
+
+|<<search, *Search*>>
+|`search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+|`search` `-r` `tid/ac1e345x7s` +
+`search` `-r` `Jeremy Loh` +
+`search` `-o` `tid/asj2od3943` +
+`search` `-r` `p/92039999` +
+`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+
+|<<help, *Help*>>
+|`help`
+|`help`
+
+|<<show, *Show*>>
+|`show`
+|`show`
+
+|<<import, *Import*>>
+|`import` `FILE_NAME`
+|`import` `orders.csv`
+
+|<<list, *List*>>
+|`list` `[DONE_STATUS]`
+|`list` +
+`list` `done` +
+`list` `undone`
+
+|<<return, *Return*>>
+|`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM`
+|`return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+`return` `tid/ac17s2a` +
+`return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal`
+
+|<<nearby, *Nearby*>>
+|`nearby` `[FLAG]` `POSTAL_SECTOR` +
+OR +
+`nearby` `[FLAG]` `AREA`
+|`nearby` `east` +
+`nearby` `-o` `14` +
+`nearby` `-r` `north`
+|===
+
+
+[[glossary]]
+== Glossary
 
 [[command_prefix]]
 .Command Prefix
