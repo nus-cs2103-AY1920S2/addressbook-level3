@@ -7,14 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.course.module.Description;
-import seedu.address.model.profile.course.module.ModularCredits;
+import seedu.address.model.profile.course.module.*;
 import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.PrereqTreeNode;
-import seedu.address.model.profile.course.module.Prereqs;
-import seedu.address.model.profile.course.module.SemesterData;
-import seedu.address.model.profile.course.module.Title;
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -28,7 +22,7 @@ class JsonModule {
     private final String description;
     private final String moduleCredit;
     private final String prerequisite;
-    //private final String preclusion;
+    private final String preclusion;
     private final List<JsonSemesterData> semesterData;
     private final JsonPrereqTreeNode prereqTree;
 
@@ -38,7 +32,7 @@ class JsonModule {
             @JsonProperty("description") String description,
             @JsonProperty("moduleCredit") String moduleCredit,
             @JsonProperty("prerequisite") String prerequisite,
-            //@JsonProperty("preclusion") String preclusion,
+            @JsonProperty("preclusion") String preclusion,
             @JsonProperty("semesterData") List<JsonSemesterData> semesterData,
             @JsonProperty("prereqTree") JsonPrereqTreeNode prereqTree) {
         this.moduleCode = moduleCode;
@@ -46,7 +40,7 @@ class JsonModule {
         this.description = description;
         this.moduleCredit = moduleCredit;
         this.prerequisite = prerequisite;
-        //this.preclusion = preclusion;
+        this.preclusion = preclusion;
         this.semesterData = semesterData;
         this.prereqTree = prereqTree;
     }
@@ -90,7 +84,7 @@ class JsonModule {
         final Description modelDescription = new Description(description);
         final ModularCredits modelModuleCredit = new ModularCredits(moduleCredit);
         final Prereqs modelPrerequisite = new Prereqs(prerequisite);
-        //final Preclusion modelPreclusion = new Preclusion(preclusion);
+        final Preclusions modelPreclusion = new Preclusions(preclusion);
         List<String> semesters = new ArrayList<>();
         semesterData.forEach(semData -> semesters.add(semData.getSemester()));
         final SemesterData modelSemesterData = new SemesterData(semesters);
@@ -101,7 +95,7 @@ class JsonModule {
             modelPrereqTreeNode = prereqTree.toModelType();
         }
 
-        return new Module(modelModuleCode, modelTitle, modelPrerequisite,
+        return new Module(modelModuleCode, modelTitle, modelPrerequisite, modelPreclusion,
                 modelModuleCredit, modelDescription, modelSemesterData, modelPrereqTreeNode);
     }
 
