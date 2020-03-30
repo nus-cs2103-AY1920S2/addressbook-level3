@@ -7,13 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.course.module.Description;
-import seedu.address.model.profile.course.module.ModularCredits;
+import seedu.address.model.profile.course.module.*;
 import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.Prereqs;
-import seedu.address.model.profile.course.module.SemesterData;
-import seedu.address.model.profile.course.module.Title;
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -29,6 +24,7 @@ class JsonModule {
     private final String prerequisite;
     //private final String preclusion;
     private final List<JsonSemesterData> semesterData;
+    private final JsonPrereqTreeNode prereqTreeNode;
 
     @JsonCreator
     public JsonModule(@JsonProperty("moduleCode") String moduleCode,
@@ -37,7 +33,8 @@ class JsonModule {
             @JsonProperty("moduleCredit") String moduleCredit,
             @JsonProperty("prerequisite") String prerequisite,
             //@JsonProperty("preclusion") String preclusion,
-            @JsonProperty("semesterData") List<JsonSemesterData> semesterData) {
+            @JsonProperty("semesterData") List<JsonSemesterData> semesterData,
+            @JsonProperty("prereqTree") JsonPrereqTreeNode prereqTreeNode) {
         this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
@@ -45,6 +42,7 @@ class JsonModule {
         this.prerequisite = prerequisite;
         //this.preclusion = preclusion;
         this.semesterData = semesterData;
+        this.prereqTreeNode = prereqTreeNode;
     }
 
     /**
@@ -90,9 +88,15 @@ class JsonModule {
         List<String> semesters = new ArrayList<>();
         semesterData.forEach(semData -> semesters.add(semData.getSemester()));
         final SemesterData modelSemesterData = new SemesterData(semesters);
+        final PrereqTreeNode modelPrereqTreeNode;
+        if (prereqTreeNode == null) {
+            modelPrereqTreeNode = null;
+        } else {
+            modelPrereqTreeNode = prereqTreeNode.toModelType();
+        }
 
         return new Module(modelModuleCode, modelTitle, modelPrerequisite,
-                modelModuleCredit, modelDescription, modelSemesterData);
+                modelModuleCredit, modelDescription, modelSemesterData, modelPrereqTreeNode);
     }
 
 }
@@ -112,3 +116,72 @@ class JsonSemesterData {
         return semester;
     }
 }
+
+class JsonPrereqTreeNode {
+    private String moduleCode;
+    protected List<JsonPrereqTreeNode> orNodes;
+    protected List<JsonPrereqTreeNode> andNodes;
+
+    @JsonCreator
+    public JsonPrereqTreeNode(String moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+    @JsonCreator
+    public JsonPrereqTreeNode(@JsonProperty("or") List<JsonPrereqTreeNode> orNodes, @JsonProperty("and") List<JsonPrereqTreeNode> andNodes) {
+        if (orNodes != null) {
+            this.orNodes = orNodes;
+        } else if (andNodes != null) {
+            this.andNodes = andNodes;
+        }
+    }
+
+    /*@JsonCreator
+    public JsonPrereqTreeNode(String moduleCode, @JsonProperty("or") List<JsonPrereqTreeNode> orNodes,
+                              @JsonProperty("and") List<JsonPrereqTreeNode> andNodes) {
+        if (moduleCode != null) {
+            System.out.println(moduleCode);
+            this.moduleCode = moduleCode;
+        } else if (orNodes != null) {
+            System.out.println(orNodes);
+            this.orNodes = orNodes;
+        } else if (andNodes != null) {
+            System.out.println(andNodes);
+            this.andNodes = andNodes;
+        }
+    }*/
+
+    public boolean isModule() {
+        return this.moduleCode != null;
+    }
+    public boolean isOrNode() {
+        return this.orNodes != null;
+    }
+    public boolean isAndNode() {
+        return this.andNodes != null;
+    }
+
+    public PrereqTreeNode toModelType() throws IllegalValueException {
+        PrereqTreeNode toReturn;
+        if (isModule()) {
+            toReturn = new PrereqTreeNode(new ModuleCode(moduleCode));
+        } else if (isOrNode()) {
+            toReturn = new PrereqTreeNode();
+            toReturn.setType("or");
+            for (JsonPrereqTreeNode node: orNodes) {
+                toReturn.addPrereqTreeNode(node.toModelType());
+            }
+        } else if (isAndNode()) {
+            toReturn = new PrereqTreeNode();
+            toReturn.setType("and");
+            for (JsonPrereqTreeNode node: andNodes) {
+                toReturn.addPrereqTreeNode(node.toModelType());
+            }
+        } else {
+            throw new IllegalValueException("Error parsing prerequisite tree");
+        }
+
+        System.out.println(toReturn);
+        return toReturn;
+    }
+}
+

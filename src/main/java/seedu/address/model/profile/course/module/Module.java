@@ -18,6 +18,7 @@ public class Module {
     private final ModularCredits modularCredits;
     private final Description description;
     private final SemesterData semesterData;
+    private final PrereqTreeNode prereqTreeNode;
 
     private Personal personal;
     private int tag; //for colour changing in Deadline panel
@@ -25,8 +26,8 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(ModuleCode moduleCode, Title title, Prereqs prereqs,
-                  ModularCredits modularCredits, Description description, SemesterData semesterData) {
+    public Module(ModuleCode moduleCode, Title title, Prereqs prereqs, ModularCredits modularCredits,
+                  Description description, SemesterData semesterData, PrereqTreeNode prereqTreeNode) {
         // requireAllNonNull() // to be implemented
         this.moduleCode = moduleCode;
         this.title = title;
@@ -34,6 +35,7 @@ public class Module {
         this.modularCredits = modularCredits;
         this.description = description;
         this.semesterData = semesterData;
+        this.prereqTreeNode = prereqTreeNode;
 
         this.personal = new Personal();
     }
@@ -68,6 +70,10 @@ public class Module {
 
     public SemesterData getSemesterData() {
         return semesterData;
+    }
+
+    public PrereqTreeNode getPrereqTreeNode() {
+        return prereqTreeNode;
     }
 
     public String getStatus() {
