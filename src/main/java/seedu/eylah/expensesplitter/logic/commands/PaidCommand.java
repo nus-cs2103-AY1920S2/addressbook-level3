@@ -11,7 +11,7 @@ import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
- * Reduce an amount a Person owes you.
+ * Reduce the amount a Person owes you.
  */
 public class PaidCommand extends Command {
 
