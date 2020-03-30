@@ -55,6 +55,12 @@ public class Scheduler {
         populateSortedScheduledWorkoutList();
     }
 
+    public void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule) {
+        scheduleList.setSchedule(scheduleToEdit, editedSchedule);
+
+        populateSortedScheduledWorkoutList();
+    }
+
     /**
      *
      * @param scheduledWorkoutToDelete
