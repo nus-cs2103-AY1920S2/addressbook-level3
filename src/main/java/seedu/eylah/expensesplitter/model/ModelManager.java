@@ -136,6 +136,11 @@ public class ModelManager implements Model {
         receipt.clearReceipt();
     }
 
+    @Override
+    public void newReceipt() {
+        receipt.newReceipt();
+    }
+
     //=========== PersonAmountBook ===============================================================================
 
 

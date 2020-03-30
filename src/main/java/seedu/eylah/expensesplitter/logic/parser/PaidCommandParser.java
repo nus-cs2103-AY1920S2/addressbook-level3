@@ -23,7 +23,9 @@ public class PaidCommandParser implements Parser<PaidCommand> {
     public PaidCommand parse(String args) throws ParseException {
 
         Index indexOfPerson;
+        String amountPaid;
         String[] helper = args.trim().split(" ");
+
         try {
             indexOfPerson = ParserUtil.parseIndex(helper[0]);
 
@@ -32,10 +34,11 @@ public class PaidCommandParser implements Parser<PaidCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, PaidCommand.MESSAGE_USAGE), ex);
         }
 
-        //System.out.println(args.trim().split(" ")[0]);
-        //System.out.println(args.substring(2).trim());
-        //int index = Integer.valueOf(args.trim().split(" ")[0]);
-        String amountPaid = helper[1];
+        try {
+            amountPaid = helper[1];
+        } catch (IndexOutOfBoundsException ex) {
+            amountPaid = "";
+        }
 
 
         /*
