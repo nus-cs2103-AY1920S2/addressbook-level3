@@ -8,17 +8,11 @@ import javafx.scene.layout.Region;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.ui.util.UiPart;
 
-import seedu.zerotoone.MainApp;
-import seedu.zerotoone.commons.core.LogsCenter;
-import java.util.logging.Logger;
-
 /**
  * Panel containing the workout page.
  */
 public class WorkoutListPanel extends UiPart<Region> {
     private static final String FXML = "workout/WorkoutListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(MainApp.class);
-
 
     @FXML
     private ListView<Workout> workoutListView;
