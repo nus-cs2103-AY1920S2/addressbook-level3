@@ -122,14 +122,14 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_editCommandInput_editCommand() throws Exception {
-        Command command = parser.parseCommand("edit -b ../CS2103").get(0);
+        Command command = parser.parseCommand("edit -b lorem ").get(0);
 
         assertTrue(command instanceof EditCommand);
     }
 
     @Test
     public void parseCommand_editCommandInputNoPrefix_editCommand() throws Exception {
-        Command command = parser.parseCommand("edit ../CS2103").get(0);
+        Command command = parser.parseCommand("edit lorem").get(0);
 
         assertTrue(command instanceof EditCommand);
     }
