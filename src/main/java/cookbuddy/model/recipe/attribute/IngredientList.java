@@ -44,6 +44,10 @@ public class IngredientList {
         ingredientData.remove(ingredient);
     }
 
+    public List<Ingredient> asList() {
+        return List.copyOf(this.ingredientData);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
