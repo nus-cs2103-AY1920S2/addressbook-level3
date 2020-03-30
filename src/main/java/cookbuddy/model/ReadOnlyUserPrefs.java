@@ -11,6 +11,8 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getRecipeBookFilePath();
+    Path getDataFilePath();
+
+    Path getRecipeImagePath();
 
 }

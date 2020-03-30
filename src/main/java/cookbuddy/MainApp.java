@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipeBookFilePath());
+        RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getDataFilePath());
         storage = new StorageManager(recipeBookStorage, userPrefsStorage);
 
         initLogging(config);
