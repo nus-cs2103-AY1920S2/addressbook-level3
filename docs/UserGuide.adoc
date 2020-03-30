@@ -369,31 +369,114 @@ List down all the orders (Return orders and Delivery orders) that are completed.
 List down all the orders (Return orders and Delivery orders) that are uncompleted.
 
 [[nearby]]
-=== View orders located at the same area or postal sector: `nearby`
-==== Description
-The `nearby` command can be used to search either the order list or return order list. +
-You *may* give either a `-o` flag for viewing nearby orders in the order list
-or a `-r` flag for viewing nearby orders in the returns list. +
-By default, the `nearby` command will search both the order list and return order list.
+=== View orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
+====
+* Suppose you are delivering an order to Buona Vista and would like to know all the orders located near
+that region (central region of Singapore). Are you going manually look through all of your orders and
+find those that are located near Buona Vista? +
+If only there was a way to efficiently find all orders based on a given region or postal sector! +
+This would allow you to complete more orders! +
 
-There are two possible search criteria for the `nearby` command:
+** With the `nearby` command, you can identify all such orders by providing either
+a region or postal sector!
+====
 
-. By *postal sector*: +
-Command Usage: `nearby` `[FLAG]` `POSTAL_SECTOR`
+==== How to use the Nearby command?
+Here are the steps you should follow to obtain all orders using the Nearby command: +
+*Step 1* : Type in the keyword `nearby` +
 
+*Step 2 (optional)* : Provide an optional `<<command_flag, FLAG>>` that indicates which order list to
+search (order list or return order list) you want to edit. +
+[NOTE]
+====
+A `-o` flag indicates searching of nearby orders using the order list. +
+A `-r` flag indicates searching of the nearby orders using the return order list. +
+====
+By default, if no `FLAG` is provided, both order list and return order list will be searched. +
 
+*Step 3* : Provide either a `<<postal_sector, POSTAL SECTOR>>` or an `<<area, AREA>>` +
 [NOTE]
 ====
 A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-* You can view the orders at a specified Singapore *postal sector*.
-* The general location for the order will be identified if a valid postal sector is given.
-* The list of postal sectors and their corresponding general locations can be found
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`. +
+The list of postal sectors and their corresponding general locations can be found
 https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
+[[area]]
+An `AREA` refers to one of the five areas of Singapore +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>.
+
+You can obtain more detailed information about each area from
+https://keylocation.sg/singapore/districts-map[this website]
+====
+
+*Step 4* : Press `Enter` on your keyboard to see the magic!
+
+
+==== What constitutes a valid Nearby command?
+The syntax for a valid `Nearby` command can be one of the following: +
+1. `nearby` `[FLAG]` `POSTAL_SECTOR` +
+2. `nearby` `[FLAG]` `AREA`
+
+====
+An optional `FLAG` can be provided to indicate which list to search on. +
+A `-o` flag indicates searching of nearby orders using the order list. +
+A `-r` flag indicates searching of the nearby orders using the return order list. +
+By default, if no `FLAG` is provided, both order list and return order list will be searched. +
+
+A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14` +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
+
+An `AREA` refers to one of the five areas of Singapore: +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>
+====
+
+
+The table below describes the possible usage combinations of the Nearby command:
+
+.Possible Combinations of Nearby command
+|===
+|Scenario |Command |Result
+
+|If you want to obtain all orders in both the order list and return order list located in the the north region of Singapore.
+|`nearby` `north`
+|All orders in the order list and return order list that are located in the north region of Singapore will be displayed.
+
+|If you want to obtain all orders in the order list located in the general location of  `Queenstown, Tiong Bahru`.
+|`nearby` `-o` `14`
+|All orders in the order list that are located in postal sector `14` (`Queenstown, Tiong Bahru`) will be displayed.
+
+|If you want to obtain all orders in the return order list located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
+|`nearby` `-r` `04`
+|All orders in the return order list that are located in the postal sector `04` (`Raffles Place, Cecil, Marina, People's Park`) will be displayed.
+
+|If you want to obtain all orders in the return order list located in the central region of Singapore.
+|`nearby` `-r` `central`
+|All orders in the return order list that are located in the central region of Singapore will be displayed.
+
+|If you want to obtain all orders in the order list located in the central region of Singapore.
+|`nearby` `-o` `central`
+|All orders in the order list that are located in the central region of Singapore will be displayed.
+|===
+
+
+[[postal_sector]]
 .Postal Sectors in Singapore
 |===
 |Postal Sector |General Location
@@ -428,56 +511,6 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |79, 80 |Seletar
 |===
 
-
-[start=2]
-. By *area*: +
-Command Usage: `nearby` `[FLAG]` `AREA`
-
-[NOTE]
-====
-An *area* refers to one of the five areas of Singapore +
-
-. Central
-. East
-. North East
-. West
-. North
-
-A quick reference for the five areas of Singapore can be <<area_table, found here>>
-
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-* You can view all the orders located at a specified *area*.
-
-You can obtain more detailed information about each area from
-https://keylocation.sg/singapore/districts-map[this website]
-
-
-==== Format
-. `nearby` `[FLAG]` `POSTAL_SECTOR` +
-
-[IMPORTANT]
-====
-`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
-Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
-
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-
-[start=2]
-. `nearby` `FLAG` `AREA`
-
-==== Examples
-* `nearby` `-o` `14` +
-You will view all orders in the order list located in the general location of `Queenstown, Tiong Bahru`.
-* `nearby` `-r` `04` +
-You will view all return orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
-* `nearby` `north` +
-You will view all orders in the order list and return order list located in the north area of Singapore.
 
 [[return]]
 === Returning an order: `return`
