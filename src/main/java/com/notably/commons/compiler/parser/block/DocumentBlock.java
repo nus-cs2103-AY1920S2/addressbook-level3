@@ -3,6 +3,9 @@ package com.notably.commons.compiler.parser.block;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a document (root) node in a Markdown Abstract Syntax Tree (AST).
+ */
 public class DocumentBlock extends Block {
     @Override
     public boolean next(String line) {
@@ -36,7 +39,7 @@ public class DocumentBlock extends Block {
 
     @Override
     public String toHtml() {
-        return String.format("<html><body>%s</body></html>", 
+        return String.format("<html><body>%s</body></html>",
                 getChildren().stream().map(Block::toHtml).collect(Collectors.joining()));
     }
 

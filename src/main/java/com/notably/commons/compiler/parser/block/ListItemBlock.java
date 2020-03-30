@@ -7,22 +7,43 @@ import java.util.stream.Collectors;
 
 import com.notably.commons.compiler.parser.exceptions.InvalidLineException;
 
+/**
+ * Represents a list item node in a Markdown Abstract Syntax Tree (AST).
+ */
 public class ListItemBlock extends Block {
     private static final Pattern CREATE_PATTERN = Pattern.compile("^(?<leader> *- *)(?<text>(?<= +).*)?$");
     private static final Pattern NEXT_PATTERN = Pattern.compile("^(?<leader> *)(?<text>.*)$");
 
     private final int indentation;
 
+    /**
+     * Creates a list item block with the specified indentation.
+     *
+     * @param indentation List item indentation
+     */
     public ListItemBlock(int indentation) {
         this.indentation = indentation;
     }
 
+    /**
+     * Checks whether or not a list item block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a list item block can be created
+     */
     public static boolean isListItem(String line) {
         Objects.requireNonNull(line);
 
         return CREATE_PATTERN.matcher(line).lookingAt();
     }
 
+    /**
+     * Creates a list item block from a supplied line.
+     *
+     * @param line Input line
+     * @return The created list item block
+     * @throws InvalidLineException If no list item block can be constructed from the supplied line
+     */
     public static ListItemBlock fromLine(String line) {
         Objects.requireNonNull(line);
 

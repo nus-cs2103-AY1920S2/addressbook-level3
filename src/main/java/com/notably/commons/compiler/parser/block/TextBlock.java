@@ -2,15 +2,29 @@ package com.notably.commons.compiler.parser.block;
 
 import java.util.Objects;
 
+/**
+ * Represents a text node in a Markdown Abstract Syntax Tree (AST).
+ */
 public class TextBlock extends Block {
     final String text;
 
+    /**
+     * Creates a text block with the specified text string.
+     *
+     * @param text Text string
+     */
     public TextBlock(String text) {
         Objects.requireNonNull(text);
 
         this.text = text;
     }
 
+    /**
+     * Checks whether or not a text block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a text block can be created
+     */
     public static boolean isText(String line) {
         Objects.requireNonNull(line);
 
@@ -19,6 +33,12 @@ public class TextBlock extends Block {
                 && !ListBlock.isList(line);
     }
 
+    /**
+     * Checks whether or not a text block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a text block can be created
+     */
     public static TextBlock fromLine(String line) {
         Objects.requireNonNull(line);
 

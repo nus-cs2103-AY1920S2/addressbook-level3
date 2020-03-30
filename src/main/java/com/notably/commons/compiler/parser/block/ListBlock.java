@@ -5,13 +5,29 @@ import java.util.stream.Collectors;
 
 import com.notably.commons.compiler.parser.exceptions.InvalidLineException;
 
+/**
+ * Represents a list node in a Markdown Abstract Syntax Tree (AST).
+ */
 public class ListBlock extends Block {
+    /**
+     * Checks whether or not a list block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a list block can be created
+     */
     public static boolean isList(String line) {
         Objects.requireNonNull(line);
 
         return ListItemBlock.isListItem(line);
     }
 
+    /**
+     * Creates a list block from a supplied line.
+     *
+     * @param line Input line
+     * @return The created list block
+     * @throws InvalidLineException If no list block can be constructed from the supplied line
+     */
     public static ListBlock fromLine(String line) {
         Objects.requireNonNull(line);
 

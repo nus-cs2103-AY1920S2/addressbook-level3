@@ -5,13 +5,28 @@ import java.util.stream.Collectors;
 
 import com.notably.commons.compiler.parser.exceptions.InvalidLineException;
 
+/**
+ * Represents a paragraph node in a Markdown Abstract Syntax Tree (AST).
+ */
 public class ParagraphBlock extends Block {
+    /**
+     * Checks whether or not a paragraph block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a paragraph block can be created
+     */
     public static boolean isParagraph(String line) {
         Objects.requireNonNull(line);
 
         return TextBlock.isText(line);
     }
 
+    /**
+     * Checks whether or not a paragraph block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a paragraph block can be created
+     */
     public static ParagraphBlock fromLine(String line) {
         Objects.requireNonNull(line);
 

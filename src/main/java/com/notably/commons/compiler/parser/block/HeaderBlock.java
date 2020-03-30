@@ -6,12 +6,21 @@ import java.util.regex.Pattern;
 
 import com.notably.commons.compiler.parser.exceptions.InvalidLineException;
 
+/**
+ * Represents a header node in a Markdown Abstract Syntax Tree (AST).
+ */
 public class HeaderBlock extends Block {
     private static final Pattern PATTERN = Pattern.compile("^ *(?<hash>#{1,6}) *(?<text>(?<= +).*)?$");
 
     private final int level;
     private final String text;
 
+    /**
+     * Creates a header block with the specified level and text.
+     *
+     * @param level Header level, i.e. 1 to 6
+     * @param text Header content text
+     */
     public HeaderBlock(int level, String text) {
         super(false);
 
@@ -21,12 +30,25 @@ public class HeaderBlock extends Block {
         this.text = text;
     }
 
+    /**
+     * Checks whether or not a header block can be created from a supplied line.
+     *
+     * @param line Input line
+     * @return Whether or not a header block can be created
+     */
     public static boolean isHeader(String line) {
         Objects.requireNonNull(line);
 
         return PATTERN.matcher(line).lookingAt();
     }
 
+    /**
+     * Creates a header block from a supplied line.
+     *
+     * @param line Input line
+     * @return The created header block
+     * @throws InvalidLineException If no header block can be constructed from the supplied line
+     */
     public static HeaderBlock fromLine(String line) {
         Objects.requireNonNull(line);
 
