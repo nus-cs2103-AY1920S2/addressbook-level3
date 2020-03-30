@@ -213,10 +213,6 @@ public class MainApp extends Application {
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();
 
-      if (assignmentAddressBookOptional.isPresent()) {
-        logger.info("Data file found!");
-      }
-
       if (!assignmentAddressBookOptional.isPresent()) {
         logger.info("Data file not found. Will be starting with a sample AssignmentAddressBook");
       }

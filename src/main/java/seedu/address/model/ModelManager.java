@@ -69,6 +69,9 @@ public class ModelManager implements Model {
     logger.info("Model Manager check:" + assignmentAddressBook.toString());
 
 
+    logger.info("Model Manager check:" + assignmentAddressBook.toString());
+
+
     logger.fine("Initializing with address book: " + studentAddressBook
             + "Initializing with teacher address book: " + teacherAddressBook
             + "Initializing with address address book: " + assignmentAddressBook

@@ -38,6 +38,7 @@ public class ClearAssignmentABCommandTest {
             getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(),
                 new AssignmentAddressBook(), getTypicalProgressAddressBook(), new UserPrefs());
 
+
         assertCommandSuccess(new ClearAssignmentCommand(), model, ClearAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
