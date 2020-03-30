@@ -16,9 +16,13 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.Model;
+import seedu.address.model.TransactionHistory;
+import seedu.address.model.good.Good;
 import seedu.address.model.supplier.NameContainsKeywordsPredicate;
 import seedu.address.model.supplier.Supplier;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditSupplierDescriptorBuilder;
 
 /**
@@ -127,11 +131,19 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Supplier> expectedFilteredList = new ArrayList<>(actualModel.getFilteredSupplierList());
+        List<Supplier> expectedFilteredSupplierList = new ArrayList<>(actualModel.getFilteredSupplierList());
+        Inventory expectedInventory = new Inventory(actualModel.getInventory());
+        List<Good> expectedFilteredGoodList = new ArrayList<>(actualModel.getFilteredGoodList());
+        TransactionHistory expectedTransactionHistory = new TransactionHistory(actualModel.getTransactionHistory());
+        List<Transaction> expectedFilteredTransactionList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredSupplierList());
+        assertEquals(expectedFilteredSupplierList, actualModel.getFilteredSupplierList());
+        assertEquals(expectedInventory, actualModel.getInventory());
+        assertEquals(expectedFilteredGoodList, actualModel.getFilteredGoodList());
+        assertEquals(expectedTransactionHistory, actualModel.getTransactionHistory());
+        assertEquals(expectedFilteredTransactionList, actualModel.getFilteredTransactionList());
     }
 
     /**
