@@ -29,3 +29,11 @@
 .list-view .decrement-button:hover {
     -fx-background-color: gray;
 }
+
+.list-view .thumb {
+    -fx-background-color: white;
+}
+
+.list-view .thumb:hover {
+    -fx-background-color: gray;
+}
