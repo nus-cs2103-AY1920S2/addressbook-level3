@@ -122,6 +122,7 @@ you can easily enter it into the TSS claims form at the end of the semester.
 ** lab
 ** recitations
 ** other
+* `NEW_GROUP_TYPE` - the new group type you want to change it to
 * `SORT_TYPE` - could be one of the following:
 ** alphabetically
 ** by rating (ascending order)
@@ -315,15 +316,18 @@ Format: `group edit g/GROUP_CODE m/MOD_CODE ng/NEW_GROUP_CODE nt/NEW_GROUP_TYPE`
 you attempt to edit a group inside it.
 
 * A group with the given group code should exist inside the module before editing it.
+
+* If you are changing the group code, the module shouldn't contain a group with the
+new group code.
 ====
 
 ====
 Examples:
 
-* `group edit g/G03 m/CS2103 t/tutorial`
+* `group edit g/G03 m/CS2103 nt/tutorial`
 +
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+Changes the group type of the group with group code G03, inside the module with
+module code CS2103, to be a tutorial.
 ====
 
 [[AddStudent]]
