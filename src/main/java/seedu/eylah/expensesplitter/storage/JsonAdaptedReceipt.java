@@ -17,15 +17,18 @@ import seedu.eylah.expensesplitter.model.receipt.Receipt;
 public class JsonAdaptedReceipt {
 
     private final List<JsonAdaptedEntry> entries = new ArrayList<>();
+    private final boolean isDone;
 
     /**
      * Constructs a {@code JsonAdaptedReceipt} with the given entries details.
      */
     @JsonCreator
-    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedEntry> entries) {
+    public JsonAdaptedReceipt(@JsonProperty("itemPersons") List<JsonAdaptedEntry> entries,
+            @JsonProperty("isDone") boolean isDone) {
         if (entries != null) {
             this.entries.addAll(entries);
         }
+        this.isDone = isDone;
     }
 
     /**
@@ -35,6 +38,7 @@ public class JsonAdaptedReceipt {
         entries.addAll(source.getReceipt().stream()
                 .map(JsonAdaptedEntry::new)
                 .collect(Collectors.toList()));
+        this.isDone = source.isDone();
     }
 
     /**
@@ -48,6 +52,8 @@ public class JsonAdaptedReceipt {
             modelEntries.add(entry.toModelType());
         }
 
-        return new Receipt(modelEntries);
+        final boolean modelIsDone = isDone;
+
+        return new Receipt(modelEntries, modelIsDone);
     }
 }
