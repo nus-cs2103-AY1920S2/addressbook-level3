@@ -147,7 +147,7 @@ public class ReturnCommandParserTest {
                         + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + TYPE_DESC_GLASS,
                 new ReturnCommand(expectedReturnOrderWithType, expectedTid));
 
-        ReturnOrder expectedReturnOrderWithComment = new ReturnOrderBuilder(AMY_RETURN)
+        ReturnOrder expectedReturnOrderWithComment = new ReturnOrderBuilder(AMY_RETURN).withItemType("NIL")
                 .withComment(VALID_COMMENT_INSTRUCTION).build();
         assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                         + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COMMENT_DESC_INSTRUCTION,
