@@ -60,9 +60,13 @@ public class ModelManager implements Model {
     requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
              assignmentAddressBook, userPrefs);
 
+    logger.info("Model Manager check:" + assignmentAddressBook.toString());
+
+
     logger.fine("Initializing with address book: " + studentAddressBook
-        + "Initializing with  teacher address book: " + teacherAddressBook + " and user prefs "
-        + userPrefs);
+            + "Initializing with teacher address book: " + teacherAddressBook
+            + "Initializing with address address book: " + assignmentAddressBook
+            + " and user prefs " + userPrefs);
 
     this.addressBook = new AddressBook(addressBook);
     this.teacherAddressBook = new TeacherAddressBook(teacherAddressBook);
@@ -91,6 +95,7 @@ public class ModelManager implements Model {
     for (Teacher teacher : filteredTeachers) {
       teacher.processAssignedCourses(filteredCourses);
     }
+
 
   }
 

@@ -16,6 +16,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
 
 public class ClearAssignmentABCommandTest {
 
@@ -32,8 +33,7 @@ public class ClearAssignmentABCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
             getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(),new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), new AssignmentAddressBook(), new UserPrefs());
 
         assertCommandSuccess(new ClearAssignmentCommand(), model, ClearAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
     }
