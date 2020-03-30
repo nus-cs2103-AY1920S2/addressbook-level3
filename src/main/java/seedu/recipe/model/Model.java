@@ -139,6 +139,7 @@ public interface Model {
 
     void removeAllPlannedMappingForRecipe(Recipe recipe);
 
+    void setPlannedRecipe(Recipe target, Recipe editedRecipe);
     /**
      * Returns an unmodifiable view of the planned recipes.
      */

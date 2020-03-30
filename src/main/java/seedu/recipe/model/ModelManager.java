@@ -11,11 +11,9 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
@@ -195,6 +193,11 @@ public class ModelManager implements Model {
     @Override
     public void removeAllPlannedMappingForRecipe(Recipe recipe) {
         plannedBook.removeAllPlannedMappingForRecipe(recipe);
+    }
+
+    @Override
+    public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+        plannedBook.setPlannedRecipe(target, editedRecipe);
     }
 
     @Override

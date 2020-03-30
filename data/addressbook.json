@@ -2,7 +2,7 @@
   "recipes" : [ {
     "name" : "Barley Pilaf",
     "time" : "50",
-    "isFavourite" : false,
+    "isFavourite" : true,
     "grains" : [ "0.5cup,  small pieces of broken spaghetti" ],
     "vegetables" : [ "2.0tbsp,  chives (chopped)", "50.0g,  small onion (chopped)" ],
     "proteins" : [ "2.5cup,  low-sodium chicken broth" ],
@@ -12,7 +12,7 @@
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "Asian BBQ Chicken",
-    "time" : "30",
+    "time" : "15",
     "isFavourite" : false,
     "grains" : [ ],
     "vegetables" : [ "1.0tbsp,  garlic & ginger (finely chopped)" ],
@@ -143,7 +143,7 @@
     "steps" : [ "In a slow cooker, combine all ingredients and set to low heat. Cover and let cook for 8 to 9 hours.", "Stir and remove to serving bowls. This method works best if started before you go to bed." ],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
-    "name" : "Chicken Rice",
+    "name" : "chicken rice",
     "time" : "30",
     "isFavourite" : false,
     "grains" : [ "300.0g,  Rice" ],

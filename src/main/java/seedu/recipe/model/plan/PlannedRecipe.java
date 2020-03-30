@@ -18,6 +18,10 @@ public class PlannedRecipe {
         return recipe;
     }
 
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
     public PlannedDate getDate() {
         return date;
     }

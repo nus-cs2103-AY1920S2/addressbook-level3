@@ -84,10 +84,21 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     public void removeAllPlannedMappingForRecipe(Recipe recipe) {
         List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
         for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-            System.out.println("Removed for date: " + plannedRecipe.getDate());
             removePlannedRecipes(plannedRecipe);
         }
         recipeToPlannedRecipeMap.remove(recipe);
+    }
+
+    public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+        List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
+        recipeToPlannedRecipeMap.remove(target);
+        for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
+            plannedRecipe.setRecipe(editedRecipe);
+            //addPlannedMapping(editedRecipe, plannedRecipe);
+            System.out.println(recipeToPlannedRecipeMap);
+        }
+        recipeToPlannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
+        //removeAllPlannedMappingForRecipe(target);
     }
 
     // ===== Util methods =====
