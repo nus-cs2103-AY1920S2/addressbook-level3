@@ -46,7 +46,7 @@ public class ListBlock extends Block {
     public boolean next(String line) {
         Objects.requireNonNull(line);
 
-        Block lastChild = getChildren().get(getChildren().size() - 1);
+        Block lastChild = BlockUtil.getLast(getChildren());
         if (!lastChild.isOpen()) {
             if (!isList(line)) {
                 close();
@@ -58,8 +58,7 @@ public class ListBlock extends Block {
             return true;
         }
 
-        boolean successful = lastChild.next(line);
-        if (!successful) {
+        if (!lastChild.next(line)) {
             if (!isList(line)) {
                 close();
                 return false;

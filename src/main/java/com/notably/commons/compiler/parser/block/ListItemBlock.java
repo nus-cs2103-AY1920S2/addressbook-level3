@@ -109,13 +109,28 @@ public class ListItemBlock extends Block {
             return false;
         }
 
-        String text = matcher.group("text");
+        String text = padSpaceLeft(matcher.group("text"), nextIndentation - indentation);
 
-        if (canCreateChildBlock(text)) {
-            addChild(createChildBlock(text));
+        Block lastChild = BlockUtil.getLast(getChildren());
+        if (!lastChild.isOpen()) {
+            if (canCreateChildBlock(text)) {
+                addChild(createChildBlock(text));
+            }
+            return true; 
+        }
+
+        if (!lastChild.next(text)) {
+            if (canCreateChildBlock(text)) {
+                addChild(createChildBlock(text));
+            }
+            return true;
         }
 
         return true;
+    }
+
+    private String padSpaceLeft(String text, int count) {
+        return " ".repeat(count) + text;
     }
 
     @Override

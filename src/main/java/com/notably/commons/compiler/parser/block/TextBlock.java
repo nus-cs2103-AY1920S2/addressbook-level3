@@ -14,6 +14,8 @@ public class TextBlock extends Block {
      * @param text Text string
      */
     public TextBlock(String text) {
+        super(false);
+
         Objects.requireNonNull(text);
 
         this.text = text;

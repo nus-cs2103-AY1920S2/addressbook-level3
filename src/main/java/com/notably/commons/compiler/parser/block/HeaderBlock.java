@@ -53,7 +53,6 @@ public class HeaderBlock extends Block {
         Objects.requireNonNull(line);
 
         Matcher matcher = PATTERN.matcher(line);
-
         if (!matcher.find()) {
             throw new InvalidLineException(String.format("\"%s\" is not a valid header", line));
         }

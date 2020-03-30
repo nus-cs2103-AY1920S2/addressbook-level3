@@ -20,7 +20,7 @@ public class DocumentBlock extends Block {
             return true;
         }
 
-        Block lastChild = getChildren().get(getChildren().size() - 1);
+        Block lastChild = BlockUtil.getLast(getChildren());
         if (!lastChild.isOpen()) {
             if (canCreateChildBlock(line)) {
                 addChild(createChildBlock(line));
@@ -28,8 +28,7 @@ public class DocumentBlock extends Block {
             return true;
         }
 
-        boolean successful = lastChild.next(line);
-        if (!successful) {
+        if (!lastChild.next(line)) {
             if (canCreateChildBlock(line)) {
                 addChild(createChildBlock(line));
             }
