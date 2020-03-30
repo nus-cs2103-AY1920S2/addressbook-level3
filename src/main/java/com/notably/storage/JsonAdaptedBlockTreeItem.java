@@ -15,17 +15,18 @@ import com.notably.model.block.Body;
 import com.notably.model.block.Title;
 
 /**
- * Jackson-friendly version of {@link Object}.
+ * Jackson-friendly version of {@link BlockTreeItem}.
  */
 class JsonAdaptedBlockTreeItem {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Block's %s field is missing!";
+    public static final String MESSAGE_DUPLICATE_BLOCK_CHILD = "Block's children list contains duplicate children.";
 
     private final String title;
     private final String body;
     private final List<JsonAdaptedBlockTreeItem> children = new ArrayList<JsonAdaptedBlockTreeItem>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedBlockTreeItem} with the given {@code BlockTreeItem} details.
      */
     @JsonCreator
     public JsonAdaptedBlockTreeItem(@JsonProperty("title") String title, @JsonProperty("body") String body,
@@ -38,7 +39,7 @@ class JsonAdaptedBlockTreeItem {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code BlockTreeItem} into this class for Jackson use.
      */
     public JsonAdaptedBlockTreeItem(BlockTreeItem source) {
         title = source.getTitle().getText();
@@ -48,7 +49,7 @@ class JsonAdaptedBlockTreeItem {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted {@code BlockTreeItem} object into the model's {@code BlockTreeItem} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
@@ -71,16 +72,21 @@ class JsonAdaptedBlockTreeItem {
 
         final Block modelBlock = new BlockImpl(modelTitle, modelBody);
 
-        final List<BlockTreeItem> children = new ArrayList<BlockTreeItem>();
-        for (JsonAdaptedBlockTreeItem jsonAdaptedBlockTreeItem : this.children) {
+        final List<BlockTreeItem> modelChildren = new ArrayList<>();
+        for (JsonAdaptedBlockTreeItem jsonAdaptedBlockTreeItem : children) {
             BlockTreeItem blockTreeItem = jsonAdaptedBlockTreeItem.toModelType();
-            children.add(blockTreeItem);
+            if (modelChildren.contains(blockTreeItem)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BLOCK_CHILD);
+            }
+            modelChildren.add(blockTreeItem);
         }
 
         final BlockTreeItem modelBlockTreeItem = new BlockTreeItemImpl(modelBlock);
-        modelBlockTreeItem.setBlockChildren(children);
+
+        if (!modelChildren.isEmpty()) {
+            modelBlockTreeItem.setBlockChildren(modelChildren);
+        }
 
         return modelBlockTreeItem;
     }
-
 }

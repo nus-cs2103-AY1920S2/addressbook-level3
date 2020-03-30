@@ -13,21 +13,21 @@ import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.block.BlockTreeItem;
 
 /**
- * An Immutable BlockTree that is serializable to JSON format.
+ * A BlockTree that is serializable to JSON format.
  */
 @JsonRootName(value = "blockTree")
 class JsonSerializableBlockTree {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_BLOCK_CHILD = "Block's children list contains duplicate children.";
 
-    private final List<JsonAdaptedBlockTreeItem> blocks = new ArrayList<>();
+    private final List<JsonAdaptedBlockTreeItem> rootChildren = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableBlockTree} with the given persons.
+     * Constructs a {@code JsonSerializableBlockTree} with the given root blocks.
      */
     @JsonCreator
-    public JsonSerializableBlockTree(@JsonProperty("Root") List<JsonAdaptedBlockTreeItem> items) {
-        this.blocks.addAll(items);
+    public JsonSerializableBlockTree(@JsonProperty("root") List<JsonAdaptedBlockTreeItem> items) {
+        this.rootChildren.addAll(items);
     }
 
     /**
@@ -36,7 +36,7 @@ class JsonSerializableBlockTree {
      * @param source future changes to this will not affect the created {@code JsonSerializableBlockTree}.
      */
     public JsonSerializableBlockTree(BlockTree source) {
-        blocks.addAll(source.getRootBlock()
+        rootChildren.addAll(source.getRootBlock()
             .getBlockChildren()
             .stream()
             .map(JsonAdaptedBlockTreeItem::new)
@@ -51,14 +51,16 @@ class JsonSerializableBlockTree {
     public BlockTree toModelType() throws IllegalValueException {
         BlockTree blockTree = new BlockTreeImpl();
         List<BlockTreeItem> rootChildren = new ArrayList<>();
-        for (JsonAdaptedBlockTreeItem jsonAdaptedBlockTreeItem : blocks) {
+        for (JsonAdaptedBlockTreeItem jsonAdaptedBlockTreeItem : this.rootChildren) {
             BlockTreeItem blockTreeItem = jsonAdaptedBlockTreeItem.toModelType();
-            // if (addressBook.hasPerson(person)) {
-            //     throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            // }
+            if (rootChildren.contains(blockTreeItem)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BLOCK_CHILD);
+            }
             rootChildren.add(blockTreeItem);
         }
-        blockTree.getRootBlock().setBlockChildren(rootChildren);
+        if (!rootChildren.isEmpty()) {
+            blockTree.getRootBlock().setBlockChildren(rootChildren);
+        }
         return blockTree;
     }
 
