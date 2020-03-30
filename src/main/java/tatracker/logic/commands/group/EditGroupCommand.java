@@ -17,7 +17,7 @@ import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
 
 /**
- * Deletes a group identified using it's group code.
+ * Edits a group identified using it's group code.
  */
 public class EditGroupCommand extends Command {
 

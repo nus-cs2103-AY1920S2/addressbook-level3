@@ -13,7 +13,7 @@ import tatracker.model.Model;
 import tatracker.model.module.Module;
 
 /**
- * Deletes a group identified using it's group code.
+ * Edits a module identified using it's module code.
  */
 public class EditModuleCommand extends Command {
 
@@ -48,6 +48,7 @@ public class EditModuleCommand extends Command {
         Module actualModule = model.getModule(targetModule.getIdentifier());
         actualModule.setName(newName);
 
+        model.showAllModules();
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
         if (model.getFilteredGroupList().isEmpty()) {
