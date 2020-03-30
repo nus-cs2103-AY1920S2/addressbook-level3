@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
+import java.util.HashMap;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.CommandResult;
@@ -47,11 +48,12 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         // if student not already assigned to the course
         // if course doesn't already have the student
 
-        ID courseid = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
-        ID studentid = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+        HashMap<String, ID> progressIDConstructor = new HashMap<>();
 
-        boolean courseExists = model.hasCourse(courseid);
-        boolean studentExists = model.hasStudent(studentid);
+        boolean courseExists = model.hasCourse(courseID);
+        boolean studentExists = model.hasStudent(studentID);
 
         String courseName = "";
         String studentName = "";
@@ -61,10 +63,11 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
         } else {
-            Course foundCourse = model.getCourse(courseid);
-            Student foundStudent = model.getStudent(studentid);
-            foundCourse.addStudent(studentid);
-            foundStudent.addCourse(courseid);
+            Course foundCourse = model.getCourse(courseID);
+            Student foundStudent = model.getStudent(studentID);
+
+            foundCourse.addStudent(studentID);
+            foundStudent.addCourse(courseID);
             foundCourse.processAssignedStudents(
                 (FilteredList<Student>) model.getFilteredStudentList());
             foundStudent.processAssignedCourses(
@@ -72,7 +75,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
             model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentid.value, courseName, courseid.value));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentID.value, courseName, courseID.value));
         }
 
     }

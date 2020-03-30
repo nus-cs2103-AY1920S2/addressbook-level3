@@ -19,7 +19,7 @@ public class CourseBuilder {
     public static final String DEFAULT_NAME = "Java Programming";
     public static final String DEFAULT_ID = "102";
     public static final String DEFAULT_AMOUNT = "100";
-    public static final String DEFAULT_ASSIGNEDTEACHER = "";
+    public static final String DEFAULT_ASSIGNEDTEACHER = "1";
 
     private Name name;
     private ID id;

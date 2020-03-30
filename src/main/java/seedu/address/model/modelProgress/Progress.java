@@ -1,6 +1,7 @@
 package seedu.address.model.modelProgress;
 
 import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.person.CompositeID;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -20,34 +21,24 @@ public class Progress extends ModelObject {
 
   // Identity fields
   private final String ENTITY_NAME = "progress";
-  private final ID studentID;
-  private final ID assignmentID;
+  private final CompositeID progressID;
   private boolean isDone;
 
   /**
    * Every field must be present and not null.
    */
-  public Progress(Name name, ID studentID, ID assignmentId) {
-    requireAllNonNull(name, assignmentId, studentID);
-    this.assignmentID = assignmentId;
-    this.studentID = studentID;
+  public Progress(CompositeID progressID) {
+    requireAllNonNull(progressID);
+    this.progressID = progressID;
     this.isDone = false;
   }
 
   /**
    * Every field must be present and not null.
    */
-  public Progress(Name name, ID studentID, ID assignmentId, boolean isDone) {
-    this(name, studentID, assignmentId);
+  public Progress(CompositeID progressID, boolean isDone) {
+    this(progressID);
     this.isDone = isDone;
-  }
-
-  public ID getStudentID() {
-    return this.studentID;
-  }
-
-  public ID getAssignmentID() {
-    return this.assignmentID;
   }
 
   public Boolean getIsDone() {
@@ -56,8 +47,8 @@ public class Progress extends ModelObject {
 
 
   @Override
-  public ID getId() {
-    return null;
+  public CompositeID getId() {
+    return this.progressID;
   }
 
   /**
@@ -76,8 +67,7 @@ public class Progress extends ModelObject {
     Progress otherProgressCast = (Progress)otherProgress;
     return otherProgressCast != null
         && otherProgressCast.getIsDone().equals(getIsDone())
-        && otherProgressCast.getAssignmentID().equals(getAssignmentID())
-        && otherProgressCast.getStudentID().equals(getStudentID());
+        && otherProgressCast.getId().equals(getId());
   }
 
   /**
@@ -96,15 +86,13 @@ public class Progress extends ModelObject {
 
     Progress otherProgress = (Progress) other;
     return otherProgress != null
-            && otherProgress.getIsDone().equals(getIsDone())
-            && otherProgress.getAssignmentID().equals(getAssignmentID())
-            && otherProgress.getStudentID().equals(getStudentID());
+            && otherProgress.getId().equals(getId());
   }
 
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(assignmentID, studentID, isDone);
+    return Objects.hash(progressID, isDone);
   }
 
   @Override
@@ -113,10 +101,8 @@ public class Progress extends ModelObject {
     builder.append("\n")
             .append("Progress: ")
             .append("\n")
-            .append("aid: ")
-            .append(getAssignmentID())
-            .append(" sid: ")
-            .append(getStudentID());
+            .append("Mapping: ")
+            .append(getId());
 
     if(isDone) {
       builder.append("[O]");

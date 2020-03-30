@@ -546,7 +546,7 @@ public class ModelManager implements Model {
    */
   @Override
   public ReadOnlyAddressBookGeneric<Progress> getProgressAddressBook() {
-    return null;
+    return progressAddressBook;
   }
 
   /**
@@ -627,7 +627,9 @@ public class ModelManager implements Model {
             && filteredStudents.equals(other.filteredStudents)
             && filteredCourses.equals(other.filteredCourses)
             && filteredFinances.equals(other.filteredFinances)
-            && filteredAssignments.equals(other.filteredAssignments);
+            && filteredAssignments.equals(other.filteredAssignments)
+            && filteredProgresses.equals(other.filteredProgresses);
+
 
   }
 }
