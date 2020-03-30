@@ -28,7 +28,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * the prefix.</p>
  * @author AY1920S2-W15-2
  */
-
 public class MetricList {
     private static final String ALREADY_EXISTS_MESSAGE = "This metric is already exists!";
     private static final String DUPLICATE_MESSAGE = "There are multiple metrics with the same prefix.";
@@ -45,11 +44,12 @@ public class MetricList {
     }
 
     public ObservableList<Metric> getObservableList() {
-        return metrics;
+        return FXCollections.unmodifiableObservableList(metrics);
     }
 
     /**
      * Adds the metric to the list.
+     *
      * @param metricName The metric name.
      * @throws IllegalValueException If the name of the metric already exists.
      */
@@ -76,6 +76,7 @@ public class MetricList {
 
     /**
      * Edits the name or the weightage of a metric.
+     *
      * @param metricPrefix The prefix of the current metric.
      * @param updatedName The updated name of the metric.
      * @param attributes The list of attributes that is available in a sessiong.
@@ -99,12 +100,12 @@ public class MetricList {
     }
 
     /**
-     * Find the metric based on its prefix.
+     * Find the metric based on its full name, then by prefix if no match is found.
+     *
      * @param metricPrefix The prefix of the metric.
      * @return The corresponding Attribute instance.
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Metric found.
      */
-
     public Metric find(String metricPrefix) throws IllegalValueException {
         Optional<Metric> exactMetric = metrics.stream().filter(metric -> metric.toString()
                 .equals(metricPrefix))
@@ -121,7 +122,8 @@ public class MetricList {
     }
 
     /**
-     * Deletes the metric by its prefix.
+     * Deletes the metric by its full name, then by prefix if no match is found.
+     *
      * @param metricPrefix The prefix of the attribute.
      * @return The outcome message.
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
@@ -135,10 +137,10 @@ public class MetricList {
 
     /**
      * Checks the number of metrics that starts with the prefix.
+     *
      * @param metricPrefix The prefix of the attribute.
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Metric found.
      */
-
     private void checkPrefix(String metricPrefix) throws IllegalValueException {
         long startWithPrefix = metrics.stream()
                 .filter(metric -> metric.toString().startsWith(metricPrefix))
@@ -157,6 +159,7 @@ public class MetricList {
 
     /**
      * Checks whether the checklist is complete or not.
+     *
      * @param checklist The checklist of whether all attributes are listed by the client.
      * @return The corresponding result.
      */
@@ -172,6 +175,7 @@ public class MetricList {
 
     /**
      * Builds a checklist from the attribute list.
+     *
      * @param attributes The attribute list.
      * @return The checklist of whether an attribute's score is stated.
      */
@@ -187,6 +191,6 @@ public class MetricList {
     }
 
     private boolean isDuplicate(Metric metric) {
-        return metrics.stream().anyMatch(metric::equals);
+        return metrics.contains(metric);
     }
 }

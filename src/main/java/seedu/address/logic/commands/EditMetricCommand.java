@@ -15,7 +15,6 @@ import seedu.address.model.hirelah.MetricList;
  * EditMetricCommand describes the behavior of HireLah!
  * when a user wants to edit a metric.
  */
-
 public class EditMetricCommand extends Command {
     public static final String COMMAND_WORD = "metric";
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;

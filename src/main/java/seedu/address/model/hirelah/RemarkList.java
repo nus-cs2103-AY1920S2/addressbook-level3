@@ -37,7 +37,7 @@ public class RemarkList {
      * Retrieves the remark list encapsulated by {@code RemarkList}.
      */
     public ObservableList<Remark> getRemarks() {
-        return remarks;
+        return FXCollections.unmodifiableObservableList(remarks);
     }
 
     /**
