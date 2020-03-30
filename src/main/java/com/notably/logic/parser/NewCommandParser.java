@@ -37,13 +37,19 @@ public class NewCommandParser implements CommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid Command"));
         }
 
+
         String title = argMultimap.getValue(PREFIX_TITLE).get();
-        String body = argMultimap.getValue(PREFIX_BODY).get();
+        String body;
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_BODY)) {
+            body = "";
+        } else {
+            body = argMultimap.getValue(PREFIX_BODY).get();
+        }
 
         AbsolutePath path = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         Block block = new BlockImpl(new Title(title), new Body(body));
