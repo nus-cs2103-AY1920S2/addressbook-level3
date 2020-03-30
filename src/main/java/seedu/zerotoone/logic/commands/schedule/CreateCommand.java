@@ -51,7 +51,6 @@ public class CreateCommand extends ScheduleCommand {
         }
 
         model.addSchedule(schedule);
-        model.populateSortedScheduledWorkoutList();
 
         // TO_CHANGE_EXERCISE_TO_WORKOUT
         String outputMessage = String.format(MESSAGE_SUCCESS, workoutToSchedule.getExerciseName());

@@ -188,11 +188,6 @@ public class ModelManager implements Model {
         return scheduler.getSortedScheduledWorkoutList();
     }
 
-    @Override
-    public void populateSortedScheduledWorkoutList() {
-        scheduler.populateSortedScheduledWorkoutList();
-    }
-
     // -----------------------------------------------------------------------------------------
     @Override
     public boolean equals(Object obj) {

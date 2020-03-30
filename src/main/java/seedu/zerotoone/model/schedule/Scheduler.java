@@ -51,16 +51,26 @@ public class Scheduler {
     public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
         scheduleList.addSchedule(schedule);
+
+        populateSortedScheduledWorkoutList();
     }
 
+    /**
+     *
+     * @param scheduledWorkoutToDelete
+     */
     public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
-        // STEPH_TODO
+        requireNonNull(scheduledWorkoutToDelete);
+        Schedule scheduleToDelete = scheduledWorkoutToDelete.getSchedule();
+        scheduleList.removeSchedule(scheduleToDelete);
+
+        populateSortedScheduledWorkoutList();
     }
 
     /**
      *
      */
-    public void populateSortedScheduledWorkoutList() {
+    private void populateSortedScheduledWorkoutList() {
         // List<ScheduledWorkout> newScheduledWorkouts = new ArrayList<>();
         // for (Schedule schedule : scheduleList) {
         //     Optional<List<ScheduledWorkout>> scheduledWorkouts = schedule.getScheduledWorkout();

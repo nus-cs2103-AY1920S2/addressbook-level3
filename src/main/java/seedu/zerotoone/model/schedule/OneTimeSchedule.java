@@ -30,7 +30,7 @@ public class OneTimeSchedule implements Schedule {
 
     @Override
     public Optional<List<ScheduledWorkout>> getScheduledWorkout() {
-        ScheduledWorkout scheduledWorkout = new ScheduledWorkout(workoutToSchedule, dateTime);
+        ScheduledWorkout scheduledWorkout = new ScheduledWorkout(this, workoutToSchedule, dateTime);
         return Optional.of(Collections.singletonList(scheduledWorkout));
     }
 

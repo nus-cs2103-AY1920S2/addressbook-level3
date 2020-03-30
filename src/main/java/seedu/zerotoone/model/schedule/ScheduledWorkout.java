@@ -7,12 +7,18 @@ import seedu.zerotoone.model.exercise.Exercise;
  */
 public class ScheduledWorkout {
 
+    private final Schedule schedule;
     private final Exercise workoutToSchedule; // TO_CHANGE_EXERCISE_TO_WORKOUT
     private final DateTime dateTime;
 
-    public ScheduledWorkout(Exercise workoutToSchedule, DateTime dateTime) {
+    public ScheduledWorkout(Schedule schedule, Exercise workoutToSchedule, DateTime dateTime) {
+        this.schedule = schedule;
         this.workoutToSchedule = workoutToSchedule;
         this.dateTime = dateTime;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     public String getScheduledWorkoutName() {

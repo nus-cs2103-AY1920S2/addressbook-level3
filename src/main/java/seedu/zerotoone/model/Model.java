@@ -114,6 +114,5 @@ public interface Model {
     void addSchedule(Schedule schedule);
     void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
-    void populateSortedScheduledWorkoutList();
     ScheduleList getScheduleList();
 }
