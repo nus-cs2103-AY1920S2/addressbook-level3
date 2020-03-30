@@ -239,8 +239,7 @@ public class EditSupplierCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getOffers().equals(e.getOffers());
+                    && getAddress().equals(e.getAddress());
         }
     }
 }
