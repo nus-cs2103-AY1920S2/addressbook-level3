@@ -64,7 +64,7 @@ class JsonSerializableTaTracker {
         for (JsonAdaptedSession jsonAdaptedSession : sessions) {
             Session session = jsonAdaptedSession.toModelType();
             if (modelSessions.contains(session)) {
-                throw new IllegalArgumentException(MESSAGE_DUPLICATE_SESSIONS);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSIONS);
             }
             modelSessions.add(session);
         }
@@ -74,7 +74,7 @@ class JsonSerializableTaTracker {
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
             if (modelModules.contains(module)) {
-                throw new IllegalArgumentException(MESSAGE_DUPLICATE_MODULES);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULES);
             }
             modelModules.add(module);
         }
