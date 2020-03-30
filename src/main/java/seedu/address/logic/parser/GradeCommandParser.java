@@ -31,11 +31,11 @@ public class GradeCommandParser implements Parser<GradeCommand> {
         }
 
         ModuleCode moduleCode = ParserUtil.parseModuleCode(
-                argMultimap.getValue(PREFIX_MODULE_CODE).get().toUpperCase());
+                argMultimap.getValue(PREFIX_MODULE_CODE).get());
         Module moduleInfo = Search.findModule(moduleCode.toString());
         int moduleCredit = moduleInfo.getCredits();
 
-        Grade grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().trim());
+        Grade grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get());
 
         return new GradeCommand(moduleCode, grade);
     }

@@ -36,11 +36,11 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
                 && argMultimap1.getPreamble().isEmpty()) {
 
             ModuleCode moduleCode = ParserUtil.parseModuleCode(
-                    argMultimap1.getValue(PREFIX_MODULE_CODE).get().toUpperCase());
+                    argMultimap1.getValue(PREFIX_MODULE_CODE).get());
             Module moduleInfo = Search.findModule(moduleCode.toString());
             int moduleCredit = moduleInfo.getCredits();
 
-            Grade grade = ParserUtil.parseGrade(argMultimap1.getValue(PREFIX_GRADE).get().trim());
+            Grade grade = ParserUtil.parseGrade(argMultimap1.getValue(PREFIX_GRADE).get());
 
             NusModule module = new NusModule(moduleCode, moduleCredit, false, Optional.of(grade));
 
@@ -50,7 +50,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
                 && argMultimap2.getPreamble().isEmpty()) {
 
             ModuleCode moduleCode = ParserUtil.parseModuleCode(
-                    argMultimap2.getValue(PREFIX_MODULE_CODE).get().toUpperCase());
+                    argMultimap2.getValue(PREFIX_MODULE_CODE).get());
             Module moduleInfo = Search.findModule(moduleCode.toString());
             int moduleCredit = moduleInfo.getCredits();
 
