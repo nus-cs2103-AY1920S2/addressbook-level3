@@ -39,7 +39,7 @@ public class DoneCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Task taskToDone = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Task doneTask = new TaskBuilder(taskToDone).withDone(DONE).build();
+        Task doneTask = new TaskBuilder(taskToDone).withDone().build();
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
 
@@ -72,7 +72,7 @@ public class DoneCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Task taskToDone = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Task doneTask = new TaskBuilder(taskToDone).withDone(DONE).build();
+        Task doneTask = new TaskBuilder(taskToDone).withDone().build();
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
 

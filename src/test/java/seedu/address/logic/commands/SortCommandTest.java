@@ -16,6 +16,7 @@ import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -250,7 +251,7 @@ public class SortCommandTest {
         }
 
         @Override
-        public ReadOnlyStatistics getStatistics() {
+        public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }
