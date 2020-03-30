@@ -2,6 +2,8 @@ package com.notably.model.block;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 /**
  * Implementation class of Block.
  */
@@ -43,5 +45,18 @@ public class BlockImpl implements Block {
     @Override
     public Body getBody() {
         return this.body;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Block // instanceof handles nulls
+                && title.getText().equals(((Block) other).getTitle().getText())
+                && body.getText().equals(((Block) other).getBody().getText())); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title.getText());
     }
 }
