@@ -17,5 +17,11 @@ public class Config {
      * Path of User Profile data.
      */
     public static final Path USERPROFILE_DATA_PATH = Paths.get("data", "userprofile.json");
+
+    /**
+     * Path of Weight Records data.
+     */
+    public static final Path WEIGHTRECORDS_DATA_PATH = Paths.get("data", "weightrecords.json");
+
 }
 

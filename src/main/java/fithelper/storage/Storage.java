@@ -7,11 +7,12 @@ import java.util.Optional;
 import fithelper.commons.exceptions.DataConversionException;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.ReadOnlyWeightRecords;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends FitHelperStorage, UserPrefsStorage, UserProfileStorage {
+public interface Storage extends FitHelperStorage, UserPrefsStorage, UserProfileStorage, WeightRecordsStorage {
 
     @Override
     Path getFitHelperFilePath();
@@ -22,6 +23,7 @@ public interface Storage extends FitHelperStorage, UserPrefsStorage, UserProfile
     @Override
     void saveFitHelper(ReadOnlyFitHelper fitHelper) throws IOException;
 
+    // Methods related to user profile.
     @Override
     Path getUserProfilePath();
 
@@ -30,5 +32,15 @@ public interface Storage extends FitHelperStorage, UserPrefsStorage, UserProfile
 
     @Override
     void saveUserProfile(ReadOnlyUserProfile userProfile) throws IOException;
+
+    // Methods related to weight records.
+    @Override
+    Path getWeightRecordsFilePath();
+
+    @Override
+    Optional<ReadOnlyWeightRecords> readWeightRecords() throws DataConversionException, IOException;
+
+    @Override
+    void saveWeightRecords(ReadOnlyWeightRecords weightRecords) throws IOException;
 
 }
