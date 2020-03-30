@@ -165,16 +165,31 @@ Deletes the 1st order in the results of the `search` command (search all orders 
 Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Aaron`).
 
 [[delivered]]
-=== Marks an order or return order as delivered: `delivered`
-==== Description
+====
+*Preface*
+
+* If you have delivered your parcel and would like to note it on Delino, you can use this `delivered` command!
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
+* Items in square brackets are optional e.g `n/CUSTOMER_NAME [c/COMMENT]` can be used as `n/John Doe c/Leave the parcel outside` or as `n/John Doe`.
+* Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME` `p/PHONE_NUMBER`, +
+`p/PHONE_NUMBER` `n/CUSTOMER_NAME`  is also acceptable.
 * Once you have delivered a delivery order or a return order, you can mark it as delivered by providing the `FLAG` and `INDEX` of the order/return list.
 * The delivery status of the orders or return orders will be changed from ‘Not Delivered’ to ‘Delivered’.
 * The list of delivered orders or return orders can then be seen by calling the list command: `list` `done`.
+====
 
-==== Format
-`delivered` `FLAG` `INDEX`
+=== Marking an order or return order as delivered: `delivered`
 
-==== Examples
+==== How to Use the `Delivered` Command
+*Format* +
+The following is the format to use the `delivered` command. +
+
+* `delivered` `FLAG` `INDEX`
+
+To use the `delivered` command, You have to include the command word `delivered` and the compulsory parameters `FLAG` and `INDEX`. +
+
+*Examples of how to use the `delivered` command*
+
 * `delivered` `-o` `1` +
 The order at the first `INDEX` of the order list is marked as a delivered order.
 * `delivered` `-r` `2` +

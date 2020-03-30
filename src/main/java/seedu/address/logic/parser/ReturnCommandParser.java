@@ -55,12 +55,10 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
         if (anyCompulsoryPrefixMissing(argMultimap)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
         }
-
         ReturnOrder returnOrder = createReturnOrder(argMultimap);
         TransactionId tid = returnOrder.getTid();
         return new ReturnCommand(returnOrder, tid);
     }
-
 
     /**
      * Checks if only the transaction id is present to trigger a different logic for the return command.
