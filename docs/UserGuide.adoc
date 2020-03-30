@@ -369,7 +369,7 @@ List down all the orders (Return orders and Delivery orders) that are completed.
 List down all the orders (Return orders and Delivery orders) that are uncompleted.
 
 [[nearby]]
-=== View orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
+=== Viewing orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
 In this section, you will learn more about the `nearby` command,
 <<how_to_use_nearby_command, how to use it>> and the
 <<usage_scenario_nearby_command, possible usage scenarios>> of the `nearby` command. +
@@ -482,6 +482,7 @@ This would allow you to complete more orders!
 |All orders in the order list that are located in the central region of Singapore will be displayed.
 |===
 
+You can obtain more information about the various postal sectors in the following table:
 
 [[postal_sector]]
 .Postal Sectors in Singapore
