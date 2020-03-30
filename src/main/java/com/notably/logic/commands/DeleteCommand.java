@@ -5,7 +5,10 @@ import static java.util.Objects.requireNonNull;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.commons.path.Path;
 import com.notably.commons.path.RelativePath;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
+import com.notably.model.block.exceptions.CannotModifyRootException;
+import com.notably.model.block.exceptions.NoSuchBlockException;
 
 /**
  * Represents a command that deletes a block.
@@ -19,13 +22,17 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Model notablyModel) {
-        requireNonNull(notablyModel);
-        if (this.targetPath instanceof RelativePath) {
-            RelativePath toConvert = (RelativePath) this.targetPath;
-            this.targetPath = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
+    public void execute(Model notablyModel) throws CommandException {
+        try {
+            requireNonNull(notablyModel);
+            if (this.targetPath instanceof RelativePath) {
+                RelativePath toConvert = (RelativePath) this.targetPath;
+                this.targetPath = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
+            }
+            notablyModel.removeBlock((AbsolutePath) this.targetPath);
+        } catch (NoSuchBlockException | CannotModifyRootException ex) {
+            throw new CommandException(ex.getMessage());
         }
-        notablyModel.removeBlock((AbsolutePath) this.targetPath);
     }
 
 

@@ -46,7 +46,7 @@ public class NotablyParser {
         String commandWord = matcher.group("commandWord");
         Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
         if (correctedCommand.equals(Optional.empty())) {
-            throw new ParseException("Invalid command");
+            throw new ParseException("Invalid Command Word");
         }
         commandWord = correctedCommand.get();
         final String arguments = matcher.group("arguments");
@@ -71,7 +71,7 @@ public class NotablyParser {
             return List.of(new ExitCommand());
 
         default:
-            throw new ParseException("Invalid Command");
+            throw new ParseException("Invalid Command Word");
         }
     }
 
