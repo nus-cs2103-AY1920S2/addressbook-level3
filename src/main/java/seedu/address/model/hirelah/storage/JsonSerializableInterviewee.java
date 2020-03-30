@@ -31,10 +31,10 @@ class JsonSerializableInterviewee {
         this.interviewees.addAll(interviewees);
     }
 
-   /@JsonCreator
+   /*@JsonCreator
     public JsonSerializableInterviewee(@JsonProperty("interviewees") Map<Attribute,Double> testing) {
 
-    }
+    }*/
     public JsonSerializableInterviewee(IntervieweeList source) {
         List<Interviewee> convertedList = source.getObservableList();
         interviewees.addAll(convertedList.stream().map(JsonAdaptedInterviewee::new).collect(Collectors.toList()));

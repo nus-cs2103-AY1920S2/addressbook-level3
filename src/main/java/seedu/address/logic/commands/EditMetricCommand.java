@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.ModelUtil.validateFinalisation;
 
 import java.util.List;
 
@@ -17,8 +18,7 @@ import seedu.address.model.hirelah.MetricList;
 
 public class EditMetricCommand extends Command {
     public static final String COMMAND_WORD = "metric";
-    public static final String MESSAGE_HAS_NOT_FINALIZED = "The session has not been finalized. Please finalize it"
-            + " before editing metrics.";
+    public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the metric identified by the prefix.\n"
             + "Parameters: IDENTIFIER NAME [-n NEW_NAME] [-a ATTRIBUTE_1] [-w WEIGHT_1]\n"
@@ -42,10 +42,7 @@ public class EditMetricCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.isFinalisedInterviewProperties()) {
-            throw new CommandException(MESSAGE_HAS_NOT_FINALIZED);
-        }
-
+        validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         MetricList metrics = model.getMetricList();
         AttributeList attributes = model.getAttributeList();
 
