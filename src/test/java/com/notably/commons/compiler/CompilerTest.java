@@ -22,8 +22,6 @@ public class CompilerTest {
 
         String compiled = Compiler.compile(markdown);
 
-        System.out.println(compiled);
-
         assertEquals(expected.trim(), compiled.trim());
     }
 }
