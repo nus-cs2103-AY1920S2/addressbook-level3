@@ -71,14 +71,50 @@ a|
  |6
 |=========================================
 
+Welcome to the Coupon Stash User Guide! Thank you so much for choosing
+Coupon Stash, the world's most popular command-line coupon management desktop
+application*!
+
+This guide will help you get started quickly, providing useful tips and hints
+along the way.
+
+*as of March 2020
+
 == Introduction
 
-Coupon Stash is for SoC students and staff who rightfully *prefer to use a desktop
-app for managing coupons*. More importantly, CS is *optimized for those who prefer
-to work with a Command Line Interface* (CLI) while still having the benefits of a
-Graphical User Interface (GUI). If you can type fast, CS can get your coupon
-management tasks done faster than traditional GUI apps. Interested?
-You should be! Jump to the <<Quick Start, Quick Start section>> to get started. Enjoy!
+Coupon Stash is meant for School of Computing (SoC) students and staff who enjoy
+managing their coupons with a desktop command-line interface. It is optimised
+for efficient usage in this aspect, while still offering a sleek Graphical User
+Interface (GUI).
+
+Jump to the <<Quick Start, Quick Start section>> to get started now. We
+sincerely hope you enjoy using Coupon Stash!
+
+=== How to Use This Guide
+
+[TIP]
+Tips are used to describe small features or techniques
+that may come in handy when using Coupon Stash!
+
+[WARNING]
+Warnings bring your attention to certain practices
+that may have unintended consequences!
+
+[NOTE]
+A note describes certain features or behaviour that may
+not be so obvious!
+
+====
+Boxes like this contain useful information, for
+emphasis and easy reference!
+====
+
+* Coupon Stash command words are enclosed in `code blocks`
+
+[[link]]
+* Blue, underlined words are <<UserGuide.adoc#link, links>>!
+Try clicking on the link above!
+
 
 == Quick Start
 
