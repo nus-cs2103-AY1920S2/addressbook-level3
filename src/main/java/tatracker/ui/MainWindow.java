@@ -213,6 +213,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * executes the a command of type exit, help or goto
+     * @param commandText the user input
+     */
     @FXML
     public void handleCommand(String commandText) {
         switch (commandText.trim().toLowerCase()) {

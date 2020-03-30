@@ -210,18 +210,24 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses and returns the tab name specified by the user in the goto command
+     * @param tabName user input
+     * @return the tab specified by the user
+     * @throws ParseException invalid tab name
+     */
     public static String parseTabName(String tabName) throws ParseException {
         requireNonNull(tabName);
         String trimmedType = tabName.trim();
         switch(trimmedType.toLowerCase()) {
-            case "student":
-                return "student";
-            case "session":
-                return "session";
-            case "claims":
-                return "claims";
-            default:
-                throw new ParseException(MESSAGE_INVALID_TAB);
+        case "student":
+            return "student";
+        case "session":
+            return "session";
+        case "claims":
+            return "claims";
+        default:
+            throw new ParseException(MESSAGE_INVALID_TAB);
         }
     }
 }
