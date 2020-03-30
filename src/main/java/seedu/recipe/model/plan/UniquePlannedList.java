@@ -25,7 +25,7 @@ public class UniquePlannedList {
     public void setPlannedRecipes(ObservableList<PlannedRecipe> plannedRecipes) {
         requireAllNonNull(plannedRecipes);
         /*if (!scheduledRecipesAreUnique(scheduledRecipes)) { todo later
-            throw new DuplicateScheduledRecipeException();
+            throw new DuplicateSchedulfilteredRecipeException();
         }*/
 
         observableList.clear();

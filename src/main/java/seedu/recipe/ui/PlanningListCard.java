@@ -47,6 +47,8 @@ public class PlanningListCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label date;
+    @FXML
     private Label id;
     @FXML
     private ImageView favourite;
@@ -77,6 +79,8 @@ public class PlanningListCard extends UiPart<Region> {
         this.plannedDate = plannedRecipe.getDate();
         this.recipe = plannedRecipe.getRecipe();
 
+        date.setText(plannedDate.toString());
+
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         name.setWrapText(true);
@@ -92,7 +96,7 @@ public class PlanningListCard extends UiPart<Region> {
 
         time.setText(recipe.getTime().value + " min");
 
-        ingredientsHeader.setText("Ingredients HIHIIHI");
+        ingredientsHeader.setText("Ingredients");
         ingredientsHeader.setUnderline(true);
         ingredientsHeader.setPadding(new Insets(10, 0, 0, 0));
 

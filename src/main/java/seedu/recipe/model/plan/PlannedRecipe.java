@@ -22,6 +22,10 @@ public class PlannedRecipe {
         return date;
     }
 
+    public boolean isWithinRange(PlannedDate start, PlannedDate end) {
+        return date.isWithinRange(start, end);
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
@@ -35,4 +39,6 @@ public class PlannedRecipe {
                 && date.equals(((PlannedRecipe) other).date)
                 && recipe.equals(((PlannedRecipe) other).recipe));
     }
+
+
 }

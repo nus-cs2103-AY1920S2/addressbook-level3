@@ -186,5 +186,16 @@
     "others" : [ ],
     "steps" : [ ],
     "goals" : [ ]
+  }, {
+    "name" : "Chicken Rice",
+    "time" : "30",
+    "isFavourite" : false,
+    "grains" : [ "300.0g,  Rice" ],
+    "vegetables" : [ ],
+    "proteins" : [ "300.0g,  Chicken Thigh" ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "Boil chicken", "While chicken is cooking, add sesame oil and crushed ginger into rice and cook it", "When chicken is done, dip it into iced water", "Serve while rice is hot" ],
+    "goals" : [ "Bulk like the Hulk" ]
   } ]
 }

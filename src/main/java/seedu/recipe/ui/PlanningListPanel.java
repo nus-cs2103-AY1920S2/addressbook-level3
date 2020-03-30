@@ -33,6 +33,12 @@ public class PlanningListPanel extends UiPart<Region> {
     private static final String FXML = "PlanningListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
+    private final String styleHeader = "-fx-font-family: \"Segoe UI\";\n"
+            + "-fx-text-fill: #FFFFFF;\n"
+            + "-fx-font-weight: bold;";
+    private final String monthStyleHeader = styleHeader + "-fx-font-size: 30pt;\n";
+    private final String weekStyleHeader = styleHeader + "-fx-font-size: 15pt;\n";
+
     private static UniquePlannedList uniqueScheduleMap;
 
     @FXML
@@ -42,11 +48,18 @@ public class PlanningListPanel extends UiPart<Region> {
     private BorderPane borderPane;
 
     @FXML
+    private Label monthHeader;
+
+    @FXML
     private Label weekHeader;
 
     public PlanningListPanel(ObservableList<PlannedRecipe> plannedRecipes) {
         super(FXML);
+        monthHeader.setText("March");
+        monthHeader.setStyle(monthStyleHeader);
         weekHeader.setText("Week 0");
+        weekHeader.setStyle(weekStyleHeader);
+
         planningListView.setItems(plannedRecipes);
         planningListView.setCellFactory(listView -> new PlanningListViewCell());
 

@@ -22,7 +22,7 @@ public class PlannedDate implements Comparable<PlannedDate> {
     public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");
     public static final DateTimeFormatter DATE_AND_MONTH = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
-    public final LocalDate date;
+    private final LocalDate date;
 
     /**
      * Constructs a {@code PlannedDate}.
@@ -69,6 +69,14 @@ public class PlannedDate implements Comparable<PlannedDate> {
         return date.getDayOfMonth();
     }
 
+    /**
+     *
+     * Not inclusive!
+     */
+    public boolean isWithinRange(PlannedDate start, PlannedDate end) {
+        return date.isAfter(start.date) && date.isBefore(end.date);
+    }
+
     @Override
     public int compareTo(PlannedDate other) {
         LocalDate otherLocalDate = other.date;
@@ -97,5 +105,6 @@ public class PlannedDate implements Comparable<PlannedDate> {
     public int hashCode() {
         return date.hashCode();
     }
+
 
 }
