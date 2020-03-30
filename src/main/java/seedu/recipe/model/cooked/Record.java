@@ -11,24 +11,19 @@ public class Record {
 
     // Identity fields
     private final Name name;
-    private final Date date;
 
     /**
      * Every field must be present and not null.
      */
-    public Record(Name name, Date date) {
-        requireAllNonNull(name, date);
+    public Record(Name name) {
+        requireAllNonNull(name);
         this.name = name;
-        this.date = date;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Date getDate() {
-        return date;
-    }
 
 
     /**
@@ -41,8 +36,7 @@ public class Record {
         }
 
         return otherRecord != null
-                && otherRecord.getName().equals(getName())
-                && (otherRecord.getDate().equals(getDate()));
+                && otherRecord.getName().equals(getName());
     }
 
     /**
@@ -61,22 +55,19 @@ public class Record {
 
         Record otherRecord = (Record) other;
 
-        return otherRecord.getName().equals(getName())
-                && otherRecord.getDate().equals(getDate());
+        return otherRecord.getName().equals(getName());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append("\nDate: ")
-                .append(getDate());
+        builder.append(getName());
         return builder.toString();
     }
 }

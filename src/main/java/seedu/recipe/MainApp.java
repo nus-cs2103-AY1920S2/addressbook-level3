@@ -17,10 +17,12 @@ import seedu.recipe.logic.Logic;
 import seedu.recipe.logic.LogicManager;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
+import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.util.SampleDataUtil;
 import seedu.recipe.storage.CookedRecordBookStorage;
 import seedu.recipe.storage.JsonRecipeBookStorage;
@@ -79,6 +81,9 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
+        //to be changed later
+        ReadOnlyCookedRecordBook stub = new CookedRecordBook();
+
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
@@ -93,7 +98,7 @@ public class MainApp extends Application {
             initialData = new RecipeBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, stub);
     }
 
     private void initLogging(Config config) {

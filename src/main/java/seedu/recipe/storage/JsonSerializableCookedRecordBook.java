@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
+import seedu.recipe.model.cooked.Record;
 
 /**
  * An Immutable CookedRecordBook that is serializable to JSON format.
@@ -20,48 +21,44 @@ class JsonSerializableCookedRecordBook {
 
     public static final String MESSAGE_COOKED_RECIPE = "Recipe has already been cooked.";
 
-    private final List<JsonAdaptedRecipe> records = new ArrayList<>();
+    private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableCookedRecordBook} with the given records.
      */
     @JsonCreator
-    public JsonSerializableCookedRecordBook(@JsonProperty("records") List<JsonAdaptedRecipe> recipes) {
-        this.records.addAll(recipes);
-    }
-
-    public CookedRecordBook toModelType() {
-        return new CookedRecordBook();
+    public JsonSerializableCookedRecordBook(@JsonProperty("records") List<JsonAdaptedRecord> records) {
+        this.records.addAll(records);
     }
 
     /**
-     * Converts a given {@code ReadOnlyRecipeBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyCookedRecordBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableCookedRecordBook}.
      */
-    /*
+
     public JsonSerializableCookedRecordBook(ReadOnlyCookedRecordBook source) {
         records.addAll(source.getRecordsList().stream()
                 .map(JsonAdaptedRecord::new).collect(Collectors.toList()));
     }
-*/
+
     /**
-     * Converts this recipe book into the model's {@code RecipeBook} object.
+     * Converts this record book into the model's {@code CookedRecordBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    /*
+
     public CookedRecordBook toModelType() throws IllegalValueException {
         CookedRecordBook cookedRecord = new CookedRecordBook();
         for (JsonAdaptedRecord jsonAdaptedRecord : records) {
-            CookedRecordBook record = jsonAdaptedRecord.toModelType();
+            Record record = jsonAdaptedRecord.toModelType();
             if (cookedRecord.hasRecord(record)) {
                 throw new IllegalValueException(MESSAGE_COOKED_RECIPE);
             }
             cookedRecord.addRecord(record);
         }
         return cookedRecord;
-    }*/
+    }
 
 }
 

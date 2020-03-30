@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -45,14 +46,14 @@ public class JsonCookedRecordBookStorage implements CookedRecordBookStorage {
     public Optional<ReadOnlyCookedRecordBook> readCookedRecord(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableCookedRecordBook> jsonCookedRecord = JsonUtil.readJsonFile(
+        Optional<JsonSerializableCookedRecordBook> jsonCookedRecordBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCookedRecordBook.class);
-        if (!jsonCookedRecord.isPresent()) {
+        if (!jsonCookedRecordBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonCookedRecord.get().toModelType());
+            return Optional.of(jsonCookedRecordBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -74,7 +75,7 @@ public class JsonCookedRecordBookStorage implements CookedRecordBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        //JsonUtil.saveJsonFile(new JsonSerializableCookedRecordBook(cookedRecord), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCookedRecordBook(cookedRecord), filePath);
     }
 
 }

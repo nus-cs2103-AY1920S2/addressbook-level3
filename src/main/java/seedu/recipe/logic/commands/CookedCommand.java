@@ -40,7 +40,7 @@ public class CookedCommand extends Command {
 
             Recipe recipeCooked = mostRecentList.get(targetIndex[i].getZeroBased());
             Date now = new Date();
-            Record record = new Record(recipeCooked.getName(), now);
+            Record record = new Record(recipeCooked.getName());
             model.addRecord(record);
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");
