@@ -82,8 +82,8 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Scheduler}.
+     * {@code key} must exist in the scheduler.
      */
     public void removeAssignment(Assignment key) {
         assignments.remove(key);

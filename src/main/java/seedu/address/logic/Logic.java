@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.day.Day;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -41,6 +42,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of assignments */
     ObservableList<Assignment> getFilteredAssignmentList();
+
+    /** Returns an unmodifiable view of the filtered list of events */
+    ObservableList<Event> getFilteredEventList();
 
     /** Returns an unmodifiable view of the filtered list of restaurants */
     ObservableList<Restaurant> getFilteredRestaurantList();
