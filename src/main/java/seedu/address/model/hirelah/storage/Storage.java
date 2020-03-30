@@ -1,33 +1,31 @@
 package seedu.address.model.hirelah.storage;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Model;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.QuestionList;
+import seedu.address.storage.UserPrefsStorage;
 
 /**
  * API of the Storage component
+ * I am still allowing the structure of the previous addressbook to
+ * prevent any bugs.
  */
-public interface Storage {
-    /**
-     * Returns the file path of the data file.
-     */
-    Path getFilePath();
+public interface Storage extends UserPrefsStorage {
+    void saveInterviewee(IntervieweeList source) throws IOException;
+    Optional<IntervieweeList> readInterviewee() throws DataConversionException;
 
-    /**
-     * Returns Model data as a {@link Model}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
-     */
-    Optional<Model> readModel() throws DataConversionException, IOException;
+    void saveAttribute(AttributeList source) throws IOException, IllegalValueException;
+    Optional<AttributeList> readAttribute() throws DataConversionException;
 
-    /**
-     * Saves the given {@link Model} to the storage.
-     * @param model cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveSession(Model model) throws IOException;
+    void saveQuestion(QuestionList source) throws IOException, IllegalValueException;
+    Optional<QuestionList> readQuestion() throws DataConversionException;
+
+    void saveMetric(MetricList source) throws IOException, IllegalValueException;
+    Optional<MetricList> readMetric() throws DataConversionException;
 }

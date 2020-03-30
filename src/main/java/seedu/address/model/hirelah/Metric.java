@@ -39,7 +39,10 @@ public class Metric {
         this.name = name;
         this.attributeToWeight = attributeToWeight;
     }
-
+    public Metric(String name) {
+        this.name =name;
+        this.attributeToWeight = new HashMap<>();
+    }
     /**
      * Constructs a Metric with validation.
      *

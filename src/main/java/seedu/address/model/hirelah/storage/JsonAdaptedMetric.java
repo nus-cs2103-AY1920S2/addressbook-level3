@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Metric;
@@ -13,15 +14,21 @@ import seedu.address.model.hirelah.Metric;
  */
 public class JsonAdaptedMetric {
     private String name;
-    private HashMap<Attribute, Double> attributeToWeight;
+   // private HashMap<Attribute, Double> attributeToWeight = new HashMap<>();
     // storing of the hashmap will be done by the subsequent commit
     /**
      * Constructs a {@code JsonAdaptedMetric} with the the relevant details.
      */
     @JsonCreator
+    public JsonAdaptedMetric(@JsonProperty("name") String source) {
+        this.name = source;
+      //  this.attributeToWeight = null;
+    }
+
+
     public JsonAdaptedMetric(Metric source) {
         this.name = source.toString();
-        this.attributeToWeight = null; //temporary
+    //    this.attributeToWeight = null; //temporary
     }
     /**
      * Converts this Jackson-friendly adapted metric object into the model's {@code Metric} object.
@@ -32,7 +39,7 @@ public class JsonAdaptedMetric {
         if (name == null) {
             throw new IllegalValueException("Invalid name for the matric");
         }
-        return new Metric(name, attributeToWeight); // do not contain the recording, alias and interview session
+        return new Metric(name); // do not contain the recording, alias and interview session
     }
 
 }

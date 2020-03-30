@@ -20,7 +20,7 @@ public class Remark {
      * @param message The remark message.
      * @param questionNumber The question associated with this remark as its answer.
      */
-    Remark(Duration time, String message, Integer questionNumber) {
+   public Remark(Duration time, String message, Integer questionNumber) {
         this.time = time;
         this.message = message;
         this.questionNumber = questionNumber;

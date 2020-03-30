@@ -109,7 +109,7 @@ public class QuestionList {
         return current;
     }
 
-    private boolean isDuplicate(Question question) {
+    public boolean isDuplicate(Question question) {
         return questions.stream().anyMatch(question::equals);
     }
 }

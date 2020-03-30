@@ -15,13 +15,10 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
+import seedu.address.model.hirelah.*;
+import seedu.address.model.hirelah.storage.*;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -51,11 +48,16 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        storage = new StorageManager(userPrefsStorage);
+        IntervieweeStorage intervieweeStorage = new IntervieweeStorage(userPrefs.getIntervieweeDirectory());
+        QuestionStorage questionStorage = new QuestionStorage(userPrefs.getQuestionDirectory());
+        AttributeStorage attributeStorage = new AttributeStorage(userPrefs.getAttributeDirectory());
+        MetricStorage metricStorage = new MetricStorage(userPrefs.getMetricDirectory());
+        storage = new StorageManager(userPrefsStorage, intervieweeStorage, attributeStorage,
+                questionStorage, metricStorage);
 
         initLogging(config);
 
-        model = initModelManager(userPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -66,8 +68,47 @@ public class MainApp extends Application {
      * Returns a {@code ModelManager} with {@code userPrefs}. Components of the model (IntervieweeList, etc.) start
      * empty and are populated once a session is loaded.
      */
-    private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
-        return new ModelManager(userPrefs);
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<IntervieweeList> intervieweeListOptional;
+        Optional<AttributeList> attributeListOptional;
+        Optional<QuestionList> questionListOptional;
+        Optional<MetricList> metricListOptional;
+
+        IntervieweeList initialInterviewees;
+        AttributeList initialAttributes;
+        QuestionList initialQuestions;
+        MetricList initialMetrics;
+        try {
+            logger.info("starting");
+            intervieweeListOptional = storage.readInterviewee();
+            logger.info("finish reading interviewee ");
+            attributeListOptional = storage.readAttribute();
+            questionListOptional = storage.readQuestion();
+            metricListOptional = storage.readMetric();
+            if (intervieweeListOptional.isEmpty()) {
+                logger.info("Interviewees data file not found. Will be starting with an empty interviewee file");
+            }
+            if (attributeListOptional.isEmpty()) {
+                logger.info("Attributes data file not found. Will be starting with an empty attribute file");
+            }
+            if (questionListOptional.isEmpty()) {
+                logger.info("Question data file not found. Will be starting with an empty question file");
+            }
+            if (metricListOptional.isEmpty()) {
+                logger.info("Metric data file not found.");
+            }
+            initialInterviewees = intervieweeListOptional.orElseGet(() -> new IntervieweeList());
+            initialAttributes = attributeListOptional.orElseGet(() -> new AttributeList());
+            initialQuestions = questionListOptional.orElseGet(() -> new QuestionList());
+            initialMetrics = metricListOptional.orElseGet(() -> new MetricList());
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Interview Session");
+            initialInterviewees = new IntervieweeList();
+            initialAttributes = new AttributeList();
+            initialQuestions = new QuestionList();
+            initialMetrics = new MetricList();
+        }
+        return new ModelManager(userPrefs, initialInterviewees,initialAttributes, initialQuestions,initialMetrics);
     }
 
     private void initLogging(Config config) {

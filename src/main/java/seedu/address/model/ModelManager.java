@@ -64,6 +64,17 @@ public class ModelManager implements Model {
         this(new UserPrefs());
     }
 
+    public ModelManager(ReadOnlyUserPrefs userPrefs, IntervieweeList initialInterviewees,
+                        AttributeList initialAttributes,QuestionList initialQuestions,
+                        MetricList initialMetrics) {
+        this.appPhase = AppPhase.NORMAL;
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.intervieweeList = initialInterviewees;
+        this.attributeList = initialAttributes;
+        this.questionList = initialQuestions;
+        this.metricList = initialMetrics;
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
