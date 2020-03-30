@@ -1,5 +1,6 @@
 package tatracker.logic.commands;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
 /**
@@ -13,7 +14,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, Action.EXIT);
     }
 
 }

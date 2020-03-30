@@ -5,11 +5,14 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
@@ -45,6 +48,18 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab studentListTab;
+
+    @FXML
+    private Tab sessionListTab;
+
+    @FXML
+    private Tab claimsListTab;
 
     @FXML
     private StackPane studentListPanelPlaceholder;
@@ -168,6 +183,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switched to user specified tab.
+     */
+    @FXML
+    public void handleGoto(Tab tabToSwicthTo) {
+        tabPane.getSelectionModel().select(tabToSwicthTo);
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -177,10 +200,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             helpWindow.focus();
         }
-    }
-
-    void show() {
-        primaryStage.show();
     }
 
     /**
@@ -193,6 +212,41 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * executes the a command of type exit, help or goto
+     * @param commandText the user input
+     */
+    @FXML
+    public void handleCommand(String commandText) {
+        switch (commandText.trim().toLowerCase()) {
+        case "help":
+            handleHelp();
+            break;
+
+        case "exit":
+            handleExit();
+            break;
+        case "goto student":
+            handleGoto(studentListTab);
+            break;
+
+        case "goto session":
+            handleGoto(sessionListTab);
+            break;
+
+        case "goto claims":
+            handleGoto(claimsListTab);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    void show() {
+        primaryStage.show();
     }
 
     public StudentListPanel getStudentListPanel() {
@@ -230,15 +284,31 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            switch (commandResult.getNextAction()) {
+            case HELP:
                 handleHelp();
-            }
+                break;
 
-            if (commandResult.isExit()) {
+            case EXIT:
                 handleExit();
-            }
+                break;
+            case GOTO_STUDENT:
+                handleGoto(studentListTab);
+                break;
 
+            case GOTO_SESSION:
+                handleGoto(sessionListTab);
+                break;
+
+            case GOTO_CLAIMS:
+                handleGoto(claimsListTab);
+                break;
+
+            default:
+                break;
+            }
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
