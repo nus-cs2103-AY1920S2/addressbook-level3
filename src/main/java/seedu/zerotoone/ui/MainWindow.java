@@ -147,7 +147,7 @@ public class MainWindow extends UiPart<Stage> {
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         exerciseContentPlaceholder.getChildren().add(exerciseListPanel.getRoot());
 
-        workoutListPanel = new WorkoutListPanel();
+        workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList());
         workoutContentPlaceholder.getChildren().add(workoutListPanel.getRoot());
 
         scheduleListPanel = new ScheduleListPanel();
