@@ -42,8 +42,7 @@ public class Reminder implements Comparable {
         setDelay();
     }
 
-    private long calculateDelay(LocalDateTime reminderDateTime) {
-        LocalDateTime currentTime = LocalDateTime.now();
+    public static long calculateDelay(LocalDateTime currentTime, LocalDateTime reminderDateTime) {
         Duration duration = Duration.between(currentTime, reminderDateTime);
         long delay = duration.getSeconds();
         return delay;
@@ -69,7 +68,7 @@ public class Reminder implements Comparable {
      * @throws InvalidReminderException if the time delay is negative and has not been fired before.
      */
     private void setDelay() throws InvalidReminderException {
-        long timeDelay = calculateDelay(reminderDateTime);
+        long timeDelay = calculateDelay(LocalDateTime.now(), reminderDateTime);
         if (timeDelay < 0) {
             if (!hasFired) {
                 throw new InvalidReminderException();
@@ -100,8 +99,9 @@ public class Reminder implements Comparable {
             return 0;
         }
         Reminder otherReminder = (Reminder) other;
-        long diffFromToday = calculateDelay(this.reminderDateTime);
-        long otherDiffFromToday = calculateDelay(otherReminder.reminderDateTime);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        long diffFromToday = calculateDelay(currentDateTime, this.reminderDateTime);
+        long otherDiffFromToday = calculateDelay(currentDateTime, otherReminder.reminderDateTime);
         System.out.println(diffFromToday);
         System.out.println("=====================");
 
