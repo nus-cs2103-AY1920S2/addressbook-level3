@@ -28,7 +28,7 @@ import seedu.address.model.person.Person;
  * {@code DeleteAssignmentCommand}.
  */
 public class DeleteCommandTest {
-
+    /*
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
         getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), new UserPrefs());
 
