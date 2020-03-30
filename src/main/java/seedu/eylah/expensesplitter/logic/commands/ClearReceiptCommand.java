@@ -17,6 +17,7 @@ public class ClearReceiptCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.clearReceipt();
+        model.getReceipt().makeUndone();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

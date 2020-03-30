@@ -21,7 +21,7 @@ public class DoneReceiptCommand extends Command {
         if (model.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
-            model.getReceipt().toggleDoneStatus();
+            model.getReceipt().makeDone();
             return new CommandResult(MESSAGE_SUCCESS);
         }
     }
