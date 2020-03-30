@@ -167,13 +167,13 @@ public class EditSupplierCommandTest {
         assertTrue(modelStub.isCommitted());
     }
 
-    //@Test
-    //public void equals() {
+        // @Test
+        // public void equals() {
         //final EditSupplierCommand standardCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, DESC_AMY);
 
         // same values -> returns true
-        EditSupplierDescriptor copyDescriptor = new EditSupplierDescriptor(DESC_AMY);
-        EditSupplierCommand commandWithSameValues = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, copyDescriptor);
+        // EditSupplierDescriptor copyDescriptor = new EditSupplierDescriptor(DESC_AMY);
+        // EditSupplierCommand commandWithSameValues = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, copyDescriptor);
         // assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -190,6 +190,6 @@ public class EditSupplierCommandTest {
 
         // different descriptor -> returns false
         // assertFalse(standardCommand.equals(new EditSupplierCommand(INDEX_FIRST_SUPPLIER, DESC_BOB)));
-    //}
+        //}
 
 }
