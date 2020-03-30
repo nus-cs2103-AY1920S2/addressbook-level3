@@ -67,6 +67,11 @@ public class HeaderBlock extends Block {
         return new HeaderBlock(level, text);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws UnsupportedOperationException A header block cannot accept a next line.
+     */
     @Override
     public boolean next(String line) {
         throw new UnsupportedOperationException();

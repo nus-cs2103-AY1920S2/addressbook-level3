@@ -45,6 +45,11 @@ public class TextBlock extends Block {
         return new TextBlock(line.trim());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws UnsupportedOperationException A text block cannot accept a next line.
+     */
     @Override
     public boolean next(String line) {
         throw new UnsupportedOperationException();
