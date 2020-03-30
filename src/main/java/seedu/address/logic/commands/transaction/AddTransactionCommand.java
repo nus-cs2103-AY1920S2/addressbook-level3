@@ -92,7 +92,7 @@ public class AddTransactionCommand extends Command {
 
         int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
 
-        if (editedProduct.getQuantity().value < thresholdValue) {
+        if (editedProduct.getQuantity().value <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();
             window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }
