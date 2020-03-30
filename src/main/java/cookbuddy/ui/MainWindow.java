@@ -16,12 +16,16 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    public static final JMetro jMetro = new JMetro(Style.LIGHT);
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -31,9 +35,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private RecipeListPanel personListPanel;
+    private RecipeListPanel recipeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private RecipeView recipeView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +47,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane recipeListPanelPlaceholder;
+
+    @FXML
+    private StackPane recipeViewPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -59,6 +67,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        jMetro.setAutomaticallyColorPanes(true);
+        jMetro.setScene(this.primaryStage.getScene());
 
         setAccelerators();
 
@@ -107,8 +117,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        recipeView = new RecipeView(logic.getFilteredRecipeList().get(0), 1);
+        this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
+
+        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -161,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public RecipeListPanel getPersonListPanel() {
-        return personListPanel;
+        return recipeListPanel;
     }
 
     /**

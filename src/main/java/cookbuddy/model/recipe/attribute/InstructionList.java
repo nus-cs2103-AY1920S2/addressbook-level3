@@ -44,6 +44,10 @@ public class InstructionList {
         instructionData.remove(instruction);
     }
 
+    public List<Instruction> asList() {
+        return List.copyOf(this.instructionData);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

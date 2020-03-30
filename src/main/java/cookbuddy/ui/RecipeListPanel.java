@@ -18,18 +18,18 @@ public class RecipeListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     @FXML
-    private ListView<Recipe> personListView;
+    private ListView<Recipe> recipeListView;
 
     public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
-        personListView.setItems(recipeList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        recipeListView.setItems(recipeList);
+        recipeListView.setCellFactory(listView -> new RecipeListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Recipe> {
+    class RecipeListViewCell extends ListCell<Recipe> {
         @Override
         protected void updateItem(Recipe recipe, boolean empty) {
             super.updateItem(recipe, empty);
