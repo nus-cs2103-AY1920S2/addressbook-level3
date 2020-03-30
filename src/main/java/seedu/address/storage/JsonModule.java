@@ -7,8 +7,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.course.module.*;
+import seedu.address.model.profile.course.module.Description;
+import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.Preclusions;
+import seedu.address.model.profile.course.module.PrereqTreeNode;
+import seedu.address.model.profile.course.module.Prereqs;
+import seedu.address.model.profile.course.module.SemesterData;
+import seedu.address.model.profile.course.module.Title;
 
 /**
  * Jackson-friendly version of {@link Module}.
