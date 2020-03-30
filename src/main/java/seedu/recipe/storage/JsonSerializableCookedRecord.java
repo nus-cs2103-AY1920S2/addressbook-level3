@@ -20,14 +20,14 @@ class JsonSerializableCookedRecord {
 
     public static final String MESSAGE_COOKED_RECIPE = "Recipe has already been cooked.";
 
-    private final List<JsonAdaptedRecipe> cooked = new ArrayList<>();
+    private final List<JsonAdaptedRecipe> records = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableCookedRecord} with the given records.
      */
     @JsonCreator
-    public JsonSerializableCookedRecord(@JsonProperty("cooked") List<JsonAdaptedRecipe> recipes) {
-        this.cooked.addAll(recipes);
+    public JsonSerializableCookedRecord(@JsonProperty("records") List<JsonAdaptedRecipe> recipes) {
+        this.records.addAll(recipes);
     }
 
     /**
@@ -36,8 +36,8 @@ class JsonSerializableCookedRecord {
      * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
      */
     public JsonSerializableCookedRecord(ReadOnlyCookedRecord source) {
-        cooked.addAll(source.getcookedRecordList().stream()
-                .map(JsonAdaptedCookedRecord::new).collect(Collectors.toList()));
+        records.addAll(source.getRecordsList().stream()
+                .map(JsonAdaptedRecord::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,9 +47,9 @@ class JsonSerializableCookedRecord {
      */
     public CookedRecord toModelType() throws IllegalValueException {
         CookedRecord cookedRecord = new CookedRecord();
-        for (JsonAdaptedCookedRecord jsonAdaptedCookedRecord : cooked) {
-            CookedRecord record = jsonAdaptedCookedRecord.toModelType();
-            if (cookedRecord.hasBeenCooked(record)) {
+        for (JsonAdaptedRecord jsonAdaptedRecord : records) {
+            CookedRecord record = jsonAdaptedRecord.toModelType();
+            if (cookedRecord.hasRecord(record)) {
                 throw new IllegalValueException(MESSAGE_COOKED_RECIPE);
             }
             cookedRecord.addRecord(record);
