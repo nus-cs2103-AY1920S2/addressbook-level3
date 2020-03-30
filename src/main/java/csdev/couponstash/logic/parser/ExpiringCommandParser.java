@@ -17,6 +17,7 @@ public class ExpiringCommandParser implements Parser<ExpiringCommand> {
      * and returns a ExpiringCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public ExpiringCommand parse(String args) throws ParseException {
         try {
             ExpiryDate expiryDate = ParserUtil.parseExpiryDate(args.trim());
