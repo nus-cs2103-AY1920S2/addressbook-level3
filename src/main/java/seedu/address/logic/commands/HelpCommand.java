@@ -34,14 +34,16 @@ public class HelpCommand extends Command {
             + "8. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
             + "9. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
             + "10. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
-            + "11. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "12. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
-            + "13. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "14. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "15. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "16. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "17. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "18. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "11. " + ShowBirthdayCommand.COMMAND_WORD + ": " + ShowBirthdayCommand.COMMAND_FUNCTION + "\n"
+            + "12. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "13. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
+            + "14. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "15. " + ScheduleCommand.COMMAND_WORD + ": " + ScheduleCommand.COMMAND_FUNCTION + "\n"
+            + "16. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "17. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "18. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "19. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "20. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
@@ -77,9 +79,11 @@ public class HelpCommand extends Command {
         commands.add("8. " + GetCommand.MESSAGE_USAGE + "\n");
         commands.add("9. " + FindCommand.MESSAGE_USAGE + "\n");
         commands.add("10. " + ClearCommand.MESSAGE_USAGE + "\n");
-        commands.add("11. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("12. " + DoneCommand.MESSAGE_USAGE + "\n");
-        commands.add("13. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("11. " + ShowBirthdayCommand.MESSAGE_USAGE + "\n");
+        commands.add("12. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("13. " + DoneCommand.MESSAGE_USAGE + "\n");
+        commands.add("14. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("15. " + ScheduleCommand.MESSAGE_USAGE + "\n");
         commands.add("14. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("15. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("16. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
@@ -97,11 +101,11 @@ public class HelpCommand extends Command {
         }
 
         if (type < 0) {
-            return new CommandResult(MESSAGE, true, false, false, false, false, false);
+            return new CommandResult(MESSAGE, true, false, false, false, false, false, false);
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"
-                + "Type help to return to the list of commands.", true, false, false, false, false, false);
+                + "Type help to return to the list of commands.", true, false, false, false, false, false, false);
     }
 
 }
