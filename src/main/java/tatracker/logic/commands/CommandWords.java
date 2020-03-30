@@ -15,4 +15,10 @@ public final class CommandWords {
     public static final String ADD_MODEL = "add";
     public static final String DELETE_MODEL = "delete";
     public static final String EDIT_MODEL = "edit";
+
+    /*List of command words for the different sort types*/
+    public static final String SORT = "sort";
+    public static final String SORT_ALL = "all";
+    public static final String SORT_MODULE = "module";
+    public static final String SORT_GROUP = "group";
 }
