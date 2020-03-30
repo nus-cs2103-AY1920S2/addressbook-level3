@@ -211,6 +211,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredProductList(Predicate<Product> predicate) {
         requireNonNull(predicate);
+        filteredProducts.setPredicate(PREDICATE_SHOW_ALL_PRODUCTS);
+        int fullProductListSize = getFilteredProductList().size();
         filteredProducts.setPredicate(predicate);
         SortedList<Product> sortedProduct = new SortedList<>(filteredProducts);
         sortedProduct.comparatorProperty().set((o1, o2) -> {
@@ -222,7 +224,9 @@ public class ModelManager implements Model {
                 return -1;
             }
         });
-        inventorySystem.setProducts(sortedProduct);
+        if (sortedProduct.size() == fullProductListSize) {
+            inventorySystem.setProducts(sortedProduct);
+        }
     }
 
     @Override
