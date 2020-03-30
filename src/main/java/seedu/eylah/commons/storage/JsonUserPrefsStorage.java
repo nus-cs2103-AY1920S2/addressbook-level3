@@ -1,18 +1,18 @@
-package seedu.eylah.diettracker.storage;
+package seedu.eylah.commons.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.eylah.commons.exceptions.DataConversionException;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
+import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.commons.util.JsonUtil;
-import seedu.eylah.diettracker.model.ReadOnlyUserPrefs;
-import seedu.eylah.diettracker.model.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage {
+public class JsonUserPrefsStorage implements UserPrefsStorage{
 
     private Path filePath;
 

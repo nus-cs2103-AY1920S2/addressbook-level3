@@ -1,5 +1,7 @@
 package seedu.eylah;
 
+import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -9,6 +11,11 @@ import seedu.eylah.commons.core.Config;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.core.Version;
 import seedu.eylah.commons.exceptions.DataConversionException;
+import seedu.eylah.commons.model.Mode;
+import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.commons.storage.JsonUserPrefsStorage;
+import seedu.eylah.commons.storage.Storage;
+import seedu.eylah.commons.storage.UserPrefsStorage;
 import seedu.eylah.commons.util.ConfigUtil;
 import seedu.eylah.commons.util.StringUtil;
 import seedu.eylah.diettracker.logic.Logic;
@@ -26,17 +33,12 @@ import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
 import seedu.eylah.expensesplitter.model.ReceiptBook;
-import seedu.eylah.expensesplitter.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
 import seedu.eylah.expensesplitter.model.util.SampleReceiptDataUtil;
 import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
 import seedu.eylah.expensesplitter.storage.JsonReceiptBookStorage;
-import seedu.eylah.expensesplitter.storage.JsonUserPrefsStorage;
 import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
 import seedu.eylah.expensesplitter.storage.ReceiptStorage;
-import seedu.eylah.expensesplitter.storage.Storage;
-import seedu.eylah.expensesplitter.storage.StorageManager;
-import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
 import seedu.eylah.ui.Ui;
 import seedu.eylah.ui.UiManager;
 
@@ -55,6 +57,13 @@ public class Eylah {
     protected seedu.eylah.expensesplitter.model.Model splitterModel;
 
     private Ui ui;
+    private UserPrefs userPrefs;
+    private UserPrefsStorage userPrefsStorage;
+    private Config config;
+    private Storage storage;
+
+    private boolean isExit;
+    private String commandWord;
 
     /**
      * Runs the application until termination.
@@ -69,14 +78,44 @@ public class Eylah {
      * Setup the required objects and show welcome message.
      */
     private void start() {
+        isExit = false;
         ui = new UiManager();
+        config = initConfig(null);
+        userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        userPrefs = initPrefs(userPrefsStorage);
     }
 
     /**
      * Reads the user command and executes it, until the user enter the exit command.
      */
     private void runCommandLoopUntilExitCommand() {
+        while (!isExit) {
+            ui.showWelcome();
+            commandWord = ui.readCommand();
+
+            switch(commandWord) {
+            case "1":
+                storage = initStorageManager(Mode.DIET);
+                runCommandLoopUntilExitCommand(Mode.DIET);
+                break;
+            case "2":
+                storage = initStorageManager(Mode.SPLITTER);
+                runCommandLoopUntilExitCommand(Mode.SPLITTER);
+                break;
+            case "exit":
+                isExit = true;
+                break;
+            default:
+                ui.showError(MESSAGE_UNKNOWN_COMMAND);
+            }
+
+
+        }
         run1(); //temporary for testing
+    }
+
+    private void runCommandLoopUntilExitCommand(Mode mode) {
+
     }
 
     /**
@@ -151,7 +190,7 @@ public class Eylah {
             UserPrefs userPrefs = initPrefs(userPrefsStorage);
 
             PersonAmountStorage personAmountStorage =
-                    new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
+                    new JsonPersonAmountBookStorage(userPrefs.getPersonAmountFilePath());
             ReceiptStorage receiptStorage =
                     new JsonReceiptBookStorage(userPrefs.getReceiptFilePath());
             storage = new StorageManager(personAmountStorage, userPrefsStorage, receiptStorage);
@@ -175,6 +214,18 @@ public class Eylah {
                     ui.showError(e.getMessage());
                 }
             }
+        }
+    }
+
+    private Storage initStorageManager(Mode mode) {
+        switch(mode) {
+        case DIET:
+            FoodBookStorage foodBookStorage = new JsonFoodBookStorage(userPrefs.getFoodBookFilePath());
+            return new seedu.eylah.diettracker.storage.StorageManager(foodBookStorage, userPrefsStorage);
+        case SPLITTER:
+            PersonAmountStorage personAmountStorage = new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
+            ReceiptStorage receiptStorage = new JsonReceiptBookStorage(userPrefs.getReceiptBookFilePath());
+            return new seedu.eylah.expensesplitter.storage.StorageManager(personAmountStorage, receiptStorage);
         }
     }
 

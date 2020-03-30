@@ -7,9 +7,10 @@ import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.exceptions.DataConversionException;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
+import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.commons.storage.UserPrefsStorage;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
-import seedu.eylah.diettracker.model.ReadOnlyUserPrefs;
-import seedu.eylah.diettracker.model.UserPrefs;
 
 /**
  * Manages storage of FoodBook data in local storage.

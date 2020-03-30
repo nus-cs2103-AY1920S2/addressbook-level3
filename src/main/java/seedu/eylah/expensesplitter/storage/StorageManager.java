@@ -18,13 +18,13 @@ import seedu.eylah.expensesplitter.model.UserPrefs;
  */
 public class StorageManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(seedu.eylah.addressbook.storage.StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private PersonAmountStorage personAmountStorage;
     private UserPrefsStorage userPrefsStorage;
     private ReceiptStorage receiptStorage;
 
-    public StorageManager(PersonAmountStorage personAmountStorage, UserPrefsStorage userPrefsStorage,
-            ReceiptStorage receiptStorage) {
+    public StorageManager(PersonAmountStorage personAmountStorage, ReceiptStorage receiptStorage,
+            UserPrefsStorage userPrefsStorage) {
 
         super();
         this.personAmountStorage = personAmountStorage;

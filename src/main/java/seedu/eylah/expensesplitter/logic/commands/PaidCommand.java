@@ -49,7 +49,6 @@ public class PaidCommand extends Command {
         } else {
             ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
-
             //This ensures that the indexOfPersonPaid is correct.
             if (indexOfPersonPaid.getZeroBased() < 0
                     || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
