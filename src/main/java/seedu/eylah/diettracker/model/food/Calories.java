@@ -30,7 +30,7 @@ public class Calories {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid calories.
      */
     public static boolean isValidCalories(long test) {
         return test >= LONG_ZERO;
