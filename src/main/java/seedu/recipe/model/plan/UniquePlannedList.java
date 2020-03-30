@@ -48,7 +48,7 @@ public class UniquePlannedList {
     public void remove(PlannedRecipe plannedRecipe) {
         requireNonNull(plannedRecipe);
         if (!observableList.remove(plannedRecipe)) {
-            throw new DateNotFoundException();
+            throw new PlannedRecipeNotFoundException();
         }
     }
 

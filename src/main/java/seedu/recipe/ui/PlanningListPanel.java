@@ -21,6 +21,8 @@ import seedu.recipe.model.plan.UniquePlannedList;
  */
 public class PlanningListPanel extends UiPart<Region> {
     private static final String FXML = "PlanningListPanel.fxml";
+    private static UniquePlannedList uniqueScheduleMap;
+
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     private final String styleHeader = "-fx-font-family: \"Segoe UI\";\n"
@@ -29,7 +31,7 @@ public class PlanningListPanel extends UiPart<Region> {
     private final String monthStyleHeader = styleHeader + "-fx-font-size: 30pt;\n";
     private final String weekStyleHeader = styleHeader + "-fx-font-size: 15pt;\n";
 
-    private static UniquePlannedList uniqueScheduleMap;
+
 
     @FXML
     private ListView<PlannedRecipe> planningListView;

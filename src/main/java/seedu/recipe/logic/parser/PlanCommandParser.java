@@ -18,7 +18,7 @@ public class PlanCommandParser implements Parser<PlanCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the PlanCommand
      * and returns an PlanCommand object for execution.
-     * @throws ParseException if the user input does not conform to the expected format
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public PlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

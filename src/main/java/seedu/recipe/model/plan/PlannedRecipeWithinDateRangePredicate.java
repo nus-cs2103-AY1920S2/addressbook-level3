@@ -2,6 +2,9 @@ package seedu.recipe.model.plan;
 
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code PlannedRecipe}'s {@code PlannedDate} falls within the specified PlannedDate range.
+ */
 public class PlannedRecipeWithinDateRangePredicate implements Predicate<PlannedRecipe> {
 
     private PlannedDate start;

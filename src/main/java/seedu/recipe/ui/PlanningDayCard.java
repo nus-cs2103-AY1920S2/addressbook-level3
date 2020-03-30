@@ -44,14 +44,14 @@ public class PlanningDayCard extends UiPart<Region> {
         dayHeader.setText("" + dayOfMonth);
         if (recipes != null) {
             recipeListView.setItems(recipes);
-            recipeListView.setCellFactory(listView -> new plannedRecipeListViewCell());
+            recipeListView.setCellFactory(listView -> new PlannedRecipeListViewCell());
         }
     }
 
     /**
      * todo
      */
-    class plannedRecipeListViewCell extends ListCell<Recipe> {
+    class PlannedRecipeListViewCell extends ListCell<Recipe> {
         @Override
         protected void updateItem(Recipe recipe, boolean empty) {
             super.updateItem(recipe, empty);
@@ -65,8 +65,8 @@ public class PlanningDayCard extends UiPart<Region> {
     }
 
     //public VBox getDayCard() {
-        //recipes.forEach(recipe -> recipeVBox.getChildren().add(new Label(recipe.getName().toString())));
-        //return dayCard;
+    //recipes.forEach(recipe -> recipeVBox.getChildren().add(new Label(recipe.getName().toString())));
+    //return dayCard;
     //}
 
 }
