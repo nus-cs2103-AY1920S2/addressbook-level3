@@ -23,6 +23,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -173,6 +174,11 @@ public class AddCommandTest {
 
         @Override
         public void redoRecipeBook(int numberOfRedo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyPlannedBook getPlannedBook() {
             throw new AssertionError("This method should not be called.");
         }
 

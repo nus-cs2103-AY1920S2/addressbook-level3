@@ -82,7 +82,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
         Optional<ReadOnlyPlannedBook> plannedBookOptional;
-        ReadOnlyPlannedBook initialPlannedData; // todo implement storage for planned items
+        ReadOnlyPlannedBook initialPlannedData;
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
@@ -106,6 +106,7 @@ public class MainApp extends Application {
             initialPlannedData = plannedBookOptional.orElse(new PlannedBook());
 
         } catch (DataConversionException e) {
+            // todo: split data conversion exception into diff types to handle this all in one try block
             logger.warning("Data file not in the correct format. Will be starting with an empty PlannedBook");
             initialPlannedData = new PlannedBook();
         } catch (IOException e) {

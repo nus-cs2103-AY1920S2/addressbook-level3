@@ -35,6 +35,7 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.JsonRecipeBookStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
 import seedu.recipe.storage.StorageManager;
+import seedu.recipe.storage.plan.JsonPlannedBookStorage;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class LogicManagerTest {
@@ -50,8 +51,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookStorage(temporaryFolder.resolve("recipeBook.json"));
+        JsonPlannedBookStorage plannedBookStorage =
+                new JsonPlannedBookStorage(temporaryFolder.resolve("plannedBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(recipeBookStorage, plannedBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -78,9 +81,11 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
+        JsonPlannedBookStorage plannedBookStorage =
+                new JsonPlannedBookStorage(temporaryFolder.resolve("ioExceptionPlannedBook.json")); // todo add tests for plannedbook
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(recipeBookStorage, plannedBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
