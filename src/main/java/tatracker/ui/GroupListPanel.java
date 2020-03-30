@@ -17,15 +17,15 @@ import tatracker.model.group.Group;
  */
 public class GroupListPanel extends UiPart<Region> {
     private static final String FXML = "GroupListPanel.fxml";
+    private static final String BACKGROUND_COLOUR = "#424d5f";
+    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
+
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
     private Group currentlyShownGroup = getCurrentlyShownGroup();
 
     @FXML
     private ListView<Group> groupListView;
-
-    private static final String BACKGROUND_COLOUR = "#424d5f";
-    private static final String BORDER_COLOUR = "#3e7b91";
-    private static final String BORDER_WIDTH = "1";
 
     public GroupListPanel(ObservableList<Group> groupList) {
         super(FXML);
@@ -47,9 +47,9 @@ public class GroupListPanel extends UiPart<Region> {
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
                 if (group.equals(currentlyShownGroup)) {
-                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; " +
-                            "-fx-border-color: " + BORDER_COLOUR + "; " +
-                            "-fx-border-width: " + BORDER_WIDTH + ";");
+                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+                            + "-fx-border-color: " + BORDER_COLOUR + "; "
+                            + "-fx-border-width: " + BORDER_WIDTH + ";");
                 }
             }
         }

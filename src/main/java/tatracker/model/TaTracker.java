@@ -25,14 +25,15 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
+    private static Group currentlyShownGroup;
+    private static Module currentlyShownModule;
+    private static Module currentlyShownModuleClaim;
+
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
-    private static Module currentlyShownModuleClaim;
-    private static Module currentlyShownModule;
-    private static Group currentlyShownGroup;
 
     public TaTracker() {
         sessions = new UniqueSessionList();
