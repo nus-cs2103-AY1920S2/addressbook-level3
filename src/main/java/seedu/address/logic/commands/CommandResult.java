@@ -39,7 +39,8 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean get,
-                         boolean assignment, boolean event, boolean birthday, boolean restaurant, boolean showSchedule) {
+                         boolean assignment, boolean event, boolean birthday, boolean restaurant,
+                         boolean showSchedule) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -56,7 +57,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false,
+                false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -120,7 +122,8 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, get, assignment, event, showBirthday, restaurant, showSchedule);
+        return Objects.hash(feedbackToUser, showHelp, exit, get,
+                assignment, event, showBirthday, restaurant, showSchedule);
     }
 
 }

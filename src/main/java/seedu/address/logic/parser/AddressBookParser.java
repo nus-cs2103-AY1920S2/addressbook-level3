@@ -80,14 +80,14 @@ public class AddressBookParser {
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommandParser().parse(arguments, model);
 
-            case AddEventCommand.COMMAND_WORD:
-                return new AddEventCommandParser().parse(arguments, model);
+        case AddEventCommand.COMMAND_WORD:
+            return new AddEventCommandParser().parse(arguments, model);
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments, model);
 
-            case ListEventCommand.COMMAND_WORD:
-                return new ListEventCommandParser().parse(arguments, model);
+        case ListEventCommand.COMMAND_WORD:
+            return new ListEventCommandParser().parse(arguments, model);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments, model);

@@ -32,9 +32,11 @@ public class StorageManagerTest {
         JsonRestaurantBookStorage restaurantBookStorage = new JsonRestaurantBookStorage(getTempFilePath("rb"));
         JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(getTempFilePath("schedule"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        JsonEventScheduleStorage eventScheduleStorage = new JsonEventScheduleStorage(getTempFilePath("eventSchedule"));
         storageManager = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
                 schedulerStorage,
+                eventScheduleStorage,
                 userPrefsStorage);
     }
 

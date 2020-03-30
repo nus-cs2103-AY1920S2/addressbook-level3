@@ -87,7 +87,7 @@ public class AddRestaurantNoteCommand extends Command {
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         return new CommandResult(String.format(generateSuccessMessage(editedRestaurant), editedRestaurant),
-                false, false, false, false, false, true, false);
+                false, false, false, false, false, true, false, false);
     }
 
     /**

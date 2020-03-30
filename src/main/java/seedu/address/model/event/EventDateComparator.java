@@ -12,11 +12,9 @@ public class EventDateComparator implements Comparator<Event> {
         // should be the same! (can add an assert statement here to check)
         if (e1.getEventDate().getDateTime().isEqual(e2.getEventDate().getDateTime())) {
             return 0;
-        }
-        else if (e1.getEventDate().getDateTime().isAfter(e2.getEventDate().getDateTime())) {
+        } else if (e1.getEventDate().getDateTime().isAfter(e2.getEventDate().getDateTime())) {
             return 1; // e1 date is after e2 date
-        }
-        else {
+        } else {
             return -1;
         }
     }
