@@ -40,4 +40,9 @@ public class RecurringSchedule implements Schedule {
         // ScheduledWorkout scheduledWorkout = new ScheduledWorkout(workoutToSchedule, dateTime);
         // return Optional.of(Collections.singletonList(scheduledWorkout));
     }
+
+    @Override
+    public boolean isSameSchedule(Schedule other) {
+        return false; // STEPH_TODO
+    }
 }

@@ -11,4 +11,5 @@ import seedu.zerotoone.model.exercise.Exercise;
 public interface Schedule {
     Exercise getWorkoutToSchedule(); // TO_CHANGE_EXERCISE_TO_WORKOUT
     Optional<List<ScheduledWorkout>> getScheduledWorkout();
+    boolean isSameSchedule(Schedule other);
 }

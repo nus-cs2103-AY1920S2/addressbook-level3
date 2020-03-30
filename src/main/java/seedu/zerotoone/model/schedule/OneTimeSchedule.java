@@ -33,4 +33,19 @@ public class OneTimeSchedule implements Schedule {
         ScheduledWorkout scheduledWorkout = new ScheduledWorkout(workoutToSchedule, dateTime);
         return Optional.of(Collections.singletonList(scheduledWorkout));
     }
+
+    @Override
+    public boolean isSameSchedule(Schedule other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof OneTimeSchedule)) {
+            return false;
+        }
+
+        OneTimeSchedule otherSchedule = (OneTimeSchedule) other;
+        return otherSchedule.getScheduledWorkout().equals(getScheduledWorkout())
+                && otherSchedule.getDateTime().equals(getDateTime());
+    }
 }
