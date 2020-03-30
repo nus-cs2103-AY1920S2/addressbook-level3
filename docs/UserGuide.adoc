@@ -370,19 +370,15 @@ List down all the orders (Return orders and Delivery orders) that are uncomplete
 
 [[nearby]]
 === View orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
-====
-* Suppose you are delivering an order to Buona Vista and would like to know all the orders located near
-that region (central region of Singapore). Are you going manually look through all of your orders and
-find those that are located near Buona Vista? +
-If only there was a way to efficiently find all orders based on a given region or postal sector! +
-This would allow you to complete more orders! +
+In this section, you will learn more about the `nearby` command,
+<<how_to_use_nearby_command, how to use it>> and the
+<<usage_scenario_nearby_command, possible usage scenarios>> of the `nearby` command.
 
-** With the `nearby` command, you can identify all such orders by providing either
-a region or postal sector!
-====
+[[how_to_use_nearby_command]]
+==== How to use the nearby command
+In this section, you learn more about the exact inputs required to use the `nearby` command.
 
-==== How to use the Nearby command?
-Here are the steps you should follow to obtain all orders using the Nearby command: +
+Here are the steps you should follow to obtain all orders using the `nearby` command: +
 *Step 1* : Type in the keyword `nearby` +
 
 *Step 2 (optional)* : Provide an optional `<<command_flag, FLAG>>` that indicates which order list to
@@ -420,11 +416,14 @@ https://keylocation.sg/singapore/districts-map[this website]
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
 
-==== What constitutes a valid Nearby command?
-The syntax for a valid `Nearby` command can be one of the following: +
+==== What constitutes a valid nearby command
+In this section, you will learn more about the syntax of the `nearby` command +
+
+The syntax for a valid `nearby` command can be one of the following: +
 1. `nearby` `[FLAG]` `POSTAL_SECTOR` +
 2. `nearby` `[FLAG]` `AREA`
 
+[NOTE]
 ====
 An optional `FLAG` can be provided to indicate which list to search on. +
 A `-o` flag indicates searching of nearby orders using the order list. +
@@ -447,10 +446,10 @@ An `AREA` refers to one of the five areas of Singapore: +
 A quick reference for the five areas of Singapore can be <<area_table, found here>>
 ====
 
+[[usage_scenario_nearby_command]]
+The table below describes the possible usage scenarios of the nearby command:
 
-The table below describes the possible usage combinations of the Nearby command:
-
-.Possible Combinations of Nearby command
+.Possible Combinations of nearby command
 |===
 |Scenario |Command |Result
 
@@ -470,7 +469,11 @@ The table below describes the possible usage combinations of the Nearby command:
 |`nearby` `-r` `central`
 |All orders in the return order list that are located in the central region of Singapore will be displayed.
 
-|If you want to obtain all orders in the order list located in the central region of Singapore.
+|Suppose you are delivering an order to Buona Vista and would like to know all the orders located near
+that region (central region of Singapore). Are you going manually look through all of your orders and
+find those that are located near Buona Vista? +
+If only there was a way to efficiently find all orders based on a given region or postal sector! +
+This would allow you to complete more orders!
 |`nearby` `-o` `central`
 |All orders in the order list that are located in the central region of Singapore will be displayed.
 |===
