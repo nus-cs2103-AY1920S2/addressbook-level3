@@ -20,14 +20,14 @@ class JsonSerializableBlockTree {
 
     public static final String MESSAGE_DUPLICATE_BLOCK_CHILD = "Block's children list contains duplicate children.";
 
-    private final List<JsonAdaptedBlockTreeItem> rootChildren = new ArrayList<>();
+    private final List<JsonAdaptedBlockTreeItem> root = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBlockTree} with the given root blocks.
      */
     @JsonCreator
     public JsonSerializableBlockTree(@JsonProperty("root") List<JsonAdaptedBlockTreeItem> items) {
-        this.rootChildren.addAll(items);
+        root.addAll(items);
     }
 
     /**
@@ -36,7 +36,7 @@ class JsonSerializableBlockTree {
      * @param source future changes to this will not affect the created {@code JsonSerializableBlockTree}.
      */
     public JsonSerializableBlockTree(BlockTree source) {
-        rootChildren.addAll(source.getRootBlock()
+        root.addAll(source.getRootBlock()
             .getBlockChildren()
             .stream()
             .map(JsonAdaptedBlockTreeItem::new)
@@ -51,7 +51,7 @@ class JsonSerializableBlockTree {
     public BlockTree toModelType() throws IllegalValueException {
         BlockTree blockTree = new BlockTreeImpl();
         List<BlockTreeItem> rootChildren = new ArrayList<>();
-        for (JsonAdaptedBlockTreeItem jsonAdaptedBlockTreeItem : this.rootChildren) {
+        for (JsonAdaptedBlockTreeItem jsonAdaptedBlockTreeItem : root) {
             BlockTreeItem blockTreeItem = jsonAdaptedBlockTreeItem.toModelType();
             if (rootChildren.contains(blockTreeItem)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BLOCK_CHILD);
