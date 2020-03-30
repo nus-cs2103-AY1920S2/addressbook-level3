@@ -226,6 +226,10 @@ public class ModelManager implements Model {
         this.pomodoro.setTask(task);
     }
 
+    public void setPomodoroTime(String time) {
+        pomodoro.setDefaultTime(time);
+    }
+
     // ============================ Statistics Manager
 
     public Statistics getStatistics() {

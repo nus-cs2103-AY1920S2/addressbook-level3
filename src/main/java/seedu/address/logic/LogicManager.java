@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.task.Task;
+import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.storage.Storage;
 
 /** The main LogicManager of the app. */
@@ -94,5 +95,10 @@ public class LogicManager implements Logic {
     @Override
     public void incrementPomExp() {
         model.incrementPomExp();
+    }
+
+    @Override
+    public ReadOnlyPomodoro getPomodoro() {
+        return model.getPomodoro();
     }
 }

@@ -28,6 +28,7 @@ import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Pomodoro;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -53,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
     private StatisticsDisplay statisticsDisplay;
+    private SettingsDisplay settingsDisplay;
 
     private CommandBox commandBox;
 
@@ -71,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML private StackPane pomodoroPlaceholder;
 
     @FXML private StackPane statisticsPlaceholder;
+
+    @FXML private StackPane settingsPlaceholder;
 
     @FXML private TabPane tabPanePlaceholder;
 
@@ -164,6 +168,10 @@ public class MainWindow extends UiPart<Stage> {
 
         statisticsDisplay = new StatisticsDisplay();
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+
+        settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro());
+        settingsPlaceholder.getChildren().add(settingsDisplay.getRoot());
+
 
         // tabPanePlaceholder.getSelectionModel().select(1);
 

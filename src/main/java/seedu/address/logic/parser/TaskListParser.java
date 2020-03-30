@@ -64,6 +64,9 @@ public class TaskListParser {
 
             case SwitchTabCommand.TASKS_COMMAND_WORD:
                 return new SwitchTabCommand(SwitchTabCommand.TASKS_TAB_INDEX);
+            
+            case SwitchTabCommand.SETTINGS_COMMAND_WORD:
+                return new SwitchTabCommand(SwitchTabCommand.SETTINGS_TAB_INDEX);
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
