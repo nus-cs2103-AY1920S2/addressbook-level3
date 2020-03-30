@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
@@ -48,7 +49,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
      * @param model The app's model.
      * @return List of SuggestionItem with a display text of the block's path and action of opening the block.
      */
-    private List<SuggestionItem> traverseTree(Model model) {
+    private List<SuggestionItem> traverseTree(Model model) throws RuntimeException {
         Queue<AbsolutePath> pathQueue = new LinkedList<>();
         pathQueue.offer(AbsolutePath.fromString("/"));
 
@@ -78,8 +79,12 @@ public class SearchSuggestionCommand implements SuggestionCommand {
                             int frequency = blockBodies.length - 1;
                             String displayText = absolutePath.getStringRepresentation();
                             Runnable action = () -> {
-                                OpenCommand openCommand = new OpenCommand(absolutePath);
-                                openCommand.execute(model);
+                                try {
+                                    OpenCommand openCommand = new OpenCommand(absolutePath);
+                                    openCommand.execute(model);
+                                } catch (CommandException ex) {
+                                    throw new RuntimeException(ex.getMessage());
+                                }
                             };
                             SuggestionItem suggestionItem = new SuggestionItemImpl(displayText, frequency, action);
                             suggestions.add(suggestionItem);
