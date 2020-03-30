@@ -27,6 +27,6 @@ public class StatusBarFooter extends ViewPart<Region> {
     }
 
     private void setDummySaveLocationStatus() {
-        saveLocationStatus.setText("Notably v1.2");
+        saveLocationStatus.setText("Notably v1.3");
     }
 }

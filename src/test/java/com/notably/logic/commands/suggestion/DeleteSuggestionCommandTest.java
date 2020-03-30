@@ -111,7 +111,7 @@ public class DeleteSuggestionCommandTest {
         for (int i = 0; i < expectedSuggestions.size(); i++) {
             SuggestionItem suggestion = suggestions.get(i);
             SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
-            assertEquals(suggestion.getDisplayText(), expectedSuggestion.getDisplayText());
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
         }
 
         List<String> expectedInputs = new ArrayList<>();

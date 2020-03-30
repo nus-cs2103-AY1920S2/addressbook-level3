@@ -18,6 +18,7 @@ import com.notably.model.block.Block;
 import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
+import com.notably.model.block.Body;
 import com.notably.model.block.Title;
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionItemImpl;
@@ -26,7 +27,7 @@ import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
-public class OpenSuggestionCommandTest {
+public class SearchSuggestionCommandTest {
     private static AbsolutePath toRoot;
     private static AbsolutePath toCs2103;
     private static AbsolutePath toCs3230;
@@ -35,9 +36,12 @@ public class OpenSuggestionCommandTest {
     private static AbsolutePath toCs2103Week3;
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
+    private static Body toCs2103Week1LectureBody = new Body("Week 1 is ezpz. I am falling asleep.");
+    private static Body toCs2103Week2Body = new Body("I was wrong. This mod is so time consuming");
+    private static Body toCs2103Week3Body = new Body("Will I fail this mod?");
+    private static Body toCs3230Body = new Body("I confirm fail this mod. Fail lah fail lah.");
 
-    private static final String COMMAND_WORD = "open";
-    private static final String PREFIX_TITLE = "-t";
+    private static final String COMMAND_WORD = "search";
 
     @BeforeAll
     public static void setUp() throws InvalidPathException {
@@ -58,74 +62,73 @@ public class OpenSuggestionCommandTest {
 
         // Add test data to model
         Block cs2103 = new BlockImpl(new Title("CS2103"));
-        Block cs3230 = new BlockImpl(new Title("CS3230"));
+        Block cs3230 = new BlockImpl(new Title("CS3230"), toCs3230Body);
         model.addBlockToCurrentPath(cs2103);
         model.addBlockToCurrentPath(cs3230);
 
         Block week1 = new BlockImpl(new Title("Week1"));
-        Block week2 = new BlockImpl(new Title("Week2"));
-        Block week3 = new BlockImpl(new Title("Week3"));
+        Block week2 = new BlockImpl(new Title("Week2"), toCs2103Week2Body);
+        Block week3 = new BlockImpl(new Title("Week3"), toCs2103Week3Body);
         model.setCurrentlyOpenBlock(toCs2103);
         model.addBlockToCurrentPath(week1);
         model.addBlockToCurrentPath(week2);
         model.addBlockToCurrentPath(week3);
 
-        Block lecture = new BlockImpl(new Title("Lecture"));
+        Block lecture = new BlockImpl(new Title("Lecture"), toCs2103Week1LectureBody);
         model.setCurrentlyOpenBlock(toCs2103Week1);
         model.addBlockToCurrentPath(lecture);
     }
 
     @Test
     public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(null));
+        assertThrows(NullPointerException.class, () -> new SearchSuggestionCommand(null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
-        assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
+        SearchSuggestionCommand searchSuggestionCommand = new SearchSuggestionCommand("keywords");
+        assertThrows(NullPointerException.class, () -> searchSuggestionCommand.execute(null));
     }
 
     @Test
     public void execute_generateResponseCorrectly() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
-        openSuggestionCommand.execute(model);
+        SearchSuggestionCommand searchSuggestionCommand = new SearchSuggestionCommand("fail");
+        searchSuggestionCommand.execute(model);
 
-        assertEquals(Optional.of("Open a note"), model.responseTextProperty().getValue());
+        // Test responseText
+        String expectedResponseText = "Search through all notes based on keyword";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
-        // Expected result
-        SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
-        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
-            null);
-        SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
-        SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
-
+        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
-        expectedSuggestions.add(cs2103);
-        expectedSuggestions.add(cs2103Week1Lecture);
-        expectedSuggestions.add(cs2103Week2);
-        expectedSuggestions.add(cs2103Week3);
+        SuggestionItem suggestionItem = new SuggestionItemImpl(toCs3230.getStringRepresentation(), 3,
+            null);
+        SuggestionItem suggestionItem1 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), 1,
+            null);
+        expectedSuggestions.add(suggestionItem);
+        expectedSuggestions.add(suggestionItem1);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
+        // Test displayText and frequency
         for (int i = 0; i < expectedSuggestions.size(); i++) {
             SuggestionItem suggestion = suggestions.get(i);
             SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
             assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+            assertEquals(expectedSuggestion.getProperty("frequency"), suggestion.getProperty("frequency"));
         }
 
-        List<String> expectedInputs = new ArrayList<>();
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
+        // Expected currently open paths
+        List<AbsolutePath> expectedCurrentlyOpenPaths = new ArrayList<>();
+        expectedCurrentlyOpenPaths.add(toCs3230);
+        expectedCurrentlyOpenPaths.add(toCs2103Week3);
 
-        for (int i = 0; i < expectedInputs.size(); i++) {
-            SuggestionItem suggestionItem = suggestions.get(i);
-            String expectedInput = expectedInputs.get(i);
-            suggestionItem.getAction().run();
-            String input = model.getInput();
-            assertEquals(expectedInput, input);
+        // Test Runnable action and check currentlyOpenPath
+        for (int i = 0; i < expectedCurrentlyOpenPaths.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            suggestion.getAction().run();
+
+            assertEquals(expectedCurrentlyOpenPaths.get(i), model.getCurrentlyOpenPath());
         }
     }
 }
