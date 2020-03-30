@@ -412,35 +412,49 @@ TODO: ADD DETAILS ONCE IMPLEMENTED
 [[FilterStudent]]
 ==== Filter `filter`
 
-Filter Student returns you all the students according to the given keywords below.
+Filter student helps you find the students in a particular group
+and module.
 
-You can filter students in a class using these two ways:
+You can filter the students in Student View in the following ways:
 
 ****
 1. module code and group code `m/` `g/`
 2. module code `m/`
 ****
 
-1. Using both module code and group code returns you all the students specified by the group code and module code.
+1. Using both module code and group code will show you the students
+inside the group with the given group code of the module specified
+by the given module code.
 
 Format: `student filter [m/MOD_CODE] g/GROUP_CODE`
 
+====
 Examples:
 
-* ` student filter m/cs2103t g/g06`
+* `student filter m/cs2103t g/g06`
++
 Filters all students in module `CS2103T`, under group `G06`.
+====
 
-2. Using just the module code will return you all the students from the first group of module code shown in UI.
+2. Using just the module code will show you all the students
+inside the first group of module specified by the given module code.
 
 Format: `student filter m/MOD_CODE`
 
+====
 Examples:
 
 * `student filter m/cs2103t`
-Filters all the students in module `CS2103T`, first group of CS2103T that is currently showing in UI.
++
+Filters all the students in module `CS2103T`,
+first group of CS2103T that is currently showing in UI.
+====
 
 [NOTE]
-Keywords are case-insensitive. eg. `cs2103t` will match `CS2103T`
+====
+[horizontal]
+Keywords are case-insensitive. eg. `cs2103t` is the same as `CS2103T`
+====
 
 
 === Session View
@@ -448,23 +462,26 @@ Keywords are case-insensitive. eg. `cs2103t` will match `CS2103T`
 [[AddSession]]
 ==== Adding a Session `session add`
 
-Adds a new session. The new undone session will be shown under Session view.
+Adds a new session.
+The new session will be shown under Session View, and it will automatically
+be marked as un-done.
 
 Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
 
+
 [TIP]
-If you want to create a session at this point of time, you can leave the start time `s/START`, end time `e/END` and date `d/DATE` out. A session of current date and time will be automatically generated.
+====
+If you want to create a session at this point of time, you can leave the start time
+`s/START`, end time `e/END` and date `d/DATE` out.
+A session of current date and time will be automatically generated.
+====
 
 [NOTE]
 ====
 [horizontal]
-`START` `END` `DATE` `WEEK`:: see Common Parameters
-
-`MOD_CODE` `SESSION_TYPE`:: see Common Parameters
-
 `NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
-
 ====
+
 ====
 Examples:
 
@@ -475,18 +492,25 @@ from 2pm to 4pm,
 with Alice and Bob.
 
 ====
+
 ==== Deleting a Session `session delete`
 
-Deletes a session. Deleted Session will be removed from Session View.
+Deletes a session. Deleted session will be removed from Session View.
 
 Format: `session delete INDEX`
 
+====
+[horizontal]
 CAUTION: Do not confuse delete and done session commands.
+====
 
+====
 Examples:
 
 * `session delete 3`
++
 Deletes the third session from Session View.
+====
 
 ==== Editing a Session `session edit`
 TODO - ADD DETAILS
@@ -509,19 +533,29 @@ Marks the session with the unique session id of 25 as done.
 
 ==== Filter `filter`
 
-Filters undone sessions fulfilling all provided constraints.
+Filters sessions that have not been done yet.
 
-All undone sessions with matching keywords are displayed. Keyword is case-insensitive.
+You should be specific when filtering sessions.
+Using specific command to return you all the filtered results containing
+the keyword. Using more than one command will return you the filtered results
+from each command.
+
+All sessions with matching keywords are displayed.
+Keyword is case-insensitive.
 
 Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 
+====
 Example:
 
 * `session filter m/CS2103T`
-All undone sessions with module code `CS2103T` are displayed.
++
+All un-done sessions with module code `CS2103T` are displayed.
 
 * `session filter m/CS2030T t/tutorial d/2020-03-20`
-All undone sessions on `2020-03-20`, with module code  `CS2103T`, session type  ‘Tutorial` will be shown.
++
+All un-done sessions on `2020-03-20`, with module code  `CS2103T`, session type  ‘Tutorial` will be shown.
+====
 
 === Claims View
 
@@ -533,10 +567,13 @@ All completed sessions with matching module code are displayed. Keyword is case-
 
 Format: `module filter [m/MOD_CODE]
 
+====
 Example:
 
-*`module filter m/CS2103T`
+* `module filter m/CS2103T`
++
 All completed sessions with module code `CS2103T` are displayed.
+====
 
 ==== Changing the hourly rate `set`
 
