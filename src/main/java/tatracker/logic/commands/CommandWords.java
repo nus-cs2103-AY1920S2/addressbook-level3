@@ -10,6 +10,7 @@ public final class CommandWords {
     public static final String MODULE = "module";
     public static final String GROUP = "group";
     public static final String SESSION = "session";
+    public static final String CLAIM = "claim";
 
     /* List of command words for commands that are common between TA-Tracker models. */
     public static final String ADD_MODEL = "add";

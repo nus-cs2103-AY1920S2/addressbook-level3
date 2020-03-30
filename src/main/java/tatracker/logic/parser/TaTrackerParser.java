@@ -49,6 +49,9 @@ public class TaTrackerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case CommandWords.CLAIM:
+            return new ClaimCommandParser().parseCommand(arguments);
+
         case CommandWords.STUDENT:
             return new StudentCommandParser().parseCommand(arguments);
 
