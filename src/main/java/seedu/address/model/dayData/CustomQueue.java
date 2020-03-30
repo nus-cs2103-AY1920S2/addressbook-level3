@@ -151,7 +151,7 @@ public class CustomQueue implements Iterable<DayData> {
         return internalList.stream().anyMatch(toCheck::isSameDayData);
     }
 
-    /** Adds a dayData to the end of the queue. The dayData must not already exist in the list. */
+    /** Adds a dayData to the end of the queue. */
     public void add(DayData toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
@@ -243,30 +243,34 @@ public class CustomQueue implements Iterable<DayData> {
     }
 
     /** Returns true if {@code dayDatas} table constraints are enforced */
-    private boolean tableConstraintsAreEnforced(List<DayData> dayDatas) {
-        int count = 0;
+    public static boolean tableConstraintsAreEnforced(List<DayData> dayDatas) {
+        boolean res = true;
 
-        DayData dayDataCheckPointer = dayDatas.get(0); // from list
-        Date dateCheckPointer = dayDataCheckPointer.getDate();
-        LocalDate localDateCheckPointer = dateCheckPointer.value;
+        if (dayDatas.size() != CONSTANT_SIZE) {
+            res = false; // table is not size CONSTANT_SIZE
+        }
 
-        LocalDate currentLocalDate = null; // to check
+        try {
+            DayData dayDataCheckPointer = dayDatas.get(0); // from list
+            Date dateCheckPointer = dayDataCheckPointer.getDate();
+            LocalDate localDateCheckPointer = dateCheckPointer.value;
 
-        for (DayData dayData : dayDatas) {
-            count++;
+            LocalDate currentLocalDate = null; // to check
 
-            currentLocalDate = dayData.getDate().value;
-            if (!localDateCheckPointer.equals(currentLocalDate)) {
-                return false; // days must be continuous
+            for (DayData dayData : dayDatas) {
+
+                currentLocalDate = dayData.getDate().value;
+                if (!localDateCheckPointer.equals(currentLocalDate)) {
+                    res = false; // days must be continuous
+                    break;
+                }
+                localDateCheckPointer = localDateCheckPointer.plusDays(1);
             }
 
-            localDateCheckPointer = localDateCheckPointer.plusDays(1);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            // TODO
         }
 
-        if (count != CONSTANT_SIZE) {
-            return false; // table is not size CONSTANT_SIZE
-        }
-
-        return true;
+        return res;
     }
 }

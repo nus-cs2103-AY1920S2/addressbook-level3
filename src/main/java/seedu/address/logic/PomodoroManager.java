@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 import seedu.address.model.Model;
 import seedu.address.model.Statistics;
+import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.PomDurationData;
 import seedu.address.model.dayData.TasksDoneData;
@@ -158,7 +159,13 @@ public class PomodoroManager {
         model.getStatistics().updateDataDates();
         List<DayData> newDayDatas = generateUpdatedDayData(startDateTime, endDateTime);
         newDayDatas.forEach(dayData -> model.getStatistics().updatesDayData(dayData));
+        updateStatisticsDisplay(); // TODO code quality
     }
+
+    public void updateStatisticsDisplay() {
+        mainWindow.getStatisticsDisplay().updateGraphs(model.getStatistics().getCustomQueue()); // TODO code quality
+    }
+
 
     public List<DayData> generateUpdatedDayData(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         List<DayData> out = new LinkedList<>();

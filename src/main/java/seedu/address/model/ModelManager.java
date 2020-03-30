@@ -49,7 +49,7 @@ public class ModelManager implements Model {
         this.pet = new Pet(pet); // initialize a pet as a model
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
-        logger.info(String.format("Initializing with DayDataList: %s", this.statistics.toString()));
+        logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
