@@ -32,14 +32,29 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         try {
-            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-                // set filter
+//            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+//                // set filter
+//                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+//                // sends the next word after "category" to see if it matches any transaction categories
+//                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)));
+//            }
+//
+//            if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+//                // sends the next word after "date" to see if it matches any transaction dates
+//                String date = argMultimap.getValue(PREFIX_DATE).get().trim();
+//                // removes the day in the string version of transaction date, so we filter by month
+//                String dateMinusDay;
+//                if (date.equals("all")) {
+//                    dateMinusDay = "all";
+//                } else {
+//                    dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
+//                }
+//
+//                return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
+            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() && argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                // get category filter
                 String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-                // sends the next word after "category" to see if it matches any transaction categories
-                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)));
-            }
 
-            if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
                 // sends the next word after "date" to see if it matches any transaction dates
                 String date = argMultimap.getValue(PREFIX_DATE).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
@@ -49,8 +64,35 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 } else {
                     dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
                 }
+                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)),
+                        new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
+            }
+            else if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
+                    !argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                // get category filter
+                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+                // set date as all transaction dates
+                String dateMinusDay = "all";
 
-                return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
+                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)),
+                        new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
+            }
+            else if (!argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
+                    argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                // get category filter
+                String cat = "all";
+
+                // sends the next word after "date" to see if it matches any transaction dates
+                String date = argMultimap.getValue(PREFIX_DATE).get().trim();
+                // removes the day in the string version of transaction date, so we filter by month
+                String dateMinusDay;
+                if (date.equals("all")) {
+                    dateMinusDay = "all";
+                } else {
+                    dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
+                }
+                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)),
+                        new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
             }
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
