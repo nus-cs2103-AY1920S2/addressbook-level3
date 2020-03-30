@@ -14,7 +14,7 @@ import seedu.address.model.modelFinance.Finance;
 /**
  * Deletes a finance identified using it's displayed index from the address book.
  */
-public class DeleteFinanceCommand extends Command {
+public class DeleteFinanceCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-finance";
 

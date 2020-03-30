@@ -385,12 +385,13 @@ public class ModelManager implements Model {
   //TODO
   @Override
   public boolean hasAssignment(Assignment assignment) {
-    return false;
+    requireNonNull(assignment);
+    return assignmentAddressBook.has(assignment);
   }
 
   @Override
   public void deleteAssignment(Assignment assignment) {
-
+    assignmentAddressBook.remove(assignment);
   }
 
   @Override

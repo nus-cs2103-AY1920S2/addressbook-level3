@@ -13,6 +13,8 @@ public class Messages {
   public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
   public static final String MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX = "The finance index provided is invalid";
   public static final String MESSAGE_INVALID_COURSE_DISPLAYED_INDEX = "The course index provided is invalid";
+  public static final String MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX = "The assignment index provided is invalid";
+
 
   public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
   public static final String MESSAGE_TEACHERS_LISTED_OVERVIEW = "%1$d teachers listed!";
