@@ -234,10 +234,21 @@ public interface Model {
      */
     ObservableList<Day> getScheduleVisualResult();
 
-    //=========== Schedule Visual Accessors =======================================================================
+    //=========== Undo and Redo =======================================================================
 
     /**
-     * Undo the last entered command
+     *
+     * @return the number of states currently saved for undo
      */
-    void undo();
+    int undoStackSize();
+
+    /**
+     * Undo the previously entered command
+     */
+    String undo();
+
+    /**
+     * Redo any command that was undone
+     */
+    void redo();
 }

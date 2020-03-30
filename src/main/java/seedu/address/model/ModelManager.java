@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,17 +25,20 @@ import seedu.address.model.restaurant.Restaurant;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final RestaurantBook restaurantBook;
-    private final Scheduler scheduler;
-    private final EventSchedule eventSchedule;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Person> filteredPersonsResult;
-    private final FilteredList<Restaurant> filteredRestaurants;
-    private final FilteredList<Assignment> filteredAssignments;
-    private final FilteredList<Event> filteredEvents;
-    private final FilteredList<Person> bdayList;
+    private final Stack<ModelState> states;
+    private ModelState currentModel;
+
+    private AddressBook addressBook;
+    private RestaurantBook restaurantBook;
+    private Scheduler scheduler;
+    private EventSchedule eventSchedule;
+    private UserPrefs userPrefs;
+    private FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersonsResult;
+    private FilteredList<Restaurant> filteredRestaurants;
+    private FilteredList<Assignment> filteredAssignments;
+    private FilteredList<Event> filteredEvents;
+    private FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,21 +50,10 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
-        filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
-        this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.scheduler = new Scheduler(scheduler);
-        this.eventSchedule = new EventSchedule(eventSchedule);
-        filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
-        filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
-        bdayList = new FilteredList<>(this.addressBook.getBdayList());
-    }
-
-    public ModelManager() {
-        this(new AddressBook(), new RestaurantBook(), new Scheduler(), new EventSchedule(), new UserPrefs());
+        this.currentModel = new ModelState(addressBook, restaurantBook, scheduler, eventSchedule, userPrefs);
+        this.states = new Stack<>();
+        states.push(currentModel);
+        update();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -123,8 +116,20 @@ public class ModelManager implements Model {
 
     @Override
     public void addPerson(Person person) {
+        ModelState state = new ModelState(this.addressBook,
+                this.restaurantBook,
+                this.scheduler,
+                this.eventSchedule,
+                this.userPrefs,
+                "ADDRESS");
+
+        this.currentModel = state;
+        update();
+
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        states.push(currentModel);
     }
 
     @Override
@@ -234,9 +239,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRestaurant(Restaurant person) {
-        restaurantBook.addRestaurant(person);
+    public void addRestaurant(Restaurant restaurant) {
+        ModelState state = new ModelState(this.addressBook,
+                this.restaurantBook,
+                this.scheduler,
+                this.eventSchedule,
+                this.userPrefs,
+                "RESTAURANTS");
+
+        this.currentModel = state;
+        update();
+
+        restaurantBook.addRestaurant(restaurant);
         updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+
+        states.push(currentModel);
     }
 
     @Override
@@ -367,9 +384,32 @@ public class ModelManager implements Model {
         return this.scheduler.getScheduleVisual();
     }
 
-    //=========== Schedule Visual Accessor ========================================================================
-    @Override
-    public void undo() {
+    //=========== Undo and Redo ========================================================================
+    private void update() {
+        this.addressBook = this.currentModel.getAddressBook();
+        this.userPrefs = this.currentModel.getUserPrefs();
+        filteredPersons = this.currentModel.getFilteredPersons();
+        filteredPersonsResult = this.currentModel.getFilteredPersonsResult();
+        this.restaurantBook = this.currentModel.getRestaurantBook();
+        this.scheduler = this.currentModel.getScheduler();
+        this.eventSchedule = this.currentModel.getEventSchedule();
+        filteredRestaurants = this.currentModel.getFilteredRestaurants();
+        filteredAssignments = this.currentModel.getFilteredAssignments();
+        filteredEvents = this.currentModel.getFilteredEvents();
+        bdayList = this.currentModel.getBdayList();
+    }
 
+    public int undoStackSize() { return states.size(); }
+
+    public String undo() {
+        String commandType = states.peek().getCommandType();
+        states.pop();
+        currentModel = states.peek();
+        update();
+
+        return commandType;
+    }
+
+    public void redo() {
     }
 }

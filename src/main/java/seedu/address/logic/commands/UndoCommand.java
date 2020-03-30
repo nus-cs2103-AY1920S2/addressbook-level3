@@ -22,6 +22,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n";
 
     public static final String MESSAGE_SUCCESS = "Command Undone!";
+    public static final String MESSAGE_LAST_CHANGE = "Already At Last Change!";
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -31,8 +32,28 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // model.undo();
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        requireNonNull(model);
+
+        if (model.undoStackSize() == 1) {
+            throw new CommandException(MESSAGE_LAST_CHANGE);
+        }
+
+        String commandType = model.undo();
+
+        if (commandType.equals("ADDRESS")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS));
+        } else if (commandType.equals("ASSIGNMENTS")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, false,
+                    true, false, false, false, false);
+        } else if (commandType.equals("EVENTS")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, false,
+                    false, true, false, false, false);
+        } else if (commandType.equals("RESTAURANTS")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, false,
+                    false, false, false, true, false);
+        } else {
+            throw new CommandException("BUG ENCOUNTERED, NOT SUPPOSED TO REACH HERE");
+        }
     }
 
     @Override
