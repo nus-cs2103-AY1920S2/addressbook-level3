@@ -1,8 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OLD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTRIBUTE;
 
 import seedu.address.logic.commands.EditAttributeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,18 +24,19 @@ public class EditAttributeCommandParser implements Parser<EditAttributeCommand> 
     public EditAttributeCommand parse(String arguments) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(arguments, PREFIX_OLD, PREFIX_NEW);
+                ArgumentTokenizer.tokenize(arguments, PREFIX_ATTRIBUTE);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_OLD, PREFIX_NEW)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_ATTRIBUTE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
         }
-        if (argMultimap.getValue(PREFIX_OLD).get().equals("") || argMultimap.getValue(PREFIX_NEW).get().equals("")) {
+        if (argMultimap.getValue(PREFIX_ATTRIBUTE).get().equals("")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
         }
+
         return new EditAttributeCommand(
-                argMultimap.getValue(PREFIX_OLD).get(),
-                argMultimap.getValue(PREFIX_NEW).get()
+                argMultimap.getPreamble(),
+                argMultimap.getValue(PREFIX_ATTRIBUTE).get()
         );
     }
 

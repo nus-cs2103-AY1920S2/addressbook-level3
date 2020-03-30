@@ -12,8 +12,7 @@ import seedu.address.model.hirelah.AttributeList;
  * DeleteAttributeCommand describes the behavior when the
  * client wants to delete an attribute from the list.
  */
-
-public class DeleteAttributeCommand extends DeleteCommand {
+public class DeleteAttributeCommand extends Command {
     public static final String COMMAND_WORD = "attribute";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -34,13 +33,13 @@ public class DeleteAttributeCommand extends DeleteCommand {
         requireNonNull(model);
         AttributeList attributes = model.getAttributeList();
         try {
-            if (model.isfinalisedInterviewProperties()) {
+            if (model.isFinalisedInterviewProperties()) {
                 throw new CommandException("The interview session's attributes has been finalised."
                         + " You can no longer delete an attribute.");
             }
             Attribute attribute = attributes.delete(attributePrefix);
-            return new CommandResult(String.format(MESSAGE_DELETE_ATTRIBUTE_SUCCESS,
-                    attribute), ToggleView.ATTRIBUTE);
+            return new CommandResult(String.format(MESSAGE_DELETE_ATTRIBUTE_SUCCESS, attribute),
+                    ToggleView.ATTRIBUTE);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }

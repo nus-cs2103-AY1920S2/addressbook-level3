@@ -1,8 +1,11 @@
 package seedu.address.model.hirelah;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Duration;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
@@ -13,24 +16,33 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
  */
 public class Transcript {
     private final RemarkList remarkList;
-    private final Map<Attribute, Double> attributeToScoreMap;
+    private final ObservableMap<Attribute, Double> attributeToScoreMap;
 
     /**
      * Constructs a {@code Transcript} object
      * that are associated with a particular interviewee.
      */
-    Transcript() {
-        this.remarkList = new RemarkList();
-        this.attributeToScoreMap = new HashMap<>();
+    public Transcript(QuestionList questions) {
+        this.remarkList = new RemarkList(questions.size());
+        this.attributeToScoreMap = FXCollections.observableHashMap();
     }
 
     /**
-     * Retrieves the {@code RemarkList} that are associated with this {@code Transcript}.
+     * Returns an unmodifiable view of the {@code RemarkList} associated with this {@code Transcript}.
      *
-     * @return The {@code RemarkList} that are associated with this {@code Transcript}.
+     * @return An {@code ObservableList} tracking changes to the RemarkList.
      */
-    public RemarkList getRemarkList() {
-        return remarkList;
+    public ObservableList<Remark> getRemarkListView() {
+        return FXCollections.unmodifiableObservableList(remarkList.getRemarks());
+    }
+
+    /**
+     * Returns an unmodifiable view of the attributes and scores associated with this {@code Transcript}.
+     *
+     * @return An {@code ObservableMap} tracking changes to the scores.
+     */
+    public ObservableMap<Attribute, Double> getAttributeToScoreMapView() {
+        return FXCollections.unmodifiableObservableMap(attributeToScoreMap);
     }
 
     /**
@@ -49,41 +61,50 @@ public class Transcript {
      * @param attribute The attribute whose score is to be retrieved.
      * @return The score of the given attribute as recorded in the interview.
      */
-    public double getAttributeScore (Attribute attribute) {
+    public double getAttributeScore(Attribute attribute) {
         return this.attributeToScoreMap.get(attribute);
     }
 
     /**
-     * Retrieves {@code Remark} that are created nearest to a tim
-     * if the time is within the duration of the interview.
+     * Indicates if an attribute has been scored yet.
      *
-     * @param timeMs The time that are used to query the {@code Remark}.
-     * @return The {@code Remark} that are created nearest to the time.
+     * @param attribute the attribute to check.
+     * @return true if attribute has a score, false otherwise.
      */
-    public Remark getTranscriptAtTime(long timeMs) throws IllegalActionException {
-        System.out.println("APAAH SIH");
-        System.out.println(timeMs <= remarkList.getInterviewDurationInMs());
-        if (!remarkList.isTimeInValidRange(timeMs)) {
-            throw new IllegalActionException(
-                    "The duration of the interview is only " + remarkList.getInterviewDurationInMs()
-            );
-        }
-        Remark currentRemark = this.remarkList.getRemarkAtTime(timeMs);
-        return currentRemark;
+    public boolean isAttributeScored(Attribute attribute) {
+        return this.attributeToScoreMap.containsKey(attribute);
     }
 
     /**
-     * Retrieves {@code Remark} that are first associated with this {@code Question}.
+     * Adds a remark to the {@code RemarkList} in this {@code Transcript}.
      *
-     * @param question {@code Question} that are to be queried.
-     * @return Instant of the {@code Remark} that are first associated with this {@code Question}.
+     * @param toAdd the Remark to add.
      */
+    public void addRemark(Remark toAdd) throws IllegalValueException {
+        remarkList.add(toAdd);
+    }
 
-    public Remark getTranscriptAtQuestion(Question question) throws IllegalActionException {
-        if (!remarkList.isQuestionAnswered(question)) {
-            throw new IllegalActionException("There is no answer for this question");
-        }
-        return remarkList.getRemarkOfQuestion(question);
+    /**
+     * Retrieves index of {@code Remark} created around the given time.
+     *
+     * @param time Time queried.
+     * @return The index of the {@code Remark} at or just after time, or the last index
+     *         if time exceeds the interview duration.
+     */
+    public int getIndexAtTime(Duration time) {
+        return remarkList.getIndexAtTime(time);
+    }
+
+    /**
+     * Retrieves the index of the Remark when this {@code Question}
+     * was first asked.
+     *
+     * @param questionIndex Index of the question that is queried.
+     * @return The index of the {@code Remark} in the RemarkList
+     *         that was first associated with this {@code Question}.
+     */
+    public int getIndexOfQuestion(int questionIndex) throws IllegalActionException, IllegalValueException {
+        return remarkList.getIndexOfQuestion(questionIndex);
     }
 
 }

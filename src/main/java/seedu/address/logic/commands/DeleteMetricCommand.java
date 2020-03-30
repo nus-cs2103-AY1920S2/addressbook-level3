@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.MetricList;
  * client wants to delete an attribute from the list.
  */
 
-public class DeleteMetricCommand extends DeleteCommand {
+public class DeleteMetricCommand extends Command {
     public static final String COMMAND_WORD = "metric";
     public static final String MESSAGE_HAS_NOT_FINALIZED = "The session has not been finalized. Please finalize it"
             + " before deleting metrics.";
@@ -33,7 +33,7 @@ public class DeleteMetricCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.isfinalisedInterviewProperties()) {
+        if (!model.isFinalisedInterviewProperties()) {
             throw new CommandException(MESSAGE_HAS_NOT_FINALIZED);
         }
 

@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,6 +19,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.NavigationCommandResult;
 import seedu.address.logic.commands.ToggleView;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -35,13 +39,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private IntervieweeListPanel intervieweeListPanel;
+    private IntervieweeListPanel bestNIntervieweesPanel;
+    private RemarkListPanel remarkListPanel;
     private AttributeListPanel attributeListPanel;
     private DetailedIntervieweeCard detailedIntervieweeCard;
-    private HelpWindow helpWindow;
-    private IntervieweeListPanel intervieweeListPanel;
     private MetricListPanel metricListPanel;
     private QuestionListPanel questionListPanel;
-    private RemarkListPanel remarkListPanel;
     private ResultDisplay resultDisplay;
 
     // On startup, HireLah shows the list of interviewees
@@ -77,8 +81,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         attributeListPanel = new AttributeListPanel(logic.getAttributeListView());
-        helpWindow = new HelpWindow();
         intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeListView());
+        bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView());
+        attributeListPanel = new AttributeListPanel(logic.getAttributeListView());
         metricListPanel = new MetricListPanel(logic.getMetricListView());
         questionListPanel = new QuestionListPanel(logic.getQuestionListView());
 
@@ -158,17 +163,22 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleToggle(ToggleView toggleView) {
-        if (this.toggleView == toggleView && this.toggleView != ToggleView.TRANSCRIPT) {
-            return;
+        if (this.toggleView == toggleView) {
+            if (toggleView != ToggleView.TRANSCRIPT || !currentInterviewee.equals(logic.getCurrentInterviewee())) {
+                return;
+            }
         }
+
         this.toggleView = toggleView;
+        if (this.toggleView != ToggleView.TRANSCRIPT) {
+            logic.setCurrentInterviewee(null);
+        }
 
         listPanelStackPane.getChildren().clear();
         switch (toggleView) {
         case ATTRIBUTE: // attribute
             listPanelStackPane.getChildren().add(attributeListPanel.getRoot());
             break;
-
         case INTERVIEWEE: // interviewee
             listPanelStackPane.getChildren().add(intervieweeListPanel.getRoot());
             break;
@@ -176,41 +186,47 @@ public class MainWindow extends UiPart<Stage> {
         case METRIC: // metrics
             listPanelStackPane.getChildren().add(metricListPanel.getRoot());
             break;
-
         case QUESTION: // questions
             listPanelStackPane.getChildren().add(questionListPanel.getRoot());
             break;
-
         case TRANSCRIPT: // transcript
-            Interviewee currentInterviewee = logic.getCurrentInterviewee();
-            if (currentInterviewee.equals(this.currentInterviewee)) {
-                break;
-            }
-            // remarkListPanel = new RemarkListPanel(FXCollections
-            //         .unmodifiableObservableList(logic.getCurrentInterviewee()
-            //         .getTranscript()
-            //         .get()
-            //         .getRemarkList()));
-            remarkListPanel = new RemarkListPanel(null);
+            currentInterviewee = logic.getCurrentInterviewee();
+            remarkListPanel = new RemarkListPanel(currentInterviewee);
             detailedIntervieweeCard = new DetailedIntervieweeCard(currentInterviewee);
             listPanelStackPane.getChildren().addAll(remarkListPanel.getRoot(), detailedIntervieweeCard.getRoot());
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);
+            StackPane.setAlignment(remarkListPanel.getRoot(), Pos.CENTER);
+            // second screen
+            // handleSecondStage();
             break;
-
+        case BEST_INTERVIEWEE:
+            bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView());
+            listPanelStackPane.getChildren().add(bestNIntervieweesPanel.getRoot());
+            break;
         default:
             break;
         }
     }
 
+    // /**
+    //  * Opens up a second window to show the question list, as a guide for the interviewee.
+    //  */
+    // private void handleSecondStage() {
+    //     SecondWindow(questionListPanel).show();
+    // }
+
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens the user guide PDF on help command.
      */
-    @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        if (Desktop.isDesktopSupported()) {
+            new Thread(() -> {
+                try {
+                    Desktop.getDesktop().open(new File("./src/main/resources/help/UserGuide.pdf"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 
@@ -227,7 +243,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -249,6 +264,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult instanceof NavigationCommandResult) {
+                remarkListPanel.scrollTo(((NavigationCommandResult) commandResult).getIndex());
             }
 
             handleToggle(commandResult.getToggleView());

@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OLD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.EditIntervieweeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,20 +22,28 @@ public class EditIntervieweeCommandParser implements Parser<EditIntervieweeComma
      */
     public EditIntervieweeCommand parse(String arguments) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(arguments, PREFIX_OLD, PREFIX_NEW);
+                ArgumentTokenizer.tokenize(arguments, PREFIX_ALIAS, PREFIX_NAME);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_OLD, PREFIX_NEW)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
-        }
-        if (argMultimap.getValue(PREFIX_OLD).get().equals("") || argMultimap.getValue(PREFIX_NEW).get().equals("")) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
-        }
-
+        checkArgument(argMultimap);
         return new EditIntervieweeCommand(
-                argMultimap.getValue(PREFIX_OLD).get(),
-                argMultimap.getValue(PREFIX_NEW).get()
+                argMultimap.getPreamble(),
+                argMultimap.getValue(PREFIX_NAME).orElse(""),
+                argMultimap.getValue(PREFIX_ALIAS).orElse("")
         );
+    }
+
+    /**
+     * Checks whether the argument is satisfied or not.
+     * @param argMultimap The argument multimap.
+     * @throws ParseException If the argument is incomplete.
+     */
+    private void checkArgument(ArgumentMultimap argMultimap) throws ParseException {
+        if (!argMultimap.arePrefixesPresent(PREFIX_NAME) && !argMultimap.arePrefixesPresent(PREFIX_ALIAS)
+            || (argMultimap.getValue(PREFIX_ALIAS).isPresent() && argMultimap.getValue(PREFIX_ALIAS).get().equals(""))
+            || (argMultimap.getValue(PREFIX_NAME).isPresent() && argMultimap.getValue(PREFIX_NAME).get().equals(""))
+        ) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
+        }
     }
 }
