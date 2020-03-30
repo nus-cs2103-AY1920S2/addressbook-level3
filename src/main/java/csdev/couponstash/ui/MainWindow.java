@@ -57,9 +57,6 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-
-
-
     /**
      * Fills up all the placeholders of this window.
      */
@@ -109,10 +106,15 @@ public class MainWindow extends UiPart<Stage> {
      * @see Logic#execute(String, CsTab)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
 
+        try {
             CsTab currentSelectedTab = tabPanel.selectedTab();
             CommandResult commandResult = logic.execute(commandText, currentSelectedTab);
+
+            if (!currentSelectedTab.equals(CsTab.COUPONS)) {
+                tabPanel.selectTab(CsTab.COUPONS);
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             calendarResultPane.setFeedbackToUser(commandResult.getFeedbackToUser());
 

@@ -2,6 +2,7 @@ package csdev.couponstash.ui;
 
 import csdev.couponstash.logic.Logic;
 import javafx.fxml.FXML;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
@@ -73,6 +74,30 @@ public class TabsPanel extends UiPart<Region> {
             return CsTab.SAVED;
         } else {
             return CsTab.HELP;
+        }
+    }
+
+    /**
+     * Selects {@code tab} to view.
+     */
+    public void selectTab(CsTab tab) {
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+        switch (tab) {
+
+        case COUPONS:
+            selectionModel.select(couponTab);
+            break;
+
+        case SAVED:
+            selectionModel.select(savedTab);
+            break;
+
+        case HELP:
+            selectionModel.select(savedTab);
+            break;
+
+        default:
+            break;
         }
     }
 }
