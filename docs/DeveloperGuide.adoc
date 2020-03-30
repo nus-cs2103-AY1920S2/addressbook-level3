@@ -156,9 +156,55 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::basic[]
 === Basic commands
+
+==== Add command
+
+
+==== Delete command
+
+
+==== Edit command
+
+
+==== List command
+
+
+==== Find command
+
+
+==== Clear command
+
+
+==== Favourite command
+
+
+==== Unfavourite command
+
+
+==== Add ingredient command
+
+
+==== Edit ingredient command
+
+
+==== Delete ingredient command
+
+
+==== Add step command
+
+
+==== Edit step command
+
+
+==== Delete step command
+
+
 ==== Switch command
 
 image::SwitchActivityDiagram.png[]
+
+==== Exit command
+
 
 // end::basic[]
 
@@ -209,13 +255,44 @@ fullest potential.
 
 * Alternative 2: Define new keywords that the user can use. These keywords could be "more english-like" as opposed to
 using shortened tags as prefixes.
-** Pros: It might be easier to remember these keywords since they are more english-like. The user then wouldn't have to
-remember what each prefix means.
+** Pros: Easy to remember these keywords since they are more english-like.
 ** Cons: We must implement our own parser which is tedious. The user will also have to remember a new set of keywords
-top of the existing prefixes. This is double work for the user.
-
+on top of the existing prefixes. This is double work for the user.
 
 // end::advancedfilter[]
+
+// tag::undo-redo[]
+=== Undo/Redo feature
+Description: TODO
+
+==== Implementation
+This sections explains how the undo and redo commands are implemented.
+
+1. TODO
+
+The following sequence diagram shows what happens when the user calls an undo operation:
+
+.Undo command sequence diagram
+image::Undo-Redo.png[]
+
+Result: TODO
+
+==== Design Considerations
+
+===== Aspect: How undo and redo executes
+Challenges faced: TODO
+
+* Alternative 1 (current choice): Saves the entire recipe book.
+** Pros: Easy to implement.
+** Cons: May use up a lot of memory space if the user performs many operations that commit the recipe book.
+This effect is amplified if the database is huge (ie. contains many recipes) as a copy of the entire
+recipe book is made after every commit.
+
+* Alternative 2: Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory.
+** Cons: Tedious to ensure the correctness of the implementation of each individual command.
+
+// end::undo-read[]
 
 // tag::goals[]
 === [Proposed] Goals feature
