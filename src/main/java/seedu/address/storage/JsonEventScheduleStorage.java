@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyEventSchedule;
+import seedu.address.model.ReadOnlyScheduler;
 
 /** A class to access Event Schedule data stored on a JSON file on the hard disk. */
 public class JsonEventScheduleStorage implements EventScheduleStorage {
@@ -60,6 +61,11 @@ public class JsonEventScheduleStorage implements EventScheduleStorage {
         saveEventSchedule(eventSchedule, filePath);
     }
 
+    /**
+     * Similar to {@link #saveEventSchedule(ReadOnlyEventSchedule)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
     public void saveEventSchedule(ReadOnlyEventSchedule eventSchedule, Path filePath) throws IOException {
         requireNonNull(eventSchedule);
         requireNonNull(filePath);
