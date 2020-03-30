@@ -112,7 +112,7 @@ public class MainWindow extends ViewPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, model.inputProperty());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         sidebarTreeView = new SideBarTreeView(model.getBlockTree(), model.currentlyOpenPathProperty());
