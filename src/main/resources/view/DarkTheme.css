@@ -387,3 +387,35 @@
     -fx-border-insets: 0 0 1 0, 0 0 2 0, 0 0 3 0;
     -fx-label-margin: 8px;
 }
+
+#metricName {
+    -fx-rotate: 270;
+    -fx-font-family: "Segoe UI Light";
+}
+
+#detailedIntervieweePane {
+    -fx-opacity: 1;
+    -fx-background-color: #D9D9D9;
+    -fx-max-height: 300;
+    -fx-padding: 8;
+    -fx-background-radius: 5%, 25%;
+}
+
+#remarkCardPane {
+    -fx-padding: 5px;
+    -fx-background-insets: 5px;
+}
+
+#content {
+    -fx-padding: 5;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI";
+}
+
+#timestamp {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: #82B8D9;
+}
+
+}

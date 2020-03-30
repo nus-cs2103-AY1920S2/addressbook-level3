@@ -21,7 +21,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * by their ordering.</p>
  * @author AY1920S2-W15-2
  */
-
 public class QuestionList {
     private ObservableList<Question> questions;
 
@@ -62,70 +61,52 @@ public class QuestionList {
     /**
      * Finds the question based on its index, if the index
      * string entered is a valid integer string.
-     * @param questionIndex The string index.
+     * @param index The index of the question.
      * @return The corresponding Question instance.
      * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
      */
-    public Question find(String questionIndex) throws IllegalValueException {
-        try {
-            int index = Integer.parseInt(questionIndex);
-
-            if (index > questions.size() || index <= 0) {
-                throw new IllegalValueException("The index is out of bound");
-            }
-            return questions.get(index - 1);
-        } catch (NumberFormatException e) {
-            throw new IllegalValueException("The input is not a number.");
+    public Question find(int index) throws IllegalValueException {
+        if (index > questions.size() || index <= 0) {
+            throw new IllegalValueException("The index is out of bound");
         }
+        return questions.get(index - 1);
     }
 
     /**
      * Deletes the question based on its index, if the index
      * string entered is a valid integer string.
      *
-     * @param questionIndex The string index.
+     * @param index The index that wants to be deleted.
      * @return The deleted question.
      * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
      */
-    public Question delete(String questionIndex) throws IllegalValueException {
-        try {
-            int index = Integer.parseInt(questionIndex);
-
-            if (index > questions.size() || index <= 0) {
-                throw new IllegalValueException("The index is out of bound");
-            }
-            Question question = questions.get(index - 1);
-            questions.remove(index - 1);
-            return question;
-        } catch (NumberFormatException e) {
-            throw new IllegalValueException("The input is not a number.");
+    public Question delete(int index) throws IllegalValueException {
+        if (index > questions.size() || index <= 0) {
+            throw new IllegalValueException("The index is out of bound");
         }
+        Question question = questions.get(index - 1);
+        questions.remove(index - 1);
+        return question;
     }
 
     /**
      * Edits the question based on its index with a new description,
      * if the index string entered is a valid integer string.
      *
-     * @param questionIndex The string index.
+     * @param index The index of the question that wants to be edited.
      * @param description The updated description of the question.
      * @return The corresponding question.
      * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
      */
 
-    public Question edit(String questionIndex, String description) throws IllegalValueException {
-        try {
-            int index = Integer.parseInt(questionIndex);
-
-            if (index > questions.size() || index <= 0) {
-                throw new IllegalValueException("The index is out of bound");
-            }
-            Question current = questions.get(index - 1);
-            Question question = new Question(description);
-            questions.set(index - 1, question);
-            return current;
-        } catch (NumberFormatException e) {
-            throw new IllegalValueException("The input is not a number.");
+    public Question edit(int index, String description) throws IllegalValueException {
+        if (index > questions.size() || index <= 0) {
+            throw new IllegalValueException("The index is out of bound");
         }
+        Question current = questions.get(index - 1);
+        Question question = new Question(description);
+        questions.set(index - 1, question);
+        return current;
     }
 
     private boolean isDuplicate(Question question) {

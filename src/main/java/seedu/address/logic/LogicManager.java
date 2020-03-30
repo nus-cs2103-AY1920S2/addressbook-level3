@@ -82,7 +82,12 @@ public class LogicManager implements Logic {
 
     @Override
     public Interviewee getCurrentInterviewee() {
-        return null;
+        return model.getCurrentInterviewee();
+    }
+
+    @Override
+    public void setCurrentInterviewee(Interviewee interviewee) {
+        model.setCurrentInterviewee(interviewee);
     }
 
     @Override

@@ -7,7 +7,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.hirelah.AppPhase;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.InterviewSession;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.Metric;
@@ -15,6 +14,7 @@ import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
  * The API of the Model component.
@@ -57,9 +57,6 @@ public interface Model {
     /** Returns an unmodifiable view of the question list */
     ObservableList<Question> getQuestionListView();
 
-    /** Returns an unmodifiable view of the transcript list of an interviewee */
-    ObservableList<Transcript> getTranscriptListView(Interviewee interviewee);
-
     /** Returns an unmodifiable view of the filtered interviewee list */
     ObservableList<Interviewee> getFilteredIntervieweeListView();
 
@@ -81,9 +78,6 @@ public interface Model {
     /** Returns the list of best N interviewees based on certain measures */
     ObservableList<Interviewee> getBestNInterviewees();
 
-    /** Sets the list of best N interviewees */
-    void setBestNInterviewees(ObservableList<Interviewee> interviewees);
-
     /** Sets the current mode of the App */
     void setAppPhase(AppPhase phase);
 
@@ -99,11 +93,14 @@ public interface Model {
     /** Returns the interviewee currently in focus */
     Interviewee getCurrentInterviewee();
 
-    /** Starts an interview with the given interviewee */
-    void startInterview(Interviewee interviewee);
+    /** Checks whether there is an interviewee on focus at the current state */
+    boolean hasCurrentInterviewee();
 
-    /** Gets information about the current Interview Session */
-    InterviewSession getInterviewSession();
+    /** Returns the transcript of the current interviewee */
+    Transcript getCurrentTranscript();
+
+    /** Starts an interview with the given interviewee. Error if the interviewee has been interviewed. */
+    void startInterview(Interviewee interviewee) throws IllegalActionException;
 
     /** Indicates that the interview has ended */
     void endInterview();
@@ -113,4 +110,5 @@ public interface Model {
 
     /** Checks whether the interviewees, questions and attributes has been finalised */
     boolean isFinalisedInterviewProperties();
+
 }

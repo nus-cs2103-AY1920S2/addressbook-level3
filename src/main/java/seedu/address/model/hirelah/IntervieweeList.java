@@ -138,6 +138,22 @@ public class IntervieweeList {
         identifierIndices.put(fullName, interviewee.getId());
     }
 
+    public void setNameAndAlias(String identifier, String fullName, String alias) throws IllegalValueException,
+            IllegalActionException {
+        checkDuplicateIdentifier(fullName);
+        checkDuplicateIdentifier(alias);
+
+        Interviewee interviewee = getInterviewee(identifier);
+
+        // Store old full name before overwriting, to delete from identifierIndices after setting
+        // in case the new full name is invalid and Interviewee#setFullName throws an Exception.
+        String oldName = interviewee.getFullName();
+        interviewee.setFullName(fullName);
+        interviewee.setAlias(alias);
+        identifierIndices.remove(oldName);
+        identifierIndices.put(fullName, interviewee.getId());
+    }
+
     /**
      * Deletes an Interviewee with the given identifier.
      *

@@ -3,29 +3,34 @@ package seedu.address.model.hirelah;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
  * A list of remarks that are associated  with a particular interview session of an {@code Interviewee}.
  * Some remarks are associated with a question, as it is part of the answer to a question, and some remarks do not.
  * Both are able to be inserted to this remark list. Once a remark has been added, it cannot be removed from the list.
- * An interview session always have a start remark and an end remark, thus it minimally has 2 {@code Remark} objects.
- * It is assumed that there are no 2 Remarks at any particular time.
- *
  * Supports a minimal set of list operations.
  *
  * @see Remark
  */
 public class RemarkList {
+    private final Instant startTime;
     private final ObservableList<Remark> remarks = FXCollections.observableArrayList();
     private final int[] questionIndices;
 
     public RemarkList(int questionsCount) {
-        questionIndices = new int[questionsCount + 1];
+        this(questionsCount, Instant.now());
+    }
+
+    public RemarkList(int questionsCount, Instant startTime) {
+        this.questionIndices = new int[questionsCount + 1];
+        this.startTime = startTime;
     }
 
     /**
@@ -38,16 +43,27 @@ public class RemarkList {
     /**
      * Adds a remark to the list.
      *
-     * @param toAdd The remark to be added to the list.
+     * @param message The message of the remark to be added to the list.
      */
-    public void add(Remark toAdd) {
-        requireNonNull(toAdd);
-        if (toAdd.getQuestionNumber() != null) {
-            if (!isQuestionAnswered(toAdd.getQuestionNumber())) {
-                questionIndices[toAdd.getQuestionNumber()] = remarks.size();
-            }
+    public void addRemark(String message) {
+        requireNonNull(message);
+        remarks.add(new Remark(Duration.between(startTime, Instant.now()), message));
+    }
+
+    /**
+     * Indicates the beginning of an answer to a question by inserting a QuestionRemark into the list.
+     *
+     * @param questionNumber the question number.
+     * @param question the question being asked.
+     */
+    public void startQuestion(int questionNumber, Question question)
+            throws IllegalActionException, IllegalValueException {
+        requireNonNull(question);
+        if (isQuestionAnswered(questionNumber)) {
+            throw new IllegalActionException("Question is already answered!");
         }
-        remarks.add(toAdd);
+        questionIndices[questionNumber] = remarks.size();
+        remarks.add(new QuestionRemark(Duration.between(startTime, Instant.now()), questionNumber, question));
     }
 
     /**
@@ -55,7 +71,7 @@ public class RemarkList {
      *
      * @return The number of {@code Remark}s in this {@code RemarkList}.
      */
-    private int getRemarkListSize() {
+    private int size() {
         return this.remarks.size();
     }
 
@@ -68,10 +84,10 @@ public class RemarkList {
      *         if time exceeds the interview duration.
      */
     public int getIndexAtTime(Duration time) {
-        return IntStream.range(0, getRemarkListSize())
+        return IntStream.range(0, size())
                 .filter(i -> remarks.get(i).getTime().compareTo(time) >= 0)
                 .findFirst()
-                .orElse(getRemarkListSize() - 1);
+                .orElse(size() - 1);
     }
 
     /**
@@ -81,11 +97,13 @@ public class RemarkList {
      * @param questionNumber Question that is checked against.
      * @return Whether the question has {@code Remark} associated with it.
      */
-    public boolean isQuestionAnswered(int questionNumber) {
+    public boolean isQuestionAnswered(int questionNumber) throws IllegalValueException {
         try {
             return questionIndices[questionNumber] != 0;
         } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
+            throw new IllegalValueException(String.format(
+                    "There are only %d questions in this interview session.", questionIndices.length - 1)
+            );
         }
     }
 
@@ -93,14 +111,15 @@ public class RemarkList {
      * Retrieves the index of the Remark when this {@code Question}
      * was first asked.
      *
-     * @param questionNumber Question number that is queried.
+     * @param questionIndex Question number that is queried.
      * @return The index of the {@code Remark} in the RemarkList
      *         that was first associated with this {@code Question}.
+     * @throws IllegalActionException If the question queried has not been answered.
      */
-    public int getIndexOfQuestion(int questionNumber) throws IllegalActionException {
-        if (!isQuestionAnswered(questionNumber)) {
+    public int getIndexOfQuestion(int questionIndex) throws IllegalActionException, IllegalValueException {
+        if (!isQuestionAnswered(questionIndex)) {
             throw new IllegalActionException("This question was not answered!");
         }
-        return questionIndices[questionNumber];
+        return questionIndices[questionIndex];
     }
 }

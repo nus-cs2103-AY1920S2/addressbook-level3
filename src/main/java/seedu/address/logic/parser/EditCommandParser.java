@@ -39,10 +39,10 @@ public class EditCommandParser implements Parser<Command> {
 
         switch (editCommandWord) {
         case EditAttributeCommand.COMMAND_WORD:
-            return new EditAttributeCommandParser().parse(arguments);
+            return new EditAttributeCommandParser().parse(editArguments);
 
         case EditIntervieweeCommand.COMMAND_WORD:
-            return new EditIntervieweeCommandParser().parse(arguments);
+            return new EditIntervieweeCommandParser().parse(editArguments);
 
         case EditQuestionCommand.COMMAND_WORD:
             return new EditQuestionCommandParser().parse(editArguments);

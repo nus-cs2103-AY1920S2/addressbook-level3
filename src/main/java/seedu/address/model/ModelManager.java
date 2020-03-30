@@ -4,17 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+
 import seedu.address.model.hirelah.AppPhase;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.InterviewSession;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.Metric;
@@ -22,6 +21,8 @@ import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,7 +32,6 @@ public class ModelManager implements Model {
     private boolean finalisedInterviewProperties;
     private AppPhase appPhase;
     private Interviewee currentInterviewee;
-    private InterviewSession interviewSession;
     private final IntervieweeList intervieweeList;
     private final AttributeList attributeList;
     private final QuestionList questionList;
@@ -53,6 +53,7 @@ public class ModelManager implements Model {
         this.questionList = new QuestionList();
         this.metricList = new MetricList();
         this.userPrefs = new UserPrefs(userPrefs);
+        this.bestNIntervieweeList = FXCollections.observableArrayList();
     }
 
     public ModelManager() {
@@ -120,33 +121,39 @@ public class ModelManager implements Model {
         this.currentInterviewee = interviewee;
     }
 
-    /**
-     * Returns the interviewee currently in focus
-     *
-     * @return the current interviewee in focus.
-     */
     @Override
     public Interviewee getCurrentInterviewee() {
         return currentInterviewee;
     }
 
+    /**
+     * Checks whether there is an interviewee currently in focus
+     *
+     * @return boolean whether there is an interviewee in focus.
+     */
     @Override
-    public void startInterview(Interviewee interviewee) {
-        setCurrentInterviewee(interviewee);
-        currentInterviewee.setTranscript(new Transcript(questionList));
-        interviewSession = new InterviewSession();
-        setAppPhase(AppPhase.INTERVIEW);
+    public boolean hasCurrentInterviewee() {
+        return !(this.currentInterviewee == null);
     }
 
     @Override
-    public InterviewSession getInterviewSession() {
-        return interviewSession;
+    public Transcript getCurrentTranscript() {
+        return currentInterviewee.getTranscript().get();
+    }
+
+    @Override
+    public void startInterview(Interviewee interviewee) throws IllegalActionException {
+        if (interviewee.getTranscript().isPresent()) {
+            throw new IllegalActionException("Interviewee has been interviewed already!");
+        }
+        setCurrentInterviewee(interviewee);
+        currentInterviewee.setTranscript(new Transcript(questionList));
+        setAppPhase(AppPhase.INTERVIEW);
     }
 
     @Override
     public void endInterview() {
         setCurrentInterviewee(null);
-        interviewSession = null;
         setAppPhase(AppPhase.NORMAL);
     }
 
@@ -161,11 +168,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Question> getQuestionListView() {
         return FXCollections.unmodifiableObservableList(questionList.getObservableList());
-    }
-
-    @Override
-    public ObservableList<Transcript> getTranscriptListView(Interviewee interviewee) {
-        return FXCollections.observableList(List.of());
     }
 
     @Override
@@ -206,11 +208,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Interviewee> getBestNInterviewees() {
         return bestNIntervieweeList;
-    }
-
-    @Override
-    public void setBestNInterviewees(ObservableList<Interviewee> interviewees) {
-        this.bestNIntervieweeList = interviewees;
     }
 
     /**

@@ -5,8 +5,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ToggleView;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.hirelah.InterviewSession;
-import seedu.address.model.hirelah.Transcript;
 
 /**
  * Remark command is an Interview phase command that adds a Remark at the current interview time
@@ -23,9 +21,7 @@ public class RemarkCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        InterviewSession session = model.getInterviewSession();
-        Transcript transcript = model.getCurrentInterviewee().getTranscript().get();
-        transcript.addRemark(session.createRemark(this.remark));
+        model.getCurrentTranscript().addRemark(this.remark);
         return new CommandResult(MESSAGE_SUCCESS, ToggleView.TRANSCRIPT);
     }
 }

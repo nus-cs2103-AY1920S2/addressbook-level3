@@ -24,9 +24,9 @@ public class DeleteQuestionCommand extends Command {
     public static final String MESSAGE_DELETE_INDEX_OUT_OF_BOUND = "The index is out of bound: %s";
     public static final String MESSAGE_DELETE_INDEX_NOT_A_NUMBER = "The index is not a number: %s";
 
-    private final String questionIndex;
+    private final int questionIndex;
 
-    public DeleteQuestionCommand(String questionIndex) {
+    public DeleteQuestionCommand(int questionIndex) {
         this.questionIndex = questionIndex;
     }
 
@@ -39,6 +39,7 @@ public class DeleteQuestionCommand extends Command {
                 throw new CommandException("The interview session's questions has been finalised."
                         + " You can no longer delete a question.");
             }
+
             return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questions.delete(questionIndex)),
                     ToggleView.QUESTION);
         } catch (IllegalValueException e) {
@@ -50,6 +51,6 @@ public class DeleteQuestionCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteQuestionCommand // instanceof handles nulls
-                && questionIndex.equals(((DeleteQuestionCommand) other).questionIndex)); // state check
+                && questionIndex == (((DeleteQuestionCommand) other).questionIndex)); // state check
     }
 }

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.StartInterviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /*
@@ -41,7 +42,9 @@ public class NormalParser {
             put("list", args -> new ListCommandParser().parse(args));
             put("finalise", args -> new FinaliseCommandParser().parse(args));
             put("open", args -> new OpenReportCommandParser().parse(args));
+            put("goto", args -> new NavigationCommandParser().parse(args));
             put("best", args -> new BestCommandParser().parse(args));
+            put("interview", args -> new StartInterviewCommand(args.trim()));
         }
     };
 
