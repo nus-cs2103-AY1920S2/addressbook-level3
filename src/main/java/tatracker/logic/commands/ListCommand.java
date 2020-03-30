@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
-        model.updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS);
+        model.updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

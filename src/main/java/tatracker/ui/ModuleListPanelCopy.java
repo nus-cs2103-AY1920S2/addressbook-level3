@@ -1,5 +1,7 @@
 package tatracker.ui;
 
+import static tatracker.model.TaTracker.getCurrentlyShownModuleClaim;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,9 +18,14 @@ import tatracker.model.module.Module;
 public class ModuleListPanelCopy extends UiPart<Region> {
     private static final String FXML = "ModuleListPanelCopy.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanelCopy.class);
+    private Module currentlyShownModuleClaim = getCurrentlyShownModuleClaim();
 
     @FXML
     private ListView<Module> moduleListViewCopy;
+
+    private static final String BACKGROUND_COLOUR = "#424d5f";
+    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
 
     public ModuleListPanelCopy(ObservableList<Module> moduleListCopy) {
         super(FXML);
@@ -39,6 +46,11 @@ public class ModuleListPanelCopy extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
+                if (module.equals(currentlyShownModuleClaim)) {
+                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; " +
+                            "-fx-border-color: " + BORDER_COLOUR + "; " +
+                            "-fx-border-width: " + BORDER_WIDTH + ";");
+                }
             }
         }
     }

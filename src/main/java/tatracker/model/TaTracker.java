@@ -137,12 +137,12 @@ public class TaTracker implements ReadOnlyTaTracker {
         return doneSessions.asUnmodifiableObservableList();
     }
 
-    public static Module getCurrentlyShownModuleClaim() {
-        return currentlyShownModuleClaim;
+    public void setCurrentlyShownModuleClaim(String moduleCode) {
+        currentlyShownModuleClaim = modules.getModule(moduleCode);
     }
 
-    public void setCurrentlyShownModuleClaim(Module module) {
-        currentlyShownModuleClaim = module;
+    public static Module getCurrentlyShownModuleClaim() {
+        return currentlyShownModuleClaim;
     }
 
     // ======== Module Methods =================================================

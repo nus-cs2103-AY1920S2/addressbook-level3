@@ -36,7 +36,7 @@ public class FilterModuleTssCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredDoneSessionList(predicate);
+        model.updateFilteredDoneSessionList(predicate, predicate.getModuleCode());
         return new CommandResult(
                 String.format(Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW,
                                 model.getFilteredDoneSessionList().size()));
