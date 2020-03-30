@@ -25,7 +25,7 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_DEADLINE + "04-18 23:59 "
             + PREFIX_ESTHOURS + "180";
 
-    public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New assignment added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment has already been recorded. "
             + "Congratulations, you don't have a new assignment!! (=";
 
@@ -48,7 +48,7 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, false, true, false, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, false, true, false, false, false);
     }
 
     @Override

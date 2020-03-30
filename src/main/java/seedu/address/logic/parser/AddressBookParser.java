@@ -25,6 +25,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListRestaurantCommand;
+import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowBirthdayCommand;
 import seedu.address.logic.commands.VisitedRestaurantCommand;
 
@@ -118,6 +119,9 @@ public class AddressBookParser {
 
         case ShowBirthdayCommand.COMMAND_WORD:
             return new ShowBirthdayCommand();
+
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
