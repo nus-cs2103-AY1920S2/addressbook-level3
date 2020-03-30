@@ -56,9 +56,9 @@ public class LogicManagerTest {
         JsonRestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(temporaryFolder.resolve("restaurantBook.json"));
         JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(temporaryFolder.resolve("assignments.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonEventScheduleStorage eventScheduleStorage =
-                new JsonEventScheduleStorage(temporaryFolder.resolve("eventSchedule.json"));
+                new JsonEventScheduleStorage(temporaryFolder.resolve("events.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
                 schedulerStorage,
@@ -95,10 +95,10 @@ public class LogicManagerTest {
                         .resolve("ioExceptionRestaurantBook.json"));
         JsonSchedulerStorage schedulerStorage =
                 new JsonSchedulerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
+        JsonEventScheduleStorage eventScheduleStorage =
+                new JsonEventScheduleStorage(temporaryFolder.resolve("ioExceptionEvents.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        JsonEventScheduleStorage eventScheduleStorage =
-                new JsonEventScheduleStorage(temporaryFolder.resolve("ioExceptionEventSchedule"));
         StorageManager storage = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
                 schedulerStorage,

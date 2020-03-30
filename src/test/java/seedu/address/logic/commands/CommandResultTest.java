@@ -49,7 +49,7 @@ public class CommandResultTest {
 
         // different restaurant value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
-            false, false, false, true, false, false)));
+            false, false, false, false, true, false)));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class CommandResultTest {
 
         // different restaurant value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
-            false, false, false, false, true, false, false).hashCode());
+            false, false, false, false, false, true, false).hashCode());
     }
 }

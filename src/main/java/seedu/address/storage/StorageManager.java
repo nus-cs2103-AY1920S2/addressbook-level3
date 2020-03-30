@@ -158,8 +158,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyEventSchedule> readEventSchedule(Path filePath) throws
-            DataConversionException, IOException {
+    public Optional<ReadOnlyEventSchedule> readEventSchedule(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return eventScheduleStorage.readEventSchedule(filePath);
     }

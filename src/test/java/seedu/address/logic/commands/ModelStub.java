@@ -228,7 +228,6 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
     public ObservableList<Person> getBdayListResult() {
         throw new AssertionError("This method should not be called.");
     }

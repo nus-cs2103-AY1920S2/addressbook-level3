@@ -99,8 +99,8 @@ public class ModelManagerTest {
         RestaurantBook restaurantBook = new RestaurantBook();
         AddressBook differentAddressBook = new AddressBook();
         Scheduler scheduler = new Scheduler();
-        UserPrefs userPrefs = new UserPrefs();
         EventSchedule eventSchedule = new EventSchedule();
+        UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, restaurantBook, scheduler, eventSchedule, userPrefs);
@@ -118,8 +118,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook,
-                restaurantBook, scheduler, eventSchedule, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, restaurantBook,
+                scheduler, eventSchedule, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");

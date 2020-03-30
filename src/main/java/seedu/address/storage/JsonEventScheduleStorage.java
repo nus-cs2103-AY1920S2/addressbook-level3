@@ -61,10 +61,9 @@ public class JsonEventScheduleStorage implements EventScheduleStorage {
     }
 
     /**
-     * Saves scheduler to storage file
-     * @param eventSchedule the scheduled event to save
-     * @param filePath to save to
-     * @throws IOException if the input is wrong
+     * Similar to {@link #saveEventSchedule(ReadOnlyEventSchedule)}.
+     *
+     * @param filePath location of the data. Cannot be null.
      */
     public void saveEventSchedule(ReadOnlyEventSchedule eventSchedule, Path filePath) throws IOException {
         requireNonNull(eventSchedule);
