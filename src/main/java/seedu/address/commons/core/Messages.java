@@ -18,4 +18,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_PREFIX = "Name and phone cannot be deleted!";
     public static final String MESSAGE_BIRTHDAYS_LISTED =
         "Birthdays for the next five days (today inclusive) is listed!";
+    public static final String MESSAGE_NO_PREFIX = "At least one recommended, good or bad food should be specified.";
 }

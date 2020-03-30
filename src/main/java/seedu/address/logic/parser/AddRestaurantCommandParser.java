@@ -15,14 +15,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.Cuisine;
-import seedu.address.model.restaurant.Hours;
-import seedu.address.model.restaurant.Location;
-import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Remark;
-import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.Visit;
+import seedu.address.model.restaurant.*;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object.
@@ -52,8 +45,12 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
         Cuisine cuisine = ParserUtil.parseCuisine(argMultimap.getValue(PREFIX_CUISINE).orElse(""));
         ArrayList<Remark> remark = new ArrayList<>(); // add command does not allow adding remarks straight away
         Visit visit = ParserUtil.parseVisit(argMultimap.getValue(PREFIX_VISITED).orElse(""));
+        ArrayList<Notes> recommendedFood = new ArrayList<>(); //add command does not allow adding notes straight away
+        ArrayList<Notes> goodFood = new ArrayList<>(); //add command does not allow adding notes straight away
+        ArrayList<Notes> badFood = new ArrayList<>(); //add command does not allow adding notes straight away
 
-        Restaurant restaurant = new Restaurant(name, location, hours, price, cuisine, remark, visit);
+        Restaurant restaurant = new Restaurant(name, location, hours, price, cuisine, remark,
+                visit, recommendedFood, goodFood, badFood);
 
         return new AddRestaurantCommand(restaurant);
     }

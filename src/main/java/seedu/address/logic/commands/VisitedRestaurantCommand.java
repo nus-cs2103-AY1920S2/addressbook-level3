@@ -65,7 +65,8 @@ public class VisitedRestaurantCommand extends Command {
         return new Restaurant(restaurantToUpdate.getName(), restaurantToUpdate.getLocation(),
                 restaurantToUpdate.getHours(), restaurantToUpdate.getPrice(),
                 restaurantToUpdate.getCuisine(), restaurantToUpdate.getRemark(),
-                new Visit(Visit.RESTAURANT_VISITED));
+                new Visit(Visit.RESTAURANT_VISITED), restaurantToUpdate.getRecommendedFood(),
+                restaurantToUpdate.getGoodFood(), restaurantToUpdate.getBadFood());
     }
 
     @Override

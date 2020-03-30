@@ -40,8 +40,9 @@ public class HelpCommand extends Command {
             + "14. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "15. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "16. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "17. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "18. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "17. " + AddRestaurantNoteCommand.COMMAND_WORD + ": " + AddRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
+            + "18. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "19. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
@@ -83,8 +84,9 @@ public class HelpCommand extends Command {
         commands.add("14. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("15. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("16. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("17. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("18. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("17. " + AddRestaurantNoteCommand.MESSAGE_USAGE + "\n");
+        commands.add("18. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("19. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }

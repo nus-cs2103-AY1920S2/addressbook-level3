@@ -7,14 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.restaurant.Cuisine;
-import seedu.address.model.restaurant.Hours;
-import seedu.address.model.restaurant.Location;
-import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Remark;
-import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.Visit;
+import seedu.address.model.restaurant.*;
 
 /**
  * Jackson-friendly version of {@link Restaurant}
@@ -30,6 +23,9 @@ class JsonAdaptedRestaurant {
     private final ArrayList<JsonAdaptedRemarkR> remark = new ArrayList<>();
     private final String cuisine;
     private final String visit;
+    private final ArrayList<JsonAdaptedNotes> recommendedNotes = new ArrayList<>();
+    private final ArrayList<JsonAdaptedNotes> goodNotes = new ArrayList<>();
+    private final ArrayList<JsonAdaptedNotes> badNotes = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -39,7 +35,10 @@ class JsonAdaptedRestaurant {
                                  @JsonProperty("hours") String hours, @JsonProperty("price") String price,
                                  @JsonProperty("remark") ArrayList<JsonAdaptedRemarkR> remark,
                                  @JsonProperty("cuisine") String cuisine,
-                                 @JsonProperty("visit") String visit) {
+                                 @JsonProperty("visit") String visit,
+                                 @JsonProperty("recommendedNotes") ArrayList<JsonAdaptedNotes> recommendedNotes,
+                                 @JsonProperty("goodNotes") ArrayList<JsonAdaptedNotes> goodNotes,
+                                 @JsonProperty("badNotes") ArrayList<JsonAdaptedNotes> badNotes) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -49,6 +48,15 @@ class JsonAdaptedRestaurant {
             this.remark.addAll(remark);
         }
         this.visit = visit;
+        if (recommendedNotes != null) {
+            this.recommendedNotes.addAll(recommendedNotes);
+        }
+        if (goodNotes != null) {
+            this.goodNotes.addAll(goodNotes);
+        }
+        if (badNotes != null) {
+            this.badNotes.addAll(badNotes);
+        }
     }
 
     /**
@@ -64,6 +72,15 @@ class JsonAdaptedRestaurant {
                 .map(JsonAdaptedRemarkR::new)
                 .collect(Collectors.toList()));
         visit = source.getVisit().visit;
+        recommendedNotes.addAll(source.getRecommendedFood().stream()
+                .map(JsonAdaptedNotes::new)
+                .collect(Collectors.toList()));
+        goodNotes.addAll(source.getGoodFood().stream()
+                .map(JsonAdaptedNotes::new)
+                .collect(Collectors.toList()));
+        badNotes.addAll(source.getBadFood().stream()
+                .map(JsonAdaptedNotes::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -123,6 +140,19 @@ class JsonAdaptedRestaurant {
             throw new IllegalValueException(Visit.MESSAGE_CONSTRAINTS);
         }
         final Visit modelVisit = new Visit(visit);
-        return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark, modelVisit);
+        final ArrayList<Notes> modelRecommendedNotes = new ArrayList<>();
+        for (JsonAdaptedNotes rnotes : recommendedNotes) {
+            modelRecommendedNotes.add(rnotes.toModelType());
+        }
+        final ArrayList<Notes> modelGoodNotes = new ArrayList<>();
+        for (JsonAdaptedNotes gnotes : goodNotes) {
+            modelGoodNotes.add(gnotes.toModelType());
+        }
+        final ArrayList<Notes> modelBadNotes = new ArrayList<>();
+        for (JsonAdaptedNotes bnotes : badNotes) {
+            modelBadNotes.add(bnotes.toModelType());
+        }
+        return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark, modelVisit,
+                modelRecommendedNotes, modelGoodNotes, modelBadNotes);
     }
 }

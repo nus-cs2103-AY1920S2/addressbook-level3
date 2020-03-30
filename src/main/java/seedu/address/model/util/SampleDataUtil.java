@@ -18,12 +18,7 @@ import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
-import seedu.address.model.restaurant.Cuisine;
-import seedu.address.model.restaurant.Hours;
-import seedu.address.model.restaurant.Location;
-import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.Visit;
+import seedu.address.model.restaurant.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,6 +29,12 @@ public class SampleDataUtil {
     public static final ArrayList<Remark> EMPTY_REMARK = new ArrayList<>();
     public static final ArrayList<Remark> SOME_REMARK = new ArrayList<>();
     public static final ArrayList<seedu.address.model.restaurant.Remark> SOMEMORE_REMARK = new ArrayList<>();
+    public static final ArrayList<Notes> EMPTY_RECOMMENDED_NOTE = new ArrayList<>();
+    public static final ArrayList<Notes> EMPTY_GOOD_NOTE = new ArrayList<>();
+    public static final ArrayList<Notes> EMPTY_BAD_NOTE = new ArrayList<>();
+    public static final ArrayList<Notes> SOME_RECOMMENDED_NOTE = new ArrayList<>();
+    public static final ArrayList<Notes> SOME_GOOD_NOTE = new ArrayList<>();
+    public static final ArrayList<Notes> SOME_BAD_NOTE = new ArrayList<>();
     public static final Birthday EMPTY_BIRTHDAY = new Birthday("");
     public static final Organization EMPTY_ORGANIZATION = new Organization("");
 
@@ -65,6 +66,9 @@ public class SampleDataUtil {
 
     public static Restaurant[] getSampleRestaurants() {
         SOMEMORE_REMARK.add(new seedu.address.model.restaurant.Remark("Place is clean"));
+        SOME_RECOMMENDED_NOTE.add(new Notes("Mcspicy"));
+        SOME_GOOD_NOTE.add(new Notes("Fries"));
+        SOME_BAD_NOTE.add(new Notes("Salad"));
         return new Restaurant[] {
             new Restaurant(new seedu.address.model.restaurant.Name("McDonalds"),
                     new Location("West Coast"),
@@ -72,7 +76,10 @@ public class SampleDataUtil {
                     new Price("$"),
                     new Cuisine("Fast Food"),
                     SOMEMORE_REMARK,
-                    new Visit("Yes"))
+                    new Visit("Yes"),
+                    SOME_RECOMMENDED_NOTE,
+                    SOME_GOOD_NOTE,
+                    SOME_BAD_NOTE)
         };
     }
 
