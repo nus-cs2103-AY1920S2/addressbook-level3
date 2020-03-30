@@ -33,12 +33,17 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
 
+        String title;
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format("Invalid Command"));
+            title = args.trim();
+            if (title.isEmpty()) {
+                throw new ParseException("Path cannot be empty");
+            }
+        } else {
+            title = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
-        String title = argMultimap.getValue(PREFIX_TITLE).get();
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
         if (correctedPath.equals(Optional.empty())) {

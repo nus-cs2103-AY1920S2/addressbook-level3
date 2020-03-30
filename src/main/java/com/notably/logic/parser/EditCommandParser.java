@@ -24,12 +24,13 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BODY);
 
+        String body;
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_BODY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format("Invalid Command"));
+            body = args.trim();
+        } else {
+            body = argMultimap.getValue(PREFIX_BODY).get();
         }
-
-        String body = argMultimap.getValue(PREFIX_BODY).get();
 
         List<EditCommand> command = new ArrayList<>();
         command.add(new EditCommand(new Body(body)));
