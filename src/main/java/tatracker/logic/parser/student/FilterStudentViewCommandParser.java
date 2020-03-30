@@ -4,9 +4,6 @@ import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tatracker.logic.commands.student.FilterStudentViewCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;

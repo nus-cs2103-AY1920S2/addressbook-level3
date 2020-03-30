@@ -5,9 +5,6 @@ import static tatracker.logic.commands.group.DeleteGroupCommand.MESSAGE_INVALID_
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
@@ -44,7 +41,7 @@ public class FilterStudentViewCommand extends Command {
 
     public FilterStudentViewCommand(String moduleCode, String groupCode) {
 
-        this.moduleCode  = moduleCode;
+        this.moduleCode = moduleCode;
         this.groupCode = groupCode;
     }
 
@@ -121,7 +118,7 @@ public class FilterStudentViewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FilterStudentViewCommand // instanceof handles nulls
-                && ( moduleCode.equals(((FilterStudentViewCommand) other).moduleCode)
-                      &&  groupCode.equals(((FilterStudentViewCommand) other).groupCode))); // state check
+                && (moduleCode.equals(((FilterStudentViewCommand) other).moduleCode)
+                      && groupCode.equals(((FilterStudentViewCommand) other).groupCode))); // state check
     }
 }
