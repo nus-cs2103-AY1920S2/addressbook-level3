@@ -54,9 +54,8 @@ public class EditSupplierCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the address book.";
 
     private final Index index;
-    private final EditSupplierDescriptor editSupplierDescriptor;
-
     private static Set<Offer> supplierToEditOffer;
+    private final EditSupplierDescriptor editSupplierDescriptor;
 
     /**
      * @param index of the supplier in the filtered supplier list to edit
