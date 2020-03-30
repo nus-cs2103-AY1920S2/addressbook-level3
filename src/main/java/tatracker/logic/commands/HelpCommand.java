@@ -1,5 +1,6 @@
 package tatracker.logic.commands;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
 /**
@@ -16,6 +17,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, false, true, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, Action.HELP);
     }
 }

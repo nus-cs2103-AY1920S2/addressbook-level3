@@ -12,22 +12,31 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Tabs should be switched. */
-    private final boolean switchTab;
+    //private final boolean switchTab;
 
     /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    //private final boolean showHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    //private final boolean exit;
+
+    public enum Action {
+        GOTO_STUDENT,
+        GOTO_SESSION,
+        GOTO_CLAIMS,
+        HELP,
+        EXIT,
+        NONE
+    }
+
+    private final Action nextAction;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean switchTab, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, Action nextAction) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.switchTab = switchTab;
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this.nextAction = nextAction;
     }
 
     /**
@@ -35,24 +44,28 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, Action.NONE);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isSwitchTab() {
-        return switchTab;
+    public Action getNextAction() {
+        return nextAction;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
-    }
+    //public boolean isSwitchTab() {
+    //    return switchTab;
+    //}
 
-    public boolean isExit() {
-        return exit;
-    }
+    //public boolean isShowHelp() {
+    //    return showHelp;
+    //}
+
+    //public boolean isExit() {
+    //    return exit;
+    //}
 
     @Override
     public boolean equals(Object other) {
@@ -67,14 +80,12 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && switchTab == otherCommandResult.switchTab
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && nextAction == otherCommandResult.nextAction;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, switchTab, showHelp, exit);
+        return Objects.hash(feedbackToUser, nextAction);
     }
 
 }

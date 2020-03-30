@@ -1,5 +1,12 @@
 package tatracker.ui;
 
+import static tatracker.logic.commands.CommandResult.Action.HELP;
+import static tatracker.logic.commands.CommandResult.Action.EXIT;
+import static tatracker.logic.commands.CommandResult.Action.NONE;
+import static tatracker.logic.commands.CommandResult.Action.GOTO_CLAIMS;
+import static tatracker.logic.commands.CommandResult.Action.GOTO_SESSION;
+import static tatracker.logic.commands.CommandResult.Action.GOTO_STUDENT;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -12,6 +19,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
@@ -282,8 +290,30 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            handleCommand(commandText);
 
+            switch (commandResult.getNextAction()) {
+                case HELP:
+                    handleHelp();
+                    break;
+
+                case EXIT:
+                    handleExit();
+                    break;
+                case GOTO_STUDENT:
+                    handleGoto(studentListTab);
+                    break;
+
+                case GOTO_SESSION:
+                    handleGoto(sessionListTab);
+                    break;
+
+                case GOTO_CLAIMS:
+                    handleGoto(claimsListTab);
+                    break;
+
+                default:
+                    break;
+            }
             return commandResult;
 
         } catch (CommandException | ParseException e) {

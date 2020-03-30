@@ -1,5 +1,6 @@
 package tatracker.logic.commands;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
 /**
@@ -16,13 +17,26 @@ public class GotoCommand extends Command {
 
     private static String tabName;
 
+    private static Action tabToSwitchTo;
+
     public GotoCommand(String tabName) {
         this.tabName = tabName.toLowerCase();
+        switch(this.tabName) {
+        case "student":
+            this.tabToSwitchTo = Action.GOTO_STUDENT;
+            break;
+        case "session":
+            this.tabToSwitchTo = Action.GOTO_SESSION;
+            break;
+        case "claims":
+            this.tabToSwitchTo = Action.GOTO_CLAIMS;
+            break;
+        }
     }
 
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(String.format(SHOWING_GOTO_MESSAGE, tabName), true, false, false);
+        return new CommandResult(String.format(SHOWING_GOTO_MESSAGE, tabName), tabToSwitchTo);
     }
 }
