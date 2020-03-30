@@ -1,7 +1,6 @@
 package tatracker.logic.parser;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAB;
 
 import java.util.stream.Stream;
 
@@ -21,16 +20,12 @@ public class GotoCommandParser implements Parser<GotoCommand> {
      */
     public GotoCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAB);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAB)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE));
         }
-
-        String tab = ParserUtil.parseValue(argMultimap.getValue(PREFIX_TAB).get());
-        return new GotoCommand(tab);
+        return new GotoCommand(argMultimap.getPreamble());
     }
 
     /**
