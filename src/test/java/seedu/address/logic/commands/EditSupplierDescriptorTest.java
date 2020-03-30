@@ -15,7 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditSupplierCommand.EditSupplierDescriptor;
-import seedu.address.testutil.EditSupplierDescriptorBuilder;
+// import seedu.address.testutil.EditSupplierDescriptorBuilder;
 
 public class EditSupplierDescriptorTest {
 
@@ -38,7 +38,8 @@ public class EditSupplierDescriptorTest {
         // assertNotEquals(DESC_AMY, DESC_BOB);
 
         // different name -> returns false
-        // EditSupplierDescriptor editedAmy = new EditSupplierDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        // EditSupplierDescriptor editedAmy = new EditSupplierDescriptorBuilder(DESC_AMY).
+        // withName(VALID_NAME_BOB).build();
         // assertNotEquals(DESC_AMY, editedAmy);
 
         // different phone -> returns false
