@@ -46,6 +46,6 @@ public class ListAssignmentCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.sortAssignment(comparator);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true, false, false, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true, false, false, false, false);
     }
 }
