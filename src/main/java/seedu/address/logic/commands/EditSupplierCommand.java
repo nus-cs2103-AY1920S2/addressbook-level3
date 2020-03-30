@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -54,6 +56,8 @@ public class EditSupplierCommand extends Command {
     private final Index index;
     private final EditSupplierDescriptor editSupplierDescriptor;
 
+    public static Set<Offer> supplierToEditOffer;
+
     /**
      * @param index of the supplier in the filtered supplier list to edit
      * @param editSupplierDescriptor details to edit the supplier with
@@ -89,6 +93,17 @@ public class EditSupplierCommand extends Command {
     }
 
     /**
+     * combine the offer set of supplierToEdit with EditSupplierDescriptor
+     *
+     * return the combined set
+     */
+    public static <Offer> Set<Offer> mergeOfferSets(Set<Offer> supplierToEditOffer,
+                                                    Set<Offer> EditSupplierDescriptorOffer) {
+        return Stream.concat(EditSupplierDescriptorOffer.stream(),
+                supplierToEditOffer.stream()).collect(Collectors.toSet());
+    }
+
+    /**
      * Creates and returns a {@code Supplier} with the details of {@code supplierToEdit}
      * edited with {@code editSupplierDescriptor}.
      */
@@ -100,6 +115,8 @@ public class EditSupplierCommand extends Command {
         Phone updatedPhone = editSupplierDescriptor.getPhone().orElse(supplierToEdit.getPhone());
         Email updatedEmail = editSupplierDescriptor.getEmail().orElse(supplierToEdit.getEmail());
         Address updatedAddress = editSupplierDescriptor.getAddress().orElse(supplierToEdit.getAddress());
+
+        supplierToEditOffer = supplierToEdit.getOffers();
         Set<Offer> updatedOffers = editSupplierDescriptor.getOffers().orElse(supplierToEdit.getOffers());
 
         return new Supplier(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedOffers);
@@ -200,8 +217,13 @@ public class EditSupplierCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code offers} is null.
          */
+        //public Optional<Set<Offer>> getOffers() {
+        //    return (offers != null) ? Optional.of(Collections.unmodifiableSet(offers)) : Optional.empty();
+        //}
+
         public Optional<Set<Offer>> getOffers() {
-            return (offers != null) ? Optional.of(Collections.unmodifiableSet(offers)) : Optional.empty();
+            return (offers != null) ? Optional.of(Collections.unmodifiableSet(mergeOfferSets(supplierToEditOffer,
+                    offers))) : Optional.empty();
         }
 
         @Override
