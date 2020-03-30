@@ -168,7 +168,7 @@ class JsonPersonalModule extends JsonModule {
                 module.getModularCredits().toString(), module.getPrereqs().toString(),
                 module.getSemesterData().getSemesters().stream()
                         .map(JsonSemesterData::new).collect(Collectors.toList()),
-                (module.getPrereqTreeNode() != null) ? module.getPrereqTreeNode().toJson() : null);
+                module.getPrereqTreeNode() != null ? module.getPrereqTreeNode().toJson() : null);
         status = module.getStatus();
         grade = module.getGrade();
         if (module.getDeadlines().size() == 0) {

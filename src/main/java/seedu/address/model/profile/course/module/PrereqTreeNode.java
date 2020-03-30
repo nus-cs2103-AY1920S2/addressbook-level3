@@ -1,14 +1,17 @@
 package seedu.address.model.profile.course.module;
 
-import seedu.address.storage.JsonPrereqTreeNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.storage.JsonPrereqTreeNode;
+
+/**
+ * An object representing the node of the prerequisite tree of a module.
+ */
 public class PrereqTreeNode {
-    ModuleCode moduleCode;
-    String type;
-    List<PrereqTreeNode> prereqTreeNodes;
+    private ModuleCode moduleCode;
+    private String type;
+    private List<PrereqTreeNode> prereqTreeNodes;
 
     public PrereqTreeNode(ModuleCode moduleCode) {
         this.moduleCode = moduleCode;
@@ -25,24 +28,32 @@ public class PrereqTreeNode {
         this.type = type;
     }
 
+    /**
+     * Checks if the user has fulfilled all the prerequisites under this prerequisite tree.
+     * Recursive function, to be called for every node while traversing down the tree.
+     */
     public boolean hasFulfilledPrereqs(List<ModuleCode> modulesTaken) {
         if (moduleCode != null) {
             // Kept the first condition mainly as precaution
             return modulesTaken.contains(moduleCode)
-                    || modulesTaken.stream().map(ModuleCode::removeSuffix).anyMatch(modCode->modCode.equals(moduleCode));
+                    || modulesTaken.stream()
+                    .map(ModuleCode::removeSuffix)
+                    .anyMatch(modCode->modCode.equals(moduleCode));
         }
         boolean check;
         if (type.equals("or")) {
             check = false;
+            // As long as 1 module fulfils prereq, requirement is fulfilled
             for (PrereqTreeNode node: prereqTreeNodes) {
-                if (node.hasFulfilledPrereqs(modulesTaken)) { // As long as 1 module fulfils prereq, requirement is fulfilled
+                if (node.hasFulfilledPrereqs(modulesTaken)) {
                     check = true;
                 }
             }
         } else if (type.equals("and")) {
             check = true;
+            // As long as 1 module does not fulfil prereq, requirement is not fulfilled
             for (PrereqTreeNode node: prereqTreeNodes) {
-                if (!node.hasFulfilledPrereqs(modulesTaken)) { // As long as 1 module does not fulfil prereq, requirement is not fulfilled
+                if (!node.hasFulfilledPrereqs(modulesTaken)) {
                     check = false;
                 }
             }
@@ -52,6 +63,9 @@ public class PrereqTreeNode {
         return check;
     }
 
+    /**
+     * Converts this PrereqTreeNode to a JsonPrereqTreeNode object.
+     */
     public JsonPrereqTreeNode toJson() {
         if (moduleCode != null) {
             return new JsonPrereqTreeNode(moduleCode.toString());
