@@ -46,25 +46,25 @@ public class UniqueScheduleList implements Iterable<Schedule> {
         internalList.add(toAdd);
     }
 
-    // /**
-    //  * Replaces the schedule {@code target} in the list with {@code editedSchedule}.
-    //  * {@code target} must exist in the list.
-    //  * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule in the list.
-    //  */
-    // public void setSchedule(Schedule target, Schedule editedSchedule) {
-    //     requireAllNonNull(target, editedSchedule);
-    //
-    //     int index = internalList.indexOf(target);
-    //     if (index == -1) {
-    //         throw new ScheduleNotFoundException();
-    //     }
-    //
-    //     if (!target.isSameSchedule(editedSchedule) && contains(editedSchedule)) {
-    //         throw new DuplicateScheduleException();
-    //     }
-    //
-    //     internalList.set(index, editedSchedule);
-    // }
+    /**
+     * Replaces the schedule {@code target} in the list with {@code editedSchedule}.
+     * {@code target} must exist in the list.
+     * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule in the list.
+     */
+    public void setSchedule(Schedule target, Schedule editedSchedule) {
+        requireAllNonNull(target, editedSchedule);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ScheduleNotFoundException();
+        }
+
+        if (!target.isSameSchedule(editedSchedule) && contains(editedSchedule)) {
+            throw new DuplicateScheduleException();
+        }
+
+        internalList.set(index, editedSchedule);
+    }
 
     /**
      * Removes the equivalent schedule from the list.

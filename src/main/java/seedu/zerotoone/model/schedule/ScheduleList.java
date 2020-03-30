@@ -69,17 +69,17 @@ public class ScheduleList {
         schedules.add(p);
     }
 
-    // /**
-    //  * Replaces the given schedule {@code target} in the list with {@code editedSchedule}.
-    //  * {@code target} must exist in the schedule list.
-    //  * The schedule identity of {@code editedSchedule} must not be the same as another existing
-    //  * schedule in the schedule list.
-    //  */
-    // public void setSchedule(Schedule target, Schedule editedSchedule) {
-    //     requireNonNull(editedSchedule);
-    //
-    //     schedules.setSchedule(target, editedSchedule);
-    // }
+    /**
+     * Replaces the given schedule {@code target} in the list with {@code editedSchedule}.
+     * {@code target} must exist in the schedule list.
+     * The schedule identity of {@code editedSchedule} must not be the same as another existing
+     * schedule in the schedule list.
+     */
+    public void setSchedule(Schedule target, Schedule editedSchedule) {
+        requireNonNull(editedSchedule);
+
+        schedules.setSchedule(target, editedSchedule);
+    }
 
     /**
      * Removes {@code key} from this {@code ScheduleList}.

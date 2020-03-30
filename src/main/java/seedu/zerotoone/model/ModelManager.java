@@ -179,6 +179,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule) {
+        scheduler.setSchedule(scheduleToEdit, editedSchedule);
+    }
+
+    @Override
     public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
         scheduler.deleteScheduledWorkout(scheduledWorkoutToDelete);
     }
