@@ -1,5 +1,5 @@
 {
-  "Root": [
+  "root": [
     {
       "title": "Y2S2",
       "body": "",
@@ -38,13 +38,7 @@
             {
               "title": "Lecture Notes",
               "body": "",
-              "children": [
-                {
-                  "title": "Tutorial 2",
-                  "body": "Q1: True, Q2: False",
-                  "children": []
-                }
-              ]
+              "children": []
             },
             {
               "title": "Tutorials",
