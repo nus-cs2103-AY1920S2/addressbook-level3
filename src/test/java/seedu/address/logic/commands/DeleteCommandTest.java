@@ -19,6 +19,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
@@ -37,6 +38,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
             new Scheduler(),
+            new EventSchedule(),
             new UserPrefs());
 
     @Test
@@ -50,6 +52,7 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
                 new Scheduler(),
+                new EventSchedule(),
                 new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
@@ -78,6 +81,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
                 new Scheduler(),
+                new EventSchedule(),
                 new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
@@ -118,6 +122,7 @@ public class DeleteCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
                         new Scheduler(),
+                        new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 

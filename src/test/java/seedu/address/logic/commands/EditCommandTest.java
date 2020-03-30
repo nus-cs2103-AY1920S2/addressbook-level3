@@ -20,6 +20,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
@@ -37,6 +38,7 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
             new Scheduler(),
+            new EventSchedule(),
             new UserPrefs());
 
     /*@Test
@@ -73,6 +75,7 @@ public class EditCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
                         new Scheduler(),
+                        new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
@@ -90,6 +93,7 @@ public class EditCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
                         new Scheduler(),
+                        new EventSchedule(),
                         new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -110,6 +114,7 @@ public class EditCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
                         new Scheduler(),
+                        new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 

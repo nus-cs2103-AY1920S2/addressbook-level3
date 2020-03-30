@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
@@ -28,10 +29,12 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(),
                 new RestaurantBook(),
                 new Scheduler(),
+                new EventSchedule(),
                 new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(),
                 new RestaurantBook(),
                 new Scheduler(),
+                new EventSchedule(),
                 new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
