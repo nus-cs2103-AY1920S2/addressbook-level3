@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.eylah.expensesplitter.model.person.Amount;
+import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.person.UniquePersonList;
 
@@ -26,7 +27,7 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
      *   among constructors.
      */
     {
-        persons = new seedu.eylah.expensesplitter.model.person.UniquePersonList();
+        persons = new UniquePersonList();
     }
 
     public PersonAmountBook() {}
@@ -72,9 +73,13 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
+     * Person is duplicated so that a new Person is added instead of the
+     * existing Person in the Receipt.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        Name name = p.getName();
+        Amount amount = p.getAmount();
+        persons.add(new Person(name, amount));
     }
 
     /**

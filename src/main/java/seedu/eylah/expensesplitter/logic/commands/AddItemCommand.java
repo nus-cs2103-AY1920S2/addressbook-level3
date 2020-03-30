@@ -9,11 +9,12 @@ import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 import java.util.ArrayList;
 
 import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
-import seedu.eylah.expensesplitter.model.Entry;
 import seedu.eylah.expensesplitter.model.Model;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
+import seedu.eylah.expensesplitter.model.receipt.Entry;
+
 
 /**
  * Used to add entries to the receipt.
@@ -30,6 +31,12 @@ public class AddItemCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "The entry: \n  -> %1$s\nhas been added.";
 
+    // note:
+    // if receipt is done, can only do paid, back, listamount and listreceipt. CANNOT: add/deleteitem.
+    // if receipt is undone, can only additem, back, deleteitem, listreceipt, listamount. CANNOT: paid.
+    public static final String MESSAGE_RECEIPT_DONE = "The current receipt is marked as completed. You may not use "
+            + "the additem command.";
+
     private Entry toBeAdded;
     private ArrayList<Person> persons;
     private Amount amount;
@@ -37,28 +44,32 @@ public class AddItemCommand extends Command {
     /**
      * Creates an AddItemCommand to add the specified {@code Item}
      *
-     * @param item Item to be added.
+     * @param item    Item to be added.
      * @param persons String array of persons to be added.
      */
     public AddItemCommand(Item item, ArrayList<Person> persons, Amount amount) {
         requireAllNonNull(item, persons, amount);
         this.persons = persons;
         this.amount = amount;
-        toBeAdded = new Entry(item, persons);
+        this.toBeAdded = new Entry(item, persons);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.addEntry(toBeAdded);
-        for (Person person : persons) {
-            if (!model.hasPerson(person)) {
-                model.addPerson(person);
-            } else {
-                model.addAmount(model.getPerson(person), amount);
+        if (model.isReceiptDone()) {
+            return new CommandResult(MESSAGE_RECEIPT_DONE);
+        } else {
+            model.addEntry(toBeAdded);
+            for (Person person : persons) {
+                if (!model.hasPerson(person)) {
+                    model.addPerson(person);
+                } else {
+                    model.addAmount(model.getPerson(person), amount);
+                }
             }
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
     }
 
     @Override

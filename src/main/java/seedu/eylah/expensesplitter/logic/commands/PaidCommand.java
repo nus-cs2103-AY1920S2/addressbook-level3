@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.math.BigDecimal;
 
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
 import seedu.eylah.expensesplitter.model.Model;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
@@ -18,15 +19,22 @@ public class PaidCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully deducted amount from Person named: ";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Deducts the amount of Person identified by the index number of the Person in listamount.\n"
+        + "Parameters: INDEX and AMOUNT (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1" + " 3.30";
+
+    public static final String MESSAGE_RECEIPT_UNDONE = "The current receipt is marked as incomplete. You may not "
+            + "use the paid command.";
 
     //private final Person personPaid;
-    private final int indexOfPersonPaid;
+    private final Index indexOfPersonPaid;
     private final String amountPaid;
 
     /**
      * Creates an PaidCommand to add the specified {@code Person}
      */
-    public PaidCommand (int indexOfPersonPaid, String amountPaid) {
+    public PaidCommand (Index indexOfPersonPaid, String amountPaid) {
         requireNonNull(indexOfPersonPaid);
         requireNonNull(amountPaid);
         this.indexOfPersonPaid = indexOfPersonPaid;
@@ -36,27 +44,33 @@ public class PaidCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
+        if (!model.isReceiptDone()) {
+            return new CommandResult(MESSAGE_RECEIPT_UNDONE);
+        } else {
+            ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
-        //This ensures that the indexOfPersonPaid is correct.
-        if (indexOfPersonPaid < 0 || indexOfPersonPaid > book.getPersonList().size() - 1) {
-            throw new CommandException("Index of Person is incorrect. Please use `listamount` to get the index.");
+
+            //This ensures that the indexOfPersonPaid is correct.
+            if (indexOfPersonPaid.getZeroBased() < 0
+                    || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
+                throw new CommandException("Index of Person is incorrect. Please use `listamount` to get the index.");
+            }
+
+            Person person = book.getPersonByIndex(indexOfPersonPaid.getZeroBased());
+            String initialAmount = person.getAmount().toString();
+
+            //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
+            if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
+                throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
+                        + "to get the index.");
+            }
+
+            model.paidPerson(person, amountPaid);
+            String finalAmount = person.getAmount().toString();
+
+            return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
+                    + initialAmount + " to " + finalAmount + ".");
         }
-
-        Person person = book.getPersonByIndex(indexOfPersonPaid);
-        String initialAmount = person.getAmount().toString();
-
-        //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
-        if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
-            throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
-                + "to get the index.");
-        }
-
-        model.paidPerson(person, amountPaid);
-        String finalAmount = person.getAmount().toString();
-
-        return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
-            + initialAmount + " to " + finalAmount + ".");
     }
 
 }

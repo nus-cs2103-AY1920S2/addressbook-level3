@@ -1,4 +1,4 @@
-package seedu.eylah.expensesplitter.model;
+package seedu.eylah.expensesplitter.model.receipt;
 
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 

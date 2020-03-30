@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
 import seedu.eylah.expensesplitter.model.UserPrefs;
 
@@ -20,12 +21,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(seedu.eylah.addressbook.storage.StorageManager.class);
     private PersonAmountStorage personAmountStorage;
     private UserPrefsStorage userPrefsStorage;
+    private ReceiptStorage receiptStorage;
 
-    public StorageManager(PersonAmountStorage personAmountStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(PersonAmountStorage personAmountStorage, UserPrefsStorage userPrefsStorage,
+            ReceiptStorage receiptStorage) {
 
         super();
         this.personAmountStorage = personAmountStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.receiptStorage = receiptStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -77,6 +81,36 @@ public class StorageManager implements Storage {
         personAmountStorage.savePersonAmountBook(personAmountBook, filePath);
     }
 
+    // === Receipt Storage
+
+    @Override
+    public Path getReceiptBookFilePath() {
+        return receiptStorage.getReceiptBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyReceiptBook> readReceiptBook() throws DataConversionException, IOException {
+        return readReceiptBook(receiptStorage.getReceiptBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyReceiptBook> readReceiptBook(Path filePath) throws DataConversionException,
+            IOException {
+
+        logger.fine("Attempting to read data from file: " + filePath);
+        return receiptStorage.readReceiptBook(filePath);
+    }
+
+    @Override
+    public void saveReceiptBook(ReadOnlyReceiptBook receiptBook) throws IOException {
+        saveReceiptBook(receiptBook, receiptStorage.getReceiptBookFilePath());
+    }
+
+    @Override
+    public void saveReceiptBook(ReadOnlyReceiptBook receiptBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        receiptStorage.saveReceiptBook(receiptBook, filePath);
+    }
 
 
 }
