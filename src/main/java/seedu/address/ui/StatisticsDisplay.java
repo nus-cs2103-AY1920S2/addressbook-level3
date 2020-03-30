@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -14,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.dayData.CustomQueue;
+import seedu.address.model.dayData.Date;
+import seedu.address.model.dayData.DayData;
 
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
@@ -21,20 +24,20 @@ import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 public class StatisticsDisplay extends UiPart<Region> {
 
     private static final String FXML = "StatisticsDisplay.fxml";
-    //private static final String DEFAULT_BAR_CHART_TITLE = "Start POMMING to track your data!";
-    private static final Path DEFAULT_PROGRESS_BAR_DAILY__PLACEHOLDER =
-            Paths.get("images", "statistics", "progressBarDaily0%.png");
-    private static final String DEFAULT_PROGRESS_DAILY = "0 mins / 100 mins (DEFAULT)";
+    private static final String DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER =
+            "/images/pet/ProgressBar0%.png";
+    private static final String DEFAULT_PROGRESS_DAILY = "NaN mins";
     private static final String DEFAULT_MEDALS = "Placeholder";
     private static final String X_AXIS = "Day";
 
-    //public String barChartTitleText; // mutable
-    public Path progressBarDailyFilepath;
+    private final String PROGRESS_UNITS = " mins";
+
+    public String progressBarDailyFilepathString;
     public String progressDailyText;
     public String medalsText;
+    public String progressTarget; // TODO @Fyonn will set
 
     @FXML private VBox statisticsPane;
-    //@FXML private Label barChartTitle;
     @FXML private BarChart<String, Integer> barChartPomDurationData;
     @FXML private BarChart<String, Integer> barChartTasksDoneData;
 
@@ -44,17 +47,15 @@ public class StatisticsDisplay extends UiPart<Region> {
 
     public StatisticsDisplay() {
         super(FXML);
-        //this.barChartTitleText = DEFAULT_BAR_CHART_TITLE;
-        this.progressBarDailyFilepath = DEFAULT_PROGRESS_BAR_DAILY__PLACEHOLDER;
+        this.progressBarDailyFilepathString = DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER;
+
         this.progressDailyText = DEFAULT_PROGRESS_DAILY;
         this.medalsText = DEFAULT_MEDALS;
 
         progressDaily.setText(progressDailyText);
-        Image progressBarDailyImage = new Image(String.valueOf(progressBarDailyFilepath));
+        Image progressBarDailyImage = new Image(DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER);
         progressBarDaily.setImage(progressBarDailyImage);
         medals.setText(medalsText);
-
-        //barChartTitle.setText(barChartTitleText);
 
         CategoryAxis xAxis1 = new CategoryAxis();
         xAxis1.setLabel(X_AXIS);
@@ -66,6 +67,54 @@ public class StatisticsDisplay extends UiPart<Region> {
     }
 
     public void updateGraphs(CustomQueue customQueue) {
+        DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
+        int currProgress = latestDayData.getPomDurationData().value;
+        progressDaily.setText(currProgress + PROGRESS_UNITS);
+
+        int expBarPerc = currProgress / 10;
+        if (expBarPerc >= 10) {
+            expBarPerc = 10;
+        }
+
+        switch (expBarPerc) {
+            case 0:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar0%.png";
+                break;
+            case 1:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar10%.png";
+                break;
+            case 2:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar20%.png";
+                break;
+            case 3:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar30%.png";
+                break;
+            case 4:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar40%.png";
+                break;
+            case 5:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar50%.png";
+                break;
+            case 6:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar60%.png";
+                break;
+            case 7:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar70%.png";
+                break;
+            case 8:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar80%.png";
+                break;
+            case 9:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar90%.png";
+                break;
+            case 10:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar100%.png";
+                break;
+        }
+
+        Image progressBarDailyImage = new Image(progressBarDailyFilepathString);
+        progressBarDaily.setImage(progressBarDailyImage);
+
         XYChart.Series<String, Integer> dataSeriesPomDurationData = new XYChart.Series<>();
         XYChart.Series<String, Integer> dataSeriesTasksDoneData = new XYChart.Series<>();
         //dataSeries.setName("You");
