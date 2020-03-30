@@ -15,7 +15,7 @@ public class TabsPanel extends UiPart<Region> {
 
     // Independent Ui parts residing in this Ui container
     private CouponListPanel couponListPanel;
-    private SummaryPane summaryPane;
+    private SavedPane savedPane;
     private HelpPane helpPane;
     private Logic logic;
 
@@ -23,7 +23,7 @@ public class TabsPanel extends UiPart<Region> {
     private Tab couponTab;
 
     @FXML
-    private Tab summaryTab;
+    private Tab savedTab;
 
     @FXML
     private Tab helpTab;
@@ -35,7 +35,7 @@ public class TabsPanel extends UiPart<Region> {
     private StackPane expandedCouponPlaceholder;
 
     @FXML
-    private StackPane summaryPanePlaceholder;
+    private StackPane savedPanePlaceholder;
 
     @FXML
     private StackPane helpPanePlaceholder;
@@ -56,8 +56,8 @@ public class TabsPanel extends UiPart<Region> {
                 logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        summaryPane = new SummaryPane(logic);
-        summaryPanePlaceholder.getChildren().add(summaryPane.getRoot());
+        savedPane = new SavedPane(logic);
+        savedPanePlaceholder.getChildren().add(savedPane.getRoot());
 
         helpPane = new HelpPane(logic);
         helpPanePlaceholder.getChildren().add(helpPane.getRoot());
@@ -69,7 +69,7 @@ public class TabsPanel extends UiPart<Region> {
     public CsTab selectedTab() {
         if (couponTab.isSelected()) {
             return CsTab.COUPONS;
-        } else if (summaryTab.isSelected()) {
+        } else if (savedTab.isSelected()) {
             return CsTab.SAVED;
         } else {
             return CsTab.HELP;

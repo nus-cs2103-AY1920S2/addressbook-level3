@@ -12,11 +12,11 @@ import csdev.couponstash.logic.commands.ArchiveCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
 import csdev.couponstash.logic.commands.Command;
 import csdev.couponstash.logic.commands.ConditionCommand;
+import csdev.couponstash.logic.commands.CopyCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.ExitCommand;
 import csdev.couponstash.logic.commands.ExpiringCommand;
-import csdev.couponstash.logic.commands.ExportCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
@@ -95,8 +95,8 @@ public class CouponStashParser {
         case ExpiringCommand.COMMAND_WORD:
             return new ExpiringCommandParser().parse(arguments);
 
-        case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments);
+        case CopyCommand.COMMAND_WORD:
+            return new CopyCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -105,7 +105,7 @@ public class CouponStashParser {
             return new HelpCommand();
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
