@@ -386,7 +386,7 @@ Here are the steps you should follow to obtain all orders using the Nearby comma
 *Step 1* : Type in the keyword `nearby` +
 
 *Step 2 (optional)* : Provide an optional `<<command_flag, FLAG>>` that indicates which order list to
-search (order list or return order list) you want to edit. +
+search (order list or return order list). +
 [NOTE]
 ====
 A `-o` flag indicates searching of nearby orders using the order list. +
