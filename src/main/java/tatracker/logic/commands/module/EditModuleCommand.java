@@ -1,19 +1,15 @@
-package tatracker.logic.commands.group;
+package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.CommandWords.EDIT_MODEL;
 import static tatracker.logic.commands.CommandWords.MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NEWTYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.group.Group;
-import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
 
 /**
@@ -31,17 +27,14 @@ public class EditModuleCommand extends Command {
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    private static final int FIRST_GROUP_INDEX = 0;
 
-    private final Module module;
     private final Module targetModule;
-    private final String newGroupCode;
-    private final GroupType newGroupType;
+    private final String newName;
 
-    public EditModuleCommand(Group group, Module module, String newGroupCode, GroupType newGroupType) {
-        this.group = group;
+    public EditModuleCommand(Module module, String newName) {
         this.targetModule = module;
-        this.newGroupCode = newGroupCode;
-        this.newGroupType = newGroupType;
+        this.newName = newName;
     }
 
     @Override
@@ -53,27 +46,17 @@ public class EditModuleCommand extends Command {
         }
 
         Module actualModule = model.getModule(targetModule.getIdentifier());
-
-        if (!actualModule.hasGroup(group)) {
-            throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
-        }
-
-        Group editedGroup = actualModule.getGroup(group.getIdentifier());
-        editedGroup.setIdentifier(newGroupCode);
-
-        if (newGroupType != null) {
-            editedGroup.setGroupType(newGroupType);
-        }
+        actualModule.setName(newName);
 
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
         if (model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
-            model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
+            model.setFilteredStudentList(actualModule.getIdentifier(), FIRST_GROUP_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, editedGroup));
+        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule));
     }
 
     @Override
@@ -82,12 +65,11 @@ public class EditModuleCommand extends Command {
             return true; // short circuit if same object
         }
 
-        if (!(other instanceof EditGroupCommand)) {
+        if (!(other instanceof EditModuleCommand)) {
             return false; // instanceof handles nulls
         }
 
-        EditGroupCommand otherCommand = (EditGroupCommand) other;
-        return group.equals(otherCommand.group)
-                && targetModule.equals(otherCommand.targetModule);
+        EditModuleCommand otherCommand = (EditModuleCommand) other;
+        return targetModule.equals(otherCommand.targetModule);
     }
 }
