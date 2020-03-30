@@ -187,14 +187,15 @@ user specified criteria.
 
 Here is a sample sequence diagram that shows what happens when the user inputs `filter favourites t/20 ig/Pasta`:
 
+.Advanced filter sequence diagram
 image::AdvancedFilterSequenceDiagram.png[]
 
-The result of this operation is: All recipes that 1) are marked as favourites, 2) take 20 minutes or less to prepare,
-and 3) contains pasta as an ingredient will be displayed.
+This operation displays all recipes that 1) are marked as favourites, 2) take 20 minutes or less to prepare,
+and 3) contains pasta as an ingredient.
 
 ==== Design Considerations
 
-===== Aspect: Consistency of user input syntax
+===== Aspect: Consistency of user input format
 One concern we had while implementing this feature was the sheer number of commands and prefixes that our app had.
 Eventually, the current implementation was chosen because we didn't want to define a new format for `filter`
 keywords which might potentially confuse our users.
@@ -202,16 +203,16 @@ keywords which might potentially confuse our users.
 * Alternative 1 (current choice): Uses the existing prefixes and format in the user input.
 ** Pros: The existing `ArgumentTokenizer` and `ArgumentMultimap` classes already have capabilities to parse user input
 that is in a certain format. Thus, using the same format saves us time and effort in implementing our own parser. It
-also prevents causing confusion to the user.
+also spares the user from having to remember multiple formats / keywords.
 ** Cons: The user has to be familiar with the prefixes and other special keywords in order to use this feature to its
 fullest potential.
 
-* Alternative 2: Define new keywords that the user can use. These keywords could be "more english-like" in nature as
-opposed to using shortened tags as prefixes.
+* Alternative 2: Define new keywords that the user can use. These keywords could be "more english-like" as opposed to
+using shortened tags as prefixes.
 ** Pros: It might be easier to remember these keywords since they are more english-like. The user then wouldn't have to
 remember what each prefix means.
 ** Cons: We must implement our own parser which is tedious. The user will also have to remember a new set of keywords
-top of the existing prefixes.
+top of the existing prefixes. This is double work for the user.
 
 
 // end::advancedfilter[]
