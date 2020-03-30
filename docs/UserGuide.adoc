@@ -697,7 +697,7 @@ OR +
 [[command_prefix]]
 .Command Prefix
 |===
-|Prefix |Meaning |Used in the following Command(s)
+|Prefix |Order Attributes |Used in the following Command(s)
 
 |ot/
 |Order Type
