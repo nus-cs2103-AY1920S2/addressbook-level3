@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
+import seedu.recipe.model.cooked.CookedRecordBook;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.Date;
 import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
@@ -26,11 +28,14 @@ public class ModelManager implements Model {
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
     private final PlannedRecipeMap plannedRecipes;
+    private final CookedRecordBook cookedRecordBook;
+    private final FilteredList<Record> records;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyCookedRecordBook cookedRecordBook) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
@@ -40,11 +45,13 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
+        this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
+        this.records = new FilteredList<>(this.cookedRecordBook.getRecordsList());
         plannedRecipes = new PlannedRecipeMap(); // todo: planned recipes cant be saved currently
     }
 
     public ModelManager() {
-        this(new RecipeBook(), new UserPrefs());
+        this(new RecipeBook(), new UserPrefs(), new CookedRecordBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -193,6 +200,13 @@ public class ModelManager implements Model {
     @Override
     public void planRecipe(Recipe recipeToSet, Date atDate) {
         plannedRecipes.add(recipeToSet, atDate);
+    }
+
+    //=========== Cooked Recipe List Accessors =============================================================
+
+    @Override
+    public void addRecord(Record record) {
+        cookedRecordBook.addRecord(record);
     }
 
 }

@@ -1,5 +1,6 @@
 package seedu.recipe.model.cooked;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -8,6 +9,7 @@ public class UniqueRecordList {
     }
 
     public boolean contains(Record record) {
+        return false;
     }
 
     public void add(Record p) {
@@ -20,5 +22,6 @@ public class UniqueRecordList {
     }
 
     public Collection<Object> asUnmodifiableObservableList() {
+        return new ArrayList<>();
     }
 }

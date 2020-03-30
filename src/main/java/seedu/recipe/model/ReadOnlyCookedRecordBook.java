@@ -6,7 +6,7 @@ import seedu.recipe.model.cooked.Record;
 /**
  * Unmodifiable view of a cooked Records
  */
-public interface ReadOnlyCookedRecord {
+public interface ReadOnlyCookedRecordBook {
 
     /**
      * Returns an unmodifiable view of the cooked record list.

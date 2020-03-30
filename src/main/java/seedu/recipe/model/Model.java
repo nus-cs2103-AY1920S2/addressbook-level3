@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.plan.Date;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.cooked.Record;
 
 /**
  * The API of the Model component.
@@ -130,4 +131,9 @@ public interface Model {
      */
     void planRecipe(Recipe recipeToSet, Date atDate);
 
+    /**
+     * Adds a record in the cookedRecord list
+     */
+
+    void addRecord(Record record);
 }

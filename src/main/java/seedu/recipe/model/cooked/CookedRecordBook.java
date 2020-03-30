@@ -5,13 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.recipe.model.ReadOnlyCookedRecord;
+import seedu.recipe.model.ReadOnlyCookedRecordBook;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameRecipe comparison)
  */
-public class CookedRecord implements ReadOnlyCookedRecord {
+public class CookedRecordBook implements ReadOnlyCookedRecordBook {
 
     private final UniqueRecordList records;
 
@@ -26,12 +26,12 @@ public class CookedRecord implements ReadOnlyCookedRecord {
         records = new UniqueRecordList();
     }
 
-    public CookedRecord() {}
+    public CookedRecordBook() {}
 
     /**
      * Creates a RecipeBook using the Recipes in the {@code toBeCopied}
      */
-    public CookedRecord(ReadOnlyCookedRecord toBeCopied) {
+    public CookedRecordBook(ReadOnlyCookedRecordBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -47,10 +47,10 @@ public class CookedRecord implements ReadOnlyCookedRecord {
     }
 
     /**
-     * Resets the existing data of this {@code CookedRecord} with {@code newData}.
+     * Resets the existing data of this {@code CookedRecordBook} with {@code newData}.
      * @param newData
      */
-    public void resetData(ReadOnlyCookedRecord newData) {
+    public void resetData(ReadOnlyCookedRecordBook newData) {
         requireNonNull(newData);
 
         setRecords(newData.getRecordsList());
@@ -102,20 +102,21 @@ public class CookedRecord implements ReadOnlyCookedRecord {
         // TODO: refine later
     }
 
-    @Override
-    public ObservableList<Record> getCookedRecordList() {
-        return records.asUnmodifiableObservableList();
-    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.recipe.model.cooked.CookedRecord // instanceof handles nulls
-                && records.equals(((seedu.recipe.model.cooked.CookedRecord) other).records));
+                || (other instanceof CookedRecordBook // instanceof handles nulls
+                && records.equals(((CookedRecordBook) other).records));
     }
 
     @Override
     public int hashCode() {
         return records.hashCode();
+    }
+
+    @Override
+    public ObservableList<Record> getRecordsList() {
+        return null;
     }
 }
