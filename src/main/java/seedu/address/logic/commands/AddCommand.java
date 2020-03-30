@@ -95,12 +95,6 @@ public class AddCommand extends Command {
             }
         }
 
-        if (moduleToAdd.getPrereqTreeNode() != null
-                && !moduleToAdd.getPrereqTreeNode().hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
-            throw new CommandException("Prerequisites of " + toAdd + " have not been fulfilled before semester "
-                    + addSemester + "\nPrerequisites: " + moduleToAdd.getPrereqs());
-        }
-
         Personal personal;
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
@@ -114,6 +108,12 @@ public class AddCommand extends Command {
         } else { // Module does not exist
             if (addSemester == 0) {
                 throw new CommandException("Error: Please specify semester.");
+            }
+            if (moduleToAdd.getPrereqTreeNode() != null
+                    && !moduleToAdd.getPrereqTreeNode()
+                    .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
+                throw new CommandException("Prerequisites of " + toAdd + " have not been fulfilled before semester "
+                        + addSemester + "\nPrerequisites: " + moduleToAdd.getPrereqs());
             }
             // Create Personal object
             personal = new Personal();
