@@ -34,12 +34,14 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
 
+        String titles;
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format("Invalid input"));
+            titles = args.trim();
+        } else {
+            titles = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
-        String titles = argMultimap.getValue(PREFIX_TITLE).get();
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(titles, notablyModel.getCurrentlyOpenPath());
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 

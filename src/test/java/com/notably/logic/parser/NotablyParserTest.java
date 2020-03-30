@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
+import com.notably.logic.commands.EditCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
@@ -95,10 +96,42 @@ public class NotablyParserTest {
     }
 
     @Test
+    public void parseCommand_openCommandInputNoPrefix_openCommand() throws Exception {
+        Command command = parser.parseCommand("open CS2104").get(0);
+
+        assertTrue(command instanceof OpenCommand);
+
+        command.execute(model);
+
+        assertEquals(AbsolutePath.fromString("/another/CS2103"), model.getCurrentlyOpenPath());
+    }
+
+    @Test
     public void parseCommand_deleteCommandInput_deleteCommand() throws Exception {
         Command command = parser.parseCommand("delete -t ../CS2103").get(0);
 
         assertTrue(command instanceof DeleteCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteCommandInputNoPrefix_deleteCommand() throws Exception {
+        Command command = parser.parseCommand("delete ../CS2103").get(0);
+
+        assertTrue(command instanceof DeleteCommand);
+    }
+
+    @Test
+    public void parseCommand_editCommandInput_editCommand() throws Exception {
+        Command command = parser.parseCommand("edit -b ../CS2103").get(0);
+
+        assertTrue(command instanceof EditCommand);
+    }
+
+    @Test
+    public void parseCommand_editCommandInputNoPrefix_editCommand() throws Exception {
+        Command command = parser.parseCommand("edit ../CS2103").get(0);
+
+        assertTrue(command instanceof EditCommand);
     }
 
     @Test
