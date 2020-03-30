@@ -161,6 +161,13 @@ public class ModelManager implements Model {
         setRecipeBook(states.redo(numberOfRedo));
     }
 
+    //=========== PlannedBook ================================================================================
+
+    @Override
+    public ReadOnlyPlannedBook getPlannedBook() {
+        return plannedBook;
+    }
+
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**

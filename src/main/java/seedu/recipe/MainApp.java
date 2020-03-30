@@ -81,19 +81,36 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
-        ReadOnlyPlannedBook initialPlannedData = new PlannedBook(); // todo implement storage for planned items
+        Optional<ReadOnlyPlannedBook> plannedBookOptional;
+        ReadOnlyPlannedBook initialPlannedData; // todo implement storage for planned items
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample RecipeBook");
+                logger.info("Data file for recipes not found. Will be starting with a sample RecipeBook");
             }
             initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
+        }
+
+        try {
+            plannedBookOptional = storage.readPlannedBook();
+            if (!plannedBookOptional.isPresent()) {
+                logger.info("Data file for planned recipes not found. Will be starting with a blank PlannedBook");
+            }
+            initialPlannedData = plannedBookOptional.orElse(new PlannedBook());
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty PlannedBook");
+            initialPlannedData = new PlannedBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PlannedBook");
+            initialPlannedData = new PlannedBook();
         }
 
         return new ModelManager(initialData, initialPlannedData, userPrefs);

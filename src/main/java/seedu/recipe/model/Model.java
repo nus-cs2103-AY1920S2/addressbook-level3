@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -119,6 +120,9 @@ public interface Model {
      * Fast forwards the RecipeBook by {@code numberOfRedo} states.
      */
     void redoRecipeBook(int numberOfRedo);
+
+    /** Returns the PlannedBook */
+    ReadOnlyPlannedBook getPlannedBook();
 
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<Recipe> getFilteredRecipeList();
