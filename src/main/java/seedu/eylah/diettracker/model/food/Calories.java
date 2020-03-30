@@ -25,6 +25,10 @@ public class Calories {
         this.value = calories;
     }
 
+    public long getValue() {
+        return value;
+    }
+
     /**
      * Returns true if a given string is a valid phone number.
      */
