@@ -1,7 +1,11 @@
 package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUtil.assertParseFailure;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,6 +21,7 @@ import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.Title;
+import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
@@ -32,6 +37,8 @@ public class OpenSuggestionCommandParserTest {
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
     private static OpenSuggestionCommandParser openSuggestionCommandParser;
+
+    private static final String RESPONSE_MESSAGE = "Open a note";
 
     @BeforeAll
     public static void setUp() {
@@ -85,14 +92,25 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_uncorrectedPath_throwsParseException() throws ParseException {
+    public void parse_uncorrectedPath_throwsParseException() {
         assertParseFailure(openSuggestionCommandParser, " -t randomBlock", "Invalid path");
     }
 
     @Test
-    public void parse_validArgs_returnsOpenSuggestionCommand() throws ParseException {
-        SuggestionCommand command = openSuggestionCommandParser.parse(" -t /CS2103/Week1/Lecture");
+    public void parse_correctPath_returnsOpenSuggestionCommand() throws ParseException {
+        // Correct path
+        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2103/Week1/Lecture");
+        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+        commandCorrectPath.execute(model);
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        List<SuggestionItem> suggestions = model.getSuggestions();
 
-        assertTrue(command instanceof OpenSuggestionCommand);
+    }
+
+    @Test
+    public void parse_correctedPath_returnsOpenSuggestionCommand() throws ParseException {
+        // Corrected path
+        SuggestionCommand commandCorrectedPath1 = openSuggestionCommandParser.parse(" -t /CS2104/Week1/Lecture");
+        assertTrue(commandCorrectedPath1 instanceof OpenSuggestionCommand);
     }
 }
