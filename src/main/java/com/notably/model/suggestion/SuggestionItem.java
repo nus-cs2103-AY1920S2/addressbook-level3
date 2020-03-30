@@ -1,14 +1,17 @@
 package com.notably.model.suggestion;
 
+import java.util.Optional;
+
 /**
  * Represents the instance of the suggested item.
  */
 public interface SuggestionItem {
     /**
-     * Gets a user-friendly text suggestion to be displayed to the user, e.g. "open -t root/cs2103".
-     * @return The suggestion.
+     * Gets the property value of the SuggestionItem based on the key.
+     * @param key The key to a key-value mapping.
+     * @return The value of the mapping.
      */
-    String getDisplayText();
+    Optional<String> getProperty(String key);
 
     /**
      * Executes the action taken after the suggestion item is chosen.

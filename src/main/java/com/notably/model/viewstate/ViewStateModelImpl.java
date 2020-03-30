@@ -11,7 +11,7 @@ import javafx.beans.property.StringProperty;
  */
 public class ViewStateModelImpl implements ViewStateModel {
 
-    private final StringProperty input;
+    private StringProperty input;
     private final BooleanProperty helpOpen;
 
     public ViewStateModelImpl() {
