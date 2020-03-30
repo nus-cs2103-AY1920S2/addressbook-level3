@@ -34,7 +34,7 @@ public class EditGroupCommand extends Command {
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
     public static final String MESSAGE_DUPLICATE_GROUP = "There is already a group with the group code"
-    + " you want to change it to.";
+        + " you want to change it to.";
 
     private final Group group;
     private final Module targetModule;
