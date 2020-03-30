@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;

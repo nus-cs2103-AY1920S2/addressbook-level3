@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -17,6 +16,7 @@ import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.session.UniqueSessionList;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
+
 
 /**
  * Wraps all data at the ta-tracker level
@@ -236,6 +236,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     // ======== Group Methods ==================================================
+
+    /**
+     * Returns group from TATracker.
+     */
+    public boolean getGroup(String moduleId, String groupId) {
+
+        Module module = new Module(moduleId);
+        Group group = new Group(groupId);
+        return hasGroup(group, module);
+    }
 
     /**
      * Returns true if a group with the same group code exists in the TATracker.
