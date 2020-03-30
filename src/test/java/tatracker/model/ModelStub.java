@@ -59,6 +59,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setDefaultStudentViewList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasSession(Session session) {
         throw new AssertionError("This method should not be called.");
     }
@@ -120,6 +125,16 @@ public class ModelStub implements Model {
 
     @Override
     public void deleteModule(Module target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortModulesByRatingAscending() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortModulesByRatingDescending() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -221,6 +236,16 @@ public class ModelStub implements Model {
 
     @Override
     public void updateStudentList(int i, int j) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortModulesAlphabetically() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortModulesByMatricNumber() {
         throw new AssertionError("This method should not be called.");
     }
 

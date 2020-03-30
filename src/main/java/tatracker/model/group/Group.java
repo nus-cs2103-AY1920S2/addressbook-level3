@@ -18,8 +18,8 @@ public class Group {
 
     private static final GroupType DEFAULT_GROUP_TYPE = GroupType.TUTORIAL;
 
-    private final String identifier;
-    private final GroupType groupType;
+    private String identifier;
+    private GroupType groupType;
     private final UniqueStudentList students;
 
     /**
@@ -42,10 +42,52 @@ public class Group {
     }
 
     /**
+     * Sorts students alphabetically.
+     */
+    public void sortStudentsAlphabetically() {
+        students.sortAlphabetically();
+    }
+
+    /**
+     * Sorts students by rating in ascending order.
+     */
+    public void sortStudentsByRatingAscending() {
+        students.sortByRatingAscending();
+    }
+
+    /**
+     * Sorts students by rating in descending order.
+     */
+    public void sortStudentsByRatingDescending() {
+        students.sortByRatingDescending();
+    }
+
+    /**
+     * Sorts students by matric number in ascending order.
+     */
+    public void sortStudentsByMatricNumber() {
+        students.sortByMatric();
+    }
+
+    /**
      * Returns the group identifier.
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Updates the group code.
+     */
+    public void setIdentifier(String newIdentifier) {
+        this.identifier = newIdentifier;
+    }
+
+    /**
+     * Updates the group type.
+     */
+    public void setGroupType(GroupType newGroupType) {
+        this.groupType = newGroupType;
     }
 
     /**

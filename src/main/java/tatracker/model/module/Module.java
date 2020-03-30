@@ -123,6 +123,43 @@ public class Module {
     }
 
     /**
+     * Sorts students in the groups alphabetically.
+     */
+    public void sortGroupsAlphabetically() {
+        for (Group group : groups) {
+            group.sortStudentsAlphabetically();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating in ascending order.
+     */
+    public void sortGroupsByRatingAscending() {
+        for (Group group : groups) {
+            group.sortStudentsByRatingAscending();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating in descending order.
+     */
+    public void sortGroupsByRatingDescending() {
+        for (Group group : groups) {
+            group.sortStudentsByRatingDescending();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by matric number in descending order.
+     */
+    public void sortGroupsByMatricNumber() {
+        for (Group group : groups) {
+            group.sortStudentsByMatricNumber();
+        }
+    }
+
+
+    /**
      * Adds a done session to the list of done sessions for this module.
      */
     public void addDoneSession(Session session) {
