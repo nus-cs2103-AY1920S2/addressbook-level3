@@ -35,18 +35,18 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
                     FilterStudentViewCommand.MESSAGE_INVALID_MODULE_CODE));
         }
 
-        List<String> argsList = new ArrayList<>();
+        String moduleCode = "";
+        String groupCode = "";
 
         if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            argsList.add((ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())).toUpperCase());
+            moduleCode = (ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())).toUpperCase();
         }
 
         if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
-            argsList.add((
-                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())).toUpperCase());
+            groupCode = (ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())).toUpperCase();
         }
 
-        return new FilterStudentViewCommand(argsList);
+        return new FilterStudentViewCommand(moduleCode, groupCode);
     }
 
 }

@@ -37,18 +37,23 @@ public class FilterStudentViewCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no students in the "
                             + "given group and/or module code.";
 
-    public static final int CONTAINS_MODULE_ONLY = 1;
-    public static final int CONTAINS_MODULE_AND_GROUP = 2;
-
-    public static final int MODULE_INDEX = 0;
-    public static final int GROUP_INDEX = 1;
-
     public static final int FIRST_GROUP_INDEX = 0;
 
-    private List<String> argsList = new ArrayList<>();
+    private final String moduleCode;
+    private final String groupCode;
 
-    public FilterStudentViewCommand(List<String> argsList) {
-        this.argsList = argsList;
+    public FilterStudentViewCommand(String moduleCode, String groupCode) {
+
+        this.moduleCode  = moduleCode;
+        this.groupCode = groupCode;
+    }
+
+    public boolean contains_module_only() {
+        return !this.moduleCode.equals("") && this.groupCode.equals("");
+    }
+
+    public boolean contains_both() {
+        return !this.moduleCode.equals("") && !this.groupCode.equals("");
     }
 
     @Override
@@ -57,9 +62,9 @@ public class FilterStudentViewCommand extends Command {
 
         CommandResult returnMsg = new CommandResult("");
 
-        if (argsList.size() == CONTAINS_MODULE_ONLY) {
+        if (contains_module_only()) {
             returnMsg = filterModule(model);
-        } else if (argsList.size() == CONTAINS_MODULE_AND_GROUP) {
+        } else if (contains_both()) {
             returnMsg = filterGroup(model);
         }
         return returnMsg;
@@ -72,9 +77,6 @@ public class FilterStudentViewCommand extends Command {
      */
     public CommandResult filterGroup(Model model) throws CommandException {
         requireNonNull(model);
-
-        String moduleCode = argsList.get(MODULE_INDEX);
-        String groupCode = argsList.get(GROUP_INDEX);
 
         Module module = new Module(moduleCode);
         Group group = new Group(groupCode);
@@ -100,8 +102,6 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterModule(Model model) throws CommandException {
         requireNonNull(model);
 
-        String moduleCode = argsList.get(MODULE_INDEX);
-
         Module module = new Module(moduleCode);
 
         if (!model.hasModule(module)) {
@@ -121,6 +121,7 @@ public class FilterStudentViewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FilterStudentViewCommand // instanceof handles nulls
-                && argsList.equals(((FilterStudentViewCommand) other).argsList)); // state check
+                && ( moduleCode.equals(((FilterStudentViewCommand) other).moduleCode)
+                      &&  groupCode.equals(((FilterStudentViewCommand) other).groupCode))); // state check
     }
 }

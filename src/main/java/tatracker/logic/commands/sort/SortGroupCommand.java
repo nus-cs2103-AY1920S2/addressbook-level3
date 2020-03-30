@@ -1,10 +1,12 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -15,14 +17,14 @@ import tatracker.model.module.Module;
  */
 public class SortGroupCommand extends SortCommand {
 
-    public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_WORD = CommandWords.SORT + " " + CommandWords.SORT_GROUP;
 
     /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in the given group. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in the given group. \n"
             + "Parameters: "
             + PREFIX_GROUP + "GROUP CODE "
             + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_TYPE + "SORT TYPE "
+            + PREFIX_TYPE + "SORT TYPE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_GROUP + "G06 "
             + PREFIX_MODULE + "CS2100 "
