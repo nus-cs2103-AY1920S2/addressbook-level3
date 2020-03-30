@@ -17,9 +17,19 @@ endif::[]
 By: `Team W16-2`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
-ZeroToOne is an application for managing your exercise regimes. It allows you to transform from a round ‘0’ shape, to a fitter and healthier ‘1’ shape!
+ZeroToOne is a one-stop application for managing your exercise regimes. Transform yourself from a ‘0’ to ‘1’ in no time!
 
-ZeroToOne is for those who *prefer to use a desktop app for managing their exercise and fitness regimes*. More importantly, ZeroToOne is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ZeroToOne can get your exercise management tasks done faster than traditional GUI apps. Interested in the magnificent transformation from 0 to 1? Jump to Section 2, <<Quick Start>> to get started. Enjoy!
+ZeroToOne has 4 major features for you that we think you will find useful.
+
+Firstly, add any custom weight training exercises you want and create a workout. Popular exercises and workouts come by default!
+
+Next, plan your workouts in the schedule and get timely reminders so you never miss a workout again.
+
+Now that it is time for a workout session, get started with the session feature in the home tab, which serves as a follow-along guide that helps you time your rest and remembers which exercises are next up for you.
+
+Our logging feature automatically tracks your session when you are done and provides in-depth details of your progress.
+
+Ready to start? Let's go!
 
 == Quick Start
 
@@ -36,8 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all workouts in the app
 * *`log`* : shows a log of past workouts
-* *`start <workout>`* : starts a new workout
-* *`stop <workout>`* : stops the workout
+* *`start <workout_id>`* : starts a new workout
+* *`stop`* : stops the workout
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,28 +58,127 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `<arrow brackets>` are the parameters to be supplied by the user e.g. in `start <workout>`, `session` is a parameter which can be used as `start MorningWorkout`.
-* Items in square brackets are optional e.g `start <workout> <sets> [interval]` can be used as `start Morning 2 100` or as `start Morning 2`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `<arrow brackets>` are the parameters to be supplied by the user e.g. in `start <workout_id>`, `workout_id` is a parameter which can be used as `start 1`.
+* Items in square brackets are optional e.g `start <workout_id> [interval]` can be used as `start 2 100` or as `start 2`.
 * Parameters must be in the specified order.
+
+*Flags*
+
+All user-fillable fields must be prefixed with a flag when the user inputs the command. This allows ZeroToOne to accept parameters in any order.
+Reserved flags are a set of special symbols that are reserved for use by the program only. Please avoid using them in your input to this application.
+
+They are listed as follows:
+
+* e/ - exercise name
+* w/ - workout name
+* s/ - number of sets
+* r/ - number of reps
+* m/ - weights (in kilograms)
+* d/ - datetime
+* f/ - frequency of schedule
+* p/ - file path
+
+====
+=== General Commands
 ====
 
-=== General Commands
-==== List all workout plans : `list`
+* Start a session : `start`
 
-Format: `list`
+Format: `start <EXERCISE_ID>`
 
-Shows a list of all workout plans in ZeroToOne.
+* Stop a session : `stop`
 
-==== Get help : `help`
+//Format: `start <EXERCISE_ID>`
 
-Format: `help`
+* Complete a set : `done`
 
-Shows a list of all available commands in ZeroToOne.
+//Format: `start <EXERCISE_ID>`
 
-==== Exit the program: `exit`
+* Skip a set : `skip`
 
-Closes the program.
+//Format: `start <EXERCISE_ID>`
+
+* Get help : `help`
+
+//Format: `help`
+
+//Shows a list of all available commands in ZeroToOne.
+
+* Exit the program: `exit`
+
+//Closes the program.
+====
+
+=== Exercise Commands
+
+====
+
+* Command title: `code`
+
+Format: `code e/<PARAM>`
+
+====
+
+=== Workout Commands
+
+====
+
+* Command title: `code`
+
+Format: `code e/<PARAM>`
+
+====
+
+=== Schedule Commands
+
+====
+
+* Command title: `code`
+
+Format: `code e/<PARAM>`
+
+====
+=== Log Commands
+
+====
+
+* Command title: `code`
+
+Format: `code e/<PARAM>`
+
+====
+
+=== Saving the data
+
+ZeroToOne data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ZeroToOne folder.
+
+*Q*: I do not see the GUI. +
+*A*: Ensure that you have Java 11 installed on your computer. You can check your current Java version by opening up a Command Prompt or Terminal, and entering java -version. Do install Java 11 if it is not installed. If installing Java 11  does not work, then try installing JavaFX 11 Dependencies on your computer.
+
+== Command Summary
+
+* List: list
+* Log: log
+* Start: start <workout>
+* Stop: stop <workout>
+* Pause: pause
+* Exit: exit
+
+
+---
+---
+---
+Last person delete below
+
+---
+---
+---
 
 === Workout Commands
 
@@ -176,66 +285,6 @@ Examples:
 [TIP]
 The workout name is case-sensitive.
 
-=== Carrying Out Workouts
-
-==== Start a new workout
-ZeroToOne starts bringing you through each of the exercises in your workout, for the specified number of sets.
-
-Format:
-`start <workout> <sets> [interval]`
-
-Examples:
-
-* `start Push 5 100`
-* `start Pull 6 110`
-
-==== Stop a workout
-Stops the current workout, effectively resetting it.
-
-Format:
-`stop <workout>`
-
-Examples:
-
-* `stop Push`
-* `stop Pull`
-
-[TIP]
-The specified workout must be one that the user is currently running.
-
-==== Pause a workout
-Pauses the current workout, but keeping track of the current progress.
-
-Format:
-`pause <workout>`
-
-Examples:
-
-* `pause Push`
-* `pause Pull`
-
-[TIP]
-The specified workout must be one that the user is currently running.
-
-==== Resume a workout
-Resumes the specified workout, from where the user previously left off.
-
-Format:
-`resume <workout>`
-
-Examples:
-
-* `resume Push`
-* `resume Pull`
-
-[TIP]
-The specified workout must be one that the user is currently running.
-
-==== Skip
-Skips the current exercise or rest and moves on to the next exercise in the workout.
-
-Format: `skip`
-
 === Scheduling Workouts
 ==== Schedule a single workout session
 Schedules a single workout session on a specified date and time.
@@ -329,24 +378,3 @@ Displays a line graph of the past workouts progress.
 
 Format: `chart`
 
-=== Saving the data
-
-ZeroToOne data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ZeroToOne folder.
-
-*Q*: I do not see the GUI. +
-*A*: Ensure that you have Java 11 installed on your computer. You can check your current Java version by opening up a Command Prompt or Terminal, and entering java -version. Do install Java 11 if it is not installed. If installing Java 11  does not work, then try installing JavaFX 11 Dependencies on your computer.
-
-== Command Summary
-
-* List: list
-* Log: log
-* Start: start <workout>
-* Stop: stop <workout>
-* Pause: pause
-* Exit: exit

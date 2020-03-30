@@ -2,6 +2,7 @@ package seedu.zerotoone.model;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 
 /**
@@ -99,17 +101,18 @@ public interface Model {
      */
     void updateFilteredExerciseList(Predicate<Exercise> predicate);
 
+    // -----------------------------------------------------------------------------------------
+    // Session
     /**
      * Returns true if a workout has currently started.
      */
     boolean isInSession();
 
-    void startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
+    Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
 
     void stopSession(LocalDateTime currentDateTime);
 
-    // -----------------------------------------------------------------------------------------
-    // Schedule
+    Optional<Session> getCurrentSession();
     boolean hasSchedule(Schedule schedule);
     void addSchedule(Schedule schedule);
     void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
