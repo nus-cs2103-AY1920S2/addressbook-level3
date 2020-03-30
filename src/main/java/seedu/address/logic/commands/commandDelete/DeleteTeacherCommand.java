@@ -14,7 +14,7 @@ import seedu.address.model.modelTeacher.Teacher;
 /**
  * Deletes a teacher identified using it's displayed index from the address book.
  */
-public class DeleteTeacherCommand extends Command {
+public class DeleteTeacherCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-teacher";
 
