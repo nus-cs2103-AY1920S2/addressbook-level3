@@ -38,38 +38,53 @@ public class PaidCommand extends Command {
         requireNonNull(indexOfPersonPaid);
         requireNonNull(amountPaid);
         this.indexOfPersonPaid = indexOfPersonPaid;
-        this.amountPaid = amountPaid;
+        if (amountPaid.equals("")) {
+            this.amountPaid = null;
+        } else {
+            this.amountPaid = amountPaid;
+        }
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.isReceiptDone()) {
-            return new CommandResult(MESSAGE_RECEIPT_UNDONE);
-        } else {
-            ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
+        if (!model.isReceiptDone()) {
+
+            return new CommandResult(MESSAGE_RECEIPT_UNDONE);
+
+        } else {
+
+            ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
 
             //This ensures that the indexOfPersonPaid is correct.
             if (indexOfPersonPaid.getZeroBased() < 0
-                    || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
+                || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
                 throw new CommandException("Index of Person is incorrect. Please use `listamount` to get the index.");
             }
 
             Person person = book.getPersonByIndex(indexOfPersonPaid.getZeroBased());
             String initialAmount = person.getAmount().toString();
 
-            //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
-            if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
-                throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
+            // This cases handles when user key in `paid 1` which stands for paid the full amount Person in Index 1
+            // owes.
+            if (amountPaid == null) {
+                PaidCommand newPaidCommand = new PaidCommand(indexOfPersonPaid, initialAmount);
+                return newPaidCommand.execute(model);
+
+            } else {
+                //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
+                if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
+                    throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
                         + "to get the index.");
-            }
+                }
 
-            model.paidPerson(person, amountPaid);
-            String finalAmount = person.getAmount().toString();
+                model.paidPerson(person, amountPaid);
+                String finalAmount = person.getAmount().toString();
 
-            return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
+                return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
                     + initialAmount + " to " + finalAmount + ".");
+            }
         }
     }
 

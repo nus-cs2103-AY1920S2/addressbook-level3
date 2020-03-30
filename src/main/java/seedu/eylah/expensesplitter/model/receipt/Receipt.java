@@ -88,6 +88,14 @@ public class Receipt {
                 && otherReceipt.getReceipt().equals(getReceipt());
     }
 
+    /**
+     * Restarts the receipt.
+     */
+    public void newReceipt() {
+        clearReceipt();
+        this.isDone = false;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
