@@ -1,12 +1,8 @@
 package seedu.recipe.logic.parser;
 
-import java.time.LocalDate;
-
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.logic.commands.SwitchCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
-import seedu.recipe.model.plan.DateWithinRangePredicate;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.ui.tab.Tab;
 
 /**
@@ -31,8 +27,6 @@ public class SwitchCommandParser implements Parser<SwitchCommand> {
         if (specifiedTab.equals("recipes")) {
             return new SwitchCommand(Tab.RECIPES);
         } else if (specifiedTab.equals("planning")) {
-            DateWithinRangePredicate predicate = new DateWithinRangePredicate(
-                    new PlannedDate(LocalDate.parse("2020-03-30")), new PlannedDate(LocalDate.parse("2020-04-06")));
             return new SwitchCommand(Tab.PLANNING);
         } else {
             throw new ParseException(

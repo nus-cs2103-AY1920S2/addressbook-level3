@@ -1,6 +1,6 @@
 {
   "recipes" : [ {
-    "name" : "Vegan Thai Green Curry Soup",
+    "name" : "test change name",
     "time" : "35",
     "isFavourite" : false,
     "grains" : [ "200.0g,  rice vermicelli noodles" ],

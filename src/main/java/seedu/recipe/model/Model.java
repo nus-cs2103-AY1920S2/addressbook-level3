@@ -141,4 +141,6 @@ public interface Model {
     ObservableList<PlannedRecipe> getFilteredPlannedList();
 
     void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
+
+    // updateAndFillPlannedList
 }

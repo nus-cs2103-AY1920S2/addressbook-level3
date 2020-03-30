@@ -2,12 +2,12 @@ package seedu.recipe.model.plan;
 
 import java.util.function.Predicate;
 
-public class DateWithinRangePredicate implements Predicate<PlannedRecipe> {
+public class PlannedRecipeWithinDateRangePredicate implements Predicate<PlannedRecipe> {
 
     PlannedDate start;
     PlannedDate end;
 
-    public DateWithinRangePredicate(PlannedDate start, PlannedDate end) {
+    public PlannedRecipeWithinDateRangePredicate(PlannedDate start, PlannedDate end) {
         this.start = start;
         this.end = end;
     }
