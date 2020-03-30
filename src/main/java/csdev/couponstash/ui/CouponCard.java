@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
  */
 public class CouponCard extends UiPart<Region> {
 
-    private static final String FXML = "CouponListCard.fxml";
+    private static final String FXML = "CouponCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -53,6 +53,8 @@ public class CouponCard extends UiPart<Region> {
     private Label remindDate;
     @FXML
     private Label condition;
+    @FXML
+    private Label archived;
 
     /**
      * Constructor for a new CouponCard to be shown
@@ -84,6 +86,7 @@ public class CouponCard extends UiPart<Region> {
         SavingsPane savingsPane = new SavingsPane();
         savingsPane.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
         savings.getChildren().add(savingsPane.getRoot());
+        archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
     }
 
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {

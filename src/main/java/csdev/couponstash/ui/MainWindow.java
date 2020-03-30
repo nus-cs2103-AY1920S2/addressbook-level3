@@ -180,11 +180,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
+     * @see Logic#execute(String, CsTab)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+
+            CsTab currentTab = tabPanel.selectedTab();
+
+            CommandResult commandResult = logic.execute(commandText, currentTab);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             calendarResultPane.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.isShowHelp()) {
