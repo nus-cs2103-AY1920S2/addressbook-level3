@@ -305,9 +305,9 @@ This command can be used to change the group code and the group type of the grou
 The students inside the group will remain intact.
 
 When a group is edited, the Student View will show the groups of the module
-this group belongs to and students of the edited group.
+the edited group belongs to and students of the edited group.
 
-Format: `group edit g/GROUP_CODE m/MOD_CODE ng/NEW_GROUP_CODE nt/NEW_GROUP_TYPE`
+Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
 
 [NOTE]
 ====
@@ -333,14 +333,14 @@ module code CS2103, to be a tutorial.
 [[AddStudent]]
 ==== Adding a Student `student add`
 
-TODO: WRITE HOW THIS WORKS PROPERLY
+TODO: WRITE THE DETAILS OF THIS COMMAND
 
 Adds a new student to the TA-Tracker.
 
-When a new student is added, the Student View will show the groups and students
-of the module the new student belongs to.
+When a new student is added, the Student View will show the groups of the module
+the new student belongs to and the students of the group the new student belongs to.
 
-Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+Format: `student add id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
 
 [NOTE]
 ====
@@ -369,9 +369,9 @@ TODO: WRITE HOW THIS WORKS PROPERLY
 
 Deletes a student from the TA-Tracker.
 
-When a student is deleted, the Student View will show the groups of the module the
-student was removed from and the students of the group the student was removed from.
-If there is no student inside the group, an empty list will be shown.
+When a student is deleted, the Student View will go back to its default
+setting and show the details for the first module and first group in the
+TA-Tracker. If there is no group in the module, it will show the empty lists.
 
 Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
@@ -386,7 +386,7 @@ you add a group to it.
 ====
 Examples:
 
-* `delete c/student m/A0123456J g/G03 m/CS2103`
+* `delete c/student id/A0123456J g/G03 m/CS2103`
 +
 Deletes the student with the matriculation number A0123456J from the group G03 inside
 the module CS2103.
@@ -395,7 +395,7 @@ the module CS2103.
 [[EditStudent]]
 ==== Editing a Student `student edit`
 
-TODO: WRITE HOW THIS WORKS PROPERLY
+TODO: WRITE HOW THIS WORKS PROPERLY ONCE IMPLEMENTED
 
 Edits a student in the TA-Tracker.
 
@@ -437,7 +437,15 @@ Edits student `A9876543K` to have `Betsy Crower` as their name.
 In addition, all existing tags will be removed.
 
 [[Sort]]
-==== Sort `sort`
+==== Sorting a Group `sort group`
+
+Sorts the students inside a group according to the way you indicate you want it to
+be sorted.
+
+
+==== Sorting a Module `sort module`
+
+==== Sorting Everything `sort all`
 
 TODO: ADD DETAILS ONCE IMPLEMENTED
 

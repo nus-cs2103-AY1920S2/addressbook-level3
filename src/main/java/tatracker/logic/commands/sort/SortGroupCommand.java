@@ -33,10 +33,12 @@ public class SortGroupCommand extends SortCommand {
     public static final String MESSAGE_SUCCESS = "Group %s has been sorted.";
     public static final String MESSAGE_INVALID_GROUP_CODE = "This group doesn't exist in the TA-Tracker";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
+            + "by rating asc, by rating desc and matric.";
 
     private final String groupCode;
     private final String moduleCode;
-    private final String type;
+    private String type;
 
     public SortGroupCommand(String groupCode, String moduleCode, String type) {
         super(type);
@@ -64,15 +66,25 @@ public class SortGroupCommand extends SortCommand {
 
         group = module.getGroup(groupCode);
 
-        if (type.equalsIgnoreCase("alphabetically")
-                || type.equalsIgnoreCase("alpha")) {
+        type = type.toLowerCase();
+
+        switch(type) {
+        case "alphabetically":
+        case "alpha":
+        case "alphabetical":
             group.sortStudentsAlphabetically();
-        } else if (type.equalsIgnoreCase("matric")) {
+            break;
+        case "matric":
             group.sortStudentsByMatricNumber();
-        } else if (type.equalsIgnoreCase("rating asc")) {
+            break;
+        case "rating asc":
             group.sortStudentsByRatingAscending();
-        } else {
+            break;
+        case "rating desc":
             group.sortStudentsByRatingDescending();
+            break;
+        default:
+            throw new CommandException(MESSAGE_INVALID_SORT);
         }
 
         if (model.getFilteredModuleList().isEmpty()) {
