@@ -28,7 +28,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPet;
+import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.task.Reminder;
+
+import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -92,6 +95,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public StatisticsDisplay getStatisticsDisplay() {
+        return statisticsDisplay;
     }
 
     private void setAccelerators() {
@@ -237,6 +244,10 @@ public class MainWindow extends UiPart<Stage> {
             try {
                 SwitchTabCommandResult switchTabCommandResult =
                         (SwitchTabCommandResult) commandResult;
+                //if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
+                //    CustomQueue customQueue = pomodoro.getCustomQueueStatistics();
+                //   statisticsDisplay.updateGraphs(customQueue);
+                //}
                 tabPanePlaceholder
                         .getSelectionModel()
                         .select(switchTabCommandResult.getTabToSwitchIndex());

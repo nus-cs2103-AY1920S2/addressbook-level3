@@ -23,6 +23,10 @@ public class Statistics implements ReadOnlyStatistics {
 
     }
 
+    public CustomQueue getCustomQueue() {
+        return customQueue;
+    }
+
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
     public Statistics(ReadOnlyStatistics toBeCopied) {
         this();

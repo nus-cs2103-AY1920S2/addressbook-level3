@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.dayData.CustomQueue;
 
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
@@ -64,24 +65,16 @@ public class StatisticsDisplay extends UiPart<Region> {
         XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<>();
         dataSeries1.setName("You");
 
-        // TODO remove ********************
-        dataSeries1.getData().add(new XYChart.Data<>("Day 1", 20));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 2", 40));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 3", 60));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 4", 40));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 5", 20));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 6", 40));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 7", 80));
-
-        barChart.getData().add(dataSeries1);
     }
 
-    public void updateGraph(String[] dates, int[] pomDurationDatas) {
+    public void updateGraphs(CustomQueue customQueue) {
         XYChart.Series<String, Integer> dataSeries = new XYChart.Series<>();
-        dataSeries.setName("You");
+        //dataSeries.setName("You");
 
         for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
-            dataSeries.getData().add(new XYChart.Data<>(dates[i], pomDurationDatas[i]));
+            String dateString = customQueue.get(i).getDate().toString();
+            int pomDurationDataInt = customQueue.get(i).getPomDurationData().value;
+            dataSeries.getData().add(new XYChart.Data<>(dateString, pomDurationDataInt));
         }
 
         barChart.getData().add(dataSeries);
