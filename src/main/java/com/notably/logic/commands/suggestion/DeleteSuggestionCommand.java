@@ -1,7 +1,5 @@
 package com.notably.logic.commands.suggestion;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +19,13 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
     private static final String RESPONSE_MESSAGE = "Delete a note";
 
     private AbsolutePath path;
+    private String title;
 
-    public DeleteSuggestionCommand(AbsolutePath path) {
+    public DeleteSuggestionCommand(AbsolutePath path, String title) {
         Objects.requireNonNull(path);
+        Objects.requireNonNull(title);
         this.path = path;
+        this.title = title;
     }
 
     @Override
@@ -98,8 +99,9 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
         return possiblePaths.stream()
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
+                    String updatedInput = (model.getInput()).replace(title, displayText);
                     Runnable action = () -> {
-                        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + displayText);
+                        model.setInput(updatedInput);
                     };
                     return new SuggestionItemImpl(displayText, action);
                 })
