@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.eylah.expensesplitter.model.Model;
 
 /**
- * Used to go back main menu.
+ * This Command is used to go back to the Main Application of EYLAH.
  */
 public class BackCommand extends Command {
 

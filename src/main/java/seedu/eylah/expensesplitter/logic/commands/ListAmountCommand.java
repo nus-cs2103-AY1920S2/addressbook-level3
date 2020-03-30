@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.eylah.expensesplitter.model.Model;
 
 /**
- * Lists all users with their amount.
+ * Lists all Person(s) and the Amount they owe you.
  */
 public class ListAmountCommand extends Command {
 

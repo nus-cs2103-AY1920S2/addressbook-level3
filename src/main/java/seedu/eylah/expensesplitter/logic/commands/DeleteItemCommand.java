@@ -13,7 +13,7 @@ import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
 
 /**
- * Deletes an item from the list of available items.
+ * Deletes an Item from the Receipt and the reduces the Amount of the Person(s) involved in splitting this Item.
  */
 public class DeleteItemCommand extends Command {
 
