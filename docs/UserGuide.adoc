@@ -372,7 +372,11 @@ List down all the orders (Return orders and Delivery orders) that are uncomplete
 === View orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
 In this section, you will learn more about the `nearby` command,
 <<how_to_use_nearby_command, how to use it>> and the
-<<usage_scenario_nearby_command, possible usage scenarios>> of the `nearby` command.
+<<usage_scenario_nearby_command, possible usage scenarios>> of the `nearby` command. +
+
+The `nearby` command is useful if you would like to obtain all orders located in the same
+postal sector or region of Singapore. This would allow you to be more efficient with your delivery
+orders.
 
 [[how_to_use_nearby_command]]
 ==== How to use the nearby command
