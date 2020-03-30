@@ -23,6 +23,10 @@ public class GroupListPanel extends UiPart<Region> {
     @FXML
     private ListView<Group> groupListView;
 
+    private static final String BACKGROUND_COLOUR = "#424d5f";
+    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
+
     public GroupListPanel(ObservableList<Group> groupList) {
         super(FXML);
         groupListView.setItems(groupList);
@@ -43,7 +47,9 @@ public class GroupListPanel extends UiPart<Region> {
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
                 if (group.equals(currentlyShownGroup)) {
-                    setStyle("-fx-background-color: #424d5f; -fx-border-color: #3e7b91; -fx-border-width: 1;");
+                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; " +
+                            "-fx-border-color: " + BORDER_COLOUR + "; " +
+                            "-fx-border-width: " + BORDER_WIDTH + ";");
                 }
             }
         }

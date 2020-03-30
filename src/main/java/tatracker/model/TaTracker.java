@@ -30,6 +30,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
+    private static Module currentlyShownModuleClaim;
     private static Module currentlyShownModule;
     private static Group currentlyShownGroup;
 
@@ -41,6 +42,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownStudents = new UniqueStudentList();
         currentlyShownGroup = null;
         currentlyShownModule = null;
+        currentlyShownModuleClaim = null;
     }
 
     /**
@@ -133,6 +135,14 @@ public class TaTracker implements ReadOnlyTaTracker {
     @Override
     public ObservableList<Session> getDoneSessionList() {
         return doneSessions.asUnmodifiableObservableList();
+    }
+
+    public static Module getCurrentlyShownModuleClaim() {
+        return currentlyShownModuleClaim;
+    }
+
+    public void setCurrentlyShownModuleClaim(Module module) {
+        currentlyShownModuleClaim = module;
     }
 
     // ======== Module Methods =================================================
@@ -246,6 +256,14 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.asUnmodifiableObservableList();
     }
 
+    public static Module getCurrentlyShownModule() {
+        return currentlyShownModule;
+    }
+
+    public void setCurrentlyShownModule(Module module) {
+        currentlyShownModule = module;
+    }
+
     // ======== Group Methods ==================================================
 
     /**
@@ -346,16 +364,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currentlyShownGroup;
     }
 
-    public static Module getCurrentlyShownModule() {
-        return currentlyShownModule;
-    }
-
     public void setCurrentlyShownGroup(Group group) {
         currentlyShownGroup = group;
-    }
-
-    public void setCurrentlyShownModule(Module module) {
-        currentlyShownModule = module;
     }
 
     // ======== Student Methods ================================================
