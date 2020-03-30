@@ -73,8 +73,8 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterGroup(Model model) throws CommandException {
         requireNonNull(model);
 
-        String moduleCode = argsList.get(MODULE_INDEX);
-        String groupCode = argsList.get(GROUP_INDEX);
+        String moduleCode = (argsList.get(MODULE_INDEX)).toUpperCase();
+        String groupCode = (argsList.get(GROUP_INDEX)).toUpperCase();
 
         Module module = new Module(moduleCode);
         Group group = new Group(groupCode);
