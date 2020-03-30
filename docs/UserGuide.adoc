@@ -575,21 +575,25 @@ The syntax for a valid `Search` command can be seen below.
 |===
 |Scenario |Command |Result
 
-| If you want to search for any return parcel containing the keyword `Jeremy` or `Loh`:
+| If you want to search for any return parcel containing the keyword `Jeremy` or `Loh`.
 | `search` `-r` `Jeremy Loh` +
 | Return all return order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the parcel field.
 
-| If you want to edit the phone number of the second order displayed on the orders list you can do this!
+| If you want to search for any order parcel that contain the transaction id of `asj2od3943`.
 | `search` `-o` `tid/asj2od3943
-| Return order(s) with transaction ID of `asj2od3943`.
+| Return all order(s) with transaction ID of `asj2od3943`.
 
-| If you want to edit the address of the first order displayed on the orders list you can do this!
+| If you want to search for any return parcel that contain the phone number of `92039999`.
 | `search` `-r` `p/92039999`
-| Return return order(s) with phone number of `92039999`
+| Return all return order(s) with phone number of `92039999`
 
-| If you want to only search for any order parcel that contains either the phone number `92039999`, transaction id of `asj2od3943` or the name `jeremy`
+| If you want to only search for any order parcel that contains either the phone number `92039999`, transaction id of `asj2od3943` or the name `jeremy`.
 | `search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
-| Return order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
+| Return all order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
+
+| If you want to search for any parcel containing the name `Jeremy`
+| `search` `n/Jeremy`
+| Return all parcel(s) with the name of `Jeremy`
 |===
 
 [IMPORTANT]
