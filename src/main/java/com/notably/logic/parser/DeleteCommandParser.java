@@ -37,6 +37,9 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             title = args.trim();
+            if (title.equals("")) {
+                throw new ParseException("Path cannot be empty");
+            }
         } else {
             title = argMultimap.getValue(PREFIX_TITLE).get();
         }
