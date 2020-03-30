@@ -11,6 +11,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 
+import csdev.couponstash.ui.CsTab;
 import javafx.collections.ObservableList;
 
 /**
@@ -24,7 +25,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText, CsTab selectedTab) throws CommandException, ParseException;
 
     /**
      * Returns the CouponStash.
