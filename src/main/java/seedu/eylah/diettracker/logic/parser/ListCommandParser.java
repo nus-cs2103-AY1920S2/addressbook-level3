@@ -28,7 +28,6 @@ public class ListCommandParser implements Parser<ListCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
 
-        int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
         String mode = "-d";
         if (arePrefixesPresent(argMultimap, PREFIX_ALL)) {
             mode = "-f";
@@ -41,6 +40,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
 
         if (mode.equals("-t")) {
+            int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
             return new ListCommand(mode, numDays);
         } else {
             return new ListCommand(mode);
