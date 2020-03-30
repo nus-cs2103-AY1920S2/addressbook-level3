@@ -16,7 +16,7 @@ public class Module {
     private static final String DEFAULT_NAME = "";
 
     private final String identifier;
-    private final String name;
+    private String name;
     private final UniqueGroupList groups;
     private final UniqueSessionList doneSessions;
 
@@ -53,6 +53,13 @@ public class Module {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Changes the module name.
+     */
+    public void setName(String newName) {
+        this.name = newName;
     }
 
     /**
