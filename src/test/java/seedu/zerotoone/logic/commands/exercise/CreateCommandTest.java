@@ -26,6 +26,8 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class CreateCommandTest {
@@ -151,6 +153,57 @@ public class CreateCommandTest {
 
         @Override
         public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /*Workout*/
+        @Override
+        public Path getWorkoutListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWorkoutListFilePath(Path workoutListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addWorkout(Workout workout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWorkoutList(ReadOnlyWorkoutList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWorkoutList getWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasWorkout(Workout workout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteWorkout(Workout target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWorkout(Workout target, Workout editedWorkout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Workout> getFilteredWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

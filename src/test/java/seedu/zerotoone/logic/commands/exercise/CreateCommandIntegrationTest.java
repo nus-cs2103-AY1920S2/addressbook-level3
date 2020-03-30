@@ -33,7 +33,7 @@ public class CreateCommandIntegrationTest {
         Exercise validExercise = new ExerciseBuilder()
                 .withExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS).build();
 
-        Model expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
+        Model expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList(), model.getWorkoutList());
         expectedModel.addExercise(validExercise);
 
         CreateCommand command = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS));
