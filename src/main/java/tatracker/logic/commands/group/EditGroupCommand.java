@@ -17,7 +17,7 @@ import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
 
 /**
- * Deletes a group identified using it's group code.
+ * Edits a group identified using it's group code.
  */
 public class EditGroupCommand extends Command {
 
@@ -30,7 +30,7 @@ public class EditGroupCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_MODULE + "CS2013T " + PREFIX_GROUP + "G03 "
             + PREFIX_NEWTYPE + "lab " + PREFIX_NEWGROUP + "G05";
 
-    public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Edited Group: %1$s";
+    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
     public static final int FIRST_GROUP_INDEX = 0;
@@ -77,7 +77,7 @@ public class EditGroupCommand extends Command {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, editedGroup));
+        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup));
     }
 
     @Override

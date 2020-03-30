@@ -22,73 +22,64 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-Are you a Teaching Assistant at School of Computing who is tired of having to keep
-track of all your claimable hours in some unappealing excel spreadsheet just so you
-can fill up the TSS Claims form accurately at the end of the semester? Do you want
-a place where you can keep track of everything related to your teaching duties, including
-keeping a track of your strongest and weakest students? If so, TA-Tracker is the tool
-for you!
+Are you a Teaching Assistant at School of Computing who is tired of having to keep track of all your claimable hours in some unappealing excel spreadsheet just so you can fill up the TSS Claims form accurately at the end of the semester?
+Do you want a place where you can keep track of everything related to your teaching duties, including keeping a track of your strongest and weakest students?
+If so, TA-Tracker is the tool for you!
 
-TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
-who want to be able to track and manage their students and all of their claimable
-hours in NUS in one place.
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs) who want to be able to track and manage their students and all of their claimable hours in NUS in one place.
 
-TA-Tracker is tailored towards TAs who *prefer to use a desktop application to
-manage their teaching duties* and is well suited for those who *prefer to work with a Command
-Line Interface* (CLI) while still having the benefits of a Graphical User Interface
-(GUI).If you're interested, jump to the <<Quick Start>> to get started!
+TA-Tracker is tailored towards TAs who *prefer to use a desktop application to manage their teaching duties* and is well suited for those who *prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).If you're interested, jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your TA tracker.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `tatracker.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for your TA tracker.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-.  Refer to <<Usage>> for details of each command.
+. Refer to <<Usage>> for details of each command.
 
 NOTE: TA-Tracker data is saved periodically.
 
 [[Layout]]
 == Layout
-This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
-into three different views - the Student View, the Session View and the Claims View.
+
+This is a brief overview of the layout of the TA-Tracker.
+The TA-Tracker is divided into three different views - the Student View, the Session View and the Claims View.
 
 === Student View
-Under tha students tab, the Student View is used to show you the students that you're teaching. The students
-have been grouped according to module and group. The Student view has been divided into
-three sections.
 
-The first section shows a list of all the modules that you are a teaching
-assistant for.
+Under tha students tab, the Student View is used to show you the students that you're teaching.
+The students have been grouped according to module and group.
+The Student view has been divided into three sections.
+
+The first section shows a list of all the modules that you are a teaching assistant for.
 
 The second section shows a list of all groups in a module of your choice.
-If you haven't chosen anything, by default you will be shown the groups of the module
-in the first index in the list of modules.
+If you haven't chosen anything, by default you will be shown the groups of the module in the first index in the list of modules.
 
-The third section shows a list of all students in the group of your choice. If you
-haven't chosen anything, by default you will be shown the students of the group in the
-first index in the list of groups.
+The third section shows a list of all students in the group of your choice.
+If you haven't chosen anything, by default you will be shown the students of the group in the first index in the list of groups.
 
-The purpose of the student view is to allow a TA to keep track of their students. It will
-show you information such as student name, matriculation number, ratings you have given
-the student and contact details such as email and telegram id.
+The purpose of the student view is to allow a TA to keep track of their students.
+It will show you information such as student name, matriculation number, ratings you have given the student and contact details such as email and telegram id.
 
 === Session View
+
 Under the sessions tab, the Session View contains the upcoming tasks that you have.
 
 === Claims View
-Under the claims tab, the Claim View contains the list of all the claimable hours you
-have completed so far.
 
-The purpose of this view is to allow a TA to keep track of all their claims so that
-they can easily enter it into the TSS claims form at the end of the semester.
+Under the claims tab, the Claim View contains the list of all the claimable hours you have completed so far.
+
+The purpose of this view is to allow a TA to keep track of all their claims so that they can easily enter it into the TSS claims form at the end of the semester.
 
 [[Usage]]
 == Usage
@@ -129,7 +120,8 @@ they can easily enter it into the TSS claims form at the end of the semester.
 ** lab - Lab
 * `START`, `END` - a time parameter, in the following format: HH:mm
 * `DATE` - a date parameter, in the following format: dd-MM-yyyy
-* `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
+* `->` - indicates that the command has more parameters than specified.
+These missing parameters will stated in a later section of the guide.
 * `./` - indicates the presence of a tag that will be specified in a later section of the guide.
 ====
 
@@ -155,15 +147,13 @@ Format: `exit`
 
 Adds a new module to the TA-Tracker.
 
-When a new module is created, the Student View will show the groups
-and students of the new module (which will initially be empty).
+When a new module is created, the Student View will show the groups and students of the new module (which will initially be empty).
 
 Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
-No module with the given module code should exist in the TA-Tracker before adding
-a new module.
+No module with the given module code should exist in the TA-Tracker before adding a new module.
 ====
 
 ====
@@ -171,8 +161,7 @@ Examples:
 
 * `module add m/CS2103 n/Software Engineering`
 +
-Adds a module with the module code CS2103 and name 'Software Engineering'
-to the TA-Tracker.
+Adds a module with the module code CS2103 and name 'Software Engineering' to the TA-Tracker.
 ====
 
 [[DeleteModule]]
@@ -180,19 +169,16 @@ to the TA-Tracker.
 
 Deletes a module from the TA-Tracker.
 
-When a module is deleted, the student view will go back to its default
-setting and show the details for the first module and first group in the
-TA-Tracker. If there is no module and no group, it will show empty lists.
+When a module is deleted, the student view will go back to its default setting and show the details for the first module and first group in the TA-Tracker.
+If there is no module and no group, it will show empty lists.
 
-When a module is deleted, all groups, students and sessions associated with
-the module will also be deleted.
+When a module is deleted, all groups, students and sessions associated with the module will also be deleted.
 
 Format: `module delete m/MOD_CODE`
 
 [NOTE]
 ====
-A module with the given module code must exist in the TA-Tracker before
-you delete it.
+A module with the given module code must exist in the TA-Tracker before you delete it.
 ====
 
 ====
@@ -209,16 +195,14 @@ Adds a module with the module code CS2103 and name 'Software Engineering'
 
 Adds a new group to the TA-Tracker.
 
-When a new group is created, the Student View will show the groups of the module
-this group belongs to and students of the new group (which will initially be an empty list).
+When a new group is created, the Student View will show the groups of the module this group belongs to and students of the new group (which will initially be an empty list).
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 [NOTE]
 ====
 [horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+* A module with the given module code must exist in the TA-Tracker before you add a group to it.
 
 * No group with the given group code should exist inside the module.
 ====
@@ -228,24 +212,23 @@ Examples:
 
 * `group add g/G03 m/CS2103 t/tutorial`
 +
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+Adds a group with the group code G03 which is a tutorial inside the module that has module code CS2103.
 ====
 
 [[DeleteGroup]]
 ==== Deleting a Group `group delete`
+
 Deletes a group from the TA-Tracker.
 
-When a group is deleted, the Student View will show the details of the first group
-in the given module. If there is no group in the module, it will show the empty lists.
+When a group is deleted, the Student View will show the details of the first group in the given module.
+If there is no group in the module, it will show the empty lists.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
 [NOTE]
 ====
 [horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+* A module with the given module code must exist in the TA-Tracker before you add a group to it.
 
 * A group with the given group code must exist inside the module.
 ====
@@ -255,8 +238,7 @@ Examples:
 
 * `group delete g/G03 m/CS2103`
 +
-Deletes the group with the group code G03 from the module that
-has module code CS2103.
+Deletes the group with the group code G03 from the module that has module code CS2103.
 ====
 
 [[EditGroup]]
@@ -266,19 +248,17 @@ TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
 
 Edits a group in the TA-Tracker.
 
-This command can change the group code and group type of the group. It will keep
-the students inside the group intact.
+This command can change the group code and group type of the group.
+It will keep the students inside the group intact.
 
-When a group is edited, the Student View will show the groups of the module
-this group belongs to and students of the edited group.
+When a group is edited, the Student View will show the groups of the module this group belongs to and students of the edited group.
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 [NOTE]
 ====
 [horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+* A module with the given module code must exist in the TA-Tracker before you add a group to it.
 
 * No group with the given group code should exist inside the module.
 ====
@@ -288,8 +268,7 @@ Examples:
 
 * `group add g/G03 m/CS2103 t/tutorial`
 +
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+Adds a group with the group code G03 which is a tutorial inside the module that has module code CS2103.
 ====
 
 [[AddStudent]]
@@ -299,8 +278,7 @@ TODO: WRITE HOW THIS WORKS PROPERLY
 
 Adds a new student to the TA-Tracker.
 
-When a new student is added, the Student View will show the groups and students
-of the module the new student belongs to.
+When a new student is added, the Student View will show the groups and students of the module the new student belongs to.
 
 Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
 
@@ -311,17 +289,16 @@ Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
 `EMAIL`:: the email address of the student
 `RATING`:: a number between 1 (poor) to 5 (excellent)
 `TAG`:: a remark(s) for this student
-`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before you add a group to it.
 `GROUP_CODE`:: A group with the given group code should exist inside the module.
 ====
+
 ====
 Examples:
 
 * `student add id/A0123456J n/Alice m/CS2103 g/G03`
 +
-Adds the student with the matriculation number A0123456J
-and the name Alice inside group G03 of module CS2103.
+Adds the student with the matriculation number A0123456J and the name Alice inside group G03 of module CS2103.
 ====
 
 [[DeleteStudent]]
@@ -331,8 +308,7 @@ TODO: WRITE HOW THIS WORKS PROPERLY
 
 Deletes a student from the TA-Tracker.
 
-When a student is deleted, the Student View will show the groups of the module the
-student was removed from and the students of the group the student was removed from.
+When a student is deleted, the Student View will show the groups of the module the student was removed from and the students of the group the student was removed from.
 If there is no student inside the group, an empty list will be shown.
 
 Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
@@ -340,18 +316,17 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 [NOTE]
 ====
 [horizontal]
-`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before you add a group to it.
 `GROUP_CODE`:: A group with the given group code should exist inside the module.
 `MATRIC_NUMBER`:: A student with the given matric number must exist inside the group.
 ====
+
 ====
 Examples:
 
 * `delete c/student m/A0123456J g/G03 m/CS2103`
 +
-Deletes the student with the matriculation number A0123456J from the group G03 inside
-the module CS2103.
+Deletes the student with the matriculation number A0123456J from the group G03 inside the module CS2103.
 ====
 
 [[EditStudent]]
@@ -361,8 +336,7 @@ TODO: WRITE HOW THIS WORKS PROPERLY
 
 Edits a student in the TA-Tracker.
 
-When a student is edited, the Student View will show the groups of the module the
-edited student is from and the students of the group the edited student exists in.
+When a student is edited, the Student View will show the groups of the module the edited student is from and the students of the group the edited student exists in.
 
 Edits the student with the specified matriculation number.
 The CATEGORY_UID used in this case is the student’s matriculation number.
@@ -380,9 +354,7 @@ Format: `student edit m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…�
 
 * Existing fields will be updated to the input values.
 
-* All existing `TAG(s)` on a student will be removed,
-then replaced with the new tags,
-i.e adding of tags is not cumulative.
+* All existing `TAG(s)` on a student will be removed, then replaced with the new tags, i.e adding of tags is not cumulative.
 
 [TIP]
 You can remove all the student’s tags by typing t/ without specifying any tags after it.
@@ -391,8 +363,7 @@ You can remove all the student’s tags by typing t/ without specifying any tags
 Examples:
 
 * `edit A0123456J p/91234567 e/johndoe@example.com`
-Edits student `A0123456J` to have `91234567` as their phone number,
-and `johndoe@example.com` as their email address.
+Edits student `A0123456J` to have `91234567` as their phone number, and `johndoe@example.com` as their email address.
 
 * `edit A9876543K n/Betsy Crower t/`
 Edits student `A9876543K` to have `Betsy Crower` as their name.
@@ -432,15 +403,15 @@ Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/
 `NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
 
 ====
+
 ====
 Examples:
 
 * `add c/session s/14:00 e/16:00 d/19-02-2020 m/CS2103T t/consult n/with Alice and Bob`
 +
-Adds a consultation session on 19 Feb 2020,
-from 2pm to 4pm,
-with Alice and Bob.
+Adds a consultation session on 19 Feb 2020, from 2pm to 4pm, with Alice and Bob.
 ====
+
 ==== Deleting a Session `session delete`
 
 TODO - UPDATE
@@ -452,11 +423,11 @@ Format: `session delete i/SESSION_UID`
 ====
 Examples:
 
-* delete c/session i/10
-Deletes the session with the identifier of 10
+* delete c/session i/10 Deletes the session with the identifier of 10
 ====
 
 ==== Editing a Session `session edit`
+
 TODO - ADD DETAILS
 
 ==== Marking a Session as Done `session done`
@@ -517,6 +488,7 @@ Sets the current hourly rate to 25$.
 TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 
 === Student View
+
 * *Add Module* `module add m/MOD_CODE`
 * *Delete Module* `module delete m/MOD_CODE`
 * *Add Group* `group add g/GROUP_CODE m/MOD_CODE`
@@ -529,6 +501,7 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 * *Filter*
 
 === Session View
+
 * *Add Session*
 * *Delete Session*
 * *Edit Session*
@@ -536,6 +509,7 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 * *Filter*
 
 === Claims View
+
 * *Set Rate*
 * *Filter*
 

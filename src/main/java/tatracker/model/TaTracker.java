@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -17,6 +16,7 @@ import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.session.UniqueSessionList;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
+
 
 /**
  * Wraps all data at the ta-tracker level
@@ -30,6 +30,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
+    private Module currentlyShownModule;
+    private Group currentlyShownGroup;
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -37,6 +39,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules = new UniqueModuleList();
         currentlyShownGroups = new UniqueGroupList();
         currentlyShownStudents = new UniqueStudentList();
+        currentlyShownGroup = null;
+        currentlyShownModule = null;
     }
 
     /**
@@ -141,6 +145,13 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Returns module from TATracker.
+     */
+    public Module getModule(int index) {
+        return modules.get(index);
+    }
+
+    /**
      * Returns true if a module with the same module code exists in the TATracker.
      */
     public boolean hasModule(Module module) {
@@ -238,6 +249,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     // ======== Group Methods ==================================================
 
     /**
+     * Returns group from TATracker.
+     */
+    public boolean getGroup(String moduleId, String groupId) {
+
+        Module module = new Module(moduleId);
+        Group group = new Group(groupId);
+        return hasGroup(group, module);
+    }
+
+    /**
      * Returns true if a group with the same group code exists in the TATracker.
      */
     public boolean hasGroup(Group group, Module targetModule) {
@@ -303,6 +324,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * module index.
      */
     public void setCurrentlyShownGroups(int n) {
+        setCurrentlyShownModule(modules.get(n));
         setCurrentlyShownGroups(((modules.get(n)).getGroupList()));
     }
 
@@ -311,12 +333,29 @@ public class TaTracker implements ReadOnlyTaTracker {
      * code.
      */
     public void updateCurrentlyShownGroups(String moduleCode) {
+        setCurrentlyShownModule(modules.getModule(moduleCode));
         setCurrentlyShownGroups((modules.getModule(moduleCode)).getGroupList());
     }
 
     @Override
     public ObservableList<Group> getCurrentlyShownGroupList() {
         return currentlyShownGroups.asUnmodifiableObservableList();
+    }
+
+    public Group getCurrentlyShownGroup() {
+        return currentlyShownGroup;
+    }
+
+    public Module getCurrentlyShownModule() {
+        return currentlyShownModule;
+    }
+
+    public void setCurrentlyShownGroup(Group group) {
+        currentlyShownGroup = group;
+    }
+
+    public void setCurrentlyShownModule(Module module) {
+        currentlyShownModule = module;
     }
 
     // ======== Student Methods ================================================
@@ -449,15 +488,19 @@ public class TaTracker implements ReadOnlyTaTracker {
      * group index of the given module.
      */
     public void setCurrentlyShownStudents(String moduleCode, int n) {
-        setCurrentlyShownStudents(((modules.getModule(moduleCode).get(n)).getStudentList()));
+        setCurrentlyShownModule(modules.getModule(moduleCode));
+        setCurrentlyShownGroup(currentlyShownModule.get(n));
+        setCurrentlyShownStudents(currentlyShownGroup.getStudentList());
     }
 
     /**
      * Replaces the contents of the student list with the students at the given
      * group index of the given module.
      */
-    public void setCurrentlyShownStudents(int i, int n) {
-        setCurrentlyShownStudents(((modules.get(i).get(n)).getStudentList()));
+    public void setCurrentlyShownStudents(int moduleIndex, int groupIndex) {
+        setCurrentlyShownModule(modules.get(moduleIndex));
+        setCurrentlyShownGroup(currentlyShownModule.get(groupIndex));
+        setCurrentlyShownStudents(((modules.get(moduleIndex).get(groupIndex)).getStudentList()));
     }
 
     /**
@@ -465,6 +508,8 @@ public class TaTracker implements ReadOnlyTaTracker {
      * code.
      */
     public void updateCurrentlyShownStudents(String groupCode, String moduleCode) {
+        setCurrentlyShownModule(modules.getModule(moduleCode));
+        setCurrentlyShownGroup(currentlyShownModule.getGroup(groupCode));
         setCurrentlyShownStudents(((modules.getModule(moduleCode)).getGroup(groupCode)).getStudentList());
     }
 

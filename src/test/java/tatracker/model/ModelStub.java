@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -146,6 +145,11 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showAllModules() {
         throw new AssertionError("This method should not be called.");
     }
 

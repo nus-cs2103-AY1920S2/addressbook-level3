@@ -14,6 +14,6 @@ public class InvalidStartEndTimeTest {
         LocalDateTime startTime = LocalDateTime.of(2020, 01, 01, 14, 00, 00);
         LocalDateTime endTime = startTime.minus(1, ChronoUnit.HOURS);
         assertThrows(IllegalArgumentException.class, () -> new Session(startTime, endTime,
-                SessionType.OTHER, false, "CS2103/T", "Description"));
+                SessionType.OTHER, 1, "CS2103/T", "Description"));
     }
 }

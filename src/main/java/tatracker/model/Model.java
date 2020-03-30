@@ -4,12 +4,12 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
+
 
 /**
  * The API of the Model component.
@@ -187,12 +187,18 @@ public interface Model {
     ObservableList<Module> getFilteredModuleList();
 
     /**
+     * Shows all modules.
+     */
+    void showAllModules();
+
+    /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
 
     // ======== Group Methods ==================================================
+
 
     /**
      * Returns true if a given group with the same identity as {@code group}
