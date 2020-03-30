@@ -9,6 +9,7 @@ import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
 
 /**
  * API of the Logic component
@@ -51,4 +52,6 @@ public interface Logic extends WorkoutLogic {
      * Returns the user prefs' exercise list file path.
      */
     Path getExerciseListFilePath();
+
+    ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
 }

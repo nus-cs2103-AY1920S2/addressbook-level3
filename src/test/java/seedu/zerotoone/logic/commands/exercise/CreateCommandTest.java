@@ -10,8 +10,10 @@ import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,10 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
@@ -156,7 +162,9 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        /*Workout*/
+
+        // -----------------------------------------------------------------------------------------
+        // Workout
         @Override
         public Path getWorkoutListFilePath() {
             throw new AssertionError("This method should not be called.");
@@ -171,27 +179,25 @@ public class CreateCommandTest {
         public void addWorkout(Workout workout) {
             throw new AssertionError("This method should not be called.");
         }
-
+      
         @Override
         public void setWorkoutList(ReadOnlyWorkoutList newData) {
             throw new AssertionError("This method should not be called.");
-        }
+        } 
 
         @Override
         public ReadOnlyWorkoutList getWorkoutList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public boolean hasWorkout(Workout workout) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
+        
         public void deleteWorkout(Workout target) {
-            throw new AssertionError("This method should not be called.");
+                
         }
-
+      
         @Override
         public void setWorkout(Workout target, Workout editedWorkout) {
             throw new AssertionError("This method should not be called.");
@@ -204,6 +210,54 @@ public class CreateCommandTest {
 
         @Override
         public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // -----------------------------------------------------------------------------------------
+        // Session
+        @Override
+        public boolean isInSession() {
+            return false;
+        }
+
+        @Override
+        public Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
+            throw new AssertionError("This method should not be called.");
+        }
+         
+        @Override
+        public void stopSession(LocalDateTime currentDateTime) {
+            throw new AssertionError("This method should not be called.");
+        }
+          
+        @Override
+        public Optional<Session> getCurrentSession() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // -----------------------------------------------------------------------------------------
+        // Schedule
+        @Override
+        public boolean hasSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+      
+        public void addSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ScheduleList getScheduleList() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -22,6 +22,7 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 import seedu.zerotoone.testutil.LogicManagerTestUtil;
@@ -44,7 +45,12 @@ public class LogicManagerTest {
                 new WorkoutListStorageManager(temporaryFolder.resolve("workoutList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage, workoutListStorage);
+        ScheduleListStorageManager scheduleListStorage =
+                new ScheduleListStorageManager(temporaryFolder.resolve("scheduleList.json"));
+        StorageManager storage = new StorageManager(userPrefsStorage,
+                exerciseListStorage,
+                workoutListStorage,
+                scheduleListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -70,7 +76,12 @@ public class LogicManagerTest {
                 new JsonWorkoutListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionWorkoutList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage, workoutListStorage);
+        ScheduleListStorageManager scheduleListStorage =
+                new ScheduleListStorageManager(temporaryFolder.resolve("ioExceptionScheduleList.json"));
+        StorageManager storage = new StorageManager(userPrefsStorage,
+                exerciseListStorage,
+                workoutListStorage,
+                scheduleListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

@@ -15,6 +15,7 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 
@@ -31,8 +32,14 @@ public class StorageManagerTest {
                 getTempFilePath("exerciselist"));
         WorkoutListStorageManager workoutListStorage = new WorkoutListStorageManager(
                 getTempFilePath("workoutlist"));
+        ScheduleListStorageManager scheduleListStorage = new ScheduleListStorageManager(
+                getTempFilePath("schedulelist"));
         UserPrefsStorageManager userPrefsStorage = new UserPrefsStorageManager(getTempFilePath("prefs"));
-        storageManager = new StorageManager(userPrefsStorage, exerciseListStorage, workoutListStorage);
+
+        storageManager = new StorageManager(userPrefsStorage,
+                exerciseListStorage,
+                workoutListStorage,                    
+                scheduleListStorage);
     }
 
     private Path getTempFilePath(String fileName) {

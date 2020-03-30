@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import org.apache.commons.lang3.time.StopWatch;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,11 +18,18 @@ import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.schedule.Scheduler;
+import seedu.zerotoone.model.session.CompletedSession;
+import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
+
 
 /**
  * Represents the in-memory model of the exercise list data.
@@ -27,28 +38,51 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
+  
+    // Exercise
     private final ExerciseList exerciseList;
     private final FilteredList<Exercise> filteredExercises;
+
+    // Workout
     private final WorkoutList workoutList;
     private final FilteredList<Workout> filteredWorkouts;
+  
+    // Session
+    private Optional<Session> currentSession;
+    private final StopWatch stopwatch;
+  
+    // Schedule
+    private final Scheduler scheduler;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
-    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyExerciseList exerciseList, ReadOnlyWorkoutList workoutList) {
+    public ModelManager(ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyExerciseList exerciseList,
+                        ReadOnlyWorkoutList workoutList,
+                        ScheduleList scheduleList) {
         super();
-        requireAllNonNull(exerciseList, workoutList, userPrefs);
+        requireAllNonNull(userPrefs,
+                exerciseList,
+                workoutList,
+                scheduleList);
+      
         logger.fine("Initializing with user prefs " + userPrefs);
 
-        this.exerciseList = new ExerciseList(exerciseList);
         this.userPrefs = new UserPrefs(userPrefs);
+      
+        this.exerciseList = new ExerciseList(exerciseList);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
+      
         this.workoutList = new WorkoutList(workoutList);
         filteredWorkouts = new FilteredList<>(this.workoutList.getWorkoutList());
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new ExerciseList(), new WorkoutList());
+        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList());
+        this.currentSession = Optional.empty();
+        this.stopwatch = new StopWatch();
+        this.scheduler = new Scheduler(scheduleList); // STEPH_TODO add storage
     }
 
     // -----------------------------------------------------------------------------------------
@@ -132,6 +166,58 @@ public class ModelManager implements Model {
         filteredExercises.setPredicate(predicate);
     }
 
+    @Override
+    public boolean isInSession() {
+        return this.currentSession.isPresent();
+    }
+
+    @Override
+    public Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
+        Session session = new Session(exerciseToStart, currentDateTime);
+        this.currentSession = Optional.of(session);
+        return session;
+    }
+
+    @Override
+    public void stopSession(LocalDateTime currentDateTime) {
+        Session session = this.currentSession.get();
+        CompletedSession completedSession = session.finish(currentDateTime);
+        // do smth like save completed workout
+        this.currentSession = Optional.empty();
+    }
+
+    @Override
+    public Optional<Session> getCurrentSession() {
+        return Optional.ofNullable(this.currentSession.orElse(null));
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Schedule
+    @Override
+    public ScheduleList getScheduleList() {
+        return scheduler.getScheduleList();
+    }
+
+    @Override
+    public boolean hasSchedule(Schedule schedule) {
+        return scheduler.hasSchedule(schedule);
+    }
+
+    @Override
+    public void addSchedule(Schedule schedule) {
+        scheduler.addSchedule(schedule);
+    }
+
+    @Override
+    public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
+        scheduler.deleteScheduledWorkout(scheduledWorkoutToDelete);
+    }
+
+    @Override
+    public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+        return scheduler.getSortedScheduledWorkoutList();
+    }
+
     // -----------------------------------------------------------------------------------------
     // Workout List
     @Override
@@ -207,5 +293,6 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises);
+        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
     }
 }

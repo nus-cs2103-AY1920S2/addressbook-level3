@@ -7,12 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.Command;
+import seedu.zerotoone.logic.commands.DoneCommand;
 import seedu.zerotoone.logic.commands.ExitCommand;
 import seedu.zerotoone.logic.commands.HelpCommand;
+import seedu.zerotoone.logic.commands.SkipCommand;
+import seedu.zerotoone.logic.commands.StartCommand;
+import seedu.zerotoone.logic.commands.StopCommand;
 import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
+import seedu.zerotoone.logic.commands.schedule.ScheduleCommand;
 import seedu.zerotoone.logic.commands.workout.WorkoutCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
+import seedu.zerotoone.logic.parser.schedule.ScheduleCommandParser;
+import seedu.zerotoone.logic.parser.session.StartCommandParser;
 import seedu.zerotoone.logic.parser.workout.WorkoutCommandParser;
 
 /**
@@ -41,6 +48,14 @@ public class ParserManager {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case StartCommand.COMMAND_WORD:
+            return new StartCommandParser().parse(arguments);
+        case StopCommand.COMMAND_WORD:
+            return new StopCommand();
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommand();
+        case SkipCommand.COMMAND_WORD:
+            return new SkipCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case HelpCommand.COMMAND_WORD:
@@ -49,6 +64,8 @@ public class ParserManager {
             return new ExerciseCommandParser().parse(arguments);
         case WorkoutCommand.COMMAND_WORD:
             return new WorkoutCommandParser().parse(arguments);
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
