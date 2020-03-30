@@ -79,6 +79,15 @@ public class ReturnCommandTest {
 
         // different person -> returns false
         assertFalse(returnAliceCommand.equals(returnBobCommand));
+
+        // same return order but different tid -> returns false
+        ReturnCommand returnAliceCommandWithOtherTid = new ReturnCommand(alice,
+                new TransactionId("abc123"));
+        assertFalse(returnAliceCommand.equals(returnAliceCommandWithOtherTid));
+
+        // different return order but same tid -> returns false
+        ReturnCommand returnBobCommandWithAliceTid = new ReturnCommand(bob, aliceTid);
+        assertFalse(returnAliceCommand.equals(returnBobCommandWithAliceTid));
     }
 
     /**
@@ -191,6 +200,11 @@ public class ReturnCommandTest {
         }
 
         @Override
+        public void deliverReturnOrder(ReturnOrder target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setReturnOrder(ReturnOrder target, ReturnOrder editedOrder) {
             throw new AssertionError("This method should not be called.");
         }
@@ -217,7 +231,7 @@ public class ReturnCommandTest {
     }
 
     /**
-     * A Model stub that contains a single order.
+     * A Model stub that contains a single return order.
      */
     private class ModelStubWithReturnOrder extends ModelStub {
         private final ReturnOrder returnOrder;

@@ -76,6 +76,7 @@ public class ReturnCommand extends Command {
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
             }
+            model.deleteOrder(orderToBeReturned);
             toBeCreated = new ReturnOrder(orderToBeReturned);
         }
         if (model.hasReturnOrder(toBeCreated)) {
@@ -87,8 +88,18 @@ public class ReturnCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReturnCommand // instanceof handles nulls
-                && toBeCreated.equals(((ReturnCommand) other).toBeCreated));
+        boolean shortCircuitCheck = other == this; // short circuit if same object
+        if (shortCircuitCheck) {
+            return true;
+        }
+        if (toBeCreated == null) {
+            return (other instanceof ReturnCommand
+                    && ((ReturnCommand) other).toBeCreated == null)
+                    && tid.equals(((ReturnCommand) other).tid);
+        } else {
+            return (other instanceof ReturnCommand
+                    && (toBeCreated.equals(((ReturnCommand) other).toBeCreated))
+                    && tid.equals(((ReturnCommand) other).tid));
+        }
     }
 }

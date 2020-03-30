@@ -9,10 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.DeliveredCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NearbyCommand;
@@ -58,11 +59,14 @@ public class OrderBookParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case DoneCommand.COMMAND_WORD:
-            return new DoneCommandParser().parse(arguments);
+        case DeliveredCommand.COMMAND_WORD:
+            return new DeliveredCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse(arguments);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);

@@ -17,7 +17,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_COMMENT = new Prefix("c/");
     public static final Prefix PREFIX_WAREHOUSE = new Prefix("w/");
     public static final Prefix PREFIX_TYPE = new Prefix("type/");
+    public static final Prefix PREFIX_ORDERTYPE = new Prefix("ot/");
 
     /* Flag definitions */
     public static final Flag FLAG_FORCE_CLEAR = new Flag("-f");
+    public static final Flag FLAG_ORDER_BOOK = new Flag("-o");
+    public static final Flag FLAG_RETURN_BOOK = new Flag("-r");
 }

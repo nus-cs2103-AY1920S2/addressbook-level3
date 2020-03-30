@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -24,19 +26,40 @@ class NearbyCommandParserTest {
     private static Stream<Arguments> invalidArgs() {
         return Stream.of(
                 Arguments.of(""),
-                Arguments.of("    "),
-                Arguments.of("central 1000"));
+                Arguments.of("    "));
     }
 
     @Test
     void parse_validArgs_returnsNearbyCommand() {
-        assertParseSuccess(parser, "1", new NearbyCommand("1"));
-        assertParseSuccess(parser, "   1   ", new NearbyCommand("1"));
-        assertParseSuccess(parser, "central", new NearbyCommand("central"));
-        assertParseSuccess(parser, "east", new NearbyCommand("east"));
-        assertParseSuccess(parser, "north-east", new NearbyCommand("north-east"));
-        assertParseSuccess(parser, "west", new NearbyCommand("west"));
-        assertParseSuccess(parser, "north", new NearbyCommand("north"));
+        String orderListFlag = FLAG_ORDER_BOOK.toString();
+        assertParseSuccess(parser, " " + orderListFlag + " 1",
+                new NearbyCommand(orderListFlag + " 1"));
+        assertParseSuccess(parser, "  " + orderListFlag + "  1   ",
+                new NearbyCommand(orderListFlag + " 1"));
+        assertParseSuccess(parser, " " + orderListFlag + " central",
+                new NearbyCommand(orderListFlag + " central"));
+        assertParseSuccess(parser, " " + orderListFlag + " east",
+                new NearbyCommand(orderListFlag + " east"));
+        assertParseSuccess(parser, " " + orderListFlag + " north-east",
+                new NearbyCommand(orderListFlag + " north-east"));
+        assertParseSuccess(parser, " " + orderListFlag + " west",
+                new NearbyCommand(orderListFlag + " west"));
+        assertParseSuccess(parser, " " + orderListFlag + " north",
+                new NearbyCommand(orderListFlag + " north"));
+
+        String returnListFlag = FLAG_RETURN_BOOK.toString();
+        assertParseSuccess(parser, " " + returnListFlag + " 1",
+                new NearbyCommand(returnListFlag + " 1"));
+        assertParseSuccess(parser, " " + returnListFlag + " central",
+                new NearbyCommand(returnListFlag + " central"));
+        assertParseSuccess(parser, " " + returnListFlag + " east",
+                new NearbyCommand(returnListFlag + " east"));
+        assertParseSuccess(parser, " " + returnListFlag + " north-east",
+                new NearbyCommand(returnListFlag + " north-east"));
+        assertParseSuccess(parser, " " + returnListFlag + " west",
+                new NearbyCommand(returnListFlag + " west"));
+        assertParseSuccess(parser, " " + returnListFlag + " north",
+                new NearbyCommand(returnListFlag + " north"));
     }
 
     @ParameterizedTest

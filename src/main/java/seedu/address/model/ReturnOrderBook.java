@@ -85,6 +85,10 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
         returnOrders.remove(key);
     }
 
+    public void deliverReturnOrder(ReturnOrder toBeDelivered) {
+        returnOrders.deliver(toBeDelivered);
+    }
+
     //// util methods
     @Override
     public String toString() {
