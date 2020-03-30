@@ -150,7 +150,5 @@ public class NotablyParserTest {
         Command command = parser.parseCommand("exit").get(0);
 
         assertTrue(command instanceof ExitCommand);
-      
-
-
+    }
 }
