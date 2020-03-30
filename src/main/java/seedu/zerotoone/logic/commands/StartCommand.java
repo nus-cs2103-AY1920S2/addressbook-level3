@@ -12,15 +12,17 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.session.Session;
 
 /**
- * Deletes a exercise identified using it's displayed index from the exercise list.
+ * Starts a new session based on a displayed index from the exercise list.
  */
 public class StartCommand extends Command {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = "Usage: start EXERCISE_ID";
-    public static final String MESSAGE_START_EXERCISE_SUCCESS = "Started Exercise: %1$s at ";
+    public static final String MESSAGE_START_EXERCISE_SUCCESS = "Started exercise: %1$s at ";
     public static final String MESSAGE_IN_SESSION = "There is a workout session already in progress!";
+    public static final String MESSAGE_NO_SET_LEFT = "No sets left. You are done with your exercise!";
     private final Index exerciseId;
     private final FormatStyle formatStyle = FormatStyle.MEDIUM;
 
@@ -45,7 +47,11 @@ public class StartCommand extends Command {
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-        model.startSession(exerciseToStart, currentDateTime);
+        Session current = model.startSession(exerciseToStart, currentDateTime);
+        if (!current.hasSetLeft()) {
+            model.stopSession(currentDateTime);
+            throw new CommandException((MESSAGE_NO_SET_LEFT));
+        }
 
         String formatted = currentDateTime.format(DateTimeFormatter.ofLocalizedDateTime(this.formatStyle));
 
