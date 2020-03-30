@@ -116,6 +116,7 @@ you can easily enter it into the TSS claims form at the end of the semester.
 * `MOD_CODE` - the unique code for the module
 * `NAME` - based on the command, this could mean student name or module name
 * `GROUP_CODE` - the unique code for the group
+* `NEW_GROUP_CODE` - the new group code
 * `GROUP_TYPE` - could be one of the following:
 ** tutorial
 ** lab
@@ -168,7 +169,7 @@ Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
-No module with the given module code should exist in the TA-Tracker before adding
+No module with the given module code should exist in the TA-Tracker before you add
 a new module.
 ====
 
@@ -209,6 +210,33 @@ Examples:
 Deletes the module with the module code CS2103 from the TA-Tracker.
 ====
 
+[[EditModule]]
+==== Editing a Module `module edit`
+
+Edits a module in the TA-Tracker.
+
+When a module is edited, the Student View will show the groups of the module and
+the students of the first group of the module. If the module doesn't have any groups
+or students, empty lists will be shown instead.
+
+Editing a module can only be used to change the name of the module. Module code can't
+be changed. Editing a module doesn't affect the students and groups inside the module.
+
+Format: `module edit m/MOD_CODE n/NEW NAME`
+
+[NOTE]
+====
+A module with the given module code must exist in the TA-Tracker before you edit it.
+====
+
+====
+Examples:
+
+* `module edit m/CS2103 n/Software Engineering`
++
+Changes the name of the module with module code CS2103 to 'Software Engineering'.
+====
+
 [[AddGroup]]
 ==== Adding a Group `group add`
 
@@ -245,7 +273,7 @@ When a group is deleted, the Student View will go back to its default
 setting and show the details for the first module and first group in the
 TA-Tracker. If there is no group in the module, it will show the empty lists.
 
-When a
+When a group is deleted from the TA-Tracker, all students in the group are also deleted.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
@@ -253,9 +281,9 @@ Format: `group delete g/GROUP_CODE m/MOD_CODE`
 ====
 [horizontal]
 * A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+you delete a group from it.
 
-* A group with the given group code must exist inside the module.
+* A group with the given group code must exist inside the module before you can delete it.
 ====
 
 ====
@@ -270,31 +298,29 @@ has module code CS2103.
 [[EditGroup]]
 ==== Editing a Group `group edit`
 
-TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
-
 Edits a group in the TA-Tracker.
 
-This command can change the group code and group type of the group. It will keep
-the students inside the group intact.
+This command can be used to change the group code and the group type of the group.
+The students inside the group will remain intact.
 
 When a group is edited, the Student View will show the groups of the module
 this group belongs to and students of the edited group.
 
-Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+Format: `group edit g/GROUP_CODE m/MOD_CODE ng/NEW_GROUP_CODE nt/NEW_GROUP_TYPE`
 
 [NOTE]
 ====
 [horizontal]
 * A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+you attempt to edit a group inside it.
 
-* No group with the given group code should exist inside the module.
+* A group with the given group code should exist inside the module before editing it.
 ====
 
 ====
 Examples:
 
-* `group add g/G03 m/CS2103 t/tutorial`
+* `group edit g/G03 m/CS2103 t/tutorial`
 +
 Adds a group with the group code G03 which is a tutorial inside the module that
 has module code CS2103.
