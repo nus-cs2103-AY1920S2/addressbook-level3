@@ -42,8 +42,9 @@ public class HelpCommand extends Command {
             + "16. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "17. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "18. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "19. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "20. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "19. " + AddRestaurantNoteCommand.COMMAND_WORD + ": " + AddRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
+            + "20. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "21. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
@@ -84,11 +85,12 @@ public class HelpCommand extends Command {
         commands.add("13. " + DoneCommand.MESSAGE_USAGE + "\n");
         commands.add("14. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("15. " + ScheduleCommand.MESSAGE_USAGE + "\n");
-        commands.add("14. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("15. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("16. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("17. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("18. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("16. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("17. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("18. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("19. " + AddRestaurantNoteCommand.MESSAGE_USAGE + "\n");
+        commands.add("20. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("21. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }
@@ -101,7 +103,8 @@ public class HelpCommand extends Command {
         }
 
         if (type < 0) {
-            return new CommandResult(MESSAGE, true, false, false, false, false, false, false, false);
+            return new CommandResult(MESSAGE, true, false, false, false,
+                    false, false, false, false);
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"

@@ -224,7 +224,7 @@ Format: `(ab)birthday`
 === Adds a new restaurant: `(rt)add`
 
 Adds a new restaurant +
-Format: `(rt)add n/NAME l/LOCATION [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
+Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
 
 ****
 * OPERATING_HOURS is 8 digits
@@ -260,15 +260,15 @@ Searches for restaurants in the bedok area at a low price point.
 Deletes a restaurant from the list +
 Format: `(rt)delete n/NAME`
 
-=== Add notes to a restaurant: `(rt)notes`
+=== Add notes to a restaurant: `(rt)addnote`
 
-Adds a new restaurant +
-Format: `(rt)notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+Adds a new note about the food to a restaurant +
+Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
 
 Examples:
 
-* `(rt)notes rubbish r/chicken chop g/truffle fries b/risotto` +
-Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+* `(rt)addnote 2 r/chicken chop g/truffle fries b/risotto` +
+Adds a notes to an existing restaurant in the list that is indexed 2 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
 === Add new assignment to the Schoolwork Tracker: `(st)add`
 
