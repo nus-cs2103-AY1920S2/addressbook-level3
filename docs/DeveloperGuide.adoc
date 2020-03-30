@@ -168,8 +168,14 @@ The advanced filter feature filters recipes by the set of parameters that the us
 enhanced and more robust version of the `Find` command, which only allows the user to find recipes by their name.
 
 ==== Implementation
-The advanced filter feature makes use of existing `ArgumentTokenizer` and `ArgumentMultimap` capabilities to parse
+This sections explains how the filter command is implemented.
+
+1. The filter command makes use of existing `ArgumentTokenizer` and `ArgumentMultimap` capabilities to parse
 user input in the `FilterCommandParser` class.
+
+2.
+
+Here is a sample sequence diagram that shows the flow of information when the user inputs `filter favourites t/20 ig/Pasta`.
 
 
 

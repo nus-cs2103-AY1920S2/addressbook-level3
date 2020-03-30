@@ -5,8 +5,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":RecipeBookParser" as RecipeBookParser LOGIC_COLOR
 participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
-participant ":RecipeMatchesKeywordsPredicate" as RecipeMatchesKeywordsPredicate LOGIC_COLOR
-participant ":FilterCommand" as FilterCommand LOGIC_COLOR
+participant "p : RecipeMatchesKeywordsPredicate" as RecipeMatchesKeywordsPredicate LOGIC_COLOR
+participant "f : FilterCommand" as FilterCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -28,42 +28,43 @@ create RecipeMatchesKeywordsPredicate
 FilterCommandParser -> RecipeMatchesKeywordsPredicate
 activate RecipeMatchesKeywordsPredicate
 
-RecipeMatchesKeywordsPredicate --> FilterCommandParser: predicate
+RecipeMatchesKeywordsPredicate --> FilterCommandParser: p
 deactivate RecipeMatchesKeywordsPredicate
 
 create FilterCommand
-FilterCommandParser -> FilterCommand: new FilterCommand(predicate)
+FilterCommandParser -> FilterCommand
 activate FilterCommand
 
-FilterCommand --> FilterCommandParser: FilterCommand(predicate)
+FilterCommand --> FilterCommandParser: f
 deactivate FilterCommand
 
-FilterCommandParser --> RecipeBookParser: FilterCommand(predicate)
+FilterCommandParser --> RecipeBookParser: f
 deactivate FilterCommandParser
-destroy RecipeMatchesKeywordsPredicate
 
-RecipeBookParser --> LogicManager: FilterCommand(predicate)
+RecipeBookParser --> LogicManager: f
 deactivate RecipeBookParser
 destroy FilterCommandParser
 
-LogicManager -> FilterCommand: execute(model)
+LogicManager -> FilterCommand: execute()
 activate FilterCommand
 
-FilterCommand -> Model: updateFilteredRecipeList(predicate)
+FilterCommand -> Model: updateFilteredRecipeList(p)
 activate Model
+
+Model --> FilterCommand
 deactivate Model
 
 create CommandResult
 FilterCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> FilterCommand: CommandResult
+CommandResult --> FilterCommand: result
 deactivate CommandResult
 
-FilterCommand --> LogicManager: CommandResult
+FilterCommand --> LogicManager: result
 deactivate FilterCommand
 
-<-- LogicManager: CommandResult
+<-- LogicManager: result
 deactivate LogicManager
 
 @enduml
