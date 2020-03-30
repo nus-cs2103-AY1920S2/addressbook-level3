@@ -95,6 +95,12 @@ public class AddCommand extends Command {
             }
         }
 
+        if (moduleToAdd.getPrereqTreeNode() != null
+                && !moduleToAdd.getPrereqTreeNode().hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
+            throw new CommandException("Prerequisites of " + toAdd + " have not been fulfilled before semester " +
+                    addSemester + "\nPrerequisites: " + moduleToAdd.getPrereqs());
+        }
+
         // Check if grade is being added to future semester, reject if so
         int currentUserSemester = profile.getCurrentSemester();
         if (addGrade != null) {

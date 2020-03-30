@@ -30,6 +30,21 @@ public class ModuleCode {
         return moduleCode.matches(VALIDATION_REGEXES);
     }
 
+    public ModuleCode removeSuffix() {
+        String toReturn = "";
+        int index = 0;
+        char modCodeChar = moduleCode.charAt(0);
+        while (!Character.isDigit(modCodeChar)) {
+            toReturn += modCodeChar;
+            modCodeChar = moduleCode.charAt(++index);
+        }
+        for (int i=index; i<index+4; i++) {
+            toReturn += moduleCode.charAt(i);
+        }
+        System.out.println(toReturn);
+        return new ModuleCode(toReturn);
+    }
+
     @Override
     public String toString() {
         return moduleCode;

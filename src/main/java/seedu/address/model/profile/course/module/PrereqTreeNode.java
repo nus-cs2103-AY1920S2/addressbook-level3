@@ -27,7 +27,9 @@ public class PrereqTreeNode {
 
     public boolean hasFulfilledPrereqs(List<ModuleCode> modulesTaken) {
         if (moduleCode != null) {
-            return modulesTaken.contains(moduleCode);
+            // Kept the first condition mainly as precaution
+            return modulesTaken.contains(moduleCode)
+                    || modulesTaken.stream().map(ModuleCode::removeSuffix).anyMatch(modCode->modCode.equals(moduleCode));
         }
         boolean check;
         if (type.equals("or")) {

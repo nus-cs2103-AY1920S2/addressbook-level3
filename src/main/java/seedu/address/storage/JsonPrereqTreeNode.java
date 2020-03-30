@@ -58,7 +58,6 @@ public class JsonPrereqTreeNode {
             throw new IllegalValueException("Error parsing prerequisite tree");
         }
 
-        System.out.println(toReturn);
         return toReturn;
     }
 }

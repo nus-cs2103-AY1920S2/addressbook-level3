@@ -83,6 +83,10 @@ public class ModuleList implements Iterable<Module> {
         return moduleList;
     }
 
+    public List<ModuleCode> getModuleCodes() {
+        return new ArrayList<>(moduleCodes);
+    }
+
     public Stream<Module> stream() {
         return moduleList.stream();
     }
