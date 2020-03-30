@@ -32,7 +32,7 @@ Proceed to <<Quick Start>> to get started!
 Throughout this guide, you may come across a few symbols.
 They are used to draw your attention to important or note-worthy information.
 
-Here are the symbols this User Guide uses:
+Here are the symbols used in this User Guide:
 
 [NOTE]
 This block displays additional *notes* that contains extra information that you should take note of.
