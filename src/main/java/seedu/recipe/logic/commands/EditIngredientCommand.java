@@ -46,6 +46,8 @@ public class EditIngredientCommand extends Command {
             + PREFIX_INGREDIENT_OTHER + "50g, Honeydew";
 
     public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully edited ingredient(s) in %1$s!";
+    public static final String MESSAGE_NO_SUCH_INGREDIENT = "%1$s is either not %2$s ingredient "
+            + "or it does not exist in %3$s!";
 
     private final Index index;
     private final EditCommand.EditRecipeDescriptor editRecipeDescriptor;
@@ -86,9 +88,10 @@ public class EditIngredientCommand extends Command {
 
     /**
      * Edits the quantity of the specified {@code Grain} ingredient(s) in the current list of grains.
-     * If the specified grain ingredient(s) do not exist in the current list, nothing happens.
+     * If the specified grain ingredient(s) do not exist in the current list, CommandException is thrown.
      */
-    public void updateGrainsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public void updateGrainsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+            throws CommandException {
         if (editRecipeDescriptor.getGrains().isPresent()) {
             Set<Grain> grainsToEdit = new TreeSet<>(editRecipeDescriptor.getGrains().get());
             Set<Grain> currentGrainsList = new TreeSet<>(recipeToEdit.getGrains());
@@ -96,6 +99,10 @@ public class EditIngredientCommand extends Command {
                 if (currentGrainsList.contains(grain)) {
                     currentGrainsList.remove(grain);
                     currentGrainsList.add(grain);
+                } else {
+                    throw new CommandException(
+                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                                    grain, "a grain", recipeToEdit.getName().toString()));
                 }
             }
             editRecipeDescriptor.setGrains(currentGrainsList);
@@ -106,9 +113,10 @@ public class EditIngredientCommand extends Command {
 
     /**
      * Edits the quantity of the specified {@code Vegetable} ingredient(s) in the current list of vegetables.
-     * If the specified vegetable ingredient(s) do not exist in the current list, nothing happens.
+     * If the specified vegetable ingredient(s) do not exist in the current list, CommandException is thrown.
      */
-    public void updateVegetablesList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public void updateVegetablesList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+            throws CommandException {
         if (editRecipeDescriptor.getVegetables().isPresent()) {
             Set<Vegetable> vegetablesToEdit = new TreeSet<>(editRecipeDescriptor.getVegetables().get());
             Set<Vegetable> currentVegetablesList = new TreeSet<>(recipeToEdit.getVegetables());
@@ -116,6 +124,10 @@ public class EditIngredientCommand extends Command {
                 if (currentVegetablesList.contains(vegetable)) {
                     currentVegetablesList.remove(vegetable);
                     currentVegetablesList.add(vegetable);
+                } else {
+                    throw new CommandException(
+                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                                    vegetable, "a vegetable", recipeToEdit.getName().toString()));
                 }
             }
             editRecipeDescriptor.setVegetables(currentVegetablesList);
@@ -126,9 +138,10 @@ public class EditIngredientCommand extends Command {
 
     /**
      * Edits the quantity of the specified {@code Protein} ingredient(s) in the current list of proteins.
-     * If the specified protein ingredient(s) do not exist in the current list, nothing happens.
+     * If the specified protein ingredient(s) do not exist in the current list, CommandException is thrown.
      */
-    public void updateProteinsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public void updateProteinsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+            throws CommandException {
         if (editRecipeDescriptor.getProteins().isPresent()) {
             Set<Protein> proteinsToEdit = new TreeSet<>(editRecipeDescriptor.getProteins().get());
             Set<Protein> currentProteinsList = new TreeSet<>(recipeToEdit.getProteins());
@@ -136,6 +149,10 @@ public class EditIngredientCommand extends Command {
                 if (currentProteinsList.contains(protein)) {
                     currentProteinsList.remove(protein);
                     currentProteinsList.add(protein);
+                } else {
+                    throw new CommandException(
+                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                                    protein, "a protein", recipeToEdit.getName().toString()));
                 }
             }
             editRecipeDescriptor.setProteins(currentProteinsList);
@@ -146,9 +163,10 @@ public class EditIngredientCommand extends Command {
 
     /**
      * Edits the quantity of the specified {@code Fruit} ingredient(s) in the current list of fruits.
-     * If the specified fruit ingredient(s) do not exist in the current list, nothing happens.
+     * If the specified fruit ingredient(s) do not exist in the current list, CommandException is thrown.
      */
-    public void updateFruitsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public void updateFruitsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+            throws CommandException {
         if (editRecipeDescriptor.getFruits().isPresent()) {
             Set<Fruit> fruitsToEdit = new TreeSet<>(editRecipeDescriptor.getFruits().get());
             Set<Fruit> currentFruitsList = new TreeSet<>(recipeToEdit.getFruits());
@@ -156,6 +174,10 @@ public class EditIngredientCommand extends Command {
                 if (currentFruitsList.contains(fruit)) {
                     currentFruitsList.remove(fruit);
                     currentFruitsList.add(fruit);
+                } else {
+                    throw new CommandException(
+                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                                    fruit, "a fruit", recipeToEdit.getName().toString()));
                 }
             }
             editRecipeDescriptor.setFruits(currentFruitsList);
@@ -166,9 +188,10 @@ public class EditIngredientCommand extends Command {
 
     /**
      * Edits the quantity of the specified {@code Other} ingredient(s) in the current list of other ingredients.
-     * If the specified other ingredient(s) do not exist in the current list, nothing happens.
+     * If the specified other ingredient(s) do not exist in the current list, CommandException is thrown.
      */
-    public void updateOthersList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public void updateOthersList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+            throws CommandException {
         if (editRecipeDescriptor.getOthers().isPresent()) {
             Set<Other> othersToEdit = new TreeSet<>(editRecipeDescriptor.getOthers().get());
             Set<Other> currentOthersList = new TreeSet<>(recipeToEdit.getOthers());
@@ -176,6 +199,10 @@ public class EditIngredientCommand extends Command {
                 if (currentOthersList.contains(other)) {
                     currentOthersList.remove(other);
                     currentOthersList.add(other);
+                } else {
+                    throw new CommandException(
+                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                                    other, "an 'other'", recipeToEdit.getName().toString()));
                 }
             }
             editRecipeDescriptor.setOthers(currentOthersList);

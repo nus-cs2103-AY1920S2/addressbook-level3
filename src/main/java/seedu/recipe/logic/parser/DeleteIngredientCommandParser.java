@@ -52,7 +52,8 @@ public class DeleteIngredientCommandParser implements Parser<DeleteIngredientCom
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteIngredientCommand.MESSAGE_USAGE), pe);
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();

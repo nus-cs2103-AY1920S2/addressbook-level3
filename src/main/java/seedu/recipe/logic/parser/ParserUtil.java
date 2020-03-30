@@ -67,10 +67,10 @@ public class ParserUtil {
             }
             toSort[i] = Integer.parseInt(index);
         }
-        Arrays.sort(toSort);
+        toSort = Arrays.stream(toSort).distinct().sorted().toArray(Integer[]::new);
 
-        Index[] indices = new Index[len];
-        for (int i = 0; i < len; i++) {
+        Index[] indices = new Index[toSort.length];
+        for (int i = 0; i < indices.length; i++) {
             indices[i] = Index.fromOneBased(toSort[i]);
         }
         return indices;

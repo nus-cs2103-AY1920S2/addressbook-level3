@@ -104,19 +104,21 @@ public class RecipeCard extends UiPart<Region> {
         recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
         others.getChildren().forEach(other -> other.setStyle(styleIngredientsAndSteps));
 
-        stepsHeader.setText("Steps");
-        stepsHeader.setUnderline(true);
-        stepsHeader.setPadding(new Insets(10, 0, 0, 0));
+        if (!recipe.getSteps().isEmpty()) {
+            stepsHeader.setText("Steps");
+            stepsHeader.setUnderline(true);
+            stepsHeader.setPadding(new Insets(10, 0, 0, 0));
 
-        // Calculates step number and displays with along with the step
-        AtomicInteger stepNumber = new AtomicInteger(1);
-        recipe.getSteps().forEach(step -> {
-            Label stepLabel = new Label("Step " + stepNumber.getAndIncrement() + ": " + step.value);
-            stepLabel.setWrapText(true);
-            stepLabel.setStyle(styleIngredientsAndSteps);
-            steps.getChildren().add(stepLabel);
-        });
-        steps.setSpacing(5);
+            // Calculates step number and displays with along with the step
+            AtomicInteger stepNumber = new AtomicInteger(1);
+            recipe.getSteps().forEach(step -> {
+                Label stepLabel = new Label("Step " + stepNumber.getAndIncrement() + ": " + step.value);
+                stepLabel.setWrapText(true);
+                stepLabel.setStyle(styleIngredientsAndSteps);
+                steps.getChildren().add(stepLabel);
+            });
+            steps.setSpacing(5);
+        }
 
     }
 
