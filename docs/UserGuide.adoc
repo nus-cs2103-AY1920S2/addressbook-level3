@@ -606,6 +606,9 @@ delivery), number of deliveries completed in a day}_
 
 
 == Command Summary
+In this section, you can find out more about the commands supported by Delino
+(their respective format and example).
+
 If you would like to know more about a specific command, you can view more information by clicking
 the provided link in the table below.
 
