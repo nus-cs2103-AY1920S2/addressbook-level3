@@ -1,18 +1,10 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
-import java.util.List;
-
-import seedu.recipe.commons.core.Messages;
-import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.PlannedRecipeWithinDateRangePredicate;
-import seedu.recipe.model.plan.PlannedDate;
-import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.recipe.Recipe;
 
 /**
  * Schedules a recipe to a date.

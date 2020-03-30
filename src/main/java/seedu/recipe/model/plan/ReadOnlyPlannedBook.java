@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**

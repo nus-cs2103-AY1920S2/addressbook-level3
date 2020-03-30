@@ -1,30 +1,20 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.util.StringUtil;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.UniquePlannedList;
-import seedu.recipe.model.recipe.Recipe;
 
 /**
  * Panel containing the list of recipes.

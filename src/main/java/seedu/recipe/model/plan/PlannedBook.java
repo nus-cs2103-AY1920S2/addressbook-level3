@@ -10,6 +10,10 @@ import java.util.Map;
 import javafx.collections.ObservableList;
 import seedu.recipe.model.recipe.Recipe;
 
+/**
+ * Wraps all data at the planned-recipe-book level
+ * Duplicates are not allowed (by .isSameRecipe comparison) todo
+ */
 public class PlannedBook implements ReadOnlyPlannedBook {
 
     private final UniquePlannedList plannedRecipes;
@@ -52,13 +56,16 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     // ===== Recipe-level methods =====
 
     /**
-     * Adds a recipe to a date in the planned book.
-     * The recipe must not already exist on that day in the planned book.
+     * Adds a {@code plannedRecipe} into the planned book.
+     * The planned recipe must not exist in the planned book. todo
      */
     public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
         plannedRecipes.add(plannedRecipe);
     }
 
+    /**
+     * Adds a {@code plannedRecipe} to the mapping of Recipe to PlannedRecipe.
+     */
     public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
         if (recipeToPlannedRecipeMap.containsKey(recipe)) {
             recipeToPlannedRecipeMap.get(recipe).add(plannedRecipe);
@@ -71,15 +78,14 @@ public class PlannedBook implements ReadOnlyPlannedBook {
 
 
     /**
-     * Removes all recipes at {@code date} from this {@code PlannedBook}.
-     * {@code date} must exist in the planned book.
+     * Removes the planned recipe from the plannedRecipe list.
      */
     public void removePlannedRecipes(PlannedRecipe plannedRecipe) {
         plannedRecipes.remove(plannedRecipe);
     }
 
     /**
-     * params must exist.
+     * Removes all planned recipes on this {@code recipe} key in the mapping from recipe to planned recipe.
      */
     public void removeAllPlannedMappingForRecipe(Recipe recipe) {
         List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
@@ -89,16 +95,18 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         recipeToPlannedRecipeMap.remove(recipe);
     }
 
+    /**
+     * Shifts the planned recipes on this {@code target} key to the {@code editedRecipe} key in the mapping from
+     * recipe to planned recipe.
+     * Updates the Recipe referenced in each PlannedRecipe.
+     */
     public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
         List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
         recipeToPlannedRecipeMap.remove(target);
         for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
             plannedRecipe.setRecipe(editedRecipe);
-            //addPlannedMapping(editedRecipe, plannedRecipe);
-            System.out.println(recipeToPlannedRecipeMap);
         }
         recipeToPlannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
-        //removeAllPlannedMappingForRecipe(target);
     }
 
     // ===== Util methods =====

@@ -4,8 +4,8 @@ import java.util.function.Predicate;
 
 public class PlannedRecipeWithinDateRangePredicate implements Predicate<PlannedRecipe> {
 
-    PlannedDate start;
-    PlannedDate end;
+    private PlannedDate start;
+    private PlannedDate end;
 
     public PlannedRecipeWithinDateRangePredicate(PlannedDate start, PlannedDate end) {
         this.start = start;
