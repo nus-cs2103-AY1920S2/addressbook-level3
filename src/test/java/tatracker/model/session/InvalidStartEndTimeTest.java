@@ -1,11 +1,11 @@
 package tatracker.model.session;
 
+import static tatracker.testutil.Assert.assertThrows;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
-
-import static tatracker.testutil.Assert.assertThrows;
 
 public class InvalidStartEndTimeTest {
 

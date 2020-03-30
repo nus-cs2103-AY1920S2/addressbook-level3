@@ -1,17 +1,5 @@
 package tatracker.logic.parser.session;
 
-import tatracker.logic.commands.session.AddSessionCommand;
-import tatracker.logic.parser.ArgumentMultimap;
-import tatracker.logic.parser.ArgumentTokenizer;
-import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.session.Session;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
@@ -20,6 +8,18 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import tatracker.logic.commands.session.AddSessionCommand;
+import tatracker.logic.parser.ArgumentMultimap;
+import tatracker.logic.parser.ArgumentTokenizer;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.session.Session;
 
 /*
  * === BUGS ===

@@ -1,5 +1,10 @@
 package tatracker.logic.commands.session;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
@@ -9,11 +14,6 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Marks a session as done in TAT.
