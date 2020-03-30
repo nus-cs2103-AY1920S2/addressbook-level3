@@ -8,7 +8,7 @@ import com.notably.model.Model;
  * Represents a suggestion command object to exit the Notably app.
  */
 public class ExitSuggestionCommand implements SuggestionCommand {
-    private static final String COMMAND_WORD = "exit";
+    public static final String COMMAND_WORD = "exit";
     private static final String RESPONSE_MESSAGE = "Exit Notably app";
 
     @Override
