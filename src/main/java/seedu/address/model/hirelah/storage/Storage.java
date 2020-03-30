@@ -17,7 +17,7 @@ import seedu.address.storage.UserPrefsStorage;
  * prevent any bugs.
  */
 public interface Storage extends UserPrefsStorage {
-    void saveInterviewee(IntervieweeList source) throws IOException;
+    void saveInterviewee(IntervieweeList source) throws IOException, IllegalValueException;
     Optional<IntervieweeList> readInterviewee() throws DataConversionException;
 
     void saveAttribute(AttributeList source) throws IOException, IllegalValueException;

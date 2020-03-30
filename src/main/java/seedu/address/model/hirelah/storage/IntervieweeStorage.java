@@ -12,17 +12,18 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.IntervieweeList;
 
 /**
- * MetricStorage containing the file path
- * to store the metric objects.
+ * IntervieweeStorage containing the file path
+ * to store the Interviewee objects.
  */
-public class MetricStorage {
-    private static final Logger logger = LogsCenter.getLogger(MetricStorage.class);
+public class IntervieweeStorage {
+    private static final Logger logger = LogsCenter.getLogger(IntervieweeStorage.class);
     private final Path path;
 
-    public MetricStorage(Path newPath) {
+
+    public IntervieweeStorage(Path newPath) {
         this.path = newPath;
     }
 
@@ -32,19 +33,19 @@ public class MetricStorage {
 
     /**
      * reads the data from the current Path to
-     * retrieve all the information regarding Metric.
-     * @return OptionalMetricList
-     * @throws DataConversionException error in reading the file.
+     * retrieve all the information regarding Interviewee.
+     * @return OptionalIntervieweeList
+     * @throws DataConversionException error when reading the file
      */
-    public Optional<MetricList> readMetric(Path filePath) throws DataConversionException {
+    public Optional<IntervieweeList> readInterviewee(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableMetric> jsonMetric = JsonUtil.readJsonFile(
-                filePath, JsonSerializableMetric.class);
-        if (jsonMetric.isEmpty()) {
+        Optional<JsonSerializableInterviewee> jsonInterviewee = JsonUtil.readJsonFile(
+                filePath, JsonSerializableInterviewee.class);
+        if (jsonInterviewee.isEmpty()) {
             return Optional.empty();
         }
         try {
-            return Optional.of(jsonMetric.get().toModelType());
+            return Optional.of(jsonInterviewee.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -52,13 +53,13 @@ public class MetricStorage {
     }
 
     /**
-     * Save the information of the Metric
+     * Save the information of the Interviewee
      * @param  source of the data. Cannot be null.
      */
-    public void saveMetrics(MetricList source) throws IOException, IllegalValueException {
+    public void saveInterview(IntervieweeList source) throws IOException {
         requireNonNull(source);
         requireNonNull(path);
         FileUtil.createIfMissing(path);
-        JsonUtil.saveJsonFile(new JsonSerializableMetric(source), path);
+        JsonUtil.saveJsonFile(new JsonSerializableInterviewee(source), path);
     }
 }

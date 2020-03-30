@@ -15,10 +15,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path sessionsDirectory = Paths.get("data");
-    private Path intervieweeDirectory = Paths.get("data","interviewee.json");
-    private Path attributeDirectory = Paths.get("data","attribute.json");
-    private Path questionDirectory = Paths.get("data","question.json");
-    private Path metricDirectory = Paths.get("data","metric.json");
+    private Path intervieweeDirectory = Paths.get("data", "interviewee.json");
+    private Path attributeDirectory = Paths.get("data", "attribute.json");
+    private Path questionDirectory = Paths.get("data", "question.json");
+    private Path metricDirectory = Paths.get("data", "metric.json");
     private Path transcriptDirectory = Paths.get("data/transcript");
     private Path remarkDirectory = Paths.get("data/remark");
 
@@ -68,7 +68,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public Path getMetricDirectory() {
         return this.metricDirectory;
     }
-    public Path getTranscriptDirectory(){
+    public Path getTranscriptDirectory() {
         return this.transcriptDirectory;
     }
     public Path getRemarkDirectory() {

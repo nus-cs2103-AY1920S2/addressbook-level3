@@ -21,14 +21,12 @@ import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.storage.Storage;
 
-
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
     private final Model model;
     private final Storage storage;
     private final InterviewParser interviewParser;
@@ -63,7 +61,7 @@ public class LogicManager implements Logic {
             storage.saveInterviewee(model.getIntervieweeList());
             storage.saveAttribute(model.getAttributeList());
             storage.saveQuestion(model.getQuestionList());
-            //storage.saveMetric(model.getMetricList());
+            storage.saveMetric(model.getMetricList());
         } catch (IOException | IllegalValueException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -120,4 +118,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }

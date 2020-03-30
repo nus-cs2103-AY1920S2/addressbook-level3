@@ -1,18 +1,18 @@
 package seedu.address.model.hirelah.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
-import javafx.collections.ObservableList;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.Interviewee;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable JsonAdaptedAttributes that is serializable to JSON format {@link JsonAdaptedAttributes}.
@@ -29,7 +29,7 @@ public class JsonSerializableAttributes {
         this.attributes.addAll(source);
     }
 
-    public JsonSerializableAttributes(AttributeList source) throws IllegalValueException {
+    public JsonSerializableAttributes(AttributeList source) {
         List<Attribute> convertedList = source.getObservableList();
         attributes.addAll(convertedList.stream().map(JsonAdaptedAttributes::new).collect(Collectors.toList()));
     }
@@ -41,7 +41,7 @@ public class JsonSerializableAttributes {
         AttributeList newData = new AttributeList();
         for (JsonAdaptedAttributes jsonAdaptedattributes : attributes) {
             Attribute attribute = jsonAdaptedattributes.toModelType();
-            if (newData.isDuplicate(attribute)){
+            if (newData.isDuplicate(attribute)) {
                 throw new IllegalValueException("This attribute is already exists!");
             }
             newData.add(attribute.toString());

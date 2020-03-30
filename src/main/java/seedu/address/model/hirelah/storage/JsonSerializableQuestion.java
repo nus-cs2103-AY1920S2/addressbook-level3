@@ -1,18 +1,24 @@
 package seedu.address.model.hirelah.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+/**
+ * An Immutable QuestionList that is serializable to JSON format {@link QuestionList}.
+ */
+
 @JsonRootName(value = "questions")
 public class JsonSerializableQuestion {
-    public static final String MESSAGE_DUPLICATE_Question = "Question list contains duplicate";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "QUESTION LIST CONTAINS DUPLICATES";
     private final List<JsonAdaptedQuestions> questions = new ArrayList<>();
 
     /**
@@ -23,7 +29,6 @@ public class JsonSerializableQuestion {
     public JsonSerializableQuestion(@JsonProperty("questions") List<JsonAdaptedQuestions> source) {
         this.questions.addAll(source);
     }
-
 
     public JsonSerializableQuestion(QuestionList source) {
         List<Question> convertedList = source.getObservableList();
@@ -38,7 +43,7 @@ public class JsonSerializableQuestion {
         QuestionList newData = new QuestionList();
         for (JsonAdaptedQuestions jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (newData.isDuplicate(question)){
+            if (newData.isDuplicate(question)) {
                 throw new IllegalValueException("This attribute is already exists!");
             }
             newData.add(question.toString()); // temporary only store the name first

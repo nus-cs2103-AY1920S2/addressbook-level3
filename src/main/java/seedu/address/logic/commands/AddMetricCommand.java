@@ -23,7 +23,7 @@ public class AddMetricCommand extends Command {
     public static final String MESSAGE_USAGE = "new " + COMMAND_WORD + ": Adds an metric to the Metric list.\n"
             + "Parameters: "
             + "NAME -a attributePrefix1 -w weight1 -a attributePrefix2 -w weight2\n"
-            + "Example: new " + COMMAND_WORD + " extremeLeader -a lea -w 0.7 -a te -w 0.6";
+            + "Example: add " + COMMAND_WORD + " extremeLeader -a lea -w 0.7 -a te -w 0.6";
 
 
     private final String toAdd;

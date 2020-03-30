@@ -3,7 +3,7 @@ package seedu.address.model.hirelah.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Attribute;
 

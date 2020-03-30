@@ -1,16 +1,16 @@
 package seedu.address.model.hirelah.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.hirelah.Metric;
-import seedu.address.model.hirelah.MetricList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.hirelah.Metric;
+import seedu.address.model.hirelah.MetricList;
 
 /**
  * An Immutable JsonAdaptedMetrics that is serializable to JSON format {@link JsonAdaptedMetric}.
@@ -27,17 +27,19 @@ public class JsonSerializableMetric {
         this.metrics.addAll(source);
     }
 
-    public JsonSerializableMetric(MetricList source) throws IllegalValueException {
+    public JsonSerializableMetric(MetricList source) {
         List<Metric> convertedList = source.getObservableList();
         metrics.addAll(convertedList.stream().map(JsonAdaptedMetric::new).collect(Collectors.toList()));
     }
+    /**
+     * Converts into an MetricList
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
     public MetricList toModelType() throws IllegalValueException {
         MetricList newData = new MetricList();
         for (JsonAdaptedMetric jsonAdaptedmetrics : metrics) {
             Metric metric = jsonAdaptedmetrics.toModelType();
-            /**
-             * implementation to be confirmed
-             */
+            newData.getObservableList().add(metric);
         }
         return newData;
     }

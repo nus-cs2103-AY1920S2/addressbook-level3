@@ -15,9 +15,20 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
-import seedu.address.model.hirelah.*;
-import seedu.address.model.hirelah.storage.*;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.QuestionList;
+import seedu.address.model.hirelah.storage.AttributeStorage;
+import seedu.address.model.hirelah.storage.IntervieweeStorage;
+import seedu.address.model.hirelah.storage.MetricStorage;
+import seedu.address.model.hirelah.storage.QuestionStorage;
+import seedu.address.model.hirelah.storage.Storage;
+import seedu.address.model.hirelah.storage.StorageManager;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
@@ -108,7 +119,7 @@ public class MainApp extends Application {
             initialQuestions = new QuestionList();
             initialMetrics = new MetricList();
         }
-        return new ModelManager(userPrefs, initialInterviewees,initialAttributes, initialQuestions,initialMetrics);
+        return new ModelManager(userPrefs, initialInterviewees, initialAttributes, initialQuestions, initialMetrics);
     }
 
     private void initLogging(Config config) {

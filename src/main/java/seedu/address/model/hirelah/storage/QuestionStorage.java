@@ -1,22 +1,28 @@
 package seedu.address.model.hirelah.storage;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.hirelah.QuestionList;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.JsonUtil;
 
+import seedu.address.model.hirelah.QuestionList;
+/**
+ * QuestionStorage containing the file path
+ * to store the question objects.
+ */
 public class QuestionStorage {
-    private final Path path;
+
     private static final Logger logger = LogsCenter.getLogger(QuestionStorage.class);
+    private final Path path;
+
 
     public QuestionStorage(Path newPath) {
         this.path = newPath;
@@ -29,8 +35,8 @@ public class QuestionStorage {
     /**
      * reads the data from the current Path to
      * retrieve all the information regarding Question.
-     * @return Optional<QuestionList>
-     * @throws DataConversionException
+     * @return OptionalQuestionList
+     * @throws DataConversionException error in reading the file
      */
     public Optional<QuestionList> readQuestion(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
@@ -51,7 +57,7 @@ public class QuestionStorage {
      * Save the information of the Question
      * @param  source of the data. Cannot be null.
      */
-    public void saveQuestions(QuestionList source) throws IOException, IllegalValueException {
+    public void saveQuestions(QuestionList source) throws IOException {
         requireNonNull(source);
         requireNonNull(path);
         FileUtil.createIfMissing(path);

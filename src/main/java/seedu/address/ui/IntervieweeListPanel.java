@@ -48,7 +48,6 @@ public class IntervieweeListPanel extends UiPart<Region> {
             if (empty || interviewee == null) {
                 setGraphic(null);
                 setText(null);
-                setGraphic(new IntervieweeCard(interviewee).getRoot());
             } else {
                 setGraphic(new IntervieweeCard(interviewee).getRoot());
             }
