@@ -55,7 +55,7 @@ public class DeleteStepCommand extends Command {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
 
         List<Step> updatedStepsList = new ArrayList<>(recipeToEdit.getSteps());
-        if (!canDeleteTargetSteps(updatedStepsList, stepNumbers)) {
+        if (stepNumbers[stepNumbers.length - 1] > updatedStepsList.size() - 1) {
             throw new CommandException(MESSAGE_INVALID_STEP_INDEX);
         }
 
@@ -70,18 +70,6 @@ public class DeleteStepCommand extends Command {
         model.commitRecipeBook();
 
         return new CommandResult(String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString()));
-    }
-
-    /**
-     * Checks if the step number that the user wishes to delete exists within the steps list.
-     */
-    public boolean canDeleteTargetSteps(List<Step> updatedStepsList, Integer[] stepNumbers) {
-        for (int i = stepNumbers.length - 1; i >= 0; i--) {
-            if (stepNumbers[i] > updatedStepsList.size() - 1) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Override
