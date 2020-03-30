@@ -28,6 +28,9 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -157,6 +160,8 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        // -----------------------------------------------------------------------------------------
+        // Session
         @Override
         public boolean isInSession() {
             return false;
@@ -174,6 +179,31 @@ public class CreateCommandTest {
 
         @Override
         public Optional<Session> getCurrentSession() {
+
+        // -----------------------------------------------------------------------------------------
+        // Schedule
+        @Override
+        public boolean hasSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ScheduleList getScheduleList() {
             throw new AssertionError("This method should not be called.");
         }
     }

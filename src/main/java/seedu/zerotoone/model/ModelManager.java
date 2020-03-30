@@ -19,6 +19,10 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.session.CompletedSession;
+import seedu.zerotoone.model.schedule.Schedule;
+import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.schedule.Scheduler;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
@@ -35,13 +39,18 @@ public class ModelManager implements Model {
     private final FilteredList<Exercise> filteredExercises;
     private Optional<Session> currentSession;
     private final StopWatch stopwatch;
+    private final Scheduler scheduler;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
-    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyExerciseList exerciseList) {
+    public ModelManager(ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyExerciseList exerciseList,
+                        ScheduleList scheduleList) {
         super();
-        requireAllNonNull(exerciseList, userPrefs);
+        requireAllNonNull(exerciseList,
+                userPrefs,
+                scheduleList);
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.exerciseList = new ExerciseList(exerciseList);
@@ -49,10 +58,13 @@ public class ModelManager implements Model {
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
         this.currentSession = Optional.empty();
         this.stopwatch = new StopWatch();
+        this.scheduler = new Scheduler(scheduleList); // STEPH_TODO add storage
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new ExerciseList());
+        this(new UserPrefs(),
+                new ExerciseList(),
+                new ScheduleList());
     }
 
     // -----------------------------------------------------------------------------------------
@@ -162,6 +174,33 @@ public class ModelManager implements Model {
     }
 
     // -----------------------------------------------------------------------------------------
+    // Schedule
+    @Override
+    public ScheduleList getScheduleList() {
+        return scheduler.getScheduleList();
+    }
+
+    @Override
+    public boolean hasSchedule(Schedule schedule) {
+        return scheduler.hasSchedule(schedule);
+    }
+
+    @Override
+    public void addSchedule(Schedule schedule) {
+        scheduler.addSchedule(schedule);
+    }
+
+    @Override
+    public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
+        scheduler.deleteScheduledWorkout(scheduledWorkoutToDelete);
+    }
+
+    @Override
+    public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+        return scheduler.getSortedScheduledWorkoutList();
+    }
+
+    // -----------------------------------------------------------------------------------------
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -179,5 +218,6 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises);
+        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
     }
 }

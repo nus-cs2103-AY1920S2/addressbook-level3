@@ -19,6 +19,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.util.SampleExerciseDataUtil;
@@ -26,6 +27,8 @@ import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.schedule.ScheduleListStorage;
+import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.ui.Ui;
@@ -60,10 +63,14 @@ public class MainApp extends Application {
         // -----------------------------------------------------------------------------------------
         // Exercise List
         ExerciseListStorage exerciseListStorage = new ExerciseListStorageManager(userPrefs.getExerciseListFilePath());
-        storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+        // Schedule
+        ScheduleListStorage scheduleListStorage = new ScheduleListStorageManager(userPrefs.getScheduleListFilePath());
 
         // -----------------------------------------------------------------------------------------
         // Common
+        storage = new StorageManager(userPrefsStorage,
+                exerciseListStorage,
+                scheduleListStorage);
         model = initModelManager(storage, userPrefs);
         logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
@@ -78,6 +85,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseList> exerciseListOptional;
         ReadOnlyExerciseList initialExerciseListData;
+        Optional<ScheduleList> scheduleListOptional;
+        ScheduleList initialScheduleListData;
 
         // -----------------------------------------------------------------------------------------
         // Exercise List
@@ -95,7 +104,27 @@ public class MainApp extends Application {
             initialExerciseListData = new ExerciseList();
         }
 
-        return new ModelManager(userPrefs, initialExerciseListData);
+        // -----------------------------------------------------------------------------------------
+        // Schedule List
+        try {
+            scheduleListOptional = storage.readScheduleList();
+            if (!scheduleListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ScheduleList");
+            }
+            // STEPH_TODO: implement later
+            // initialScheduleListData = scheduleListOptional.orElseGet(SampleScheduleDataUtil::getSampleScheduleList);
+            initialScheduleListData = scheduleListOptional.orElseGet(ScheduleList::new);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleList");
+            initialScheduleListData = new ScheduleList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleList");
+            initialScheduleListData = new ScheduleList();
+        }
+
+        return new ModelManager(userPrefs,
+                initialExerciseListData,
+                initialScheduleListData);
     }
 
     private void initLogging(Config config) {

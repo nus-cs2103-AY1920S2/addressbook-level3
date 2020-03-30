@@ -15,6 +15,7 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.storage.Storage;
 
 /**
@@ -44,6 +45,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveExerciseList(model.getExerciseList());
+            storage.saveScheduleList(model.getScheduleList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -78,5 +80,10 @@ public class LogicManager implements Logic {
     @Override
     public Path getExerciseListFilePath() {
         return model.getExerciseListFilePath();
+    }
+
+    @Override
+    public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
+        return model.getSortedScheduledWorkoutList();
     }
 }
