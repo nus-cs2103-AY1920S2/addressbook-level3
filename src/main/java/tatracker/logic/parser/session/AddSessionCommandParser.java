@@ -21,6 +21,7 @@ import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 
+
 /*
  * === BUGS ===
  * TODO: No error when end time is after start time.
@@ -68,7 +69,8 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            sessionToAdd.setRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
+            sessionToAdd.setRecurring(Integer.parseInt(
+                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_RECUR).get())));
         }
 
         if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {

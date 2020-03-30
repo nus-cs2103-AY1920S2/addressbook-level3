@@ -30,7 +30,7 @@ class JsonAdaptedSession {
     private String description;
     private String moduleId;
     private boolean isDone;
-    private boolean isRecurring;
+    private int recurring;
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
@@ -42,7 +42,7 @@ class JsonAdaptedSession {
                               @JsonProperty("description") String description,
                               @JsonProperty("moduleId") String moduleId,
                               @JsonProperty("isDone") boolean isDone,
-                              @JsonProperty("isRecurring") boolean isRecurring) {
+                              @JsonProperty("recurring") int recurring) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
 
@@ -51,7 +51,7 @@ class JsonAdaptedSession {
         this.moduleId = moduleId;
 
         this.isDone = isDone;
-        this.isRecurring = isRecurring;
+        this.recurring = recurring;
     }
 
     /**
@@ -66,7 +66,7 @@ class JsonAdaptedSession {
         moduleId = source.getModuleCode();
 
         isDone = source.getIsDone();
-        isRecurring = source.getIsRecurring();
+        recurring = source.getRecurring();
     }
 
     /**
@@ -116,7 +116,7 @@ class JsonAdaptedSession {
         }
 
         Session session = new Session(modelStartDateTime, modelEndDateTime, modelSessionType,
-                isRecurring, moduleId, description);
+                recurring, moduleId, description);
 
         if (isDone) {
             session.done();

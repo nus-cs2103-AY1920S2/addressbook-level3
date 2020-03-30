@@ -30,6 +30,7 @@ import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
+
 /**
  * Parses input arguments and creates a new AddStudentCommand object
  */

@@ -9,7 +9,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import tatracker.model.session.exceptions.DuplicateSessionException;
 import tatracker.model.session.exceptions.SessionNotFoundException;
 
