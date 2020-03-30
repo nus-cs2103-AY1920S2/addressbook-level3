@@ -34,8 +34,6 @@ import seedu.address.model.supplier.Supplier;
  */
 public class EditSupplierCommand extends Command {
 
-    private static Set<Offer> supplierToEditOffer;
-
     public static final String COMMAND_WORD = "edit-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the supplier identified "
@@ -55,6 +53,7 @@ public class EditSupplierCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the address book.";
 
+    private static Set<Offer> supplierToEditOffer;
     private final Index index;
     private final EditSupplierDescriptor editSupplierDescriptor;
 
