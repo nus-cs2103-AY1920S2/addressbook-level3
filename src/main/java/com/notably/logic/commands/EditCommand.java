@@ -11,6 +11,7 @@ import com.notably.model.block.Body;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_SHORTHAND = "e";
     private final Body body;
 
     public EditCommand(Body body) {

@@ -17,7 +17,7 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to delete a note.
  */
 public class DeleteSuggestionCommand implements SuggestionCommand {
-    private static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "delete";
     private static final String RESPONSE_MESSAGE = "Delete a note";
 
     private AbsolutePath path;
