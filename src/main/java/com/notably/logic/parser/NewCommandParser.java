@@ -45,8 +45,7 @@ public class NewCommandParser implements CommandParser {
 
         String title = argMultimap.getValue(PREFIX_TITLE).get();
         String body;
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_BODY)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_BODY)) {
             body = "";
         } else {
             body = argMultimap.getValue(PREFIX_BODY).get();
