@@ -3,8 +3,8 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDayDatas.dayNew;
-import static seedu.address.testutil.TypicalDayDatas.dayNew2;
+import static seedu.address.testutil.TypicalDayDatas.DAYNEW;
+import static seedu.address.testutil.TypicalDayDatas.DAYNEW2;
 import static seedu.address.testutil.TypicalDayDatas.getTypicalStatistics;
 
 import java.io.IOException;
@@ -71,14 +71,14 @@ public class JsonStatisticsStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.pop(); // Statistics table constraints
-        original.addDayData(dayNew); // Statistics table constraints
+        original.addDayData(DAYNEW); // Statistics table constraints
         jsonStatisticsStorage.saveStatistics(original, filePath);
         readBack = jsonStatisticsStorage.readStatistics(filePath).get();
         assertEquals(original, new Statistics(readBack));
 
         // Save and read without specifying file path
         original.pop(); // Statistics table constraints
-        original.addDayData(dayNew2); // Statistics table constraints
+        original.addDayData(DAYNEW2); // Statistics table constraints
         jsonStatisticsStorage.saveStatistics(original); // file path not specified
         readBack = jsonStatisticsStorage.readStatistics().get(); // file path not specified
         assertEquals(original, new Statistics(readBack));

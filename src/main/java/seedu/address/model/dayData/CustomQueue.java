@@ -11,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
-import seedu.address.model.task.exceptions.DuplicateTaskException;
-import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of dayDatas that enforces CONSTANT_SIZE, days must be continuous between its elements and
@@ -40,6 +38,17 @@ public class CustomQueue implements Iterable<DayData> {
     /** Initialises empty DayData for past MAX_SIZE days */
     public void init() throws InvalidTableException {
         LocalDate currDate = LocalDate.now();
+        this.init(currDate);
+    }
+
+    /**
+     * Initialises empty DayData for past MAX_SIZE days starting from localDate.
+     *
+     * @param localDate localDate to start with.
+     * @throws InvalidTableException
+     */
+    public void init(LocalDate localDate) throws InvalidTableException {
+        LocalDate currDate = localDate;
         for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
             LocalDate tempLocalDate = currDate.minusDays(i);
             String tempLocalDateStr = tempLocalDate.toString();
@@ -136,7 +145,7 @@ public class CustomQueue implements Iterable<DayData> {
      *
      * @param dayData dayData to be added.
      */
-    private void push(DayData dayData) {
+    private void push(DayData dayData) throws InvalidTableException {
         this.add(dayData);
     }
 
@@ -152,7 +161,7 @@ public class CustomQueue implements Iterable<DayData> {
     }
 
     /** Adds a dayData to the end of the queue. */
-    public void add(DayData toAdd) {
+    public void add(DayData toAdd)  {
         requireNonNull(toAdd);
         internalList.add(toAdd);
     }
@@ -183,11 +192,7 @@ public class CustomQueue implements Iterable<DayData> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new TaskNotFoundException();
-        }
-
-        if (!target.isSameDayData(editedDayData) && contains(editedDayData)) {
-            throw new DuplicateTaskException();
+            throw new DayDataNotFoundException();
         }
 
         internalList.set(index, editedDayData);
@@ -197,7 +202,7 @@ public class CustomQueue implements Iterable<DayData> {
     public void remove(DayData toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new TaskNotFoundException();
+            throw new DayDataNotFoundException();
         }
     }
 
@@ -218,6 +223,11 @@ public class CustomQueue implements Iterable<DayData> {
         }
 
         internalList.setAll(dayDatas);
+    }
+
+    public void setDayDatas(CustomQueue replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
     }
 
     /** Returns the backing list as an unmodifiable {@code ObservableList}. */
