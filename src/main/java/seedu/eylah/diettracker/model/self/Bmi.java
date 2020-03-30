@@ -16,7 +16,7 @@ public class Bmi {
      * The first character of the height must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "^[-+]?\\d*\\.?\\d*$*";
 
     public final Float height;
     public final Float weight;

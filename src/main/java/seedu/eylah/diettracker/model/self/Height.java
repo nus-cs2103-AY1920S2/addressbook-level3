@@ -16,7 +16,7 @@ public class Height {
      * The first character of the height must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "^[-+]?\\d*\\.?\\d*$*";
 
     private final String heightString;
     private final Float heightFloat;
