@@ -143,6 +143,13 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     public static Module getCurrentlyShownModuleClaim() {
+        if (currentlyShownModuleClaim == null) {
+            System.out.println("no filter");
+        } else {
+            System.out.println("reached");
+            System.out.println(currentlyShownModuleClaim.getIdentifier());
+            System.out.println(currentlyShownModuleClaim.getName());
+        }
         return currentlyShownModuleClaim;
     }
 

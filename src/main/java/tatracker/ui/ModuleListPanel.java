@@ -22,7 +22,6 @@ public class ModuleListPanel extends UiPart<Region> {
     private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
-    private Module currentlyShownModule = getCurrentlyShownModule();
 
     @FXML
     private ListView<Module> moduleListView;
@@ -46,7 +45,7 @@ public class ModuleListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
-                if (module.equals(currentlyShownModule)) {
+                if (module.equals(getCurrentlyShownModule())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");

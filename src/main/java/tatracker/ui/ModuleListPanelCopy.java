@@ -22,7 +22,6 @@ public class ModuleListPanelCopy extends UiPart<Region> {
     private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(ModuleListPanelCopy.class);
-    private Module currentlyShownModuleClaim = getCurrentlyShownModuleClaim();
 
     @FXML
     private ListView<Module> moduleListViewCopy;
@@ -30,13 +29,13 @@ public class ModuleListPanelCopy extends UiPart<Region> {
     public ModuleListPanelCopy(ObservableList<Module> moduleListCopy) {
         super(FXML);
         moduleListViewCopy.setItems(moduleListCopy);
-        moduleListViewCopy.setCellFactory(listView -> new ModuleListViewCell());
+        moduleListViewCopy.setCellFactory(listView -> new ModuleListViewCellCopy());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCardCopy}.
      */
-    class ModuleListViewCell extends ListCell<Module> {
+    class ModuleListViewCellCopy extends ListCell<Module> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
@@ -45,8 +44,8 @@ public class ModuleListPanelCopy extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
-                if (module.equals(currentlyShownModuleClaim)) {
+                setGraphic(new ModuleCardCopy(module, getIndex() + 1).getRoot());
+                if (module.equals(getCurrentlyShownModuleClaim())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");
