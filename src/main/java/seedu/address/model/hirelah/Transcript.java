@@ -32,7 +32,6 @@ public class Transcript {
 
     /**
      * Returns an unmodifiable view of the {@code RemarkList} associated with this {@code Transcript}.
-     *
      * @return An {@code ObservableList} tracking changes to the RemarkList.
      */
     public ObservableList<Remark> getRemarkListView() {

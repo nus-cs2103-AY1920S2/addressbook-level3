@@ -19,6 +19,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path attributeDirectory = Paths.get("data","attribute.json");
     private Path questionDirectory = Paths.get("data","question.json");
     private Path metricDirectory = Paths.get("data","metric.json");
+    private Path transcriptDirectory = Paths.get("data/transcript");
+    private Path remarkDirectory = Paths.get("data/remark");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -65,6 +67,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
     public Path getMetricDirectory() {
         return this.metricDirectory;
+    }
+    public Path getTranscriptDirectory(){
+        return this.transcriptDirectory;
+    }
+    public Path getRemarkDirectory() {
+        return this.remarkDirectory;
     }
 
     public void setSessionsDirectory(Path sessionsDirectory) {
