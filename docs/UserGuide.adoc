@@ -27,7 +27,7 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="790" align="center"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -72,7 +72,7 @@ Examples:
 
 === Listing all customers: `listc`
 
-image::Ui.png[width="790"]
+image::ListAllCustomers.png[width="790" align="center"]
 
 Shows a list of all customers in the customer list. +
 Format: `listc`
@@ -110,6 +110,8 @@ Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 * Customers matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
 ****
 
+image::FindCustomerByAddress.png[width="790" align="center"]
+
 Examples:
 
 * `findc n/John` +
@@ -121,7 +123,7 @@ Returns all customers with address in Serangoon and Yishun.
 
 === Deleting a customer: `deletec`
 
-Deletes the specified customer from the customer list. +
+Deletes the specified customer from the customer list that is currently being displayed. +
 Format: `deletec INDEX`
 
 ****
@@ -144,6 +146,9 @@ Deletes the 1st customer in the results of the find command.
 Clears all entries from the customer list. +
 Format: `clearc`
 
+[WARNING]
+Permanently deletes all the stored customer data in the application.
+
 === Adding a product: `addp`
 
 Adds a product to the product list. +
@@ -159,14 +164,17 @@ Examples:
 
 === Listing all products : `listp`
 
-image::Ui.png[width="790"]
+image::Ui.png[width="790" align="center"]
 
-Shows a list of all products in the product list. It could be sorted by the amount of sales, inventory left, etc. +
+Show all products in the product list. +
 Format: `listp`
+
+[TIP]
+The product is automatically sorted by the product quantity, represented by the bar indicator beside the product name.
 
 === Editing a product : `editp`
 
-Edits an existing product in the product list. +
+Edits an existing product in the displayed product list. +
 Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [cp/COSTPRICE] [s/SALES]`
 
 ****
@@ -178,9 +186,9 @@ Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [cp/COSTPRICE] [s/S
 Examples:
 
 * `editp 1 pr/1150 q/80` +
-Edits the price and quantity of the 1st product to be 90 and 10 respectively.
+Edits the price and quantity of the 1st product in the list to be $1150 and 80 respectively.
 * `editp 2 s/1000` +
-Edits the sales of the 2nd product to be 1000.
+Edits the sales of the 2nd product in the list to be $1000.
 
 === Finding products : `findp`
 
@@ -195,6 +203,8 @@ Format: `findp [KEYWORD]`
 * The order of the keywords does not matter. e.g. blue shoes will match shoes blue
 * Products matching at least one keyword will be returned (i.e. OR search). e.g. blue shoes will return blue slippers, red shoes
 ****
+
+image::FindProduct.png[width="790" align="center"]
 
 Examples:
 
@@ -215,6 +225,9 @@ Format: `deletep INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+[WARNING]
+Deletes transactions that are associated with this particular product as well.
+
 Examples:
 
 * `listp` +
@@ -230,27 +243,37 @@ Deletes the 1st product in the results of the find command.
 Clears all entries from the product list. +
 Format: `clearp`
 
+[WARNING]
+Permanently deletes all the stored product data in the application.
+
 === Adding a transaction : `addt`
 
 Adds a specified transaction to the system. +
-Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATETIME q/QUANTITY m/MONEY [d/DESCRIPTION]` +
+Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]` +
+
+[TIP]
+The date time field [dt/] is optional, will be recorded as current local machine time if left empty. +
+The money field [m/] is optional, will be recorded as product price multiplied by quantity if left empty.
+Only need to enter if necessary (i.e. discounts on products). +
+The description field [d/] is optional, will be recorded as Null if left empty.
+Only need to enter if user want to add notes to the transaction.
 
 Examples:
 
 * `addt p/1 c/10 dt/2020-02-19 19:00 q/10 m/20` +
-Adds a transaction with product 1 and customer 10 of 20 dollars for 10 products at 2020-02-19 19:00.
+Adds a transaction with the 1st product and the 10th customer of $20 for 10 products at 2020-02-19 19:00.
 * `addt p/20 c/2 dt/2020-02-20 10:00 q/10 m/30 d/under discount` +
-Adds a transaction with product 20 and customer 2 of 30 dollars for 10 products at 2020-02-20 10:00.
+Adds a transaction with 20th product and 2nd customer of $30 for 10 products at 2020-02-20 10:00 at an discount.
 
 
 === Listing all transaction : `listt`
 
-image::Ui.png[]
+image::ListTransactions.png[width="790" align="center"]
 
 Lists all the transactions. +
 Format: `listt`
 
-=== Editing a transaction : `editt`
+=== Editing a transaction : `editt` (to be edited)
 
 Edits a transaction in the system. +
 Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]`
@@ -277,6 +300,8 @@ Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
 * Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
+image::FindTransaction.png[width="790" align="center"]
+
 Examples:
 
 * `findt p/iphone` +
@@ -292,7 +317,7 @@ Returns all transactions that Bob made on the 7th February 2020.
 
 === Deleting a transaction : `deletet`
 
-Deletes the specified transaction from the system. +
+Deletes and undo the specified transaction from the system. +
 Format: `deletet INDEX`
 
 ****
@@ -315,6 +340,9 @@ Deletes the 1st transaction in the results of the find command.
 Clears all transactions from the list of transactions. +
 Format: `cleart`
 
+[WARNING]
+Permanently deletes all the stored transaction data in the application.
+
 === Viewing the top-selling and worst-selling product.
 
 Displays and updates the top-selling and worst-selling product as transactions are made. +
@@ -324,11 +352,11 @@ This is a passive feature, which automatically updates on Ui.
 
 Example:
 
-image::TopSellingProduct.png[]
+image::Statistics.png[align="center"]
 
 === Get the revenue made in a certain period : `revenue`
 
-Gets the revenue made in a selected period.
+Gets the revenue made in a selected period. +
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
@@ -344,7 +372,7 @@ Returns the revenue from Jan 1 2020 to Dec 31 2020
 
 === Get the profit made in a certain period : `profit`
 
-Gets the profit made in a selected period.
+Gets the profit made in a selected period. +
 Format: `profit [sd/START_DATE] [ed/END_DATE]`
 
 ****
@@ -360,7 +388,7 @@ Returns the profit from Jan 1 2020 to Dec 31 2020
 
 === Setting the low-inventory threshold : `lowlimit`
 
-Sets the notification threshold.
+Sets the notification threshold & updates the bar indicator of the product. +
 Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 
 ****
@@ -369,14 +397,20 @@ Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+[TIP]
+The threshold represents 20% of the desired quantity.
+
 Examples:
 
 * `lowlimit p/1 t/20` +
-Sets the low inventory threshold for product 1 as 20.
+Sets the low inventory threshold for the 1st product as 20.
 
 === Receiving notification while a certain product is running low.
 
 Pops up notification if quantity of product is below threshold. +
+Displays the product name and remaining product quantity.
+
+image::PopupNotification.png[align="center"]
 
 [NOTE]
 This is a passive feature.
@@ -401,14 +435,24 @@ The application data is saved in the hard disk automatically after any command t
 
 === Reusing previous inputs
 
-The application keeps the history of previous inputs automatically that was keyed in the command line.
+The application keeps the history of previous inputs that was keyed in the command line.
 
 ****
 * Can keep history of up to 100 inputs. +
 * Up arrow key in command line to navigate up the history of inputs. +
 * Down arrow key in command line to navigate down the history of inputs. +
-* The history is deleted after application closes.
+* Commands are saved into the history automatically.
 ****
+
+[NOTE]
+The history is deleted after application closes.
+
+=== Keeping track of products that are running low on stock
+
+The product list updates and sort by products that are running low on stock automatically.
+
+[NOTE]
+This is a passive feature.
 
 == FAQ
 
@@ -425,7 +469,7 @@ e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #
 * *Listing all customers* : `listc`
 * *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
 e.g. `editc 1 p/91234567 e/johndoe@example.com`
-* *Locating customers* : `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Locating customers* : `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]` +
 e.g. `findc n/John`
 * *Deleting a customer* : `deletec INDEX` +
 e.g. `findc n/Betsy` +

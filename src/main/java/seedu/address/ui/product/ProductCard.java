@@ -69,6 +69,7 @@ public class ProductCard extends UiPart<Region> {
      */
     private void updateProgressBar() {
         progress = product.getQuantity().value / (product.getThreshold().getDouble() * 5);
+        product.setProgress(progress);
         progressBar.setProgress(progress);
         if (progress <= 0.2) {
             setBarStyleClass(progressBar, RED_BAR);
