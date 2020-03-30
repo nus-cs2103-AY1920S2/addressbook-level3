@@ -27,7 +27,7 @@ class JsonSerializableFoodBook {
      * Constructs a {@code JsonSerializableFoodBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableFoodBook(@JsonProperty("persons") List<JsonAdaptedFood> foods) {
+    public JsonSerializableFoodBook(@JsonProperty("foods") List<JsonAdaptedFood> foods) {
         this.foods.addAll(foods);
     }
 

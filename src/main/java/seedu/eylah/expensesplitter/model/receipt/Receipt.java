@@ -55,8 +55,12 @@ public class Receipt {
         return this.isDone;
     }
 
-    public void toggleDoneStatus() {
+    public void makeDone() {
         this.isDone = true;
+    }
+
+    public void makeUndone() {
+        this.isDone = false;
     }
 
     /**
