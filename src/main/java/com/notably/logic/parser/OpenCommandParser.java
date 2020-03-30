@@ -38,7 +38,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             titles = args.trim();
-            if (titles.equals("")) {
+            if (titles.isEmpty()) {
                 throw new ParseException("Path cannot be empty");
             }
         } else {
