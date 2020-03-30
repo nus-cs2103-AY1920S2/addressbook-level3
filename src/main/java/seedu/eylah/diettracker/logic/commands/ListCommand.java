@@ -39,13 +39,16 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        String listString;
 
         if (mode.equals("-t")) {
             model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOODS);
-            return new CommandResult(String.format(MESSAGE_SUCCESS));
+            String listDays = model.listFoods(mode, numDays);
+            return new CommandResult(String.format(listDays));
         } else {
             model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOODS);
-            return new CommandResult(MESSAGE_SUCCESS);
+            String listAll = model.listFoods(mode);
+            return new CommandResult(listAll);
         }
     }
 
