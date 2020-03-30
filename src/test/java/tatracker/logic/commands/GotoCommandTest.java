@@ -14,21 +14,21 @@ public class GotoCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_goto_student_success() {
+    public void execute_gotostudent_success() {
         CommandResult expectedCommandResult = new CommandResult(String.format(SHOWING_GOTO_MESSAGE, "student"),
                 Action.GOTO_STUDENT);
         assertCommandSuccess(new GotoCommand("student"), model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_goto_session_success() {
+    public void execute_gotosession_success() {
         CommandResult expectedCommandResult = new CommandResult(String.format(SHOWING_GOTO_MESSAGE, "session"),
                 Action.GOTO_SESSION);
         assertCommandSuccess(new GotoCommand("session"), model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_goto_claims_success() {
+    public void execute_gotoclaims_success() {
         CommandResult expectedCommandResult = new CommandResult(String.format(SHOWING_GOTO_MESSAGE, "claims"),
                 Action.GOTO_CLAIMS);
         assertCommandSuccess(new GotoCommand("claims"), model, expectedCommandResult, expectedModel);
