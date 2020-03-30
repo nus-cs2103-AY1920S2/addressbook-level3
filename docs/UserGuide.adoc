@@ -166,18 +166,14 @@ Deletes the 1st order in the results of the `search` command (search all orders 
 Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Aaron`).
 
 [[delivered]]
-=== Delivering an order or return order : `delivered`
-
-====
-
-* If you have finally delivered an order to a customer or a return order to the warehouse, you can check this parcel off your to-do list! The `Delivered` function is here to help.
-* To find out more about how to properly use the `delivered` feature, scroll to section <<delivered-works, How to use the Delivered command>>
-and <<delivered-examples, What constitutes a valid Delivered command>>.
-
-====
+=== Delivering an order or return order : `delivered` [Done by - Cher Wei Jie]
+In this section, you will learn more about the Delivered command and how to use it. +
+Why would you want to use the Delivered command?
+If you have delivered an order or return order, you can mark it as delivered with the Delivered command.
 
 [[delivered-works]]
-==== How to use the Delivered command?
+==== How to use the Delivered command
+This section will explain the steps needed to use the Delivered command. +
 
 Here is how you can mark the details of any order or return order by following the steps below: +
 
@@ -194,8 +190,7 @@ If nothing is showing up, it means you got to <<insert, `add`>> or <<return, `re
 ====
 
 [[delivered-examples]]
-==== What constitutes a valid Delivered command?
-
+==== What constitutes a valid Delivered command
 The syntax for a valid Delivered command can be seen below!
 
 * `delivered` `FLAG` `INDEX`
@@ -285,17 +280,34 @@ The index `3` customer's name, phone and address of the return order list will b
 * `exit`
 
 [[help]]
-=== Viewing help : `help`
+=== Showing the Help message - `help` [Done by - Cher Wei Jie]
+* In this section, you will learn more about the Help command and how to use it. +
+Why would you want to use the Help command?
+You can use this Help command to see a summary of all available features of Delino.
 
-==== Description
-* You can use the help command to display all commands that are available to be used so that you can navigate the application easily.
+[[help-works]]
+==== How to use the Help command?
 
-==== Format:
+Here is how you can use the Help command to show a summary of all available commands in Delino.
+
+*Step 1* : Type in the keyword *help*. +
+*Step 2* : Press `Enter` on your keyboard to see the magic!
+
+[[help-examples]]
+==== What constitutes a valid Help command?
+
+The syntax for a valid help command can be seen below!
+
 * `help`
 
-==== Examples:
-* `help` +
-Returns a list of all commands available.
+.Possible Combinations of Help command
+|===
+|Scenario |Command |Result
+
+| If you want to view all the available commands in Delino, you can do this:
+| `help`
+| A pop-up window will be shown that includes a summary to briefly explain all the commands that Delino offers.
+|===
 
 [[show]]
 === Show statistics : `show`
@@ -417,6 +429,7 @@ List down all the orders (Return orders and Delivery orders) that are uncomplete
 
 [[nearby]]
 === View orders located at the same area or postal sector: `nearby`
+
 ==== Description
 The `nearby` command can be used to search either the order list or return order list. +
 You *may* give either a `-o` flag for viewing nearby orders in the order list
@@ -527,59 +540,15 @@ You will view all return orders located in the general location of `Raffles Plac
 You will view all orders in the order list and return order list located in the north area of Singapore.
 
 [[return]]
-=== Returning an order: `return`
-
-==== Description
-* If the order to be returned is an existing order in the list, you may convert it into a return order by typing `return` `TRANSACTION_ID` of the order. This will remove it from the list of orders and add it into the return order list.
-* If the parcel to be returned is not an existing order in the list, you can create a new return order by typing `return`
-`tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME`
- `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` of the parcel.
-This will create a new return order and add it into the return order list.
-
-==== Format
-* `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-* `return` `tid/TRANSACTION_ID`
-
-
-[TIP]
-====
-* List of order attribute prefixes can be found <<command_prefix, here>>.
-====
-
-==== Examples:
-* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
-Creates and adds an order with `TRANSACTION_ID` 'ac17s2a' as a return order into the list of return orders.
-* `return` `tid/ac17s2a` +
-Converts the order with `TRANSACTION_ID` 'ac17s2a' into a return order and adds it into the list of returns.
-* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
-Creates and adds an order with `TRANSACTION ID` 'b1230512' as a return order into the list of return orders.
-
-[[return]]
-=== Returning an order : `return`
-
-====
-* If the customer is unsatisfied with his parcel, he may choose to return it.
-Delino offers you a convenient way to easily convert an order to a return order,
-you can use the `return` command to help you with it!
-
-* The return command can be used in two different ways:
- 1. If the order to be returned is an existing order in the list, you may convert it into a return order by
-typing `return` and `TRANSACTION_ID` of the order. +
-This will remove it from the list of orders and add it into the return order list.
-
- 2. If the parcel to be returned is not an existing order in the list, you can create a new return order by typing `return`
-`tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME`
-`w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` of the parcel. +
- This will create a new return order and add it into the return order list.
-
-* To find out more about how to properly use the `return` feature, scroll to section <<return-works, How to use the Return command>>
-and <<return-examples, What constitutes a valid Return command>>.
-====
+=== Returning an order : `return` [Done by - Cher Wei Jie]
+* In this section, you will learn more about the Return command and how to use it. +
+Why would you want to use the Return command?
+You can use this Return command to create a new return order to be added into the return order list.
 
 [[return-works]]
 ==== How to use the Return command?
 
-Here is how you can mark the details of any order or return order by following the steps below: +
+Here is how you can convert an order into a return order or create a new return order by following the steps below:
 
 *Step 1* : Type in the keyword *return*. +
 *Step 2a* : If you would like to convert an existing order into a return order,
@@ -631,19 +600,26 @@ For example, it can be used when the item is fragile.
 
 [NOTE]
 ====
-* The `INDEX` given is the parcel you will be marking as delivered.
-* The parcel will be marked as  after executing this delivered command.
-* If the parcel is an order, its Delivery Status will be changed from "Not Delivered" to "Delivered".
-* If the parcel is a return order, its Delivery Status will be changed from "Not returned to warehouse" to "Returned to warehouse"
+* The `TRANSACTION_ID` given belongs to the return order that will be created.
+* A return order will be created after executing this return command.
+* If the parcel is an existing order, it will be removed from the order list and converted into a return order
+and added into the return order list.
+* If the parcel is a new return order, it will be created and added into the return order list.
 ====
 
 [WARNING]
 ====
-* The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
-* The `INDEX` *must be in range* of the number of displayed orders
-* Only can be used when there is at least an order or return order displayed.
-* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
+* The conversion of an order into a return order can only be done if the order was already delivered.
+* The `TRANSACTION_ID` *is alphanumeric*, e.g: 123asd, 1234567, abcdef.
+* The `CUSTOMER_NAME` *must consist of only alphabets*.
+* The `CUSTOMER_ADDRESS` *is alphanumeric*.
+* The `CUSTOMER_PHONE` *must be numeric*
+* The `WAREHOUSE_LOCATION` *is alphanumeric*
+* The `RETURN_TIMESTAMP` *must follow the yyyy-mm-dd format*
+* The `COMMENTS_BY_CUSTOMER` *is alphanumeric*
+* The `TYPE_OF_ITEM` is *alphanumeric*
 ====
+
 
 [[search]]
 === Locating orders by order fields: `search`
