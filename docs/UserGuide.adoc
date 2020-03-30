@@ -86,16 +86,19 @@ Format: `new n/NAME ing/INGREDIENT, QUANTITY [; ...] ins/INSTRUCTION [; ...] [ca
 
 Example: `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt`
 
+[NOTE]
+Parameters in *bold* indicate they are mandatory.
+
 *CookBuddy* accepts the following parameters:
 
-    * `n` - name
-    * `ing` - ingredients
-    * `ins` - instructions
-    * `cal` - calories (in kcal)
-    * `s` - serving size (any number greater than 0)
-    * `r` - rating (scale of 0 to 5)
-    * `d` - difficulty (scale of 0 to 5)
-    * `t` - tags (seperated by commas)
+    * `n/` - *name*
+    * `ing/` - *ingredients*
+    * `ins/` - *instructions*
+    * `cal/` - calories (in kcal)
+    * `s/` - serving size (any number greater than 0)
+    * `r/` - rating (scale of 0 to 5)
+    * `d/` - difficulty (scale of 0 to 5)
+    * `t/` - tags (seperated by commas)
 
 === Delete a Recipe — `delete`
 Deletes a recipe from *CookBuddy*.
