@@ -34,6 +34,8 @@ import seedu.address.model.supplier.Supplier;
  */
 public class EditSupplierCommand extends Command {
 
+    private static Set<Offer> supplierToEditOffer;
+
     public static final String COMMAND_WORD = "edit-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the supplier identified "
@@ -54,7 +56,6 @@ public class EditSupplierCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the address book.";
 
     private final Index index;
-    private static Set<Offer> supplierToEditOffer;
     private final EditSupplierDescriptor editSupplierDescriptor;
 
     /**
@@ -216,10 +217,6 @@ public class EditSupplierCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code offers} is null.
          */
-        //public Optional<Set<Offer>> getOffers() {
-        //    return (offers != null) ? Optional.of(Collections.unmodifiableSet(offers)) : Optional.empty();
-        //}
-
         public Optional<Set<Offer>> getOffers() {
             return (offers != null) ? Optional.of(Collections.unmodifiableSet(mergeOfferSets(supplierToEditOffer,
                     offers))) : Optional.empty();
