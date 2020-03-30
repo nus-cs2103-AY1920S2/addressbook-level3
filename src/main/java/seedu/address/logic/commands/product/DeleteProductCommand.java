@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Deletes a product identified using it's displayed index from the product list.
@@ -43,7 +44,24 @@ public class DeleteProductCommand extends Command {
 
         Product productToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteProduct(productToDelete);
+        deleteProductTransactions(model, productToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete));
+    }
+
+    /**
+     * Deletes transactions where the product is the product to be deleted.
+     * @param model
+     * @param product
+     */
+    private void deleteProductTransactions(Model model, Product product) {
+        List<Transaction> transactions = model.getInventorySystem().getTransactionList();
+
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+            if (transaction.getProduct().equals(product)) {
+                model.deleteTransaction(transaction);
+            }
+        }
     }
 
     @Override

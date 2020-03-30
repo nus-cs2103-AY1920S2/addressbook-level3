@@ -76,6 +76,7 @@ public class AddTransactionCommand extends Command {
 
         Money newSales = getNewSales(toAdd, productToEdit);
         editProductDescriptor.setSales(newSales);
+        editProductDescriptor.setThreshold(productToEdit.getThreshold());
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
         if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
