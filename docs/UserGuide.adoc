@@ -26,6 +26,9 @@ while still enjoying the benefits of a Graphical User Interface (GUI).
 Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
 Have a delightful journey using Delino!
 
+.Graphical User Interface (GUI) of Delino
+image::Delino.svg[width="790"]
+
 === Product Information
 Are you still using pen and papers or Excel to keep track of all your orders? +
 
@@ -55,17 +58,18 @@ This block contains *warning* information.
 
 [IMPORTANT]
 ====
-This block contains *important* inforamtion that you should be mindful of.
+This block contains *important* information that you should be mindful of.
 ====
 
-You will also encounter the use of `text markup` to indicate keywords such as
-command arguments to Delino. (e.g. `exit`)
+`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`)
 
-[WARNING]
-====
-For the various commands, you might encounter arguments in square brackets (e.g. `nearby` `[FLAG]` `AREA`).  +
-These arguments are optional.
-====
+`[FLAG]` : For the various commands, you might encounter *keywords* placed in square brackets. +
+(e.g. `nearby` `[FLAG]` `AREA`) +
+These indicate the optional arguments to a command.
+
+Keywords that are capitalized represent all possible combinations of an argument. +
+(e.g. `[FLAG]` represents all possible flag arguments available). +
+For the list of all possible combinations of an argument, you can refer to the <<glossary, glossary>>
 
 Finally, you will encounter links to external web pages for additional information.
 These links will link:[look like this].
@@ -76,9 +80,6 @@ These links will link:[look like this].
 .  Download the latest `Delino.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Delino.svg[width="790"]
-+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -368,31 +369,122 @@ List down all the orders (Return orders and Delivery orders) that are completed.
 List down all the orders (Return orders and Delivery orders) that are uncompleted.
 
 [[nearby]]
-=== View orders located at the same area or postal sector: `nearby`
-==== Description
-The `nearby` command can be used to search either the order list or return order list. +
-You *may* give either a `-o` flag for viewing nearby orders in the order list
-or a `-r` flag for viewing nearby orders in the returns list. +
-By default, the `nearby` command will search both the order list and return order list.
+=== Viewing orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
+In this section, you will learn more about the `nearby` command,
+<<how_to_use_nearby_command, how to use it>> and the
+<<usage_scenario_nearby_command, possible usage scenarios>> of the `nearby` command. +
 
-There are two possible search criteria for the `nearby` command:
+The `nearby` command is useful if you would like to obtain all orders located in the same
+postal sector or region of Singapore. This would allow you to be more efficient with your delivery
+orders.
 
-. By *postal sector*: +
-Command Usage: `nearby` `[FLAG]` `POSTAL_SECTOR`
+[[how_to_use_nearby_command]]
+==== How to use the nearby command
+In this section, you learn more about the exact inputs required to use the `nearby` command.
 
+Here are the steps you should follow to obtain all orders using the `nearby` command: +
+*Step 1* : Type in the keyword `nearby` +
 
+*Step 2 (optional)* : Provide an optional `<<command_flags, FLAG>>` that indicates which order list to
+search (order list or return order list). +
+[NOTE]
+====
+A `-o` flag indicates searching of nearby orders using the order list. +
+A `-r` flag indicates searching of the nearby orders using the return order list. +
+====
+By default, if no `FLAG` is provided, both order list and return order list will be searched. +
+
+*Step 3* : Provide either a `<<postal_sector, POSTAL SECTOR>>` or an `<<area, AREA>>` +
 [NOTE]
 ====
 A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-* You can view the orders at a specified Singapore *postal sector*.
-* The general location for the order will be identified if a valid postal sector is given.
-* The list of postal sectors and their corresponding general locations can be found
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`. +
+The list of postal sectors and their corresponding general locations can be found
 https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
+[[area]]
+An `AREA` refers to one of the five areas of Singapore +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>.
+
+You can obtain more detailed information about each area from
+https://keylocation.sg/singapore/districts-map[this website]
+====
+
+*Step 4* : Press `Enter` on your keyboard to see the magic!
+
+
+==== What constitutes a valid nearby command
+In this section, you will learn more about the syntax of the `nearby` command +
+
+The syntax for a valid `nearby` command can be one of the following: +
+1. `nearby` `[FLAG]` `POSTAL_SECTOR` +
+2. `nearby` `[FLAG]` `AREA`
+
+[NOTE]
+====
+An optional `FLAG` can be provided to indicate which list to search on. +
+A `-o` flag indicates searching of nearby orders using the order list. +
+A `-r` flag indicates searching of the nearby orders using the return order list. +
+By default, if no `FLAG` is provided, both order list and return order list will be searched. +
+
+A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14` +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
+
+An `AREA` refers to one of the five areas of Singapore: +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>
+====
+
+[[usage_scenario_nearby_command]]
+The table below describes the possible usage scenarios of the nearby command:
+
+.Possible Combinations of nearby command
+|===
+|Scenario |Command |Result
+
+|If you want to obtain all orders in both the order list and return order list located in the the north region of Singapore.
+|`nearby` `north`
+|All orders in the order list and return order list that are located in the north region of Singapore will be displayed.
+
+|If you want to obtain all orders in the order list located in the general location of  `Queenstown, Tiong Bahru`.
+|`nearby` `-o` `14`
+|All orders in the order list that are located in postal sector `14` (`Queenstown, Tiong Bahru`) will be displayed.
+
+|If you want to obtain all orders in the return order list located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
+|`nearby` `-r` `04`
+|All orders in the return order list that are located in the postal sector `04` (`Raffles Place, Cecil, Marina, People's Park`) will be displayed.
+
+|If you want to obtain all orders in the return order list located in the central region of Singapore.
+|`nearby` `-r` `central`
+|All orders in the return order list that are located in the central region of Singapore will be displayed.
+
+|Suppose you are delivering an order to Buona Vista and would like to know all the orders located near
+that region (central region of Singapore). Are you going manually look through all of your orders and
+find those that are located near Buona Vista? +
+If only there was a way to efficiently find all orders based on a given region or postal sector! +
+This would allow you to complete more orders!
+|`nearby` `-o` `central`
+|All orders in the order list that are located in the central region of Singapore will be displayed.
+|===
+
+You can obtain more information about the various postal sectors in the following table:
+
+[[postal_sector]]
 .Postal Sectors in Singapore
 |===
 |Postal Sector |General Location
@@ -427,56 +519,6 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |79, 80 |Seletar
 |===
 
-
-[start=2]
-. By *area*: +
-Command Usage: `nearby` `[FLAG]` `AREA`
-
-[NOTE]
-====
-An *area* refers to one of the five areas of Singapore +
-
-. Central
-. East
-. North East
-. West
-. North
-
-A quick reference for the five areas of Singapore can be <<area_table, found here>>
-
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-* You can view all the orders located at a specified *area*.
-
-You can obtain more detailed information about each area from
-https://keylocation.sg/singapore/districts-map[this website]
-
-
-==== Format
-. `nearby` `[FLAG]` `POSTAL_SECTOR` +
-
-[IMPORTANT]
-====
-`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
-Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
-
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-
-[start=2]
-. `nearby` `FLAG` `AREA`
-
-==== Examples
-* `nearby` `-o` `14` +
-You will view all orders in the order list located in the general location of `Queenstown, Tiong Bahru`.
-* `nearby` `-r` `04` +
-You will view all return orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
-* `nearby` `north` +
-You will view all orders in the order list and return order list located in the north area of Singapore.
 
 [[return]]
 === Returning an order: `return`
@@ -560,45 +602,102 @@ delivery), number of deliveries completed in a day}_
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Delino folder.
 
 
 == Command Summary
+In this section, you can find out more about the commands supported by Delino
+(their respective format and example).
 
-* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
-* <<clear, *Clear*>> : `clear` `[FLAG]` +
-e.g. `clear` `-f`
-* <<delete, *Delete*>> : `delete` `FLAG` `INDEX` +
-e.g. `delete` `-o` `2`
-* <<delivered, *Delivered*>> : `delivered` `FLAG` `INDEX` +
-e.g. `delivered` `-r` `2`
-<<edit, *Edit*>> : `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
-e.g. `edit` `-r` `2` `n/Xuan En`
-* <<exit, *Exit*>> : `exit`
-<<search, *Search*>> : `search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`  +
- e.g. `search` `-r` `tid/ac1e345x7s`
-* <<help, *Help*>> : `help`
-* <<show, *Show*>> : `show`
-* <<import, *Import*>> : `import` `FILE_NAME` +
-e.g. `import` `orders.csv`
-* <<list, *List*>> : `list` `[DONE_STATUS]` +
-e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
-e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` +
-e.g. `return` `tid/ac17s2a`
-* <<nearby, *Nearby*>> : `nearby` `[FLAG]` `POSTAL_SECTOR` or `nearby` `[FLAG]` `AREA` +
-e.g. `nearby` `-o` `14` +
-e.g. `nearby` `-r` `north` +
-e.g. `nearby` `east`
+If you would like to know more about a specific command, you can view more information by clicking
+the provided link in the table below.
 
-== Appendix A: Glossary
+.Command Summary
+|===
+|Command |Format |Example
+
+|<<insert, *Insert*>>
+|`insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+|`insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
+
+|<<clear, *Clear*>>
+|`clear` `[FLAG]`
+|`clear` +
+`clear` `-f` +
+`clear` `-r` +
+`clear` `-f` `-r` +
+`clear` `-o` +
+`clear` `-o` `-f`
+
+|<<delete, *Delete*>>
+|`delete` `FLAG` `INDEX`
+|`delete` `-o` `2`
+
+|<<delivered, *Delivered*>>
+|`delivered` `FLAG` `INDEX`
+|`delivered` `-r` `2` +
+delivered` `-o` `1`
+
+|<<edit, *Edit*>>
+|`edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE`
+|`edit` `-r` `2` `n/Xuan En` +
+`edit` `-o` `2` `p/9999 4444` +
+`edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+`edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+
+|<<exit, *Exit*>>
+|`exit`
+|`exit`
+
+|<<search, *Search*>>
+|`search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+|`search` `-r` `tid/ac1e345x7s` +
+`search` `-r` `Jeremy Loh` +
+`search` `-o` `tid/asj2od3943` +
+`search` `-r` `p/92039999` +
+`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+
+|<<help, *Help*>>
+|`help`
+|`help`
+
+|<<show, *Show*>>
+|`show`
+|`show`
+
+|<<import, *Import*>>
+|`import` `FILE_NAME`
+|`import` `orders.csv`
+
+|<<list, *List*>>
+|`list` `[DONE_STATUS]`
+|`list` +
+`list` `done` +
+`list` `undone`
+
+|<<return, *Return*>>
+|`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM`
+|`return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+`return` `tid/ac17s2a` +
+`return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal`
+
+|<<nearby, *Nearby*>>
+|`nearby` `[FLAG]` `POSTAL_SECTOR` +
+OR +
+`nearby` `[FLAG]` `AREA`
+|`nearby` `east` +
+`nearby` `-o` `14` +
+`nearby` `-r` `north`
+|===
+
+
+[[glossary]]
+== Glossary
 
 [[command_prefix]]
 .Command Prefix
 |===
-|Prefix |Meaning |Used in the following Command(s)
+|Prefix |Order Attributes |Used in the following Command(s)
 
 |ot/
 |Order Type
