@@ -212,10 +212,6 @@ public class MainApp extends Application {
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();
 
-      if (assignmentAddressBookOptional.isPresent()) {
-        logger.info("Data file found!");
-      }
-
       if (!assignmentAddressBookOptional.isPresent()) {
         logger.info("Data file not found. Will be starting with a sample AssignmentAddressBook");
       }
@@ -230,7 +226,6 @@ public class MainApp extends Application {
               "Problem while reading from the file. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     }
-    logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
         courseInitialData, assignmentInitialData, userPrefs);
