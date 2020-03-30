@@ -34,6 +34,7 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.JsonSchedulerStorage;
+import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.RestaurantBookStorage;
 import seedu.address.storage.SchedulerStorage;
@@ -74,7 +75,8 @@ public class MainApp extends Application {
                 new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
         SchedulerStorage schedulerStorage = new JsonSchedulerStorage(userPrefs.getSchedulerFilePath());
         EventScheduleStorage eventScheduleStorage = new JsonEventScheduleStorage(userPrefs.getEventScheduleFilePath());
-        storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage,
+                eventScheduleStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -97,6 +99,7 @@ public class MainApp extends Application {
         ReadOnlyRestaurantBook initialRestaurantsData;
 
         Optional<ReadOnlyScheduler> schedulerOptional;
+        Optional<ReadOnlyEventSchedule> eventScheduleOptional;
         ReadOnlyScheduler initialAssignmentsData;
         ReadOnlyEventSchedule initialEventsData;
         try {

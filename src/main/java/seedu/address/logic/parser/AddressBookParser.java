@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -72,6 +73,10 @@ public class AddressBookParser {
 
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommandParser().parse(arguments, model);
+
+            // WHY THE INDENTATION SO UGLY HOW COME I CAN'T FORCE DEDENT
+            case AddEventCommand.COMMAND_WORD:
+                return new AddEventCommandParser().parse(arguments, model);
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments, model);
