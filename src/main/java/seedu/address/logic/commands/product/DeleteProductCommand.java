@@ -51,14 +51,14 @@ public class DeleteProductCommand extends Command {
     /**
      * Deletes transactions where the product is the product to be deleted.
      * @param model
-     * @param product
+     * @param productToDelete
      */
-    private void deleteProductTransactions(Model model, Product product) {
+    private void deleteProductTransactions(Model model, Product productToDelete) {
         List<Transaction> transactions = model.getInventorySystem().getTransactionList();
 
         for (int i = 0; i < transactions.size(); i++) {
             Transaction transaction = transactions.get(i);
-            if (transaction.getProduct().equals(product)) {
+            if (transaction.getProduct().equals(productToDelete)) {
                 model.deleteTransaction(transaction);
             }
         }

@@ -30,7 +30,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getInventorySystem()
      */
-    ReadOnlyInventorySystem getAddressBook();
+    ReadOnlyInventorySystem getInventorySystem();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Customer> getFilteredCustomerList();
@@ -42,9 +42,9 @@ public interface Logic {
     ObservableList<Transaction> getFilteredTransactionList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' inventory system file path.
      */
-    Path getAddressBookFilePath();
+    Path getInventorySystemFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

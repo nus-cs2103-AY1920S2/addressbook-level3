@@ -28,12 +28,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final InventorySystemParser addressBookParser;
+    private final InventorySystemParser inventorySystemParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new InventorySystemParser();
+        inventorySystemParser = new InventorySystemParser();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = inventorySystemParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyInventorySystem getAddressBook() {
+    public ReadOnlyInventorySystem getInventorySystem() {
         return model.getInventorySystem();
     }
 
@@ -74,7 +74,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getInventorySystemFilePath() {
         return model.getAddressBookFilePath();
     }
 
