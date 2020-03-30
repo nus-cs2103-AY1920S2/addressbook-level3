@@ -130,7 +130,7 @@ public interface Model {
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
 
     /**
-     * Adds a recipe to a date in the plannedRecipe list
+     * Adds a planned recipe to the plannedRecipe list
      */
     void addPlannedRecipe(PlannedRecipe plannedRecipe);
 
