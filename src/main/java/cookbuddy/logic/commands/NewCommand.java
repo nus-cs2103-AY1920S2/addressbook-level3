@@ -4,6 +4,7 @@ import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
@@ -26,6 +27,7 @@ public class NewCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_INGREDIENTS + "INGREDIENT 1, QUANTITY; INGREDIENT 2, QUANTITY... "
             + PREFIX_INSTRUCTIONS + "INSTRUCTION 1, INSTRUCTION 2 "
+            + PREFIX_FILEPATH + "PATH "
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING SIZE] "
             + "[" + PREFIX_RATING + "RATING] "
@@ -35,6 +37,7 @@ public class NewCommand extends Command {
             + PREFIX_NAME + "Ham Sandwich "
             + PREFIX_INGREDIENTS + "bread, 2 slices; ham, 1 slice "
             + PREFIX_INSTRUCTIONS + "put ham between bread; eat sandwich "
+            + PREFIX_FILEPATH + "C:\\Users\\zain_\\Downloads\\hamsandwich.jpg "
             + PREFIX_CALORIE + "169 "
             + PREFIX_SERVING + "2 "
             + PREFIX_RATING + "4 "

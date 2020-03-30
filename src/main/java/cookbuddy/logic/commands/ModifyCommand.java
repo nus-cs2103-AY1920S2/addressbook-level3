@@ -4,6 +4,7 @@ import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
@@ -27,6 +28,7 @@ import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
+import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
@@ -46,6 +48,7 @@ public class ModifyCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
             + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
+            + "[" + PREFIX_FILEPATH + "PATH] "
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING] "
             + "[" + PREFIX_RATING + "RATING] "
@@ -106,13 +109,15 @@ public class ModifyCommand extends Command {
         IngredientList updatedIngredients = editRecipeDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
         InstructionList updatedInstructions =
                 editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
+        ImagePath updatedUrl = editRecipeDescriptor.getFilePath().orElse(recipeToEdit.getFilePath());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
         Difficulty updatedDifficulty = editRecipeDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
-        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
+        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedUrl, updatedCalorie,
+            updatedServing,
                 updatedRating, updatedDifficulty, updatedTags);
     }
 
@@ -142,6 +147,7 @@ public class ModifyCommand extends Command {
         private Name name;
         private IngredientList ingredients;
         private InstructionList instructions;
+        private ImagePath filePath;
         private Calorie calorie;
         private Serving serving;
         private Rating rating;
@@ -159,6 +165,7 @@ public class ModifyCommand extends Command {
             setName(toCopy.name);
             setIngredients(toCopy.ingredients);
             setInstructions(toCopy.instructions);
+            setFilePath(toCopy.filePath);
             setCalorie(toCopy.calorie);
             setServing(toCopy.serving);
             setRating(toCopy.rating);
@@ -170,7 +177,7 @@ public class ModifyCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, serving, rating,
+            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, filePath, calorie, serving, rating,
                     difficulty, tags);
         }
 
@@ -196,6 +203,14 @@ public class ModifyCommand extends Command {
 
         public void setInstructions(InstructionList instructions) {
             this.instructions = instructions;
+        }
+
+        public void setFilePath(ImagePath filePath) {
+            this.filePath = filePath;
+        }
+
+        public Optional<ImagePath> getFilePath() {
+            return Optional.ofNullable(filePath);
         }
 
         public void setCalorie(Calorie calorie) {
@@ -265,6 +280,7 @@ public class ModifyCommand extends Command {
             return getName().equals(e.getName())
                     && getIngredients().equals(e.getIngredients())
                     && getInstructions().equals(e.getInstructions())
+                    && getFilePath().equals(e.getFilePath())
                     && getCalorie().equals(e.getCalorie())
                     && getServing().equals(e.getServing())
                     && getRating().equals(e.getRating())

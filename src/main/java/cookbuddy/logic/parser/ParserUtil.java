@@ -15,6 +15,7 @@ import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
+import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Instruction;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -29,6 +30,7 @@ import cookbuddy.model.recipe.attribute.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -93,6 +95,18 @@ public class ParserUtil {
 
         return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
                 .map(Instruction::new).collect(Collectors.toList()));
+    }
+
+    /** Parses a {@code String input} into an {@code ImagePath}.
+     *
+     */
+    public static ImagePath parseFilePath(String input) throws ParseException {
+        requireNonNull(input);
+        String trimmedPath = input.trim();
+        if (!ImagePath.isValidFilePath(trimmedPath)) {
+            throw new ParseException(MESSAGE_INVALID_FILEPATH);
+        }
+        return new ImagePath(trimmedPath);
     }
 
     /**
