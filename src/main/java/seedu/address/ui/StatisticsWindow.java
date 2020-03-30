@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
@@ -13,7 +14,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.product.Product;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.ui.statistics.StatisticsListPanel;
 
 /**
@@ -53,7 +53,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      */
     private void setUpLogic(Logic logic) {
         this.logic = logic;
-        ObservableList<Product> productList = logic.getFilteredProductList();
+        ObservableList<Product> productList = logic.getInventorySystem().getProductList();
         statisticsListPanel = new StatisticsListPanel(sort(productList));
         statisticsListPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());
     }
@@ -64,33 +64,18 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @return sorted list
      */
     private ObservableList<Product> sort(ObservableList<Product> products) {
-        List<Product> modifiableProducts = new ArrayList<Product>(products);
+        List<Product> modifiableProducts = new ArrayList<>(products);
+
         Collections.sort(modifiableProducts, new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
-                return calculateRevenueForProduct(o1) - calculateRevenueForProduct(o2);
+                int o1Sales = o1.getMoney().value;
+                int o2Sales = o2.getMoney().value;
+                return o2Sales - o1Sales;
             }
         });
-        return products;
-    }
 
-    /**
-     * Calculate revenue for a specific product.
-     * @param product
-     * @return calculated revenue
-     */
-    private int calculateRevenueForProduct(Product product) {
-        List<Transaction> transactions = logic.getFilteredTransactionList();
-        int revenue = 0;
-
-        for (int i = 0; i < transactions.size(); i++) {
-            Transaction transaction = transactions.get(i);
-            if (transaction.getProduct().equals(product)) {
-                revenue += transaction.getMoney().value;
-            }
-        }
-
-        return revenue;
+        return FXCollections.observableArrayList(modifiableProducts);
     }
 
     /**

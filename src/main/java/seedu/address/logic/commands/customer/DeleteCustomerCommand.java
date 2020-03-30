@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Deletes a customer identified using it's displayed index from the address book.
@@ -43,7 +44,24 @@ public class DeleteCustomerCommand extends Command {
 
         Customer customerToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(customerToDelete);
+        deleteCustomerTransactions(model, customerToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, customerToDelete));
+    }
+
+    /**
+     * Deletes transactions where the customer is the customer to be deleted.
+     * @param model
+     * @param customerToDelete
+     */
+    private void deleteCustomerTransactions(Model model, Customer customerToDelete) {
+        List<Transaction> transactions = model.getInventorySystem().getTransactionList();
+
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+            if (transaction.getCustomer().equals(customerToDelete)) {
+                model.deleteTransaction(transaction);
+            }
+        }
     }
 
     @Override
