@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 /**
  * STEPH_TODO_JAVADOC
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
 
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
@@ -18,16 +18,16 @@ public class DateTime {
     public static final String MESSAGE_CONSTRAINTS =
             String.format("DateTime must be in the format %1$s.", DATE_TIME_PATTERN);
 
-    private final LocalDateTime dateTime;
+    private final LocalDateTime localDateTime;
 
-    public DateTime(String dateTime) {
-        requireNonNull(dateTime);
-        checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS);
-        this.dateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+    public DateTime(String localDateTime) {
+        requireNonNull(localDateTime);
+        checkArgument(isValidDateTime(localDateTime), MESSAGE_CONSTRAINTS);
+        this.localDateTime = LocalDateTime.parse(localDateTime, DATE_TIME_FORMATTER);
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
     /**
@@ -46,7 +46,7 @@ public class DateTime {
 
     @Override
     public String toString() {
-        return dateTime.format(DATE_TIME_FORMATTER);
+        return localDateTime.format(DATE_TIME_FORMATTER);
     }
 
     @Override
@@ -60,6 +60,11 @@ public class DateTime {
         }
 
         DateTime otherDateTime = (DateTime) other;
-        return this.dateTime.equals(otherDateTime.dateTime);
+        return this.localDateTime.equals(otherDateTime.localDateTime);
+    }
+
+    @Override
+    public int compareTo(DateTime other) {
+        return localDateTime.compareTo(other.localDateTime);
     }
 }

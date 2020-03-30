@@ -1,5 +1,7 @@
 package seedu.zerotoone.model.schedule;
 
+import java.util.Comparator;
+
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
@@ -15,6 +17,15 @@ public class ScheduledWorkout {
         this.schedule = schedule;
         this.workoutToSchedule = workoutToSchedule;
         this.dateTime = dateTime;
+    }
+
+    public static Comparator<ScheduledWorkout> getComparator() {
+        return new Comparator<ScheduledWorkout>() {
+            @Override
+            public int compare(ScheduledWorkout s1, ScheduledWorkout s2) {
+                return s1.getDateTime().compareTo(s2.getDateTime());
+            }
+        };
     }
 
     public Schedule getSchedule() {

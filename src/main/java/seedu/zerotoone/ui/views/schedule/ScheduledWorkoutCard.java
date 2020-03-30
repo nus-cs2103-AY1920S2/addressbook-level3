@@ -32,7 +32,7 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
     }
 
     private String getFormattedDateTimeString(ScheduledWorkout scheduledWorkout) {
-        LocalDateTime localDateTime = scheduledWorkout.getDateTime().getDateTime();
+        LocalDateTime localDateTime = scheduledWorkout.getDateTime().getLocalDateTime();
         int year = localDateTime.getYear();
         int day = localDateTime.getDayOfMonth();
         int hour = localDateTime.getHour();
