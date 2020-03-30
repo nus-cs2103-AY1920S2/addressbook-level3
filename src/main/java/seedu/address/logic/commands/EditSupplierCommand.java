@@ -98,8 +98,8 @@ public class EditSupplierCommand extends Command {
      * return the combined set
      */
     public static <Offer> Set<Offer> mergeOfferSets(Set<Offer> supplierToEditOffer,
-                                                    Set<Offer> EditSupplierDescriptorOffer) {
-        return Stream.concat(EditSupplierDescriptorOffer.stream(),
+                                                    Set<Offer> editSupplierDescriptorOffer) {
+        return Stream.concat(editSupplierDescriptorOffer.stream(),
                 supplierToEditOffer.stream()).collect(Collectors.toSet());
     }
 
