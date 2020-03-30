@@ -48,8 +48,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 ? parseTimeForFilter(argMultimap.getValue(PREFIX_TIME).get())
                 : Collections.emptyList();
 
-        boolean isFilteredByFavourites = filterByFavourites(argMultimap.getPreamble().toLowerCase());
-        Set<Goal> filterByGoals = filterByGoals(argMultimap.getAllValues(PREFIX_GOAL));
+        boolean isFilteredByFavourites = isFilteredByFavourites(argMultimap.getPreamble().toLowerCase());
+        Set<Goal> filterByGoals = parseGoalsForFilter(argMultimap.getAllValues(PREFIX_GOAL));
         Set<Grain> filterByGrain = parseGrainsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN));
         Set<Vegetable> filterByVeg = parseVegetablesForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE));
         Set<Protein> filterByProtein = parseProteinsForFilter(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN));
@@ -66,21 +66,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Parses and returns the goals input as a {@code Set<Goal>} if it is present. Otherwise, returns an empty set.
-     */
-    private Set<Goal> filterByGoals(Collection<String> goals) throws ParseException {
-        assert goals != null;
-        if (!goals.isEmpty()) {
-            return parseGoalsForFilter(goals);
-        } else {
-            return Collections.emptySet();
-        }
-    }
-
-    /**
      * Returns whether user specified filtering by favourites.
      */
-    private boolean filterByFavourites(String preamble) throws ParseException {
+    private boolean isFilteredByFavourites(String preamble) throws ParseException {
         assert preamble != null;
         if (preamble.isBlank()) {
             return false;
@@ -164,7 +152,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private Set<Goal> parseGoalsForFilter(Collection<String> goals) throws ParseException {
         assert goals != null;
-        Collection<String> goalSet = goals.size() == 1 && goals.contains("")
+        Collection<String> goalSet = (goals.size() == 1 && goals.contains("")) || goals.isEmpty()
                 ? Collections.emptySet()
                 : goals;
         return ParserUtil.parseGoals(goalSet);
