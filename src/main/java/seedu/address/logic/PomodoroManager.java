@@ -159,6 +159,10 @@ public class PomodoroManager {
         model.getStatistics().updateDataDates();
         List<DayData> newDayDatas = generateUpdatedDayData(startDateTime, endDateTime);
         newDayDatas.forEach(dayData -> model.getStatistics().updatesDayData(dayData));
+        updateStatisticsDisplay(); // TODO code quality
+    }
+
+    public void updateStatisticsDisplay() {
         mainWindow.getStatisticsDisplay().updateGraphs(model.getStatistics().getCustomQueue()); // TODO code quality
     }
 

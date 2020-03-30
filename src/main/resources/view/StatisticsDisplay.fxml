@@ -21,7 +21,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <ImageView fx:id="progressBarDaily" fitHeight="30.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="progressBarDaily" fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       <Region prefHeight="20.0" prefWidth="200.0" />
       <Label fx:id="medals" text="Medals earned: 0">
          <font>
@@ -29,18 +29,32 @@
          </font>
       </Label>
       <Region prefHeight="60.0" prefWidth="200.0" />
-      <Label fx:id="barChartTitle" alignment="CENTER" text="title" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
+      <Label fx:id="barChartTitle" alignment="CENTER" text="Duration Pommed" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <BarChart fx:id="barChart" prefHeight="174.0" prefWidth="340.0">
+      <BarChart fx:id="barChartPomDurationData" prefHeight="174.0" prefWidth="340.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
+      </BarChart>
+      <Region layoutX="10.0" layoutY="102.0" prefHeight="60.0" prefWidth="200.0" />
+      <Label fx:id="barChartTitle1" alignment="CENTER" layoutX="167.0" layoutY="259.0" text="Tasks Done" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="barChartTasksDoneData" layoutX="10.0" layoutY="272.0" prefHeight="174.0" prefWidth="340.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
       </BarChart>
    </children>
 </VBox>

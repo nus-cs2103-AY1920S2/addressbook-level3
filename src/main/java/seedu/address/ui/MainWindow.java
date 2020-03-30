@@ -244,10 +244,6 @@ public class MainWindow extends UiPart<Stage> {
             try {
                 SwitchTabCommandResult switchTabCommandResult =
                         (SwitchTabCommandResult) commandResult;
-                //if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
-                //    CustomQueue customQueue = pomodoro.getCustomQueueStatistics();
-                //   statisticsDisplay.updateGraphs(customQueue);
-                //}
                 tabPanePlaceholder
                         .getSelectionModel()
                         .select(switchTabCommandResult.getTabToSwitchIndex());
