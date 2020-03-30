@@ -245,6 +245,11 @@ public class ModelManager implements Model {
         filteredModules.setPredicate(predicate);
     }
 
+    @Override
+    public void showAllModules() {
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
     // ======== Group Methods ==================================================
 
     @Override

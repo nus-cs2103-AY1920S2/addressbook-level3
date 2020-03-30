@@ -186,6 +186,11 @@ public interface Model {
     ObservableList<Module> getFilteredModuleList();
 
     /**
+     * Shows all modules.
+     */
+    void showAllModules();
+
+    /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
