@@ -30,8 +30,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
-    private Module currentlyShownModule;
-    private Group currentlyShownGroup;
+    private static Module currentlyShownModule;
+    private static Group currentlyShownGroup;
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -342,11 +342,11 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currentlyShownGroups.asUnmodifiableObservableList();
     }
 
-    public Group getCurrentlyShownGroup() {
+    public static Group getCurrentlyShownGroup() {
         return currentlyShownGroup;
     }
 
-    public Module getCurrentlyShownModule() {
+    public static Module getCurrentlyShownModule() {
         return currentlyShownModule;
     }
 

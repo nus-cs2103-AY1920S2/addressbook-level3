@@ -1,5 +1,7 @@
 package tatracker.ui;
 
+import static tatracker.model.TaTracker.getCurrentlyShownGroup;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ import tatracker.model.group.Group;
 public class GroupListPanel extends UiPart<Region> {
     private static final String FXML = "GroupListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
+    private Group currentlyShownGroup = getCurrentlyShownGroup();
 
     @FXML
     private ListView<Group> groupListView;
@@ -39,6 +42,9 @@ public class GroupListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
+                if (group.equals(currentlyShownGroup)) {
+                    setStyle("-fx-background-color: #424d5f; -fx-border-color: #3e7b91; -fx-border-width: 1;");
+                }
             }
         }
     }
