@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private NotesListPanel notesListPanel;
     private DiaryListPanel diaryListPanel;
+    private CalenderPanel calenderPanel;
 
 
     @FXML
@@ -57,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane diaryListPanelPlaceholder;
+
+    @FXML
+    private StackPane calenderPanelPlaceholder;
 
     @FXML
     private TabPane tabPane;
@@ -126,14 +130,19 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
         diaryListPanel = new DiaryListPanel(logic.getDiaryList());
         diaryListPanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
 
         notesListPanel = new NotesListPanel(logic.getFilesInFolderList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
+        calenderPanel = new CalenderPanel();
+        calenderPanelPlaceholder.getChildren().add(calenderPanel.getRoot());
+        calenderPanel.setMonth();
 
+
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
