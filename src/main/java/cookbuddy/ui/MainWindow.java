@@ -1,5 +1,6 @@
 package cookbuddy.ui;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 import cookbuddy.commons.core.GuiSettings;
@@ -116,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts() throws FileNotFoundException {
         recipeView = new RecipeView(logic.getFilteredRecipeList().get(0), 1);
         this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
 
