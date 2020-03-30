@@ -86,7 +86,8 @@ public class AddRestaurantNoteCommand extends Command {
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
-        return new CommandResult(String.format(generateSuccessMessage(editedRestaurant), editedRestaurant), false, false, false, false, false, true);
+        return new CommandResult(String.format(generateSuccessMessage(editedRestaurant), editedRestaurant),
+                false, false, false, false, false, true);
     }
 
     /**
@@ -95,7 +96,7 @@ public class AddRestaurantNoteCommand extends Command {
      */
     private String generateSuccessMessage(Restaurant restaurantToEdit) {
         String message = (!recommendedFood.note.isEmpty() || !goodFood.note.isEmpty()
-                || !badFood.note.isEmpty())? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_EMPTY;
+                || !badFood.note.isEmpty()) ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_EMPTY;
         return String.format(message, restaurantToEdit);
     }
 

@@ -18,7 +18,13 @@ import seedu.address.model.person.Organization;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
-import seedu.address.model.restaurant.*;
+import seedu.address.model.restaurant.Cuisine;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Price;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Visit;
 import seedu.address.model.tag.Tag;
 
 /**

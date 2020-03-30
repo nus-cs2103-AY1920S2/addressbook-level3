@@ -6,6 +6,7 @@ import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.Notes;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
@@ -22,6 +23,9 @@ public class RestaurantBuilder {
     public static final String DEFAULT_CUISINE = "Indian";
     public static final String DEFAULT_REMARKS = "Good supper spot";
     public static final String DEFAULT_VISIT = "Yes";
+    public static final String DEFAULT_RECOMMENDED = "Butter chicken";
+    public static final String DEFAULT_GOOD = "Cheese Fries";
+    public static final String DEFAULT_BAD = "Fried rice";
 
     private Name name;
     private Location location;
@@ -30,6 +34,9 @@ public class RestaurantBuilder {
     private Cuisine cuisine;
     private ArrayList<Remark> remarks;
     private Visit visit;
+    private ArrayList<Notes> recommendedFood;
+    private ArrayList<Notes> goodFood;
+    private ArrayList<Notes> badFood;
 
     /**
      * Initialises RestaurantBuilder with the data of {@Restaurant toCopy}.
@@ -42,6 +49,9 @@ public class RestaurantBuilder {
         this.cuisine = toCopy.getCuisine();
         this.remarks = toCopy.getRemark();
         this.visit = toCopy.getVisit();
+        this.recommendedFood = toCopy.getRecommendedFood();
+        this.goodFood = toCopy.getGoodFood();
+        this.badFood = toCopy.getBadFood();
     }
 
     public RestaurantBuilder() {
@@ -53,6 +63,12 @@ public class RestaurantBuilder {
         this.remarks = new ArrayList<>();
         remarks.add(new Remark(DEFAULT_REMARKS));
         this.visit = new Visit(DEFAULT_VISIT);
+        this.recommendedFood = new ArrayList<>();
+        recommendedFood.add(new Notes(DEFAULT_RECOMMENDED));
+        this.goodFood = new ArrayList<>();
+        goodFood.add(new Notes(DEFAULT_GOOD));
+        this.badFood = new ArrayList<>();
+        badFood.add(new Notes(DEFAULT_BAD));
     }
 
     /**
@@ -111,7 +127,36 @@ public class RestaurantBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@Notes} of the {@Restaurant} that we are building.
+     */
+    public RestaurantBuilder withRecommended(String recommendedFood) {
+        this.recommendedFood.add(new Notes(recommendedFood));
+        return this;
+    }
+
+    /**
+     * Sets the {@Notes} of the {@Restaurant} that we are building.
+     */
+    public RestaurantBuilder withGood(String goodFood) {
+        this.goodFood.add(new Notes(goodFood));
+        return this;
+    }
+
+    /**
+     * Sets the {@Notes} of the {@Restaurant} that we are building.
+     */
+    public RestaurantBuilder withBad(String badFood) {
+        this.badFood.add(new Notes(badFood));
+        return this;
+    }
+
+    /**
+     * Builds the restaurant
+     * @return restaurant that is created
+     */
     public Restaurant build() {
-        return new Restaurant(name, location, hours, price, cuisine, remarks, visit);
+        return new Restaurant(name, location, hours, price, cuisine, remarks, visit,
+                recommendedFood, goodFood, badFood);
     }
 }

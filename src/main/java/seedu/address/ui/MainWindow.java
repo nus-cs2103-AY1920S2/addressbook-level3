@@ -202,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
-  
+
     /**
      * Display upcoming birthdays on third panel.
      */

@@ -15,7 +15,15 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.*;
+import seedu.address.model.restaurant.Cuisine;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.Notes;
+import seedu.address.model.restaurant.Price;
+import seedu.address.model.restaurant.Remark;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Visit;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object.

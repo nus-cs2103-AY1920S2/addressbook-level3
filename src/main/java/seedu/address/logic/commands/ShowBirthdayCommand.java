@@ -14,6 +14,7 @@ public class ShowBirthdayCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(String.format(Messages.MESSAGE_BIRTHDAYS_LISTED), false, false, false, false, true, false);
+        return new CommandResult(String.format(Messages.MESSAGE_BIRTHDAYS_LISTED), false, false,
+                false, false, true, false);
     }
 }

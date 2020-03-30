@@ -262,13 +262,13 @@ Format: `(rt)delete n/NAME`
 
 === Add notes to a restaurant: `(rt)notes`
 
-Adds a new restaurant +
-Format: `(rt)notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+Adds a new note about the food to a restaurant +
+Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
 
 Examples:
 
-* `(rt)notes rubbish r/chicken chop g/truffle fries b/risotto` +
-Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+* `(rt)notes 2 r/chicken chop g/truffle fries b/risotto` +
+Adds a notes to an existing restaurant in the list that is indexed 2 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
 === Add new assignment to the Schoolwork Tracker: `(st)add`
 
