@@ -36,11 +36,10 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         correctionEngine = new StringCorrectionEngine(COMMAND_LIST, DISTANCE_THRESHOLD);
 
         autoUpdateInput(model.inputProperty());
-        suggest(userInput);
     }
 
     @Override
-    public void suggest(String userInput) {
+    public void suggest() {
         SuggestionCommand suggestionCommand = parseCommand(userInput);
         suggestionCommand.execute(model);
     }
