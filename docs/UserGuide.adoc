@@ -267,12 +267,12 @@ Format: `(rt)delete n/NAME`
 ==== Add notes to a restaurant: `(rt)notes`
 
 Adds a new note to a restaurant +
-Format: `(rt)addnote n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [a/GOOD_FOOD] [b/BAD_FOOD]`
 
 Examples:
 
-* `(rt)addnote rubbish r/chicken chop g/truffle fries b/risotto` +
-Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+* `(rt)addnote 5 r/chicken chop a/truffle fries b/risotto` +
+Adds a notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
 ==== Search: `(rt)search`
 
