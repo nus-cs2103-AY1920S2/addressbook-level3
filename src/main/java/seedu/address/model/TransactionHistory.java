@@ -96,11 +96,15 @@ public class TransactionHistory implements ReadOnlyList<Transaction> {
         return transactions.asUnmodifiableObservableList();
     }
 
+    protected UniqueTransactionList getTransactions() {
+        return transactions;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof TransactionHistory // instanceof handles nulls
-            && transactions.equals(((TransactionHistory) other).transactions));
+            && getTransactions().equals(((TransactionHistory) other).getTransactions()));
     }
 
     @Override
