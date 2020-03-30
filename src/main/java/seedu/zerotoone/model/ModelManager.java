@@ -179,6 +179,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
+        scheduler.deleteScheduledWorkout(scheduledWorkoutToDelete);
+    }
+
+    @Override
     public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
         return scheduler.getSortedScheduledWorkoutList();
     }

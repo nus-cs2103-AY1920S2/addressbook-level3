@@ -52,6 +52,10 @@ public class Scheduler {
         scheduleList.addSchedule(schedule);
     }
 
+    public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
+        // STEPH_TODO
+    }
+
     /**
      *
      */

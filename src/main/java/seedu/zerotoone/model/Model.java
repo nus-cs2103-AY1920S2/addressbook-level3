@@ -112,6 +112,7 @@ public interface Model {
     // Schedule
     boolean hasSchedule(Schedule schedule);
     void addSchedule(Schedule schedule);
+    void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
     void updateSortedScheduledWorkoutList();
     ScheduleList getScheduleList();

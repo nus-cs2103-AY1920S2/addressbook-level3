@@ -81,10 +81,10 @@ public class UniqueScheduledWorkoutList implements Iterable<ScheduledWorkout> {
     //     }
     // }
 
-    public void setScheduledWorkouts(UniqueScheduledWorkoutList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
+    // public void setScheduledWorkouts(UniqueScheduledWorkoutList replacement) {
+    //     requireNonNull(replacement);
+    //     internalList.setAll(replacement.internalList);
+    // }
 
     /**
      * Replaces the contents of this list with {@code scheduledWorkouts}.

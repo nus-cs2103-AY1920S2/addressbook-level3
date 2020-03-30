@@ -54,22 +54,22 @@ public class ScheduledWorkoutList implements ReadOnlyScheduledWorkoutList {
 
     //// scheduledWorkout-level operations
 
-    /**
-     * Returns true if a scheduledWorkout with the same identity as {@code scheduledWorkout} exists in the
-     * scheduledWorkout list.
-     */
-    public boolean hasScheduledWorkout(ScheduledWorkout scheduledWorkout) {
-        requireNonNull(scheduledWorkout);
-        return scheduledWorkouts.contains(scheduledWorkout);
-    }
-
-    /**
-     * Adds a scheduledWorkout to the scheduledWorkout list.
-     * The scheduledWorkout must not already exist in the scheduledWorkout list.
-     */
-    public void addScheduledWorkout(ScheduledWorkout p) {
-        scheduledWorkouts.add(p);
-    }
+    // /**
+    //  * Returns true if a scheduledWorkout with the same identity as {@code scheduledWorkout} exists in the
+    //  * scheduledWorkout list.
+    //  */
+    // public boolean hasScheduledWorkout(ScheduledWorkout scheduledWorkout) {
+    //     requireNonNull(scheduledWorkout);
+    //     return scheduledWorkouts.contains(scheduledWorkout);
+    // }
+    //
+    // /**
+    //  * Adds a scheduledWorkout to the scheduledWorkout list.
+    //  * The scheduledWorkout must not already exist in the scheduledWorkout list.
+    //  */
+    // public void addScheduledWorkout(ScheduledWorkout p) {
+    //     scheduledWorkouts.add(p);
+    // }
 
     // /**
     //  * Replaces the given scheduledWorkout {@code target} in the list with {@code editedScheduledWorkout}.

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.HelpCommand;
 import seedu.zerotoone.logic.commands.schedule.CreateCommand;
+import seedu.zerotoone.logic.commands.schedule.DeleteCommand;
 import seedu.zerotoone.logic.commands.schedule.ListCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
@@ -37,6 +38,10 @@ public class ScheduleCommandParser {
         switch (commandWord) {
         case CreateCommand.COMMAND_WORD:
             return new CreateCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+        // case EditCommand.COMMAND_WORD:
+        //     return new EditCommandParser().parse(arguments);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         default:
