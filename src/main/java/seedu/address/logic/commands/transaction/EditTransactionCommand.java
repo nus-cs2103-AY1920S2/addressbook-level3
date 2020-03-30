@@ -49,7 +49,7 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_MONEY + "MONEY] "
             + "[" + PREFIX_TRANS_DESCRIPTION + "DESCRIPTION] \n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
