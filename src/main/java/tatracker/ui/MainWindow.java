@@ -1,12 +1,5 @@
 package tatracker.ui;
 
-import static tatracker.logic.commands.CommandResult.Action.HELP;
-import static tatracker.logic.commands.CommandResult.Action.EXIT;
-import static tatracker.logic.commands.CommandResult.Action.NONE;
-import static tatracker.logic.commands.CommandResult.Action.GOTO_CLAIMS;
-import static tatracker.logic.commands.CommandResult.Action.GOTO_SESSION;
-import static tatracker.logic.commands.CommandResult.Action.GOTO_STUDENT;
-
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -292,27 +285,27 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandResult.getNextAction()) {
-                case HELP:
-                    handleHelp();
-                    break;
+            case HELP:
+                handleHelp();
+                break;
 
-                case EXIT:
-                    handleExit();
-                    break;
-                case GOTO_STUDENT:
-                    handleGoto(studentListTab);
-                    break;
+            case EXIT:
+                handleExit();
+                break;
+            case GOTO_STUDENT:
+                handleGoto(studentListTab);
+                break;
 
-                case GOTO_SESSION:
-                    handleGoto(sessionListTab);
-                    break;
+            case GOTO_SESSION:
+                handleGoto(sessionListTab);
+                break;
 
-                case GOTO_CLAIMS:
-                    handleGoto(claimsListTab);
-                    break;
+            case GOTO_CLAIMS:
+                handleGoto(claimsListTab);
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
             return commandResult;
 

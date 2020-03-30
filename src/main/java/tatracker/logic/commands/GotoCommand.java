@@ -31,6 +31,8 @@ public class GotoCommand extends Command {
         case "claims":
             this.tabToSwitchTo = Action.GOTO_CLAIMS;
             break;
+        default:
+            break;
         }
     }
 

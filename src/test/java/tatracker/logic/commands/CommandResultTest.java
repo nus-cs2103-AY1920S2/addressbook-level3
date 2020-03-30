@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import tatracker.logic.commands.CommandResult.Action;
 
 public class CommandResultTest {
     @Test
@@ -14,7 +15,6 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -27,15 +27,6 @@ public class CommandResultTest {
 
         // different feedbackToUser value -> returns false
         assertFalse(commandResult.equals(new CommandResult("different")));
-
-        // different swicthTab value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false)));
-
-        // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false)));
-
-        // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true)));
     }
 
     @Test
@@ -47,14 +38,5 @@ public class CommandResultTest {
 
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
-
-        // different switchTab value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, false).hashCode());
-
-        // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false).hashCode());
-
-        // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, true).hashCode());
     }
 }

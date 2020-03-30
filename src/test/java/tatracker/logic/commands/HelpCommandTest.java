@@ -5,6 +5,7 @@ import static tatracker.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 
@@ -14,7 +15,7 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, false, true, false);
+        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, Action.HELP);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }
