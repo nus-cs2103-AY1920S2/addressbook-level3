@@ -83,11 +83,12 @@ public class EditProductCommand extends Command {
         }
 
         updateTransactionList(model, editedProduct);
+        System.out.println("epc pte" + productToEdit);
+        System.out.println("epc epd" + editProductDescriptor);
+        System.out.println("epc" + editedProduct);
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
-
-        System.out.println("epc" + String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
 
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
     }
@@ -149,10 +150,7 @@ public class EditProductCommand extends Command {
         Price updatedPrice = editProductDescriptor.getPrice().orElse(productToEdit.getPrice());
         Quantity updatedQuantity = editProductDescriptor.getQuantity().orElse(productToEdit.getQuantity());
         Money updatedSales = editProductDescriptor.getMoney().orElse(productToEdit.getMoney());
-        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(
-                new QuantityThreshold(String.valueOf(updatedQuantity.value / 5))
-        );
-        System.out.println("cep" + updatedQuantity + " " + updatedThreshold);
+        QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
 
         return new Product(id, updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
                 updatedSales, updatedThreshold);
@@ -202,10 +200,7 @@ public class EditProductCommand extends Command {
             setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSales(toCopy.sales);
-            System.out.println("epc" + toCopy);
-            int lowLimit = toCopy.quantity.value / 5;
-            QuantityThreshold newThreshold = new QuantityThreshold(String.valueOf(lowLimit));
-            setThreshold(newThreshold);
+            setThreshold(toCopy.threshold);
         }
 
         /**
@@ -291,7 +286,8 @@ public class EditProductCommand extends Command {
                     && getCostPrice().equals(e.getCostPrice())
                     && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
-                    && getMoney().equals(e.getMoney());
+                    && getMoney().equals(e.getMoney())
+                    && getThreshold().equals(e.getThreshold());
         }
 
         @Override

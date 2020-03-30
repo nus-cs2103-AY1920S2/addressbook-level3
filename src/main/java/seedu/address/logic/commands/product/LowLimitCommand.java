@@ -56,13 +56,13 @@ public class LowLimitCommand extends Command {
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
         int thresholdValue = Integer.parseInt(threshold.value);
+        Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
         if (thresholdValue > 0) {
-            editProductDescriptor.setThreshold(threshold);
+            editedProduct.setThreshold(String.valueOf(thresholdValue));
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_THRESHOLD_AMOUNT);
         }
 
-        Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
