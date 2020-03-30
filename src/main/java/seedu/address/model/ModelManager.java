@@ -366,4 +366,10 @@ public class ModelManager implements Model {
     public ObservableList<Day> getScheduleVisualResult() {
         return this.scheduler.getScheduleVisual();
     }
+
+    //=========== Schedule Visual Accessor ========================================================================
+    @Override
+    public void undo() {
+
+    }
 }

@@ -233,4 +233,11 @@ public interface Model {
      * Returns an unmodifiable view of the user's upcoming schedule for the next 7 days (today inclusive).
      */
     ObservableList<Day> getScheduleVisualResult();
+
+    //=========== Schedule Visual Accessors =======================================================================
+
+    /**
+     * Undo the last entered command
+     */
+    void undo();
 }
