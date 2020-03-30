@@ -3,6 +3,7 @@ package com.notably.model.block;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.notably.model.block.exceptions.DuplicateBlockException;
@@ -147,7 +148,7 @@ public class BlockTreeItemImpl implements BlockTreeItem {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(getTitle().getText(), getBlockChildren());
     }
 
 }

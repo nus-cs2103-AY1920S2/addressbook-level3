@@ -81,6 +81,6 @@ public class BlockTreeImpl implements BlockTree {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return getRootBlock().hashCode();
     }
 }

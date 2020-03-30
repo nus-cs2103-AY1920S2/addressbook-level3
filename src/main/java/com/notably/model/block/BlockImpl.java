@@ -2,6 +2,8 @@ package com.notably.model.block;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 /**
  * Implementation class of Block.
  */
@@ -55,6 +57,6 @@ public class BlockImpl implements Block {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(title.getText());
     }
 }
