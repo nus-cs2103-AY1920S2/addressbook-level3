@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
@@ -19,7 +20,8 @@ import seedu.recipe.model.recipe.Recipe;
 @JsonRootName(value = "plannedbook")
 class JsonSerializablePlannedBook {
 
-    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "Planned recipes list contains duplicate planned recipe(s).";
+    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "Planned recipes list contains duplicate"
+            + "planned recipe(s).";
 
     private final List<JsonAdaptedPlannedRecipe> plannedRecipes = new ArrayList<>();
 
@@ -37,7 +39,8 @@ class JsonSerializablePlannedBook {
      * @param source future changes to this will not affect the created {@code JsonSerializablePlannedBook}.
      */
     public JsonSerializablePlannedBook(ReadOnlyPlannedBook source) {
-        plannedRecipes.addAll(source.getPlannedList().stream().map(JsonAdaptedPlannedRecipe::new).collect(Collectors.toList()));
+        plannedRecipes.addAll(source.getPlannedList().stream().map(JsonAdaptedPlannedRecipe::new)
+                .collect(Collectors.toList()));
     }
 
     /**

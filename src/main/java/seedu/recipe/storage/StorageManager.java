@@ -24,7 +24,8 @@ public class StorageManager implements Storage {
     private PlannedBookStorage plannedBookStorage;
 
 
-    public StorageManager(RecipeBookStorage recipeBookStorage, PlannedBookStorage plannedBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(RecipeBookStorage recipeBookStorage, PlannedBookStorage plannedBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.recipeBookStorage = recipeBookStorage;
         this.userPrefsStorage = userPrefsStorage;

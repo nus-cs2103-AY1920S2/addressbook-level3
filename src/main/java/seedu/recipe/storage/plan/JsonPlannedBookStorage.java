@@ -14,6 +14,9 @@ import seedu.recipe.commons.util.FileUtil;
 import seedu.recipe.commons.util.JsonUtil;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 
+/**
+ * A class to access PlannedBook data stored as a json file on the hard disk.
+ */
 public class JsonPlannedBookStorage implements PlannedBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonPlannedBookStorage.class);

@@ -47,9 +47,9 @@ public class PlanningListPanel extends UiPart<Region> {
 
     public PlanningListPanel(ObservableList<PlannedRecipe> plannedRecipes) {
         super(FXML);
-        monthHeader.setText("March");
+        monthHeader.setText("Placeholder for Month");
         monthHeader.setStyle(monthStyleHeader);
-        weekHeader.setText("Week 0");
+        weekHeader.setText("Placeholder for week of Month");
         weekHeader.setStyle(weekStyleHeader);
 
         planningListView.setItems(plannedRecipes);

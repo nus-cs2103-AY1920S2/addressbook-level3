@@ -2,6 +2,7 @@ package seedu.recipe.storage.plan;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.plan.PlannedDate;
 
@@ -9,7 +10,7 @@ import seedu.recipe.model.plan.PlannedDate;
  * Jackson-friendly version of {@link PlannedDate}.
  */
 public class JsonAdaptedPlannedDate {
-    
+
     private final String date;
 
     /**
@@ -44,5 +45,4 @@ public class JsonAdaptedPlannedDate {
 
         return new PlannedDate(date);
     }
-    
 }
