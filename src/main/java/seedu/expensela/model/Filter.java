@@ -17,7 +17,7 @@ public class Filter {
 
     public String getFilterCategoryName() {
         if (this.categoryName == null) {
-            return "Please Specify Category";
+            return "all";
         } else {
             return this.categoryName;
         }
@@ -29,7 +29,7 @@ public class Filter {
 
     public String getDateMonth() {
         if (this.dateMonth == null) {
-            return "Please Specify Date";
+            return "all";
         } else {
             return this.dateMonth.toString();
         }

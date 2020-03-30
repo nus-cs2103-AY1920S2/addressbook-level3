@@ -190,8 +190,10 @@ public class MainWindow extends UiPart<Stage> {
             monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData(), logic.getTotalBalance());
             monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // updating filterPanel
             filterPanelPlaceholder.getChildren().clear();
-            filterPanel = new FilterPanel(logic.getFilter()); // instantiate filterPanel
+            filterPanel = new FilterPanel(logic.getFilter());
             filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
