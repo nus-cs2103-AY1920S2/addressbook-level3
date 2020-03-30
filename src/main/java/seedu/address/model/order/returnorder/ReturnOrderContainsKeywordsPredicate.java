@@ -71,6 +71,7 @@ public class ReturnOrderContainsKeywordsPredicate implements Predicate<ReturnOrd
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
             || (obj instanceof ReturnOrderContainsKeywordsPredicate // instanceof handles nulls
-            && keywords.equals(((ReturnOrderContainsKeywordsPredicate) obj).keywords)); // state check
+            && keywords.equals(((ReturnOrderContainsKeywordsPredicate) obj).keywords)
+            && argumentMultimap.equals(((ReturnOrderContainsKeywordsPredicate) obj).argumentMultimap)); // state check
     }
 }
