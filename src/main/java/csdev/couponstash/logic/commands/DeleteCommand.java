@@ -13,7 +13,7 @@ import csdev.couponstash.model.coupon.Coupon;
 /**
  * Deletes a coupon identified using it's displayed index from the CouponStash.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -24,10 +24,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_COUPON_SUCCESS = "Deleted Coupon: %1$s";
 
-    private final Index targetIndex;
-
     public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override

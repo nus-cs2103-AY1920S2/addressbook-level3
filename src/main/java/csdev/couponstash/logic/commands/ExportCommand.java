@@ -28,7 +28,7 @@ import csdev.couponstash.model.coupon.savings.Savings;
 /**
  * Exports a coupon identified using it's displayed index from the CouponStash.
  */
-public class ExportCommand extends Command {
+public class ExportCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "export";
 
@@ -40,12 +40,11 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_EXPORT_COUPON_SUCCESS = "Exported coupon: %1$s.\n"
             + "Copied to your clipboard! Ctrl + v to paste this coupon!";
 
-    private final Index targetIndex;
     private Coupon coupon;
 
 
     public ExportCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override

@@ -185,9 +185,8 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
 
-            CsTab currentTab = tabPanel.selectedTab();
-
-            CommandResult commandResult = logic.execute(commandText, currentTab);
+            CsTab currentSelectedTab = tabPanel.selectedTab();
+            CommandResult commandResult = logic.execute(commandText, currentSelectedTab);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             calendarResultPane.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.isShowHelp()) {

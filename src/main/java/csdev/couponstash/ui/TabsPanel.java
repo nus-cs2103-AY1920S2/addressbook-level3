@@ -32,6 +32,9 @@ public class TabsPanel extends UiPart<Region> {
     private StackPane couponListPanelPlaceholder;
 
     @FXML
+    private StackPane expandedCouponPlaceholder;
+
+    @FXML
     private StackPane summaryPanePlaceholder;
 
     @FXML
