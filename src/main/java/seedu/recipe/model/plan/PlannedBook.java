@@ -88,11 +88,13 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Removes all planned recipes on this {@code recipe} key in the mapping from recipe to planned recipe.
      */
     public void removeAllPlannedMappingForRecipe(Recipe recipe) {
-        List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
-        for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-            removePlannedRecipes(plannedRecipe);
+        if(recipeToPlannedRecipeMap.containsKey(recipe)) {
+            List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
+            for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
+                removePlannedRecipes(plannedRecipe);
+            }
+            recipeToPlannedRecipeMap.remove(recipe);
         }
-        recipeToPlannedRecipeMap.remove(recipe);
     }
 
     /**
@@ -101,12 +103,14 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Updates the Recipe referenced in each PlannedRecipe.
      */
     public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
-        List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
-        recipeToPlannedRecipeMap.remove(target);
-        for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-            plannedRecipe.setRecipe(editedRecipe);
+        if(recipeToPlannedRecipeMap.containsKey(target)) {
+            List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
+            recipeToPlannedRecipeMap.remove(target);
+            for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
+                plannedRecipe.setRecipe(editedRecipe);
+            }
+            recipeToPlannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
         }
-        recipeToPlannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
     }
 
     // ===== Util methods =====
