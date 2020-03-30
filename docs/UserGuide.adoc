@@ -439,8 +439,8 @@ In addition, all existing tags will be removed.
 [[Sort]]
 ==== Sorting a Group `sort group`
 
-Sorts the students inside a group according to the way you indicate you want it to
-be sorted.
+Sorts the students inside the group you want to sort according to the way you indicate
+you want it to be sorted.
 
 The students can be sorted alphabetically, by rating in ascending order, by rating
 in descending order and by matriculation number in ascending order.
@@ -482,9 +482,80 @@ Sorts the student inside G03 of module CS2103 alphabetically.
 
 ==== Sorting a Module `sort module`
 
+Sorts the students inside all the groups of the module you want to sort according
+to the way you indicate you want it to be sorted.
+
+The students can be sorted alphabetically, by rating in ascending order, by rating
+in descending order and by matriculation number in ascending order.
+
+When a module is sorted, Student View shows the groups of the module you sorted and
+the students of the first group in the module. If there are no groups in the module,
+it will show an empty list.
+
+Format: `sort module m/MOD_CODE t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you sort it.
+
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort module m/CS2103 t/alpha`
++
+Sorts all groups inside the module CS2103 alphabetically.
+====
+
 ==== Sorting Everything `sort all`
 
-TODO: ADD DETAILS ONCE IMPLEMENTED
+Sorts the students inside all the groups all modules according to the way you indicate
+you want everything to be sorted.
+
+The students can be sorted alphabetically, by rating in ascending order, by rating
+in descending order and by matriculation number in ascending order.
+
+When all modules are sorted, Student View shows the groups of the first module in the module list
+and the students of the first group in the module being shown. If there are no modules
+or groups, empty lists will be shown.
+
+Format: `sort all t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort all t/alpha`
++
+Sorts all groups inside all modules alphabetically.
+====
 
 [[FilterStudent]]
 ==== Filter `filter`
