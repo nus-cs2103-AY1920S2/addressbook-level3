@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 
@@ -31,20 +32,20 @@ public class TypicalReturnOrders {
 
     public static final ReturnOrder ALICE_RETURN = new ReturnOrderBuilder().withTid("A93939393")
             .withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111 S649520")
+            .withAddress("123 Jurong West Ave 6 #08-111 S649520")
             .withEmail("example@example.com")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .withPhone("94351253")
             .withItemType("glass")
             .build();
 
     public static final ReturnOrder BENSON_RETURN = new ReturnOrderBuilder().withTid("B8484848")
-            .withAddress("311, Clementi Ave 2, #02-25 S120363")
+            .withAddress("311 Clementi Ave 2 #02-25 S120363")
             .withName("Benson Meier")
             .withEmail("example@example.com")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .withPhone("98765432")
             .build();
 
@@ -52,18 +53,18 @@ public class TypicalReturnOrders {
             .withName("Carl Kurz")
             .withEmail("example@example.com")
             .withPhone("95352563")
-            .withAddress("Telok Blangah Heights, #01-22 S100058")
+            .withAddress("Telok Blangah Heights #01-22 S100058")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .build();
 
     public static final ReturnOrder DANIEL_RETURN = new ReturnOrderBuilder().withTid("D93939393")
             .withName("Daniel Meier")
             .withPhone("87652533")
-            .withAddress("Seletar, S797580")
+            .withAddress("Seletar S797580")
             .withTimeStamp("2020-05-20 1500")
             .withEmail("example@example.com")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .withItemType("bottle")
             .build();
 
@@ -71,26 +72,26 @@ public class TypicalReturnOrders {
             .withName("Elle Meyer")
             .withPhone("9482224")
             .withEmail("example@example.com")
-            .withAddress("Upper Thomson Road, S787130")
+            .withAddress("Upper Thomson Road S787130")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .build();
 
     public static final ReturnOrder FIONA_RETURN = new ReturnOrderBuilder().withTid("F01010101")
             .withName("Fiona Kunz")
             .withPhone("9482427")
             .withEmail("example@example.com")
-            .withAddress("Jurong, S600101")
+            .withAddress("Jurong S600101")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .build();
 
     public static final ReturnOrder GEORGE_RETURN = new ReturnOrderBuilder().withTid("G9999")
             .withName("George Best")
             .withPhone("9482442")
-            .withAddress("Little India, S218202")
+            .withAddress("Little India S218202")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .withItemType("drinks")
             .withEmail("example@example.com")
             .build();
@@ -99,18 +100,18 @@ public class TypicalReturnOrders {
     public static final ReturnOrder HOON_RETURN = new ReturnOrderBuilder().withTid("H111111")
             .withName("Hoon Meier")
             .withPhone("8482424")
-            .withAddress("little india, S218202")
+            .withAddress("little india S218202")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .withEmail("example@example.com")
             .build();
 
     public static final ReturnOrder IDA_RETURN = new ReturnOrderBuilder().withTid("I0000")
             .withName("Ida Mueller")
             .withPhone("8482131")
-            .withAddress("Macpherson Road, Chengkek, S369225")
+            .withAddress("Macpherson Road Chengkek S369225")
             .withTimeStamp("2020-05-20 1500")
-            .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
+            .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
             .withEmail("example@example.com")
             .build();
 
@@ -123,6 +124,7 @@ public class TypicalReturnOrders {
             .withTimeStamp(VALID_TIMESTAMP_AMY)
             .withEmail(VALID_EMAIL_AMY)
             .withComment(VALID_COMMENT_NIL)
+            .withItemType(VALID_TYPE_PLASTIC)
             .withWarehouse(VALID_WAREHOUSE_AMY)
             .build();
 
@@ -134,6 +136,14 @@ public class TypicalReturnOrders {
             .withEmail(VALID_EMAIL_BOB)
             .withWarehouse(VALID_WAREHOUSE_BOB)
             .withComment(VALID_COMMENT_NIL)
+            .withItemType(VALID_TYPE_PLASTIC)
+            .build();
+    // Extra Bob name after Amy name
+    public static final ReturnOrder ADDITIONAL_NAME_AMY_RETURN = new ReturnOrderBuilder()
+            .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withName(VALID_NAME_BOB)
+            .withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY).withTimeStamp(VALID_TIMESTAMP_AMY)
+            .withEmail(VALID_EMAIL_AMY).withItemType(VALID_TYPE_PLASTIC)
+            .withComment(VALID_COMMENT_NIL).withWarehouse(VALID_WAREHOUSE_AMY)
             .build();
 
     private TypicalReturnOrders() {

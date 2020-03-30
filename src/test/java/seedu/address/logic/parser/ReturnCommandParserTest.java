@@ -137,7 +137,8 @@ public class ReturnCommandParserTest {
         ReturnOrder expectedReturnOrder = new ReturnOrderBuilder(AMY_RETURN).build();
         TransactionId expectedTid = new TransactionId(VALID_TID_AMY);
         assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                        + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY,
+                        + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COMMENT_DESC_NIL
+                        + TYPE_DESC_PLASTIC,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
 
         ReturnOrder expectedReturnOrderWithType = new ReturnOrderBuilder(AMY_RETURN)
