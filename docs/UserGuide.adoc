@@ -92,6 +92,52 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+In this section you will be able to learn about the various features of Delino.
+
+|===
+|Current Features |Future Features
+| <<clear, clear>>
+| <<export, export>>
+
+| <<delete, delete>>
+| <<reminder, reminder>>
+
+| <<delivered, delivered>>
+| <<rescheduling, rescheduling orders>>
+
+|  <<edit, edit>>
+| <<tracking-work, keeping track of work schedule>>
+
+| <<exit, exit>>
+| <<statistics, showing more statistic of completed orders>>
+
+| <<help, help>>
+|
+
+|  <<show, show>>
+|
+
+|  <<insert, insert>>
+|
+
+|  <<import, import>>
+|
+
+|<<list, list>>
+|
+
+| <<nearby, nearby>>
+|
+
+| <<return, return>>
+|
+
+|<<search, search>>
+|
+
+|<<saving, saving>>
+|
+|===
 
 ====
 *Command Format*
@@ -101,12 +147,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME` `p/PHONE_NUMBER`, +
 `p/PHONE_NUMBER` `n/CUSTOMER_NAME`  is also acceptable.
 ====
-
-==== Examples
-
-* `insert` `tid/92173754` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
-
-* `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 
 [[clear]]
 === Clearing all entries : `clear`
@@ -184,15 +224,12 @@ The return order at the second `INDEX` of the return order list is marked as a d
 [[edit]]
 === Editing an order : `edit` [Done by - Kenny Ho Si Chong]
 
-====
+In this section, you will be able to find out how to properly <<edit-works, use>> the `Edit` command and the relevant <<edit-examples, examples>>. +
+Why will you want to use the `edit` command? If you wish to edit any field of a parcel, the `edit` command will provide you the means to do so.
 
-* If you accidentally added an order or a return order and realise that it have a typo in any of it's field, fear not! The `Edit` function is here to save you.
-* To find out more about how to properly use the `edit` feature, scroll to section <<edit-works, How to use the Edit command>> and <<edit-examples, What constitutes a valid Edit command>>!
-
-====
 
 [[edit-works]]
-==== How to use the Edit command?
+==== How to use the Edit command
 
 Here is how you can edit the details of any parcel by following the steps below: +
 
@@ -209,15 +246,15 @@ Here is how you can edit the details of any parcel by following the steps below:
 ====
 
 [[edit-examples]]
-==== What constitutes a valid Edit command?
+==== What constitutes a valid Edit command
 
-The syntax for a valid `Edit` command can be seen below.
+The syntax for a valid `Edit` command can be seen below:
 
 * `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
 
 [NOTE]
 ====
-* `edit` is the command for the edit feature.
+* `edit` is the command word for this feature.
 * `FLAG` is to differentiate the different kind of parcel (orders or returns).
 * The `INDEX` given is the parcel you will be editing on.
 * `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to change
@@ -256,11 +293,34 @@ The syntax for a valid `Edit` command can be seen below.
 [[exit]]
 === Exiting the program : `exit`
 
-==== Description
-* You can exit the application using the exit command.
+In this section, you will be able to find out how to properly <<exit-works, use>> the `Exit` command and the relevant <<exit-examples, examples>>. +
+Why will you want to use the `exit` command? If you wish to exit the application, the `exit` command will allow you to do so.
 
-==== Format:
+[[exit-works]]
+==== How to use the Exit command
+
+Here is how you can exit the application:
+
+*Step 1* : Type in the keyword `exit` +
+*Step 2* : Say bye to Delino!
+
+[NOTE]
+Optionally you can click on the cross button of the application to exit!
+
+[[exit-examples]]
+==== What constitutes a valid Exit command
 * `exit`
+
+[NOTE]
+`exit` is the command word for this feature.
+
+.Possible Combinations of Exit command
+|===
+|Scenario |Command |Result
+| If you wish to exit the application because you're en-route to delivering or after a long day of work.
+| `exit`
+| Delino will silently close the application window and awaits for your next usage.
+|===
 
 [[help]]
 === Viewing help : `help`
@@ -533,25 +593,20 @@ Creates and adds an order with `TRANSACTION ID` 'b1230512' as a return order int
 
 [[search]]
 === Searching for parcels using their attributes: `search` [Done by Kenny Ho Si Chong]
+In this section, you will be able to find out how to properly <<edit-works, use>> the Search command and the relevant <<edit-examples, examples>>. +
+Why will you want to use the `search` command? If you wish to `search` for a parcel with specific keywords, the `search` command will provide you the means to do so.
 
-====
-* Having trouble finding specific parcels in the list? Tired of scrolling through the whole list of orders? +
-It's okay! Delino provide you with the `search` feature to ease the tedious process of finding a particular parcel +
-With the `search` feature you can now find a parcel instantly! +
-Find out how to use it in the  <<search-works, How to use the Search command>> and <<search-examples, What constitutes a valid Search command>> section!
-
-====
 
 [[search-works]]
 ==== How to use the Search command?
 
-Here is how you can edit the details of any parcel by following the steps below: +
+Here is how you can `search` for any parcel containing the keywords given by following the steps below: +
 
 *Step 1* : Type in the keyword *search* +
 *Step 2* (optional) : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return list.
 [NOTE]
 ====
-If no flag is given in this step, search feature will be performed on both the order and return list.
+If no flag is given in this step, `search` command will be performed on both the order and return list.
 ====
 *Step 3 (optional)* : If you wish to only specifically search for keyword in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
 *Step 4* : Provide any number of alphanumeric word you wish to search for in the parcel. +
@@ -566,10 +621,18 @@ If no flag is given in this step, search feature will be performed on both the o
 [[search-examples]]
 ==== What constitutes a valid Search command?
 
-The syntax for a valid `Search` command can be seen below.
+The syntax for a valid `Search` command can be seen below:
 
 * `search` `<<command_flags, [FLAG]>>` `KEYWORD` `[MORE_KEYWORDS]...` OR
 * `search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+
+[NOTE]
+====
+* `search` is the command word for this feature.
+* `FLAG` is to differentiate the different kind of parcel (orders or returns).
+* The `KEYWORD` is the word you want to search for in any of the parcel.
+* `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to search for
+====
 
 .Possible Combinations of Search command
 |===
@@ -610,18 +673,23 @@ The syntax for a valid `Search` command can be seen below.
 * Data is saved in the hard disk automatically after any command that changes data that is present.
 * There is no need to save manually.
 
+[[export]]
 === Export order list `[coming in v2.0]`
 _{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
 
+[[reminder]]
 === Reminder `[coming in v2.0]`
 _{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
 
+[[rescheduling]]
 === Rescheduling orders `[coming in v2.0]`
 _{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
 
+[[tracking-work]]
 === Keeping track of work schedule `[coming in v2.0]`
 _{explain how the user can keep track of their work schedule}_
 
+[[statistics]]
 === Statistics for completed orders `[coming in v2.0]`
 _{explain how the user can view statistics such as on-time rates (difference between actual and expected
 delivery), number of deliveries completed in a day}_
