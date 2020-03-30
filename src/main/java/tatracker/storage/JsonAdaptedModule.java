@@ -79,7 +79,7 @@ class JsonAdaptedModule {
         for (JsonAdaptedSession jsonAdaptedSession : sessions) {
             Session doneSession = jsonAdaptedSession.toModelType();
             if (modelDoneSessions.contains(doneSession)) {
-                throw new IllegalArgumentException(MESSAGE_DUPLICATE_SESSIONS);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSIONS);
             }
             modelDoneSessions.add(doneSession);
         }
@@ -89,7 +89,7 @@ class JsonAdaptedModule {
         for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
             Group group = jsonAdaptedGroup.toModelType();
             if (modelGroups.contains(group)) {
-                throw new IllegalArgumentException(MESSAGE_DUPLICATE_GROUPS);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_GROUPS);
             }
             modelGroups.add(group);
         }

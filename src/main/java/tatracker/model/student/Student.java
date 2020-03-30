@@ -78,10 +78,7 @@ public class Student {
         if (otherStudent == this) {
             return true;
         }
-
-        return otherStudent != null
-                && otherStudent.getName().equals(getName())
-                && otherStudent.getMatric().equals(getMatric());
+        return otherStudent != null && otherStudent.getMatric().equals(getMatric());
     }
 
     /**

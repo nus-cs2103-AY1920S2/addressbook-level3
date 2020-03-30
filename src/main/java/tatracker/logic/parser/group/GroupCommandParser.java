@@ -47,8 +47,7 @@ public class GroupCommandParser {
             return new DeleteGroupCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
-            // return new EditGroupCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
+            return new EditGroupCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -59,17 +59,7 @@ public class DeleteGroupCommand extends Command {
         Group deletedGroup = actualModule.getGroup(group.getIdentifier());
         actualModule.deleteGroup(deletedGroup);
 
-        if (model.getFilteredModuleList().isEmpty()) {
-            model.setFilteredGroupList();
-            model.setFilteredStudentList();
-        } else {
-            model.updateGroupList(FIRST_MODULE_INDEX);
-            if (model.getFilteredGroupList().isEmpty()) {
-                model.setFilteredStudentList();
-            } else {
-                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
-            }
-        }
+        model.setDefaultStudentViewList();
 
         return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, deletedGroup));
     }
