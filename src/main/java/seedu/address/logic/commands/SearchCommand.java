@@ -13,9 +13,9 @@ import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicat
  */
 public class SearchCommand extends Command {
 
-    private static final String NEWLINE = System.lineSeparator();
-
     public static final String COMMAND_WORD = "search";
+
+    private static final String NEWLINE = System.lineSeparator();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Default, search command searches for all parcels "
         + "(orders/returns) that contain any of the specified keywords in any of it's field (case-insensitive) "

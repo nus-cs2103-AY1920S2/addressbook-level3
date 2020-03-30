@@ -76,6 +76,11 @@ public class SearchCommandParserTest {
         assertParseSuccess(parser, input, expectedCommand);
     }
 
+    /**
+     * A function to return a {@code Stream<Arguments>} object containing all possible arguments to test
+     * the functionality of search command with prefixes.
+     * @return {@code Stream<Arguments>} object containing all possible prefix arguments
+     */
     private static Stream<Arguments> generalisePrefix() {
         ArgumentMultimap amAddress = new ArgumentMultimap();
         amAddress.put(new Prefix(""), "");
@@ -154,7 +159,8 @@ public class SearchCommandParserTest {
             // Email prefix test
             Arguments.of(new SearchCommand(
                     new OrderContainsKeywordsPredicate(Collections.singletonList("example@example.com"), amEmail),
-                    new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("example@example.com"), amEmail)),
+                    new ReturnOrderContainsKeywordsPredicate(
+                        Collections.singletonList("example@example.com"), amEmail)),
                 " e/example@example.com"
             ),
             // Cash on delivery prefix test

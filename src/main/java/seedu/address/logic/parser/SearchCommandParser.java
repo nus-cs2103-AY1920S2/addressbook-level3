@@ -46,7 +46,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
 
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_COD,
-                PREFIX_DELIVERY_TIMESTAMP, PREFIX_RETURN_TIMESTAMP,PREFIX_WAREHOUSE, PREFIX_COMMENT, PREFIX_TYPE,
+                PREFIX_DELIVERY_TIMESTAMP, PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_COMMENT, PREFIX_TYPE,
                 PREFIX_EMAIL);
 
         boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE,

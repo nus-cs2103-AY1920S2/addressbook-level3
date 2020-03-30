@@ -1,9 +1,9 @@
 package seedu.address.model.order.returnorder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -118,6 +118,7 @@ class ReturnOrderContainsKeywordsPredicateTest {
 
     /**
      * Used to generate pass test case parameters for general search.
+     *
      * @return Stream of valid parameters used for general search.
      */
     private static Stream<Arguments> generaliseParametersGeneralSearchForSuccess() {
@@ -185,7 +186,8 @@ class ReturnOrderContainsKeywordsPredicateTest {
             ),
             // Warehouse checks
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("5", "Toh", "Guan", "Rd", "E", "#02-30", "S608831")),
+                new ReturnOrderContainsKeywordsPredicate(
+                    Arrays.asList("5", "Toh", "Guan", "Rd", "E", "#02-30", "S608831")),
                 new ReturnOrderBuilder().withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build()
             ),
             Arguments.of(
@@ -233,6 +235,7 @@ class ReturnOrderContainsKeywordsPredicateTest {
 
     /**
      * Used to generate fail test case parameters for general search.
+     *
      * @return Stream of invalid parameters used for general search.
      */
     private static Stream<Arguments> generaliseParametersGeneralSearchForFailure() {
@@ -337,6 +340,7 @@ class ReturnOrderContainsKeywordsPredicateTest {
     /**
      * Used to generate pass test case parameters for specific search, which utilises the overloaded constructor
      * of {@code OrderContainsKeywordPredicate}.
+     *
      * @return Stream of valid parameters used for specific search.
      */
     private static Stream<Arguments> generaliseParametersSpecificSearchForSuccess() {
@@ -444,6 +448,7 @@ class ReturnOrderContainsKeywordsPredicateTest {
     /**
      * Used to generate fail test case parameters for specific search, which utilises the overloaded constructor
      * of {@code OrderContainsKeywordPredicate}.
+     *
      * @return Stream of invalid parameters used for specific search.
      */
     private static Stream<Arguments> generaliseParametersSpecificSearchForFailure() {
