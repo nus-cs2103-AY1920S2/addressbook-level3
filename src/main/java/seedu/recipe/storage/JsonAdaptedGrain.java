@@ -11,7 +11,7 @@ import seedu.recipe.model.util.QuantityUtil;
 /**
  * Jackson-friendly version of {@link Grain}.
  */
-class JsonAdaptedGrain {
+public class JsonAdaptedGrain {
 
     private final String grainName;
     private final Quantity quantity;

@@ -30,6 +30,8 @@ import seedu.recipe.storage.RecipeBookStorage;
 import seedu.recipe.storage.Storage;
 import seedu.recipe.storage.StorageManager;
 import seedu.recipe.storage.UserPrefsStorage;
+import seedu.recipe.storage.plan.JsonPlannedBookStorage;
+import seedu.recipe.storage.plan.PlannedBookStorage;
 import seedu.recipe.ui.Ui;
 import seedu.recipe.ui.UiManager;
 
@@ -59,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipeBookFilePath());
-        storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        PlannedBookStorage plannedBookStorage = new JsonPlannedBookStorage(userPrefs.getPlannedBookFilePath());
+        storage = new StorageManager(recipeBookStorage, plannedBookStorage, userPrefsStorage);
 
         initLogging(config);
 

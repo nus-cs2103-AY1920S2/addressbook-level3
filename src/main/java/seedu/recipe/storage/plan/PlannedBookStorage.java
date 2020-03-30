@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.plan;
 
 import java.io.IOException;
 import java.nio.file.Path;

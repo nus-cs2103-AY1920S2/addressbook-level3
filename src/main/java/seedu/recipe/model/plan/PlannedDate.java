@@ -77,6 +77,10 @@ public class PlannedDate implements Comparable<PlannedDate> {
         return date.isAfter(start.date) && date.isBefore(end.date);
     }
 
+    public String toStringForJson() {
+        return date.toString();
+    }
+
     @Override
     public int compareTo(PlannedDate other) {
         LocalDate otherLocalDate = other.date;
