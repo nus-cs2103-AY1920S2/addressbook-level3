@@ -1,14 +1,13 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.parser.FindCommandParser;
 import seedu.address.model.ModelManager;
@@ -19,20 +18,43 @@ import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.Task;
-import seedu.address.commons.core.index.Index;
 import seedu.address.testutil.TaskBuilder;
 
 public class SortCommandTest {
-    private static Task taskPriority1 = new TaskBuilder().withName("Task 1").withPriority("1").build();
-    private static Task taskPriority2 = new TaskBuilder().withName("Task 2").withPriority("2").build();
-    private static Task taskPriority3 = new TaskBuilder().withName("Task 3").withPriority("3").build();
-    private static Task taskDate1 = new TaskBuilder().withName("Reminder Task 1").withPriority("2").withReminder(LocalDateTime.now().plusDays(4)).build();
-    private static Task taskDate2 = new TaskBuilder().withName("Reminder Task 2").withPriority("1").withReminder(LocalDateTime.now().plusDays(3)).build();
-    private static Task taskDate3 = new TaskBuilder().withName("Reminder Task 3").withPriority("3").withReminder(LocalDateTime.now().plusDays(1)).build();
-    private static Task taskDateDone3 = new TaskBuilder().withName("Reminder Task 3").withPriority("3").withReminder(LocalDateTime.now().plusDays(1)).withDone().build();
+    private static Task taskPriority1 =
+            new TaskBuilder().withName("Task 1").withPriority("1").build();
+    private static Task taskPriority2 =
+            new TaskBuilder().withName("Task 2").withPriority("2").build();
+    private static Task taskPriority3 =
+            new TaskBuilder().withName("Task 3").withPriority("3").build();
+    private static Task taskDate1 =
+            new TaskBuilder()
+                    .withName("Reminder Task 1")
+                    .withPriority("2")
+                    .withReminder(LocalDateTime.now().plusDays(4))
+                    .build();
+    private static Task taskDate2 =
+            new TaskBuilder()
+                    .withName("Reminder Task 2")
+                    .withPriority("1")
+                    .withReminder(LocalDateTime.now().plusDays(3))
+                    .build();
+    private static Task taskDate3 =
+            new TaskBuilder()
+                    .withName("Reminder Task 3")
+                    .withPriority("3")
+                    .withReminder(LocalDateTime.now().plusDays(1))
+                    .build();
+    private static Task taskDateDone3 =
+            new TaskBuilder()
+                    .withName("Reminder Task 3")
+                    .withPriority("3")
+                    .withReminder(LocalDateTime.now().plusDays(1))
+                    .withDone()
+                    .build();
     public static ModelStub modelStub;
 
-    @ BeforeEach
+    @BeforeEach
     public void constructor() {
         modelStub = new SortCommandTest().new ModelStub();
         TaskList stubList = new TaskList();
@@ -58,11 +80,11 @@ public class SortCommandTest {
         stubList.addTask(taskDate2);
         tempModelStub.setTaskList(stubList);
         assertEquals(
-            String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
-            commandResult.getFeedbackToUser());
-            assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
-            Index[] doneIndices = {Index.fromZeroBased(0)};
-            new DoneCommand(doneIndices);
+                String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
+                commandResult.getFeedbackToUser());
+        assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
+        Index[] doneIndices = {Index.fromZeroBased(0)};
+        new DoneCommand(doneIndices);
         stubList = new TaskList();
         stubList.addTask(taskDateDone3);
         stubList.addTask(taskDate1);
@@ -129,7 +151,6 @@ public class SortCommandTest {
                 commandResult.getFeedbackToUser());
         assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
-
 
     /** A default model stub that have all of the methods failing. */
     private class ModelStub extends ModelManager {

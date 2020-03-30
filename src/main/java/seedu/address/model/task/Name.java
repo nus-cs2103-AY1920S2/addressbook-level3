@@ -56,7 +56,7 @@ public class Name implements Comparable {
     @Override
     public int compareTo(Object obj) {
         if (!(obj instanceof Name)) {
-            return 0; 
+            return 0;
         }
         Name other = (Name) obj;
         return other.fullName.compareToIgnoreCase(this.fullName);

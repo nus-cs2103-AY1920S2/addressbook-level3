@@ -1,22 +1,10 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import seedu.address.model.Statistics;
-import seedu.address.model.TaskList;
 import seedu.address.model.dayData.DayData;
-import seedu.address.model.task.Task;
 
 /** A utility class containing a list of {@code Task} objects to be used in tests. */
 public class TypicalDayDatas {
@@ -79,9 +67,7 @@ public class TypicalDayDatas {
                     .withTasksDoneData("1")
                     .build();
 
-
-
-    //public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    // public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalDayDatas() {} // prevents instantiation
 
@@ -96,7 +82,6 @@ public class TypicalDayDatas {
     }
 
     public static List<DayData> getTypicalDayDatas() {
-        return new ArrayList<>(
-                Arrays.asList(day0, day1, day2, day3, day4, day5, day6));
+        return new ArrayList<>(Arrays.asList(day0, day1, day2, day3, day4, day5, day6));
     }
 }

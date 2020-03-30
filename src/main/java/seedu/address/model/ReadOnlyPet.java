@@ -6,4 +6,8 @@ public interface ReadOnlyPet {
     public String getLevel();
 
     public String getExp();
+
+    public String getMood();
+
+    public String getLastDoneTaskTime();
 }

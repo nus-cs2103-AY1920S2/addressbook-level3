@@ -33,7 +33,6 @@ public interface StatisticsStorage {
      */
     void saveStatistics(ReadOnlyStatistics statistics) throws IOException;
 
-
     /** @see #saveStatistics(ReadOnlyStatistics) */
     void saveStatistics(ReadOnlyStatistics statistics, Path filePath) throws IOException;
 }

@@ -1,11 +1,10 @@
 package seedu.address.storage;
 
+import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +15,6 @@ import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
 
-import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 import static seedu.address.model.dayData.CustomQueue.tableConstraintsAreEnforced;
 
 /** An Immutable TaskList that is serializable to JSON format. */

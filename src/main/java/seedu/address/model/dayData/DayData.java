@@ -31,15 +31,15 @@ public class DayData {
     }
 
     /**
-     * Returns true if both dayDatas has the same Date field. his defines a weaker notion of equality between two dayDatas.
+     * Returns true if both dayDatas has the same Date field. his defines a weaker notion of
+     * equality between two dayDatas.
      */
     public boolean isSameDayData(DayData otherDayData) {
         if (otherDayData == this) {
             return true;
         }
 
-        return otherDayData != null
-                && otherDayData.getDate().equals(getDate());
+        return otherDayData != null && otherDayData.getDate().equals(getDate());
     }
 
     /**
@@ -61,7 +61,6 @@ public class DayData {
                 && otherDayData.getPomDurationData().equals(getPomDurationData())
                 && otherDayData.getTasksDoneData().equals(getTasksDoneData());
     }
-
 
     /*
     public void setDate(Date date) {

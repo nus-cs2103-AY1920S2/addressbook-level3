@@ -34,7 +34,7 @@ public class JsonPetStorage implements PetStorage {
     }
 
     /**
-     * Similar to {@link #readPet()}.
+     * Similreaar to {@link #readPet()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.

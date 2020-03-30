@@ -3,9 +3,7 @@ package seedu.address.testutil;
 import seedu.address.model.Statistics;
 import seedu.address.model.dayData.DayData;
 
-/**
- * A utility class to help with building Statistics objects.
- */
+/** A utility class to help with building Statistics objects. */
 public class DayDataListBuilder {
 
     private Statistics dayDataList;

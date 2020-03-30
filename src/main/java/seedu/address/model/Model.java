@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.model.task.Task;
 
@@ -75,11 +76,15 @@ public interface Model {
 
     void incrementPomExp();
 
+    void updateMoodWhenDone();
+
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);
 
     void setPomodoroManager(PomodoroManager pomodoroManager);
+
+    void setPetManager(PetManager PetManager);
 
     PomodoroManager getPomodoroManager();
 

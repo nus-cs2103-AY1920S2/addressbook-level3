@@ -14,6 +14,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -56,6 +57,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected PomodoroManager pomodoro;
+    protected PetManager petManager;
 
     @Override
     public void init() throws Exception {
@@ -90,9 +92,13 @@ public class MainApp extends Application {
 
         pomodoro = new PomodoroManager();
 
+        petManager = new PetManager();
+
         model.setPomodoroManager(pomodoro);
 
-        ui = new UiManager(logic, pomodoro);
+        model.setPetManager(petManager);
+
+        ui = new UiManager(logic, pomodoro, petManager);
     }
 
     /**
@@ -215,7 +221,8 @@ public class MainApp extends Application {
             initializedConfig = new Config();
         }
 
-        // Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
@@ -249,7 +256,8 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        // Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
