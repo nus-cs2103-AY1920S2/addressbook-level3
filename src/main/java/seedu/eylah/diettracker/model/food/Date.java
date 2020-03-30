@@ -41,7 +41,17 @@ public class Date {
 
     @Override
     public boolean equals(Object other) {
-        return value.equals(other);
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Date)) {
+            return false;
+        }
+
+        Date otherDate = (Date) other;
+
+        return value.equals(otherDate);
     }
 
     @Override
