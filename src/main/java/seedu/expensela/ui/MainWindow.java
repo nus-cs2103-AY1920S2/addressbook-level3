@@ -120,10 +120,10 @@ public class MainWindow extends UiPart<Stage> {
         monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData(), logic.getTotalBalance());
         chartAnalytics = new ChartAnalytics(logic.getFilteredTransactionList());
         // Comment out next line for chartAnalytics
-        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+        //transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
         monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
         // Uncomment next line for chartAnalytics
-        //transactionListPanelPlaceholder.getChildren().add(chartAnalytics.getRoot());
+        transactionListPanelPlaceholder.getChildren().add(chartAnalytics.getRoot());
 
         filterPanel = new FilterPanel(logic.getFilter()); // instantiate filterPanel
         filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
