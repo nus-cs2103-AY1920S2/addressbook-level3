@@ -116,7 +116,7 @@ public class ListItemBlock extends Block {
             if (canCreateChildBlock(text)) {
                 addChild(createChildBlock(text));
             }
-            return true; 
+            return true;
         }
 
         if (!lastChild.next(text)) {
