@@ -45,7 +45,7 @@ public class FilterCommand extends Command {
             model.setFilter(new Filter(predicate.toString(), model.getFilter().getDateMonth()));
         } else {
             model.updateFilteredTransactionList(new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())), predicate);
-            model.setFilter(new Filter(model.getFilter().getFilterCategoryName(), predicate.toString()));
+            model.setFilter(new Filter(model .getFilter().getFilterCategoryName(), predicate.toString()));
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
