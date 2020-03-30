@@ -26,8 +26,6 @@ import tatracker.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String MESSAGE_INVALID_TAB = "Invalid Tab. Enter goto and one of the following tabs:"
-            + " student, session, claims.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -184,6 +182,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switched to user specified tab.
+     */
+    @FXML
+    public void handleGoto(Tab tabToSwicthTo) {
+        tabPane.getSelectionModel().select(tabToSwicthTo);
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -196,18 +202,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switches between tabs.
-     */
-    @FXML
-    public void handleGoto(Tab tabToSwitchTo) {
-        tabPane.getSelectionModel().select(tabToSwitchTo);
-    }
-
-    void show() {
-        primaryStage.show();
-    }
-
-    /**
      * Closes the application.
      */
     @FXML
@@ -217,6 +211,37 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    @FXML
+    public void handleCommand(String commandText) {
+        switch (commandText.trim().toLowerCase()) {
+        case "help":
+            handleHelp();
+            break;
+
+        case "exit":
+            handleExit();
+            break;
+        case "goto student":
+            handleGoto(studentListTab);
+            break;
+
+        case "goto session":
+            handleGoto(sessionListTab);
+            break;
+
+        case "goto claims":
+            handleGoto(claimsListTab);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    void show() {
+        primaryStage.show();
     }
 
     public StudentListPanel getStudentListPanel() {
@@ -253,18 +278,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isSwitchTab()) {
-                handleGoto(parseTab(commandText));
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
+            handleCommand(commandText);
 
             return commandResult;
 
@@ -272,29 +286,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * parses the user command to get the specified tab
-     * @param commandText the user command
-     * @return the specified tab
-     * @throws ParseException for invalid tab names
-     */
-
-    private Tab parseTab(String commandText) throws ParseException {
-        switch (commandText.trim().toLowerCase()) {
-        case "goto student":
-            return studentListTab;
-
-        case "goto session":
-            return sessionListTab;
-
-        case "goto claims":
-            return claimsListTab;
-
-        default:
-            throw new ParseException(MESSAGE_INVALID_TAB);
         }
     }
 }

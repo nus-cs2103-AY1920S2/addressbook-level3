@@ -13,6 +13,8 @@ import tatracker.logic.parser.exceptions.ParseException;
  */
 public class GotoCommandParser implements Parser<GotoCommand> {
 
+
+
     /**
      * Parses the given {@code String} of arguments in the context of the GotoCommand
      * and returns a GotoCommand object for execution.
@@ -25,7 +27,9 @@ public class GotoCommandParser implements Parser<GotoCommand> {
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE));
         }
-        return new GotoCommand(argMultimap.getPreamble());
+
+        String tabName = ParserUtil.parseTabName(argMultimap.getPreamble());
+        return new GotoCommand(tabName);
     }
 
     /**
