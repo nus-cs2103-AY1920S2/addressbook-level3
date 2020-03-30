@@ -152,11 +152,13 @@ class JsonPersonalModule extends JsonModule {
             @JsonProperty("description") String description,
             @JsonProperty("moduleCredit") String moduleCredit,
             @JsonProperty("prerequisite") String prerequisite,
+            @JsonProperty("preclusion") String preclusion,
             @JsonProperty("semesterData") List<JsonSemesterData> semesterData,
+            @JsonProperty("prereqTree") JsonPrereqTreeNode prereqTree,
             @JsonProperty("status") String status,
             @JsonProperty("grade") String grade,
             @JsonProperty("deadlines") List<JsonDeadline> deadlines) {
-        super(moduleCode, title, description, moduleCredit, prerequisite, semesterData);
+        super(moduleCode, title, description, moduleCredit, prerequisite, preclusion, semesterData, prereqTree);
         this.status = status;
         this.grade = grade;
         this.deadlines = deadlines;
@@ -165,8 +167,10 @@ class JsonPersonalModule extends JsonModule {
     public JsonPersonalModule(Module module) {
         super(module.getModuleCode().toString(), module.getTitle().toString(), module.getDescription().toString(),
                 module.getModularCredits().toString(), module.getPrereqs().toString(),
+                module.getPreclusions().toString(),
                 module.getSemesterData().getSemesters().stream()
-                        .map(JsonSemesterData::new).collect(Collectors.toList()));
+                        .map(JsonSemesterData::new).collect(Collectors.toList()),
+                module.getPrereqTreeNode() != null ? module.getPrereqTreeNode().toJson() : null);
         status = module.getStatus();
         grade = module.getGrade();
         if (module.getDeadlines().size() == 0) {

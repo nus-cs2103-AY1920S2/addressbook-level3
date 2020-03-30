@@ -1,8 +1,7 @@
 package seedu.address.model.profile.course.module;
 
 /**
- * Represents a Module's list of prerequisites in the address book.
- * Guarantees:
+ * Represents a Module's list of prerequisites in the module list.
  */
 public class Prereqs {
 

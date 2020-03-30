@@ -30,6 +30,23 @@ public class ModuleCode {
         return moduleCode.matches(VALIDATION_REGEXES);
     }
 
+    /**
+     * Removes the trailing letters (suffix) of a module code.
+     * Useful in cases when checking if variants of a module (e.g. CS1010S)
+     * are used in placed of the original (e.g. CS1010).
+     */
+    public ModuleCode removeSuffix() {
+        String toReturn = "";
+        int index = 0;
+        char modCodeChar = moduleCode.charAt(0);
+        while (!Character.isDigit(modCodeChar)) {
+            toReturn += modCodeChar;
+            modCodeChar = moduleCode.charAt(++index);
+        }
+        toReturn += moduleCode.substring(index, index + 4);
+        return new ModuleCode(toReturn);
+    }
+
     @Override
     public String toString() {
         return moduleCode;

@@ -25,6 +25,8 @@ public class IndividualModulePanel extends UiPart<Region> {
     @FXML
     private Label preReqs;
     @FXML
+    private Label preclusions;
+    @FXML
     private Label modularCredits;
     @FXML
     private Label description;
@@ -36,6 +38,7 @@ public class IndividualModulePanel extends UiPart<Region> {
         moduleCode.setText(module.getModuleCode().toString());
         moduleTitle.setText(module.getTitle().toString().toUpperCase());
         preReqs.setText("Prerequisite: \n" + module.getPrereqs().prereqs);
+        preclusions.setText("Preclusions: \n" + module.getPreclusions().preclusions);
         modularCredits.setText("Modular Credits: " + module.getModularCredits().toString());
         description.setText("Module Description: \n" + module.getDescription().description);
         semData.setText("Semester Data: \nThis module is available in Semesters "
