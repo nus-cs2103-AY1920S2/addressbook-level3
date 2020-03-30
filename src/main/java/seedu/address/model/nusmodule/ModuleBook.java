@@ -42,6 +42,10 @@ public class ModuleBook {
         modules.remove(index);
     }
 
+    /**
+     * Updates the grade of the {@code NusModule} that has the same module code as given from this {@code ModuleBook}.
+     * such nus module must exist in the module book.
+     */
     public void gradeModule(ModuleCode moduleCode, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(grade);

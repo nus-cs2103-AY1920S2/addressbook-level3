@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
 
+/**
+ * Updates a module's grade in our module book.
+ */
 public class GradeCommand extends Command {
     public static final String COMMAND_WORD = "grade";
 

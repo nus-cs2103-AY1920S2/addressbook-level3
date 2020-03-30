@@ -14,11 +14,14 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.searcher.Module;
 import seedu.address.searcher.Search;
 
+/**
+ * Parses input arguments and creates a new GradeCommand object
+ */
 public class GradeCommandParser implements Parser<GradeCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddModuleCommand
-     * and returns an AddModuleCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the GradeCommand
+     * and returns an GradeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public GradeCommand parse(String args) throws ParseException {
