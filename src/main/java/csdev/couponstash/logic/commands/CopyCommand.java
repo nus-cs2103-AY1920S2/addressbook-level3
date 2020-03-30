@@ -26,25 +26,25 @@ import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 
 /**
- * Exports a coupon identified using it's displayed index from the CouponStash.
+ * Copies a coupon identified using it's displayed index from the CouponStash.
  */
-public class ExportCommand extends Command {
+public class CopyCommand extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "copy";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports the coupon identified by the index number used in the displayed coupon list.\n"
+            + ": Copies the coupon identified by the index number used in the displayed coupon list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EXPORT_COUPON_SUCCESS = "Exported coupon: %1$s.\n"
+    public static final String MESSAGE_COPY_COUPON_SUCCESS = "Copied coupon: %1$s.\n"
             + "Copied to your clipboard! Ctrl + v to paste this coupon!";
 
     private final Index targetIndex;
     private Coupon coupon;
 
 
-    public ExportCommand(Index targetIndex) {
+    public CopyCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -57,12 +57,12 @@ public class ExportCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
         this.coupon = lastShownList.get(targetIndex.getZeroBased());
-        String exportCommand = getExportCommand(coupon);
-        copyToClipboard(exportCommand);
-        return new CommandResult(String.format(MESSAGE_EXPORT_COUPON_SUCCESS, coupon.getName()));
+        String copyCommand = getCopyCommand(coupon);
+        copyToClipboard(copyCommand);
+        return new CommandResult(String.format(MESSAGE_COPY_COUPON_SUCCESS, coupon.getName()));
     }
 
-    public String getExportCommand(Coupon coupon) {
+    public String getCopyCommand(Coupon coupon) {
         Name name = coupon.getName();
         PromoCode promoCode = coupon.getPromoCode();
         ExpiryDate expiryDate = coupon.getExpiryDate();
@@ -83,13 +83,13 @@ public class ExportCommand extends Command {
             }
         }
 
-        String exportCommand = AddCommand.COMMAND_WORD + " "
+        String copyCommand = AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME.getPrefix() + name + " "
                 + PREFIX_PROMO_CODE + promoCode + " "
                 + PREFIX_EXPIRY_DATE + expiryDate + " "
                 + totalSavings
                 + PREFIX_LIMIT + limit + " ";
-        return exportCommand;
+        return copyCommand;
     }
 
     private String addPrefixAndDetails(Prefix prefix, String details) {
@@ -99,19 +99,19 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Copies the {@String exportCommand} to the system's clipboard;
-     * @param exportCommand Exported add command.
+     * Copies the {@String copyCommand} to the system's clipboard;
+     * @param copyCommand Copied add command.
      */
-    private void copyToClipboard(String exportCommand) {
+    private void copyToClipboard(String copyCommand) {
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         Clipboard clipboard = defaultToolkit.getSystemClipboard();
-        clipboard.setContents(new StringSelection(exportCommand), null);
+        clipboard.setContents(new StringSelection(copyCommand), null);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExportCommand // instanceof handles nulls
-                && targetIndex.equals(((ExportCommand) other).targetIndex)); // state check
+                || (other instanceof CopyCommand // instanceof handles nulls
+                && targetIndex.equals(((CopyCommand) other).targetIndex)); // state check
     }
 }
