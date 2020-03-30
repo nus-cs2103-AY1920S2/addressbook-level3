@@ -1,5 +1,6 @@
 package com.notably.logic.commands.suggestion;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,7 +38,6 @@ public class DeleteSuggestionCommandTest {
     private static Model model;
 
     private static final String COMMAND_WORD = "delete";
-    private static final String PREFIX_TITLE = "-t";
 
     @BeforeAll
     public static void setUp() throws InvalidPathException {
