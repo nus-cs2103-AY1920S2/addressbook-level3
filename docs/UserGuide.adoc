@@ -6,6 +6,8 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: userguide.css
+:linkcss:
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -17,7 +19,6 @@ endif::[]
 By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
-
 Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
 assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work
 with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can
@@ -183,7 +184,7 @@ Examples:
 ** `Mdelete m/CS2030 CS2040 CS1010` +
 Deletes the respective modules associated with the MODULE_CODES.
 
-=== Adding checklist item to activity: `chadd` `[coming in v1.2]`
+=== Adding checklist item to activity: `chadd` `[coming in v1.3]`
 Adds a checklist item into the specified module activity +
 Format: `chadd m/MODULE_CODE INDEX c/CHECKLIST_ITEM`
 
@@ -197,7 +198,7 @@ Examples:
 ** `chadd m/CS2101 12 c/Prepare script` +
 Adds checklist item "Prepare script" to activity with INDEX 12 in module CS2101. The checklist item default status is undone.
 
-=== Delete checklist item from activity: `chdel` `[coming in v1.2]`
+=== Delete checklist item from activity: `chdel` `[coming in v1.3]`
 Deletes a checklist item from an existing activity. +
 Format: `chdel m/MODULE_CODE INDEX CHECKLIST_ID`
 
@@ -210,7 +211,7 @@ Examples:
 ** `chdel m/CS2030 12 1` +
 Deletes checklist item with checklist ID 1 from activity with INDEX 12 in the module (CS2030) list.
 
-=== Set checklist item in activity to done: `chdone` `[coming in v1.2]`
+=== Set checklist item in activity to done: `chdone` `[coming in v1.3]`
 Sets a checklist item in a activity in a specific module to done. +
 Format: `chdone m/MODULE_CODE INDEX CHECKLIST_ID`
 
@@ -223,7 +224,7 @@ Examples:
 ** `chdone m/CS2030 10 1` +
 Sets the checklist item with checklist ID 1 from activity with INDEX 10 in CS2030 activity-list to done.
 
-=== Set checklist item in activity to undone: `chundone` `[coming in v1.2]`
+=== Set checklist item in activity to undone: `chundone` `[coming in v1.3]`
 Sets a checklist item in a activity in a specific module to done. +
 Format: `chundone m/MODULE_CODE INDEX CHECKLIST_ID`
 
@@ -236,43 +237,7 @@ Examples:
 ** `chundone m/CS2030 10 1` +
 Sets the checklist item with checklist ID 1 from activity with INDEX 10 in CS2030 activity-list to not done.
 
-=== Enabling passwords: `EPassword` `[coming in v1.2]`
-Creates a password that will be requested when the programme is restarted. +
-Format: `EPassword p/PASSWORD sq/SECURITY_QUESTION a/ANSWER`
-
-** Creates a `PASSWORD` to enable access into the programme.
-** Must add a `SECURITY_QUESTION` for verification should user forget password.
-** `ANSWER` should be the answer to `SECURITY_QUESTION`.
-
-Examples:
-
-** `EPassword p/password s/favourite module? a/cs2103t` +
-Creates a password which must be correctly input to start programme. If user forgets password, security question will
-be used to verify.
-
-=== Changing passwords: `CPassword` `[coming in v1.2]`
-Changes existing password to new password. +
-Format: `CPassword cp/CURRENTPASSWORD np/NEWPASSWORD`
-
-** Changes existing password from `CURRENT PASSWORD` to `NEW PASSWORD`.
-
-Examples:
-
-** `CPassword cp/currentpassword np/newpassword` +
-Changes password from "currentpassword" to "newpassword".
-
-=== Changing security questions: `CSecurityQ` `[coming in v1.2]`
-Changes existing security question to new security question. +
-Format: `CSecurityQ cq/CURRENT_SECURITY_QUESTION ca/CURRENT_ANSWER nq/NEW_SECURITY_QUESTION na/NEW_ANSWER`
-
-** Changes existing security question from `CURRENT_SECURITY_QUESTION` to `NEW_SECURITY_QUESTION`.
-
-Examples:
-
-** `CSecurityQ cq/current question ca/current answer nq/new question na/new password` +
-Changes security question to new security question.
-
-=== Creating shortcuts: `shortcut` `[coming in v1.2]`
+=== Creating shortcuts: `shortcut` `[coming in v1.3]`
 Creates a shortcut for specified activity. +
 Format: `shortcut s/SHORTCUT c/COMMAND`
 
@@ -288,16 +253,27 @@ Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
 === Generating statistics: `statistics` `[coming in v1.2]`
 Displays statistics of activities completed. +
-Format: `statistics [tp/TIME_PERIOD]`
+Format: `statistics [tp/TIME_PERIOD] [m/MODULE_CODE]`
 
 ** Displays statistics on activities completed.
 ** By default, displays progression of all completed activities.
 ** Can add `TIME_PERIOD` of week, month and year to see activities specific to that time period.
+** Can add `MODULE_CODE` to see activities specific to that module.
 
 Examples:
 
 ** `statistics tp/WEEK` +
 Displays activities completed over this week.
+
+** `statistics tp/MONTH` +
+Displays activities completed over this month.
+
+** `statistics m/CS2101` +
+Displays activities completed for CS2101.
+
+** `statistics tp/MONTH m/CS2101` +
+Displays activities completed over this month for CS2101.
+
 
 === Automating activity: `repeat`
 Allows user to repeat an activity from a module.
@@ -348,7 +324,6 @@ _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
 
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -359,7 +334,6 @@ the data of your previous NASA folder.
 To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.
 
 == Command Summary
-
 * *MAdd* `Madd m/MODULE_CODE n/MODULE_NAME`
 * *TAdd* `Tadd TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE t/ACTIVITYNAME [p/PRIORITY] [n/NOTES]`
 * *Clear* : `clear`
@@ -378,3 +352,22 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 * *chdel* : `chdel ACTIVITY_ID CHECKLIST_ID`
 * *repeat* : `repeat m/MODULE_CODE a/ACTIVITYNAME r/INDEX`
 * *Quote* : `quote`
+
+.List of all commands
+[cols="1,3"]
+|===
+|Command|Syntax
+
+| *MAdd* |`Madd m/MODULE_CODE n/MODULE_NAME`
+| *TAdd* |`Tadd TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE t/ACTIVITYNAME [p/PRIORITY] [n/NOTES]`
+| *Clear* | `clear`
+| *Delete* | `delete m/MODULE_CODE INDEX...`
+| *Edit* | `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+| *Find* | `find KEYWORD [MORE_KEYWORDS]`
+| *List* | `list [m/MODULE_CODE...]`
+| *Help* | `help`
+| *Export* | `export`
+| *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
+| *Statistics* | `statistics [tp/TIME_PERIOD]`
+| *Chadd* | `chadd ACTIVITY_ID CHECKLIST_ITEM`
+| *Chdel* | `chdel ACTIVITY_ID CHECKLIST_ID`
