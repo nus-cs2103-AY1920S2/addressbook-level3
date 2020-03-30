@@ -17,6 +17,7 @@ import tatracker.model.session.UniqueSessionList;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
+
 /**
  * Wraps all data at the ta-tracker level
  * Duplicates are not allowed (by .isSameSession comparison)
@@ -235,6 +236,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     // ======== Group Methods ==================================================
+
+    /**
+     * Returns group from TATracker.
+     */
+    public boolean getGroup(String moduleId, String groupId) {
+
+        Module module = new Module(moduleId);
+        Group group = new Group(groupId);
+        return hasGroup(group, module);
+    }
 
     /**
      * Returns true if a group with the same group code exists in the TATracker.

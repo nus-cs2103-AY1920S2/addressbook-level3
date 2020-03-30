@@ -10,6 +10,7 @@ import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 
+
 /**
  * The API of the Model component.
  */
@@ -197,6 +198,7 @@ public interface Model {
     void updateFilteredModuleList(Predicate<Module> predicate);
 
     // ======== Group Methods ==================================================
+
 
     /**
      * Returns true if a given group with the same identity as {@code group}

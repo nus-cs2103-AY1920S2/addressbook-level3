@@ -39,7 +39,11 @@ public class SessionCommandParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
+
+        case CommandWords.FILTER_MODEL:
+            return new FilterSessionCommandParser().parse(arguments);
 
         case CommandWords.ADD_MODEL:
             return new AddSessionCommandParser().parse(arguments);
