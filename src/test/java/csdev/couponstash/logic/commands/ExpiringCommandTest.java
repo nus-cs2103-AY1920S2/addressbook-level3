@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
-import csdev.couponstash.model.coupon.DateIsBeforePredicate;
+import csdev.couponstash.model.coupon.DateIsEqualsPredicate;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 /**
@@ -27,10 +27,10 @@ public class ExpiringCommandTest {
 
     @Test
     public void equals() {
-        DateIsBeforePredicate firstPredicate =
-                new DateIsBeforePredicate("30-8-2020");
-        DateIsBeforePredicate secondPredicate =
-                new DateIsBeforePredicate("31-12-2020");
+        DateIsEqualsPredicate firstPredicate =
+                new DateIsEqualsPredicate("30-8-2020");
+        DateIsEqualsPredicate secondPredicate =
+                new DateIsEqualsPredicate("31-12-2020");
 
         ExpiringCommand expiringFirstCommand = new ExpiringCommand(firstPredicate);
         ExpiringCommand expiringSecondCommand = new ExpiringCommand(secondPredicate);
@@ -56,7 +56,7 @@ public class ExpiringCommandTest {
     public void execute_noCouponsFound_success() {
         String inputDate = "1-6-2020";
         String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 0) + " Try a later date!";
-        DateIsBeforePredicate predicate = preparePredicate(inputDate);
+        DateIsEqualsPredicate predicate = preparePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class ExpiringCommandTest {
         String inputDate = "1-12-2020";
         String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3)
                 + " " + String.format(MESSAGE_COUPONS_EXPIRING_BEFORE_DATE, inputDate);
-        DateIsBeforePredicate predicate = preparePredicate(inputDate);
+        DateIsEqualsPredicate predicate = preparePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,9 +77,9 @@ public class ExpiringCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code DateIsBeforePredicate}.
+     * Parses {@code userInput} into a {@code DateIsEqualsPredicate}.
      */
-    private DateIsBeforePredicate preparePredicate(String userInput) {
-        return new DateIsBeforePredicate(userInput);
+    private DateIsEqualsPredicate preparePredicate(String userInput) {
+        return new DateIsEqualsPredicate(userInput);
     }
 }

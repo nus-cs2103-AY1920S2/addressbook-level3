@@ -18,6 +18,10 @@ public class DateUtil {
     public static final String MESSAGE_DATE_WRONG_FORMAT = "Date is in the"
             + " wrong format! Should be D-M-YYYY";
 
+    public static final DateTimeFormatter YEAR_MONTH_FORMATTER = DateTimeFormatter.ofPattern("M-yyyy");
+    public static final String MESSAGE_YEAR_MONTH_WRONG_FORMAT = "Year-Month is in the"
+            + " wrong format! Should be M-YYYY";
+
     //For Calendar
     public static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_CALENDAR = DateTimeFormatter
             .ofPattern("EEEE, d LLLL yyyy");

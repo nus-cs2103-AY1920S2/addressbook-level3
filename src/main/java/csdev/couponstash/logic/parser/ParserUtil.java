@@ -4,6 +4,8 @@ import static csdev.couponstash.model.coupon.RemindDate.DATE_FORMATTER;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
@@ -161,6 +164,24 @@ public class ParserUtil {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
         return new ExpiryDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String yearMonth} into an {@code YearMonth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code yearMonth} is invalid.
+     */
+    public static YearMonth parseYearMonth(String yearMonth) throws ParseException {
+        requireNonNull(yearMonth);
+        YearMonth ym;
+        String trimmedDate = yearMonth.trim();
+        try {
+            ym = YearMonth.parse(trimmedDate, DateUtil.YEAR_MONTH_FORMATTER);
+        } catch (DateTimeParseException pe) {
+            throw new ParseException(DateUtil.MESSAGE_YEAR_MONTH_WRONG_FORMAT);
+        }
+        return ym;
     }
 
     /**
