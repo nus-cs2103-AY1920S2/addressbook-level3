@@ -34,7 +34,7 @@ public class AddRestaurantNoteCommandParser implements Parser<AddRestaurantNoteC
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddInfoCommand.MESSAGE_USAGE), ive);
+                    AddRestaurantNoteCommand.MESSAGE_USAGE), ive);
         }
 
         if (!argMultimap.getValue(PREFIX_RECOMMENDED).isPresent() && !argMultimap.getValue(PREFIX_GOOD).isPresent()
