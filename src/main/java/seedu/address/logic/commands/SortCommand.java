@@ -33,14 +33,14 @@ public class SortCommand extends Command {
         requireNonNull(model);
         // NOTE: Incorrect sort fields has been handled in SortCommandParser already
         ArrayList<Comparator<Task>> temp = new ArrayList<>();
-        for (String field: fields) {
+        for (String field : fields) {
             switch (field) {
                 case "priority":
-                temp.add(getPriorityComparator());
+                    temp.add(getPriorityComparator());
                 case "date":
-                temp.add(getReminderComparator());
+                    temp.add(getReminderComparator());
                 case "name":
-                temp.add(getNameComparator());
+                    temp.add(getNameComparator());
             }
         }
         model.setComparator(temp.toArray(new Comparator[0]));
@@ -71,7 +71,7 @@ public class SortCommand extends Command {
             public int compare(Task task1, Task task2) {
                 Optional<Reminder> reminder1 = task1.getOptionalReminder();
                 Optional<Reminder> reminder2 = task2.getOptionalReminder();
-                if (reminder1.isPresent() && reminder2.isPresent()) {                    
+                if (reminder1.isPresent() && reminder2.isPresent()) {
                     return reminder1.get().compareTo(reminder2.get());
                 }
                 if (reminder1.isPresent()) {

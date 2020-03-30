@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandCompletor;
@@ -27,7 +28,6 @@ import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private CommandCompletor commandCompletor;
     private PomodoroManager pomodoro;
+    private PetManager petManager;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel personListPanel;
@@ -73,13 +74,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML private TabPane tabPanePlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic, PomodoroManager pomodoro) {
+    public MainWindow(
+            Stage primaryStage, Logic logic, PomodoroManager pomodoro, PetManager petManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.pomodoro = pomodoro;
+        this.petManager = petManager;
         this.commandCompletor = new CommandCompletor();
 
         // Configure the UI
@@ -138,7 +141,10 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        petDisplay = new PetDisplay(this.getPet());
+        petManager.updateMoodWhenLogIn();
+        petDisplay = new PetDisplay();
+        petManager.setPetDisplay(petDisplay);
+        petManager.updatePetDisplay();
         petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -266,16 +272,17 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExit()) {
+                petManager.handleExit();
                 handleExit();
             }
-            petDisplay.update();
+            petManager.updatePetDisplay();
             // update because sorting returns a new list
 
             this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
 
-            //* Old implementation for sort
+            // * Old implementation for sort
             // personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-            // personListPanelPlaceholder.getChildren().clear(); 
+            // personListPanelPlaceholder.getChildren().clear();
             // personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
             return commandResult;
@@ -302,7 +309,7 @@ public class MainWindow extends UiPart<Stage> {
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
-                petDisplay.update();
+                petManager.updatePetDisplay();
                 if (commandText.toLowerCase().equals("y")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -435,9 +442,5 @@ public class MainWindow extends UiPart<Stage> {
         alert.setHeaderText(name);
         alert.setContentText(description);
         alert.show();
-    }
-
-    private ReadOnlyPet getPet() {
-        return logic.getPet();
     }
 }

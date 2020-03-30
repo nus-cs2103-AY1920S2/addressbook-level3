@@ -35,7 +35,8 @@ public class JsonStatisticsStorage implements StatisticsStorage {
     }
 
     /** Similar to {@link #readStatistics()}. */
-    public Optional<ReadOnlyStatistics> readStatistics(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyStatistics> readStatistics(Path filePath)
+            throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableDayDataList> jsonSerializableDayDataList =

@@ -6,7 +6,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.task.Task;
 
@@ -40,8 +39,6 @@ public interface Logic {
 
     /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
-
-    ReadOnlyPet getPet();
 
     void incrementPomExp();
 }

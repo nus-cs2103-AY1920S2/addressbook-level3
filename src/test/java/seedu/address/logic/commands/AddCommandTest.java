@@ -173,7 +173,7 @@ public class AddCommandTest {
         public void incrementExp() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void setComparator(Comparator<Task>[] compare) {
             throw new AssertionError("This method should not be called.");
@@ -193,7 +193,6 @@ public class AddCommandTest {
         public void setPomodoroManager(PomodoroManager pomodoroManager) {
             throw new AssertionError("This method should not be called.");
         }
-
 
         @Override
         public void setPomodoroTask(Task task) {

@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
@@ -30,6 +31,7 @@ public class ModelManager implements Model {
     private Comparator<Task>[] comparators;
 
     private PomodoroManager pomodoroManager;
+    private PetManager petManager;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
     public ModelManager(
@@ -200,6 +202,18 @@ public class ModelManager implements Model {
     @Override
     public void incrementExp() {
         this.pet.incrementExp();
+    }
+
+    @Override
+    public void setPetManager(PetManager petManager) {
+        this.petManager = petManager;
+        this.petManager.setPet(pet);
+    }
+
+    @Override
+    public void updateMoodWhenDone() {
+        petManager.updateMoodWhenTaskDone();
+        petManager.updatePetDisplayWhenDone();
     }
 
     // ============================ Pomodoro Manager

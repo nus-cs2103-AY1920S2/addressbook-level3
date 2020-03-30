@@ -16,7 +16,6 @@ public class DayDataBuilder {
     private PomDurationData pomDurationData;
     private TasksDoneData tasksDoneData;
 
-
     public DayDataBuilder() {
         date = new Date(DEFAULT_DATE);
         pomDurationData = new PomDurationData(DEFAULT_POM_DURATION_DATA);

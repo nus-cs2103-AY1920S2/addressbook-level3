@@ -1,10 +1,10 @@
 package seedu.address.model.dayData;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class PomDurationDataTest {
 
@@ -16,7 +16,8 @@ public class PomDurationDataTest {
     @Test
     public void constructor_invalidPomDurationData_throwsIllegalArgumentException() {
         String invalidPomDurationData = "hi";
-        assertThrows(IllegalArgumentException.class, () -> new PomDurationData(invalidPomDurationData));
+        assertThrows(
+                IllegalArgumentException.class, () -> new PomDurationData(invalidPomDurationData));
     }
 
     @Test

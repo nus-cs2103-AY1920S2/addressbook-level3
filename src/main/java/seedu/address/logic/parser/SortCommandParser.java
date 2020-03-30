@@ -10,22 +10,26 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class SortCommandParser implements Parser<SortCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the
-     * SortCommand and returns a SortCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SortCommand and returns a
+     * SortCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
         String[] uniqueWords = ParserUtil.parseUniqueKeyWords(args);
         if (uniqueWords.length == 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        String[] validFields = Arrays.stream(uniqueWords)
-                .filter(s -> Arrays.asList(SortCommand.ALLOWED_SORT_FIELDS).contains(s)).toArray(String[]::new);
+        String[] validFields =
+                Arrays.stream(uniqueWords)
+                        .filter(s -> Arrays.asList(SortCommand.ALLOWED_SORT_FIELDS).contains(s))
+                        .toArray(String[]::new);
 
         if (validFields.length == 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
         return new SortCommand(validFields); // should be

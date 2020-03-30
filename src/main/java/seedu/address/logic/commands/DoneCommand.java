@@ -77,6 +77,7 @@ public class DoneCommand extends Command {
             }
             // increment Pet EXP after completing a task
             model.incrementExp();
+            model.updateMoodWhenDone();
         }
 
         // The last task to show is the pommed task
