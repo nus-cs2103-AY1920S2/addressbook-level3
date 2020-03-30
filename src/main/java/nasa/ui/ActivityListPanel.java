@@ -9,7 +9,6 @@ import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;

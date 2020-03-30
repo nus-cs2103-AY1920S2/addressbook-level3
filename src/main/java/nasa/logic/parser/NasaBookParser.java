@@ -15,6 +15,7 @@ import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
+import nasa.logic.commands.QuoteCommand;
 import nasa.logic.commands.RedoCommand;
 import nasa.logic.commands.RepeatCommand;
 import nasa.logic.commands.UndoCommand;
@@ -94,6 +95,9 @@ public class NasaBookParser {
 
         case RepeatCommand.COMMAND_WORD:
             return new RepeatActivityCommandParser().parse(arguments);
+
+        case QuoteCommand.COMMAND_WORD:
+            return new QuoteCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

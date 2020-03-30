@@ -13,7 +13,6 @@ import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
 import nasa.model.activity.exceptions.DuplicateActivityException;
 
-
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
  * A activity is considered unique by comparing using {@code Activity#isSameActivity(Activity)}.
@@ -40,6 +39,9 @@ public class UniqueActivityList implements Iterable<Activity> {
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
+    /**
+     * Returns true if the list contains an activity with {@code name}.
+     */
     public boolean hasActivity(Name name) {
         requireNonNull(name);
         return internalList.stream().anyMatch(x -> x.getName().equals(name));

@@ -45,6 +45,9 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
         this.moduleListHistory = moduleListHistory;
     }
 
+    /**
+     * Add recent action into history.
+     */
     public void add(T item) {
         moduleListHistory.push(item);
         moduleListHistoryCollector.resetItem();

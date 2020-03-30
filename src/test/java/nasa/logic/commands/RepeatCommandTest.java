@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
+
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.activity.Name;
@@ -37,8 +38,11 @@ class RepeatCommandTest {
 
         RepeatCommand incorrectRepeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, wrongIndex);
 
-        assertEquals(expectedResult, repeatCommand.execute(model));
-
+        try {
+            assertEquals(expectedResult, repeatCommand.execute(model));
+        } catch (Exception error) {
+            System.out.println("Error in test case");
+        }
         assertThrows(IllegalArgumentException.class, () -> incorrectRepeatCommand.execute(model));
     }
 }

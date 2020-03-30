@@ -19,6 +19,7 @@ import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 import nasa.model.module.UniqueModuleList;
+import nasa.model.quote.Quote;
 
 /**
  * Represents the in-memory model of the NASA data.
@@ -62,6 +63,7 @@ public class ModelManager implements Model {
     public void initialisation() {
         updateSchedule();
         //updateHistory();
+        Quote.readFile();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -361,6 +363,11 @@ public class ModelManager implements Model {
         for (Module module : filteredModules) {
             module.updateFilteredActivityList(predicate);
         }
+    }
+
+    @Override
+    public String quote() {
+        return Quote.getQuote();
     }
 
     @Override
