@@ -2,6 +2,7 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -31,7 +32,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a food in the food book. "
             + "by the index number used in the displayed food list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: " + PREFIX_INDEX + " INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + " NAME] "
             + "[" + PREFIX_CALORIES + " CALORIES] "
             + "[" + PREFIX_TAG + " TAG] ";
