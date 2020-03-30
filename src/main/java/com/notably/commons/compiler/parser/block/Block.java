@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.notably.commons.compiler.parser.exceptions.InvalidLineException;
-
 /**
  * Represents a node in a Markdown Abstract Syntax Tree (AST).
  * Read more: https://github.github.com/gfm/#appendix-a-parsing-strategy
