@@ -1,4 +1,4 @@
-package tatracker.logic.parser.module;
+package tatracker.logic.parser;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -13,15 +13,16 @@ import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.session.FilterClaimCommandParser;
 
 /**
- * Parses user input into commands that interact with Module models.
+ * Parses user input into commands that interact with Session model.
  */
-public class ModuleCommandParser {
+public class ClaimCommandParser {
 
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private static final String UNIMPLEMENTED_CODE_FORMAT = "%s not yet implemented!";
 
     /**
      * Parses user input into command for execution.
@@ -38,19 +39,11 @@ public class ModuleCommandParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case CommandWords.FILTER_MODEL:
             return new FilterClaimCommandParser().parse(arguments);
-
-        case CommandWords.ADD_MODEL:
-            return new AddModuleCommandParser().parse(arguments);
-
-        case CommandWords.DELETE_MODEL:
-            return new DeleteModuleCommandParser().parse(arguments);
-
-        case CommandWords.EDIT_MODEL:
-            return new EditModuleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
