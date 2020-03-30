@@ -442,6 +442,43 @@ In addition, all existing tags will be removed.
 Sorts the students inside a group according to the way you indicate you want it to
 be sorted.
 
+The students can be sorted alphabetically, by rating in ascending order, by rating
+in descending order and by matriculation number in ascending order.
+
+When a group is sorted, Student View shows the groups of the module the sorted group
+belongs to and the students of the group that has been sorted.
+
+Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you sort a group inside it.
+
+* A group with the given group code must exist inside the module before you can
+sort it.
+
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort group g/G03 m/CS2103 t/alpha`
++
+Sorts the student inside G03 of module CS2103 alphabetically.
+====
+
 
 ==== Sorting a Module `sort module`
 
