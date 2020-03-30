@@ -1,8 +1,6 @@
 package seedu.address.searcher;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -21,16 +19,39 @@ public class Search {
      * @return module
      */
     public static Module findModule(String moduleCode) {
-        String httpsUrl = "https://api.nusmods.com/v2/2019-2020/modules/" + moduleCode + ".json";
-        URL url;
+        String fileName = moduleCode + ".txt";
+        File tempFile = new File(".\\src\\main\\java\\seedu\\address\\searcher\\cache\\" + fileName);
+
         String output = "";
+
         try {
-            url = new URL(httpsUrl);
-            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-            output = print_content(con);
+            BufferedReader myReader = new BufferedReader(new FileReader(tempFile));
+            String tempString;
+            while ((tempString = myReader.readLine()) != null) {
+                output = tempString;
+            }
+        } catch (FileNotFoundException e) {
+            String httpsUrl = "https://api.nusmods.com/v2/2019-2020/modules/" + moduleCode + ".json";
+            URL url;
+            try {
+                url = new URL(httpsUrl);
+                HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+                output = print_content(con);
+            } catch (IOException d) {
+                d.printStackTrace();
+            }
+
+            try {
+                BufferedWriter myWriter = new BufferedWriter(new FileWriter(tempFile));
+                myWriter.write(output);
+                myWriter.close();
+            } catch (IOException f) {
+                f.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return new Module(output);
     }
 
