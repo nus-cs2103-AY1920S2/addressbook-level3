@@ -31,9 +31,6 @@ public class NewCommand extends Command {
     public void execute(Model notablyModel) throws CommandException {
         requireNonNull(notablyModel);
         try {
-            if (notablyModel.hasPath(this.path)) {
-                throw new CommandException("Block with the same Title detected.");
-            }
             notablyModel.addBlockToCurrentPath(toAdd);
         } catch (DuplicateBlockException ex) {
             throw new CommandException(ex.getMessage());

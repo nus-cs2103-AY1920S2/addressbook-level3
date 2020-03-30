@@ -24,12 +24,13 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(Model notablyModel) throws CommandException {
+        requireNonNull(notablyModel);
+        if (this.targetPath instanceof RelativePath) {
+            RelativePath toConvert = (RelativePath) this.targetPath;
+            this.targetPath = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
+        }
+
         try {
-            requireNonNull(notablyModel);
-            if (this.targetPath instanceof RelativePath) {
-                RelativePath toConvert = (RelativePath) this.targetPath;
-                this.targetPath = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
-            }
             notablyModel.removeBlock((AbsolutePath) this.targetPath);
         } catch (NoSuchBlockException | CannotModifyRootException ex) {
             throw new CommandException(ex.getMessage());

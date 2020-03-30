@@ -6,7 +6,6 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.block.Body;
 import com.notably.model.block.exceptions.CannotModifyRootException;
-import com.notably.model.block.exceptions.NoSuchBlockException;
 
 /**
  * Represent a command that edits the block's body.
@@ -30,7 +29,7 @@ public class EditCommand extends Command {
         requireNonNull(notablyModel);
         try {
             notablyModel.updateCurrentlyOpenBlockBody(body);
-        } catch (NoSuchBlockException | CannotModifyRootException ex) {
+        } catch (CannotModifyRootException ex) {
             throw new CommandException(ex.getMessage());
         }
     }
