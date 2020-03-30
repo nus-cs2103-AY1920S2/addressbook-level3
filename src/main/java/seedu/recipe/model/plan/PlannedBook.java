@@ -88,7 +88,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Removes all planned recipes on this {@code recipe} key in the mapping from recipe to planned recipe.
      */
     public void removeAllPlannedMappingForRecipe(Recipe recipe) {
-        if(recipeToPlannedRecipeMap.containsKey(recipe)) {
+        if (recipeToPlannedRecipeMap.containsKey(recipe)) {
             List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
             for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
                 removePlannedRecipes(plannedRecipe);
@@ -103,7 +103,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Updates the Recipe referenced in each PlannedRecipe.
      */
     public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
-        if(recipeToPlannedRecipeMap.containsKey(target)) {
+        if (recipeToPlannedRecipeMap.containsKey(target)) {
             List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
             recipeToPlannedRecipeMap.remove(target);
             for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {

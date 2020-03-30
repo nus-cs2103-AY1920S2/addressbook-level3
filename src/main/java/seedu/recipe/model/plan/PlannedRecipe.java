@@ -49,6 +49,4 @@ public class PlannedRecipe {
                 && date.equals(((PlannedRecipe) other).date) // state check
                 && recipe.equals(((PlannedRecipe) other).recipe));
     }
-
-
 }
