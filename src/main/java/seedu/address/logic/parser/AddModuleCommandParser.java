@@ -26,22 +26,41 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddModuleCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
+        ArgumentMultimap argMultimap1 =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_GRADE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_GRADE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        ArgumentMultimap argMultimap2 =
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
+
+        if (arePrefixesPresent(argMultimap1, PREFIX_MODULE_CODE, PREFIX_GRADE)
+                && argMultimap1.getPreamble().isEmpty()) {
+
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(
+                    argMultimap1.getValue(PREFIX_MODULE_CODE).get().toUpperCase());
+            Module moduleInfo = Search.findModule(moduleCode.toString());
+            int moduleCredit = moduleInfo.getCredits();
+
+            Grade grade = ParserUtil.parseGrade(argMultimap1.getValue(PREFIX_GRADE).get().trim());
+
+            NusModule module = new NusModule(moduleCode, moduleCredit, false, Optional.of(grade));
+
+            return new AddModuleCommand(module);
+
+        } else if (arePrefixesPresent(argMultimap2, PREFIX_MODULE_CODE)
+                && argMultimap2.getPreamble().isEmpty()) {
+
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(
+                    argMultimap2.getValue(PREFIX_MODULE_CODE).get().toUpperCase());
+            Module moduleInfo = Search.findModule(moduleCode.toString());
+            int moduleCredit = moduleInfo.getCredits();
+
+            NusModule module = new NusModule(moduleCode, moduleCredit, true, Optional.empty());
+
+            return new AddModuleCommand(module);
+
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleCommand.MESSAGE_USAGE));
         }
-
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
-        Module moduleInfo = Search.findModule(moduleCode.toString());
-        int moduleCredit = moduleInfo.getCredits();
-        Grade grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().trim());
-
-        NusModule module = new NusModule(moduleCode, moduleCredit, false, Optional.of(grade));
-
-        return new AddModuleCommand(module);
     }
 
     /**
