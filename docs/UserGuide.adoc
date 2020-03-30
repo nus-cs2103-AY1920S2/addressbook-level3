@@ -482,7 +482,7 @@ ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rt
 [[import-combination]]
 There are only one possible combination for the `import` Command:
 
-. Possible combination of Import command
+.Possible combination of Import command
 |===
 |Scenario |Command |Result
 
