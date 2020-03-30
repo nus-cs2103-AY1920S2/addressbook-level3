@@ -2,6 +2,7 @@ package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import tatracker.commons.core.Messages;
@@ -12,6 +13,7 @@ import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
+import tatracker.model.session.SessionType;
 
 /**
  * Marks a session as done in TAT.
@@ -51,6 +53,23 @@ public class DoneSessionCommand extends Command {
 
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
+        if (session.getRecurring() != 0) {
+
+            int recurring = session.getRecurring();
+            LocalDateTime startTime = session.getStartDateTime().plusWeeks(recurring);
+            LocalDateTime endTime = session.getEndDateTime().plusWeeks(recurring);
+            SessionType sessionType = session.getSessionType();
+            String moduleCode = session.getModuleCode();
+            String description = session.getDescription();
+
+            Session newSession = new Session(startTime, endTime, sessionType,
+                    recurring, moduleCode, description);
+
+            model.addSession(newSession);
+            model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+            return new CommandResult(String.format(AddSessionCommand.MESSAGE_SUCCESS, newSession));
+        }
+
         model.addDoneSession(session);
         model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
         model.deleteSession(session);

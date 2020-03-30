@@ -11,6 +11,7 @@ import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
+
 /**
  * Parses user input into commands that interact with Student models.
  */
@@ -39,6 +40,9 @@ public class StudentCommandParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case CommandWords.FILTER_MODEL:
+            return new FilterStudentViewCommandParser().parse(arguments);
 
         case CommandWords.ADD_MODEL:
             return new AddStudentCommandParser().parse(arguments);

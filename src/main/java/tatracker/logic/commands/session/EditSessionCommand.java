@@ -1,11 +1,9 @@
 package tatracker.logic.commands.session;
 
-// import static java.util.Objects.requireNonNull;
-
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
@@ -27,6 +25,7 @@ import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 
+
 /**
  * Edits the details of an existing session in TAT.
  */
@@ -42,8 +41,8 @@ public class EditSessionCommand extends Command {
             + "[" + PREFIX_ENDTIME + "END] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
+            + "[" + PREFIX_MODULE + "MODULE CODE] "
+            + "[" + PREFIX_SESSION_TYPE + "SESSION TYPE] "
             + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_DATE + "20-02-2020 ";
@@ -104,7 +103,7 @@ public class EditSessionCommand extends Command {
 
         LocalDateTime startTime = editSessionDescriptor.getStartTime().orElse(sessionToEdit.getStartDateTime());
         LocalDateTime endTime = editSessionDescriptor.getEndTime().orElse(sessionToEdit.getEndDateTime());
-        boolean isRecurring = editSessionDescriptor.getIsRecurring();
+        int isRecurring = editSessionDescriptor.getRecurring();
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
         SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
@@ -149,7 +148,7 @@ public class EditSessionCommand extends Command {
         private LocalDateTime newStartTime;
         private LocalDateTime newEndTime;
         private boolean isDateChanged;
-        private boolean isRecurring;
+        private int isRecurring;
         private String moduleCode;
         private SessionType newSessionType;
         private String newDescription;
@@ -164,7 +163,7 @@ public class EditSessionCommand extends Command {
         public EditSessionDescriptor(EditSessionCommand.EditSessionDescriptor toCopy) {
             setStartTime(toCopy.newStartTime);
             setEndTime(toCopy.newEndTime);
-            setIsRecurring(toCopy.isRecurring);
+            setRecurring(toCopy.isRecurring);
             setModuleCode(toCopy.moduleCode);
             setSessionType(toCopy.newSessionType);
             setDescription(toCopy.newDescription);
@@ -194,11 +193,11 @@ public class EditSessionCommand extends Command {
             return Optional.ofNullable(newEndTime);
         }
 
-        public void setIsRecurring(boolean isRecurring) {
+        public void setRecurring(int isRecurring) {
             this.isRecurring = isRecurring;
         }
 
-        public boolean getIsRecurring() {
+        public int getRecurring() {
             return this.isRecurring;
         }
 

@@ -4,12 +4,12 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
+
 
 /**
  * The API of the Model component.
@@ -70,6 +70,11 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Sets default settings of the student view.
+     */
+    void setDefaultStudentViewList();
+
     // ======== Session Methods ================================================
 
     /**
@@ -118,11 +123,6 @@ public interface Model {
     // ======== Module Methods =================================================
 
     /**
-     * Returns the given module {@code target} in the TaTracker.
-     */
-    Module getModule(Module target);
-
-    /**
      * Returns the TaTracker module with the given module identifier.
      */
     Module getModule(String moduleId);
@@ -155,6 +155,27 @@ public interface Model {
     void deleteModule(Module target);
 
     /**
+     * Sorts the modules by rating in ascending order.
+     */
+    void sortModulesByRatingAscending();
+
+    /**
+     * Sorts the modules by rating in descending order.
+     */
+    void sortModulesByRatingDescending();
+
+    /**
+     * Sorts all the students of all groups in all the modules alphabetically.
+     */
+    void sortModulesAlphabetically();
+
+    /**
+     * Sorts all students of all groups in all the modules by matric number.
+     */
+    void sortModulesByMatricNumber();
+
+
+    /**
      * Replaces the given module {@code target} in the TaTracker with {@code editedModule}.
      * @param target module to edit, which must exist in the TaTracker.
      * @param editedModule the edited module {@code target}.
@@ -166,6 +187,11 @@ public interface Model {
     ObservableList<Module> getFilteredModuleList();
 
     /**
+     * Shows all modules.
+     */
+    void showAllModules();
+
+    /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -173,18 +199,13 @@ public interface Model {
 
     // ======== Group Methods ==================================================
 
+
     /**
      * Returns true if a given group with the same identity as {@code group}
      * exists in a module that is in TaTracker.
      * @param targetModule module that contains {@code group}.
      */
     boolean hasGroup(Group group, Module targetModule);
-
-    /**
-     * Adds a group.
-     * @param group group to be added.
-     */
-    void addGroup(Group group);
 
     /**
      * Adds the given group into a module that is in TaTracker.
@@ -213,10 +234,20 @@ public interface Model {
     ObservableList<Group> getFilteredGroupList();
 
     /**
-     * Updates the filter of the filtered group list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Updates the filtered group list to show the groups in module with the given
+     * module code.
      */
-    void updateFilteredGroupList(Predicate<Group> predicate);
+    void updateFilteredGroupList(String moduleCode);
+
+    /**
+     * Sets the filtered group list to be an empty list.
+     */
+    void setFilteredGroupList();
+
+    /**
+     * Updates the group list to show the groups in the module with the given index.
+     */
+    void updateGroupList(int index);
 
     // ======== Student Methods ================================================
 
@@ -278,14 +309,30 @@ public interface Model {
      */
     void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule);
 
+    /**
+     * Sets the student list to be of group of index groupIndex in the module of index moduleIndex.
+     */
+    void updateStudentList(int moduleIndex, int groupIndex);
+
+
     // TODO: Student filter methods. Javadoc comments should mention students are inside group -> inside module
 
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();
 
     /**
-     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Updates the currently shown student list to show students of the given group
+     * from the given module.
      */
-    void updateFilteredStudentList(Predicate<Student> predicate);
+    void updateFilteredStudentList(String groupCode, String moduleCode);
+
+    /**
+     * Sets the filtered student list to be an empty list.
+     */
+    void setFilteredStudentList();
+
+    /**
+     * Sets the filtered student list to be an that of given index group in given module.
+     */
+    void setFilteredStudentList(String moduleCode, int groupIndex);
 }

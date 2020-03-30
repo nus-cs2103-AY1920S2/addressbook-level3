@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
@@ -21,6 +21,7 @@ import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
+
 
 /*
  * === BUGS ===
@@ -44,7 +45,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
     public EditSessionCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
-                PREFIX_DATE, PREFIX_RECUR, PREFIX_MOD_CODE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
+                PREFIX_DATE, PREFIX_RECUR, PREFIX_MODULE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
 
         Index index;
 
@@ -76,11 +77,12 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            editSessionDescriptor.setIsRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
+            editSessionDescriptor.setRecurring(Integer.parseInt(
+                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_RECUR).get())));
         }
 
-        if (argMultimap.getValue(PREFIX_MOD_CODE).isPresent()) {
-            editSessionDescriptor.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MOD_CODE).get()));
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+            editSessionDescriptor.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_SESSION_TYPE).isPresent()) {

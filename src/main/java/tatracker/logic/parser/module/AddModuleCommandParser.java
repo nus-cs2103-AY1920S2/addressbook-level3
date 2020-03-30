@@ -10,7 +10,6 @@ import tatracker.logic.commands.module.AddModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.module.Module;
@@ -27,15 +26,16 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
      */
     public AddModuleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleCommand.MESSAGE_USAGE));
         }
 
-        String name = ParserUtil.parseValue(argMultimap.getValue(PREFIX_NAME).get());
-        String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get().toUpperCase());
+        // No need to parse trimmed strings
+        String moduleCode = (argMultimap.getValue(PREFIX_MODULE).get()).toUpperCase();
+        String name = argMultimap.getValue(PREFIX_NAME).get();
 
         Module module = new Module(moduleCode, name);
 

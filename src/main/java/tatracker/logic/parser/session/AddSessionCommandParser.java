@@ -3,7 +3,7 @@ package tatracker.logic.parser.session;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
@@ -20,6 +20,7 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
+
 
 /*
  * === BUGS ===
@@ -42,7 +43,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
      */
     public AddSessionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
-                PREFIX_DATE, PREFIX_RECUR, PREFIX_MOD_CODE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
+                PREFIX_DATE, PREFIX_RECUR, PREFIX_MODULE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE));
@@ -68,11 +69,12 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            sessionToAdd.setRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
+            sessionToAdd.setRecurring(Integer.parseInt(
+                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_RECUR).get())));
         }
 
-        if (argMultimap.getValue(PREFIX_MOD_CODE).isPresent()) {
-            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MOD_CODE).get()));
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_SESSION_TYPE).isPresent()) {

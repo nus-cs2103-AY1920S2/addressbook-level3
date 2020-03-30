@@ -3,7 +3,6 @@ package tatracker.model.module;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.session.Session;
@@ -13,10 +12,19 @@ import tatracker.model.session.UniqueSessionList;
  * Represents a module in the TAT.
  */
 public class Module {
+    private static final String DEFAULT_NAME = "";
+
     private final String identifier;
-    private final String name;
+    private String name;
     private final UniqueGroupList groups;
     private final UniqueSessionList doneSessions;
+
+    /**
+     * Constructs a module object with no name.
+     */
+    public Module(String identifier) {
+        this(identifier, DEFAULT_NAME);
+    }
 
     /**
      * Constructs a module object.
@@ -47,10 +55,31 @@ public class Module {
     }
 
     /**
+     * Changes the module name.
+     */
+    public void setName(String newName) {
+        this.name = newName;
+    }
+
+    /**
+     * Returns module at index n.
+     */
+    public Group get(int n) {
+        return groups.get(n);
+    }
+
+    /**
      * Returns the group list.
      */
     public ObservableList<Group> getGroupList() {
         return groups.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns the unique group list.
+     */
+    public UniqueGroupList getUniqueGroupList() {
+        return groups;
     }
 
     /**
@@ -65,18 +94,18 @@ public class Module {
     }
 
     /**
+     * Adds a group to the list of module groups.
+     */
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
+
+    /**
      * Returns the group in this module with the given group id.
      * Returns null if no such group exists.
      */
     public Group getGroup(String groupId) {
         return groups.get(groupId);
-    }
-
-    /**
-     * Adds a group to the list of module groups.
-     */
-    public void addGroup(Group group) {
-        groups.add(group);
     }
 
     /**
@@ -87,9 +116,55 @@ public class Module {
         groups.remove(group);
     }
 
+    /**
+     * Replaces the given group {@code target} in the list with {@code editedGroup}.
+     * {@code target} must exist in the list of groups.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the module.
+     */
+    public void setGroup(Group target, Group editedGroup) {
+        groups.setGroup(target, editedGroup);
+    }
+
     public boolean hasDoneSession(Session session) {
         return doneSessions.contains(session);
     }
+
+    /**
+     * Sorts students in the groups alphabetically.
+     */
+    public void sortGroupsAlphabetically() {
+        for (Group group : groups) {
+            group.sortStudentsAlphabetically();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating in ascending order.
+     */
+    public void sortGroupsByRatingAscending() {
+        for (Group group : groups) {
+            group.sortStudentsByRatingAscending();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating in descending order.
+     */
+    public void sortGroupsByRatingDescending() {
+        for (Group group : groups) {
+            group.sortStudentsByRatingDescending();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by matric number in descending order.
+     */
+    public void sortGroupsByMatricNumber() {
+        for (Group group : groups) {
+            group.sortStudentsByMatricNumber();
+        }
+    }
+
 
     /**
      * Adds a done session to the list of done sessions for this module.
@@ -122,23 +197,7 @@ public class Module {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) %s", name, identifier, groupsString());
+        return String.format("%s (%s)", name, identifier);
     }
 
-    /**
-     * Returns a string that shows the value inside the groups list.
-     */
-    private String groupsString() {
-        // TODO: test groups are printed correctly
-        StringBuilder str = new StringBuilder();
-        str.append("[");
-        for (int i = 0; i < groups.size(); ++i) {
-            if (i > 0) {
-                str.append(", ");
-            }
-            groups.get(i);
-        }
-        str.append("]");
-        return str.toString();
-    }
 }

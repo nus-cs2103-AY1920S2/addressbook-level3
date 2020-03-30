@@ -33,38 +33,47 @@ public class DeleteGroupCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
 
     private final Group group;
-    private final String moduleCode;
+    private final Module targetModule;
 
-    public DeleteGroupCommand(Group group, String moduleCode) {
+    public DeleteGroupCommand(Group group, Module module) {
         this.group = group;
-        this.moduleCode = moduleCode;
+        this.targetModule = module;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode, null);
-
-        if (!model.hasModule(module)) {
+        if (!model.hasModule(targetModule)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        module = model.getModule(module);
+        Module actualModule = model.getModule(targetModule.getIdentifier());
 
-        if (!module.hasGroup(group)) {
+        if (!actualModule.hasGroup(group)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
-        Group deletedGroup = module.getGroup(group.getIdentifier());
-        module.deleteGroup(deletedGroup);
+        Group deletedGroup = actualModule.getGroup(group.getIdentifier());
+        actualModule.deleteGroup(deletedGroup);
+
+        model.setDefaultStudentViewList();
+
         return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, deletedGroup));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteGroupCommand // instanceof handles nulls
-                && group.equals(((DeleteGroupCommand) other).group)); // state check
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+
+        if (!(other instanceof DeleteGroupCommand)) {
+            return false; // instanceof handles nulls
+        }
+
+        DeleteGroupCommand otherCommand = (DeleteGroupCommand) other;
+        return group.equals(otherCommand.group)
+                && targetModule.equals(otherCommand.targetModule);
     }
 }

@@ -1,9 +1,10 @@
 package tatracker.model.group;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-
 import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
@@ -15,9 +16,18 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class Group {
 
-    private final String identifier;
-    private final GroupType groupType;
+    private static final GroupType DEFAULT_GROUP_TYPE = GroupType.TUTORIAL;
+
+    private String identifier;
+    private GroupType groupType;
     private final UniqueStudentList students;
+
+    /**
+     * Constructs a group object with a default group type.
+     */
+    public Group(String identifier) {
+        this(identifier, DEFAULT_GROUP_TYPE);
+    }
 
     /**
      * Constructs a group object.
@@ -32,10 +42,52 @@ public class Group {
     }
 
     /**
+     * Sorts students alphabetically.
+     */
+    public void sortStudentsAlphabetically() {
+        students.sortAlphabetically();
+    }
+
+    /**
+     * Sorts students by rating in ascending order.
+     */
+    public void sortStudentsByRatingAscending() {
+        students.sortByRatingAscending();
+    }
+
+    /**
+     * Sorts students by rating in descending order.
+     */
+    public void sortStudentsByRatingDescending() {
+        students.sortByRatingDescending();
+    }
+
+    /**
+     * Sorts students by matric number in ascending order.
+     */
+    public void sortStudentsByMatricNumber() {
+        students.sortByMatric();
+    }
+
+    /**
      * Returns the group identifier.
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Updates the group code.
+     */
+    public void setIdentifier(String newIdentifier) {
+        this.identifier = newIdentifier;
+    }
+
+    /**
+     * Updates the group type.
+     */
+    public void setGroupType(GroupType newGroupType) {
+        this.groupType = newGroupType;
     }
 
     /**
@@ -79,6 +131,16 @@ public class Group {
      */
     public void deleteStudent(Student student) {
         students.remove(student);
+    }
+
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the list of enrolled students.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the group.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        requireNonNull(editedStudent);
+        students.setStudent(target, editedStudent);
     }
 
     /**

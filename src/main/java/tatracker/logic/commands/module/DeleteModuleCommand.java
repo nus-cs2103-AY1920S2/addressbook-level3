@@ -26,6 +26,9 @@ public class DeleteModuleCommand extends Command {
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with this module code.";
 
+    public static final int FIRST_GROUP_INDEX = 0;
+    public static final int FIRST_MODULE_INDEX = 0;
+
     private final Module module;
 
     public DeleteModuleCommand(Module module) {
@@ -40,8 +43,11 @@ public class DeleteModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module moduleToDelete = model.getModule(module);
+        Module moduleToDelete = model.getModule(module.getIdentifier());
         model.deleteModule(moduleToDelete);
+
+        model.setDefaultStudentViewList();
+
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
@@ -52,4 +58,3 @@ public class DeleteModuleCommand extends Command {
                 && module.equals(((DeleteModuleCommand) other).module)); // state check
     }
 }
-

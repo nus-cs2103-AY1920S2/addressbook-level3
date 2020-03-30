@@ -15,12 +15,11 @@ import tatracker.logic.commands.FindCommand;
 import tatracker.logic.commands.GotoCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
-import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
 import tatracker.logic.parser.session.SessionCommandParser;
-import tatracker.logic.parser.student.EditStudentCommandParser;
+import tatracker.logic.parser.sort.SortCommandParser;
 import tatracker.logic.parser.student.StudentCommandParser;
 
 /**
@@ -65,9 +64,6 @@ public class TaTrackerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case EditStudentCommand.COMMAND_WORD:
-            return new EditStudentCommandParser().parse(arguments);
-
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -85,6 +81,9 @@ public class TaTrackerParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case CommandWords.SORT:
+            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
