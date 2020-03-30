@@ -27,10 +27,14 @@ public class Restaurant {
     private final Cuisine cuisine;
     private final ArrayList<Remark> remarks = new ArrayList<>();
     private final Visit visit;
+    private final ArrayList<Note> recommendedFood;
+    private final ArrayList<Note> goodFood;
+    private final ArrayList<Note> badFood;
 
 
     public Restaurant(Name name, Location location, Hours hours, Price price, Cuisine cuisine,
-                      ArrayList<Remark> remark, Visit visit) {
+                      ArrayList<Remark> remark, Visit visit, ArrayList<Note> recommendedFood,
+                      ArrayList<Note> goodFood, ArrayList<Note> badFood) {
         requireAllNonNull(name, location);
         this.name = name;
         this.location = location;
@@ -39,6 +43,9 @@ public class Restaurant {
         this.cuisine = cuisine;
         this.remarks.addAll(remark);
         this.visit = visit;
+        this.recommendedFood = recommendedFood;
+        this.goodFood = goodFood;
+        this.badFood = badFood;
     }
 
     public Name getName() {
@@ -67,6 +74,18 @@ public class Restaurant {
 
     public Visit getVisit() {
         return visit;
+    }
+
+    public ArrayList<Note> getRecommendedFood() {
+        return recommendedFood;
+    }
+
+    public ArrayList<Note> getGoodFood() {
+        return goodFood;
+    }
+
+    public ArrayList<Note> getBadFood() {
+        return badFood;
     }
 
     /**
@@ -104,13 +123,16 @@ public class Restaurant {
                 && otherRestaurant.getPrice().equals(getPrice())
                 && otherRestaurant.getCuisine().equals(getCuisine())
                 && otherRestaurant.getRemark().equals(getRemark())
-                && otherRestaurant.getVisit().equals(getVisit());
+                && otherRestaurant.getVisit().equals(getVisit())
+                && otherRestaurant.getRecommendedFood().equals(getRecommendedFood())
+                && otherRestaurant.getGoodFood().equals(getGoodFood())
+                && otherRestaurant.getBadFood().equals(getBadFood());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, hours, price, cuisine, remarks, visit);
+        return Objects.hash(name, location, hours, price, cuisine, remarks, visit, recommendedFood, goodFood, badFood);
     }
 
     @Override
@@ -128,7 +150,13 @@ public class Restaurant {
                 .append(getCuisine())
                 .append("\nVisited: ")
                 .append(getVisit())
-                .append("\nRemarks: ");
+                .append("\nRemarks: ")
+                .append(getRecommendedFood())
+                .append("\nRecommended food: ")
+                .append(getGoodFood())
+                .append("\nGood food: ")
+                .append(getBadFood())
+                .append("\nBad food: ");
         getRemark().forEach(builder::append);
         return builder.toString();
     }

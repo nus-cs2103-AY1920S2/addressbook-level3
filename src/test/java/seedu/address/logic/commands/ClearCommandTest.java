@@ -13,7 +13,6 @@ import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 
-
 public class ClearCommandTest {
 
     @Test
