@@ -1,5 +1,7 @@
 package seedu.address.model.profile.course.module;
 
+import seedu.address.storage.JsonPrereqTreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,47 @@ public class PrereqTreeNode {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean hasFulfilledPrereqs(List<ModuleCode> modulesTaken) {
+        if (moduleCode != null) {
+            return modulesTaken.contains(moduleCode);
+        }
+        boolean check;
+        if (type.equals("or")) {
+            check = false;
+            for (PrereqTreeNode node: prereqTreeNodes) {
+                if (node.hasFulfilledPrereqs(modulesTaken)) { // As long as 1 module fulfils prereq, requirement is fulfilled
+                    check = true;
+                }
+            }
+        } else if (type.equals("and")) {
+            check = true;
+            for (PrereqTreeNode node: prereqTreeNodes) {
+                if (!node.hasFulfilledPrereqs(modulesTaken)) { // As long as 1 module does not fulfil prereq, requirement is not fulfilled
+                    check = false;
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("Wrong type in PrereqTreeNode.java, fix code");
+        }
+        return check;
+    }
+
+    public JsonPrereqTreeNode toJson() {
+        if (moduleCode != null) {
+            return new JsonPrereqTreeNode(moduleCode.toString());
+        }
+        List<JsonPrereqTreeNode> listNodes = new ArrayList<>();
+        for (PrereqTreeNode node: prereqTreeNodes) {
+            listNodes.add(node.toJson());
+        }
+        if (type.equals("or")) {
+            return new JsonPrereqTreeNode(listNodes, null);
+        } else if (type.equals("and")) {
+            return new JsonPrereqTreeNode(null, listNodes);
+        }
+        throw new IllegalArgumentException("Error parsing prereqTreeNode object in PrereqTreeNode.java, to fix");
     }
 
     @Override
