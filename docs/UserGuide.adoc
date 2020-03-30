@@ -374,6 +374,7 @@ transaction id of the parcels and the address of the customers, etc.
 
 ==== Format
 * `import` `FILE_NAME`
+
 [WARNING]
 ====
 * Only csv file could be imported.
