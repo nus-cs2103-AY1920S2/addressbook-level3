@@ -14,7 +14,7 @@ import seedu.zerotoone.model.schedule.ScheduledWorkout;
 /**
  * API of the Logic component
  */
-public interface Logic {
+public interface Logic extends WorkoutLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.

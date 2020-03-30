@@ -32,6 +32,8 @@ import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class CreateCommandTest {
@@ -160,6 +162,57 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        // -----------------------------------------------------------------------------------------
+        // Workout
+        @Override
+        public Path getWorkoutListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWorkoutListFilePath(Path workoutListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addWorkout(Workout workout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWorkoutList(ReadOnlyWorkoutList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWorkoutList getWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasWorkout(Workout workout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deleteWorkout(Workout target) {
+
+        }
+
+        @Override
+        public void setWorkout(Workout target, Workout editedWorkout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Workout> getFilteredWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // -----------------------------------------------------------------------------------------
         // Session
         @Override
@@ -189,7 +242,6 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public void addSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }

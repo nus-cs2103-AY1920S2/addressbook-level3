@@ -39,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setExerciseListFilePath(newUserPrefs.getExerciseListFilePath());
+        setWorkoutListFilePath(newUserPrefs.getWorkoutListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
