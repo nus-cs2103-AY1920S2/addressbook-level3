@@ -37,7 +37,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyExerciseList exerciseList, ReadOnlyWorkoutList workoutList) {
         super();
-        requireAllNonNull(exerciseList, userPrefs);
+        requireAllNonNull(exerciseList, workoutList, userPrefs);
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.exerciseList = new ExerciseList(exerciseList);

@@ -59,7 +59,6 @@ public class SampleWorkoutDataUtil {
         workoutThreeExercises.add(new Exercise(exerciseThreeName, exerciseThreeSets));
         workoutThreeExercises.add(new Exercise(exerciseThreeName, exerciseThreeSets));
         workouts[2] = new Workout(workoutThreeName, workoutThreeExercises);
-
         return workouts;
     }
 

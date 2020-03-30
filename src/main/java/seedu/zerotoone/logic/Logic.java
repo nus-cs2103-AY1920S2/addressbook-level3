@@ -13,7 +13,7 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 /**
  * API of the Logic component
  */
-public interface Logic {
+public interface Logic extends WorkoutLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.

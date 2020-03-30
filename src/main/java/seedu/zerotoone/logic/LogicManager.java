@@ -15,6 +15,8 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.storage.Storage;
 
 /**
@@ -78,5 +80,22 @@ public class LogicManager implements Logic {
     @Override
     public Path getExerciseListFilePath() {
         return model.getExerciseListFilePath();
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Workokut List
+    @Override
+    public ReadOnlyWorkoutList getWorkoutList() {
+        return model.getWorkoutList();
+    }
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return model.getFilteredWorkoutList();
+    }
+
+    @Override
+    public Path getWorkoutListFilePath() {
+        return model.getWorkoutListFilePath();
     }
 }
