@@ -10,5 +10,9 @@ public class ModulePlanner {
         myMods = new ArrayList<>();
     }
 
+    public void addModule(String moduleCode) {
+        myMods.add(Search.findModule(moduleCode));
+    }
+
 
 }
