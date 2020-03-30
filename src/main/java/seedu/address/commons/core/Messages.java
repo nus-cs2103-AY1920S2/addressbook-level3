@@ -18,4 +18,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_PREFIX = "Name and phone cannot be deleted!";
     public static final String MESSAGE_BIRTHDAYS_LISTED =
         "Birthdays for the next five days (today inclusive) is listed!";
+    public static final String WELCOME_MESSAGE = "Hi! I'm Naggy Joel, the best social life manager you can ever have. "
+        + "If you are new, you can type 'help' in the command box below to see the list of commands that I understand.";
 }

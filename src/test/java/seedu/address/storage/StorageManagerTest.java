@@ -30,11 +30,14 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonRestaurantBookStorage restaurantBookStorage = new JsonRestaurantBookStorage(getTempFilePath("rb"));
+        JsonEventScheduleStorage eventScheduleStorage =
+                new JsonEventScheduleStorage(getTempFilePath("eventSchedule"));
         JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(getTempFilePath("schedule"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
                 schedulerStorage,
+                eventScheduleStorage,
                 userPrefsStorage);
     }
 

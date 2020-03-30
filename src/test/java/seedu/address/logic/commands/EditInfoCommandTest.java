@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
@@ -33,6 +34,7 @@ class EditInfoCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
             new Scheduler(),
+            new EventSchedule(),
             new UserPrefs());
 
     @Test
@@ -50,6 +52,7 @@ class EditInfoCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
                         new Scheduler(),
+                        new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
@@ -73,6 +76,7 @@ class EditInfoCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
                         new Scheduler(),
+                        new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 

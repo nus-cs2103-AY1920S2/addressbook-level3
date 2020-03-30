@@ -7,6 +7,7 @@ import java.util.Comparator;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentList;
+import seedu.address.model.day.Day;
 
 /**
  * Wraps all data at the scheduler level.
@@ -24,6 +25,7 @@ public class Scheduler implements ReadOnlyScheduler {
      */
     {
         assignments = new AssignmentList();
+
     }
     public Scheduler() {}
 
@@ -68,8 +70,7 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Sort assignments in the scheduler
-     * by the filter.
+     * Sort assignments in the scheduler by the filter.
      */
     public void sortAssignment(Comparator<Assignment> comparator) {
         assignments.sort(comparator);
@@ -81,8 +82,8 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Scheduler}.
+     * {@code key} must exist in the scheduler.
      */
     public void removeAssignment(Assignment key) {
         assignments.remove(key);
@@ -103,5 +104,13 @@ public class Scheduler implements ReadOnlyScheduler {
     @Override
     public int hashCode() {
         return assignments.hashCode();
+    }
+
+    /**
+     * Calculates the user's expected work hours for the next 7 days (including today) based on stored assignments,
+     * their deadlines and expected work hours per assignment.
+     */
+    public ObservableList<Day> getScheduleVisual() {
+        return assignments.getScheduleVisualList();
     }
 }

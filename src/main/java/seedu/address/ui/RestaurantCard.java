@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Restaurant}.
  */
 public class RestaurantCard extends UiPart<Region> {
 

@@ -23,6 +23,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -32,6 +33,7 @@ import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -54,10 +56,13 @@ public class LogicManagerTest {
         JsonRestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(temporaryFolder.resolve("restaurantBook.json"));
         JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(temporaryFolder.resolve("assignments.json"));
+        JsonEventScheduleStorage eventScheduleStorage =
+                new JsonEventScheduleStorage(temporaryFolder.resolve("events.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
                 schedulerStorage,
+                eventScheduleStorage,
                 userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
@@ -90,11 +95,14 @@ public class LogicManagerTest {
                         .resolve("ioExceptionRestaurantBook.json"));
         JsonSchedulerStorage schedulerStorage =
                 new JsonSchedulerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
+        JsonEventScheduleStorage eventScheduleStorage =
+                new JsonEventScheduleStorage(temporaryFolder.resolve("ioExceptionEvents.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
                 schedulerStorage,
+                eventScheduleStorage,
                 userPrefsStorage);
         logic = new LogicManager(model, storage);
 
@@ -153,6 +161,7 @@ public class LogicManagerTest {
         Model expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
                 new Scheduler(),
+                new EventSchedule(),
                 new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }

@@ -9,10 +9,13 @@ import seedu.address.commons.core.GuiSettings;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -185,7 +188,52 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void addEvent(Event toAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasEvent(Event toAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortEvent(Comparator<Event> comparator) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Event> getEventsList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyEventSchedule getEventSchedule() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     public ObservableList<Person> getBdayListResult() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Day> getScheduleVisualResult() {
         throw new AssertionError("This method should not be called.");
     }
 }

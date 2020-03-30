@@ -13,6 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -25,20 +27,22 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final RestaurantBook restaurantBook;
     private final Scheduler scheduler;
+    private final EventSchedule eventSchedule;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Event> filteredEvents;
     private final FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                        ReadOnlyScheduler scheduler, ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyScheduler scheduler, ReadOnlyEventSchedule eventSchedule, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, scheduler, userPrefs);
+        requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -48,13 +52,15 @@ public class ModelManager implements Model {
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook(restaurantBook);
         this.scheduler = new Scheduler(scheduler);
+        this.eventSchedule = new EventSchedule(eventSchedule);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
+        filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
         bdayList = new FilteredList<>(this.addressBook.getBdayList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new RestaurantBook(), new Scheduler(), new UserPrefs());
+        this(new AddressBook(), new RestaurantBook(), new Scheduler(), new EventSchedule(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -169,6 +175,41 @@ public class ModelManager implements Model {
         return filteredAssignments;
     }
 
+    //=========== Event Schedule ================================================================================
+
+    @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
+        this.eventSchedule.resetData(eventSchedule);
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        eventSchedule.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return eventSchedule.hasEvent(event);
+    }
+
+    @Override
+    public void sortEvent(Comparator<Event> comparator) {
+        eventSchedule.sortEvent(comparator);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    @Override
+    public ReadOnlyEventSchedule getEventSchedule() {
+        return eventSchedule;
+    }
+
+    @Override
+    public ObservableList<Event> getEventsList() {
+        return filteredEvents;
+    }
+
     //=========== RestaurantBook ================================================================================
 
     @Override
@@ -254,10 +295,12 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && restaurantBook.equals(other.restaurantBook)
                 && scheduler.equals(other.scheduler)
+                && eventSchedule.equals(other.eventSchedule)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredPersonsResult.equals(other.filteredPersonsResult)
                 && filteredAssignments.equals(other.filteredAssignments)
+                && filteredEvents.equals(other.filteredEvents)
                 && filteredRestaurants.equals(other.filteredRestaurants);
     }
 
@@ -276,6 +319,23 @@ public class ModelManager implements Model {
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
+    }
+
+    //=========== Filtered Event List Accessors ==================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Events} backed by the internal list of
+     * {@code versionedEventSchedule}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return filteredEvents;
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
     }
 
     //=========== Filtered Restaurant List Accessors =============================================================
@@ -298,6 +358,12 @@ public class ModelManager implements Model {
     //=========== Filtered Bday List Accessors ====================================================================
     @Override
     public ObservableList<Person> getBdayListResult() {
-        return bdayList;
+        return this.addressBook.getBdayList();
+    }
+
+    //=========== Schedule Visual Accessor ========================================================================
+    @Override
+    public ObservableList<Day> getScheduleVisualResult() {
+        return this.scheduler.getScheduleVisual();
     }
 }

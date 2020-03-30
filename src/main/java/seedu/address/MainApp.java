@@ -17,9 +17,11 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -29,7 +31,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.EventScheduleStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -70,7 +74,9 @@ public class MainApp extends Application {
         RestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
         SchedulerStorage schedulerStorage = new JsonSchedulerStorage(userPrefs.getSchedulerFilePath());
-        storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage, userPrefsStorage);
+        EventScheduleStorage eventScheduleStorage = new JsonEventScheduleStorage(userPrefs.getEventScheduleFilePath());
+        storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage,
+                eventScheduleStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -93,7 +99,9 @@ public class MainApp extends Application {
         ReadOnlyRestaurantBook initialRestaurantsData;
 
         Optional<ReadOnlyScheduler> schedulerOptional;
+        Optional<ReadOnlyEventSchedule> eventScheduleOptional;
         ReadOnlyScheduler initialAssignmentsData;
+        ReadOnlyEventSchedule initialEventsData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -136,7 +144,22 @@ public class MainApp extends Application {
             initialAssignmentsData = new Scheduler();
         }
 
-        return new ModelManager(initialPersonsData, initialRestaurantsData, initialAssignmentsData, userPrefs);
+        try {
+            eventScheduleOptional = storage.readEventSchedule();
+            if (!eventScheduleOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty Events Schedule.");
+            }
+            initialEventsData = eventScheduleOptional.orElse(new EventSchedule());
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Events Schedule");
+            initialEventsData = new EventSchedule();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Events Schedule");
+            initialEventsData = new EventSchedule();
+        }
+
+        return new ModelManager(initialPersonsData, initialRestaurantsData, initialAssignmentsData,
+                initialEventsData, userPrefs);
     }
 
     private void initLogging(Config config) {
