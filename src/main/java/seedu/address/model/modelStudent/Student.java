@@ -51,7 +51,7 @@ public class Student extends ModelObject {
     return name;
   }
 
-  public ID getID() {
+  public ID getId() {
     return id;
   }
 
@@ -124,7 +124,7 @@ public class Student extends ModelObject {
     Student otherStudentCast = (Student)otherStudent;
     return otherStudentCast != null
         && otherStudentCast.getName().equals(getName())
-        && otherStudentCast.getID().equals(getID());
+        && otherStudentCast.getId().equals(getId());
   }
 
   /**
@@ -143,7 +143,7 @@ public class Student extends ModelObject {
 
     Student otherStudent = (Student) other;
     return otherStudent.getName().equals(getName())
-        && otherStudent.getID().equals(getID())
+        && otherStudent.getId().equals(getId())
         && otherStudent.getTags().equals(getTags());
   }
 
@@ -158,7 +158,7 @@ public class Student extends ModelObject {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
         .append(" ID: ")
-        .append(getID())
+        .append(getId())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

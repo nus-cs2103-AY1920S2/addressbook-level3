@@ -11,6 +11,7 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 
 /**
@@ -189,7 +190,11 @@ public interface Model {
    */
   boolean hasStudent(Student student);
 
-  /**
+  boolean hasStudent(ID studentID);
+
+  Student getStudent(ID studentID);
+
+    /**
    * Deletes the given student. The student must exist in the address book.
    */
   void deleteStudent(Student target);
@@ -245,7 +250,12 @@ public interface Model {
    */
   boolean hasCourse(Course course);
 
-  /**
+  boolean hasCourse(ID courseID);
+
+  Course getCourse(ID courseID);
+
+
+    /**
    * Deletes the given course. The course must exist in the address book.
    */
   void deleteCourse(Course target);

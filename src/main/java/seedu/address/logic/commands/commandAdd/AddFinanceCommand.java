@@ -133,7 +133,7 @@ public class AddFinanceCommand extends AddCommand {
       }
 
       for (Student student : model.getFilteredStudentList()){
-        if (student.getID().toString().equals(studentid.toString())) {
+        if (student.getId().toString().equals(studentid.toString())) {
           studentName = student.getName().toString();
           foundStudent = true;
           break;

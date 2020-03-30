@@ -89,12 +89,10 @@ public class SampleDataUtil {
         new Finance(new Name("Renovated Staff Lounge"), new FinanceType("m"),
             new Date("2020-08-20"),
             new Amount("2000"),
-            new ID(""), new ID(""), new ID(""),
             getTagSet("BLK71", "AirCon")),
         new Finance(new Name("Received Payment From NUS"), new FinanceType("m"),
             new Date("2020-08-21"),
             new Amount("1000"),
-            new ID(""), new ID(""), new ID(""),
             getTagSet("Contract"))
     };
   }
@@ -118,8 +116,8 @@ public class SampleDataUtil {
             getIDSet( "33","44"),
             getTagSet("OOP", "Difficult")),
         new Course(new Name("Advance C"), new ID("426"), new Amount("2000"),
-            new ID(""),
-            getIDSet( "",""),
+            new ID("41"),
+            getIDSet( "33","44"),
             getTagSet("File", "Difficult"))
     };
   }

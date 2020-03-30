@@ -26,6 +26,7 @@ import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 
 /**
@@ -293,6 +294,18 @@ public class ModelManager implements Model {
     return studentAddressBook.has(student);
   }
 
+  public boolean hasStudent(ID studentID) {
+    requireNonNull(studentID);
+    return studentAddressBook.has(studentID);
+  }
+
+  public Student getStudent(ID studentID) {
+    requireNonNull(studentID);
+    return studentAddressBook.get(studentID);
+  }
+
+
+
   @Override
   public void deleteStudent(Student target) {
     studentAddressBook.remove(target);
@@ -363,6 +376,18 @@ public class ModelManager implements Model {
   public boolean hasCourse(Course course) {
     requireNonNull(course);
     return courseAddressBook.has(course);
+  }
+
+  @Override
+  public boolean hasCourse(ID courseID) {
+    requireNonNull(courseID);
+    return courseAddressBook.has(courseID);
+  }
+
+  @Override
+  public Course getCourse(ID courseID) {
+    requireNonNull(courseID);
+    return courseAddressBook.get(courseID);
   }
 
   @Override
@@ -552,6 +577,16 @@ public class ModelManager implements Model {
     requireNonNull(predicate);
     filteredProgresses.setPredicate(predicate);
   }
+
+  // ========================== For Assigning of X to Y =========================
+
+  public void assignStudentToCourse(ID studentID, ID courseID) {
+    // if student exists
+    // if course exists
+    // if student not already assigned to the course
+    // if course doesn't already have the student
+  }
+
 
   /**
    * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of

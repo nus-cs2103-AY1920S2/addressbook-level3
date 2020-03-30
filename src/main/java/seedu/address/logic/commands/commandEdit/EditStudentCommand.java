@@ -71,7 +71,7 @@ public class EditStudentCommand extends Command {
 
     Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
     ID updatedID = editStudentDescriptor.getID()
-        .orElse(studentToEdit.getID());
+        .orElse(studentToEdit.getId());
     Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
     return new Student(updatedName, updatedID, updatedTags);

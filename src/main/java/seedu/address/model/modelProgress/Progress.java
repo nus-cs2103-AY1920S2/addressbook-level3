@@ -55,6 +55,11 @@ public class Progress extends ModelObject {
   }
 
 
+  @Override
+  public ID getId() {
+    return null;
+  }
+
   /**
    * Returns true if both courses of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two courses.

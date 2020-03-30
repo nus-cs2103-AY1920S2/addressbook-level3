@@ -53,6 +53,11 @@ public class Person extends ModelObject {
     return address;
   }
 
+  @Override
+  public ID getId() {
+    return null;
+  }
+
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.

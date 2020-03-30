@@ -42,41 +42,27 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
-        String courseidString = this.assignDescriptor.getAssignID(PREFIX_COURSEID).value;
-        String studentidString = this.assignDescriptor.getAssignID(PREFIX_STUDENTID).value;
+        // if student exists
+        // if course exists
+        // if student not already assigned to the course
+        // if course doesn't already have the student
+
+        ID courseid = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID studentid = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+
+        boolean courseExists = model.hasCourse(courseid);
+        boolean studentExists = model.hasStudent(studentid);
+
         String courseName = "";
         String studentName = "";
-
-        boolean courseExists = false;
-        boolean studentExists = false;
-        Course foundCourse = null;
-        Student foundStudent = null;
-
-        for (Course course : model.getFilteredCourseList()) {
-            if (course.getId().value.equals(courseidString)) {
-                courseName = course.getName().toString();
-                courseExists = true;
-                foundCourse = course;
-                break;
-            }
-        }
-
-        for (Student student : model.getFilteredStudentList()) {
-            if (student.getID().value.equals(studentidString)) {
-                studentName = student.getName().toString();
-                studentExists = true;
-                foundStudent = student;
-                break;
-            }
-        }
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
         } else {
-            ID courseid = ParserUtil.parseCourseid(courseidString);
-            ID studentid = ParserUtil.parseStudentid(studentidString);
+            Course foundCourse = model.getCourse(courseid);
+            Student foundStudent = model.getStudent(studentid);
             foundCourse.addStudent(studentid);
             foundStudent.addCourse(courseid);
             foundCourse.processAssignedStudents(
@@ -86,7 +72,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
             model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentidString, courseName, courseidString));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentid.value, courseName, courseid.value));
         }
 
     }
