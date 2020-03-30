@@ -73,8 +73,8 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterGroup(Model model) throws CommandException {
         requireNonNull(model);
 
-        String moduleCode = (argsList.get(MODULE_INDEX)).toUpperCase();
-        String groupCode = (argsList.get(GROUP_INDEX)).toUpperCase();
+        String moduleCode = argsList.get(MODULE_INDEX);
+        String groupCode = argsList.get(GROUP_INDEX);
 
         Module module = new Module(moduleCode);
         Group group = new Group(groupCode);
@@ -101,15 +101,18 @@ public class FilterStudentViewCommand extends Command {
         requireNonNull(model);
 
         String moduleCode = argsList.get(MODULE_INDEX);
-        String groupCode = argsList.get(GROUP_INDEX);
 
         Module module = new Module(moduleCode);
-        Group group = new Group(groupCode);
 
         if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         } else {
-            model.updateFilteredStudentList(groupCode, moduleCode);
+            model.updateFilteredGroupList(moduleCode);
+            if (model.getFilteredGroupList().isEmpty()) {
+                model.setFilteredGroupList();
+            } else {
+                model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
+            }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }

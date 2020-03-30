@@ -38,12 +38,12 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
         List<String> argsList = new ArrayList<>();
 
         if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            argsList.add((ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())));
+            argsList.add((ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())).toUpperCase());
         }
 
         if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
             argsList.add((
-                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())));
+                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())).toUpperCase());
         }
 
         return new FilterStudentViewCommand(argsList);
