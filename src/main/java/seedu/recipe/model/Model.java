@@ -135,6 +135,10 @@ public interface Model {
      */
     void addPlannedRecipe(PlannedRecipe plannedRecipe);
 
+    void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
+
+    void removeAllPlannedMappingForRecipe(Recipe recipe);
+
     /**
      * Returns an unmodifiable view of the planned recipes.
      */

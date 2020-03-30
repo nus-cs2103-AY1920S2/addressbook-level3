@@ -1,6 +1,7 @@
 package seedu.recipe.model.plan;
 
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -16,4 +17,7 @@ public interface ReadOnlyPlannedBook {
      * This map will not contain duplicate recipes on the same day.
      */
     ObservableList<PlannedRecipe> getPlannedList();
+
+    Map<Recipe, List<PlannedRecipe>> getRecipeToPlannedRecipeMap();
+
 }

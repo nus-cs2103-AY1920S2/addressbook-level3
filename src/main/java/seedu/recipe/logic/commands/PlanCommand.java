@@ -59,6 +59,7 @@ public class PlanCommand extends Command {
         PlannedRecipe plannedRecipe = new PlannedRecipe(recipeToPlan, atDate);
 
         model.addPlannedRecipe(plannedRecipe);
+        model.addPlannedMapping(recipeToPlan, plannedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToPlan.toString(), atDate.toString()));

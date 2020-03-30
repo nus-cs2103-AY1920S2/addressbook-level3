@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -31,6 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
     private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
+    private final Map<Recipe, List<PlannedRecipe>> recipeToPlannedRecipeMap;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -47,6 +50,7 @@ public class ModelManager implements Model {
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
         filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
+        recipeToPlannedRecipeMap = new HashMap<>(this.plannedBook.getRecipeToPlannedRecipeMap());
         // todo: planned recipes cant be saved currently
     }
 
@@ -181,6 +185,16 @@ public class ModelManager implements Model {
     @Override
     public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
         plannedBook.addPlannedRecipe(plannedRecipe);
+    }
+
+    @Override
+    public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.addPlannedMapping(recipe, plannedRecipe);
+    }
+
+    @Override
+    public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+        plannedBook.removeAllPlannedMappingForRecipe(recipe);
     }
 
     @Override

@@ -2,14 +2,22 @@ package seedu.recipe.model.plan;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javafx.collections.ObservableList;
+import seedu.recipe.model.recipe.Recipe;
 
 public class PlannedBook implements ReadOnlyPlannedBook {
 
     private final UniquePlannedList plannedRecipes;
+    private Map<Recipe, List<PlannedRecipe>> recipeToPlannedRecipeMap;
 
     public PlannedBook() {
         plannedRecipes = new UniquePlannedList();
+        recipeToPlannedRecipeMap = new HashMap<>();
     }
 
     /**
@@ -29,6 +37,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         this.plannedRecipes.setPlannedRecipes(plannedRecipes);
     }
 
+
     /**
      * Resets the existing data of this {@code PlannedBook} with {@code newData}.
      * @param newData
@@ -37,6 +46,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         requireNonNull(newData);
 
         setPlannedRecipes(newData.getPlannedList());
+        recipeToPlannedRecipeMap = newData.getRecipeToPlannedRecipeMap();
     }
 
     // ===== Recipe-level methods =====
@@ -49,6 +59,17 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         plannedRecipes.add(plannedRecipe);
     }
 
+    public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        if (recipeToPlannedRecipeMap.containsKey(recipe)) {
+            recipeToPlannedRecipeMap.get(recipe).add(plannedRecipe);
+        } else {
+            List<PlannedRecipe> plannedRecipes = new ArrayList<>();
+            plannedRecipes.add(plannedRecipe);
+            recipeToPlannedRecipeMap.put(recipe, plannedRecipes);
+        }
+    }
+
+
     /**
      * Removes all recipes at {@code date} from this {@code PlannedBook}.
      * {@code date} must exist in the planned book.
@@ -57,11 +78,28 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         plannedRecipes.remove(plannedRecipe);
     }
 
+    /**
+     * params must exist.
+     */
+    public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+        List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
+        for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
+            System.out.println("Removed for date: " + plannedRecipe.getDate());
+            removePlannedRecipes(plannedRecipe);
+        }
+        recipeToPlannedRecipeMap.remove(recipe);
+    }
+
     // ===== Util methods =====
 
     @Override
     public ObservableList<PlannedRecipe> getPlannedList() {
         return plannedRecipes.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public Map<Recipe, List<PlannedRecipe>> getRecipeToPlannedRecipeMap() {
+        return recipeToPlannedRecipeMap;
     }
 
     @Override
