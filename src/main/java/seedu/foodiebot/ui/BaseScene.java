@@ -32,6 +32,7 @@ import seedu.foodiebot.logic.commands.FavoritesCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.RandomizeCommand;
 import seedu.foodiebot.logic.commands.RateCommand;
+import seedu.foodiebot.logic.commands.ReportCommand;
 import seedu.foodiebot.logic.commands.ReviewCommand;
 import seedu.foodiebot.logic.commands.TransactionsCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
@@ -285,6 +286,12 @@ abstract class BaseScene {
                 break;
             case TransactionsCommand.COMMAND_WORD:
                 handleListTransactions();
+                updateResultDisplay(commandResult.getFeedbackToUser());
+                break;
+            case ReportCommand.COMMAND_WORD:
+                // VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
+                // primaryStage.getScene().setRoot(pane);
+                new ReportScene(primaryStage, logic);
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
             case BudgetCommand.COMMAND_WORD:

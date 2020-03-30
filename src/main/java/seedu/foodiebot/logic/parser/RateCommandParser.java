@@ -1,10 +1,12 @@
 package seedu.foodiebot.logic.parser;
 
+import static seedu.foodiebot.logic.commands.RateCommand.MESSAGE_FAILURE;
+import static seedu.foodiebot.logic.commands.RateCommand.MESSAGE_USAGE;
+
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.RateCommand;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.rating.Rating;
-
 
 /**
  * Sets a rating for a purchased food.
@@ -32,9 +34,11 @@ public class RateCommandParser implements Parser<RateCommand> {
             index = Index.fromOneBased(Integer.parseInt(enteredText[0]));
             rating = new Rating(Integer.parseInt(enteredText[1]));
         } catch (NumberFormatException e) {
-            throw new ParseException("Invalid command input!");
+            throw new ParseException(MESSAGE_FAILURE + MESSAGE_USAGE);
         } catch (IllegalArgumentException iae) {
-            throw new ParseException("Rating must be a whole number from 0 to 10!");
+            throw new ParseException(MESSAGE_FAILURE + MESSAGE_USAGE);
+        } catch (IndexOutOfBoundsException oobe) {
+            throw new ParseException(MESSAGE_FAILURE + MESSAGE_USAGE);
         }
         return new RateCommand(index, rating);
     }
