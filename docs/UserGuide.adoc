@@ -258,7 +258,7 @@ Searches for restaurants in the bedok area at a low price point.
 === Deletes a restaurant: `(rt)delete`
 
 Deletes a restaurant from the list +
-Format: `(rt)delete n/NAME`
+Format: `(rt)delete INDEX`
 
 === Add notes to a restaurant: `(rt)addnote`
 
