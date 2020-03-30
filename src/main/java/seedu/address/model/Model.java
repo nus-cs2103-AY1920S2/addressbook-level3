@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.day.Day;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -20,6 +21,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
@@ -87,6 +91,8 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     ObservableList<Assignment> getAssignmentList();
+
+    ObservableList<Event> getEventsList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -158,7 +164,7 @@ public interface Model {
 
     /**
      * Adds the given assignment.
-     * {@code assigment} must not already exist in the scheduler.
+     * {@code Assignment} must not already exist in the scheduler.
      */
     void addAssignment(Assignment toAdd);
 
@@ -182,6 +188,38 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Replaces event schedule data with the data in {@code eventSchedule}.
+     */
+    void setEventSchedule(ReadOnlyEventSchedule eventSchedule);
+
+    /** Returns the Event Schedule */
+    ReadOnlyEventSchedule getEventSchedule();
+
+    /**
+     * Adds the given Event.
+     * {@code Event} must not already exist in the event schedule.
+     */
+    void addEvent(Event toAdd);
+
+    /**
+     * Returns true if an Event with the same title and date as {@code Event} exists in the event schedule
+     */
+    boolean hasEvent(Event toAdd);
+
+    /** Sorts the event schedule by the filter */
+    void sortEvent(Comparator<Event> comparator);
+
+    /** Returns an unmodifiable view of the filtered event list */
+    ObservableList<Event> getFilteredEventList();
+
+    /**
+     * Updates the filter of the filtered event list to filter by the given {@code Predicate}
+     * @throws NullPointerException if {@code predicate} is null
+     */
+    void updateFilteredEventList(Predicate<Event> predicate);
+
     //=========== Filtered Bday List Accessors ====================================================================
 
     /**

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -22,17 +23,20 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private RestaurantBookStorage restaurantBookStorage;
     private SchedulerStorage schedulerStorage;
+    private EventScheduleStorage eventScheduleStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage,
                           RestaurantBookStorage restaurantBookStorage,
                           SchedulerStorage schedulerStorage,
+                          EventScheduleStorage eventScheduleStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.restaurantBookStorage = restaurantBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.schedulerStorage = schedulerStorage;
+        this.eventScheduleStorage = eventScheduleStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -139,5 +143,34 @@ public class StorageManager implements Storage {
     public void saveScheduler(ReadOnlyScheduler scheduler, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         schedulerStorage.saveScheduler(scheduler, filePath);
+    }
+
+    // ============== Scheduler methods =======================================
+
+    @Override
+    public Path getEventScheduleFilePath() {
+        return eventScheduleStorage.getEventScheduleFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyEventSchedule> readEventSchedule() throws DataConversionException, IOException {
+        return readEventSchedule(eventScheduleStorage.getEventScheduleFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyEventSchedule> readEventSchedule(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return eventScheduleStorage.readEventSchedule(filePath);
+    }
+
+    @Override
+    public void saveEventSchedule(ReadOnlyEventSchedule eventSchedule) throws IOException {
+        saveEventSchedule(eventSchedule, eventScheduleStorage.getEventScheduleFilePath());
+    }
+
+    @Override
+    public void saveEventSchedule(ReadOnlyEventSchedule eventSchedule, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        eventScheduleStorage.saveEventSchedule(eventSchedule, filePath);
     }
 }
