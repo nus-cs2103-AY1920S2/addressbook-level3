@@ -234,7 +234,7 @@ Why will you want to use the `edit` command? If you wish to edit any field of a 
 Here is how you can edit the details of any parcel by following the steps below: +
 
 *Step 1* : Type in the keyword *edit* +
-*Step 2* : Provide the `<<command_flag, FLAG>>` corresponding to the parcel order type you want to edit +
+*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to edit +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to edit +
 *Step 4* : Provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the new value you want to change to. +
 *Step 5* : Press `Enter` on your keyboard to see the magic!
