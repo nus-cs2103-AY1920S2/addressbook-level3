@@ -3,8 +3,6 @@ package seedu.eylah.expensesplitter.logic.commands;
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBook;
 
-import java.math.BigDecimal;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.eylah.addressbook.logic.parser.ParserUtil;
@@ -15,8 +13,6 @@ import seedu.eylah.expensesplitter.model.ModelManager;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReceiptBookStub;
 import seedu.eylah.expensesplitter.model.UserPrefs;
-import seedu.eylah.expensesplitter.model.person.Person;
-import seedu.eylah.expensesplitter.testutil.PersonBuilder;
 import seedu.eylah.expensesplitter.testutil.TypicalPersons;
 
 public class PaidCommandTest {
@@ -34,10 +30,10 @@ public class PaidCommandTest {
         Model expectedModel = new ModelManager(new ReceiptBookStub(), new PersonAmountBook(model.getPersonAmountBook()),
             new UserPrefs());
         expectedModel.getReceipt().makeDone();
-        expectedModel.paidPerson(TypicalPersons.ALICE,"1");
+        expectedModel.paidPerson(TypicalPersons.ALICE, "1");
 
-        String messageSuccess = PaidCommand.MESSAGE_SUCCESS + TypicalPersons.ALICE.getName() +
-            ". Amount decreased from " + "2.50 to 1.50.";
+        String messageSuccess = PaidCommand.MESSAGE_SUCCESS + TypicalPersons.ALICE.getName()
+            + ". Amount decreased from " + "2.50 to 1.50.";
         assertCommandSuccess(paidCommand, model, messageSuccess, expectedModel);
 
     }

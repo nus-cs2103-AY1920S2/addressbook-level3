@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 import seedu.eylah.expensesplitter.model.receipt.UniqueReceiptList;
 
+/**
+ * A stub class for ReceiptBook.
+ */
 public class ReceiptBookStub implements ReadOnlyReceiptBook {
 
     private final UniqueReceiptList receipts;
