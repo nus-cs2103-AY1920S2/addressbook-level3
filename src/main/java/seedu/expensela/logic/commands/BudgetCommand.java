@@ -35,4 +35,11 @@ public class BudgetCommand extends Command {
                 currentData.getIncome()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, budgetValue));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BudgetCommand // instanceof handles nulls
+                && budgetValue.equals(((BudgetCommand) other).budgetValue));
+    }
 }

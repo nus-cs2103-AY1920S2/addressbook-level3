@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
-import javafx.scene.text.Font;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Balance;
 import seedu.expensela.model.monthlydata.MonthlyData;
@@ -53,6 +52,11 @@ public class MonthlyDataPanel extends UiPart<Region> {
     @FXML
     private Label income;
 
+    /**
+     * Create an instance of MonthlyData Panel with given monthlyData and balanceAmount
+     * @param monthlyData to be displayed
+     * @param balanceAmount to be displayed
+     */
     public MonthlyDataPanel(MonthlyData monthlyData, Double balanceAmount) {
         super(FXML);
         this.monthlyData = monthlyData;
@@ -64,6 +68,11 @@ public class MonthlyDataPanel extends UiPart<Region> {
         income.setText("Monthly Income: " + monthlyData.getIncome());
     }
 
+    /**
+     * Draw circle object representation of ratio of expense and budget
+     * @param budget
+     * @param expense
+     */
     private void drawCircle(double budget, double expense) {
         double angle = 360 - expense / budget * 360;
         double overlayAngle = 0;
@@ -99,7 +108,7 @@ public class MonthlyDataPanel extends UiPart<Region> {
         inner.setLength(360);
         inner.setType(ArcType.ROUND);
         inner.setFill(overlay);
-        int percentage = 100 - (int) (expense*100/budget);
+        int percentage = 100 - (int) (expense * 100 / budget);
         String displayedPercentage = percentage + "%";
         circleLabel.setText(displayedPercentage);
     }
