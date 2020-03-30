@@ -2,6 +2,9 @@ package seedu.address.searcher;
 
 import java.util.ArrayList;
 
+/**<h1>Mod Planner Logic Class</h1>
+ * just simple logic and functions for mod planing
+ */
 public class ModulePlanner {
     private ArrayList<Module> myMods;
 
@@ -13,5 +16,7 @@ public class ModulePlanner {
         myMods.add(Search.findModule(moduleCode));
     }
 
+    public void removeModule(String moduleCode) {
 
+    }
 }
