@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
@@ -128,6 +129,8 @@ public interface Model {
     void addModule(NusModule module);
 
     void deleteModule(ModuleCode moduleCode);
+
+    void gradeModule(ModuleCode moduleCode, Grade grade);
 
     double getCap();
 

@@ -42,6 +42,16 @@ public class ModuleBook {
         modules.remove(index);
     }
 
+    public void gradeModule(ModuleCode moduleCode, Grade grade) {
+        requireNonNull(moduleCode);
+        requireNonNull(grade);
+        for (NusModule module: modules) {
+            if (module.getModuleCode().equals(moduleCode)) {
+                module.setGrade(grade);
+            }
+        }
+    }
+
     /**
      * Returns true if a module with the same module code as {@code NusModule} exists in the address book.
      */

@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
@@ -161,6 +162,7 @@ public class ModelManager implements Model {
      * @param
      * @return
      */
+    @Override
     public boolean hasModule(ModuleCode moduleCode) {
         return moduleBook.hasModule(moduleCode);
     }
@@ -173,6 +175,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(ModuleCode moduleCode) {
         moduleBook.deleteModule(moduleCode);
+    }
+
+    @Override
+    public void gradeModule(ModuleCode moduleCode, Grade updatedGrade) {
+        moduleBook.gradeModule(moduleCode, updatedGrade);
     }
 
     @Override
