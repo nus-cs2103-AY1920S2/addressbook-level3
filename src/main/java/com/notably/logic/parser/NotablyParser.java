@@ -22,8 +22,8 @@ import com.notably.model.Model;
 public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final List<String> COMMAND_LIST = List.of("new", "n", "edit", "e", "delete", "d",
-            "open", "o", "help", "h", "exit");
+    private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete",
+            "open", "help", "exit");
     private static final int DISTANCE_THRESHOLD = 2;
 
     private Model notablyModel;
@@ -45,11 +45,14 @@ public class NotablyParser {
             throw new ParseException(String.format("Invalid Command"));
         }
         String commandWord = matcher.group("commandWord");
-        Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
-        if (correctedCommand.equals(Optional.empty())) {
-            throw new ParseException("Invalid command");
+        if (commandWord.length() > 1) {
+            Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
+            if (correctedCommand.equals(Optional.empty())) {
+                throw new ParseException("Invalid command");
+            }
+            commandWord = correctedCommand.get();
         }
-        commandWord = correctedCommand.get();
+
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {

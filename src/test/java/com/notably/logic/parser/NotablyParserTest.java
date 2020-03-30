@@ -1,6 +1,7 @@
 package com.notably.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.BlockImpl;
@@ -71,14 +73,12 @@ public class NotablyParserTest {
     }
 
     @Test
-    public void parseCommand_newCommandShortHandInput() throws Exception {
-        Command command = parser.parseCommand("n -t 1234 -b Hi").get(0);
+    public void parseCommand_existingNoteInput_throwsError() throws Exception {
+        Command command = parser.parseCommand("new -t block -b Hi").get(0);
 
         assertTrue(command instanceof NewCommand);
 
-        command.execute(model);
-
-        assertTrue(model.hasPath(ParserUtil.createAbsolutePath("1234", model.getCurrentlyOpenPath())));
+        assertThrows(CommandException.class, () -> command.execute(model));
     }
 
     @Test
