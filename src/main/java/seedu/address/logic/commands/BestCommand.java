@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.ModelUtil.validateFinalisation;
+
 import java.util.Comparator;
 
 import javafx.collections.ObservableList;
@@ -21,8 +23,7 @@ import seedu.address.model.hirelah.MetricList;
  */
 public class BestCommand extends Command {
     public static final String COMMAND_WORD = "best";
-    public static final String MESSAGE_HAS_NOT_FINALIZED = "The session has not been finalized. Please finalize it"
-            + " before finding best interviewees.";
+    public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
     public static final String MESSAGE_SIZE_NOT_A_NUMBER = "The size of the interviewees provided is not a number.";
     public static final String MESSAGE_NON_POSITIVE_SIZE = "The size of the interviewees provided must be positive.";
     public static final String MESSAGE_PARAM_NOT_FOUND = "The param prefix provided: %s is not found.";
@@ -56,9 +57,7 @@ public class BestCommand extends Command {
      * @throws CommandException If there is an invalid parameter entered by the client.
      */
     public CommandResult execute(Model model) throws CommandException {
-        if (!model.isFinalisedInterviewProperties()) {
-            throw new CommandException(MESSAGE_HAS_NOT_FINALIZED);
-        }
+        validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         int size = parseNumberOfInterviewees(numberOfInterviewees);
         Comparator<Interviewee> comparator;
         try {
