@@ -109,30 +109,66 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 
 [[clear]]
-=== Clearing all entries : `clear`
+=== Clearing all entries : `clear` [Done by - Eng Xuan En]
+====
+If you have huge amount of orders or return orders to clear and tired of clearing them one by one, you could use the
+`clear` command to remove all orders and return orders for just one command line.
+====
 
-==== Description
-* You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
-* If an `-f` flag is given, no user confirmation will be requested.
+==== How to use the Clear command?
+* You can use this command to clear all existing orders and return orders in the order list and return order list respectively. By default, the command will ask you for confirmation.
+
+Here is how you can clear the order list and return order list by following the steps below: +
+
+*Step 1* : Type in the keyword `clear`. +
+*Step 2 (Optional)* : Provides the `-f` flag if you confirm that you would like to force clear both order list and return order list. +
+*Step 3 (Optional)* : Provides the `-o` or `-r` flag if you only want to clear either order list or return order list respectively. +
+*Step 4* : Press `Enter` on your keyboard to send the instruction to Delino.
 
 [NOTE]
 ====
 * A space is required in between the command and flags. Refer to the  examples below for more information.
-* If *no* `-o` or `-r` flag is given, it will be treated as both. *Both* order book and return order book will be cleared.
+* If *no* `-o` or `-r` flag is given, it will be treated as both. *Both* order list and return order list will be cleared.
+* Flags can be in any order such that `clear` `-f` `-o` and `clear` `-o` `-f` indicate to force clear the order list.
+* If an `-f` flag is given, no user confirmation will be requested.
 ====
 
-==== Format:
-* `clear` `[FLAG]`
+==== What constitutes a valid Clear command?
+* `clear` `[FLAG]` +
+`clear` is the command and `FLAG` could be either `-f`, `-r` and `-o`; whereby `-f` flag indicate force clear and +
+`-r` and `-o` indicates the return order list and order list respectively.
 
-==== Examples
-* `clear` +
-   Popup will appear and ask the user for double confirm to clear both order and return order book.
-* `clear` `-f` +
-   Both order book and return order book will be cleared immediately.
-* `clear` `-f` `-r` +
-   Only return order book is cleared immediately.
-* `clear` `-o` `-f` +
-   Only order book is cleared immediately.
+.
+
+There are 6 possible combinations for the `clear` command:
+.Possible Combinations of Edit command
+|===
+|Scenario |Command |Result
+
+| If you want to have a confirmation notice before clearing both lists, you could use this:
+| `clear`
+| Popup will appear and ask the user for confirmation to clear both order list and return order list.
+
+| If you don't want to get prompt before clearing both lists, you could use this:
+| `clear` `-f`
+| Both order list and return order list will be cleared immediately.
+
+| If you want to have a confirmation notice before clearing return order list, you could use this:
+| `clear` `-r`
+| Popup will appear and ask the user for confirmation to clear the return order list.
+
+| If you don't want to get prompt before clearing return order list, you could use this:
+| `clear` `-f` `-r`
+| Only return order list is cleared immediately.
+
+| If you want to have a confirmation notice before clearing order list, you could use this:
+| `clear` `-o`
+| Popup will appear and ask the user for confirmation to clear the order list.
+
+| If you don't want to get prompt before clearing order list, you could use this:
+| `clear` `-o` `-f`
+| Only order list is cleared immediately.
+|===
 
 [[delete]]
 === Deleting an order : `delete`
@@ -288,44 +324,57 @@ Insert the delivery order with transaction id 'C1023456789' into the list of del
 ====
 
 [[import]]
-=== Importing a list of orders : `import`
-==== Description
-* You will be able to import orders and return orders via a csv file that are given to you by your company.
+=== Importing a list of orders : `import` [Done by - Eng Xuan En]
+====
+Suppose you are given a huge amount of orders and return orders by your company and you are required to add them into
+Delino. You would not want to add them one by one. +
+No worries! Delino has the command, `import`, to import all of them at once via a CSV file.
+====
+
+==== How to use Import command?
+* You will be able to import orders and return orders via a CSV file that are given to you by your company.
 * The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
 transaction id of the parcels and the address of the customers, etc.
 
-==== Format
-* `import` `FILE_NAME`
+Here is how you can import the orders and return orders into Delino by following the steps below: +
+
+*Step 1* : Type in the keyword `import`. +
+*Step 2* : Provides the CSV file name that you would like to import with the *.csv* extension behind +
+*Step 3* : Press `Enter` on your keyboard to send the instruction to Delino.
+
+==== What constitutes a valid Import command?
+
+* `import` `FILE_NAME` +
+
+====
+`import` is the command and `FILE_NAME`  is the file name that is required to import with the *.csv* extension behind.
+====
 
 [WARNING]
 ====
-* Only csv file could be imported.
-* Only *one* csv file can be imported at one time.
+* Only CSV file could be imported.
+* Only *one* CSV file can be imported at one time.
 * The `FILE_NAME` should include the extension. For example: `*orders.csv*`.
-* The folder, *data*, which the csv files are stored in, should be in the same directory as the JAR file.
-* Import the specific csv with the `FILE_NAME` in *data* folder to the application.
+* The folder, *data*, which the CSV files are stored in, should be in the same directory as the JAR file.
+* Import the specific CSV with the `FILE_NAME` in *data* folder to the application.
 ====
 
-* The data in the `csv file` should be written in the following format:
+* The data in the `CSV file` should be written in the following format:
 
 [format=csv]
 .Order data format
 |===
 ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, dts/DELIVERY_DATE_&_TIME, w/WAREHOUSE_LOCATION, cod/CASH_ON_DELIVERY, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
-|===
-* Examples:
-** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`,
+`ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`,
 `e/amos@example.com`, `dts/2020-05-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
-
+|===
 [format=csv]
 .Return data format
 |===
 ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
-|===
-
-* Examples:
-** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com`, +
+`ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com`, +
 `rts/2020-05-10 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
+|===
 
 [NOTE]
 ====
@@ -338,10 +387,15 @@ ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rt
 * Duplicate and invalid order or return order will not be imported into Delino.
 ====
 
-==== Examples
+. Possible combinations of Import command
+|===
+|Scenario |Command |Result
 
-* `import` `orders.csv` +
-Import the contents of the csv file, `orders.csv`, to Delino.
+| If you want to import all of the orders and return orders at once via CSV file, you could use this:
+| `import` `orders.csv`
+| Import the contents of the CSV file, `orders.csv`, to Delino.
+
+|===
 
 [[list]]
 === Listing orders : `list`
