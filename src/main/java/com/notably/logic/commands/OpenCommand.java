@@ -12,6 +12,7 @@ import com.notably.model.block.exceptions.NoSuchBlockException;
  */
 public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
+    public static final String COMMAND_SHORTHAND = "o";
     private AbsolutePath path;
 
     public OpenCommand(AbsolutePath path) {
