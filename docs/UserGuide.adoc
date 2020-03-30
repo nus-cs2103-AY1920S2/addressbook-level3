@@ -34,7 +34,7 @@ Enjoy!
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `naggyjoel.jar` link:https://github.com/AY1920S2-CS2103-W14-3/main/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for Naggy Joel.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -55,18 +55,36 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== General Commands
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `(ab)add`
+==== Undo and redo commands: `undo/redo`
+
+Undoes and redoes the last command. +
+Format: `undo/redo`
+
+==== Clearing all entries : `clear`
+
+Clears all entries from the address book, schoolwork tracker, events book and restaurant book. +
+Format: `clear`
+
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Address Book Commands
+
+==== Adding a person: `(ab)add`
 
 Adds a person to the address book +
 Format: `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [g/ORGANIZATION] [b/BIRTHDAY]`
@@ -83,36 +101,30 @@ Examples:
 * `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 b/02-12 o/NUS`
 * `(ab)add n/ Benjamin t/CS2103`
 
+==== Deleting a person : `(ab)delete`
 
-=== Finding a specific contact/a specific set of contacts: `(ab)find`
-
-Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only lists the name, phone number and tags (if present) +
-Format: `(ab)find [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
+Deletes the contact at index INDEX +
+Format: `(ab)delete INDEX`
 
 ****
-* If more than 1 switches are indicated, it will be treated as a conjunction of filters
-* [-g] List all contacts in a particular group
-* [-n] List all contacts that contains this name, not case sensitive
-* [-t] List all contacts with a particular tag
+* INDEX must be a positive integer. It refers to the index of the respective contact as shown in the displayed person list.
 ****
 
 Examples:
-* `(ab)find -g/NUS -n/Lim` +
-Finds and lists all contacts that is in group “NUS” and have the word “Lim” in its name
 
-=== Editing a person : `(ab)edit`
+* `(ab)delete 2` +
+Deletes the 2nd person in the address book.
+
+==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
-Format: `(ab)edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
+Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [o/ORGANIZATION] [b/BIRTHDAY]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* Remarks cannot be edited using this command.
-* The name in 'n/' and phone number in 'p/' should not be empty.
+* Remarks and Tags cannot be edited using this command.
 ****
 
 Examples:
@@ -122,13 +134,13 @@ Changes the 37th person’s address to 2 Cactus Road, S903281.
 * `(ab)edit 2 n/Elysia Tan o/Comp Club` +
 Changes the second person’s name to Elysia Tan, and organization to Comp Club.
 
-=== Adding tags to a person : `(ab)addtag`
+==== Adding tags to a person : `(ab)addtag`
 
 Allows you to add additional tags to your contacts. +
 Format: `(ab)addtag INDEX [t/TAG]`
 
 ****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
+* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function.
 * All tags typed will be added, if it is not a duplicate
 * Maximum tag length of 15
 * Maximum of 5 tags can be added to a contact
@@ -139,14 +151,15 @@ Examples:
 * `(ab)addtag 37 t/noob`
 Adds the tag “noob” to the person at index 37
 
-=== Adding tags to a person : `(ab)rmtag`
+==== Removing tags from a person : `(ab)rmtag`
 
-Allows you to add additional tags to your contacts. +
-Format: `(ab)rmtag INDEX [t/TAG]`
+Allows you to remove tags from your contacts. +
+Format: `(ab)rmtag INDEX t/[TAG]`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
 * If a tag matches an existing tag, it will be removed
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
@@ -154,7 +167,54 @@ Examples:
 * `(ab)rmtag 37 t/noob` +
 Removes the tag “noob” from the person at index 37
 
-=== Sort contacts: `(ab)sort`
+==== Store additional information about contacts using the Note Taker: `(ab)addnote`
+
+Store additional information about contacts using the Note Taker +
+Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
+
+****
+* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
+* There should be at least one i/INFO
+****
+
+==== Edit additional information about contacts: `(ab)editnote`
+
+Edit additional information about contacts using the Note Taker +
+Format: `(ab)editnote INDEX [-l/LINE_NUMBER] i/INFO`
+
+****
+* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
+* If [-l] is not specified, all information will be replaced by the new one in INFO
+* [-l] Line number of information to be replaced
+****
+
+==== Delete additional information about contacts: `(ab)deletenote`
+
+Delete additional information about contacts using the Note Taker +
+Format: `(ab)deletenote INDEX [-l/LINE_NUMBER]`
+
+****
+* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
+* If none of the optional switches are specified, all information will be deleted
+* [-l] Line number of information to be deleted
+* [-k] Delete all lines that contain this keyword
+****
+
+==== Finding a specific contact/a specific set of contacts: `(ab)find`
+
+Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
+Format: `(ab)find [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
+
+****
+* If more than 1 switch is indicated, it will be treated as a conjunction of filters
+* [-g] [-t] List all contacts in a particular group with the particular tag
+****
+
+Examples:
+* `(ab)find -g/NUS -n/Lim` +
+Finds and lists all contacts that is in group “NUS” and have the word “Lim” in his name
+
+==== List contacts in a particular order: `(ab)sort`
 
 Displays the list of contacts in a certain sorted order +
 Format: `ab sort [-f] [-o] [-b]`
@@ -170,12 +230,7 @@ Examples:
 * `(ab)sort -a` +
 Lists all contacts alphabetically
 
-=== Undo and redo commands: `undo/redo`
-
-Undoes and redoes the last command. +
-Format: `undo/redo`
-
-=== List everything about a contact in field: `(ab)get`
+==== List everything about a contact in field: `(ab)get`
 Format: `(ab)get INDEX`
 
 ****
@@ -183,51 +238,20 @@ Format: `(ab)get INDEX`
 * Displays all information relating to a contact at index INDEX
 ****
 
-=== Store additional information about contacts using the Note Taker: `(ab)addnote`
-
-Store additional information about contacts using the Note Taker +
-Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* There should be at least one i/INFO
-****
-
-=== Edit additional information about contacts: `(ab)editnote`
-
-Edit additional information about contacts using the Note Taker +
-Format: `(ab)editnote INDEX [-l/LINE_NUMBER] i/INFO`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If [-l] is not specified, all information will be replaced by the new one in INFO
-* [-l] Line number of information to be replaced
-****
-
-=== Delete additional information about contacts: `(ab)deletenote`
-
-Delete additional information about contacts using the Note Taker +
-Format: `(ab)deletenote INDEX [-l/LINE_NUMBER]`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If none of the optional switches are specified, all information will be deleted
-* [-l] Line number of information to be deleted
-* [-k] Delete all lines that contain this keyword
-****
-
-=== List contacts with birthdays in the next 5 days (current day included): `(ab)birthday`
+==== List contacts with birthdays in the next 5 days (current day included): `(ab)birthday`
 Format: `(ab)birthday`
 
-=== Obtain gift suggestions for a particular contact using the Birthday Tracker `(coming in v2.0)`
+=== Restaurant Book commands
 
-=== Adds a new restaurant: `(rt)add`
+==== Adds a new restaurant: `(rt)add`
 
 Adds a new restaurant +
 Format: `(rt)add n/NAME l/LOCATION [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
 
 ****
-* OPERATING_HOURS is 8 digits
+* OPERATING_HOURS must be written in HHmm:HHmm format
+* PRICE_POINT contains only dollar signs
+** There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is $. The medium price point is $$. The highest price point is $$$.
 ****
 
 Examples:
@@ -235,7 +259,22 @@ Examples:
 * `(rt)add rubbish l/bedok o/0900:2300 p/$$` +
 Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm
 
-=== Search: `(rt)search`
+==== Deletes a restaurant: `(rt)delete`
+
+Deletes a restaurant from the list +
+Format: `(rt)delete n/NAME`
+
+==== Add notes to a restaurant: `(rt)notes`
+
+Adds a new note to a restaurant +
+Format: `(rt)notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+
+Examples:
+
+* `(rt)notes rubbish r/chicken chop g/truffle fries b/risotto` +
+Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+
+==== Search: `(rt)search`
 
 Search for restaurants based on a number of criteria. +
 Format: `(rt)search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
@@ -243,8 +282,8 @@ Format: `(rt)search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]
 ****
 * At least one search criteria must be filled in.
 * There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is $. The medium price point is $$. The highest price point is $$$.
-* If more than 1 optional parameters are filled, taken as conjunction
-* All case insensitive
+* If more than 1 optional parameters are filled, they are viewed as a conjunction of filters
+* All are case insensitive
 * LOCATION, PRICE_POINT, and OPERATING_HOURS must be exact matches (case insensitive)
 ****
 
@@ -255,22 +294,9 @@ Searches for restaurants with the keyword no signboard which is at a medium pric
 * `(rt)search l/bedok p/$` +
 Searches for restaurants in the bedok area at a low price point.
 
-=== Deletes a restaurant: `(rt)delete`
+=== Schoolwork Tracker commands
 
-Deletes a restaurant from the list +
-Format: `(rt)delete n/NAME`
-
-=== Add notes to a restaurant: `(rt)notes`
-
-Adds a new restaurant +
-Format: `(rt)notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
-
-Examples:
-
-* `(rt)notes rubbish r/chicken chop g/truffle fries b/risotto` +
-Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
-
-=== Add new assignment to the Schoolwork Tracker: `(st)add`
+==== Add new assignment to the Schoolwork Tracker: `(st)add`
 
 Adds a new assignment to your list of assignments and projects. +
 Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
@@ -283,28 +309,8 @@ Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 Examples:
 
-* `(st)add t/CS2103 post lecture quiz d/2020-02-11 2359 e/1` +
+* `(st)add t/CS2103 post lecture quiz d/2020-02-11 23:59 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
-
-=== List current assignments: `(st)list`
-
-Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. By default, it sorts the list in alphabetical order. +
-Format: `(st)list [-d] [-e]`
-
-****
-* Exactly 1 of [-d] or [-e] can be entered, to change the sorting criteria
-* [-d] = Deadline
-* [-e] = Estimated completion time
-****
-
-=== Mark as completed: `(st)done`
-
-Marks an assignment as completed. +
-Format: `(st)done INDEX`
-
-****
-* INDEX must be a positive integer. It corresponds to the rank of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function (see above).
-****
 
 === Delete assignment: `(st)delete`
 
@@ -312,30 +318,42 @@ Deletes an assignment. +
 Format: `(st)delete INDEX`
 
 ****
-* INDEX must be a positive integer. It corresponds to the rank of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function (see above) sorted by alphabetical order.
+* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see below).
 ****
 
-=== Add person to assignment: `(st)addmem`
+==== List current assignments: `(st)list`
 
-Adds a group mate to an assignment. +
-Format: `(st)addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
+Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. By default, it sorts the list in alphabetical order. +
+Format: `(st)list [-d/DEADLINE] [-e/ESTIMATED_COMPLETION_TIME]`
 
 ****
-* INDEX must be a positive integer. It corresponds to the rank of the assignment shown
+* Only 1 field can be specified at each time
 ****
 
-=== Schedule an event: `schedule`
+==== Mark assignment as completed: `(st)done`
 
-Looks through the list of current assignments to find a free slot for social activities. +
+Marks an assignment as completed. +
+Format: `(st)done INDEX`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see above).
+****
+
+==== Visualise the intensity of user's upcoming schedule: `visualise schedule`
+
+Looks through the list of current uncompleted assignments to calculate the estimated work hours per day to complete all assignments by their deadlines +
 Format: `schedule`
 
 ****
-* A list of free slots that are available for social activities will be shown.
+* Only the schedule for the next 7 days (including today) will be shown
+* Red: User either has an assignment due the next day (from query date) or the expected work hours for the day is more than 10 hours
+* Orange: The expected work hours for the day is between 5 and 10 hours
+* Green: The expected work hours for the day is less than or equals to 5 hours
 ****
 
-// tag::delete[]
+=== Event Book commands
 
-=== Create a new social event: `event`
+==== Create a new social event: `event`
 
 Creates a social event. +
 Format: `event d/DATE t/TIME`
@@ -345,42 +363,27 @@ Format: `event d/DATE t/TIME`
 * `TIME` must be in a HH:MM format.
 ****
 
-=== Deleting a person : `(ab)delete`
-
-Deletes the contact at index INDEX +
-Format: `(ab)delete INDEX`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the last sorted LIST function (see 2.4).
-* All remarks and tags will be deleted if specified.
-****
-
-Examples:
-
-* `(ab)delete 2` +
-Deletes the 2nd person in the address book.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Address book, Schoolwork Tracker, Event Book and Restaurant Book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Coming in v2.0
+
+==== Add person to assignment: `(st)addmem`
+
+Adds a group mate to an assignment. +
+Format: `(st)addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
+
+****
+* INDEX must be a positive integer. It corresponds to the rank of the assignment shown
+****
+
+==== Obtain gift suggestions for a particular contact using the Birthday Tracker
+
+==== Encrypting data files
 
 _{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
