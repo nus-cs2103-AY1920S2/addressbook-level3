@@ -21,7 +21,6 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
-
 /**
  * Deletes a session identified using it's index.
  */
