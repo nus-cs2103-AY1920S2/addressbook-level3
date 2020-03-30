@@ -13,6 +13,7 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.PrefixDictionary;
 import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -30,8 +31,8 @@ public class EditGroupCommand extends Command {
     public static final List<Prefix> OPTIONALS = List.of(NEWGROUP, NEWTYPE); // TODO: new type not needed?
 
     public static final String INFO = "Edits the group identified by the group code.";
-    public static final String USAGE = Prefixes.getUsages(PARAMETERS, OPTIONALS);
-    public static final String EXAMPLE = Prefixes.getExamples(MODULE, GROUP, NEWGROUP, NEWTYPE);
+    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS, OPTIONALS);
+    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(MODULE, GROUP, NEWGROUP, NEWTYPE);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the  group identified by the group code.\n"

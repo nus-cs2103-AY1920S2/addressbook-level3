@@ -9,7 +9,7 @@ import java.util.List;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.Prefixes;
+import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
 
@@ -23,8 +23,8 @@ public class SortModuleCommand extends SortCommand {
     public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE, MODULE);
 
     public static final String INFO = "Sorts all students in all groups of the given module.";
-    public static final String USAGE = Prefixes.getUsages(PARAMETERS);
-    public static final String EXAMPLE = Prefixes.getExamples(SORT_TYPE, MODULE);
+    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
+    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(SORT_TYPE, MODULE);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"

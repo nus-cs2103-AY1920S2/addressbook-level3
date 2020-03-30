@@ -16,7 +16,7 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.Prefixes;
+import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -32,8 +32,9 @@ public class AddSessionCommand extends Command {
             START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
 
     public static final String INFO = "Adds a session in the TA-Tracker.";
-    public static final String USAGE = Prefixes.getUsages(PARAMETERS, OPTIONALS);
-    public static final String EXAMPLE = Prefixes.getExamples(START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES);
+    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS, OPTIONALS);
+    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(
+            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a session in TA-Tracker. "
             + "Parameters: "

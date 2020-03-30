@@ -1,79 +1,43 @@
 package tatracker.logic.parser;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import tatracker.commons.core.index.Index;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.student.Rating;
-import tatracker.model.tag.Tag;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
 public class Prefixes {
 
+    public static final String DELIMITER = "/";
+
     /* Placeholders */
-    public static final Prefix INDEX = new Prefix("", Index.MESSAGE_CONSTRAINTS, "INDEX", "1");
-    public static final Prefix KEYWORD = new Prefix("", "", "KEYWORD", "alice");
-    public static final Prefix MORE_KEYWORDS = new Prefix("", "", "MORE_KEYWORDS", "bob", "charlie");
+    public static final Prefix INDEX = new Prefix("", "INDEX");
+    public static final Prefix KEYWORD = new Prefix("", "KEYWORD");
+    public static final Prefix MORE_KEYWORDS = new Prefix("", "MORE_KEYWORDS");
 
     /* Session definitions */
-    public static final Prefix START_TIME = new Prefix("s/", "", "START_TIME", "14:00");
-    public static final Prefix END_TIME = new Prefix("e/", "", "END_TIME", "16:00");
-    public static final Prefix DATE = new Prefix("d/", "", "DATE", "19-02-2020");
-    public static final Prefix RECUR = new Prefix("w/");
-    public static final Prefix SESSION_TYPE = new Prefix("t/", "", "SESSION_TYPE", "grading");
-    public static final Prefix NOTES = new Prefix("n/", "", "NOTES", "Location: PLAB 04");
+    public static final Prefix START_TIME = new Prefix("s/", "START_TIME");
+    public static final Prefix END_TIME = new Prefix("e/", "END_TIME");
+    public static final Prefix DATE = new Prefix("d/", "DATE");
+    public static final Prefix RECUR = new Prefix("w/", "RECUR");
+    public static final Prefix SESSION_TYPE = new Prefix("t/", "SESSION_TYPE");
+    public static final Prefix NOTES = new Prefix("n/", "NOTES");
 
     /* Module definitions */
-    public static final Prefix MODULE = new Prefix("m/", "", "MODULE", "CS3243");
-    public static final Prefix MODULE_NAME = new Prefix("n/", "", "DESCRIPTION", "Introduction to AI");
+    public static final Prefix MODULE = new Prefix("m/", "MODULE");
+    public static final Prefix MODULE_NAME = new Prefix("n/", "DESCRIPTION");
 
     /* Group definitions */
-    public static final Prefix GROUP = new Prefix("g/", "", "GROUP", "G06");
-    public static final Prefix NEWGROUP = new Prefix("ng/", "", "NEW_GROUP", "G05");
-    public static final Prefix TYPE = new Prefix("t/", "", "GROUP_TYPE", "tutorial");
-    public static final Prefix NEWTYPE = new Prefix("nt/", "", "NEW_TYPE", "lab");
+    public static final Prefix GROUP = new Prefix("g/", "GROUP");
+    public static final Prefix NEWGROUP = new Prefix("ng/", "NEW_GROUP");
+    public static final Prefix TYPE = new Prefix("t/", "GROUP_TYPE");
+    public static final Prefix NEWTYPE = new Prefix("nt/", "NEW_TYPE");
 
     /* Student definitions */
-    public static final Prefix MATRIC = new Prefix("id/", Matric.MESSAGE_CONSTRAINTS, "MATRIC", "A0181234G");
-    public static final Prefix NAME = new Prefix("n/", Name.MESSAGE_CONSTRAINTS, "NAME", "John Doe");
-    public static final Prefix PHONE = new Prefix("p/", Phone.MESSAGE_CONSTRAINTS, "PHONE", "98765432");
-    public static final Prefix EMAIL = new Prefix("e/", Email.MESSAGE_CONSTRAINTS, "EMAIL", "johnd@example.com");
-    public static final Prefix RATING = new Prefix("r/", Rating.MESSAGE_CONSTRAINTS, "RATING", "3");
-    public static final Prefix TAG = new Prefix("t/", Tag.MESSAGE_CONSTRAINTS, "TAG", "friends", "owes money");
+    public static final Prefix MATRIC = new Prefix("id/", "MATRIC");
+    public static final Prefix NAME = new Prefix("n/", "NAME");
+    public static final Prefix PHONE = new Prefix("p/", "PHONE");
+    public static final Prefix EMAIL = new Prefix("e/", "EMAIL");
+    public static final Prefix RATING = new Prefix("r/", "RATING");
+    public static final Prefix TAG = new Prefix("t/", "TAG");
 
     /* Action definitions */
-    public static final Prefix SORT_TYPE = new Prefix("t/", "", "SORT_TYPE", "alphabetically");
-
-    public static String getExamples(Prefix ... prefixes) {
-        return formatPrefixes(Arrays.asList(prefixes), Prefix::getExamples);
-    }
-
-    public static String getUsages(List<Prefix> parameters) {
-        return getUsages(parameters, List.of());
-    }
-
-    public static String getUsages(List<Prefix> parameters, List<Prefix> optionals) {
-        String params = formatPrefixes(parameters, Prefix::getUsage);
-        String opts = formatPrefixes(optionals, Prefix::getOptionalUsage);
-
-        if (params.isEmpty()) {
-            return opts;
-        } else {
-            return params + " " + opts;
-        }
-    }
-
-    private static String formatPrefixes(List<Prefix> prefixes, Function<Prefix, String> mapper) {
-        return prefixes.stream()
-                .map(mapper)
-                .collect(Collectors.joining(" "));
-    }
+    public static final Prefix SORT_TYPE = new Prefix("t/", "SORT_TYPE");
 }

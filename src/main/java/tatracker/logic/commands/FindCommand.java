@@ -9,7 +9,7 @@ import java.util.List;
 
 import tatracker.commons.core.Messages;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.Prefixes;
+import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
@@ -26,8 +26,8 @@ public class FindCommand extends Command {
 
     public static final String INFO = "Finds all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
-    public static final String USAGE = Prefixes.getUsages(PARAMETERS);
-    public static final String EXAMPLE = Prefixes.getExamples(SORT_TYPE, KEYWORD, MORE_KEYWORDS);
+    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
+    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(SORT_TYPE, KEYWORD, MORE_KEYWORDS);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
