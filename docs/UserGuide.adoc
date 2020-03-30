@@ -25,13 +25,13 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 Are you a Teaching Assistant at School of Computing who is tired of having to keep
 track of all your claimable hours in some unappealing excel spreadsheet just so you
 can fill up the TSS Claims form accurately at the end of the semester? Do you want
-a place where you can keep track of everything related to your teaching duties, including
+a place where you can keep track of things related to your teaching duties, such as
 keeping a track of your strongest and weakest students? If so, TA-Tracker is the tool
 for you!
 
 TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
-who want to be able to track and manage their students and all of their claimable
-hours in NUS in one place.
+who want to be able to track and manage their students and claimable
+hours in one place.
 
 TA-Tracker is tailored towards TAs who *prefer to use a desktop application to
 manage their teaching duties* and is well suited for those who *prefer to work with a Command
@@ -53,7 +53,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Usage>> for details of each command.
 
-NOTE: TA-Tracker data is saved periodically.
+NOTE: TA-Tracker data is saved periodically so you don't have to worry about saving
+your data manually.
 
 [[Layout]]
 == Layout
@@ -61,8 +62,8 @@ This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divi
 into three different views - the Student View, the Session View and the Claims View.
 
 === Student View
-Under tha students tab, the Student View is used to show you the students that you're teaching. The students
-have been grouped according to module and group. The Student view has been divided into
+Under the students tab, the Student View is used to show you the students that you're teaching. The students
+have been grouped according to module and group. The Student View has been divided into
 three sections.
 
 The first section shows a list of all the modules that you are a teaching
@@ -76,19 +77,19 @@ The third section shows a list of all students in the group of your choice. If y
 haven't chosen anything, by default you will be shown the students of the group in the
 first index in the list of groups.
 
-The purpose of the student view is to allow a TA to keep track of their students. It will
+The purpose of the student view is to allow you to keep track of your students. It will
 show you information such as student name, matriculation number, ratings you have given
 the student and contact details such as email and telegram id.
 
 === Session View
-Under the sessions tab, the Session View contains the upcoming tasks that you have.
+Under the sessions tab, the Session View contains a list of the upcoming tasks you have.
 
 === Claims View
-Under the claims tab, the Claim View contains the list of all the claimable hours you
+Under the claims tab, the Claim View contains a list of all the claimable duties you
 have completed so far.
 
-The purpose of this view is to allow a TA to keep track of all their claims so that
-they can easily enter it into the TSS claims form at the end of the semester.
+The purpose of this view is to allow a you to keep track of all your claims so
+you can easily enter it into the TSS claims form at the end of the semester.
 
 [[Usage]]
 == Usage
@@ -104,29 +105,34 @@ they can easily enter it into the TSS claims form at the end of the semester.
 *Common Parameters*
 
 * `PAGE_NAME` - one of the following pages:
-** sessions - Sessions: list of sessions according to date
-** students - Students: list of students you are teaching
-** claims - Claims Form: list of claimable sessions (only sessions that have been marked as done will be included here)
-* `INDEX` - The position of an item in a list
+** sessions - the Session View
+** students - the Student View
+** claims - the Claims View
+* `INDEX` - the position of an item in a list
 * `MATRIC_NUMBER` - the matriculation number of a student
-** Must start with an ‘A’
-** Must end with an letter
-** Must have 7 numbers in between the start and end letters
+** it must start with an ‘A’
+** it must end with a letter
+** it must have 7 numbers in between the start and end letters
 * `MOD_CODE` - the unique code for the module
-* `NAME` - based on the command, could mean student name or module name
+* `NAME` - based on the command, this could mean student name or module name
 * `GROUP_CODE` - the unique code for the group
-* `GROUP_TYPE` - Could be one of the following:
+* `GROUP_TYPE` - could be one of the following:
 ** tutorial
 ** lab
 ** recitations
 ** other
+* `SORT_TYPE` - could be one of the following:
+** alphabetically
+** by rating (ascending order)
+** by rating (descending order)
+** by matric number (ascending order)
 * `SESSION_TYPE` - Could be one of the following:
-** consult - Consultations
-** tutorial - Tutorials
-** grading - Grading and assessments
-** prep - Class preparation
+** consult - consultations
+** tutorial - tutorials
+** grading - grading assessments
+** prep - class preparation
 ** todo - other tasks and notes
-** lab - Lab
+** lab - lab
 * `START`, `END` - a time parameter, in the following format: HH:mm
 * `DATE` - a date parameter, in the following format: dd-MM-yyyy
 * `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
@@ -156,7 +162,7 @@ Format: `exit`
 Adds a new module to the TA-Tracker.
 
 When a new module is created, the Student View will show the groups
-and students of the new module (which will initially be empty).
+and students of the new module (which will initially be empty lists).
 
 Format: `module add m/MOD_CODE n/NAME`
 
@@ -180,7 +186,7 @@ to the TA-Tracker.
 
 Deletes a module from the TA-Tracker.
 
-When a module is deleted, the student view will go back to its default
+When a module is deleted, the Student View will go back to its default
 setting and show the details for the first module and first group in the
 TA-Tracker. If there is no module and no group, it will show empty lists.
 
@@ -201,7 +207,6 @@ Examples:
 * `module delete m/CS2103`
 +
 Deletes the module with the module code CS2103 from the TA-Tracker.
-Adds a module with the module code CS2103 and name 'Software Engineering'
 ====
 
 [[AddGroup]]
@@ -210,7 +215,7 @@ Adds a module with the module code CS2103 and name 'Software Engineering'
 Adds a new group to the TA-Tracker.
 
 When a new group is created, the Student View will show the groups of the module
-this group belongs to and students of the new group (which will initially be an empty list).
+this new group belongs to and students of the new group (which will initially be an empty list).
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
@@ -236,8 +241,11 @@ has module code CS2103.
 ==== Deleting a Group `group delete`
 Deletes a group from the TA-Tracker.
 
-When a group is deleted, the Student View will show the details of the first group
-in the given module. If there is no group in the module, it will show the empty lists.
+When a group is deleted, the Student View will go back to its default
+setting and show the details for the first module and first group in the
+TA-Tracker. If there is no group in the module, it will show the empty lists.
+
+When a
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
