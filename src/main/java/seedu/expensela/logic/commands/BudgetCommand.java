@@ -16,7 +16,7 @@ public class BudgetCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets budget to the value specified in the parameter.\n"
-            + "Parameters: BUDGET_AMOUNT (must be a positive with at most 2 decimal points)\n"
+            + "Parameters: b/BUDGET_AMOUNT (must be a positive with at most 2 decimal points) rc/RECURRING (yes/no)\n"
             + "Example: " + COMMAND_WORD + " b/1000.00 rc/no";
 
     public static final String MESSAGE_SUCCESS = "Budget is now set to %.2f";
@@ -34,5 +34,12 @@ public class BudgetCommand extends Command {
         model.setMonthlyData(new MonthlyData("1", new Budget(budgetValue.toString()), currentData.getExpense(),
                 currentData.getIncome()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, budgetValue));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BudgetCommand // instanceof handles nulls
+                && budgetValue.equals(((BudgetCommand) other).budgetValue));
     }
 }

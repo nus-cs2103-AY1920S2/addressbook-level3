@@ -242,6 +242,20 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::updateMonthlyData[]
+=== Monthly Data Update
+
+Monthly data should be updated everytime transaction list is modified
+
+==== Implementation
+
+Every add/delete transaction is handled by model manager that will call add/delete transaction in ExpenseLa. So every
+time model manager is going to modify transaction list in expenseLa, it is going to call
+`ModelManager#updateMonthlyData()`. This method takes in amount and boolean on whether it is money in or money out.
+It will then update monthlyData by calling the `MonthlyData#setExpense()`, `MonthlyData#setIncome`, and
+`UserPref#setTotalBalance` depending on whether it is money in or money out.
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

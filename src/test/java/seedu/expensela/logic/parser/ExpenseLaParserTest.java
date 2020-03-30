@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.expensela.logic.commands.AddCommand;
+import seedu.expensela.logic.commands.BudgetCommand;
 import seedu.expensela.logic.commands.ClearCommand;
 import seedu.expensela.logic.commands.DeleteCommand;
 import seedu.expensela.logic.commands.EditCommand;
@@ -50,6 +51,13 @@ public class ExpenseLaParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_TRANSACTION), command);
+    }
+
+    @Test
+    public void parseCommand_budget() throws Exception {
+        BudgetCommand command = (BudgetCommand) parser.parseCommand(
+                BudgetCommand.COMMAND_WORD + " b/1000 rc/no");
+        assertEquals(new BudgetCommand(1000.0), command);
     }
 
     @Test
