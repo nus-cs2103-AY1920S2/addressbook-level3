@@ -182,25 +182,68 @@ The order at the first `INDEX` of the order list is marked as a delivered order.
 The return order at the second `INDEX` of the return order list is marked as a delivered order.
 
 [[edit]]
-=== Editing an order : `edit`
+=== Editing an order : `edit` [Done by - Kenny Ho Si Chong]
 
-==== Description
-
-* You can edit the details of the parcel by providing the following in order: +
-** the `INDEX` of it +
-** `FLAG` corresponding to the order type +
-** field you want to change +
-** new value to update to.
-
-==== Format
-
-[TIP]
 ====
-* Use the <<list, `list`>> command to see which delivery order you want to edit.
-* List of order attribute prefixes can be found <<command_prefix, here>>.
+
+* If you accidentally added an order or a return order and realise that it have a typo in any of it's field, fear not! The `Edit` function is here to save you.
+* To find out more about how to properly use the `edit` feature, scroll to section <<edit-works, How to use the Edit command>> and <<edit-examples, What constitutes a valid Edit command>>!
+
 ====
+
+[[edit-works]]
+==== How to use the Edit command?
+
+Here is how you can edit the details of any parcel by following the steps below: +
+
+*Step 1* : Type in the keyword *edit* +
+*Step 2* : Provide the `<<command_flag, FLAG>>` corresponding to the parcel order type you want to edit +
+*Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to edit +
+*Step 4* : Provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the new value you want to change to. +
+*Step 5* : Press `Enter` on your keyboard to see the magic!
+
+[NOTE]
+====
+* In between each step please put a whitespace!
+* If you can't see any orders or returns use the <<list, `list`>> command to view existing parcel! If nothing is showing up means you got to add some <<insert, order>> or <<return, return>> parcel and start doing work!
+====
+
+[[edit-examples]]
+==== What constitutes a valid Edit command?
+
+The syntax for a valid `Edit` command can be seen below.
 
 * `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+
+[NOTE]
+====
+* `edit` is the command for the edit feature.
+* `FLAG` is to differentiate the different kind of parcel (orders or returns).
+* The `INDEX` given is the parcel you will be editing on.
+* `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to change
+* `NEW_VALUE` is the value you want to replace with.
+====
+
+.Possible Combinations of Edit command
+|===
+|Scenario |Command |Result
+
+| If you want to edit the name of the first return order displayed on returns list you can do this:
+| `edit` `-r` `1` `n/Xuan En` +
+| The index `1` customer's name of the return order list will be changed to `Xuan En`.
+
+| If you want to edit the phone number of the second order displayed on the orders list you can do this!
+| `edit` `-o` `2` `p/9999 4444`
+| The index `2` customer's phone number of the order list will be changed changed to `9999 4444`.
+
+| If you want to edit the address of the first order displayed on the orders list you can do this!
+| `edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
+| The index `1` customer's address of the order list will be changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
+
+| If you want to edit the name, phone number and address of the third return order displayed on the returns list you can do this!
+| `edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+| The index `3` customer's name, phone and address of the return order list will be changed accordingly to the prefix.
+|===
 
 [WARNING]
 ====
@@ -209,23 +252,6 @@ The return order at the second `INDEX` of the return order list is marked as a d
 * Only can be used when there is at least an order displayed.
 * The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
 ====
-
-
-****
-* Edits the parcel at the specified `INDEX`.
-* Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
-****
-
-==== Examples
-
-* `edit` `-r` `1` `n/Xuan En` +
-The index `1` customer's name of the return order list will be changed to `Xuan En`.
-* `edit` `-o` `2` `p/9999 4444` +
-The index `2` customer's phone number of the order list will be changed changed to `9999 4444`.
-* `edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
-The index `1` customer's address of the order list will be changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
-* `edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
-The index `3` customer's name, phone and address of the return order list will be changed accordingly to the prefix.
 
 [[exit]]
 === Exiting the program : `exit`
@@ -506,35 +532,73 @@ Creates and adds an order with `TRANSACTION ID` 'b1230512' as a return order int
 
 
 [[search]]
-=== Locating orders by order fields: `search`
+=== Searching for parcels using their attributes: `search` [Done by Kenny Ho Si Chong]
 
-==== Description
+====
+* Having trouble finding specific parcels in the list? Tired of scrolling through the whole list of orders? +
+It's okay! Delino provide you with the `search` feature to ease the tedious process of finding a particular parcel +
+With the `search` feature you can now find a parcel instantly! +
+Find out how to use it in the  <<search-works, How to use the Search command>> and <<search-examples, What constitutes a valid Search command>> section!
 
-* You can search all orders that contain a given keyword.
-* By default, `search` finds all parcels (orders and return orders) that contain the given keyword(s) in any of it's field.
-* Specific search can be performed by tagging keywords that you want to search for with the corresponding <<command_prefix,`ORDER_ATTRIBUTE_PREFIX`>>.
-* You can also specify which type of parcel you want to specifically search for by providing a <<command_flags, flag>>.
+====
 
-==== Format
+[[search-works]]
+==== How to use the Search command?
+
+Here is how you can edit the details of any parcel by following the steps below: +
+
+*Step 1* : Type in the keyword *search* +
+*Step 2* (optional) : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return list.
+[NOTE]
+====
+If no flag is given in this step, search feature will be performed on both the order and return list.
+====
+*Step 3 (optional)* : If you wish to only specifically search for keyword in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
+*Step 4* : Provide any number of alphanumeric word you wish to search for in the parcel. +
+*Step 5* : Press `Enter` on your keyboard to see the magic!
+
+[NOTE]
+====
+* In between each step please put a whitespace!
+* If nothing is displaying means you have no parcel containing the keyword you have given!
+====
+
+[[search-examples]]
+==== What constitutes a valid Search command?
+
+The syntax for a valid `Search` command can be seen below.
+
 * `search` `<<command_flags, [FLAG]>>` `KEYWORD` `[MORE_KEYWORDS]...` OR
 * `search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
 
-****
+.Possible Combinations of Search command
+|===
+|Scenario |Command |Result
+
+| If you want to search for any return parcel containing the keyword `Jeremy` or `Loh`:
+| `search` `-r` `Jeremy Loh` +
+| Return all return order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the parcel field.
+
+| If you want to edit the phone number of the second order displayed on the orders list you can do this!
+| `search` `-o` `tid/asj2od3943
+| Return order(s) with transaction ID of `asj2od3943`.
+
+| If you want to edit the address of the first order displayed on the orders list you can do this!
+| `search` `-r` `p/92039999`
+| Return return order(s) with phone number of `92039999`
+
+| If you want to only search for any order parcel that contains either the phone number `92039999`, transaction id of `asj2od3943` or the name `jeremy`
+| `search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+| Return order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
+|===
+
+[IMPORTANT]
+====
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Orders matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-==== Examples
-* `search` `-r` `Jeremy Loh` +
-Return return order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the orders field.
-* `search` `-o` `tid/asj2od3943` +
-Return order(s) with transaction ID of `asj2od3943`
-* `search` `-r` `p/92039999` +
-Return return order(s) with phone number of `92039999`
-* `search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy` +
-Return order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
+====
 
 
 === Saving the data
