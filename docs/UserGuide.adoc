@@ -672,15 +672,18 @@ Sets the current hourly rate to 25$.
 TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 
 === Student View
-* *Add Module* `module add m/MOD_CODE`
+* *Add Module* `module add m/MOD_CODE n/NAME`
 * *Delete Module* `module delete m/MOD_CODE`
-* *Add Group* `group add g/GROUP_CODE m/MOD_CODE`
-* *Edit Group*
+* *Edit Module* `module edit m/MOD_CODE n/NEW_NAME`
+* *Add Group* `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+* *Edit Group* `group edit g/GROUP_CODE m/MOD_CODE ng/NEW_GROUP_CODE nt/NEW_MOD_CODE`
 * *Delete Group* `group delete g/GROUP_CODE m/MOD_CODE`
 * *Add Student*
 * *Delete Student*
 * *Edit Student*
-* *Sort*
+* *Sort Group* `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
+* *Sort Module* `sort module m/MOD_CODE t/SORT_TYPE`
+* *Sort Everything* `sort all t/SORT_TYPE`
 * *Filter*
 
 === Session View
