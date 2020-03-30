@@ -16,7 +16,7 @@ import seedu.address.model.order.returnorder.ReturnOrder;
 /**
  * An Immutable OrderBook that is serializable to JSON format.
  */
-@JsonRootName(value = "ReturnOrderBook")
+@JsonRootName(value = "ReturnBook")
 class JsonSerializableReturnOrderBook {
     public static final String MESSAGE_DUPLICATE_RETURN_ORDER = "Return order list contains duplicate return order(s).";
     private final List<JsonAdaptedReturnOrder> returnOrders = new ArrayList<>();

@@ -1,0 +1,35 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "JeremyLoh",
+      "emails": ["jeremyloh03@gmail.com"],
+      "displayName": "LOH. . .JUN",
+      "authorNames": ["JeremyLoh", "Jeremy Loh"]
+    },
+    {
+      "githubId": "khsc96",
+      "emails": ["khsc96@gmail.com"],
+      "displayName": "HO . . .NNY",
+      "authorNames": ["khsc96"]
+    },
+    {
+      "githubId": "Exeexe93",
+      "emails": ["e0318484@u.nus.edu"],
+      "displayName": "ENG. . . EN",
+      "authorNames": ["Exeexe93"]
+    },
+    {
+      "githubId": "Amoscheong97",
+      "emails": ["amoscheong9797@gmail.com"],
+      "displayName": "AMO. . .HON",
+      "authorNames": ["Amoscheong97"]
+    },
+    {
+      "githubId": "cherweijie",
+      "emails": ["cherweijie@gmail.com"],
+      "displayName": "CHE. . .JIE",
+      "authorNames": ["cherweijie"]
+    }
+  ]
+}

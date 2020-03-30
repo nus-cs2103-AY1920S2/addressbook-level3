@@ -76,6 +76,7 @@ public class ReturnCommand extends Command {
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
             }
+            model.deleteOrder(orderToBeReturned);
             toBeCreated = new ReturnOrder(orderToBeReturned);
         }
         if (model.hasReturnOrder(toBeCreated)) {

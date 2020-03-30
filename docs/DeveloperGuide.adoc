@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -191,6 +191,12 @@ display the original order book.
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
+
+The nearby feature can have an optional `FLAG` argument. This can be either `-o` or `-r`. +
+A `-o` `FLAG` argument indicates that the order list will be searched. +
+A `-r` `FLAG` argument indicates that the return order list will be searched. +
+By default, if no `FLAG` arguments are provided, both order list and return order list will be searched.
+
 There are currently two possible search options:
 
 . Searching by *postal sector*
@@ -1092,7 +1098,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    Expected: The first order in the currently displayed list will be marked as done
 .. Test case: `done` `2` +
    Expected: The second order in the currently displayed list will be marked as done
-.. Test case: Invalid syntax
+.. Test case: Invalid syntax +
    Expected: No order is marked as done. The error message will be displayed on the error response box describing the error
 
 === Clear orders
@@ -1102,11 +1108,21 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 .. Clear command format: `clear` `[FLAG]`
 
 .. Test case: `clear` +
-   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
+   Expected: Confirmation message will display in status message. +
+   ... If *Yes* button is pressed, the both order and return order lists will be cleared. Notify the user that both order lists have been cleared in the status message. +
+   ... If *No* button is pressed, no order list is cleared.
 .. Test case: `clear` `-f` +
-   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
-.. Test case: Invalid syntax
-   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+   Expected: Both order list and return order list will be cleared. Notify the user that both order lists have been cleared in the status message.
+.. Test case: `clear` `-f` `-r` +
+    Expected: Only return order list will be cleared. Notify the user that return order list has been cleared in the status message.
+.. Test case: `clear` `-r` `-r` `-f`+
+Expected: Only return order list will be cleared. Notify the user that return order list has been cleared in the status message.
+.. Test case: `clear` `-r` `-o` +
+   Expected: Invalid command input, as both `-r` and `-o` cannot be in a single command. +
+   Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+.. Test case: `clear` `-r-f`+
+Expected: Invalid command input, as space is required in between flags. +
+   Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 
 === Help
 
@@ -1114,7 +1130,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 .. Test case: `help` +
    Expected: A list of commands will be displayed and the response box will indicate a successful command.
-.. Test case: Invalid syntax
+.. Test case: Invalid syntax +
    Expected: An error will occur and the response box will show an error message
 
 === Show
@@ -1137,35 +1153,35 @@ A *postal sector* is the first *two* digits of a six digit Singapore postal code
 The list of postal sectors and their corresponding general locations can be found
 https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
-.. Nearby command format: `nearby` `POSTAL_SECTOR`
+.. Nearby command format: `nearby` `[FLAG]` `POSTAL_SECTOR`
 
 .. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
-.. Test case: `nearby` `79` +
+.. Test case: `nearby` `-o` `79` +
    Expected: Obtain all orders located in postal sector 79 (Seletar)
-.. Test case: `nearby` `07` +
-   Expected: Obtain all orders located in postal sector 07 (Anson, Tanjong Pagar)
-.. Test case: `nearby` `99` +
+.. Test case: `nearby` `-r` `07` +
+   Expected: Obtain all return orders located in postal sector 07 (Anson, Tanjong Pagar)
+.. Test case: `nearby` `-o` `99` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby` `600` +
+.. Test case: `nearby` `-o` `600` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby` +
+.. Test case: `nearby -o` +
    Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 
 . Obtain all orders located in the same area. +
 There are *5* different areas in Singapore: Central, East, North East, West, North +
-.. Nearby command format: `nearby` `AREA`
+.. Nearby command format: `nearby` `[FLAG]` `AREA`
 .. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
-.. Test case: `nearby` `central` +
+.. Test case: `nearby` `-o` `central` +
    Expected: Obtain all orders located in central area of Singapore
-.. Test case: `nearby` `east` +
+.. Test case: `nearby` `-r` `east` +
+   Expected: Obtain all return orders located in east area of Singapore
+.. Test case: `nearby` `-o` `north east` +
    Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `north east` +
-   Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `west` +
-   Expected: Obtain all orders located in east area of Singapore
-.. Test case: `nearby` `north` +
-   Expected: Obtain all orders located in east area of Singapore
+.. Test case: `nearby` `-r` `west` +
+   Expected: Obtain all return orders located in east area of Singapore
+.. Test case: `nearby` `-r` `north` +
+   Expected: Obtain all return orders located in east area of Singapore
 
 .. Information about each area was obtained from
 https://keylocation.sg/singapore/districts-map[this website] +
@@ -1192,4 +1208,4 @@ https://keylocation.sg/singapore/districts-map[this website] +
 .. Test case: `exit` +
    Expected: The GUI window will be closed
 .. Test case: Adding any other words as the second argument of the `exit` command
-   Expected: The response box will display an invalid command message
+Expected: The response box will display an invalid command message
