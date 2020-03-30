@@ -27,7 +27,6 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "exit", "open", "help");
     private static final int DISTANCE_THRESHOLD = 2;
 
-    private String userInput;
     private Model model;
     private StringCorrectionEngine correctionEngine;
 
@@ -39,7 +38,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     }
 
     @Override
-    public void suggest() {
+    public void suggest(String userInput) {
         SuggestionCommand suggestionCommand = parseCommand(userInput);
         suggestionCommand.execute(model);
     }
@@ -52,22 +51,15 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     private SuggestionCommand parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            try {
-                throw new ParseException(String.format(
-                    "Invalid command format. To see the list of available commands, type: help"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            return new ErrorSuggestionCommand(
+                "Invalid command format. To see the list of available commands, type: help");
         }
 
         String commandWord = matcher.group("commandWord");
         Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
         if (correctedCommand.equals(Optional.empty())) {
-            try {
-                throw new ParseException("Invalid command. To see the list of available commands, type: help");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            return new ErrorSuggestionCommand(
+                    "Invalid command format. To see the list of available commands, type: help");
         }
 
         commandWord = correctedCommand.get();
@@ -100,13 +92,14 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return new ExitSuggestionCommand();
 
         default:
-            return new ErrorSuggestionCommand("Invalid command");
+            return new ErrorSuggestionCommand(
+                "Invalid command format. To see the list of available commands, type: help");
         }
     }
 
     private void autoUpdateInput(StringProperty inputProperty) {
         inputProperty.addListener((observable, oldValue, newValue) -> {
-            userInput = newValue;
+            suggest(newValue);
         });
     }
 }
