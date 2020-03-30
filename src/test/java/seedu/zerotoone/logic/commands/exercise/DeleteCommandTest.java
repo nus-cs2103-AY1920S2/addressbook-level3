@@ -28,7 +28,7 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(new UserPrefs(),
             getTypicalExerciseList(),
-            getTypicalWorkoutList,
+            getTypicalWorkoutList(),
             new ScheduleList());
 
     @Test

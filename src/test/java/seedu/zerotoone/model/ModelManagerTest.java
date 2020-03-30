@@ -110,11 +110,11 @@ public class ModelManagerTest {
         // same values -> returns true
         modelManager = new ModelManager(userPrefs,
                 exerciseList,
-                workoutList,  
+                workoutList,
                 scheduleList);
         ModelManager modelManagerCopy = new ModelManager(userPrefs,
                 exerciseList,
-                workoutList,              
+                workoutList,
                 scheduleList);
 
         assertTrue(modelManager.equals(modelManagerCopy));
@@ -131,7 +131,7 @@ public class ModelManagerTest {
         // different exerciseList -> returns false
         assertFalse(modelManager.equals(new ModelManager(userPrefs,
                 differentExerciseList,
-                workoutList,       
+                workoutList,
                 scheduleList)));
 
         // different filteredList -> returns false
@@ -139,7 +139,7 @@ public class ModelManagerTest {
         modelManager.updateFilteredExerciseList(new PredicateFilterExerciseName(keyword));
         assertFalse(modelManager.equals(new ModelManager(userPrefs,
                 exerciseList,
-                workoutList,                             
+                workoutList,
                 scheduleList)));
 
         // resets modelManager to initial state for upcoming tests
@@ -150,7 +150,7 @@ public class ModelManagerTest {
         differentUserPrefs.setExerciseListFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(differentUserPrefs,
                 exerciseList,
-                workoutList,        
+                workoutList,
                 scheduleList)));
     }
 }

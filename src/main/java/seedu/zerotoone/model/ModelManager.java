@@ -38,7 +38,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
-  
+
     // Exercise
     private final ExerciseList exerciseList;
     private final FilteredList<Exercise> filteredExercises;
@@ -46,11 +46,11 @@ public class ModelManager implements Model {
     // Workout
     private final WorkoutList workoutList;
     private final FilteredList<Workout> filteredWorkouts;
-  
+
     // Session
     private Optional<Session> currentSession;
     private final StopWatch stopwatch;
-  
+
     // Schedule
     private final Scheduler scheduler;
 
@@ -66,23 +66,25 @@ public class ModelManager implements Model {
                 exerciseList,
                 workoutList,
                 scheduleList);
-      
+
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
-      
+
         this.exerciseList = new ExerciseList(exerciseList);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
-      
+
         this.workoutList = new WorkoutList(workoutList);
         filteredWorkouts = new FilteredList<>(this.workoutList.getWorkoutList());
+
+        this.scheduler = new Scheduler(scheduleList); // STEPH_TODO add storage
+
+        this.currentSession = Optional.empty();
+        this.stopwatch = new StopWatch();
     }
 
     public ModelManager() {
         this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList());
-        this.currentSession = Optional.empty();
-        this.stopwatch = new StopWatch();
-        this.scheduler = new Scheduler(scheduleList); // STEPH_TODO add storage
     }
 
     // -----------------------------------------------------------------------------------------

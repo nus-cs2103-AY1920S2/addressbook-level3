@@ -27,10 +27,8 @@ public class StorageManager implements Storage {
     private WorkoutListStorage workoutListStorage;
     private ScheduleListStorage scheduleListStorage;
 
-    public StorageManager(UserPrefsStorage userPrefsStorage,
-                          ExerciseListStorage exerciseListStorage,
-                          WorkoutListStorage workoutListStorage,
-                          ScheduleListStorage scheduleListStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, ExerciseListStorage exerciseListStorage,
+            WorkoutListStorage workoutListStorage, ScheduleListStorage scheduleListStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
         this.exerciseListStorage = exerciseListStorage;
@@ -111,6 +109,7 @@ public class StorageManager implements Storage {
     public void saveWorkoutList(ReadOnlyWorkoutList workoutList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         workoutListStorage.saveWorkoutList(workoutList, filePath);
+    }
 
     // Schedule List
     @Override

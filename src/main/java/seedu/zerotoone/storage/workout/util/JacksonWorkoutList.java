@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
-import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 
 /**
  * An Immutable WorkoutList that is serializable to JSON format.

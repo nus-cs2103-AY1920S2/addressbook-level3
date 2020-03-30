@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+/**
+ * Model for Workout.
+ */
 public interface WorkoutModel {
     Predicate<Workout> PREDICATE_SHOW_ALL_WORKOUTS = unused -> true;
 

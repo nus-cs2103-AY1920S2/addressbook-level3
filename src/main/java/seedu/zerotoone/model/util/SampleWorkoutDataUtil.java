@@ -8,10 +8,10 @@ import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
 import seedu.zerotoone.model.workout.WorkoutName;
-import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 
 /**
  * Contains utility methods for populating {@code WorkoutList} with sample data.

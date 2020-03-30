@@ -100,6 +100,7 @@ public class LogicManager implements Logic {
     @Override
     public Path getWorkoutListFilePath() {
         return model.getWorkoutListFilePath();
+    }
 
     // -----------------------------------------------------------------------------------------
     // Schedule

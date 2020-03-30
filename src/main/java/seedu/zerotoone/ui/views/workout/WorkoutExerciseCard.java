@@ -43,5 +43,5 @@ public class WorkoutExerciseCard extends UiPart<Region> {
         WorkoutExerciseCard card = (WorkoutExerciseCard) other;
         return exerciseId.getText().equals(card.exerciseId.getText())
                 && exerciseName.getText().equals(card.exerciseName.getText());
-        }
+    }
 }

@@ -38,7 +38,7 @@ public interface Storage extends UserPrefsStorage, ExerciseListStorage, WorkoutL
     @Override
     void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
 
-     // -----------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------
     // Workout List
     @Override
     Path getWorkoutListFilePath();

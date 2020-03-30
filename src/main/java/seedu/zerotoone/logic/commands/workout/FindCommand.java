@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.workout.WorkoutName;
 import seedu.zerotoone.model.workout.PredicateFilterWorkoutName;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * Finds and lists all workouts in workout list whose name contains any of the argument keywords.

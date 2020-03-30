@@ -2,9 +2,9 @@ package seedu.zerotoone.testutil.workout;
 
 import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_EXERCISE_DUMBBELL_CRUNCH;
 import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_EXERCISE_LUNGES;
+import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_WORKOUT_NAME_ABS_WORKOUT;
 import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_WORKOUT_NAME_ARMS_WORKOUT;
 import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_WORKOUT_NAME_LEGS_WORKOUT;
-import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_WORKOUT_NAME_ABS_WORKOUT;
 
 import java.util.ArrayList;
 import java.util.Arrays;

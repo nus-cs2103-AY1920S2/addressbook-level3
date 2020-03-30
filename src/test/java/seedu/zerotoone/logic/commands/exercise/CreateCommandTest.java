@@ -179,11 +179,11 @@ public class CreateCommandTest {
         public void addWorkout(Workout workout) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public void setWorkoutList(ReadOnlyWorkoutList newData) {
             throw new AssertionError("This method should not be called.");
-        } 
+        }
 
         @Override
         public ReadOnlyWorkoutList getWorkoutList() {
@@ -193,11 +193,11 @@ public class CreateCommandTest {
         public boolean hasWorkout(Workout workout) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         public void deleteWorkout(Workout target) {
-                
+
         }
-      
+
         @Override
         public void setWorkout(Workout target, Workout editedWorkout) {
             throw new AssertionError("This method should not be called.");
@@ -224,12 +224,12 @@ public class CreateCommandTest {
         public Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
             throw new AssertionError("This method should not be called.");
         }
-         
+
         @Override
         public void stopSession(LocalDateTime currentDateTime) {
             throw new AssertionError("This method should not be called.");
         }
-          
+
         @Override
         public Optional<Session> getCurrentSession() {
             throw new AssertionError("This method should not be called.");
@@ -241,7 +241,7 @@ public class CreateCommandTest {
         public boolean hasSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         public void addSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }

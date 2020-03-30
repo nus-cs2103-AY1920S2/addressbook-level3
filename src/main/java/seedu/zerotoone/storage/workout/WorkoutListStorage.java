@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.zerotoone.commons.exceptions.DataConversionException;
-import seedu.zerotoone.model.workout.WorkoutList;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.WorkoutList;
 
 /**
  * Represents a storage for {@link WorkoutList}.

@@ -6,6 +6,9 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 
+/**
+ * API of the Logic component for Workout.
+ */
 public interface WorkoutLogic {
     // -----------------------------------------------------------------------------------------
     // Workout List

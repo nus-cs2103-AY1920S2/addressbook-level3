@@ -38,7 +38,7 @@ public class StorageManagerTest {
 
         storageManager = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
-                workoutListStorage,                    
+                workoutListStorage,
                 scheduleListStorage);
     }
 
