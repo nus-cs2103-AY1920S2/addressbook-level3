@@ -5,6 +5,7 @@ import java.util.Comparator;
 import cookbuddy.model.recipe.Recipe;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -31,47 +32,29 @@ public class RecipePage extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label name1;
-    @FXML
     private Label id;
-    @FXML
-    private Label id1;
     @FXML
     private Label ingredients;
     @FXML
-    private Label ingredients1;
-    @FXML
     private Label instructions;
-    @FXML
-    private Label instructions1;
     @FXML
     private Label calorie;
     @FXML
-    private Label calorie1;
-    @FXML
     private Label serving;
-    @FXML
-    private Label serving1;
     @FXML
     private Label rating;
     @FXML
-    private Label rating1;
-    @FXML
     private Label diff;
     @FXML
-    private Label diff1;
-    @FXML
     private FlowPane tags;
-    @FXML
-    private FlowPane tags1;
     public RecipePage(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
 
+        this.cardPane.setBackground(Background.EMPTY);
+
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
-        ingredients.setText(recipe.getIngredients().toString());
-        instructions.setText(recipe.getInstructions().toString());
         calorie.setText(recipe.getCalorie().toString() + " calories");
         serving.setText("Serving size: " + recipe.getServing().toString() + " pax");
         rating.setText("Rating: " + recipe.getRating().toString());
@@ -79,17 +62,6 @@ public class RecipePage extends UiPart<Region> {
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        id1.setText(displayedIndex + ". ");
-        name1.setText(recipe.getName().name);
-        ingredients1.setText(recipe.getIngredients().toString());
-        instructions1.setText(recipe.getInstructions().toString());
-        calorie1.setText(recipe.getCalorie().toString() + " calories");
-        serving1.setText("Serving size: " + recipe.getServing().toString() + " pax");
-        rating1.setText("Rating: " + recipe.getRating().toString());
-        diff1.setText("Difficulty: " + recipe.getDifficulty().toString());
-        recipe.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
