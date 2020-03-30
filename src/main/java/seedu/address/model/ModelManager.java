@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -30,7 +31,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Assignment> filteredAssignments;
-    private final FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,7 +50,6 @@ public class ModelManager implements Model {
         this.scheduler = new Scheduler(scheduler);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
-        bdayList = new FilteredList<>(this.addressBook.getBdayList());
     }
 
     public ModelManager() {
@@ -298,6 +297,12 @@ public class ModelManager implements Model {
     //=========== Filtered Bday List Accessors ====================================================================
     @Override
     public ObservableList<Person> getBdayListResult() {
-        return bdayList;
+        return this.addressBook.getBdayList();
+    }
+
+    //=========== Schedule Visual Accessor ========================================================================
+    @Override
+    public ObservableList<Day> getScheduleVisualResult() {
+        return this.scheduler.getScheduleVisual();
     }
 }

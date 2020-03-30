@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -187,4 +188,11 @@ public interface Model {
      * Returns an unmodifiable view of the list of contacts with birthdays in the next 5 days.
      */
     ObservableList<Person> getBdayListResult();
+
+    //=========== Schedule Visual Accessors =======================================================================
+
+    /**
+     * Returns an unmodifiable view of the user's upcoming schedule for the next 7 days (today inclusive).
+     */
+    ObservableList<Day> getScheduleVisualResult();
 }

@@ -19,4 +19,6 @@ public class Messages {
     public static final String MESSAGE_BIRTHDAYS_LISTED =
         "Birthdays for the next five days (today inclusive) is listed!";
     public static final String MESSAGE_NO_PREFIX = "At least one recommended, good or bad food should be specified.";
+    public static final String WELCOME_MESSAGE = "Hi! I'm Naggy Joel, the best social life manager you can ever have. "
+        + "If you are new, you can type 'help' in the command box below to see the list of commands that I understand.";
 }
