@@ -1,6 +1,5 @@
 package seedu.address.searcher;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.ArrayList;
 
 public class ModulePlanner {
