@@ -10,8 +10,10 @@ import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.ExitCommand;
 import seedu.zerotoone.logic.commands.HelpCommand;
 import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
+import seedu.zerotoone.logic.commands.workout.WorkoutCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
+import seedu.zerotoone.logic.parser.workout.WorkoutCommandParser;
 
 /**
  * Parses user input.
@@ -45,6 +47,8 @@ public class ParserManager {
             return new HelpCommand();
         case ExerciseCommand.COMMAND_WORD:
             return new ExerciseCommandParser().parse(arguments);
+        case WorkoutCommand.COMMAND_WORD:
+            return new WorkoutCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
