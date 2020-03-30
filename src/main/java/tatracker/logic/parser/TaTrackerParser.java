@@ -14,7 +14,6 @@ import tatracker.logic.commands.ExitCommand;
 import tatracker.logic.commands.FindCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
-import tatracker.logic.commands.SortCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
