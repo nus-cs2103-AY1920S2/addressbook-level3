@@ -60,7 +60,7 @@ public class Rating {
      */
     @Override
     public String toString() {
-        return String.format("%d", value);
+        return String.format("%d/5", value);
     }
 
 }

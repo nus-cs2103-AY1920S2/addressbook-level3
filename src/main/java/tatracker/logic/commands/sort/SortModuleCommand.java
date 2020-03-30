@@ -1,9 +1,11 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
@@ -13,14 +15,14 @@ import tatracker.model.module.Module;
  */
 public class SortModuleCommand extends SortCommand {
 
-    public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_WORD = CommandWords.SORT + " " + CommandWords.SORT_MODULE;
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"
-            + "all groups of the given module. "
+            + "all groups of the given module. \n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_TYPE + "SORT TYPE "
+            + PREFIX_TYPE + "SORT TYPE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2100 "
             + PREFIX_TYPE + "alphabetically";

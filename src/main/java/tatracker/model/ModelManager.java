@@ -110,11 +110,16 @@ public class ModelManager implements Model {
         if (this.getFilteredModuleList().isEmpty()) {
             this.setFilteredGroupList();
             this.setFilteredStudentList();
+            taTracker.setCurrentlyShownGroup(null);
+            taTracker.setCurrentlyShownModule(null);
         } else {
             this.updateGroupList(FIRST_MODULE_INDEX);
+            taTracker.setCurrentlyShownModule(taTracker.getModule(FIRST_MODULE_INDEX));
             if (this.getFilteredGroupList().isEmpty()) {
+                taTracker.setCurrentlyShownGroup(null);
                 this.setFilteredStudentList();
             } else {
+                taTracker.setCurrentlyShownGroup(taTracker.getModule(FIRST_MODULE_INDEX).get(FIRST_GROUP_INDEX));
                 this.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
             }
         }
@@ -245,6 +250,11 @@ public class ModelManager implements Model {
         filteredModules.setPredicate(predicate);
     }
 
+    @Override
+    public void showAllModules() {
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
     // ======== Group Methods ==================================================
 
     @Override
@@ -346,10 +356,6 @@ public class ModelManager implements Model {
     public void updateStudentList(int moduleIndex, int groupIndex) {
         taTracker.setCurrentlyShownStudents(moduleIndex, groupIndex);
     }
-
-    /**
-     * TODO: Review filter functions.
-     */
 
     @Override
     public ObservableList<Student> getFilteredStudentList() {

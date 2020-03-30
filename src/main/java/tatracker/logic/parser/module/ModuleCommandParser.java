@@ -22,7 +22,6 @@ public class ModuleCommandParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final String UNIMPLEMENTED_CODE_FORMAT = "%s not yet implemented!";
 
     /**
      * Parses user input into command for execution.
@@ -51,8 +50,7 @@ public class ModuleCommandParser {
             return new DeleteModuleCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
-            // return new EditGroupCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
+            return new EditModuleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

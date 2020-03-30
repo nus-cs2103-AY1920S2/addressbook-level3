@@ -4,9 +4,6 @@ import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tatracker.logic.commands.student.FilterStudentViewCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -35,18 +32,18 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
                     FilterStudentViewCommand.MESSAGE_INVALID_MODULE_CODE));
         }
 
-        List<String> argsList = new ArrayList<>();
+        String moduleCode = "";
+        String groupCode = "";
 
         if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            argsList.add((ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())));
+            moduleCode = (ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())).toUpperCase();
         }
 
         if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
-            argsList.add((
-                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())));
+            groupCode = (ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())).toUpperCase();
         }
 
-        return new FilterStudentViewCommand(argsList);
+        return new FilterStudentViewCommand(moduleCode, groupCode);
     }
 
 }

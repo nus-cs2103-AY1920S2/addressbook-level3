@@ -31,8 +31,6 @@ public class DeleteGroupCommand extends Command {
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    public static final int FIRST_GROUP_INDEX = 0;
-    public static final int FIRST_MODULE_INDEX = 0;
 
     private final Group group;
     private final Module targetModule;
