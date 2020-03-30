@@ -19,10 +19,12 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
+import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 import seedu.zerotoone.testutil.LogicManagerTestUtil;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -39,12 +41,15 @@ public class LogicManagerTest {
     public void setUp() {
         ExerciseListStorageManager exerciseListStorage =
                 new ExerciseListStorageManager(temporaryFolder.resolve("exerciseList.json"));
+        WorkoutListStorageManager workoutListStorage =
+                new WorkoutListStorageManager(temporaryFolder.resolve("workoutList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
         ScheduleListStorageManager scheduleListStorage =
                 new ScheduleListStorageManager(temporaryFolder.resolve("scheduleList.json"));
         StorageManager storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
+                workoutListStorage,
                 scheduleListStorage);
         logic = new LogicManager(model, storage);
     }
@@ -67,12 +72,15 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonExerciseListIoExceptionThrowingStub
         ExerciseListStorageManager exerciseListStorage =
                 new JsonExerciseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseList.json"));
+        WorkoutListStorageManager workoutListStorage =
+                new JsonWorkoutListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionWorkoutList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         ScheduleListStorageManager scheduleListStorage =
                 new ScheduleListStorageManager(temporaryFolder.resolve("ioExceptionScheduleList.json"));
         StorageManager storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
+                workoutListStorage,
                 scheduleListStorage);
         logic = new LogicManager(model, storage);
 
@@ -104,6 +112,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonWorkoutListIoExceptionThrowingStub extends WorkoutListStorageManager {
+        private JsonWorkoutListIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveWorkoutList(ReadOnlyWorkoutList workoutList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

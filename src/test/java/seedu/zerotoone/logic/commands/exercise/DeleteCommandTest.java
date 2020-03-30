@@ -8,6 +8,7 @@ import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCo
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.showExerciseAtIndex;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,7 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(new UserPrefs(),
             getTypicalExerciseList(),
+            getTypicalWorkoutList(),
             new ScheduleList());
 
     @Test
@@ -39,7 +41,9 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
+                model.getWorkoutList(),
                 model.getScheduleList());
+
         expectedModel.deleteExercise(exerciseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -65,7 +69,9 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
+                model.getWorkoutList(),
                 model.getScheduleList());
+
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
 

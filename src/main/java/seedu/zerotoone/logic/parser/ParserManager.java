@@ -15,10 +15,12 @@ import seedu.zerotoone.logic.commands.StartCommand;
 import seedu.zerotoone.logic.commands.StopCommand;
 import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
 import seedu.zerotoone.logic.commands.schedule.ScheduleCommand;
+import seedu.zerotoone.logic.commands.workout.WorkoutCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
 import seedu.zerotoone.logic.parser.schedule.ScheduleCommandParser;
 import seedu.zerotoone.logic.parser.session.StartCommandParser;
+import seedu.zerotoone.logic.parser.workout.WorkoutCommandParser;
 
 /**
  * Parses user input.
@@ -60,6 +62,8 @@ public class ParserManager {
             return new HelpCommand();
         case ExerciseCommand.COMMAND_WORD:
             return new ExerciseCommandParser().parse(arguments);
+        case WorkoutCommand.COMMAND_WORD:
+            return new WorkoutCommandParser().parse(arguments);
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
         default:

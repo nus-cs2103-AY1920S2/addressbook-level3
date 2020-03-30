@@ -16,6 +16,8 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.storage.Storage;
 
 /**
@@ -45,6 +47,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveExerciseList(model.getExerciseList());
+            storage.saveWorkoutList(model.getWorkoutList());
             storage.saveScheduleList(model.getScheduleList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -82,6 +85,25 @@ public class LogicManager implements Logic {
         return model.getExerciseListFilePath();
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Workout List
+    @Override
+    public ReadOnlyWorkoutList getWorkoutList() {
+        return model.getWorkoutList();
+    }
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return model.getFilteredWorkoutList();
+    }
+
+    @Override
+    public Path getWorkoutListFilePath() {
+        return model.getWorkoutListFilePath();
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Schedule
     @Override
     public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
         return model.getSortedScheduledWorkoutList();
