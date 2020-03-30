@@ -17,6 +17,7 @@ import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.storage.Storage;
 
+import csdev.couponstash.ui.CsTab;
 import javafx.collections.ObservableList;
 
 /**
@@ -37,12 +38,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, CsTab selectedTab) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = couponStashParser.parseCommand(commandText);
-        commandResult = command.execute(model, commandText);
+        CommandResult commandResult = command.execute(model, commandText);
 
         try {
             storage.saveCouponStash(model.getCouponStash());
