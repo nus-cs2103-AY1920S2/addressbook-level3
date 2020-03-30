@@ -9,12 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.ArcType;
-import javafx.scene.shape.FillRule;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Balance;
 import seedu.expensela.model.monthlydata.MonthlyData;
@@ -37,7 +33,13 @@ public class MonthlyDataPanel extends UiPart<Region> {
     private Arc outer;
 
     @FXML
+    private Arc outerOverlay;
+
+    @FXML
     private Arc inner;
+
+    @FXML
+    private Label circleLabel;
 
     @FXML
     private Label balance;
@@ -64,30 +66,42 @@ public class MonthlyDataPanel extends UiPart<Region> {
 
     private void drawCircle(double budget, double expense) {
         double angle = 360 - expense / budget * 360;
+        double overlayAngle = 0;
         if (angle < 0) {
             angle = 0;
         }
         Paint fill;
+        Paint overlay = Color.web("#383838");
         if (angle > 180) {
             fill = Color.GREEN;
         } else if (angle > 90) {
             fill = Color.YELLOW;
         } else {
+            overlayAngle = expense / budget * 360;
+            angle = 100;
             fill = Color.RED;
         }
-        outer.setCenterX(10);
-        outer.setRadiusX(70);
-        outer.setRadiusY(70);
-        outer.setStartAngle(0);
+        outer.setRadiusX(55);
+        outer.setRadiusY(55);
+        outer.setStartAngle(90);
         outer.setLength(angle);
         outer.setType(ArcType.ROUND);
         outer.setFill(fill);
-        inner.setRadiusX(35);
-        inner.setRadiusY(35);
+        outerOverlay.setRadiusX(60);
+        outerOverlay.setRadiusY(60);
+        outerOverlay.setStartAngle(90);
+        outerOverlay.setLength(-overlayAngle);
+        outerOverlay.setType(ArcType.ROUND);
+        outerOverlay.setFill(overlay);
+        inner.setRadiusX(40);
+        inner.setRadiusY(40);
         inner.setStartAngle(0);
         inner.setLength(360);
         inner.setType(ArcType.ROUND);
-        inner.setFill(Color.BLACK);
+        inner.setFill(overlay);
+        int percentage = 100 - (int) (expense*100/budget);
+        String displayedPercentage = percentage + "%";
+        circleLabel.setText(displayedPercentage);
     }
 
 }
