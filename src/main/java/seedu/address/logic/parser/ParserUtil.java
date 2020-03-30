@@ -135,7 +135,7 @@ public class ParserUtil {
      */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
-        String trimmedModuleCode = moduleCode.trim();
+        String trimmedModuleCode = moduleCode.trim().toUpperCase();
         if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
             throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
@@ -150,7 +150,7 @@ public class ParserUtil {
      */
     public static Grade parseGrade(String grade) throws ParseException {
         requireNonNull(grade);
-        String trimmedGrade = grade.trim();
+        String trimmedGrade = grade.trim().toUpperCase();
         if (!Grade.isValidGrade(trimmedGrade)) {
             throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }

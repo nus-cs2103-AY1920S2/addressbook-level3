@@ -43,6 +43,20 @@ public class ModuleBook {
     }
 
     /**
+     * Updates the grade of the {@code NusModule} that has the same module code as given from this {@code ModuleBook}.
+     * such nus module must exist in the module book.
+     */
+    public void gradeModule(ModuleCode moduleCode, Grade grade) {
+        requireNonNull(moduleCode);
+        requireNonNull(grade);
+        for (NusModule module: modules) {
+            if (module.getModuleCode().equals(moduleCode)) {
+                module.setGrade(grade);
+            }
+        }
+    }
+
+    /**
      * Returns true if a module with the same module code as {@code NusModule} exists in the address book.
      */
     public boolean hasModule(ModuleCode moduleCode) {

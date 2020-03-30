@@ -23,7 +23,7 @@ public class AddModuleCommand extends Command {
             + PREFIX_MODULE_CODE + "CS2103T "
             + PREFIX_GRADE + "A+ ";
 
-    public static final String MESSAGE_SUCCESS = "Module added";
+    public static final String MESSAGE_SUCCESS = "Module added: ";
 
     private final NusModule toAdd;
 
@@ -44,7 +44,7 @@ public class AddModuleCommand extends Command {
         }
 
         model.addModule(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(MESSAGE_SUCCESS + toAdd);
     }
 
     @Override
