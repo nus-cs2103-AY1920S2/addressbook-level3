@@ -14,12 +14,9 @@ public class DurationComparator implements Comparator<Event> {
         // equal
         if ((duration1 == duration2)) {
             return 0;
-        }
-        // duration 1 > duration 2
-        else if (duration1 > duration2) {
+        } else if (duration1 > duration2) {
             return 1;
-        }
-        else { // duration 2 < duration 1
+        } else { // duration 2 < duration 1
             return -1;
         }
 

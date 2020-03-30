@@ -12,8 +12,8 @@ import seedu.address.model.event.Event;
  */
 public class ListEventCommand extends Command {
     public static final String COMMAND_WORD = "eventlist";
-    public static final String COMMAND_FUNCTION
-            = "Shows a list of all your events which Naggy Joel is keeping track for you "
+    public static final String COMMAND_FUNCTION =
+            "Shows a list of all your events which Naggy Joel is keeping track for you "
             + "sorted by the chronological order based on event date. "
             + "Naggy Joel can only sort events one way.";
     public static final String MESSAGE_USAGE = "NAG NAG NAG! That's not the way to use this feature. \n"

@@ -105,7 +105,8 @@ public class HelpCommand extends Command {
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"
-                + "Type help to return to the list of commands.", true, false, false, false, false, false, false, false);
+                + "Type help to return to the list of commands.", true, false, false,
+                false, false, false, false, false);
     }
 
 }
