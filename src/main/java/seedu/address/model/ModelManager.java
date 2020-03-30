@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
@@ -211,6 +212,17 @@ public class ModelManager implements Model {
     public void updateFilteredProductList(Predicate<Product> predicate) {
         requireNonNull(predicate);
         filteredProducts.setPredicate(predicate);
+        SortedList<Product> sortedProduct = new SortedList<>(filteredProducts);
+        sortedProduct.comparatorProperty().set((o1, o2) -> {
+            if (o1.getProgress() - o2.getProgress() > 0) {
+                return 1;
+            } else if (o1.getProgress() == o2.getProgress()) {
+                return 0;
+            } else {
+                return -1;
+            }
+        });
+        inventorySystem.setProducts(sortedProduct);
     }
 
     @Override

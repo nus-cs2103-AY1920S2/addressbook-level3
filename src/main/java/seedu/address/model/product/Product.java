@@ -27,12 +27,13 @@ public class Product {
     private final UUID id;
 
     private QuantityThreshold threshold;
+    private double progress;
 
     /**
      * Every field must be present and not null.
      */
     public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money money, QuantityThreshold threshold) {
+                   Money money, QuantityThreshold threshold, double progress) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.id = UUID.randomUUID();
         this.description = description;
@@ -41,13 +42,14 @@ public class Product {
         this.quantity = quantity;
         this.money = money;
         this.threshold = threshold;
+        this.progress = progress;
     }
 
     /**
      * Every field must be present and not null.
      */
     public Product(UUID id, Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money money, QuantityThreshold threshold) {
+                   Money money, QuantityThreshold threshold, double progress) {
         requireAllNonNull(id, description, costPrice, price, quantity);
         this.id = id;
         this.description = description;
@@ -56,6 +58,7 @@ public class Product {
         this.quantity = quantity;
         this.money = money;
         this.threshold = threshold;
+        this.progress = progress;
     }
 
     public UUID getId() {
@@ -88,6 +91,14 @@ public class Product {
 
     public void setThreshold(String quantityThreshold) {
         this.threshold = new QuantityThreshold(quantityThreshold);
+    }
+
+    public double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(double progress) {
+        this.progress = progress;
     }
 
     /**
