@@ -7,7 +7,7 @@ package com.notably.logic.suggestion;
 public interface SuggestionEngine {
     /**
      * Generates suggestions.
-     * @param input User's input.
+     * @param userInput The user's input.
      */
-    void suggest(String input);
+    void suggest(String userInput);
 }

@@ -1,7 +1,7 @@
-package com.notably.logic.commands.suggestion;
+package com.notably.logic.suggestion;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
-public class OpenSuggestionCommandTest {
+public class SuggestionEngineImplTest {
     private static AbsolutePath toRoot;
     private static AbsolutePath toCs2103;
     private static AbsolutePath toCs3230;
@@ -35,9 +35,7 @@ public class OpenSuggestionCommandTest {
     private static AbsolutePath toCs2103Week3;
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
-
-    private static final String COMMAND_WORD = "open";
-    private static final String PREFIX_TITLE = "-t";
+    private static SuggestionEngine suggestionEngine;
 
     @BeforeAll
     public static void setUp() throws InvalidPathException {
@@ -73,38 +71,33 @@ public class OpenSuggestionCommandTest {
         Block lecture = new BlockImpl(new Title("Lecture"));
         model.setCurrentlyOpenBlock(toCs2103Week1);
         model.addBlockToCurrentPath(lecture);
+
+        // Set up SuggestionEngine
+        suggestionEngine = new SuggestionEngineImpl(model);
     }
 
     @Test
-    public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(null));
-    }
-
-    @Test
-    public void execute_nullModel_throwsNullPointerException() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
-        assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
-    }
-
-    @Test
-    public void execute_generateResponseCorrectly() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
-        openSuggestionCommand.execute(model);
-
-        assertEquals(Optional.of("Open a note"), model.responseTextProperty().getValue());
+    public void suggest_uncorrectedCommand_returnErrorSuggestionCommand() {
+        model.setInput("opensesame -t CS2103");
 
         // Expected result
-        SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
-        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
-            null);
-        SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
-        SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
+        String expectedResponseText = "Invalid command. To see the list of available commands, type: help";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
 
+    @Test
+    public void suggest_correctedOpenCommandValidArgs_returnOpenSuggestionCommand() {
+        model.setInput("oen -t Lecture");
+
+        // Test response text
+        String expectedResponseText = "Open a note";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+
+        // Expected result
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
-        expectedSuggestions.add(cs2103);
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
         expectedSuggestions.add(cs2103Week1Lecture);
-        expectedSuggestions.add(cs2103Week2);
-        expectedSuggestions.add(cs2103Week3);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
@@ -115,10 +108,7 @@ public class OpenSuggestionCommandTest {
         }
 
         List<String> expectedInputs = new ArrayList<>();
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
+        expectedInputs.add("open " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
@@ -127,5 +117,51 @@ public class OpenSuggestionCommandTest {
             String input = model.getInput();
             assertEquals(expectedInput, input);
         }
+
+    }
+
+    @Test
+    public void suggest_correctedOpenCommandInvalidArgs_returnErrorSuggestionCommand() {
+        model.setInput("opn -t CS2222");
+
+        // Expected result
+        String expectedResponseText = "Invalid path";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedNewCommand_returnNewSuggestionCommand() {
+        model.setInput("nw -t NewNote");
+
+        // Expected result
+        String expectedResponseText = "Create a new note";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedEditCommand_returnEditSuggestionCommand() {
+        model.setInput("edt -t NewNote -b lorem ipsum");
+
+        // Expected result
+        String expectedResponseText = "Edit a currently open note";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedHelpCommand_returnHelpSuggestionCommand() {
+        model.setInput("hAlp");
+
+        // Expected result
+        String expectedResponseText = "Display a list of available commands";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedExitCommand_returnExitSuggestionCommand() {
+        model.setInput("ex");
+
+        // Expected result
+        String expectedResponseText = "Exit Notably app";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 }
