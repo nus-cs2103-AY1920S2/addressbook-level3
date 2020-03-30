@@ -80,6 +80,9 @@ public class StatisticsDisplay extends UiPart<Region> {
             dataSeriesTasksDoneData.getData().add(new XYChart.Data<>(dateString, tasksDoneDataInt));
         }
 
+        barChartPomDurationData.getData().clear();
+        barChartTasksDoneData.getData().clear();
+
         barChartPomDurationData.getData().add(dataSeriesPomDurationData);
         barChartTasksDoneData.getData().add(dataSeriesTasksDoneData);
 
