@@ -219,7 +219,7 @@ This section will explain the steps needed to use the Delivered command. +
 Here is how you can mark the details of any order or return order by following the steps below: +
 
 *Step 1* : Type in the keyword *delivered* +
-*Step 2* : Provide the `<<command_flag, FLAG>>` corresponding to the parcel order type you want to mark as delivered +
+*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to mark as delivered +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to mark as delivered +
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
@@ -227,7 +227,7 @@ Here is how you can mark the details of any order or return order by following t
 ====
 * Please include a whitespace in between the keyword, command flag and index. i.e. `delivered -o 1`
 * If you can't see any orders use the <<list, `list`>> command to view existing parcel!
-If nothing is showing up, it means you got to <<insert, `add`>> or <<return, `return`>> some parcel and start doing work!
+If nothing is showing up, it means you got to <<insert, `insert`>> or <<return, `return`>> some parcel and start doing work!
 ====
 
 [[delivered-examples]]
@@ -689,7 +689,9 @@ provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to b
 [NOTE]
 ====
 * Please include a whitespace in between the keyword & transaction id or keyword & the attributes aforementioned. +
-i.e. `return` `tid/123abcd` or `return` `tid/123abcd` `n/weijie` `a/blk 32 clementi road` `p/92123412`
+i.e. `return` `tid/123abcd` +
+ or +
+`return` `tid/123abcd` `n/weijie` `a/blk 32 clementi road` `p/92123412`
 `w/Jurong warehouse` `rts/2020-04-05`
 ====
 
