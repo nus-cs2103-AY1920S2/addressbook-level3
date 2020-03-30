@@ -14,16 +14,30 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-T09-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Halim`      Since: `Jan 2020`      Licence: `MIT`
+
+== Introduction
+
+ExpenseLa is an application for NUS students to be able to track their spending and also gain insights to their monthly spending through data analytics. The data analytics portion of ExpenseLa aims to aid students in viewing and comparing their monthly expenditure on items of different categories such as shopping and groceries, as well as keeping track of their monthly budgets. ExpenseLa records daily incoming and outgoing transactions and constantly keeps track of the user's budget, income and spending. ExpenseLa is optimised for users who prefer to work with a Command Line Interface (CLI) which works in parallel with a Graphical User Interface (GUI). It is an easy, insight-driven application that hopes to help students keep better track of their expenses.
+
+=== Purpose
+
+This developer guide aims to communicate the design and architecture of the software implementation to developers working on ExpenseLa. It also includes future implementations to give developers an idea of the direction that ExpenseLa intends to take on both current and future features. A developer should be able to understand the design, architecture and future goals of ExpenseLa upon reading this guide.
+
+=== Scope
+
+This developer guide specifies the technical and non-technical details of ExpenseLa. The technical aspects include the design and architecture of the software and the non-technical aspects include the user stories, use cases and non-functional requirements.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+Pleas refer to the guide <<SettingUp#, here>>.
 
 == Design
 
 [[Design-Architecture]]
 === Architecture
+
+In this section, we will be introducing the individual components that form ExpenseLa using various diagrams.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -58,7 +72,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class Diagram of the `Logic` Component
 image::LogicClassDiagram.png[]
 
 [discrete]
@@ -79,11 +93,11 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TransactionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component does the following actions:
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
@@ -98,9 +112,11 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+Logic is an interface which `LogicManager` implements, allowing access to the API. The following items are examples on how the LogicManager class can be interacted with:
+
+.  `Logic` uses the `ExpenseLaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a `Transaction`).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
