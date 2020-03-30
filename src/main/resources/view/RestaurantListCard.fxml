@@ -33,6 +33,9 @@
             <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
             <Label fx:id="cuisine" styleClass="cell_small_label" text="\$cuisine" />
             <Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks" />
+            <Label fx:id="recommendedFood" styleClass="cell_small_label" text="\$recommendedFood" />
+            <Label fx:id="goodFood" styleClass="cell_small_label" text="\$goodFood" />
+            <Label fx:id="badFood" styleClass="cell_small_label" text="\$badFood" />
         </VBox>
     </GridPane>
 </HBox>

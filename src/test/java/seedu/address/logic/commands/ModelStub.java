@@ -159,6 +159,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Event> getEventsList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addAssignment(Assignment toAdd) {
         throw new AssertionError("This method should not be called.");
     }
@@ -189,6 +194,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyEventSchedule getEventSchedule() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addEvent(Event toAdd) {
         throw new AssertionError("This method should not be called.");
     }
@@ -210,21 +225,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredEventList(Predicate<Event> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ObservableList<Event> getEventsList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ReadOnlyEventSchedule getEventSchedule() {
         throw new AssertionError("This method should not be called.");
     }
 

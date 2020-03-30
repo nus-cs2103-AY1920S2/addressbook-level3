@@ -15,7 +15,9 @@ public class CommandResultTest {
         // [sarah] commenting this out bc someone edited some command and now this cant compile - I can run it though
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        //assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, false, false)));
+
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false,
+                false, false, false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));

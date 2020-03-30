@@ -42,6 +42,12 @@ public class RestaurantCard extends UiPart<Region> {
     private Label cuisine;
     @FXML
     private Label remarks;
+    @FXML
+    private Label recommendedFood;
+    @FXML
+    private Label goodFood;
+    @FXML
+    private Label badFood;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
         super(FXML);
@@ -69,6 +75,36 @@ public class RestaurantCard extends UiPart<Region> {
             i++;
         }
         remarks.setText(remarkValue);
+        String recommended = "Recommended food: ";
+        i = 0;
+        while (i < restaurant.getRecommendedFood().size()) {
+            recommended += restaurant.getRecommendedFood().get(i).note;
+            if (i != restaurant.getRecommendedFood().size() - 1) {
+                recommended += ", ";
+            }
+            i++;
+        }
+        recommendedFood.setText(recommended);
+        String good = "Good food: ";
+        i = 0;
+        while (i < restaurant.getGoodFood().size()) {
+            good += restaurant.getGoodFood().get(i).note;
+            if (i != restaurant.getGoodFood().size() - 1) {
+                good += ", ";
+            }
+            i++;
+        }
+        goodFood.setText(good);
+        String bad = "Bad food: ";
+        i = 0;
+        while (i < restaurant.getBadFood().size()) {
+            bad += restaurant.getBadFood().get(i).note;
+            if (i != restaurant.getBadFood().size() - 1) {
+                bad += ", ";
+            }
+            i++;
+        }
+        badFood.setText(bad);
     }
 
     @Override

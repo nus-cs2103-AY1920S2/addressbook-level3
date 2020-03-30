@@ -52,8 +52,8 @@ public class AddEventCommand extends Command {
         }
 
         model.addEvent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, false,
-                false, true, false, false, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false,
+                false, false, true, false, false, false);
     }
 
     @Override
