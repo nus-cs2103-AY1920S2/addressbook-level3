@@ -105,6 +105,10 @@ Deletes a recipe from *CookBuddy*.
 
 Format: `delete INDEX`
 
+Example: `delete 1`
+
+Deletes the recipe at index 1 from CookBuddy's recipe book.
+
 === Modify a Recipe — `modify`
 Modifies attributes of a recipe.
 
