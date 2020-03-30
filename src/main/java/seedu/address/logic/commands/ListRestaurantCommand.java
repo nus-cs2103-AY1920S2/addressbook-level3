@@ -21,6 +21,6 @@ public class ListRestaurantCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, false, true);
     }
 }
