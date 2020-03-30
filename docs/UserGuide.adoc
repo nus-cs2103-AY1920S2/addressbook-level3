@@ -385,7 +385,7 @@ In this section, you learn more about the exact inputs required to use the `near
 Here are the steps you should follow to obtain all orders using the `nearby` command: +
 *Step 1* : Type in the keyword `nearby` +
 
-*Step 2 (optional)* : Provide an optional `<<command_flag, FLAG>>` that indicates which order list to
+*Step 2 (optional)* : Provide an optional `<<command_flags, FLAG>>` that indicates which order list to
 search (order list or return order list). +
 [NOTE]
 ====
