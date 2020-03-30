@@ -135,7 +135,7 @@ Format: `list`
 === Recipe Finding — `find`
 You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
 
-Format: `find [n/NAME [...]] [ing/INGREDIENT [...]] 
+Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]
 
 [NOTE]
 *CookBuddy* can find recipes from one parameter at a time.
