@@ -82,6 +82,7 @@ public enum CommandEntry {
             AddSessionCommand.COMMAND_WORD,
             AddSessionCommand.INFO,
             AddSessionCommand.PARAMETERS,
+            AddSessionCommand.OPTIONALS,
             AddSessionCommand.USAGE,
             AddSessionCommand.EXAMPLE
     ),

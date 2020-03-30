@@ -39,7 +39,7 @@ public class PrefixDictionary {
         prefixes.addAll(parameters);
         prefixes.addAll(optionals);
 
-        this.dictionary = createPrefixDictionary(prefixes);
+        this.dictionary = createPrefixDictionary(prefixes, List.of());
     }
 
     public List<Prefix> getParameters() {
@@ -53,10 +53,14 @@ public class PrefixDictionary {
     /**
      * Creates a new Prefix dictionary for syntax matching.
      */
-    public static Map<String, PrefixEntry> createPrefixDictionary(List<Prefix> prefixes) {
-        if (!arePrefixesUnique(prefixes)) {
+    public static Map<String, PrefixEntry> createPrefixDictionary(List<Prefix> parameters, List<Prefix> optionals) {
+        if (!arePrefixesUnique(parameters) && !arePrefixesUnique(optionals)) {
             throw new IllegalArgumentException("Some prefix values are the same. This would result in duplicate keys");
         }
+
+        List<Prefix> prefixes = new ArrayList<>();
+        prefixes.addAll(parameters);
+        prefixes.addAll(optionals);
 
         return prefixes.stream()
                 .collect(Collectors.toUnmodifiableMap(Prefix::getPrefix, PrefixDictionary::getPrefixEntry));

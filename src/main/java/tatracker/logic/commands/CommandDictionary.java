@@ -30,7 +30,7 @@ public class CommandDictionary {
     /**
      * Returns the matching CommandEntry.
      */
-    public static CommandEntry getCommandByCommandWord(String commandWord) {
+    public static CommandEntry getCommandEntry(String commandWord) {
         requireNonNull(commandWord);
         return COMMAND_WORDS.get(commandWord);
     }
