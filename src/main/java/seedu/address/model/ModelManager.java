@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.day.Day;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
@@ -20,7 +21,6 @@ import seedu.address.model.restaurant.Restaurant;
 /**
  * Represents the in-memory model of the address book data.
  */
-// SARAH PLS DOUBLE CHECK MANAGER YOU MIGHT HAVE SCREWED SOME STUFF UP HERE
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -358,6 +358,12 @@ public class ModelManager implements Model {
     //=========== Filtered Bday List Accessors ====================================================================
     @Override
     public ObservableList<Person> getBdayListResult() {
-        return bdayList;
+        return this.addressBook.getBdayList();
+    }
+
+    //=========== Schedule Visual Accessor ========================================================================
+    @Override
+    public ObservableList<Day> getScheduleVisualResult() {
+        return this.scheduler.getScheduleVisual();
     }
 }

@@ -32,11 +32,14 @@ public class CommandResult {
     /** The third panel should display the upcoming birthdays for the next five days (Including today). */
     private final boolean showBirthday;
 
+    /** The third panel should display the estimated workload for the next n days based on saved assignments. */
+    private final boolean showSchedule;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean get,
-                         boolean assignment, boolean event, boolean birthday, boolean restaurant) {
+                         boolean assignment, boolean event, boolean birthday, boolean restaurant, boolean showSchedule) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -45,6 +48,7 @@ public class CommandResult {
         this.event = event;
         this.restaurant = restaurant;
         this.showBirthday = birthday;
+        this.showSchedule = showSchedule;
     }
 
     /**
@@ -87,6 +91,10 @@ public class CommandResult {
         return showBirthday;
     }
 
+    public boolean isShowSchedule() {
+        return showSchedule;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -106,12 +114,13 @@ public class CommandResult {
                 && assignment == otherCommandResult.assignment
                 && event == otherCommandResult.event
                 && restaurant == otherCommandResult.restaurant
-                && showBirthday == otherCommandResult.showBirthday;
+                && showBirthday == otherCommandResult.showBirthday
+                && showSchedule == otherCommandResult.showSchedule;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, get, assignment, event, showBirthday, restaurant);
+        return Objects.hash(feedbackToUser, showHelp, exit, get, assignment, event, showBirthday, restaurant, showSchedule);
     }
 
 }

@@ -56,7 +56,7 @@ public class AddRestaurantCommand extends Command {
         }
 
         model.addRestaurant(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, false, false, false, false, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, false, false, false, false, true, false);
     }
 
     @Override
