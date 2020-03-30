@@ -83,6 +83,10 @@ public class TransactionHistory implements ReadOnlyList<Transaction> {
         transactions.remove(key);
     }
 
+    protected UniqueTransactionList getTransactions() {
+        return transactions;
+    }
+
     //=========== Util Methods =========================================================================
 
     @Override
@@ -94,10 +98,6 @@ public class TransactionHistory implements ReadOnlyList<Transaction> {
     @Override
     public ObservableList<Transaction> getReadOnlyList() {
         return transactions.asUnmodifiableObservableList();
-    }
-
-    protected UniqueTransactionList getTransactions() {
-        return transactions;
     }
 
     @Override
