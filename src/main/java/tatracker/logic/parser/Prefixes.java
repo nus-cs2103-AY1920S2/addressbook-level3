@@ -61,9 +61,14 @@ public class Prefixes {
     }
 
     public static String getUsages(List<Prefix> parameters, List<Prefix> optionals) {
-        return String.format("%s %s",
-                formatPrefixes(parameters, Prefix::getUsage),
-                formatPrefixes(optionals, Prefix::getOptionalUsage));
+        String params = formatPrefixes(parameters, Prefix::getUsage);
+        String opts = formatPrefixes(optionals, Prefix::getOptionalUsage);
+
+        if (params.isEmpty()) {
+            return opts;
+        } else {
+            return params + " " + opts;
+        }
     }
 
     private static String formatPrefixes(List<Prefix> prefixes, Function<Prefix, String> mapper) {
