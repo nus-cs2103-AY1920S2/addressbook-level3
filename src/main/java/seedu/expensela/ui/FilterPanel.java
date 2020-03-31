@@ -21,15 +21,14 @@ public class FilterPanel extends UiPart<Region> {
     @FXML
     private Label filterTypeLabel;
 
-//    @FXML
-//    private Label filterNameLabel;
+    @FXML
+    private Label filterNameLabel;
 
     public FilterPanel(Filter filter) {
         super(FXML);
         this.filter = filter;
-        filterTypeLabel.setText("Category: " + filter.getFilterCategoryName() + "   |   Month: " + filter.getDateMonth());
-//        filterNameLabel.setText("Date: " + filter.getDateMonth());
+        filterTypeLabel.setText("Category: " + filter.getFilterCategoryName());
+        filterNameLabel.setText("Month: " + filter.getDateMonth());
     }
-
 }
 
