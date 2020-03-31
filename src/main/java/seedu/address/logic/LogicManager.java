@@ -106,7 +106,7 @@ public class LogicManager implements Logic {
       }
     } else if (command instanceof AssignCommandBase) {
       try {
-        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+        storage.saveStaffAddressBook(model.getStaffAddressBook());
         storage.saveStudentAddressBook(model.getStudentAddressBook());
         storage.saveCourseAddressBook(model.getCourseAddressBook());
       } catch (IOException ioe) {

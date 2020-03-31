@@ -3,6 +3,8 @@ package seedu.address.model.util;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
@@ -46,15 +48,13 @@ public class SampleDataUtil {
 
   public static Staff[] getSampleTeachers() {
     return new Staff[]{
-        new Staff(new Name("Bob Ross"), Staff.Level.TEACHER ,new Phone("88283902"), new Email("bob.ross@gmail.com"),
+        new Staff(new Name("Bob Ross"), new ID("182"), Staff.Level.TEACHER ,new Phone("88283902"), new Email("bob.ross@gmail.com"),
             new Salary("9000"),
             new Address("Serangoon"),
-            getIDSet("182"),
             getTagSet("Friendly", "LovesArt")),
-        new Staff(new Name("Martin Henz"), Staff.Level.TEACHER, new Phone("98765432"), new Email("henz@gmail.com"),
+        new Staff(new Name("Martin Henz"), new ID("250"), Staff.Level.TEACHER, new Phone("98765432"), new Email("henz@gmail.com"),
             new Salary("100"),
             new Address("311, Clementi Ave 2, #02-25"),
-            getIDSet("829"),
             getTagSet("WishfulThinking", "Experienced")),
     };
   }

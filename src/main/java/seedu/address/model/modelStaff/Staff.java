@@ -7,8 +7,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
@@ -33,6 +35,7 @@ public class Staff extends ModelObject {
   private final Address address;
 
   // Data fields
+  private Set<ID> assignedCoursesID = new HashSet<>();
   private String assignedCourses = "";
   private final Salary salary;
   private final Set<Tag> tags = new HashSet<>();
@@ -52,7 +55,7 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
-  public Staff(Name name, ID id, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) throws ParseException {
+  public Staff(Name name, ID id, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
     this.id = id;
@@ -61,6 +64,19 @@ public class Staff extends ModelObject {
     this.email = email;
     this.salary = salary;
     this.address = address;
+    this.tags.addAll(tags);
+  }
+
+  public Staff(Name name, ID id, Level level, Phone phone, Email email, Salary salary, Address address, Set<ID> assignedCoursesID, Set<Tag> tags) {
+    requireAllNonNull(name,level, phone, email, address, tags);
+    this.name = name;
+    this.id = id;
+    this.level = level;
+    this.phone = phone;
+    this.email = email;
+    this.salary = salary;
+    this.address = address;
+    this.assignedCoursesID.addAll(assignedCoursesID);
     this.tags.addAll(tags);
   }
 
@@ -76,6 +92,58 @@ public class Staff extends ModelObject {
    */
   public ID getId() {
     return id;
+  }
+
+  /**
+   * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
+   * modification is attempted.
+   */
+  public Set<ID> getAssignedCoursesID() {
+    return Collections.unmodifiableSet(assignedCoursesID);
+  }
+
+  /**
+   * Assign a course ID to a staff (the staff must be a teacher)
+   * @param courseID
+   */
+  public void addCourse(ID courseID) {
+    if (isTeacher())
+      this.assignedCoursesID.add(courseID);
+  }
+
+  /**
+   * Assign a course ID to a staff (the staff must be a teacher)
+   * @param courseID
+   */
+  public void addCourses(Set<ID> courseID) {
+    if (isTeacher())
+      this.assignedCoursesID.addAll(courseID);
+  }
+
+  /**
+   * Converts internal list of assigned student IDs into the name with the IDs
+   */
+  public void processAssignedCourses(FilteredList<Course> filteredCourses){
+    StringBuilder s = new StringBuilder();
+    int count = 1;
+    for (ID courseid : assignedCoursesID) {
+      for (Course course : filteredCourses) {
+        if (courseid.toString().equals(course.getId().toString())) {
+          String comma = ", ";
+          if (count == assignedCoursesID.size()) {
+            comma = "";
+          }
+          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
+        }
+      }
+      count++;
+    }
+
+    if (s.toString().equals("")) {
+      this.assignedCourses = "None";
+    } else {
+      this.assignedCourses = "[" + s.toString() + "]";
+    }
   }
 
   /**

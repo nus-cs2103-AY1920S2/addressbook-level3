@@ -60,20 +60,11 @@ public class AddTeacherCommand extends AddCommand {
   @Override
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-
-<<<<<<< HEAD
-    if (model.hasStaff(toAdd)) {
-      throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
-    }
-
-    model.addStaff(toAdd);
-=======
     if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
     model.add(toAdd);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 

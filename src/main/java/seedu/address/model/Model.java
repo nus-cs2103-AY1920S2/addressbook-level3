@@ -10,15 +10,10 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-<<<<<<< HEAD
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-=======
 import seedu.address.model.modelProgress.Progress;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.ID;
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 import seedu.address.model.person.Person;
 
 /**
@@ -113,10 +108,12 @@ public interface Model {
    */
   Path getStaffAddressBookFilePath();
 
+  /*
   /**
    * Sets the user prefs' address book file path.
    */
   void setStaffAddressBookFilePath(Path staffAddressBookFilePath);
+
 
   /**
    * Returns the staffAddressBook
@@ -127,30 +124,6 @@ public interface Model {
    * Replaces staff address book data with the data in {@code staffAddressBook}.
    */
   void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook);
-
-  /**
-<<<<<<< HEAD
-   * Returns true if a staff with the same identity as {@code staff} exists in the address
-   * book.
-   */
-  boolean hasStaff(Staff staff);
-
-  /**
-   * Deletes the given staff. The staff must exist in the address book.
-   */
-  void deleteStaff(Staff target);
-
-  /**
-   * Adds the given staff. {@code staff} must not already exist in the address book.
-   */
-  void addStaff(Staff staff);
-
-  /**
-   * Replaces the given staff {@code target} with {@code editedStaff}. {@code target} must exist
-   * in the address book. The staff identity of {@code editedStaff} must not be the same as
-   * another existing staff in the address book.
-   */
-  void setStaff(Staff target, Staff editedStaff);
 
   /**
    * Returns an unmodifiable view of the filtered staff list
@@ -321,17 +294,10 @@ public interface Model {
      */
     ReadOnlyAddressBookGeneric<Progress> getProgressAddressBook();
 
-<<<<<<< HEAD
-  /**
-   * Replaces courseStudent address book data with the data in {@code courseStudentAddressBook}.
-   */
-  void setCourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook);
-=======
     /**
      * Replaces progress address book data with the data in {@code teacerAddressBook}.
      */
     void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 
     /**
      * Returns an unmodifiable view of the filtered finance list

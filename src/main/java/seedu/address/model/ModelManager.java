@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,20 +24,13 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-<<<<<<< HEAD
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelStaff.StaffAddressBook;
-=======
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.ID;
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 import seedu.address.model.person.Person;
 
 /**
@@ -73,15 +67,8 @@ public class ModelManager implements Model {
                       ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, ReadOnlyAddressBookGeneric<Progress> progressAssignmentBook,
                       ReadOnlyUserPrefs userPrefs) {
     super();
-<<<<<<< HEAD
-    requireAllNonNull(staffAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
-            courseStudentAddressBook, assignmentAddressBook, userPrefs);
 
-    logger.fine("Initializing with address book: " + studentAddressBook
-        + "Initializing with  staff address book: " + staffAddressBook + " and user prefs "
-        + userPrefs);
-=======
-    requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
+    requireAllNonNull(staffAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
             assignmentAddressBook, progressAssignmentBook, userPrefs);
 
     logger.info("Model Manager check:" + assignmentAddressBook.toString());
@@ -91,10 +78,9 @@ public class ModelManager implements Model {
 
 
     logger.fine("Initializing with address book: " + studentAddressBook
-            + "Initializing with teacher address book: " + teacherAddressBook
+            + "Initializing with staff address book: " + staffAddressBook
             + "Initializing with address address book: " + assignmentAddressBook
             + " and user prefs " + userPrefs);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 
     this.addressBook = new AddressBook(addressBook);
     this.staffAddressBook = new StaffAddressBook(staffAddressBook);
@@ -115,14 +101,14 @@ public class ModelManager implements Model {
 
     for (Course course : filteredCourses) {
       course.processAssignedStudents(filteredStudents);
-      course.processAssignedTeacher(filteredTeachers);
+      course.processAssignedTeacher(filteredStaffs);
     }
 
     for (Student student : filteredStudents) {
       student.processAssignedCourses(filteredCourses);
     }
 
-    for (Teacher teacher : filteredTeachers) {
+    for (Staff teacher : filteredStaffs) {
       teacher.processAssignedCourses(filteredCourses);
     }
 
@@ -130,15 +116,9 @@ public class ModelManager implements Model {
   }
 
   public ModelManager() {
-<<<<<<< HEAD
     this(new AddressBook(), new StaffAddressBook(), new StudentAddressBook(),
-        new FinanceAddressBook(), new CourseAddressBook(),
-            new AssignmentAddressBook(), new CourseStudentAddressBook(),
-=======
-    this(new AddressBook(), new TeacherAddressBook(), new StudentAddressBook(),
             new FinanceAddressBook(), new CourseAddressBook(),
             new AssignmentAddressBook(), new ProgressAddressBook(),
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
             new UserPrefs());
   }
 
@@ -262,11 +242,11 @@ public class ModelManager implements Model {
 
   // ================================== FACTORY HELPERS =================================================
   private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
-    if (obj instanceof Teacher) {
+    if (obj instanceof Staff) {
       return Arrays.asList(
-              this.teacherAddressBook,
-              PREDICATE_SHOW_ALL_TEACHERS,
-              filteredTeachers);
+              this.staffAddressBook,
+              PREDICATE_SHOW_ALL_STAFFS,
+              filteredStaffs);
     } else if (obj instanceof Student) {
       return Arrays.asList(
               this.studentAddressBook,
@@ -299,49 +279,27 @@ public class ModelManager implements Model {
     return (Predicate)getEntityFactory(obj).get(1);
   }
 
-<<<<<<< HEAD
-  ///
   @Override
   public ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook() {
     return staffAddressBook;
-=======
-  private FilteredList getFilterList(ModelObject obj) throws CommandException {
-    return (FilteredList)getEntityFactory(obj).get(2);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
   }
-  // ======================================================================================================
 
-
-  // =================================== CRUD METHODS =====================================================
   @Override
-<<<<<<< HEAD
   public void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook) {
     this.staffAddressBook.resetData(staffAddressBook);
   }
 
-  @Override
-  public boolean hasStaff(Staff staff) {
-    requireNonNull(staff);
-    return staffAddressBook.has(staff);
+
+
+  private FilteredList getFilterList(ModelObject obj) throws CommandException {
+    return (FilteredList)getEntityFactory(obj).get(2);
+
   }
 
-  @Override
-  public void deleteStaff(Staff target) {
-    staffAddressBook.remove(target);
-  }
+  // ======================================================================================================
 
-  @Override
-  public void addStaff(Staff staff) {
-    staffAddressBook.add(staff);
-    updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
-  }
-  @Override
-  public void setStaff(Staff target, Staff editedStaff) {
-    requireAllNonNull(target, editedStaff);
 
-    staffAddressBook.set(target, editedStaff);
-  }
-=======
+  // =================================== CRUD METHODS =====================================================
   public boolean has(ModelObject obj) throws CommandException {
     requireNonNull(obj);
     return getAddressBook(obj).has(obj);
@@ -366,7 +324,6 @@ public class ModelManager implements Model {
   }
 
   // =========================== CRUD METHODS DONE VIA ID =====================================================
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 
   @Override
   public boolean hasStudent(ID studentID) {
@@ -398,19 +355,6 @@ public class ModelManager implements Model {
     return null;
   }
   // =====================================================================================================
-
-
-  ///
-  @Override
-  public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
-    return teacherAddressBook;
-  }
-
-
-  @Override
-  public void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) {
-    this.teacherAddressBook.resetData(teacherAddressBook);
-  }
 
   ///
   @Override
@@ -606,44 +550,18 @@ public class ModelManager implements Model {
     //
     ModelManager other = (ModelManager) obj;
     return userPrefs.equals(other.userPrefs)
-<<<<<<< HEAD
         && staffAddressBook.equals(other.staffAddressBook)
         && studentAddressBook.equals(other.studentAddressBook)
         && courseAddressBook.equals(other.courseAddressBook)
         && financeAddressBook.equals(other.financeAddressBook)
         && assignmentAddressBook.equals(other.assignmentAddressBook)
-        && courseStudentAddressBook.equals(other.courseStudentAddressBook)
+        && progressAddressBook.equals(other.progressAddressBook)
         && filteredStaffs.equals(other.filteredStaffs)
         && filteredStudents.equals(other.filteredStudents)
         && filteredCourses.equals(other.filteredCourses)
         && filteredFinances.equals(other.filteredFinances)
         && filteredAssignments.equals(other.filteredAssignments)
-        && filteredCourseStudents.equals(other.filteredCourseStudents);
-
-  }
-
-  private class NameIdTuple implements Comparable<NameIdTuple>{
-    private String name;
-    private String id;
-    NameIdTuple(String name, String id){
-      this.name = name;
-      this.id = id;
-    }
-=======
-            && teacherAddressBook.equals(other.teacherAddressBook)
-            && studentAddressBook.equals(other.studentAddressBook)
-            && courseAddressBook.equals(other.courseAddressBook)
-            && financeAddressBook.equals(other.financeAddressBook)
-            && assignmentAddressBook.equals(other.assignmentAddressBook)
-            && progressAddressBook.equals(other.progressAddressBook)
-            && filteredTeachers.equals(other.filteredTeachers)
-            && filteredStudents.equals(other.filteredStudents)
-            && filteredCourses.equals(other.filteredCourses)
-            && filteredFinances.equals(other.filteredFinances)
-            && filteredAssignments.equals(other.filteredAssignments)
-            && filteredProgresses.equals(other.filteredProgresses);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
-
+        && filteredProgresses.equals(other.filteredProgresses);
 
   }
 }

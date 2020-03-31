@@ -228,13 +228,9 @@ public class MainApp extends Application {
     }
     logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
-<<<<<<< HEAD
     return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
-        courseInitialData, assignmentInitialData, courseStudentInitialData, userPrefs);
-=======
-    return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
         courseInitialData, assignmentInitialData, new ProgressAddressBook(), userPrefs);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
+
   /*
     return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
             courseInitialData, userPrefs);

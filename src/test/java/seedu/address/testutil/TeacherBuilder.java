@@ -19,6 +19,7 @@ public class TeacherBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_LEVEL = "TEACHER";
+    public static final String DEFAULT_ID = "120";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_SALARY = "1000";
@@ -27,6 +28,7 @@ public class TeacherBuilder {
 
     private Name name;
     private Staff.Level level;
+    private ID id;
     private Phone phone;
     private Email email;
     private Salary salary;
@@ -36,6 +38,7 @@ public class TeacherBuilder {
 
     public TeacherBuilder() {
         name = new Name(DEFAULT_NAME);
+        id = new ID(DEFAULT_ID);
         if (DEFAULT_LEVEL.equals("TEACHER")) {
             level = Staff.Level.TEACHER;
         } else {
@@ -132,7 +135,7 @@ public class TeacherBuilder {
     }
 
     public Staff build() {
-        return new Staff(name, level, phone, email, salary, address, tags);
+        return new Staff(name, id, level, phone, email, salary, address, tags);
     }
 
 }

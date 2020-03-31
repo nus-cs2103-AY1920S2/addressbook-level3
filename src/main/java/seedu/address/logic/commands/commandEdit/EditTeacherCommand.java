@@ -7,12 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-<<<<<<< HEAD
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
-=======
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -87,22 +83,15 @@ public class EditTeacherCommand extends Command {
     assert teacherToEdit != null;
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
-<<<<<<< HEAD
     Level updatedLevel = editTeacherDescriptor.getLevel().orElse(teacherToEdit.getLevel());
-=======
-    ID updatedID = editTeacherDescriptor.getID().orElse(teacherToEdit.getID());
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
+    ID updatedID = editTeacherDescriptor.getID().orElse(teacherToEdit.getId());
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
     Email updatedEmail = editTeacherDescriptor.getEmail().orElse(teacherToEdit.getEmail());
     Salary updatedSalary = editTeacherDescriptor.getSalary().orElse(teacherToEdit.getSalary());
     Address updatedAddress = editTeacherDescriptor.getAddress().orElse(teacherToEdit.getAddress());
     Set<Tag> updatedTags = editTeacherDescriptor.getTags().orElse(teacherToEdit.getTags());
 
-<<<<<<< HEAD
-    return new Staff(updatedName, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
-=======
-    return new Teacher(updatedName, updatedID, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
+    return new Staff(updatedName, updatedID, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
         updatedTags);
   }
 
@@ -118,21 +107,12 @@ public class EditTeacherCommand extends Command {
     Staff teacherToEdit = lastShownList.get(index.getZeroBased());
     Staff editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
 
-<<<<<<< HEAD
-    if (!teacherToEdit.weakEquals(editedTeacher) && model.hasStaff(editedTeacher)) {
-      throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
-    }
-
-    model.setStaff(teacherToEdit, editedTeacher);
-    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
-=======
     if (!teacherToEdit.weakEquals(editedTeacher) && model.has(editedTeacher)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
     model.set(teacherToEdit, editedTeacher);
-    model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
+    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
     return new CommandResult(String.format(MESSAGE_EDIT_TEACHER_SUCCESS, editedTeacher));
   }
 
@@ -161,11 +141,8 @@ public class EditTeacherCommand extends Command {
   public static class EditTeacherDescriptor {
 
     private Name name;
-<<<<<<< HEAD
     private Level level;
-=======
     private ID teacherID;
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
     private Phone phone;
     private Email email;
     private Salary salary;
@@ -180,11 +157,8 @@ public class EditTeacherCommand extends Command {
      */
     public EditTeacherDescriptor(EditTeacherDescriptor toCopy) {
       setName(toCopy.name);
-<<<<<<< HEAD
       setLevel(toCopy.level);
-=======
       setID(toCopy.teacherID);
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
       setPhone(toCopy.phone);
       setEmail(toCopy.email);
       setSalary(toCopy.salary);
