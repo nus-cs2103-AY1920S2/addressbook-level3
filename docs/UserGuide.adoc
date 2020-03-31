@@ -18,7 +18,7 @@ By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+NusProductivity is an application for better management of your school work. The app is set out to enhance your productivity in school through 5 main features, allowing you to plan module, keep track of your cap, note taking, todo list planning and allowing you to log down your thoughts for each day through a diary. This app is designed mainly for NUS students with the possibility to customise it for students from other University in the future. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 == Quick Start
 
@@ -64,6 +64,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 - Format: `exit`
 
 === Address Book
+
+The address book allows you to add other individuals, such as professors and fellow classmates to your addressbook. Information such as phone number and email of the person will be saved into the address book for easier communication for projects or to schedule consultation relating to the module. 
 
 ==== Adding a person: `add`
 
@@ -156,6 +158,10 @@ A person can have any number of tags (including 0)
 
 
 === Profile
+
+This feature allows individuals to see their own profile, their target cap, their current cap and the all modules that the individual have taken. 
+
+
 ==== View CAP summary : `cap`
 
 - Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
@@ -168,7 +174,7 @@ If cap breakdown is inputted, it will show a breakdown of all the modules and gr
 
 ==== View module requirement: `modreq`
 
-- Shows the modules requirement for the major specified.
+- Shows the modules requirement for the major specified. This function will show the core modules that the individual have to take before graduation but have not taken yet. 
 
 - Format: `modreq MAJOR`
 
@@ -199,19 +205,22 @@ b.	`mymodplan add MODULE CODE`: adds a module to the module plan
 c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 
 === Diary
+
+The diary feature allows you to jot down any thoughts, be it for your personal life or for school work, or just a concept that you may not understand that you will have to revisit in the future.
+
 ==== Adding an diary entry: `diaryAdd`
 - Adds a diary entry to the diary book.
 - Format: `diaryAdd ec/ENTRY_CONTENT`
 
-==== Showing diary logs: `diaryShow`
+==== Viewing diary logs: `diaryShow`
 - Shows all diary entry IDs.
 - Format: `diaryLog `
 
-==== Showing diary entries with specified entry ID: `diaryShow`
+==== Viewing diary entries with specified entry ID: `diaryShow`
 - Shows the diary entry for the specified entry ID.
 - Format: `diaryShow id/ENTRY_ID`
 
-==== Showing diary entries with specified date: `diaryShow`
+==== Viewing diary entries with specified date: `diaryShow`
 - Shows the diary entry at the specified date if there is any, date needs to be in DD-MM-YYYY.
 - Format: `diaryShow date/DATE`
 
@@ -229,6 +238,9 @@ c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 
 
 === Calender
+
+A calender in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines. 
+
 ==== Todo list: `todo`
 
 - Shows the list of tasks that are scheduled for the week with the deadline.
@@ -253,6 +265,9 @@ b. `event ID NAME_OF_PARTICIPANT` : add the contact card of the specific partici
 
 
 === Notes
+
+Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
+
 ==== Note Taking: `notes`
 
 - Allows for users to create documents for notes, organise their notes in folders.
@@ -283,21 +298,36 @@ e.g. `modreq computer science`
 •	help : help
 •	diary :
 * diary log LIMIT
+e.g. `diary log 10`
 * diary show ENTRY ID
+e.g. `diary show 3`
 * diary show DD-MM-YYYY
+e.g. `diary show 30-03-2020`
 * diary add ENTRY
+e.g. `diary add "Today is a good day"`
 * diary delete ENTRY ID
+e.g. `diary delete 1`
 * diary weather ID WEATHER
+e.g. `diary weather 1 SUNNY`
 * diary emotion ID EMOTION
+e.g. `diary emotion 1 HAPPY`
 * reminders : reminders
 * deadline : deadline DESCRIPTION /by DD-MM-YYYY HHMM
+e.g. `deadline Finish homework /by 30-03-2020 1800`
 * event :
 * event DESCRIPTION /at DD-MM-YYYY HHMM
+e.g. `event Prom /at 30-03-2020 1800`
 * event ID NAME_OF_PARTICIPANT
 * mymodplan: mymodplan
 ** mymodplan add MODULE CODE
+e.g. `mymodplan add CS2103T`
 ** mymodplan done MODULE CODE
+e.g. `mymodplan done CS2103T`
 * notes : notes
 ** notes ops/open loc/DIRECTORY
+e.g. `notes ops/open loc/Desktop/`
 ** notes ops/create loc/DIRECTORY
+e.g. `notes ops/create loc/Desktop/test.doc`
 ** notes ops/list loc/DIRECTORY
+e.g. `notes ops/list loc/Desktop/`
+
