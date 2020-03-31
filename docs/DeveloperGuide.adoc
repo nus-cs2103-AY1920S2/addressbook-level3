@@ -358,28 +358,37 @@ model and checks whether the module has a group with the given group code. If it
 a command exception is thrown saying that no such group exists. If the group does
 exist, it is removed from the module.
 
-8. The DeleteGroupCommand returns a CommandResult with a success message.
+8. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
 
 The `group edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Sort Command
 
-The sort command allows the user to sort the students in the module view either alphabetically
-or by rating.
+The sort command allows the user to sort the students in the module view either *alphabetically*,
+by *rating (in ascending or descending order)* or by *matriculation number*.
 
 The sort command can be used in three ways:
 
-1. sort g/GROUP_CODE m/MODULE_CODE t/TYPE : When a user enters the command in this
+1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : When a user enters the command in this
 manner, they are sorting all the students of the given group in the given module
-by type TYPE (which can be either alphabetical or by rating).
+by type TYPE.
 
-2. sort g/MODULE_CODE t/TYPE : When a user enters a command in this manner, they
+2. `sort module g/MODULE_CODE t/TYPE` : When a user enters a command in this manner, they
 are sorting all the students of all the groups in the given module by type TYPE
 (which can be either alphabetical or by rating).
 
-3. sort t/TYPE : When a user enters a command in this manner, they are sorting all
+3. `sort all t/TYPE` : When a user enters a command in this manner, they are sorting all
 students of all groups of all the modules in the TA-Tracker by the type TYPE (which
 can be either alphabetical or by rating).
+
+[NOTE]
+====
+* `TYPE` here could mean any of the following:
+** `alpha`, `alphabetical` or `alphabetically` to sort alphabteically.
+** `rating asc` to sort by rating in ascending order.
+** `rating desc` to sort by rating in descending order.
+** `matric` to sort by matriculation number.
+====
 
 Since these sort commands function differently but use the same parser, the following
 class structure is used.
@@ -387,69 +396,52 @@ class structure is used.
 .Sort Commands - Class Diagram
 image::SortCommandsClassDiagram.png[]
 
-Since the different commands use the same parser, the SortCommandParser needs to check
+Since the different commands use the same parser, the `SortCommandParser` needs to check
 which prefixes have been passed and return the appropriate command accordingly.
 The following activity diagram shows the steps the SortCommandParser takes once
 its parse command is called (assuming that no exception is thrown).
 
-If the user enters a sort command with no valid prefix, a command exception is thrown
-thats explains the usage of the sort command.
-
 .SortCommandParser - Activity Diagram
 image::SortParserActivityDiagram.png[]
 
-The following sequence diagram illustrates the interactions between the logic and
-model components when the user enters the command 'sort m/CS2103 g/G03 t/alpha'.
+[NOTE]
+====
+* Typically, the alternative paths would emerge from a single diamond but due to
+a limitation in PlantUML's beta version of showing activity diagrams, we were
+unable to show it that way.
 
-Note: To allow the user to type quickly, for type both 'alpha' and 'alphabetically'
-sort the students lexicographically.
+* The final else clause would throw an error explaining that the command format is
+invalid. But due to a limitation in PlantUML's beta version of showing activity diagrams,
+we were unable to indicate exceptions thrown in the proper way and decided to mention
+it here instead.
+
+* Command word here refers to `all`, `module` or `group`.
+
+* If the user enters the `sort` command with a command word but doesn't include the
+appropriate parameters with the correct prefixes, a command exception is thrown.
+====
+
+The following sequence diagram illustrates the interactions between the logic and
+model components when the user enters the command `sort all t/matric`.
 
 .Sort - Sequence Diagram
-image::SortGroupSequenceDiagram.png[]
+image::SortAllSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The TATrackerParser sees that the command is of type sort and passes the
-command to the SortCommandParser.
+2. The `TaTrackerParser` sees that the command is of type `sort` and passes the
+command to the `SortCommandParser`.
 
 3. The SortCommandParser performs the steps shown in the previous activity diagram
-and creates and returns a SortGroupCommand.
+and determines that the sort command word is `all` and creates and returns a
+`SortCommand`.
 
-4. LogicManager calls SortGroupCommand's execute method.
+4. `LogicManager` calls `SortCommand` 's execute method.
 
-5. The SortGroupCommand creates a Module with the given module code and a group with
-the given group code. The SortGroupCommand object checks whether a module with the
-given module code already exists in TA-Tracker.
-If it doesn't, a command exception is thrown saying that a module with the given module
-code doesn't exist in the TA-Tracker.
+5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
+is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 
-6. If the module exists, the SortGroupCommand object retrieves the module from the
-model and checks whether the module has a group with the given group code. If it doesn't,
-a command exception is thrown saying that no such group exists.
-
-7. If the group does exist, it is sorted according to the type of sort specified.
-
-8. The SortGroupCommand returns a CommandResult with a success message.
-
-==== UI Considerations
-
-//tag::studentview[]
-=== Student View
-Student view is the term used to characterise the different functionalities
-related to the students that the user is affiliated with.
-
-==== Model Framework
-The following class diagram shows how different classes are related in the
-functioning of the student view.
-
-.Student View - Class Diagram
-image::StudentModelClassDiagram.png[]
-
-The TaTracker model class contains a UniqueStudentList which helps it keep track
-of the different students the user is associated with. Each student has a name,
-matric and a default rating of 3/5 which can be edited by the user later. Each
-student also has a Phone and an Email, which is represented as an empty string
-if the user does not include the optional values.
+6. The SortCommand returns a CommandResult with a success message.
 
 ==== Implementation of the Student Add and Delete Commands
 
