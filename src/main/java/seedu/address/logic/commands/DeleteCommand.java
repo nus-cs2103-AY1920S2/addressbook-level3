@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,7 +20,6 @@ import seedu.address.model.order.returnorder.ReturnOrder;
  * Deletes an order identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
-
     public static final String COMMAND_WORD = "delete";
     public static final String NEWLINE = System.lineSeparator();
 
@@ -32,23 +33,29 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Order: %1$s";
     public static final String MESSAGE_INVALID_FLAG = "Invalid flag given!";
 
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
     private final Index targetIndex;
     private final Flag listType;
 
     public DeleteCommand(Index targetIndex, Flag listType) {
+        logger.fine("DeleteCommand constructor invoked");
         this.targetIndex = targetIndex;
         this.listType = listType;
+        logger.fine("DeleteCommand constructor successfully executed");
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (listType.equals(FLAG_ORDER_BOOK)) {
+            logger.fine(String.format("Order list flag (%s) given for deletion", FLAG_ORDER_BOOK));
             return deleteFromOrderList(model);
         }
         if (listType.equals(FLAG_RETURN_BOOK)) {
+            logger.fine(String.format("Return order list flag (%s) given for deletion", FLAG_RETURN_BOOK));
             return deleteFromReturnList(model);
         }
+        logger.info("Invalid flag given for DeleteCommand execute function");
         throw new CommandException(MESSAGE_INVALID_FLAG);
     }
 
@@ -63,6 +70,7 @@ public class DeleteCommand extends Command {
         List<Order> lastShownList = model.getFilteredOrderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            logger.info("Invalid index given for deleteFromOrderList function");
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
@@ -82,6 +90,7 @@ public class DeleteCommand extends Command {
         List<ReturnOrder> lastShownList = model.getFilteredReturnOrderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            logger.info("Invalid index given for deleteFromReturnList function");
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
