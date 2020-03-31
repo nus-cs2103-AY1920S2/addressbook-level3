@@ -45,37 +45,38 @@ public class CommandBox extends UiPart<Region> {
             //Overriding default redo
             if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
                 event.consume();
-                try {
-                    commandExecutor.execute("redo");
-                } catch (CommandException | ParseException e) {
-                    setStyleToIndicateCommandFailure();
-                }
+                commandTextField.setText("redo");
+                handleCommandEntered();
             //Overriding default undo
             } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
                 event.consume();
-                try {
-                    commandExecutor.execute("undo");
-                } catch (CommandException | ParseException e) {
-                    setStyleToIndicateCommandFailure();
-                }
+                commandTextField.setText("undo");
+                handleCommandEntered();
             }
         });
         //Controls to view command history
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
-            switch (key.getCode()) {
-                case UP:
-                    if (commandHistoryIterator.hasPrevious()) {
-                        commandTextField.setText(commandHistoryIterator.previous());
-                    }
-                break;
-                case DOWN:
-                    if (commandHistoryIterator.hasNext()) {
-                        commandTextField.setText(commandHistoryIterator.next());
-                    }
-                break;
-                default:
-                    break;
-            }
+                switch (key.getCode()) {
+                    case UP:
+                        if (commandHistoryIterator.hasPrevious()) {
+                            commandTextField.setText(commandHistoryIterator.previous());
+                        }
+                        break;
+                    case DOWN:
+                        if (commandHistoryIterator.hasNext()) {
+                            commandTextField.setText(commandHistoryIterator.next());
+                        }
+                        break;
+                    case H:
+                        if (key.isControlDown()) {
+                            commandTextField.setText("help");
+                            handleCommandEntered();
+                        }
+                        break;
+                    default:
+                        break;
+
+                }
         });
     }
     public static void runSafe(final Runnable runnable) {

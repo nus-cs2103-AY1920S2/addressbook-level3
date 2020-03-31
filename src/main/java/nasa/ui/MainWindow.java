@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.logic.Logic;
+import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
@@ -32,24 +34,20 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TabPanel tabPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane moduleListPanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private StackPane tabPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -64,6 +62,27 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+            //Overriding default redo
+            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
+                event.consume();
+                try {
+                    executeCommand("redo");
+                } catch (ParseException | CommandException e) {
+
+                }
+                //Overriding default undo
+            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
+                event.consume();
+                try {
+                    executeCommand("undo");
+                } catch (ParseException | CommandException e) {
+
+                }
+            } else if (event.getCode() == KeyCode.TAB) {
+                tabPanel.next();
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -108,14 +127,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
         /*
         TODO: Implement Activity list panel to display activity of the respective module
         Can use {@code logic.getFilteredActivityList()}
          */
-
+        tabPanel = new TabPanel(logic);
+        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -165,10 +183,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
     }
 
     /**

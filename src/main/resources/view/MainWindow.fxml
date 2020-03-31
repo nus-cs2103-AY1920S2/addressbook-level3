@@ -12,8 +12,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Nasa App" minWidth="100" minHeight="100" onCloseRequest="#handleExit">
+         title="Nice And Amazing Student Assistant" minWidth="100" minHeight="100" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/nasa.png" />
   </icons>
@@ -26,45 +28,38 @@
 
       <AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
                   prefWidth="1000.0">
-      <children>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+        <children>
+          <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Menu mnemonicParsing="false" text="File">
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            </Menu>
+          </MenuBar>
 
+          <StackPane fx:id="tabPanelPlaceholder" AnchorPane.topAnchor="25.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0"
+                         AnchorPane.bottomAnchor="175" />
 
-        <HBox fx:id="moduleList" styleClass="pane-with-border" minWidth="340" prefWidth="500" prefHeight="1000"
-              AnchorPane.topAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.bottomAnchor="175.0">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="moduleListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
-        </HBox>
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                     AnchorPane.bottomAnchor="130.0">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
 
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.bottomAnchor="130.0">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="125" prefHeight="125" maxHeight="125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.bottomAnchor="10.0">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0"/>
-      </children>
+          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                     minHeight="125" prefHeight="125" maxHeight="125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                     AnchorPane.bottomAnchor="10.0">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                     AnchorPane.bottomAnchor="0.0"/>
+        </children>
       </AnchorPane>
     </Scene>
   </scene>
