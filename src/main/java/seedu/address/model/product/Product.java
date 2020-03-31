@@ -28,12 +28,13 @@ public class Product {
 
     private QuantityThreshold threshold;
     private double progress;
+    private int amountSoldCounter;
 
     /**
      * Every field must be present and not null.
      */
     public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money money, QuantityThreshold threshold, double progress) {
+                   Money money, QuantityThreshold threshold, double progress, int count) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.id = UUID.randomUUID();
         this.description = description;
@@ -43,13 +44,14 @@ public class Product {
         this.money = money;
         this.threshold = threshold;
         this.progress = progress;
+        updateQuantitySold();
     }
 
     /**
      * Every field must be present and not null.
      */
     public Product(UUID id, Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money money, QuantityThreshold threshold, double progress) {
+                   Money money, QuantityThreshold threshold, double progress, int count) {
         requireAllNonNull(id, description, costPrice, price, quantity);
         this.id = id;
         this.description = description;
@@ -59,6 +61,7 @@ public class Product {
         this.money = money;
         this.threshold = threshold;
         this.progress = progress;
+        updateQuantitySold();
     }
 
     public UUID getId() {
@@ -99,6 +102,14 @@ public class Product {
 
     public void setProgress(double progress) {
         this.progress = progress;
+    }
+
+    public void updateQuantitySold() {
+        this.amountSoldCounter = getMoney().value / Integer.parseInt(getPrice().value);
+    }
+
+    public int getQuantitySold() {
+        return amountSoldCounter;
     }
 
     /**

@@ -53,7 +53,7 @@
             </HBox>
             <HBox>
                 <children>
-                    <Label text="Quantity">
+                    <Label text="Total quantity sold">
                         <HBox.margin>
                             <Insets right="10.0" />
                         </HBox.margin>
@@ -75,13 +75,13 @@
             </HBox>
             <HBox>
                 <children>
-                    <Label text="Threshold">
+                    <Label text="Profits">
                         <HBox.margin>
                             <Insets right="10.0" />
                         </HBox.margin>
                     </Label>
                     <Region HBox.hgrow="ALWAYS" />
-                    <Label fx:id="threshold" text="\$threshold" />
+                    <Label fx:id="profit" text="\$profit" />
                 </children>
             </HBox>
         </VBox>

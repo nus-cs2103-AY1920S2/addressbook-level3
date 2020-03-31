@@ -17,7 +17,7 @@ import seedu.address.model.product.Product;
 import seedu.address.ui.statistics.StatisticsListPanel;
 
 /**
- * Controller for a help page
+ * Controller for a statistics window.
  */
 public class StatisticsWindow extends UiPart<Stage> {
 
@@ -48,7 +48,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets up the logic to manage products and transactions.
+     * Sets up the logic to manage products.
      * @param logic
      */
     private void setUpLogic(Logic logic) {
@@ -79,7 +79,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the statistics window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -104,21 +104,21 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the statistics window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the statistics window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the statistics window.
      */
     public void focus() {
         setUpLogic(logic);

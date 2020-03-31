@@ -31,9 +31,9 @@
 }
 
 .list-view .thumb {
-    -fx-background-color: white;
+    -fx-background-color: gray;
 }
 
 .list-view .thumb:hover {
-    -fx-background-color: gray;
+    -fx-background-color: dimgray;
 }
