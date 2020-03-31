@@ -21,7 +21,7 @@ public class RandomizeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generate a random food option.";
 
-    public static final String MESSAGE_SUCCESS = "";
+    public static final String MESSAGE_SUCCESS = "Here are the choices:\n";
 
     private final Randomize randomize;
 
@@ -51,7 +51,7 @@ public class RandomizeCommand extends Command {
         FileReader fileC = model.listOfCanteens();
         FileReader fileS = model.listOfStalls();
         if (prefix.contains("c")) {
-            if (index != null) {
+            if (index.isPresent()) {
                 List<Canteen> canteenList = model.getFilteredCanteenList();
                 Canteen canteen = canteenList.get(index.get().getZeroBased());
                 randomize.setCanteenIndex(canteen);
@@ -72,5 +72,19 @@ public class RandomizeCommand extends Command {
     @Override
     public boolean needToSaveCommand() {
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RandomizeCommand)) {
+            return false;
+        }
+
+        RandomizeCommand otherRandomize = (RandomizeCommand) other;
+        return action.equals(otherRandomize.action) & randomize == otherRandomize.randomize;
     }
 }

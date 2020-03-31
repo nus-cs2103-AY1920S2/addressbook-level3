@@ -212,6 +212,10 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         return foods.asUnmodifiableObservableList();
     }
 
+    public ObservableList<PurchasedFood> getPurchasedFoodList() {
+        return transactions.asUnmodifiableObservableList();
+    }
+
     @Override
     public ObservableList<Food> getFavoriteList() {
         return favoritedFoods.asUnmodifiableObservableList();

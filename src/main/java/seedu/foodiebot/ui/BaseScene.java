@@ -42,7 +42,7 @@ import seedu.foodiebot.logic.parser.exceptions.ParseException;
 /**
  * Base class for creating a javafx scene.
  */
-abstract class BaseScene {
+public class BaseScene {
     public static final String FXML_FILE_FOLDER = "/view/";
     @FXML
     protected MenuItem helpMenuItem;
@@ -148,6 +148,7 @@ abstract class BaseScene {
         }
     }
 
+    /** Fills the stallListPanelRegion */
     @FXML
     public void handleListStalls() {
         addToListPanel(new StallsListPanel(logic.getFilteredStallList(true)));
@@ -170,12 +171,14 @@ abstract class BaseScene {
      */
     @FXML
     public void handleListFavorites() {
+        changeScene("MainScene.fxml");
+        new BaseScene(primaryStage, logic);
         extraListPanelPlaceholder = (StackPane) primaryStage.getScene().lookup(
             "#extraListPanelPlaceholder");
         if (extraListPanelPlaceholder != null) {
             extraListPanelPlaceholder.getChildren().clear();
         }
-        addToListPanel(new FoodListPanel(logic.getFilteredFavoriteFoodList(true)));
+        addToListPanel(new FoodListPanel(logic.getFilteredFavoriteFoodList(false)));
 
     }
 
@@ -214,10 +217,11 @@ abstract class BaseScene {
 
     }
 
+    /** Fills the randomize panel. */
     @FXML
     public void handleListRandomize() {
         changeScene("MainScene.fxml");
-        new MainScene(primaryStage, logic);
+        new BaseScene(primaryStage, logic);
         addToListPanel(new RandomizeListPanel(logic.getFilteredRandomizeList()));
     }
 
