@@ -34,5 +34,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_EVENTDATE = new Prefix("edt/"); // event date time
     public static final Prefix PREFIX_PLACE = new Prefix("ep/"); // event place
     public static final Prefix PREFIX_DURATION = new Prefix("ed/"); // event duration
+    public static final Prefix PREFIX_NUM_DAYS = new Prefix("n/"); // Number of days to visualise
 
 }

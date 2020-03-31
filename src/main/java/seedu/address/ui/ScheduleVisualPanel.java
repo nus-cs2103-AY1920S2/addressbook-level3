@@ -15,7 +15,7 @@ import seedu.address.model.day.Day;
  * Panel containing the list od days.
  */
 public class ScheduleVisualPanel extends UiPart<Region> {
-    private static final String FXML = "scheduleVisualPanel.fxml";
+    private static final String FXML = "ScheduleVisualPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ScheduleVisualPanel.class);
 
     @javafx.fxml.FXML
@@ -26,7 +26,7 @@ public class ScheduleVisualPanel extends UiPart<Region> {
 
     public ScheduleVisualPanel(ObservableList<Day> scheduleVisual) {
         super(FXML);
-        title.setText("Schedule for the next 7 days:");
+        title.setText("Schedule for the next " + scheduleVisual.size() + " days:");
         scheduleListView.setItems(scheduleVisual);
         scheduleListView.setCellFactory(listView -> new ScheduleVisualPanel.ScheduleViewCell());
     }

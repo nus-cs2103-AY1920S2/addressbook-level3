@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root maxHeight="600.0" minHeight="600.0" minWidth="600.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="600.0" minHeight="600.0" minWidth="600.0" onCloseRequest="#handleExit" title="Naggy Joel" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>

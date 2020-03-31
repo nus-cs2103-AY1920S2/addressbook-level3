@@ -129,7 +129,7 @@ public class AddressBookParser {
             return new ShowBirthdayCommand();
 
         case ScheduleCommand.COMMAND_WORD:
-            return new ScheduleCommand();
+            return new ScheduleCommandParser().parse(arguments, model);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
