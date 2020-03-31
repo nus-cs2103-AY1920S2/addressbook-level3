@@ -56,7 +56,7 @@ public class IntervieweeList {
     }
 
     public ObservableList<Interviewee> getObservableList() {
-        return observableList;
+        return FXCollections.unmodifiableObservableList(observableList);
     }
 
     /**

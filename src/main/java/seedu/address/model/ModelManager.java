@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.model.hirelah.AppPhase;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
@@ -136,6 +135,10 @@ public class ModelManager implements Model {
         return !(this.currentInterviewee == null);
     }
 
+    /**
+     * A utility to get the Transcript of the current Interviewee (guaranteed to exist).
+     * Do not use when there is no interviewee.
+     */
     @Override
     public Transcript getCurrentTranscript() {
         return currentInterviewee.getTranscript().get();
@@ -147,7 +150,7 @@ public class ModelManager implements Model {
             throw new IllegalActionException("Interviewee has been interviewed already!");
         }
         setCurrentInterviewee(interviewee);
-        currentInterviewee.setTranscript(new Transcript(questionList));
+        currentInterviewee.setTranscript(new Transcript(questionList, attributeList));
         setAppPhase(AppPhase.INTERVIEW);
     }
 
@@ -162,22 +165,22 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Attribute> getAttributeListView() {
-        return FXCollections.unmodifiableObservableList(attributeList.getObservableList());
+        return attributeList.getObservableList();
     }
 
     @Override
     public ObservableList<Question> getQuestionListView() {
-        return FXCollections.unmodifiableObservableList(questionList.getObservableList());
+        return questionList.getObservableList();
     }
 
     @Override
     public ObservableList<Interviewee> getFilteredIntervieweeListView() {
-        return FXCollections.unmodifiableObservableList(intervieweeList.getObservableList());
+        return intervieweeList.getObservableList();
     }
 
     @Override
     public ObservableList<Metric> getMetricListView() {
-        return FXCollections.unmodifiableObservableList(metricList.getObservableList());
+        return metricList.getObservableList();
     }
 
     //=========== Model component accessors ========================================================
@@ -187,9 +190,6 @@ public class ModelManager implements Model {
         return intervieweeList;
     }
 
-    /**
-     * Returns the list of attributes to score interviewees by
-     */
     @Override
     public AttributeList getAttributeList() {
         return attributeList;

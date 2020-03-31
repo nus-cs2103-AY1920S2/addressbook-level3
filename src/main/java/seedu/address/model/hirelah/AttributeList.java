@@ -1,11 +1,11 @@
 package seedu.address.model.hirelah;
 
 import java.util.Iterator;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /*
@@ -25,7 +25,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * the prefix.</p>
  * @author AY1920S2-W15-2
  */
-
 public class AttributeList implements Iterable<Attribute> {
     private static final String DUPLICATE_MESSAGE = "There are multiple attributes with the same prefix.";
     private static final String NOT_FOUND_MESSAGE = "No attributes with the entered prefix.";
@@ -40,7 +39,7 @@ public class AttributeList implements Iterable<Attribute> {
     }
 
     public ObservableList<Attribute> getObservableList() {
-        return attributes;
+        return FXCollections.unmodifiableObservableList(attributes);
     }
 
     /**
@@ -51,9 +50,7 @@ public class AttributeList implements Iterable<Attribute> {
      */
     public void add(String attributeName) throws IllegalValueException {
         Attribute attribute = Attribute.of(attributeName);
-        boolean isDuplicate = isDuplicate(attribute);
-
-        if (isDuplicate) {
+        if (isDuplicate(attribute)) {
             throw new IllegalValueException("This attribute is already exists!");
         }
 
@@ -61,35 +58,40 @@ public class AttributeList implements Iterable<Attribute> {
     }
 
     /**
-     * Find the attribute based on its prefix.
+     * Find the attribute based on its full name, then by prefix if no match is found.
+     *
      * @param attributePrefix The prefix of the attribute.
      * @return The corresponding Attribute instance.
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
-
     public Attribute find(String attributePrefix) throws IllegalValueException {
-        Optional<Attribute> exactAttribute = attributes.stream().filter(attribute -> attribute.toString()
-                                                                                              .equals(attributePrefix))
-                                                                .findFirst();
+        Attribute toFind = new Attribute(attributePrefix); // not inserted, need not validate
+        if (attributes.contains(toFind)) {
+            return toFind;
+        }
 
-        if (exactAttribute.isEmpty()) {
-            checkPrefix(attributePrefix);
-            return attributes.stream().filter(attribute -> attribute.toString().startsWith(attributePrefix))
-                    .findFirst()
-                    .get();
+        // Match the string as a prefix
+        List<Attribute> matches = attributes.stream()
+                .filter(attr -> attr.toString().startsWith(attributePrefix))
+                .collect(Collectors.toList());
+
+        if (matches.size() > 1) {
+            throw new IllegalValueException(DUPLICATE_MESSAGE);
+        } else if (matches.isEmpty()) {
+            throw new IllegalValueException(NOT_FOUND_MESSAGE);
         } else {
-            return exactAttribute.get();
+            return matches.get(0);
         }
     }
 
     /**
-     * Edits the attribute based on its prefix.
+     * Edits the attribute based on its full name, then by prefix if no match is found.
+     *
      * @param attributePrefix The prefix of the attribute.
      * @param updatedAttribute The name of the updated attribute.
      * @return The edited attribute.
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
-
     public Attribute edit(String attributePrefix, String updatedAttribute) throws IllegalValueException {
         Attribute currentAttribute = find(attributePrefix);
         int index = attributes.indexOf(currentAttribute);
@@ -98,7 +100,7 @@ public class AttributeList implements Iterable<Attribute> {
     }
 
     /**
-     * Deletes the attribute by its prefix.
+     * Deletes the attribute by its full name, then by prefix if no match is found.
      *
      * @param attributePrefix The prefix of the attribute.
      * @return The deleted attribute
@@ -111,25 +113,8 @@ public class AttributeList implements Iterable<Attribute> {
 
     }
 
-    /**
-     * Checks the number of attributes that starts with the prefix.
-     * @param attributePrefix The prefix of the attribute.
-     * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
-     */
-    private void checkPrefix(String attributePrefix) throws IllegalValueException {
-        long startWithPrefix = attributes.stream()
-                .filter(attribute -> attribute.toString().startsWith(attributePrefix))
-                .count();
-
-        if (startWithPrefix > 1) {
-            throw new IllegalValueException(DUPLICATE_MESSAGE);
-        } else if (startWithPrefix == 0) {
-            throw new IllegalValueException(NOT_FOUND_MESSAGE);
-        }
-    }
-
     private boolean isDuplicate(Attribute attribute) {
-        return attributes.stream().anyMatch(attribute::equals);
+        return attributes.contains(attribute);
     }
 
     @Override

@@ -17,7 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * <p>QuestionList class manages the list of questions that
- * have been added by the interviewer. Questions can be retrieve
+ * have been added by the interviewer. Questions can be retrieved
  * by their ordering.</p>
  * @author AY1920S2-W15-2
  */
@@ -29,7 +29,7 @@ public class QuestionList {
     }
 
     public ObservableList<Question> getObservableList() {
-        return questions;
+        return FXCollections.unmodifiableObservableList(questions);
     }
 
     /**
@@ -40,9 +40,7 @@ public class QuestionList {
      */
     public void add(String questionDescription) throws IllegalValueException {
         Question question = new Question(questionDescription);
-        boolean isDuplicate = isDuplicate(question);
-
-        if (isDuplicate) {
+        if (isDuplicate(question)) {
             throw new IllegalValueException("This question is already exists!");
         }
 
@@ -67,7 +65,7 @@ public class QuestionList {
      */
     public Question find(int index) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
-            throw new IllegalValueException("The index is out of bound");
+            throw new IllegalValueException("No such question exists!");
         }
         return questions.get(index - 1);
     }
@@ -82,7 +80,7 @@ public class QuestionList {
      */
     public Question delete(int index) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
-            throw new IllegalValueException("The index is out of bound");
+            throw new IllegalValueException("No such question exists!");
         }
         Question question = questions.get(index - 1);
         questions.remove(index - 1);
@@ -101,7 +99,7 @@ public class QuestionList {
 
     public Question edit(int index, String description) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
-            throw new IllegalValueException("The index is out of bound");
+            throw new IllegalValueException("No such question exists!");
         }
         Question current = questions.get(index - 1);
         Question question = new Question(description);
@@ -110,6 +108,6 @@ public class QuestionList {
     }
 
     private boolean isDuplicate(Question question) {
-        return questions.stream().anyMatch(question::equals);
+        return questions.contains(question);
     }
 }
