@@ -16,7 +16,7 @@ public interface CookedRecordBookStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getCookedRecordFilePath();
+    Path getCookedRecordBookFilePath();
 
     /**
      * Returns CookedRecordBook data as a {@link ReadOnlyCookedRecordBook}.
@@ -24,23 +24,22 @@ public interface CookedRecordBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyCookedRecordBook> readCookedRecord() throws DataConversionException, IOException;
+    Optional<ReadOnlyCookedRecordBook> readCookedRecordBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getCookedRecordFilePath()
+     * @see #getCookedRecordBookFilePath()
      */
-    Optional<ReadOnlyCookedRecordBook> readCookedRecord(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyCookedRecordBook> readCookedRecordBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyCookedRecordBook} to the storage.
-     * @param cookedRecord cannot be null.
+     * @param cookedRecordBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord) throws IOException;
+    void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException;
 
     /**
-     * @see #saveCookedRecord(ReadOnlyCookedRecordBook)
+     * @see #saveCookedRecordBook(ReadOnlyCookedRecordBook)
      */
-    void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord, Path filePath) throws IOException;
-
+    void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook, Path filePath) throws IOException;
 }

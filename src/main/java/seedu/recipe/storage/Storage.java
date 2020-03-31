@@ -31,12 +31,12 @@ public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, Use
     void saveRecipeBook(ReadOnlyRecipeBook recipeBook) throws IOException;
 
     @Override
-    Path getCookedRecordFilePath();
+    Path getCookedRecordBookFilePath();
 
     @Override
-    Optional<ReadOnlyCookedRecordBook> readCookedRecord() throws DataConversionException, IOException;
+    Optional<ReadOnlyCookedRecordBook> readCookedRecordBook() throws DataConversionException, IOException;
 
     @Override
-    void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord) throws IOException;
+    void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException;
 
 }

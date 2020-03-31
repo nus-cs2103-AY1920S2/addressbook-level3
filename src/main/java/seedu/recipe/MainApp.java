@@ -61,8 +61,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipeBookFilePath());
-        CookedRecordBookStorage cookedRecordStorage = new JsonCookedRecordBookStorage(userPrefs.getCookedRecordFilePath());
-        storage = new StorageManager(recipeBookStorage, cookedRecordStorage, userPrefsStorage);
+        CookedRecordBookStorage cookedRecordBookStorage = new JsonCookedRecordBookStorage(
+                userPrefs.getCookedRecordFilePath());
+        storage = new StorageManager(recipeBookStorage, cookedRecordBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -96,12 +97,13 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty RecipeBook");
+            logger.warning("Problem while reading from the file for recipes. "
+                    + "Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
         }
 
         try {
-            recordBookOptional = storage.readCookedRecord();
+            recordBookOptional = storage.readCookedRecordBook();
             if (!recordBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Recordbook");
             }

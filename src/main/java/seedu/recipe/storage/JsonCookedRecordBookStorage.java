@@ -28,22 +28,22 @@ public class JsonCookedRecordBookStorage implements CookedRecordBookStorage {
         this.filePath = filePath;
     }
 
-    public Path getCookedRecordFilePath() {
+    public Path getCookedRecordBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyCookedRecordBook> readCookedRecord() throws DataConversionException {
-        return readCookedRecord(filePath);
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook() throws DataConversionException {
+        return readCookedRecordBook(filePath);
     }
 
     /**
-     * Similar to {@link #readCookedRecord()}.
+     * Similar to {@link #readCookedRecordBook()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyCookedRecordBook> readCookedRecord(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableCookedRecordBook> jsonCookedRecordBook = JsonUtil.readJsonFile(
@@ -61,21 +61,21 @@ public class JsonCookedRecordBookStorage implements CookedRecordBookStorage {
     }
 
     @Override
-    public void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord) throws IOException {
-        saveCookedRecord(cookedRecord, filePath);
+    public void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException {
+        saveCookedRecordBook(cookedRecordBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveCookedRecord(ReadOnlyCookedRecordBook)}.
+     * Similar to {@link #saveCookedRecordBook(ReadOnlyCookedRecordBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord, Path filePath) throws IOException {
-        requireNonNull(cookedRecord);
+    public void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook, Path filePath) throws IOException {
+        requireNonNull(cookedRecordBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableCookedRecordBook(cookedRecord), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCookedRecordBook(cookedRecordBook), filePath);
     }
 
 }

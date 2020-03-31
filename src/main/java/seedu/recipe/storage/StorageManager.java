@@ -81,30 +81,30 @@ public class StorageManager implements Storage {
     // ================ CookedRecordBook methods ==============================
 
     @Override
-    public Path getCookedRecordFilePath() {
-        return cookedRecordStorage.getCookedRecordFilePath();
+    public Path getCookedRecordBookFilePath() {
+        return cookedRecordStorage.getCookedRecordBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyCookedRecordBook> readCookedRecord() throws DataConversionException, IOException {
-        return readCookedRecord(cookedRecordStorage.getCookedRecordFilePath());
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook() throws DataConversionException, IOException {
+        return readCookedRecordBook(cookedRecordStorage.getCookedRecordBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyCookedRecordBook> readCookedRecord(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return cookedRecordStorage.readCookedRecord(filePath);
+        return cookedRecordStorage.readCookedRecordBook(filePath);
     }
 
     @Override
-    public void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord) throws IOException {
-        saveCookedRecord(cookedRecord, cookedRecordStorage.getCookedRecordFilePath());
+    public void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException {
+        saveCookedRecordBook(cookedRecordBook, cookedRecordStorage.getCookedRecordBookFilePath());
     }
 
     @Override
-    public void saveCookedRecord(ReadOnlyCookedRecordBook cookedRecord, Path filePath) throws IOException {
+    public void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        cookedRecordStorage.saveCookedRecord(cookedRecord, filePath);
+        cookedRecordStorage.saveCookedRecordBook(cookedRecordBook, filePath);
     }
 
 }

@@ -200,12 +200,12 @@ public class SampleDataUtil {
 
     public static Record[] getSampleRecords() {
         return new Record[] {
-                new Record(new Name("Caesar Salad")),
-                new Record(new Name("Grilled Sandwich")),
-                new Record(new Name("Boiled Chicken")),
-                new Record(new Name("Chocolate Cake")),
-                new Record(new Name("Omelet")),
-                new Record(new Name("Tuna Bread"))
+            new Record(new Name("Caesar Salad")),
+            new Record(new Name("Grilled Sandwich")),
+            new Record(new Name("Boiled Chicken")),
+            new Record(new Name("Chocolate Cake")),
+            new Record(new Name("Omelet")),
+            new Record(new Name("Tuna Bread"))
         };
     }
 
