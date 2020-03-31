@@ -9,6 +9,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -72,7 +73,7 @@ public class AddGroupCommand extends Command {
             model.setFilteredStudentList();
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
     }
 
     @Override

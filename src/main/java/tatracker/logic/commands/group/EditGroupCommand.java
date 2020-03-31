@@ -10,6 +10,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NEWTYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -77,7 +78,7 @@ public class EditGroupCommand extends Command {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup));
+        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup), Action.GOTO_STUDENT);
     }
 
     @Override

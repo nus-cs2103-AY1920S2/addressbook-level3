@@ -19,6 +19,7 @@ import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -90,7 +91,7 @@ public class EditSessionCommand extends Command {
         model.setSession(sessionToEdit, editedSession);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedSession));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedSession), Action.GOTO_SESSION);
     }
 
     /**

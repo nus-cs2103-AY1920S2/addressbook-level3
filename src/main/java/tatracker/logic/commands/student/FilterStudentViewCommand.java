@@ -58,7 +58,7 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        CommandResult returnMsg = new CommandResult("", Action.FILTER);
+        CommandResult returnMsg = new CommandResult("", Action.FILTER_STUDENT);
 
         if (contains_module_only()) {
             returnMsg = filterModule(model);
@@ -88,7 +88,7 @@ public class FilterStudentViewCommand extends Command {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.FILTER);
+        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.FILTER_STUDENT);
     }
 
     /**
@@ -112,7 +112,7 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.FILTER);
+        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.FILTER_STUDENT);
     }
 
     @Override

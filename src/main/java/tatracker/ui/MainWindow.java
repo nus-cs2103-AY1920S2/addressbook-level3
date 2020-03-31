@@ -254,34 +254,44 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandResult.getNextAction()) {
-            case FILTER:
-                moduleListPanel.updateCells(logic.getFilteredModuleList());
-                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
-                groupListPanel.updateCells(logic.getFilteredGroupList());
-                break;
-
             case DONE:
                 claimsListPanel.updateLabel();
-                break;
-
-            case HELP:
-                handleHelp();
+                handleGoto(sessionListTab);
                 break;
 
             case EXIT:
                 handleExit();
                 break;
 
-            case GOTO_STUDENT:
+            case FILTER_CLAIMS:
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                handleGoto(claimsListTab);
+                break;
+
+            case FILTER_SESSION:
+                handleGoto(sessionListTab);
+                break;
+
+            case FILTER_STUDENT:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
+                break;
+
+            case GOTO_CLAIMS:
+                handleGoto(claimsListTab);
                 break;
 
             case GOTO_SESSION:
                 handleGoto(sessionListTab);
                 break;
 
-            case GOTO_CLAIMS:
-                handleGoto(claimsListTab);
+            case GOTO_STUDENT:
+                handleGoto(studentListTab);
+                break;
+
+            case HELP:
+                handleHelp();
                 break;
 
             default:

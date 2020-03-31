@@ -48,7 +48,7 @@ public class FilterSessionCommand extends Command {
         model.updateFilteredSessionList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW, model.getFilteredSessionList().size()),
-                Action.FILTER);
+                Action.FILTER_SESSION);
     }
 
     @Override
