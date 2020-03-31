@@ -82,6 +82,10 @@ public class Finance extends ModelObject {
     return Collections.unmodifiableSet(tags);
   }
 
+  public ID getID() {
+    return new ID("");
+  }
+
   /**
    * Returns true if both finances of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two finances.

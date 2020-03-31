@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
+
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
@@ -34,6 +37,18 @@ public class Course extends ModelObject {
   /**
    * Every field must be present and not null.
    */
+  public Course(Name name, Amount amount, Set<Tag> tags) throws ParseException {
+    requireAllNonNull(name, tags);
+    this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.amount = amount;
+    this.tags.addAll(tags);
+  }
+
+  /**
+   * Overloaded constructor for edited object, loaded from storage, or sample data
+   */
+
   public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
@@ -61,7 +76,7 @@ public class Course extends ModelObject {
     return name;
   }
 
-  public ID getId() {
+  public ID getID() {
     return id;
   }
 
@@ -161,7 +176,7 @@ public class Course extends ModelObject {
     Course otherCourseCast = (Course) otherCourse;
     return otherCourseCast != null
 //        && otherCourse.getName().equals(getName())
-            && otherCourseCast.getId().equals(getId());
+            && otherCourseCast.getID().equals(getID());
   }
 
   /**
@@ -179,7 +194,7 @@ public class Course extends ModelObject {
     }
 
     Course otherCourse = (Course) other;
-    return otherCourse.getId().equals(getId());
+    return otherCourse.getID().equals(getID());
   }
 
   @Override
@@ -193,7 +208,7 @@ public class Course extends ModelObject {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
         .append(" ID: ")
-        .append(getId())
+        .append(getID())
         .append(" Amount: ")
         .append(getAmount())
         .append(" AssignedTeacher: ")

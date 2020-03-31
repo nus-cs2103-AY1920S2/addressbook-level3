@@ -544,18 +544,18 @@ public class ModelManager implements Model {
       return this.name;
     }
 
-    public String getId(){
+    public String getID(){
       return this.id;
     }
 
     @Override
     public int compareTo(NameIdTuple o) {
-      return Integer.parseInt(id) - (Integer.parseInt(o.getId()));
+      return Integer.parseInt(id) - (Integer.parseInt(o.getID()));
     }
 
     @Override
     public String toString(){
-      return getName() + "(" + getId() + ")";
+      return getName() + "(" + getID() + ")";
     }
   }
 }

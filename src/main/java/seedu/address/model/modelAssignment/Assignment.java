@@ -1,5 +1,7 @@
 package seedu.address.model.modelAssignment;
 
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
@@ -7,10 +9,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -23,17 +22,26 @@ public class Assignment extends ModelObject {
   // Identity fields
   private final String ENTITY_NAME = "assignment";
   private final Name name;
-  private final ID assignmentId;
+  private final ID id;
   private final Deadline deadline;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
    */
+
+  public Assignment(Name name, Deadline deadline, Set<Tag> tags) throws ParseException {
+    requireAllNonNull(name, deadline, tags);
+    this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.deadline = deadline;
+    this.tags.addAll(tags);
+  }
+
   public Assignment(Name name, ID id, Deadline deadline, Set<Tag> tags) {
     requireAllNonNull(name, id, deadline, tags);
     this.name = name;
-    this.assignmentId = id;
+    this.id = id;
     this.deadline = deadline;
     this.tags.addAll(tags);
   }
@@ -42,8 +50,8 @@ public class Assignment extends ModelObject {
     return name;
   }
 
-  public ID getId() {
-    return assignmentId;
+  public ID getID() {
+    return id;
   }
 
   public Deadline getDeadline() {
@@ -75,7 +83,7 @@ public class Assignment extends ModelObject {
     Assignment otherAssignmentCast = (Assignment)otherAssignment;
     return otherAssignmentCast != null
         && otherAssignmentCast.getName().equals(getName())
-        && otherAssignmentCast.getId().equals(getId());
+        && otherAssignmentCast.getID().equals(getID());
   }
 
   /**
@@ -94,7 +102,7 @@ public class Assignment extends ModelObject {
 
     Assignment otherAssignment = (Assignment) other;
     return otherAssignment.getName().equals(getName())
-        && otherAssignment.getId().equals(getId())
+        && otherAssignment.getID().equals(getID())
         && otherAssignment.getDeadline().equals(getDeadline())
         && otherAssignment.getTags().equals(getTags());
   }
@@ -102,7 +110,7 @@ public class Assignment extends ModelObject {
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, assignmentId, deadline, tags);
+    return Objects.hash(name, id, deadline, tags);
   }
 
   @Override
@@ -113,7 +121,7 @@ public class Assignment extends ModelObject {
             .append(getName())
             .append("\n")
             .append("Assignment ID: ")
-            .append(getId())
+            .append(getID())
             .append("\n")
             .append("Deadline: ")
             .append(getDeadline().toString())

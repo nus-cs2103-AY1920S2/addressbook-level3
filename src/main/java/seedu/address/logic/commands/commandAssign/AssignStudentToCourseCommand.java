@@ -53,7 +53,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         Student foundStudent = null;
 
         for (Course course : model.getFilteredCourseList()) {
-            if (course.getId().value.equals(courseidString)) {
+            if (course.getID().value.equals(courseidString)) {
                 courseName = course.getName().toString();
                 courseExists = true;
                 foundCourse = course;

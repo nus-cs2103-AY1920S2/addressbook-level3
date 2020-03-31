@@ -1,6 +1,7 @@
 package seedu.address.model.modelGeneric;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.ID;
 
 import java.util.List;
 
@@ -85,8 +86,16 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         objects.remove(key);
     }
 
-    //// util methods
+    public boolean containsID(ID objectID) {
+        for (K object : objects) {
+            if (object.getID().equals(objectID)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    //// util methods
     @Override
     public String toString() {
         return objects.asUnmodifiableObservableList().size() + " objects";

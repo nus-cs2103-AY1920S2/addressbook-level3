@@ -70,7 +70,7 @@ public class Teacher extends Person {
     int count = 1;
     for (ID courseid : assignedCoursesID) {
       for (Course course : filteredCourses) {
-        if (courseid.toString().equals(course.getId().toString())) {
+        if (courseid.toString().equals(course.getID().toString())) {
           String comma = ", ";
           if (count == assignedCoursesID.size()) {
             comma = "";
