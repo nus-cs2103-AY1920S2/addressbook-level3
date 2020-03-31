@@ -23,6 +23,7 @@ import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.util.SampleExerciseDataUtil;
+import seedu.zerotoone.model.util.SampleScheduleDataUtil;
 import seedu.zerotoone.model.util.SampleWorkoutDataUtil;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.WorkoutList;
@@ -136,9 +137,7 @@ public class MainApp extends Application {
             if (!scheduleListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty ScheduleList");
             }
-            // STEPH_TODO: implement later
-            // initialScheduleListData = scheduleListOptional.orElseGet(SampleScheduleDataUtil::getSampleScheduleList);
-            initialScheduleListData = scheduleListOptional.orElseGet(ScheduleList::new);
+            initialScheduleListData = scheduleListOptional.orElseGet(SampleScheduleDataUtil::getSampleScheduleList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleList");
             initialScheduleListData = new ScheduleList();
