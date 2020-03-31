@@ -18,7 +18,11 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
 
 == Introduction
 
-Are you someone who often goes out to eat with friends? And do you also sometimes feel that you might be eating too much?
+This user guide provides in-depth documentation on the EYLAH desktop application:
+features summary, getting started, features, FAQ, command summary, and glossary.
+
+Are you someone who *lives in one of the Halls Of Residences* in the National University of Singapore and
+often goes out to *eat with hall mates?*  And do you also sometimes feel that you might be eating too much?
 If yes, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that will make your life much easier!
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
@@ -71,6 +75,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+
+|===
+|Current Features |Future Features
+| <<additem, additem>>
+| <<export, export>>
+
+| <<deleteitem, deleteitem>>
+| <<reminder, reminder>>
+
+| <<listreceipt, listreceipt>>
+|
+
+| <<listamount, listamount>>
+|
+
+| <<paid, paid>>
+|
+
+| <<help, help>>
+|
+
+| <<show, back>>
+|
+
+|===
 
 ====
 *Command Format*
@@ -215,6 +244,7 @@ Splitting the items' cost with friends. All you have to do is add the item,
 price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
+[[additem]]
 ==== Add item `additem`
 
 Add item and the person(s) involved in the splitting for that item.
@@ -231,6 +261,7 @@ Example: +
 Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
+[[deleteitem]]
 ==== Delete item  `deleteitem`
 
 Delete the item(s) in a receipt:
@@ -244,6 +275,7 @@ Use `listreceipt` to view your item indices before deletion.
 Example: +
 `deleteitem 3`
 
+[[listreceipt]]
 ==== List the current receipt `listreceipt`
 
 Display the current receipt which shows all the items and its
@@ -255,6 +287,7 @@ Format: +
 Example: +
 `listreceipt`
 
+[[listamount]]
 ==== List amounts owed `listamount`
 
 Display all the person(s) and the amount they owe.
@@ -265,6 +298,7 @@ Format: +
 Example: +
 `listamount`
 
+[[paid]]
 ==== Paid money `paid`
 
 Subtracts the paid amount from the person
@@ -277,21 +311,19 @@ Example: +
 `paid 2 3.90`
 
 [TIP]
-Use `listamount` command to find the index of the person who paid you.
-
-[TIP]
-Leaving the amount empty is equivalent to paying the full amount.
-
-[NOTE]
-The person will automatically be removed from the list if the amount owed is $0.
+====
+* Use `listamount` command to find the index of the person who paid you.
+* Leaving the amount empty is equivalent to paying the full amount.
+====
 
 [NOTE]
-Price can be up to 2 decimal places, i.e. 7.99.
-There is no need to add the dollar sign ($).
+====
+* The person will automatically be removed from the list if the amount owed is $0. +
+* Price can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+* When a Person owes $0 he/she will be automatically deleted from PersonList.
+====
 
-
-NOTE: When a Person owes $0 he/she will be automatically deleted from PersonList.
-
+[[back]]
 ==== Exiting split to go back to main menu `back`
 
 Exits `split` mode to go back to the main menu of the application.
@@ -310,10 +342,12 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EYLAH folder.
 
 == Command Summary
+In this section, you can find out more about the commands supported by EYLAH (their respective format and example).
 
+If you would like to know more about a specific command, you can view more information by clicking the provided link in the table below.
 
 === For Diet Tracker
 
@@ -337,6 +371,75 @@ e.g. `paid 3`
 
 * *Back* `back` +
 e.g. `back`
+
+|===
+|Command |Format |Example
+
+|<<additem, *Add Item*>>
+|`additem` `-i ITEMNAME `-p ITEMPRICE` `-n PERSON` `[-n PERSON]`
+|`insert` `-i pasta` `-p 32` `-n John` +
+or +
+`insert` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
+
+|<<deleteitem, *Delete Item*>>
+|`deleitem` `INDEX`
+|`deleteitem` `1` +
+`deleteitem` `2`
+
+|<<listreceipt, *List Receipt*>>
+|`listreceipt`
+|`listreceipt`
+
+|<<listamount, *List Amount*>>
+|`listamount`
+|`listamount`
+
+|<<paid, *Paid*>>
+|`paid` `INDEX` `[AMOUNT]`
+|`paid` `3`  +
+or +
+`paid` `3` `10.00` +
+or +
+`paid` `2` `10.0`
+
+|<<exit, *Exit*>>
+|`exit`
+|`exit`
+
+|<<donereceipt, *Done Receipt*>>
+|`search`
+|`search` `-r` `tid/ac1e345x7s` +
+
+
+
+`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+
+|<<help, *Help*>>
+|`help`
+|`help`
+
+|<<show, *Show*>>
+|`show`
+|`show`
+
+|<<import, *Import*>>
+|`import` `FILE_NAME`
+|`import` `orders.csv`
+
+|<<list, *List*>>
+|`list` `[DONE_STATUS]`
+|`list` +
+`list` `done` +
+`list` `undone`
+
+|<<return, **>>
+|`return`
+|`return`
+
+
+
+|===
+
 
 
 

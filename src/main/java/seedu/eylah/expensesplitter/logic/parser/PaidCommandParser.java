@@ -13,6 +13,9 @@ import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
  */
 public class PaidCommandParser implements Parser<PaidCommand> {
 
+
+    public static final String VALIDATION_REGEX = "(?=.*?\\d)^\\$?(([1-9]\\d{0,2}(,\\d{3})*)|\\d+)?(\\.\\d{1,2})?$";
+
     /**
      * Parsing.
      * @param args
@@ -40,6 +43,9 @@ public class PaidCommandParser implements Parser<PaidCommand> {
             amountPaid = "";
         }
 
+        if (!amountPaid.matches(VALIDATION_REGEX)) {
+            throw new ParseException(PaidCommand.PROPER_AMOUNT);
+        }
 
         /*
         ArgumentMultimap argMultimap =
