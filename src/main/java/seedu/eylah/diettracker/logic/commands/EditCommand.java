@@ -14,9 +14,10 @@ import java.util.Set;
 
 import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.util.CollectionUtil;
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
@@ -40,6 +41,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Food Edited: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the food book.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final EditFoodDescriptor editFoodDescriptor;
     private final Index index;
@@ -56,7 +58,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
         List<Food> lastShownList = model.getFilteredFoodList();
 
@@ -72,7 +74,7 @@ public class EditCommand extends Command {
         }
 
         model.setFood(foodToEdit, editedFood);
-        model.updateFilteredFoodList(Model.PREDICATE_SHOW_ALL_FOODS);
+        model.updateFilteredFoodList(DietModel.PREDICATE_SHOW_ALL_FOODS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedFood));
     }
 

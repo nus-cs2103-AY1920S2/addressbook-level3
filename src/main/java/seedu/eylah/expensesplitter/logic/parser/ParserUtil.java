@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.commons.util.CalculateUtil;
 import seedu.eylah.commons.util.StringUtil;
-import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.item.ItemPrice;
 import seedu.eylah.expensesplitter.model.person.Amount;

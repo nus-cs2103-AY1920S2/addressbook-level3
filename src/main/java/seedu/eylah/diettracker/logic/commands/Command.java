@@ -1,7 +1,8 @@
 package seedu.eylah.diettracker.logic.commands;
 
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.diettracker.model.DietModel;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -15,6 +16,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(DietModel model) throws CommandException;
 
 }

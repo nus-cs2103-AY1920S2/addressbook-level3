@@ -2,7 +2,8 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.eylah.expensesplitter.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 
 
 /**
@@ -16,9 +17,9 @@ public class ListReceiptCommand extends Command {
             + "in splitting it.";
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.listReceipt();
+    public CommandResult execute(SplitterModel splitterModel) {
+        requireNonNull(splitterModel);
+        splitterModel.listReceipt();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -8,8 +8,8 @@ import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;

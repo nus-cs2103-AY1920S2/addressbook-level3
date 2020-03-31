@@ -2,6 +2,8 @@ package seedu.eylah.ui;
 
 import java.util.Scanner;
 
+import seedu.eylah.commons.model.Mode;
+
 /**
  * The manager of the UI component.
  */
@@ -23,6 +25,7 @@ public class UiManager implements Ui {
             + "----------------";
     private static final String READ_COMMAND = "Enter command: ";
     private static final String EXIT_MESSAGE = "Bye! See you next time :)";
+    private static final String MODE_MESSAGE = "Currently at %s";
 
     /** A platform independent line separator. */
     private static final String LS = System.lineSeparator();
@@ -46,7 +49,17 @@ public class UiManager implements Ui {
 
     @Override
     public void showWelcome() {
-        showToUser(WELCOME_MESSAGE, SEPARATOR, LOGO, SEPARATOR, LS, USAGE, NAV_LIST);
+        showToUser(USAGE, NAV_LIST);
+    }
+
+    @Override
+    public void showLogo() {
+        showToUser(WELCOME_MESSAGE, SEPARATOR, LOGO, SEPARATOR, LS);
+    }
+
+    @Override
+    public void showMode(Mode mode) {
+        showToUser(String.format(MODE_MESSAGE, mode.toString()));
     }
 
     @Override

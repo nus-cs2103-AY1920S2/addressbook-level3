@@ -1,8 +1,7 @@
 package seedu.eylah.expensesplitter.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import seedu.eylah.expensesplitter.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  * This Command is used to go back to the Main Application of EYLAH.
@@ -14,10 +13,8 @@ public class BackCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Returned to Main Menu.";
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.backToMainMenu();
-        return new CommandResult(MESSAGE_SUCCESS, true, false);
+    public CommandResult execute(SplitterModel splitterModel) {
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 
 

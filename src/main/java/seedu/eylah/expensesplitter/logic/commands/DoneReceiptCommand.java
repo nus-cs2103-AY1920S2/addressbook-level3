@@ -2,7 +2,8 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.eylah.expensesplitter.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  * Set the Receipt as DONE thus no further modification to the Receipt can be made.
@@ -18,12 +19,12 @@ public class DoneReceiptCommand extends Command {
     public static final String MESSAGE_RECEIPT_DONE = "Receipt has already been marked as completed.";
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        if (model.isReceiptDone()) {
+    public CommandResult execute(SplitterModel splitterModel) {
+        requireNonNull(splitterModel);
+        if (splitterModel.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
-            model.getReceipt().makeDone();
+            splitterModel.getReceipt().makeDone();
             return new CommandResult(MESSAGE_SUCCESS);
         }
     }
