@@ -1,5 +1,7 @@
 package tatracker.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.util.Pair;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.logic.commands.CommandDictionary;
 import tatracker.logic.commands.CommandEntry;
 import tatracker.logic.commands.CommandResult;
@@ -21,11 +24,16 @@ import tatracker.logic.parser.exceptions.ParseException;
  * The UI component that is responsible for receiving user command inputs.
  */
 public class CommandBox extends UiPart<Region> {
-
     public static final String ERROR_STYLE_CLASS = "error";
     public static final String VALID_STYLE_CLASS = "valid";
 
     private static final String FXML = "CommandBox.fxml";
+
+    private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
+
+    static {
+        logger.setLevel(Level.INFO);
+    }
 
     private static final Pattern COMMAND_FORMAT = Pattern.compile(
             "\\s*(?<word1>\\S+)(?<args1>\\s*(?<word2>$|\\S+)(?<args2>.*))");
@@ -35,8 +43,6 @@ public class CommandBox extends UiPart<Region> {
 
     private CommandEntry commandEntry = null;
     private PrefixDictionary dictionary = PrefixDictionary.getEmptyDictionary();
-
-    // private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final CommandExecutor commandExecutor;
     private final ResultDisplay resultDisplay;
@@ -73,13 +79,13 @@ public class CommandBox extends UiPart<Region> {
      */
     private void setStyleToDefault() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();
-        // int size = styleClass.size();
+        int size = styleClass.size();
 
-        commandTextField.getStyleClass().removeAll(ERROR_STYLE_CLASS, VALID_STYLE_CLASS);
+        styleClass.removeAll(ERROR_STYLE_CLASS, VALID_STYLE_CLASS);
 
-        // if (size > styleClass.size()) {
-        //     logger.info("Set style to default");
-        // }
+        if (size > styleClass.size()) {
+            logger.finer("Set style to default");
+        }
     }
 
     /**
@@ -91,7 +97,7 @@ public class CommandBox extends UiPart<Region> {
         if (!styleClass.contains(VALID_STYLE_CLASS)) {
             setStyleToDefault();
             styleClass.add(VALID_STYLE_CLASS);
-            // logger.info("Set style to valid");
+            logger.finer("Set style to valid");
         }
     }
 
@@ -104,7 +110,7 @@ public class CommandBox extends UiPart<Region> {
         if (!styleClass.contains(ERROR_STYLE_CLASS)) {
             setStyleToDefault();
             styleClass.add(ERROR_STYLE_CLASS);
-            // logger.info("Set style to error");
+            logger.finer("Set style to error");
         }
     }
 
@@ -113,7 +119,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void highlightInput(String input) {
         if (input.isEmpty()) {
-            // logger.info("No input");
+            logger.info("======== [ No input ]");
             resetCommandEntry();
             setStyleToDefault();
             return;
@@ -124,7 +130,7 @@ public class CommandBox extends UiPart<Region> {
         final String arguments = result.getValue();
 
         if (commandWord.isEmpty()) {
-            // logger.info("Invalid input");
+            logger.info("======== [ Invalid input ]");
             resetCommandEntry();
             setStyleToIndicateCommandFailure();
             resultDisplay.setFeedbackToUser("");
@@ -151,7 +157,7 @@ public class CommandBox extends UiPart<Region> {
         if (hasTrailingSpaces(arguments)) {
             setStyleToDefault();
             resultDisplay.setFeedbackToUser(commandEntry.getUsage());
-            // logger.info("BLANK ARGUMENT");
+            logger.info("======== [ Next argument? ]");
             return;
         }
 
@@ -165,12 +171,12 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateValidCommand();
             resultDisplay.setFeedbackToUser(prefixEntry.getPrefixWithInfo());
 
-            // logger.info(String.format("Prefix: %s | Value: %s", prefixEntry.getPrefixWithInfo(), value));
+            logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), value));
         } else {
             setStyleToIndicateCommandFailure();
-            resultDisplay.setFeedbackToUser("Invalid prefix");
+            resultDisplay.setFeedbackToUser(commandEntry.getUsage());
 
-            // logger.info("Invalid Prefix: " + prefix);
+            logger.info("======== [ No prefix ] ");
         }
     }
 
@@ -181,24 +187,24 @@ public class CommandBox extends UiPart<Region> {
         Matcher matcher = COMMAND_FORMAT.matcher(input);
 
         if (!matcher.matches()) {
-            // logger.info("Invalid Command");
+            logger.info("============ [ Invalid Command ]");
             return new Pair<>("", "");
         }
 
         String word1 = matcher.group("word1");
         String word2 = word1 + " " + matcher.group("word2");
 
-        boolean isBasicCommand = CommandDictionary.hasCommandWord(word1);
+        boolean isBasicCommand = CommandDictionary.hasFullCommandWord(word1);
         boolean isComplexCommand = CommandDictionary.hasFullCommandWord(word2);
 
         if (isComplexCommand) {
-            // logger.info("Complex Command");
+            logger.fine("============ [ Complex Command ]");
             return new Pair<>(word2, matcher.group("args2"));
         } else if (isBasicCommand) {
-            // logger.info("Basic Command");
+            logger.fine("============ [ Basic Command ]");
             return new Pair<>(word1, matcher.group("args1"));
         } else {
-            // logger.info("Unknown Command");
+            logger.fine("============ [ Unknown Command ]");
             return new Pair<>("", "");
         }
     }
@@ -210,10 +216,10 @@ public class CommandBox extends UiPart<Region> {
         Matcher matcher = LAST_PREFIX.matcher(arguments);
 
         if (matcher.matches()) {
-            // logger.info("Matched prefixes");
+            logger.fine("Matched prefixes");
             return new Pair<>(matcher.group("prefix"), matcher.group("value"));
         } else {
-            // logger.info("No prefixes");
+            logger.fine("No prefixes");
             return new Pair<>("", arguments.trim());
         }
     }
@@ -224,7 +230,7 @@ public class CommandBox extends UiPart<Region> {
     private void resetCommandEntry() {
         commandEntry = null;
         dictionary = PrefixDictionary.getEmptyDictionary();
-        // logger.info("NO COMMAND");
+        logger.fine("Clear command entry");
     }
 
     /**
@@ -234,10 +240,14 @@ public class CommandBox extends UiPart<Region> {
         // Call this only if full command word is valid
         assert CommandDictionary.hasFullCommandWord(fullCommandWord);
 
+        CommandEntry oldEntry = commandEntry;
+
         commandEntry = CommandDictionary.getEntryWithFullCommandWord(fullCommandWord);
         dictionary = commandEntry.getDictionary();
 
-        // logger.info(commandEntry.toString());
+        if (oldEntry != commandEntry) {
+            logger.info(String.format("======== [ %s ]", commandEntry.toString()));
+        }
     }
 
 
