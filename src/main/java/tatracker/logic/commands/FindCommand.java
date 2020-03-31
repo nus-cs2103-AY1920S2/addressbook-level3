@@ -3,6 +3,7 @@ package tatracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import tatracker.commons.core.Messages;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
@@ -30,7 +31,8 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.setFilteredStudentList();
         return new CommandResult(
-                String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW, model.getFilteredStudentList().size()));
+                String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW, model.getFilteredStudentList().size()),
+                Action.GOTO_STUDENT);
     }
 
     @Override

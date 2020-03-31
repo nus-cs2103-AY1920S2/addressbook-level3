@@ -5,6 +5,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -87,6 +88,6 @@ public class SortModuleCommand extends SortCommand {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, module));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, module), Action.GOTO_STUDENT);
     }
 }

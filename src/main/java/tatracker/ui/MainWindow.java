@@ -19,6 +19,12 @@ import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.ui.claimstab.ClaimsListPanel;
+import tatracker.ui.claimstab.ModuleListPanelCopy;
+import tatracker.ui.sessiontab.SessionListPanel;
+import tatracker.ui.studenttab.GroupListPanel;
+import tatracker.ui.studenttab.ModuleListPanel;
+import tatracker.ui.studenttab.StudentListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -254,34 +260,44 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandResult.getNextAction()) {
-            case FILTER:
-                moduleListPanel.updateCells(logic.getFilteredModuleList());
-                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
-                groupListPanel.updateCells(logic.getFilteredGroupList());
-                break;
-
             case DONE:
                 claimsListPanel.updateLabel();
-                break;
-
-            case HELP:
-                handleHelp();
+                handleGoto(claimsListTab);
                 break;
 
             case EXIT:
                 handleExit();
                 break;
 
-            case GOTO_STUDENT:
+            case FILTER_CLAIMS:
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                handleGoto(claimsListTab);
+                break;
+
+            case FILTER_SESSION:
+                handleGoto(sessionListTab);
+                break;
+
+            case FILTER_STUDENT:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
+                break;
+
+            case GOTO_CLAIMS:
+                handleGoto(claimsListTab);
                 break;
 
             case GOTO_SESSION:
                 handleGoto(sessionListTab);
                 break;
 
-            case GOTO_CLAIMS:
-                handleGoto(claimsListTab);
+            case GOTO_STUDENT:
+                handleGoto(studentListTab);
+                break;
+
+            case HELP:
+                handleHelp();
                 break;
 
             default:

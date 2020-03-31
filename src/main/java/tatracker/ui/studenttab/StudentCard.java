@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.studenttab;
 
 import java.util.Comparator;
 
@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import tatracker.model.student.Student;
+import tatracker.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Student}.

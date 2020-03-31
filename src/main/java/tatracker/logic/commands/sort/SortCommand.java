@@ -5,6 +5,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -61,6 +62,6 @@ public class SortCommand extends Command {
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.GOTO_STUDENT);
     }
 }

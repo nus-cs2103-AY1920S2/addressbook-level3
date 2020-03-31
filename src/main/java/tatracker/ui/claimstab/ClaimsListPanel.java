@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.claimstab;
 
 import static tatracker.model.TaTracker.getTotalEarnings;
 
@@ -12,6 +12,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.session.Session;
+import tatracker.ui.UiPart;
+import tatracker.ui.sessiontab.SessionCard;
 
 /**
  * Panel containing the list of sessions.

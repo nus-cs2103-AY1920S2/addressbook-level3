@@ -21,13 +21,15 @@ public class CommandResult {
     //private final boolean exit;
 
     public enum Action {
+        DONE,
+        EXIT,
+        FILTER_STUDENT,
+        FILTER_SESSION,
+        FILTER_CLAIMS,
         GOTO_STUDENT,
         GOTO_SESSION,
         GOTO_CLAIMS,
-        DONE,
-        FILTER,
         HELP,
-        EXIT,
         NONE
     }
 
@@ -41,14 +43,6 @@ public class CommandResult {
         this.nextAction = nextAction;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, Action.NONE);
-    }
-
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -56,18 +50,6 @@ public class CommandResult {
     public Action getNextAction() {
         return nextAction;
     }
-
-    //public boolean isSwitchTab() {
-    //    return switchTab;
-    //}
-
-    //public boolean isShowHelp() {
-    //    return showHelp;
-    //}
-
-    //public boolean isExit() {
-    //    return exit;
-    //}
 
     @Override
     public boolean equals(Object other) {

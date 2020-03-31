@@ -1,17 +1,18 @@
-package tatracker.ui;
+package tatracker.ui.studenttab;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import tatracker.model.module.Module;
+import tatracker.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Module}.
  */
-public class ModuleCardCopy extends UiPart<Region> {
+public class ModuleCard extends UiPart<Region> {
 
-    private static final String FXML = "ModuleListCardCopy.fxml";
+    private static final String FXML = "ModuleListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -23,7 +24,7 @@ public class ModuleCardCopy extends UiPart<Region> {
 
     public final Module module;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label name;
@@ -32,7 +33,7 @@ public class ModuleCardCopy extends UiPart<Region> {
     @FXML
     private Label identifier;
 
-    public ModuleCardCopy(Module module, int displayedIndex) {
+    public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
@@ -48,12 +49,12 @@ public class ModuleCardCopy extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof tatracker.ui.ModuleCardCopy)) {
+        if (!(other instanceof ModuleCard)) {
             return false;
         }
 
         // state check
-        tatracker.ui.ModuleCardCopy card = (tatracker.ui.ModuleCardCopy) other;
+        ModuleCard card = (ModuleCard) other;
         return id.getText().equals(card.id.getText())
                 && module.equals(card.module);
     }
