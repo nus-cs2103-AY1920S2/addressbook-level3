@@ -156,10 +156,5 @@ class ClearCommandParserTest {
         input = FLAG_RETURN_BOOK.toString() + FLAG_FORCE_CLEAR.toString();
         assertParseFailure(parser, input, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ClearCommand.MESSAGE_USAGE));
-
-        //Duplicate flags
-        input = FLAG_ORDER_BOOK + " " + FLAG_ORDER_BOOK;
-        assertParseFailure(parser, input, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ClearCommand.MESSAGE_USAGE));
     }
 }

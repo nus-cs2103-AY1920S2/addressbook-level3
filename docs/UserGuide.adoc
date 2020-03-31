@@ -26,6 +26,15 @@ while still enjoying the benefits of a Graphical User Interface (GUI).
 Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
 Have a delightful journey using Delino!
 
+.Graphical User Interface (GUI) of Delino
+image::Delino.svg[width="790"]
+
+=== Product Information
+Are you still using pen and papers or Excel to keep track of all your orders? +
+
+With Delino, you can be rest assured that it will help you to keep track of a large number of orders in the most efficient way possible. Are you interested in improving your parcel delivery management? Read further to discover the features of Delino!
+
+
 === How to navigate this user guide
 Throughout this user guide, you might encounter additional symbols. These symbols are used to
 highlight important information. +
@@ -49,13 +58,20 @@ This block contains *warning* information.
 
 [IMPORTANT]
 ====
-This block contains *important* inforamtion that you should be mindful of.
+This block contains *important* information that you should be mindful of.
 ====
 
-You will also encounter the use of `text markup` to indicate keywords such as
-command arguments to Delino. (e.g. `exit`)
+`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`)
 
-Finally, you will encounter links to external webpages for additional information.
+`[FLAG]` : For the various commands, you might encounter *keywords* placed in square brackets. +
+(e.g. `nearby` `[FLAG]` `AREA`) +
+These indicate the optional arguments to a command.
+
+Keywords that are capitalized represent all possible combinations of an argument. +
+(e.g. `[FLAG]` represents all possible flag arguments available). +
+For the list of all possible combinations of an argument, you can refer to the <<glossary, glossary>>
+
+Finally, you will encounter links to external web pages for additional information.
 These links will link:[look like this].
 
 == Quick Start
@@ -64,36 +80,74 @@ These links will link:[look like this].
 .  Download the latest `Delino.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* <<list, `list`>> : lists all orders to be delivered.
+* <<list, `list`>> ` done` : lists all delivered orders and return orders.
 * <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
-* <<delete, `delete`>> `3` : deletes the 3rd delivery order shown in the current list
+* <<delete, `delete`>> `-o` `3` : deletes the 3rd delivery order shown in the current list
 * <<exit, `exit`>> : exits the app
 
 .  Refer to <<Features>> for a more detailed explanation of each command.
 
 [[Features]]
 == Features
+In this section you will be able to learn about the various features of Delino.
+
+|===
+|Current Features |Future Features
+| <<clear, clear>>
+| <<export, export>>
+
+| <<delete, delete>>
+| <<reminder, reminder>>
+
+| <<delivered, delivered>>
+| <<rescheduling, rescheduling orders>>
+
+|  <<edit, edit>>
+| <<tracking-work, keeping track of work schedule>>
+
+| <<exit, exit>>
+| <<statistics, showing more statistic of completed orders>>
+
+| <<help, help>>
+|
+
+|  <<show, show>>
+|
+
+|  <<insert, insert>>
+|
+
+|  <<import, import>>
+|
+
+|<<list, list>>
+|
+
+| <<nearby, nearby>>
+|
+
+| <<return, return>>
+|
+
+|<<search, search>>
+|
+
+|<<saving, saving>>
+|
+|===
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
-* Items in square brackets are optional e.g `n/CUSTOMER_NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/CUSTOMER_NAME` is also acceptable.
+* Items in square brackets are optional e.g `n/CUSTOMER_NAME [c/COMMENT]` can be used as `n/John Doe c/Leave the parcel outside` or as `n/John Doe`.
+* Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME` `p/PHONE_NUMBER`, +
+`p/PHONE_NUMBER` `n/CUSTOMER_NAME`  is also acceptable.
 ====
-
-==== Examples
-
-* `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
-* `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 
 [[clear]]
 === Clearing all entries : `clear`
@@ -104,7 +158,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [NOTE]
 ====
-* Space is required in between the flags and command.
+* A space is required in between the command and flags. Refer to the  examples below for more information.
 * If *no* `-o` or `-r` flag is given, it will be treated as both. *Both* order book and return order book will be cleared.
 ====
 
@@ -113,141 +167,345 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Examples
 * `clear` +
-    Popup will appeared and ask the user for double confirm to clear both order and return order book.
+   Popup will appear and ask the user for double confirm to clear both order and return order book.
 * `clear` `-f` +
-    Both order book and return order book will be cleared immediately.
+   Both order book and return order book will be cleared immediately.
 * `clear` `-f` `-r` +
-    Only return order book is cleared immediately.
+   Only return order book is cleared immediately.
 * `clear` `-o` `-f` +
-    Only order book is cleared immediately.
+   Only order book is cleared immediately.
 
 [[delete]]
 === Deleting an order : `delete`
 ==== Description
-* You can use this command to delete a particular order from the current list of orders based on its index. +
+* You can use this command to delete a particular order or return order based on its index. +
+ The item to be deleted is taken from the respective list of orders or return orders; depending on its type.
 
 ==== Format:
-`delete` `INDEX`
+`delete` `FLAG` `INDEX`
 
 ****
-* Deletes the order at the specified `INDEX`.
-* The index refers to the index number shown in the displayed order list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the order/return order at the specified `INDEX`.
+* The `FLAG` determines the list which the item to be deleted is taken from.
+* The `INDEX` refers to the `INDEX` number shown in the displayed order list.
+* The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
 ****
 
 ==== Examples:
 
 * `list` +
-`delete` `2` +
-Deletes the 2nd order.
-* `search` `-n` `Betsy` +
-`delete` `1` +
+`delete` `-o` `2` +
+Deletes the 2nd order from the order list.
+* `list` +
+`delete` `-r` `3` +
+Deletes the 3rd return order from the return order list.
+* `search` `-o` `Betsy` +
+`delete` `-o` `1` +
 Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Betsy`).
+* `search` `-r` `Aaron` +
+`delete` `-r` `1` +
+Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Aaron`).
 
 [[delivered]]
-=== Mark order as delivered: `delivered`
-==== Description
-* Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
-* The order that is marked as done will be moved to another list that contains all the orders that are completed.
-* The completed list can be seen by calling the list command: `list` `done`.
+=== Delivering an order or return order : `delivered` [Done by - Cher Wei Jie]
+In this section, you will learn more about the Delivered command and how to use it. +
+Why would you want to use the Delivered command?
+If you have delivered an order or return order, you can mark it as delivered with the Delivered command.
 
-==== Format
-`delivered` `INDEX`
+[[delivered-works]]
+==== How to use the Delivered command
+This section will explain the steps needed to use the Delivered command. +
 
-==== Examples
-* `delivered` `1` +
-The order at the first index of the list is marked as a delivered order.
-* `delivered` `2` +
-The order at the second index of the list is marked as a delivered order.
+Here is how you can mark the details of any order or return order by following the steps below: +
+
+*Step 1* : Type in the keyword *delivered* +
+*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to mark as delivered +
+*Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to mark as delivered +
+*Step 4* : Press `Enter` on your keyboard to see the magic!
+
+[NOTE]
+====
+* Please include a whitespace in between the keyword, command flag and index. i.e. `delivered -o 1`
+* If you can't see any orders use the <<list, `list`>> command to view existing parcel!
+If nothing is showing up, it means you got to <<insert, `insert`>> or <<return, `return`>> some parcel and start doing work!
+====
+
+[[delivered-examples]]
+==== What constitutes a valid Delivered command
+The syntax for a valid Delivered command can be seen below!
+
+* `delivered` `FLAG` `INDEX`
+
+.Possible Combinations of Delivered command
+|===
+|Scenario |Command |Result
+
+| If you want to mark the first return order displayed on returns list as delivered, you can do this:
+| `delivered` `-r` `1`
+| The Delivery Status of the first return order displayed on the returns list will be changed to "Returned to Warehouse"
+
+| If you want to mark the second order displayed on the orders list, you can do this:
+| `delivered` `-o` `2`
+| The delivery status of the second order in the order list will be changed to "Delivered".
+|===
+
+[NOTE]
+====
+* The `INDEX` given is the parcel you will be marking as delivered.
+* The parcel will be marked as delivered after executing this delivered command.
+* If the parcel is an order, its Delivery Status will be changed from "Not Delivered" to "Delivered".
+* If the parcel is a return order, its Delivery Status will be changed from "Not returned to warehouse" to "Returned to warehouse"
+====
+
+[WARNING]
+====
+* The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
+* The `INDEX` *must be in range* of the number of displayed orders
+* Only can be used when there is at least an order or return order displayed.
+* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
+====
 
 [[edit]]
-=== Editing an order : `edit`
+=== Editing an order : `edit` [Done by - Kenny Ho Si Chong]
 
-==== Description
+In this section, you will be able to find out how to properly <<edit-works, use>> the `Edit` command and the relevant <<edit-examples, examples>>. +
+Why will you want to use the `edit` command? If you wish to edit any field of a parcel, the `edit` command will provide you the means to do so.
 
-* You can edit the details of the delivery order by providing the index of it shown on the status bar, followed by the field you want to change and lastly the updated value.
 
-==== Format
+[[edit-works]]
+==== How to use the Edit command
 
-[TIP]
+Here is how you can edit the details of any parcel by following the steps below: +
+
+*Step 1* : Type in the keyword *edit* +
+*Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to edit +
+*Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to edit +
+*Step 4* : Provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the new value you want to change to. +
+*Step 5* : Press `Enter` on your keyboard to see the magic!
+
+[NOTE]
 ====
-* Use the <<list, `list`>> command to see which delivery order you want to edit.
-* List of order attribute prefixes can be found <<command_prefix, here>>.
+* In between each step please put a whitespace!
+* If you can't see any orders or returns use the <<list, `list`>> command to view existing parcel! If nothing is showing up means you got to add some <<insert, order>> or <<return, return>> parcel and start doing work!
 ====
 
-* `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+[[edit-examples]]
+==== What constitutes a valid Edit command
+
+The syntax for a valid `Edit` command can be seen below:
+
+* `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+
+[NOTE]
+====
+* `edit` is the command word for this feature.
+* `FLAG` is to differentiate the different kind of parcel (orders or returns).
+* The `INDEX` given is the parcel you will be editing on.
+* `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to change
+* `NEW_VALUE` is the value you want to replace with.
+====
+
+.Possible Combinations of Edit command
+|===
+|Scenario |Command |Result
+
+| If you want to edit the name of the first return order displayed on returns list you can do this:
+| `edit` `-r` `1` `n/Xuan En` +
+| The index `1` customer's name of the return order list will be changed to `Xuan En`.
+
+| If you want to edit the phone number of the second order displayed on the orders list you can do this!
+| `edit` `-o` `2` `p/9999 4444`
+| The index `2` customer's phone number of the order list will be changed changed to `9999 4444`.
+
+| If you want to edit the address of the first order displayed on the orders list you can do this!
+| `edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
+| The index `1` customer's address of the order list will be changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
+
+| If you want to edit the name, phone number and address of the third return order displayed on the returns list you can do this!
+| `edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+| The index `3` customer's name, phone and address of the return order list will be changed accordingly to the prefix.
+|===
 
 [WARNING]
 ====
 * The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 * The `INDEX` *must be in range* of the number of displayed orders
 * Only can be used when there is at least an order displayed.
+* The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
 ====
-
-
-****
-* Edits the order at the specified `INDEX`.
-* Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
-****
-
-==== Examples
-
-* `edit` `1` `n/Xuan En` +
-The index `1` customer's name is changed to `Xuan En`.
-* `edit` `2` `p/9999 4444` +
-The index `2` customer's phone number is changed to `9999 4444`.
-* `edit` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
-The index `1` customer's address is changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
-* `edit` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
-The index `3` customer's name, phone and address are changed accordingly to the prefix.
 
 [[exit]]
 === Exiting the program : `exit`
 
-==== Description
-* You can exit the application using the exit command.
+In this section, you will be able to find out how to properly <<exit-works, use>> the `Exit` command and the relevant <<exit-examples, examples>>. +
+Why will you want to use the `exit` command? If you wish to exit the application, the `exit` command will allow you to do so.
 
-==== Format:
+[[exit-works]]
+==== How to use the Exit command
+
+Here is how you can exit the application:
+
+*Step 1* : Type in the keyword `exit` +
+*Step 2* : Say bye to Delino!
+
+[NOTE]
+Optionally you can click on the cross button of the application to exit!
+
+[[exit-examples]]
+==== What constitutes a valid Exit command
 * `exit`
 
+[NOTE]
+`exit` is the command word for this feature.
+
+.Possible Combinations of Exit command
+|===
+|Scenario |Command |Result
+| If you wish to exit the application because you're en-route to delivering or after a long day of work.
+| `exit`
+| Delino will silently close the application window and awaits for your next usage.
+|===
+
 [[help]]
-=== Viewing help : `help`
+=== Showing the Help message - `help` [Done by - Cher Wei Jie]
+* In this section, you will learn more about the Help command and how to use it. +
+Why would you want to use the Help command?
+You can use this Help command to see a summary of all available features of Delino.
 
-==== Description
-* You can use the help command to display all commands that are available to be used
-so that you can navigate the application easily.
+[[help-works]]
+==== How to use the Help command?
 
-==== Format:
+Here is how you can use the Help command to show a summary of all available commands in Delino.
+
+*Step 1* : Type in the keyword *help*. +
+*Step 2* : Press `Enter` on your keyboard to see the magic!
+
+[[help-examples]]
+==== What constitutes a valid Help command?
+
+The syntax for a valid help command can be seen below!
+
 * `help`
 
-==== Examples:
-* `help` +
-Returns a list of all commands available.
+.Possible Combinations of Help command
+|===
+|Scenario |Command |Result
+
+| If you want to view all the available commands in Delino, you can do this:
+| `help`
+| A pop-up window will be shown that includes a summary to briefly explain all the commands that Delino offers.
+|===
 
 [[show]]
-=== Show statistics : `show`
+=== Showing statistics : `show` [Done by Amos Cheong Jit Hon]
+This section will explain more about the Show command and how to use it.
 
-==== Description
-* You can use the show command to open a new window to display statistics of the orders assigned to the courier.
-It shows the earnings the courier has made today, the number of orders delivered and the total number of orders
-he or she has to deliver today. The statistics include a PieChart at the bottom, which shows the percentage of
-delivered orders compared to the undelivered ones.
+At some point of time, you would want to know how many orders have you delivered or what is your earnings for today. Therefore,
+you have to use the Show Command to view those information.
+[[show-works]]
+==== How to use the Show command
+In this section, you will learn how to use the Show Command.
 
-==== Format:
-* `show`
+Here is how you can show the statistics of your orders: +
 
-==== Examples:
-* `show` +
-Opens a new window that contains the statistics.
+*Step 1* : Type : `show` +
+
+*Step 2* : Press `Enter` on your keyboard to see the magic!
+
+[NOTE]
+====
+The `show` command opens up a new window that displays the following information :
+
+* Earnings Today
+* Deliveries Made
+* Deliveries Today (The number of delivery orders to make today)
+* Orders Returned
+* Returns Today (The number of return orders to make today)
+* Total Orders Today (The total number of all the orders to make today)
+====
+
+[[show-examples]]
+==== What constitutes a valid Show Command
+
+This is the only syntax of the Show Command: `show`
+
+[NOTE]
+====
+* No other keywords is allowed other than `show`
+====
 
 [[insert]]
-=== Inserting an order: `insert`
+=== Inserting an order: `insert` [Done by Amos Cheong Jit Hon]
+This section shows you how to use the Insert Command and the relevant examples.
 
-==== Description
-* Inserts a new order to the list of orders based on their order attributes.
+Whenever you have a new delivery order to make, you have to add it into your list of orders.
+The Insert Command is in charge of this functionality.
 
-==== Format
-* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+[[insert-works]]
+==== How to use the Insert Command
+Here are the steps on using the Insert Command: +
+
+*Step 1* : Type in the keyword *insert* +
+
+*Step 2* : Add in the prefixes `<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>`
+ `<<command_prefix, ADDRESS>>` `<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, EMAIL>>`
+ `<<command_prefix, ORDER_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>` `<<command_prefix, CASH_ON_DELIVERY>>`
+of the delivery orders +
+
+*Step 3* : Skip Step 4 if the specific order does not have the customer's comment and the type of item. +
+
+*Step 4* : Add in the Customer comment and type of item using the prefixes `<<command_prefix, [COMMENT_BY_CUSTOMER]>>`
+ `<<command_prefix, [TYPE_OF_ITEM]>>` +
+
+*Step 5* : Press `Enter` on your keyboard to see the magic!
+
+[[insert-examples]]
+==== What constitutes a valid Insert command
+Here is the syntax of the *Insert* Command : +
+`insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+[NOTE]
+====
+* The `TRANSACTION_ID` refers to the transaction id of the order.
+* The `CUSTOMER_NAME` refers to the name of the recipient of the order.
+* The `ADDRESS` refers to the address of the recipient.
+* The `PHONE_NUMBER` refers to the phone number of the recipient.
+* The `EMAIL` refers to the email address of the recipient.
+* The `DELIVERY_DATE_&_TIME` refers to the delivery date and time of the order.
+* The `WAREHOUSE_LOCATION` refers to the warehouse that the courier should collect the order from.
+* The `CASH_ON_DELIVERY` refers to the money earned from delivering the particular order.
+* The `[COMMENTS_BY_CUSTOMER]` refers to the comment made by the recipient to the courier.
+* The `[TYPE_OF_ITEM]` refers to the type of item that the courier is delivering.
+* The prefixes `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` are compulsory.
+* The prefixes `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` are optional.
+* Any compulsory prefixes that is absent will result in the App displaying an error message.
+====
+
+[WARNING]
+====
+* The Email provided must be a valid email address.
+* Cash On Delivery must start with a dollar sign followed by the value.
+* To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
+in 24 hour format.
+* Type of Item must be alphanumeric (No numbers or special characters allowed).
+====
+
+There are two different scenarios on how to insert the orders :
+
+.Possible combinations of Insert Command
+|===
+|Scenario |Command |Result
+
+| Insert the order without a comment and no item type
+| `insert` `tid/A094844` `n/John Doe` `a/Blk 505 Tampines #10-33 S469695` `p/98761111` `e/johndoe@example.com` `dts/2020-05-20 1300` `w/Yishun` `cod/$4`
+| You should be able to see that the order with transaction id 'A094844' will be inserted into the list of delivery orders.
+
+| Insert the order with all the order attributes including the non-compulsory ones
+| `insert` `tid/C1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/9001 0019` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
+| You should see that the order with transaction id 'C1023456789' is inserted into the list of delivery orders.
+
+|===
+
 
 [TIP]
 ====
@@ -257,7 +515,7 @@ Opens a new window that contains the statistics.
 [[import]]
 === Importing a list of orders : `import`
 ==== Description
-* You will be able to import orders via csv file that are given to you by your company.
+* You will be able to import orders and return orders via a csv file that are given to you by your company.
 * The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
 transaction id of the parcels and the address of the customers, etc.
 
@@ -269,7 +527,7 @@ transaction id of the parcels and the address of the customers, etc.
 * Only csv file could be imported.
 * Only *one* csv file can be imported at one time.
 * The `FILE_NAME` should include the extension. For example: `*orders.csv*`.
-* The folder, *data*, which the csv files are stored should be at the same directory as the JAR file.
+* The folder, *data*, which the csv files are stored in, should be in the same directory as the JAR file.
 * Import the specific csv with the `FILE_NAME` in *data* folder to the application.
 ====
 
@@ -282,23 +540,28 @@ ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, d
 |===
 * Examples:
 ** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`,
-`e/amos@example.com`, `dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
+`e/amos@example.com`, `dts/2020-05-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
 
 [format=csv]
 .Return data format
 |===
-ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
 |===
 
 * Examples:
-** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com` +
-`rts/12-12-2020 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
+** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com`, +
+`rts/2020-05-10 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
 
-* Note:
-** Commas `,` are required in between of the different fields.
-** Prefixes are required before any value for that field.
-** `ORDER_TYPE` can only be either `order` or `return`.
-** Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
+[NOTE]
+====
+* Commas `,` are required in between of the different fields.
+* Prefixes are required before any value for that field.
+* `ORDER_TYPE` can only be either `order` or `return`.
+* Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
+* `ORDER_TYPE` denote the start of an delivery order or return order.
+* The last value of the same type will be stored if duplicate prefix type is found in a single order sentence.
+* Duplicate and invalid order or return order will not be imported into Delino.
+====
 
 ==== Examples
 
@@ -306,55 +569,176 @@ ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL rts
 Import the contents of the csv file, `orders.csv`, to Delino.
 
 [[list]]
-=== Listing orders : `list`
+=== Listing orders : `list`  [Done by Amos Cheong Jit Hon]
+In this section, you will learn more about the List command and how to use it.
 
-==== Description
-* You can view the list of delivery orders using the `list` command.
-* The list command can be used with different `KEYWORD` to display all the orders with the specific status (done or undone).
-* There are three types of list commands that are shown in the examples below.
+As a courier, you would want to take a look at all the orders that you have in your list of orders regardless of the type of orders or the order status. The List Command will enable you to
+view all these orders.
+[[list-works]]
+==== How does the List Command works
 
-==== Format
+Here are the steps to execute the List command:
+
+*Step 1* : Type in the keyword *list*. +
+
+*Step 2* : If you want to simply see all your delivery and return orders.
+Otherwise, please proceed to Step 3. Else, skip to Step 4 +
+
+*Step 3* : Provide the following `[KEYWORD]` : `done` (Showing all your completed orders) or `undone` (Show all your
+uncompleted orders) +
+
+*Step 4* : Press `Enter` on your keyboard and see the magic!
+
+[[list-examples]]
+==== What constitutes a valid List command
+
+The syntax of a valid `list` command is as shown:
 `list` `[KEYWORD]`
+
+There are three types of list commands that are shown in the examples below :
+
+.Possible combinations of List Command
+
+|===
+|Scenario |Command |Result
+
+| Display all orders
+| `list`
+| Show two lists of all orders. One list for delivery orders, the other for return orders
+
+| Display all completed orders
+| `list` `done`
+| Show two lists of all completed orders. One list for delivery orders, the other for return orders
+
+
+| Display all uncompleted orders
+| `list` `undone`
+| Show two lists of all uncompleted orders. One list for delivery orders, the other for return orders
+
+|===
 
 [IMPORTANT]
 ====
 * `KEYWORD` can only be either `done` or `undone`.
 ====
 
-==== Examples
-* `list` +
-List down all the orders, regardless of whether its completed or incomplete.
-* `list` `done` +
-List down all the orders that are completed.
-* `list` `undone` +
-List down all the orders that are uncompleted.
-
 [[nearby]]
-=== View orders located at the same area or postal sector: `nearby`
-==== Description
-The `nearby` command can be used to search either the order list or return order list. +
-You *may* give either a `-o` flag for viewing nearby orders in the order list
-or a `-r` flag for viewing nearby orders in the returns list. +
-By default, the `nearby` command will search both the order list and return order list.
+=== Viewing orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
+In this section, you will learn more about the `nearby` command,
+<<how_to_use_nearby_command, how to use it>> and the
+<<usage_scenario_nearby_command, possible usage scenarios>> of the `nearby` command. +
 
-There are two possible search criteria for the `nearby` command:
+The `nearby` command is useful if you would like to obtain all orders located in the same
+postal sector or region of Singapore. This would allow you to be more efficient with your delivery
+orders.
 
-. By *postal sector*: +
-Command Usage: `nearby` `[FLAG]` `POSTAL_SECTOR`
+[[how_to_use_nearby_command]]
+==== How to use the nearby command
+In this section, you learn more about the exact inputs required to use the `nearby` command.
 
+Here are the steps you should follow to obtain all orders using the `nearby` command: +
+*Step 1* : Type in the keyword `nearby` +
 
+*Step 2 (optional)* : Provide an optional `<<command_flags, FLAG>>` that indicates which order list to
+search (order list or return order list). +
+[NOTE]
+====
+A `-o` flag indicates searching of nearby orders using the order list. +
+A `-r` flag indicates searching of the nearby orders using the return order list. +
+====
+By default, if no `FLAG` is provided, both order list and return order list will be searched. +
+
+*Step 3* : Provide either a `<<postal_sector, POSTAL SECTOR>>` or an `<<area, AREA>>` +
 [NOTE]
 ====
 A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-* You can view the orders at a specified Singapore *postal sector*.
-* The general location for the order will be identified if a valid postal sector is given.
-* The list of postal sectors and their corresponding general locations can be found
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`. +
+The list of postal sectors and their corresponding general locations can be found
 https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
+[[area]]
+An `AREA` refers to one of the five areas of Singapore +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>.
+
+You can obtain more detailed information about each area from
+https://keylocation.sg/singapore/districts-map[this website]
+====
+
+*Step 4* : Press `Enter` on your keyboard to see the magic!
+
+
+==== What constitutes a valid nearby command
+In this section, you will learn more about the syntax of the `nearby` command +
+
+The syntax for a valid `nearby` command can be one of the following: +
+1. `nearby` `[FLAG]` `POSTAL_SECTOR` +
+2. `nearby` `[FLAG]` `AREA`
+
+[NOTE]
+====
+An optional `FLAG` can be provided to indicate which list to search on. +
+A `-o` flag indicates searching of nearby orders using the order list. +
+A `-r` flag indicates searching of the nearby orders using the return order list. +
+By default, if no `FLAG` is provided, both order list and return order list will be searched. +
+
+A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14` +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
+
+An `AREA` refers to one of the five areas of Singapore: +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>
+====
+
+[[usage_scenario_nearby_command]]
+The table below describes the possible usage scenarios of the nearby command:
+
+.Possible Combinations of nearby command
+|===
+|Scenario |Command |Result
+
+|If you want to obtain all orders in both the order list and return order list located in the the north region of Singapore.
+|`nearby` `north`
+|All orders in the order list and return order list that are located in the north region of Singapore will be displayed.
+
+|If you want to obtain all orders in the order list located in the general location of  `Queenstown, Tiong Bahru`.
+|`nearby` `-o` `14`
+|All orders in the order list that are located in postal sector `14` (`Queenstown, Tiong Bahru`) will be displayed.
+
+|If you want to obtain all orders in the return order list located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
+|`nearby` `-r` `04`
+|All orders in the return order list that are located in the postal sector `04` (`Raffles Place, Cecil, Marina, People's Park`) will be displayed.
+
+|If you want to obtain all orders in the return order list located in the central region of Singapore.
+|`nearby` `-r` `central`
+|All orders in the return order list that are located in the central region of Singapore will be displayed.
+
+|Suppose you are delivering an order to Buona Vista and would like to know all the orders located near
+that region (central region of Singapore). Are you going manually look through all of your orders and
+find those that are located near Buona Vista? +
+If only there was a way to efficiently find all orders based on a given region or postal sector! +
+This would allow you to complete more orders!
+|`nearby` `-o` `central`
+|All orders in the order list that are located in the central region of Singapore will be displayed.
+|===
+
+You can obtain more information about the various postal sectors in the following table:
+
+[[postal_sector]]
 .Postal Sectors in Singapore
 |===
 |Postal Sector |General Location
@@ -390,185 +774,291 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |===
 
 
-[start=2]
-. By *area*: +
-Command Usage: `nearby` `[FLAG]` `AREA`
+[[return]]
+=== Returning an order : `return` [Done by - Cher Wei Jie]
+* In this section, you will learn more about the Return command and how to use it. +
+Why would you want to use the Return command?
+You can use this Return command to create a new return order to be added into the return order list.
+
+[[return-works]]
+==== How to use the Return command?
+
+Here is how you can convert an order into a return order or create a new return order by following the steps below:
+
+*Step 1* : Type in the keyword *return*. +
+*Step 2a* : If you would like to convert an existing order into a return order,
+provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to be converted. +
+*Step 2b*: If you would like to create a new return order in the return list, provide the
+`<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>` `<<command_prefix, ADDRESS>>`
+`<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, RETURN_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>`
+`<<command_prefix, CUSTOMER_EMAIL>>` `<<command_prefix, [COMMENTS_BY_CUSTOMER]>>` `<<command_prefix, [TYPE OF ITEM]>>` of the parcel. +
+*Step 3* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
 ====
-An *area* refers to one of the five areas of Singapore +
-
-. Central
-. East
-. North East
-. West
-. North
-
-A quick reference for the five areas of Singapore can be <<area_table, found here>>
-
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
+* Please include a whitespace in between the keyword & transaction id or keyword & the attributes aforementioned. +
+i.e. `return` `tid/123abcd` +
+ or +
+`return` `tid/123abcd` `n/weijie` `a/blk 32 clementi road` `p/92123412`
+`w/Jurong warehouse` `rts/2020-04-05`
 ====
-* You can view all the orders located at a specified *area*.
 
-You can obtain more detailed information about each area from
-https://keylocation.sg/singapore/districts-map[this website]
+[[return-examples]]
+==== What constitutes a valid Return command?
+
+The syntax for a valid Return command can be seen below!
+
+* `return` `TRANSACTION_ID` or `return` `TRANSACTION_ID` `CUSTOMER_NAME` `CUSTOMER_ADDRESS` `CUSTOMER_EMAIL`
+`WAREHOUSE_LOCATION` `PHONE_NUMBER` `RETURN_TIMESTAMP` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]`
+
+[NOTE]
+* The `TRANSACTION_ID` refers to the transaction id of a parcel.
+* The `CUSTOMER_NAME` refers to the name of the recipient of the parcel.
+* The `CUSTOMER_ADDRESS` refers to the location which the return should be picked up from.
+* The `WAREHOUSE_LOCATION` refers to the location which the return should be delivered to.
+* The `PHONE_NUMBER` refers to the phone number of the customer.
+* The `RETURN_TIMESTAMP` refers to the return date and time of the parcel.
+* The `COMMENTS_BY_CUSTOMER` is an optional attribute which can be included if the customer has special requests.
+* The `TYPE_OF_ITEM` is an optional attribute which can be included if the item requires special attention.
+For example, it can be used when the item is fragile.
+
+.Possible Combinations of Return command
+|===
+|Scenario |Command |Result
+
+| If you want to convert the order with Transaction Id 'abc1234' into a return order and display it on returns list, you can do this:
+| `return` `tid/abc1234`
+| This order will be removed from the order list and be added into the returns list as a return order.
+
+| If you want to create a new return order in the return order list, you can do this:
+| `return` `tid/123abcd` `n/weijie` `a/blk 32 clementi road` `p/92123412` `w/Jurong warehouse` `rts/2020-04-05`
+| A return order with the input attributes will be created into the return order list.
+|===
+
+[NOTE]
+====
+* The `TRANSACTION_ID` given belongs to the return order that will be created.
+* A return order will be created after executing this return command.
+* If the parcel is an existing order, it will be removed from the order list and converted into a return order
+and added into the return order list.
+* If the parcel is a new return order, it will be created and added into the return order list.
+====
+
+[WARNING]
+====
+* The conversion of an order into a return order can only be done if the order was already delivered.
+* The `TRANSACTION_ID` *is alphanumeric*, e.g: 123asd, 1234567, abcdef.
+* The `CUSTOMER_NAME` *must consist of only alphabets*.
+* The `CUSTOMER_ADDRESS` *is alphanumeric*.
+* The `CUSTOMER_PHONE` *must be numeric*
+* The `WAREHOUSE_LOCATION` *is alphanumeric*
+* The `RETURN_TIMESTAMP` *must follow the yyyy-mm-dd format*
+* The `COMMENTS_BY_CUSTOMER` *is alphanumeric*
+* The `TYPE_OF_ITEM` is *alphanumeric*
+====
 
 
-==== Format
-. `nearby` `[FLAG]` `POSTAL_SECTOR` +
+[[search]]
+=== Searching for parcels using their attributes: `search` [Done by Kenny Ho Si Chong]
+In this section, you will be able to find out how to properly <<edit-works, use>> the Search command and the relevant <<edit-examples, examples>>. +
+Why will you want to use the `search` command? If you wish to `search` for a parcel with specific keywords, the `search` command will provide you the means to do so.
+
+
+[[search-works]]
+==== How to use the Search command?
+
+Here is how you can `search` for any parcel containing the keywords given by following the steps below: +
+
+*Step 1* : Type in the keyword *search* +
+*Step 2* (optional) : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return list.
+[NOTE]
+====
+If no flag is given in this step, `search` command will be performed on both the order and return list.
+====
+*Step 3 (optional)* : If you wish to only specifically search for keyword in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
+*Step 4* : Provide any number of alphanumeric word you wish to search for in the parcel. +
+*Step 5* : Press `Enter` on your keyboard to see the magic!
+
+[NOTE]
+====
+* In between each step please put a whitespace!
+* If nothing is displaying means you have no parcel containing the keyword you have given!
+====
+
+[[search-examples]]
+==== What constitutes a valid Search command?
+
+The syntax for a valid `Search` command can be seen below:
+
+* `search` `<<command_flags, [FLAG]>>` `KEYWORD` `[MORE_KEYWORDS]...` OR
+* `search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+
+[NOTE]
+====
+* `search` is the command word for this feature.
+* `FLAG` is to differentiate the different kind of parcel (orders or returns).
+* The `KEYWORD` is the word you want to search for in any of the parcel.
+* `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to search for
+====
+
+.Possible Combinations of Search command
+|===
+|Scenario |Command |Result
+
+| If you want to search for any return parcel containing the keyword `Jeremy` or `Loh`.
+| `search` `-r` `Jeremy Loh` +
+| Return all return order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the parcel field.
+
+| If you want to search for any order parcel that contain the transaction id of `asj2od3943`.
+| `search` `-o` `tid/asj2od3943
+| Return all order(s) with transaction ID of `asj2od3943`.
+
+| If you want to search for any return parcel that contain the phone number of `92039999`.
+| `search` `-r` `p/92039999`
+| Return all return order(s) with phone number of `92039999`
+
+| If you want to only search for any order parcel that contains either the phone number `92039999`, transaction id of `asj2od3943` or the name `jeremy`.
+| `search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+| Return all order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
+
+| If you want to search for any parcel containing the name `Jeremy`
+| `search` `n/Jeremy`
+| Return all parcel(s) with the name of `Jeremy`
+|===
 
 [IMPORTANT]
 ====
-`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
-Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
-
-A `FLAG` refers to either `-o` or `-r` and is *optional*. +
-A `-o` flag is used to indicate searching on the order list. +
-A `-r` flag is used to indicate searching on the return order list.
-====
-
-[start=2]
-. `nearby` `FLAG` `AREA`
-
-==== Examples
-* `nearby` `-o` `14` +
-You will view all orders in the order list located in the general location of `Queenstown, Tiong Bahru`.
-* `nearby` `-r` `04` +
-You will view all return orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
-* `nearby` `north` +
-You will view all orders in the order list and return order list located in the north area of Singapore.
-
-[[return]]
-=== Returning an order: `return`
-==== Description
-* Adds a particular order as a return parcel into a new list.
-
-==== Format
-`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
-[TIP]
-====
-* List of order attribute prefixes can be found <<command_prefix, here>>.
-====
-
-==== Examples:
-* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
-Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
-
-* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
-Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
-
-[[search]]
-=== Locating orders by order fields: `search`
-
-==== Description
-
-* You can search all orders that contain a given keyword.
-* By default, `search` finds all orders that contain the given keyword(s) in any of it's field.
-* Specific search can be performed by tagging keywords that you want to search for with the corresponding <<command_prefix,`ORDER_ATTRIBUTE_PREFIX`>>.
-
-==== Format
-* `search` `KEYWORD` `[MORE_KEYWORDS]...` OR
-* `search` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD/KEYWORD MORE_KEYWORDS]...`
-
-****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* The delivery orders can only be searched by any fields of the orders.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Orders matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+====
 
-==== Examples
-* `search` `Jeremy Loh` +
-Return delivery order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the orders field.
-* `search` `tid/asj2od3943` +
-Return delivery order(s) with transaction ID of `asj2od3943`
-* `search` `p/92039999` +
-Return delivery order(s) with phone number of `92039999`
-* `search` `p/92039999` `tid/asj2od3943` `n/jeremy` +
-Return delivery order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
-
-[[undo]]
-=== Undo the previous action: `undo`
-==== Description
-* You can use the `undo` command to revert the most recent action that was previously executed.
-* For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
-back to the list of orders.
-
-==== Format
-`undo`
-
-==== Example
-* `list` +
-`delete` `1` +
-`delete` `2` +
-`undo` +
-The list will be reverted back to the state after the second command `delete` `1`.
 
 === Saving the data
 ==== Description
 * Data is saved in the hard disk automatically after any command that changes data that is present.
 * There is no need to save manually.
 
+[[export]]
 === Export order list `[coming in v2.0]`
 _{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
 
+[[reminder]]
 === Reminder `[coming in v2.0]`
 _{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
 
+[[rescheduling]]
 === Rescheduling orders `[coming in v2.0]`
 _{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
 
+[[tracking-work]]
 === Keeping track of work schedule `[coming in v2.0]`
 _{explain how the user can keep track of their work schedule}_
 
+[[statistics]]
 === Statistics for completed orders `[coming in v2.0]`
 _{explain how the user can view statistics such as on-time rates (difference between actual and expected
 delivery), number of deliveries completed in a day}_
 
 == FAQ
-
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Delino folder.
+
 
 == Command Summary
+In this section, you can find out more about the commands supported by Delino
+(their respective format and example).
 
-* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/E,MAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
-* <<clear, *Clear*>> : `clear` `[FLAG]` +
-e.g. `clear` `-f`
-* <<delete, *Delete*>> : `delete` `INDEX` +
-e.g. `delete` `2`
-* <<delivered, *Delivered*>> : `delivered` `INDEX` +
-e.g. `delivered` `2`
-* <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
-e.g. `edit` `2` `n/Xuan En`
-* <<exit, *Exit*>> : `exit`
-* <<search, *Search*>> : `search` `ORDER_ATTRIBUTE_PREFIX/KEYWORD` +
-e.g. `search` `tid/ac1e345x7s`
-* <<help, *Help*>> : `help`
-* <<show, *Show*>> : `show`
-* <<import, *Import*>> : `import` `FILE_NAME` +
-e.g. `import` `orders.csv`
-* <<list, *List*>> : `list` `[DONE_STATUS]` +
-e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
-e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<nearby, *Nearby*>> : `nearby` `[FLAG]` `POSTAL_SECTOR` or `nearby` `[FLAG]` `AREA` +
-e.g. `nearby` `-o` `14` +
-e.g. `nearby` `-r` `north` +
-e.g. `nearby` `east`
-* <<undo, *Undo*>> : `undo`
+If you would like to know more about a specific command, you can view more information by clicking
+the provided link in the table below.
 
-== Appendix A: Glossary
+.Command Summary
+|===
+|Command |Format |Example
+
+|<<insert, *Insert*>>
+|`insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+|`insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
+
+|<<clear, *Clear*>>
+|`clear` `[FLAG]`
+|`clear` +
+`clear` `-f` +
+`clear` `-r` +
+`clear` `-f` `-r` +
+`clear` `-o` +
+`clear` `-o` `-f`
+
+|<<delete, *Delete*>>
+|`delete` `FLAG` `INDEX`
+|`delete` `-o` `2`
+
+|<<delivered, *Delivered*>>
+|`delivered` `FLAG` `INDEX`
+|`delivered` `-r` `2` +
+delivered` `-o` `1`
+
+|<<edit, *Edit*>>
+|`edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE`
+|`edit` `-r` `2` `n/Xuan En` +
+`edit` `-o` `2` `p/9999 4444` +
+`edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+`edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+
+|<<exit, *Exit*>>
+|`exit`
+|`exit`
+
+|<<search, *Search*>>
+|`search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+|`search` `-r` `tid/ac1e345x7s` +
+`search` `-r` `Jeremy Loh` +
+`search` `-o` `tid/asj2od3943` +
+`search` `-r` `p/92039999` +
+`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+
+|<<help, *Help*>>
+|`help`
+|`help`
+
+|<<show, *Show*>>
+|`show`
+|`show`
+
+|<<import, *Import*>>
+|`import` `FILE_NAME`
+|`import` `orders.csv`
+
+|<<list, *List*>>
+|`list` `[DONE_STATUS]`
+|`list` +
+`list` `done` +
+`list` `undone`
+
+|<<return, *Return*>>
+|`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM`
+|`return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+`return` `tid/ac17s2a` +
+`return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal`
+
+|<<nearby, *Nearby*>>
+|`nearby` `[FLAG]` `POSTAL_SECTOR` +
+OR +
+`nearby` `[FLAG]` `AREA`
+|`nearby` `east` +
+`nearby` `-o` `14` +
+`nearby` `-r` `north`
+|===
+
+
+[[glossary]]
+== Glossary
 
 [[command_prefix]]
 .Command Prefix
 |===
-|Prefix |Meaning |Used in the following Command(s)
+|Prefix |Order Attributes |Used in the following Command(s)
 
 |ot/
 |Order Type
@@ -576,47 +1066,47 @@ e.g. `nearby` `east`
 
 |tid/
 |Transaction ID
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |n/
 |Customer Name
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |a/
 |Address
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |p/
 |Phone Number
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |e/
 |Email
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |dts/
 |Delivery Date And Time
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |rts/
 |Return Date and Time
-|<<return, Return>>, <<search, Search>>
+|<<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |w/
 |Warehouse Location
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |cod/
 |Cash On Delivery
-|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>, <<import, Import>>
 
 |c/
 |Comments by Customer
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 
 |type/
 |Type of Item
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>, <<import, Import>>
 |===
 
 [[command_flags]]
@@ -630,16 +1120,14 @@ e.g. `nearby` `east`
 
 |-o
 |Order flag, Operation on order list
-|<<clear, Clear>>
+|<<clear, Clear>>, <<nearby, Nearby>>, <<delivered, Delivered>>, <<search, Search>>, <<edit, Edit>>
 
 |-r
 |Return Order flag, Operation on return order list
-|<<clear, Clear>>
+|<<clear, Clear>>, <<nearby, Nearby>>, <<delivered, Delivered>>, <<search, Search>>, <<edit, Edit>>
 |===
 
-
 [[area_table]]
-
 === Area Information of Singapore
 
 <<nearby, Click here>> to navigate back to the Nearby Command!
@@ -854,3 +1342,4 @@ a|
 * Sembawang
 * Yishun
 |===
+

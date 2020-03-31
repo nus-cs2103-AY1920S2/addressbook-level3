@@ -8,7 +8,8 @@ import seedu.address.logic.parser.ArgumentMultimap;
 
 /**
  * Tests that a {@code Order}'s {@code TransactionId}, {@code Name}, {@code Phone}, {@code Address}, {@code TimeStamp},
- * {@code Warehouse}, {@code CashOnDeliver}, {@code Comment} and {@code TypeOfItem} matches any of the keywords given.
+ * {@code Warehouse}, {@code CashOnDeliver}, {@code Email}, {@code Comment}
+ * and {@code TypeOfItem} matches any of the keywords given.
  */
 public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     private final List<String> keywords;
@@ -36,6 +37,7 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                     StringUtil.containsWordIgnoreCase(order.getTid().tid, keyword)
                         || StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword)
+                        || StringUtil.containsWordIgnoreCase(order.getEmail().value, keyword)
                         || StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword)
                         || StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword)
                         || StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword)
@@ -54,7 +56,7 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                     && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
                 || (argumentMultimap.getHasAddress()
                     && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
-                || (argumentMultimap.getHasTimeStamp()
+                || (argumentMultimap.getHasDeliveryTimeStamp()
                     && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
                 || (argumentMultimap.getHasWarehouse()
                     && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
@@ -73,7 +75,9 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof OrderContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((OrderContainsKeywordsPredicate) other).keywords)); // state check
+                && keywords.equals(((OrderContainsKeywordsPredicate) other).keywords)
+                && argumentMultimap.equals(((OrderContainsKeywordsPredicate) other).argumentMultimap)
+                && isGeneralSearch == (((OrderContainsKeywordsPredicate) other).isGeneralSearch)); // state check
     }
 
 }
