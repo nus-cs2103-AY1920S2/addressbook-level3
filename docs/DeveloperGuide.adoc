@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete -o 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete -o 1` command
 image::ArchitectureSequenceDiagram.svg[]
 
 The sections below give more details of each component.
@@ -104,9 +104,9 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete -o 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete -o 1` Command
 image::DeleteSequenceDiagram.svg[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -192,6 +192,13 @@ The `execute(model)` function of the `ClearCommand` will have the 6 following se
 6. No flag found in flags: Pass the confirmation message for clearing both `OrderBook` and `ReturnOrderBook` to `CommandResult`. +
 
 After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
+
+
+=== Delete feature
+The delete feature allows the user to delete orders in either the order list or return order list.
+
+The delete feature was implemented as a `DeleteCommand` in the `Logic` package. +
+
 
 === Delivered feature
 The delivered feature allows the user to mark orders as delivered after delivering an order.
@@ -1037,16 +1044,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting an order with respect to the current list displayed
 
-.. Delete command format: `delete` `INDEX`
+.. Delete command format: `delete` `FLAG` `INDEX`
 
 .. Prerequisites: List all orders using the `list` command. Multiple orders in the list
-.. Test case: `delete` `1` +
-   Expected: The first order item in the current list will be removed. Details of the deleted order will be displayed in the response box
-.. Test case: `delete` `2` +
-   Expected: The second item in the current list will be removed. Details of the deleted order will be displayed in the response box
-.. Test case: Invalid Syntax +
-   Expected: No order is deleted. An error message will be displayed in the response box
-.. Test case: `delete` `INVALID_INDEX` +
+.. Test case: `delete` `-o` `1` +
+   Expected: The first order item in the current order list will be removed. Details of the deleted order will be displayed in the response box
+.. Test case: `delete` `-r` `2` +
+   Expected: The second item in the current return order list will be removed. Details of the deleted order will be displayed in the response box
+.. Test case: `delete` `20` +
+   Expected: No order is deleted as no `FLAG` is provided. +
+   An error message will be displayed in the response box.
+.. Test case: `delete` `-r` `INVALID_INDEX` +
    Expected: No order is deleted. An error message will be displayed in the response box, indicating that the index cannot be found in the list
 
 === Edit orders

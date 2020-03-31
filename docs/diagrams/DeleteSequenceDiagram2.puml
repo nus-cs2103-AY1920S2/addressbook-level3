@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete -o 1")
+[-> LogicManager : execute("delete -r 2")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("delete -o 1")
+LogicManager -> OrderBookParser : parseCommand("delete -r 2")
 activate OrderBookParser
 
 create DeleteCommandParser
@@ -26,7 +26,7 @@ activate DeleteCommandParser
 DeleteCommandParser --> OrderBookParser
 deactivate DeleteCommandParser
 
-OrderBookParser -> DeleteCommandParser : parse(" -o 1")
+OrderBookParser -> DeleteCommandParser : parse(" -r 2")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -48,13 +48,13 @@ deactivate OrderBookParser
 LogicManager -> DeleteCommand : execute(model)
 activate DeleteCommand
 
-DeleteCommand -> DeleteCommand : deleteFromOrderList(model)
+DeleteCommand -> DeleteCommand : deleteFromReturnList(model)
 activate DeleteCommand
-DeleteCommand -> Model : getFilteredOrderList()
+DeleteCommand -> Model : getFilteredReturnOrderList()
 activate Model
 Model --> DeleteCommand : lastShownList
 deactivate Model
-DeleteCommand -> Model : deleteOrder(1)
+DeleteCommand -> Model : deleteReturnOrder(2)
 activate Model
 deactivate Model
 create CommandResult
