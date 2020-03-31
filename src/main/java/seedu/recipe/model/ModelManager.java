@@ -196,13 +196,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deletePlannedRecipe(PlannedRecipe plannedRecipe) {
+        plannedBook.deletePlannedRecipe(plannedRecipe);
+    }
+
+    @Override
+    public void deleteRecipeFromPlannedRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.deleteRecipeFromPlannedRecipe(recipe, plannedRecipe);
+    }
+
+    @Override
     public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
         plannedBook.addPlannedMapping(recipe, plannedRecipe);
     }
 
     @Override
-    public void removeAllPlannedMappingForRecipe(Recipe recipe) {
-        plannedBook.removeAllPlannedMappingForRecipe(recipe);
+    public void deletePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.deletePlannedMapping(recipe, plannedRecipe);
+    }
+
+    @Override
+    public void deleteAllPlannedMappingForRecipe(Recipe recipe) {
+        plannedBook.deleteAllPlannedMappingForRecipe(recipe);
     }
 
     @Override

@@ -57,12 +57,13 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     // ===== Recipe-level methods =====
 
     /**
-     * Adds a {@code plannedRecipe} into the planned book.
+     * Adds a {@code plannedRecipe} into plannedRecipes.
      * The planned recipe must not exist in the planned book. todo
      */
     public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
         plannedRecipes.add(plannedRecipe);
     }
+
 
     /**
      * Adds a {@code plannedRecipe} to the mapping of Recipe to PlannedRecipe.
@@ -79,27 +80,38 @@ public class PlannedBook implements ReadOnlyPlannedBook {
 
 
     /**
-     * Removes the planned recipe from the plannedRecipe list.
+     * Deletes the {@code plannedRecipe} from the plannedRecipes list.
      */
-    public void removePlannedRecipe(PlannedRecipe plannedRecipe) {
+    public void deletePlannedRecipe(PlannedRecipe plannedRecipe) {
         plannedRecipes.remove(plannedRecipe);
     }
 
     /**
-     * Obtains a list of all planned recipes on {@code date}.
+     * Deletes the {@code recipe} from the internal list in the {@code plannedRecipe}.
+     * If the {@code recipe} is the last recipe in the internal list, delete the {@code plannedRecipe}
+     * from the plannedRecipes list
      */
-    public List<PlannedRecipe> getPlannedRecipesOnDate(PlannedDate date) {
-        return plannedRecipes.getPlannedRecipesOnDate(date);
+    public void deleteRecipeFromPlannedRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+        int sizeOfInternalList = plannedRecipe.getRecipes().size();
+        if (sizeOfInternalList == 1) { // recipe to be deleted is the last recipe
+            deletePlannedRecipe(plannedRecipe);
+        } else {
+            plannedRecipe.getRecipes().remove(recipe); // check: need to remove and add plannedrecipe?
+        }
+    }
+
+    public void deletePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        recipeToPlannedRecipeMap.get(recipe).remove(plannedRecipe);
     }
 
     /**
      * Removes all planned recipes on this {@code recipe} key in the mapping from recipe to planned recipe.
      */
-    public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+    public void deleteAllPlannedMappingForRecipe(Recipe recipe) {
         if (recipeToPlannedRecipeMap.containsKey(recipe)) {
             List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
             for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-                removePlannedRecipe(plannedRecipe);
+                deletePlannedRecipe(plannedRecipe);
             }
             recipeToPlannedRecipeMap.remove(recipe);
         }

@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.recipe.model.Date;
 
 /**
  * A list of planned recipes that enforces uniqueness between its elements and does not allow nulls.
- * Ensures that at any point in time, the items in the list of planned recipes each has a unique PlannedDate.
- * This means that PlannedRecipe items with the same PlannedDate must not exist in the list.
+ * Ensures that at any point in time, the items in the list of planned recipes each has a unique Date.
+ * This means that PlannedRecipe items with the same Date must not exist in the list.
  *
  * A planned recipe is considered unique by comparing using {@code PlannedRecipe#equals(object)}.
  *
@@ -54,7 +55,7 @@ public class UniquePlannedList {
             observableList.add(plannedRecipe);
         } else {
             PlannedRecipe currentPlannedRecipe = observableList.get(indexOfSameDate)
-                    .plannedRecipeWithAllPlanned(plannedRecipe);
+                    .allPlannedRecipesOnOneDay(plannedRecipe);
             observableList.set(indexOfSameDate, currentPlannedRecipe);
         }
     }
@@ -72,7 +73,7 @@ public class UniquePlannedList {
     /**
      * Obtains a list of all planned recipes on {@code date}.
      */
-    public List<PlannedRecipe> getPlannedRecipesOnDate(PlannedDate date) {
+    public List<PlannedRecipe> getPlannedRecipesOnDate(Date date) {
         return observableList.stream()
                 .filter(recipe -> recipe.isOnDate(date))
                 .collect(Collectors.toList());
@@ -82,9 +83,9 @@ public class UniquePlannedList {
      * Returns the index of a planned recipe with the same date as {@code otherPlannedRecipe}.
      */
     private int indexOfPlannedRecipeWithSameDate(PlannedRecipe otherPlannedRecipe) {
-        PlannedDate otherDate = otherPlannedRecipe.getDate();
+        Date otherDate = otherPlannedRecipe.getDate();
         for (int i = 0; i < observableList.size(); i++) {
-            PlannedDate currentDate = observableList.get(i).getDate();
+            Date currentDate = observableList.get(i).getDate();
             if (currentDate.equals(otherDate)) {
                 return i;
             }

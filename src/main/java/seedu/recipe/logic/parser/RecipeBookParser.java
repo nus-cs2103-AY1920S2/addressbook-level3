@@ -29,8 +29,11 @@ import seedu.recipe.logic.commands.RedoCommand;
 import seedu.recipe.logic.commands.SwitchCommand;
 import seedu.recipe.logic.commands.UndoCommand;
 import seedu.recipe.logic.commands.UnfavouriteCommand;
+import seedu.recipe.logic.commands.plan.DeletePlanCommand;
 import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.logic.parser.plan.DeletePlanCommandParser;
+import seedu.recipe.logic.parser.plan.PlanCommandParser;
 
 /**
  * Parses user input.
@@ -124,6 +127,9 @@ public class RecipeBookParser {
 
         case PlanCommand.COMMAND_WORD:
             return new PlanCommandParser().parse(arguments);
+
+        case DeletePlanCommand.COMMAND_WORD:
+            return new DeletePlanCommandParser().parse(arguments);
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);

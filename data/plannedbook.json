@@ -12,34 +12,6 @@
       "steps" : [ "Cut tomatoes into small wedges and finely chop scallion", "Crack eggs into bowl and season with ¼ tsp salt, white pepper", "sesame oil, and shaoxing wine. Beat the eggs.", "Preheat wok over medium heat until it starts to smoke. Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from wok immediately. Set aside.", "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. If water cooks off too quickly, add a little more water. Add the cooked eggs.", "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely softened.", "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!" ],
       "goals" : [ "Herbivore" ]
     } ],
-    "date" : "2010-05-05"
-  }, {
-    "recipes" : [ {
-      "name" : "Asian BBQ Chicken",
-      "time" : "15",
-      "isFavourite" : false,
-      "grains" : [ ],
-      "vegetables" : [ "1.0tbsp,  garlic & ginger (finely chopped)" ],
-      "proteins" : [ "100.0g,  chicken breast" ],
-      "fruits" : [ ],
-      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil" ],
-      "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
-      "goals" : [ "Bulk like the Hulk" ]
-    } ],
-    "date" : "2015-01-01"
-  }, {
-    "recipes" : [ {
-      "name" : "edit name test",
-      "time" : "100",
-      "isFavourite" : false,
-      "grains" : [ ],
-      "vegetables" : [ "15.0g,  scallion", "550.0g,  tomatoes" ],
-      "proteins" : [ "200.0g,  eggs" ],
-      "fruits" : [ ],
-      "others" : [ "0.75tsp,  salt", "0.5tsp,  sesame oil", "1.0tsp,  shaoxing wine", "2.0tsp,  sugar", "3.0tbsp,  vegetable oil", "0.25cup,  water", "0.25tsp,  white pepper" ],
-      "steps" : [ "Cut tomatoes into small wedges and finely chop scallion", "Crack eggs into bowl and season with ¼ tsp salt, white pepper", "sesame oil, and shaoxing wine. Beat the eggs.", "Preheat wok over medium heat until it starts to smoke. Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from wok immediately. Set aside.", "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. If water cooks off too quickly, add a little more water. Add the cooked eggs.", "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely softened.", "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!" ],
-      "goals" : [ "Herbivore" ]
-    } ],
     "date" : "2018-09-09"
   }, {
     "recipes" : [ {
@@ -68,6 +40,17 @@
     "date" : "2020-01-01"
   }, {
     "recipes" : [ {
+      "name" : "Barley Pilaf",
+      "time" : "30",
+      "isFavourite" : true,
+      "grains" : [ "0.5cup,  small pieces of broken spaghetti" ],
+      "vegetables" : [ "2.0tbsp,  chives (chopped)", "50.0g,  small onion (chopped)" ],
+      "proteins" : [ "2.5cup,  low-sodium chicken broth" ],
+      "fruits" : [ ],
+      "others" : [ "1.0cup,  hulled barley", "10.0g,  Salt & Pepper", "1.0tbsp,  unsalted butter" ],
+      "steps" : [ "Melt butter in saucepan over medium heat. Add onion and cook until soft and light golden brown.", "Add barley and stir until grains are coated in butter.", "Add broth and 0.5 tsp salt, bring to a boil.", "Reduce heat to medium low, cover, and simmer for 20mins.", "Uncover and quickly stir in spaghetti. Cover and continue to simmer, stirring occasionally.", "Once most liquid is absorbed and barley and spaghetti are tender, remove from hit and let sit.", "Season to taste with salt and pepper and sprinkle with chopped chives." ],
+      "goals" : [ "Wholesome Wholemeal" ]
+    }, {
       "name" : "Asian BBQ Chicken",
       "time" : "15",
       "isFavourite" : false,

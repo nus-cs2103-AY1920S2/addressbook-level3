@@ -57,8 +57,7 @@ public class JsonAdaptedPlannedRecipe {
             modelRecipe.add(recipe.toModelType());
         }
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
         final Date modelPlannedDate = date.toModelType();
 

@@ -40,7 +40,7 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
      * Adds the recipes in {@code plannedRecipe} to the recipes in this Planned Recipe object and returns a new
      * Planned Recipe object.
      */
-    public PlannedRecipe plannedRecipeWithAllPlanned(PlannedRecipe plannedRecipe) {
+    public PlannedRecipe allPlannedRecipesOnOneDay(PlannedRecipe plannedRecipe) {
         if (recipes.contains(plannedRecipe)) {
             throw new DuplicateRecipeException();
         }
@@ -89,4 +89,6 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
                 && date.equals(((PlannedRecipe) other).date) // state check
                 && recipes.equals(((PlannedRecipe) other).recipes));
     }
+
+
 }

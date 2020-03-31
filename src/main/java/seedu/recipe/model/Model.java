@@ -135,9 +135,20 @@ public interface Model {
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
 
     /**
-     * Adds a planned recipe to the plannedRecipe list
+     * Adds the {@code plannedRecipe} to the plannedRecipe list
      */
     void addPlannedRecipe(PlannedRecipe plannedRecipe);
+
+    /**
+     * Deletes the {@code plannedRecipe} with all the recipes it contains in its internal recipe list
+     * from the plannedRecipe list.
+     */
+    void deletePlannedRecipe(PlannedRecipe plannedRecipe);
+
+    /**
+     * Deletes the {@code recipe} from the internal recipe list in the {@code plannedRecipe}.
+     */
+    void deleteRecipeFromPlannedRecipe(Recipe recipe, PlannedRecipe plannedRecipe);
 
     /**
      * Adds a {@code plannedRecipe} to the {@code recipe} key in the Recipe to PlannedRecipe map.
@@ -145,9 +156,15 @@ public interface Model {
     void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
 
     /**
+     * Deletes a {@code plannedRecipe} at the {@code recipe} key in the Recipe to PlannedRecipe map.
+     */
+    void deletePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
+
+
+    /**
      * Removes all PlannedRecipe mapped to the {@code recipe} key.
      */
-    void removeAllPlannedMappingForRecipe(Recipe recipe);
+    void deleteAllPlannedMappingForRecipe(Recipe recipe);
 
     /**
      * Replaces the {@code target} Recipe with the {@code editedRecipe} Recipe in the

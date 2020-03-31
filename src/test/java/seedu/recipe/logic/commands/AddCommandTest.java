@@ -203,7 +203,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+        public void deleteAllPlannedMappingForRecipe(Recipe recipe) {
             throw new AssertionError("This method should not be called.");
         }
 
