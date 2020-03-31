@@ -196,7 +196,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getCalories().equals(e.getCalories())
-                    && getDate().equals(e.getDate())
+                    //&& getDate().toString().equals(e.getDate().toString())
                     && getTags().equals(e.getTags());
         }
     }
