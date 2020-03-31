@@ -18,7 +18,11 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
 
 == Introduction
 
-Are you someone who often goes out to eat with friends? And do you also sometimes feel that you might be eating too much?
+This user guide provides in-depth documentation on the EYLAH desktop application:
+features summary, getting started, features, FAQ, command summary, and glossary.
+
+Are you someone who *lives in one of the Halls Of Residences* in the National University of Singapore and
+often goes out to *eat with hall mates?*  And do you also sometimes feel that you might be eating too much?
 If yes, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that will make your life much easier!
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
@@ -71,6 +75,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+
+|===
+|Current Features |Future Features
+| <<additem, additem>>
+| <<export, export>>
+
+| <<deleteitem, deleteitem>>
+| <<reminder, reminder>>
+
+| <<listreceipt, listreceipt>>
+|
+
+| <<listamount, listamount>>
+|
+
+| <<paid, paid>>
+|
+
+| <<help, help>>
+|
+
+| <<show, back>>
+|
+
+|===
 
 ====
 *Command Format*
@@ -215,6 +244,7 @@ Splitting the items' cost with friends. All you have to do is add the item,
 price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
+[[additem]]
 ==== Add item `additem`
 
 Add item and the person(s) involved in the splitting for that item.
