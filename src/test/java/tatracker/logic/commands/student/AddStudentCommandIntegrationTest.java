@@ -4,7 +4,6 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.assertAddStudentCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.BeforeEach;
