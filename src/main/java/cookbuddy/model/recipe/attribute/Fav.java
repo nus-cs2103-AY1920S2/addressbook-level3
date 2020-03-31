@@ -11,12 +11,8 @@ public class Fav {
     public static final String MESSAGE_CONSTRAINTS =
             "Favourites can only be true or false!";
 
-    /*
-     * The first character of the name must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
 
-    public boolean isFav;
+    private boolean favStatus;
 
     /**
      * Constructs a {@code Fav status}.
@@ -25,24 +21,21 @@ public class Fav {
      */
     public Fav(boolean status) {
         requireNonNull(status);
-        this.isFav = status;
+        this.favStatus = status;
     }
 
     public void fav() {
-        this.isFav = true;
+        this.favStatus = true;
     }
 
-   /* public void unFav() {
-        this.isFav = false;
-    }*/
-
-
-
+    public boolean getfavStatus() {
+        return favStatus;
+    }
 
 
     @Override
     public String toString() {
-        if(isFav == true) {
+        if(favStatus == true) {
             return "\u2665";
         } else {
             return "\u2661";
@@ -53,12 +46,12 @@ public class Fav {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Fav // instanceof handles nulls
-                    && isFav == (((Fav) other).isFav)); // state check
+                    && favStatus == (((Fav) other).favStatus)); // state check
     }
 
     @Override
     public int hashCode() {
-        return String.valueOf(isFav).hashCode();
+        return String.valueOf(favStatus).hashCode();
     }
 
 }

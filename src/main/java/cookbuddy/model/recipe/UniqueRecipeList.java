@@ -75,7 +75,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
             throw new DuplicateRecipeException();
         }
-        if(target.getFavStatus().toString().equals("\2665") == true) {
+        if (target.getFavStatus().toString().equals("\2665") == true) {
             editedRecipe.favRecipe();
         }
 

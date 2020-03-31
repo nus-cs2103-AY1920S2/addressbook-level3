@@ -123,7 +123,7 @@ class JsonAdaptedRecipe {
         Recipe toReturn = new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelServe,
                 modelRating, modelDifficulty, modelTags);
 
-        if(fav.equals("\u2665")) {
+        if (fav.equals("\u2665")) {
             toReturn.favRecipe();
         }
         return toReturn;
