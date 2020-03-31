@@ -88,7 +88,7 @@ public class ModelState {
     public Scheduler getScheduler() { return this.scheduler; }
 
     public EventSchedule getEventSchedule() { return this.eventSchedule; }
-    
+
     public UserPrefs getUserPrefs() { return this.userPrefs; }
 
     public FilteredList<Person> getFilteredPersons() { return this.filteredPersons; }
