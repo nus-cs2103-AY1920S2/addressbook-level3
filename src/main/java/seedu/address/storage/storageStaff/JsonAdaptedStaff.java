@@ -25,7 +25,7 @@ class JsonAdaptedStaff {
   public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
 
   private final String name;
-  private final String isTeacher;
+  private final String level;
   private final String phone;
   private final String email;
   private final String salary;
@@ -36,13 +36,13 @@ class JsonAdaptedStaff {
    * Constructs a {@code JsonAdaptedPerson} with the given person details.
    */
   @JsonCreator
-  public JsonAdaptedStaff(@JsonProperty("name") String name, @JsonProperty("isTeacher") String isTeacher,
+  public JsonAdaptedStaff(@JsonProperty("name") String name, @JsonProperty("level") String level,
                           @JsonProperty("phone") String phone,
                           @JsonProperty("email") String email, @JsonProperty("salary") String salary,
                           @JsonProperty("address") String address,
                           @JsonProperty("tagged") List<JsonStaffAdaptedTag> tagged) {
     this.name = name;
-    this.isTeacher = isTeacher;
+    this.level = level;
     this.phone = phone;
     this.email = email;
     this.salary = salary;
@@ -57,11 +57,7 @@ class JsonAdaptedStaff {
    */
   public JsonAdaptedStaff(Staff source) {
     name = source.getName().fullName;
-    if (source.isTeacher()) {
-      isTeacher = "1";
-    } else {
-      isTeacher = "0";
-    }
+    level = source.getLevel().toString();
     phone = source.getPhone().value;
     email = source.getEmail().value;
     salary = source.getSalary().value;
@@ -92,15 +88,17 @@ class JsonAdaptedStaff {
     }
     final Name modelName = new Name(name);
 
-    if (isTeacher == null) {
-      throw new IllegalValueException("Missing isTeacher field, unidentified Staff");
+    if (level == null) {
+      throw new IllegalValueException("Missing level field, unidentified Staff");
     }
-    if (!isTeacher.equals("0") || !isTeacher.equals("1")) {
-      throw new IllegalValueException("Wrong isTeacher field for staff, isTeacher should be saved as 0 or 1");
+    /*
+    if (!level.equals("TEACHER") || !level.equals("ADMIN")) {
+      throw new IllegalValueException("Wrong level field for staff, level should be saved as 0 or 1");
     }
-    boolean modelIsTeacher = true;
-    if (isTeacher.equals("0")) {
-      modelIsTeacher = false;
+     */
+    Staff.Level modelLevel = Staff.Level.TEACHER;
+    if (level.equals("ADMIN")) {
+      modelLevel = Staff.Level.ADMIN;
     }
 
     if (phone == null) {
@@ -136,7 +134,7 @@ class JsonAdaptedStaff {
     final Address modelAddress = new Address(address);
 
     final Set<Tag> modelTags = new HashSet<>(staffTags);
-    return new Staff(modelName, modelIsTeacher, modelPhone, modelEmail, modelSalary, modelAddress, modelTags);
+    return new Staff(modelName, modelLevel, modelPhone, modelEmail, modelSalary, modelAddress, modelTags);
   }
 
 }
