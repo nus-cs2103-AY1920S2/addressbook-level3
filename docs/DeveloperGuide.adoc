@@ -294,14 +294,14 @@ The import feature was implemented as a `ImportCommand` in the `Logic` package.
 ==== Class Diagram for Import feature:
 
 .Import Command Class Diagram
-image::ImportClassDiagram.png[]
+image::ImportClassDiagram.svg[]
 
 ==== Sequence Diagram for importing the csv file.
 The sequence diagram for the *Import Command* when import the data from the  *csv file*
 is shown below:
 
 .Import Command Sequence Diagram
-image::ImportCommandSequenceDiagram.png[]
+image::ImportCommandSequenceDiagram.svg[]
 
 The arguments passed to the Import Command will be parsed by the `ImportCommandParser` class. +
 If the given arguments are valid, a new `ImportCommand` object will be returned.
