@@ -160,7 +160,7 @@ public class ModelManager implements Model {
 
     @Override
     public void startInterview(Interviewee interviewee) throws IllegalActionException {
-        if (interviewee.getTranscript().isPresent()) {
+        if (interviewee.getTranscript().isPresent() && !interviewee.getTranscript().get().isCompleted()) {
             throw new IllegalActionException("Interviewee has been interviewed already!");
         }
         setCurrentInterviewee(interviewee);

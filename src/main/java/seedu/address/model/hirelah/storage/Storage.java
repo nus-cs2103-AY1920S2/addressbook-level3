@@ -37,7 +37,7 @@ public interface Storage extends UserPrefsStorage {
 
     Optional<MetricList> readMetric() throws DataConversionException;
 
-    void saveTranscript(Interviewee source) throws IOException, IllegalValueException;
+    void saveTranscript(Interviewee source) throws IOException;
 
     Optional<Transcript> readTranscript(Path filepath, QuestionList questionList, AttributeList attributeList)
             throws DataConversionException;

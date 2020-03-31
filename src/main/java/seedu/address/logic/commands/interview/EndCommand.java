@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * Ends the current interview and returns to the Interviewee page. Will throw an error if the interviewee still
@@ -19,13 +20,14 @@ public class EndCommand extends Command {
             "Unable to finish interview with some attributes not scored yet!";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         Transcript transcript = model.getCurrentTranscript();
         for (Attribute attribute : model.getAttributeList()) {
             if (!transcript.isAttributeScored(attribute)) {
                 throw new CommandException(MESSAGE_SCORELESS_ATTRIBUTES);
             }
         }
+        transcript.complete();
         CommandResult result = new ToggleCommandResult(String.format(MESSAGE_SUCCESS, model.getCurrentInterviewee()),
                 ToggleView.INTERVIEWEE);
         model.endInterview();

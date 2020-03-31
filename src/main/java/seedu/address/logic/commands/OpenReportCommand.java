@@ -7,6 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * OpenReportCommand describes the behavior when the
@@ -32,7 +33,7 @@ public class OpenReportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         IntervieweeList interviewees = model.getIntervieweeList();
         try {
