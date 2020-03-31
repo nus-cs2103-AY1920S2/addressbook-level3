@@ -69,13 +69,16 @@ public class CalendarView extends UiPart<Region> {
         updateCalendar(moduleObservableList);
     }
 
+    /**
+     * Method to update the calendar as activities are editied/removed/added.
+     * @param moduleObservableList List of modules
+     */
     private void updateCalendar(ObservableList<Module> moduleObservableList) {
         for (Module module : moduleObservableList) {
             ObservableList<Activity> activityObservableList = module.getFilteredActivityList();
             activityObservableList.addListener(new ListChangeListener<Activity>() {
                 @Override
                 public void onChanged(Change<? extends Activity> c) {
-                    System.out.println("Is this here");
                     resetCalendar();
                     loadActivities(moduleObservableList);
                 }
@@ -265,11 +268,14 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Method to reset the whole calendar (remove all activities).
+     */
     private void resetCalendar() {
         ObservableList<Node> calendarCells = calendarGrid.getChildren();
         for (Node cell : calendarCells) {
-            if (GridPane.getRowIndex(cell) != null &&
-                GridPane.getRowIndex(cell) != 0) {
+            if (GridPane.getRowIndex(cell) != null
+                && GridPane.getRowIndex(cell) != 0) {
                 ObservableList<Node> nodes = ((VBox) cell).getChildren();
                 if (nodes.size() > 1) {
                     nodes.remove(1, nodes.size());
