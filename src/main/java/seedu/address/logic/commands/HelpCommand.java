@@ -45,7 +45,7 @@ public class HelpCommand extends Command {
             + "19. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "20. " + AddRestaurantNoteCommand.COMMAND_WORD + ": " + AddRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
             + "21. " + UndoCommand.COMMAND_WORD + ": " + UndoCommand.COMMAND_FUNCTION + "\n"
-            //+ "22. " + RedoCommand.COMMAND_WORD + ": " + RedoCommand.COMMAND_FUNCTION + "\n"
+            + "22. " + RedoCommand.COMMAND_WORD + ": " + RedoCommand.COMMAND_FUNCTION + "\n"
             + "23. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
             + "24. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
@@ -89,11 +89,14 @@ public class HelpCommand extends Command {
         commands.add("14. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("15. " + ScheduleCommand.MESSAGE_USAGE + "\n");
         commands.add("16. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("17. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("18. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("19. " + AddRestaurantNoteCommand.MESSAGE_USAGE + "\n");
-        commands.add("20. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("21. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("17. " + DeleteRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("18. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("19. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("20. " + AddRestaurantNoteCommand.MESSAGE_USAGE + "\n");
+        commands.add("21. " + UndoCommand.MESSAGE_USAGE + "\n");
+        commands.add("22. " + RedoCommand.MESSAGE_USAGE + "\n");
+        commands.add("23. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("24. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }

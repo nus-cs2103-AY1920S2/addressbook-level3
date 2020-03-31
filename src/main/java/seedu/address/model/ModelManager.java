@@ -157,6 +157,7 @@ public class ModelManager implements Model {
     @Override
     public void setAssignment(Assignment target, Assignment markedAssignment) {
         requireAllNonNull(target, markedAssignment);
+        createNewState("ASSIGNMENTS");
         scheduler.setAssignment(target, markedAssignment);
     }
 
