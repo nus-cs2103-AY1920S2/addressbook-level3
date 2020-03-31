@@ -46,9 +46,14 @@ when faced with difficulties.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+You can refer to the guide <<SettingUp#, here>>.
 
 == Design
+
+TA-Tracker has been designed with Object-Oriented Programming
+principles in mind. This section serves to give a description of the
+major components in the architecture of TA-Tracker. Subsequent sections
+provide more information on the inner workings of individual components.
 
 [[Design-Architecture]]
 === Architecture
@@ -56,7 +61,8 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -92,7 +98,8 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other
+for the scenario where the user issues the command `session delete 1`.
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
