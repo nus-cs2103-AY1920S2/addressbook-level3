@@ -17,11 +17,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.GuiSettings;
-<<<<<<< HEAD
 import seedu.recipe.model.cooked.CookedRecordBook;
-=======
 import seedu.recipe.model.plan.PlannedBook;
->>>>>>> upstream/master
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
 import seedu.recipe.testutil.RecipeBookBuilder;
 import seedu.recipe.testutil.RecordBookBuilder;

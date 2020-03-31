@@ -24,23 +24,17 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-<<<<<<< HEAD
-        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-=======
-        model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
     }
 
     @Test
     public void execute_newRecipe_success() {
         Recipe validRecipe = new RecipeBuilder().build();
 
-<<<<<<< HEAD
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         // System.out.println(validRecipe); // todo remove later
-=======
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+
         expectedModel.addRecipe(validRecipe);
 
         assertCommandSuccess(new AddCommand(validRecipe), model,

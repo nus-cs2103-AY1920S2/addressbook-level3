@@ -214,25 +214,21 @@ public class AddCommandTest {
         }
 
         @Override
-<<<<<<< HEAD
         public void addRecord(Record record) {
-=======
-        public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
->>>>>>> upstream/master
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-<<<<<<< HEAD
         public ObservableList<Record> getFilteredRecordList() {
-=======
-        public ObservableList<PlannedRecipe> getFilteredPlannedList() {
->>>>>>> upstream/master
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-<<<<<<< HEAD
+        public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyCookedRecordBook getRecordBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -241,12 +237,17 @@ public class AddCommandTest {
         public boolean hasRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }
-=======
+
+        @Override
         public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
->>>>>>> upstream/master
+        @Override
+        public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

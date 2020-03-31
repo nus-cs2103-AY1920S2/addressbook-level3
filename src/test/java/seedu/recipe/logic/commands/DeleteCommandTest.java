@@ -26,12 +26,7 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class DeleteCommandTest {
 
-<<<<<<< HEAD
-    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-
-=======
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -41,11 +36,9 @@ public class DeleteCommandTest {
         String expectedMessageTemplate = "Deleted %1$s from recipe book!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
-<<<<<<< HEAD
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
-=======
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
+
         expectedModel.deleteRecipe(recipeToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -69,11 +62,9 @@ public class DeleteCommandTest {
         String expectedMessageTemplate = "Deleted %1$s from recipe book!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
-<<<<<<< HEAD
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
-=======
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
+
         expectedModel.deleteRecipe(recipeToDelete);
         showNoRecipe(expectedModel);
 
