@@ -1,4 +1,4 @@
-package com.notably.model;
+package com.notably.model.userpref;
 
 import static java.util.Objects.requireNonNull;
 
@@ -11,46 +11,57 @@ import com.notably.commons.GuiSettings;
 /**
  * Represents User's preferences.
  */
-public class UserPrefs implements ReadOnlyUserPrefs {
-
+public class UserPrefModelImpl implements UserPrefModel {
     private GuiSettings guiSettings = new GuiSettings();
     private Path blockDataFilePath = Paths.get("data" , "blockdata.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefModelImpl() {}
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
      */
-    public UserPrefs(ReadOnlyUserPrefs userPrefs) {
+    public UserPrefModelImpl(ReadOnlyUserPrefModel userPrefs) {
         this();
-        resetData(userPrefs);
+        resetUserPrefModel(userPrefs);
     }
 
-    /**
-     * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
-     */
-    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
-        requireNonNull(newUserPrefs);
-        setGuiSettings(newUserPrefs.getGuiSettings());
-        setBlockDataFilePath(newUserPrefs.getBlockDataFilePath());
+    @Override
+    public void setUserPrefModel(ReadOnlyUserPrefModel userPrefModel) {
+        resetUserPrefModel(userPrefModel);
     }
 
+    @Override
+    public ReadOnlyUserPrefModel getUserPrefModel() {
+        return this;
+    }
+
+    @Override
+    public void resetUserPrefModel(ReadOnlyUserPrefModel newUserPrefModel) {
+        requireNonNull(newUserPrefModel);
+        setGuiSettings(newUserPrefModel.getGuiSettings());
+        setBlockDataFilePath(newUserPrefModel.getBlockDataFilePath());
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return guiSettings;
     }
 
+    @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
     }
 
+    @Override
     public Path getBlockDataFilePath() {
         return blockDataFilePath;
     }
 
+    @Override
     public void setBlockDataFilePath(Path blockDataFilePath) {
         requireNonNull(blockDataFilePath);
         this.blockDataFilePath = blockDataFilePath;
@@ -61,14 +72,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        if (!(other instanceof UserPrefModel)) { //this handles null as well.
             return false;
         }
 
-        UserPrefs o = (UserPrefs) other;
+        UserPrefModel o = (UserPrefModel) other;
 
-        return guiSettings.equals(o.guiSettings)
-                && blockDataFilePath.equals(o.blockDataFilePath);
+        return guiSettings.equals(o.getGuiSettings())
+                && blockDataFilePath.equals(o.getBlockDataFilePath());
     }
 
     @Override

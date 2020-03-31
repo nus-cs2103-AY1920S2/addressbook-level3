@@ -1,20 +1,20 @@
-package com.notably.model;
+package com.notably.model.userpref;
 
 import static com.notably.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class UserPrefsTest {
+public class UserPrefModelTest {
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        UserPrefs userPref = new UserPrefs();
+        UserPrefModel userPref = new UserPrefModelImpl();
         assertThrows(NullPointerException.class, () -> userPref.setGuiSettings(null));
     }
 
     @Test
     public void setBlockTreeFilePath_nullPath_throwsNullPointerException() {
-        UserPrefs userPrefs = new UserPrefs();
+        UserPrefModel userPrefs = new UserPrefModelImpl();
         assertThrows(NullPointerException.class, () -> userPrefs.setBlockDataFilePath(null));
     }
 

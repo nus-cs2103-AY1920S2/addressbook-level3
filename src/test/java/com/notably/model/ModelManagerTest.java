@@ -12,6 +12,8 @@ import com.notably.commons.GuiSettings;
 import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.suggestion.SuggestionModelImpl;
+import com.notably.model.userpref.UserPrefModel;
+import com.notably.model.userpref.UserPrefModelImpl;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
 public class ModelManagerTest {
@@ -19,32 +21,32 @@ public class ModelManagerTest {
         new BlockModelImpl(),
         new SuggestionModelImpl(),
         new ViewStateModelImpl(),
-        new UserPrefs());
+        new UserPrefModelImpl());
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new UserPrefModelImpl(), modelManager.getUserPrefModel());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new BlockTreeImpl(), modelManager.getBlockTree());
     }
 
     @Test
-    public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
+    public void setUserPrefModel_nullUserPrefModel_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefModel(null));
     }
 
     @Test
-    public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
-        UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setBlockDataFilePath(Paths.get("block/tree/file/path"));
-        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        modelManager.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, modelManager.getUserPrefs());
+    public void setUserPrefModel_validUserPrefModel_copiesUserPrefModel() {
+        UserPrefModel userPrefModel = new UserPrefModelImpl();
+        userPrefModel.setBlockDataFilePath(Paths.get("block/tree/file/path"));
+        userPrefModel.setGuiSettings(new GuiSettings(1, 2, 3, 4));
+        modelManager.setUserPrefModel(userPrefModel);
+        assertEquals(userPrefModel, modelManager.getUserPrefModel());
 
-        // Modifying userPrefs should not modify modelManager's userPrefs
-        UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setBlockDataFilePath(Paths.get("new/block/tree/file/path"));
-        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        // Modifying userPrefModel should not modify modelManager's userPrefModel
+        UserPrefModel oldUserPrefModel = new UserPrefModelImpl(userPrefModel);
+        userPrefModel.setBlockDataFilePath(Paths.get("new/block/tree/file/path"));
+        assertEquals(oldUserPrefModel, modelManager.getUserPrefModel());
     }
 
     @Test

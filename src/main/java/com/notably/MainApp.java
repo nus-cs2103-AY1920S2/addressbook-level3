@@ -15,14 +15,15 @@ import com.notably.logic.Logic;
 import com.notably.logic.LogicManager;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
-import com.notably.model.ReadOnlyUserPrefs;
-import com.notably.model.UserPrefs;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
+import com.notably.model.userpref.ReadOnlyUserPrefModel;
+import com.notably.model.userpref.UserPrefModel;
+import com.notably.model.userpref.UserPrefModelImpl;
 import com.notably.model.util.SampleDataUtil;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
@@ -62,7 +63,7 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        UserPrefModel userPrefs = initPrefs(userPrefsStorage);
         BlockStorage blockStorage = new JsonBlockStorage(userPrefs.getBlockDataFilePath());
         storage = new StorageManager(blockStorage, userPrefsStorage);
 
@@ -84,7 +85,7 @@ public class MainApp extends Application {
      * or an empty {@code BlockTree} will be used instead if errors occur when reading {@code storage}'s block data.
      */
     private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel,
-        ViewStateModel viewStateModel, ReadOnlyUserPrefs userPrefs) {
+        ViewStateModel viewStateModel, ReadOnlyUserPrefModel userPrefs) {
         Optional<BlockTree> blockTreeOptional;
         BlockTree initialData;
         try {
@@ -149,21 +150,21 @@ public class MainApp extends Application {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    protected UserPrefModel initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
-        UserPrefs initializedPrefs;
+        UserPrefModel initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            Optional<UserPrefModel> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new UserPrefModelImpl());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new UserPrefModelImpl();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty BlockTree");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new UserPrefModelImpl();
         }
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
@@ -186,7 +187,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Notably ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(model.getUserPrefModel());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
