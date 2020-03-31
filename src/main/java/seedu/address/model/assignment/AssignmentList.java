@@ -172,13 +172,13 @@ public class AssignmentList {
 
             calculate(hoursPerDayList, assignmentStatus, deadline, estHours, noOfDaysBetween, currDateTime);
 
-            if (noOfDaysBetween < 7 && assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
+            if (noOfDaysBetween < numDays && assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
                 scheduleVisual.get(noOfDaysBetween).addDueAssignment(assignmentList.get(j).getTitle().title);
             }
         }
 
         // Set hours per day in result list
-        for (int k = 0; k < numDays; k++) {
+        for (int k = 0; k < Math.min(numDays, hoursPerDayList.size()); k++) {
             scheduleVisual.get(k).setHours((float) (Math.round(hoursPerDayList.get(k) * 2) / 2.0));
         }
     }
