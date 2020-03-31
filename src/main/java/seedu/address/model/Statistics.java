@@ -23,10 +23,6 @@ public class Statistics implements ReadOnlyStatistics {
         }
     }
 
-    public CustomQueue getCustomQueue() {
-        return customQueue;
-    }
-
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
     public Statistics(ReadOnlyStatistics toBeCopied) {
         this();
@@ -52,7 +48,7 @@ public class Statistics implements ReadOnlyStatistics {
     /** Resets the existing data of this {@code Statistics} with {@code newData}. */
     public void resetData(ReadOnlyStatistics newData) {
         requireNonNull(newData);
-        setDayDatas(newData.getDayDataList());
+        setDayDatas(newData.getCustomQueue());
     }
 
     //// customQueue operations
@@ -91,12 +87,7 @@ public class Statistics implements ReadOnlyStatistics {
         }
     }
 
-    // util methods
-    /** Removes the dayData at the head of the internallist. */
-    public void pop() {
-        customQueue.pop();
-    }
-
+    // util method
     /** Adds a dayData to the end of the internallist. */
     public void addDayData(DayData dayData) {
         customQueue.add(dayData);
@@ -116,7 +107,7 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     @Override
-    public ObservableList<DayData> getDayDataList() {
+    public ObservableList<DayData> getCustomQueue() {
         return customQueue.asUnmodifiableObservableList();
     }
 }

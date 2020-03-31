@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -30,6 +31,7 @@ import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.dayData.CustomQueue;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Reminder;
 
 import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
@@ -261,7 +263,7 @@ public class MainWindow extends UiPart<Stage> {
                         .getSelectionModel()
                         .select(switchTabCommandResult.getTabToSwitchIndex());
                 if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
-                    CustomQueue customQueue = logic.getCustomQueue();
+                    ObservableList<DayData> customQueue = logic.getCustomQueue();
                     statisticsDisplay.updateGraphs(customQueue);
                 }
             } catch (ClassCastException ce) {

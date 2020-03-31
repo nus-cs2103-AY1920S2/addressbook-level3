@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -53,7 +54,7 @@ public class StatisticsDisplay extends UiPart<Region> {
         progressTarget.setText(progressTargetText);
     }
 
-    public void updateGraphs(CustomQueue customQueue) {
+    public void updateGraphs(ObservableList<DayData> customQueue) {
         DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
         int currProgress = latestDayData.getPomDurationData().value;
         progressDaily.setText(currProgress + PROGRESS_UNITS);
