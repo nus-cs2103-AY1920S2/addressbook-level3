@@ -26,7 +26,7 @@ public class BestCommand extends Command {
     public static final String MESSAGE_SIZE_NOT_A_NUMBER = "The size of the interviewees provided is not a number.";
     public static final String MESSAGE_NON_POSITIVE_SIZE = "The size of the interviewees provided must be positive.";
     public static final String MESSAGE_PARAM_NOT_FOUND = "The parameter provided: %s is not found.";
-    public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees based on %s";
+    public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "<number of interviewees> "
             + "[-a <attribute>] [-m <metrics>]"
             + ": Finds best N candidates from the list.\n"

@@ -77,7 +77,7 @@ _Action:_ This user guide is opened as a PDF with your system's default PDF view
 
 === Initialization Phase
 
-==== Add and Delete Interviewees
+==== Add, Edit and Delete Interviewees
 
 HireLah! allows you to manage your list of candidates from within the app. You can add interviewees to the list
 by giving their full name, and HireLah! automatically generates a unique ID for each candidate. To make things easier,
@@ -96,7 +96,7 @@ Your interviewees could come from anywhere after all. But do not give blanks or 
 *Commands*
 
 ....
-add interviewee <full name> [-aka <alias>]
+add interviewee <interviewee> [-aka <alias>]
 edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]
 delete interviewee <interviewee>
 ....
@@ -106,6 +106,7 @@ delete interviewee <interviewee>
 ....
 > add interviewee Jane Doe -aka Doe
 > edit interviewee Jane Doe -n Janice Doe -aka JDoe
+> delete interviewee Jane Doe
 ....
 
 _Action:_ Interviewee Jane Doe with alias of Doe is first created and
@@ -117,9 +118,54 @@ _Output:_
 New interviewee added: Jane Doe
 
 Edited interviewee: Jane Doe
+
+Deleted interviewee: Jane Doe
 ....
 
 image::Interviewee.png[]
+
+==== Upload Resume
+
+Interviewer can upload a resume for a specific interviewee. If the path is specified,
+the resume will be uploaded from the specified path. Otherwise, it will open a file-picker.
+
+*Command*
+
+....
+upload <interviewee> [-p <path>]
+....
+
+*Execution Example*
+
+....
+> upload Jane Doe
+....
+
+_Action:_ Resume is uploaded for the interviewee Jane Doe.
+
+_Output:_
+
+....
+Successfully added the resume!
+....
+
+==== Open Resume
+
+Interviewer can open a resume from a specific interviewee.
+
+*Command*
+
+....
+resume Jane Doe
+....
+
+_Action:_ Jane Doe's resume is opened.
+
+_Output:_
+
+....
+Opening resume...
+....
 
 [[Attributes]]
 ==== Add, Edit and Delete Attributes
@@ -174,7 +220,7 @@ questions.
 
 ....
 add question <question description>
-edit question <question number> <edited question>
+edit question <question number> -q <edited question>
 delete question <question number>
 ....
 
@@ -182,8 +228,8 @@ delete question <question number>
 
 ....
 > add question What are your relevant experiences?
-> edit question 1 What do you hope to accomplish in 5 years?
-> edit question 2 How can you add value to the company?
+> edit question 1 -q What do you hope to accomplish in 5 years?
+> edit question 2 -q How can you add value to the company?
 > delete question 1
 ....
 
@@ -217,6 +263,18 @@ list metric
 ....
 
 _Action:_ Switches between displaying interviewees, attributes, questions and metrics.
+
+_Output:_
+
+....
+Here is the list of interviewees:
+
+Here is the list of attributes:
+
+Here is the list of questions:
+
+Here is the list of metrics:
+....
 
 ==== Finalise Interview Attributes and Questions
 
@@ -276,6 +334,12 @@ allowing you to easily navigate your interview remarks after the interview is ov
 
 _Action:_ Stores this remark and maps it to the specific time when you
 enter it.
+
+_Output:_
+
+....
+Added the remark.
+....
 
 ==== Asking Questions
 
@@ -397,7 +461,7 @@ delete metric <name>
 
 ....
 > add metric extremeLeader -a leadership -w 0.7 -a tenacity -w 0.6
-> edit metric extremeLeadership -n extremeDictatorship -a leadership -w 100
+> edit metric extremeLeader -n extremeDictatorship -a leadership -w 100
 > list metric
 > delete metric extremeDictatorship
 ....
@@ -411,9 +475,9 @@ _Output:_
 ....
 New metric added: extremeLeader
 
-Edited metric
+Edited metric: extremeLeader
 
-Here's the list of metrics:
+Here is the list of metrics:
 
 Deleted metric: extremeDictatorship
 ....
@@ -437,8 +501,6 @@ close <interviewee>
 > open John Doe
 
 ... view some interview details ...
-
-> close John Doe
 ....
 
 _Output_: The entire list of remarks made during the interview, with
@@ -450,9 +512,6 @@ After opening a report, you can scroll up and down to navigate through
 the remarks you made during the interview. In addition, you can zoom in
 on a particular moment in the interview by question number, or by the
 interview time.
-
-In addition to viewing the remarks, you can also playback the interview
-audio record by specifying the –audio flag.
 
 ====== Navigating by Question Number
 
@@ -475,9 +534,7 @@ goto q<question number>
 _Output_:
 
 ....
-Question 4
-27.46 - Mentioned that he was fired from his previous job
-27.59 - Was uncomfortable to share the reasons
+Here is the remark of question 4!
 ....
 
 ===== Navigating by Timestamp
@@ -494,7 +551,13 @@ goto <time>
 *Example*
 
 ....
-> goto 30.00 --audio
+> goto 30.00
+....
+
+_Output_:
+
+....
+Here is the remark at time 30.00!
 ....
 
 ==== Find Best Candidates
@@ -522,6 +585,16 @@ best 7 -m extremeDictatorship
 _Action_: Firstly, HireLah! will show top 3 interviewees in overall score.
 Then, it will show the top 5 interviewees based on their leadership score. Finally, it will
 show the top 7 interviewes based on the extremeDictatorship metric.
+
+_Output_:
+
+....
+Here are the best 3 interviewees.
+
+Here are the best 5 interviewees.
+
+Here are the best 7 interviewees.
+...
 
 == Advanced Features
 
@@ -600,25 +673,27 @@ interview is incomplete!
 
 *Initialization Phase*
 
-* `add interviewee <full name> [-aka <alias>]` +
-e.g. `add interviewee Jane Doe -a Doe`
-* `delete interviewee <interviewee>` +
+* Add an interviewee: `add interviewee <interviewee> [-aka <alias>]` +
+e.g. `add interviewee Jane Doe -aka Doe`
+* Edit an interviewee: `edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]` +
+e.g. `edit interviewee Jane Doe -n Janice Doe -aka JDoe`
+* Delete an interviewee: `delete interviewee <interviewee>` +
 e.g. `delete interviewee Doe`
-* `list interviewee`
-* `add attribute <attribute>` +
+* List interviewees: `list interviewee`
+* Add an attribute: `add attribute <attribute>` +
 e.g. `add attribute teamwork`
-* `edit attribute <old attribute> -a <new attribute>` +
-e.g. `edit attribute leadership`
-* `delete attribute <attribute>` +
+* Edit an attribute: `edit attribute <old attribute> -a <new attribute>` +
+e.g. `edit attribute -a leadership`
+* Delete an attribute: `delete attribute <attribute>` +
 e.g. `delete attribute productivity`
-* `list attribute`
-* `add question <question description>` +
+* List attributes: `list attribute`
+* Add a question: `add question <question description>` +
 e.g. `add question What are your relevant experiences?`
-* `edit question <question number> <edited question>` +
-e.g. `edit question 1 What do you hope to accomplish in 5 years?`
-* `list question`
-* `delete question <question number>` +
+* Edit a question: `edit question <question number> -q <edited question>` +
+e.g. `edit question 1 -q What do you hope to accomplish in 5 years?`
+* Delete a question: `delete question <question number>` +
 e.g. `delete question 1`
+* List questions: `list question`
 
 *Interviewing Phase*
 
@@ -638,10 +713,10 @@ e.g. `:Agility 10`
 e.g. `open Jane Doe`
 * Close an interviewee report: `close <interviewee>` +
 e.g. `close Jane Doe`
-* Navigate to answer of interviewee: `q<question number> [--audio]` +
-e.g. `q4`
-* Navigate to a time of interviewee: `at <time> [--audio]` +
-e.g. `at 30.00 –audio`
+* Navigate to answer of interviewee: `q<question number>` +
+e.g. `goto q4`
+* Navigate to a time of interviewee: `at <time>` +
+e.g. `goto 30.00`
 * Stops audio playing: `stop audio`
 * Create a new weightage: `new weightage <weightage_name>` +
 e.g. `new weightage extreme_intelligent`
