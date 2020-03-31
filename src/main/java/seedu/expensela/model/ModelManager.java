@@ -222,4 +222,18 @@ public class ModelManager implements Model {
         userPrefs.setTotalBalance(balance);
         System.out.println(userPrefs.getTotalBalance());
     }
+
+    //=========== Monthly Data Accessors =============================================================
+    /**
+     * Returns toggle list or chart object
+     */
+    @Override
+    public ToggleView getToggleView() {
+        return this.expenseLa.getToggleView();
+    }
+
+    @Override
+    public void switchToggleView() {
+        expenseLa.switchToggleView();
+    }
 }

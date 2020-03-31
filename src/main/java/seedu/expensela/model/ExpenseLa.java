@@ -17,6 +17,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     private final Filter filter;
     private final MonthlyData monthlyData;
     private final TransactionList transactions;
+    private final ToggleView toggleView;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +30,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         filter = new Filter(null, null);
         monthlyData = new MonthlyData(null, null, null, null);
         transactions = new TransactionList();
+        toggleView = new ToggleView();
     }
 
     public ExpenseLa() {}
@@ -105,6 +107,10 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         transactions.remove(key);
     }
 
+    public void switchToggleView() {
+        toggleView.switchIsViewList();
+    }
+
     //// util methods
 
     @Override
@@ -123,6 +129,10 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         return this.monthlyData;
     }
 
+    @Override
+    public ToggleView getToggleView() {
+        return this.toggleView;
+    }
 
     public Filter getFilter() {
         return this.filter;

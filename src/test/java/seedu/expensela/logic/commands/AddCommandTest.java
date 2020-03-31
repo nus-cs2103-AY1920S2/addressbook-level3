@@ -21,6 +21,7 @@ import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
+import seedu.expensela.model.ToggleView;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.TransactionBuilder;
@@ -164,6 +165,16 @@ public class AddCommandTest {
         @Override
         public Filter getFilter() {
             return null;
+        }
+
+        @Override
+        public ToggleView getToggleView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void switchToggleView() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
