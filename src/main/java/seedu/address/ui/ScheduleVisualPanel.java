@@ -26,7 +26,7 @@ public class ScheduleVisualPanel extends UiPart<Region> {
 
     public ScheduleVisualPanel(ObservableList<Day> scheduleVisual) {
         super(FXML);
-        title.setText("Schedule for the next 7 days:");
+        title.setText("Schedule for the next " + scheduleVisual.size() + " days:");
         scheduleListView.setItems(scheduleVisual);
         scheduleListView.setCellFactory(listView -> new ScheduleVisualPanel.ScheduleViewCell());
     }

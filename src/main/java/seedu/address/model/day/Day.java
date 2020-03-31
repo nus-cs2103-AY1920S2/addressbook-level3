@@ -21,6 +21,10 @@ public class Day {
         hours = new Hours(toAdd);
     }
 
+    public void resetDueAssignments() {
+        dueAssignments.clear();
+    }
+
     public ArrayList<DueAssignment> getDueAssignments() {
         return dueAssignments;
     }

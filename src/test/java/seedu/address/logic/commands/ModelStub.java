@@ -236,4 +236,9 @@ public class ModelStub implements Model {
     public ObservableList<Day> getScheduleVisualResult() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void calculateScheduleIntensity(int numDays) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

@@ -382,5 +382,4 @@ public class ParserUtil {
 
         return new Place(trimmedPlace);
     }
-
 }

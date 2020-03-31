@@ -339,13 +339,13 @@ Format: `(st)done INDEX`
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see above).
 ****
 
-==== Visualise the intensity of user's upcoming schedule: `schedule`
+==== Visualise the intensity of your upcoming schedule: `(st)schedule visual`
 
 Looks through the list of current uncompleted assignments to calculate the estimated work hours per day to complete all assignments by their deadlines +
-Format: `schedule`
+Format: `(st)schedule n/NUM_DAYS`
 
 ****
-* Only the schedule for the next 7 days (including today) will be shown
+* NUM_DAYS: Has to be a positive integer digit and is the number of days you would like to display
 * Red: User either has an assignment due the next day (from query date) or the expected work hours for the day is more than 10 hours
 * Orange: The expected work hours for the day is between 5 and 10 hours
 * Green: The expected work hours for the day is less than or equals to 5 hours
