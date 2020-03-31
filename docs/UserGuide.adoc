@@ -250,12 +250,13 @@ TODO - NOT IMPLEMENTED YET
 
 ==== Exiting the program : `exit`
 
-Exits the program. +
+Using this command, you can exit the program.
+
 Format: `exit`
 
 === Student View
 
-This sections gives an explanation of all the commands that can be used with the Student
+This sections gives an explanation of all the commands that can be used on the Student
 View.
 
 [[AddModule]]
@@ -270,8 +271,7 @@ Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
-You should ensure that no module with the module code that you're adding exists
-in the TA-Tracker before-hand.
+* You can't have two modules with the same module code in the TA-Tracker.
 ====
 
 ====
@@ -279,7 +279,7 @@ Examples:
 
 * `module add m/CS2103 n/Software Engineering`
 +
-This will add a module with the module code CS2103 and name 'Software Engineering'
+This will add a module with the module code `CS2103` and name `Software Engineering`
 to the TA-Tracker.
 ====
 
@@ -298,8 +298,7 @@ Format: `module delete m/MOD_CODE`
 
 [NOTE]
 ====
-You should ensure that a module with the given module code exists in the TA-Tracker before
-you attempt to delete it.
+* You cannot delete a module that doesn't exist.
 ====
 
 ====
@@ -307,7 +306,7 @@ Examples:
 
 * `module delete m/CS2103`
 +
-Deletes the module with the module code CS2103 from the TA-Tracker.
+this will delete the module with the module code `CS2103` from the TA-Tracker.
 ====
 
 [[EditModule]]
@@ -325,8 +324,7 @@ Format: `module edit m/MOD_CODE n/NEW NAME`
 
 [NOTE]
 ====
-You should ensure that a module with the given module code exists in the TA-Tracker
-before you attempt to edit it.
+* You cannot edit a module that doesn't exist.
 ====
 
 ====
@@ -334,7 +332,7 @@ Examples:
 
 * `module edit m/CS2103 n/Software Engineering`
 +
-Changes the name of the module with module code CS2103 to 'Software Engineering'.
+This will change the name of the module with module code `CS2103` to `Software Engineering`.
 ====
 
 [[AddGroup]]
@@ -353,11 +351,9 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * `MOD_CODE` here refers to the module code of the module you want to add the group to.
 
-* You should ensure that a module with the given module code exists in the TA-Tracker before
-you add a group to it.
+* You cannot add a group to a module that doesn't exist.
 
-* You should ensure that the module doesn't contain a group with the given group code
-beforehand.
+* You cannot add multiple groups with the same group code in the same module.
 ====
 
 ====
@@ -365,8 +361,8 @@ Examples:
 
 * `group add g/G03 m/CS2103 t/tutorial`
 +
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+Thi will add a group with the group code `G03`, which is a `tutorial`, inside the module that
+has module code `CS2103`.
 ====
 
 [[DeleteGroup]]
@@ -388,8 +384,9 @@ Format: `group delete g/GROUP_CODE m/MOD_CODE`
 * `MOD_CODE` here refers to the module code of the module that contains the group that
 you want to delete.
 
-* You should ensure that a module with the given module code exists in the TA-Tracker before
-you delete a group from it.
+* You can't delete a group from a module that doesn't exist.
+
+* You can't delete a group that doesn't exist.
 
 * A group with the given group code must exist inside the module before you can delete it.
 ====
@@ -399,8 +396,8 @@ Examples:
 
 * `group delete g/G03 m/CS2103`
 +
-Deletes the group with the group code G03 from the module that
-has module code CS2103.
+This will delete the group with the group code `G03` from the module that
+has module code `CS2103`.
 ====
 
 [[EditGroup]]
@@ -422,10 +419,9 @@ Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TY
 * `MOD_CODE` here refers to the module code of the module that contains the group that
 you want to edit.
 
-* You should ensure that a module with the given module code exists in the TA-Tracker before
-you attempt to edit a group inside it.
+* You can't edit a group inside a module that doesn't exist.
 
-* A group with the given group code should exist inside the module before you attempt to edit it.
+* You can't edit a group that doesn't exist.
 
 * If you are changing the group code, the module shouldn't contain a group with the
 new group code.
@@ -436,8 +432,8 @@ Examples:
 
 * `group edit g/G03 m/CS2103 nt/tutorial`
 +
-Changes the group type of the group with group code G03, inside the module with
-module code CS2103, to be a tutorial.
+This will change the group type of the group with group code `G03`, inside the module with
+module code `CS2103`, to be a `tutorial`.
 ====
 
 [[AddStudent]]
@@ -466,7 +462,7 @@ Examples:
 
 * `student add id/A0123456J n/Alice m/CS2103 g/G03`
 +
-Adds the student Alice with the matriculation number `A0123456J``
+This will add a student named Alice with the matriculation number `A0123456J`
 inside group `G03` of the module `CS2103`.
 ====
 
@@ -574,11 +570,9 @@ Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 [NOTE]
 ====
 [horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you sort a group inside it.
+* You cannot sort a group inside a module that doesn't exist.
 
-* A group with the given group code must exist inside the module before you can
-sort it.
+* You cannot sort a group that doesn't exist.
 
 * To sort alphabetically you can use the following to indicate sort type:
 ** `alphabetically`
@@ -597,14 +591,14 @@ Examples:
 
 * `sort group g/G03 m/CS2103 t/alpha`
 +
-Sorts the student inside G03 of module CS2103 alphabetically.
+Sorts the student inside `G03` of module `CS2103` `alphabetically`.
 ====
 
 
 ==== Sorting a Module `sort module`
 
-orts the students inside all the groups of the module you want to sort according
-to the way you indicate you want it to be sorted.
+You can use this command to sort the students inside all the groups of the module you want to sort according
+to the way you indicate.
 
 The students can be sorted alphabetically, by rating in ascending order, by rating
 in descending order and by matriculation number in ascending order.
@@ -618,8 +612,7 @@ Format: `sort module m/MOD_CODE t/SORT_TYPE`
 [NOTE]
 ====
 [horizontal]
-* A module with the given module code must exist in the TA-Tracker before
-you sort it.
+* You cannot sort a module that doesn't exist.
 
 * To sort alphabetically you can use the following to indicate sort type:
 ** `alphabetically`
@@ -638,13 +631,12 @@ Examples:
 
 * `sort module m/CS2103 t/alpha`
 +
-Sorts all groups inside the module CS2103 alphabetically.
+Sorts all groups inside the module `CS2103` `alphabetically`.
 ====
 
 ==== Sorting Everything `sort all`
 
-Sorts the students inside all the groups all modules according to the way you indicate
-you want everything to be sorted.
+You can sort the students inside all the groups in all modules according to the way you indicate.
 
 The students can be sorted alphabetically, by rating in ascending order, by rating
 in descending order and by matriculation number in ascending order.
@@ -675,13 +667,13 @@ Examples:
 
 * `sort all t/alpha`
 +
-Sorts all groups inside all modules alphabetically.
+Sorts all groups inside all modules `alphabetically`.
 ====
 
 [[FilterStudent]]
 ==== Filter `filter`
 
-Filter student helps you find the students in a particular group
+You can use this command to find the students in a particular group
 and module.
 
 You can filter the students in Student View in the following ways:
@@ -691,9 +683,9 @@ You can filter the students in Student View in the following ways:
 2. module code `m/`
 ****
 
-1. Using both module code and group code will show you the students
+Using both module code and group code will show you the students
 inside the group with the given group code of the module specified
-by the given module code.
+by the module code.
 
 Format: `student filter [m/MOD_CODE] g/GROUP_CODE`
 
@@ -702,10 +694,10 @@ Examples:
 
 * `student filter m/cs2103t g/g06`
 +
-Filters all students in module `CS2103T`, under group `G06`.
+This will show you all students in module `CS2103T`, under group `G06`.
 ====
 
-2. Using just the module code will show you all the students
+Using just the module code will show you all the students
 inside the first group of module specified by the given module code.
 
 Format: `student filter m/MOD_CODE`
@@ -715,14 +707,13 @@ Examples:
 
 * `student filter m/cs2103t`
 +
-Filters all the students in module `CS2103T`,
-first group of CS2103T that is currently showing in UI.
+This shows you the students in the first group of the module `CS2103`
 ====
 
 [NOTE]
 ====
 [horizontal]
-Keywords are case-insensitive. eg. `cs2103t` is the same as `CS2103T`
+*Keywords are case-insensitive. eg. `cs2103t` is the same as `CS2103T`*
 ====
 
 
@@ -731,8 +722,9 @@ Keywords are case-insensitive. eg. `cs2103t` is the same as `CS2103T`
 [[AddSession]]
 ==== Adding a Session `session add`
 
-Adds a new session.
-The new session will be shown under Session View, and it will automatically
+You can use this command to add a new session.
+
+The new session will be shown under Session View, and will automatically
 be marked as un-done.
 
 Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
@@ -742,7 +734,11 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 ====
 If you want to create a session at this point of time, you can leave the start time
 `s/START`, end time `e/END` and date `d/DATE` out.
+
 A session of current date and time will be automatically generated.
+
+Once the session has ended, you can come back and change the end time and add other
+details by using the edit session command (details given below.)
 ====
 
 [NOTE]
