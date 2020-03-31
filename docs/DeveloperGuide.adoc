@@ -512,7 +512,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |mark my deliveries as done upon completion |keep track of orders better
 
-|`* * *` |courier |know customers' payment methods |be prepared to collect any payment upon delivery
+|`* * *` |courier |know whether customer will pay cash on delivery |be prepared to collect any payment upon delivery
 
 |`* *` |courier |know the nearest popstation/pick-up location for returned parcels |plan my route to pick up parcels to be returned
 
