@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 
 /**
  * Represents a planned recipe in the planned recipes book.
@@ -44,6 +45,9 @@ public class PlannedRecipe {
      * Planned Recipe object.
      */
     public PlannedRecipe plannedRecipeWithAllPlanned(PlannedRecipe plannedRecipe) {
+        if (recipes.contains(plannedRecipe)) {
+            throw new DuplicateRecipeException();
+        }
         List<Recipe> newRecipes = plannedRecipe.getRecipes();
         newRecipes.addAll(recipes);
         return new PlannedRecipe(newRecipes, date);

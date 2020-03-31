@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.storage.JsonAdaptedRecipe;
@@ -19,7 +20,6 @@ import seedu.recipe.storage.JsonAdaptedRecipe;
  */
 public class JsonAdaptedPlannedRecipe {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Planned recipe's %s field is missing!";
-    // todo missing field for date
 
     private final List<JsonAdaptedRecipe> recipes = new ArrayList<>();
     private final JsonAdaptedPlannedDate date;
@@ -57,6 +57,10 @@ public class JsonAdaptedPlannedRecipe {
         final List<Recipe> modelRecipe = new ArrayList<>();
         for (JsonAdaptedRecipe recipe : recipes) {
             modelRecipe.add(recipe.toModelType());
+        }
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PlannedDate.class.getSimpleName()));
         }
         final PlannedDate modelPlannedDate = date.toModelType();
 
