@@ -4,11 +4,14 @@ import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
+import java.util.stream.Stream;
+
 import tatracker.logic.commands.student.FilterStudentViewCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,9 +29,10 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE,
                 GROUP);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, MODULE)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FilterStudentViewCommand.MESSAGE_INVALID_MODULE_CODE));
+                                    FilterStudentViewCommand.DETAILS.getUsage()));
         }
 
         String moduleCode = "";
@@ -44,4 +48,13 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
 
         return new FilterStudentViewCommand(moduleCode, groupCode);
     }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
 }
