@@ -151,11 +151,6 @@ public class InsertCommandTest {
         }
 
         @Override
-        public void renewDeliveryStatus(Order target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Path getReturnOrderBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }

@@ -88,8 +88,8 @@ public class ReturnCommand extends Command {
 
     /**
      * Gets the order from the model based on its Transaction ID.
-     * @param model
-     * @return
+     * @param model The current Model.
+     * @return The order taken from the order book based on the transaction id input by user.
      * @throws CommandException
      */
     private Order getOrderByTransactionId(Model model) throws CommandException {
@@ -110,9 +110,8 @@ public class ReturnCommand extends Command {
             return true;
         }
         if (toBeCreated == null) {
-            return (other instanceof ReturnCommand
-                    && ((ReturnCommand) other).toBeCreated == null)
-                    && tid.equals(((ReturnCommand) other).tid);
+            return ((other instanceof ReturnCommand && ((ReturnCommand) other).toBeCreated == null)
+                    && tid.equals(((ReturnCommand) other).tid));
         } else {
             return (other instanceof ReturnCommand
                     && (toBeCreated.equals(((ReturnCommand) other).toBeCreated))

@@ -68,7 +68,7 @@ public class DeliveredCommand extends Command {
         } else if (isFlagForReturnList()) {
             return processDeliveryOfReturnOrder(model);
         } else {
-            return new CommandResult(String.format(MESSAGE_USAGE));
+            throw new CommandException(String.format(MESSAGE_USAGE));
         }
     }
 
@@ -94,9 +94,9 @@ public class DeliveredCommand extends Command {
 
     /**
      * Processes the input for the delivery of an order and outputs the correct CommandResult.
-     * @param model
-     * @return
-     * @throws CommandException
+     * @param model The current Model
+     * @return A CommandResult based on the order
+     * @throws CommandException CommandException thrown when user inputs an invalid index.
      */
     private CommandResult processDeliveryOfOrder(Model model) throws CommandException {
         if (isIndexValidForOrderList(model)) {
@@ -114,9 +114,9 @@ public class DeliveredCommand extends Command {
 
     /**
      * Processes the input for the delivery of a return order and outputs the correct CommandResult.
-     * @param model
-     * @return
-     * @throws CommandException
+     * @param model The current Model
+     * @return A CommandResult based on the return order
+     * @throws CommandException CommandException thrown when user inputs an invalid index.
      */
     private CommandResult processDeliveryOfReturnOrder(Model model) throws CommandException {
         if (isIndexValidForReturnList(model)) {
@@ -134,7 +134,7 @@ public class DeliveredCommand extends Command {
 
     /**
      * Sets the order in model as delivered and updates the entire list of orders.
-     * @param model
+     * @param model The current Model
      */
     private void deliverAndUpdateOrderList(Model model) {
         List<Order> orderList = model.getFilteredOrderList();
@@ -151,7 +151,7 @@ public class DeliveredCommand extends Command {
 
     /**
      * Sets the return order in model as delivered and updates the entire list of return orders.
-     * @param model
+     * @param model The current Model
      */
     private void deliverAndUpdateReturnList(Model model) {
         List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();

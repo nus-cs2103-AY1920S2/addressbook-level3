@@ -40,8 +40,8 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
 
     /**
      * Returns true if only the return flag '-r' is present in user input.
-     * @param splitInputList
-     * @return
+     * @param splitInputList The input list that has been split by whitespace.
+     * @return A boolean to indicate if only the return flag is present.
      */
     private boolean onlyReturnFlagPresent(List<String> splitInputList) {
         return splitInputList.contains("-r") && !splitInputList.contains("-o");
@@ -49,8 +49,8 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
 
     /**
      * Returns the Index of the return list based on user input.
-     * @param splitInputList
-     * @return
+     * @param splitInputList The input list that has been split by whitespace.
+     * @return The targeted index of the return order list based on user input.
      */
     private Index indexOfReturnList(List<String> splitInputList) {
         splitInputList.remove("-r");
@@ -61,8 +61,8 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
 
     /**
      * Returns true if only the order flag '-o' is present in user input.
-     * @param splitInputList
-     * @return
+     * @param splitInputList The input list that has been split by whitespace.
+     * @return A boolean to indicate if only the order flag is present.
      */
     private boolean onlyOrderFlagPresent(List<String> splitInputList) {
         return splitInputList.contains("-o") && !splitInputList.contains("-r");
@@ -70,8 +70,8 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
 
     /**
      * Returns the Index of the order list based on user input.
-     * @param splitInputList
-     * @return
+     * @param splitInputList The input list that has been split by whitespace.
+     * @return The targeted index of the order list based on user input.
      */
     private Index indexOfOrderList(List<String> splitInputList) {
         splitInputList.remove("-o");

@@ -169,12 +169,6 @@ public class ModelManager implements Model {
         orderBook.deliverOrder(target);
     }
 
-    @Override
-    public void renewDeliveryStatus(Order target) {
-        target.setDeliveryStatus(false);
-        orderBook.setDeliveryStatus(target);
-    }
-
     /**
      * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
      * {@code versionedOrderBook}

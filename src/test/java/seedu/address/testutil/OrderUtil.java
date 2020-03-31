@@ -7,12 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.InsertCommand;
+import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.model.order.Order;
 
 /**
@@ -25,6 +27,13 @@ public class OrderUtil {
      */
     public static String getInsertCommand(Order order) {
         return InsertCommand.COMMAND_WORD + " " + getOrderDetails(order);
+    }
+
+    /**
+     * Returns an add command string for adding the {@code order}.
+     */
+    public static String getReturnCommand(Order order) {
+        return ReturnCommand.COMMAND_WORD + " " + getOrderDetailsForReturn(order);
     }
 
     /**
@@ -43,6 +52,23 @@ public class OrderUtil {
         sb.append(PREFIX_COMMENT + order.getComment().commentMade + " ");
         sb.append(PREFIX_TYPE + order.getItemType().itemType + " ");
 
+        return sb.toString();
+    }
+
+    /**
+     * Returns the part of command string for the given {@code order}'s details.
+     */
+    public static String getOrderDetailsForReturn(Order order) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_TID + order.getTid().tid + " ");
+        sb.append(PREFIX_NAME + order.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + order.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + order.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + order.getAddress().value + " ");
+        sb.append(PREFIX_RETURN_TIMESTAMP + order.getTimestamp().value + " ");
+        sb.append(PREFIX_WAREHOUSE + order.getWarehouse().address + " ");
+        sb.append(PREFIX_COMMENT + order.getComment().commentMade + " ");
+        sb.append(PREFIX_TYPE + order.getItemType().itemType + " ");
         return sb.toString();
     }
 
