@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.eylah.commons.exceptions.IllegalValueException;
 import seedu.eylah.diettracker.model.food.Calories;
+import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;
@@ -24,6 +25,7 @@ class JsonAdaptedFood {
 
     private final long calories;
     private final String name;
+    private final String date;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -31,9 +33,10 @@ class JsonAdaptedFood {
      */
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("name") String name, @JsonProperty("calories") long calories,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.calories = calories;
+        this.date = date;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -45,6 +48,7 @@ class JsonAdaptedFood {
     public JsonAdaptedFood(Food source) {
         name = source.getName().name;
         calories = source.getCalories().value;
+        date = source.getDate().getStorageString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -69,9 +73,15 @@ class JsonAdaptedFood {
         }
         final Name modelName = new Name(name);
         final Calories modelCalories = new Calories(calories);
+        final Date modelDate;
+        if (date != null || date != "") {
+            modelDate = new Date(date);
+        } else {
+            modelDate = new Date();
+        }
         final Set<Tag> modelTags = new HashSet<>(foodTags);
 
-        return new Food(modelName, modelCalories, modelTags);
+        return new Food(modelName, modelCalories, modelDate, modelTags);
     }
 
 }

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.eylah.expensesplitter.model.Model;
 
 /**
- * Lists all users with their amount.
+ * Deletes existing Entries in a Receipt.
  */
 public class ClearReceiptCommand extends Command {
 
