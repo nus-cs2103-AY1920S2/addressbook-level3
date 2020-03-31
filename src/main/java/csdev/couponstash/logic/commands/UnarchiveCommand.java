@@ -14,7 +14,7 @@ import csdev.couponstash.model.coupon.Coupon;
 /**
  * Unarchive a coupon.
  */
-public class UnarchiveCommand extends Command {
+public class UnarchiveCommand extends IndexedCommand {
     public static final String COMMAND_WORD = "unarchive";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Unarchive the coupon identified by the "
@@ -26,14 +26,12 @@ public class UnarchiveCommand extends Command {
     public static final String MESSAGE_UNARCHIVE_COUPON_SUCCESS = "Unarchived Coupon: %1s";
     public static final String MESSAGE_COUPON_ALREADY_ACTIVE = "Coupon: %1s is already active!";
 
-    private final Index targetIndex;
-
     /**
      * Creates an UnarchiveCommand to unarchive the {@code Coupon} at the specified {@code targetIndex}.
      * @param targetIndex   Index of the coupon to be unarchived.
      */
     public UnarchiveCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override
@@ -48,8 +46,8 @@ public class UnarchiveCommand extends Command {
         Coupon couponToBeUnarchived = lastShownList.get(targetIndex.getZeroBased());
         Archived currentStateOfArchival = couponToBeUnarchived.getArchived();
 
-        if (!Boolean.valueOf(currentStateOfArchival.toString())) {
-            throw new CommandException((String.format(MESSAGE_COUPON_ALREADY_ACTIVE)));
+        if (!Boolean.parseBoolean(currentStateOfArchival.toString())) {
+            throw new CommandException(MESSAGE_COUPON_ALREADY_ACTIVE);
         }
 
         Coupon activeCoupon = couponToBeUnarchived.unarchive();

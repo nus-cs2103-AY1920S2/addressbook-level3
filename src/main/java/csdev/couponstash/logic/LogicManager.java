@@ -9,6 +9,7 @@ import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.Command;
 import csdev.couponstash.logic.commands.CommandResult;
+import csdev.couponstash.logic.commands.IndexedCommand;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CouponStashParser;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
@@ -25,6 +26,8 @@ import javafx.collections.ObservableList;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String INCORRECT_TAB_ERROR_MESSAGE = "This command can't be executed in this page!";
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -42,6 +45,12 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         Command command = couponStashParser.parseCommand(commandText);
+
+        if (!selectedTab.equals(CsTab.COUPONS) && command instanceof IndexedCommand) {
+            logger.info("Aborting index command execution in incorrect tab");
+            throw new CommandException(INCORRECT_TAB_ERROR_MESSAGE);
+        }
+
         CommandResult commandResult = command.execute(model, commandText);
 
         try {

@@ -28,7 +28,7 @@ import csdev.couponstash.model.coupon.savings.Savings;
 /**
  * Copies a coupon identified using it's displayed index from the CouponStash.
  */
-public class CopyCommand extends Command {
+public class CopyCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "copy";
 
@@ -40,12 +40,11 @@ public class CopyCommand extends Command {
     public static final String MESSAGE_COPY_COUPON_SUCCESS = "Copied coupon: %1$s.\n"
             + "Copied to your clipboard! Ctrl + v to paste this coupon!";
 
-    private final Index targetIndex;
     private Coupon coupon;
 
 
     public CopyCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override

@@ -20,7 +20,7 @@ import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 /**
  * Increases the usage of a coupon.
  */
-public class UsedCommand extends Command {
+public class UsedCommand extends IndexedCommand {
     public static final String COMMAND_WORD = "used";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Increases the usage of the coupon "
@@ -38,14 +38,13 @@ public class UsedCommand extends Command {
             + "that requires the input of the original amount of purchase.\n"
             + "Example: " + COMMAND_WORD + " 1 $100";
 
-    private final Index targetIndex;
     private final MonetaryAmount originalAmount;
 
     /**
      * Creates a UsedCommand to increase the usage of the specified {@code Coupon}.
      */
     public UsedCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
         this.originalAmount = new MonetaryAmount(0.0);
     }
 
@@ -54,7 +53,10 @@ public class UsedCommand extends Command {
      * and also keep track of the amount saved by the usage of this coupon.
      */
     public UsedCommand(Index targetIndex, MonetaryAmount originalAmount) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
+
+        requireNonNull(originalAmount);
+
         this.originalAmount = originalAmount;
     }
 
