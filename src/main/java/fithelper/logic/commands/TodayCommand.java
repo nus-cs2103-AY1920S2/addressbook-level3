@@ -3,7 +3,10 @@ package fithelper.logic.commands;
 import static fithelper.logic.commands.CommandResult.DisplayedPage.TODAY;
 import static java.util.Objects.requireNonNull;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.model.Model;
+
+import java.util.logging.Logger;
 
 /**
  * Adds a entry to FitHelper.
@@ -16,9 +19,17 @@ public class TodayCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Now you are at Today Page ~";
 
+    private static final String MESSAGE_COMMIT = "Switch to today page";
+
+    private static final Logger logger = LogsCenter.getLogger(TodayCommand.class);
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        model.commit(MESSAGE_COMMIT);
+        logger.info("Switched to Today Page");
+
         return new CommandResult(String.format(MESSAGE_SUCCESS), TODAY, false);
     }
 

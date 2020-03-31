@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
     private static final String MESSAGE_COMMIT = "Add an entry";
-    
+
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
     private final Entry toAdd;
@@ -76,6 +76,7 @@ public class AddCommand extends Command {
 
         model.commit(MESSAGE_COMMIT);
         logger.info(String.format("Added a new entry [%s]", toAdd.toString()));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
