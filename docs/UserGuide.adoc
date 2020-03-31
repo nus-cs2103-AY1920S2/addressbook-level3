@@ -251,17 +251,31 @@ image::export_example.png[width="300", align="middle"]
 // end::delete[]
 
 === Sort activities `sort` `[coming in v1.3]`
-Sorts all activities in their respective modules by a specified criteria. +
-Format: `sort sm/SORT_CRITERIA`
-The list of sort criteria is given below:
-- Lexicographical order (non-case-sensitive): `name`
-- Date added: `date`
-- Priority: `priority`
+Sorts all activities in their respective modules by a specified criteria and ascending/descending order. +
+Format: `sort sm/SORT_CRITERIA [ob/ORDER]`
+
+The list of sort criteria is given below: +
+Lexicographical order (non-case-sensitive): `name` +
+Date added: `date` +
+Priority: `priority`
+
+Order by:
+
+Ascending: `asc` +
+ Lexicographically biggest, latest added, highest priority at the top of the module activity list.
+
+Descending: `dsc` +
+ Lexicographically biggest, latest added, highest priority at the bottom of the module activity list.
+
+If order is not specified, ascending order is used
 
 Examples:
 
-** `sort sm/name` +
-Sorts by non-case-sensitive, lexicographical order of the activity's name.
+** `sort sm/name ob/dsc` +
+Sorts by non-case-sensitive, lexicographical order of the activity's name, in descending order.
+
+** `sort sm/priority` +
+Sorts by non-case-sensitive, lexicographical order of the activity's name, in ascending order.
 
 
 === Clearing all entries : `clear`
