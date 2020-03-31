@@ -1,0 +1,13 @@
+@startuml
+start
+
+if () then ([itemToAdd])
+    : New Receipt
+    @Inserts Rake for AddItem;
+    : Done Receipt;
+    else ([amountPaid])
+    : Paid ;
+endif
+
+stop
+@enduml
