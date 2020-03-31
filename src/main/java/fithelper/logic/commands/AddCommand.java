@@ -9,13 +9,13 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.entry.Entry;
-
-import java.util.logging.Logger;
 
 /**
  * Adds a entry to FitHelper.
@@ -43,8 +43,8 @@ public class AddCommand extends Command {
             + PREFIX_DURATION + "1";
 
     private static final String MESSAGE_COMMIT = "Add an entry";
-    public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";
+    public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
 
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
