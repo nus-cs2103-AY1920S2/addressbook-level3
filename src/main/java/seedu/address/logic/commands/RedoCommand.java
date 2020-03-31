@@ -8,23 +8,23 @@ import seedu.address.model.Model;
 import seedu.address.model.StateNotFoundException;
 
 /**
- * Returns to a version of the application before the last execution of a data-modifying Command.
+ * Returns to a version of the application before the last execution of an UndoCommand.
  */
-public class UndoCommand extends Command {
+public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Managed to undo previous action!";
+    public static final String MESSAGE_SUCCESS = "Managed to redo undone action!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         try {
-            model.undo();
+            model.redo();
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (StateNotFoundException e) {
-            throw new CommandException(Messages.MESSAGE_UNDO_AT_INITIAL_STATE);
+            throw new CommandException(Messages.MESSAGE_REDO_AT_LATEST_STATE);
         }
     }
 }
