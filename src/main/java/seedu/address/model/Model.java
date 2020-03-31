@@ -179,11 +179,6 @@ public interface Model {
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
-    /**
-     * Replaces event schedule data with the data in {@code eventSchedule}.
-     */
-    void setEventSchedule(ReadOnlyEventSchedule eventSchedule);
-
     /** Returns the Event Schedule */
     ReadOnlyEventSchedule getEventSchedule();
 

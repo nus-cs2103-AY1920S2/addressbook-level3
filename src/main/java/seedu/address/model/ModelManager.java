@@ -171,13 +171,14 @@ public class ModelManager implements Model {
     //=========== Event Schedule ================================================================================
 
     @Override
-    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
-        this.eventSchedule.resetData(eventSchedule);
+    public void addEvent(Event event) {
+        eventSchedule.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void addEvent(Event event) {
-        eventSchedule.addEvent(event);
+    public void sortEvent(Comparator<Event> comparator) {
+        eventSchedule.sortEvent(comparator);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
@@ -185,12 +186,6 @@ public class ModelManager implements Model {
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return eventSchedule.hasEvent(event);
-    }
-
-    @Override
-    public void sortEvent(Comparator<Event> comparator) {
-        eventSchedule.sortEvent(comparator);
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
