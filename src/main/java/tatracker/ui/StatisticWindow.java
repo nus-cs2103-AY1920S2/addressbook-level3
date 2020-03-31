@@ -7,13 +7,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import tatracker.commons.core.LogsCenter;
+import tatracker.model.session.SessionType;
+import tatracker.model.statistic.Statistic;
 
 /**
  * Controller for a statistic page
  */
 public class StatisticWindow extends UiPart<Stage> {
+
+    public static final int NUM_STUDENTS_TO_DISPLAY = 5;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "StatisticWindow.fxml";
@@ -24,38 +29,96 @@ public class StatisticWindow extends UiPart<Stage> {
     @FXML
     private BarChart studentRatingBarChart;
 
+    // Labels
+    @FXML
+    private Label moduleCodeLabel;
+    @FXML
+    private Label numHoursTutorialLabel;
+    @FXML
+    private Label numHoursConsultationLabel;
+    @FXML
+    private Label numHoursLabLabel;
+    @FXML
+    private Label numHoursGradingLabel;
+    @FXML
+    private Label numHoursPreparationLabel;
+    @FXML
+    private Label numHoursOtherLabel;
+    @FXML
+    private Label numHoursTotalLabel;
+
+    @FXML
+    private Label studentName1Label;
+    @FXML
+    private Label studentName2Label;
+    @FXML
+    private Label studentName3Label;
+    @FXML
+    private Label studentName4Label;
+    @FXML
+    private Label studentName5Label;
+    @FXML
+    private Label rating1Label;
+    @FXML
+    private Label rating2Label;
+    @FXML
+    private Label rating3Label;
+    @FXML
+    private Label rating4Label;
+    @FXML
+    private Label rating5Label;
+
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticWindow(Stage root) {
+    public StatisticWindow(Stage root, Statistic stats) {
         super(FXML, root);
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Tutorial", 10),
-                        new PieChart.Data("Lab", 10),
-                        new PieChart.Data("Consultation", 10),
-                        new PieChart.Data("Grading", 10),
-                        new PieChart.Data("Preparation", 10),
-                        new PieChart.Data("Other", 10));
 
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        for (int i = 0; i < SessionType.NUM_SESSION_TYPES; ++i) {
+            if (stats.numHoursPerCategory[i] > 0) {
+                pieChartData.add(
+                        new PieChart.Data(SessionType.getSessionTypeById(i).toString(), stats.numHoursPerCategory[i]));
+            }
+        }
         hoursBreakdownPieChart.setData(pieChartData);
 
         BarChart.Series dataSeries1 = new BarChart.Series();
-        dataSeries1.getData().add(new BarChart.Data("1", 2));
-        dataSeries1.getData().add(new BarChart.Data("2"  , 3));
-        dataSeries1.getData().add(new BarChart.Data("3"  , 8));
-        dataSeries1.getData().add(new BarChart.Data("4"  , 5));
-        dataSeries1.getData().add(new BarChart.Data("5"  , 2));
+        for (int i = 0; i < 5; ++i) {
+            dataSeries1.getData().add(new BarChart.Data(Integer.toString(i), stats.studentRatingBinValues[i]));
+        }
         studentRatingBarChart.getData().add(dataSeries1);
+
+        // Set labels
+        moduleCodeLabel.setText(stats.targetModuleCode);
+        numHoursTutorialLabel.setText(stats.numHoursPerCategory[0] + " Hours");
+        numHoursLabLabel.setText(stats.numHoursPerCategory[1] + " Hours");
+        numHoursConsultationLabel.setText(stats.numHoursPerCategory[2] + " Hours");
+        numHoursGradingLabel.setText(stats.numHoursPerCategory[3] + " Hours");
+        numHoursPreparationLabel.setText(stats.numHoursPerCategory[4] + " Hours");
+        numHoursOtherLabel.setText(stats.numHoursPerCategory[5] + " Hours");
+        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalPay() + ")");
+
+        studentName1Label.setText(stats.worstStudents[0].getKey());
+        rating1Label.setText(Integer.toString(stats.worstStudents[0].getValue()));
+        studentName2Label.setText(stats.worstStudents[1].getKey());
+        rating2Label.setText(Integer.toString(stats.worstStudents[1].getValue()));
+        studentName3Label.setText(stats.worstStudents[2].getKey());
+        rating3Label.setText(Integer.toString(stats.worstStudents[2].getValue()));
+        studentName4Label.setText(stats.worstStudents[3].getKey());
+        rating4Label.setText(Integer.toString(stats.worstStudents[3].getValue()));
+        studentName5Label.setText(stats.worstStudents[4].getKey());
+        rating5Label.setText(Integer.toString(stats.worstStudents[4].getValue()));
     }
 
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticWindow() {
-        this(new Stage());
+    public StatisticWindow(Statistic stats) {
+        this(new Stage(), stats);
     }
 
     /**

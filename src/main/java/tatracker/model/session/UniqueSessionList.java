@@ -143,17 +143,29 @@ public class UniqueSessionList implements Iterable<Session> {
      * Returns all sessions of type {@code type}.
      * @param type The type of session to return.
      */
-    public List<Session> getSessionsOfType(SessionType type) {
-        return internalList.filtered(s -> s.getSessionType() == type);
+    public UniqueSessionList getSessionsOfType(SessionType type) {
+        UniqueSessionList filteredList = new UniqueSessionList();
+        filteredList.setSessions(internalList.filtered(s -> s.getSessionType() == type));
+        return filteredList;
+    }
+
+    /**
+     * Returns all sessions of module code {@code code}.
+     * @param code The module code of session to return.
+     */
+    public UniqueSessionList getSessionsOfModuleCode(String code) {
+        UniqueSessionList filteredList = new UniqueSessionList();
+        filteredList.setSessions(internalList.filtered(s -> s.getModuleCode() == code));
+        return filteredList;
     }
 
     /**
      * @return the total duration of all sessions in this session list.
      */
-    public Duration getTotalHours() {
+    public Duration getTotalDuration() {
         Duration totalDuration = Duration.ofHours(0);
         for (Session session : internalList) {
-            totalDuration.plus(session.getSessionDuration());
+            totalDuration = totalDuration.plus(session.getSessionDuration());
         }
 
         return totalDuration;

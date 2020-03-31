@@ -19,6 +19,7 @@ import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.statistic.Statistic;
 import tatracker.ui.claimstab.ClaimsListPanel;
 import tatracker.ui.claimstab.ModuleListPanelCopy;
 import tatracker.ui.sessiontab.SessionListPanel;
@@ -105,7 +106,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statisticWindow = new StatisticWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -118,6 +118,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -215,11 +216,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStatistic() {
-        if (!statisticWindow.isShowing()) {
-            statisticWindow.show();
-        } else {
-            statisticWindow.focus();
+        if (statisticWindow != null && statisticWindow.isShowing()) {
+            statisticWindow.hide();
         }
+
+        // Create a new statistic window
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), null));
+        statisticWindow.show();
+        statisticWindow.focus();
     }
 
     void show() {
@@ -235,8 +239,10 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        statisticWindow.hide();
         primaryStage.hide();
+
+        if (statisticWindow != null)
+            statisticWindow.hide();
     }
 
     public StudentListPanel getStudentListPanel() {

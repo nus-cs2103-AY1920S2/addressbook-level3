@@ -152,7 +152,7 @@ public class UniqueStudentList implements Iterable<Student> {
      *
      * @param rating The target rating of students to return
      */
-    public List<Student> getSessionsOfType(Rating rating) {
+    public List<Student> getStudentsOfRating(Rating rating) {
         return internalList.filtered(s -> s.rating.equals(rating));
     }
 
