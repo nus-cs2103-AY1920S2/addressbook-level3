@@ -17,7 +17,6 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
-import seedu.address.ui.PetDisplay;
 
 /** Represents the in-memory model of the address book data. */
 public class ModelManager implements Model {
