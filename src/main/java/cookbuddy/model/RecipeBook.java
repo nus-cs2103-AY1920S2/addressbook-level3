@@ -83,6 +83,15 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         recipe.favRecipe();
     }
 
+    /**
+     * Un-favourites a recipe from the recipe book.
+     * @param recipe the recipe to be un-favourited.
+     */
+    public void unFav(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.unFavRecipe();
+    }
+
 
     /**
      * Adds a recipe to the recipe book.

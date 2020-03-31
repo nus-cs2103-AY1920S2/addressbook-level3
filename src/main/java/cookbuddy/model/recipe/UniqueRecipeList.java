@@ -55,9 +55,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.add(toAdd);
     }
 
-    public void favRecipe(Recipe recipe) {
-        recipe.favRecipe();
-    }
 
     /**
      * Replaces the recipe {@code target} in the list with {@code editedRecipe}.

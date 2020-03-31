@@ -109,6 +109,10 @@ public class Recipe {
         favStatus.fav();
     }
 
+    public void unFavRecipe() {
+        favStatus.unFav();
+    }
+
     /**
      * Returns true if both recipes have the same identity and data fields. This
      * defines a stronger notion of equality between two recipes.
