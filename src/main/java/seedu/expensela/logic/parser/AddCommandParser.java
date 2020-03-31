@@ -8,6 +8,7 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.expensela.logic.commands.AddCommand;
@@ -41,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             isNotIncome = false;
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -49,9 +50,28 @@ public class AddCommandParser implements Parser<AddCommand> {
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
-            Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
-            Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+
+            Date date;
+            if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+                //Set date to today's date
+                date = ParserUtil.parseDate(LocalDate.now().toString());
+            } else {
+                date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            }
+
+            Remark remark;
+            if (arePrefixesPresent(argMultimap, PREFIX_REMARK)) {
+                remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+            } else {
+                remark = ParserUtil.parseRemark(" ");
+            }
+
+            Category category;
+            if (arePrefixesPresent(argMultimap, PREFIX_CATEGORY)) {
+                category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+            } else {
+                category = ParserUtil.parseCategory("MISC");
+            }
 
             Transaction transaction = new Transaction(name, amount, date, remark, category);
 

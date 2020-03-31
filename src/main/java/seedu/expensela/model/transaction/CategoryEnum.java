@@ -13,5 +13,5 @@ public enum CategoryEnum {
     RECREATION,
     MISC,
     UTILITIES,
-    RENT
+    INCOME
 }

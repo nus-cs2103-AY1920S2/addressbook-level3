@@ -18,7 +18,7 @@
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="75" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets top="15" right="5" bottom="5" left="15" />
       </padding>
       <HBox alignment="CENTER">
         <VBox maxWidth="300" minWidth="300">
@@ -32,21 +32,21 @@
             <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
           </HBox>
             <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-            <Label fx:id="category" styleClass="cell_small_label" text="\$category" />
+          <FlowPane fx:id="category"/>
         </VBox>
 
         <Separator orientation="VERTICAL" valignment="CENTER" prefHeight="70"
                    GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
 
-        <VBox maxWidth="300" minWidth="300" alignment="CENTER">
+        <VBox maxWidth="250" minWidth="250" alignment="CENTER">
           <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
         </VBox>
 
         <Separator orientation="VERTICAL" valignment="CENTER" prefHeight="70"
-                   GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
+                   GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2" />
         <Pane HBox.hgrow="ALWAYS"></Pane>
-        <HBox spacing="5" alignment="CENTER">
-          <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
+        <HBox spacing="5" alignment="CENTER_LEFT">
+          <Label fx:id="amount" styleClass="cell_amount_label" text="\$amount" />
         </HBox>
       </HBox>
     </VBox>

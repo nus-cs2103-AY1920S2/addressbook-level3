@@ -2,12 +2,15 @@ package seedu.expensela.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.expensela.model.transaction.Transaction;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+
+import static thrift.ui.CategoryLabelMaker.getColouredCategoryLabel;
 
 /**
  * An UI component that displays information of a {@code Transaction}.
@@ -39,7 +42,7 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label remark;
     @FXML
-    private Label category;
+    private FlowPane category;
 
     public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
@@ -49,7 +52,7 @@ public class TransactionCard extends UiPart<Region> {
         amount.setText(transaction.getAmount().toString());
         date.setText(transaction.getDate().transactionDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)).toString());
         remark.setText(transaction.getRemark().transactionRemark);
-        category.setText(transaction.getCategory().transactionCategory);
+        category.getChildren().add(getColouredCategoryLabel(transaction.getCategory().transactionCategory));
     }
 
     @Override
