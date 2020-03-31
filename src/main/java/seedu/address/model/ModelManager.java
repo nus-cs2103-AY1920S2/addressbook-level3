@@ -7,18 +7,22 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelGeneric.AddressBookGeneric;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
@@ -207,6 +211,25 @@ public class ModelManager implements Model {
     userPrefs.setAssignmentAddressBookFilePath(assignmentAddressBookFilePath);
   }
 
+  /**
+   * Returns the user prefs' assignment address book file path.
+   */
+  @Override
+  public Path getProgressAddressBookFilePath() {
+    return userPrefs.getProgressAddressBookFilePath();
+  }
+
+  /**
+   * Sets the user prefs' address book file path.
+   *
+   * @param progressAddressBookFilePath
+   */
+  @Override
+  public void setProgressAddressBookFilePath(Path progressAddressBookFilePath) {
+    requireNonNull(progressAddressBookFilePath);
+    userPrefs.setProgressAddressBookFilePath(progressAddressBookFilePath);
+  }
+
   @Override
   public ReadOnlyAddressBook getAddressBook() {
     return addressBook;
@@ -285,8 +308,39 @@ public class ModelManager implements Model {
     requireAllNonNull(target, editedTarget);
     getAddressBook(target).set(target, editedTarget);
   }
-  // =====================================================================================================
 
+  // =========================== CRUD METHODS DONE VIA ID =====================================================
+
+  @Override
+  public boolean hasStudent(ID studentID) {
+    return studentAddressBook.has(studentID);
+  }
+
+  @Override
+  public Student getStudent(ID studentID) {
+    return studentAddressBook.get(studentID);
+  }
+
+  @Override
+  public boolean hasCourse(ID courseID) {
+    return courseAddressBook.has(courseID);
+  }
+
+  @Override
+  public Course getCourse(ID courseID) {
+    return courseAddressBook.get(courseID);
+  }
+
+  @Override
+  public boolean hasAssignment(ID assignmentID) {
+    return false;
+  }
+
+  @Override
+  public Assignment getAssignment(ID assignmentID) {
+    return null;
+  }
+  // =====================================================================================================
 
 
   ///
@@ -344,6 +398,11 @@ public class ModelManager implements Model {
   }
 
   @Override
+  public void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
+    this.assignmentAddressBook.resetData(assignmentAddressBook);
+  }
+
+  @Override
   public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
     this.progressAddressBook.resetData(progressAddressBook);
   }
@@ -353,10 +412,6 @@ public class ModelManager implements Model {
     return progressAddressBook;
   }
 
-  @Override
-  public void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
-    this.assignmentAddressBook.resetData(assignmentAddressBook);
-  }
 
   //=========== Filtered List Accessors =============================================================
 
@@ -421,6 +476,21 @@ public class ModelManager implements Model {
   }
 
   /**
+   * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
+   * {@code versionedCourseAddressBook}
+   */
+  @Override
+  public ObservableList<Course> getFilteredCourseList() {
+    return filteredCourses;
+  }
+
+  @Override
+  public void updateFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+  }
+
+  /**
    * Returns an unmodifiable view of the list of {@code Assignment} backed by the internal list of
    * {@code versionedAssignmentAddressBook}
    */
@@ -433,44 +503,6 @@ public class ModelManager implements Model {
   public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
     requireNonNull(predicate);
     filteredAssignments.setPredicate(predicate);
-  }
-
-  // =================== For Progress objects ==============
-
-  /**
-   * Returns the user prefs' assignment address book file path.
-   */
-  @Override
-  public Path getProgressAddressBookFilePath() {
-    return userPrefs.getProgressAddressBookFilePath();
-  }
-
-  /**
-   * Sets the user prefs' address book file path.
-   *
-   * @param progressAddressBookFilePath
-   */
-  @Override
-  public void setProgressAddressBookFilePath(Path progressAddressBookFilePath) {
-    requireNonNull(progressAddressBookFilePath);
-    userPrefs.setProgressAddressBookFilePath(progressAddressBookFilePath);
-  }
-
-  /**
-   * Returns the progressAddressBook
-   */
-  @Override
-  public ReadOnlyAddressBookGeneric<Progress> getProgressAddressBook() {
-    return progressAddressBook;
-  }
-
-  /**
-   * Replaces progress address book data with the data in {@code teacerAddressBook}.
-   */
-  @Override
-  public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
-    requireNonNull(progressAddressBook);
-    this.progressAddressBook.resetData(progressAddressBook);
   }
 
   /**
@@ -501,23 +533,6 @@ public class ModelManager implements Model {
     // if student not already assigned to the course
     // if course doesn't already have the student
   }
-
-
-  /**
-   * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
-   * {@code versionedCourseAddressBook}
-   */
-  @Override
-  public ObservableList<Course> getFilteredCourseList() {
-    return filteredCourses;
-  }
-
-  @Override
-  public void updateFilteredCourseList(Predicate<Course> predicate) {
-    requireNonNull(predicate);
-    filteredCourses.setPredicate(predicate);
-  }
-
 
   @Override
   public boolean equals(Object obj) {

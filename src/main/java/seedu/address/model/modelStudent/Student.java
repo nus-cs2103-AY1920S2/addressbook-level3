@@ -83,7 +83,7 @@ public class Student extends ModelObject {
     int count = 1;
     for (ID courseid : assignedCoursesID) {
       for (Course course : filteredCourses) {
-        if (courseid.toString().equals(course.getID().toString())) {
+        if (courseid.toString().equals(course.getId().toString())) {
           String comma = ", ";
           if (count == assignedCoursesID.size()) {
             comma = "";

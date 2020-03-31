@@ -4,10 +4,13 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.ID;
@@ -68,9 +71,17 @@ public interface Model {
 
   void set(ModelObject target, ModelObject editedTarget) throws CommandException;
 
+  boolean hasStudent(ID studentID);
+
+  Student getStudent(ID studentID);
+
   boolean hasCourse(ID courseID);
 
   Course getCourse(ID courseID);
+
+  boolean hasAssignment(ID assignmentID);
+
+  Assignment getAssignment(ID assignmentID);
 
 
     /**
@@ -111,29 +122,6 @@ public interface Model {
    * Replaces teacher address book data with the data in {@code teacerAddressBook}.
    */
   void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook);
-
-  /**
-   * Returns true if a teacher with the same identity as {@code teacher} exists in the address
-   * book.
-   */
-  boolean hasTeacher(Teacher teacher);
-
-  /**
-   * Deletes the given teacher. The teacher must exist in the address book.
-   */
-  void deleteTeacher(Teacher target);
-
-  /**
-   * Adds the given teacher. {@code teacher} must not already exist in the address book.
-   */
-  void addTeacher(Teacher teacher);
-
-  /**
-   * Replaces the given teacher {@code target} with {@code editedTeacher}. {@code target} must exist
-   * in the address book. The teacher identity of {@code editedTeacher} must not be the same as
-   * another existing teacher in the address book.
-   */
-  void setTeacher(Teacher target, Teacher editedTeacher);
 
   /**
    * Returns an unmodifiable view of the filtered teacher list

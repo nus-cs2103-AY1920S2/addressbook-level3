@@ -48,8 +48,8 @@ public class CourseCard extends UiPart<Region> {
     super(FXML);
     this.course = course;
     name.setText(course.getName().fullName);
-    teacherID.setText(course.getID().value);
-    courseID.setText(course.getID().value);
+    teacherID.setText(course.getId().value);
+    courseID.setText(course.getId().value);
     amount.setText(course.getAmount().value);
     assignedTeacher.setText(course.getAssignedTeacherWithName());
     assignedStudents.setText(course.getAssignedStudentsWithNames());
