@@ -5,12 +5,8 @@ import java.util.function.Predicate;
 import seedu.recipe.model.Date;
 
 /**
-<<<<<<< HEAD
- * Tests that a {@code PlannedRecipe}'s {@code PlannedDate} falls within the specified PlannedDate range.
+ * Tests that a {@code PlannedRecipe}'s {@code PlannedDate} falls within the specified Date range.
  * The start and end dates are non-inclusive.
-=======
- * Tests that a {@code PlannedRecipe}'s {@code Date} falls within the specified Date range.
->>>>>>> master
  */
 public class PlannedRecipeWithinDateRangePredicate implements Predicate<PlannedRecipe> {
 

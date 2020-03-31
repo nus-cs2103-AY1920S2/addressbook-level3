@@ -65,10 +65,6 @@ public class Date implements Comparable<seedu.recipe.model.Date> {
         return new seedu.recipe.model.Date(date.with(lastDayOfMonth()));
     }
 
-    public int getDateOfMonth() {
-        return date.getDayOfMonth();
-    }
-
     /**
      * Checks whether the current date falls within the range of {@code start} Date and {@code end} Date.
      * The start and end dates are non-inclusive.
