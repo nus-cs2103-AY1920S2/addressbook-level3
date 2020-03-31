@@ -1,5 +1,6 @@
 package com.notably.logic.commands.suggestion;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,7 +38,6 @@ public class DeleteSuggestionCommandTest {
     private static Model model;
 
     private static final String COMMAND_WORD = "delete";
-    private static final String PREFIX_TITLE = "-t";
 
     @BeforeAll
     public static void setUp() throws InvalidPathException {
@@ -77,18 +77,27 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(null));
+        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(null, "title"));
+    }
+
+    @Test
+    public void constructor_nullTitle_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(toCs2103, null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toRoot);
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toRoot,
+            toRoot.getStringRepresentation());
         assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 
     @Test
-    public void execute_generateResponseCorrectly() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103);
+    public void execute_validPathWithPrefix_generateResponseCorrectly() {
+        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
+
+        DeleteSuggestionCommand deleteSuggestionCommand =
+            new DeleteSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         assertEquals(Optional.of("Delete a note"), model.responseTextProperty().getValue());
@@ -119,6 +128,52 @@ public class DeleteSuggestionCommandTest {
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
+    @Test
+    public void execute_validPathWithoutPrefix_generateResponseCorrectly() {
+        model.setInput(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
+
+        DeleteSuggestionCommand deleteSuggestionCommand =
+                new DeleteSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
+        deleteSuggestionCommand.execute(model);
+
+        assertEquals(Optional.of("Delete a note"), model.responseTextProperty().getValue());
+
+        // Expected result
+        SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+        SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
+        SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+        expectedSuggestions.add(cs2103);
+        expectedSuggestions.add(cs2103Week1Lecture);
+        expectedSuggestions.add(cs2103Week2);
+        expectedSuggestions.add(cs2103Week3);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week2.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week3.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
