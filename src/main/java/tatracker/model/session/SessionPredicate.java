@@ -17,6 +17,14 @@ public class SessionPredicate implements Predicate<Session> {
         this.keywords = keywords;
     }
 
+    public String getKeywords() {
+        String s = "";
+        for (int i = 0; i < keywords.size(); i++) {
+            s += keywords.get(i) + " ";
+        }
+        return s;
+    }
+
     @Override
     public boolean test(Session session) {
 

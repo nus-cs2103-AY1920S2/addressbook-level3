@@ -7,13 +7,14 @@ import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
-import tatracker.logic.commands.session.AddSessionCommand;
 import tatracker.logic.commands.session.FilterSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.SessionPredicate;
 
@@ -33,9 +34,13 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, DATE,
                 MODULE, SESSION_TYPE);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if ((!arePrefixesPresent(argMultimap, DATE)
+                && !arePrefixesPresent(argMultimap, MODULE)
+                && !arePrefixesPresent(argMultimap, SESSION_TYPE))
+                || !argMultimap.getPreamble().isEmpty()) {
+
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddSessionCommand.DETAILS.getUsage()));
+                            FilterSessionCommand.DETAILS.getUsage()));
         }
 
         List<String> argsList = new ArrayList<>();
@@ -54,6 +59,14 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         return new FilterSessionCommand(new SessionPredicate(argsList));
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 
