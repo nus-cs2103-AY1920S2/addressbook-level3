@@ -49,7 +49,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
      * @param model The app's model.
      * @return List of SuggestionItem with a display text of the block's path and action of opening the block.
      */
-    private List<SuggestionItem> traverseTree(Model model) throws RuntimeException {
+    private List<SuggestionItem> traverseTree(Model model) {
         Queue<AbsolutePath> pathQueue = new LinkedList<>();
         pathQueue.offer(AbsolutePath.fromString("/"));
 
@@ -83,7 +83,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
                                     OpenCommand openCommand = new OpenCommand(absolutePath);
                                     openCommand.execute(model);
                                 } catch (CommandException ex) {
-                                    throw new RuntimeException(ex.getMessage());
+                                    throw new AssertionError(ex.getMessage());
                                 }
                             };
                             SuggestionItem suggestionItem = new SuggestionItemImpl(displayText, frequency, action);
