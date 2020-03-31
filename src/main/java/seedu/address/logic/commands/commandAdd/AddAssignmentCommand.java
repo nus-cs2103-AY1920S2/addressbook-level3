@@ -40,8 +40,12 @@ public class AddAssignmentCommand extends AddCommand {
     toAdd = asgmt;
   }
 
+  protected void generateOppositeCommand() {
+
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
     if (model.hasAssignment(toAdd)) {

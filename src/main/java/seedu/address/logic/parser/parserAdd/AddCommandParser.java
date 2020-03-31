@@ -30,5 +30,4 @@ import seedu.address.model.tag.Tag;
  */
 public abstract class AddCommandParser implements Parser<AddCommand> {
   public abstract AddCommand parse(String args) throws ParseException;
-
 }

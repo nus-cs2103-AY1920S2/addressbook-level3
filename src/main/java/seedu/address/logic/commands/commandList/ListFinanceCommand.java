@@ -10,9 +10,9 @@ import seedu.address.model.Model;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListFinanceCommand extends Command {
+public class ListFinanceCommand extends ListCommand {
 
-  public static final String COMMAND_WORD = "list-finance";
+  public static final String COMMAND_WORD = "list-finances";
 
   public static final String MESSAGE_SUCCESS = "Listed all finances";
 

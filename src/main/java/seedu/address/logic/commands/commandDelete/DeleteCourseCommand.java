@@ -10,11 +10,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.ID;
 
 /**
- * Deletes a course identified using it's displayed index from the address book.
+ * Deletes a course identified using it's displayed index.
  */
-public class DeleteCourseCommand extends Command {
+public class DeleteCourseCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-course";
 
@@ -25,16 +26,35 @@ public class DeleteCourseCommand extends Command {
 
   public static final String MESSAGE_DELETE_COURSE_SUCCESS = "Deleted Assignment: %1$s";
 
-  private final Index targetIndex;
+  private Index targetIndex;
+
+  private Course toDelete;
 
   public DeleteCourseCommand(Index targetIndex) {
     this.targetIndex = targetIndex;
+  }
+
+  public DeleteCourseCommand(Course toDelete) {
+    this.toDelete = toDelete;
+  }
+
+  public Index getIndex(List<Course> lastShownList) throws CommandException {
+    for (int i = 0; i < lastShownList.size(); i++) {
+      if (lastShownList.get(i).equals(this.toDelete)) {
+        return Index.fromZeroBased(i);
+      }
+    }
+    throw new CommandException("This id not in list");
   }
 
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
     List<Course> lastShownList = model.getFilteredCourseList();
+
+    if (this.targetIndex == null) {
+      this.targetIndex = getIndex(lastShownList);
+    }
 
     if (targetIndex.getZeroBased() >= lastShownList.size()) {
       throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
