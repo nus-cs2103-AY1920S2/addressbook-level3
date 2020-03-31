@@ -116,10 +116,10 @@ public class MainApp extends Application {
             initialRecords = recordBookOptional.orElseGet(SampleDataUtil::getSampleRecordBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty recordbook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Recordbook");
             initialRecords = new CookedRecordBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty recordbook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Recordbook");
             initialRecords = new CookedRecordBook();
         }
 
