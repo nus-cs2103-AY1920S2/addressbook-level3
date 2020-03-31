@@ -83,6 +83,9 @@ public class SearchSuggestionCommand implements SuggestionCommand {
                                     OpenCommand openCommand = new OpenCommand(absolutePath);
                                     openCommand.execute(model);
                                 } catch (CommandException ex) {
+                                    /* notes suggested will definitely be able to be opened,
+                                       as the block actually exists.
+                                       AssertError would never be thrown  */
                                     throw new AssertionError(ex.getMessage());
                                 }
                             };
