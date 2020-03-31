@@ -4,6 +4,7 @@ import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +23,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
+        expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
     }
 
     @Test

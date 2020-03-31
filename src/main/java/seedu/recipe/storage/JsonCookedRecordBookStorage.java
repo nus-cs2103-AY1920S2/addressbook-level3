@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -77,5 +76,4 @@ public class JsonCookedRecordBookStorage implements CookedRecordBookStorage {
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableCookedRecordBook(cookedRecordBook), filePath);
     }
-
 }

@@ -1,6 +1,5 @@
 package seedu.recipe.logic.commands;
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -13,6 +12,9 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.recipe.Recipe;
 
+/**
+ * Adds cooked recipes identified by index into cookedRecordsBook.
+ */
 public class CookedCommand extends Command {
     public static final String COMMAND_WORD = "cooked";
 

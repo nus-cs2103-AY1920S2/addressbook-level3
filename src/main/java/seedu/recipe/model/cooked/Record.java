@@ -2,11 +2,14 @@ package seedu.recipe.model.cooked;
 
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Date;
 import java.util.Objects;
 
 import seedu.recipe.model.recipe.Name;
 
+/**
+ * Represents a Record in the cooked records book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Record {
 
     // Identity fields

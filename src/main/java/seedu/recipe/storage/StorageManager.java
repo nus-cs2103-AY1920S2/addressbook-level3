@@ -91,7 +91,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return cookedRecordStorage.readCookedRecordBook(filePath);
     }

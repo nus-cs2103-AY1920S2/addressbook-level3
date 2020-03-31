@@ -1,15 +1,11 @@
 package seedu.recipe.storage;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.recipe.Name;
-import seedu.recipe.model.recipe.Recipe;
-
 
 /**
  * Jackson-friendly version of {@link Record}.

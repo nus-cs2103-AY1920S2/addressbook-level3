@@ -3,7 +3,6 @@ package seedu.recipe.model.cooked;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,11 +12,23 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
 
+/**
+ * A list of records that enforces uniqueness between its elements and does not allow nulls.
+ * A record is considered unique by comparing using {@code Record#isSameRecord(Record)}. As such, adding and updating of
+ * records uses Record#isSameRecord(Record) for equality so as to ensure that the recipe being added or updated is
+ * unique in terms of identity in the UniqueRecipeList. However, the removal of a record uses Record#equals(Object) so
+ * as to ensure that the record with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Recipe#isSameRecipe(Recipe)
+ */
 public class UniqueRecordList implements Iterable<Record> {
 
     private final ObservableList<Record> internalList = FXCollections.observableArrayList();
     private final ObservableList<Record> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
 
     public void setRecords(UniqueRecordList replacement) {
         requireNonNull(replacement);
@@ -51,6 +62,9 @@ public class UniqueRecordList implements Iterable<Record> {
         return true;
     }
 
+    /**
+     * Returns true if the list contains an equivalent record as the given argument.
+     */
     public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameRecord);
@@ -68,6 +82,11 @@ public class UniqueRecordList implements Iterable<Record> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Replaces the record {@code target} in the list with {@code editedRecord}.
+     * {@code target} must exist in the list.
+     * The recipe identity of {@code editedRecord} must not be the same as another existing record in the list.
+     */
     public void setRecord(Record target, Record editedRecord) {
         requireAllNonNull(target, editedRecord);
 
@@ -84,6 +103,10 @@ public class UniqueRecordList implements Iterable<Record> {
         internalList.set(index, editedRecord);
     }
 
+    /**
+     * Removes the equivalent record from the list.
+     * The record must exist in the list.
+     */
     public void remove(Record toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {

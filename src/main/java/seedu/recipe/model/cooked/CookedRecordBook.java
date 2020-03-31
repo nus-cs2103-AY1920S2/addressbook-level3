@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
-import seedu.recipe.model.recipe.Recipe;
 
 /**
  * Wraps all data at the address-book level

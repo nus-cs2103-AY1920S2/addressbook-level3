@@ -13,5 +13,4 @@ public interface ReadOnlyCookedRecordBook {
      * This list contains history of cooked meals
      */
     ObservableList<Record> getRecordsList();
-
 }

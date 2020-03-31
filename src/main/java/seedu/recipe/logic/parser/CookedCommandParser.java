@@ -6,6 +6,9 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.CookedCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new CookedCommand object
+ */
 public class CookedCommandParser implements Parser<CookedCommand> {
 
     /**
