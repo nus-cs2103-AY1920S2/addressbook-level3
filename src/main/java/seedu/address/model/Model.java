@@ -4,9 +4,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
@@ -59,12 +61,20 @@ public interface Model {
    */
   void setAddressBookFilePath(Path addressBookFilePath);
 
-  /**
-   * Returns the AddressBook
-   */
-  ReadOnlyAddressBook getAddressBook();
+  boolean has(ModelObject obj) throws CommandException;
+
+  void delete(ModelObject obj) throws CommandException;
+
+  void add(ModelObject obj) throws CommandException;
+
+  void set(ModelObject target, ModelObject editedTarget) throws CommandException;
 
   /**
+     * Returns the AddressBook
+  */
+  ReadOnlyAddressBook getAddressBook();
+
+    /**
    * Replaces address book data with the data in {@code addressBook}.
    */
   void setAddressBook(ReadOnlyAddressBook addressBook);

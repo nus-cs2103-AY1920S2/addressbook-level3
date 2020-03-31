@@ -7,18 +7,23 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelGeneric.AddressBookGeneric;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
@@ -203,41 +208,85 @@ public class ModelManager implements Model {
 
   //=========== AddressBook ================================================================================
   ///
+
+
+  // ================================== FACTORY HELPERS =================================================
+  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
+    if (obj instanceof Teacher) {
+      return Arrays.asList(
+              this.teacherAddressBook,
+              PREDICATE_SHOW_ALL_TEACHERS,
+              filteredTeachers);
+    } else if (obj instanceof Student) {
+      return Arrays.asList(
+              this.studentAddressBook,
+              PREDICATE_SHOW_ALL_STUDENTS,
+              filteredStudents);
+    } else if (obj instanceof Finance) {
+      return Arrays.asList(
+              this.financeAddressBook,
+              PREDICATE_SHOW_ALL_FINANCES,
+              filteredFinances);
+    } else if (obj instanceof Course) {
+      return Arrays.asList(
+              this.courseAddressBook,
+              PREDICATE_SHOW_ALL_COURSES,
+              filteredCourses);
+    } else if (obj instanceof Assignment) {
+      return Arrays.asList(
+              this.assignmentAddressBook,
+              PREDICATE_SHOW_ALL_ASSIGNMENTS,
+              filteredAssignments);
+    }
+    throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
+  }
+
+  private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
+    return (AddressBookGeneric)getEntityFactory(obj).get(0);
+  }
+
+  private Predicate getPredicateAll(ModelObject obj) throws CommandException {
+    return (Predicate)getEntityFactory(obj).get(1);
+  }
+
+  private FilteredList getFilterList(ModelObject obj) throws CommandException {
+    return (FilteredList)getEntityFactory(obj).get(2);
+  }
+  // ======================================================================================================
+
+
+  // =================================== CRUD METHODS =====================================================
   @Override
-  public void setAddressBook(ReadOnlyAddressBook addressBook) {
-    this.addressBook.resetData(addressBook);
+  public boolean has(ModelObject obj) throws CommandException {
+    requireNonNull(obj);
+    return getAddressBook(obj).has(obj);
   }
 
   @Override
-  public boolean hasPerson(Person person) {
-    requireNonNull(person);
-    return addressBook.hasPerson(person);
+  public void delete(ModelObject obj) throws CommandException {
+    getAddressBook(obj).remove(obj);
+    getFilterList(obj).setPredicate(getPredicateAll(obj));
   }
 
   @Override
-  public void deletePerson(Person target) {
-    addressBook.removePerson(target);
+  public void add(ModelObject obj) throws CommandException {
+    getAddressBook(obj).add(obj);
+    getFilterList(obj).setPredicate(getPredicateAll(obj));
   }
 
   @Override
-  public void addPerson(Person person) {
-    addressBook.addPerson(person);
-    updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+  public void set(ModelObject target, ModelObject editedTarget) throws CommandException {
+    requireAllNonNull(target, editedTarget);
+    getAddressBook(target).set(target, editedTarget);
   }
+  // =====================================================================================================
 
-  @Override
-  public void setPerson(Person target, Person editedPerson) {
-    requireAllNonNull(target, editedPerson);
 
-    addressBook.setPerson(target, editedPerson);
-  }
 
-  ///
   @Override
   public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
     return teacherAddressBook;
   }
-
 
   @Override
   public void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) {
