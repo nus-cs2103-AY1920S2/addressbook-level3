@@ -79,18 +79,4 @@ public enum CommandEntry {
     public String getExample() {
         return details.getExample();
     }
-
-    // @Override
-    // public String toString() {
-    //
-    //     final StringBuilder sb = new StringBuilder()
-    //             .append(commandWord).append("\n")
-    //             .append(info).append("\n")
-    //             .append(parameters).append("\n")
-    //             .append(optionals).append("\n")
-    //             .append(usage).append("\n")
-    //             .append(example).append("\n");
-    //
-    //     return sb.toString();
-    // }
 }
