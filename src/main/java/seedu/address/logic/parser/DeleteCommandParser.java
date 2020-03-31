@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
@@ -38,12 +39,21 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
     }
 
-    private String removeFlagString(Flag flag, String value) throws ParseException {
+    /**
+     * Remove given {@code flag} string representation from given string {@code str}.
+     */
+    private String removeFlagString(Flag flag, String str) throws ParseException {
+        requireNonNull(flag);
+        requireNonNull(str);
         String flagRegex = getFlagRegex(flag);
-        return value.replaceAll(flagRegex, "");
+        return str.replaceAll(flagRegex, "");
     }
 
+    /**
+     * Convert given {@code args} into its corresponding Flag object.
+     */
     private Flag getFlag(String args) throws ParseException {
+        requireNonNull(args);
         String orderListRegex = getFlagRegex(FLAG_ORDER_BOOK);
         String returnListRegex = getFlagRegex(FLAG_RETURN_BOOK);
 
@@ -58,7 +68,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Obtain the string regex for a given {@code flag}.
+     */
     private String getFlagRegex(Flag flag) throws ParseException {
+        requireNonNull(flag);
         String regex = "\\s*%s\\s+";
         if (flag.equals(FLAG_ORDER_BOOK)) {
             return String.format(regex, FLAG_ORDER_BOOK);
@@ -71,7 +85,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Check if the given {@code regex} is present (partial match) in the given {@code searchTerm}.
+     */
     private boolean hasRegex(String regex, String searchTerm) {
+        requireNonNull(regex);
+        requireNonNull(searchTerm);
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(searchTerm);
         return m.find();
