@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 public class PetDisplay extends UiPart<Region> {
 
     private static final String FXML = "PetDisplay.fxml";
-    private Path DEFAULT_ACCESSORY_PLACEHOLDER = Paths.get("images", "pet", "medal.png");
     private Path DEFAULT_PET_FILEPATH = Paths.get("images", "pet", "level1.png");
     private Path DEFAULT_EXPBAR_FILEPATH = Paths.get("images", "pet", "ProgressBar0%.png");
     private String DEFAULT_EXPBAR_TEXT = "0";
@@ -21,7 +20,6 @@ public class PetDisplay extends UiPart<Region> {
     private String DEFEAULT_PET_NAME = "BB";
 
     private Path petFilepath; // mutable
-    private Path accessoryFilepath; // mutable
     private Path expBarFilepath; // mutable
     private String expBarText; // mutable
     private String levelText; // mutable
@@ -32,13 +30,11 @@ public class PetDisplay extends UiPart<Region> {
     @FXML private ImageView petPic;
     @FXML private Label expBarView;
     @FXML private ImageView expBarPic;
-    @FXML private ImageView accessoryPic;
     @FXML private Label levelView;
 
     public PetDisplay() {
         super(FXML);
         this.petName = DEFEAULT_PET_NAME;
-        this.accessoryFilepath = DEFAULT_ACCESSORY_PLACEHOLDER;
         this.petFilepath = DEFAULT_PET_FILEPATH;
         this.expBarFilepath = DEFAULT_EXPBAR_FILEPATH;
         this.expBarText = DEFAULT_EXPBAR_TEXT;

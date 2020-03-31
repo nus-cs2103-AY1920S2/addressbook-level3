@@ -11,6 +11,10 @@ import seedu.address.model.ReadOnlyPomodoro;
 public class SettingsDisplay extends UiPart<Region> {
     private static final String FXML = "SettingsDisplay.fxml";
 
+    private static final String DEFAULT_PET_NAME = "BB";
+    private static final String DEFAULT_POMODORO_DURATION = "25";
+    private static final String DEFAULT_DAILY_CHALLENGE = "100";
+
     private ReadOnlyPomodoro pomodoro;
     private PetManager petManager;
 
@@ -32,5 +36,8 @@ public class SettingsDisplay extends UiPart<Region> {
 
         String duration = pomodoro.getDefaultTime();
         pomodoroTextField.setText(duration);
+
+        String dailyChallenge = DEFAULT_DAILY_CHALLENGE;
+        challengeTextField.setText(dailyChallenge);
     }
 }
