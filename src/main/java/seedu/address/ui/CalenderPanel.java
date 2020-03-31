@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -23,6 +24,8 @@ import seedu.address.commons.core.LogsCenter;
  * CalenderPanel that holds the month
  */
 public class CalenderPanel extends UiPart<Region> {
+    private static int year = 2020;
+    private static int currentMonth = Calendar.MONTH + 1;
     private static ArrayList<CalenderDate> calenderDatesArrayList = new ArrayList<>();
     private static final String FXML = "Calender.fxml";
     private final Logger logger = LogsCenter.getLogger(CalenderPanel.class);
@@ -31,6 +34,8 @@ public class CalenderPanel extends UiPart<Region> {
     private HashMap<String, Integer> datesArray = new HashMap<>();
     private String todayMonth;
     private String todayYear;
+
+
 
     @FXML
     private Text month;
@@ -72,10 +77,9 @@ public class CalenderPanel extends UiPart<Region> {
     }
 
     public void setDates() {
-        int firstDayInt;
         try {
             String firstDay = getCalenderDates();
-            firstDayInt = datesArray.get(firstDay);
+            int firstDayInt = datesArray.get(firstDay);
             System.out.println(firstDayInt);
             for (int i = 1; i < 32; i++) {
                 calenderDatesArrayList.add(new CalenderDate(Integer.toString(i), "Mon"));
@@ -112,6 +116,18 @@ public class CalenderPanel extends UiPart<Region> {
         return finalDay;
     }
 
+    public static ArrayList<CalenderDate> getCalenderDatesArrayList() {
+        return calenderDatesArrayList;
+    }
+
+    public static int getYear() {
+        return year;
+    }
+
+    public static int getCurrentMonth() {
+        return currentMonth;
+    }
+
     private void setDatesArray() {
         datesArray.put("Monday", 0);
         datesArray.put("Tuesday", 1);
@@ -121,6 +137,5 @@ public class CalenderPanel extends UiPart<Region> {
         datesArray.put("Saturday", 5);
         datesArray.put("Sunday", 6);
     }
-
 
 }

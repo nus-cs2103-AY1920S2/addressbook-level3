@@ -17,6 +17,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.todolist.Deadline;
+import seedu.address.todolist.Task;
+import seedu.address.todolist.ToDo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -156,4 +159,49 @@ public class ParserUtil {
         }
         return Grade.getGrade(trimmedGrade);
     }
+
+    /**
+     * Parses a {@code String description, @code String date} into an {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Task parseDeadline(String description, String date, String category) throws ParseException {
+        requireNonNull(description, date);
+        String trimmedDescription = description.trim();
+        String trimmedDate = date.trim();
+        String trimmedCategory = category.trim();
+        if (!Deadline.isValidDate(trimmedDate)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDescription, trimmedDate, trimmedCategory, "add");
+    }
+
+    /**
+     * Parses a {@code String description, @code String date} into an {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Task parseRemoveDeadline(String index) throws ParseException {
+        requireNonNull(index);
+        int indexInt = Integer.parseInt(index.trim());
+        return new Deadline(indexInt, "delete");
+    }
+
+    /**
+     * Parses a {@code String Description} into an {@code Todo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static Task parseTodo(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return new ToDo(trimmedDescription);
+    }
+
+
+
+
 }

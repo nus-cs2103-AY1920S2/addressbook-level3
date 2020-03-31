@@ -18,6 +18,7 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.todolist.Task;
 
 /**
  * The main LogicManager of the app.
@@ -92,4 +93,10 @@ public class LogicManager implements Logic {
     public ObservableList<Notes> getFilesInFolderList() {
         return model.getFilesInFolderList();
     }
+
+    @Override
+    public ObservableList<Task> getDeadlineTaskList() {
+        return model.getDeadlineTaskList();
+    }
+
 }

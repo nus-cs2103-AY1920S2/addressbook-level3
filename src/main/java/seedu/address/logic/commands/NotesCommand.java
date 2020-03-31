@@ -139,9 +139,9 @@ public class NotesCommand extends Command {
             }
             Notes note = new Notes(filename);
             filesArrayList.add(note);
-            System.out.println(filename);
         }
         Notes.setList(filesArrayList);
+        Notes.setCurrentDirectory("Current Directory: " + pathName);
         return new CommandResult(MESSAGE_LISTED_DIR + pathName);
     }
 
@@ -165,7 +165,6 @@ public class NotesCommand extends Command {
             }
             Notes note = new Notes(filename);
             filesArrayList.add(note);
-            System.out.println(filename);
         }
         return filesArrayList;
 

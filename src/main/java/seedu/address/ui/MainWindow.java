@@ -4,12 +4,16 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -39,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private NotesListPanel notesListPanel;
     private DiaryListPanel diaryListPanel;
     private CalenderPanel calenderPanel;
+    private CalenderListPanel calenderListPanel;
 
 
     @FXML
@@ -60,7 +65,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane diaryListPanelPlaceholder;
 
     @FXML
-    private StackPane calenderPanelPlaceholder;
+    private AnchorPane calenderPanelPlaceholder;
+
+    @FXML
+    private AnchorPane deadlinePanelPlaceholder;
 
     @FXML
     private TabPane tabPane;
@@ -125,9 +133,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Helper method to build image to tabs
+     * @param imgPatch image path
+     * @return
+     */
+    private static ImageView buildImage(String imgPatch) {
+        Image i = new Image(imgPatch);
+        ImageView imageView = new ImageView();
+        //You can set width and height
+        imageView.setFitHeight(16);
+        imageView.setFitWidth(16);
+        imageView.setImage(i);
+        return imageView;
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -139,8 +163,11 @@ public class MainWindow extends UiPart<Stage> {
 
         calenderPanel = new CalenderPanel();
         calenderPanelPlaceholder.getChildren().add(calenderPanel.getRoot());
-        calenderPanel.setMonth();
+        setAnchorPaneSize(calenderPanelPlaceholder, calenderPanelPlaceholder.getChildren().get(0));
 
+        calenderListPanel = new CalenderListPanel(logic.getDeadlineTaskList());
+        deadlinePanelPlaceholder.getChildren().add(calenderListPanel.getRoot());
+        setAnchorPaneSize(deadlinePanelPlaceholder, deadlinePanelPlaceholder.getChildren().get(0));
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -150,6 +177,14 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+
+    void setAnchorPaneSize(AnchorPane anchorPane, Node node) {
+        AnchorPane.setTopAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+        AnchorPane.setBottomAnchor(node, 0.0);
     }
 
     /**

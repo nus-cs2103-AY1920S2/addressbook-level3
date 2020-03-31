@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.todolist.ToDo;
+import seedu.address.todolist.Task;
 
 /**
  * Adds a todo.
@@ -22,10 +22,10 @@ public class AddToDoCommand extends Command {
     public static final String MESSAGE_INVALID = "Your todo seems to be empty!";
 
 
-    private final ToDo todoToAdd;
+    private final Task todoToAdd;
 
 
-    public AddToDoCommand(ToDo todoToAdd) {
+    public AddToDoCommand(Task todoToAdd) {
         requireNonNull(todoToAdd);
         this.todoToAdd = todoToAdd;
     }
@@ -39,7 +39,7 @@ public class AddToDoCommand extends Command {
         }
 
         model.addToDo(todoToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, todoToAdd));
+        return new CommandResult(MESSAGE_SUCCESS + todoToAdd);
     }
 
     @Override

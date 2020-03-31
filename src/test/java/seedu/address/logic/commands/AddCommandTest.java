@@ -27,8 +27,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.todolist.Deadline;
-import seedu.address.todolist.ToDo;
+import seedu.address.todolist.Task;
 
 public class AddCommandTest {
 
@@ -216,24 +215,35 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addDeadline(Deadline deadline) {
+        public void addDeadline(Task deadline) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean isEmptyDeadline(Deadline deadline) {
+        public boolean isEmptyDeadline(Task deadline) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToDo(ToDo todo) {
+        public ObservableList<Task> getDeadlineTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean isEmptyToDo(ToDo todo) {
+        public void updateDeadlineTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addToDo(Task todo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isEmptyToDo(Task todo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

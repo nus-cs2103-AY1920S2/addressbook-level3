@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
-      <StackPane fx:id="placeHolder" prefHeight="54.0" prefWidth="456.0">
+      <StackPane fx:id="placeHolder" prefHeight="54.0" prefWidth="456.0" >
          <children>
             <Text fx:id="month" fill="#b27878" strokeType="OUTSIDE" strokeWidth="0.0" text="Month" textAlignment="CENTER" wrappingWidth="455.5126953125">
                <font>
