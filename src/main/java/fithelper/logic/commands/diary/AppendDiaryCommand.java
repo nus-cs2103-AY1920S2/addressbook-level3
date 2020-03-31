@@ -20,14 +20,14 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 
 /**
- * Edits the content of the diary of a specific date.
+ * Appends the content of the diary of a specific date.
  */
-public class EditDiaryCommand extends Command {
+public class AppendDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "editDiary";
+    public static final String COMMAND_WORD = "appendDiary";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the diary identified."
-            + "Existing values will be overwritten by the input values.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Appends new content to the diary identified."
+            + "Existing values will remain unchanged.\n"
             + "Parameters: "
             + PREFIX_DATE + "DATE "
             + PREFIX_DIARYCONTENT + "DIARY CONTENT \n"
@@ -36,34 +36,33 @@ public class EditDiaryCommand extends Command {
             + PREFIX_DIARYCONTENT + "Today is my birthday. I ate a huge birthday cake, but I also went to the gym with"
             + " my friends. Everything was just perfect. In my twenty, I'm gonna turn heat up.";
 
-    public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
-    public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in fitHelper.";
+    public static final String MESSAGE_APPEND_DIARY_SUCCESS = "Appended Diary: %1$s";
 
-    private static final String MESSAGE_COMMIT = "Edit a diary";
+    private static final String MESSAGE_COMMIT = "Append a diary";
 
-    private static final Logger logger = LogsCenter.getLogger(EditDiaryCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(AppendDiaryCommand.class);
 
     private final String diaryId;
-    private final EditDiaryDescriptor editDiaryDescriptor;
+    private final AppendDiaryDescriptor appendDiaryDescriptor;
 
     /**
-     * @param diaryId of the diary in the filtered diary list to edit
-     * @param editDiaryDescriptor details to edit the diary with
+     * @param diaryId of the diary in the filtered diary list to append
+     * @param appendDiaryDescriptor details to append the diary with
      */
-    public EditDiaryCommand(String diaryId, EditDiaryDescriptor editDiaryDescriptor) {
+    public AppendDiaryCommand(String diaryId, AppendDiaryDescriptor appendDiaryDescriptor) {
         requireNonNull(diaryId);
-        requireNonNull(editDiaryDescriptor);
+        requireNonNull(appendDiaryDescriptor);
 
         this.diaryId = diaryId;
-        this.editDiaryDescriptor = new EditDiaryDescriptor(editDiaryDescriptor);
+        this.appendDiaryDescriptor = new AppendDiaryDescriptor(appendDiaryDescriptor);
     }
 
     public String getDiaryId() {
         return diaryId;
     }
 
-    public EditDiaryDescriptor getEditDiaryDescriptor() {
-        return editDiaryDescriptor;
+    public AppendDiaryDescriptor getAppendDiaryDescriptor() {
+        return appendDiaryDescriptor;
     }
 
     @Override
@@ -74,39 +73,37 @@ public class EditDiaryCommand extends Command {
 
         lastShownList = model.getFilteredDiaryList();
 
-        Diary editedDiary = createEditedDiary(diaryId, editDiaryDescriptor);
-
-        if (!model.hasDiaryDate(editedDiary.getDiaryDate())) {
+        if (!model.hasDiaryDate(appendDiaryDescriptor.getDiaryDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_DIARY_DATE);
         }
 
-        if (model.hasDiary(editedDiary)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DIARY);
-        }
-
-        DiaryDate prevDiaryDate = editedDiary.getDiaryDate();
+        DiaryDate prevDiaryDate = appendDiaryDescriptor.getDiaryDate();
         Diary prevDiary = getDiaryByDate(lastShownList, prevDiaryDate);
 
-        model.setDiary(prevDiary, editedDiary);
+        Diary appendedDiary = createAppendedDiary(prevDiary, diaryId, appendDiaryDescriptor);
+
+        model.setDiary(prevDiary, appendedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
 
         model.commit(MESSAGE_COMMIT);
-        logger.info(String.format("edited a new diary [%s]", editDiaryDescriptor.toString()));
+        logger.info(String.format("appended a new diary [%s]", appendDiaryDescriptor.toString()));
 
         //model.updateFil
-        return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary),
+        return new CommandResult(String.format(MESSAGE_APPEND_DIARY_SUCCESS, appendedDiary),
                 CommandResult.DisplayedPage.DIARY, false);
     }
 
     /**
-     * Creates and returns a {@code Diary} with the details of {@code diaryToEdit}
-     * edited with {@code editDiaryDescriptor}.
+     * Creates and returns a {@code Diary} with the details of {@code diaryToAppend}
+     * appended with {@code appendDiaryDescriptor}.
      */
-    private static Diary createEditedDiary(String diaryId, EditDiaryDescriptor editDiaryDescriptor) {
+    private static Diary createAppendedDiary(Diary prevDiary, String diaryId, AppendDiaryDescriptor appendDiaryDescriptor) {
         assert diaryId != null;
+        assert prevDiary.getDiaryDate().toString()
+                .equalsIgnoreCase(appendDiaryDescriptor.getDiaryDate().toString());
 
-        DiaryDate updatedDiaryDate = editDiaryDescriptor.getDiaryDate();
-        Content updatedContent = editDiaryDescriptor.getContent();
+        DiaryDate updatedDiaryDate = appendDiaryDescriptor.getDiaryDate();
+        Content updatedContent = prevDiary.getContent().appendContent(appendDiaryDescriptor.getContent());
 
         return new Diary(updatedDiaryDate, updatedContent);
     }
@@ -129,37 +126,37 @@ public class EditDiaryCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditDiaryCommand)) {
+        if (!(other instanceof AppendDiaryCommand)) {
             return false;
         }
 
         // state check
-        EditDiaryCommand e = (EditDiaryCommand) other;
+        AppendDiaryCommand e = (AppendDiaryCommand) other;
         return diaryId.equals(e.diaryId)
-                && editDiaryDescriptor.equals(e.editDiaryDescriptor);
+                && appendDiaryDescriptor.equals(e.appendDiaryDescriptor);
     }
 
     /**
-     * Stores the details to edit the diary with. Each non-empty field value will replace the
+     * Stores the details to append the diary with. Each non-empty field value will replace the
      * corresponding field value of the diary.
      */
-    public static class EditDiaryDescriptor {
+    public static class AppendDiaryDescriptor {
         private DiaryDate diaryDate;
         private Content content;
 
-        public EditDiaryDescriptor() {}
+        public AppendDiaryDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code status} is used internally.
          */
-        public EditDiaryDescriptor(EditDiaryDescriptor toCopy) {
+        public AppendDiaryDescriptor(AppendDiaryDescriptor toCopy) {
             setDiaryDate(toCopy.diaryDate);
             setContent(toCopy.content);
         }
 
         /**
-         * Returns true if at least one field is edited.
+         * Returns true if at least one field is appended.
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(diaryDate, content);
@@ -189,13 +186,13 @@ public class EditDiaryCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditDiaryDescriptor)) {
+            if (!(other instanceof AppendDiaryDescriptor)) {
                 return false;
             }
 
             // state check
 
-            EditDiaryCommand.EditDiaryDescriptor e = (EditDiaryCommand.EditDiaryDescriptor) other;
+            AppendDiaryCommand.AppendDiaryDescriptor e = (AppendDiaryCommand.AppendDiaryDescriptor) other;
 
             return diaryDate.getDiaryDate().equals(e.getDiaryDate())
                     && getContent().equals(e.getContent());

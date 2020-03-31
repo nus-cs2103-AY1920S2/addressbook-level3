@@ -52,19 +52,19 @@ public class Content {
         this.value = value;
     }*/
 
-   /* *//**
-     * Adds new content to a diary.
-     * @param value the new string being being added
-     *//*
-    public void add(String appendingStr) {
+    /**
+     * Appends a new content to the previous one.
+     * @param appendedContent
+     */
+    public Content appendContent(Content appendedContent) {
         StringBuilder sb = new StringBuilder(this.value);
-        checkArgument(isValidContent(new StringBuilder(this.value).append(appendingStr).toString()),
+        checkArgument(isValidContent(new StringBuilder(this.value).append(appendedContent.value).toString()),
                 MESSAGE_CONSTRAINTS);
         if (!isContentEmpty()) {
             sb.append(" ");
         }
-        this.value = sb.append(appendingStr).toString();
-    }*/
+        return new Content(sb.append(appendedContent.value).toString());
+    }
 
     public static boolean isValidContent(String value) {
         return value.length() <= 200;
