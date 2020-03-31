@@ -3,41 +3,37 @@ package fithelper.ui.weight;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import fithelper.commons.core.LogsCenter;
-import fithelper.model.ReadOnlyUserProfile;
 import fithelper.model.weight.Weight;
 import fithelper.ui.UiPart;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 
 /**
- * Controller for a user weight page.
- * The weight page contains all user weight and bmi information.
+ * An UI for line chart.
  */
-public class WeightPage extends UiPart<AnchorPane> {
-    private static final String FXML = "WeightPage.fxml";
-    private final Logger logger = LogsCenter.getLogger(WeightPage.class);
+public class LineChartPanel extends UiPart<Region> {
+
+    private static final String FXML = "LineChartPanel.fxml";
+    private static final String DEFAULT_DATE = "Date";
     private final List<Weight> weights;
+    private final String category;
 
     @FXML
-    private LineChart<String, Double> weightLineChart;
-
+    private CategoryAxis xAxis;
     @FXML
-    private LineChart<String, Double> bmiLineChart;
+    private NumberAxis yAxis;
+    @FXML
+    private LineChart<LocalDate, Double> lineChart;
 
-    /**
-     * Creates a new Weight Window displaying user weight-related data.
-     */
-    public WeightPage(ReadOnlyUserProfile profile, ObservableList<Weight> weights) {
+    public LineChartPanel(ObservableList<Weight> weights, String category) {
         super(FXML);
-        logger.info("Initializing Weight Page");
         this.weights = weights.sorted((o1, o2) -> {
             if (o1.getDate().value.isAfter(o2.getDate().value)) {
                 return 1;
@@ -45,8 +41,8 @@ public class WeightPage extends UiPart<AnchorPane> {
                 return -1;
             }
         });
-        initializeWeightLineChart(weights);
-        initializeBmiLineChart(weights);
+        this.category = category;
+        display();
     }
 
     /**
@@ -69,10 +65,10 @@ public class WeightPage extends UiPart<AnchorPane> {
      * @param weights a list of weight.
      * @return a list of date.
      */
-    private ArrayList<String> getDates(List<Weight> weights){
-        ArrayList<String> dates = new ArrayList<>();
+    private ArrayList<LocalDate> getDates(List<Weight> weights){
+        ArrayList<LocalDate> dates = new ArrayList<>();
         for (int i = 0; i < weights.size(); i++) {
-            dates.add(weights.get(i).getDate().value.toString());
+            dates.add(weights.get(i).getDate().value);
         }
         return dates;
     }
@@ -106,7 +102,7 @@ public class WeightPage extends UiPart<AnchorPane> {
     /**
      * Install tooltip for  line chart.
      */
-    public void installToolTipXyChart(ObservableList<XYChart.Data<String, Double>> data) {
+    public static void installToolTipXyChart(ObservableList<XYChart.Data<LocalDate, Double>> data) {
         data.stream().forEach(d -> {
             Tooltip tooltip = new Tooltip();
             tooltip.setText(d.getXValue() + "\n" + d.getYValue());
@@ -114,54 +110,35 @@ public class WeightPage extends UiPart<AnchorPane> {
         });
     }
 
-    private void initializeWeightLineChart(List<Weight> weights){
+    /**
+     * Set data for line chart to be displayed.
+     */
+    private void display() {
         String[] date = getDate(weights);
-        ArrayList<String> dates = getDates(weights);
-        ArrayList<Double> values = getWeights(weights);
+        ArrayList<LocalDate> dates = getDates(weights);
+        ArrayList<Double> values;
+        if ("Weight".equals(category)) {
+            values = getWeights(weights);
+        } else {
+            values = getBmis(weights);
+        }
 
-        weightLineChart.setAnimated(false);
-        weightLineChart.layout();
+        lineChart.setAnimated(false);
+        lineChart.layout();
 
-        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        xAxis.setLabel(DEFAULT_DATE);
+        yAxis.setLabel(category);
+
+        XYChart.Series<LocalDate, Double> series = new XYChart.Series<>();
 
         int size = dates.size();
         for (int i = 0; i < size; i++) {
             series.getData().add(new XYChart.Data<>(dates.get(i), values.get(i)));
         }
 
-        weightLineChart.setLegendVisible(false);
-        if (date == null) {
-            weightLineChart.setTitle("Weight Line Chart");
-        } else {
-            weightLineChart.setTitle("Weight Line Chart: " + date[0] + " - " + date[1]);
-        }
-        weightLineChart.getData().add(series);
-
-        installToolTipXyChart(series.getData());
-    }
-
-    private void initializeBmiLineChart(List<Weight> weights){
-        String[] date = getDate(weights);
-        ArrayList<String> dates = getDates(weights);
-        ArrayList<Double> values = getBmis(weights);
-
-        bmiLineChart.setAnimated(false);
-        bmiLineChart.layout();
-
-        XYChart.Series<String, Double> series = new XYChart.Series<>();
-
-        int size = dates.size();
-        for (int i = 0; i < size; i++) {
-            series.getData().add(new XYChart.Data<>(dates.get(i), values.get(i)));
-        }
-
-        bmiLineChart.setLegendVisible(false);
-        if (date == null) {
-            bmiLineChart.setTitle("BMI Line Chart");
-        } else {
-            bmiLineChart.setTitle("BMI Line Chart: " + date[0] + " - " + date[1]);
-        }
-        bmiLineChart.getData().add(series);
+        lineChart.setLegendVisible(false);
+        lineChart.setTitle(category + ": " + date[0] + " - " + date[1]);
+        lineChart.getData().add(series);
 
         installToolTipXyChart(series.getData());
     }

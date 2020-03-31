@@ -3,6 +3,8 @@ package fithelper.model;
 import fithelper.model.weight.Weight;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+
 /**
  * Unmodifiable view of a log book
  */

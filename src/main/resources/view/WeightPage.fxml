@@ -38,7 +38,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <LineChart GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <LineChart fx:id="weightLineChart" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -46,7 +46,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </LineChart>
-            <LineChart GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <LineChart fx:id="bmiLineChart" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
