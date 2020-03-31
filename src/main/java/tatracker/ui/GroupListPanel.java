@@ -1,5 +1,7 @@
 package tatracker.ui;
 
+import static tatracker.model.TaTracker.getCurrentlyShownGroup;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -15,6 +17,10 @@ import tatracker.model.group.Group;
  */
 public class GroupListPanel extends UiPart<Region> {
     private static final String FXML = "GroupListPanel.fxml";
+    private static final String BACKGROUND_COLOUR = "#424d5f";
+    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
+
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
 
     @FXML
@@ -22,6 +28,16 @@ public class GroupListPanel extends UiPart<Region> {
 
     public GroupListPanel(ObservableList<Group> groupList) {
         super(FXML);
+        groupListView.setItems(groupList);
+        groupListView.setCellFactory(listView -> new GroupListViewCell());
+    }
+
+    /**
+     * Update ListCells in order to facilitate highlighting when a filter command is entered
+     * @param groupList the updated groupList
+     */
+    public void updateCells(ObservableList<Group> groupList) {
+        System.out.print("reached updateCells");
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
     }
@@ -39,6 +55,11 @@ public class GroupListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
+                if (group.equals(getCurrentlyShownGroup())) {
+                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+                            + "-fx-border-color: " + BORDER_COLOUR + "; "
+                            + "-fx-border-width: " + BORDER_WIDTH + ";");
+                }
             }
         }
     }

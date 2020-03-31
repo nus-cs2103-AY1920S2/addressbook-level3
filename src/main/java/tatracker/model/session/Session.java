@@ -170,7 +170,7 @@ public class Session implements Comparable<Session> {
     /**
      * Returns the duration of the session.
      */
-    public Duration getSessionDuration() {
+    public Duration getDuration() {
         return Duration.between(this.startDateTime, this.endDateTime);
     }
 

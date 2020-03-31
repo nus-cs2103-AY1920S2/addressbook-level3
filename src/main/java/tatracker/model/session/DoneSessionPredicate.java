@@ -15,6 +15,10 @@ public class DoneSessionPredicate implements Predicate<Session> {
         this.moduleCode = moduleCode;
     }
 
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
     @Override
     public boolean test(Session session) {
         System.out.println(moduleCode);

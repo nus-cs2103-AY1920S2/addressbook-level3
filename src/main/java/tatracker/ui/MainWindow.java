@@ -214,37 +214,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /**
-     * executes the a command of type exit, help or goto
-     * @param commandText the user input
-     */
-    @FXML
-    public void handleCommand(String commandText) {
-        switch (commandText.trim().toLowerCase()) {
-        case "help":
-            handleHelp();
-            break;
-
-        case "exit":
-            handleExit();
-            break;
-        case "goto student":
-            handleGoto(studentListTab);
-            break;
-
-        case "goto session":
-            handleGoto(sessionListTab);
-            break;
-
-        case "goto claims":
-            handleGoto(claimsListTab);
-            break;
-
-        default:
-            break;
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -285,6 +254,16 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandResult.getNextAction()) {
+            case FILTER:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
+                break;
+
+            case DONE:
+                claimsListPanel.updateLabel();
+                break;
+
             case HELP:
                 handleHelp();
                 break;
@@ -292,6 +271,7 @@ public class MainWindow extends UiPart<Stage> {
             case EXIT:
                 handleExit();
                 break;
+
             case GOTO_STUDENT:
                 handleGoto(studentListTab);
                 break;

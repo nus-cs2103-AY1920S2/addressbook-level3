@@ -51,7 +51,7 @@ public class SessionCard extends UiPart<Region> {
         date.setText(session.getStartDateTime().format(dateFormat));
         time.setText(session.getStartDateTime().format(timeFormat) + " - "
                 + session.getEndDateTime().format(timeFormat));
-        module.setText(session.getModuleCode());
+        module.setText(session.getModuleCode().toUpperCase());
         description.setText(session.getDescription());
     }
 

@@ -9,6 +9,7 @@ import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -71,10 +72,10 @@ public class DoneSessionCommand extends Command {
         }
 
         model.addDoneSession(session);
-        model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+        model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS, "");
         model.deleteSession(session);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, session));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, session), Action.DONE);
     }
 
     @Override
