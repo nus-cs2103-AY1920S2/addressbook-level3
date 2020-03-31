@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.DESC_PASTA;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.DESC_PIZZA;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.VALID_CALORIES_PIZZA;
-import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
+//import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.VALID_TAG_FASTFOOD;
 
@@ -43,8 +43,8 @@ public class EditFoodDescriptorTest {
         assertFalse(DESC_PASTA.equals(editedPasta));
 
         // different date -> returns false
-        editedPasta = new EditFoodDescriptorBuilder(DESC_PASTA).withDate(VALID_DATE_PIZZA).build();
-        assertFalse(DESC_PASTA.equals(editedPasta));
+        // editedPasta = new EditFoodDescriptorBuilder(DESC_PASTA).withDate(VALID_DATE_PIZZA).build();
+        // assertFalse(DESC_PASTA.equals(editedPasta));
 
         // different tags -> returns false
         editedPasta = new EditFoodDescriptorBuilder(DESC_PASTA).withTags(VALID_TAG_FASTFOOD).build();
