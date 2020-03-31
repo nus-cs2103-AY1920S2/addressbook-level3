@@ -27,7 +27,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      *   among constructors.
      */
     {
-        filter = new Filter(null, null);
+        filter = new Filter(null, "2020-02");
         monthlyData = new MonthlyData(null, null, null, null);
         transactions = new TransactionList();
         toggleView = new ToggleView();
@@ -57,6 +57,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         this.monthlyData.setBudget(monthlyData.getBudget());
         this.monthlyData.setExpense(monthlyData.getExpense());
         this.monthlyData.setIncome(monthlyData.getIncome());
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter.setFilterCategoryName(filter.getFilterCategoryName());
+        this.filter.setDateMonth(filter.getDateMonth());
     }
 
     /**

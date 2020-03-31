@@ -3,6 +3,7 @@ package seedu.expensela.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
+import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 
 /**
@@ -17,8 +18,9 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        model.setFilter(new Filter(null, null));
         requireNonNull(model);
-        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

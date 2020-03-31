@@ -15,10 +15,22 @@ public class DateEqualsKeywordPredicate implements Predicate<Transaction> {
         this.keyword = keyword;
     }
 
+    /**
+     * Tests that a {@code Transaction}'s {@code Date}'s year and month matches the
+     * year and month of the given keyword.
+     * @param transaction
+     * @return
+     */
+
     @Override
     public boolean test(Transaction transaction) {
+        String transactionDateString = transaction.getDate().transactionDate.toString();
+        if (keyword.get(0).equals("all")) {
+            return true;
+        }
         return keyword.stream()
-                .anyMatch(keyword -> StringUtil.equals(transaction.getDate().transactionDate.toString(), keyword));
+                .anyMatch(keyword -> StringUtil.equals(transactionDateString.split("-")[0] + "-"
+                        + transactionDateString.split("-")[1], keyword));
     }
 
     @Override
@@ -26,6 +38,11 @@ public class DateEqualsKeywordPredicate implements Predicate<Transaction> {
         return other == this // short circuit if same object
                 || (other instanceof DateEqualsKeywordPredicate // instanceof handles nulls
                 && keyword.equals(((DateEqualsKeywordPredicate) other).keyword)); // state check
+    }
+
+    @Override
+    public String toString() {
+        return this.keyword.get(0);
     }
 
 }

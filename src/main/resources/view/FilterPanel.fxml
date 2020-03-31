@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<!--<?import javafx.scene.control.*?>-->
-<!--<?import javafx.scene.layout.*?>-->
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="filterTypeLabel" text="Type Label"/>
-    <Label fx:id="filterNameLabel" text="Name Label"/>
-</VBox>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="filterTypeLabel" styleClass="filter-label-left"/>
+    <Region prefHeight="20.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+    <Label fx:id="filterNameLabel" styleClass="filter-label-right"/>
+</HBox>

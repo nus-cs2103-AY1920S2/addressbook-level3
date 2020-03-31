@@ -105,7 +105,7 @@ public class ModelManager implements Model {
         boolean positive = target.getAmount().positive;
         double amount = target.getAmount().transactionAmount;
         updateMonthlyData(positive, amount * (-1));
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class ModelManager implements Model {
         boolean positive = transaction.getAmount().positive;
         double amount = transaction.getAmount().transactionAmount;
         updateMonthlyData(positive, amount);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     /**
@@ -163,10 +163,17 @@ public class ModelManager implements Model {
         return unfilteredTransactions;
     }
 
+    /**
+    * Applies setPredicate(predicate) to 2 different filteredLists and then making unfilteredTransactions
+     * a filteredList containing the elements list 1 and 2 have in common.
+     */
     @Override
-    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
-        requireNonNull(predicate);
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2) {
+        //requireNonNull(predicate);
+
+        Predicate<Transaction> predicate = predicate1.and(predicate2);
         unfilteredTransactions.setPredicate(predicate);
+
     }
 
 
@@ -210,6 +217,14 @@ public class ModelManager implements Model {
     @Override
     public Filter getFilter() {
         return filter;
+    }
+
+    /**
+     * Update filter object
+     */
+    @Override
+    public void setFilter(Filter filter) {
+        expenseLa.setFilter(filter);
     }
 
     @Override

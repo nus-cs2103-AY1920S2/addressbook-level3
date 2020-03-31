@@ -203,6 +203,11 @@ public class MainWindow extends UiPart<Stage> {
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // updating filterPanel
+            filterPanelPlaceholder.getChildren().clear();
+            filterPanel = new FilterPanel(logic.getFilter());
+            filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
