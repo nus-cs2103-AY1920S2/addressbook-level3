@@ -18,14 +18,24 @@ public class Date {
 
     public final LocalDate value;
     /**
-     * Constructs an {@code Time}.
+     * Constructs an {@code Date} with String.
      *
-     * @param date A valid time.
+     * @param date A valid date.
      */
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = LocalDate.parse(date, PARSE_FORMAT);
+    }
+
+    /**
+     * Constructs a {@code Date}.
+     *
+     * @param date A valid date.
+     */
+    public Date(LocalDate date) {
+        requireNonNull(date);
+        this.value = date;
     }
 
     /**

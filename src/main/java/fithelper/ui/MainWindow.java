@@ -116,7 +116,7 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(helpWindow.getRoot());
         profilePage = new ProfilePage(logic.getUserProfile());
         setAllPageAnchor(profilePage.getRoot());
-        weightPage = new WeightPage();
+        weightPage = new WeightPage(logic.getUserProfile(), logic.getFilteredWeightList());
         setAllPageAnchor(weightPage.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
