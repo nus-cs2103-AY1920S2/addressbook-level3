@@ -41,7 +41,7 @@ public class FilterClaimCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW,
                                 model.getFilteredDoneSessionList().size()),
-                Action.FILTER);
+                Action.FILTER_CLAIMS);
     }
 
     @Override

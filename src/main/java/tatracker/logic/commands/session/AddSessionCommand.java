@@ -11,6 +11,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -62,7 +63,7 @@ public class AddSessionCommand extends Command {
         }
 
         model.addSession(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_SESSION);
     }
 
     @Override

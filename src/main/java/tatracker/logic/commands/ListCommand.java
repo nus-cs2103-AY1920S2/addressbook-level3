@@ -3,6 +3,7 @@ package tatracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static tatracker.model.Model.PREDICATE_SHOW_ALL_SESSIONS;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
 /**
@@ -20,6 +21,6 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
         model.updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, Action.NONE);
     }
 }

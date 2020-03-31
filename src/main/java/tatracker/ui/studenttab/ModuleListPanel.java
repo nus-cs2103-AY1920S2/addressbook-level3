@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.studenttab;
 
 import static tatracker.model.TaTracker.getCurrentlyShownModule;
 
@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.module.Module;
+import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of modules.
