@@ -26,7 +26,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      *   among constructors.
      */
     {
-        filter = new Filter(null, null);
+        filter = new Filter(null, "2020-02");
         monthlyData = new MonthlyData(null, null, null, null);
         transactions = new TransactionList();
     }

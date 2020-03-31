@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Filter;
 
@@ -26,7 +27,7 @@ public class FilterPanel extends UiPart<Region> {
     public FilterPanel(Filter filter) {
         super(FXML);
         this.filter = filter;
-        filterTypeLabel.setText("Category: " + filter.getFilterCategoryName() + "   |   Date: " + filter.getDateMonth());
+        filterTypeLabel.setText("Category: " + filter.getFilterCategoryName() + "   |   Month: " + filter.getDateMonth());
 //        filterNameLabel.setText("Date: " + filter.getDateMonth());
     }
 
