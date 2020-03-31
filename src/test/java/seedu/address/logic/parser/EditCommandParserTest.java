@@ -133,7 +133,7 @@ public class EditCommandParserTest {
                 + COMMENT_DESC_INSTRUCTION + ADDRESS_DESC_AMY + NAME_DESC_AMY
                 + DELIVERY_TIMESTAMP_DESC_AMY + TID_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY;
 
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_AMY).withTid(VALID_TID_AMY)
                 .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY).withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION).withItemType(VALID_TYPE_GLASS).build();
@@ -147,7 +147,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_ORDER;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB;
 
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -159,7 +159,7 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_ORDER;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -221,7 +221,7 @@ public class EditCommandParserTest {
                 + DELIVERY_TIMESTAMP_DESC_AMY + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + TID_DESC_BOB + TYPE_DESC_GLASS;
 
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder()
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder()
                 .withPhone(VALID_PHONE_BOB).withTid(VALID_TID_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTimeStamp(VALID_TIMESTAMP_BOB).withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS)
@@ -236,7 +236,7 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_ORDER;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder()
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder()
                 .withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

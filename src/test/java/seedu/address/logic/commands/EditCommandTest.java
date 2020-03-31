@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
+import seedu.address.logic.commands.EditCommand.EditParcelDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
@@ -39,8 +39,8 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Order editedOrder = new OrderBuilder().build();
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER, descriptor);
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER, descriptor, );
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
@@ -60,7 +60,7 @@ public class EditCommandTest {
         Order editedOrder = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
 
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withItemType(VALID_TYPE_PLASTIC).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -75,7 +75,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER, new EditCommand.EditOrderDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER, new EditParcelDescriptor());
         Order editedOrder = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
@@ -107,10 +107,10 @@ public class EditCommandTest {
     @Test
     public void execute_duplicateOrderUnfilteredList_failure() {
         Order firstOrder = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
-        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(firstOrder).build();
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder(firstOrder).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_ORDER, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ORDER);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PARCEL);
     }
 
     @Test
@@ -122,13 +122,13 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER,
                 new EditOrderDescriptorBuilder(orderInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ORDER);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PARCEL);
     }
 
     @Test
     public void execute_invalidOrderIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOrderList().size() + 1);
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
@@ -156,7 +156,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_ORDER, DESC_AMY);
 
         // same values -> returns true
-        EditCommand.EditOrderDescriptor copyDescriptor = new EditOrderDescriptor(DESC_AMY);
+        EditCommand.EditParcelDescriptor copyDescriptor = new EditCommand.EditParcelDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_ORDER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

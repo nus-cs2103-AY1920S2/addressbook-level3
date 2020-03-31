@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
+import seedu.address.logic.commands.EditCommand.EditParcelDescriptor;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
@@ -15,25 +15,25 @@ import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 
 /**
- * A utility class to help with building EditOrderDescriptor objects.
+ * A utility class to help with building EditParcelDescriptor objects.
  */
 public class EditOrderDescriptorBuilder {
 
-    private EditCommand.EditOrderDescriptor descriptor;
+    private EditCommand.EditParcelDescriptor descriptor;
 
     public EditOrderDescriptorBuilder() {
-        descriptor = new EditCommand.EditOrderDescriptor();
+        descriptor = new EditParcelDescriptor();
     }
 
-    public EditOrderDescriptorBuilder(EditCommand.EditOrderDescriptor descriptor) {
-        this.descriptor = new EditOrderDescriptor(descriptor);
+    public EditOrderDescriptorBuilder(EditParcelDescriptor descriptor) {
+        this.descriptor = new EditCommand.EditParcelDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditOrderDescriptor} with fields containing {@code order}'s details
+     * Returns an {@code EditParcelDescriptor} with fields containing {@code order}'s details
      */
     public EditOrderDescriptorBuilder(Order order) {
-        descriptor = new EditOrderDescriptor();
+        descriptor = new EditCommand.EditParcelDescriptor();
         descriptor.setTid(order.getTid());
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
@@ -47,7 +47,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Comment} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Comment} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withComment(String comment) {
         descriptor.setComment(new Comment(comment));
@@ -55,7 +55,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code TransactionId} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code TransactionId} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withTid(String tid) {
         descriptor.setTid(new TransactionId(tid));
@@ -63,7 +63,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -71,7 +71,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Phone} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
@@ -79,7 +79,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Email} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
@@ -87,7 +87,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Address} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
@@ -95,7 +95,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code TimeStamp} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code TimeStamp} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withTimeStamp(String timeStamp) {
         descriptor.setTimeStamp(new TimeStamp(timeStamp));
@@ -103,7 +103,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Warehouse} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Warehouse} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withWarehouse(String warehouseLocation) {
         descriptor.setWarehouse(new Warehouse(warehouseLocation));
@@ -111,7 +111,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code CashOnDelivery} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code CashOnDelivery} of the {@code EditParcelDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withCash(String cash) {
         descriptor.setCash(new CashOnDelivery(cash));
@@ -119,7 +119,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code TypeOfItem} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code TypeOfItem} of the {@code EditParcelDescriptor} that we are building.
      *
      */
     public EditOrderDescriptorBuilder withItemType(String item) {
@@ -127,7 +127,7 @@ public class EditOrderDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditOrderDescriptor build() {
+    public EditParcelDescriptor build() {
         return descriptor;
     }
 }

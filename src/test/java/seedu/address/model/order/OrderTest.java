@@ -21,37 +21,37 @@ public class OrderTest {
     @Test
     public void isSameOrder() {
         // same object -> returns true
-        assertTrue(ALICE.isSameOrder(ALICE));
+        assertTrue(ALICE.isSameParcel(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameOrder(null));
+        assertFalse(ALICE.isSameParcel(null));
 
         // different transaction ID -> returns false
         Order editedAlice = new OrderBuilder(ALICE).withTid(VALID_TID_BOB).build();
 
-        assertFalse(ALICE.isSameOrder(editedAlice));
+        assertFalse(ALICE.isSameParcel(editedAlice));
 
         // different name -> returns false
         editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameOrder(editedAlice));
+        assertFalse(ALICE.isSameParcel(editedAlice));
 
         // different phone -> returns false
         editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.isSameOrder(editedAlice));
+        assertFalse(ALICE.isSameParcel(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .withCash(VALID_COD_BOB).withItemType(VALID_TYPE_PLASTIC).build();
-        assertTrue(ALICE.isSameOrder(editedAlice));
+        assertTrue(ALICE.isSameParcel(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new OrderBuilder(ALICE).withWarehouse(VALID_WAREHOUSE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        assertTrue(ALICE.isSameOrder(editedAlice));
+        assertTrue(ALICE.isSameParcel(editedAlice));
 
         // same name, same phone, same warehouse, different attributes -> returns true
         editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withItemType(VALID_TYPE_PLASTIC).build();
-        assertTrue(ALICE.isSameOrder(editedAlice));
+        assertTrue(ALICE.isSameParcel(editedAlice));
     }
 
     @Test

@@ -14,15 +14,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
+import seedu.address.logic.commands.EditCommand.EditParcelDescriptor;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
-public class EditOrderDescriptorTest {
+public class EditParcelDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditOrderDescriptor descriptorWithSameValues = new EditOrderDescriptor(DESC_AMY);
+        EditCommand.EditParcelDescriptor descriptorWithSameValues = new EditCommand.EditParcelDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -38,7 +38,7 @@ public class EditOrderDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditOrderDescriptor editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditParcelDescriptor editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different TID -> returns false

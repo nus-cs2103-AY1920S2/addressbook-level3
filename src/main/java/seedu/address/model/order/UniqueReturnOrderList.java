@@ -24,7 +24,7 @@ import seedu.address.model.order.returnorder.ReturnOrder;
  *
  * Supports a minimal set of list operations.
  *
- * @see ReturnOrder#isSameReturn(ReturnOrder)
+ * @see ReturnOrder#isSameParcel(ReturnOrder)
  */
 public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
 
@@ -37,7 +37,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
      */
     public boolean contains(ReturnOrder toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameReturn);
+        return internalList.stream().anyMatch(toCheck::isSameParcel);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
             throw new OrderNotFoundException();
         }
 
-        if (!target.isSameReturn(editedReturn) && contains(editedReturn)) {
+        if (!target.isSameParcel(editedReturn) && contains(editedReturn)) {
             throw new DuplicateReturnOrderException();
         }
 
@@ -139,7 +139,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     private boolean returnOrdersAreUnique(List<ReturnOrder> returnOrders) {
         for (int i = 0; i < returnOrders.size() - 1; i++) {
             for (int j = i + 1; j < returnOrders.size(); j++) {
-                if (returnOrders.get(i).isSameReturn(returnOrders.get(j))) {
+                if (returnOrders.get(i).isSameParcel(returnOrders.get(j))) {
                     return false;
                 }
             }

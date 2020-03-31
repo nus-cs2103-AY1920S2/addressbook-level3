@@ -108,8 +108,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditOrderDescriptor DESC_AMY;
-    public static final EditCommand.EditOrderDescriptor DESC_BOB;
+    public static final EditCommand.EditParcelDescriptor DESC_AMY;
+    public static final EditCommand.EditParcelDescriptor DESC_BOB;
 
     public static final DeliveredCommand.DeliveredOrderDescriptor AMY_DESC;
     public static final DeliveredCommand.DeliveredOrderDescriptor BOB_DESC;

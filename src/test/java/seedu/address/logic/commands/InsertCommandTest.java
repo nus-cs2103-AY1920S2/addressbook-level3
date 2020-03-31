@@ -127,7 +127,7 @@ public class InsertCommandTest {
         }
 
         @Override
-        public boolean hasOrder(Order order) {
+        public boolean hasParcel(Parcel parcel) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,9 +228,9 @@ public class InsertCommandTest {
         }
 
         @Override
-        public boolean hasOrder(Order order) {
-            requireNonNull(order);
-            return this.order.isSameOrder(order);
+        public boolean hasParcel(Parcel parcel) {
+            requireNonNull(parcel);
+            return this.order.isSameParcel(parcel);
         }
     }
 
@@ -241,9 +241,9 @@ public class InsertCommandTest {
         final ArrayList<Order> ordersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasOrder(Order order) {
-            requireNonNull(order);
-            return ordersAdded.stream().anyMatch(order::isSameOrder);
+        public boolean hasParcel(Parcel parcel) {
+            requireNonNull(parcel);
+            return ordersAdded.stream().anyMatch(parcel::isSameParcel);
         }
 
         @Override

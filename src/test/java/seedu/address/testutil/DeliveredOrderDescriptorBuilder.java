@@ -14,7 +14,7 @@ import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 
 /**
- * A utility class to help with building EditOrderDescriptor objects.
+ * A utility class to help with building EditParcelDescriptor objects.
  */
 public class DeliveredOrderDescriptorBuilder {
 
@@ -47,7 +47,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Comment} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Comment} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withComment(String comment) {
         descriptor.setComment(new Comment(comment));
@@ -55,7 +55,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code TransactionId} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code TransactionId} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withTid(String tid) {
         descriptor.setTid(new TransactionId(tid));
@@ -63,7 +63,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -71,7 +71,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Phone} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
@@ -79,7 +79,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Email} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
@@ -87,7 +87,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Address} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
@@ -95,7 +95,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code TimeStamp} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code TimeStamp} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withTimeStamp(String timeStamp) {
         descriptor.setTimeStamp(new TimeStamp(timeStamp));
@@ -103,7 +103,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Warehouse} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Warehouse} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withWarehouse(String warehouseLocation) {
         descriptor.setWarehouse(new Warehouse(warehouseLocation));
@@ -111,7 +111,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code CashOnDelivery} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code CashOnDelivery} of the {@code EditParcelDescriptor} that we are building.
      */
     public DeliveredOrderDescriptorBuilder withCash(String cash) {
         descriptor.setCash(new CashOnDelivery(cash));
@@ -119,7 +119,7 @@ public class DeliveredOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code TypeOfItem} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code TypeOfItem} of the {@code EditParcelDescriptor} that we are building.
      *
      */
     public DeliveredOrderDescriptorBuilder withItemType(String item) {

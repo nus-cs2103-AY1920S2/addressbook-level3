@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Parcel;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
@@ -106,9 +108,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasOrder(Order order) {
-        requireNonNull(order);
-        return orderBook.hasOrder(order);
+    public boolean hasParcel(Parcel parcel) throws CommandException {
+        requireNonNull(parcel);
+        if (parcel instanceof Order) {
+            return orderBook.hasOrder((Order) parcel);
+        } else if (parcel instanceof ReturnOrder) {
+            return returnOrderBook.hasReturnOrder((ReturnOrder) parcel);
+        } else {
+            throw new CommandException("Invalid parcel type");
+        }
     }
 
     @Override

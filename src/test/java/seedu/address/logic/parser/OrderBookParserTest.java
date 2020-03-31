@@ -57,7 +57,7 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Order order = new OrderBuilder().build();
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(order).build();
+        EditCommand.EditParcelDescriptor descriptor = new EditOrderDescriptorBuilder(order).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ORDER.getOneBased() + " " + OrderUtil.getEditOrderDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor), command);

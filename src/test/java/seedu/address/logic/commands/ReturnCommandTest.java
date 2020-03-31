@@ -140,7 +140,7 @@ public class ReturnCommandTest {
         }
 
         @Override
-        public boolean hasOrder(Order order) {
+        public boolean hasParcel(Parcel parcel) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -244,7 +244,7 @@ public class ReturnCommandTest {
         @Override
         public boolean hasReturnOrder(ReturnOrder returnOrder) {
             requireNonNull(returnOrder);
-            return this.returnOrder.isSameReturn(returnOrder);
+            return this.returnOrder.isSameParcel(returnOrder);
         }
     }
 
@@ -257,7 +257,7 @@ public class ReturnCommandTest {
         @Override
         public boolean hasReturnOrder(ReturnOrder returnOrder) {
             requireNonNull(returnOrder);
-            return returnOrdersAdded.stream().anyMatch(returnOrder::isSameReturn);
+            return returnOrdersAdded.stream().anyMatch(returnOrder::isSameParcel);
         }
 
         @Override

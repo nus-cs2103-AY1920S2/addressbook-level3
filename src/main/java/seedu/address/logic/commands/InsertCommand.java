@@ -64,7 +64,7 @@ public class InsertCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasOrder(toAdd)) {
+        if (model.hasParcel(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 
