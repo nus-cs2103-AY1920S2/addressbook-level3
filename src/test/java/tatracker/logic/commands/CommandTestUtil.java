@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
@@ -112,7 +113,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.NONE);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
