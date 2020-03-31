@@ -27,7 +27,7 @@ public class StatisticsDisplay extends UiPart<Region> {
     private static final String DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER =
             "/images/pet/ProgressBar0%.png";
     private static final String DEFAULT_PROGRESS_DAILY = "NaN mins";
-    private static final String DEFAULT_MEDALS = "Placeholder";
+    private static final String DEFAULT_PROGRESS_TARGET = "100 mins";
     private static final String X_AXIS = "Day";
 
     private final String PROGRESS_UNITS = " mins";
@@ -50,7 +50,7 @@ public class StatisticsDisplay extends UiPart<Region> {
         this.progressBarDailyFilepathString = DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER;
 
         this.progressDailyText = DEFAULT_PROGRESS_DAILY;
-        this.medalsText = DEFAULT_MEDALS;
+        this.medalsText = DEFAULT_PROGRESS_TARGET;
 
         progressDaily.setText(progressDailyText);
         Image progressBarDailyImage = new Image(DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER);
