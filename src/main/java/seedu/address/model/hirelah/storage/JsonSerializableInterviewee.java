@@ -8,9 +8,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.QuestionList;
 
 /**
  * An Immutable InterviewList that is serializable to JSON format {@link IntervieweeList}.
@@ -39,11 +42,12 @@ class JsonSerializableInterviewee {
      * Converts into an IntervieweeList
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public IntervieweeList toModelType() throws IllegalValueException {
+    public IntervieweeList toModelType(QuestionList questionList, AttributeList attributeList, TranscriptStorage storage, Boolean finalised ) throws IllegalValueException, DataConversionException {
         IntervieweeList newData = new IntervieweeList();
+
         for (JsonAdaptedInterviewee jsonAdaptedInterviewee : interviewees) {
-            Interviewee interviewee = jsonAdaptedInterviewee.toModelType();
-            newData.addInterviewee(interviewee.getFullName()); // temporary only store the name first
+            Interviewee interviewee = jsonAdaptedInterviewee.toModelType(questionList, attributeList, storage, finalised);
+            newData.addInterviewee(interviewee); //to be confirm
         }
         return newData;
     }

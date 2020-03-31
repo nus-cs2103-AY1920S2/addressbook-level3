@@ -12,7 +12,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.QuestionList;
+
 
 /**
  * IntervieweeStorage containing the file path
@@ -37,7 +40,8 @@ public class IntervieweeStorage {
      * @return OptionalIntervieweeList
      * @throws DataConversionException error when reading the file
      */
-    public Optional<IntervieweeList> readInterviewee(Path filePath) throws DataConversionException {
+    public Optional<IntervieweeList> readInterviewee(Path filePath, QuestionList questionList,
+                                                     AttributeList attributeList, Boolean finalised, TranscriptStorage storage) throws DataConversionException {
         requireNonNull(filePath);
         Optional<JsonSerializableInterviewee> jsonInterviewee = JsonUtil.readJsonFile(
                 filePath, JsonSerializableInterviewee.class);
@@ -45,7 +49,7 @@ public class IntervieweeStorage {
             return Optional.empty();
         }
         try {
-            return Optional.of(jsonInterviewee.get().toModelType());
+            return Optional.of(jsonInterviewee.get().toModelType(questionList, attributeList, storage, finalised));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

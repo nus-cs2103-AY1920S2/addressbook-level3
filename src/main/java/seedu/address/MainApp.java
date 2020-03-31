@@ -19,7 +19,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.hirelah.*;
+import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.storage.*;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.UserPrefsStorage;
@@ -51,75 +54,49 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-
-
         IntervieweeStorage intervieweeStorage = new IntervieweeStorage(userPrefs.getIntervieweeDirectory());
         QuestionStorage questionStorage = new QuestionStorage(userPrefs.getQuestionDirectory());
         AttributeStorage attributeStorage = new AttributeStorage(userPrefs.getAttributeDirectory());
         MetricStorage metricStorage = new MetricStorage(userPrefs.getMetricDirectory());
+        TranscriptStorage transcriptStorage = new TranscriptStorage(userPrefs.getTranscriptDirectory());
+        ModelStorage modelStorage = new ModelStorage(userPrefs.getModelDirectory());
         storage = new StorageManager(userPrefsStorage, intervieweeStorage, attributeStorage,
-                questionStorage, metricStorage, transcriptStorage);
+                questionStorage, metricStorage,transcriptStorage, modelStorage );
 
         initLogging(config);
 
-        model = initModelManager(userPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }
 
-    private AttributeList loadAttribute(AttributeStorage storage) {
-        Optional<AttributeList> attributeListOptional;
-        AttributeList initialAttributes;
-        try {
-            attributeListOptional = storage.readAttribute();
-            initialAttributes = attributeListOptional.orElseGet(() -> new AttributeList());
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty question list");
-            initialAttributes = new AttributeList();
-        }
-        return initialAttributes;
-    }
-
-    private QuestionList loadQuestions(QuestionStorage storage) {
-        Optional<AttributeList> attributeListOptional;
-        AttributeList initialAttributes;
-        try {
-            attributeListOptional = storage.readAttribute();
-            initialAttributes = attributeListOptional.orElseGet(() -> new AttributeList());
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty question list");
-            initialAttributes = new AttributeList();
-        }
-        return initialAttributes;
-    }
-
     /**
      * Returns a {@code ModelManager} with {@code userPrefs}. Components of the model (IntervieweeList, etc.) start
      * empty and are populated once a session is loaded.
      */
-    private Model initModelManager(UserPrefs userPrefs) {
-        QuestionStorage questionStorage = new QuestionStorage(userPrefs.getQuestionDirectory());
-        AttributeStorage attributeStorage = new AttributeStorage(userPrefs.getAttributeDirectory());
-        MetricStorage metricStorage = new MetricStorage(userPrefs.getMetricDirectory());
-
+    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<IntervieweeList> intervieweeListOptional;
-
+        Optional<AttributeList> attributeListOptional;
         Optional<QuestionList> questionListOptional;
         Optional<MetricList> metricListOptional;
+        Optional<Boolean> modelOptional;
 
         IntervieweeList initialInterviewees;
         AttributeList initialAttributes;
         QuestionList initialQuestions;
         MetricList initialMetrics;
-        try {
+        Boolean initialModel;
 
+       // TranscriptStorage transcriptStorage = new TranscriptStorage(userPrefs.getTranscriptDirectory());
+        try {
+            attributeListOptional = storage.readAttribute();
             questionListOptional = storage.readQuestion();
-            metricListOptional = storage.readMetric();
-            intervieweeListOptional = storage.readInterviewee();
-            if (intervieweeListOptional.isEmpty()) {
-                logger.info("Interviewees data file not found. Will be starting with an empty interviewee file");
+           // metricListOptional = storage.readMetric();
+            modelOptional = storage.readModel();
+            if (modelOptional.isEmpty()) {
+                logger.info("model data file not found. Will be starting with an empty model file");
             }
             if (attributeListOptional.isEmpty()) {
                 logger.info("Attributes data file not found. Will be starting with an empty attribute file");
@@ -130,19 +107,33 @@ public class MainApp extends Application {
             if (metricListOptional.isEmpty()) {
                 logger.info("Metric data file not found.");
             }
-
+          //  initialInterviewees = intervieweeListOptional.orElseGet(() -> new IntervieweeList());
+            initialModel = modelOptional.orElse(false);
+            initialAttributes = attributeListOptional.orElseGet(() -> new AttributeList());
             initialQuestions = questionListOptional.orElseGet(() -> new QuestionList());
             initialMetrics = metricListOptional.orElseGet(() -> new MetricList());
-            TranscriptStorage transcriptStorage = new TranscriptStorage(userPrefs.getTranscriptDirectory(), initialQuestions, initialAttributes);
 
+            /** when the the model is not finalised, it will not initialise metric and transcript*/
+            if(!initialModel) {
+                initialMetrics = new MetricList();
+            }
+            intervieweeListOptional = storage.readInterviewee(initialQuestions, initialAttributes, initialModel);
             initialInterviewees = intervieweeListOptional.orElse(new IntervieweeList());
+
+            if (intervieweeListOptional.isEmpty()) {
+                logger.info("Interviewees data file not found. Will be starting with an empty interviewee file");
+            }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Interview Session");
             initialInterviewees = new IntervieweeList();
+            initialAttributes = new AttributeList();
             initialQuestions = new QuestionList();
             initialMetrics = new MetricList();
         }
-        return new ModelManager(userPrefs, initialInterviewees, initialAttributes, initialQuestions, initialMetrics);
+        /** loading of the data for interviewee and their respective transcript*/
+
+
+        return new ModelManager(userPrefs, initialInterviewees, initialAttributes, initialQuestions, initialMetrics, initialModel);
     }
 
     private void initLogging(Config config) {
@@ -203,7 +194,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Session");
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initializedPrefs = new UserPrefs();
         }
 

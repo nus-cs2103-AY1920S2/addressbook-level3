@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.hirelah.*;
@@ -24,16 +25,21 @@ public class StorageManager implements Storage {
     private AttributeStorage attributeStorage;
     private QuestionStorage questionStorage;
     private MetricStorage metricStorage;
+    private TranscriptStorage transcriptStorage;
+    private ModelStorage modelStorage;
 
     public StorageManager(UserPrefsStorage userPrefsStorage, IntervieweeStorage intervieweeStorage,
                           AttributeStorage attributeStorage, QuestionStorage questionStorage,
-                          MetricStorage metricStorage) {
+                          MetricStorage metricStorage, TranscriptStorage transcriptStorage,
+                          ModelStorage modelStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
         this.intervieweeStorage = intervieweeStorage;
         this.attributeStorage = attributeStorage;
         this.questionStorage = questionStorage;
         this.metricStorage = metricStorage;
+        this.transcriptStorage = transcriptStorage;
+        this.modelStorage = modelStorage;
     }
 
     // ================ InterviewStorage methods ==============================
@@ -42,13 +48,14 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to Metric data file: " + getIntervieweeDirectory());
         intervieweeStorage.saveInterview(source);
     }
-    public Optional<IntervieweeList> readInterviewee(QuestionList questionList, AttributeList attributeList) throws DataConversionException {
-        return readInterviewee(intervieweeStorage.getPath(), QuestionList questionList, AttributeList attributeList);
+
+    public Optional<IntervieweeList> readInterviewee(QuestionList questionList, AttributeList attributeList,Boolean initialModel) throws DataConversionException {
+        return readInterviewee(intervieweeStorage.getPath(), questionList, attributeList,initialModel);
     }
     /** Reads the Json file and converts them to Interviewee objects*/
-    public Optional<IntervieweeList> readInterviewee(Path filepath, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
+    public Optional<IntervieweeList> readInterviewee(Path filepath, QuestionList questionList, AttributeList attributeList, Boolean initialModel) throws DataConversionException {
         logger.fine("Attempting to read data from Interviewee file: " + filepath);
-        return intervieweeStorage.readInterviewee(filepath);
+        return intervieweeStorage.readInterviewee(filepath,questionList, attributeList, initialModel, this.transcriptStorage);
     }
 
     public Path getIntervieweeDirectory() {
@@ -112,6 +119,45 @@ public class StorageManager implements Storage {
 
     public Path getMetricDirectory() {
         return metricStorage.getPath();
+    }
+
+    // ================ TranscriptStorage methods ================================
+    /** Save all the MetricList into their Json file*/
+    public void saveTranscript(Interviewee source) throws IOException, IllegalValueException {
+        logger.fine("Attempting to write to Metric data file: " + getMetricDirectory());
+        transcriptStorage.saveTranscript(source);
+    }
+
+    /*public Optional<Transcript> readTranscript(Path path, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
+        return readTranscript(transcriptStorage.getPath(),questionList, attributeList);
+    }*/
+
+    /** Reads the Json file and converts them to Interviewee objects*/
+    public Optional<Transcript> readTranscript(Path filepath, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
+        logger.fine("Attempting to read data from Metric file: " + filepath);
+        return transcriptStorage.readTranscript(filepath, questionList, attributeList);
+    }
+
+    // ================ ModelStorage methods ================================
+    public Path getModelDirectory() {
+        return modelStorage.getPath();
+    }
+    public void saveModel(Boolean model) throws IOException {
+        logger.fine("Attempting to write to Model data file: " + getModelDirectory());
+        modelStorage.saveModel(model);
+    }
+
+    public Optional<Boolean> readModel() throws DataConversionException {
+        return readModel(getModelDirectory());
+    }
+    public Optional<Boolean> readModel(Path filePath) throws DataConversionException {
+        logger.fine("Attempting to read data from Metric file: " + filePath);
+        return modelStorage.readModel(filePath);
+    }
+
+
+    public Path getTranscriptDirectory() {
+        return transcriptStorage.getPath();
     }
 
     // ================ UserPrefsStorage methods ==============================
