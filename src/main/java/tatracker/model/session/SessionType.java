@@ -16,6 +16,10 @@ public enum SessionType {
 
     private String typeName;
 
+    SessionType(String typeName) {
+        this.typeName = typeName;
+    }
+
     public static SessionType getSessionTypeById(int id) {
         switch (id) {
         case 0:
@@ -33,10 +37,6 @@ public enum SessionType {
         default:
             throw new IllegalArgumentException("The requested SessionType ID is invalid!");
         }
-    }
-
-    SessionType(String typeName) {
-        this.typeName = typeName;
     }
 
     @Override

@@ -31,8 +31,9 @@ public class ShowStatisticCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (targetModuleCode == null)
+        if (targetModuleCode == null) {
             return new StatisticCommandResult(SHOWING_REPORT_MESSAGE, null);
+        }
 
         if (model.hasModule(new Module(targetModuleCode))) {
             return new StatisticCommandResult(SHOWING_REPORT_MESSAGE, targetModuleCode);

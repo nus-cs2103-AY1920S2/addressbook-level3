@@ -9,6 +9,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.session.SessionType;
 import tatracker.model.statistic.Statistic;
@@ -125,18 +126,18 @@ public class StatisticWindow extends UiPart<Stage> {
      * Shows the statistic window.
      *
      * @throws IllegalStateException <ul>
-     *                                   <li>
-     *                                       if this method is called on a thread other than the JavaFX Application Thread.
-     *                                   </li>
-     *                                   <li>
-     *                                       if this method is called during animation or layout processing.
-     *                                   </li>
-     *                                   <li>
-     *                                       if this method is called on the primary stage.
-     *                                   </li>
-     *                                   <li>
-     *                                       if {@code dialogStage} is already showing.
-     *                                   </li>
+     *                               <li>
+     *                               if this method is called on a thread other than the JavaFX Application Thread.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called during animation or layout processing.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called on the primary stage.
+     *                               </li>
+     *                               <li>
+     *                               if {@code dialogStage} is already showing.
+     *                               </li>
      *                               </ul>
      */
     public void show() {

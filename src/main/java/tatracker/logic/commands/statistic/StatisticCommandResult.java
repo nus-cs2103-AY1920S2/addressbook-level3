@@ -2,6 +2,9 @@ package tatracker.logic.commands.statistic;
 
 import tatracker.logic.commands.CommandResult;
 
+/**
+ * Shows the statistics window for the selected module.
+ */
 public class StatisticCommandResult extends CommandResult {
 
     public final String targetModuleCode;

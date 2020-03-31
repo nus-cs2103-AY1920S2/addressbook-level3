@@ -220,6 +220,10 @@ public class MainWindow extends UiPart<Stage> {
         handleStatistic(null);
     }
 
+    /**
+     * Opens the statistic window for the input module.
+     * @param moduleCode the module code for which the stats will be for
+     */
     public void handleStatistic(String moduleCode) {
         if (statisticWindow != null && statisticWindow.isShowing()) {
             statisticWindow.hide();
@@ -246,32 +250,9 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
 
-        if (statisticWindow != null)
+        if (statisticWindow != null) {
             statisticWindow.hide();
-    }
-
-    public StudentListPanel getStudentListPanel() {
-        return studentListPanel;
-    }
-
-    public GroupListPanel getGroupListPanel() {
-        return groupListPanel;
-    }
-
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
-    }
-
-    public ModuleListPanelCopy getModuleListPanelCopy() {
-        return moduleListPanelCopy;
-    }
-
-    public SessionListPanel getSessionListPanel() {
-        return sessionListPanel;
-    }
-
-    public ClaimsListPanel getClaimsListPanel() {
-        return claimsListPanel;
+        }
     }
 
     /**

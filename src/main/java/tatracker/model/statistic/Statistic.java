@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.util.Pair;
 
 import tatracker.model.ReadOnlyTaTracker;
-import tatracker.model.module.Module;
 import tatracker.model.rating.Rating;
 import tatracker.model.session.SessionType;
 import tatracker.model.session.UniqueSessionList;
@@ -15,6 +14,10 @@ import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 import tatracker.ui.StatisticWindow;
 
+/**
+ * A data container that stores the statistic of TA-Tracker.
+ * The UI classes will read statistics from this class to display statistics data in the Statistics window.
+ */
 public class Statistic {
 
     public static final String ALL_MODULES_STRING = "ALL MODULES";
