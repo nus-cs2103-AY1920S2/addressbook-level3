@@ -353,6 +353,11 @@ public class ModelManager implements Model {
     }
 
     //=========== Undo and Redo ========================================================================
+
+    /**
+     * Duplicates current state, pops current state, pushes the duplicate, the push the current state into undostack
+     * @param commandType the command type (which databased is changed) that led to this state
+     */
     private void createNewState(String commandType) {
         ModelState state = ModelState.copy(currentModel);
 
@@ -363,11 +368,14 @@ public class ModelManager implements Model {
         undoStates.push(state);
         undoStates.push(currentModel);
 
-        while(!redoStates.isEmpty()) {
+        while (!redoStates.isEmpty()) {
             redoStates.pop();
         }
     }
 
+    /**
+     * Make all attributes point to the current state ones
+     */
     private void update() {
         this.addressBook = this.currentModel.getAddressBook();
         this.userPrefs = this.currentModel.getUserPrefs();
@@ -382,10 +390,23 @@ public class ModelManager implements Model {
         bdayList = this.currentModel.getBdayList();
     }
 
+    /**
+     * Returns the size of the undo stack
+     * @return size of undo stack
+     */
     public int undoStackSize() { return undoStates.size(); }
 
+    /**
+     * Returns size of redo stack
+     * @return size of redo stack
+     */
     public int redoStackSize() { return redoStates.size(); }
 
+    /**
+     * Un-does the last operation that alters something, pops the top of the undo stack into the redo stack
+     * and makes the resulting top of the new undo stack the current state
+     * @return the command type that represents which database is changed
+     */
     public String undo() {
         String commandType = undoStates.peek().getCommandType();
         ModelState popped = undoStates.pop();
@@ -396,6 +417,11 @@ public class ModelManager implements Model {
         return commandType;
     }
 
+    /**
+     * Re-does the last undone operation, pops the top of redo stack into the undo stack
+     * and makes the resulting top of the new undo stack the current state
+     * @return the command type that represents which database is changed
+     */
     public String redo() {
         String commandType = redoStates.peek().getCommandType();
         ModelState popped = redoStates.pop();

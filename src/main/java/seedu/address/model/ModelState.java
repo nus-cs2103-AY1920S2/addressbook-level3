@@ -1,13 +1,16 @@
 package seedu.address.model;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * Class representing a single state of the application
+ */
 public class ModelState {
     private final AddressBook addressBook;
     private final RestaurantBook restaurantBook;
@@ -68,22 +71,38 @@ public class ModelState {
         this.commandType = commandType;
     }
 
+    /**
+     * Makes a copy of the state m
+     * @param m the state to be copied
+     * @return a new copy of the state m
+     */
     public static ModelState copy(ModelState m) {
         return new ModelState(m.getAddressBook(), m.getRestaurantBook(), m.getScheduler(), m.getEventSchedule(),
                 m.getUserPrefs(), m.getCommandType());
     }
 
     public AddressBook getAddressBook() { return this.addressBook; }
+
     public RestaurantBook getRestaurantBook() { return this.restaurantBook; }
+
     public Scheduler getScheduler() { return this.scheduler; }
+
     public EventSchedule getEventSchedule() { return this.eventSchedule; }
+    
     public UserPrefs getUserPrefs() { return this.userPrefs; }
+
     public FilteredList<Person> getFilteredPersons() { return this.filteredPersons; }
+
     public FilteredList<Person> getFilteredPersonsResult() { return this.filteredPersonsResult; }
+
     public FilteredList<Restaurant> getFilteredRestaurants() { return this.filteredRestaurants; }
+
     public FilteredList<Assignment> getFilteredAssignments() { return this.filteredAssignments; }
+
     public FilteredList<Event> getFilteredEvents() { return this.filteredEvents; }
+
     public FilteredList<Person> getBdayList() { return this.bdayList; }
+
     public String getCommandType() { return this.commandType; }
 
     public void setCommandType(String command) { this.commandType = command; }
