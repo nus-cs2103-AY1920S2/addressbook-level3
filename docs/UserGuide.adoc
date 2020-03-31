@@ -56,13 +56,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+[NOTE]
+`F1` key for quick access to launch help window.
+
 === Adding a customer: `addc`
 
 Adds a customer to the customer list +
 Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 
-[TIP]
-A customer can have any number of tags (including 0)
+[NOTE]
+A customer can have any number of tags (including 0).
 
 Examples:
 
@@ -71,8 +74,6 @@ Examples:
 
 
 === Listing all customers: `listc`
-
-image::ListAllCustomers.png[width="790" align="center"]
 
 Shows a list of all customers in the customer list. +
 Format: `listc`
@@ -157,6 +158,8 @@ Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]`
 [TIP]
 A product created without providing values for sales (in SGD) will be created with 0 sales.
 
+image::AddProduct.png[width="790" align="center"]
+
 Examples:
 
 * `addp d/iphone x pr/1000 q/10 cp/300`
@@ -164,12 +167,10 @@ Examples:
 
 === Listing all products : `listp`
 
-image::Ui.png[width="790" align="center"]
-
 Show all products in the product list. +
 Format: `listp`
 
-[TIP]
+[NOTE]
 The product is automatically sorted by the product quantity, represented by the bar indicator beside the product name.
 
 === Editing a product : `editp`
@@ -236,8 +237,8 @@ Deletes the 2nd product in the product list.
 * `findp camera` +
 `deletep 1` +
 Deletes the 1st product in the results of the find command.
-
 // end::delete[]
+
 === Clearing all entries : `clearp`
 
 Clears all entries from the product list. +
@@ -258,6 +259,8 @@ Only need to enter if necessary (i.e. discounts on products). +
 The description field [d/] is optional, will be recorded as Null if left empty.
 Only need to enter if user want to add notes to the transaction.
 
+image::AddTransaction.png[width="790" align="center"]
+
 Examples:
 
 * `addt p/1 c/10 dt/2020-02-19 19:00 q/10 m/20` +
@@ -267,8 +270,6 @@ Adds a transaction with 20th product and 2nd customer of $30 for 10 products at 
 
 
 === Listing all transaction : `listt`
-
-image::ListTransactions.png[width="790" align="center"]
 
 Lists all the transactions. +
 Format: `listt`
@@ -300,7 +301,7 @@ Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
 * Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
-image::FindTransaction.png[width="790" align="center"]
+image::FindTransactionByProduct.png[width="790" align="center"]
 
 Examples:
 
@@ -348,11 +349,11 @@ Permanently deletes all the stored transaction data in the application.
 Displays and updates the top-selling and worst-selling product as transactions are made. +
 
 [NOTE]
-This is a passive feature, which automatically updates on Ui.
+This is a passive feature. Relaunch the window to get the updated information.
+`F2` key for quick access to launch/relaunch the window.
 
-Example:
 
-image::Statistics.png[align="center"]
+image::TopSellingProducts.png[align="center"]
 
 === Get the revenue made in a certain period : `revenue`
 
@@ -420,6 +421,13 @@ This is a passive feature.
 Predict sales for the next month based on sales in the previous three months +
 Format: `predict`
 
+=== Plotting sales: `plotsales`.
+
+Plot a graph with the sales of the selected product in the past week. +
+Format: `plotsales PRODUCT_INDEX`
+
+image::SalesPlot.png[align="center"]
+
 === Exiting from the program : `exit`
 
 Exit from the program. +
@@ -452,7 +460,9 @@ The history is deleted after application closes.
 The product list updates and sort by products that are running low on stock automatically.
 
 [NOTE]
-This is a passive feature.
+This is a passive feature. The bar indicator beside the products' name represents visualises the remaining balance.
+
+image::TrackProductBalance.png[width="790" align="center"]
 
 == FAQ
 
