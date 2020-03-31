@@ -28,6 +28,10 @@ public class Fav {
         this.favStatus = true;
     }
 
+    public void unFav() {
+        this.favStatus = false;
+    }
+
     public boolean getfavStatus() {
         return favStatus;
     }

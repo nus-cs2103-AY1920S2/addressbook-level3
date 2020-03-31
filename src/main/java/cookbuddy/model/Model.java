@@ -69,6 +69,12 @@ public interface Model {
     void favRecipe(Recipe recipe);
 
     /**
+     * Un-favourites the recipe
+     *
+     */
+    void unFavRecipe(Recipe recipe);
+
+    /**
      *
      * Un-Favourites the recipe
      */

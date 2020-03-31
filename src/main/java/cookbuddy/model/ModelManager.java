@@ -101,6 +101,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void unFavRecipe(Recipe recipe) {
+        recipeBook.unFav(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
     public long count() {
         return recipeBook.count();
     }
