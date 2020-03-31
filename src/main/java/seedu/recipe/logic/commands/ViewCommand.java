@@ -14,7 +14,7 @@ public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the planed recipes in the specified format.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the planned recipes in the specified format.";
 
     public static final String MESSAGE_SUCCESS = "View format changed to %1$s";
 
