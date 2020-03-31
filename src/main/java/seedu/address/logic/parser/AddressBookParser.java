@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.BuyCommand;
 import seedu.address.logic.commands.ClearSupplierCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteGoodCommand;
 import seedu.address.logic.commands.DeleteSupplierCommand;
 import seedu.address.logic.commands.EditSupplierCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -56,7 +57,10 @@ public class AddressBookParser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteSupplierCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteSupplierCommandParser().parse(arguments);
+
+        case DeleteGoodCommand.COMMAND_WORD:
+            return new DeleteGoodCommandParser().parse(arguments);
 
         case FindSupplierCommand.COMMAND_WORD:
             return new FindSupplierCommandParser().parse(arguments);
