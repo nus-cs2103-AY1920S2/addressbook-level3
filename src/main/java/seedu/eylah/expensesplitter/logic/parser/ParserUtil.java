@@ -62,7 +62,7 @@ public class ParserUtil {
         requireNonNull(priceInString);
         String trimmedPrice = priceInString.trim();
         BigDecimal bigDecimalPrice = new BigDecimal(trimmedPrice);
-        if (!ItemPrice.isValidPrice(bigDecimalPrice.stripTrailingZeros())) {
+        if (!ItemPrice.isValidPrice(bigDecimalPrice)) {
             throw new ParseException(ItemPrice.MESSAGE_CONSTRAINTS);
         }
         return new ItemPrice(bigDecimalPrice);
