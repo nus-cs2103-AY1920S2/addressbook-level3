@@ -68,6 +68,7 @@ public class Receipt {
      */
     public void clearReceipt() {
         this.receipt = new ArrayList<>();
+        this.isDone = false;
     }
 
     /**
@@ -135,4 +136,8 @@ public class Receipt {
         return builder.toString();
     }
 
+    //for testing purposes
+    public boolean hasEntry(Entry entry) {
+        return receipt.contains(entry);
+    }
 }
