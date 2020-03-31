@@ -1,9 +1,5 @@
 package fithelper.model;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.function.Predicate;
-
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
@@ -11,9 +7,12 @@ import fithelper.model.entry.Entry;
 import fithelper.model.profile.Profile;
 import fithelper.model.today.Today;
 import fithelper.model.weight.Weight;
-
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -177,13 +176,13 @@ public interface Model {
      * Search the pre-defined FoodCalorie dataset for entries that match the given keyword.
      * @param keyword keyword for searching
      */
-    List<CalorieEntry> searchFoodCalorieTable(String keyword);
+    Set<CalorieEntry> searchFoodCalorieTable(String keyword);
 
     /**
      * Search the pre-defined SportsCalorie dataset for entries that match the given keyword.
      * @param keyword keyword for searching
      */
-    List<CalorieEntry> searchSportsCalorieTable(String keyword);
+    Set<CalorieEntry> searchSportsCalorieTable(String keyword);
 
     ObservableList<VEvent> getVEvents();
 

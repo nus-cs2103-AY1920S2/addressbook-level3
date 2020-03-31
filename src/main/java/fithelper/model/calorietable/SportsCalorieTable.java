@@ -1,13 +1,14 @@
 package fithelper.model.calorietable;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The table storing pre-defined data about calorie consumption of a food
  */
 public class SportsCalorieTable implements CalorieTable {
-    private List<SportsCalorieEntry> entries = new ArrayList<>();
+    private Set<SportsCalorieEntry> entries = new HashSet<>();
 
     public SportsCalorieTable() {
         String data = SportsCalorieDataUtil.DATA;
@@ -20,7 +21,7 @@ public class SportsCalorieTable implements CalorieTable {
         }
     }
 
-    public List<SportsCalorieEntry> getEntries() {
+    public Set<SportsCalorieEntry> getEntries() {
         return entries;
     }
 }

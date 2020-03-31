@@ -1,13 +1,5 @@
 package fithelper.model;
 
-import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.ModeUtil;
@@ -19,11 +11,18 @@ import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
-
 import fithelper.model.weight.Weight;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the in-memory model of the FitHelper data.
@@ -334,7 +333,7 @@ public class ModelManager implements Model {
      * @param keywords keyword for searching
      * @return a list of {@code CalorieEntry} with matching keyword
      */
-    public List<CalorieEntry> searchFoodCalorieTable(String keywords) {
+    public Set<CalorieEntry> searchFoodCalorieTable(String keywords) {
         return fitHelper.addCalorieEntries("f", keywords);
     }
 
@@ -345,7 +344,7 @@ public class ModelManager implements Model {
      * @param keywords keywords for searching
      * @return a list of {@code CalorieEntry} with matching keywords
      */
-    public List<CalorieEntry> searchSportsCalorieTable(String keywords) {
+    public Set<CalorieEntry> searchSportsCalorieTable(String keywords) {
         return fitHelper.addCalorieEntries("s", keywords);
     }
 
