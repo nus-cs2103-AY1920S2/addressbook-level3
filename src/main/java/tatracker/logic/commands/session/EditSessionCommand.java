@@ -145,7 +145,7 @@ public class EditSessionCommand extends Command {
         private LocalDateTime newEndTime;
         private boolean isDateChanged;
         private int isRecurring;
-        private String moduleCode;
+        private String newModuleCode;
         private SessionType newSessionType;
         private String newDescription;
 
@@ -156,11 +156,11 @@ public class EditSessionCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditSessionDescriptor(EditSessionCommand.EditSessionDescriptor toCopy) {
+        public EditSessionDescriptor(EditSessionDescriptor toCopy) {
             setStartTime(toCopy.newStartTime);
             setEndTime(toCopy.newEndTime);
             setRecurring(toCopy.isRecurring);
-            setModuleCode(toCopy.moduleCode);
+            setModuleCode(toCopy.newModuleCode);
             setSessionType(toCopy.newSessionType);
             setDescription(toCopy.newDescription);
             this.isDateChanged = toCopy.isDateChanged;
@@ -170,7 +170,8 @@ public class EditSessionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(newStartTime, newEndTime, newSessionType, newDescription);
+            return isDateChanged || CollectionUtil.isAnyNonNull(newStartTime, newEndTime,
+                    newModuleCode, newDescription, newSessionType, isRecurring);
         }
 
         public void setStartTime(LocalDateTime startTime) {
@@ -206,11 +207,11 @@ public class EditSessionCommand extends Command {
         }
 
         public void setModuleCode(String moduleCode) {
-            this.moduleCode = moduleCode;
+            this.newModuleCode = moduleCode;
         }
 
         public Optional<String> getModuleCode() {
-            return Optional.ofNullable(moduleCode);
+            return Optional.ofNullable(newModuleCode);
         }
 
         public void setSessionType(SessionType sessionType) {
