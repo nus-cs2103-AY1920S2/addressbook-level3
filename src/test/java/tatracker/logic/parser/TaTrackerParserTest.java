@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.commands.DeleteCommand;
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.commons.ExitCommand;
 import tatracker.logic.commands.commons.FindCommand;
@@ -50,12 +49,12 @@ public class TaTrackerParserTest {
         assertTrue(parser.parseCommand(ClearCommand.DETAILS.getFullCommandWord() + " 3") instanceof ClearCommand);
     }
 
-    @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_STUDENT.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_STUDENT), command);
-    }
+    // @Test
+    // public void parseCommand_delete() throws Exception {
+    //     DeleteCommand command = (DeleteCommand) parser.parseCommand(
+    //             DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_STUDENT.getOneBased());
+    //     assertEquals(new DeleteCommand(INDEX_FIRST_STUDENT), command);
+    // }
 
     @Test
     public void parseCommand_edit() throws Exception {

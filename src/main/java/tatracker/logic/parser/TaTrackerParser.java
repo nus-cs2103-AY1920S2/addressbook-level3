@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.DeleteCommand;
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.commons.ExitCommand;
 import tatracker.logic.commands.commons.GotoCommand;
@@ -69,9 +68,6 @@ public class TaTrackerParser {
 
         case CommandWords.SESSION:
             return new SessionCommandParser().parseCommand(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
 
         case CommandWords.FIND:
             return new FindCommandParser().parse(arguments);
