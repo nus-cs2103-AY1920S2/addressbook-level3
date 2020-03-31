@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.food.Food;
 
 /**
@@ -35,21 +35,21 @@ public class TestUtil {
     /**
      * Returns the middle index of the food in the {@code model}'s food list.
      */
-    public static Index getMidIndex(Model model) {
+    public static Index getMidIndex(DietModel model) {
         return Index.fromOneBased(model.getFilteredFoodList().size() / 2);
     }
 
     /**
      * Returns the last index of the food in the {@code model}'s food list.
      */
-    public static Index getLastIndex(Model model) {
+    public static Index getLastIndex(DietModel model) {
         return Index.fromOneBased(model.getFilteredFoodList().size());
     }
 
     /**
      * Returns the food in the {@code model}'s food list at {@code index}.
      */
-    public static Food getFood(Model model, Index index) {
+    public static Food getFood(DietModel model, Index index) {
         return model.getFilteredFoodList().get(index.getZeroBased());
     }
 }

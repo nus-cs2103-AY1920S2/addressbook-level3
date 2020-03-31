@@ -3,12 +3,12 @@ package seedu.eylah.diettracker.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.eylah.addressbook.model.util.SampleDataUtil;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;
+import seedu.eylah.diettracker.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Food objects.

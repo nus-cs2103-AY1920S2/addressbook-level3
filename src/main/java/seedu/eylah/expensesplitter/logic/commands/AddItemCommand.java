@@ -8,8 +8,9 @@ import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 
 import java.util.ArrayList;
 
-import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
-import seedu.eylah.expensesplitter.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
@@ -55,17 +56,17 @@ public class AddItemCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        if (model.isReceiptDone()) {
+    public CommandResult execute(SplitterModel splitterModel) throws CommandException {
+        requireNonNull(splitterModel);
+        if (splitterModel.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
-            model.addEntry(toBeAdded);
+            splitterModel.addEntry(toBeAdded);
             for (Person person : persons) {
-                if (!model.hasPerson(person)) {
-                    model.addPerson(person);
+                if (!splitterModel.hasPerson(person)) {
+                    splitterModel.addPerson(person);
                 } else {
-                    model.addAmount(model.getPerson(person), amount);
+                    splitterModel.addAmount(splitterModel.getPerson(person), amount);
                 }
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));

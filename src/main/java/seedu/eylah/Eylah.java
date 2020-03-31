@@ -1,5 +1,8 @@
 package seedu.eylah;
 
+import static seedu.eylah.commons.core.Messages.MESSAGE_INITIATION_FAILED;
+import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -9,36 +12,47 @@ import seedu.eylah.commons.core.Config;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.core.Version;
 import seedu.eylah.commons.exceptions.DataConversionException;
+import seedu.eylah.commons.exceptions.InitialiseException;
+import seedu.eylah.commons.logic.Logic;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
+import seedu.eylah.commons.model.Mode;
+import seedu.eylah.commons.model.Model;
+import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.commons.storage.JsonUserPrefsStorage;
+import seedu.eylah.commons.storage.Storage;
+import seedu.eylah.commons.storage.UserPrefsStorage;
 import seedu.eylah.commons.util.ConfigUtil;
 import seedu.eylah.commons.util.StringUtil;
-import seedu.eylah.diettracker.logic.Logic;
-import seedu.eylah.diettracker.logic.LogicManager;
-import seedu.eylah.diettracker.logic.commands.CommandResult;
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.diettracker.logic.DietLogicManager;
+import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.model.DietModelManager;
 import seedu.eylah.diettracker.model.FoodBook;
-import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.ModelManager;
+import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.util.SampleDataUtil;
+import seedu.eylah.diettracker.storage.DietStorage;
+import seedu.eylah.diettracker.storage.DietStorageManager;
 import seedu.eylah.diettracker.storage.FoodBookStorage;
 import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
+import seedu.eylah.expensesplitter.logic.SplitterLogicManager;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
-import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
 import seedu.eylah.expensesplitter.model.ReceiptBook;
-import seedu.eylah.expensesplitter.model.UserPrefs;
+import seedu.eylah.expensesplitter.model.SplitterModel;
+import seedu.eylah.expensesplitter.model.SplitterModelManager;
 import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
 import seedu.eylah.expensesplitter.model.util.SampleReceiptDataUtil;
 import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
 import seedu.eylah.expensesplitter.storage.JsonReceiptBookStorage;
-import seedu.eylah.expensesplitter.storage.JsonUserPrefsStorage;
 import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
 import seedu.eylah.expensesplitter.storage.ReceiptStorage;
-import seedu.eylah.expensesplitter.storage.Storage;
-import seedu.eylah.expensesplitter.storage.StorageManager;
-import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
+import seedu.eylah.expensesplitter.storage.SplitterStorage;
+import seedu.eylah.expensesplitter.storage.SplitterStorageManager;
 import seedu.eylah.ui.Ui;
 import seedu.eylah.ui.UiManager;
+
 
 /**
  * The main entry for the EYLAH.
@@ -49,12 +63,16 @@ public class Eylah {
 
     private static final Logger logger = LogsCenter.getLogger(Eylah.class);
 
-    protected Logic dietLogic;
-    protected Model dietModel;
-    protected seedu.eylah.expensesplitter.logic.Logic splitterLogic;
-    protected seedu.eylah.expensesplitter.model.Model splitterModel;
-
     private Ui ui;
+    private UserPrefs userPrefs;
+    private UserPrefsStorage userPrefsStorage;
+    private Config config;
+    private Storage storage;
+    private Model model;
+    private Logic logic;
+    private boolean isExit;
+    private boolean isBack;
+    private String commandWord;
 
     /**
      * Runs the application until termination.
@@ -69,14 +87,88 @@ public class Eylah {
      * Setup the required objects and show welcome message.
      */
     private void start() {
+        isExit = false;
         ui = new UiManager();
+        config = initConfig(null);
+        userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        userPrefs = initPrefs(userPrefsStorage);
     }
 
     /**
-     * Reads the user command and executes it, until the user enter the exit command.
+     * Main menu of the EYLAH.
+     * Reads the user command and enter different mode based on input, until the user enter the exit command.
      */
     private void runCommandLoopUntilExitCommand() {
-        run1(); //temporary for testing
+        ui.showLogo();
+        while (!isExit) {
+            ui.showWelcome();
+            commandWord = ui.readCommand();
+            isBack = false;
+
+            switch(commandWord.toLowerCase()) {
+            case "1":
+                initSetup(Mode.DIET);
+                runCommandLoopUntilBackCommand(Mode.DIET);
+                break;
+            case "2":
+                initSetup(Mode.SPLITTER);
+                runCommandLoopUntilBackCommand(Mode.SPLITTER);
+                break;
+            case "exit":
+                isExit = true;
+                break;
+            default:
+                ui.showError(MESSAGE_UNKNOWN_COMMAND);
+            }
+        }
+    }
+
+    /**
+     * Reads the user command and executes it, until the user enter the exit or back command.
+     */
+    private void runCommandLoopUntilBackCommand(Mode mode) {
+        while (!isExit) {
+            ui.showMode(mode);
+            commandWord = ui.readCommand();
+
+            // temporary exit solution until the ExitCommand implement.
+            if (commandWord.equalsIgnoreCase("exit")) {
+                isExit = true;
+                break;
+            }
+            // temporary back solution until diet#BackCommand implement.
+            if (commandWord.equalsIgnoreCase("back")) {
+                isBack = true;
+                break;
+            }
+
+            try {
+                CommandResult commandResult = logic.execute(commandWord);
+                isBack = commandResult.isBack();
+                isExit = commandResult.isExit();
+                ui.showResult(commandResult.getFeedbackToUser());
+            } catch (CommandException | ParseException e) {
+                ui.showError(e.getMessage());
+            }
+            if (isBack) {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Initialise all the required objects.
+     * @param mode mode the EYLAH
+     */
+    private void initSetup(Mode mode) {
+        try {
+            storage = initStorageManager(mode);
+            model = initModelManager(storage, mode);
+            logic = initLogicManager(mode);
+        } catch (InitialiseException e) {
+            ui.showError(e.getMessage());
+            isExit = true;
+        }
     }
 
     /**
@@ -100,158 +192,105 @@ public class Eylah {
     }
 
     /**
-     * Main method to run the application.
-     * For now just ignore these messy code, this is a temporary code for testing purpose.
-     * After start the app, only can choose to run in diet or splitter mode,
-     * the way to exit the app just simply close the app in terminal.
+     * Returns a {@code StorageManager} with the given path in the {@code userPref}.
      *
+     * @param mode current mode of EYLAH
+     * @return the storage manager
      */
-    public void run1() {
-        boolean isExit = false;
-        ui.showWelcome();
-
-        //System.out.println("Enter mode (diet/splitting): ");
-        String input = ui.readCommand();
-        if (input.equals("1")) {
-            // Diet mode
-            Config config;
-
-            config = initConfig(null);
-
-            seedu.eylah.diettracker.storage.UserPrefsStorage userPrefsStorage =
-                    new seedu.eylah.diettracker.storage.JsonUserPrefsStorage(config.getUserPrefsFilePath());
-            seedu.eylah.diettracker.model.UserPrefs userPrefs = initPrefsDiet(userPrefsStorage);
+    private Storage initStorageManager(Mode mode) throws InitialiseException {
+        switch(mode) {
+        case DIET:
             FoodBookStorage foodBookStorage = new JsonFoodBookStorage(userPrefs.getFoodBookFilePath());
-            seedu.eylah.diettracker.storage.Storage storage =
-                    new seedu.eylah.diettracker.storage.StorageManager(foodBookStorage, userPrefsStorage);
-
-            logger.info("Entering Diet MODE.");
-            dietModel = initModelManagerDiet(storage, userPrefs);
-            dietLogic = new LogicManager(dietModel, storage);
-            while (!isExit) {
-                System.out.println("Enter Diet Command: ");
-                input = ui.readCommand();
-                if (input.equals("exit")) {
-                    break;
-                }
-                try {
-                    CommandResult commandResult = dietLogic.execute(input);
-                    // Here will print out the respond to user
-                    ui.showResult(commandResult.getFeedbackToUser());
-                } catch (CommandException | ParseException e) {
-                    ui.showError(e.getMessage());
-                }
-            }
-        } else {
-            // Splitting mode
-            System.out.println("Entering Splitting MODE.");
-            Config config;
-            Storage storage;
-
-
-            config = initConfig(null);
-
-            UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-            UserPrefs userPrefs = initPrefs(userPrefsStorage);
-
+            return new DietStorageManager(foodBookStorage, userPrefsStorage);
+        case SPLITTER:
             PersonAmountStorage personAmountStorage =
                     new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
-            ReceiptStorage receiptStorage =
-                    new JsonReceiptBookStorage(userPrefs.getReceiptFilePath());
-            storage = new StorageManager(personAmountStorage, userPrefsStorage, receiptStorage);
-
-            splitterModel = initModelManager(storage, userPrefs);
-
-            splitterLogic = new seedu.eylah.expensesplitter.logic.LogicManager(splitterModel, storage);
-            while (!isExit) {
-                System.out.println("Enter Splitting Command: ");
-                input = ui.readCommand();
-                if (input.equals("exit")) {
-                    break;
-                }
-                try {
-                    seedu.eylah.expensesplitter.logic.commands.CommandResult commandResult =
-                            splitterLogic.execute(input);
-                    // Here will print out the respond to user
-                    ui.showResult(commandResult.getFeedbackToUser());
-                } catch (seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException
-                        | seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException e) {
-                    ui.showError(e.getMessage());
-                }
-            }
+            ReceiptStorage receiptStorage = new JsonReceiptBookStorage(userPrefs.getReceiptBookFilePath());
+            return new SplitterStorageManager(personAmountStorage, receiptStorage, userPrefsStorage);
+        default:
+            throw new InitialiseException(MESSAGE_INITIATION_FAILED);
         }
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s personamountbook and {@code userPrefs}. <br>
-     * The data from the sample personamount book will be used instead if {@code storage}'s personamountbook
-     * is not found,
-     * or an personamount book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s EYLAH and {@code userPrefs}. <br>
+     * The data from the sample will be used instead if {@code storage} is not found,
+     * or an empty data will be used instead if errors occur when reading {@code storage}.
      */
-    private seedu.eylah.expensesplitter.model.Model initModelManager(Storage storage, ReadOnlyUserPrefs
-        userPrefs) {
-
-        Optional<ReadOnlyPersonAmountBook> personAmountBookOptional;
-        Optional<ReadOnlyReceiptBook> receiptBookOptional;
-        ReadOnlyPersonAmountBook initialPersonData;
-        ReadOnlyReceiptBook initialReceiptData;
-        try {
-
-            personAmountBookOptional = storage.readPersonAmountBook();
-            receiptBookOptional = storage.readReceiptBook();
-            if (personAmountBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample PersonAmountBook");
+    private Model initModelManager(Storage storage, Mode mode) throws InitialiseException {
+        switch(mode) {
+        case DIET:
+            DietStorage dietStorage = (DietStorage) storage;
+            Optional<ReadOnlyFoodBook> foodBookOptional;
+            ReadOnlyFoodBook initialFoodBookData;
+            try {
+                foodBookOptional = dietStorage.readFoodBook();
+                if (foodBookOptional.isEmpty()) {
+                    logger.info("Data file not found. Will be starting with a sample FoodBook");
+                }
+                initialFoodBookData =
+                        foodBookOptional.orElseGet(SampleDataUtil::getSampleFoodBook);
+            } catch (DataConversionException e) {
+                logger.warning("Data file not in the correct format. Will be starting with an empty FoodBook");
+                initialFoodBookData = new FoodBook();
+            } catch (IOException e) {
+                logger.warning("Problem while reading from the file. Will be starting with an empty FoodBook");
+                initialFoodBookData = new FoodBook();
             }
-            if (receiptBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample ReceiptBook");
+            return new DietModelManager(initialFoodBookData, userPrefs);
+
+        case SPLITTER:
+            SplitterStorage splitterStorage = (SplitterStorage) storage;
+            Optional<ReadOnlyPersonAmountBook> personAmountBookOptional;
+            Optional<ReadOnlyReceiptBook> receiptBookOptional;
+            ReadOnlyPersonAmountBook initialPersonData;
+            ReadOnlyReceiptBook initialReceiptData;
+            try {
+                personAmountBookOptional = splitterStorage.readPersonAmountBook();
+                receiptBookOptional = splitterStorage.readReceiptBook();
+                if (personAmountBookOptional.isEmpty()) {
+                    logger.info("Data file not found. Will be starting with a sample PersonAmountBook");
+                }
+                if (receiptBookOptional.isEmpty()) {
+                    logger.info("Data file not found. Will be starting with a sample ReceiptBook");
+                }
+                initialPersonData = personAmountBookOptional
+                        .orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
+                initialReceiptData = receiptBookOptional.orElseGet(SampleReceiptDataUtil::getSampleReceiptBook);
+            } catch (DataConversionException e) {
+                logger.warning("Data file not in the correct format. Will be starting with an empty "
+                        + "PersonAmountBook and ReceiptBook");
+                initialPersonData = new PersonAmountBook();
+                initialReceiptData = new ReceiptBook();
+            } catch (IOException e) {
+                logger.warning("Problem while reading from the file. Will be starting with an empty "
+                        + "PersonAmountBook and ReceiptBook");
+                initialPersonData = new PersonAmountBook();
+                initialReceiptData = new ReceiptBook();
             }
-            initialPersonData = personAmountBookOptional
-                    .orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
-            initialReceiptData = receiptBookOptional.orElseGet(SampleReceiptDataUtil::getSampleReceiptBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty "
-                    + "PersonAmountBook and ReceiptBook");
-            initialPersonData = new PersonAmountBook();
-            initialReceiptData = new ReceiptBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty "
-                    + "PersonAmountBook and ReceiptBook");
-            initialPersonData = new PersonAmountBook();
-            initialReceiptData = new ReceiptBook();
+            return new SplitterModelManager(initialReceiptData, initialPersonData, userPrefs);
+
+        default:
+            throw new InitialiseException(MESSAGE_INITIATION_FAILED);
         }
-
-        return new seedu.eylah.expensesplitter.model.ModelManager(initialReceiptData, initialPersonData, userPrefs);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code LogicManager} with the {@code model}'s EYLAH and {@code storage}. <br>
+     *
+     * @param mode current mode of EYLAH
+     * @return a logic manager
      */
-    private Model initModelManagerDiet(FoodBookStorage storage,
-                                                         seedu.eylah.diettracker.model.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.eylah.diettracker.model.ReadOnlyFoodBook> foodBookOptional;
-        seedu.eylah.diettracker.model.ReadOnlyFoodBook initialData;
-        try {
-            foodBookOptional = storage.readFoodBook();
-            if (!foodBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample FoodBook");
-            }
-            initialData =
-                    foodBookOptional.orElseGet(seedu.eylah.diettracker.model.util.SampleDataUtil::getSampleFoodBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty FoodBook");
-            initialData = new FoodBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty FoodBook");
-            initialData = new FoodBook();
+    private Logic initLogicManager(Mode mode) throws InitialiseException {
+        switch (mode) {
+        case DIET:
+            return new DietLogicManager(((DietModel) model), ((DietStorage) storage));
+        case SPLITTER:
+            return new SplitterLogicManager(((SplitterModel) model), ((SplitterStorage) storage));
+        default:
+            throw new InitialiseException(MESSAGE_INITIATION_FAILED);
         }
-
-        return new ModelManager(initialData, userPrefs);
     }
-
-
-
 
     /**
      * Returns a {@code Config} using the file at {@code configFilePath}. <br>
@@ -320,40 +359,5 @@ public class Eylah {
 
         return initializedPrefs;
     }
-
-    /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
-     */
-    protected seedu.eylah.diettracker.model.UserPrefs
-        initPrefsDiet(seedu.eylah.diettracker.storage.UserPrefsStorage storage) {
-        Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
-
-        seedu.eylah.diettracker.model.UserPrefs initializedPrefs;
-        try {
-            Optional<seedu.eylah.diettracker.model.UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new seedu.eylah.diettracker.model.UserPrefs());
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
-            initializedPrefs = new seedu.eylah.diettracker.model.UserPrefs();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initializedPrefs = new seedu.eylah.diettracker.model.UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedPrefs;
-    }
-
-
 
 }

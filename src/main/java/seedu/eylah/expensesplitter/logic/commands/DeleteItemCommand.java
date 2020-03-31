@@ -5,8 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 
 import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
-import seedu.eylah.expensesplitter.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
@@ -39,16 +40,15 @@ public class DeleteItemCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        if (model.isReceiptDone()) {
+    public CommandResult execute(SplitterModel splitterModel) throws CommandException {
+        requireNonNull(splitterModel);
+        if (splitterModel.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
-
             Entry currentEntry;
 
             try {
-                currentEntry = model.getEntry(targetIndex.getZeroBased());
+                currentEntry = splitterModel.getEntry(targetIndex.getZeroBased());
             } catch (IndexOutOfBoundsException ex) {
                 throw new CommandException("There is no Item with this index. Please use `listreceipt` to get the"
                 + " Index of item.");
@@ -57,9 +57,9 @@ public class DeleteItemCommand extends Command {
             Amount amountPerPerson = currentItem.getAmountPerPerson();
             ArrayList<Person> persons = currentEntry.getPersonsList();
             for (Person person : persons) {
-                model.removeAmount(person, amountPerPerson);
+                splitterModel.removeAmount(person, amountPerPerson);
             }
-            model.deleteEntry(targetIndex.getZeroBased());
+            splitterModel.deleteEntry(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetIndex.getOneBased()));
         }
     }

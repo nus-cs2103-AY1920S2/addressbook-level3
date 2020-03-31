@@ -2,7 +2,7 @@
 start
 :User executes DeleteCommand;
  :Validate Index given;
- :Retrieve FoodList from storage;
+ :Retrieve FoodList from splitterStorage;
  :Delete Food at given index from FoodList;
  :Save FoodList;
  :Display to user that Food has been deleted;

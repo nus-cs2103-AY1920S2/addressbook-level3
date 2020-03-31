@@ -8,8 +8,8 @@ import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
-import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.item.ItemPrice;

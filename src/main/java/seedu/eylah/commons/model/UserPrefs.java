@@ -12,8 +12,8 @@ import java.util.Objects;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private Path foodBookFilePath = Paths.get("data" , "foodbook.json");
-    private Path personAmountFilePath = Paths.get("data", "personamount.json");
-    private Path receiptFilePath = Paths.get("data", "receiptbook.json");
+    private Path personAmountBookFilePath = Paths.get("data", "personamount.json");
+    private Path receiptBookFilePath = Paths.get("data", "receiptbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -23,7 +23,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
      */
-    public UserPrefs(UserPrefs userPrefs) {
+    public UserPrefs(ReadOnlyUserPrefs userPrefs) {
         this();
         resetData(userPrefs);
     }
@@ -34,8 +34,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setFoodBookFilePath(newUserPrefs.getFoodBookFilePath());
-        setPersonAmountFilePath(newUserPrefs.getPersonAmountFilePath());
-        setReceiptFilePath(newUserPrefs.getReceiptFilePath());
+        setPersonAmountBookFilePath(newUserPrefs.getPersonAmountBookFilePath());
+        setReceiptBookFilePath(newUserPrefs.getReceiptBookFilePath());
     }
 
     /**
@@ -62,8 +62,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      *
      * @return PersonAmount file path
      */
-    public Path getPersonAmountFilePath() {
-        return personAmountFilePath;
+    public Path getPersonAmountBookFilePath() {
+        return personAmountBookFilePath;
     }
 
     /**
@@ -71,9 +71,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      *
      * @param personAmountFilePath the given file path.
      */
-    public void setPersonAmountFilePath(Path personAmountFilePath) {
+    public void setPersonAmountBookFilePath(Path personAmountFilePath) {
         requireNonNull(personAmountFilePath);
-        this.personAmountFilePath = personAmountFilePath;
+        this.personAmountBookFilePath = personAmountFilePath;
     }
 
     /**
@@ -81,18 +81,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      *
      * @return Receipt file path
      */
-    public Path getReceiptFilePath() {
-        return receiptFilePath;
+    public Path getReceiptBookFilePath() {
+        return receiptBookFilePath;
     }
 
     /**
      * Set the Receipt file path based on the given path.
      *
-     * @param receiptFilePath the given file path.
+     * @param receiptBookFilePath the given file path.
      */
-    public void setReceiptFilePath(Path receiptFilePath) {
-        requireNonNull(receiptFilePath);
-        this.receiptFilePath = receiptFilePath;
+    public void setReceiptBookFilePath(Path receiptBookFilePath) {
+        requireNonNull(receiptBookFilePath);
+        this.receiptBookFilePath = receiptBookFilePath;
     }
 
     @Override
@@ -107,18 +107,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return foodBookFilePath.equals(o.foodBookFilePath)
-                && personAmountFilePath.equals(o.personAmountFilePath);
+                && personAmountBookFilePath.equals(o.personAmountBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(foodBookFilePath, personAmountFilePath);
+        return Objects.hash(foodBookFilePath, personAmountBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Local data file location : %s %s", foodBookFilePath, personAmountFilePath));
+        sb.append(String.format("Local data file location : %s %s", foodBookFilePath, personAmountBookFilePath));
         return sb.toString();
     }
 }

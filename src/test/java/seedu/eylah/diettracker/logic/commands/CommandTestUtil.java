@@ -12,12 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.FoodBook;
-import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.NameContainsKeywordsPredicate;
 import seedu.eylah.diettracker.testutil.EditFoodDescriptorBuilder;
+
 
 /**
  * Contains helper methods for testing commands.
@@ -60,8 +62,8 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-                                            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, DietModel actualModel, CommandResult expectedCommandResult,
+                                            DietModel expectedModel) {
         System.out.println(expectedCommandResult);
         try {
             CommandResult result = command.execute(actualModel);
@@ -73,11 +75,11 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, DietModel, CommandResult, DietModel)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, DietModel actualModel, String expectedMessage,
+                                            DietModel expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -88,7 +90,7 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the food book, filtered food list and selected food in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    public static void assertCommandFailure(Command command, DietModel actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         FoodBook expectedFoodBook = new FoodBook(actualModel.getFoodBook());
@@ -103,7 +105,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the food at the given {@code targetIndex} in the
      * {@code model}'s food book.
      */
-    public static void showFoodAtIndex(Model model, Index targetIndex) {
+    public static void showFoodAtIndex(DietModel model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredFoodList().size());
 
         Food food = model.getFilteredFoodList().get(targetIndex.getZeroBased());

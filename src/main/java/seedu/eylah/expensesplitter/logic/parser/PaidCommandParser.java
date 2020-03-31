@@ -5,8 +5,8 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.stream.Stream;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
-import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new PaidCommandItem object.

@@ -17,11 +17,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.diettracker.logic.commands.EditCommand.EditFoodDescriptor;
 //import seedu.eylah.diettracker.model.FoodBook;
-import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.ModelManager;
-import seedu.eylah.diettracker.model.UserPrefs;
+import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.model.DietModelManager;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.testutil.EditFoodDescriptorBuilder;
 //import seedu.eylah.diettracker.testutil.FoodBuilder;
@@ -31,7 +31,7 @@ import seedu.eylah.diettracker.testutil.EditFoodDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalFoodBook(), new UserPrefs());
+    private DietModel model = new DietModelManager(getTypicalFoodBook(), new UserPrefs());
 
     // @Test
     // public void execute_allFieldsSpecifiedUnfilteredList_success() {
