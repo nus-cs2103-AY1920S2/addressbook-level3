@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.commands.ClearCommand;
 import tatracker.logic.commands.DeleteCommand;
-import tatracker.logic.commands.ExitCommand;
-import tatracker.logic.commands.FindCommand;
-import tatracker.logic.commands.HelpCommand;
-import tatracker.logic.commands.ListCommand;
+import tatracker.logic.commands.commons.ClearCommand;
+import tatracker.logic.commands.commons.ExitCommand;
+import tatracker.logic.commands.commons.FindCommand;
+import tatracker.logic.commands.commons.HelpCommand;
+import tatracker.logic.commands.commons.ListCommand;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.logic.parser.exceptions.ParseException;

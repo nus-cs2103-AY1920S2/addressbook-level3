@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.HelpCommand;
+import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.sort.SortCommand;
 import tatracker.logic.commands.sort.SortGroupCommand;
 import tatracker.logic.commands.sort.SortModuleCommand;

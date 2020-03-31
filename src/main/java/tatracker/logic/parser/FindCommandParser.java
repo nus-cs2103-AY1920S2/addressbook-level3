@@ -4,7 +4,7 @@ import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 
 import java.util.Arrays;
 
-import tatracker.logic.commands.FindCommand;
+import tatracker.logic.commands.commons.FindCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 

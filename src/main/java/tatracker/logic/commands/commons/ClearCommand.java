@@ -1,10 +1,14 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
 

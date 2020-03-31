@@ -9,6 +9,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.logic.commands.commons.FindCommand;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;

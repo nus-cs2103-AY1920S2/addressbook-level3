@@ -1,5 +1,7 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.commons;
 
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
