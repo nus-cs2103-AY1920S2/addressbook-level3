@@ -256,6 +256,8 @@ public class MainWindow extends UiPart<Stage> {
             switch (commandResult.getNextAction()) {
             case FILTER:
                 moduleListPanel.updateCells(logic.getFilteredModuleList());
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
                 break;
 
             case HELP:
