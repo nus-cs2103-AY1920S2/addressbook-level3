@@ -4,8 +4,8 @@
 Actor User as user USER_COLOR
 Participant ":EYLAH" as ui UI_COLOR
 Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":StorageManager" as storage STORAGE_COLOR
-Participant ":ModelManager" as model MODEL_COLOR
+Participant ":StorageManager" as splitterStorage STORAGE_COLOR
+Participant ":ModelManager" as splitterModel MODEL_COLOR
 Participant ":PersonAmountBook" as personamountbook MODEL_COLOR
 Participant ":UniquePersonList" as uniquepersonlist MODEL_COLOR
 Participant ":Person" as person MODEL_COLOR
@@ -17,10 +17,10 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("paid 1 3.30")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : paidPerson(Person person, String amountPaid)
-activate model MODEL_COLOR
+logic -[LOGIC_COLOR]> splitterModel : paidPerson(Person person, String amountPaid)
+activate splitterModel MODEL_COLOR
 
-model -[MODEL_COLOR]> personamountbook : removeAmount(Person person, Amount amount)
+splitterModel -[MODEL_COLOR]> personamountbook : removeAmount(Person person, Amount amount)
 activate personamountbook MODEL_COLOR
 
 personamountbook -[MODEL_COLOR]> uniquepersonlist : removeAmount(Person person, Amount amount)
@@ -35,17 +35,17 @@ deactivate uniquepersonlist
 
 deactivate personamountbook
 
-deactivate model
+deactivate splitterModel
 
-logic -[LOGIC_COLOR]> storage : savePersonAmountBook(personAmount)
-activate storage STORAGE_COLOR
+logic -[LOGIC_COLOR]> splitterStorage : savePersonAmountBook(personAmount)
+activate splitterStorage STORAGE_COLOR
 
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
+splitterStorage -[STORAGE_COLOR]> splitterStorage : Save to file
+activate splitterStorage STORAGE_COLOR_T1
+deactivate splitterStorage
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
+splitterStorage --[STORAGE_COLOR]> logic
+deactivate splitterStorage
 
 logic --[UI_COLOR]> ui : CommandResult
 deactivate logic

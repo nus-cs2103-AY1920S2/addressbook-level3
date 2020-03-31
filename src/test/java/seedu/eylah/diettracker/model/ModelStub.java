@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.eylah.commons.core.GuiSettings;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Weight;
@@ -12,7 +12,7 @@ import seedu.eylah.diettracker.model.self.Weight;
 /**
  * A default model stub that have all of the methods failing.
  */
-public class ModelStub implements Model {
+public class ModelStub implements DietModel {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -20,16 +20,6 @@ public class ModelStub implements Model {
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
         throw new AssertionError("This method should not be called.");
     }
 

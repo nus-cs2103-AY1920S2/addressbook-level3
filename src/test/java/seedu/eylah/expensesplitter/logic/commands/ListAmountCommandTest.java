@@ -8,35 +8,38 @@ import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.eylah.expensesplitter.model.Model;
-import seedu.eylah.expensesplitter.model.ModelManager;
+import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.ReceiptBook;
-import seedu.eylah.expensesplitter.model.UserPrefs;
+import seedu.eylah.expensesplitter.model.SplitterModel;
+import seedu.eylah.expensesplitter.model.SplitterModelManager;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListAmountCommand.
  */
 public class ListAmountCommandTest {
 
-    private Model model;
-    private Model expectedModel;
+    private SplitterModel splitterModel;
+    private SplitterModel expectedSplitterModel;
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager (new ReceiptBook(), getTypicalPersonAmountBook(), new UserPrefs());
-        expectedModel = new ModelManager(new ReceiptBook(), model.getPersonAmountBook(), new UserPrefs());
+        splitterModel = new SplitterModelManager(new ReceiptBook(), getTypicalPersonAmountBook(), new UserPrefs());
+        expectedSplitterModel = new SplitterModelManager(new ReceiptBook(), splitterModel.getPersonAmountBook(),
+                new UserPrefs());
     }
 
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAmountCommand(), model, ListAmountCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
+                expectedSplitterModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListAmountCommand(), model, ListAmountCommand.MESSAGE_SUCCESS, expectedModel);
+        showPersonAtIndex(splitterModel, INDEX_FIRST_PERSON);
+        assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
+                expectedSplitterModel);
     }
 
 

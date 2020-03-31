@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;

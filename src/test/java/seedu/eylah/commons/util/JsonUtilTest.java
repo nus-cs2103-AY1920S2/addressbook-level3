@@ -7,8 +7,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.eylah.addressbook.testutil.TestUtil;
 import seedu.eylah.testutil.SerializableTestClass;
+import seedu.eylah.testutil.TestUtil;
 
 /**
  * Tests JSON Read and Write

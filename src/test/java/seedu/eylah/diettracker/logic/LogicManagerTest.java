@@ -15,19 +15,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
+import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.commons.storage.JsonUserPrefsStorage;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
-import seedu.eylah.diettracker.logic.commands.CommandResult;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
-import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.ModelManager;
+import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.model.DietModelManager;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
-import seedu.eylah.diettracker.model.UserPrefs;
 import seedu.eylah.diettracker.model.food.Food;
+import seedu.eylah.diettracker.storage.DietStorageManager;
 import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
-import seedu.eylah.diettracker.storage.JsonUserPrefsStorage;
-import seedu.eylah.diettracker.storage.StorageManager;
 import seedu.eylah.diettracker.testutil.FoodBuilder;
 
 public class LogicManagerTest {
@@ -36,16 +36,16 @@ public class LogicManagerTest {
     @TempDir
     public Path temporaryFolder;
 
-    private Model model = new ModelManager();
-    private Logic logic;
+    private DietModel model = new DietModelManager();
+    private DietLogic logic;
 
     @BeforeEach
     public void setUp() {
         JsonFoodBookStorage foodBookStorage =
                 new JsonFoodBookStorage(temporaryFolder.resolve("foodBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(foodBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        DietStorageManager storage = new DietStorageManager(foodBookStorage, userPrefsStorage);
+        logic = new DietLogicManager(model, storage);
     }
 
     @Test
@@ -73,15 +73,15 @@ public class LogicManagerTest {
                 new JsonFoodBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionFoodBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(foodBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        DietStorageManager storage = new DietStorageManager(foodBookStorage, userPrefsStorage);
+        logic = new DietLogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PASTA + CALORIES_DESC_PASTA;
         Food expectedFood = new FoodBuilder(PASTA).withTags().build();
-        Model expectedModel = model;
+        DietModel expectedModel = model;
         expectedModel.addFood(expectedFood);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = DietLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
@@ -95,10 +95,10 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
-     * @see #assertCommandFailure(String, Class, String, Model)
+     * @see #assertCommandFailure(String, Class, String, DietModel)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      Model expectedModel) throws CommandException, ParseException {
+                                      DietModel expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -106,7 +106,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
-     * @see #assertCommandFailure(String, Class, String, Model)
+     * @see #assertCommandFailure(String, Class, String, DietModel)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
@@ -114,7 +114,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     * @see #assertCommandFailure(String, Class, String, Model)
+     * @see #assertCommandFailure(String, Class, String, DietModel)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
@@ -122,11 +122,11 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
-     * @see #assertCommandFailure(String, Class, String, Model)
+     * @see #assertCommandFailure(String, Class, String, DietModel)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getFoodBook(), new UserPrefs());
+        DietModel expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -135,10 +135,10 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
-     * @see #assertCommandSuccess(String, String, Model)
+     * @see #assertCommandSuccess(String, String, DietModel)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-                                      String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, DietModel expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }

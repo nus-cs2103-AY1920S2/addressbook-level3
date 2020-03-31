@@ -6,18 +6,18 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.eylah.addressbook.logic.commands.HelpCommand;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.ClearReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.Command;
 import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.DoneReceiptCommand;
+import seedu.eylah.expensesplitter.logic.commands.HelpCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListAmountCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.NewReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
-import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input for ExpenseSplitter.
@@ -42,7 +42,6 @@ public class ExpenseSplitterParser {
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");

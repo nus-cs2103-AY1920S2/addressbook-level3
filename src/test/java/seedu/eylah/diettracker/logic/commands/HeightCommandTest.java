@@ -8,6 +8,7 @@ import static seedu.eylah.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.diettracker.model.ModelStub;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.SelfStub;

@@ -3,8 +3,9 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.eylah.commons.core.Messages;
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.self.Bmi;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Self;
@@ -51,7 +52,7 @@ public class BmiCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
 
         if (bmi.getBmi() < 0) {

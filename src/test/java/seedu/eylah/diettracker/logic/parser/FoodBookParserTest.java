@@ -10,6 +10,7 @@ import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
 import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.logic.commands.DeleteCommand;
@@ -20,9 +21,8 @@ import seedu.eylah.diettracker.logic.commands.HelpCommand;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.diettracker.model.DietModelManager;
 import seedu.eylah.diettracker.model.Mode;
-import seedu.eylah.diettracker.model.ModelManager;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Weight;
@@ -38,7 +38,7 @@ public class FoodBookParserTest {
     public void parseCommand_add() throws Exception {
         Food food = new FoodBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(FoodUtil.getAddCommand(food));
-        assertEquals(new AddCommand(food).execute(new ModelManager()), command.execute(new ModelManager()));
+        assertEquals(new AddCommand(food).execute(new DietModelManager()), command.execute(new DietModelManager()));
     }
 
     @Test

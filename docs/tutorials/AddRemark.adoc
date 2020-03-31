@@ -27,7 +27,7 @@ We'll assume that you have already set up the development environment as outline
 ----
 package seedu.eylah.addressbook.logic.commands;
 
-import seedu.eylah.addressbook.model.Model;
+import seedu.eylah.addressbook.splitterModel.Model;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -37,7 +37,7 @@ public class RemarkCommand extends Command {
     public static final String COMMAND_WORD = "remark";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model splitterModel) {
         return new CommandResult("Hello from remark");
     }
 }
@@ -115,16 +115,16 @@ NOTE: Don't forget to update `AddressBookParser` to use our new `RemarkCommandPa
 
 If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508[here].
 
-== Add `Remark` to the model
+== Add `Remark` to the splitterModel
 
 Now that we have all the information that we need, let's lay the groundwork for some _persistent_ changes.
-We achieve that by working with the `person` model.
+We achieve that by working with the `person` splitterModel.
 Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the person's name).
 That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a person.
 
 === Add a new `Remark` class
 
-Create a new `Remark` in `seedu.address.model.person`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
+Create a new `Remark` in `seedu.address.splitterModel.person`. Since a `Remark` is a field that is similar to `Address`, we can reuse a significant bit of code.
 
 A copy-paste and search-replace later, you should have something like link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b7a47c50c8e5f0430d343a23d2863446b6ce9298#diff-af2f075d24dfcd333876f0fbce321f25[this].
 Note how `Remark` has no constrains and thus does not require input validation.
@@ -183,7 +183,7 @@ Let's update `JsonAdaptedPerson` to work with our new `person`!
 
 While the changes to code may be minimal, the test data will have to be updated as well.
 
-WARNING: You must delete AddressBook's storage file located at `/data/addressbook.json` before running it!
+WARNING: You must delete AddressBook's splitterStorage file located at `/data/addressbook.json` before running it!
 Not doing so will cause AddressBook to default to an empty address book!
 
 Check out link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.

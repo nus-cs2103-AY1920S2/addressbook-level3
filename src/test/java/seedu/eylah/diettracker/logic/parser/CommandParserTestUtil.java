@@ -2,8 +2,8 @@ package seedu.eylah.diettracker.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.Command;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 
 /**
  * Contains helper methods for testing command parsers.

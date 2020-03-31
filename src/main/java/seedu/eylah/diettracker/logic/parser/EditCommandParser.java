@@ -1,8 +1,8 @@
 package seedu.eylah.diettracker.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.eylah.addressbook.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.eylah.diettracker.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
@@ -15,8 +15,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.EditCommand;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.tag.Tag;
 
 /**

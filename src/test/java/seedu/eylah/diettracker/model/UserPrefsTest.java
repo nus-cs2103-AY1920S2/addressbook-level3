@@ -4,13 +4,9 @@ import static seedu.eylah.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class UserPrefsTest {
+import seedu.eylah.commons.model.UserPrefs;
 
-    @Test
-    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        UserPrefs userPref = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPref.setGuiSettings(null));
-    }
+public class UserPrefsTest {
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
