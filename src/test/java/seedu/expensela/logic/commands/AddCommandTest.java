@@ -167,6 +167,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setFilter(Filter filter) {
+
+        }
+
+        @Override
         public Double getTotalBalance() {
             throw new AssertionError("This method should not be called.");
         }

@@ -37,16 +37,6 @@ public class FilterCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-//        model.updateFilteredTransactionList(predicate);
-
-//        if (categoryPredicate.getClass() == CategoryEqualsKeywordPredicate.class) {
-//            model.updateFilteredTransactionList(new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth())), categoryPredicate);
-//            model.setFilter(new Filter(categoryPredicate.toString(), model.getFilter().getDateMonth()));
-//        } else {
-//            model.updateFilteredTransactionList(new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())), datePredicate);
-//            model.setFilter(new Filter(model.getFilter().getFilterCategoryName(), datePredicate.toString()));
-//        }
-
         model.updateFilteredTransactionList(categoryPredicate, datePredicate);
         model.setFilter(new Filter(categoryPredicate.toString(), datePredicate.toString()));
 
