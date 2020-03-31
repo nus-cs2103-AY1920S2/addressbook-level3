@@ -20,39 +20,39 @@ public class ReturnOrderTest {
     @Test
     public void isSameReturn() {
         // same object -> returns true
-        assertTrue(ALICE_RETURN.isSameReturn(ALICE_RETURN));
+        assertTrue(ALICE_RETURN.isSameParcel(ALICE_RETURN));
 
         // null -> returns false
-        assertFalse(ALICE_RETURN.isSameReturn(null));
+        assertFalse(ALICE_RETURN.isSameParcel(null));
 
         // different transaction ID -> returns false
         ReturnOrder editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withTid(VALID_TID_BOB).build();
 
-        assertFalse(ALICE_RETURN.isSameReturn(editedAlice));
+        assertFalse(ALICE_RETURN.isSameParcel(editedAlice));
 
         // different name -> returns false
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE_RETURN.isSameReturn(editedAlice));
+        assertFalse(ALICE_RETURN.isSameParcel(editedAlice));
 
         // different phone -> returns false
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE_RETURN.isSameReturn(editedAlice));
+        assertFalse(ALICE_RETURN.isSameParcel(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        assertTrue(ALICE_RETURN.isSameReturn(editedAlice));
+        assertTrue(ALICE_RETURN.isSameParcel(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withWarehouse(VALID_WAREHOUSE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        assertTrue(ALICE_RETURN.isSameReturn(editedAlice));
+        assertTrue(ALICE_RETURN.isSameParcel(editedAlice));
 
         // same name, same phone, same warehouse, different attributes -> returns true
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        assertTrue(ALICE_RETURN.isSameReturn(editedAlice));
+        assertTrue(ALICE_RETURN.isSameParcel(editedAlice));
     }
 
     @Test
