@@ -213,7 +213,7 @@ You can remove all recipes stored in *CookBuddy* using the `reset`command.
 
 Format: `reset`
 
-=== Exiting the program - `exit`
+=== Exiting *CookBuddy* - `exit`
 You can exit from *CookBuddy* using the `exit` command.
 
 Format: `exit`
