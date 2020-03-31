@@ -77,7 +77,7 @@ public class ModelManager implements Model {
         this.workoutList = new WorkoutList(workoutList);
         filteredWorkouts = new FilteredList<>(this.workoutList.getWorkoutList());
 
-        this.scheduler = new Scheduler(scheduleList); // STEPH_TODO add storage
+        this.scheduler = new Scheduler(scheduleList);
 
         this.currentSession = Optional.empty();
         this.stopwatch = new StopWatch();

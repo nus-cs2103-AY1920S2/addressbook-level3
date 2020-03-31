@@ -58,7 +58,7 @@ public class EditCommand extends ScheduleCommand {
         model.setSchedule(scheduleToEdit, editedSchedule);
         return new CommandResult(String.format(
                 MESSAGE_EDIT_SCHEDULE_SUCCESS,
-                editedSchedule.getWorkoutToSchedule().getExerciseName()));
+                editedSchedule.toString()));
     }
 
     @Override

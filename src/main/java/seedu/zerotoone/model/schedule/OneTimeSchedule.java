@@ -4,23 +4,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.workout.Workout;
 
 /**
  * STEPH_TODO_JAVADOC
  */
 public class OneTimeSchedule implements Schedule {
 
-    private final Exercise workoutToSchedule; // TO_CHANGE_EXERCISE_TO_WORKOUT
+    private final Workout workoutToSchedule;
     private final DateTime dateTime;
 
-    public OneTimeSchedule(Exercise workoutToSchedule, DateTime dateTime) { // TO_CHANGE_EXERCISE_TO_WORKOUT
+    public OneTimeSchedule(Workout workoutToSchedule, DateTime dateTime) {
         this.workoutToSchedule = workoutToSchedule;
         this.dateTime = dateTime;
     }
 
     @Override
-    public Exercise getWorkoutToSchedule() {
+    public Workout getWorkoutToSchedule() {
         return workoutToSchedule;
     }
 
@@ -47,5 +47,10 @@ public class OneTimeSchedule implements Schedule {
         OneTimeSchedule otherSchedule = (OneTimeSchedule) other;
         return otherSchedule.getScheduledWorkout().equals(getScheduledWorkout())
                 && otherSchedule.getDateTime().equals(getDateTime());
+    }
+
+    @Override
+    public String toString() {
+        return workoutToSchedule.getWorkoutName() + " on " + dateTime.toString();
     }
 }
