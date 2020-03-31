@@ -1,8 +1,6 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
+import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,8 +13,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
-
-import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
@@ -110,7 +106,9 @@ public class StatisticsDisplay extends UiPart<Region> {
             String dateString = customQueue.get(i).getDate().toPrint();
 
             int pomDurationDataInt = customQueue.get(i).getPomDurationData().value;
-            dataSeriesPomDurationData.getData().add(new XYChart.Data<>(dateString, pomDurationDataInt));
+            dataSeriesPomDurationData
+                    .getData()
+                    .add(new XYChart.Data<>(dateString, pomDurationDataInt));
 
             int tasksDoneDataInt = customQueue.get(i).getTasksDoneData().value;
             dataSeriesTasksDoneData.getData().add(new XYChart.Data<>(dateString, tasksDoneDataInt));

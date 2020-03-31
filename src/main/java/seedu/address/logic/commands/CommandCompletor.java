@@ -1,13 +1,26 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMER;
+import static seedu.address.logic.parser.CliSyntax.TASK_PREFIXES;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.CliSyntax;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 
 /** Represents a command with hidden internal logic and the ability to be executed. */
 public class CommandCompletor {
     private ArrayList<String> commands = new ArrayList<>();
 
+    /** Add all available commands */
     public CommandCompletor() {
         this.commands.add(AddCommand.COMMAND_WORD);
         this.commands.add(EditCommand.COMMAND_WORD);
@@ -21,27 +34,70 @@ public class CommandCompletor {
         this.commands.add(SwitchTabCommand.TASKS_COMMAND_WORD);
     }
 
+    /**
+     * Provides auto Complete for all partial command words
+     *
+     * <p>For done, delete commands: Converts indexes given in a mixture of spaces and commas into
+     * comma separated indexes For add and edit commands: Adds prefixes for priority and reminder
+     * For pom command: adds timer prefix
+     *
+     * @param input
+     * @return returns command with completed command word, attached prefixes and convert indexes to
+     *     comma separated ones
+     */
     public String getSuggestedCommand(String input) {
-        String[] trimmedInputWords =
-                input.toLowerCase()
-                        .split("\\s+"); // get the first command, autoComplete based on that.
+        String[] trimmedInputWords = input.split("\\s+");
 
-        if (trimmedInputWords.length > 0) {
-            for (String commandWord : this.commands) {
-                Pattern commandPattern = Pattern.compile(String.format("^%s", commandWord));
-                Matcher commandMatcher = commandPattern.matcher(trimmedInputWords[0]);
-                if (commandMatcher
-                        .matches()) { // need to check for match before we can check for hitEnd
-                    break; // command found then return original
-                }
-                if (commandMatcher.hitEnd()) {
-                    trimmedInputWords[0] = commandWord;
-                    return String.join(" ", trimmedInputWords);
-                }
-            }
+        if (trimmedInputWords.length <= 0) {
+            return input;
         }
-        // if no matches, return original
-        return input;
+
+        trimmedInputWords[0] = getCompletedCommand(trimmedInputWords[0]);
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, TASK_PREFIXES);
+        boolean hasReminder = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_REMINDER);
+        boolean hasPriority = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRIORITY);
+
+        switch (trimmedInputWords[0]) {
+            case "add":
+            case "edit":
+                for (int i = trimmedInputWords.length - 1; i > 0; i--) {
+                    String currentArgument = trimmedInputWords[i];
+                    if (Reminder.isValidReminder(currentArgument) && !hasReminder) {
+                        trimmedInputWords[i] =
+                                addPrefix(CliSyntax.PREFIX_REMINDER.toString(), currentArgument);
+                        hasReminder = true;
+                    } else if (Priority.isValidPriority(currentArgument) && !hasPriority) {
+                        // prevent autoComplete from setting task index with a priority
+                        if (trimmedInputWords[0].equals("edit") && i < 2) {
+                            continue;
+                        }
+                        trimmedInputWords[i] =
+                                addPrefix(CliSyntax.PREFIX_PRIORITY.toString(), currentArgument);
+                        hasPriority = true;
+                    }
+                }
+                return String.join(" ", trimmedInputWords);
+
+            case "done":
+            case "delete":
+                // Converts indexes that are not comma separated into comma separated
+                String[] commaSeparatedWords = input.split("\\s*,\\s*|\\s+");
+                String[] indexes = getCommandArguments(commaSeparatedWords);
+                String commaJoinedIndexes = String.join(", ", indexes);
+                return String.format("%s %s", trimmedInputWords[0], commaJoinedIndexes);
+
+            case "pom":
+                ArgumentMultimap pomArgMap = ArgumentTokenizer.tokenize(input, PREFIX_TIMER);
+                boolean hasTimer = ParserUtil.arePrefixesPresent(pomArgMap, PREFIX_TIMER);
+                if (!hasTimer) {
+                    trimmedInputWords[2] =
+                            addPrefix(CliSyntax.PREFIX_TIMER.toString(), trimmedInputWords[2]);
+                }
+
+            default:
+                return String.join(" ", trimmedInputWords);
+        }
     }
 
     public String getSuccessMessage() {
@@ -50,6 +106,27 @@ public class CommandCompletor {
 
     public String getFailureMessage() {
         return "No command auto complete found :(";
+    }
+
+    /** Returns complete command if given partial command */
+    private String getCompletedCommand(String firstWord) {
+        for (String commandWord : this.commands) {
+            Pattern commandPattern = Pattern.compile(String.format("^%s", commandWord));
+            Matcher commandMatcher = commandPattern.matcher(firstWord.toLowerCase());
+            if (!commandMatcher.matches() && commandMatcher.hitEnd()) {
+                return commandWord;
+            }
+        }
+        return firstWord;
+    }
+
+    /** Gets all non command arguments */
+    private String[] getCommandArguments(String[] splitWords) {
+        return Arrays.copyOfRange(splitWords, 1, splitWords.length);
+    }
+
+    private String addPrefix(String prefix, String arg) {
+        return String.format("%s%s", prefix, arg);
     }
 
     @Override

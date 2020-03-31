@@ -232,4 +232,3 @@ public class CustomQueueTest {
                 () -> customQueue.asUnmodifiableObservableList().remove(0));
     }
 }
-
