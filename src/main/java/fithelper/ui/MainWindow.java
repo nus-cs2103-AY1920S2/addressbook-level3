@@ -173,6 +173,7 @@ public class MainWindow extends UiPart<Stage> {
             showProfilePage();
             break;
         case WEIGHT:
+            updateWeightPage();
             showWeightPage();
             break;
         default:
@@ -268,6 +269,13 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(profilePage.getRoot());
         currentPage.setText("Profile");
+    }
+
+    /**
+     * Update content of weight page with latest values.
+     */
+    private void updateWeightPage() {
+        weightPage = new WeightPage(logic.getUserProfile(), logic.getFilteredWeightList());
     }
 
     /**

@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
@@ -25,6 +26,10 @@ public class WeightPage extends UiPart<AnchorPane> {
     private static final String FXML = "WeightPage.fxml";
     private final Logger logger = LogsCenter.getLogger(WeightPage.class);
     private final List<Weight> weights;
+    private final ReadOnlyUserProfile profile;
+
+    @FXML
+    private Label title;
 
     @FXML
     private LineChart<String, Double> weightLineChart;
@@ -45,8 +50,26 @@ public class WeightPage extends UiPart<AnchorPane> {
                 return -1;
             }
         });
-        initializeWeightLineChart(weights);
-        initializeBmiLineChart(weights);
+        this.profile = profile;
+
+        initializeTitle();
+        initializeWeightLineChart();
+        initializeBmiLineChart();
+    }
+
+    private void initializeTitle(){
+        double target = profile.getUserProfile().getTargetWeight().value;
+        if (weights.size() == 0) {
+            title.setText("Keep going! You haven't reached your goal!");
+        } else {
+            double current = weights.get(weights.size() - 1).getWeightValue().value;
+            double gap = current - target;
+            if (gap > 0.0001) {
+                title.setText("Keep going! You are " + String.format("%.3f", gap) + " away from you target weight!");
+            } else {
+                title.setText("Congratulations! You have reached your target weight!");
+            }
+        }
     }
 
     /**
@@ -114,7 +137,7 @@ public class WeightPage extends UiPart<AnchorPane> {
         });
     }
 
-    private void initializeWeightLineChart(List<Weight> weights){
+    private void initializeWeightLineChart(){
         String[] date = getDate(weights);
         ArrayList<String> dates = getDates(weights);
         ArrayList<Double> values = getWeights(weights);
@@ -133,14 +156,14 @@ public class WeightPage extends UiPart<AnchorPane> {
         if (date == null) {
             weightLineChart.setTitle("Weight Line Chart");
         } else {
-            weightLineChart.setTitle("Weight Line Chart: " + date[0] + " - " + date[1]);
+            weightLineChart.setTitle("Weight Line Chart: [" + date[0] + "~" + date[1] + "]");
         }
         weightLineChart.getData().add(series);
 
         installToolTipXyChart(series.getData());
     }
 
-    private void initializeBmiLineChart(List<Weight> weights){
+    private void initializeBmiLineChart(){
         String[] date = getDate(weights);
         ArrayList<String> dates = getDates(weights);
         ArrayList<Double> values = getBmis(weights);
@@ -159,7 +182,7 @@ public class WeightPage extends UiPart<AnchorPane> {
         if (date == null) {
             bmiLineChart.setTitle("BMI Line Chart");
         } else {
-            bmiLineChart.setTitle("BMI Line Chart: " + date[0] + " - " + date[1]);
+            bmiLineChart.setTitle("BMI Line Chart: " + "[" + date[0] + "~" + date[1] + "]");
         }
         bmiLineChart.getData().add(series);
 
