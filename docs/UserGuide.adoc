@@ -88,6 +88,12 @@ Edits body paragraph of the current note. This command replaces the current cont
 Format: `edit -b BODY`
 Example: `edit -b This is the new body paragraph`
 
+.Demo for the `edit` command
+image:demo/Edit1.png[]
+
+.Demo for the `edit` command (after edit)
+image:demo/Edit2.png[]
+
 === Find a note based on certain keywords: `search`
 
 Searches all the notes saved in Notably for the keyword. +
