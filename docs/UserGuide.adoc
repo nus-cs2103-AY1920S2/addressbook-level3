@@ -103,7 +103,7 @@ For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n
 
 This section lists and explains what the parameters commonly used in the commands mean.
 
-[width="%",cols="20%,<40,40,options="header",]
+[width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
 |Parameter | Explanation | Examples
 
@@ -138,38 +138,51 @@ or the module's name. | *John Doe* or *Software Engineering*
 You can personalise this and create your own code. However, we recommend that you use
 the group's code assigned by SoC | *G06*
 
-| `NEW_GROUP_CODE` |
-|=======================================================================
+| `NEW_GROUP_CODE` | Refers to the new group code of a group when you edit a group.
+| *G05*
 
-* `MOD_CODE` - the unique code for the module
-* `NAME` - based on the command, this could mean student name or module name
-* `GROUP_CODE` - the unique code for the group
-* `NEW_GROUP_CODE` - the new group code
-* `GROUP_TYPE` - could be one of the following:
-** tutorial
-** lab
-** recitations
-** other
-* `NEW_GROUP_TYPE` - the new group type you want to change it to
-* `SORT_TYPE` - could be one of the following:
-** alphabetically
-** by rating (ascending order)
-** by rating (descending order)
-** by matric number (ascending order)
-* `SESSION_TYPE` - Could be one of the following:
-** consult - consultations
-** tutorial - tutorials
-** grading - grading assessments
-** prep - class preparation
-** todo - other tasks and notes
-** lab - lab
-*`NOTES` - Extra description, note taking
-* `START`, `END` - a time parameter, in the following format: HH:mm
-* `DATE` - a date parameter, in the following format: dd-MM-yyyy
-*`WEEK` - indicates the recurring period of sessions
-* `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
-* `./` - indicates the presence of a tag that will be specified in a later section of the guide.
-====
+| `GROUP_TYPE` | Refers to the group type. | *lab*, *tutorial*, *recitation* or *other*
+
+| `NEW_GROUP_TYPE` | Refers to the new group type you want a group to be. | *lab*, *tutorial*,
+*recitation* or *other*
+
+| `SORT_TYPE` | Refers to how you want to sort the student view. |
+
+*alpha*, *alphabetical* or *alphabetically* to sort alphabetically.
+
+*rating asc* to sort by rating in ascending order.
+
+*rating desc* to sort by rating in descending order.
+
+*matric* to sort by matriculation number.
+
+| `SESSION_TYPE` | Refers to the type of session. |
+*consult* - consultation
+
+*tutorial* - tutorial
+
+*lab* - lab
+
+*grading* - grading assignments, projects or assessments
+
+*prep* - class preparation
+
+*todo* - other tasks and notes
+
+|`NOTES` | Refers to any extra description | *This time was spent correcting 40 assignments...*
+
+| `START` | Indicates the starting time. Must be in the HH:mm format. | *10:42*
+
+| `END` | Indicates the ending time. Must be in the HH:mm format. | *11:42*
+
+| `WEEK`| Indicates the recurring period of sessions. |
+
+| `->` | Indicates that the command has more parameters than specifier.
+
+These missing parameters will be stated in a later section of the guide. |
+
+| `./` | Indicates the presence of a tag that will be specified in a late section of the guide. |
+|=======================================================================
 
 [[Layout]]
 == Layout
