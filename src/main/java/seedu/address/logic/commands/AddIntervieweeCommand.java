@@ -18,24 +18,22 @@ public class AddIntervieweeCommand extends Command {
 
     public static final String COMMAND_WORD = "interviewee";
     public static final String MESSAGE_SUCCESS = "New interviewee added: %1$s";
-    public static final String MESSAGE_USAGE = "add " + COMMAND_WORD
+    public static final String MESSAGE_FORMAT = "add " + COMMAND_WORD + "<full name> [-aka <alias>]";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
             + ": Adds an interviewee to the Interviewee list.\n"
-            + "Parameters: "
-            + "NAME "
-            + PREFIX_ALIAS + " ALIAS\n"
-            + "Example: new " + COMMAND_WORD
+            + "Example: add " + COMMAND_WORD
             + "Jane Doe "
             + PREFIX_ALIAS + " Doe";
 
     public static final String EMPTY_STRING = "";
-    private final String fullname;
+    private final String fullName;
     private final String alias;
 
     /**
      * Creates an AddIntervieweeCommand to add the specified {@code Interviewee}
      */
-    public AddIntervieweeCommand(String fullname, String... optionalAlias) {
-        this.fullname = fullname;
+    public AddIntervieweeCommand(String fullName, String... optionalAlias) {
+        this.fullName = fullName;
         if (optionalAlias.length != 0) {
             this.alias = optionalAlias[0];
         } else {
@@ -50,22 +48,22 @@ public class AddIntervieweeCommand extends Command {
 
         try {
             if (isEmptyAlias()) {
-                interviewees.addInterviewee(fullname);
+                interviewees.addInterviewee(fullName);
             } else {
-                interviewees.addIntervieweeWithAlias(fullname, alias);
+                interviewees.addIntervieweeWithAlias(fullName, alias);
             }
         } catch (IllegalActionException | IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fullname), ToggleView.INTERVIEWEE);
+        return new ToggleCommandResult(String.format(MESSAGE_SUCCESS, fullName), ToggleView.INTERVIEWEE);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddIntervieweeCommand // instanceof handles nulls
-                && fullname.equals(((AddIntervieweeCommand) other).fullname)
+                && fullName.equals(((AddIntervieweeCommand) other).fullName)
                 && alias.equals(((AddIntervieweeCommand) other).alias));
     }
 

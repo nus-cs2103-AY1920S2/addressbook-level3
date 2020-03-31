@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
@@ -60,18 +59,4 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
-
-    /**
-     * Represents a function that can execute commands.
-     */
-    @FunctionalInterface
-    public interface CommandExecutor {
-        /**
-         * Executes the command and returns the result.
-         *
-         * @see seedu.address.logic.Logic#execute(String)
-         */
-        CommandResult execute(String commandText) throws CommandException, IllegalValueException;
-    }
-
 }

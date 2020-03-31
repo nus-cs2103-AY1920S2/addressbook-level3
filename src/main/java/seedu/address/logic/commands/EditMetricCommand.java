@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.ModelUtil.validateFinalisation;
 
 import java.util.List;
 
@@ -14,17 +15,16 @@ import seedu.address.model.hirelah.MetricList;
  * EditMetricCommand describes the behavior of HireLah!
  * when a user wants to edit a metric.
  */
-
 public class EditMetricCommand extends Command {
     public static final String COMMAND_WORD = "metric";
-    public static final String MESSAGE_HAS_NOT_FINALIZED = "The session has not been finalized. Please finalize it"
-            + " before editing metrics.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the metric identified by the prefix.\n"
-            + "Parameters: IDENTIFIER NAME [-n NEW_NAME] [-a ATTRIBUTE_1] [-w WEIGHT_1]\n"
-            + "Example: edit " + COMMAND_WORD + " extremeLeadership -n extremeDictatorship -a lea -w 100";
+    public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
+    public static final String MESSAGE_FORMAT = "edit " + COMMAND_WORD + "<metric> [-n <metric name>] [-a <attribute>"
+            + " -w <score>]...";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
+            + ": Edits the metric.\n"
+            + "Example: edit " + COMMAND_WORD + " extremeLeadership -n extremeDictatorship -a leadership -w 100";
 
-    public static final String MESSAGE_EDIT_METRIC_SUCCESS = "Successfully edited Metric";
+    public static final String MESSAGE_EDIT_METRIC_SUCCESS = "Edited metric: %s";
 
     private final String toEdit;
     private final String updatedName;
@@ -42,16 +42,14 @@ public class EditMetricCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.isFinalisedInterviewProperties()) {
-            throw new CommandException(MESSAGE_HAS_NOT_FINALIZED);
-        }
-
+        validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         MetricList metrics = model.getMetricList();
         AttributeList attributes = model.getAttributeList();
 
         try {
             metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
-            return new CommandResult(MESSAGE_EDIT_METRIC_SUCCESS, ToggleView.METRIC);
+            return new ToggleCommandResult(
+                    String.format(MESSAGE_EDIT_METRIC_SUCCESS, this.toEdit), ToggleView.METRIC);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }

@@ -1,11 +1,12 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.ModelUtil.validateFinalisation;
+
 import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,16 +22,15 @@ import seedu.address.model.hirelah.MetricList;
  */
 public class BestCommand extends Command {
     public static final String COMMAND_WORD = "best";
-    public static final String MESSAGE_HAS_NOT_FINALIZED = "The session has not been finalized. Please finalize it"
-            + " before finding best interviewees.";
+    public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
     public static final String MESSAGE_SIZE_NOT_A_NUMBER = "The size of the interviewees provided is not a number.";
     public static final String MESSAGE_NON_POSITIVE_SIZE = "The size of the interviewees provided must be positive.";
-    public static final String MESSAGE_PARAM_NOT_FOUND = "The param prefix provided: %s is not found.";
-    public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees based on %s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds best N candidates from the list.\n"
-            + "Parameters: "
-            + " NUMBER_OF_INTERVIEWEES [-a ATTRIBUTE_PREFIX] [-m METRIC_PREFIX]\n"
-            + "e.g. best 3 -a lea";
+    public static final String MESSAGE_PARAM_NOT_FOUND = "The parameter provided: %s is not found.";
+    public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "<number of interviewees> "
+            + "[-a <attribute>] [-m <metrics>]"
+            + ": Finds best N candidates from the list.\n"
+            + "e.g. best 3 -a leadership";
 
     private final String numberOfInterviewees;
     private final String paramPrefix;
@@ -56,9 +56,7 @@ public class BestCommand extends Command {
      * @throws CommandException If there is an invalid parameter entered by the client.
      */
     public CommandResult execute(Model model) throws CommandException {
-        if (!model.isFinalisedInterviewProperties()) {
-            throw new CommandException(MESSAGE_HAS_NOT_FINALIZED);
-        }
+        validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         int size = parseNumberOfInterviewees(numberOfInterviewees);
         Comparator<Interviewee> comparator;
         try {
@@ -79,15 +77,16 @@ public class BestCommand extends Command {
         ObservableList<Interviewee> observableInterviewees = model.getFilteredIntervieweeListView();
         ObservableList<Interviewee> bestNInterviewees = model.getBestNInterviewees();
         getBestN(bestNInterviewees, observableInterviewees, comparator, size);
-        return new CommandResult(MESSAGE_SUCCESS, ToggleView.BEST_INTERVIEWEE);
+        return new ToggleCommandResult(MESSAGE_SUCCESS, ToggleView.BEST_INTERVIEWEE);
     }
 
     /**
+     * Fills the list of best interviewees with the top N interviewees using the given comparator.
      *
-     * @param observableInterviewees
-     * @param comparator
-     * @param size
-     * @return
+     * @param bestNInterviewees the list to fil.
+     * @param observableInterviewees the list of interviewees to compare.
+     * @param comparator the comparator to compare interviewees.
+     * @param size the number of interviewees to fill into bestNInterviewees.
      */
     private void getBestN(ObservableList<Interviewee> bestNInterviewees,
                           ObservableList<Interviewee> observableInterviewees,

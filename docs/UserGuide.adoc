@@ -18,110 +18,195 @@ By: `AY1920S2-W15-2`      Since: `Feb 2020`
 
 == Introduction
 
-HireLah! is targeted to bring greater convenience to interviewers who
-can type quickly and prefer typing over mouse commands. Additionally, we
-included customised features in our desktop apps to help interviewers to
-manage interviews.
+HireLah! is an app that helps interviewers manage their interviewees, the attributes
+you look out for in these interviewees, and the questions to ask during the interviews.
+As a complete solution for interviewers, HireLah! also helps interviewers conduct interviews
+on the app and identify the best interviewees.
 
 == Quick Start
 .  Ensure you have Java 11 or above installed in your Computer.
 .  Download the latest `HireLah.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your HireLah!.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-
++
 image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open this user guide.
+.  Some example commands you can try:
+
+* *`add interviewee`* `John Doe`: adds an interviewee named John Doe to the application
+* *`add question`* `How old are you?`: adds the question to the application
+* *`exit`*: exits the app
+.  Refer to <<Features>> for details of all the commands.
 
 == Features
 
+Generally, in an interview session (for example, an interview for a role in a company), there are 3 phases:
+
+. Initialization phase (or preparation phase) - where the interviewer prepares his/her questions, manages
+  candidates, receives their resumes, etc.
+. Interview phase - where the interviewer actually conducts interviews, asking questions and
+  making notes about each candidate
+. Decision phase - after interviewing all candidates, the interviewer summarises his/her opinions, refers
+  to the remarks he/she made of each interviewee and decides who to select
+
+These 3 phases are clearly defined in HireLah!. What you can do in each phase is listed below.
+
+====
+*Command Format*
+
+* Words in `<angular brackets>` are the parameters to be supplied by the user e.g. in `add interviewee <full name>`, `<full name>` is a parameter which can be used as `add interviewee John Doe`.
+* Items in square brackets are optional e.g `<full name> [-aka <alias>]` can be used as `John Doe -aka Jo` or as `John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times, unless otherwise stated e.g. `[-a <attribute> -w <weight>]...` can be used as, `-a ambition -w 0.5`, `-a ambition -w 0.5 -a teamwork -w 0.1` etc.
+====
+
 === Start Session
 
-You can select the current interview session by updating the currentSession attribute in userConfig before launching HireLah! application. currentSession by default is defaultSession.
+HireLah! takes care of this for you! By default, the first time you use HireLah!, the app will create a new folder
+`/data` in the same directory as the app and save your session data there. To learn how to configure your interview
+sessions (starting a fresh session, renaming your session, changing sessions) refer to <<FAQ>>.
 
-....
-currentSession: defaultSession
-....
-
-=== Initialization Phase
-
-==== Add and Delete Interviewees
-
-You can add more interviewees to the list so that you can keep their
-details easily. You can also delete the interviewees, who may have
-withdrawn their application by referring to either their full name,
-aliases, or assigned ID.
+=== Viewing help
 
 *Command*
 
+`help`
+
+_Action:_ This user guide is opened as a PDF with your system's default PDF viewer.
+
+=== Initialization Phase
+
+==== Add, Edit and Delete Interviewees
+
+HireLah! allows you to manage your list of candidates from within the app. You can add interviewees to the list
+by giving their full name, and HireLah! automatically generates a unique ID for each candidate. To make things easier,
+you can also specify an alias (a shorter name) to the interviewee, so you need not memorise their IDs or type out their
+full names every time.
+
+Whenever you see `<interviewee>`, it means that you can specify the interviewee you are referring to via any of his/her
+unique identifiers - ID, full name or alias.
+
+At any time you can delete any interviewees and edit their information.
+
+[TIP]
+Most names and aliases are accepted - even non-English names or names with funny punctuation and numbers (eg. Larry O'Brien the 3rd).
+Your interviewees could come from anywhere after all. But do not give blanks or a name full of numbers (eg. 12345)!
+
+*Commands*
+
 ....
-add interviewee <fullname> [-a <alias>]
-edit interviewee -o <old full name> -n <new full name>
+add interviewee <interviewee> [-aka <alias>]
+edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]
 delete interviewee <interviewee>
-list interviewee
 ....
 
 *Execution Example*
 
 ....
-> add interviewee Jane Doe -a Doe
-> edit interviewee -o Jane Doe -n Janice Doe
-> delete interviewee Doe
-> list interviewee
+> add interviewee Jane Doe -aka Doe
+> edit interviewee Jane Doe -n Janice Doe -aka JDoe
+> delete interviewee Jane Doe
 ....
 
 _Action:_ Interviewee Jane Doe with alias of Doe is first created and
-then deleted via her alias
+then her name is changed to Janice Doe.
 
 _Output:_
 
 ....
-The following interviewee has been added:
-  1. Jane Doe (alias: Doe)
+New interviewee added: Jane Doe
 
-These are the current interviewees:
-  1. Jane Doe (alias: Doe)
+Edited interviewee: Jane Doe
 
-The following interviewee has been deleted:
-  1. Jane Doe (alias: Doe)
+Deleted interviewee: Jane Doe
 ....
 
+image::Interviewee.png[]
+
+==== Upload Resume
+
+Interviewer can upload a resume for a specific interviewee. If the path is specified,
+the resume will be uploaded from the specified path. Otherwise, it will open a file-picker.
+
+*Command*
+
+....
+upload <interviewee> [-p <path>]
+....
+
+*Execution Example*
+
+....
+> upload Jane Doe
+....
+
+_Action:_ Resume is uploaded for the interviewee Jane Doe.
+
+_Output:_
+
+....
+Successfully added the resume!
+....
+
+==== Open Resume
+
+Interviewer can open a resume from a specific interviewee.
+
+*Command*
+
+....
+resume Jane Doe
+....
+
+_Action:_ Jane Doe's resume is opened.
+
+_Output:_
+
+....
+Opening resume...
+....
+
+[[Attributes]]
 ==== Add, Edit and Delete Attributes
+
+In an interview, you often look out for a particular set of attributes in your candidates.
+HireLah! lets you keep track of what to look out for during the interview, and even assign
+scores for each attribute to the interviewees so you can compare them after interviewing.
+
+[TIP]
+An attribute's name can only contain alphabets and spaces, and it should not be blank!
 
 *Command*
 
 ....
 > add attribute <attribute>
-> edit attribute -o <old attribute> -n <new attribute>
+> edit attribute <old attribute> -a <new attribute>
 > delete attribute <attribute>
-> list attribute
 ....
 
 *Execution Example*
 
 ....
 > add attribute teamwork
-> add attribute leadership
-> edit attribute leadership leadership
-> list attribute
+> add attribute leadersip
+> edit attribute leadersip -a leadership
 > delete attribute teamwork
 ....
 
-_Action:_ teamwork and leadership is first added. Leadership is edited
+_Action:_ teamwork and leadersip is first added. leadersip (with a typo) is edited
 to leadership, and then teamwork is deleted.
 
 _Output:_
 
 ....
-Attribute “teamwork” added
+New attribute added: teamwork
 
-Attribute “leadership” added
+New attribute added: leadersip
 
-Attribute “leadership” changed to “leadership”
+Edited attribute: leadersip to leadership
 
-These are the current attributes:
-  1. teamwork
-  2. leadership
-
-Attribute “teamwork” removed. You have now 1 attribute for your interview.
+Deleted attribute: teamwork
 ....
 
 ==== Add, Edit and Delete Interview Questions
@@ -134,9 +219,8 @@ questions.
 *Command*
 
 ....
-add question <question>
-edit question <question number> <edited question>
-list question
+add question <question description>
+edit question <question number> -q <edited question>
 delete question <question number>
 ....
 
@@ -144,28 +228,52 @@ delete question <question number>
 
 ....
 > add question What are your relevant experiences?
-> edit question 1 What do you hope to accomplish in 5 years?
-> edit question 2 How can you add value to the company?
-> list question
+> edit question 1 -q What do you hope to accomplish in 5 years?
+> edit question 2 -q How can you add value to the company?
 > delete question 1
 ....
+
+_Action:_ A question "What are your relevant experiences?" will be added.
+Then, question 1 and 2 will be edited, before question 1 is deleted.
 
 _Output:_
 
 ....
-The following question has been added:
-  2. What are your relevant experiences?
+New question added: What are your relevant experiences?
 
-Question 1 edited
+Edited question 1 to What do you hope to accomplish in 5 years?
 
-Question 2 edited
+Edited question 2 to How can you add value to the company?
 
-These are the current questions:
-  1. What do you hope to accomplish in 5 years?
-  2. How can you add value to the company?
+Deleted question: What do you hope to accomplish in 5 years?
+....
 
-The following question was deleted:
-  1. What do you hope to accomplish in 5 years?
+==== Switching views
+
+When working on the interviewees, attributes, questions and metrics (more about metrics in <<Metrics>>),
+HireLah! displays the relevant content you are working on. To switch views, HireLah! also provides the list commands.
+
+*Command*
+
+....
+list interviewee
+list attribute
+list question
+list metric
+....
+
+_Action:_ Switches between displaying interviewees, attributes, questions and metrics.
+
+_Output:_
+
+....
+Here is the list of interviewees:
+
+Here is the list of attributes:
+
+Here is the list of questions:
+
+Here is the list of metrics:
 ....
 
 ==== Finalise Interview Attributes and Questions
@@ -181,105 +289,36 @@ finalise
 _Output:_
 
 ....
-Questions and Attributes for this interview session have been finalised.
+Attributes and questions of this interview session has been finalised. You cannot change them anymore.
 ....
-
-==== Add, Edit and Delete Metrics
-
-Before the interview process, the interviewer may add, remove, and update Metrics to determine the relative importance of several Attributes. Each metric assigns a numerical score to one or more Attributes, and interviewees can be ranked based on their overall score for this metric in the Decision Phase.
-
-*Command*
-
-....
-add metric <name> <attribute> <score> [<attribute> <score>...]
-edit metric <name> <attribute> <score> [<attribute> <score>...]
-list metric
-delete metric <name>
-....
-
-*Example*
-
-....
-> add metric Weighted bravery 0.5 manliness 0.4 intellij 0.1
-> edit metric Weighted bravery 0.005 manliness 0.005 intellij 0.99
-> list metric
-> delete metric Weighted
-....
-
-_Output:_
-
-....
-The following metric has been added:
-  Weighted
-
-The following metric has been updated:
-  Weighted
-
-These are the current metrics:
-  1. Weighted
-    - bravery: 0.005
-    - manliness: 0.005
-    - intellij: 0.99
-
-The following metric has been deleted:
-  Weighted
-....
-
 
 === Interview Phase
 
 ==== Start Interview
 
-You can start a specific interview session and it will enter the
-interview phase. It will capture all the remarks and answers that you
-type in during this interview session. It will also start the audio
-recorder to record the whole interview session.
-
-The details of this interviewee that you have created during the
-initialization phase will be shown.
+After finalising, you can start to interview the interviewees.
 
 *Command*
 
 ....
-start interview <name>
+interview <interviewee>
 ....
 
 *Example*
 
 ....
-> start interview Jane Doe
+> interview Jane Doe
 ....
 
 _Action:_ Initializes an interview session with Jane. Shows the uploaded
-CV (if any), and the list of interview questions in separate windows
-
-==== View Interview Questions
-
-You can view the interview questions that you have set up for this
-interview session, to be asked to the interviewees.
-
-*Command*
-
-....
-list question
-....
-
-*Example*
-
-_Output:_
-
-....
-Q1. What are your strengths and weaknesses?
-Q2. What are your relevant experiences as a software developer?
-Q3. What was your last salary?
-....
+resume (if any), and the list of interview questions in a separate window. The app
+also starts the interview time.
 
 ==== Record Remarks
 
-You can add remarks throughout the interview sessions if you have any
-for the interviewee. This remarks will be mapped to the recording at
-this specific time such that you can remember what was discussed during
-this time.
+After starting the interview, HireLah! allows you to easily take notes within the app itself.
+Anything you type in the Command Box will be recorded as interview remarks, which are timestamped,
+allowing you to easily navigate your interview remarks after the interview is over.
 
 *Command*
 
@@ -296,19 +335,25 @@ this time.
 _Action:_ Stores this remark and maps it to the specific time when you
 enter it.
 
-==== Start and End Mark of A Question
+_Output:_
 
-You can indicate to start typing the answer for a question such that all
-the remarks that falls between the start and end of a question will be
-regarded as the answer to this question
+....
+Added the remark.
+....
+
+==== Asking Questions
+
+Special commands while interviewing are prefixed with a ":". These commands are
+not recorded as remarks and instead perform special actions.
+
+The start question command allows you to indicate when you asked a question during
+the interview. This allows you to easily navigate to relevant parts of the interview
+after the interview ends, while viewing the report.
 
 *Command*
 
 ....
-:start q1
-<remarks>
-<remarks>
-:end q1
+:start q<question number>
 ....
 
 *Example*
@@ -317,20 +362,32 @@ regarded as the answer to this question
 > :start q1
 > Strengths: resilience, ambitious, good time-management
 > Weakness: perfectionist, not detail-oriented
-> :end q1
+> :start q2
 ....
 
-_Action:_ Stores these 2 lines of remark as the answer to Question 1.
+_Output:_
+
+....
+Marked the start of question 1
+
+Added the remark
+
+Added the remark
+
+Marked the start of question 2
+....
+
+_Action:_ Marks the start of question 1 and 2, with the 2 remarks in the middle under question 1
 
 ==== Score attributes
 
-Each of the interviewees have different scoring attributes and the
-interviewer could update the attributes anytime during the interview.
+During the interview, as you form your opinion on the candidate, you can give them scores for the
+attributes you have created earlier (see <<Attributes>>).
 
 *Command*
 
 ....
-:<attributes> <score>
+:<attribute> <score>
 ....
 
 *Example*
@@ -339,16 +396,29 @@ interviewer could update the attributes anytime during the interview.
 > :Productivity 5
 ....
 
-_Action:_ update the Productivity score for John Doe.
+_Action:_ update the Productivity score for John Doe (displayed on a bar chart).
+
+_Output:_
+
+....
+Scored 5.00 to Productivity
+....
+
 
 ==== End interview
 
-This is to allow the interviewers to end the interview session.
+After finishing the interview, give the end command. After the interview has ended,
+you will not be allowed to make any more remarks or change the interviewee's scores.
+Don't end prematurely!
+
+[TIP]
+HireLah! will not allow you to end the interview if you have not assigned a score
+on all the attributes!
 
 *Command*
 
 ....
-end
+:end
 ....
 
 *Example*
@@ -362,10 +432,55 @@ _Action:_ Ending the interview session.
 _Output_:
 
 ....
-The interview session has ended.
+Ended interview with John Doe.
 ....
 
 === Decision Phase
+
+[[Metrics]]
+==== Add, Edit and Delete Metrics
+
+After the interview process, the interviewer may want to compare the interviewed interviewees by
+add, remove, and update Metrics to determine the relative importance of several attributes. Each metric
+assigns a numerical score to one or more Attributes, and interviewees can be ranked based on their overall score for
+this metric in the Decision Phase.
+
+[TIP]
+A metric's name can only contain alphabets and spaces, and it should not be blank!
+
+*Command*
+
+....
+add metric <name> -a <attribute> -w <score> [-a <attribute> -w <score>]...
+edit metric <name> [-n <metric name>] [-a <attribute> -w <score>]...
+list metric
+delete metric <name>
+....
+
+*Example*
+
+....
+> add metric extremeLeader -a leadership -w 0.7 -a tenacity -w 0.6
+> edit metric extremeLeader -n extremeDictatorship -a leadership -w 100
+> list metric
+> delete metric extremeDictatorship
+....
+
+_Action:_ Adds a metric named extremeLeader with the specified scoring scheme. Then, the extremeLeader metric
+name will be changed to extremeDictatorship with the newly specified scoring scheme. Then, the UI will
+display the list of metrics, before deleting the extremeDictatorship.
+
+_Output:_
+
+....
+New metric added: extremeLeader
+
+Edited metric: extremeLeader
+
+Here is the list of metrics:
+
+Deleted metric: extremeDictatorship
+....
 
 ==== Viewing Interviewee Reports
 
@@ -386,8 +501,6 @@ close <interviewee>
 > open John Doe
 
 ... view some interview details ...
-
-> close John Doe
 ....
 
 _Output_: The entire list of remarks made during the interview, with
@@ -399,9 +512,6 @@ After opening a report, you can scroll up and down to navigate through
 the remarks you made during the interview. In addition, you can zoom in
 on a particular moment in the interview by question number, or by the
 interview time.
-
-In addition to viewing the remarks, you can also playback the interview
-audio record by specifying the –audio flag.
 
 ====== Navigating by Question Number
 
@@ -424,9 +534,7 @@ goto q<question number>
 _Output_:
 
 ....
-Question 4
-27.46 - Mentioned that he was fired from his previous job
-27.59 - Was uncomfortable to share the reasons
+Here is the remark of question 4!
 ....
 
 ===== Navigating by Timestamp
@@ -443,82 +551,161 @@ goto <time>
 *Example*
 
 ....
-> goto 30.00 --audio
+> goto 30.00
+....
+
+_Output_:
+
+....
+Here is the remark at time 30.00!
 ....
 
 ==== Find Best Candidates
 
 After interviewing all the candidates, you can find the top n candidates
 based on either a particular attribute, the average of all the
-attributes. You can also make a weighted average for scoring.
+attributes. You also can use a metric for scoring.
 
 *Command*
 
 ....
-new weightage <weightage_name>
 best <number of candidates>
 best <number of candidates> [-a <attribute>]
-best <number of candidates> [-w <weightage>]
+best <number of candidates> [-m <metric>]
 ....
 
 *Example*
 
 ....
-> best 3 -a courage
-> new weightage weight1
-ambition?
-> 0.4
-teamwork?
-> 0.6
-> best 5 -w weight1
+best 3
+best 5 -a leadership
+best 7 -m extremeDictatorship
 ....
+
+_Action_: Firstly, HireLah! will show top 3 interviewees in overall score.
+Then, it will show the top 5 interviewees based on their leadership score. Finally, it will
+show the top 7 interviewes based on the extremeDictatorship metric.
+
+_Output_:
+
+....
+Here are the best 3 interviewees.
+
+Here are the best 5 interviewees.
+
+Here are the best 7 interviewees.
+...
+
+== Advanced Features
+
+=== Typing shortcuts - Prefix matching
+
+It is often tedious to have to type out a long attribute like "Productivity"
+or "Team Player". Especially during an interview, a typing mistake may cost you
+precious time, possibly missing some important thing the interviewee said. HireLah!
+thus allows you to simply type part (a prefix) of the full word, as long as it
+uniquely identifies an attribute.
+
+For example, if you have the following attributes
+
+* Leadership
+* Ambition
+* Team player
+* Team motivator
+
+Then
+
+* "L", "Le" or any longer prefix can uniquely identify "Leadership"
+* "A" sufficiently identifies "Ambition"
+* "Team" **cannot** identify "Team player" as "Team motivator" shares this prefix
+* To minimally distinguish the 2, you must provide "Team p" or "Team m"
 
 == FAQ
 
-Q: How do I transfer my data to another Computer? +
-A: Install the app in
-the other computer and overwrite the `/data` folder with `/data` folder that
-contains the data of your previous HireLah! folder.
+Q: After an interview session for a role is finished, how do I start a fresh session? +
+A: In the home directory of HireLah! After the first time the app is run, a
+file called `preferences.json` will be created by the app to save your preferences, including
+the file where the session data is saved. Simply change the "sessionsDirectory" field to a new
+directory (with a relative path to the home directory), or just change the name and let HireLah!
+create the new directory for you!
+
+Sample `preferences.json`:
+....
+{
+  "guiSettings" : {
+    "windowWidth" : 1382.0,
+    "windowHeight" : 744.0,
+    "windowCoordinates" : {
+      "x" : -8,
+      "y" : -8
+    }
+  },
+  "sessionsDirectory" : "data"
+}
+....
+After changing the session directory:
+....
+{
+  "guiSettings" : {
+    "windowWidth" : 1382.0,
+    "windowHeight" : 744.0,
+    "windowCoordinates" : {
+      "x" : -8,
+      "y" : -8
+    }
+  },
+  "sessionsDirectory" : "ceo-interview"
+}
+....
+Now HireLah! will start in an empty session called ceo-interview. To switch
+between multiple sessions, just change the sessionDirectory to the correct directory.
+
+Q: What happens if the app crashes halfway? Especially during an interview? +
+A: HireLah! saves your work after every change. If the app crashes during an interview,
+the next time you open the app, the interviewee you were interviewing will be in
+an "incomplete interview" state. You can simply resume the interview by calling
+the `interview <interviewee>` command again. Note that you cannot perform the usual
+decision phase commands (finding best interviewee, viewing report) on an interviewee whose
+interview is incomplete!
 
 == Command Summary
 
 
 *Initialization Phase*
 
-* `add interviewee <fullname> [-a <alias>]` +
-e.g. `add interviewee - Jane Doe -a Doe`
-* `delete interviewee <interviewee>` +
+* Add an interviewee: `add interviewee <interviewee> [-aka <alias>]` +
+e.g. `add interviewee Jane Doe -aka Doe`
+* Edit an interviewee: `edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]` +
+e.g. `edit interviewee Jane Doe -n Janice Doe -aka JDoe`
+* Delete an interviewee: `delete interviewee <interviewee>` +
 e.g. `delete interviewee Doe`
-* `list interviewee`
-* `add attribute <attributes>` +
+* List interviewees: `list interviewee`
+* Add an attribute: `add attribute <attribute>` +
 e.g. `add attribute teamwork`
-* `edit attribute <attributes>` +
-e.g. `edit attribute leadership`
-* `delete attribute <attributes>` +
+* Edit an attribute: `edit attribute <old attribute> -a <new attribute>` +
+e.g. `edit attribute -a leadership`
+* Delete an attribute: `delete attribute <attribute>` +
 e.g. `delete attribute productivity`
-* `list attribute`
-* `add question <question>` +
+* List attributes: `list attribute`
+* Add a question: `add question <question description>` +
 e.g. `add question What are your relevant experiences?`
-* `edit question <question number> <edited question>` +
-e.g. `edit question 1 What do you hope to accomplish in 5 years?`
-* `list question`
-* `delete question <question number>` +
+* Edit a question: `edit question <question number> -q <edited question>` +
+e.g. `edit question 1 -q What do you hope to accomplish in 5 years?`
+* Delete a question: `delete question <question number>` +
 e.g. `delete question 1`
+* List questions: `list question`
 
 *Interviewing Phase*
 
-* Start: `start interview <name>` +
-e.g. `start interview Jane Doe`
-* View Questions: `view questions`
-* Add Remarks: `remarks` +
+* Start: `interview <interviewee>` +
+e.g. `interview Jane Doe`
+* Add Remarks: `<remarks>` +
 e.g. `This guy is good at bluffing`
-* Start a Question: `:start q<no_of_question>` +
+* Start a Question: `:start q<question number>` +
 e.g. `:start q1`
-* End a question: `:end q<no_of_question>` +
-e.g. `:end q1`
 * Score an attribute: `:<attribute> <score>` +
 e.g. `:Agility 10`
-* End: `end`
+* End: `:end`
 
 *Decision Phase*
 
@@ -526,15 +713,15 @@ e.g. `:Agility 10`
 e.g. `open Jane Doe`
 * Close an interviewee report: `close <interviewee>` +
 e.g. `close Jane Doe`
-* Navigate to answer of interviewee: `q<question number> [--audio]` +
-e.g. `q4`
-* Navigate to a time of interviewee: `at <time> [--audio]` +
-e.g. `at 30.00 –audio`
+* Navigate to answer of interviewee: `q<question number>` +
+e.g. `goto q4`
+* Navigate to a time of interviewee: `at <time>` +
+e.g. `goto 30.00`
 * Stops audio playing: `stop audio`
 * Create a new weightage: `new weightage <weightage_name>` +
 e.g. `new weightage extreme_intelligent`
 * Find the Best N candidates based on average attribute: `best <no_of_candidates>`
-* Find the Best N candidates based on a particular attribute: `best <no_of_candidates> -p <attribute>` +
+* Find the Best N candidates based on a particular attribute: `best <no_of_candidates> -a <attribute>` +
 e.g. `best 3 strength`
-* Find the Best N candidates based on a weighted attribute: `best <no_of_candidates> -w <weightage>` +
-e.g. `best 5 -w weightage1`
+* Find the Best N candidates based on a metric: `best <no_of_candidates> -m <metric>` +
+e.g. `best 5 -m extremeDictatorship`

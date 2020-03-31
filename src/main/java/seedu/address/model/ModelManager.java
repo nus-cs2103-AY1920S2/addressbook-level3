@@ -4,19 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.model.hirelah.AppPhase;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.InterviewSession;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.Metric;
@@ -35,7 +31,6 @@ public class ModelManager implements Model {
     private boolean finalisedInterviewProperties;
     private AppPhase appPhase;
     private Interviewee currentInterviewee;
-    private InterviewSession interviewSession;
     private final IntervieweeList intervieweeList;
     private final AttributeList attributeList;
     private final QuestionList questionList;
@@ -140,6 +135,10 @@ public class ModelManager implements Model {
         return !(this.currentInterviewee == null);
     }
 
+    /**
+     * A utility to get the Transcript of the current Interviewee (guaranteed to exist).
+     * Do not use when there is no interviewee.
+     */
     @Override
     public Transcript getCurrentTranscript() {
         return currentInterviewee.getTranscript().get();
@@ -151,20 +150,13 @@ public class ModelManager implements Model {
             throw new IllegalActionException("Interviewee has been interviewed already!");
         }
         setCurrentInterviewee(interviewee);
-        currentInterviewee.setTranscript(new Transcript(questionList));
-        interviewSession = new InterviewSession();
+        currentInterviewee.setTranscript(new Transcript(questionList, attributeList));
         setAppPhase(AppPhase.INTERVIEW);
-    }
-
-    @Override
-    public InterviewSession getInterviewSession() {
-        return interviewSession;
     }
 
     @Override
     public void endInterview() {
         setCurrentInterviewee(null);
-        interviewSession = null;
         setAppPhase(AppPhase.NORMAL);
     }
 
@@ -173,22 +165,22 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Attribute> getAttributeListView() {
-        return FXCollections.unmodifiableObservableList(attributeList.getObservableList());
+        return attributeList.getObservableList();
     }
 
     @Override
     public ObservableList<Question> getQuestionListView() {
-        return FXCollections.unmodifiableObservableList(questionList.getObservableList());
+        return questionList.getObservableList();
     }
 
     @Override
     public ObservableList<Interviewee> getFilteredIntervieweeListView() {
-        return FXCollections.unmodifiableObservableList(intervieweeList.getObservableList());
+        return intervieweeList.getObservableList();
     }
 
     @Override
     public ObservableList<Metric> getMetricListView() {
-        return FXCollections.unmodifiableObservableList(metricList.getObservableList());
+        return metricList.getObservableList();
     }
 
     //=========== Model component accessors ========================================================
@@ -198,9 +190,6 @@ public class ModelManager implements Model {
         return intervieweeList;
     }
 
-    /**
-     * Returns the list of attributes to score interviewees by
-     */
     @Override
     public AttributeList getAttributeList() {
         return attributeList;
@@ -218,7 +207,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Interviewee> getBestNInterviewees() {
-        return Objects.requireNonNullElseGet(bestNIntervieweeList, () -> FXCollections.observableList(List.of()));
+        return bestNIntervieweeList;
     }
 
     /**

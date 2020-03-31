@@ -14,13 +14,11 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 public class DeleteIntervieweeCommand extends Command {
     public static final String COMMAND_WORD = "interviewee";
-    public static final String MESSAGE_SUCCESS = "Deleted interviewee with identifier: %1$s";
-    public static final String MESSAGE_USAGE = "delete " + COMMAND_WORD
+    public static final String MESSAGE_SUCCESS = "Deleted interviewee: %1$s";
+    public static final String MESSAGE_USAGE = "delete " + COMMAND_WORD + " <interviewee>"
             + ": Deletes an interviewee to the Interviewee list. "
-            + "Parameters: IDENTIFIER\n"
             + "Example: delete " + COMMAND_WORD + " Doe";
 
-    public static final String EMPTY_STRING = "";
     private final String identifier;
 
     /**
@@ -41,7 +39,7 @@ public class DeleteIntervieweeCommand extends Command {
             throw new CommandException(e.getMessage());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, identifier), ToggleView.INTERVIEWEE);
+        return new ToggleCommandResult(String.format(MESSAGE_SUCCESS, identifier), ToggleView.INTERVIEWEE);
     }
 
     @Override

@@ -19,7 +19,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.NavigationCommandResult;
 import seedu.address.logic.commands.ToggleView;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,15 +42,16 @@ public class MainWindow extends UiPart<Stage> {
     private IntervieweeListPanel bestNIntervieweesPanel;
     private RemarkListPanel remarkListPanel;
     private AttributeListPanel attributeListPanel;
-    private DetailedIntervieweeCard detailedIntervieweeCard;
     private MetricListPanel metricListPanel;
     private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
 
+    // SecondWindow for displaying additional information during interview phase.
+    private SecondWindow secondWindow;
+
     // On startup, HireLah shows the list of interviewees
     private ToggleView toggleView = ToggleView.INTERVIEWEE;
 
-    private Interviewee currentInterviewee;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -81,13 +81,12 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         attributeListPanel = new AttributeListPanel(logic.getAttributeListView());
-        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeListView());
-        bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView());
+        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeListView(), this::executeCommand);
+        bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView(), this::executeCommand);
         attributeListPanel = new AttributeListPanel(logic.getAttributeListView());
         metricListPanel = new MetricListPanel(logic.getMetricListView());
         questionListPanel = new QuestionListPanel(logic.getQuestionListView());
-
-        this.currentInterviewee = null;
+        secondWindow = new SecondWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -161,17 +160,18 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param toggleView enum representing what should be displayed
      */
-    @FXML
     public void handleToggle(ToggleView toggleView) {
-        if (this.toggleView == toggleView) {
-            if (toggleView != ToggleView.TRANSCRIPT || !currentInterviewee.equals(logic.getCurrentInterviewee())) {
-                return;
-            }
+        // Short circuit if no change to the view, unless currently viewing transcript
+        // which may change if it is a different interviewee's transcript
+        if (this.toggleView == toggleView && toggleView != ToggleView.TRANSCRIPT) {
+            return;
         }
-
         this.toggleView = toggleView;
+
+        // Clear the current interviewee and close SecondWindow if not viewing a report
         if (this.toggleView != ToggleView.TRANSCRIPT) {
             logic.setCurrentInterviewee(null);
+            secondWindow.hide();
         }
 
         listPanelStackPane.getChildren().clear();
@@ -190,30 +190,23 @@ public class MainWindow extends UiPart<Stage> {
             listPanelStackPane.getChildren().add(questionListPanel.getRoot());
             break;
         case TRANSCRIPT: // transcript
-            currentInterviewee = logic.getCurrentInterviewee();
-            remarkListPanel = new RemarkListPanel(currentInterviewee);
-            detailedIntervieweeCard = new DetailedIntervieweeCard(currentInterviewee);
+            Interviewee currentInterviewee = logic.getCurrentInterviewee();
+            DetailedIntervieweeCard detailedIntervieweeCard = new DetailedIntervieweeCard(currentInterviewee);
+            remarkListPanel = new RemarkListPanel(currentInterviewee, logic.getQuestionListView());
             listPanelStackPane.getChildren().addAll(remarkListPanel.getRoot(), detailedIntervieweeCard.getRoot());
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);
             StackPane.setAlignment(remarkListPanel.getRoot(), Pos.CENTER);
-            // second screen
-            // handleSecondStage();
+            // show second window
+            secondWindow.show(questionListPanel);
             break;
         case BEST_INTERVIEWEE:
-            bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView());
+            bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView(), this::executeCommand);
             listPanelStackPane.getChildren().add(bestNIntervieweesPanel.getRoot());
             break;
         default:
             break;
         }
     }
-
-    // /**
-    //  * Opens up a second window to show the question list, as a guide for the interviewee.
-    //  */
-    // private void handleSecondStage() {
-    //     SecondWindow(questionListPanel).show();
-    // }
 
     /**
      * Opens the user guide PDF on help command.
@@ -239,11 +232,29 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    private void handleExit() {
+    public void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         primaryStage.hide();
+    }
+
+    /**
+     * Sets feedback in the result display.
+     *
+     * @param feedback the feedback to display.
+     */
+    public void setFeedbackToUser(String feedback) {
+        resultDisplay.setFeedbackToUser(feedback);
+    }
+
+    /**
+     * Scrolls the Transcript to the given index.
+     *
+     * @param index the index to scroll to.
+     */
+    public void scrollTranscriptTo(int index) {
+        remarkListPanel.scrollTo(index);
     }
 
 
@@ -252,27 +263,11 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, IllegalValueException {
+    private void executeCommand(String commandText) throws CommandException, IllegalValueException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            if (commandResult instanceof NavigationCommandResult) {
-                remarkListPanel.scrollTo(((NavigationCommandResult) commandResult).getIndex());
-            }
-
-            handleToggle(commandResult.getToggleView());
-
-            return commandResult;
+            commandResult.displayResult(this);
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
