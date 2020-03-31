@@ -4,9 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
-import java.util.Iterator;
 
 import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
@@ -66,11 +66,14 @@ public class Supplier {
         return Collections.unmodifiableSet(offers);
     }
 
-    public String RemoveGood(GoodName goodName) {
+    /**
+     * This is to remove a good from supplier's list after giving the good's name
+     */
+    public String removeGood(GoodName goodName) {
         Iterator<Offer> itr = offers.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             Offer tempOffer = itr.next();
-            if(tempOffer.getGood().equals(goodName)) {
+            if (tempOffer.getGood().equals(goodName)) {
                 itr.remove();
                 return "done";
             }

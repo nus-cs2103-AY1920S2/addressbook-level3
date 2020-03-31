@@ -15,7 +15,6 @@ import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
-import seedu.address.model.good.Good;
 import seedu.address.model.supplier.Address;
 import seedu.address.model.supplier.Email;
 import seedu.address.model.supplier.Name;

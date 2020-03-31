@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,7 +14,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.supplier.Supplier;
 
@@ -54,7 +54,7 @@ public class DeleteSupplierCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
         }
 
-        if(deleteSupplierGoodName.getGoodNames().equals(Optional.empty())) {
+        if (deleteSupplierGoodName.getGoodNames().equals(Optional.empty())) {
             Supplier supplierToDelete = lastShownList.get(index.getZeroBased());
             model.deleteSupplier(supplierToDelete);
             model.commit();
@@ -63,7 +63,7 @@ public class DeleteSupplierCommand extends Command {
         } else {
             Supplier supplierToDelete = lastShownList.get(index.getZeroBased());
             Supplier editedSupplier = supplierToDelete;
-            if(editedSupplier.RemoveGood(deleteSupplierGoodName.goodNames.iterator().next()) == null) {
+            if (editedSupplier.removeGood(deleteSupplierGoodName.goodNames.iterator().next()) == null) {
                 return new CommandResult(String.format(MESSAGE_COULD_NOT_FIND, supplierToDelete));
             }
             model.setSupplier(supplierToDelete, editedSupplier);

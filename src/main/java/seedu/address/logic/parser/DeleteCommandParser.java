@@ -6,10 +6,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteSupplierCommand;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.good.GoodName;
 
@@ -53,8 +53,8 @@ public class DeleteCommandParser implements Parser<DeleteSupplierCommand> {
         if (goodNames.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> goodNameList = goodNames.size() == 1 && goodNames.contains("") ? Collections.emptyList() :
-                goodNames;
+        Collection<String> goodNameList = goodNames.size() == 1 && goodNames.contains("") ? Collections.emptyList()
+                : goodNames;
         return Optional.of(ParserUtil.parseGoodNames(goodNameList));
     }
 
