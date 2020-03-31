@@ -43,17 +43,17 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getInventorySystemFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setInventorySystemFilePath(Path inventorySystemFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code inventorySystem}.
      */
-    void setAddressBook(ReadOnlyInventorySystem addressBook, String commandWord);
+    void setInventorySystem(ReadOnlyInventorySystem inventorySystem, String commandWord);
 
     /** Returns the InventorySystem */
     ReadOnlyInventorySystem getInventorySystem();

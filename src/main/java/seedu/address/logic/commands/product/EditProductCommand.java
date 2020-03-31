@@ -69,6 +69,8 @@ public class EditProductCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // create edited product
         List<Product> lastShownList = model.getFilteredProductList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -82,13 +84,12 @@ public class EditProductCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-        updateTransactionList(model, editedProduct);
-        System.out.println("epc pte" + productToEdit);
-        System.out.println("epc epd" + editProductDescriptor);
-        System.out.println("epc" + editedProduct);
-
+        // update product list
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+
+        // update transactions with product info
+        updateTransactionList(model, editedProduct);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct));
     }

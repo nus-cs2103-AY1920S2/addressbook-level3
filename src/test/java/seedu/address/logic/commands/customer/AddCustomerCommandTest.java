@@ -107,12 +107,12 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getInventorySystemFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setInventorySystemFilePath(Path inventorySystemFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -132,7 +132,7 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyInventorySystem newData, String commandWord) {
+        public void setInventorySystem(ReadOnlyInventorySystem inventorySystem, String commandWord) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -75,21 +75,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getInventorySystemFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setInventorySystemFilePath(Path inventorySystemFilePath) {
+        requireNonNull(inventorySystemFilePath);
+        userPrefs.setAddressBookFilePath(inventorySystemFilePath);
     }
 
     //=========== InventorySystem ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyInventorySystem addressBook, String commandWord) {
-        this.inventorySystem.resetData(addressBook, commandWord);
+    public void setInventorySystem(ReadOnlyInventorySystem inventorySystem, String commandWord) {
+        this.inventorySystem.resetData(inventorySystem, commandWord);
     }
 
     @Override

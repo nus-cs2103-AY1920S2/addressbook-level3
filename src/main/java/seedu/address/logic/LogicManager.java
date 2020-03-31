@@ -75,7 +75,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getInventorySystemFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getInventorySystemFilePath();
     }
 
     @Override
