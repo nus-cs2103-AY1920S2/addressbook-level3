@@ -39,6 +39,9 @@ public class ShareCommand extends IndexedCommand {
     public static final String MESSAGE_WRITE_TO_IMAGE_ERROR =
             "Problem encountered while saving to image. Please try sharing again!";
 
+    public static final String MESSAGE_DIALOG_CLOSED =
+            "Coupon was not saved, save dialog was closed without choosing a directory.";
+
     private static final String FORMAT = "png";
 
     /**
@@ -76,6 +79,11 @@ public class ShareCommand extends IndexedCommand {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName(couponToShare.getName().toString() + "." + FORMAT);
         File file = fileChooser.showSaveDialog(null);
+
+        // If save dialog is closed without choosing a directory.
+        if (file == null) {
+            throw new CommandException(MESSAGE_DIALOG_CLOSED);
+        }
 
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), FORMAT, file);
