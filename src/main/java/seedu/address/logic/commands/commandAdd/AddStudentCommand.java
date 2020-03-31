@@ -51,11 +51,11 @@ public class AddStudentCommand extends AddCommand {
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
-    if (model.hasStudent(toAdd)) {
+    if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
 
-    model.addStudent(toAdd);
+    model.add(toAdd);
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 

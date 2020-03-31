@@ -41,7 +41,7 @@ public class DeleteTeacherCommand extends DeleteCommand {
     }
 
     Teacher teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.deleteTeacher(teacherToDelete);
+    model.delete(teacherToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_TEACHER_SUCCESS, teacherToDelete));
   }
 
