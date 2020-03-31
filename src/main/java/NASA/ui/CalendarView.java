@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -20,6 +21,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import javafx.scene.paint.Color;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
@@ -55,12 +57,30 @@ public class CalendarView extends UiPart<Region> {
 
         // update the Label and the grids
         monthAndYear.setText(String.format("%s %s", Month.of(currentMonth), Year.of(currentYear)));
+        monthAndYear.setTextFill(Color.WHITE);
 
         // update calendar
         initializeWholeCalendar();
 
         // update contents in calendar
         loadActivities(moduleObservableList);
+
+        // allow updating of calendar
+        updateCalendar(moduleObservableList);
+    }
+
+    private void updateCalendar(ObservableList<Module> moduleObservableList) {
+        for (Module module : moduleObservableList) {
+            ObservableList<Activity> activityObservableList = module.getFilteredActivityList();
+            activityObservableList.addListener(new ListChangeListener<Activity>() {
+                @Override
+                public void onChanged(Change<? extends Activity> c) {
+                    System.out.println("Is this here");
+                    resetCalendar();
+                    loadActivities(moduleObservableList);
+                }
+            });
+        }
     }
 
     /**
@@ -72,7 +92,9 @@ public class CalendarView extends UiPart<Region> {
             GridPane.setVgrow(dayHeader, Priority.NEVER);
             Label day = new Label();
             day.setText(DayOfWeek.of(i).getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
+            day.setTextFill(Color.WHITE);
             dayHeader.getChildren().add(day);
+            dayHeader.getStyleClass().add("calendar_grid");
             calendarGrid.add(dayHeader, i - 1, 0);
         }
     }
@@ -92,7 +114,6 @@ public class CalendarView extends UiPart<Region> {
         }
 
         int nullDays = firstDayOfMonth - 1;
-        System.out.println(nullDays);
         int currentDate = 1;
 
         // populate the first row of the calendar grid
@@ -100,15 +121,17 @@ public class CalendarView extends UiPart<Region> {
             VBox dateContent = new VBox();
             GridPane.setVgrow(dateContent, Priority.ALWAYS);
             dateContent.setId(Integer.toString(currentDate));
+            dateContent.getStyleClass().add("calendar_grid");
             if (i < nullDays) {
                 // not in current month, set to black color
-                dateContent.setStyle("-fx-background-color:#000000");
+                dateContent.setStyle("-fx-background-color:black");
             } else {
                 // set to purple color plus add date number
-                dateContent.setStyle("-fx-background-color:#5dbcd2");
+                dateContent.setStyle("-fx-background-color:#361350");
                 Label dateLabel = new Label();
                 dateLabel.setText(Integer.toString(currentDate));
                 dateLabel.setStyle("-fx-text-fill:#FFFFFF");
+                dateLabel.setPadding(new Insets(5));
                 dateContent.getChildren().add(dateLabel);
                 currentDate++;
             }
@@ -121,18 +144,20 @@ public class CalendarView extends UiPart<Region> {
                 VBox dateContent = new VBox();
                 GridPane.setVgrow(dateContent, Priority.ALWAYS);
                 dateContent.setId(Integer.toString(currentDate));
+                dateContent.getStyleClass().add("calendar_grid");
 
                 // check if current grid is still within the month
                 if (currentDate <= totalDaysInMonth) {
-                    dateContent.setStyle("-fx-background-color:#5dbcd2");
+                    dateContent.setStyle("-fx-background-color:#361350");
                     Label dateLabel = new Label();
                     dateLabel.setText(Integer.toString(currentDate));
                     dateLabel.setStyle("-fx-text-fill:#FFFFFF");
+                    dateLabel.setPadding(new Insets(5));
                     dateContent.getChildren().add(dateLabel);
                     currentDate++;
                 } else {
                     // create a black pane
-                    dateContent.setStyle("-fx-background-color:#000000");
+                    dateContent.setStyle("-fx-background-color:black");
                 }
                 calendarGrid.add(dateContent, j, i);
             }
@@ -143,7 +168,7 @@ public class CalendarView extends UiPart<Region> {
      * Load all activities into the calendar.
      * @param moduleObservableList modules in the application
      */
-    private void loadActivities(ObservableList<Module> moduleObservableList) {
+    public void loadActivities(ObservableList<Module> moduleObservableList) {
         HashMap<Integer, ArrayList<Activity>> activityHashMap = new HashMap<>();
         for (Module module : moduleObservableList) {
             ObservableList<Activity> activityObservableList =
@@ -168,17 +193,26 @@ public class CalendarView extends UiPart<Region> {
             int size = dateActivities.size();
 
             if (size > 0) {
-                Label activityLabel = getActivityLabel(dateActivities.get(0));
                 Node node = calendarGrid.lookup("#" + Integer.toString(i));
                 VBox dateContent = (VBox) node;
-                dateContent.getChildren().add(activityLabel);
-
+                int counter = 1;
+                for (Activity activity : dateActivities) {
+                    if (counter <= 3) {
+                        Label activityLabel = getActivityLabel(activity);
+                        dateContent.getChildren().add(activityLabel);
+                        counter++;
+                    } else {
+                        break;
+                    }
+                }
                 // add the others... label
-                if (size > 1) {
-                    int left = size - 1;
+                if (size > 3) {
+                    int left = size - 3;
                     Label leftActivities = new Label();
                     leftActivities.setText(String.format("%d other activities", left));
                     leftActivities.setPadding(new Insets(0, 5, 0, 5));
+                    leftActivities.setStyle("-fx-background-color:#f4c2c2; -fx-background-radius: 5 5 5 5");
+                    leftActivities.setMaxWidth(Double.MAX_VALUE);
                     dateContent.getChildren().add(leftActivities);
                 }
             }
@@ -196,14 +230,15 @@ public class CalendarView extends UiPart<Region> {
         activityLabel.setPadding(new Insets(0, 5, 0, 5));
         if (activity instanceof Deadline) {
             // color it red
-            activityLabel.setStyle("-fx-background-color:red -fx-background-radius: 10, 10, 10, 10");
+            activityLabel.setStyle("-fx-background-color:#AFEEEE; -fx-background-radius: 5 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
-            activityLabel.setStyle("-fx-background-color:yellow -fx-background-radius: 10, 10, 10, 10");
+            activityLabel.setStyle("-fx-background-color:yellow; -fx-background-radius: 5 5 5 5");
         } else {
             // color it green
-            activityLabel.setStyle("fx-background-color:green -fx-background-radius: 10, 10, 10, 10 ");
+            activityLabel.setStyle("-fx-background-color:green; -fx-background-radius: 5 5 5 5");
         }
+        activityLabel.setTextFill(Color.BLACK);
         return activityLabel;
     }
 
@@ -227,6 +262,19 @@ public class CalendarView extends UiPart<Region> {
             return ((Event) activity).getDateFrom().getDate().getDayOfMonth();
         } else {
             return ((Lesson) activity).getDateFrom().getDate().getDayOfMonth();
+        }
+    }
+
+    private void resetCalendar() {
+        ObservableList<Node> calendarCells = calendarGrid.getChildren();
+        for (Node cell : calendarCells) {
+            if (GridPane.getRowIndex(cell) != null &&
+                GridPane.getRowIndex(cell) != 0) {
+                ObservableList<Node> nodes = ((VBox) cell).getChildren();
+                if (nodes.size() > 1) {
+                    nodes.remove(1, nodes.size());
+                }
+            }
         }
     }
 }
