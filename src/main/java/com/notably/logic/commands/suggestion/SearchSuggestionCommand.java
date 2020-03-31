@@ -85,7 +85,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
                                 } catch (CommandException ex) {
                                     /* notes suggested will definitely be able to be opened,
                                        as the block actually exists.
-                                       AssertError would never be thrown */
+                                       AssertionError would never be thrown */
                                     throw new AssertionError(ex.getMessage());
                                 }
                             };
