@@ -100,11 +100,20 @@ Searches all the notes saved in Notably for the keyword. +
 Format: `search [-s] KEYWORD` +
 Example: `search -s CS2103`
 
+.Demo for the `search` command
+image:demo/Search.png[]
+
 === Delete a note: `delete`
 
 If you no longer need a note, or accidentally create a wrong one, don't worry. You can always delete your note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
 Format: `delete [-t] TITLE` +
 Example: `delete -t Notably/CS2103`
+
+.Demo for the `delete` command
+image:demo/Delete1.png[]
+
+.Demo for the `delete` command (after deletion)
+image:demo/Delete2.png[]
 
 === Save the data
 
