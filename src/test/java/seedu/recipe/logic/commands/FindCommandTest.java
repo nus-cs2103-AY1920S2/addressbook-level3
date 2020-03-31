@@ -23,13 +23,10 @@ import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-<<<<<<< HEAD
-    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-    private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-=======
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
+    private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
 
     @Test
     public void equals() {

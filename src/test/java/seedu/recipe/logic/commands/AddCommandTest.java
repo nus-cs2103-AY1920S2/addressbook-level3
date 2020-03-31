@@ -14,22 +14,16 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-
 import seedu.recipe.commons.core.GuiSettings;
-
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
-<<<<<<< HEAD
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.Date;
-=======
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
->>>>>>> upstream/master
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 

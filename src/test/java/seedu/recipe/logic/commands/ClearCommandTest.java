@@ -24,13 +24,11 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyRecipeBook_success() {
-<<<<<<< HEAD
-        Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-        Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-=======
-        Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+        Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+                getTypicalRecordBook(), new PlannedBook());
+        Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+                getTypicalRecordBook(), new PlannedBook());
+
         expectedModel.setRecipeBook(new RecipeBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

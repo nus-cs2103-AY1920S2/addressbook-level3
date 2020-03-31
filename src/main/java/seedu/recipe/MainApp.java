@@ -68,7 +68,7 @@ public class MainApp extends Application {
         CookedRecordBookStorage cookedRecordBookStorage = new JsonCookedRecordBookStorage(
                 userPrefs.getCookedRecordFilePath());
         PlannedBookStorage plannedBookStorage = new JsonPlannedBookStorage(userPrefs.getPlannedBookFilePath());
-        storage = new StorageManager(recipeBookStorage, cookedRecordBookStorage, plannedBookStorage,userPrefsStorage);
+        storage = new StorageManager(recipeBookStorage, cookedRecordBookStorage, plannedBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -123,7 +123,7 @@ public class MainApp extends Application {
             initialRecords = new CookedRecordBook();
         }
 
-        try{
+        try {
             plannedBookOptional = storage.readPlannedBook();
             if (!plannedBookOptional.isPresent()) {
                 logger.info("Data file for planned recipes not found. Will be starting with a blank PlannedBook");

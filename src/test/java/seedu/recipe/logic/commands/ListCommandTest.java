@@ -24,13 +24,11 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-<<<<<<< HEAD
-        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
-        expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
-=======
-        model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
->>>>>>> upstream/master
+
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
+        expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
+
     }
 
     @Test
