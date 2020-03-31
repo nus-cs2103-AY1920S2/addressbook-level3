@@ -70,8 +70,8 @@ public class PlannedDate implements Comparable<PlannedDate> {
     }
 
     /**
-     *
-     * Not inclusive!
+     * Checks whether the current date falls within the range of {@code start} Date and {@code end} Date.
+     * The start and end dates are non-inclusive.
      */
     public boolean isWithinRange(PlannedDate start, PlannedDate end) {
         return date.isAfter(start.date) && date.isBefore(end.date);

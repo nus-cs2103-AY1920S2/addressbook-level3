@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 /**
  * Tests that a {@code PlannedRecipe}'s {@code PlannedDate} falls within the specified PlannedDate range.
+ * The start and end dates are non-inclusive.
  */
 public class PlannedRecipeWithinDateRangePredicate implements Predicate<PlannedRecipe> {
 

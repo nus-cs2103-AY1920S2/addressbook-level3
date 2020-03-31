@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,9 +70,18 @@ public class UniquePlannedList {
     }
 
     /**
+     * Obtains a list of all planned recipes on {@code date}.
+     */
+    public List<PlannedRecipe> getPlannedRecipesOnDate(PlannedDate date) {
+        return observableList.stream()
+                .filter(recipe -> recipe.isOnDate(date))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Returns the index of a planned recipe with the same date as {@code otherPlannedRecipe}.
      */
-    public int indexOfPlannedRecipeWithSameDate(PlannedRecipe otherPlannedRecipe) {
+    private int indexOfPlannedRecipeWithSameDate(PlannedRecipe otherPlannedRecipe) {
         PlannedDate otherDate = otherPlannedRecipe.getDate();
         for (int i = 0; i < observableList.size(); i++) {
             PlannedDate currentDate = observableList.get(i).getDate();

@@ -86,6 +86,13 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     }
 
     /**
+     * Obtains a list of all planned recipes on {@code date}.
+     */
+    public List<PlannedRecipe> getPlannedRecipesOnDate(PlannedDate date) {
+        return plannedRecipes.getPlannedRecipesOnDate(date);
+    }
+
+    /**
      * Removes all planned recipes on this {@code recipe} key in the mapping from recipe to planned recipe.
      */
     public void removeAllPlannedMappingForRecipe(Recipe recipe) {

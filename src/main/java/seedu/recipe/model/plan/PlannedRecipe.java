@@ -20,10 +20,9 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
         this.date = date;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
-
+    /**
+     * Replaces the entire planned recipes list with {@code recipes}.
+     */
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
@@ -34,10 +33,6 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
     public void setRecipe(Recipe target, Recipe newRecipe) {
         int index = recipes.indexOf(target);
         recipes.set(index, newRecipe);
-    }
-
-    public PlannedDate getDate() {
-        return date;
     }
 
     /**
@@ -53,15 +48,27 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
         return new PlannedRecipe(newRecipes, date);
     }
 
-    public boolean sameDate(PlannedRecipe other) {
-        return date.equals(other.date);
+    /**
+     * Checks whether this PlannedRecipe is planned on {@code otherDate}.
+     */
+    public boolean isOnDate(PlannedDate otherDate) {
+        return date.equals(otherDate);
     }
 
     /**
      * Checks whether the date of this planned recipe falls within the {@code start} date and the {@code end} date.
+     * The start and end date is non-inclusive.
      */
     public boolean isWithinRange(PlannedDate start, PlannedDate end) {
         return date.isWithinRange(start, end);
+    }
+
+    public PlannedDate getDate() {
+        return date;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
     @Override

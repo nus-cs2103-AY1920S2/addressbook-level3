@@ -33,7 +33,7 @@ public class PlanCommand extends Command {
             + "3 "
             + PREFIX_DATE + "2020-03-16";
 
-    public static final String MESSAGE_SUCCESS = "Recipe planned: %1$s, %2$s";
+    public static final String MESSAGE_SUCCESS = "Recipe %1$s planned at %2$s";
 
     private final Index index;
     private final PlannedDate atDate;

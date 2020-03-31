@@ -1,6 +1,7 @@
 package seedu.recipe.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -160,7 +161,6 @@ public interface Model {
      */
     ObservableList<PlannedRecipe> getFilteredPlannedList();
 
-
     /**
      * Updates the filtered planned list to be filtered using the {@code predicate}.
      * todo throw exception?
@@ -168,4 +168,6 @@ public interface Model {
     void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
 
     //updateAndFillPlannedList todo
+
+    List<PlannedRecipe> get
 }
