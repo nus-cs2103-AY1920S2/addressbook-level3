@@ -719,6 +719,8 @@ This shows you the students in the first group of the module `CS2103`
 
 === Session View
 
+This section explains the different commands that can be used on the session view.
+
 [[AddSession]]
 ==== Adding a Session `session add`
 
@@ -752,14 +754,15 @@ Examples:
 
 * `session add m/CS2103T s/14:00 e/16:00 d/19-02-2020 t/consultation n/with Alice and Bob`
 +
-Adds a consultation session on 19 Feb 2020,
+This command adds a consultation session on 19 Feb 2020,
 from 2pm to 4pm,
 with Alice and Bob.
 
 ====
 ==== Deleting a Session `session delete`
 
-Deletes a session. Deleted session will be removed from Session View.
+You can use this command to delete a session. The deleted session will be removed from
+the Session View.
 
 Format: `session delete INDEX`
 
@@ -773,7 +776,7 @@ Examples:
 
 * `session delete 3`
 +
-Deletes the third session from Session View.
+This command deletes the third session in the Session View.
 ====
 
 ==== Editing a Session `session edit`
@@ -781,8 +784,9 @@ TODO - ADD DETAILS
 
 ==== Marking a Session as Done `session done`
 
-Labels a session as done.
-If the session is claimable, it will appear as a new claim in the TSS view.
+You can use this command to labels a session as done.
+
+The session will automatically appear as a new claim in the TSS view.
 
 Format: `session done INDEX`
 
@@ -792,20 +796,25 @@ Marks the session with the given unique session identifier as done.
 Examples:
 
 * `done 25` +
-Marks the session with the unique session id of 25 as done.
+This will mark the 25th session in the Session View as done.
 ====
 
 ==== Filter `filter`
 
-Filters sessions that have not been done yet.
+You can use this command to filter the sessions by certain keywords in the Session View.
 
-You should be specific when filtering sessions.
-Using specific command to return you all the filtered results containing
-the keyword. Using more than one command will return you the filtered results
-from each command.
+You should be specific when filtering sessions. You can filter the sessions by the following
+keywords:
 
-All sessions with matching keywords are displayed.
-Keyword is case-insensitive.
+* Module code - filtering by module code will show you only the sessions affiliated
+with that module.
+
+* Session type - filtering by session type will show you only the sessions of that session
+type.
+
+* Date - filtering by a date will show you only the sessions on that date.
+
+The keyword is case-insensitive.
 
 Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 
@@ -814,18 +823,19 @@ Example:
 
 * `session filter m/CS2103T`
 +
-All un-done sessions with module code `CS2103T` are displayed.
+All sessions in the Session View with module code `CS2103T` are displayed.
 
 * `session filter m/CS2030T t/tutorial d/2020-03-20`
 +
-All un-done sessions on `2020-03-20`, with module code  `CS2103T`, session type  ‘Tutorial` will be shown.
+All sessions in the Session View that take place on `2020-03-20`, with module code  `CS2103T`,
+session type  ‘Tutorial` will be shown.
 ====
 
 === Claims View
 
 ==== Filter `filter`
 
-Filters sessions you have completed specified by the module code.
+You can use this command to filters sessions in the Claims View by the module code.
 
 All completed sessions with matching module code are displayed. Keyword is case-insensitive.
 
@@ -836,7 +846,7 @@ Example:
 
 * `module filter m/CS2103T`
 +
-All completed sessions with module code `CS2103T` are displayed.
+All sessions in the Claims View with module code `CS2103T` are displayed.
 ====
 
 ==== Changing the hourly rate `set`
@@ -879,7 +889,7 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 
 ==== Group commands
 * *Add Group:* `group add g/GROUP_CODE m/MOD_CODE`
-* *Edit Group:*
+* *Edit Group:* `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]
 * *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
 
 ==== Student commands
@@ -890,7 +900,9 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 [e/EMAIL] [r/RATING] [t/TAG]…​`
 
 ==== Others
-* *Sort:*
+* *Sorting a Group:* `sort group g/GROUP_CODE m/MOD_CODE`
+* *Sorting a Module:* `sort module m/MOD_CODE`
+* *Sorting All Modules:* `sort all`
 * *Filter:*`student filter m/MOD_CODE [g/GROUP_CODE]`
 
 === Session View
