@@ -50,14 +50,11 @@
                         </padding>
                         <StackPane fx:id="moduleListPanelPlaceholder" HBox.hgrow="ALWAYS" />
                       </HBox>
-                  
-                  
                             <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                               <padding>
                                 <Insets bottom="5" left="10" right="10" top="5" />
                               </padding>
                             </StackPane>
-                  
                             <StackPane fx:id="resultDisplayPlaceholder" maxHeight="125" minHeight="125" prefHeight="125" styleClass="pane-with-border" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                               <padding>
                                 <Insets bottom="5" left="10" right="10" top="5" />
