@@ -49,9 +49,9 @@ public class Amount {
     public String toString() {
         BigDecimal display = amount.setScale(3, RoundingMode.HALF_EVEN);
         NumberFormat usdCostFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        usdCostFormat.setMinimumFractionDigits( 1 );
-        usdCostFormat.setMaximumFractionDigits( 2 );
-        usdCostFormat.setMinimumFractionDigits( 2 );
+        usdCostFormat.setMinimumFractionDigits(1);
+        usdCostFormat.setMaximumFractionDigits(2);
+        usdCostFormat.setMinimumFractionDigits(2);
         return usdCostFormat.format(display.doubleValue());
     }
 
