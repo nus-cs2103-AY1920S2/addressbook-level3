@@ -5,7 +5,6 @@ import java.util.Comparator;
 import cookbuddy.model.recipe.Recipe;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;

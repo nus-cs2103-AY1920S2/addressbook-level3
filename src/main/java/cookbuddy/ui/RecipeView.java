@@ -27,14 +27,19 @@ public class RecipeView extends UiPart<Region> {
     @FXML
     private ListView<Instruction> instructions;
 
-    public RecipeView(Recipe recipe, int displayedIndex) {
+    public RecipeView(Recipe recipe) {
         super(FXML);
         this.recipe = recipe;
 
         this.name.setText(recipe.getName().name);
         this.ingredients.setItems(FXCollections.observableList(this.recipe.getIngredients().asList()));
         this.instructions.setItems(FXCollections.observableList(this.recipe.getInstructions().asList()));
-
         this.ingredients.setStyle(".list-cell:empty {-fx-background-color: transparent;}");
+    }
+
+    public RecipeView() {
+        super(FXML);
+        this.recipe = null;
+        this.name.setText("Welcome to CookBuddy!");
     }
 }
