@@ -27,7 +27,10 @@ public class Search {
      */
     public static Module findModule(String moduleCode) {
         String fileName = moduleCode + ".txt";
-        File tempFile = new File(".\\src\\main\\java\\seedu\\address\\searcher\\cache\\" + fileName);
+        File tempFile = new File("." + File.separator + "src" + File.separator + "main"
+                + File.separator + "java" + File.separator + "seedu" + File.separator
+                + "address" + File.separator + "searcher" + File.separator
+                + "cache" + File.separator + fileName);
 
         String output = "";
 
