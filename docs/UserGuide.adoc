@@ -1,7 +1,7 @@
 # **CookBuddy Recipe Manager**
 :site-section: UserGuide
 :toc:
-:toc-title:
+:toc-title: Table Of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -27,6 +27,11 @@ If you are a fast typist, *CookBuddy* can manage your recipes faster than applic
 Interested?
 Proceed to <<Quick Start>> to get started!
 
+=== Product Information
+
+Talk about problems with existing method of storing recipes.
+Introduce CookBuddy and why it is better.
+
 === How to navigate this User Guide
 
 Throughout this guide, you may come across a few symbols.
@@ -41,53 +46,69 @@ This block displays additional *notes* that contains extra information that you 
 This block displays *tips* that you may find useful.
 
 == Quick Start
-1. Ensure you have Java 11 or later installed on your machine.
+
+The following steps will walk you through getting *CookBuddy* installed on your computer.
+
+. Ensure you have Java 11 or later installed on your computer.
     - If not, download and install the latest Java Runtime Environment from https://www.java.com/en/download/[here].
 
-2. Download the latest CookBuddy.jar from https://github.com/AY1920S2-CS2103T-W12-4/main/releases[here].
+. Download the latest CookBuddy.jar from https://github.com/AY1920S2-CS2103T-W12-4/main/releases[here].
 
-3. Copy the file to the folder you want to use as the home folder for *CookBuddy*.
+. Copy the executable to the folder you want to use as the home folder for *CookBuddy*.
 
-4. Double-click the executable to start the app. CookBuddy's GUI should appear in a few seconds.
+. Double-click the executable to start *CookBuddy*. CookBuddy's GUI should appear in a few seconds.
++
+Show an image of CookBuddy here.
 
-5. Type your command in the command box and press Enter to execute it.
-   e.g. typing `help` and pressing Enter will open the help window.
+. Type your command in the command box and press kbd:[Enter] to execute it.
+   e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
-6. Some example commands you can try:
+. Some example commands you can try:
 
-   * `list` : lists all recipes in the recipe book
+   * `list` : lists all the recipes in the recipe book
 
    * `new recipe n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate`:
     adds a recipe named "Ham Sandwich" to *CookBuddy*.
 
    * `delete 3` : deletes the 3rd recipe shown in the current list
 
-   * `exit` : exits *CookBuddy*
+   * `exit` : quits *CookBuddy*
 
-7. Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
 
 ==  Features
-COMMAND FORMAT:
 
-* Words in `UPPER_CASE` are the values of the parameters to be supplied by the user.
-    ** In `find n/RECIPE_NAME`, `RECIPE_NAME` is the value of the `n/` parameter supplied to the `find` command.
+The following sub-sections describes the features you can use in *CookBuddy*.
 
-* Words in square brackets indicate that they are optional. `[t/TAG]` means the `t` parameter (tag) is optional.
+.COMMAND FORMAT
+****
+* Words in `UPPER_CASE` are values of the parameters to be supplied by the user.
+    ** In `find n/RECIPE_NAME`, `RECIPE_NAME` refers to the value of the `n/` parameter supplied to the `find` command.
 
-===  Help — `help (V1.4)`
-Lists out all the commands accepted by *CookBuddy*.
-If a command name is specified, it will specify how to use that command.
+* Words in square brackets indicate that they are optional. `[t/TAG]` means the `t/` parameter is optional.
+****
 
-=== Create a Recipe — `new`
-Adds a new recipe to *CookBuddy*.
+===  Help — `help` (V1.4)
+You can list all the commands recognised by *CookBuddy* by typing `help` into the command box and pressing kbd:[Enter].
 
-Format: `new n/NAME ing/INGREDIENT, QUANTITY [; ...] ins/INSTRUCTION [; ...] [cal/CALORIES] [s/SERVING_SIZE]
-[r/RATING] [t/TAG [, ...]]`
+If you also specify a command, *CookBuddy* will show how to use that specific command.
 
-Example: `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt`
+Format: `help [COMMAND]`
+
+Example 1: You can type `help` and *CookBuddy* will display the commands that it recognises.
+
+Example 2: You can type `help delete` and *CookBuddy* will display how to use the `delete` command.
+
+
+=== Adding a recipe — `new`
+You can add a new recipe to *CookBuddy* using the `new` command.
 
 [NOTE]
 Parameters in *bold* indicate they are mandatory.
+
+Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [cal/CALORIES] [s/SERVING_SIZE]
+[r/RATING] [t/TAG [, ...]]`
+
 
 *CookBuddy* accepts the following parameters:
 
@@ -98,31 +119,45 @@ Parameters in *bold* indicate they are mandatory.
     * `s/` - serving size (any number greater than 0)
     * `r/` - rating (scale of 0 to 5)
     * `d/` - difficulty (scale of 0 to 5)
-    * `t/` - tags (seperated by commas)
+    * `t/` - tags (separated by commas)
 
-=== Delete a Recipe — `delete`
-Deletes a recipe from *CookBuddy*.
+Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt` into *CookBuddy*, and a new recipe with the following attributes will be added:
+
+    * Name: Fried Rice
+    * Ingredients:
+        ** 1 cup of white rice
+        ** 1 gram of salt
+    * Instructions:
+        . Fry the rice
+        . Add salt
+
+
+=== Deleting a recipe — `delete`
+You can delete an existing recipe from *CookBuddy* using the `delete` command.
 
 Format: `delete INDEX`
 
-Example: `delete 1`
+Example: You can type `delete 1` and *CookBuddy* will delete the recipe at index 1.
 
-Deletes the recipe at index 1 from CookBuddy's recipe book.
 
-=== Modify a Recipe — `modify`
-Modifies attributes of a recipe.
+=== Modifying a recipe — `modify`
+You can modify the attributes of an existing recipe in *CookBuddy* using the `modify` command.
 
 Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]`
 
-Example 1: `modify 1 ing/ham, 2 slices`
+==== Modifying a recipe's ingredients
+You can modify a recipe's ingredients by appending `ing/INGREDIENT, QUANTITY [; ...]` to a `modify` command.
 
-Modifies the ingredients of the 1st recipe in the list to contain only 2 slices
-of ham.
+Example: You can type `modify 1 ing/ham, 2 slices` and *CookBuddy* will modify the ingredients of the 1st recipe in
+the list to contain only 2 slices of ham.
 
-Example 2: `modify 2 ins/boil eggs; slice apples`
 
-Modifies the instructions in the 2nd recipe to contain two instructions:
+==== Modifying a recipe's instructions
+You can modify a recipe's instructions by appending `ins/INSTRUCTION [; ...]` to a `modify` command.
+
+Example: You can type `modify 2 ins/boil eggs; slice apples` and *CookBuddy* will modify the instructions in the 2nd
+recipe to contain two instructions:
 
     * boil eggs
     * slice apples
