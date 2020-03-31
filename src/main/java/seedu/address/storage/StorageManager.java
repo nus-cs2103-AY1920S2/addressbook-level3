@@ -9,7 +9,8 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.Constants.ENTITY_NAME;
+import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.util.Constants.ENTITY_TYPE;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -42,7 +43,6 @@ public class StorageManager extends BaseManager implements Storage {
   private AssignmentAddressBookStorage assignmentAddressBookStorage;
 
   private UserPrefsStorage userPrefsStorage;
-
 
   public StorageManager(AddressBookStorage addressBookStorage,
       TeacherAddressBookStorage teacherAddressBookStorage,
@@ -280,11 +280,23 @@ public class StorageManager extends BaseManager implements Storage {
     assignmentAddressBookStorage.saveAssignmentAddressBook(assignmentAddressBook, filePath);
   }
 
-  @Override
   @Subscribe
-  public void handleDataStorageChangeEvent(ENTITY_NAME entity_name) {
-    if (entity_name == ENTITY_NAME.COURSE) {
-      saveCourseAddressBook();
+  public void handleDataStorageChangeEvent(DataStorageChangeEvent event) {
+    try {
+      if (event.entityType == ENTITY_TYPE.COURSE) {
+        saveCourseAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.STUDENT) {
+        saveStudentAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.TEACHER) {
+        saveTeacherAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.FINANCE) {
+        saveFinanceAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.ASSIGNMENT) {
+        saveAssignmentAddressBook(event.addressBook);
+      }
+    } catch (IOException e) {
+      // TODO: Fix this
+      logger.info("STORAGE SAVE PROBLEM");
     }
   }
 }

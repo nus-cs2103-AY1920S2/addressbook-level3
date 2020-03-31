@@ -1,8 +1,9 @@
 package seedu.address.commons.core;
 
 import com.google.common.eventbus.EventBus;
+import seedu.address.commons.events.BaseEvent;
+
 import java.util.logging.Logger;
-import seedu.address.commons.BaseEvent;
 
 
 /**
@@ -37,7 +38,7 @@ public class EventsCenterSingleton {
   /**
    * Posts an event to the event bus.
    */
-  public BaseEvent EventsCenterSingleton post(BaseEvent event) {
+  public EventsCenterSingleton post(BaseEvent event) {
     logger.info(
         "------[Event Posted] " + event.getClass().getCanonicalName() + ": " + event.toString());
     eventBus.post(event);

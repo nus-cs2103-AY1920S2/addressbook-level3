@@ -1,8 +1,11 @@
 package seedu.address.commons.util;
 
 public class Constants {
-    enum ENTITY_NAME {
+    public enum ENTITY_TYPE {
         COURSE,
         STUDENT,
+        TEACHER,
+        FINANCE,
+        ASSIGNMENT,
     }
 }
