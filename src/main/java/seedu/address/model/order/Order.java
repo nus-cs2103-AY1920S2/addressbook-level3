@@ -164,9 +164,12 @@ public class Order extends Parcel {
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Item Type: ")
-                .append(getItemType())
-                .append(" Parcel Status: ")
-                .append("Delivery Order");
+                .append(getItemType());
+        if (this.isDelivered()) {
+            builder.append(" Delivery Status: ").append("Not Delivered to Customer: " + getWarehouse());
+        } else {
+            builder.append(" Delivery Status: ").append("Delivered to Customer: " + getWarehouse());
+        }
         return builder.toString();
     }
 }
