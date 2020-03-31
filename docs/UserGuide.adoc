@@ -301,108 +301,108 @@ has module code CS2103.
 [[AddStudent]]
 ==== Adding a Student `student add`
 
-TODO: WRITE HOW THIS WORKS PROPERLY
-
 Adds a new student to the TA-Tracker.
 
-When a new student is added, the Student View will show the groups and students
-of the module the new student belongs to.
+When a new student is added, the Student View will show that the new student
+is added into the student list of the provided module group.
 
-Format: `student add m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
+[e/EMAIL] [r/RATING] [t/TAG]…​`
 
 [NOTE]
 ====
 [horizontal]
-`NAME`:: the name of the student
-`EMAIL`:: the email address of the student
-`RATING`:: a number between 1 (poor) to 5 (excellent)
-`TAG`:: a remark(s) for this student
-`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
-`GROUP_CODE`:: A group with the given group code should exist inside the module.
+* You cannot add a student to a module that does not exist in the TA-Tracker.
+
+* You cannot add a student to a group that does not exist inside the given module.
+
+* You cannot add multiple students with the same matric number inside the same module group.
 ====
 ====
 Examples:
 
 * `student add id/A0123456J n/Alice m/CS2103 g/G03`
 +
-Adds the student with the matriculation number A0123456J
-and the name Alice inside group G03 of module CS2103.
+Adds the student Alice with the matriculation number `A0123456J``
+inside group `G03` of the module `CS2103`.
 ====
 
 [[DeleteStudent]]
 ==== Deleting a Student `student delete`
 
-TODO: WRITE HOW THIS WORKS PROPERLY
-
 Deletes a student from the TA-Tracker.
 
-When a student is deleted, the Student View will show the groups of the module the
-student was removed from and the students of the group the student was removed from.
-If there is no student inside the group, an empty list will be shown.
+When a student is removed, the Student View will show that the student
+is removed from the student list of the provided module group.
+If there are no more students inside the module group, an empty list will be shown.
 
 Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
 [NOTE]
 ====
 [horizontal]
-`MOD_CODE`:: A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
-`GROUP_CODE`:: A group with the given group code should exist inside the module.
-`MATRIC_NUMBER`:: A student with the given matric number must exist inside the group.
+* You cannot remove a student from a module that does not exist in the TA-Tracker.
+
+* You cannot remove a student from a group that does not exist inside the given module.
+
+* You cannot remove a student that does not exist inside the given module group.
 ====
 ====
 Examples:
 
-* `delete c/student m/A0123456J g/G03 m/CS2103`
+* `student delete m/A0123456J g/G03 m/CS2103`
 +
-Deletes the student with the matriculation number A0123456J from the group G03 inside
-the module CS2103.
+Deletes the student with the matriculation number `A0123456J` from group `G03` of
+the module `CS2103`.
 ====
 
 [[EditStudent]]
 ==== Editing a Student `student edit`
 
-TODO: WRITE HOW THIS WORKS PROPERLY
-
 Edits a student in the TA-Tracker.
 
-When a student is edited, the Student View will show the groups of the module the
-edited student is from and the students of the group the edited student exists in.
+When a student is edited, the Student View will show that the student has been
+edited in the student list of the provided module group.
 
-Edits the student with the specified matriculation number.
-The CATEGORY_UID used in this case is the student’s matriculation number.
+Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
+[n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
 
-Format: `student edit m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
+[NOTE]
+====
+[horizontal]
+* You cannot edit a student in a module that does not exist in the TA-Tracker.
 
-****
-* `MATRIC_NUMBER` - see Common Parameters
+* You cannot edit a student in a group that does not exist inside the given module.
 
-* At least one of the optional fields must be provided.
-** `NAME` - the name of the student
-** `EMAIL` - the email address of the student
-** `RATING` - a number between 1 (poor) to 5 (excellent)
-** `TAG` - other notes about this student
+* You cannot edit a student that does not exist inside the given module group.
 
-* Existing fields will be updated to the input values.
-
-* All existing `TAG(s)` on a student will be removed,
-then replaced with the new tags,
-i.e adding of tags is not cumulative.
-
+* You must edit the student with at least one of the optional fields.
+====
 [TIP]
-You can remove all the student’s tags by typing t/ without specifying any tags after it.
-****
+====
+[horizontal]
+* If you edit the tags of a student, the new tags will replace the old tags.
 
+* You can remove all tags from a student with an empty tag +
+(i.e. typing `t/` without specifying any tags after it).
+====
+====
 Examples:
 
-* `edit A0123456J p/91234567 e/johndoe@example.com`
-Edits student `A0123456J` to have `91234567` as their phone number,
-and `johndoe@example.com` as their email address.
+* `edit m/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
++
+Edits the student with the matriculation number `A0123456J` to have:
+
+** The new phone number `91234567`
+** The new email address `johndoe@example.com`
 
 * `edit A9876543K n/Betsy Crower t/`
-Edits student `A9876543K` to have `Betsy Crower` as their name.
-In addition, all existing tags will be removed.
++
+Edits student with the matriculation number `A9876543K` to have:
+
+** The new name `Betsy Crower`
+** All existing tags removed
+====
 
 [[Sort]]
 ==== Sort `sort`
@@ -607,24 +607,38 @@ Sets the current hourly rate to 25$.
 TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 
 === Student View
-* *Add Module* `module add m/MOD_CODE`
-* *Delete Module* `module delete m/MOD_CODE`
-* *Add Group* `group add g/GROUP_CODE m/MOD_CODE`
-* *Edit Group*
-* *Delete Group* `group delete g/GROUP_CODE m/MOD_CODE`
-* *Add Student*
-* *Delete Student*
-* *Edit Student*
-* *Sort*
-* *Filter*`student filter m/MOD_CODE [g/GROUP_CODE]`
+
+==== Module commands
+* *Add Module:* `module add m/MOD_CODE`
+* *Delete Module:* `module delete m/MOD_CODE`
+
+==== Group commands
+* *Add Group:* `group add g/GROUP_CODE m/MOD_CODE`
+* *Edit Group:*
+* *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
+
+==== Student commands
+* *Add Student:* `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
+[e/EMAIL] [r/RATING] [t/TAG]…​`
+* *Delete Student:* `student delete id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE`
+* *Edit Student:* `student add id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME]
+[e/EMAIL] [r/RATING] [t/TAG]…​`
+
+==== Others
+* *Sort:*
+* *Filter:*`student filter m/MOD_CODE [g/GROUP_CODE]`
 
 === Session View
-* *Add Session* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
-* *Delete Session* `session delete INDEX`
-* *Edit Session*
-* *Mark as Done*
-* *Filter* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
+
+==== Session commands
+* *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
+* *Delete Session:* `session delete INDEX`
+* *Edit Session:*
+* *Mark as Done:*
+
+==== Others
+* *Filter:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
 === Claims View
-* *Set Rate*
-* *Filter*module filter m/MOD_CODE`
+* *Set Rate:*
+* *Filter:* `module filter m/MOD_CODE`
