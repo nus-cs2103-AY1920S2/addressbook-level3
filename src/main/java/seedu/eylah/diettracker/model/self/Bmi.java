@@ -25,9 +25,10 @@ public class Bmi {
     public final String category;
 
     /**
-     * Constructs a {@code Height}.
+     * Constructs a {@code Bmi} using {@code Height} and {@code Weight} values.
      *
      * @param height A valid height.
+     * @param weight A valid weight.
      */
     public Bmi(Height height, Weight weight) {
         requireNonNull(height);
