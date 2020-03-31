@@ -1,5 +1,6 @@
 package com.notably.logic;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
@@ -43,18 +44,17 @@ public class LogicManager implements Logic {
         for (Command command : commands) {
             command.execute(model);
         }
-        //TODO: refactor to BlockStorage
-        //  try {
-        //      storage.saveAddressBook(model.getAddressBook());
-        //  } catch (IOException ioe) {
-        //      throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        //  }
+
+        try {
+            storage.saveBlockTree(model.getBlockTree());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
     }
 
-    //TODO: refactor this method to StoragePath.
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getBlockDataFilePath() {
+        return model.getBlockDataFilePath();
     }
 
     @Override
