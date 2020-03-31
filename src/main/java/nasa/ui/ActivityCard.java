@@ -59,6 +59,7 @@ public class ActivityCard extends UiPart<Region> {
         priority.setText(activity.getPriority().toString());
         if (activity instanceof Deadline) {
             labelForCircle.setText("D");
+
         } else if (activity instanceof Event) {
             labelForCircle.setText("E");
         } else {

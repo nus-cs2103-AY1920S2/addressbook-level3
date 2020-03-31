@@ -57,6 +57,11 @@ public class Deadline extends Activity {
         return (int) getDate().getDifference(dueDate)[0];
     }
 
+    public int percentage() {
+        double currentDifference = (double) Date.now().getDifference(getDate())[0] * -1;
+        return (int) (100 * (currentDifference / getDifferenceInDay()));
+    }
+
     /**
      * Get days remaining for the task.
      */
