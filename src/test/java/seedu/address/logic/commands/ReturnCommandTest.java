@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Parcel;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.testutil.ReturnOrderBuilder;
@@ -140,7 +141,7 @@ public class ReturnCommandTest {
         }
 
         @Override
-        public boolean hasParcel(Parcel parcel) {
+        public boolean hasOrder(Order order) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,6 +229,12 @@ public class ReturnCommandTest {
         public void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasParcel(Parcel parcel) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

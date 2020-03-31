@@ -28,7 +28,7 @@ import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
 import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
-import seedu.address.testutil.EditOrderDescriptorBuilder;
+import seedu.address.testutil.EditParcelDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -115,7 +115,7 @@ public class CommandTestUtil {
     public static final DeliveredCommand.DeliveredOrderDescriptor BOB_DESC;
 
     static {
-        DESC_AMY = new EditOrderDescriptorBuilder().withTid(VALID_TID_AMY)
+        DESC_AMY = new EditParcelDescriptorBuilder().withTid(VALID_TID_AMY)
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
@@ -123,7 +123,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS).build();
-        DESC_BOB = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditParcelDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)

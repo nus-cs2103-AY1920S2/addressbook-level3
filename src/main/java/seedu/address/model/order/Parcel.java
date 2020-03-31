@@ -14,10 +14,11 @@ public abstract class Parcel {
     public abstract Address getAddress();
     public abstract TimeStamp getTimestamp();
     public abstract Warehouse getWarehouse();
-    protected abstract Comment getComment();
-    protected abstract TypeOfItem getItemType();
+    public abstract Comment getComment();
+    public abstract TypeOfItem getItemType();
     public abstract boolean isDelivered();
     public abstract boolean isSameParcel(Parcel parcel);
 
     public abstract void setDeliveryStatus(boolean b);
+
 }

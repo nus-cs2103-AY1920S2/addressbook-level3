@@ -108,15 +108,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasParcel(Parcel parcel) throws CommandException {
-        requireNonNull(parcel);
-        if (parcel instanceof Order) {
-            return orderBook.hasOrder((Order) parcel);
-        } else if (parcel instanceof ReturnOrder) {
-            return returnOrderBook.hasReturnOrder((ReturnOrder) parcel);
-        } else {
-            throw new CommandException("Invalid parcel type");
-        }
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return orderBook.hasOrder(order);
     }
 
     @Override
@@ -169,6 +163,20 @@ public class ModelManager implements Model {
     public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder) {
         requireAllNonNull(target, editedReturnOrder);
         returnOrderBook.setReturnOrder(target, editedReturnOrder);
+    }
+
+    //=========== Parcel state check =============================================================
+
+    @Override
+    public boolean hasParcel(Parcel parcel) {
+        requireNonNull(parcel);
+        if (parcel instanceof Order) {
+            return hasOrder((Order) parcel);
+        } else if (parcel instanceof ReturnOrder) {
+            return hasReturnOrder((ReturnOrder) parcel);
+        } else {
+            return false;
+        }
     }
 
     //=========== Filtered Order List Accessors =============================================================

@@ -57,10 +57,16 @@ public interface Model {
     ReadOnlyOrderBook getOrderBook();
 
     /**
-     * Returns true if a person with the same identity as {@code order} exists in the order book.
-     * @param parcel
+     * Returns true if a parcel exist.
+     * @return boolean representing the parcel existence.
      */
-    boolean hasParcel(Parcel parcel) throws CommandException;
+    boolean hasParcel(Parcel parcel);
+
+    /**
+     * Returns true if a Order with the same identity as {@code order} exists in the order book.
+     * @param order
+     */
+    boolean hasOrder(Order order);
 
     /**
      * Deletes the given order.

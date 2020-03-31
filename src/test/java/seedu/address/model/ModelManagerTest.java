@@ -84,20 +84,20 @@ public class ModelManagerTest {
 
     @Test
     public void hasOrder_nullOrder_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasParcel(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasOrder(null));
         assertThrows(NullPointerException.class, () -> modelManager.hasReturnOrder(null));
     }
 
     @Test
     public void hasOrder_orderNotInOrderBook_returnsFalse() {
-        assertFalse(modelManager.hasParcel(ALICE));
+        assertFalse(modelManager.hasOrder(ALICE));
         assertFalse(modelManager.hasReturnOrder(ALICE_RETURN));
     }
 
     @Test
     public void hasOrder_orderInOrderBook_returnsTrue() {
         modelManager.addOrder(ALICE);
-        assertTrue(modelManager.hasParcel(ALICE));
+        assertTrue(modelManager.hasOrder(ALICE));
 
         modelManager.addReturnOrder(ALICE_RETURN);
         assertTrue(modelManager.hasReturnOrder(ALICE_RETURN));
