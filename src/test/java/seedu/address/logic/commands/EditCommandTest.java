@@ -38,9 +38,10 @@ import seedu.address.testutil.ReturnOrderBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
     private static final Flag ORDER_FLAG = CliSyntax.FLAG_ORDER_BOOK;
     private static final Flag RETURN_FLAG = CliSyntax.FLAG_RETURN_BOOK;
+
+    private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -150,7 +151,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidOrderIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOrderList().size() + 1);
-        EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditParcelDescriptor descriptor =
+            new EditParcelDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor, ORDER_FLAG);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);

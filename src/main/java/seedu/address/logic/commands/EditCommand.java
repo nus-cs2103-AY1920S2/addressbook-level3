@@ -166,7 +166,7 @@ public class EditCommand extends Command {
      * @return Returns a true if the Parcel is not editable, else false.
      * @throws CommandException Throws {@code CommandException} whenever a {@code Parcel} is duplicated.
      */
-    private boolean isNotEditable(Parcel parcelToEdit, Parcel editedParcel, Model model) throws CommandException{
+    private boolean isNotEditable(Parcel parcelToEdit, Parcel editedParcel, Model model) {
         return (!parcelToEdit.isSameParcel(editedParcel) && model.hasParcel(editedParcel));
     }
 
@@ -183,7 +183,7 @@ public class EditCommand extends Command {
      * {@code Parcel} type is invalid.
      */
     private CommandResult generalSetParcel(Parcel parcelToEdit, Parcel editedParcel, Model model)
-        throws CommandException{
+        throws CommandException {
         if (isNotEditable(parcelToEdit, editedParcel, model)) {
             throw new CommandException(MESSAGE_DUPLICATE_PARCEL);
         }

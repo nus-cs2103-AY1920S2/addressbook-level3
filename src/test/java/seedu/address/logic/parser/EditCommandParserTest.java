@@ -66,7 +66,7 @@ public class EditCommandParserTest {
     private static final String COMMENT_EMPTY = " " + PREFIX_COMMENT;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private static final Flag ORDER_FLAG = CliSyntax.FLAG_ORDER_BOOK;
     private static final Flag RETURN_FLAG = CliSyntax.FLAG_RETURN_BOOK;
@@ -99,8 +99,6 @@ public class EditCommandParserTest {
         // edit order with return timestamp prefix instead of delivery timestamp prefix.
         assertParseFailure(parser, ORDER_FLAG_INPUT + "1 " + RETURN_TIMESTAMP_DESC_AMY,
             MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
-
-
     }
 
     @Test
@@ -120,47 +118,59 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         // No date input
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_TIME_ONLY, TimeStamp.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_TIME_ONLY, TimeStamp.MESSAGE_CONSTRAINTS);
         // No time input
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_DATE_ONLY, TimeStamp.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_DATE_ONLY, TimeStamp.MESSAGE_CONSTRAINTS);
         // Invalid time
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_TIME, TimeStamp.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_TIME, TimeStamp.MESSAGE_CONSTRAINTS);
         // Invalid date
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_DATE, TimeStamp.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_DELIVERY_TIMESTAMP_DATE, TimeStamp.MESSAGE_CONSTRAINTS);
         //Invalid itemType
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_TYPE_DESC, TypeOfItem.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_TYPE_DESC, TypeOfItem.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid address
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_PHONE_DESC + ADDRESS_DESC_BOB, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_PHONE_DESC + ADDRESS_DESC_BOB, Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         // input a empty comment after the prefix comment
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + COMMENT_EMPTY + TYPE_DESC_GLASS + TYPE_DESC_PLASTIC,
-                Comment.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + COMMENT_EMPTY + TYPE_DESC_GLASS + TYPE_DESC_PLASTIC,
+            Comment.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1" + INVALID_NAME_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            ORDER_FLAG_INPUT + "1" + INVALID_NAME_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+            Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_ORDER;
         String userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased() + PHONE_DESC_BOB + TYPE_DESC_GLASS
-                + COMMENT_DESC_INSTRUCTION + ADDRESS_DESC_AMY + NAME_DESC_AMY
-                + DELIVERY_TIMESTAMP_DESC_AMY + TID_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY;
+            + COMMENT_DESC_INSTRUCTION + ADDRESS_DESC_AMY + NAME_DESC_AMY
+            + DELIVERY_TIMESTAMP_DESC_AMY + TID_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY;
 
         EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_AMY).withTid(VALID_TID_AMY)
-                .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY).withCash(VALID_COD_AMY)
-                .withComment(VALID_COMMENT_INSTRUCTION).withItemType(VALID_TYPE_GLASS).build();
+            .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_AMY).withTid(VALID_TID_AMY)
+            .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY).withCash(VALID_COD_AMY)
+            .withComment(VALID_COMMENT_INSTRUCTION).withItemType(VALID_TYPE_GLASS).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor, ORDER_FLAG);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -172,7 +182,7 @@ public class EditCommandParserTest {
         String userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased() + PHONE_DESC_BOB;
 
         EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .build();
+            .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor, ORDER_FLAG);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -183,7 +193,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_ORDER;
         String userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditCommand.EditParcelDescriptor descriptor =
+            new EditParcelDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor, ORDER_FLAG);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -239,17 +250,18 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_ORDER;
-        String userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + TID_DESC_AMY
-                + VALID_COMMENT_NIL + TYPE_DESC_PLASTIC + PHONE_DESC_AMY + ADDRESS_DESC_AMY
-                + TID_DESC_AMY + COMMENT_DESC_INSTRUCTION + PHONE_DESC_BOB
-                + DELIVERY_TIMESTAMP_DESC_AMY + ADDRESS_DESC_BOB
-                + DELIVERY_TIMESTAMP_DESC_BOB + TID_DESC_BOB + TYPE_DESC_GLASS;
+        String userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased()
+            + PHONE_DESC_AMY + ADDRESS_DESC_AMY + TID_DESC_AMY
+            + VALID_COMMENT_NIL + TYPE_DESC_PLASTIC + PHONE_DESC_AMY + ADDRESS_DESC_AMY
+            + TID_DESC_AMY + COMMENT_DESC_INSTRUCTION + PHONE_DESC_BOB
+            + DELIVERY_TIMESTAMP_DESC_AMY + ADDRESS_DESC_BOB
+            + DELIVERY_TIMESTAMP_DESC_BOB + TID_DESC_BOB + TYPE_DESC_GLASS;
 
         EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder()
-                .withPhone(VALID_PHONE_BOB).withTid(VALID_TID_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTimeStamp(VALID_TIMESTAMP_BOB).withComment(VALID_COMMENT_INSTRUCTION)
-                .withItemType(VALID_TYPE_GLASS)
-                .build();
+            .withPhone(VALID_PHONE_BOB).withTid(VALID_TID_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTimeStamp(VALID_TIMESTAMP_BOB).withComment(VALID_COMMENT_INSTRUCTION)
+            .withItemType(VALID_TYPE_GLASS)
+            .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor, ORDER_FLAG);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -261,15 +273,16 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_ORDER;
         String userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
         EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder()
-                .withPhone(VALID_PHONE_BOB).build();
+            .withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor, ORDER_FLAG);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased() + WAREHOUSE_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
-                + PHONE_DESC_BOB;
+        userInput = ORDER_FLAG_INPUT + targetIndex.getOneBased()
+            + WAREHOUSE_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+            + PHONE_DESC_BOB;
         descriptor = new EditParcelDescriptorBuilder().withPhone(VALID_PHONE_BOB).withWarehouse(VALID_WAREHOUSE_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+            .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor, ORDER_FLAG);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

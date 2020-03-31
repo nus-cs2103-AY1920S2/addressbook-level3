@@ -162,7 +162,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Edits the {@code EditParcelDescriptor} if {@code TransactionId} prefix is present.
      */
     private EditParcelDescriptor editTid(EditParcelDescriptor editParcelDescriptor, ArgumentMultimap argumentMultimap)
-        throws ParseException{
+        throws ParseException {
         if (argumentMultimap.getValue(PREFIX_TID).isPresent()) {
             editParcelDescriptor.setTid(ParserUtil.parseTid(argumentMultimap.getValue(PREFIX_TID).get()));
         }
@@ -216,7 +216,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Edits the {@code EditParcelDescriptor} if {@code Timestamp} prefix is present.
      */
     private EditParcelDescriptor editTimeStamp(EditParcelDescriptor editParcelDescriptor,
-                                               ArgumentMultimap argumentMultimap) throws ParseException{
+                                               ArgumentMultimap argumentMultimap) throws ParseException {
         if (argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent()) {
             editParcelDescriptor
                 .setTimeStamp(

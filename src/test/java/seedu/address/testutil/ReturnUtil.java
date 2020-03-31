@@ -1,9 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -15,6 +13,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
+/**
+ * A utility class for Return.
+ */
 public class ReturnUtil {
 
     /**
