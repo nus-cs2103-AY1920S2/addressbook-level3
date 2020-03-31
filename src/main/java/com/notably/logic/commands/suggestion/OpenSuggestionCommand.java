@@ -1,7 +1,5 @@
 package com.notably.logic.commands.suggestion;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,10 +22,13 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     private static final String RESPONSE_MESSAGE = "Open a note";
 
     private AbsolutePath path;
+    private String oldTitle;
 
-    public OpenSuggestionCommand(AbsolutePath path) {
+    public OpenSuggestionCommand(AbsolutePath path, String oldTitle) {
         Objects.requireNonNull(path);
+        Objects.requireNonNull(oldTitle);
         this.path = path;
+        this.oldTitle = oldTitle;
     }
 
     @Override
@@ -96,8 +97,9 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         return possiblePaths.stream()
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
+                    String updatedInput = model.getInput().replace(oldTitle, displayText);
                     Runnable action = () -> {
-                        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + displayText);
+                        model.setInput(updatedInput);
                     };
                     return new SuggestionItemImpl(displayText, action);
                 })
