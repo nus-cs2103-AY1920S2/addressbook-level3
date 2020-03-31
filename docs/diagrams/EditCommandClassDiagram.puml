@@ -1,0 +1,70 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+"{abstract}\nCommand" <|-- EditCommand
+Index <-down- EditCommand
+Flag <-down- EditCommand
+EditCommand ..> Model
+EditCommand --* EditParcelDescriptor
+EditCommand ..> CommandException : throws
+
+abstract class "{abstract}\nCommand" {
+    {abstract} execute(Model model) : CommandResult
+}
+
+class EditCommand {
+    'Fields of SearchCommand
+    + COMMON_WORD : String
+    + MESSAGE_USAGE : String
+    + MESSAGE_EDIT_ORDER_SUCCESS : String
+    + MESSAGE_EDIT_RETURN_ORDER_SUCCESS : String
+    + MESSAGE_NOT_EDITED : String
+    + MESSAGE_DUPLICATE_PARCEL : String
+    + MULTIPLE_FLAGS_DETECTED : String
+    - flag : Flag
+    - index : Index
+    - editParcelDescriptor : EditParcelDescriptor
+
+    'Methods of SearchCommand
+    + execute(model : Model) : CommandResult
+    - createEditedOrder(orderToEdit : Order, editParcelDescriptor : EditParcelDescriptor) : Order
+    - createEditedReturnOrder(returnOrderToEdit : ReturnOrder, editParcelDescriptor : EditParcelDescriptor) : ReturnOrder
+    - isNotEditable(parcelToEdit : Parcel, editedParcel :Parcel , model : Model) : boolean
+    - generalSetParcel(parcelToEdit : Parcel, editedParcel :Parcel , model : Model) : CommandResult
+}
+
+class EditParcelDescriptor {
+    - tid : TransactionId
+    - name : Name
+    - phone : Phone
+    - email : Email
+    - address : Address
+    - timeStamp : TimeStamp
+    - warehouse : Warehouse
+    - cod : CashOnDelivery
+    - comment : Comment
+    - itemType : TypeOfItem
+    + isAnyFieldEdited() : boolean
+
+}
+
+
+interface Model <<interface>> {
+    'Interface Methods
+    + getFilteredOrderList() : List<Order>
+    + getFilteredReturnOrderList() : List<ReturnOrder>
+}
+
+class Index {
+    + getZeroBased() : int
+}
+
+class Flag {
+
+}
+
+
+
+@enduml
