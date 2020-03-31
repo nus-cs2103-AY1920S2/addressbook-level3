@@ -125,7 +125,8 @@ public class ModelManagerTest {
 
         // different recipeBook -> returns false
 
-        assertFalse(modelManager.equals(new ModelManager(differentRecipeBook, userPrefs, differentRecordBook, plannedBook)));
+        assertFalse(modelManager.equals(new ModelManager(differentRecipeBook, userPrefs,
+                differentRecordBook, plannedBook)));
 
         // different filteredList -> returns false
         String[] keywords = CAESAR_SALAD.getName().fullName.split("\\s+");

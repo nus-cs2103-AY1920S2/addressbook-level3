@@ -26,7 +26,8 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

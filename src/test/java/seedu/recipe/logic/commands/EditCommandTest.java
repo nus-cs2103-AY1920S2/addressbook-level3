@@ -35,7 +35,8 @@ import seedu.recipe.testutil.RecipeBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
 
     // todo: bug: test might fail sometimes if recipe at TypicalRecipes index 0 has ingredients
     @Test
