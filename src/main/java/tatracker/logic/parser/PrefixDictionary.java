@@ -95,16 +95,23 @@ public class PrefixDictionary {
     }
 
     /**
+     * Returns true if the dictionary requires an index.
+     */
+    public boolean hasIndex() {
+        return dictionary.containsValue(PrefixEntry.INDEX);
+    }
+
+    /**
      * Returns true if the {@code prefix} is part of the dictionary.
      */
-    public boolean hasPrefixEntry(Prefix prefix) {
+    public boolean hasPrefix(Prefix prefix) {
         return dictionary.containsKey(prefix.getPrefix());
     }
 
     /**
      * Returns true if the {@code prefix} is part of the dictionary.
      */
-    public boolean hasPrefixEntry(String prefix) {
+    public boolean hasPrefix(String prefix) {
         requireNonNull(prefix);
         return dictionary.containsKey(prefix);
     }
@@ -141,7 +148,7 @@ public class PrefixDictionary {
      */
     public String getPrefixesWithExamples(Prefix ... prefixes) throws IllegalArgumentException {
         return joinPrefixes(Arrays.asList(prefixes), p -> {
-            if (!hasPrefixEntry(p)) {
+            if (!hasPrefix(p)) {
                 throw new IllegalArgumentException(String.format(MESSAGE_UNKNOWN_ENTRY, p.getInfo()));
             }
             return getPrefixEntry(p).getPrefixWithExamples();

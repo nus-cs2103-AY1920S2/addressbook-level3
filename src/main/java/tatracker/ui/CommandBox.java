@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.util.Pair;
 
 import tatracker.commons.core.LogsCenter;
+import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.CommandDictionary;
 import tatracker.logic.commands.CommandEntry;
 import tatracker.logic.commands.CommandResult;
@@ -32,7 +33,7 @@ public class CommandBox extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     static {
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.WARNING);
     }
 
     private static final Pattern COMMAND_FORMAT = Pattern.compile(
@@ -40,6 +41,9 @@ public class CommandBox extends UiPart<Region> {
 
     private static final Pattern LAST_PREFIX = Pattern.compile(
             ".*\\s+(?<prefix>\\S+/)(?<value>.*)(?<trailingSpaces>\\s*)");
+
+    private static final Pattern FIRST_INDEX = Pattern.compile(
+            "\\s*(?<index>.*)($|\\s+\\S+/.*)");
 
     private CommandEntry commandEntry = null;
     private PrefixDictionary dictionary = PrefixDictionary.getEmptyDictionary();
@@ -161,17 +165,20 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        Pair<String, String> result = parseArguments(arguments);
-        final String prefix = result.getKey();
-        final String value = result.getValue();
+        ArgumentResult result = parseArguments(arguments);
 
-        if (dictionary.hasPrefixEntry(prefix)) {
-            PrefixEntry prefixEntry = dictionary.getPrefixEntry(prefix);
+        boolean needsIndex = dictionary.hasIndex() && !StringUtil.isNonZeroUnsignedInteger(result.index);
+        if (needsIndex) {
+            logger.info("======== [ Needs Index ]");
+        }
+
+        if (!needsIndex && dictionary.hasPrefix(result.lastPrefix)) {
+            PrefixEntry prefixEntry = dictionary.getPrefixEntry(result.lastPrefix);
 
             setStyleToIndicateValidCommand();
             resultDisplay.setFeedbackToUser(prefixEntry.getPrefixWithInfo());
 
-            logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), value));
+            logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), result.lastValue));
         } else {
             setStyleToIndicateCommandFailure();
             resultDisplay.setFeedbackToUser(commandEntry.getUsage());
@@ -212,16 +219,34 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Returns a pair containing the last prefix and the value associated with it from the given input.
      */
-    private Pair<String, String> parseArguments(String arguments) {
-        Matcher matcher = LAST_PREFIX.matcher(arguments);
+    private ArgumentResult parseArguments(String arguments) {
+        Matcher indexMatcher = FIRST_INDEX.matcher(arguments);
+        Matcher prefixMatcher = LAST_PREFIX.matcher(arguments);
 
-        if (matcher.matches()) {
-            logger.fine("Matched prefixes");
-            return new Pair<>(matcher.group("prefix"), matcher.group("value"));
-        } else {
-            logger.fine("No prefixes");
-            return new Pair<>("", arguments.trim());
+        boolean hasIndex = indexMatcher.matches();
+        boolean hasPrefix = prefixMatcher.matches();
+
+        if (!hasIndex && !hasPrefix) {
+            logger.info("============ [ No prefixes ]");
+            return new ArgumentResult(arguments.trim());
         }
+
+        String index = "";
+        String prefix = "";
+        String value = arguments;
+
+        if (hasIndex) {
+            logger.info("============ [ Matched index ]");
+            index = indexMatcher.group("index");
+        }
+
+        if (hasPrefix) {
+            logger.info("============ [ Matched prefixes ]");
+            prefix = prefixMatcher.group("prefix");
+            value = prefixMatcher.group("value");
+        }
+
+        return new ArgumentResult(index, prefix, value);
     }
 
     /**
@@ -250,7 +275,6 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-
     /**
      * Returns true if the given input has trailing white spaces.
      */
@@ -271,4 +295,22 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
+    /**
+     * Wraps the result of an argument matching from a {@code Matcher}.
+     */
+    private static class ArgumentResult {
+        public final String index;
+        public final String lastPrefix;
+        public final String lastValue;
+
+        public ArgumentResult(String arguments) {
+            this("", "", arguments);
+        }
+
+        public ArgumentResult(String index, String lastPrefix, String lastValue) {
+            this.index = index;
+            this.lastPrefix = lastPrefix;
+            this.lastValue = lastValue;
+        }
+    }
 }
