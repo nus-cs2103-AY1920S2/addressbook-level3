@@ -1,8 +1,14 @@
 package tatracker.logic.commands.commons;
 
+import static tatracker.logic.parser.Prefixes.TAB_NAME;
+
+import java.util.List;
+
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 
 /**
@@ -10,12 +16,15 @@ import tatracker.model.Model;
  */
 public class GotoCommand extends Command {
 
-    public static final String COMMAND_WORD = "goto";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.GOTO,
+            "Switches to the specified tab.",
+            List.of(TAB_NAME),
+            List.of(),
+            TAB_NAME
+    );
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches to the specified tab.\n"
-            + "Example: " + COMMAND_WORD + " Student";
-
-    public static final String SHOWING_GOTO_MESSAGE = "Switched to %s tab.";
+    public static final String MESSAGE_SWITCHED_TAB = "Switched to %s tab.";
 
     private final String tabName;
 
@@ -43,6 +52,6 @@ public class GotoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(String.format(SHOWING_GOTO_MESSAGE, tabName), tabToSwitchTo);
+        return new CommandResult(String.format(MESSAGE_SWITCHED_TAB, tabName), tabToSwitchTo);
     }
 }

@@ -11,6 +11,7 @@ public class Prefixes {
     public static final Prefix INDEX = new Prefix("", "INDEX");
     public static final Prefix KEYWORD = new Prefix("", "KEYWORD");
     public static final Prefix MORE_KEYWORDS = new Prefix("", "MORE_KEYWORDS");
+    public static final Prefix TAB_NAME = new Prefix("", "TAB_NAME");
 
     /* Session definitions */
     public static final Prefix START_TIME = new Prefix("s/", "START_TIME");
@@ -22,6 +23,7 @@ public class Prefixes {
 
     /* Module definitions */
     public static final Prefix MODULE = new Prefix("m/", "MODULE");
+    public static final Prefix MODULE_ID = new Prefix("", "MODULE_ID");
     public static final Prefix MODULE_NAME = new Prefix("n/", "MODULE_NAME");
     public static final Prefix MODULE_NEW_NAME = new Prefix("n/", "NEW_NAME");
 

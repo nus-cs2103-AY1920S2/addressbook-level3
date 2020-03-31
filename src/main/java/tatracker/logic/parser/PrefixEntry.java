@@ -25,11 +25,16 @@ public enum PrefixEntry {
     ),
     KEYWORD(
             Prefixes.KEYWORD,
-            "alice"//, "bob", "charlie"
+            "alice"
     ),
     MORE_KEYWORDS(
             Prefixes.MORE_KEYWORDS,
             "bob", "charlie"
+    ),
+    TAB_NAME(
+            Prefixes.TAB_NAME,
+            "Options: student, session, claims", value -> List.of("student", "session", "claims").contains(value),
+            "student"
     ),
 
     /* Session definitions */
@@ -66,6 +71,11 @@ public enum PrefixEntry {
     /* Module definitions */
     MODULE(
             Prefixes.MODULE,
+            "", value -> true,
+            "CS3243"
+    ),
+    MODULE_ID(
+            Prefixes.MODULE_ID,
             "", value -> true,
             "CS3243"
     ),
