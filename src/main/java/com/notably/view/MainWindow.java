@@ -1,7 +1,5 @@
 package com.notably.view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.notably.commons.GuiSettings;
@@ -12,8 +10,6 @@ import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.view.blockcontent.BlockContent;
 
-import com.notably.model.suggestion.SuggestionItem;
-import com.notably.model.suggestion.SuggestionItemImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -21,7 +17,6 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**

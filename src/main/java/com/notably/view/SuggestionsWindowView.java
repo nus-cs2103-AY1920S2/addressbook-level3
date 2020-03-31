@@ -1,25 +1,22 @@
 package com.notably.view;
 
-import com.notably.commons.path.AbsolutePath;
-import com.notably.model.Model;
+import java.util.Optional;
+
 import com.notably.model.suggestion.SuggestionItem;
 
-import com.notably.model.suggestion.SuggestionItemImpl;
 import javafx.beans.property.Property;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
+/**
+ * A View-Controller for the Suggestions List that appears in the View.
+ */
 public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
