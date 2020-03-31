@@ -153,6 +153,46 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Clear feature
+The clear feature allows the user to remove the orders and return orders by input one command line.
+
+The clear feature was implemented as a `ClearCommand` in the `Logic` package. +
+
+==== Class Diagram for Clear feature
+.Clear Class Diagram
+image::ClearClassDiagram.svg[]
+
+==== Sequence Diagram for clearing both order book and return order book
+The sequence diagram for the *Clear Command* is shown below: +
+
+.Clear Command Sequence Diagram
+image::ClearCommandSequenceDiagram.svg[]
+
+The arguments passed to the Clear Command will be parsed by the `ClearCommandParser` class +
+If the given arguments are valid, a new `ClearCommand` object will be returned.
+
+In the `ClearCommandParser`, there will be two validation checks: +
+1. The flag is one of the three flags: `-f`, `-o` and `-r`. +
+2. There are no `-o` and `-r` flags in the arguments.
+
+After the `ClearCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
+to run the execute the clear Command, this is will be shown diagram below.
+
+==== Execution of Clear Command Sequence Diagram
+
+.Execution of Clear Command Sequence Diagram
+image::ClearCommandSequenceDiagram2.svg[]
+
+The `execute(model)` function of the `ClearCommand` will have the 6 following sequences: +
+1. `-o` flag and `-f` flag found in flags: Pass a new `OrderBook` to `model`. +
+2. `-r` flag and `-f` flag found in flags: Pass a new `ReturnOrderBook` to `model`. +
+3. Only `-f` flag found in flags: Pass a new `ReturnOrderBook` and a new `OrderBook` to `model`. +
+4. Only `-o` flag found in flags: Pass the confirmation message for clearing the `OrderBook` to `CommandResult`. +
+5. Only `-r` flag found in flags: Pass the confirmation message for clearing the `ReturnOrderBook` to `CommandResult`. +
+6. No flag found in flags: Pass the confirmation message for clearing both `OrderBook` and `ReturnOrderBook` to `CommandResult`. +
+
+After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
+
 === Delivered feature
 The delivered feature allows the user to mark orders as delivered after delivering an order.
 
@@ -319,11 +359,11 @@ giving to `ImportCommand`.
 ====
 
 After the `ImportCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
-to run the execute the import Command, this is will be shown at the <<Execution of Import Command Sequence Diagram, Execution of Import Command Sequence Diagram>>.
+to run the execute the import Command, this is will be shown at the diagram below.
 
 ==== Execution of Import Command Sequence Diagram
 
-.Import Command Sequence Diagram 2
+.Execution of Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram2.svg[]
 
 The `execute(model)` function of the `ImportCommand` will first check if the data given starts with

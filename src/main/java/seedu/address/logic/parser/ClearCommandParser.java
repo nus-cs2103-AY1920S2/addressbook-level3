@@ -40,18 +40,33 @@ public class ClearCommandParser implements Parser<ClearCommand> {
 
         String[] values = input.split(" ");
         for (String flag : values) {
-            if (flag.equals(FLAG_FORCE_CLEAR.toString()) || flag.equals(FLAG_ORDER_BOOK.toString())
-                    || flag.equals(FLAG_RETURN_BOOK.toString())) {
-                if (flag.equals(FLAG_RETURN_BOOK.toString()) && flags.contains(FLAG_ORDER_BOOK.toString())) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
-                } else if (flag.equals(FLAG_ORDER_BOOK.toString()) && flags.contains(FLAG_RETURN_BOOK.toString())) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
-                }
-                flags.add(flag);
-            } else {
+            if (!isValidFlag(flag) || isInvalidFlagFormat(flag, flags)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
             }
+
+            flags.add(flag);
         }
         return flags;
+    }
+
+    /**
+     * Check whether the flag belongs to one of the three valid flags for clear command.
+     * @param flag to be checked.
+     * @return true if it belongs to one of the three valid flags, otherwise return false.
+     */
+    private boolean isValidFlag(String flag) {
+        return flag.equals(FLAG_FORCE_CLEAR.toString()) || flag.equals(FLAG_ORDER_BOOK.toString())
+                || flag.equals(FLAG_RETURN_BOOK.toString());
+    }
+
+    /**
+     * Check whether there are '-o' flag inside flags if the current flag is '-r' flag and vice versa.
+     * @param flag to be checked.
+     * @param flags flags that appeared before the current flag in the same command line.
+     * @return true if '-o' and '-r' flags are found in the same command line, otherwise return false.
+     */
+    private boolean isInvalidFlagFormat(String flag, HashSet<String> flags) {
+        return (flag.equals(FLAG_RETURN_BOOK.toString()) && flags.contains(FLAG_ORDER_BOOK.toString()))
+                || (flag.equals(FLAG_ORDER_BOOK.toString()) && flags.contains(FLAG_RETURN_BOOK.toString()));
     }
 }
