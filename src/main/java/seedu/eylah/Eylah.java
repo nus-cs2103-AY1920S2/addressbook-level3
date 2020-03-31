@@ -105,7 +105,7 @@ public class Eylah {
             commandWord = ui.readCommand();
             isBack = false;
 
-            switch(commandWord) {
+            switch(commandWord.toLowerCase()) {
             case "1":
                 initSetup(Mode.DIET);
                 runCommandLoopUntilBackCommand(Mode.DIET);
@@ -130,6 +130,18 @@ public class Eylah {
         while (!isExit) {
             ui.showMode(mode);
             commandWord = ui.readCommand();
+
+            // temporary exit solution until the ExitCommand implement.
+            if (commandWord.equalsIgnoreCase("exit")) {
+                isExit = true;
+                break;
+            }
+            // temporary back solution until diet#BackCommand implement.
+            if (commandWord.equalsIgnoreCase("back")) {
+                isBack = true;
+                break;
+            }
+
             try {
                 CommandResult commandResult = logic.execute(commandWord);
                 isBack = commandResult.isBack();
