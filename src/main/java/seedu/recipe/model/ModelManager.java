@@ -164,13 +164,6 @@ public class ModelManager implements Model {
         setRecipeBook(states.redo(numberOfRedo));
     }
 
-    //=========== PlannedBook ================================================================================
-
-    @Override
-    public ReadOnlyPlannedBook getPlannedBook() {
-        return plannedBook;
-    }
-
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
@@ -186,6 +179,18 @@ public class ModelManager implements Model {
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
+    }
+
+    //=========== PlannedBook ================================================================================
+
+    @Override
+    public ReadOnlyPlannedBook getPlannedBook() {
+        return plannedBook;
+    }
+
+    @Override
+    public void setPlannedBook(PlannedBook plannedBook) {
+        this.plannedBook.resetData(plannedBook);
     }
 
     //=========== Plan Recipe List Accessors =============================================================

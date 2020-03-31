@@ -64,6 +64,11 @@ public class PlanCommand extends Command {
 
         PlannedRecipe plannedRecipe = new PlannedRecipe(recipesToPlan, atDate);
 
+/*        try {
+            model.addPlannedRecipe(plannedRecipe);
+        } catch () {
+            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        }*/
         model.addPlannedRecipe(plannedRecipe);
         model.addPlannedMapping(recipeToPlan, plannedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);

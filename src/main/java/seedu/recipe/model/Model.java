@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -135,6 +136,11 @@ public interface Model {
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
 
     /**
+     * Replaces the data in the planned book with data from {@code plannedBook}.
+     */
+    void setPlannedBook(PlannedBook plannedBook);
+
+    /**
      * Adds the {@code plannedRecipe} to the plannedRecipe list
      */
     void addPlannedRecipe(PlannedRecipe plannedRecipe);
@@ -205,5 +211,4 @@ public interface Model {
      * Returns true if a record with the same identity as {@code record} exists in the record book.
      */
     boolean hasRecord(Record record);
-
 }

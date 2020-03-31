@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,12 +41,12 @@ public class UniquePlannedList {
     }
 
     /**
-     * Adds a planned recipe to the list
+     * Adds a planned recipe to the plannedRecipes list.
      */
     public void add(PlannedRecipe plannedRecipe) {
         requireNonNull(plannedRecipe);
-        if (observableList.contains(plannedRecipe)) {
-            throw new DuplicatePlannedRecipeException();
+        if (observableList.contains(plannedRecipe) || hasPlannedRecipe(plannedRecipe)) {
+            throw new DuplicatePlannedRecipeException(); // todo bugg
         }
 
         int indexOfSameDate = indexOfPlannedRecipeWithSameDate(plannedRecipe);
@@ -61,7 +60,7 @@ public class UniquePlannedList {
     }
 
     /**
-     * Removes the planned recipe
+     * Removes the planned recipe from the plannedRecipes list.
      */
     public void remove(PlannedRecipe plannedRecipe) {
         requireNonNull(plannedRecipe);
@@ -71,12 +70,17 @@ public class UniquePlannedList {
     }
 
     /**
-     * Obtains a list of all planned recipes on {@code date}.
+     * Returns true if the list contains an equivalent recipe at the planned date.
      */
-    public List<PlannedRecipe> getPlannedRecipesOnDate(Date date) {
-        return observableList.stream()
-                .filter(recipe -> recipe.isOnDate(date))
-                .collect(Collectors.toList());
+    public boolean hasPlannedRecipe(PlannedRecipe otherPlannedRecipe) {
+        if (!observableList.contains(otherPlannedRecipe)) {
+            for (PlannedRecipe plannedRecipe : observableList) {
+                if (plannedRecipe.hasSameDateAndContainsSameRecipe(otherPlannedRecipe)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -126,4 +130,5 @@ public class UniquePlannedList {
                 || (other instanceof UniquePlannedList // instanceof handles nulls
                 && observableList.equals(((UniquePlannedList) other).observableList));
     }
+
 }

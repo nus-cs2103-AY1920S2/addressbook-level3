@@ -57,8 +57,15 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     // ===== Recipe-level methods =====
 
     /**
+     * Checks whether the planned book contains {@code plannedRecipe}.
+     */
+    public boolean contains(PlannedRecipe plannedRecipe) {
+        return plannedRecipes.hasPlannedRecipe(plannedRecipe);
+    }
+
+    /**
      * Adds a {@code plannedRecipe} into plannedRecipes.
-     * The planned recipe must not exist in the planned book. todo
+     * The planned recipe must not exist in the planned book.
      */
     public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
         plannedRecipes.add(plannedRecipe);

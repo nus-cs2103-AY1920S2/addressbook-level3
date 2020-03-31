@@ -52,9 +52,9 @@ class JsonSerializablePlannedBook {
         PlannedBook plannedBook = new PlannedBook();
         for (JsonAdaptedPlannedRecipe jsonAdaptedPlannedRecipe : plannedRecipes) {
             PlannedRecipe plannedRecipe = jsonAdaptedPlannedRecipe.toModelType();
-            /*if (plannedBook.hasPlannedRecipe(plannedRecipe)) { todo
+            if (plannedBook.contains(plannedRecipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLANNED_RECIPE);
-            }*/
+            }
             plannedBook.addPlannedRecipe(plannedRecipe);
             List<Recipe> recipes = plannedRecipe.getRecipes();
             for (Recipe recipe : recipes) {
