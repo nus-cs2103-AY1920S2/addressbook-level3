@@ -42,10 +42,10 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         if (userInput.length() < 2) {
             model.clearSuggestions();
             model.clearResponseText();
+        } else {
+            SuggestionCommand suggestionCommand = parseCommand(userInput);
+            suggestionCommand.execute(model);
         }
-
-        SuggestionCommand suggestionCommand = parseCommand(userInput);
-        suggestionCommand.execute(model);
     }
 
     /**
