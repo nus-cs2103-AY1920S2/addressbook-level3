@@ -13,7 +13,7 @@ public class FavCommandParser implements Parser<FavCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * and returns a FavCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FavCommand parse(String args) throws ParseException {
