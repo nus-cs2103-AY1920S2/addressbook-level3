@@ -54,7 +54,6 @@ public class SetCommand extends Command {
         requireNonNull(model);
 
         if(!petName.isEmpty()) {
-            System.out.println("PP");
             model.setPetName(petName.toString());
         }
 

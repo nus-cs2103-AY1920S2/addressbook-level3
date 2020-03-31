@@ -93,11 +93,17 @@ public class Pet implements ReadOnlyPet {
 
     @Override
     public String getMood() {
+        if (this.mood == null) {
+            this.mood = DEFAULT_MOOD;
+        }
         return this.mood;
     }
 
     @Override
     public String getLastDoneTaskTime() {
+        if (this.lastDoneTaskTime == null) {
+            this.lastDoneTaskTime = DEFAULT_LAST_DONE_TASK_TIME;
+        }
         return this.lastDoneTaskTime;
     }
 
