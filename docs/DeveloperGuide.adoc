@@ -593,7 +593,7 @@ The following is a detailed explanation of the operations `BackCommand` performs
 
 2. The `CommandResult` with the `isBack` will set to true and returns to `EYLAH`.
 
-3. The `EYLAH#runCommandLoopUntilExitCommand()` will check if `isBack` is set to true.
+3. The `EYLAH#runCommandLoopUntilBackCommand()` will check if `isBack` is set to true.
 
 4. If the `isBack` is true, the `EYLAH` will return the the main menu. Otherwise, the
 `Eylah` will continue running in Expense Splitter mode.

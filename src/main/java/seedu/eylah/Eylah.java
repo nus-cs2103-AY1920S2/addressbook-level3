@@ -90,6 +90,7 @@ public class Eylah {
         isExit = false;
         ui = new UiManager();
         config = initConfig(null);
+        LogsCenter.init(config);
         userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
     }
