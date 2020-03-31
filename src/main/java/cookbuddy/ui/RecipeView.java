@@ -20,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
 /**
  * RecipeView
@@ -30,8 +29,6 @@ public class RecipeView extends UiPart<Region> {
     private static final String FXML = "RecipeView.fxml";
     private final Recipe recipe;
 
-    @FXML
-    private VBox recipeView;
     @FXML
     private Label name;
     @FXML
@@ -48,6 +45,7 @@ public class RecipeView extends UiPart<Region> {
         this.name.setText(recipe.getName().name);
         this.ingredients.setItems(FXCollections.observableList(this.recipe.getIngredients().asList()));
         this.instructions.setItems(FXCollections.observableList(this.recipe.getInstructions().asList()));
+
         BufferedImage bf = null;
         try
         {
@@ -71,5 +69,8 @@ public class RecipeView extends UiPart<Region> {
         recipeImage = new ImageView(wr);
 
         this.recipeView = new VBox();
+
+        // this.recipeImage.setImage(new Image());
+
     }
 }
