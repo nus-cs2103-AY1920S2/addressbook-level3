@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
+import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
 import fithelper.model.profile.Profile;
 import fithelper.model.today.Today;
@@ -78,6 +79,11 @@ public interface Model {
     boolean hasDiary(Diary diary);
 
     /**
+     * Returns true if diary log with the same date as {@code diary} exists in the FitHelper.
+     */
+    boolean hasDiaryDate(DiaryDate diaryDate);
+
+    /**
      * Returns true if an Entry with the same identity as {@code entry} exists in the FitHelper.
      */
     boolean hasEntry(Entry entry);
@@ -122,7 +128,7 @@ public interface Model {
      * {@code target} must exist in the log book.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
      */
-    void setDiary(String target, Diary editedDiary);
+    void setDiary(Diary target, Diary editedDiary);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.

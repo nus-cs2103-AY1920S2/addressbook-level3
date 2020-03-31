@@ -5,9 +5,11 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.core.Messages;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
@@ -18,7 +20,7 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 
 /**
- * Edits the details of an existing diary in the location book.
+ * Edits the content of the diary of a specific date.
  */
 public class EditDiaryCommand extends Command {
 
@@ -36,7 +38,6 @@ public class EditDiaryCommand extends Command {
             + " my friends. Everything was just perfect. In my twenty, I'm gonna turn heat up.";
 
     public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in fitHelper.";
 
     private static final String MESSAGE_COMMIT = "Edit a diary";
@@ -69,8 +70,25 @@ public class EditDiaryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        List<Diary> lastShownList;
+
+        lastShownList = model.getFilteredDiaryList();
+
         Diary editedDiary = createEditedDiary(diaryId, editDiaryDescriptor);
-        model.setDiary(diaryId, editedDiary);
+
+        if (!model.hasDiaryDate(editedDiary.getDiaryDate())) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DIARY_DATE);
+        }
+
+        if (model.hasDiary(editedDiary)) {
+            throw new CommandException(MESSAGE_DUPLICATE_DIARY);
+        }
+
+        DiaryDate prevDiaryDate = editedDiary.getDiaryDate();
+        Diary prevDiary = getDiaryByDate(lastShownList, prevDiaryDate);
+
+        model.setDiary(prevDiary, editedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
 
         model.commit(MESSAGE_COMMIT);
@@ -92,6 +110,16 @@ public class EditDiaryCommand extends Command {
         Content updatedContent = editDiaryDescriptor.getContent();
 
         return new Diary(updatedDiaryDate, updatedContent);
+    }
+
+    public Diary getDiaryByDate(List<Diary> diaryList, DiaryDate diaryDate) {
+        Diary tempDiary = new Diary(diaryDate, new Content(""));
+        for (Diary diary : diaryList) {
+            if (diary.getDiaryDate().equals(diaryDate)) {
+                tempDiary.setContent(diary.getContent());
+            }
+        }
+        return tempDiary;
     }
 
     @Override
@@ -131,6 +159,13 @@ public class EditDiaryCommand extends Command {
             setContent(toCopy.content);
         }
 
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(diaryDate, content);
+        }
+
         public DiaryDate getDiaryDate() {
             return diaryDate;
         }
@@ -139,19 +174,8 @@ public class EditDiaryCommand extends Command {
             return content;
         }
 
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(diaryDate, content);
-        }
-
         public void setDiaryDate(DiaryDate diaryDate) {
             this.diaryDate = diaryDate;
-        }
-
-        public DiaryDate getType() {
-            return this.diaryDate;
         }
 
         public void setContent(Content content) {
@@ -173,6 +197,7 @@ public class EditDiaryCommand extends Command {
             // state check
 
             EditDiaryCommand.EditDiaryDescriptor e = (EditDiaryCommand.EditDiaryDescriptor) other;
+
             return diaryDate.getDiaryDate().equals(e.getDiaryDate())
                     && getContent().equals(e.getContent());
         }

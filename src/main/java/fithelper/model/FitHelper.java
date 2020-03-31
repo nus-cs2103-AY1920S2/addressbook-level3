@@ -9,6 +9,7 @@ import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.calorietable.FoodCalorieTable;
 import fithelper.model.calorietable.SportsCalorieTable;
 import fithelper.model.diary.Diary;
+import fithelper.model.diary.DiaryDate;
 import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
@@ -115,7 +116,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * {@code target} must exist in the log book.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
      */
-    public void setDiary(String target, Diary editedDiary) {
+    public void setDiary(Diary target, Diary editedDiary) {
         requireNonNull(editedDiary);
         diaries.setDiary(target, editedDiary);
     }
@@ -170,6 +171,14 @@ public class FitHelper implements ReadOnlyFitHelper {
     public boolean hasDiary(Diary diary) {
         requireNonNull(diary);
         return diaries.contains(diary);
+    }
+
+    /**
+     * Returns true if a entry with the same identity as {@code entry} exists in FitHelper.
+     */
+    public boolean hasDiaryDate(DiaryDate diaryDate) {
+        requireNonNull(diaryDate);
+        return diaries.containsDate(diaryDate.getValue());
     }
 
     /**

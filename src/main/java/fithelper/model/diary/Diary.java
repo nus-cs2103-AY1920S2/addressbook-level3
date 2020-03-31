@@ -1,13 +1,19 @@
 package fithelper.model.diary;
 
+import fithelper.commons.core.LogsCenter;
+import fithelper.logic.commands.diary.DeleteDiaryCommand;
+
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.logging.Logger;
 import java.util.Objects;
 
 /**
  * Represents a diary in diary list.
  */
 public class Diary {
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteDiaryCommand.class);
 
     //Identity field
     private final DiaryId diaryId;
@@ -35,13 +41,21 @@ public class Diary {
         return content;
     }
 
+    public void setDiaryDate(DiaryDate diaryDate) {
+        this.diaryDate = diaryDate;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
     /**
      * Pends new content to the diary.
      * @param str newly added content
-     */
+     *//*
     public void addContent(String str) {
         this.content.add(str);
-    }
+    }*/
 
     /**
      * Clears the content of the diary.
@@ -51,16 +65,20 @@ public class Diary {
     }
 
     /**
-     * Returns true if both Diary of the same name have at least one other identity field that is the same.
+     * Returns true if both Diaries are on the same date and have the same content.
      * This defines a weaker notion of equality between two entries.
      */
     public boolean isSameDiary(Diary anotherDiary) {
+        logger.info("checking same diary: " + this.toString() + " == " + anotherDiary.toString());
         if (anotherDiary == this) {
             return true;
         }
 
-        return anotherDiary != null
-                && anotherDiary.getDiaryDate().equals(getDiaryDate());
+        boolean isSame = anotherDiary != null
+                && anotherDiary.getDiaryDate().toString().equals(getDiaryDate().toString())
+                && anotherDiary.getContent().value.equals(getContent().value);
+        logger.info("res: " + isSame);
+        return isSame;
     }
 
     @Override
@@ -78,7 +96,8 @@ public class Diary {
             return false;
         }
         Diary diary = (Diary) o;
-        return diaryId.equals(diary.getDiaryId().value);
+        return diary.getDiaryDate().equals(getDiaryDate())
+                && diary.getContent().equals(getContent());
     }
 
     @Override
