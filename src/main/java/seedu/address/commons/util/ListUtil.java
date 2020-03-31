@@ -36,11 +36,6 @@ public class ListUtil {
         return isBeforeDeadline(order.getTimestamp().getOrderTimeStamp());
     }
 
-    public static boolean isTodayOrderAndDelivered(ReturnOrder order) {
-        requireNonNull(order);
-        return order.isDelivered() && isBeforeDeadline(order.getTimestamp().getOrderTimeStamp());
-    }
-
     /**
      * Check if the Order's LocalDateTime has past the current Date and Time Today.
      * @param ldt Parse in the LocalDateTime object and compare with the Date and Time now

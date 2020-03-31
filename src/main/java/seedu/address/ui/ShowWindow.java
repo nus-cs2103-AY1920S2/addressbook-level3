@@ -22,9 +22,6 @@ import seedu.address.logic.Logic;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
-import static seedu.address.commons.util.ListUtil.isToday;
-import static seedu.address.commons.util.ListUtil.isTodayOrderAndDelivered;
-
 /**
  * The Show Window. Displays the statistics regarding the orders that
  * are being delivered and the earnings made from these orders.
