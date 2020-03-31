@@ -14,6 +14,7 @@ import java.util.List;
 import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.FoodBook;
+import seedu.eylah.diettracker.model.Mode;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.NameContainsKeywordsPredicate;
@@ -61,12 +62,21 @@ public class CommandTestUtil {
     public static final HeightCommand HEIGHT_OBJ;
     public static final WeightCommand WEIGHT_OBJ;
 
+    public static final ModeCommand MODE_LOSS;
+    public static final ModeCommand MODE_MAINTAIN;
+    public static final ModeCommand MODE_GAIN;
+
     static {
         DESC_PASTA = new EditFoodDescriptorBuilder().withName(VALID_NAME_PASTA).build();
         DESC_PIZZA = new EditFoodDescriptorBuilder().withName(VALID_NAME_PIZZA)
                 .withTags(VALID_TAG_FASTFOOD, VALID_TAG_FAVORITE).build();
+
         HEIGHT_OBJ = new HeightCommand(new Height(VALID_HEIGHT));
-        WEIGHT_OBJ = new WeightCommand(new Weight(VALID_WEIGHT));        
+        WEIGHT_OBJ = new WeightCommand(new Weight(VALID_WEIGHT));
+
+        MODE_LOSS = new ModeCommand(Mode.LOSS);
+        MODE_MAINTAIN = new ModeCommand(Mode.MAINTAIN);
+        MODE_GAIN = new ModeCommand(Mode.GAIN);
     }
 
     /**
