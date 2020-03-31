@@ -43,7 +43,7 @@ public class DeleteGoodCommand extends Command {
         Good goodToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteGood(goodToDelete);
         model.commit();
-        return new CommandResult(String.format(MESSAGE_DELETE_GOOD_SUCCESS, goodToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_GOOD_SUCCESS, goodToDelete.getGoodName().fullGoodName));
     }
 
     @Override
