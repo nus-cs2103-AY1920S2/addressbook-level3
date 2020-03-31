@@ -24,7 +24,7 @@ import javafx.stage.FileChooser;
 /**
  * Share a Coupon in the CouponStash.
  */
-public class ShareCommand extends Command {
+public class ShareCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "share";
 
@@ -39,17 +39,16 @@ public class ShareCommand extends Command {
     public static final String MESSAGE_WRITE_TO_IMAGE_ERROR =
             "Problem encountered while saving to image. Please try sharing again!";
 
-    private static final String FORMAT = "png";
+    public static final String MESSAGE_DIALOG_CLOSED =
+            "Coupon was not saved, save dialog was closed without choosing a directory.";
 
-    private final Index index;
+    private static final String FORMAT = "png";
 
     /**
      * @param index of the coupon in the filtered coupon list to edit
      */
     public ShareCommand(Index index) {
-        requireNonNull(index);
-
-        this.index = index;
+        super(index);
     }
 
     @Override
@@ -57,16 +56,16 @@ public class ShareCommand extends Command {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
 
-        Coupon couponToShare = lastShownList.get(index.getZeroBased());
+        Coupon couponToShare = lastShownList.get(targetIndex.getZeroBased());
 
         // Create new CouponCard and get the Region
         Region couponRegion = new CouponCard(
                 couponToShare,
-                index.getOneBased(),
+                targetIndex.getOneBased(),
                 model.getStashSettings().getMoneySymbol().toString()
         ).getRoot();
 
@@ -80,6 +79,11 @@ public class ShareCommand extends Command {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName(couponToShare.getName().toString() + "." + FORMAT);
         File file = fileChooser.showSaveDialog(null);
+
+        // If save dialog is closed without choosing a directory.
+        if (file == null) {
+            throw new CommandException(MESSAGE_DIALOG_CLOSED);
+        }
 
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), FORMAT, file);

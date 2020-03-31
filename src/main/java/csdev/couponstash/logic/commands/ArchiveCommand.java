@@ -14,7 +14,7 @@ import csdev.couponstash.model.coupon.Coupon;
 /**
  * Archives a coupon.
  */
-public class ArchiveCommand extends Command {
+public class ArchiveCommand extends IndexedCommand {
     public static final String COMMAND_WORD = "archive";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Archives the coupon identified by "
@@ -26,14 +26,12 @@ public class ArchiveCommand extends Command {
     public static final String MESSAGE_ARCHIVE_COUPON_SUCCESS = "Archived Coupon: %1$s";
     public static final String MESSAGE_COUPON_ALREADY_ARCHIVED = "Coupon: %1$s is already archived!";
 
-    private final Index targetIndex;
-
     /**
      * Creates an ArchiveCommand to archive the {@code Coupon} at the specified {@code targetIndex}.
      * @param targetIndex Index of the coupon to be archived.
      */
     public ArchiveCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class ArchiveCommand extends Command {
         Coupon couponToBeArchived = lastShownList.get(targetIndex.getZeroBased());
         Archived currentStateOfArchival = couponToBeArchived.getArchived();
 
-        if (Boolean.valueOf(currentStateOfArchival.toString())) {
+        if (Boolean.parseBoolean(currentStateOfArchival.toString())) {
             throw new CommandException(String.format(MESSAGE_COUPON_ALREADY_ARCHIVED,
                     couponToBeArchived.getName()));
         }

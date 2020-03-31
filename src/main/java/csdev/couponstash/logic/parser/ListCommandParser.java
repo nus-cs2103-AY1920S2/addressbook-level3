@@ -29,8 +29,6 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListCommand(PREFIX_ARCHIVE);
         } else if (!argMultiMap.getValue(PREFIX_ARCHIVE).isPresent()
                 && argMultiMap.getValue(PREFIX_USAGE).isPresent()) {
-            System.out.println(!argMultiMap.getValue(PREFIX_ARCHIVE).isPresent());
-            System.out.println(argMultiMap.getValue(PREFIX_USAGE).isPresent());
             // Only has PREFIX_USAGE
             return new ListCommand(PREFIX_USAGE);
         } else {

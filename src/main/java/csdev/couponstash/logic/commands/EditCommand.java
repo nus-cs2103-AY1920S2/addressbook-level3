@@ -30,7 +30,7 @@ import csdev.couponstash.model.tag.Tag;
 /**
  * Edits the details of an existing coupon in the CouponStash.
  */
-public class EditCommand extends Command {
+public class EditCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -55,7 +55,6 @@ public class EditCommand extends Command {
             + "due to changes in the concrete savings.";
     public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
             + "the current usage (%d) of the coupon.";
-    private final Index index;
     private final EditCouponDescriptor editCouponDescriptor;
 
     /**
@@ -63,10 +62,10 @@ public class EditCommand extends Command {
      * @param editCouponDescriptor details to edit the coupon with
      */
     public EditCommand(Index index, EditCouponDescriptor editCouponDescriptor) {
-        requireNonNull(index);
+        super(index);
+
         requireNonNull(editCouponDescriptor);
 
-        this.index = index;
         this.editCouponDescriptor = new EditCouponDescriptor(editCouponDescriptor);
     }
 
@@ -75,11 +74,11 @@ public class EditCommand extends Command {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
 
-        Coupon couponToEdit = lastShownList.get(index.getZeroBased());
+        Coupon couponToEdit = lastShownList.get(targetIndex.getZeroBased());
         Coupon editedCoupon = createEditedCoupon(couponToEdit, editCouponDescriptor);
 
         if (!couponToEdit.isSameCoupon(editedCoupon) && model.hasCoupon(editedCoupon)) {
@@ -145,7 +144,7 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
+        return targetIndex.equals(e.targetIndex)
                 && editCouponDescriptor.equals(e.editCouponDescriptor);
     }
 
