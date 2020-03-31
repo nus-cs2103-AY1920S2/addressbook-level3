@@ -18,11 +18,13 @@ public class SampleDataUtil {
             + "Pay attention to the currently opened note in the sidebar on the left!"));
     private static Block step1 = new BlockImpl(new Title("Step 1"),
         new Body("Nice! You're good at this 'opening note' thing. "
-            + "As you can see, the 'Step 1' note is a child of the 'Welcome' note. \nNow, let's go to the 'Step 2' note. BUT WAIT!"
-            + "If you notice in the sidebar, 'Step 2' is not a child of the current note. (Notes can work like folders too!)\n"
+            + "As you can see, the 'Step 1' note is a child of the 'Welcome' note. \nNow, let's go to the 'Step 2' "
+            + "note. BUT WAIT! If you notice in the sidebar, 'Step 2' is not a child of the current note. "
+            + "(Notes can work like folders too!)\n"
             + "We can do this in 2 ways:\n"
-            + "Basic method:\n  - Type 'open ../' to go back one note (the parent of the current note)\n  - Then type 'open Step 2'\n"
-            + "Advanced method:\n  - Type 'open ../Step 2\n  ! If the note you want to go to is even further back, you can stack "
+            + "Basic method:\n  - Type 'open ../' to go back one note (the parent of the current note)\n  "
+            + "- Then type 'open Step 2'\nAdvanced method:\n  - Type 'open ../Step 2\n"
+            + "  ! If the note you want to go to is even further back, you can stack "
             + "the navigation paths, for example 'open ../../../Note1/Note1Child'"));
     private static Block step2 = new BlockImpl(new Title("Step 2"),
         new Body("You're a navigation master at this point! Well done!\nLet's add a new note here! Type 'new -t A "

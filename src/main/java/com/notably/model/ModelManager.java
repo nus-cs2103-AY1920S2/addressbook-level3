@@ -162,14 +162,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-	public void setBlockTree(BlockTree blockTree) {
+    public void setBlockTree(BlockTree blockTree) {
         blockModel.setBlockTree(blockTree);
-	}
+    }
 
-	@Override
-	public void resetData(BlockModel newData) {
-		blockModel.resetData(newData);
-	}
+    @Override
+    public void resetData(BlockModel newData) {
+        blockModel.resetData(newData);
+    }
 
     @Override
     public AbsolutePath getCurrentlyOpenPath() {

@@ -26,15 +26,15 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-	public void setBlockTree(BlockTree blockTree) {
-		this.blockTree = blockTree;
-	}
+    public void setBlockTree(BlockTree blockTree) {
+        this.blockTree = blockTree;
+    }
 
-	@Override
-	public void resetData(BlockModel newData) {
+    @Override
+    public void resetData(BlockModel newData) {
         Objects.requireNonNull(newData);
         setBlockTree(newData.getBlockTree());
-	}
+    }
 
     @Override
     public AbsolutePath getCurrentlyOpenPath() {

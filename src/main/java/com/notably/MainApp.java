@@ -83,7 +83,8 @@ public class MainApp extends Application {
      * The data from the sample block data will be used instead if {@code storage}'s block data is not found,
      * or an empty {@code BlockTree} will be used instead if errors occur when reading {@code storage}'s block data.
      */
-    private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel, ViewStateModel viewStateModel, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel,
+        ViewStateModel viewStateModel, ReadOnlyUserPrefs userPrefs) {
         Optional<BlockTree> blockTreeOptional;
         BlockTree initialData;
         try {
