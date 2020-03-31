@@ -19,9 +19,9 @@ import javafx.collections.ObservableList;
  */
 public class UniquePlannedList {
 
-    private ObservableList<PlannedRecipe> observableList = FXCollections.observableArrayList();
+    private ObservableList<PlannedRecipe> internalList = FXCollections.observableArrayList();
     private ObservableList<PlannedRecipe> unmodifiableObservableList = FXCollections
-            .unmodifiableObservableList(observableList);
+            .unmodifiableObservableList(internalList);
 
     // todo: check duplicate if it is, throw exception.
 
@@ -35,8 +35,8 @@ public class UniquePlannedList {
             throw new DuplicatePlannedRecipeException();
         }
 
-        observableList.clear();
-        observableList.setAll(plannedRecipes);
+        internalList.clear();
+        internalList.setAll(plannedRecipes);
     }
 
     /**
@@ -44,17 +44,17 @@ public class UniquePlannedList {
      */
     public void add(PlannedRecipe plannedRecipe) {
         requireNonNull(plannedRecipe);
-        if (observableList.contains(plannedRecipe)) {
+        if (internalList.contains(plannedRecipe)) {
             throw new DuplicatePlannedRecipeException();
         }
 
         int indexOfSameDate = indexOfPlannedRecipeWithSameDate(plannedRecipe);
         if (indexOfSameDate == -1) {
-            observableList.add(plannedRecipe);
+            internalList.add(plannedRecipe);
         } else {
-            PlannedRecipe currentPlannedRecipe = observableList.get(indexOfSameDate)
+            PlannedRecipe currentPlannedRecipe = internalList.get(indexOfSameDate)
                     .plannedRecipeWithAllPlanned(plannedRecipe);
-            observableList.set(indexOfSameDate, currentPlannedRecipe);
+            internalList.set(indexOfSameDate, currentPlannedRecipe);
         }
     }
 
@@ -63,7 +63,7 @@ public class UniquePlannedList {
      */
     public void remove(PlannedRecipe plannedRecipe) {
         requireNonNull(plannedRecipe);
-        if (!observableList.remove(plannedRecipe)) {
+        if (!internalList.remove(plannedRecipe)) {
             throw new PlannedRecipeNotFoundException();
         }
     }
@@ -73,8 +73,8 @@ public class UniquePlannedList {
      */
     public int indexOfPlannedRecipeWithSameDate(PlannedRecipe otherPlannedRecipe) {
         PlannedDate otherDate = otherPlannedRecipe.getDate();
-        for (int i = 0; i < observableList.size(); i++) {
-            PlannedDate currentDate = observableList.get(i).getDate();
+        for (int i = 0; i < internalList.size(); i++) {
+            PlannedDate currentDate = internalList.get(i).getDate();
             if (currentDate.equals(otherDate)) {
                 return i;
             }
@@ -105,13 +105,13 @@ public class UniquePlannedList {
 
     @Override
     public int hashCode() {
-        return observableList.hashCode();
+        return internalList.hashCode();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePlannedList // instanceof handles nulls
-                && observableList.equals(((UniquePlannedList) other).observableList));
+                && internalList.equals(((UniquePlannedList) other).internalList));
     }
 }

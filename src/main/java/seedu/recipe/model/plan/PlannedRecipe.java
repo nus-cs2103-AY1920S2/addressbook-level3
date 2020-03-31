@@ -10,7 +10,7 @@ import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
  * Represents a planned recipe in the planned recipes book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class PlannedRecipe {
+public class PlannedRecipe implements Comparable<PlannedRecipe> {
 
     private List<Recipe> recipes;
     private PlannedDate date;
@@ -64,6 +64,10 @@ public class PlannedRecipe {
         return date.isWithinRange(start, end);
     }
 
+    @Override
+    public int compareTo(PlannedRecipe other) {
+        return date.compareTo(other.date);
+    }
 
     @Override
     public int hashCode() {

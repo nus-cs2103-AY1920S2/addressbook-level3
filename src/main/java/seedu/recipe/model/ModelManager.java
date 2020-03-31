@@ -4,14 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.model.plan.PlannedBook;
@@ -30,8 +28,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
+    // private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
+    private final SortedList<PlannedRecipe> sortedPlannedRecipes;
     private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
-    private final Map<Recipe, List<PlannedRecipe>> recipeToPlannedRecipeMap;
+    //private final SortedList<PlannedRecipe> sortedPlannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -47,9 +47,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
-        recipeToPlannedRecipeMap = new HashMap<>(this.plannedBook.getRecipeToPlannedRecipeMap());
-        // todo: planned recipes cant be saved currently
+        //sortedPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
+        sortedPlannedRecipes = new SortedList<>(this.plannedBook.getPlannedList());
+        filteredPlannedRecipes = new FilteredList<>(sortedPlannedRecipes);
     }
 
     public ModelManager() {
@@ -209,12 +209,15 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<PlannedRecipe> getFilteredPlannedList() {
-        return filteredPlannedRecipes;
+        System.out.println("called");
+        //return new SortedList<>(sortedPlannedRecipes); // sortedPlannedRecipes; todo
+        return sortedPlannedRecipes;
     }
 
     @Override
     public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
         requireNonNull(predicate);
+        System.out.println("called2");
         filteredPlannedRecipes.setPredicate(predicate);
     }
 
