@@ -38,7 +38,7 @@ class EditCommandTest {
         model.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS2103"));
     }
     @Test
-    void execute() {
+    void execute_editCommand_blockWithUpdatedBody() {
         final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
 
         final String expectedBody = "Expected Body";
@@ -47,6 +47,15 @@ class EditCommandTest {
 
         assertEquals(expectedBody, model.getBlockTree().get(currentPath).getBlock().getBody().getText());
 
-
     }
+    //Todo: uncomment after merging ParserException handling.
+    //@Test
+    //void execute_editCommandInRoot_throwsCannotModifyRootException() throws CannotModifyRootException {
+    //    final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
+    //
+    //    model.setCurrentlyOpenBlock(AbsolutePath.fromString("/"));
+    //    editCommand.execute(model);
+    //
+    //    assertThrows(CannotModifyRootException.class, () -> editCommand.execute(model));
+    //}
 }

@@ -31,7 +31,7 @@ class NewCommandTest {
 
     }
     @Test
-    void execute() {
+    void execute_validInput_updatedDatastructure() {
         final Block currentBlock = (new BlockImpl(new Title("CS2103")));
 
 
@@ -41,4 +41,14 @@ class NewCommandTest {
 
         assertTrue(model.hasPath(expectedPath));
     }
+    //Todo: Uncomment after merging parser exception handliing.
+    //@Test
+    //void execute_invalidInputDuplicateTitle_throwsDuplicateBlockException() {
+    //    final Block filler = (new BlockImpl(new Title("CS2103")));
+    //    final Block duplicateBlock = (new BlockImpl(new Title("CS2103")));
+    //
+    //    model.addBlockToCurrentPath(filler);
+    //
+    //    assertThrows(DuplicateBlockException.class, () -> model.addBlockToCurrentPath(duplicateBlock));
+    //}
 }

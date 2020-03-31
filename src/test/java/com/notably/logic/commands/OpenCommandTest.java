@@ -1,6 +1,7 @@
 package com.notably.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.Title;
+import com.notably.model.block.exceptions.NoSuchBlockException;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
@@ -33,15 +35,24 @@ class OpenCommandTest {
         Block currentBlock = (new BlockImpl(new Title("CS2103")));
         model.addBlockToCurrentPath(currentBlock);
     }
+
     @Test
-    void execute() {
+    void execute_validPath_updatedCurrentDirectory() {
         final AbsolutePath toOpenPath = AbsolutePath.fromString("/CS2103");
-        final OpenCommand openCommand= new OpenCommand(toOpenPath);
+        final OpenCommand openCommand = new OpenCommand(toOpenPath);
 
         openCommand.execute(model);
 
         assertEquals(toOpenPath, model.getCurrentlyOpenPath());
 
+    }
+
+    @Test
+    void execute_invalidPath_throwsNoSuchBlockException() {
+        final AbsolutePath toOpenPath = AbsolutePath.fromString("/NoSuchBlock");
+        final OpenCommand openCommand = new OpenCommand(toOpenPath);
+
+        assertThrows(NoSuchBlockException.class, () -> openCommand.execute(model));
 
     }
 }
