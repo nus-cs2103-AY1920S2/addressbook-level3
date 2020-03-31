@@ -17,4 +17,6 @@ import seedu.address.model.person.Person;
 
 public abstract class DeleteCommand extends Command {
   // TODO: Consider deleting by ID instead of Index
+  public static final String COMMAND_WORD = "delete";
+
 }

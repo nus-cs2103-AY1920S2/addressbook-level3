@@ -42,7 +42,7 @@ public class CourseBuilder {
      */
     public CourseBuilder(Course courseToCopy) {
         name = courseToCopy.getName();
-        id = courseToCopy.getId();
+        id = courseToCopy.getID();
         amount = courseToCopy.getAmount();
         assignedTeacher = courseToCopy.getAssignedTeacherID();
         assignedStudents = courseToCopy.getAssignedStudentsID();

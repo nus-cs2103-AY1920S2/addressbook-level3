@@ -37,6 +37,10 @@ public class Person extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  public ID getID() {
+    return new ID("");
+  }
+
   public Name getName() {
     return name;
   }
