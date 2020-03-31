@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Parcel;
 import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.testutil.OrderBuilder;
 
@@ -214,6 +215,12 @@ public class InsertCommandTest {
         public void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasParcel(Parcel parcel) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -230,7 +237,7 @@ public class InsertCommandTest {
         @Override
         public boolean hasOrder(Order order) {
             requireNonNull(order);
-            return this.order.isSameOrder(order);
+            return this.order.isSameParcel(order);
         }
     }
 
@@ -243,7 +250,7 @@ public class InsertCommandTest {
         @Override
         public boolean hasOrder(Order order) {
             requireNonNull(order);
-            return ordersAdded.stream().anyMatch(order::isSameOrder);
+            return ordersAdded.stream().anyMatch(order::isSameParcel);
         }
 
         @Override
