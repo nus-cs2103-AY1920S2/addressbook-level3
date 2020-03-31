@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.TransactionId;
 
 /**
  * Unmodifiable view of an order book
@@ -14,7 +13,4 @@ public interface ReadOnlyOrderBook {
      * This list will not contain any duplicate orders.
      */
     ObservableList<Order> getOrderList();
-
-    Order getOrderByTransactionId(TransactionId transactionId);
-
 }

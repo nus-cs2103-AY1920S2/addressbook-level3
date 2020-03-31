@@ -8,21 +8,21 @@
 <?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<fx:root resizable="true" title="Help Window for Delino" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help Window for Delino" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
   <scene>
-    <Scene fill="#4d4a4a">
-        <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS">
-         <VBox alignment="TOP_LEFT" style="-fx-background-color: #4D4A4A;">
+    <Scene fill="#5e839b">
+        <ScrollPane fitToWidth="true" fitToHeight="true" HBox.hgrow="ALWAYS">
+         <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #5e839b;" HBox.hgrow="ALWAYS">
             <children>
                <Label fx:id="helpMessage" alignment="TOP_CENTER" text="Label" textFill="WHITE">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
                   <font>
-                     <Font name="Roboto Regular" size="14.0" />
+                     <Font name="Roboto Regular" size="12.0" />
                   </font>
                </Label>
                <Button fx:id="copyButton" accessibleRole="HYPERLINK" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#copyUrl" text="Copy Delino User Guide Link" textAlignment="CENTER" textFill="#4d4a4a">
