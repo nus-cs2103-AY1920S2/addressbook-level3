@@ -11,6 +11,8 @@ import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.todolist.Deadline;
+import seedu.address.todolist.ToDo;
 
 /**
  * The API of the Model component.
@@ -133,5 +135,29 @@ public interface Model {
     void gradeModule(ModuleCode moduleCode, Grade grade);
 
     double getCap();
+
+    //=========== Deadline ==================================================================================
+
+    /**
+     * Adds deadline.
+     */
+    void addDeadline(Deadline deadline);
+
+    /**
+     * Checks if content of deadline is empty
+     */
+    boolean isEmptyDeadline(Deadline deadline);
+
+    //=========== TD ==================================================================================
+
+    /**
+     * Adds todo.
+     */
+    void addToDo(ToDo todo);
+
+    /**
+     * Checks if content of todo is empty
+     */
+    boolean isEmptyToDo(ToDo todo);
 
 }

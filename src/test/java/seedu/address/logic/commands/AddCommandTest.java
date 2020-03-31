@@ -27,6 +27,8 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.todolist.Deadline;
+import seedu.address.todolist.ToDo;
 
 public class AddCommandTest {
 
@@ -210,6 +212,26 @@ public class AddCommandTest {
 
         @Override
         public double getCap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDeadline(Deadline deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isEmptyDeadline(Deadline deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToDo(ToDo todo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isEmptyToDo(ToDo todo) {
             throw new AssertionError("This method should not be called.");
         }
     }
