@@ -72,8 +72,11 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 (FilteredList<Student>) model.getFilteredStudentList());
             foundStudent.processAssignedCourses(
                 (FilteredList<Course>) model.getFilteredCourseList());
-            model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-            model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
+            // Just to direct flow from calling models directly to modelManager to make better use of callback
+            // A bit weird design for now
+            model.set(foundCourse, foundCourse);
+            model.set(foundStudent, foundStudent);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentID.value, courseName, courseID.value));
         }
