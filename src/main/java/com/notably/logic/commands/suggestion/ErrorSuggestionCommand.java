@@ -20,9 +20,6 @@ public class ErrorSuggestionCommand implements SuggestionCommand {
         // Nullity check
         Objects.requireNonNull(model);
 
-        // Clear suggestions
-        model.clearSuggestions();
-
         // Set response text
         model.setResponseText(errorMessage);
     }

@@ -39,6 +39,11 @@ public class SuggestionEngineImpl implements SuggestionEngine {
 
     @Override
     public void suggest(String userInput) {
+        if (userInput.length() < 2) {
+            model.clearSuggestions();
+            model.clearResponseText();
+        }
+
         SuggestionCommand suggestionCommand = parseCommand(userInput);
         suggestionCommand.execute(model);
     }
