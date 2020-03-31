@@ -70,7 +70,7 @@ public class Statistics implements ReadOnlyStatistics {
     public void updatesDayData(DayData dayData) throws DayDataNotFoundException {
         try {
             customQueue.updatesDayDataCustom(dayData);
-        } catch (DayDataNotFoundException | InvalidTableException e) {
+        } catch (DayDataNotFoundException e) {
         }
     }
 

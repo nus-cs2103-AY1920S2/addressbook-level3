@@ -65,15 +65,18 @@ public class CustomQueue implements Iterable<DayData> {
     /** reinitialises dayDataList to current day while retaining stored data. */
     public void updateDataDatesCustom() throws InvalidTableException {
         LocalDate todayLocalDate = LocalDate.now();
+        this.updateDataDatesCustom(todayLocalDate);
+    }
 
+    public void updateDataDatesCustom(LocalDate localDate) throws InvalidTableException {
         DayData currDayData = this.getLatestDayData();
         LocalDate currLocalDate = currDayData.getDate().value;
 
-        long daysBetween = DAYS.between(todayLocalDate, currLocalDate);
+        long daysBetween = DAYS.between(localDate, currLocalDate);
         if (daysBetween > CONSTANT_SIZE) {
             this.init();
         } else {
-            while (!currLocalDate.equals(todayLocalDate)) { // keep adding new date from last date
+            while (!currLocalDate.equals(localDate)) { // keep adding new date from last date
                 this.pop(); // poll oldest day from queue
 
                 currLocalDate = currLocalDate.plusDays(1); // create new day LocalDate
@@ -98,7 +101,7 @@ public class CustomQueue implements Iterable<DayData> {
      *
      * @param dayData
      */
-    public void updatesDayDataCustom(DayData dayData) throws InvalidTableException {
+    public void updatesDayDataCustom(DayData dayData) throws DayDataNotFoundException {
         requireNonNull(dayData);
 
         Date currDate = dayData.getDate();
@@ -111,9 +114,7 @@ public class CustomQueue implements Iterable<DayData> {
             }
         }
 
-        if (!tableConstraintsAreEnforced(internalList)) {
-            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS);
-        }
+        throw new DayDataNotFoundException(); // dayData not found
     }
 
     /**
@@ -137,7 +138,7 @@ public class CustomQueue implements Iterable<DayData> {
 
     /** Removes oldest DayData from head of the queue. */
     public void pop() {
-        this.remove(0);
+        this.internalList.remove(0);
     }
 
     /**
@@ -176,10 +177,6 @@ public class CustomQueue implements Iterable<DayData> {
 
     public DayData get(int i) {
         return internalList.get(i);
-    }
-
-    public void remove(int index) {
-        internalList.remove(0);
     }
 
     /**
@@ -233,6 +230,16 @@ public class CustomQueue implements Iterable<DayData> {
     /** Returns the backing list as an unmodifiable {@code ObservableList}. */
     public ObservableList<DayData> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    @Override
+    public String toString() {
+        String temp = "";
+        for (int i = 0; i < internalList.size(); i++) {
+            temp += internalList.get(i).toString();
+            temp += "\n";
+        }
+        return temp;
     }
 
     @Override

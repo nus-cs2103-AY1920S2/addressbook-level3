@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_POM_DURATION_DATA;
 import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_TASKS_DONE_DATA;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalDayDatas.DAY0;
 import static seedu.address.testutil.TypicalDayDatas.DAYNEW;
 import static seedu.address.testutil.TypicalDayDatas.DAYNEW2;
 
@@ -21,6 +22,57 @@ public class CustomQueueTest {
 
     private CustomQueue customQueue = new CustomQueue();
     private LocalDate TYPICAL_TASKS_LATEST_LOCAL_DATE = LocalDate.parse("2020-03-23");
+    private LocalDate VALID_LOCAL_DATE = LocalDate.parse("2018-11-13");
+
+    @Test
+    public void updateDataDatesCustom_success() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        customQueue.updateDataDatesCustom(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+
+        CustomQueue expectedCustomQueue = new CustomQueue();
+        expectedCustomQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        assertEquals(expectedCustomQueue, customQueue);
+    }
+
+    @Test
+    public void updateDataDatesCustom_nullLocalDatethrowsNullPointerException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(NullPointerException.class, () -> customQueue.updateDataDatesCustom(null));
+    }
+
+    @Test
+    public void updatesDayDataCustom_nullLocalDatethrowsNullPointerException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(NullPointerException.class, () -> customQueue.updatesDayDataCustom(null));
+    }
+
+    @Test
+    public void updatesDayDataCustom_nonexistentDayDatathrowsDayDataNotFoundException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(DayDataNotFoundException.class, () -> customQueue.updatesDayDataCustom(DAYNEW));
+    }
+
+    @Test
+    public void getDayDataFromDateCustom_nullLocalDatethrowsNullPointerException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(NullPointerException.class, () -> customQueue.getDayDataFromDateCustom(null));
+    }
+
+    @Test
+    public void getDayDataFromDateCustom_nonexistentDayDatathrowsDayDataNotFoundException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(DayDataNotFoundException.class, () -> customQueue.getDayDataFromDateCustom(DAYNEW.getDate()));
+    }
+
+    @Test
+    public void getDayDataFromDateCustom_validDayData_returnsDayData() throws InvalidTableException {
+        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        DayData day0Empty = new DayDataBuilder(DAY0)
+                .withPomDurationData("0")
+                .withTasksDoneData("0")
+                .build();
+        assertEquals(day0Empty, customQueue.getDayDataFromDateCustom(day0Empty.getDate()));
+    }
 
     @Test
     public void contains_nullDayDatathrowsNullPointerException() {
@@ -53,6 +105,13 @@ public class CustomQueueTest {
                         .withTasksDoneData(VALID_TASKS_DONE_DATA)
                         .build();
         assertTrue(customQueue.contains(editedDayData));
+    }
+
+    @Test
+    public void clear_success() throws InvalidTableException {
+        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.clear();
+        assertTrue(customQueue.size() == 0);
     }
 
     @Test

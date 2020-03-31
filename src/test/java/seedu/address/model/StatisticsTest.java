@@ -29,23 +29,23 @@ public class StatisticsTest {
     
 
     @Test
-    public void hasDayData_nullDate_throwsNullPointerException() {
+    public void getDayDataFromDate_nullDate_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> statistics.getDayDataFromDate(null));
     }
 
     @Test
-    public void hasDayData_dayDataNotInStatistics_returnsNull() {
+    public void getDayDataFromDate_dayDataNotInStatistics_returnsNull() {
         assertEquals(null, statistics.getDayDataFromDate(DAYNEW.getDate()));
     }
 
     @Test
-    public void hasDayData_dayDataInStatistics_returnsTrue() {
+    public void getDayDataFromDate_dayDataInStatistics_returnsTrue() {
         Statistics statisticsTypical = getTypicalStatistics();
         assertEquals(DAY0, statisticsTypical.getDayDataFromDate(DAY0.getDate()));
     }
 
     @Test
-    public void hasDayData_dayDataWithSameIdentityFieldsInStatistics_returnsTrue() {
+    public void getDayDataFromDate_dayDataWithSameIdentityFieldsInStatistics_returnsTrue() {
         Statistics statisticsTypical = getTypicalStatistics();
         DayData editedDayData =
                 new DayDataBuilder(DAY0)
@@ -57,7 +57,7 @@ public class StatisticsTest {
     }
 
     @Test
-    public void getStatistics_modifyList_throwsUnsupportedOperationException() {
+    public void getCustomQueue_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> statistics.getCustomQueue().remove(0));
     }
 }

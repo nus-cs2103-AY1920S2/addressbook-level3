@@ -62,6 +62,11 @@ public class DayData {
                 && otherDayData.getTasksDoneData().equals(getTasksDoneData());
     }
 
+    @Override
+    public String toString() {
+        return "DayData: " + this.getDate() + " pom: " + getPomDurationData() + " tasksDone: " + getTasksDoneData();
+    }
+
     /*
     public void setDate(Date date) {
         this.date = date;
