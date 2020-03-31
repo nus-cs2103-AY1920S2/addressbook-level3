@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.notably.model.suggestion.SuggestionItem;
 
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.Property;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -23,7 +22,6 @@ public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
     private static final int LIST_CELL_HEIGHT = 28;
-    private IntegerBinding listSizeProperty;
 
     @FXML
     private VBox suggestionsBox;
