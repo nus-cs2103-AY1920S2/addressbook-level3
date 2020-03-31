@@ -3,12 +3,14 @@ package seedu.eylah.diettracker.logic.parser;
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_DAYS;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_LIST_TAG;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_SINGLE;
 
 import java.util.stream.Stream;
 
 import seedu.eylah.diettracker.logic.commands.ListCommand;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.diettracker.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new ListCommand object
@@ -22,7 +24,7 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SINGLE, PREFIX_DAYS);
+                ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SINGLE, PREFIX_DAYS, PREFIX_LIST_TAG);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
@@ -35,6 +37,8 @@ public class ListCommandParser implements Parser<ListCommand> {
             mode = "-d";
         } else if (arePrefixesPresent(argMultimap, PREFIX_DAYS)) {
             mode = "-t";
+        } else if (arePrefixesPresent(argMultimap, PREFIX_LIST_TAG)) {
+            mode = "-e";
         } else {
 
         }
@@ -42,6 +46,9 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (mode.equals("-t")) {
             int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
             return new ListCommand(mode, numDays);
+        } else if (mode.equals("-e")) {
+            Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_LIST_TAG).get());
+            return new ListCommand(mode, tag);
         } else {
             return new ListCommand(mode);
         }
