@@ -34,7 +34,7 @@
           </Menu>
                <Menu mnemonicParsing="false" text="Statistics">
                   <items>
-                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleHelp" text="Statistics" />
+                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleStatistic" text="Statistics" />
                   </items>
                </Menu>
         </MenuBar>

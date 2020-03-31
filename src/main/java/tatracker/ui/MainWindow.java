@@ -18,7 +18,9 @@ import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.statistic.StatisticCommandResult;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.statistic.Statistic;
 import tatracker.ui.claimstab.ClaimsListPanel;
 import tatracker.ui.claimstab.ModuleListPanelCopy;
 import tatracker.ui.sessiontab.SessionListPanel;
@@ -48,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private ClaimsListPanel claimsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticWindow statisticWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -116,6 +119,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -209,6 +213,33 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the statistic window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStatistic() {
+        handleStatistic(null);
+    }
+
+    /**
+     * Opens the statistic window for the input module.
+     * @param moduleCode the module code for which the stats will be for
+     */
+    public void handleStatistic(String moduleCode) {
+        if (statisticWindow != null && statisticWindow.isShowing()) {
+            statisticWindow.hide();
+        }
+
+        // Create a new statistic window
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode));
+        statisticWindow.show();
+        statisticWindow.focus();
+    }
+
+    void show() {
+        primaryStage.show();
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -218,34 +249,10 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
 
-    void show() {
-        primaryStage.show();
-    }
-
-    public StudentListPanel getStudentListPanel() {
-        return studentListPanel;
-    }
-
-    public GroupListPanel getGroupListPanel() {
-        return groupListPanel;
-    }
-
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
-    }
-
-    public ModuleListPanelCopy getModuleListPanelCopy() {
-        return moduleListPanelCopy;
-    }
-
-    public SessionListPanel getSessionListPanel() {
-        return sessionListPanel;
-    }
-
-    public ClaimsListPanel getClaimsListPanel() {
-        return claimsListPanel;
+        if (statisticWindow != null) {
+            statisticWindow.hide();
+        }
     }
 
     /**
@@ -258,6 +265,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult instanceof StatisticCommandResult) {
+                StatisticCommandResult scr = (StatisticCommandResult) commandResult;
+                handleStatistic(scr.targetModuleCode);
+            }
 
             switch (commandResult.getNextAction()) {
             case DONE:
