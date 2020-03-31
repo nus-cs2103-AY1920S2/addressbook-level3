@@ -2,7 +2,6 @@ package cookbuddy.ui;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -15,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -47,12 +45,9 @@ public class RecipeView extends UiPart<Region> {
         this.instructions.setItems(FXCollections.observableList(this.recipe.getInstructions().asList()));
 
         BufferedImage bf = null;
-        try
-        {
+        try {
             bf = ImageIO.read(new File(String.valueOf(this.recipe.getFilePath().filePath)));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         WritableImage wr = null;

@@ -26,7 +26,7 @@ import jfxtras.styles.jmetro.Style;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    public static final JMetro jMetro = new JMetro(Style.LIGHT);
+    public static final JMetro J_METRO = new JMetro(Style.LIGHT);
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -68,8 +68,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-        jMetro.setAutomaticallyColorPanes(true);
-        jMetro.setScene(this.primaryStage.getScene());
+        J_METRO.setAutomaticallyColorPanes(true);
+        J_METRO.setScene(this.primaryStage.getScene());
 
         setAccelerators();
 
@@ -86,6 +86,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -168,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

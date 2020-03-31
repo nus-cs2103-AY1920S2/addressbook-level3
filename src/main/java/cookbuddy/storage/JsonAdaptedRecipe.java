@@ -11,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cookbuddy.commons.exceptions.IllegalValueException;
 import cookbuddy.logic.parser.ParserUtil;
+import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
-import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
@@ -44,11 +44,12 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
-            @JsonProperty("instructions") String instructions, @JsonProperty("filePath") String filePath,
+                             @JsonProperty("instructions") String instructions,
+                             @JsonProperty("filePath") String filePath,
                              @JsonProperty("calorie") String calorie,
                              @JsonProperty("serving") int serving, @JsonProperty("rating") int rating,
                              @JsonProperty("difficulty") int difficulty,
-                                     @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -100,7 +101,7 @@ class JsonAdaptedRecipe {
 
         if (ingredients == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, IngredientList.class.getSimpleName()));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, IngredientList.class.getSimpleName()));
         }
         // if (!IngredientList.isValidIngredients(ingredients)) {
         // throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
@@ -109,7 +110,7 @@ class JsonAdaptedRecipe {
 
         if (instructions == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, InstructionList.class.getSimpleName()));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, InstructionList.class.getSimpleName()));
         }
         // if (!InstructionList.isValidInstructions(instructions)) {
         // throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
@@ -133,6 +134,6 @@ class JsonAdaptedRecipe {
         final Difficulty modelDifficulty = new Difficulty(difficulty);
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
         return new Recipe(modelName, modelIngredients, modelInstructions, modelUrl, modelCalorie, modelServe,
-                modelRating, modelDifficulty, modelTags);
+            modelRating, modelDifficulty, modelTags);
     }
 }

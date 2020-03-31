@@ -2,9 +2,9 @@ package cookbuddy.logic.commands;
 
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
@@ -23,12 +23,12 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.CollectionUtil;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
+import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
-import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
@@ -42,21 +42,21 @@ public class ModifyCommand extends Command {
     public static final String COMMAND_WORD = "modify";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the recipe identified "
-            + "by the index number used in the displayed recipe list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
-            + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
-            + "[" + PREFIX_FILEPATH + "PATH] "
-            + "[" + PREFIX_CALORIE + "CALORIES] "
-            + "[" + PREFIX_SERVING + "SERVING] "
-            + "[" + PREFIX_RATING + "RATING] "
-            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
-            + PREFIX_INSTRUCTIONS + "put egg on toast;put bread on egg";
+        + "by the index number used in the displayed recipe list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
+        + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
+        + "[" + PREFIX_FILEPATH + "PATH] "
+        + "[" + PREFIX_CALORIE + "CALORIES] "
+        + "[" + PREFIX_SERVING + "SERVING] "
+        + "[" + PREFIX_RATING + "RATING] "
+        + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
+        + "[" + PREFIX_TAG + "TAG]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
+        + PREFIX_INSTRUCTIONS + "put egg on toast;put bread on egg";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -66,7 +66,7 @@ public class ModifyCommand extends Command {
     private final EditRecipeDescriptor editRecipeDescriptor;
 
     /**
-     * @param index of the recipe in the filtered recipe list to edit
+     * @param index                of the recipe in the filtered recipe list to edit
      * @param editRecipeDescriptor details to edit the recipe with
      */
     public ModifyCommand(Index index, EditRecipeDescriptor editRecipeDescriptor) {
@@ -108,7 +108,7 @@ public class ModifyCommand extends Command {
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         IngredientList updatedIngredients = editRecipeDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
         InstructionList updatedInstructions =
-                editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
+            editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
         ImagePath updatedUrl = editRecipeDescriptor.getFilePath().orElse(recipeToEdit.getFilePath());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
@@ -118,7 +118,7 @@ public class ModifyCommand extends Command {
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedUrl, updatedCalorie,
             updatedServing,
-                updatedRating, updatedDifficulty, updatedTags);
+            updatedRating, updatedDifficulty, updatedTags);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class ModifyCommand extends Command {
         // state check
         ModifyCommand e = (ModifyCommand) other;
         return index.equals(e.index)
-               && editRecipeDescriptor.equals(e.editRecipeDescriptor);
+            && editRecipeDescriptor.equals(e.editRecipeDescriptor);
     }
 
     /**
@@ -178,7 +178,7 @@ public class ModifyCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, ingredients, instructions, filePath, calorie, serving, rating,
-                    difficulty, tags);
+                difficulty, tags);
         }
 
         public void setName(Name name) {
@@ -218,7 +218,9 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Calorie> getCalorie() {
-            return (calorie != null) ? Optional.of(calorie) : Optional.empty();
+            return (calorie != null)
+                ? Optional.of(calorie)
+                : Optional.empty();
         }
 
         public void setServing(Serving serving) {
@@ -226,7 +228,9 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Serving> getServing() {
-            return (serving != null) ? Optional.of(serving) : Optional.empty();
+            return (serving != null)
+                ? Optional.of(serving)
+                : Optional.empty();
         }
 
         public void setRating(Rating rating) {
@@ -234,7 +238,9 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Rating> getRating() {
-            return (rating != null) ? Optional.of(rating) : Optional.empty();
+            return (rating != null)
+                ? Optional.of(rating)
+                : Optional.empty();
         }
 
         public void setDifficulty(Difficulty difficulty) {
@@ -242,7 +248,9 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Difficulty> getDifficulty() {
-            return (difficulty != null) ? Optional.of(difficulty) : Optional.empty();
+            return (difficulty != null)
+                ? Optional.of(difficulty)
+                : Optional.empty();
         }
 
         /**
@@ -250,7 +258,9 @@ public class ModifyCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            this.tags = (tags != null)
+                ? new HashSet<>(tags)
+                : null;
         }
 
         /**
@@ -259,7 +269,9 @@ public class ModifyCommand extends Command {
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return (tags != null)
+                ? Optional.of(Collections.unmodifiableSet(tags))
+                : Optional.empty();
         }
 
         @Override
@@ -278,14 +290,14 @@ public class ModifyCommand extends Command {
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getIngredients().equals(e.getIngredients())
-                    && getInstructions().equals(e.getInstructions())
-                    && getFilePath().equals(e.getFilePath())
-                    && getCalorie().equals(e.getCalorie())
-                    && getServing().equals(e.getServing())
-                    && getRating().equals(e.getRating())
-                    && getDifficulty().equals(e.getDifficulty())
-                    && getTags().equals(e.getTags());
+                && getIngredients().equals(e.getIngredients())
+                && getInstructions().equals(e.getInstructions())
+                && getFilePath().equals(e.getFilePath())
+                && getCalorie().equals(e.getCalorie())
+                && getServing().equals(e.getServing())
+                && getRating().equals(e.getRating())
+                && getDifficulty().equals(e.getDifficulty())
+                && getTags().equals(e.getTags());
         }
     }
 }

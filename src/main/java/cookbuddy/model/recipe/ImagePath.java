@@ -1,7 +1,7 @@
 package cookbuddy.model.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static cookbuddy.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;

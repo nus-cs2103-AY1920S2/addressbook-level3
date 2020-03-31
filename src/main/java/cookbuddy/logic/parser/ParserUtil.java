@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
-import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Instruction;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -76,7 +76,7 @@ public class ParserUtil {
         }
 
         return new IngredientList(Stream.of(ingredientString.trim().split(";")).map(String::trim).map(Ingredient::new)
-                .collect(Collectors.toList()));
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -94,11 +94,11 @@ public class ParserUtil {
         }
 
         return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
-                .map(Instruction::new).collect(Collectors.toList()));
+            .map(Instruction::new).collect(Collectors.toList()));
     }
 
-    /** Parses a {@code String input} into an {@code ImagePath}.
-     *
+    /**
+     * Parses a {@code String input} into an {@code ImagePath}.
      */
     public static ImagePath parseFilePath(String input) throws ParseException {
         requireNonNull(input);

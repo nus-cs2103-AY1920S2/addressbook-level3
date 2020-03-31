@@ -121,10 +121,11 @@ public class Recipe {
         }
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
-            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getFilePath().equals(getFilePath())
+            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getFilePath()
+            .equals(getFilePath())
             && otherRecipe.getCalorie().equals(getCalorie()) && otherRecipe.getRating().equals(getRating())
-                && otherRecipe.getDifficulty().equals(getDifficulty())
-                && otherRecipe.getTags().equals(getTags());
+            && otherRecipe.getDifficulty().equals(getDifficulty())
+            && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
@@ -138,9 +139,9 @@ public class Recipe {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
             " Instructions: ").append(getInstructions()).append("Path: ").append(getFilePath()).append(
-                " Calories: ").append(getCalorie()).append(" Serving size: ").append(getServing()).append(
-                    " Rating: ").append(getRating()).append(" Difficulty ").append(getDifficulty()).append(
-                        " Tags" + ": ");
+            " Calories: ").append(getCalorie()).append(" Serving size: ").append(getServing()).append(
+            " Rating: ").append(getRating()).append(" Difficulty ").append(getDifficulty()).append(
+            " Tags" + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

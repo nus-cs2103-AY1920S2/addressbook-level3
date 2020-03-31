@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import cookbuddy.model.ReadOnlyRecipeBook;
 import cookbuddy.model.RecipeBook;
+import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
@@ -14,7 +15,6 @@ import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.Instruction;
 import cookbuddy.model.recipe.attribute.InstructionList;
-import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
@@ -28,9 +28,9 @@ public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         Name name1 = new Name("Ham Sandwich");
         IngredientList ingList1 = new IngredientList(
-                List.of(new Ingredient("bread, 2 slices"), new Ingredient("ham, 1 slice")));
+            List.of(new Ingredient("bread, 2 slices"), new Ingredient("ham, 1 slice")));
         InstructionList insList1 = new InstructionList(
-                List.of(new Instruction("put ham between bread"), new Instruction("serve on plate")));
+            List.of(new Instruction("put ham between bread"), new Instruction("serve on plate")));
         ImagePath imagePath1 = new ImagePath("src/main/resources/recipes/hamsandwich_recipe.jpg");
         Calorie calorie1 = new Calorie("169");
         Serving serving1 = new Serving(3);
@@ -44,7 +44,7 @@ public class SampleDataUtil {
         Name name2 = new Name("Idiot Sandwich");
         IngredientList ingList2 = new IngredientList(List.of(new Ingredient("bread, 2 slices")));
         InstructionList insList2 = new InstructionList(List.of(new Instruction("put bread to opposite sides of head"),
-                new Instruction("Yell 'I am an idiot sandwich!'")));
+            new Instruction("Yell 'I am an idiot sandwich!'")));
         ImagePath imagePath2 = new ImagePath("src/main/resources/recipes/idiotsandwich_recipe.jpg");
         Calorie calorie2 = new Calorie("0");
         Serving serving2 = new Serving(2);
@@ -55,7 +55,7 @@ public class SampleDataUtil {
         Recipe recipe2 = new Recipe(name2, ingList2, insList2, imagePath2, calorie2, serving2, rating2, difficulty2,
             tagSet2);
 
-        return new Recipe[] { recipe1, recipe2 };
+        return new Recipe[] {recipe1, recipe2};
     }
 
     public static ReadOnlyRecipeBook getSampleRecipeBook() {

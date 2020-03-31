@@ -3,9 +3,9 @@ package cookbuddy.logic.parser;
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
@@ -48,9 +48,11 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS,
-                PREFIX_INSTRUCTIONS, PREFIX_FILEPATH, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY, PREFIX_TAG);
+            PREFIX_INSTRUCTIONS, PREFIX_FILEPATH, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY,
+            PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_FILEPATH) || !argMultimap
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_FILEPATH)
+            || !argMultimap
                 .getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
