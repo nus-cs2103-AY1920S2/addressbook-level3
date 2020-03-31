@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
  * Controller for a help page
@@ -42,6 +44,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+        new JMetro(Style.LIGHT).setScene(this.getRoot().getScene());
     }
 
     /**
