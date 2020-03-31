@@ -21,8 +21,8 @@ import seedu.address.model.Model;
 import seedu.address.model.TransactionHistory;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodNameContainsKeywordsPredicate;
-import seedu.address.model.supplier.SupplierNameContainsKeywordsPredicate;
 import seedu.address.model.supplier.Supplier;
+import seedu.address.model.supplier.SupplierNameContainsKeywordsPredicate;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditSupplierDescriptorBuilder;
 

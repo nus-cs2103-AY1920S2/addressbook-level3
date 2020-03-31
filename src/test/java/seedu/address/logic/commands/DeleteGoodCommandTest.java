@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showGoodAtIndex;
@@ -97,7 +98,7 @@ class DeleteGoodCommandTest {
         // different Good -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
-    
+
     /**
      * Updates {@code model}'s filtered list to show no goods.
      */
