@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.notably.model.suggestion.SuggestionItem;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.Property;
 import javafx.collections.ListChangeListener;
@@ -23,6 +22,7 @@ import javafx.scene.layout.VBox;
 public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
+    private static final int LIST_CELL_HEIGHT = 28;
     private IntegerBinding listSizeProperty;
 
     @FXML
@@ -49,9 +49,9 @@ public class SuggestionsWindowView extends ViewPart<Region> {
      */
     private void autoUpdateSuggestionsDisplay(ObservableList<SuggestionItem> suggestionsList,
                                               Property<Optional<String>> responseText) {
-        suggestionsList.addListener((ListChangeListener)(listener -> {
-            suggestionsListPanel.setPrefHeight(suggestionsList.size()*26+2);
-            if (suggestionsList.size()==0) {
+        suggestionsList.addListener((ListChangeListener<SuggestionItem>) (listener -> {
+            suggestionsListPanel.setPrefHeight(suggestionsList.size() * LIST_CELL_HEIGHT + 2);
+            if (suggestionsList.size() == 0) {
                 suggestionsListPanel.setManaged(false);
             } else {
                 suggestionsListPanel.setManaged(true);
