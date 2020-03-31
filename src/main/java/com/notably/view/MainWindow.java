@@ -130,10 +130,6 @@ public class MainWindow extends ViewPart<Stage> {
 
         blockContent = new BlockContent(blockContentPlaceholder, model);
 
-        List<SuggestionItem> sg = new ArrayList<>();
-        sg.add(new SuggestionItemImpl("hello", null));
-        sg.add(new SuggestionItemImpl("hello1", null));
-        model.setSuggestions(sg);
         suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(), model.responseTextProperty());
         suggestionsWindow.getChildren().add(suggestionsWindowView.getRoot());
     }

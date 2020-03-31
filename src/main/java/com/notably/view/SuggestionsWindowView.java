@@ -39,7 +39,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         suggestionsText.setText("Suggestions Text Box");
 
         suggestionsListPanel.setItems(suggestionsList);
-        //suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
+        suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
     }
 
     /**
@@ -49,15 +49,14 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         @Override
         protected void updateItem(SuggestionItem suggestionItem, boolean empty) {
             super.updateItem(suggestionItem, empty);
-            System.out.println("hello");
-            System.out.println(suggestionItem.getProperty("displayText").isPresent());
-            Optional<String> suggestionItemText = suggestionItem.getProperty("displayTest");
             setGraphic(null);
 
-            if (empty || suggestionItem == null || suggestionItemText.isEmpty()) {
-                setText(null);
+            if (empty || suggestionItem == null) {
+                setText("");
             } else {
-                setText(suggestionItemText.get());
+                Optional<String> displayProperty = getItem().getProperty("displayText");
+                String displayString = displayProperty.isPresent() ? displayProperty.get() : "";
+                setText(displayString);
             }
         }
     }
