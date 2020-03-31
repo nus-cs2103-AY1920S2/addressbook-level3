@@ -79,9 +79,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s block data and {@code userPrefs}. <br>
+     * The data from the sample block data will be used instead if {@code storage}'s block data is not found,
+     * or an empty {@code BlockTree} will be used instead if errors occur when reading {@code storage}'s block data.
      */
     private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel, ViewStateModel viewStateModel, ReadOnlyUserPrefs userPrefs) {
         Optional<BlockTree> blockTreeOptional;
