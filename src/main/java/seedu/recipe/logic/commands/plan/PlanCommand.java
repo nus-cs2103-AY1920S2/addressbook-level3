@@ -21,7 +21,6 @@ import seedu.recipe.ui.tab.Tab;
 /**
  * Schedules a recipe to a date.
  */
-
 public class PlanCommand extends Command {
 
     public static final String COMMAND_WORD = "plan";
