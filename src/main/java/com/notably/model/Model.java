@@ -32,13 +32,13 @@ public interface Model extends BlockModel, SuggestionModel, ViewStateModel {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' block data file path.
      */
-    Path getAddressBookFilePath();
+    Path getBlockDataFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' block data file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBlockDataFilePath(Path blockDataFilePath);
 }
 

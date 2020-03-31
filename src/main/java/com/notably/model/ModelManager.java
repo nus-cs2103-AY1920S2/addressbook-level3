@@ -80,14 +80,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getBlockDataFilePath() {
+        return userPrefs.getBlockDataFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setBlockDataFilePath(Path blockDataFilePath) {
+        requireNonNull(blockDataFilePath);
+        userPrefs.setBlockDataFilePath(blockDataFilePath);
     }
 
     //=========== Suggestion Model =============================================================
@@ -160,6 +160,16 @@ public class ModelManager implements Model {
     public BlockTree getBlockTree() {
         return blockModel.getBlockTree();
     }
+
+    @Override
+	public void setBlockTree(BlockTree blockTree) {
+        blockModel.setBlockTree(blockTree);
+	}
+
+	@Override
+	public void resetData(BlockModel newData) {
+		blockModel.resetData(newData);
+	}
 
     @Override
     public AbsolutePath getCurrentlyOpenPath() {

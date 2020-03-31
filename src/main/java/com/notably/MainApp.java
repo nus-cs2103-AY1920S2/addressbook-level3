@@ -15,11 +15,15 @@ import com.notably.logic.Logic;
 import com.notably.logic.LogicManager;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
+import com.notably.model.ReadOnlyUserPrefs;
 import com.notably.model.UserPrefs;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
+import com.notably.model.block.BlockTree;
+import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
+import com.notably.model.util.SampleDataUtil;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 import com.notably.storage.BlockStorage;
@@ -59,20 +63,44 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        BlockStorage addressBookStorage = new JsonBlockStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        BlockStorage blockStorage = new JsonBlockStorage(userPrefs.getBlockDataFilePath());
+        storage = new StorageManager(blockStorage, userPrefsStorage);
 
         initLogging(config);
 
-        // TODO: Initialize model from storage. Read AB3's initModelManager method for inspiration.
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
-        model = new ModelManager(blockModel, suggestionModel, viewStateModel, userPrefs);
+        model = initModelManager(storage, blockModel, suggestionModel, viewStateModel, userPrefs);
 
         logic = new LogicManager(model, storage);
 
         view = new ViewManager(logic, model);
+    }
+
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     */
+    private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel, ViewStateModel viewStateModel, ReadOnlyUserPrefs userPrefs) {
+        Optional<BlockTree> blockTreeOptional;
+        BlockTree initialData;
+        try {
+            blockTreeOptional = storage.readBlockTree();
+            if (!blockTreeOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample BlockTree");
+            }
+            initialData = blockTreeOptional.orElseGet(SampleDataUtil::getSampleBlockTree);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty BlockTree");
+            initialData = new BlockTreeImpl();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty BlockTree");
+            initialData = new BlockTreeImpl();
+        }
+        blockModel.setBlockTree(initialData);
+        return new ModelManager(blockModel, suggestionModel, viewStateModel , userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -133,7 +161,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty BlockTree");
             initializedPrefs = new UserPrefs();
         }
 
@@ -149,7 +177,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Notably " + MainApp.VERSION);
         view.start(primaryStage);
     }
 

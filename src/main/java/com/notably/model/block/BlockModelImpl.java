@@ -1,5 +1,7 @@
 package com.notably.model.block;
 
+import java.util.Objects;
+
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
@@ -22,6 +24,17 @@ public class BlockModelImpl implements BlockModel {
     public BlockTree getBlockTree() {
         return blockTree;
     }
+
+    @Override
+	public void setBlockTree(BlockTree blockTree) {
+		this.blockTree = blockTree;
+	}
+
+	@Override
+	public void resetData(BlockModel newData) {
+        Objects.requireNonNull(newData);
+        setBlockTree(newData.getBlockTree());
+	}
 
     @Override
     public AbsolutePath getCurrentlyOpenPath() {
