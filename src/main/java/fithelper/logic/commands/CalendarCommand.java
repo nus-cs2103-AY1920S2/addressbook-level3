@@ -5,6 +5,9 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_MODE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import fithelper.commons.core.LogsCenter;
 import fithelper.model.Model;
 
 /**
@@ -23,6 +26,10 @@ public class CalendarCommand extends Command {
             + PREFIX_MODE + "list";
 
     public static final String MESSAGE_SUCCESS = "Now you are at Calendar Page ~";
+    private static final String MESSAGE_COMMIT = "Switch to calendar page";
+
+    private static final Logger logger = LogsCenter.getLogger(CalendarCommand.class);
+
     private String dateToSet;
     private String mode;
 
@@ -41,6 +48,10 @@ public class CalendarCommand extends Command {
         } else {
             mode = "timetable";
         }
+
+        model.commit(MESSAGE_COMMIT);
+        logger.info("Switch to calendar page");
+
         return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date: "
                 + model.getCalendarDate().toLocalDate())
                 + "\nMode: " + mode, CALENDAR, false);

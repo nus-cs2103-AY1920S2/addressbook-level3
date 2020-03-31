@@ -31,7 +31,7 @@ import jfxtras.icalendarfx.components.VEvent;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final FitHelper fitHelper;
+    private final VersionedFitHelper fitHelper;
     private final FilteredList<Diary> filteredDiaries;
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
@@ -54,7 +54,8 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with FitHelper: " + fitHelper);
 
-        this.fitHelper = new FitHelper(fitHelper);
+
+        this.fitHelper = new VersionedFitHelper(fitHelper);
         filteredDiaries = new FilteredList<>(this.fitHelper.getDiaryList());
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
@@ -73,6 +74,36 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new FitHelper(), new UserProfile(), new WeightRecords());
+    }
+
+    @Override
+    public boolean canUndo() {
+        return fitHelper.canUndo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return fitHelper.canRedo();
+    }
+
+    @Override
+    public String undo() {
+        return fitHelper.undo();
+    }
+
+    @Override
+    public String redo() {
+        return fitHelper.redo();
+    }
+
+    @Override
+    public void commit(String commitMessage) {
+        fitHelper.commit(commitMessage);
+    }
+
+    @Override
+    public void setVersionControl(Boolean isEnabled) {
+        fitHelper.setVersionControl(isEnabled);
     }
 
     //=========== FitHelper ================================================================================
