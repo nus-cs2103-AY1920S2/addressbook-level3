@@ -166,7 +166,8 @@ Format: `help`
 
 ==== Changing tabs : `goto`
 
-TODO - NOT IMPLEMENTED YET
+Switches to a specified tab.
+Format: `goto TAB_NAME`
 
 ==== Exiting the program : `exit`
 
