@@ -86,7 +86,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * <<list, `list`>> ` done` : lists all delivered orders and return orders.
 * <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
-* <<delete, `delete`>> `-o` `3` : deletes the 3rd delivery order shown in the current list
+* <<delete, `delete`>> `-o` `3` : deletes the 3rd delivery order shown in the current order list
 * <<exit, `exit`>> : exits the app
 
 .  Refer to <<Features>> for a more detailed explanation of each command.
@@ -221,35 +221,78 @@ These are the possible combinations of the `clear` command:
 |===
 
 [[delete]]
-=== Deleting an order : `delete`
-==== Description
-* You can use this command to delete a particular order or return order based on its index. +
- The item to be deleted is taken from the respective list of orders or return orders; depending on its type.
+=== Deleting an order : `delete` [Done by - Loh Jeremy Wen Jun]
+In this section, you will learn more about the `delete` command,
+<<how_to_use_delete_command, how to use it>> and the
+<<usage_scenario_delete_command, possible usage scenarios>> of the `delete` command. +
 
-==== Format:
-`delete` `FLAG` `INDEX`
+The `delete` command is useful if you would like to delete a specific order from either
+the order list or return order list. +
+This would allow you to correct any accidental additions that you may have made
+when <<insert, inserting orders>> or <<import, importing an order file>>.
 
-****
-* Deletes the order/return order at the specified `INDEX`.
-* The `FLAG` determines the list which the item to be deleted is taken from.
-* The `INDEX` refers to the `INDEX` number shown in the displayed order list.
-* The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
-****
+[[how_to_use_delete_command]]
+==== How to use the delete command
+In this section, you learn more about the exact inputs required to use the `delete` command.
 
-==== Examples:
+Here are the steps you should follow to delete an order using the `delete` command: +
+*Step 1* : Type in the keyword `delete` +
 
-* `list` +
-`delete` `-o` `2` +
-Deletes the 2nd order from the order list.
-* `list` +
-`delete` `-r` `3` +
-Deletes the 3rd return order from the return order list.
-* `search` `-o` `Betsy` +
-`delete` `-o` `1` +
-Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Betsy`).
-* `search` `-r` `Aaron` +
-`delete` `-r` `1` +
-Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Aaron`).
+*Step 2* : Provide a `FLAG` to indicate which list to delete your order from +
+[NOTE]
+====
+A `FLAG` can be either `-o` or `-r`. +
+A `-o` flag indicates the order list. +
+A `-r` flag indicates the return order list.
+====
+
+*Step 3* : Provide an `INDEX` to indicate the specific order to delete based on the list
+[NOTE]
+====
+The `INDEX` refers to the `INDEX` number shown in the displayed list. +
+The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
+====
+
+*Step 4* : Press `Enter` on your keyboard to see the magic!
+
+
+==== What constitutes a valid delete command
+In this section, you will learn more about the syntax of the `delete` command +
+
+The syntax for a valid `delete` command is the following: +
+`delete` `FLAG` `INDEX` +
+
+[[usage_scenario_delete_command]]
+==== Delete command usage scenarios
+In this section, you will learn more about the various usage scenarios of the `delete` command!
+
+The table below describes the possible usage scenarios of the delete command:
+
+.Possible Combinations of delete command
+|===
+|Scenario |Command |Result
+
+|If you want to delete the second order from the order list.
+|`delete` `-o` `2`
+|Deletes the 2nd order from the order list.
+
+|If you want to delete the third order from the return order list.
+|`delete` `-r` `3`
+|Deletes the 3rd return order from the return order list.
+
+|If you want delete the first order that belongs to the customer 'Betsy'.
+|`search` `-o` `Betsy` +
+`delete` `-o` `1`
+|Deletes the 1st order in the results of the `search` command
+(search all orders with customer's name `Betsy`).
+
+|If you want to obtain all orders in the return order list located in the central region of Singapore.
+|`search` `-r` `Aaron` +
+`delete` `-r` `1`
+|Deletes the 1st return order in the results of the `search` command
+(search all return orders with customer's name `Aaron`).
+|===
+
 
 [[delivered]]
 === Delivering an order or return order : `delivered` [Done by - Cher Wei Jie]
@@ -767,7 +810,10 @@ A quick reference for the five areas of Singapore can be <<area_table, found her
 ====
 
 [[usage_scenario_nearby_command]]
-The table below describes the possible usage scenarios of the nearby command:
+==== Nearby command usage scenarios
+In this section, you will learn more about the various usage scenarios of the `nearby` command!
+
+The table below describes the possible usage scenarios of the `nearby` command:
 
 .Possible Combinations of nearby command
 |===
@@ -1181,11 +1227,11 @@ OR +
 
 |-o
 |Order flag, Operation on order list
-|<<clear, Clear>>, <<nearby, Nearby>>, <<delivered, Delivered>>, <<search, Search>>, <<edit, Edit>>
+|<<clear, Clear>>, <<delete, Delete>>, <<delivered, Delivered>>, <<edit, Edit>>, <<nearby, Nearby>>, <<search, Search>>
 
 |-r
 |Return Order flag, Operation on return order list
-|<<clear, Clear>>, <<nearby, Nearby>>, <<delivered, Delivered>>, <<search, Search>>, <<edit, Edit>>
+|<<clear, Clear>>, <<delete, Delete>>, <<delivered, Delivered>>, <<edit, Edit>>, <<nearby, Nearby>>, <<search, Search>>
 |===
 
 [[area_table]]
