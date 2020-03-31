@@ -45,6 +45,11 @@ public class DeleteSupplierCommand extends Command {
         this.deleteSupplierGoodName = new DeleteSupplierCommand.DeleteSupplierGoodName(deleteSupplierGoodName);
     }
 
+    public DeleteSupplierCommand(Index indexFirstSupplier) {
+        this.index = indexFirstSupplier;
+        deleteSupplierGoodName = new DeleteSupplierGoodName();
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
