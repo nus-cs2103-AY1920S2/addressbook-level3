@@ -340,6 +340,7 @@ public class ModelManager implements Model {
   public Assignment getAssignment(ID assignmentID) {
     return null;
   }
+
   // =====================================================================================================
 
 
@@ -528,13 +529,23 @@ public class ModelManager implements Model {
   // ========================== For Assigning of X to Y =========================
 
   public void assignStudentToCourse(ID studentID, ID courseID) {
-    // if student exists
-    // if course exists
-    // if student not already assigned to the course
-    // if course doesn't already have the student
+    Course foundCourse = getCourse(courseID);
+    Student foundStudent = getStudent(studentID);
+
+    foundCourse.addStudent(studentID);
+    foundStudent.addCourse(courseID);
+    foundCourse.processAssignedStudents(
+            (FilteredList<Student>) getFilteredStudentList());
+    foundStudent.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
   }
 
-  @Override
+  public void assignAssignmentToCourse(ID assignmentID, ID courseID) {
+  }
+
+    @Override
   public boolean equals(Object obj) {
     // short circuit if same object
     if (obj == this) {
