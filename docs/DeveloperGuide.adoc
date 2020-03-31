@@ -101,7 +101,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other
 for the scenario where the user issues the command `session delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `session delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -137,8 +137,8 @@ link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 .  `TaTrackerParser` uses specialized command parsers to parse the user command.
 .. `StudentCommandParser`, `ModuleCommandParser`, `GroupCommandParser`, and `SessionCommandParser`
 parse commands that interact with the models that they are named after.
-.. Other parsers, such as `HelpCommandParser` and `FilterCommandParser` parse commands that
-interact with the TA-Tracker user interface.
+.. Other parsers, such as `HelpCommandParser`, `SortCommandParser` and `FilterCommandParser`
+parse commands that interact with the TA-Tracker user interface.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -147,12 +147,13 @@ interact with the TA-Tracker user interface.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
 
 .Interactions Inside the Logic Component for the `group add m/CS2103 g/G03 t/lab` Command
-image::DeleteSequenceDiagram.png[]
+image::AddGroupSequenceDiagram.png[]
 
 [NOTE]
 ====
 [horizontal]
-* The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* The lifeline for `GroupCommandParser` and AddCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
@@ -174,7 +175,10 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `TaTracker`, which `Student` can reference. This would allow `TaTracker` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `TaTracker`, which `Student` can
+reference. This would allow `TaTracker` to only require one `Tag` object per unique
+`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
+such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -212,148 +216,67 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Student View
+*Student view* is the term used to characterise the different functionalities
+related to the students.
 
-The undo/redo mechanism is facilitated by `VersionedTaTracker`.
-It extends `TaTracker` with an undo/redo history, stored internally as an `taTrackerStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedTaTracker#commit()` -- Saves the current TA-Tracker state in its history.
-* `VersionedTaTracker#undo()` -- Restores the previous TA-Tracker state from its history.
-* `VersionedTaTracker#redo()` -- Restores a previously undone TA-Tracker state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitTaTracker()`, `Model#undoTaTracker()` and `Model#redoTaTracker()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedTaTracker` will be initialized with the initial TA-Tracker state, and the `currentStatePointer` pointing to that single TA-Tracker state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th student in the TA-Tracker. The `delete` command calls `Model#commitTaTracker()`, causing the modified state of the TA-Tracker after the `delete 5` command executes to be saved in the `taTrackerStateList`, and the `currentStatePointer` is shifted to the newly inserted TA-Tracker state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new student. The `add` command also calls `Model#commitTaTracker()`, causing another modified TA-Tracker state to be saved into the `taTrackerStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitTaTracker()`, so the TA-Tracker state will not be saved into the `taTrackerStateList`.
-
-Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTaTracker()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TA-Tracker state, and restores the TA-Tracker to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial TA-Tracker state, then there are no previous TA-Tracker states to restore. The `undo` command uses `Model#canUndoTaTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoTaTracker()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the TA-Tracker to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `taTrackerStateList.size() - 1`, pointing to the latest TA-Tracker state, then there are no undone TA-Tracker states to restore. The `redo` command uses `Model#canRedoTaTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the TA-Tracker, such as `list`, will usually not call `Model#commitTaTracker()`, `Model#undoTaTracker()` or `Model#redoTaTracker()`. Thus, the `taTrackerStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitTaTracker()`. Since the `currentStatePointer` is not pointing at the end of the `taTrackerStateList`, all TA-Tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire TA-Tracker.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the student being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of TA-Tracker states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTaTracker`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-//tag::moduleview[]
-=== Module View
-Module view is the term used to characterise the different functionalities
-related to the modules and groups that the user is affiliated with.
+Students are a part of *groups* and groups are a part of *modules*.
 
 ==== Model Framework
 The following class diagram shows how different classes are related in the
-functioning of the module view.
+functioning of the Student View.
 
 .Module View - Class Diagram
 image::ModuleModelClassDiagram.png[]
 
-The TaTracker model class contains a UniqueModuleList which helps it keep track
-of the different modules the user is associated with. Each module contains a
-UniqueGroupList and a UniqueSessionList.
+The TaTracker `Model` class contains a `UniqueModuleList` which helps it keep track
+of the different *modules* the user is associated with. Each `module` contains a
+`UniqueGroupList` and a `UniqueSessionList`.
 
-The UniqueGroupList contains a list of all the groups of a module that the user
-is affiliated with. Each group contains a UniqueStudentsList that contains the
-students in that group.
+The `UniqueGroupList` contains a list of all the *groups* of a module that the user
+is affiliated with. Each group contains a `UniqueStudentsList` that contains the
+*students* in that group.
 
-The UniqueSessionList contains a list of all the done sessions associated with the module.
-This list is used in the TSS view.
+The `UniqueSessionList` contains a list of all the *sessions that have already been
+done* associated with the module. This list is used in the TSS view.
 
 ==== Implementation of the Module Add and Delete Commands
 
 The following sequence diagram shows the sequence of commands that take place
-between the logic and model components of the TA-Tracker when the user enters the
-command 'module add m/CS2103 n/Software Engineering'.
+between the `logic` and `model` components of the TA-Tracker when the user enters the
+command `module add m/CS2103 n/Software Engineering`.
 
-Note: This diagram assumes that there is no module with the module code 'CS2103'
+Note: This diagram assumes that there is no module with the module code `CS2103`
 pre-existing in the TA-Tracker.
 
 .Module Add - Sequence Diagram
 image::AddModuleSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The TATrackerParser sees that the command is of type module and passes the
-command to the ModuleCommandParser.
+2. The `TaTrackerParser` sees that the command is of type `module` and passes the
+command to the `ModuleCommandParser`.
 
-3. The ModuleCommandParser sees that the command is of type add and passes the
-arguments to the AddModuleCommandParser.
+3. The `ModuleCommandParser` sees that the command is of type `add` and passes the
+arguments to the `AddModuleCommandParser`.
 
-4. The AddModuleCommandParser creates a Module with the given module code and
+4. The `AddModuleCommandParser` creates a `Module` with the given module code and
 name.
 
-5. The AddModuleCommandParser then creates an AddModuleCommand object and passes
-it the created module. The parser then returns the AddModuleCommand
+5. The `AddModuleCommandParser` then creates an `AddModuleCommand` object and passes
+it the created module. The parser then returns the `AddModuleCommand` object.
 
-6. LogicManager calls AddModuleCommad's execute method. The AddModuleCommand object
+6. LogicManager calls `AddModuleCommand` 's execute method. The `AddModuleCommand` object
 checks whether a module with the given module code already exists in TA-Tracker.
 If it does, a command exception is thrown saying that a module with the given module
 code already exists in the TA-Tracker.
 
 7. If no such module exists, the module is added to the TA-Tracker.
 
-8. The SortGroupCommand returns a CommandResult with a success message.
+8. The `AddGroupCommand` returns a `CommandResult` with a success message.
 
-The command used to delete a module has been implemented in a similar way. Tha main
-difference is that the DeleteModuleCommand checks whether an object with the given
+The command used to delete a module has been implemented in a similar way. The main
+difference is that the `DeleteModuleCommand` checks whether an object with the given
 module code exists in the TA-Tracker. If no such module exists, a command exception
 is thrown saying that a module with the given module code doesn't exist. If it does
 exist, first all the sessions linked to that module are removed.

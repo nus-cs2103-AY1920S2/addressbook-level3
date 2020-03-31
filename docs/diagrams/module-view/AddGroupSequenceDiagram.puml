@@ -60,7 +60,7 @@ deactivate TaTrackerParser
 LogicManager -> AddGroupCommand : execute()
 activate AddGroupCommand
 
-AddGroupCommand -> Model : deleteGroup()
+AddGroupCommand -> Model : addGroup()
 activate Model
 Model --> AddGroupCommand
 deactivate Model
