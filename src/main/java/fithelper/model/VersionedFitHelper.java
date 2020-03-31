@@ -92,7 +92,7 @@ public class VersionedFitHelper extends FitHelper {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Unable to undo.");
+            super("NoUndoableStateException: Unable to undo.");
         }
     }
 
@@ -101,7 +101,7 @@ public class VersionedFitHelper extends FitHelper {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Unable to redo.");
+            super("NoRedoableStateException: Unable to redo.");
         }
     }
 
