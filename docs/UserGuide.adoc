@@ -342,10 +342,12 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EYLAH folder.
 
 == Command Summary
+In this section, you can find out more about the commands supported by EYLAH (their respective format and example).
 
+If you would like to know more about a specific command, you can view more information by clicking the provided link in the table below.
 
 === For Diet Tracker
 
@@ -369,6 +371,86 @@ e.g. `paid 3`
 
 * *Back* `back` +
 e.g. `back`
+
+|===
+|Command |Format |Example
+
+|<<additem, *Additem*>>
+|`additem` `-i ITEMNAME `-p ITEMPRICE` `-n PERSON` `[-n PERSON]`
+|`insert` `-i pasta` `-p 32` `-n John` +
+or +
+`insert` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
+
+|<<clear, *Clear*>>
+|`clear` `[FLAG]`
+|`clear` +
+`clear` `-f` +
+`clear` `-r` +
+`clear` `-f` `-r` +
+`clear` `-o` +
+`clear` `-o` `-f`
+
+|<<delete, *Delete*>>
+|`delete` `FLAG` `INDEX`
+|`delete` `-o` `2`
+
+|<<delivered, *Delivered*>>
+|`delivered` `FLAG` `INDEX`
+|`delivered` `-r` `2` +
+delivered` `-o` `1`
+
+|<<edit, *Edit*>>
+|`edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE`
+|`edit` `-r` `2` `n/Xuan En` +
+`edit` `-o` `2` `p/9999 4444` +
+`edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+`edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+
+|<<exit, *Exit*>>
+|`exit`
+|`exit`
+
+|<<search, *Search*>>
+|`search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+|`search` `-r` `tid/ac1e345x7s` +
+`search` `-r` `Jeremy Loh` +
+`search` `-o` `tid/asj2od3943` +
+`search` `-r` `p/92039999` +
+`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
+
+|<<help, *Help*>>
+|`help`
+|`help`
+
+|<<show, *Show*>>
+|`show`
+|`show`
+
+|<<import, *Import*>>
+|`import` `FILE_NAME`
+|`import` `orders.csv`
+
+|<<list, *List*>>
+|`list` `[DONE_STATUS]`
+|`list` +
+`list` `done` +
+`list` `undone`
+
+|<<return, *Return*>>
+|`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM`
+|`return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+`return` `tid/ac17s2a` +
+`return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal`
+
+|<<nearby, *Nearby*>>
+|`nearby` `[FLAG]` `POSTAL_SECTOR` +
+OR +
+`nearby` `[FLAG]` `AREA`
+|`nearby` `east` +
+`nearby` `-o` `14` +
+`nearby` `-r` `north`
+|===
+
 
 
 
