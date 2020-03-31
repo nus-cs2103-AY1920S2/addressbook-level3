@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
 
@@ -18,7 +19,7 @@ import tatracker.model.student.exceptions.StudentNotFoundException;
  * updating of students uses Student#isSameStudent(Student) for equality so as to ensure that the student being added or
  * updated is unique in terms of identity in the UniqueStudentList. However, the removal of a student uses
  * Student#equals(Object) so as to ensure that the student with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Student#isSameStudent(Student)
@@ -144,6 +145,16 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.setAll(students);
     }
 
+
+    /**
+     * Returns all students of a particular rating
+     *
+     * @param rating The target rating of students to return
+     */
+    public List<Student> getStudentsOfRating(Rating rating) {
+        return internalList.filtered(s -> s.getRating().equals(rating));
+    }
+
     /**
      * Sorts the students alphabetically.
      */
@@ -189,7 +200,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueStudentList // instanceof handles nulls
-                        && internalList.equals(((UniqueStudentList) other).internalList));
+                && internalList.equals(((UniqueStudentList) other).internalList));
     }
 
     @Override

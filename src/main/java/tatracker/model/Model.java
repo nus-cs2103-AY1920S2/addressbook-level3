@@ -134,7 +134,7 @@ public interface Model {
      * Updates the filter of the filtered done session list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredDoneSessionList(Predicate<Session> predicate);
+    void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode);
 
     /**
      * Returns true if a given module with the same identity as {@code module}

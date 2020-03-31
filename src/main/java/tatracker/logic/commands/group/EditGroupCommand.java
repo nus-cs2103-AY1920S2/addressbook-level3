@@ -10,6 +10,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NEWTYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -33,8 +34,8 @@ public class EditGroupCommand extends Command {
     public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    public static final int FIRST_GROUP_INDEX = 0;
-    public static final int FIRST_MODULE_INDEX = 0;
+    public static final String MESSAGE_DUPLICATE_GROUP = "There is already a group with the group code"
+        + " you want to change it to.";
 
     private final Group group;
     private final Module targetModule;
@@ -62,6 +63,11 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
+        if (newGroupCode != group.getIdentifier()) {
+            if (actualModule.hasGroup(group)) {
+                throw new CommandException(MESSAGE_DUPLICATE_GROUP);
+            }
+        }
         Group editedGroup = actualModule.getGroup(group.getIdentifier());
         editedGroup.setIdentifier(newGroupCode);
 
@@ -77,7 +83,7 @@ public class EditGroupCommand extends Command {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup));
+        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup), Action.GOTO_STUDENT);
     }
 
     @Override

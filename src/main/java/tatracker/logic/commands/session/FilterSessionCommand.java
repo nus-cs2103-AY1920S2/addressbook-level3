@@ -7,6 +7,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.session.SessionPredicate;
@@ -48,7 +49,8 @@ public class FilterSessionCommand extends Command {
         model.updateFilteredSessionList(predicate);
         String keywords = predicate.getKeywords();
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, keywords));
+                String.format(MESSAGE_SUCCESS, keywords),
+                Action.FILTER_SESSION);
     }
 
     @Override

@@ -7,6 +7,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -59,7 +60,7 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        CommandResult returnMsg = new CommandResult(MESSAGE_INVALID_MODULE_CODE);
+        CommandResult returnMsg = new CommandResult(MESSAGE_INVALID_MODULE_CODE, Action.FILTER_STUDENT);
 
         if (contains_module_only()) {
             returnMsg = filterModule(model);
@@ -90,7 +91,7 @@ public class FilterStudentViewCommand extends Command {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode + " " + groupCode));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode + " " + groupCode), Action.FILTER_STUDENT);
     }
 
     /**
@@ -115,7 +116,7 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode), Action.FILTER_STUDENT);
     }
 
     @Override

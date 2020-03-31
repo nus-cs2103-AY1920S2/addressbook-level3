@@ -5,6 +5,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.session.DoneSessionPredicate;
@@ -35,10 +36,11 @@ public class FilterClaimCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredDoneSessionList(predicate);
         String module = predicate.getModuleCode();
+        model.updateFilteredDoneSessionList(predicate, module);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, module));
+                String.format(MESSAGE_SUCCESS, module),
+                Action.FILTER_CLAIMS);
     }
 
     @Override

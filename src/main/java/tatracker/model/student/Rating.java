@@ -12,10 +12,10 @@ public class Rating {
     public static final String MESSAGE_CONSTRAINTS = "Ratings should be a number"
             + " between 1 (POOR) to 5 (EXCELLENT) inclusive";
 
-    private static final int DEFAULT_VALUE = 3;
+    public static final int MIN_RATING = 1;
+    public static final int MAX_RATING = 5;
 
-    private static final int MIN_RATING = 1;
-    private static final int MAX_RATING = 5;
+    private static final int DEFAULT_VALUE = 3;
 
     public final int value;
 
@@ -41,6 +41,14 @@ public class Rating {
      */
     public static boolean isValidRating(int test) {
         return MIN_RATING <= test && test <= MAX_RATING;
+    }
+
+    /**
+     * Returns the range of rating values.
+     * @return the range of rating values.
+     */
+    public static int getRatingRange() {
+        return MAX_RATING - MIN_RATING + 1;
     }
 
     @Override

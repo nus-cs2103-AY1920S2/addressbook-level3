@@ -8,6 +8,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
@@ -57,7 +58,7 @@ public class EditModuleCommand extends Command {
             model.setFilteredStudentList(actualModule.getIdentifier(), FIRST_GROUP_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule));
+        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule), Action.GOTO_STUDENT);
     }
 
     @Override

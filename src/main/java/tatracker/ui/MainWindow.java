@@ -18,7 +18,15 @@ import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.statistic.StatisticCommandResult;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.statistic.Statistic;
+import tatracker.ui.claimstab.ClaimsListPanel;
+import tatracker.ui.claimstab.ModuleListPanelCopy;
+import tatracker.ui.sessiontab.SessionListPanel;
+import tatracker.ui.studenttab.GroupListPanel;
+import tatracker.ui.studenttab.ModuleListPanel;
+import tatracker.ui.studenttab.StudentListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private ClaimsListPanel claimsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticWindow statisticWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -110,6 +119,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -203,6 +213,33 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the statistic window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStatistic() {
+        handleStatistic(null);
+    }
+
+    /**
+     * Opens the statistic window for the input module.
+     * @param moduleCode the module code for which the stats will be for
+     */
+    public void handleStatistic(String moduleCode) {
+        if (statisticWindow != null && statisticWindow.isShowing()) {
+            statisticWindow.hide();
+        }
+
+        // Create a new statistic window
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode));
+        statisticWindow.show();
+        statisticWindow.focus();
+    }
+
+    void show() {
+        primaryStage.show();
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -212,65 +249,10 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
 
-    /**
-     * executes the a command of type exit, help or goto
-     * @param commandText the user input
-     */
-    @FXML
-    public void handleCommand(String commandText) {
-        switch (commandText.trim().toLowerCase()) {
-        case "help":
-            handleHelp();
-            break;
-
-        case "exit":
-            handleExit();
-            break;
-        case "goto student":
-            handleGoto(studentListTab);
-            break;
-
-        case "goto session":
-            handleGoto(sessionListTab);
-            break;
-
-        case "goto claims":
-            handleGoto(claimsListTab);
-            break;
-
-        default:
-            break;
+        if (statisticWindow != null) {
+            statisticWindow.hide();
         }
-    }
-
-    void show() {
-        primaryStage.show();
-    }
-
-    public StudentListPanel getStudentListPanel() {
-        return studentListPanel;
-    }
-
-    public GroupListPanel getGroupListPanel() {
-        return groupListPanel;
-    }
-
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
-    }
-
-    public ModuleListPanelCopy getModuleListPanelCopy() {
-        return moduleListPanelCopy;
-    }
-
-    public SessionListPanel getSessionListPanel() {
-        return sessionListPanel;
-    }
-
-    public ClaimsListPanel getClaimsListPanel() {
-        return claimsListPanel;
     }
 
     /**
@@ -284,24 +266,50 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (commandResult instanceof StatisticCommandResult) {
+                StatisticCommandResult scr = (StatisticCommandResult) commandResult;
+                handleStatistic(scr.targetModuleCode);
+            }
+
             switch (commandResult.getNextAction()) {
-            case HELP:
-                handleHelp();
+            case DONE:
+                claimsListPanel.updateLabel();
+                handleGoto(claimsListTab);
                 break;
 
             case EXIT:
                 handleExit();
                 break;
-            case GOTO_STUDENT:
+
+            case FILTER_CLAIMS:
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                handleGoto(claimsListTab);
+                break;
+
+            case FILTER_SESSION:
+                handleGoto(sessionListTab);
+                break;
+
+            case FILTER_STUDENT:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
+                break;
+
+            case GOTO_CLAIMS:
+                handleGoto(claimsListTab);
                 break;
 
             case GOTO_SESSION:
                 handleGoto(sessionListTab);
                 break;
 
-            case GOTO_CLAIMS:
-                handleGoto(claimsListTab);
+            case GOTO_STUDENT:
+                handleGoto(studentListTab);
+                break;
+
+            case HELP:
+                handleHelp();
                 break;
 
             default:

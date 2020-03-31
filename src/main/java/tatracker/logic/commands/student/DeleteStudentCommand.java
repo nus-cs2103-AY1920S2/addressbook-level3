@@ -7,6 +7,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -89,7 +90,7 @@ public class DeleteStudentCommand extends Command {
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete), Action.GOTO_STUDENT);
     }
 
     @Override

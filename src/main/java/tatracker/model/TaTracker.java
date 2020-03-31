@@ -2,6 +2,7 @@ package tatracker.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -25,13 +26,17 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
+    private static Group currentlyShownGroup;
+    private static Module currentlyShownModule;
+    private static Module currentlyShownModuleClaim;
+    private static long totalHours;
+    private static int rate;
+
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
-    private Module currentlyShownModule;
-    private Group currentlyShownGroup;
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -41,6 +46,9 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownStudents = new UniqueStudentList();
         currentlyShownGroup = null;
         currentlyShownModule = null;
+        currentlyShownModuleClaim = null;
+        totalHours = 0;
+        rate = 40;
     }
 
     /**
@@ -58,7 +66,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         requireNonNull(newData);
 
         setSessions(newData.getSessionList());
-        setDoneSessions(newData.getDoneSessionList());
+        setDoneSessionList(newData.getDoneSessionList());
         setModules(newData.getModuleList());
         setCurrentlyShownGroups(newData.getCurrentlyShownGroupList());
         setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
@@ -118,21 +126,61 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Done Session Methods =================================================
 
+    /**
+     * adds a session
+     * @param s
+     */
     public void addDoneSession(Session s) {
         doneSessions.add(s);
+        totalHours += Math.ceil(s.getDuration().toHours());
+    }
+
+    public static long getTotalEarnings() {
+        return rate * totalHours;
     }
 
     /**
      * Replaces the contents of the donesession list with {@code donesessions}.
      * {@code donesessions} must not contain duplicate donesessions.
      */
-    public void setDoneSessions(List<Session> donesessions) {
+    public void setDoneSessionList(List<Session> donesessions) {
         this.doneSessions.setSessions(donesessions);
     }
 
     @Override
     public ObservableList<Session> getDoneSessionList() {
         return doneSessions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Student> getCompleteStudentList() {
+        UniqueStudentList hack = new UniqueStudentList();
+        List<Student> allStudents = new ArrayList<>();
+        for (Module m : modules) {
+            for (Group g : m.getGroupList()) {
+                for (Student s : g.getStudentList()) {
+                    allStudents.add(s);
+                }
+            }
+        }
+
+        hack.setStudents(allStudents);
+        return hack.asUnmodifiableObservableList();
+    }
+
+    public void setCurrentlyShownModuleClaim(String moduleCode) {
+        currentlyShownModuleClaim = modules.getModule(moduleCode);
+    }
+
+    public static Module getCurrentlyShownModuleClaim() {
+        if (currentlyShownModuleClaim == null) {
+            System.out.println("no filter");
+        } else {
+            System.out.println("reached");
+            System.out.println(currentlyShownModuleClaim.getIdentifier());
+            System.out.println(currentlyShownModuleClaim.getName());
+        }
+        return currentlyShownModuleClaim;
     }
 
     // ======== Module Methods =================================================
@@ -246,6 +294,14 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.asUnmodifiableObservableList();
     }
 
+    public static Module getCurrentlyShownModule() {
+        return currentlyShownModule;
+    }
+
+    public void setCurrentlyShownModule(Module module) {
+        currentlyShownModule = module;
+    }
+
     // ======== Group Methods ==================================================
 
     /**
@@ -342,20 +398,12 @@ public class TaTracker implements ReadOnlyTaTracker {
         return currentlyShownGroups.asUnmodifiableObservableList();
     }
 
-    public Group getCurrentlyShownGroup() {
+    public static Group getCurrentlyShownGroup() {
         return currentlyShownGroup;
-    }
-
-    public Module getCurrentlyShownModule() {
-        return currentlyShownModule;
     }
 
     public void setCurrentlyShownGroup(Group group) {
         currentlyShownGroup = group;
-    }
-
-    public void setCurrentlyShownModule(Module module) {
-        currentlyShownModule = module;
     }
 
     // ======== Student Methods ================================================

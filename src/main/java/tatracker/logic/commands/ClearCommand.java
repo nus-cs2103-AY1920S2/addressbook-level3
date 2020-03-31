@@ -2,6 +2,7 @@ package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
 
@@ -18,6 +19,6 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setTaTracker(new TaTracker());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, Action.NONE);
     }
 }

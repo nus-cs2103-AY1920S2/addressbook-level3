@@ -34,7 +34,7 @@
           </Menu>
                <Menu mnemonicParsing="false" text="Statistics">
                   <items>
-                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleHelp" text="Statistics" />
+                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleStatistic" text="Statistics" />
                   </items>
                </Menu>
         </MenuBar>
@@ -55,7 +55,7 @@
           <tabs>
             <Tab fx:id="studentListTab" text="Student">
               <content>
-                <SplitPane dividerPositions="0.6, 0.8">
+                <SplitPane dividerPositions="0.2, 0.4">
                   <items>
                     <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                     <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
@@ -71,10 +71,10 @@
             </Tab>
             <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                 <SplitPane dividerPositions="0.8">
+                 <SplitPane dividerPositions="0.2">
                    <items>
-                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      <StackPane fx:id="moduleListPanelPlaceholderCopy" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                    </items>
                  </SplitPane>
                </content>

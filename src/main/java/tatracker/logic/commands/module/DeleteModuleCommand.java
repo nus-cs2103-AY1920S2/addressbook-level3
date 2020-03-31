@@ -7,6 +7,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
@@ -48,7 +49,7 @@ public class DeleteModuleCommand extends Command {
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete), Action.GOTO_STUDENT);
     }
 
     @Override

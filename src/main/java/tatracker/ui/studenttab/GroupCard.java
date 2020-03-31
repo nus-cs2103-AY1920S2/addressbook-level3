@@ -1,17 +1,18 @@
-package tatracker.ui;
+package tatracker.ui.studenttab;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import tatracker.model.module.Module;
+import tatracker.model.group.Group;
+import tatracker.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Module}.
+ * An UI component that displays information of a {@code Group}.
  */
-public class ModuleCard extends UiPart<Region> {
+public class GroupCard extends UiPart<Region> {
 
-    private static final String FXML = "ModuleListCard.fxml";
+    private static final String FXML = "GroupListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,7 +22,7 @@ public class ModuleCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Module module;
+    public final Group group;
 
     @FXML
     private HBox cardPane;
@@ -30,14 +31,14 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label identifier;
+    private Label type;
 
-    public ModuleCard(Module module, int displayedIndex) {
+    public GroupCard(Group group, int displayedIndex) {
         super(FXML);
-        this.module = module;
+        this.group = group;
         id.setText(displayedIndex + ". ");
-        name.setText(module.getName());
-        identifier.setText(module.getIdentifier());
+        name.setText(group.getIdentifier());
+        type.setText(group.getGroupType().toString());
     }
 
     @Override
@@ -48,13 +49,13 @@ public class ModuleCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ModuleCard)) {
+        if (!(other instanceof GroupCard)) {
             return false;
         }
 
         // state check
-        ModuleCard card = (ModuleCard) other;
+        GroupCard card = (GroupCard) other;
         return id.getText().equals(card.id.getText())
-                && module.equals(card.module);
+                && group.equals(card.group);
     }
 }
