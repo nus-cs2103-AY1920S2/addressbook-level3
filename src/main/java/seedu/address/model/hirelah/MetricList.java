@@ -87,7 +87,7 @@ public class MetricList {
     public void edit(String metricPrefix, String updatedName, AttributeList attributes,
                      List<String> attributePrefixes, List<Double> weightages) throws IllegalValueException {
         Metric metric = find(metricPrefix);
-        Metric updatedMetric = metric.setName(updatedName);
+        Metric updatedMetric = metric.setName(updatedName.equals("") ? metric.getName() : updatedName);
 
         for (int i = 0; i < attributePrefixes.size(); i++) {
             Attribute attribute = attributes.find(attributePrefixes.get(i));
