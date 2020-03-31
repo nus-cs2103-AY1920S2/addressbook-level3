@@ -230,6 +230,10 @@
     -fx-padding: 8 1 8 1;
 }
 
+.list-cell:empty {
+    -fx-opacity: 0;
+}
+
 #commandTypeLabel {
     -fx-background-color: white;
     -fx-font-size: 11px;

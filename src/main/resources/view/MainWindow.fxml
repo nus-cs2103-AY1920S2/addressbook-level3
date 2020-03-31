@@ -38,13 +38,17 @@
           </VBox>
 
           <VBox>
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-without-border"
+            <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" styleClass="pane-without-border"
                        minWidth="180">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
-            <StackPane VBox.vgrow="ALWAYS" fx:id="blockContentPlaceholder"/>
+
+            <StackPane VBox.vgrow="ALWAYS">
+              <StackPane fx:id="blockContentPlaceholder" VBox.vgrow="ALWAYS" visible="true" />
+              <StackPane fx:id="suggestionsWindow" StackPane.alignment="TOP_CENTER" VBox.vgrow="NEVER"/>
+            </StackPane>
           </VBox>
         </SplitPane>
 
