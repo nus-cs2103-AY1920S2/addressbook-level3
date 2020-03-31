@@ -25,7 +25,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "cheap", "halal", "spicy", "asian" ]
+    "tags" : [ "cheap", "spicy", "asian", "halal" ]
   }, {
     "name" : "Japanese",
     "canteenName" : "The Deck",
@@ -70,7 +70,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "asian", "noodle", "cheap" ]
+    "tags" : [ "cheap", "asian", "noodle" ]
   }, {
     "name" : "Yong Tau Foo and Laksa",
     "canteenName" : "The Deck",
@@ -124,7 +124,7 @@
     "cuisine" : "fusion",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "western", "expensive", "asian", "spicy", "rice" ]
+    "tags" : [ "spicy", "asian", "rice", "expensive", "western" ]
   }, {
     "name" : "Duck and Chicken Rice",
     "canteenName" : "Nus Flavors",
@@ -142,7 +142,7 @@
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tags" : [ "asian", "noodle" ]
+    "tags" : [ "noodle", "asian" ]
   }, {
     "name" : "Indian Cuisine",
     "canteenName" : "Nus Flavors",
