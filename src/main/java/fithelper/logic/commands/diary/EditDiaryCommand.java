@@ -5,6 +5,9 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import fithelper.commons.core.LogsCenter;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
@@ -36,6 +39,10 @@ public class EditDiaryCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in fitHelper.";
 
+    private static final String MESSAGE_COMMIT = "Edit a diary";
+
+    private static final Logger logger = LogsCenter.getLogger(EditDiaryCommand.class);
+
     private final String diaryId;
     private final EditDiaryDescriptor editDiaryDescriptor;
 
@@ -65,6 +72,10 @@ public class EditDiaryCommand extends Command {
         Diary editedDiary = createEditedDiary(diaryId, editDiaryDescriptor);
         model.setDiary(diaryId, editedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
+
+        model.commit(MESSAGE_COMMIT);
+        logger.info(String.format("edited a new diary [%s]", editDiaryDescriptor.toString()));
+
         //model.updateFil
         return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary),
                 CommandResult.DisplayedPage.DIARY, false);

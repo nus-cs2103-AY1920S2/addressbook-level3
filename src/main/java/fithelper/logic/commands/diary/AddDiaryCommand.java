@@ -4,6 +4,9 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
@@ -30,6 +33,10 @@ public class AddDiaryCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Diary added: %1$s";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in FitHelper";
 
+    private static final String MESSAGE_COMMIT = "Add a diary";
+
+    private static final Logger logger = LogsCenter.getLogger(AddDiaryCommand.class);
+
     private final Diary toAdd;
 
     /**
@@ -49,6 +56,10 @@ public class AddDiaryCommand extends Command {
         }
 
         model.addDiary(toAdd);
+
+        model.commit(MESSAGE_COMMIT);
+        logger.info(String.format("Added a new diary [%s]", toAdd.toString()));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandResult.DisplayedPage.DIARY, false);
     }
 

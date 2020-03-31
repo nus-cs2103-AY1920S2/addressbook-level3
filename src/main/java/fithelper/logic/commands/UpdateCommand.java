@@ -6,7 +6,9 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
@@ -45,6 +47,10 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_VALUE = "Are you sure to overwrite your original value? "
             + "If so, use flag " + FLAG_FORCE + " to force updating.";
 
+    private static final String MESSAGE_COMMIT = "update the user profile";
+
+    private static final Logger logger = LogsCenter.getLogger(UpdateCommand.class);
+
     private final UpdateValueDescriptor updateProfileDescriptor;
 
     /**
@@ -74,6 +80,9 @@ public class UpdateCommand extends Command {
         }
 
         model.setUserProfile(updatedProfile);
+
+        model.commit(MESSAGE_COMMIT);
+        logger.info(String.format("Updated user profile [%s]", updateProfileDescriptor.toString()));
 
         return new CommandResult(String.format(MESSAGE_UPDATE_VALUE_SUCCESS, updatedProfile),
                 CommandResult.DisplayedPage.PROFILE);
