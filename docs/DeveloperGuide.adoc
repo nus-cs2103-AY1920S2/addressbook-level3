@@ -1049,6 +1049,7 @@ _Table 1. Diet Tracker Command Prefix_ +
 | Prefix | Description | Used in Following Commands
 | -n | Name of Food | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>>
 | -c | Calories | <<Add-Command,*Add*>>, <<Edit-Command,*Edit*>>
+| -i | Index | <<Edit-Command,*Edit*>>
 | -g | Gain | <<Mode-Command,*Mode*>>
 | -m | Maintain | <<Mode-Command,*Mode*>>
 | -f | Foods | <<List-Command,*List*>>

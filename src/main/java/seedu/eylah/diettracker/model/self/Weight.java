@@ -10,13 +10,14 @@ import static seedu.eylah.commons.util.AppUtil.checkArgument;
 public class Weight {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Weight should only contain numbers, and it should not be blank. It is to be input in kilograms.";
+            "Weight should only be a floating point number, and it should not be blank. It is to be input in "
+                    + "kilograms.";
 
     /*
      * The first character of the weight must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "^[-+]?\\d*\\.?\\d*$*";
 
     private final String weightString;
     private final Float weightFloat;

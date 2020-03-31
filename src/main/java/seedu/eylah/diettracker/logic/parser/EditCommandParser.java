@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.eylah.addressbook.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -32,12 +33,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer
-                        .tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
+                        .tokenize(args, PREFIX_INDEX, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
 
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
