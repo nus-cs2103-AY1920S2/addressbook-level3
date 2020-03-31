@@ -24,6 +24,9 @@ public class PaidCommand extends Command {
         + "Parameters: INDEX and AMOUNT (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1" + " 3.30";
 
+    public static final String PROPER_AMOUNT = "Amount paid must not contain any alphabets and have only"
+        + " a maximum of 2 decimal places.";
+
     public static final String MESSAGE_RECEIPT_UNDONE = "The current receipt is marked as incomplete. You may not "
             + "use the paid command.";
 
