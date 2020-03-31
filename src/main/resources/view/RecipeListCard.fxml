@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="140.0" prefWidth="200.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
- <VBox alignment="CENTER_LEFT" minHeight="122.0" prefHeight="140.0" prefWidth="219.0" styleClass="alternating-row-colors">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="140.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+ <VBox alignment="CENTER_LEFT" minWidth="180.0">
      <!--was originally minHeight = 105.0 -->
    <padding>
      <Insets bottom="5" left="15" right="5" top="5" />
    </padding>
       <children>
-         <HBox alignment="CENTER_LEFT" prefWidth="142.0" spacing="5">
+         <HBox alignment="CENTER_LEFT" spacing="5">
             <children>
                <Label fx:id="id" styleClass="cell_big_label" stylesheets="@DarkTheme.css">
                   <minWidth>
