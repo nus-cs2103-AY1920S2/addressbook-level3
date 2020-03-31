@@ -10,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.storage.JsonAdaptedRecipe;
 
 /**
@@ -30,7 +28,7 @@ public class JsonAdaptedPlannedRecipe {
     @JsonCreator
     public JsonAdaptedPlannedRecipe(@JsonProperty("recipes") List<JsonAdaptedRecipe> recipes,
             @JsonProperty("date") JsonAdaptedPlannedDate date) {
-        if (recipes!= null) {
+        if (recipes != null) {
             this.recipes.addAll(recipes);
         }
         this.date = date;
