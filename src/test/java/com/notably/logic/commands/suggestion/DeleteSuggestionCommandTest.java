@@ -94,7 +94,8 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_validPathWithPrefix_generateResponseCorrectly() {
-        model.setInput("delete -t /CS2103");
+        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
+
         DeleteSuggestionCommand deleteSuggestionCommand =
             new DeleteSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
@@ -139,7 +140,8 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_validPathWithoutPrefix_generateResponseCorrectly() {
-        model.setInput("delete /CS2103");
+        model.setInput(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
+
         DeleteSuggestionCommand deleteSuggestionCommand =
                 new DeleteSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         deleteSuggestionCommand.execute(model);

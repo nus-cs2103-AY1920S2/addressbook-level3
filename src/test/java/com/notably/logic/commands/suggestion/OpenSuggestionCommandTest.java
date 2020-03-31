@@ -94,7 +94,7 @@ public class OpenSuggestionCommandTest {
 
     @Test
     public void execute_validPathWithPrefix_generateResponseCorrectly() {
-        model.setInput("open -t /CS2103");
+        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
         OpenSuggestionCommand openSuggestionCommand =
                 new OpenSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         openSuggestionCommand.execute(model);
@@ -139,7 +139,7 @@ public class OpenSuggestionCommandTest {
 
     @Test
     public void execute_validPathWithoutPrefix_generateResponseCorrectly() {
-        model.setInput("open /CS2103");
+        model.setInput(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
         OpenSuggestionCommand openSuggestionCommand =
                 new OpenSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         openSuggestionCommand.execute(model);

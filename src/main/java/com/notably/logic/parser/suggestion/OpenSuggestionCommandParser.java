@@ -53,7 +53,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 
         return correctedPath
-            .map((AbsolutePath path) -> new OpenSuggestionCommand(path, title))
+            .map(path -> new OpenSuggestionCommand(path, title))
             .orElseThrow(() -> new ParseException("Invalid path"));
     }
 }

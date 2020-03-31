@@ -1,5 +1,6 @@
 package com.notably.logic.parser.suggestion;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,7 +42,6 @@ public class OpenSuggestionCommandParserTest {
     private static OpenSuggestionCommandParser openSuggestionCommandParser;
 
     private static final String COMMAND_WORD = "open";
-    private static final String PREFIX_TITLE = "-t";
     private static final String RESPONSE_MESSAGE = "Open a note";
 
     @BeforeAll
@@ -96,7 +96,7 @@ public class OpenSuggestionCommandParserTest {
 
     @Test
     public void parse_correctPathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        model.setInput("open -t /CS2103");
+        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
         SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2103");
         assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
 
@@ -143,8 +143,8 @@ public class OpenSuggestionCommandParserTest {
 
     @Test
     public void parse_correctPathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        model.setInput("open /CS2103");
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2103");
+        model.setInput(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
+        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" /CS2103");
         assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
 
         commandCorrectPath.execute(model);
@@ -190,7 +190,7 @@ public class OpenSuggestionCommandParserTest {
 
     @Test
     public void parse_correctedPathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        model.setInput("open -t /CS2104");
+        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " /CS2104");
         SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2104");
         assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
 
@@ -237,8 +237,8 @@ public class OpenSuggestionCommandParserTest {
 
     @Test
     public void parse_correctedPathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        model.setInput("open /CS2104");
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2104");
+        model.setInput(COMMAND_WORD + " /CS2104");
+        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" /CS2104");
         assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
 
         commandCorrectPath.execute(model);

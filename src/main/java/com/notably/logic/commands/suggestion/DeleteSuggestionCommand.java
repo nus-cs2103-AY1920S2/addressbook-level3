@@ -19,13 +19,13 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
     private static final String RESPONSE_MESSAGE = "Delete a note";
 
     private AbsolutePath path;
-    private String title;
+    private String oldTitle;
 
-    public DeleteSuggestionCommand(AbsolutePath path, String title) {
+    public DeleteSuggestionCommand(AbsolutePath path, String oldTitle) {
         Objects.requireNonNull(path);
-        Objects.requireNonNull(title);
+        Objects.requireNonNull(oldTitle);
         this.path = path;
-        this.title = title;
+        this.oldTitle = oldTitle;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
         return possiblePaths.stream()
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
-                    String updatedInput = (model.getInput()).replace(title, displayText);
+                    String updatedInput = model.getInput().replace(oldTitle, displayText);
                     Runnable action = () -> {
                         model.setInput(updatedInput);
                     };
