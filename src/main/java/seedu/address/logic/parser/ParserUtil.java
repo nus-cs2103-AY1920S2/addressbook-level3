@@ -9,6 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.settings.DailyTarget;
+import seedu.address.model.settings.PetName;
+import seedu.address.model.settings.PomDuration;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
@@ -152,5 +155,32 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static PetName parsePetName(String petName) throws ParseException {
+        requireNonNull(petName);
+        String trimmedPetName = petName.trim();
+        if (!PetName.isValidPetName(trimmedPetName)) {
+            throw new ParseException(PetName.MESSAGE_CONSTRAINTS);
+        }
+        return new PetName(trimmedPetName);
+    }
+
+    public static PomDuration parsePomDuration(String pomDuration) throws ParseException {
+        requireNonNull(pomDuration);
+        String trimmedPomDuration = pomDuration.trim();
+        if (!PomDuration.isValidPomDuration(trimmedPomDuration)) {
+            throw new ParseException(PomDuration.MESSAGE_CONSTRAINTS);
+        }
+        return new PomDuration(trimmedPomDuration);
+    }
+
+    public static DailyTarget parseDailyTarget(String dailyTarget) throws ParseException {
+        requireNonNull(dailyTarget);
+        String trimmedDailyTarget = dailyTarget.trim();
+        if (!DailyTarget.isValidDailyTarget(trimmedDailyTarget)) {
+            throw new ParseException(DailyTarget.MESSAGE_CONSTRAINTS);
+        }
+        return new DailyTarget(trimmedDailyTarget);
     }
 }
