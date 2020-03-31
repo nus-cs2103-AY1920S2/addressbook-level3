@@ -502,7 +502,7 @@ public class ModelManager implements Model {
             return null;
         } else {
             LocalDate last = weights.get(0).getDate().value;
-            for(int i = 1; i < weights.size(); i++) {
+            for (int i = 1; i < weights.size(); i++) {
                 if (weights.get(i).getDate().value.compareTo(last) > 0) {
                     last = weights.get(i).getDate().value;
                 }

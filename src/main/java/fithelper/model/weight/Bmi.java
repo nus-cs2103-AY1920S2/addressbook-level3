@@ -3,8 +3,6 @@ package fithelper.model.weight;
 import static fithelper.commons.util.AppUtil.checkArgument;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import fithelper.model.profile.Height;
-
 /**
  * Represents a User's Bmi in one weight record.
  * Guarantees: immutable; is valid as declared in {@link #isValidBmi(double test)}

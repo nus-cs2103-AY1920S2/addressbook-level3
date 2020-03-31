@@ -57,7 +57,10 @@ public class WeightPage extends UiPart<AnchorPane> {
         initializeBmiLineChart();
     }
 
-    private void initializeTitle(){
+    /**
+     * Initialize the value of the title line.
+     */
+    private void initializeTitle() {
         double target = profile.getUserProfile().getTargetWeight().value;
         if (weights.size() == 0) {
             title.setText("Keep going! You haven't reached your goal!");
@@ -92,7 +95,7 @@ public class WeightPage extends UiPart<AnchorPane> {
      * @param weights a list of weight.
      * @return a list of date.
      */
-    private ArrayList<String> getDates(List<Weight> weights){
+    private ArrayList<String> getDates(List<Weight> weights) {
         ArrayList<String> dates = new ArrayList<>();
         for (int i = 0; i < weights.size(); i++) {
             dates.add(weights.get(i).getDate().value.toString());
@@ -105,7 +108,7 @@ public class WeightPage extends UiPart<AnchorPane> {
      * @param weights a list of weight.
      * @return a list of weight value in double.
      */
-    private ArrayList<Double> getWeights(List<Weight> weights){
+    private ArrayList<Double> getWeights(List<Weight> weights) {
         ArrayList<Double> weight = new ArrayList<>();
         for (int i = 0; i < weights.size(); i++) {
             weight.add(weights.get(i).getWeightValue().value);
@@ -118,7 +121,7 @@ public class WeightPage extends UiPart<AnchorPane> {
      * @param weights a list of weight.
      * @return a list of BMI value in double.
      */
-    private ArrayList<Double> getBmis(List<Weight> weights){
+    private ArrayList<Double> getBmis(List<Weight> weights) {
         ArrayList<Double> bmis = new ArrayList<>();
         for (int i = 0; i < weights.size(); i++) {
             bmis.add(weights.get(i).getBmi().value);
@@ -137,7 +140,10 @@ public class WeightPage extends UiPart<AnchorPane> {
         });
     }
 
-    private void initializeWeightLineChart(){
+    /**
+     * Initialize the weight line chart.
+     */
+    private void initializeWeightLineChart() {
         String[] date = getDate(weights);
         ArrayList<String> dates = getDates(weights);
         ArrayList<Double> values = getWeights(weights);
@@ -163,7 +169,10 @@ public class WeightPage extends UiPart<AnchorPane> {
         installToolTipXyChart(series.getData());
     }
 
-    private void initializeBmiLineChart(){
+    /**
+     * Initialize the bmi line chart.
+     */
+    private void initializeBmiLineChart() {
         String[] date = getDate(weights);
         ArrayList<String> dates = getDates(weights);
         ArrayList<Double> values = getBmis(weights);

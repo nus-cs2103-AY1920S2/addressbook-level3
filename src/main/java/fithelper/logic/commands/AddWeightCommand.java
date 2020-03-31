@@ -1,5 +1,13 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
+
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.exceptions.CommandException;
@@ -10,15 +18,6 @@ import fithelper.model.weight.Bmi;
 import fithelper.model.weight.Date;
 import fithelper.model.weight.Weight;
 import fithelper.model.weight.WeightValue;
-
-import javax.imageio.event.IIOWriteWarningListener;
-import java.time.LocalDate;
-import java.util.logging.Logger;
-
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Adds a weight to Weight Records.
@@ -65,10 +64,10 @@ public class AddWeightCommand extends Command {
             throw new CommandException(MRSSAGE_FUTURE_WEIGHT);
         }
 
-        Profile profile= model.getUserProfile().getUserProfile();
+        Profile profile = model.getUserProfile().getUserProfile();
         Height height = profile.getHeight();
 
-        double bmiValue = toAddWeightValue.value / (height.value/100.0) / (height.value/100.0);
+        double bmiValue = toAddWeightValue.value / (height.value / 100.0) / (height.value / 100.0);
         Bmi toAddBmi = new Bmi(bmiValue);
 
         Weight toAdd = new Weight(toAddDate, toAddWeightValue, toAddBmi);
@@ -77,8 +76,8 @@ public class AddWeightCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_WEIGHT);
         }
 
-        // update profile
-        if (model.getLastWeightDate() == null || toAddDate.value.isAfter(model.getLastWeightDate())){
+        // update profile.
+        if (model.getLastWeightDate() == null || toAddDate.value.isAfter(model.getLastWeightDate())) {
             profile.setCurrentWeight(toAddWeightValue);
             profile.setCurrentBmi(toAddBmi);
         }
@@ -98,6 +97,6 @@ public class AddWeightCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddWeightCommand // instanceof handles nulls
                 && toAddDate.equals(((AddWeightCommand) other).toAddDate)
-                && toAddWeightValue.equals(((AddWeightCommand)other).toAddWeightValue));
+                && toAddWeightValue.equals(((AddWeightCommand) other).toAddWeightValue));
     }
 }

@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 import fithelper.logic.commands.AddWeightCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
-import fithelper.model.weight.WeightValue;
 import fithelper.model.weight.Date;
+import fithelper.model.weight.WeightValue;
 
 
 /**
