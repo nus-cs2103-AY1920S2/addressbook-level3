@@ -3,10 +3,12 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.diettracker.model.Model.PREDICATE_SHOW_ALL_FOODS;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.tag.Tag;
 
@@ -55,7 +57,10 @@ public class ListCommand extends Command {
         String listString;
 
         if (mode.equals("-t")) {
-            model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOODS);
+            // date till which to obtain food logged
+            Date limit = new Date(LocalDateTime.now().minusDays((long) numDays));
+            Predicate<Food> datePredicate = food -> food.getDate().isAfter(limit);
+            model.updateFilteredFoodList(datePredicate);
             String listDays = model.listFoods(mode, numDays);
             return new CommandResult(String.format(listDays));
         } else if (mode.equals("-e")) {
