@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
@@ -21,6 +22,7 @@ public class TeacherBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_SALARY = "1000";
+    public static final String DEFAULT_ASSIGNEDCOURSES = "";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
@@ -29,6 +31,7 @@ public class TeacherBuilder {
     private Email email;
     private Salary salary;
     private Address address;
+    private Set<ID> assignedCourses;
     private Set<Tag> tags;
 
     public TeacherBuilder() {
@@ -41,6 +44,7 @@ public class TeacherBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         salary = new Salary(DEFAULT_SALARY);
+        assignedCourses = new HashSet<>();
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -50,9 +54,11 @@ public class TeacherBuilder {
      */
     public TeacherBuilder(Staff teacherToCopy) {
         name = teacherToCopy.getName();
+        level = teacherToCopy.getLevel();
         phone = teacherToCopy.getPhone();
         email = teacherToCopy.getEmail();
         salary = teacherToCopy.getSalary();
+        assignedCourses = teacherToCopy.getAssignedCoursesID();
         address = teacherToCopy.getAddress();
         tags = new HashSet<>(teacherToCopy.getTags());
     }
@@ -82,6 +88,14 @@ public class TeacherBuilder {
      */
     public TeacherBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Sets the {@code AssignedCourses} of the {@code Teacher} that we are building.
+     */
+    public TeacherBuilder withAssignedCourses(String assignedCourses) {
+        this.assignedCourses = SampleDataUtil.getIDSet(assignedCourses);
         return this;
     }
 

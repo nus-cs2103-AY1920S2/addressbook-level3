@@ -74,8 +74,13 @@ public class JsonStaffAddressBookStorage implements StaffAddressBookStorage {
    */
   public void saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook, Path filePath)
       throws IOException {
+<<<<<<< HEAD:src/main/java/seedu/address/storage/storageStaff/JsonStaffAddressBookStorage.java
     System.out.println("h");
     requireNonNull(staffAddressBook);
+=======
+    System.out.println("saving teacher");
+    requireNonNull(teacherAddressBook);
+>>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa:src/main/java/seedu/address/storage/storageTeacher/JsonTeacherAddressBookStorage.java
     requireNonNull(filePath);
 
     FileUtil.createIfMissing(filePath);

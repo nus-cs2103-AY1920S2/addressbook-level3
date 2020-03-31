@@ -16,12 +16,11 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.commandAdd.*;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandClear.*;
-import seedu.address.logic.commands.commandDelete.DeleteCommand;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
-import seedu.address.logic.commands.commandEdit.EditCommand;
+import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.commandEdit.EditCourseCommand;
 import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
 import seedu.address.logic.commands.commandEdit.EditStudentCommand;
@@ -34,11 +33,7 @@ import seedu.address.logic.commands.commandFind.FindTeacherCommand;
 import seedu.address.logic.commands.commandList.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.parserAdd.*;
-import seedu.address.logic.parser.parserDelete.DeleteCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteStudentCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteTeacherCommandParser;
+import seedu.address.logic.parser.parserDelete.*;
 import seedu.address.logic.parser.parserEdit.EditCommandParser;
 import seedu.address.logic.parser.parserEdit.EditCourseCommandParser;
 import seedu.address.logic.parser.parserEdit.EditFinanceCommandParser;
@@ -110,8 +105,10 @@ public class AddressBookParser {
       case DeleteCourseCommand.COMMAND_WORD:
         return new DeleteCourseCommandParser().parse(arguments);
 
+      case DeleteAssignmentCommand.COMMAND_WORD:
+        return new DeleteAssignmentCommandParser().parse(arguments);
 
-        // Find Operations
+      // Find Operations
       case FindTeacherCommand.COMMAND_WORD:
         return new FindTeacherCommandParser().parse(arguments);
 

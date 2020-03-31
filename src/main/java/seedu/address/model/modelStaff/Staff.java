@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
@@ -17,13 +19,14 @@ import seedu.address.model.tag.Tag;
  * A Staff can be a teacher or an admin. This can be check by isTeacher() method.
  */
 public class Staff extends ModelObject {
+  // Permission level
   public enum Level {
     TEACHER,
     ADMIN
   }
   // Identity fields
   private final Name name;
-  //private final ID id;
+  private final ID id;
   private final Level level;
   private final Phone phone;
   private final Email email;
@@ -37,9 +40,22 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Staff(Name name, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
+  public Staff(Name name, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) throws ParseException {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.level = level;
+    this.phone = phone;
+    this.email = email;
+    this.salary = salary;
+    this.address = address;
+    this.tags.addAll(tags);
+  }
+
+  public Staff(Name name, ID id, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) throws ParseException {
+    requireAllNonNull(name,level, phone, email, address, tags);
+    this.name = name;
+    this.id = id;
     this.level = level;
     this.phone = phone;
     this.email = email;
@@ -58,11 +74,9 @@ public class Staff extends ModelObject {
   /**
    * Get ID of a staff.
    */
-  /*
-  public ID getID() {
+  public ID getId() {
     return id;
   }
-  */
 
   /**
    * Check if this staff is a teacher.

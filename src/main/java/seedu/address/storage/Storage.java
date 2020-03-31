@@ -9,14 +9,12 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelCourseStudent.CourseStudent;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
-import seedu.address.storage.storageCourseStudent.CourseStudentAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
 import seedu.address.storage.storageStaff.StaffAddressBookStorage;
@@ -27,7 +25,6 @@ import seedu.address.storage.storageStaff.StaffAddressBookStorage;
 public interface Storage extends AddressBookStorage, StaffAddressBookStorage,
     StudentAddressBookStorage,
     FinanceAddressBookStorage, CourseAddressBookStorage, AssignmentAddressBookStorage,
-    CourseStudentAddressBookStorage,
         UserPrefsStorage {
 
   @Override
@@ -102,15 +99,5 @@ public interface Storage extends AddressBookStorage, StaffAddressBookStorage,
   @Override
   void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) throws IOException;
 
-  ///
-  @Override
-  Path getCourseStudentAddressBookFilePath();
-
-  @Override
-  Optional<ReadOnlyAddressBookGeneric<CourseStudent>> readCourseStudentAddressBook()
-      throws DataConversionException, IOException;
-
-  @Override
-  void saveCourseStudentAddressBook(ReadOnlyAddressBookGeneric<CourseStudent> courseStudentAddressBook) throws IOException;
 
 }

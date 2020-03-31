@@ -34,6 +34,8 @@ public class StaffCard extends UiPart<Region> {
   @FXML
   private Label id;
   @FXML
+  private Label teacherID;
+  @FXML
   private Label phone;
   @FXML
   private Label address;
@@ -42,18 +44,31 @@ public class StaffCard extends UiPart<Region> {
   @FXML
   private Label salary;
   @FXML
+  private Label assignedCourses;
+  @FXML
   private FlowPane tags;
 
   public StaffCard(Staff staff, int displayedIndex) {
     super(FXML);
     this.staff = staff;
     id.setText(displayedIndex + ". ");
+<<<<<<< HEAD:src/main/java/seedu/address/ui/uiStaff/StaffCard.java
     name.setText(staff.getName().fullName);
     phone.setText(staff.getPhone().value);
     address.setText(staff.getAddress().value);
     email.setText(staff.getEmail().value);
     salary.setText(staff.getSalary().value);
     staff.getTags().stream()
+=======
+    name.setText(teacher.getName().fullName);
+    teacherID.setText(teacher.getID().value);
+    phone.setText(teacher.getPhone().value);
+    address.setText(teacher.getAddress().value);
+    email.setText(teacher.getEmail().value);
+    salary.setText(teacher.getSalary().value);
+    assignedCourses.setText(teacher.getAssignedCoursesWithNames());
+    teacher.getTags().stream()
+>>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa:src/main/java/seedu/address/ui/uiTeacher/TeacherCard.java
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }

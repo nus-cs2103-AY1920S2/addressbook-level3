@@ -7,9 +7,9 @@ import static seedu.address.testutil.TypicalCourse.getTypicalCourseAddressBook;
 import static seedu.address.testutil.TypicalFinance.getTypicalFinanceAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalProgress.getTypicalProgressAddressBook;
 import static seedu.address.testutil.TypicalStudent.getTypicalStudentAddressBook;
 import static seedu.address.testutil.TypicalTeacher.getTypicalTeacherAddressBook;
-import static seedu.address.testutil.TypicalCourseStudent.getTypicalCourseStudentAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,10 +31,15 @@ public class ListAssignmentCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
+<<<<<<< HEAD
             getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), model.getStaffAddressBook(),
+=======
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalProgressAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
+>>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
-                model.getAssignmentAddressBook() , model.getCourseStudentAddressBook(), new UserPrefs());
+                model.getAssignmentAddressBook(), model.getProgressAddressBook(), new UserPrefs());
     }
 
     @Test

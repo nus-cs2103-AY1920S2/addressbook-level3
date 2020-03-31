@@ -23,7 +23,7 @@ public class Person extends ModelObject {
 
   // Data fields
   private final Address address;
-  private final Set<Tag> tags = new HashSet<>();
+  protected final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
@@ -35,6 +35,10 @@ public class Person extends ModelObject {
     this.email = email;
     this.address = address;
     this.tags.addAll(tags);
+  }
+
+  public ID getID() {
+    return new ID("");
   }
 
   public Name getName() {
@@ -51,6 +55,11 @@ public class Person extends ModelObject {
 
   public Address getAddress() {
     return address;
+  }
+
+  @Override
+  public ID getId() {
+    return null;
   }
 
   /**

@@ -71,7 +71,7 @@ public class EditStudentCommand extends Command {
 
     Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
     ID updatedID = editStudentDescriptor.getID()
-        .orElse(studentToEdit.getID());
+        .orElse(studentToEdit.getId());
     Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
     return new Student(updatedName, updatedID, updatedTags);
@@ -89,11 +89,11 @@ public class EditStudentCommand extends Command {
     Student studentToEdit = lastShownList.get(index.getZeroBased());
     Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
-    if (!studentToEdit.weakEquals(editedStudent) && model.hasStudent(editedStudent)) {
+    if (!studentToEdit.weakEquals(editedStudent) && model.has(editedStudent)) {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
 
-    model.setStudent(studentToEdit, editedStudent);
+    model.set(studentToEdit, editedStudent);
     model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
   }

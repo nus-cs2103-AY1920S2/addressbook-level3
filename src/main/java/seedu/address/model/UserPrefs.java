@@ -19,7 +19,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
   private Path courseAddressBookFilePath = Paths.get("data", "courseAddressbook.json");
   private Path financeAddressBookFilePath = Paths.get("data", "financeAddressbook.json");
   private Path assignmentAddressBookFilePath = Paths.get("data", "assignmentAddressbook.json");
-  private Path courseStudentAddressBookFilePath = Paths.get("data", "courseStudentAddressbook.json");
+  private Path progressAddressBookFilePath = Paths.get("data", "progressAddressbook.json");
+
 
   /**
    * Creates a {@code UserPrefs} with default values.
@@ -107,14 +108,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     this.assignmentAddressBookFilePath = assignmentAddressBookFilePath;
   }
 
-  public Path getCourseStudentAddressBookFilePath() {
-    return courseStudentAddressBookFilePath;
+  public Path getProgressAddressBookFilePath() {
+    return progressAddressBookFilePath;
   }
 
-  public void setCourseStudentAddressBookFilePath(Path courseStudentAddressBookFilePath) {
-    requireNonNull(courseStudentAddressBookFilePath);
-    this.courseAddressBookFilePath = courseStudentAddressBookFilePath;
+  public void setProgressAddressBookFilePath(Path progressAddressBookFilePath) {
+    requireNonNull(progressAddressBookFilePath);
+    this.progressAddressBookFilePath = progressAddressBookFilePath;
   }
+
 
   @Override
   public boolean equals(Object other) {

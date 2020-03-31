@@ -9,7 +9,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ID {
 
-
   public static final String MESSAGE_CONSTRAINTS =
       "ID numbers should only contain numbers, and it should be at least 1 digits long";
   public static final String VALIDATION_REGEX = "\\d{1,}";
@@ -26,6 +25,10 @@ public class ID {
     value = id;
   }
 
+  public ID() {
+    value = "";
+  }
+
   /**
    * Returns true if a given string is a valid id number.
    */
@@ -35,7 +38,7 @@ public class ID {
 
   @Override
   public String toString() {
-    return value;
+    return value ;
   }
 
   @Override

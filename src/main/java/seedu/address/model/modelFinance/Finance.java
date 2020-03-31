@@ -9,6 +9,9 @@ import java.util.Set;
 
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -21,33 +24,79 @@ public class Finance extends ModelObject {
   // Identity fields
   private final String ENTITY_NAME = "Finance";
   private final Name name;
+  private final FinanceType financeType;
+  private final Date date;
   private final Amount amount;
+  private ID courseid;
+  private ID studentid;
+  private ID teacherid;
   private final Set<Tag> tags = new HashSet<>();
+
+  /**
+   * A finance object not tied to any modelObjects.
+   */
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
+    requireAllNonNull(name, financeType, amount, tags);
+    this.name = name;
+    this.financeType = financeType;
+    this.date = date;
+    this.amount = amount;
+    this.tags.addAll(tags);
+    this.courseid = new ID();
+    this.studentid = new ID();
+    this.teacherid = new ID();
+  }
 
   /**
    * Every field must be present and not null.
    */
-  public Finance(Name name, Amount amount, Set<Tag> tags) {
-    requireAllNonNull(name, amount, tags);
-    this.name = name;
-    this.amount = amount;
-    this.tags.addAll(tags);
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID teacherid, Set<Tag> tags) {
+    this(name, financeType, date, amount, tags);
+    requireAllNonNull(courseid, studentid, teacherid);
+    this.courseid = courseid;
+    this.studentid = studentid;
+    this.teacherid = teacherid;
   }
 
   public Name getName() {
     return name;
   }
 
+  public FinanceType getFinanceType() {
+    return financeType;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
   public Amount getAmount() {
     return amount;
   }
 
+  public ID getCourseID() {
+    return courseid;
+  }
+
+  public ID getStudentID() {
+    return studentid;
+  }
+
+  public ID getTeacherID() {
+    return teacherid;
+  }
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
+  }
+
+  @Override
+  public ID getId() {
+    // should never be used
+    return courseid;
   }
 
   /**
@@ -84,6 +133,8 @@ public class Finance extends ModelObject {
 
     Finance otherFinance = (Finance) other;
     return otherFinance.getName().equals(getName())
+        && otherFinance.getFinanceType().equals(getFinanceType())
+        && otherFinance.getDate().equals(getDate())
         && otherFinance.getAmount().equals(getAmount())
         && otherFinance.getTags().equals(getTags());
   }
@@ -91,15 +142,25 @@ public class Finance extends ModelObject {
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, amount, tags);
+    return Objects.hash(name, financeType, date, amount, courseid, studentid, teacherid, tags);
   }
 
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
-        .append("Amount: ")
+        .append(" FinanceType: ")
+        .append(getFinanceType())
+        .append(" Date: ")
+        .append(getDate())
+        .append(" Amount: ")
         .append(getAmount())
+//        .append("CourseID: ")
+//        .append(getCourseID())
+//        .append("StudentID: ")
+//        .append(getStudentID())
+//        .append("TeacherID: ")
+//        .append(getTeacherID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

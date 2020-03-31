@@ -1,8 +1,6 @@
 package seedu.address.logic.parser.parserAdd;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,7 +16,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.AssignedCourse;
+import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -45,19 +43,19 @@ public class AddStudentCommandParser extends AddCommandParser {
    */
   public AddCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STUDENTID, PREFIX_TAG);
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
 
-    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_STUDENTID)
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
         || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID id = ParserUtil.parseID(argMultimap.getValue(PREFIX_STUDENTID).get());
+    AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Student student = new Student(name, id, tagList);
+    Student student = new Student(name, tagList);
 
     return new AddStudentCommand(student);
   }

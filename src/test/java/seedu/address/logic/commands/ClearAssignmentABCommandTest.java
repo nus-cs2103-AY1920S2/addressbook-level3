@@ -5,9 +5,9 @@ import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentAddre
 import static seedu.address.testutil.TypicalCourse.getTypicalCourseAddressBook;
 import static seedu.address.testutil.TypicalFinance.getTypicalFinanceAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalProgress.getTypicalProgressAddressBook;
 import static seedu.address.testutil.TypicalStudent.getTypicalStudentAddressBook;
 import static seedu.address.testutil.TypicalTeacher.getTypicalTeacherAddressBook;
-import static seedu.address.testutil.TypicalCourseStudent.getTypicalCourseStudentAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +17,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
 
 public class ClearAssignmentABCommandTest {
 
@@ -31,10 +32,12 @@ public class ClearAssignmentABCommandTest {
     @Test
     public void execute_nonEmptyAssignmentAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(),
+                getTypicalAssignmentAddressBook(), getTypicalProgressAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(),
+                new AssignmentAddressBook(), getTypicalProgressAddressBook(), new UserPrefs());
+
 
         assertCommandSuccess(new ClearAssignmentCommand(), model, ClearAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
     }

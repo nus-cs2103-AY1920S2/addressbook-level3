@@ -41,9 +41,9 @@ public class StudentCard extends UiPart<Region> {
   public StudentCard(Student student, int displayedIndex) {
     super(FXML);
     this.student = student;
-    studentID.setText(student.getID().value);
+    studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
-    assignedCourses.setText(student.getAssignedCourses());
+    assignedCourses.setText(student.getAssignedCoursesWithNames());
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

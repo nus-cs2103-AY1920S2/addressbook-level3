@@ -13,9 +13,9 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.ID;
 
 /**
- * Deletes a course identified using it's displayed index from the address book.
+ * Deletes a course identified using it's displayed index.
  */
-public class DeleteCourseCommand extends Command {
+public class DeleteCourseCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-course";
 
@@ -61,7 +61,7 @@ public class DeleteCourseCommand extends Command {
     }
 
     Course courseToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.deleteCourse(courseToDelete);
+    model.delete(courseToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_COURSE_SUCCESS, courseToDelete));
   }
 

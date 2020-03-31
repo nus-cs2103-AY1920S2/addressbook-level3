@@ -14,7 +14,7 @@ import seedu.address.model.modelStudent.Student;
 /**
  * Deletes a student identified using it's displayed index from the address book.
  */
-public class DeleteStudentCommand extends Command {
+public class DeleteStudentCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-student";
 
@@ -41,7 +41,7 @@ public class DeleteStudentCommand extends Command {
     }
 
     Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.deleteStudent(studentToDelete);
+    model.delete(studentToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
   }
 

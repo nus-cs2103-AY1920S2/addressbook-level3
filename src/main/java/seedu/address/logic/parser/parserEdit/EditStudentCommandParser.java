@@ -35,7 +35,7 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
   public EditStudentCommand parse(String args) throws ParseException {
     requireNonNull(args);
     ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE, PREFIX_TAG);
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
 
     Index index;
 
@@ -49,10 +49,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
     EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
     if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
       editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-    }
-    if (argMultimap.getValue(PREFIX_COURSE).isPresent()) {
-      editStudentDescriptor
-          .setID(ParserUtil.parseID(argMultimap.getValue(PREFIX_STUDENTID).get()));
     }
 
     parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
