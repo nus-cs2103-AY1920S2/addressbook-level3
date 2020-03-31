@@ -40,10 +40,11 @@ public class PaidCommandParser implements Parser<PaidCommand> {
         try {
             amountPaid = helper[1];
         } catch (IndexOutOfBoundsException ex) {
-            amountPaid = "";
+            amountPaid = "all";
         }
 
-        if (!amountPaid.matches(VALIDATION_REGEX)) {
+
+        if (!amountPaid.matches(VALIDATION_REGEX) && !amountPaid.equals("all")) {
             throw new ParseException(PaidCommand.PROPER_AMOUNT);
         }
 
