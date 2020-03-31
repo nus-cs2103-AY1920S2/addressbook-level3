@@ -43,7 +43,7 @@ public class ModelManager implements Model {
 
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(this.nasaBook.getDeepCopyList());
+        filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
         this.historyManager = new HistoryManager(historyBook);
         initialisation();
     }

@@ -88,7 +88,7 @@
 }
 
 .list-view {
-    -fx-padding: 10;
+    -fx-padding: 0;
     -fx-background-color: black;
     -fx-background-radius: 25;
 }
@@ -98,15 +98,19 @@
 }
 
 .list-cell {
-    -fx-background-radius: 15;
+    -fx-background-radius: 300;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 10;
+    -fx-padding: 5;
 
 }
 
 .list-cell:filled {
     -fx-background-color: #32174d;
+    -fx-border-width: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 30px;
 }
 
 .list-cell:empty {
@@ -128,14 +132,14 @@
 
 .activity_big_label {
     -fx-font-family: "Verdana";
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-text-fill: #010504;
     -fx-font-weight: bold;
 }
 
 .activity_small_label {
     -fx-font-family: "Verdana";
-    -fx-font-size: 13px;
+    -fx-font-size: 10px;
     -fx-text-fill: #010504;
 }
 
@@ -349,8 +353,15 @@
     -fx-background-radius: 15;
 }
 
+#activityListView .list-cell{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 15;
+}
+
 #modulePane {
      -fx-border-width: 0;
+    -fx-padding: 0;
  }
 
 #commandTypeLabel {
