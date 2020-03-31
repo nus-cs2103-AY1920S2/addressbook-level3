@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.module.Module;
-import tatracker.ui.ModuleListPanel.ModuleListViewCell;
 
 /**
  * Panel containing the list of modules.
@@ -33,6 +32,10 @@ public class ModuleListPanelCopy extends UiPart<Region> {
         moduleListViewCopy.setCellFactory(listView -> new ModuleListViewCellCopy());
     }
 
+    /**
+     * Update ListCells in order to facilitate highlighting when a filter command is entered
+     * @param moduleList the updated moduleList
+     */
     public void updateCells(ObservableList<Module> moduleList) {
         System.out.print("reached updateCells");
         moduleListViewCopy.setItems(moduleList);

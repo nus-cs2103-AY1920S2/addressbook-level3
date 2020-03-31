@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import tatracker.model.module.Module;
 
+/**
+ * An UI component that displays information of a {@code Module}.
+ */
 public class ModuleCardCopy extends UiPart<Region> {
 
     private static final String FXML = "ModuleListCardCopy.fxml";

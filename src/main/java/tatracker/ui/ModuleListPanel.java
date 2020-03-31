@@ -32,6 +32,10 @@ public class ModuleListPanel extends UiPart<Region> {
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }
 
+    /**
+     * Update ListCells in order to facilitate highlighting when a filter command is entered
+     * @param moduleList the updated moduleList
+     */
     public void updateCells(ObservableList<Module> moduleList) {
         System.out.print("reached updateCells");
         moduleListView.setItems(moduleList);
@@ -39,9 +43,9 @@ public class ModuleListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
-     */
-     class ModuleListViewCell extends ListCell<Module> {
+    * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
+    */
+    class ModuleListViewCell extends ListCell<Module> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
@@ -59,5 +63,4 @@ public class ModuleListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

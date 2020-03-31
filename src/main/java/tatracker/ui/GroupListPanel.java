@@ -11,8 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
-import tatracker.model.module.Module;
-import tatracker.ui.ModuleListPanelCopy.ModuleListViewCellCopy;
 
 /**
  * Panel containing the list of groups.
@@ -34,6 +32,10 @@ public class GroupListPanel extends UiPart<Region> {
         groupListView.setCellFactory(listView -> new GroupListViewCell());
     }
 
+    /**
+     * Update ListCells in order to facilitate highlighting when a filter command is entered
+     * @param groupList the updated groupList
+     */
     public void updateCells(ObservableList<Group> groupList) {
         System.out.print("reached updateCells");
         groupListView.setItems(groupList);
