@@ -24,7 +24,7 @@ public class EditMetricCommand extends Command {
             + ": Edits the metric.\n"
             + "Example: edit " + COMMAND_WORD + " extremeLeadership -n extremeDictatorship -a leadership -w 100";
 
-    public static final String MESSAGE_EDIT_METRIC_SUCCESS = "Edited metric";
+    public static final String MESSAGE_EDIT_METRIC_SUCCESS = "Edited metric: %s";
 
     private final String toEdit;
     private final String updatedName;
@@ -48,7 +48,8 @@ public class EditMetricCommand extends Command {
 
         try {
             metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
-            return new ToggleCommandResult(MESSAGE_EDIT_METRIC_SUCCESS, ToggleView.METRIC);
+            return new ToggleCommandResult(
+                    String.format(MESSAGE_EDIT_METRIC_SUCCESS, this.toEdit), ToggleView.METRIC);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }
