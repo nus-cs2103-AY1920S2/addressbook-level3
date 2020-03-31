@@ -1,6 +1,7 @@
 package tatracker.logic.parser;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_HELP;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -11,7 +12,6 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.DeleteCommand;
 import tatracker.logic.commands.ExitCommand;
-import tatracker.logic.commands.FindCommand;
 import tatracker.logic.commands.GotoCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
@@ -42,9 +42,13 @@ public class TaTrackerParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
+        if (userInput.isEmpty()) {
+            throw new ParseException(MESSAGE_HELP);
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND + MESSAGE_HELP);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -69,22 +73,22 @@ public class TaTrackerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
+        case CommandWords.FIND:
             return new FindCommandParser().parse(arguments);
 
         case GotoCommand.COMMAND_WORD:
             return new GotoCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
+        case CommandWords.LIST:
             return new ListCommand();
 
-        case ClearCommand.COMMAND_WORD:
+        case CommandWords.CLEAR:
             return new ClearCommand();
 
-        case ExitCommand.COMMAND_WORD:
+        case CommandWords.EXIT:
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
+        case CommandWords.HELP:
             return new HelpCommand();
 
         case CommandWords.SORT:

@@ -28,7 +28,7 @@ public class StatisticWindow extends UiPart<Stage> {
     private PieChart hoursBreakdownPieChart;
 
     @FXML
-    private BarChart studentRatingBarChart;
+    private BarChart<String, Integer> studentRatingBarChart;
 
     // Labels
     @FXML
@@ -87,9 +87,9 @@ public class StatisticWindow extends UiPart<Stage> {
         }
         hoursBreakdownPieChart.setData(pieChartData);
 
-        BarChart.Series dataSeries1 = new BarChart.Series();
+        BarChart.Series<String, Integer> dataSeries1 = new BarChart.Series<>();
         for (int i = 0; i < 5; ++i) {
-            dataSeries1.getData().add(new BarChart.Data(Integer.toString(i), stats.studentRatingBinValues[i]));
+            dataSeries1.getData().add(new BarChart.Data<>(Integer.toString(i), stats.studentRatingBinValues[i]));
         }
         studentRatingBarChart.getData().add(dataSeries1);
 
@@ -103,16 +103,16 @@ public class StatisticWindow extends UiPart<Stage> {
         numHoursOtherLabel.setText(stats.numHoursPerCategory[5] + " Hours");
         numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalPay() + ")");
 
-        studentName1Label.setText(stats.worstStudents[0].getKey());
-        rating1Label.setText(Integer.toString(stats.worstStudents[0].getValue()));
-        studentName2Label.setText(stats.worstStudents[1].getKey());
-        rating2Label.setText(Integer.toString(stats.worstStudents[1].getValue()));
-        studentName3Label.setText(stats.worstStudents[2].getKey());
-        rating3Label.setText(Integer.toString(stats.worstStudents[2].getValue()));
-        studentName4Label.setText(stats.worstStudents[3].getKey());
-        rating4Label.setText(Integer.toString(stats.worstStudents[3].getValue()));
-        studentName5Label.setText(stats.worstStudents[4].getKey());
-        rating5Label.setText(Integer.toString(stats.worstStudents[4].getValue()));
+        studentName1Label.setText(stats.worstStudents[0].getFullName());
+        rating1Label.setText(Integer.toString(stats.worstStudents[0].getRating()));
+        studentName2Label.setText(stats.worstStudents[1].getFullName());
+        rating2Label.setText(Integer.toString(stats.worstStudents[1].getRating()));
+        studentName3Label.setText(stats.worstStudents[2].getFullName());
+        rating3Label.setText(Integer.toString(stats.worstStudents[2].getRating()));
+        studentName4Label.setText(stats.worstStudents[3].getFullName());
+        rating4Label.setText(Integer.toString(stats.worstStudents[3].getRating()));
+        studentName5Label.setText(stats.worstStudents[4].getFullName());
+        rating5Label.setText(Integer.toString(stats.worstStudents[4].getRating()));
     }
 
     /**

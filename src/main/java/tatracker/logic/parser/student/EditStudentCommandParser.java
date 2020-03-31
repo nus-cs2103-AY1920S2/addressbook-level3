@@ -2,12 +2,12 @@ package tatracker.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,35 +37,36 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
     public EditStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer
-                .tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MATRIC,
-                        PREFIX_RATING, PREFIX_TAG);
+                .tokenize(args, NAME, PHONE, EMAIL, MATRIC,
+                        RATING, TAG);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE),
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditStudentCommand.DETAILS.getUsage()),
                     pe);
         }
 
         EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(NAME).isPresent()) {
+            editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editStudentDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PHONE).isPresent()) {
+            editStudentDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PHONE).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editStudentDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(EMAIL).isPresent()) {
+            editStudentDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(EMAIL).get()));
         }
-        if (argMultimap.getValue(PREFIX_MATRIC).isPresent()) {
-            editStudentDescriptor.setMatric(ParserUtil.parseMatric(argMultimap.getValue(PREFIX_MATRIC).get()));
+        if (argMultimap.getValue(MATRIC).isPresent()) {
+            editStudentDescriptor.setMatric(ParserUtil.parseMatric(argMultimap.getValue(MATRIC).get()));
         }
-        if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
-            editStudentDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get()));
+        if (argMultimap.getValue(RATING).isPresent()) {
+            editStudentDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(RATING).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStudentDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(TAG)).ifPresent(editStudentDescriptor::setTags);
 
         if (!editStudentDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditStudentCommand.MESSAGE_NOT_EDITED);

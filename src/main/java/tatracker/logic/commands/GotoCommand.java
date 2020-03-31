@@ -15,9 +15,9 @@ public class GotoCommand extends Command {
 
     public static final String SHOWING_GOTO_MESSAGE = "Switched to %s tab.";
 
-    private static String tabName;
+    private final String tabName;
 
-    private static Action tabToSwitchTo;
+    private final Action tabToSwitchTo;
 
     public GotoCommand(String tabName) {
         this.tabName = tabName.toLowerCase();
@@ -32,6 +32,8 @@ public class GotoCommand extends Command {
             this.tabToSwitchTo = Action.GOTO_CLAIMS;
             break;
         default:
+            assert false;
+            tabToSwitchTo = null;
             break;
         }
     }

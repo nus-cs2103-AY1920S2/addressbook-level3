@@ -2,10 +2,13 @@ package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.commands.group.DeleteGroupCommand.MESSAGE_INVALID_GROUP_CODE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
@@ -21,15 +24,14 @@ import tatracker.model.module.Module;
  */
 public class FilterStudentViewCommand extends Command {
 
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.STUDENT, CommandWords.FILTER_MODEL);
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters students."
-            + "Parameters: "
-            + "[" + PREFIX_GROUP + "GROUP] "
-            + "[" + PREFIX_MODULE + "MODULE] "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_GROUP + "G06"
-            + PREFIX_MODULE + "CS2103T";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.FILTER_MODEL,
+            "Filters the students in the TA-Tracker.",
+            List.of(),
+            List.of(GROUP, MODULE),
+            GROUP, MODULE
+    );
 
     public static final String MESSAGE_SUCCESS = "Filtered Student List";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no students in the "
@@ -71,7 +73,7 @@ public class FilterStudentViewCommand extends Command {
     /**
      * Filter Students when both Group code and Module Code given by User.
      * @return a Successful Command Result
-     * @throws CommandException
+     * @throws CommandException if the module or group code is invalid.
      */
     public CommandResult filterGroup(Model model) throws CommandException {
         requireNonNull(model);
@@ -80,22 +82,22 @@ public class FilterStudentViewCommand extends Command {
         Group group = new Group(groupCode);
 
         if (!model.hasModule(module)) {
-            throw new CommandException((MESSAGE_INVALID_MODULE_CODE));
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         } else {
             if (!model.hasGroup(group, module)) {
-                throw new CommandException(((MESSAGE_INVALID_GROUP_CODE)));
+                throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
             } else {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.FILTER_STUDENT);
+        return new CommandResult(MESSAGE_SUCCESS, Action.FILTER_STUDENT);
     }
 
     /**
      * Filter Students if users only give Module Code.
      * Module's first group will automatically be used.
      * @return filtered students
-     * @throws CommandException
+     * @throws CommandException if the module code is invalid.
      */
     public CommandResult filterModule(Model model) throws CommandException {
         requireNonNull(model);
@@ -112,7 +114,7 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.FILTER_STUDENT);
+        return new CommandResult(MESSAGE_SUCCESS, Action.FILTER_STUDENT);
     }
 
     @Override

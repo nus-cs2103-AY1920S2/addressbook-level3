@@ -1,8 +1,8 @@
 package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import tatracker.logic.commands.student.FilterStudentViewCommand;
 import tatracker.logic.parser.ArgumentMultimap;
@@ -16,7 +16,6 @@ import tatracker.logic.parser.exceptions.ParseException;
  */
 public class FilterStudentViewCommandParser implements Parser<FilterStudentViewCommand> {
 
-
     /**
      * Parses the given {@code String} of arguments in the context of the FilterSessionCommand
      * and returns a FilterSessionCommand object for execution.
@@ -24,8 +23,8 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
      */
     public FilterStudentViewCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MODULE,
-                PREFIX_GROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE,
+                GROUP);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -35,15 +34,14 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
         String moduleCode = "";
         String groupCode = "";
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            moduleCode = (ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())).toUpperCase();
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            moduleCode = (ParserUtil.parseValue(argMultimap.getValue(MODULE).get())).toUpperCase();
         }
 
-        if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
-            groupCode = (ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get())).toUpperCase();
+        if (argMultimap.getValue(GROUP).isPresent()) {
+            groupCode = (ParserUtil.parseValue(argMultimap.getValue(GROUP).get())).toUpperCase();
         }
 
         return new FilterStudentViewCommand(moduleCode, groupCode);
     }
-
 }

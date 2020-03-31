@@ -2,6 +2,8 @@ package tatracker.model.student;
 
 import static tatracker.commons.util.AppUtil.checkArgument;
 
+import tatracker.commons.util.StringUtil;
+
 /**
  * Represents a Rating in the TA-Tracker. A Rating is an integer on a scale from 1 - 5,
  * where 1 represents the poorest rating, and 5 represents the best rating.
@@ -41,6 +43,17 @@ public class Rating {
      */
     public static boolean isValidRating(int test) {
         return MIN_RATING <= test && test <= MAX_RATING;
+    }
+
+    /**
+     * Returns true if a given number is a valid rating.
+     */
+    public static boolean isValidRating(String test) {
+        if (!StringUtil.isNonZeroUnsignedInteger(test)) {
+            return false;
+        }
+        int parsedRating = Integer.parseUnsignedInt(test);
+        return isValidRating(parsedRating);
     }
 
     /**
