@@ -193,7 +193,7 @@ This section explains how the undo and redo commands are implemented.
 The following sequence diagram shows what happens when the user calls an undo operation:
 
 .Undo command sequence diagram
-image::Undo-Redo.png[]
+image::UndoRedoSequenceDiagram.png[]
 
 Result: TODO
 
