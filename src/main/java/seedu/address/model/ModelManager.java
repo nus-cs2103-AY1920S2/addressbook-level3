@@ -20,6 +20,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.todolist.Deadline;
+import seedu.address.todolist.Task;
 import seedu.address.todolist.ToDo;
 
 /**
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
     private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
     private ModuleBook moduleBook;
+    private final FilteredList<Task> deadlineTaskList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,6 +53,7 @@ public class ModelManager implements Model {
         diaryEntries = this.addressBook.getDiaryList();
         diaryBook = new DiaryBook();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
+        deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
         moduleBook = new ModuleBook();
     }
 
@@ -248,25 +251,38 @@ public class ModelManager implements Model {
      */
 
     @Override
-    public void addDeadline(Deadline deadline) {
+    public void addDeadline(Task deadline) {
 
     }
 
     @Override
-    public boolean isEmptyDeadline(Deadline deadline) {
+    public boolean isEmptyDeadline(Task deadline) {
         return false;
     }
+
+    /** Returns an list of String that contains what is currently in the folder */
+    @Override
+    public ObservableList<Task> getDeadlineTaskList() {
+        return deadlineTaskList;
+    }
+
+    @Override
+    public void updateDeadlineTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        deadlineTaskList.setPredicate(predicate);
+    }
+
 
     //=========== TD Module ==================================================================================
 
 
     @Override
-    public void addToDo(ToDo todo) {
+    public void addToDo(Task todo) {
 
     }
 
     @Override
-    public boolean isEmptyToDo(ToDo todo) {
+    public boolean isEmptyToDo(Task todo) {
         return false;
     }
 

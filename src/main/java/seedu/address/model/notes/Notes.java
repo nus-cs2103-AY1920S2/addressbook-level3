@@ -22,6 +22,8 @@ public class Notes {
 
     public static final String HOME_DIRECTORY = System.getProperty("user.home");
 
+    public static String CURRENT_DIRECTORY = "Current Directory: " + HOME_DIRECTORY;
+
     private static final String[] validOperationsDummy = {"open", "create", "delete", "createfolder", "list"};
 
     public static final HashSet<String> VALID_OPERATIONS = new HashSet<>(Arrays.asList(validOperationsDummy));
@@ -49,9 +51,8 @@ public class Notes {
     }
 
     public static ObservableList<Notes> getAllFilesInFolder() {
-        String pathName = HOME_DIRECTORY;
 
-        File myFile = new File(pathName);
+        File myFile = new File(HOME_DIRECTORY);
         ArrayList<Notes> filesArrayList = new ArrayList<>();
 
         File[] allFiles = myFile.listFiles();

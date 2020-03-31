@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Person;
+import seedu.address.todolist.Task;
 
 /**
  * API of the Logic component
@@ -59,6 +60,18 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     //=========== Notes Module ==================================================================================
-    /** Returns an list of String that contains what is currently in the folder */
+    /**
+     * Returns an list of String that contains what is currently in the folder
+     * */
     ObservableList<Notes> getFilesInFolderList();
+
+
+    //=========== Calender Module ==================================================================================
+
+    /**
+     *
+     * Returns a list of deadline Tasks
+     */
+    ObservableList<Task> getDeadlineTaskList();
+
 }

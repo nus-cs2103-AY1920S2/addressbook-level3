@@ -72,10 +72,9 @@ public class CalenderPanel extends UiPart<Region> {
     }
 
     public void setDates() {
-        int firstDayInt;
         try {
             String firstDay = getCalenderDates();
-            firstDayInt = datesArray.get(firstDay);
+            int firstDayInt = datesArray.get(firstDay);
             System.out.println(firstDayInt);
             for (int i = 1; i < 32; i++) {
                 calenderDatesArrayList.add(new CalenderDate(Integer.toString(i), "Mon"));

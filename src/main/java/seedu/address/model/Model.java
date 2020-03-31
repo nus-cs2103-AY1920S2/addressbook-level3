@@ -11,8 +11,7 @@ import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.todolist.Deadline;
-import seedu.address.todolist.ToDo;
+import seedu.address.todolist.Task;
 
 /**
  * The API of the Model component.
@@ -23,6 +22,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Notes> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASK = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -141,23 +143,32 @@ public interface Model {
     /**
      * Adds deadline.
      */
-    void addDeadline(Deadline deadline);
+    void addDeadline(Task deadline);
 
     /**
      * Checks if content of deadline is empty
      */
-    boolean isEmptyDeadline(Deadline deadline);
+    boolean isEmptyDeadline(Task deadline);
+
+    /** Returns an list of Deadline that is currently in the list */
+    ObservableList<Task> getDeadlineTaskList();
+
+    /**
+     * Updates the deadline list by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateDeadlineTaskList(Predicate<Task> predicate);
 
     //=========== TD ==================================================================================
 
     /**
      * Adds todo.
      */
-    void addToDo(ToDo todo);
+    void addToDo(Task todo);
 
     /**
      * Checks if content of todo is empty
      */
-    boolean isEmptyToDo(ToDo todo);
+    boolean isEmptyToDo(Task todo);
 
 }

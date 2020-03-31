@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.notes.Notes;
 
@@ -20,10 +22,19 @@ public class NotesListPanel extends UiPart<Region> {
     @FXML
     private ListView<Notes> notesListView;
 
+    @FXML
+    private Text currentDirectory;
+
+    @FXML
+    private StackPane placeholder;
+
     public NotesListPanel(ObservableList<Notes> notesList) {
         super(FXML);
         notesListView.setItems(notesList);
         notesListView.setCellFactory(listView -> new NotesListViewCell());
+        currentDirectory.setText("Current Directory: " + Notes.HOME_DIRECTORY);
+
+
     }
 
     /**
@@ -39,6 +50,8 @@ public class NotesListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new NotesCard(note, getIndex() + 1).getRoot());
+                currentDirectory.setText(Notes.CURRENT_DIRECTORY);
+
             }
         }
     }
