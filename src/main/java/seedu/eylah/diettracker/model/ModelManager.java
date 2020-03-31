@@ -138,6 +138,17 @@ public class ModelManager implements Model {
         return result;
     }
 
+    @Override
+    public String listFoods(String mode, String tag) {
+        String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
+        int count = 1;
+        for (Food food: filteredFoods) {
+            result += count + ". " + food.toString() + "\n";
+            count++;
+        }
+        return result;
+    }
+
     //=========== Filtered Food Book Accessors =============================================================
 
     /**

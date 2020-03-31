@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_HEIGHT = new Prefix("-h");
     public static final Prefix PREFIX_WEIGHT = new Prefix("-w");
     public static final Prefix PREFIX_ALL = new Prefix("-f");
+    public static final Prefix PREFIX_LIST_TAG = new Prefix("-e");
     public static final Prefix PREFIX_SINGLE = new Prefix("-d");
     public static final Prefix PREFIX_DAYS = new Prefix("-t");
     public static final Prefix PREFIX_LOSS = new Prefix("-l");
