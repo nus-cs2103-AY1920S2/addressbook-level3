@@ -107,10 +107,18 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Calculates the user's expected work hours for the next 7 days (including today) based on stored assignments,
+     * Returns the user's expected work hours for the next n days (including today) based on stored assignments,
      * their deadlines and expected work hours per assignment.
      */
     public ObservableList<Day> getScheduleVisual() {
         return assignments.getScheduleVisualList();
+    }
+
+    /**
+     * Calculates the user's expected work hours for the next n days (including today) based on stored assignments,
+     * their deadlines and expected work hours per assignment.
+     */
+    public void calculateScheduleIntensity(int numDays) {
+        assignments.calculateScheduleIntensity(numDays);
     }
 }

@@ -11,5 +11,5 @@
         <Insets bottom="5" left="5" />
       </padding>
   </Label>
-  <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+  <ListView fx:id="bdayListView" VBox.vgrow="ALWAYS" />
 </VBox>

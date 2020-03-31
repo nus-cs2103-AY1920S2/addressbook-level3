@@ -135,7 +135,7 @@ public class AddressBookParser {
             return new ShowBirthdayCommand();
 
         case ScheduleCommand.COMMAND_WORD:
-            return new ScheduleCommand();
+            return new ScheduleCommandParser().parse(arguments, model);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

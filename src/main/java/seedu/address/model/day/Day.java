@@ -10,6 +10,7 @@ public class Day {
     private ArrayList<DueAssignment> dueAssignments;
 
     public Day() {
+        this.hours = new Hours(0);
         this.dueAssignments = new ArrayList<DueAssignment>();
     }
 
@@ -19,6 +20,10 @@ public class Day {
 
     public void setHours(float toAdd) {
         hours = new Hours(toAdd);
+    }
+
+    public void resetDueAssignments() {
+        dueAssignments.clear();
     }
 
     public ArrayList<DueAssignment> getDueAssignments() {

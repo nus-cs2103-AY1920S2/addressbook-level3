@@ -169,6 +169,11 @@ public interface Model {
     void sortAssignment(Comparator<Assignment> comparator);
 
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
+  
+    /**
+     * Calculates the schedule for the upcoming numDays (today inclusive).
+     */
+    void calculateScheduleIntensity(int numDays);
 
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
@@ -215,7 +220,7 @@ public interface Model {
     //=========== Schedule Visual Accessors =======================================================================
 
     /**
-     * Returns an unmodifiable view of the user's upcoming schedule for the next 7 days (today inclusive).
+     * Returns an unmodifiable view of the user's upcoming schedule for the next n days (today inclusive).
      */
     ObservableList<Day> getScheduleVisualResult();
 
