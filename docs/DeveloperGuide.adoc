@@ -235,6 +235,26 @@ will be updated to show the change. +
 2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
 display the original order book.
 
+=== Edit feature
+The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `FLAG` and `INDEX`. +
+`FLAG` to indicate which parcel type to edit; `-o` and  `-r` `FLAG` to represent Order or Return Order respectively. +
+`INDEX` to indicate which parcel the user wants to edit. +
+The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>.
+
+[IMPORTANT]
+====
+Limitation to editing time is that the user cannot edit a delivery date or return date of an order or return order respectively to a past date.
+====
+
+The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
+
+==== Class Diagram for Edit Command
+.Edit Command Class Diagram
+image::EditCommandClassDiagram.png[]
+The class diagram above describes the structure of `EditCommand`.
+
+==== Sequence Diagram for Success Path of Edit Command
+
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
