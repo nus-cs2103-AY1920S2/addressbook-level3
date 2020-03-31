@@ -17,10 +17,6 @@ import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.FoodBook;
 import seedu.eylah.diettracker.model.Mode;
-<<<<<<< HEAD
-=======
-import seedu.eylah.diettracker.model.Model;
->>>>>>> 97c76b6579462474f3f090bdfa10eeb3a954d0eb
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.NameContainsKeywordsPredicate;
 import seedu.eylah.diettracker.model.self.Height;
