@@ -152,7 +152,7 @@ image::AddGroupSequenceDiagram.png[]
 [NOTE]
 ====
 [horizontal]
-* The lifeline for `GroupCommandParser` and AddCommandParser` should end at the
+* The lifeline for `GroupCommandParser` and `AddGroupCommandParser` should end at the
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
@@ -240,7 +240,7 @@ is affiliated with. Each group contains a `UniqueStudentsList` that contains the
 The `UniqueSessionList` contains a list of all the *sessions that have already been
 done* associated with the module. This list is used in the TSS view.
 
-==== Implementation of the Module Add and Delete Commands
+==== Implementation of the Module Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
 between the `logic` and `model` components of the TA-Tracker when the user enters the
@@ -251,6 +251,12 @@ pre-existing in the TA-Tracker.
 
 .Module Add - Sequence Diagram
 image::AddModuleSequenceDiagram.png[]
+
+[NOTE]
+====
+* The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
@@ -282,21 +288,26 @@ is thrown saying that a module with the given module code doesn't exist. If it d
 exist, first all the sessions linked to that module are removed.
 Then the module is removed from the TA-Tracker.
 
-==== Implementation of the Group Add and Delete Commands
+The `module edit` command has been implemented in a similar manner.
 
-The following activity diagram shows the steps taken by the AddGroupCommand object
-when the execute method is called.
+==== Implementation of the Group Add, Delete and Edit Commands
 
-.Group Add - Activity Diagram
-image::AddGroupActivityDiagram.png[]
+A group is added to the TA-Tracker in a similar manner to to how a module is added to
+the TA-Tracker.
 
-It should be noted that these are the steps followed assuming that no exception is
-thrown. Before getting the module from TA-Tracker's model, the DeleteGroupCommand object
-checks whether such a module even exists. If it doesn't exists, it throws a command
-exception saying that no such module exists. Before adding a group to the module, the
-object even checks whether the module already has a group with the given group code.
-If it exists, a command exception is thrown saying that there is already a group
-with the given group code.
+The following steps are taken once the execute command of an AddGroupCommand object
+is called:
+
+. The AddGroupCommand object checks whether the module is present in the model of the TA-Tracker.
+.. If it is not present, an exception is thrown explaining that the module doesn't
+exist.
+. If the module does exist, the module is retrieved from the TA-Tracker's model.
+. The AddGroupCommand object checks whether a group with the same group code as the new group exists in
+the module beforehand.
+.. If it does exist, an exception is thrown explaining that you can't have two groups
+with the same group code in a module.
+. If such a group doesn't exist, the group is added to the module.
+. A command result with an appropriate success message is returned.
 
 The interactions between the logic and model components when adding a group are similar
 to the interactions when deleting a group as shown below.
@@ -310,31 +321,46 @@ in the module with module code CS2103 inside the TA-Tracker.
 .Group Delete - Sequence Diagram
 image::DeleteGroupSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+[NOTE]
+====
+* The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-2. The TATrackerParser sees that the command is of type group and passes the
-command to the GroupCommandParser.
+* The module object named `m` and the group object named `g` are created as default
+module and group objects because the DeleteGroupCommand object's constructor takes
+in objects of type `Group` and `Module`.
 
-3. The GroupCommandParser sees that the command is of type delete and passes the
-arguments to the DeleteGroupCommandParser.
+* These objects are used to retrieve the actual module (the module object named `M`)
+and the delete the desired group from it.
+====
 
-4. The DeleteGroupCommandParser creates a Module with the given module code and
-a group with the given group code.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-5. The DeleteGroupCommandParser then creates a DeleteGroupCommand object and passes
-it the created module and group. The parser then returns the DeleteGroupCommand
+2. The `TaTrackerParser` sees that the command is of type `group` and passes the
+command to the `GroupCommandParser`.
 
-6. LogicManager calls DeleteGroupCommand's execute method. The DeleteGroupCommand object
+3. The `GroupCommandParser` sees that the command is of type `delete` and passes the
+arguments to the `DeleteGroupCommandParser`.
+
+4. The `DeleteGroupCommandParser` creates a `Mmdule` with the given module code and
+a `group` with the given group code.
+
+5. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
+it the created module and group. The parser then returns the `DeleteGroupCommand` object.
+
+6. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
 checks whether a module with the given module code already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a module with the given module
 code doesn't exist in the TA-Tracker.
 
-7. If the module exists, the DeleteGroupCommand object retrieves the module from the
+7. If the module exists, the `DeleteGroupCommand` object retrieves the module from the
 model and checks whether the module has a group with the given group code. If it doesn't,
 a command exception is thrown saying that no such group exists. If the group does
 exist, it is removed from the module.
 
-8. The SortGroupCommand returns a CommandResult with a success message.
+8. The DeleteGroupCommand returns a CommandResult with a success message.
+
+The `group edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Sort Command
 
@@ -404,6 +430,8 @@ a command exception is thrown saying that no such group exists.
 7. If the group does exist, it is sorted according to the type of sort specified.
 
 8. The SortGroupCommand returns a CommandResult with a success message.
+
+==== UI Considerations
 
 //tag::studentview[]
 === Student View

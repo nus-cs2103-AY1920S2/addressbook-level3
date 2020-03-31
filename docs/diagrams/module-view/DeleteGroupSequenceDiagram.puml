@@ -15,7 +15,6 @@ participant "m:Module" as Module MODEL_COLOR
 participant "g:Group" as Group MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 participant "M:Module" as ActualModule MODEL_COLOR
-participant "G:Group" as ActualGroup MODEL_COLOR
 end box
 
 [-> LogicManager : execute("group delete \nm/CS2103 g/G03")
@@ -43,13 +42,13 @@ GroupCommandParser -> DeleteGroupCommandParser : parseCommand("m/CS2103 g/G03")
 activate DeleteGroupCommandParser
 
 create Module
-DeleteGroupCommandParser -> Module : Module("CS2103", "")
+DeleteGroupCommandParser -> Module : Module("CS2103")
 activate Module
 Module --> DeleteGroupCommandParser
 deactivate Module
 
 create Group
-DeleteGroupCommandParser -> Group : Group("G03", null)
+DeleteGroupCommandParser -> Group : Group("G03")
 activate Group
 Group --> DeleteGroupCommandParser
 deactivate Group
@@ -93,13 +92,11 @@ deactivate ActualModule
 
 DeleteGroupCommand -> ActualModule : deleteGroup(g)
 activate ActualModule
-ActualGroup -[hidden]-> ActualModule
-destroy ActualGroup
 ActualModule --> DeleteGroupCommand
 deactivate ActualModule
 
 create CommandResult
-DeleteGroupCommand -> CommandResult : CommandResult(SuccessMessage)
+DeleteGroupCommand -> CommandResult : CommandResult()
 activate CommandResult
 CommandResult --> DeleteGroupCommand
 deactivate CommandResult
