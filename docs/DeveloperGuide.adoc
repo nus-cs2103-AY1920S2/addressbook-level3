@@ -156,48 +156,140 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::basic[]
 === Basic commands
+
+==== Help command
+
+
 ==== Switch command
 
 image::SwitchActivityDiagram.png[]
 
+==== List command
+
+
+==== Find command
+
+
+==== Add command
+
+
+==== Edit command
+
+
+==== Delete command
+
+
+==== Favourite and Unfavourite commands
+
+
+==== Undo and Redo commands
+Description: TODO
+
+===== Implementation
+This section explains how the undo and redo commands are implemented.
+
+1. TODO
+
+The following sequence diagram shows what happens when the user calls an undo operation:
+
+.Undo command sequence diagram
+image::UndoRedoSequenceDiagram.png[]
+
+Result: TODO
+
+===== Design Considerations
+====== Aspect: How undo and redo executes
+Challenges faced: TODO
+
+* **Alternative 1 (current choice):** Saves the entire recipe book.
+** Pros: Easy to implement.
+** Cons: May use up a lot of memory space within a single session 1) if there is a large volume of recipe book commits
+and/or 2) if the magnitude of a single commit is large (ie. the database is huge, containing many recipes).
+
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory.
+** Cons: Tedious to ensure the correctness of the implementation of each individual command.
+
+==== Clear command
+
+
+==== Exit command
+
+
 // end::basic[]
 
-// tag::advancedfilter[]
-=== Advanced Filter feature
-==== Implementation
+// tag::recipecustomisation[]
+=== Recipe customisation commands
+==== Add ingredient command
 
+
+==== Edit ingredient command
+
+
+==== Delete ingredient command
+
+
+==== Add step command
+
+
+==== Edit step command
+
+
+==== Delete step command
+
+// end::recipecustomisation[]
+
+
+// tag::advancedfilter[]
+=== Filter command
+The advanced filter feature uses the `filter` command to search for recipes according to the set of keywords provided
+by the user. Think of it as a greatly enhanced and more robust version of the `find` command, which only allows the
+user to find recipes by their name.
+
+==== Implementation
+This section explains how the filter command is implemented.
+
+1. User specified keywords are directed to the `FilterCommandParser` where `ArgumentTokenizer` and `ArgumentMultimap`
+are used to parse the user input. An error will be thrown if no keywords are specified at all.
+
+2. The parsed user input is then fed into `RecipeMatchesKeywordPredicate` where a `Predicate`, p, is created. This
+predicate will subsequently be used as the filter to get all recipes that meet the user specified criteria.
+
+3. A new `FilterCommand` object will be created with the predicate and returned to the `LogicManager`.
+
+4. The `FilterCommand#execute(model)` method is executed and `Model#updateFilteredRecipeList(p)` is called. This tests
+every recipe in the database against the predicate, p, and updates the filtered recipe list with recipes that meet the
+user specified criteria.
+
+5. Once complete, this filtered recipe list is displayed to the user.
+
+Here is a sample sequence diagram that shows what happens when the user inputs `filter favourites t/20 ig/Pasta`:
+
+.Advanced filter sequence diagram
 image::AdvancedFilterSequenceDiagram.png[]
 
+This operation displays all recipes that 1) are marked as favourites, 2) take 20 minutes or less to prepare,
+and 3) contains pasta as an ingredient.
+
 ==== Design Considerations
+===== Aspect: Consistency of user input format
+One concern we had while implementing this feature was the sheer number of commands and prefixes that our app had.
+Eventually, the current implementation was chosen because we didn't want to define a new format for `filter`
+keywords which might potentially confuse our users.
 
-===== Aspect: How recipes are filtered
+* **Alternative 1 (current choice):** Uses the existing prefixes and format in the user input.
+** Pros: The existing `ArgumentTokenizer` and `ArgumentMultimap` classes already have capabilities to parse user input
+that is in a certain format. Thus, using the same format saves us time and effort in implementing our own parser. It
+also spares the user from having to remember multiple formats / keywords.
+** Cons: The user has to be familiar with the prefixes and other special keywords in order to use this feature to its
+fullest potential.
 
+* **Alternative 2:** Define new keywords that the user can use. These keywords could be "more english-like" as opposed
+to using shortened tags as prefixes.
+** Pros: Easy to remember these keywords since they are more english-like.
+** Cons: We must implement our own parser which is tedious. The user will also have to remember a new set of keywords
+on top of the existing prefixes. This is double work for the user.
 // end::advancedfilter[]
-
-// tag::goals[]
-=== [Proposed] Goals feature
-==== Proposed Implementation
-
-==== Design Considerations
-
-===== Aspect: How goals are being tagged
-
-* **Alternative 1 (current choice):** System generates tags for each recipe based on food algorithm.
-** Pros: Higher accuracy and makes use of inputs of ingredients class.
-** Cons: Would require several criteria checks that may not be intuitive and would require the use of artificial intelligence for the highest accuracy.
-* **Alternative 2 :** User chooses from 4 given goals and user adds the tags to the recipes.
-** Pros: Easy to implement.
-** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
-
-===== Aspect: How to determine the criteria for each goal
-
-* **Alternative 1 (current choice):** Check by quantity
-** Pros: More accurate and can be modelled against ideal ratio of a healthy meal.
-** Cons: Harder to implement as we need to standardise the ingredient measurements, not as intuitive.
-* **Alternative 2 :** Check by variety
-** Pros: Easy to implement.
-** Cons: Not as accurate as one grain of rice would still be counted as variety.
-// end::goals[]
 
 // tag::planning[]
 === Planning feature
@@ -215,6 +307,7 @@ image::PlanningSequenceDiagram.png[]
 * **Alternative 1 (current choice):** Scheduled recipes are saved in a separate data structure.
 ** Pros: Scheduled recipes can be easily obtained and sorted.
 ** Cons: May have performance issues in terms of memory usage if a large number of recipes are scheduled.
+
 * **Alternative 2:** Store the date that the scheduled recipe is scheduled on as another attribute to the Recipe class.
 ** Pros: Easy to implement, no additional data structure added.
 ** Cons: All scheduled recipes can not be easily seen and sorted.
@@ -224,11 +317,39 @@ image::PlanningSequenceDiagram.png[]
 * **Alternative 1 (current choice):** Use a tree map to store the scheduled recipes in a <Date, List<Recipe>> key-value pair.
 ** Pros: Allows us to easily and intuitively access the list of recipes scheduled on a certain day.
 ** Cons: Obtaining all the recipes scheduled across a period of time will not be very efficient.
+
 * **Alternative 2:** Use a List sorted by increasing time.
 ** Pros: Easy to implement, uncomplicated data structure.
 ** Cons: Hard to obtain the scheduled recipes on a certain date, as we do not know which index
 corresponds to the date we are interested in.
 // end::planning[]
+
+// tag::goals[]
+=== Goals feature
+==== Proposed Implementation
+
+==== Design Considerations
+
+===== Aspect: How goals are being tagged
+
+* **Alternative 1 (current choice):** System generates tags for each recipe based on food algorithm.
+** Pros: Higher accuracy and makes use of inputs of ingredients class.
+** Cons: Would require several criteria checks that may not be intuitive and would require the use of artificial intelligence for the highest accuracy.
+
+* **Alternative 2 :** User chooses from 4 given goals and user adds the tags to the recipes.
+** Pros: Easy to implement.
+** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
+
+===== Aspect: How to determine the criteria for each goal
+
+* **Alternative 1 (current choice):** Check by quantity
+** Pros: More accurate and can be modelled against ideal ratio of a healthy meal.
+** Cons: Harder to implement as we need to standardise the ingredient measurements, not as intuitive.
+
+* **Alternative 2 :** Check by variety
+** Pros: Easy to implement.
+** Cons: Not as accurate as one grain of rice would still be counted as variety.
+// end::goals[]
 
 === Logging
 
