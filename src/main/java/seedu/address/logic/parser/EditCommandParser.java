@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_FLAG;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
@@ -63,49 +64,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
+        checkPrefixMatchesFlag(argMultimap, flag);
+
         EditCommand.EditParcelDescriptor editParcelDescriptor = new EditParcelDescriptor();
-        if (argMultimap.getValue(PREFIX_TID).isPresent()) {
-            editParcelDescriptor.setTid(ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get()));
+
+        editTid(editParcelDescriptor, argMultimap);
+        editName(editParcelDescriptor, argMultimap);
+        editPhone(editParcelDescriptor, argMultimap);
+        editEmail(editParcelDescriptor, argMultimap);
+        editAddress(editParcelDescriptor, argMultimap);
+        editTimeStamp(editParcelDescriptor, argMultimap);
+        editWarehouse(editParcelDescriptor, argMultimap);
+        editComment(editParcelDescriptor, argMultimap);
+        editType(editParcelDescriptor, argMultimap);
+
+        if (flag.equals(CliSyntax.FLAG_ORDER_BOOK)) {
+            editCod(editParcelDescriptor, argMultimap);
         }
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editParcelDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editParcelDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editParcelDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editParcelDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-        }
-        if (argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent() && flag.equals(CliSyntax.FLAG_ORDER_BOOK)) {
-            editParcelDescriptor.setTimeStamp(
-                ParserUtil.parseTimeStamp(argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get()));
-        } else if (argMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()
-            && flag.equals(CliSyntax.FLAG_RETURN_BOOK)) {
-            editParcelDescriptor.setTimeStamp(
-                ParserUtil.parseTimeStamp(argMultimap.getValue(PREFIX_RETURN_TIMESTAMP).get()));
-        } else if (
-            (argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent() && flag.equals(CliSyntax.FLAG_RETURN_BOOK))
-            || (argMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent() && flag.equals(CliSyntax.FLAG_ORDER_BOOK))
-            || (argMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()
-                && argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent())){
-            throw new ParseException(MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
-        }
-        if (argMultimap.getValue(PREFIX_WAREHOUSE).isPresent()) {
-            editParcelDescriptor.setWarehouse(
-                ParserUtil.parseWarehouse(argMultimap.getValue(PREFIX_WAREHOUSE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_COD).isPresent() && flag.equals(CliSyntax.FLAG_ORDER_BOOK)) {
-            editParcelDescriptor.setCash(ParserUtil.parseCash(argMultimap.getValue(PREFIX_COD).get()));
-        }
-        if (argMultimap.getValue(PREFIX_COMMENT).isPresent()) {
-            editParcelDescriptor.setComment(ParserUtil.parseComment(argMultimap.getValue(PREFIX_COMMENT).get()));
-        }
-        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
-            editParcelDescriptor.setItemType(ParserUtil.parseItemType(argMultimap.getValue(PREFIX_TYPE).get()));
-        }
+
         if (!editParcelDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
@@ -163,5 +139,140 @@ public class EditCommandParser implements Parser<EditCommand> {
             .map(each -> each + " ")
             .collect(Collectors.joining());
         return returnString;
+    }
+
+    /**
+     * Method checks for invalid prefixes with flag provided. Throws {@code ParseException} if valiation occurs.
+     */
+    private void checkPrefixMatchesFlag(ArgumentMultimap argumentMultimap, Flag flag) throws ParseException {
+        if (flag.equals(CliSyntax.FLAG_RETURN_BOOK) && argumentMultimap.getValue(PREFIX_COD).isPresent()) {
+            throw new ParseException(MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER);
+        }
+        if ((argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent()
+                && flag.equals(CliSyntax.FLAG_RETURN_BOOK))
+            || (argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()
+                && flag.equals(CliSyntax.FLAG_ORDER_BOOK))
+            || (argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()
+                && argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent())) {
+            throw new ParseException(MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
+        }
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code TransactionId} prefix is present.
+     */
+    private EditParcelDescriptor editTid(EditParcelDescriptor editParcelDescriptor, ArgumentMultimap argumentMultimap)
+        throws ParseException{
+        if (argumentMultimap.getValue(PREFIX_TID).isPresent()) {
+            editParcelDescriptor.setTid(ParserUtil.parseTid(argumentMultimap.getValue(PREFIX_TID).get()));
+        }
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Name} prefix is present.
+     */
+    private EditParcelDescriptor editName(EditParcelDescriptor editParcelDescriptor, ArgumentMultimap argumentMultimap)
+        throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editParcelDescriptor.setName(ParserUtil.parseName(argumentMultimap.getValue(PREFIX_NAME).get()));
+        }
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Phone} prefix is present.
+     */
+    private EditParcelDescriptor editPhone(EditParcelDescriptor editParcelDescriptor, ArgumentMultimap argumentMultimap)
+        throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editParcelDescriptor.setPhone(ParserUtil.parsePhone(argumentMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Email} prefix is present.
+     */
+    private EditParcelDescriptor editEmail(EditParcelDescriptor editParcelDescriptor, ArgumentMultimap argumentMultimap)
+        throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            editParcelDescriptor.setEmail(ParserUtil.parseEmail(argumentMultimap.getValue(PREFIX_EMAIL).get()));
+        }
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Address} prefix is present.
+     */
+    private EditParcelDescriptor editAddress(EditParcelDescriptor editParcelDescriptor,
+                                             ArgumentMultimap argumentMultimap) throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            editParcelDescriptor.setAddress(ParserUtil.parseAddress(argumentMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        return editParcelDescriptor;
+    }
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Timestamp} prefix is present.
+     */
+    private EditParcelDescriptor editTimeStamp(EditParcelDescriptor editParcelDescriptor,
+                                               ArgumentMultimap argumentMultimap) throws ParseException{
+        if (argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent()) {
+            editParcelDescriptor
+                .setTimeStamp(
+                    ParserUtil.parseTimeStamp(argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get()));
+
+        } else if (argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()) {
+            editParcelDescriptor
+                .setTimeStamp(ParserUtil.parseTimeStamp(argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).get()));
+        }
+
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Warehouse} prefix is present.
+     */
+    private EditParcelDescriptor editWarehouse(EditParcelDescriptor editParcelDescriptor,
+                                               ArgumentMultimap argumentMultimap) throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_WAREHOUSE).isPresent()) {
+            editParcelDescriptor.setWarehouse(
+                ParserUtil.parseWarehouse(argumentMultimap.getValue(PREFIX_WAREHOUSE).get()));
+        }
+
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code CashOnDelivery} prefix is present.
+     */
+    private EditParcelDescriptor editCod(EditParcelDescriptor editParcelDescriptor, ArgumentMultimap argumentMultimap)
+        throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_COD).isPresent()) {
+            editParcelDescriptor.setCash(ParserUtil.parseCash(argumentMultimap.getValue(PREFIX_COD).get()));
+        }
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code Comment} prefix is present.
+     */
+    private EditParcelDescriptor editComment(EditParcelDescriptor editParcelDescriptor,
+                                         ArgumentMultimap argumentMultimap) throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_COMMENT).isPresent()) {
+            editParcelDescriptor.setComment(ParserUtil.parseComment(argumentMultimap.getValue(PREFIX_COMMENT).get()));
+        }
+        return editParcelDescriptor;
+    }
+
+    /**
+     * Edits the {@code EditParcelDescriptor} if {@code ItemType} prefix is present.
+     */
+    private EditParcelDescriptor editType(EditParcelDescriptor editParcelDescriptor,
+                                          ArgumentMultimap argumentMultimap) throws ParseException {
+        if (argumentMultimap.getValue(PREFIX_TYPE).isPresent()) {
+            editParcelDescriptor.setItemType(ParserUtil.parseItemType(argumentMultimap.getValue(PREFIX_TYPE).get()));
+        }
+        return editParcelDescriptor;
     }
 }

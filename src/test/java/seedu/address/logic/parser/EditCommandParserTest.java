@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_FLAG;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COD_DESC_AMY;
@@ -18,6 +20,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.RETURN_TIMESTAMP_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TID_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_GLASS;
@@ -82,6 +85,22 @@ public class EditCommandParserTest {
 
         // no index and no field specified
         assertParseFailure(parser, ORDER_FLAG_INPUT, MESSAGE_INVALID_FORMAT);
+
+        // missing flags
+        assertParseFailure(parser, VALID_ADDRESS_AMY, MESSAGE_MISSING_FLAG);
+    }
+
+    @Test
+    public void parse_invalidPrefixWithFlags_failure() {
+        // edit return order with delivery timestamp prefix instead of return timestamp prefix
+        assertParseFailure(parser, RETURN_FLAG_INPUT + "1 " + DELIVERY_TIMESTAMP_DESC_AMY,
+            MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
+
+        // edit order with return timestamp prefix instead of delivery timestamp prefix.
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "1 " + RETURN_TIMESTAMP_DESC_AMY,
+            MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
+
+
     }
 
     @Test
