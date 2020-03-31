@@ -30,8 +30,24 @@ public class Date {
         }
     }
 
+    public Date(LocalDateTime date) {
+        this.value = date;
+    }
+
     public String getStorageString() {
         return value.toString();
+    }
+
+    public LocalDateTime getValue() {
+        return value;
+    }
+
+    public boolean isBefore(Date other) {
+        return value.isBefore(other.getValue());
+    }
+
+    public boolean isAfter(Date other) {
+        return value.isAfter(other.getValue());
     }
 
     @Override

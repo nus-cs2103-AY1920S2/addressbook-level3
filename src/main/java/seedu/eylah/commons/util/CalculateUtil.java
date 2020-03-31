@@ -21,7 +21,9 @@ public class CalculateUtil {
      */
     public static Amount calculatePricePerPerson(BigDecimal itemPrice, BigDecimal numPersons) {
         BigDecimal pricePerPerson = itemPrice.divide(numPersons,
-                new MathContext(3, RoundingMode.HALF_UP));
+
+                new MathContext(3, RoundingMode.HALF_DOWN));
+
         return new Amount(pricePerPerson);
     }
 
