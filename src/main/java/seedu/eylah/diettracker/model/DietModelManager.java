@@ -3,6 +3,7 @@ package seedu.eylah.diettracker.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -45,6 +46,17 @@ public class DietModelManager extends ModelManager implements DietModel {
     }
 
     //=========== FoodBook ================================================================================
+
+    @Override
+    public Path getFoodBookFilePath() {
+        return super.getUserPrefs().getFoodBookFilePath();
+    }
+
+    @Override
+    public void setFoodBookFilePath(Path addressBookFilePath) {
+        requireNonNull(addressBookFilePath);
+        super.getUserPrefs().setFoodBookFilePath(addressBookFilePath);
+    }
 
     @Override
     public void setFoodBook(ReadOnlyFoodBook addressBook) {
@@ -93,6 +105,17 @@ public class DietModelManager extends ModelManager implements DietModel {
 
     @Override
     public String listFoods(String mode, int numDay) {
+        String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
+        int count = 1;
+        for (Food food: filteredFoods) {
+            result += count + ". " + food.toString() + "\n";
+            count++;
+        }
+        return result;
+    }
+
+    @Override
+    public String listFoods(String mode, String tag) {
         String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
         int count = 1;
         for (Food food: filteredFoods) {

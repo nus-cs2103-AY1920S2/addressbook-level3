@@ -15,9 +15,18 @@ public class SamplePersonAmountDataUtil {
 
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Willy"), new Amount(new BigDecimal("3.30"))),
-            new Person(new Name("Shi"), new Amount(new BigDecimal("34.30"))),
-            new Person(new Name("Ailan"), new Amount(new BigDecimal("60.70"))),
+            new Person(new Name("Willy"),
+                new Amount(new BigDecimal("3.30"))),
+            new Person(new Name("Shi"),
+                new Amount(new BigDecimal("34.30"))),
+            new Person(new Name("Ailan"),
+                new Amount(new BigDecimal("60.70"))),
+            new Person(new Name("Alice"),
+                new Amount(new BigDecimal("100.10"))),
+            new Person(new Name("Bob"),
+                new Amount(new BigDecimal("35.20"))),
+            new Person(new Name("Carl"),
+                new Amount(new BigDecimal("12.12"))),
         };
     }
 

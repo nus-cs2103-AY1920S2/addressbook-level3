@@ -34,7 +34,7 @@ public class PaidCommandTest {
         expectedSplitterModel.paidPerson(TypicalPersons.ALICE, "1");
 
         String messageSuccess = PaidCommand.MESSAGE_SUCCESS + TypicalPersons.ALICE.getName()
-            + ". Amount decreased from " + "2.50 to 1.50.";
+            + ". Amount decreased from " + "$2.50 to $1.50.";
         assertCommandSuccess(paidCommand, splitterModel, messageSuccess, expectedSplitterModel);
 
     }

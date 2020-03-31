@@ -1,5 +1,9 @@
 {
   "persons": [ {
     "name": "Valid Person",
+    "email": "hans@example.com"
+  }, {
+    "name": "Person With Inv@lid Phone Field",
+    "email": "hans@example.com"
   } ]
 }

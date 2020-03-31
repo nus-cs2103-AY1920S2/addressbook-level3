@@ -1,5 +1,6 @@
 package seedu.eylah.diettracker.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -15,6 +16,16 @@ public interface DietModel extends Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Food> PREDICATE_SHOW_ALL_FOODS = unused -> true;
+
+    /**
+     * Returns the user prefs' food book file path.
+     */
+    Path getFoodBookFilePath();
+
+    /**
+     * Sets the user prefs' food book file path.
+     */
+    void setFoodBookFilePath(Path foodBookFilePath);
 
     /**
      * Replaces food book data with the data in {@code foodBook}.
@@ -65,6 +76,9 @@ public interface DietModel extends Model {
     /** Returns the String format of the foods based on the mode input.
      */
     String listFoods(String mode);
+
+    String listFoods(String mode, String tag);
+
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.

@@ -1,8 +1,10 @@
 package seedu.eylah.diettracker.logic;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
@@ -10,6 +12,8 @@ import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.parser.FoodBookParser;
 import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.storage.FoodBookStorage;
 
 /**
@@ -47,6 +51,21 @@ public class DietLogicManager implements DietLogic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public ReadOnlyFoodBook getFoodBook() {
+        return model.getFoodBook();
+    }
+
+    @Override
+    public ObservableList<Food> getFilteredFoodList() {
+        return model.getFilteredFoodList();
+    }
+
+    @Override
+    public Path getFoodBookFilePath() {
+        return model.getFoodBookFilePath();
     }
 
 }

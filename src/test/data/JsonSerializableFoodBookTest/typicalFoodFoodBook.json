@@ -1,0 +1,39 @@
+{
+  "foods" : [ {
+    "name" : "Mushroom Pasta",
+    "calories": "1200",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ "italian" ]
+  }, {
+    "name" : "Chicken Burger",
+    "calories": "300",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ "fastfood", "western" ]
+  }, {
+    "name" : "French Fries",
+    "calories": "450",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ ]
+  }, {
+    "name" : "Vanilla Latte",
+    "calories": "300",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ ]
+  }, {
+    "name" : "Coke",
+    "calories": "1200",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ ]
+  }, {
+    "name" : "BBQ Pizza",
+    "calories": "50",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ ]
+  }, {
+    "name" : "Hotdog",
+    "calories": "1200",
+    "date": "2020-03-25T16:49:40.210009",
+    "tagged" : [ ]
+  }
+  ]
+}

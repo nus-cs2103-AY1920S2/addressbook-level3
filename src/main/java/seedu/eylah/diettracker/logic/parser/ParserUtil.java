@@ -102,7 +102,7 @@ public class ParserUtil {
         requireNonNull(height);
         String trimmedHeight = height.trim();
         if (!Height.isValidHeight(trimmedHeight)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Height.MESSAGE_CONSTRAINTS);
         }
         return new Height(trimmedHeight);
     }
@@ -117,7 +117,7 @@ public class ParserUtil {
         requireNonNull(weight);
         String trimmedWeight = weight.trim();
         if (!Weight.isValidWeight(trimmedWeight)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
         return new Weight(trimmedWeight);
     }
@@ -135,7 +135,7 @@ public class ParserUtil {
         try {
             result = Integer.parseInt(trimmedDays);
         } catch (Exception e) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException("Should only input numeric characters");
         }
         return result;
     }

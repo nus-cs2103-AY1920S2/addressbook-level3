@@ -17,6 +17,7 @@ public class FoodBuilder {
 
     public static final String DEFAULT_NAME = "French Fries";
     public static final long DEFAULT_CALORIES = 300;
+    public static final Date DEFAULT_DATE = new Date("2020-03-25T16:49:40.210009");
 
     private Name name;
     private Calories calories;
@@ -49,7 +50,23 @@ public class FoodBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Food} that we are building.
+     * Sets the {@code Calories} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withCalories(long calories) {
+        this.calories = new Calories(calories);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Calories} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withDate(Date date) {
+        this.date = date;
+        return this;
+    }
+
+    /**
+     *  * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Food} that we are building.
      */
     public FoodBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -61,7 +78,6 @@ public class FoodBuilder {
      *
      * @return a food.
      */
-
     public Food build() {
         return new Food(name, calories, date, tags);
     }

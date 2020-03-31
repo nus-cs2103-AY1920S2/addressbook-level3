@@ -4,15 +4,12 @@ start
 note right: This process repeats until the User has finished entering all Items
 
 if () then ([itemAddedCorrectly])
-  :List Receipt to check Item;
-
 
   if () then ([seeReceipt])
     :List Receipt;
-  else ([else])
+  else ([seeAmount])
     :List Amount;
   endif
-
 else ([else])
   :DeleteItem>
 endif

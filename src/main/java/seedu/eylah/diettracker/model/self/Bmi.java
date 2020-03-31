@@ -16,12 +16,13 @@ public class Bmi {
      * The first character of the height must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "^[-+]?\\d*\\.?\\d*$*";
 
     public final Float height;
     public final Float weight;
     public final String bmi;
     public final Float bmiFloat;
+    public final String category;
 
     /**
      * Constructs a {@code Height}.
@@ -37,6 +38,17 @@ public class Bmi {
         this.weight = weight.getWeightFloat();
         this.bmiFloat = calcBmi();
         this.bmi = this.bmiFloat.toString();
+        if (bmiFloat < 25.0 && bmiFloat >= 18.5) {
+            this.category = "Normal";
+        } else if (bmiFloat >= 16.0 && bmiFloat < 18.5) {
+            this.category = "Underweight";
+        } else if (bmiFloat < 16.0) {
+            this.category = "Severely Underweight";
+        } else if (bmiFloat >= 25.0 && bmiFloat < 30.0) {
+            this.category = "Overweight";
+        } else {
+            this.category = "Obese";
+        }
     }
 
     /**
@@ -66,6 +78,10 @@ public class Bmi {
 
     public float getBmi() {
         return this.bmiFloat;
+    }
+
+    public String getCategory() {
+        return this.category;
     }
 
     @Override

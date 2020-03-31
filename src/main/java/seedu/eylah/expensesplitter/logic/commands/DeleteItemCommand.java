@@ -45,7 +45,14 @@ public class DeleteItemCommand extends Command {
         if (splitterModel.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
-            Entry currentEntry = splitterModel.getEntry(targetIndex.getZeroBased());
+            Entry currentEntry;
+
+            try {
+                currentEntry = splitterModel.getEntry(targetIndex.getZeroBased());
+            } catch (IndexOutOfBoundsException ex) {
+                throw new CommandException("There is no Item with this index. Please use `listreceipt` to get the"
+                + " Index of item.");
+            }
             Item currentItem = currentEntry.getItem();
             Amount amountPerPerson = currentItem.getAmountPerPerson();
             ArrayList<Person> persons = currentEntry.getPersonsList();

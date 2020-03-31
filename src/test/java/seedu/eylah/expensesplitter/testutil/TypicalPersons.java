@@ -13,6 +13,7 @@ import seedu.eylah.expensesplitter.model.person.Person;
  */
 public class TypicalPersons {
 
+    // -------------- PersonAmountBook ------------------------------------------------------
     public static final Person ALICE = new PersonBuilder().withName("Alice Seah")
             .withAmount(new BigDecimal("3.50")).build();
 
@@ -42,6 +43,13 @@ public class TypicalPersons {
     public static final Person IDA = new PersonBuilder().withName("IDA Seah")
         .withAmount(new BigDecimal("11.60")).build();
 
+    // -------------- Receipt ------------------------------------------------------
+
+    public static final Person ANNA = new PersonBuilder().withName("Anna").build();
+
+    public static final Person BRANDON = new PersonBuilder().withName("Brandon").build();
+
+    public static final Person CHARLIE = new PersonBuilder().withName("Charlie").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -57,5 +65,9 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BOB, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static ArrayList<Person> getTypicalPersonsArrayList() {
+        return new ArrayList<>(Arrays.asList(ANNA, BRANDON, CHARLIE));
     }
 }
