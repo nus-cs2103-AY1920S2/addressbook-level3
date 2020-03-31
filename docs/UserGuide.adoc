@@ -290,7 +290,7 @@ Example: +
 [[listamount]]
 ==== List amounts owed `listamount`
 
-Display all the person(s) and the amount they owe.
+You can display all the person(s) and the amount they owe you.
 
 Format: +
 `listamount` +
@@ -326,7 +326,7 @@ Example: +
 [[back]]
 ==== Exiting split to go back to main menu `back`
 
-Exits `split` mode to go back to the main menu of the application.
+You can exits `split` mode to go back to the main menu of the application.
 
 Format: +
 `back`
