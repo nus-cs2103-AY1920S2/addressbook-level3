@@ -8,6 +8,7 @@ import java.util.List;
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -20,6 +21,15 @@ import tatracker.model.session.Session;
  * Marks a session as done in TAT.
  */
 public class DoneSessionCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            "done",
+            "Marks a session as done in TA-Tracker.",
+            List.of(INDEX),
+            List.of(),
+            INDEX
+    );
 
     public static final String DONE_MODEL = "done";
     public static final String COMMAND_WORD = CommandWords.SESSION + " " + DONE_MODEL;

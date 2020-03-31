@@ -8,6 +8,7 @@ import static tatracker.logic.parser.Prefixes.MODULE;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -23,6 +24,15 @@ import tatracker.model.student.Student;
  * Deletes a student identified using it's displayed index from the TA-Tracker.
  */
 public class DeleteStudentCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.DELETE_MODEL,
+            "Deletes the student with the given matric number from the given module group.",
+            List.of(MATRIC, MODULE, GROUP),
+            List.of(),
+            MATRIC, MODULE, GROUP
+    );
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.DELETE_MODEL;
 

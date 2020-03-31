@@ -20,6 +20,14 @@ import tatracker.model.module.Module;
  */
 public class SortGroupCommand extends SortCommand {
 
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SORT,
+            "Sorts all students in the given group.",
+            List.of(SORT_TYPE, MODULE, GROUP),
+            List.of(),
+            SORT_TYPE, MODULE, GROUP
+    );
+
     public static final String COMMAND_WORD = CommandWords.SORT;
 
     public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE, MODULE, GROUP);

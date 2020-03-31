@@ -6,6 +6,7 @@ import static tatracker.logic.parser.Prefixes.MODULE;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -19,6 +20,15 @@ import tatracker.model.module.Module;
  * Deletes a module identified using it's module code.
  */
 public class DeleteModuleCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.MODULE,
+            CommandWords.DELETE_MODEL,
+            "Deletes the module identified by the module code.",
+            List.of(MODULE),
+            List.of(),
+            MODULE
+    );
 
     public static final String COMMAND_WORD = CommandWords.MODULE + " " + CommandWords.DELETE_MODEL;
 

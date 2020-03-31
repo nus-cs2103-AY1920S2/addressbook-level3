@@ -20,6 +20,7 @@ import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -38,6 +39,15 @@ import tatracker.model.tag.Tag;
  * Edits the details of an existing student in the TA-Tracker.
  */
 public class EditStudentCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.EDIT_MODEL,
+            "Edits the student at the displayed list index.",
+            List.of(MATRIC, MODULE, GROUP),
+            List.of(NAME, PHONE, EMAIL, RATING, TAG),
+            MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
+    );
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.EDIT_MODEL;
 

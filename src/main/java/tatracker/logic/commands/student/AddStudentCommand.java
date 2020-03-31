@@ -13,6 +13,7 @@ import static tatracker.logic.parser.Prefixes.TAG;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -27,6 +28,15 @@ import tatracker.model.student.Student;
  * Adds a student to the TA-Tracker.
  */
 public class AddStudentCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.ADD_MODEL,
+            "Adds a student into the given module group.",
+            List.of(MATRIC, MODULE, GROUP, NAME),
+            List.of(PHONE, EMAIL, RATING, TAG),
+            MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
+    );
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.ADD_MODEL;
 

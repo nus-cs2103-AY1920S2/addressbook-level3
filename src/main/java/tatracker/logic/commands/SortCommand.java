@@ -16,6 +16,14 @@ import tatracker.model.Model;
  */
 public class SortCommand extends Command {
 
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SORT,
+            "Sorts all students in TA-Tracker with in-built rules.",
+            List.of(SORT_TYPE),
+            List.of(),
+            SORT_TYPE
+    );
+
     public static final String COMMAND_WORD = CommandWords.SORT;
 
     public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE);

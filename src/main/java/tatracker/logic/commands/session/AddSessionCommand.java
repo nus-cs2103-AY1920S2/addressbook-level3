@@ -12,6 +12,7 @@ import static tatracker.logic.parser.Prefixes.START_TIME;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -24,6 +25,15 @@ import tatracker.model.session.Session;
  * Adds a session to the TATracker.
  */
 public class AddSessionCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            CommandWords.ADD_MODEL,
+            "Adds a session in the TA-Tracker.",
+            List.of(),
+            List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
+            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
+    );
 
     public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.ADD_MODEL;
 

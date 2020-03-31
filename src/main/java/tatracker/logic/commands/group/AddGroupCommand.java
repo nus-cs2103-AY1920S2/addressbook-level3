@@ -8,6 +8,7 @@ import static tatracker.logic.parser.Prefixes.TYPE;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -21,6 +22,15 @@ import tatracker.model.module.Module;
  * Adds a group to the TA-Tracker.
  */
 public class AddGroupCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.GROUP,
+            CommandWords.ADD_MODEL,
+            "Adds a group into TA-Tracker.",
+            List.of(GROUP, MODULE, TYPE),
+            List.of(),
+            GROUP, MODULE, TYPE
+    );
 
     public static final String COMMAND_WORD = CommandWords.GROUP + " " + CommandWords.ADD_MODEL;
 

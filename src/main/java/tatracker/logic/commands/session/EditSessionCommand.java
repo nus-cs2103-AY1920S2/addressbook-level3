@@ -19,6 +19,7 @@ import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -32,6 +33,15 @@ import tatracker.model.session.SessionType;
  * Edits the details of an existing session in TAT.
  */
 public class EditSessionCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            CommandWords.EDIT_MODEL,
+            "Edits a session in the TA-Tracker.",
+            List.of(INDEX),
+            List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
+            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
+    );
 
     public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.EDIT_MODEL;
 

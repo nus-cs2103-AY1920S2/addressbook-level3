@@ -1,11 +1,20 @@
 package tatracker.logic.commands;
 
+import java.util.List;
+
 import tatracker.model.Model;
 
 /**
  * Format full help instructions for every command for display.
  */
 public class HelpCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            "help",
+            "Shows program usage instructions.",
+            List.of(),
+            List.of()
+    );
 
     public static final String COMMAND_WORD = "help";
 

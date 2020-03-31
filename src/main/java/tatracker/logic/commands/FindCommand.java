@@ -19,6 +19,15 @@ import tatracker.model.student.NameContainsKeywordsPredicate;
  */
 public class FindCommand extends Command {
 
+    public static final CommandDetails DETAILS = new CommandDetails(
+            "find",
+            "Finds all students whose names contain any of the specified keywords (case-insensitive)"
+                    + " and displays them as a list with index numbers.",
+            List.of(KEYWORD),
+            List.of(MORE_KEYWORDS),
+            SORT_TYPE, KEYWORD, MORE_KEYWORDS
+    );
+
     public static final String COMMAND_WORD = "find";
 
     public static final List<Prefix> PARAMETERS = List.of(KEYWORD);

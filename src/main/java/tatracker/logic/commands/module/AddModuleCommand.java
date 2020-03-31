@@ -8,6 +8,7 @@ import static tatracker.logic.parser.Prefixes.NAME;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -20,6 +21,15 @@ import tatracker.model.module.Module;
  * Adds a module to the TA-Tracker.
  */
 public class AddModuleCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.MODULE,
+            CommandWords.ADD_MODEL,
+            "Adds a module to the TA-Tracker.",
+            List.of(MODULE, MODULE_NAME),
+            List.of(),
+            MODULE, MODULE_NAME
+    );
 
     public static final String COMMAND_WORD = CommandWords.MODULE + " " + CommandWords.ADD_MODEL;
 

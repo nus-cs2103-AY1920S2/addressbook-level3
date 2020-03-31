@@ -15,6 +15,7 @@ import java.util.List;
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -28,6 +29,15 @@ import tatracker.model.session.Session;
  * Deletes a session identified using it's index.
  */
 public class DeleteSessionCommand extends Command {
+
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            CommandWords.DELETE_MODEL,
+            "Deletes the session identified by its index.",
+            List.of(INDEX),
+            List.of(),
+            INDEX
+    );
 
     public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.DELETE_MODEL;
 

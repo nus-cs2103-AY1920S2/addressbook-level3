@@ -4,10 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -34,12 +32,20 @@ public class PrefixDictionary {
 
         this.parameters = List.copyOf(parameters);
         this.optionals = List.copyOf(optionals);
+        this.dictionary = createPrefixDictionary(this.parameters, this.optionals);
+    }
 
+    /**
+     * Creates a new Prefix dictionary for syntax matching. If there are duplicate prefixes,
+     * the first inserted prefix is kept, and the rest are skipped.
+     */
+    public static Map<String, PrefixEntry> createPrefixDictionary(List<Prefix> parameters, List<Prefix> optionals) {
         List<Prefix> prefixes = new ArrayList<>();
         prefixes.addAll(parameters);
         prefixes.addAll(optionals);
 
-        this.dictionary = createPrefixDictionary(prefixes, List.of());
+        return prefixes.stream()
+                .collect(Collectors.toUnmodifiableMap(Prefix::getPrefix, PREFIXES::get, (first, second) -> first));
     }
 
     public List<Prefix> getParameters() {
@@ -51,79 +57,40 @@ public class PrefixDictionary {
     }
 
     /**
-     * Creates a new Prefix dictionary for syntax matching.
-     */
-    public static Map<String, PrefixEntry> createPrefixDictionary(List<Prefix> parameters, List<Prefix> optionals) {
-        if (!arePrefixesUnique(parameters) && !arePrefixesUnique(optionals)) {
-            throw new IllegalArgumentException("Some prefix values are the same. This would result in duplicate keys");
-        }
-
-        List<Prefix> prefixes = new ArrayList<>();
-        prefixes.addAll(parameters);
-        prefixes.addAll(optionals);
-
-        return prefixes.stream()
-                .collect(Collectors.toUnmodifiableMap(Prefix::getPrefix, PrefixDictionary::getPrefixEntry));
-    }
-
-    /**
-     * Returns true if the list of prefixes have unique values.
-     * For example, "n/" could mean Student name or Module description, so it is not unique.
-     */
-    private static boolean arePrefixesUnique(List<Prefix> prefixes) {
-        Set<String> uniquePrefixes = new HashSet<>();
-        for (Prefix prefix : prefixes) {
-            String value = prefix.toString();
-            if (uniquePrefixes.contains(value)) {
-                return false;
-            }
-            uniquePrefixes.add(value);
-        }
-        return true;
-    }
-
-    public PrefixEntry getPrefix(String value) {
-        requireNonNull(value);
-        return dictionary.get(value);
-    }
-
-    /**
      * Returns the matching CommandEntry.
      */
-    public static PrefixEntry getPrefixEntry(Prefix prefix) {
+    public PrefixEntry getPrefixEntry(String prefix) {
         requireNonNull(prefix);
-        return PREFIXES.get(prefix);
+        return dictionary.get(prefix);
     }
 
-    // public String getPrefixesWithInfo() {
-    //     String params = formatPrefixes(parameters, p -> getPrefixEntry(p).getPrefixWithInfo());
-    //     String opts = formatPrefixes(optionals, p -> getPrefixEntry(p).getPrefixWithOptionalInfo());
-    //
-    //     if (params.isEmpty()) {
-    //         return opts;
-    //     } else {
-    //         return params + " " + opts;
-    //     }
+    // public static PrefixEntry getPrefixEntry(Prefix prefix) {
+    //     requireNonNull(prefix);
+    //     return PREFIXES.get(prefix);
     // }
-    //
-    // public String getPrefixesWithExamples() {
-    //     String params = formatPrefixes(parameters, p -> getPrefixEntry(p).getPrefixWithExamples());
-    //     String opts = formatPrefixes(optionals, p -> getPrefixEntry(p).getPrefixWithExamples());
-    //
-    //     if (params.isEmpty()) {
-    //         return opts;
-    //     } else {
-    //         return params + " " + opts;
-    //     }
-    // }
+
+    public String getPrefixesWithInfo() {
+        return getPrefixesWithInfo(parameters, optionals);
+    }
 
     public static String getPrefixesWithInfo(List<Prefix> parameters) {
         return getPrefixesWithInfo(parameters, List.of());
     }
 
     public static String getPrefixesWithInfo(List<Prefix> parameters, List<Prefix> optionals) {
-        String params = formatPrefixes(parameters, p -> getPrefixEntry(p).getPrefixWithInfo());
-        String opts = formatPrefixes(optionals, p -> getPrefixEntry(p).getPrefixWithOptionalInfo());
+        String params = formatPrefixes(parameters, p -> PREFIXES.get(p).getPrefixWithInfo());
+        String opts = formatPrefixes(optionals, p -> PREFIXES.get(p).getPrefixWithOptionalInfo());
+
+        if (params.isEmpty()) {
+            return opts;
+        } else {
+            return params + " " + opts;
+        }
+    }
+
+    public String getPrefixesWithExamples() {
+        String params = formatPrefixes(parameters, p -> PREFIXES.get(p).getPrefixWithExamples());
+        String opts = formatPrefixes(optionals, p -> PREFIXES.get(p).getPrefixWithExamples());
 
         if (params.isEmpty()) {
             return opts;
@@ -133,7 +100,7 @@ public class PrefixDictionary {
     }
 
     public static String getPrefixesWithExamples(Prefix ... prefixes) {
-        return formatPrefixes(Arrays.asList(prefixes), p -> getPrefixEntry(p).getPrefixWithExamples());
+        return formatPrefixes(Arrays.asList(prefixes), p -> PREFIXES.get(p).getPrefixWithExamples());
     }
 
     private static String formatPrefixes(List<Prefix> prefixes, Function<Prefix, String> mapper) {
