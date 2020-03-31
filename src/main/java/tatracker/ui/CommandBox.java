@@ -188,7 +188,6 @@ public class CommandBox extends UiPart<Region> {
     private void handleNoInput() {
         resetCommandEntry();
         setStyleToDefault();
-        resultDisplay.setFeedbackToUser(Messages.MESSAGE_HELP);
     }
 
     private void handleInvalidInput() {
