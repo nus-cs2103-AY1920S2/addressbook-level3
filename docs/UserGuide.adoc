@@ -65,6 +65,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Address Book
 
+The address book allows you to add other individuals, such as professors and fellow classmates to your addressbook. Information such as phone number and email of the person will be saved into the address book for easier communication for projects or to schedule consultation relating to the module. 
+
 ==== Adding a person: `add`
 
 - Adds a person to the address book.
@@ -156,6 +158,10 @@ A person can have any number of tags (including 0)
 
 
 === Profile
+
+This feature allows individuals to see their own profile, their target cap, their current cap and the all modules that the individual have taken. 
+
+
 ==== View CAP summary : `cap`
 
 - Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
@@ -199,6 +205,9 @@ b.	`mymodplan add MODULE CODE`: adds a module to the module plan
 c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 
 === Diary
+
+The diary feature allows you to jot down any thoughts, be it for your personal life or for school work, or just a concept that you may not understand that you will have to revisit in the future.
+
 ==== Adding an diary entry: `diaryAdd`
 - Adds a diary entry to the diary book.
 - Format: `diaryAdd ec/ENTRY_CONTENT`
@@ -229,6 +238,9 @@ c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 
 
 === Calender
+
+A calender in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines. 
+
 ==== Todo list: `todo`
 
 - Shows the list of tasks that are scheduled for the week with the deadline.
@@ -253,6 +265,9 @@ b. `event ID NAME_OF_PARTICIPANT` : add the contact card of the specific partici
 
 
 === Notes
+
+Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
+
 ==== Note Taking: `notes`
 
 - Allows for users to create documents for notes, organise their notes in folders.
