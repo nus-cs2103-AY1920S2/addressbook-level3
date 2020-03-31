@@ -220,7 +220,7 @@ Format: `exit`
 
 == FAQ
 
-The following section answers some queries you might have regarding CookBuddy.
+The following section answers some questions you might have regarding *CookBuddy*.
 
 Q: How do I transfer my data to another Computer?
 A: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
