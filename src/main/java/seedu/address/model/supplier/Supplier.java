@@ -4,16 +4,22 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
+
 
 /**
  * Represents a Supplier in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Supplier {
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Person should consist of valid name, phone, email, address and tags.";
 
     // Identity fields
     private final Name name;
@@ -58,6 +64,32 @@ public class Supplier {
      */
     public Set<Offer> getOffers() {
         return Collections.unmodifiableSet(offers);
+    }
+
+    /**
+     * This is to remove a good from supplier's list after giving the good's name
+     */
+    public boolean removeGood(GoodName goodName) {
+        Iterator<Offer> itr = offers.iterator();
+        while (itr.hasNext()) {
+            Offer tempOffer = itr.next();
+            if (tempOffer.getGood().equals(goodName)) {
+                itr.remove();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if a given person is a valid person.
+     */
+    public static boolean isValidSupplier(Supplier test) {
+        return Name.isValidName(test.getName().toString())
+                && Phone.isValidPhone(test.getPhone().toString())
+                && Email.isValidEmail(test.getEmail().toString())
+                && Address.isValidAddress(test.getAddress().toString())
+                && test.getOffers().stream().allMatch(offer -> Offer.isValidOffer(offer));
     }
 
     /**

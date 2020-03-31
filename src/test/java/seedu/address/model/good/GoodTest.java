@@ -12,14 +12,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.GoodBuilder;
 
-/**
- * A utility class to help with building Good objects.
- */
 public class GoodTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Good(null, new GoodQuantity(VALID_GOOD_QUANTITY_ONE)));
+        assertThrows(NullPointerException.class, () -> new Good(new GoodName(VALID_GOOD_NAME_AVOCADO),
+                new GoodQuantity(VALID_GOOD_QUANTITY_ONE), null));
         assertThrows(NullPointerException.class, () -> new Good(new GoodName(VALID_GOOD_NAME_AVOCADO), null));
         assertThrows(NullPointerException.class, () -> new Good(null, null));
     }
@@ -38,6 +37,10 @@ public class GoodTest {
 
         // same good name, different quantity -> returns true
         editedApple = new GoodBuilder(APPLE).withGoodQuantity(VALID_GOOD_QUANTITY_ONE).build();
+        assertTrue(APPLE.isSameGood(editedApple));
+
+        // same good name, different threshold -> returns true
+        editedApple = new GoodBuilder(APPLE).withThreshold(VALID_GOOD_QUANTITY_ONE).build();
         assertTrue(APPLE.isSameGood(editedApple));
     }
 
@@ -65,6 +68,10 @@ public class GoodTest {
 
         // different good quantity -> returns false
         editedApple = new GoodBuilder(APPLE).withGoodQuantity(VALID_GOOD_QUANTITY_ONE).build();
+        assertFalse(APPLE.equals(editedApple));
+
+        // different threshold -> returns false
+        editedApple = new GoodBuilder(APPLE).withThreshold(VALID_GOOD_QUANTITY_ONE).build();
         assertFalse(APPLE.equals(editedApple));
     }
 
