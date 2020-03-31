@@ -19,6 +19,8 @@ import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Capulator;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.todolist.Deadline;
+import seedu.address.todolist.ToDo;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -178,6 +180,7 @@ public class ModelManager implements Model {
         return capulator.calculateCap();
     }
 
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -226,6 +229,36 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== Deadline Module ==================================================================================
+
+    /**
+     * Dummy java docs
+     * @param deadline contains task
+     */
+
+    @Override
+    public void addDeadline(Deadline deadline) {
+
+    }
+
+    @Override
+    public boolean isEmptyDeadline(Deadline deadline) {
+        return false;
+    }
+
+    //=========== TD Module ==================================================================================
+
+
+    @Override
+    public void addToDo(ToDo todo) {
+
+    }
+
+    @Override
+    public boolean isEmptyToDo(ToDo todo) {
+        return false;
     }
 
 }

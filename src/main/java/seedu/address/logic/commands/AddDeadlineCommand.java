@@ -19,6 +19,9 @@ public class AddDeadlineCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Deadline added: ";
 
+    public static final String MESSAGE_INVALID = "Your deadline seems to be empty!";
+
+
     private final Deadline deadlineToAdd;
 
     public AddDeadlineCommand (Deadline deadline) {
