@@ -30,11 +30,14 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.OngoingSession;
+import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
+
 
 public class CreateCommandTest {
 
@@ -221,7 +224,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
+        public OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -231,7 +234,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public Optional<Session> getCurrentSession() {
+        public Optional<OngoingSession> getCurrentSession() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -264,6 +267,26 @@ public class CreateCommandTest {
         @Override
         public ScheduleList getScheduleList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlySessionList getSessionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Session> getFilteredSessionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getSessionListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSessionListFilePath(Path sessionListFilePath) {
+
         }
     }
 

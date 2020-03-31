@@ -22,8 +22,10 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.schedule.Scheduler;
-import seedu.zerotoone.model.session.CompletedSession;
+import seedu.zerotoone.model.session.OngoingSession;
+import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -48,11 +50,15 @@ public class ModelManager implements Model {
     private final FilteredList<Workout> filteredWorkouts;
 
     // Session
-    private Optional<Session> currentSession;
+    private Optional<OngoingSession> currentSession;
     private final StopWatch stopwatch;
 
     // Schedule
     private final Scheduler scheduler;
+
+    // Log
+    private final SessionList sessionList;
+    private final FilteredList<Session> filteredSessions;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -60,12 +66,14 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyUserPrefs userPrefs,
                         ReadOnlyExerciseList exerciseList,
                         ReadOnlyWorkoutList workoutList,
-                        ScheduleList scheduleList) {
+                        ScheduleList scheduleList,
+                        ReadOnlySessionList sessionList) {
         super();
         requireAllNonNull(userPrefs,
                 exerciseList,
                 workoutList,
-                scheduleList);
+                scheduleList,
+                sessionList);
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
@@ -81,10 +89,13 @@ public class ModelManager implements Model {
 
         this.currentSession = Optional.empty();
         this.stopwatch = new StopWatch();
+
+        this.sessionList = new SessionList(sessionList);
+        filteredSessions = new FilteredList<>(this.sessionList.getSessionList());
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList());
+        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList(), new SessionList());
     }
 
     // -----------------------------------------------------------------------------------------
@@ -157,6 +168,20 @@ public class ModelManager implements Model {
         exerciseList.setExercise(target, editedExercise);
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Session List
+
+    @Override
+    public Path getSessionListFilePath() {
+        return userPrefs.getLogListFilePath();
+    }
+
+    @Override
+    public void setSessionListFilePath(Path sessionListFilePath) {
+        requireNonNull(sessionListFilePath);
+        userPrefs.setLogListFilePath(sessionListFilePath);
+    }
+
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
         return filteredExercises;
@@ -174,22 +199,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
-        Session session = new Session(exerciseToStart, currentDateTime);
-        this.currentSession = Optional.of(session);
-        return session;
+    public OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
+        OngoingSession ongoingSession = new OngoingSession(exerciseToStart, currentDateTime);
+        this.currentSession = Optional.of(ongoingSession);
+        return ongoingSession;
     }
 
     @Override
     public void stopSession(LocalDateTime currentDateTime) {
-        Session session = this.currentSession.get();
-        CompletedSession completedSession = session.finish(currentDateTime);
-        // do smth like save completed workout
+        OngoingSession ongoingSession = this.currentSession.get();
+        Session session = ongoingSession.finish(currentDateTime);
+        this.sessionList.addSession(session);
         this.currentSession = Optional.empty();
     }
 
     @Override
-    public Optional<Session> getCurrentSession() {
+    public Optional<OngoingSession> getCurrentSession() {
         return Optional.ofNullable(this.currentSession.orElse(null));
     }
 
@@ -198,6 +223,16 @@ public class ModelManager implements Model {
     @Override
     public ScheduleList getScheduleList() {
         return scheduler.getScheduleList();
+    }
+
+    @Override
+    public ReadOnlySessionList getSessionList() {
+        return sessionList;
+    }
+
+    @Override
+    public ObservableList<Session> getFilteredSessionList() {
+        return filteredSessions;
     }
 
     @Override

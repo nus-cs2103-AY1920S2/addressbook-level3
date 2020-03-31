@@ -25,9 +25,9 @@ Firstly, add any custom weight training exercises you want and create a workout.
 
 Next, plan your workouts in the schedule and get timely reminders so you never miss a workout again.
 
-Now that it is time for a workout session, get started with the session feature in the home tab, which serves as a follow-along guide that helps you time your rest and remembers which exercises are next up for you.
+Now that it is time for a workout ongoingSession, get started with the ongoingSession feature in the home tab, which serves as a follow-along guide that helps you time your rest and remembers which exercises are next up for you.
 
-Our logging feature automatically tracks your session when you are done and provides in-depth details of your progress.
+Our logging feature automatically tracks your ongoingSession when you are done and provides in-depth details of your progress.
 
 Ready to start? Let's go!
 
@@ -45,7 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all workouts in the app
-* *`log`* : shows a log of past workouts
+* *`session`* : shows a log of past workouts
 * *`start <workout_id>`* : starts a new workout
 * *`stop`* : stops the workout
 * *`exit`* : exits the app
@@ -82,11 +82,11 @@ They are listed as follows:
 === General Commands
 ====
 
-* Start a session : `start`
+* Start a ongoingSession : `start`
 
 Format: `start <EXERCISE_ID>`
 
-* Stop a session : `stop`
+* Stop a ongoingSession : `stop`
 
 //Format: `start <EXERCISE_ID>`
 
@@ -286,8 +286,8 @@ Examples:
 The workout name is case-sensitive.
 
 === Scheduling Workouts
-==== Schedule a single workout session
-Schedules a single workout session on a specified date and time.
+==== Schedule a single workout ongoingSession
+Schedules a single workout ongoingSession on a specified date and time.
 
 Format:
 
@@ -301,8 +301,8 @@ Examples:
 [TIP]
 date must be in the format {yyyy}-{mm}-{dd}T{2359}.
 
-==== Schedule a recurring workout session
-Schedules a recurring workout session from specified date and time, with a frequency of the recurrence.
+==== Schedule a recurring workout ongoingSession
+Schedules a recurring workout ongoingSession from specified date and time, with a frequency of the recurrence.
 
 Format:
 
@@ -313,8 +313,8 @@ Examples:
 * `schedule recurring Push 2020-03-14T0800`
 * `schedule recurring Pull 2020-03-05T2200`
 
-==== Delete a workout session
-Deletes a specified single workout session from the user’s schedule for the specified date.
+==== Delete a workout ongoingSession
+Deletes a specified single workout ongoingSession from the user’s schedule for the specified date.
 
 Format:
 
@@ -325,8 +325,8 @@ Examples:
 * `schedule single delete Push 2020-03-14T0800`
 * `schedule single delete Pull 2020-03-05T2200`
 
-==== Delete a recurring workout session
-Deletes a recurring workout session, clearing all of the future recurring sessions from the user’s whole schedule.
+==== Delete a recurring workout ongoingSession
+Deletes a recurring workout ongoingSession, clearing all of the future recurring sessions from the user’s whole schedule.
 
 Format:
 
@@ -347,7 +347,7 @@ Format: `schedule list`
 ==== Show log of workouts
 Displays an indexed log of the user’s past workouts, sorted in chronological order.
 
-Format: `log`
+Format: `session`
 
 ==== Delete log of past workout
 Deletes the log information at the specified log_index.

@@ -18,6 +18,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
@@ -29,7 +30,8 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(new UserPrefs(),
             getTypicalExerciseList(),
             getTypicalWorkoutList(),
-            new ScheduleList());
+            new ScheduleList(),
+            new SessionList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -42,7 +44,8 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),
-                model.getScheduleList());
+                model.getScheduleList(),
+                model.getSessionList());
 
         expectedModel.deleteExercise(exerciseToDelete);
 
@@ -70,7 +73,8 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),
-                model.getScheduleList());
+                model.getScheduleList(),
+                model.getSessionList());
 
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);

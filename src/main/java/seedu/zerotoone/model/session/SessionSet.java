@@ -19,23 +19,23 @@ public class SessionSet {
      */
     public final Weight weight;
     public final NumReps numReps;
-    public final boolean finished;
+    public final boolean isFinished;
 
     /**
      * Every field must be present and not null.
      */
-    public SessionSet(Weight weight, NumReps numReps, boolean finished) {
+    public SessionSet(Weight weight, NumReps numReps, boolean isFinished) {
         requireAllNonNull(weight, numReps);
         this.weight = weight;
         this.numReps = numReps;
-        this.finished = finished;
+        this.isFinished = isFinished;
     }
 
-    public SessionSet(ExerciseSet exerciseSet, boolean finished) {
+    public SessionSet(ExerciseSet exerciseSet, boolean isFinished) {
         requireAllNonNull(exerciseSet.getWeight(), exerciseSet.getNumReps());
         this.weight = exerciseSet.getWeight();
         this.numReps = exerciseSet.getNumReps();
-        this.finished = finished;
+        this.isFinished = isFinished;
     }
 
     public Weight getWeight() {
@@ -46,8 +46,8 @@ public class SessionSet {
         return numReps;
     }
 
-    public boolean finished() {
-        return finished;
+    public boolean isFinished() {
+        return isFinished;
     }
 
     @Override

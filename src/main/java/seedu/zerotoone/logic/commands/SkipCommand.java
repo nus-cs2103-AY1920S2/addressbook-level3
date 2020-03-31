@@ -8,7 +8,7 @@ import java.time.format.FormatStyle;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.OngoingSession;
 import seedu.zerotoone.model.session.SessionSet;
 
 /**
@@ -33,7 +33,7 @@ public class SkipCommand extends Command {
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-        Session current = model.getCurrentSession().get();
+        OngoingSession current = model.getCurrentSession().get();
 
         SessionSet set = current.skip();
 

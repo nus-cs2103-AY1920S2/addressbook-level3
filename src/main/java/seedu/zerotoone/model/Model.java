@@ -12,6 +12,8 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.OngoingSession;
+import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.WorkoutModel;
@@ -109,15 +111,32 @@ public interface Model extends WorkoutModel {
      */
     boolean isInSession();
 
-    Session startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
+    OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
 
     void stopSession(LocalDateTime currentDateTime);
 
-    Optional<Session> getCurrentSession();
+    // todo write java docs
+
+    Optional<OngoingSession> getCurrentSession();
     boolean hasSchedule(Schedule schedule);
     void addSchedule(Schedule schedule);
     void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule);
     void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
+
+
     ScheduleList getScheduleList();
+
+    ReadOnlySessionList getSessionList();
+
+    ObservableList<Session> getFilteredSessionList();
+
+
+    Path getSessionListFilePath();
+
+
+    void setSessionListFilePath(Path sessionListFilePath);
+
+
+
 }

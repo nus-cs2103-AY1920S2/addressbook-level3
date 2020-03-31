@@ -7,18 +7,21 @@ import java.util.Optional;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.schedule.ScheduleListStorage;
+import seedu.zerotoone.storage.session.SessionListStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.storage.workout.WorkoutListStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends UserPrefsStorage, ExerciseListStorage, WorkoutListStorage, ScheduleListStorage {
+public interface Storage extends UserPrefsStorage, ExerciseListStorage, WorkoutListStorage, ScheduleListStorage,
+        SessionListStorage {
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
     @Override
@@ -59,4 +62,16 @@ public interface Storage extends UserPrefsStorage, ExerciseListStorage, WorkoutL
 
     @Override
     void saveScheduleList(ScheduleList scheduleList) throws IOException;
+
+    // -----------------------------------------------------------------------------------------
+    // Session List
+    @Override
+    Path getSessionListFilePath();
+
+    @Override
+    Optional<ReadOnlySessionList> readSessionList() throws DataConversionException, IOException;
+
+    @Override
+    void saveSessionList(ReadOnlySessionList sessionList) throws IOException;
+
 }

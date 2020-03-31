@@ -14,6 +14,7 @@ import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -29,7 +30,8 @@ public class CreateCommandIntegrationTest {
         model = new ModelManager(new UserPrefs(),
                 getTypicalExerciseList(),
                 getTypicalWorkoutList(),
-                new ScheduleList());
+                new ScheduleList(),
+                new SessionList());
     }
 
     @Test
@@ -40,7 +42,8 @@ public class CreateCommandIntegrationTest {
         Model expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),
-                model.getScheduleList());
+                model.getScheduleList(),
+                model.getSessionList());
 
         expectedModel.addExercise(validExercise);
 

@@ -12,7 +12,7 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.OngoingSession;
 
 /**
  * Starts a new session based on a displayed index from the exercise list.
@@ -47,7 +47,7 @@ public class StartCommand extends Command {
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-        Session current = model.startSession(exerciseToStart, currentDateTime);
+        OngoingSession current = model.startSession(exerciseToStart, currentDateTime);
         if (!current.hasSetLeft()) {
             model.stopSession(currentDateTime);
             throw new CommandException((MESSAGE_NO_SET_LEFT));

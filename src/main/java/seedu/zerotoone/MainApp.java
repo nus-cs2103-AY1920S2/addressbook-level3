@@ -20,10 +20,13 @@ import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduleList;
+import seedu.zerotoone.model.session.ReadOnlySessionList;
+import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.util.SampleExerciseDataUtil;
 import seedu.zerotoone.model.util.SampleScheduleDataUtil;
+import seedu.zerotoone.model.util.SampleSessionDataUtil;
 import seedu.zerotoone.model.util.SampleWorkoutDataUtil;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.WorkoutList;
@@ -33,6 +36,8 @@ import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.schedule.ScheduleListStorage;
 import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
+import seedu.zerotoone.storage.session.SessionListStorage;
+import seedu.zerotoone.storage.session.SessionListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.workout.WorkoutListStorage;
@@ -73,13 +78,16 @@ public class MainApp extends Application {
         WorkoutListStorage workoutListStorage = new WorkoutListStorageManager(userPrefs.getWorkoutListFilePath());
         // Schedule
         ScheduleListStorage scheduleListStorage = new ScheduleListStorageManager(userPrefs.getScheduleListFilePath());
+        // Session
+        SessionListStorage sessionListStorage = new SessionListStorageManager(userPrefs.getLogListFilePath());
 
         // -----------------------------------------------------------------------------------------
         // Common
         storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
                 workoutListStorage,
-                scheduleListStorage);
+                scheduleListStorage,
+                sessionListStorage);
         model = initModelManager(storage, userPrefs);
         logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
@@ -94,11 +102,15 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseList> exerciseListOptional;
         ReadOnlyExerciseList initialExerciseListData;
+
         Optional<ScheduleList> scheduleListOptional;
         ScheduleList initialScheduleListData;
 
         Optional<ReadOnlyWorkoutList> workoutListOptional;
         ReadOnlyWorkoutList initialWorkoutListData;
+
+        Optional<ReadOnlySessionList> sessionListOptional;
+        ReadOnlySessionList initialSessionListData;
 
         // -----------------------------------------------------------------------------------------
         // Exercise List
@@ -146,10 +158,32 @@ public class MainApp extends Application {
             initialScheduleListData = new ScheduleList();
         }
 
+        // Session List
+        try {
+            sessionListOptional = storage.readSessionList();
+            if (sessionListOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample ExerciseList");
+            }
+            initialSessionListData = sessionListOptional.orElseGet(SampleSessionDataUtil::getSampleSessionList);
+
+            try {
+                storage.saveSessionList(initialSessionListData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty SessionList");
+            initialSessionListData = new SessionList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty SessionList");
+            initialSessionListData = new SessionList();
+        }
+
         return new ModelManager(userPrefs,
                 initialExerciseListData,
                 initialWorkoutListData,
-                initialScheduleListData);
+                initialScheduleListData,
+                initialSessionListData);
     }
 
     private void initLogging(Config config) {

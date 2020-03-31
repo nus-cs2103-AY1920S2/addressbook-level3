@@ -54,7 +54,8 @@ public class LogicManagerTestUtil {
         Model expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),
-                model.getScheduleList());
+                model.getScheduleList(),
+                model.getSessionList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel, logic, model);
     }
 
