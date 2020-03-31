@@ -19,6 +19,9 @@ import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
+/**
+ * A class that handles saving to and read from the transcript directory.
+ */
 public class TranscriptStorage {
     private static final Logger logger = LogsCenter.getLogger(TranscriptStorage.class);
     private final Path directory;
@@ -37,7 +40,8 @@ public class TranscriptStorage {
      * @return OptionalTranscriptList
      * @throws DataConversionException error when reading the file
      */
-    public Optional<Transcript> readTranscript(Path filePath, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
+    public Optional<Transcript> readTranscript(Path filePath, QuestionList questionList, AttributeList attributeList)
+            throws DataConversionException {
         requireNonNull(filePath);
         Optional<JsonSerializableTranscript> jsonTranscript = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTranscript.class);
@@ -54,7 +58,7 @@ public class TranscriptStorage {
 
     /**
      * Save the information of the Transcript
-     * @param  interviewee of the data. Cannot be null.
+     * @param interviewee of the data. Cannot be null.
      */
     public void saveTranscript(Interviewee interviewee) throws IOException {
         requireNonNull(interviewee);

@@ -50,6 +50,13 @@ public class IntervieweeList {
     }
 
     /**
+     * Initializes a new empty IntervieweeList with no interviewees. uniqueInterviewId starts at 1.
+     */
+    public IntervieweeList() {
+        this(1, new TreeMap<>(), new TreeMap<>());
+    }
+
+    /**
      * Restores an IntervieweeList from saved session.
      *
      * @param id the current uniqueIntervieweeId.
@@ -75,16 +82,9 @@ public class IntervieweeList {
             intervieweeList.identifierIndices.put(interviewee.getFullName(), interviewee.getId());
             interviewee.getAlias().ifPresent(alias ->
                     intervieweeList.identifierIndices.put(alias, interviewee.getId()));
-            intervieweeList.observableList.addAll(intervieweeList.interviewees.values());
         }
+        intervieweeList.observableList.addAll(intervieweeList.interviewees.values());
         return intervieweeList;
-    }
-
-    /**
-     * Initializes a new empty IntervieweeList with no interviewees. uniqueInterviewId starts at 1.
-     */
-    public IntervieweeList() {
-        this(1, new TreeMap<>(), new TreeMap<>());
     }
 
     public ObservableList<Interviewee> getObservableList() {

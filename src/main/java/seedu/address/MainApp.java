@@ -110,10 +110,10 @@ public class MainApp extends Application {
             }
 
             initialModel = modelOptional.orElse(false);
-            initialAttributes = attributeListOptional.orElseGet(() -> new AttributeList());
-            initialQuestions = questionListOptional.orElseGet(() -> new QuestionList());
+            initialAttributes = attributeListOptional.orElse(new AttributeList());
+            initialQuestions = questionListOptional.orElse(new QuestionList());
 
-            /** when the the model is not finalised, it will not initialise metric and transcript*/
+            // when the the model is not finalised, it will not initialise metric and transcript
             if (!initialModel) {
                 initialMetrics = new MetricList();
             } else {
@@ -134,10 +134,9 @@ public class MainApp extends Application {
             initialMetrics = new MetricList();
             initialModel = false;
         }
-        /** loading of the data for interviewee and their respective transcript*/
 
-
-        return new ModelManager(userPrefs, initialInterviewees, initialAttributes, initialQuestions, initialMetrics, initialModel);
+        return new ModelManager(userPrefs, initialInterviewees, initialAttributes,
+                initialQuestions, initialMetrics, initialModel);
     }
 
     private void initLogging(Config config) {

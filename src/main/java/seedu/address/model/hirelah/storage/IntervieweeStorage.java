@@ -25,7 +25,6 @@ public class IntervieweeStorage {
     private static final Logger logger = LogsCenter.getLogger(IntervieweeStorage.class);
     private final Path path;
 
-
     public IntervieweeStorage(Path newPath) {
         this.path = newPath;
     }
@@ -41,7 +40,8 @@ public class IntervieweeStorage {
      * @throws DataConversionException error when reading the file
      */
     public Optional<IntervieweeList> readInterviewee(Path filePath, QuestionList questionList,
-                                                     AttributeList attributeList, Boolean finalised, TranscriptStorage storage) throws DataConversionException {
+                                                     AttributeList attributeList, Boolean finalised,
+                                                     TranscriptStorage storage) throws DataConversionException {
         requireNonNull(filePath);
         Optional<JsonSerializableInterviewee> jsonInterviewee = JsonUtil.readJsonFile(
                 filePath, JsonSerializableInterviewee.class);
