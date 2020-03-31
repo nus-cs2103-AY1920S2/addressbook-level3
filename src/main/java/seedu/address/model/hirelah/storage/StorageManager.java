@@ -26,10 +26,10 @@ public class StorageManager implements Storage {
         this.filePath = filePath;
     }
 
-
     public Path getFilePath() {
         return filePath;
     }
+
     /**
      * Save the current Session
      * @param  model of the data. Cannot be null.

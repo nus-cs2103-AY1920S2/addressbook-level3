@@ -165,22 +165,22 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Attribute> getAttributeListView() {
-        return FXCollections.unmodifiableObservableList(attributeList.getObservableList());
+        return attributeList.getObservableList();
     }
 
     @Override
     public ObservableList<Question> getQuestionListView() {
-        return FXCollections.unmodifiableObservableList(questionList.getObservableList());
+        return questionList.getObservableList();
     }
 
     @Override
     public ObservableList<Interviewee> getFilteredIntervieweeListView() {
-        return FXCollections.unmodifiableObservableList(intervieweeList.getObservableList());
+        return intervieweeList.getObservableList();
     }
 
     @Override
     public ObservableList<Metric> getMetricListView() {
-        return FXCollections.unmodifiableObservableList(metricList.getObservableList());
+        return metricList.getObservableList();
     }
 
     //=========== Model component accessors ========================================================
@@ -190,9 +190,6 @@ public class ModelManager implements Model {
         return intervieweeList;
     }
 
-    /**
-     * Returns the list of attributes to score interviewees by
-     */
     @Override
     public AttributeList getAttributeList() {
         return attributeList;
