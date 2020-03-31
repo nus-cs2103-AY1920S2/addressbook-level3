@@ -123,7 +123,7 @@ public class AddFinanceCommand extends AddCommand {
       boolean foundCourseStudent = false;
 
       for (Course course : model.getFilteredCourseList()){
-        if (course.getID().toString().equals(courseid.toString())) {
+        if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = course.getAmount();
           assignedStudentsID = course.getAssignedStudentsID();
@@ -133,7 +133,7 @@ public class AddFinanceCommand extends AddCommand {
       }
 
       for (Student student : model.getFilteredStudentList()){
-        if (student.getID().toString().equals(studentid.toString())) {
+        if (student.getId().toString().equals(studentid.toString())) {
           studentName = student.getName().toString();
           foundStudent = true;
           break;
@@ -173,7 +173,7 @@ public class AddFinanceCommand extends AddCommand {
       boolean foundTeacher = false;
 
       for (Course course : model.getFilteredCourseList()){
-        if (course.getID().toString().equals(courseid.toString())) {
+        if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = new Amount("-" + course.getAmount().toString());
           assignedTeacher = course.getAssignedTeacherID().toString();

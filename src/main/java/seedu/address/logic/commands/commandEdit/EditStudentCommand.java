@@ -70,9 +70,11 @@ public class EditStudentCommand extends Command {
     assert studentToEdit != null;
 
     Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
+    ID updatedID = editStudentDescriptor.getID()
+        .orElse(studentToEdit.getId());
     Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-    return new Student(updatedName, studentToEdit.getID(), updatedTags);
+    return new Student(updatedName, updatedID, updatedTags);
   }
 
   @Override
@@ -121,6 +123,7 @@ public class EditStudentCommand extends Command {
   public static class EditStudentDescriptor {
 
     private Name name;
+    private ID studentID;
     private Set<Tag> tags;
 
     public EditStudentDescriptor() {
@@ -131,6 +134,7 @@ public class EditStudentCommand extends Command {
      */
     public EditStudentDescriptor(EditStudentDescriptor toCopy) {
       setName(toCopy.name);
+      setID(toCopy.studentID);
       setTags(toCopy.tags);
     }
 
@@ -138,7 +142,7 @@ public class EditStudentCommand extends Command {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, tags);
+      return CollectionUtil.isAnyNonNull(name, studentID, tags);
     }
 
     public Optional<Name> getName() {
@@ -147,6 +151,14 @@ public class EditStudentCommand extends Command {
 
     public void setName(Name name) {
       this.name = name;
+    }
+
+    public Optional<ID> getID() {
+      return Optional.ofNullable(studentID);
+    }
+
+    public void setID(ID studentID) {
+      this.studentID = studentID;
     }
 
     /**
@@ -181,6 +193,7 @@ public class EditStudentCommand extends Command {
       EditStudentDescriptor e = (EditStudentDescriptor) other;
 
       return getName().equals(e.getName())
+          && getID().equals(e.getID())
           && getTags().equals(e.getTags());
     }
   }

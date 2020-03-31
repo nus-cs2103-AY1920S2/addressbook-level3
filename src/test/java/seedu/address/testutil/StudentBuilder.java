@@ -35,7 +35,7 @@ public class StudentBuilder {
      */
     public StudentBuilder(Student studentToCopy) {
         name = studentToCopy.getName();
-        id = studentToCopy.getID();
+        id = studentToCopy.getId();
         assignedCourses = studentToCopy.getAssignedCoursesID();
         tags = new HashSet<>(studentToCopy.getTags());
     }

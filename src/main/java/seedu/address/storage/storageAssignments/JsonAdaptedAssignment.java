@@ -45,7 +45,7 @@ class JsonAdaptedAssignment {
    */
   public JsonAdaptedAssignment(Assignment source) {
     name = source.getName().fullName;
-    assignmentID = source.getID().value;
+    assignmentID = source.getId().value;
     deadline = source.getDeadline().toString();
     tagged.addAll(source.getTags().stream()
         .map(JsonAssignmentAdaptedTag::new)

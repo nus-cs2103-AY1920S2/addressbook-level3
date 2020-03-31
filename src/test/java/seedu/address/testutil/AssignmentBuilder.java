@@ -36,7 +36,7 @@ public class AssignmentBuilder {
      */
     public AssignmentBuilder(Assignment AssignmentToCopy) {
         name = AssignmentToCopy.getName();
-        id = AssignmentToCopy.getID();
+        id = AssignmentToCopy.getId();
         dl = AssignmentToCopy.getDeadline();
         tags = new HashSet<>(AssignmentToCopy.getTags());
     }

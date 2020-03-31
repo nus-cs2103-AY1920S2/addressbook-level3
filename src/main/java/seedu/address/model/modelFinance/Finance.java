@@ -27,24 +27,35 @@ public class Finance extends ModelObject {
   private final FinanceType financeType;
   private final Date date;
   private final Amount amount;
-  private final ID courseid;
-  private final ID studentid;
-  private final ID teacherid;
+  private ID courseid;
+  private ID studentid;
+  private ID teacherid;
   private final Set<Tag> tags = new HashSet<>();
+
+  /**
+   * A finance object not tied to any modelObjects.
+   */
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
+    requireAllNonNull(name, financeType, amount, tags);
+    this.name = name;
+    this.financeType = financeType;
+    this.date = date;
+    this.amount = amount;
+    this.tags.addAll(tags);
+    this.courseid = new ID();
+    this.studentid = new ID();
+    this.teacherid = new ID();
+  }
 
   /**
    * Every field must be present and not null.
    */
   public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID teacherid, Set<Tag> tags) {
-    requireAllNonNull(name, amount, courseid, studentid, teacherid, tags);
-    this.name = name;
-    this.financeType = financeType;
-    this.date = date;
-    this.amount = amount;
+    this(name, financeType, date, amount, tags);
+    requireAllNonNull(courseid, studentid, teacherid);
     this.courseid = courseid;
     this.studentid = studentid;
     this.teacherid = teacherid;
-    this.tags.addAll(tags);
   }
 
   public Name getName() {
@@ -82,8 +93,10 @@ public class Finance extends ModelObject {
     return Collections.unmodifiableSet(tags);
   }
 
-  public ID getID() {
-    return new ID("");
+  @Override
+  public ID getId() {
+    // should never be used
+    return courseid;
   }
 
   /**

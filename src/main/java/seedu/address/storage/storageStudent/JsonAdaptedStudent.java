@@ -50,7 +50,7 @@ class JsonAdaptedStudent {
    */
   public JsonAdaptedStudent(Student source) {
     name = source.getName().fullName;
-    studentID = source.getID().value;
+    studentID = source.getId().value;
     assignedCoursesID.addAll(source.getAssignedCoursesID().stream()
         .map(JsonStudentAdaptedID::new)
         .collect(Collectors.toList()));
