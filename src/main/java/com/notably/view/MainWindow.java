@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.notably.commons.GuiSettings;
@@ -10,6 +12,8 @@ import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.view.blockcontent.BlockContent;
 
+import com.notably.model.suggestion.SuggestionItem;
+import com.notably.model.suggestion.SuggestionItemImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -126,7 +130,11 @@ public class MainWindow extends ViewPart<Stage> {
 
         blockContent = new BlockContent(blockContentPlaceholder, model);
 
-        suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(), model.responseTextProperty(), model);
+        List<SuggestionItem> sg = new ArrayList<>();
+        sg.add(new SuggestionItemImpl("hello", null));
+        sg.add(new SuggestionItemImpl("hello1", null));
+        model.setSuggestions(sg);
+        suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(), model.responseTextProperty());
         suggestionsWindow.getChildren().add(suggestionsWindowView.getRoot());
     }
 

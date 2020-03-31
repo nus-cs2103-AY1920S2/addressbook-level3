@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
-
-
 public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
@@ -41,30 +38,8 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         super(FXML);
         suggestionsText.setText("Suggestions Text Box");
 
-        suggestionsList.addListener((ListChangeListener)(c -> {System.out.println("lol");}));
         suggestionsListPanel.setItems(suggestionsList);
-        suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
-    }
-
-    public SuggestionsWindowView(ObservableList<SuggestionItem> suggestionsList,
-                                 Property<Optional<String>> responseText, Model model) {
-        super(FXML);
-        Runnable action = () -> {
-            model.setInput("open" + " " + "Open a note" + " " + "mujibu");
-        };
-
-        suggestionsList.addListener((ListChangeListener)(c -> {System.out.println("lol");}));
-        List<SuggestionItem> sg = new ArrayList<>();
-        for (int i=0;i<5;i++) {
-            sg.add(new SuggestionItemImpl("mujibu"+i ,action));
-        }
-        model.setSuggestions(sg);
-
-        suggestionsText.setText("Suggestions Text Box");
-
-        suggestionsListPanel.setItems(model.getSuggestions());
-        suggestionsListPanel.setPrefHeight(suggestionsListPanel.getItems().size() * 27);
-        suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
+        //suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
     }
 
     /**
@@ -74,10 +49,9 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         @Override
         protected void updateItem(SuggestionItem suggestionItem, boolean empty) {
             super.updateItem(suggestionItem, empty);
-            System.out.println("ko");
-            Optional<String> suggestionItemText = Optional.of("mujiboo");
-            //Optional<String> suggestionItemText = suggestionItem.getProperty("displayText");
-            System.out.println("ok");
+            System.out.println("hello");
+            System.out.println(suggestionItem.getProperty("displayText").isPresent());
+            Optional<String> suggestionItemText = suggestionItem.getProperty("displayTest");
             setGraphic(null);
 
             if (empty || suggestionItem == null || suggestionItemText.isEmpty()) {
