@@ -333,12 +333,12 @@ public class ModelManager implements Model {
 
   @Override
   public boolean hasAssignment(ID assignmentID) {
-    return false;
+    return assignmentAddressBook.has(assignmentID);
   }
 
   @Override
   public Assignment getAssignment(ID assignmentID) {
-    return null;
+    return assignmentAddressBook.get(assignmentID);
   }
 
   // =====================================================================================================
@@ -543,6 +543,11 @@ public class ModelManager implements Model {
   }
 
   public void assignAssignmentToCourse(ID assignmentID, ID courseID) {
+    Course foundCourse = getCourse(courseID);
+    Assignment foundAssignment = getAssignment(assignmentID);
+
+    foundCourse.addAssignment(assignmentID);
+    foundAssignment.addCourseID(courseID);
   }
 
     @Override

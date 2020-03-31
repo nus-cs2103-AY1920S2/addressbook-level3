@@ -34,6 +34,7 @@ public class Course extends ModelObject {
   private Amount amount;
   private ID assignedTeacherID;
   private Set<ID> assignedStudentsID = new HashSet<>();
+  private Set<ID> assignedAssignmentsID = new HashSet<>();
   private String assignedTeacherWithName;
   private String assignedStudentsWithNames;
   /**
@@ -61,13 +62,14 @@ public class Course extends ModelObject {
     this.assignedStudentsWithNames = "None";
   }
 
-  public Course(Name name, ID id, Amount amount, ID assignedTeacherID, Set<ID> assignedStudentsID, Set<Tag> tags) {
+  public Course(Name name, ID id, Amount amount, ID assignedTeacherID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
     this.id = id;
     this.amount = amount;
     this.assignedTeacherID = assignedTeacherID;
     this.assignedStudentsID.addAll(assignedStudentsID);
+    this.assignedAssignmentsID.addAll(assignedAssignmentsID);
     this.tags.addAll(tags);
     this.assignedTeacherWithName = "None";
     this.assignedStudentsWithNames = "None";
@@ -90,15 +92,22 @@ public class Course extends ModelObject {
     return assignedTeacherID;
   }
 
-
-  public void addStudent(ID studentid) {
-    this.assignedStudentsID.add(studentid);
+  public void addStudent(ID studentID) {
+    this.assignedStudentsID.add(studentID);
   }
 
-  public void addStudents(Set<ID> studentids) {
-    this.assignedStudentsID.addAll(studentids);
+  public void addStudents(Set<ID> studentIDs) {
+    this.assignedStudentsID.addAll(studentIDs);
   }
 
+  public void addAssignment(ID assignmentID) {
+    this.assignedAssignmentsID.add(assignmentID);
+  }
+
+  public void addAssignments(Set<ID> assignmentIDs) {
+    this.assignedAssignmentsID.addAll(assignmentIDs);
+  }
+  // ================================== FOR ASSIGN COMMANDS =================================
   public boolean containsStudent(ID studentID) {
     if(assignedStudentsID.contains(studentID)) {
       return true;
@@ -107,8 +116,21 @@ public class Course extends ModelObject {
     }
   }
 
+  public boolean containsAssignment(ID assignmentID) {
+    if(assignedAssignmentsID.contains(assignmentID)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // ================================== FOR ASSIGN COMMANDS =================================
+
   public void assignTeacher(ID teacherid) {
     this.assignedTeacherID = teacherid;
+  }
+
+  public Set<ID> getAssignedAssignmentsID() {
+    return Collections.unmodifiableSet(assignedAssignmentsID);
   }
 
   /**

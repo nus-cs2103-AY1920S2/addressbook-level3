@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -64,6 +65,8 @@ public class LogicManager implements Logic {
 
     CommandResult commandResult;
     Command command = addressBookParser.parseCommand(commandText);
+    Boolean isNull = command == null;
+    logger.info(isNull.toString());
     command.setData(undoRedoStack);
     commandResult = command.execute(model);
     this.undoRedoStack.push(command);
@@ -109,6 +112,7 @@ public class LogicManager implements Logic {
         storage.saveTeacherAddressBook(model.getTeacherAddressBook());
         storage.saveStudentAddressBook(model.getStudentAddressBook());
         storage.saveCourseAddressBook(model.getCourseAddressBook());
+        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
