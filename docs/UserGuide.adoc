@@ -18,110 +18,145 @@ By: `AY1920S2-W15-2`      Since: `Feb 2020`
 
 == Introduction
 
-HireLah! is targeted to bring greater convenience to interviewers who
-can type quickly and prefer typing over mouse commands. Additionally, we
-included customised features in our desktop apps to help interviewers to
-manage interviews.
+HireLah! is an app that helps interviewers manage their interviewees, the attributes
+you look out for in these interviewees, and the questions to ask during the interviews.
+As a complete solution for interviewers, HireLah! also helps interviewers conduct interviews
+on the app and identify the best interviewees.
 
 == Quick Start
 .  Ensure you have Java 11 or above installed in your Computer.
 .  Download the latest `HireLah.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your HireLah!.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-
++
 image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open this user guide.
+.  Some example commands you can try:
+
+* *`add interviewee`* `John Doe`: adds an interviewee named John Doe to the application
+* *`add question`* `How old are you?`: adds the question to the application
+* *`exit`*: exits the app
+.  Refer to <<Features>> for details of all the commands.
 
 == Features
 
+Generally, in an interview session (for example, an interview for a role in a company), there are 3 phases:
+
+. Initialization phase (or preparation phase) - where the interviewer prepares his/her questions, manages
+  candidates, receives their resumes, etc.
+. Interview phase - where the interviewer actually conducts interviews, asking questions and
+  making notes about each candidate
+. Decision phase - after interviewing all candidates, the interviewer summarises his/her opinions, refers
+  to the remarks he/she made of each interviewee and decides who to select
+
+These 3 phases are clearly defined in HireLah!. What you can do in each phase is listed below.
+
+====
+*Command Format*
+
+* Words in `<angular brackets>` are the parameters to be supplied by the user e.g. in `add interviewee <full name>`, `<full name>` is a parameter which can be used as `add interviewee John Doe`.
+* Items in square brackets are optional e.g `<full name> [-aka <alias>]` can be used as `John Doe -aka Jo` or as `John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times, unless otherwise stated e.g. `[-a <attribute> -w <weight>]...` can be used as, `-a ambition -w 0.5`, `-a ambition -w 0.5 -a teamwork -w 0.1` etc.
+====
+
 === Start Session
 
-You can select the current interview session by updating the currentSession attribute in userConfig before launching HireLah! application. currentSession by default is defaultSession.
+HireLah! takes care of this for you! By default, the first time you use HireLah!, the app will create a new folder
+`/data` in the same directory as the app and save your session data there. To learn how to configure your interview
+sessions (starting a fresh session, renaming your session, changing sessions) refer to <<FAQ>>.
 
-....
-currentSession: defaultSession
-....
+=== Viewing help
+
+*Command*
+
+`help`
+
+_Action:_ This user guide is opened as a PDF with your system's default PDF viewer.
 
 === Initialization Phase
 
 ==== Add and Delete Interviewees
 
-You can add more interviewees to the list so that you can keep their
-details easily. You can also delete the interviewees, who may have
-withdrawn their application by referring to either their full name,
-aliases, or assigned ID.
+HireLah! allows you to manage your list of candidates from within the app. You can add interviewees to the list
+by giving their full name, and HireLah! automatically generates a unique ID for each candidate. To make things easier,
+you can also specify an alias (a shorter name) to the interviewee, so you need not memorise their IDs or type out their
+full names every time.
 
-*Command*
+Whenever you see `<interviewee>`, it means that you can specify the interviewee you are referring to via any of his/her
+unique identifiers - ID, full name or alias.
+
+At any time you can delete any interviewees and edit their information.
+
+[TIP]
+Most names and aliases are accepted - even non-English names or names with funny punctuation and numbers (eg. Larry O'Brien the 3rd).
+Your interviewees could come from anywhere after all. But do not give blanks or a name full of numbers (eg. 12345)!
+
+*Commands*
 
 ....
-add interviewee <fullname> [-a <alias>]
-edit interviewee -o <old full name> -n <new full name>
+add interviewee <full name> [-aka <alias>]
+edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]
 delete interviewee <interviewee>
-list interviewee
 ....
 
 *Execution Example*
 
 ....
-> add interviewee Jane Doe -a Doe
-> edit interviewee -o Jane Doe -n Janice Doe
-> delete interviewee Doe
-> list interviewee
+> add interviewee Jane Doe -aka Doe
+> edit interviewee Jane Doe -n Janice Doe
 ....
 
 _Action:_ Interviewee Jane Doe with alias of Doe is first created and
-then deleted via her alias
+then her name is changed to Janice Doe.
 
 _Output:_
 
 ....
-The following interviewee has been added:
-  1. Jane Doe (alias: Doe)
+New interviewee added: Jane Doe
 
-These are the current interviewees:
-  1. Jane Doe (alias: Doe)
-
-The following interviewee has been deleted:
-  1. Jane Doe (alias: Doe)
+Successfully edited interviewee: Jane Doe
 ....
 
+image::Interviewee.png[]
+
 ==== Add, Edit and Delete Attributes
+
+In an interview, you often look out for a particular set of attributes in your candidates.
+HireLah! lets you keep track of what to look out for during the interview, and even assign
+scores for each attribute to the interviewees so you can compare them after interviewing.
 
 *Command*
 
 ....
 > add attribute <attribute>
-> edit attribute -o <old attribute> -n <new attribute>
+> edit attribute <old attribute> -a <new attribute>
 > delete attribute <attribute>
-> list attribute
 ....
 
 *Execution Example*
 
 ....
 > add attribute teamwork
-> add attribute leadership
-> edit attribute leadership leadership
-> list attribute
+> add attribute leadersip
+> edit attribute leadersip -a leadership
 > delete attribute teamwork
 ....
 
-_Action:_ teamwork and leadership is first added. Leadership is edited
+_Action:_ teamwork and leadership is first added. leadersip (with a typo) is edited
 to leadership, and then teamwork is deleted.
 
 _Output:_
 
 ....
-Attribute “teamwork” added
+New attribute added: teamwork
 
-Attribute “leadership” added
+New attribute added: leadersip
 
-Attribute “leadership” changed to “leadership”
+Successfully edited Attribute with prefix: leadersip to leadership
 
-These are the current attributes:
-  1. teamwork
-  2. leadership
-
-Attribute “teamwork” removed. You have now 1 attribute for your interview.
+Deleted Attribute with prefix: teamwork
 ....
 
 ==== Add, Edit and Delete Interview Questions
@@ -136,7 +171,6 @@ questions.
 ....
 add question <question>
 edit question <question number> <edited question>
-list question
 delete question <question number>
 ....
 
@@ -168,6 +202,22 @@ The following question was deleted:
   1. What do you hope to accomplish in 5 years?
 ....
 
+==== Switching views
+
+When working on the interviewees, attributes, questions and metrics (more about metrics in <<Metrics>>),
+HireLah! displays the relevant content you are working on. To switch views, HireLah! also provides the list commands.
+
+*Command*
+
+....
+list interviewee
+list attribute
+list question
+list metric
+....
+
+_Action:_ Switches between displaying interviewees, attributes, questions and metrics.
+
 ==== Finalise Interview Attributes and Questions
 
 After the interviewer is satisfied with the list of questions and attributes created for an interview session, the interviewer must finalise changes in attributes and questions. This is to ensure that the interviewers will evaluate all interviewees fairly and equally using the same set of questions and attributes.
@@ -181,9 +231,10 @@ finalise
 _Output:_
 
 ....
-Questions and Attributes for this interview session have been finalised.
+Attributes and questions of this interview session has been finalised. You cannot change them anymore.
 ....
 
+[[Metrics]]
 ==== Add, Edit and Delete Metrics
 
 Before the interview process, the interviewer may add, remove, and update Metrics to determine the relative importance of several Attributes. Each metric assigns a numerical score to one or more Attributes, and interviewees can be ranked based on their overall score for this metric in the Decision Phase.
@@ -230,49 +281,22 @@ The following metric has been deleted:
 
 ==== Start Interview
 
-You can start a specific interview session and it will enter the
-interview phase. It will capture all the remarks and answers that you
-type in during this interview session. It will also start the audio
-recorder to record the whole interview session.
-
-The details of this interviewee that you have created during the
-initialization phase will be shown.
+After finalising, you can start to interview the interviewees.
 
 *Command*
 
 ....
-start interview <name>
+interview <interviewee>
 ....
 
 *Example*
 
 ....
-> start interview Jane Doe
+> interview Jane Doe
 ....
 
 _Action:_ Initializes an interview session with Jane. Shows the uploaded
 CV (if any), and the list of interview questions in separate windows
-
-==== View Interview Questions
-
-You can view the interview questions that you have set up for this
-interview session, to be asked to the interviewees.
-
-*Command*
-
-....
-list question
-....
-
-*Example*
-
-_Output:_
-
-....
-Q1. What are your strengths and weaknesses?
-Q2. What are your relevant experiences as a software developer?
-Q3. What was your last salary?
-....
 
 ==== Record Remarks
 
