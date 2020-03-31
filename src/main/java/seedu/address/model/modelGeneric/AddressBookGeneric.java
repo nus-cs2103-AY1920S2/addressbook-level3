@@ -82,6 +82,10 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         objects.add(object);
     }
 
+    public void addAtIndex(K object, Integer idx) {
+        objects.addAtIndex(object, idx);
+    }
+
     /**
      * Replaces the given course {@code target} in the list with {@code editedCourse}. {@code target}
      * must exist in the address book. The course identity of {@code editedCourse} must not be the

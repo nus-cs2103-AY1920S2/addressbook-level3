@@ -54,7 +54,7 @@ public class AddTeacherCommand extends AddCommand {
     toAdd = teacher;
   }
 
-  protected void generateOppositeCommand() {
+  protected void generateOppositeCommand() throws CommandException {
 
   }
 

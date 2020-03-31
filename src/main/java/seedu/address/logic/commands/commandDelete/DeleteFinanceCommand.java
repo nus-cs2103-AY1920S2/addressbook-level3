@@ -7,8 +7,11 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 
 /**
@@ -25,24 +28,54 @@ public class DeleteFinanceCommand extends DeleteCommand {
 
   public static final String MESSAGE_DELETE_FINANCE_SUCCESS = "Deleted Finance: %1$s";
 
-  private final Index targetIndex;
+  private Index targetIndex;
+
+  private Finance toDelete;
 
   public DeleteFinanceCommand(Index targetIndex) {
     this.targetIndex = targetIndex;
   }
 
-  @Override
-  public CommandResult execute(Model model) throws CommandException {
-    requireNonNull(model);
-    List<Finance> lastShownList = model.getFilteredFinanceList();
+  public DeleteFinanceCommand(Finance toDelete) {
+    this.toDelete = toDelete;
+  }
 
-    if (targetIndex.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
+  // TODO: Find way to abstract this
+  public Index getIndex(List<Finance> lastShownList) throws CommandException {
+    for (int i = 0; i < lastShownList.size(); i++) {
+      if (lastShownList.get(i).equals(this.toDelete)) {
+        return Index.fromZeroBased(i);
+      }
+    }
+    throw new CommandException("This id not in list");
+  }
+
+  @Override
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
+    List<Finance> lastShownList = model.getFilteredFinanceList();
+    if (this.toDelete == null) {
+      if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
+      }
+
+      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
     }
 
-    Finance financeToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.delete(financeToDelete);
-    return new CommandResult(String.format(MESSAGE_DELETE_FINANCE_SUCCESS, financeToDelete));
+    if (this.targetIndex == null) {
+      this.targetIndex = getIndex(lastShownList);
+    }
+  }
+
+  @Override
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new AddFinanceCommand(toDelete, targetIndex.getZeroBased());
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
+    model.delete(this.toDelete);
+    return new CommandResult(String.format(MESSAGE_DELETE_FINANCE_SUCCESS, this.toDelete));
   }
 
   @Override
