@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -461,6 +462,10 @@ public class ModelManager implements Model {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public LocalDate getAppDateFirstLaunched() {
+        return userPrefs.getDateFirstLaunched().get();
     }
 
     @Override

@@ -12,5 +12,8 @@
   "budgetFilePath" : "foodiebot-budget.json",
   "foodFilePath" : "foodiebot-food.json",
   "favoriteFoodFilePath" : "foodiebot-favorites.json",
-  "transactionsFilePath" : "foodiebot-transactions.json"
+  "transactionsFilePath" : "foodiebot-transactions.json",
+  "dateFirstLaunched" : {
+    "value" : "Optional.empty"
+  }
 }

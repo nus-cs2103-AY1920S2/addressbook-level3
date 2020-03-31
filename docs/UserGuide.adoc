@@ -113,6 +113,7 @@ NOTE: `CANTEEN_NAME` and `CURRENT_LOCATION` field has to be one of the suggestio
 image::wireframe/goto.png[width="700", align="left"]
 
 === View All Stalls in Canteen: `*enter*`
+
 Displays the stalls available at the specified canteen.
 
 Format: `enter`
@@ -152,6 +153,8 @@ Saves the selected food into transactions to help the user track his history of 
 Format: `select`
 
 Parameters:
+
+
 * `INDEX`: Select the food with the given index from the list displayed on the GUI
 * `FOOD_NAME`: Select the food with the given name from the list displayed on the GUI
 
@@ -213,7 +216,6 @@ List of values for `PERIOD` are:
 ** `d/` - Daily
 ** `w/` - Weekly
 ** `m/` - Monthly
->>>>>>> upstream/master
 
 NOTE: `PERIOD` field has to be one of the above suggestions. +
 `AMOUNT` field has to be numeric (with or without decimal places). +
@@ -237,6 +239,7 @@ as well as the remaining budget available to spend.
 Format: `budget view`
 
 === View Expense Report: `*report*`
+
 Generates a report of the spending and food purchases for the period specified.
 
 Format: `report`
@@ -369,23 +372,14 @@ Examples:
 Only displays canteens with the asian tag.
 ****
 
-=== Filter Canteens or Stalls: `*filter*`
-
-Filter canteens or stalls based on whether they have the tag entered by the user. This depends on the menu
-that the user is currently in. If they are in the canteen menu, this will filter the canteens and similarly in
-the stall menu, this will filter the stalls.
-
-Format: `filter TAG`
-
-* Example:
-** `filter asian` - Only displays canteens with the asian tag.
-
 == FAQ
+
 *Q*: How can I update the list of canteens if there are changes to the canteens on campus? +
 *A*: You can manually download foodiebot.json file which we have published link:https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/foodiebot.json[here].
 
 *Q*: Can I write my personal review in other languages?  +
 *A*: Yes, FoodieBot accepts input for different types of language, however it does not support in-app localization.
+
 
 == Command Summary
 [width="80%",cols="33%,<60%,<60%",options="header",]
@@ -423,7 +417,6 @@ Format: `filter TAG`
 
 |transactions |Generates the transaction breakdown |transaction w/ 12-02-2020
 
-|filter |Show only canteens or stalls with a specified tag |filter asian
 
 
 |=======================================================================

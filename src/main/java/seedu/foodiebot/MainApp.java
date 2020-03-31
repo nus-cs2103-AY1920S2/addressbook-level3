@@ -2,6 +2,7 @@ package seedu.foodiebot;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -22,7 +23,6 @@ import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.UserPrefs;
-// import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.util.SampleDataUtil;
@@ -183,6 +183,7 @@ public class MainApp extends Application {
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
+
         } catch (DataConversionException e) {
             logger.warning(
                 "UserPrefs file at "
@@ -194,6 +195,10 @@ public class MainApp extends Application {
             logger.warning(
                 "Problem while reading from the file. Will be starting with an empty FoodieBot");
             initializedPrefs = new UserPrefs();
+        }
+
+        if (initializedPrefs.getDateFirstLaunched().equals(Optional.empty())) {
+            initializedPrefs.setDateFirstLaunched(Optional.of(LocalDate.now()));
         }
 
         // Update prefs file in case it was missing to begin with or there are new/unused fields
