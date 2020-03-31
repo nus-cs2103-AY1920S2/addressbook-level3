@@ -126,13 +126,16 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Done Session Methods =================================================
 
+    /**
+     * adds a session
+     * @param s
+     */
     public void addDoneSession(Session s) {
         doneSessions.add(s);
         totalHours += Math.ceil(s.getDuration().toHours());
     }
 
-    public static long getTotalEarnings(){
-        //return 100;
+    public static long getTotalEarnings() {
         return rate * totalHours;
     }
 
