@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class RecipePage extends UiPart<Region> {
+public class RecipeCard extends UiPart<Region> {
 
     private static final String FXML = "RecipeListCard.fxml";
 
@@ -47,7 +47,7 @@ public class RecipePage extends UiPart<Region> {
     private Label diff;
     @FXML
     private FlowPane tags;
-    public RecipePage(Recipe recipe, int displayedIndex) {
+    public RecipeCard(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
 
@@ -72,12 +72,12 @@ public class RecipePage extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RecipePage)) {
+        if (!(other instanceof RecipeCard)) {
             return false;
         }
 
         // state check
-        RecipePage card = (RecipePage) other;
+        RecipeCard card = (RecipeCard) other;
         return id.getText().equals(card.id.getText())
                 && recipe.equals(card.recipe);
     }
