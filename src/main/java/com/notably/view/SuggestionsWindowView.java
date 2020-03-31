@@ -64,8 +64,8 @@ public class SuggestionsWindowView extends ViewPart<Region> {
                 suggestionsText.setManaged(true);
                 suggestionsText.setText(response.get());
             } else {
-                suggestionsText.setManaged(false);
                 suggestionsText.setText("");
+                suggestionsText.setManaged(false);
             }
         });
     }

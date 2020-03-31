@@ -26,6 +26,7 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Open Sans";
+    -fx-background-color: pink;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -234,10 +235,6 @@
     -fx-padding: 8 1 8 1;
 }
 
-.list-cell:empty {
-    -fx-opacity: 0;
-}
-
 .suggestions-Window {
     -fx-background-color: white;
 }
@@ -267,12 +264,25 @@
     -fx-border-width: 1;
     -fx-border-radius: 10px;
     -fx-font-family: "Open Sans";
-    -fx-font-size: 12pt;
+    -fx-font-size: 10pt;
     -fx-text-fill: black;
+}
+
+#blockContentTextArea {
+    -fx-text-box-border: transparent;
 }
 
 .list-view .scroll-bar:vertical {
     -fx-scale-x: 0;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-cell:empty {
+    -fx-opacity: 0;
 }
 
 #filterField {
