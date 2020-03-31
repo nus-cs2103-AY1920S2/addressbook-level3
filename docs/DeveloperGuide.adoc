@@ -685,7 +685,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 [[Implementation-Find]]
-=== Find Command
+=== Filter Command
 
 Find Command should be used under the current view. Find Command returns specified search that contains any of the given keywords.
 The search functionality is crucial to the user's experience with TaTracker.

@@ -7,7 +7,6 @@ import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
 import java.util.List;
 
-import tatracker.commons.core.Messages;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
@@ -30,10 +29,10 @@ public class FilterSessionCommand extends Command {
             DATE, MODULE, SESSION_TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered Session List";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no sessions with the given module code.";
-    public static final String MESSAGE_INVALID_DATE = "There is no sessions with the given date.";
-    public static final String MESSAGE_INVALID_SESSIONTYPE = "There is no sessions with the given session type.";
+    public static final String MESSAGE_SUCCESS = "Filtered Session List: %1$s";
+    public static final String MESSAGE_INVALID_MODULE_CODE = "There are no sessions with the given module code.";
+    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date.";
+    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type.";
 
     private final SessionPredicate predicate;
 
@@ -45,8 +44,9 @@ public class FilterSessionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredSessionList(predicate);
+        String keywords = predicate.getKeywords();
         return new CommandResult(
-                String.format(Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW, model.getFilteredSessionList().size()),
+                String.format(MESSAGE_SUCCESS, keywords),
                 Action.FILTER_SESSION);
     }
 
