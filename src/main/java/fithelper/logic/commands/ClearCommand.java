@@ -2,11 +2,11 @@ package fithelper.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.FitHelper;
 import fithelper.model.Model;
-
-import java.util.logging.Logger;
 
 /**
  * Clears the address book.

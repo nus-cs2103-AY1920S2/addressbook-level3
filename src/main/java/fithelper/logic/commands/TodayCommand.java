@@ -3,10 +3,10 @@ package fithelper.logic.commands;
 import static fithelper.logic.commands.CommandResult.DisplayedPage.TODAY;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.Model;
-
-import java.util.logging.Logger;
 
 /**
  * Adds a entry to FitHelper.
