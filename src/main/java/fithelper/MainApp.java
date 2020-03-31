@@ -2,6 +2,7 @@ package fithelper;
 
 import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
 import static fithelper.model.util.SampleDataUtil.getSampleUserProfile;
+import static fithelper.model.util.SampleDataUtil.getSampleWeightRecords;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -17,11 +18,14 @@ import fithelper.model.Model;
 import fithelper.model.ModelManager;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.ReadOnlyWeightRecords;
 import fithelper.model.util.SampleDataUtil;
 import fithelper.storage.FitHelperStorage;
 import fithelper.storage.JsonFitHelperStorage;
 import fithelper.storage.JsonUserProfileStorage;
+import fithelper.storage.JsonWeightRecordsStorage;
 import fithelper.storage.UserProfileStorage;
+import fithelper.storage.WeightRecordsStorage;
 import fithelper.ui.Ui;
 import fithelper.ui.UiManager;
 import javafx.application.Application;
@@ -40,6 +44,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected FitHelperStorage fitHelperStorage = new JsonFitHelperStorage(Config.FITHELPER_DATA_PATH);
     protected UserProfileStorage userProfileStorage = new JsonUserProfileStorage(Config.USERPROFILE_DATA_PATH);
+    protected WeightRecordsStorage weightRecordsStorage = new JsonWeightRecordsStorage(Config.WEIGHTRECORDS_DATA_PATH);
     protected Model model;
 
     @Override
@@ -47,8 +52,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing FitHelper ]===========================");
         super.init();
 
-        model = initModelManager(fitHelperStorage, userProfileStorage);
-        logic = new LogicManager(model, fitHelperStorage, userProfileStorage);
+        model = initModelManager(fitHelperStorage, userProfileStorage, weightRecordsStorage);
+        logic = new LogicManager(model, fitHelperStorage, userProfileStorage, weightRecordsStorage);
         ui = new UiManager(logic);
     }
 
@@ -57,7 +62,8 @@ public class MainApp extends Application {
      * The data from the sample fithelper will be used instead if {@code storage}'s fithelper is not found,
      * or an empty fithelper will be used instead if errors occur when reading {@code storage}'s fithelper.
      */
-    private Model initModelManager(FitHelperStorage fitHelperStorage, UserProfileStorage userProfileStorage) {
+    private Model initModelManager(FitHelperStorage fitHelperStorage, UserProfileStorage userProfileStorage,
+                                   WeightRecordsStorage weightRecordsStorage) {
         // fithelper initialization.
         Optional<ReadOnlyFitHelper> fitHelperOptional;
         ReadOnlyFitHelper initialData;
@@ -94,7 +100,26 @@ public class MainApp extends Application {
             initialUserProfileData = getSampleUserProfile();
         }
 
-        return new ModelManager(initialData, initialUserProfileData);
+        // weight records initialization.
+        Optional<ReadOnlyWeightRecords> weightRecordsOptional;
+        ReadOnlyWeightRecords initialWeightData;
+        try {
+            weightRecordsOptional = weightRecordsStorage.readWeightRecords();
+            if (!weightRecordsOptional.isPresent()) {
+                logger.info("WeightRecords data file not found. Will be starting with a sample WeightRecords");
+            }
+            initialWeightData = weightRecordsOptional.orElseGet(SampleDataUtil::getSampleWeightRecords);
+        } catch (DataConversionException e) {
+            logger.warning("WeightRecords data file not in the correct format. "
+                    + "Will be starting with an empty WeightRecords");
+            initialWeightData = getSampleWeightRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the weight records file. "
+                    + "Will be starting with an empty WeightRecords");
+            initialWeightData = getSampleWeightRecords();
+        }
+
+        return new ModelManager(initialData, initialUserProfileData, initialWeightData);
     }
 
     @Override

@@ -11,33 +11,33 @@ import fithelper.model.profile.Height;
  */
 public class Bmi {
 
-    public static final String MESSAGE_CONSTRAINTS = "Bmi should be computed by both height and weight.";
+    public static final String MESSAGE_CONSTRAINTS = "Bmi should be any positive number.";
     public static final double T = 0.0001; // tolerance for double comparision.
-
-    public final Height height;
-    public final WeightValue weightValue;
 
     public final double value;
 
     /**
      * Constructs an {@code Bmi}.
      *
-     * @param height A valid height of user.
-     * @param weightValue A valid weight of user
+     * @param bmi A valid bmi of user.
      */
-    public Bmi(Height height, WeightValue weightValue) {
-        requireAllNonNull(height, weightValue);
-        checkArgument(isValidBmi(height, weightValue), MESSAGE_CONSTRAINTS);
-        this.height = height;
-        this.weightValue = weightValue;
-        value = weightValue.value / (height.value / 100.0 * height.value / 100.0);
+    public Bmi(String bmi) {
+        requireAllNonNull(bmi);
+        checkArgument(isValidBmi(bmi), MESSAGE_CONSTRAINTS);
+        this.value = Double.parseDouble(bmi);
     }
 
     /**
      * Returns true if a given string is a valid Bmi.
      */
-    public static boolean isValidBmi(Height testHeight, WeightValue testWeight) {
-        return testHeight.value != 0 && testWeight.value != 0;
+    public static boolean isValidBmi(String test) {
+        double testValue;
+        try {
+            testValue = Double.parseDouble(test);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return testValue > 0;
     }
 
     @Override

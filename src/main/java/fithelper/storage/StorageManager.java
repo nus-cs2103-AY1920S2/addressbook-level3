@@ -10,6 +10,7 @@ import fithelper.commons.exceptions.DataConversionException;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserPrefs;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.ReadOnlyWeightRecords;
 import fithelper.model.UserPrefs;
 
 /**
@@ -21,14 +22,16 @@ public class StorageManager implements Storage {
     private FitHelperStorage fitHelperStorage;
     private UserPrefsStorage userPrefsStorage;
     private UserProfileStorage userProfileStorage;
+    private WeightRecordsStorage weightRecordsStorage;
 
 
     public StorageManager(FitHelperStorage fitHelperStorage, UserPrefsStorage userPrefsStorage,
-                          UserProfileStorage userProfileStorage) {
+                          UserProfileStorage userProfileStorage, WeightRecordsStorage weightRecordsStorage) {
         super();
         this.fitHelperStorage = fitHelperStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.userProfileStorage = userProfileStorage;
+        this.weightRecordsStorage = weightRecordsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -106,6 +109,37 @@ public class StorageManager implements Storage {
     public void saveUserProfile(ReadOnlyUserProfile userProfile, Path filePath) throws IOException {
         logger.fine("Attempting to write to user profile data file: " + filePath);
         userProfileStorage.saveUserProfile(userProfile, filePath);
+    }
+
+
+    // ================ WeightRecords methods ==============================
+
+    @Override
+    public Path getWeightRecordsFilePath() {
+        return weightRecordsStorage.getWeightRecordsFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyWeightRecords> readWeightRecords() throws DataConversionException, IOException {
+        return readWeightRecords(weightRecordsStorage.getWeightRecordsFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyWeightRecords> readWeightRecords(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read weight data from file: " + filePath);
+        return weightRecordsStorage.readWeightRecords(filePath);
+    }
+
+    @Override
+    public void saveWeightRecords(ReadOnlyWeightRecords weightRecords) throws IOException {
+        saveWeightRecords(weightRecords, weightRecordsStorage.getWeightRecordsFilePath());
+    }
+
+    @Override
+    public void saveWeightRecords(ReadOnlyWeightRecords weightRecords, Path filePath) throws IOException {
+        logger.fine("Attempting to write to weight data file: " + filePath);
+        weightRecordsStorage.saveWeightRecords(weightRecords, filePath);
     }
 
 }

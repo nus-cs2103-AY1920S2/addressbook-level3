@@ -8,8 +8,10 @@ import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.ReadOnlyWeightRecords;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
+import fithelper.model.weight.Weight;
 import javafx.collections.ObservableList;
 
 import jfxtras.icalendarfx.components.VEvent;
@@ -40,6 +42,16 @@ public interface Logic {
      * @see fithelper.model.Model#getUserProfile()
      */
     ReadOnlyUserProfile getUserProfile();
+
+    /**
+     * Returns the Weight Records.
+     *
+     * @see fithelper.model.Model#getWeightRecords() ()
+     */
+    ReadOnlyWeightRecords getWeightRecords();
+
+    /** Returns an unmodifiable view of the filtered list of weight*/
+    ObservableList<Weight> getFilteredWeightList();
 
     ObservableList<VEvent> getVEvents();
 
