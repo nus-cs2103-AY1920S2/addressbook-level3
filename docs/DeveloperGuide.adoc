@@ -351,7 +351,7 @@ If the user provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *specifi
 ==== Class Diagram for Search feature:
 
 .Search Command Class Diagram
-image::SearchCommandClassDiagram.svg[]
+image::SearchCommandClassDiagram.png[]
 
 ==== Sequence Diagram for Search feature:
 
