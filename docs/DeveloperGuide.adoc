@@ -16,6 +16,34 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+== Introduction
+
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage their students and claimable
+hours in one place.
+
+Teaching Assistants at SoC have to keep a track of their students, students' participation
+marks and notes they have for certain students that they can later use for reccomendations.
+They also have to keep a track of their claimable hours so that they can fill up the TSS
+Claims form at the end of each semester. Rather than managing this through several excel
+spreadsheets and notes, TA-Tracker allows TAs to track everything in a single, convenient-to-use
+platform.
+
+In particular, TA-Tracker is a *Command Line Interface (CLI)* application packaged
+with a *Graphical User Interface (GUI)*. This means that users are expected to interact
+with the TA-Tracker mainly through the command line, but each command executed will
+evoke a visual response in the TA-Tracker.
+
+Any help on the development of the TA-Tracker would be greatly appreciated, and there
+are a couple of ways that you can do so - contribute to TA-Tracker's code base by
+expanding its features (such as adding an option to enter assignment grades), by
+improving test coverage or by proposing and implementing improvements on current features.
+
+This guide aims to kick-start your journey as a contributor to the TA-Tracker by getting
+you up to speed with how TA-Tracker's codebase and inner workings function. It also
+hopes to serve as a useful reference to current contributors in times of confusion or
+when faced with difficulties.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -761,6 +789,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |TA |see an overview of events in a week |know what I have that week in a glance
