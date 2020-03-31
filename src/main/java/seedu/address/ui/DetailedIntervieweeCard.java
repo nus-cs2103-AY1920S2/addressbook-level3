@@ -58,15 +58,18 @@ public class DetailedIntervieweeCard extends UiPart<Region> {
     public DetailedIntervieweeCard(Interviewee interviewee) {
         super(FXML);
         this.interviewee = interviewee;
-        name.setText("Full Name: " + interviewee.getFullName());
+        name.setText(interviewee.getFullName());
         id.setText("ID:         " + interviewee.getId());
         alias.setText("Alias:     " + interviewee.getAlias().orElse("No alias has been set."));
+        viewResume.setText(interviewee.getResume().isPresent() ? "View Resume" : "No Resume");
 
         initialiseChart();
 
         viewResume.setOnAction(en -> {
-            File resumePath = interviewee.getResume()
-                                            .orElse(new File("./src/main/resources/help/NoResume.pdf"));
+            if (interviewee.getResume().isEmpty()) {
+                return;
+            }
+            File resumePath = interviewee.getResume().get();
             if (Desktop.isDesktopSupported()) {
                 new Thread(() -> {
                     try {
@@ -90,20 +93,21 @@ public class DetailedIntervieweeCard extends UiPart<Region> {
                 .getAttributeToScoreMapView());
         XYChart.Series<String, Double> attributeData = new XYChart.Series<>("Attributes", data);
 
+        // setAll method should be safe in our usage but it raises an Unchecked varargs warning
         attributeScores.getData().setAll(attributeData);
         attributeScores.setLegendVisible(false);
 
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
-        yAxis.setUpperBound(100);
-        yAxis.setTickUnit(25);
+        yAxis.setUpperBound(10);
+        yAxis.setTickUnit(2.5);
         yAxis.setLabel("Scores");
 
         xAxis.setLabel("Attributes");
         xAxis.setAnimated(false);
         xAxis.setMinWidth(data.size() * 30);
-        xAxis.setMaxHeight(30);
-        xAxis.setTickLabelRotation(-45);
+        xAxis.setMaxHeight(20);
+        // xAxis.setTickLabelRotation(-10); Unnecessarrily flattens the BarChart
 
     }
 

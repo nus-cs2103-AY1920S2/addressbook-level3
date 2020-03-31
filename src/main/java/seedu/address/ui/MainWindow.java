@@ -46,6 +46,9 @@ public class MainWindow extends UiPart<Stage> {
     private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
 
+    // SecondWindow for displaying additional information during interview phase.
+    private SecondWindow secondWindow;
+
     // On startup, HireLah shows the list of interviewees
     private ToggleView toggleView = ToggleView.INTERVIEWEE;
 
@@ -78,11 +81,12 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         attributeListPanel = new AttributeListPanel(logic.getAttributeListView());
-        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeListView());
-        bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView());
+        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeListView(), this::executeCommand);
+        bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView(), this::executeCommand);
         attributeListPanel = new AttributeListPanel(logic.getAttributeListView());
         metricListPanel = new MetricListPanel(logic.getMetricListView());
         questionListPanel = new QuestionListPanel(logic.getQuestionListView());
+        secondWindow = new SecondWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -163,9 +167,11 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
         this.toggleView = toggleView;
-        // Clear the current interviewee if not viewing a report
+
+        // Clear the current interviewee and close SecondWindow if not viewing a report
         if (this.toggleView != ToggleView.TRANSCRIPT) {
             logic.setCurrentInterviewee(null);
+            secondWindow.hide();
         }
 
         listPanelStackPane.getChildren().clear();
@@ -186,28 +192,21 @@ public class MainWindow extends UiPart<Stage> {
         case TRANSCRIPT: // transcript
             Interviewee currentInterviewee = logic.getCurrentInterviewee();
             DetailedIntervieweeCard detailedIntervieweeCard = new DetailedIntervieweeCard(currentInterviewee);
-            remarkListPanel = new RemarkListPanel(currentInterviewee);
+            remarkListPanel = new RemarkListPanel(currentInterviewee, logic.getQuestionListView());
             listPanelStackPane.getChildren().addAll(remarkListPanel.getRoot(), detailedIntervieweeCard.getRoot());
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);
             StackPane.setAlignment(remarkListPanel.getRoot(), Pos.CENTER);
-            // second screen
-            // handleSecondStage();
+            // show second window
+            secondWindow.show(questionListPanel);
             break;
         case BEST_INTERVIEWEE:
-            bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView());
+            bestNIntervieweesPanel = new IntervieweeListPanel(logic.getBestNIntervieweesView(), this::executeCommand);
             listPanelStackPane.getChildren().add(bestNIntervieweesPanel.getRoot());
             break;
         default:
             break;
         }
     }
-
-    // /**
-    //  * Opens up a second window to show the question list, as a guide for the interviewee.
-    //  */
-    // private void handleSecondStage() {
-    //     SecondWindow(questionListPanel).show();
-    // }
 
     /**
      * Opens the user guide PDF on help command.
