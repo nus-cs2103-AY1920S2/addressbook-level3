@@ -9,49 +9,78 @@
 
 == Overview
 
-Delino is a desktop application for couriers to manage delivery tasks. The user
+*Delino* is a desktop delivery application for couriers to manage delivery tasks. The user
 interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC
 
 == Summary of contributions
 
+|===
+|_Given below are the summary of the contributions I have made for this project._
+|===
+
 * *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
-** Credits:
+** Added `import` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/215[#215])
+*** What it does: Allows the user to add multiple orders and return orders via a CSV file.
+*** Justification: This is an essential update, which allows the user to save time +
+from adding multiple orders and return order one by one.
+
+** Add return order book for storage (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/186[#186])
+*** What it does: Stores return orders.
+*** Justification: The storage of return orders is important, as the return orders are required to be separate from
+orders and store as a separate json file in the hard disk from the orders.
+
+** Modify the `clear` command (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/180[#180], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218[#218])
+*** What it does: Gives the user three options to clear:
+**** Only order list
+**** Only return order list
+**** Both order list and return order list
+*** Justification: This is an essential update, which prevent the user from having the trouble clearing the orders or return orders one by one.
 
 * *Minor enhancement*:
+** Add `timestamp` field into the model(Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/175[#175], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/198[#198])
+*** What it does: Allows orders and return orders to keep track of the delivery date and time.
+*** Justification: This is an essential update, which allows user to input timestamp for the order and return order.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+** Add `comment` field into the model(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/172[#172])
+*** What it does: Allows orders and return orders to store customer comment.
+*** Justification: This is an essential update, which allows the courier to be able to take note about +
+the customer's request, such as sending a message to notify the customer that the courier will be sending +
+their parcel on that day.
 
 * *Other contributions*:
+
+** Enhancements to existing GUI:
+** Modified the `Clear Window` to suit the needs for the modified `clear` command. (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/180[#180])
+** Replaced the address book icon to Delino icon. (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226/commits/d7c029f7cdf8a11f42bbae6d3f5c49f6a0f19eee[226])
 
 ** Project management:
 *** Co-team lead of the project, in charge of defining, assigning, and tracking project tasks.
 Furthermore, ensure project deliverables are done on time and in the right format.
 
-** Enhancements to existing features:
-***
 ** Documentation:
-***
+*** Updated the product website's heading and navigation bar. (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/119[#119])
+*** Edited various parts of the User Guide (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/173[#173], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226[#226])
+*** Added use cases and updated the Storage and Implementation part of the Developer Guide for saving, import
+and clear features (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/186[#186], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/197[#197], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218[#218])
+
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/126[#126],
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/139[#139], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/174[#174], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/189[#189], ...)
 ** Tools:
 *** Integrated a new Github plugin (AppVeyor) to the team repo
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=clear]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=import]
+
+include::../UserGuide.adoc[tag=saving]
 
 == Contributions to the Developer Guide
 
@@ -59,9 +88,13 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=import]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=Design-Storage]
+
+include::../DeveloperGuide.adoc[tag=command_flags]
+
+include::../DeveloperGuide.adoc[tag=appendix]
 
 
 == PROJECT: PowerPointLabs
