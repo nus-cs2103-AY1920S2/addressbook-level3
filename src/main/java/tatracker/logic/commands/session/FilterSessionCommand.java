@@ -1,11 +1,14 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
@@ -17,25 +20,19 @@ import tatracker.model.session.SessionPredicate;
  */
 public class FilterSessionCommand extends Command {
 
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, CommandWords.FILTER_MODEL);
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters session."
-            + "Parameters: "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "2020-03-29 n/"
-            + "[" + PREFIX_MODULE + "MODULE] "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS2103T "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SESSION_TYPE + "consultation";
-
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            CommandWords.FILTER_MODEL,
+            "Filters all the sessions.",
+            List.of(),
+            List.of(DATE, MODULE, SESSION_TYPE),
+            DATE, MODULE, SESSION_TYPE
+    );
 
     public static final String MESSAGE_SUCCESS = "Filtered Session List: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no sessions with the given module code.";
-    public static final String MESSAGE_INVALID_DATE = "There is no sessions with the given date.";
-    public static final String MESSAGE_INVALID_SESSIONTYPE = "There is no sessions with the given session type.";
+    public static final String MESSAGE_INVALID_MODULE_CODE = "There are no sessions with the given module code.";
+    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date.";
+    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type.";
 
     private final SessionPredicate predicate;
 

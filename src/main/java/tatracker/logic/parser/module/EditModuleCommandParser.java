@@ -1,8 +1,8 @@
 package tatracker.logic.parser.module;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
 
 import java.util.stream.Stream;
 
@@ -27,18 +27,19 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      */
     public EditModuleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, MODULE, NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, MODULE, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
+        String moduleCode = argMultimap.getValue(MODULE).get();
 
         Module module = new Module(moduleCode);
 
-        String newName = ParserUtil.parseValue(argMultimap.getValue(PREFIX_NAME).get());
+        String newName = ParserUtil.parseValue(argMultimap.getValue(NAME).get());
 
         return new EditModuleCommand(module, newName);
     }

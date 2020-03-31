@@ -5,6 +5,9 @@ package tatracker.commons.core;
  */
 public class Messages {
 
+    public static final String MESSAGE_WELCOME = "Welcome to TA-Tracker!\n\n";
+    public static final String MESSAGE_HELP = "Enter help to view the list of commands";
+    public static final String MESSAGE_INVALID_COMMAND = "Invalid command format!\n\n";
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";

@@ -9,6 +9,8 @@ package tatracker.commons.core.index;
  * convert it back to an int if the index will not be passed to a different component again.
  */
 public class Index {
+
+    public static final String MESSAGE_CONSTRAINTS = "An index must be a positive integer";
     private int zeroBasedIndex;
 
     /**

@@ -1,9 +1,12 @@
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.SORT_TYPE;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
@@ -15,15 +18,14 @@ import tatracker.model.Model;
  */
 public class SortCommand extends Command {
 
-    public static final String COMMAND_WORD = CommandWords.SORT + " " + CommandWords.SORT_ALL;
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"
-            + "all groups of all modules in the TA-Tracker. \n"
-            + "Parameters: "
-            + PREFIX_TYPE + "SORT TYPE \n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "alphabetically";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SORT,
+            CommandWords.SORT_ALL,
+            "Sorts students in all module groups in the TA-Tracker.",
+            List.of(SORT_TYPE),
+            List.of(),
+            SORT_TYPE
+    );
 
     public static final String MESSAGE_SUCCESS = "The modules have been sorted.";
     public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
@@ -62,6 +64,6 @@ public class SortCommand extends Command {
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS), Action.GOTO_STUDENT);
+        return new CommandResult(MESSAGE_SUCCESS, Action.GOTO_STUDENT);
     }
 }
