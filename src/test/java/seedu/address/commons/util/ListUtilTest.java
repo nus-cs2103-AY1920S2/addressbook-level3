@@ -1,13 +1,12 @@
 package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.order.TimeStamp.FORMAT_CHECKER;
-import static seedu.address.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
+import static seedu.address.model.order.TimeStamp.FORMAT_CHECKER;
 
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 public class ListUtilTest {
 

@@ -1,16 +1,19 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import seedu.address.model.order.Order;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Functions for filtering the list
+ */
 public class ListUtil {
-    public static LocalDate DATE_TODAY = LocalDate.now();
-    public static LocalDateTime DATE_TIME_TODAY = LocalDateTime.now();
+    private static LocalDate dateToday = LocalDate.now();
+    private static LocalDateTime timeToday = LocalDateTime.now();
 
     /**
      * Overloaded method for Delivery Order.
@@ -44,6 +47,6 @@ public class ListUtil {
     public static boolean isBeforeDeadline(LocalDateTime ldt) {
         requireNonNull(ldt);
         LocalDate orderDate = ldt.toLocalDate();
-        return orderDate.equals(DATE_TODAY) && ldt.isAfter(DATE_TIME_TODAY);
+        return orderDate.equals(dateToday) && ldt.isAfter(timeToday);
     }
 }
