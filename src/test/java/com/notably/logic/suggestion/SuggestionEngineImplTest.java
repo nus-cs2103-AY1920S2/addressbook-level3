@@ -1,6 +1,7 @@
 package com.notably.logic.suggestion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,17 @@ public class SuggestionEngineImplTest {
 
         // Set up SuggestionEngine
         suggestionEngine = new SuggestionEngineImpl(model);
+    }
+
+    @Test
+    public void suggest_inputLengthTooShort_suggestionsAndResponseTextCleared() {
+        model.setInput("");
+        assertTrue(model.getSuggestions().isEmpty());
+        assertTrue(model.responseTextProperty().getValue().isEmpty());
+
+        model.setInput("o");
+        assertTrue(model.getSuggestions().isEmpty());
+        assertTrue(model.responseTextProperty().getValue().isEmpty());
     }
 
     @Test
