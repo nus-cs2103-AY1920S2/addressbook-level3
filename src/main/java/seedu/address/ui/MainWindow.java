@@ -182,6 +182,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.setResizable(false);
     }
 
     /** Opens the help window or focuses on it if it's already opened. */
