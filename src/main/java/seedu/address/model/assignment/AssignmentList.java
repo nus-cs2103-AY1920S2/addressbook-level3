@@ -29,6 +29,7 @@ public class AssignmentList {
     private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
     private final ObservableList<Assignment> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Day> scheduleVisual = FXCollections.observableArrayList();
 
     public void setAssignments(AssignmentList replacement) {
         requireNonNull(replacement);
@@ -128,23 +129,39 @@ public class AssignmentList {
         return true;
     }
 
+
+    public ObservableList<Day> getScheduleVisualList() {
+        return scheduleVisual;
+    }
+
     /**
-     * Returns an unmodifiable view of the intensity of the user's upcoming schedule for the next 7 days (including
+     * Populates an unmodifiable view of the intensity of the user's upcoming schedule for the next n days (including
      * today) calculated based on stored assignments, their deadlines and estimated hours per assignment.
      *
-     * Aim is to have the workload as evenly spread out across days (from current date to deadline.
+     * @param numDays The number of days the user would like to display.
+     *
+     * Aim is to have the workload as evenly spread out across days (from current date to deadline).
      */
-    public ObservableList<Day> getScheduleVisualList() {
+    public void calculateScheduleIntensity(int numDays) {
         ArrayList<Float> hoursPerDayList = new ArrayList<Float>();
         LocalDateTime currDateTime = LocalDateTime.now(ZoneId.of("Singapore"));
-        ObservableList<Day> result = FXCollections.observableArrayList();
         ObservableList<Assignment> assignmentList = internalList.sorted(new DeadlineComparator());
+        int currSize = scheduleVisual.size();
 
         hoursPerDayList.add((float) 0.0);
 
-        // Initialise the result list with 7 empty Day object
-        for (int i = 0; i < 7; i++) {
-            result.add(new Day());
+        if (numDays > currSize) {
+            for (int i = 0; i < (numDays - currSize); i++) {
+                scheduleVisual.add(new Day());
+            }
+        } else {
+            for (int j = 0; j < (currSize - numDays); j++) {
+                scheduleVisual.remove(scheduleVisual.size() - 1);
+            }
+        }
+
+        for (int k = 0; k < scheduleVisual.size(); k++) {
+            scheduleVisual.get(k).resetDueAssignments();
         }
 
         for (int j = 0; j < assignmentList.size(); j++) {
@@ -156,15 +173,14 @@ public class AssignmentList {
             calculate(hoursPerDayList, assignmentStatus, deadline, estHours, noOfDaysBetween, currDateTime);
 
             if (noOfDaysBetween < 7 && assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
-                result.get(noOfDaysBetween).addDueAssignment(assignmentList.get(j).getTitle().title);
+                scheduleVisual.get(noOfDaysBetween).addDueAssignment(assignmentList.get(j).getTitle().title);
             }
         }
 
         // Set hours per day in result list
-        for (int k = 0; k < 7; k++) {
-            result.get(k).setHours((float) (Math.round(hoursPerDayList.get(k) * 2) / 2.0));
+        for (int k = 0; k < numDays; k++) {
+            scheduleVisual.get(k).setHours((float) (Math.round(hoursPerDayList.get(k) * 2) / 2.0));
         }
-        return result;
     }
 
     /**
