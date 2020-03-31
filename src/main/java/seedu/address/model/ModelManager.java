@@ -286,6 +286,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void redo() throws StateNotFoundException {
+        addressBook.redo();
+        inventory.redo();
+        transactionHistory.redo();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
