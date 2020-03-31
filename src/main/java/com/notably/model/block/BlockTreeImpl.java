@@ -63,4 +63,24 @@ public class BlockTreeImpl implements BlockTree {
         parentBlock = currentBlock.getBlockParent();
         parentBlock.removeBlockChild(currentBlock);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof BlockTree)) {
+            return false;
+        }
+
+        BlockTree otherTree = (BlockTree) other;
+
+        return this.getRootBlock().equals(otherTree.getRootBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return getRootBlock().hashCode();
+    }
 }
