@@ -95,6 +95,7 @@ public class OpenSuggestionCommandTest {
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1 = new SuggestionItemImpl(toCs2103Week1.getStringRepresentation(), null);
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
             null);
         SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
@@ -102,9 +103,10 @@ public class OpenSuggestionCommandTest {
 
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
         expectedSuggestions.add(cs2103);
-        expectedSuggestions.add(cs2103Week1Lecture);
+        expectedSuggestions.add(cs2103Week1);
         expectedSuggestions.add(cs2103Week2);
         expectedSuggestions.add(cs2103Week3);
+        expectedSuggestions.add(cs2103Week1Lecture);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
@@ -116,9 +118,10 @@ public class OpenSuggestionCommandTest {
 
         List<String> expectedInputs = new ArrayList<>();
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);

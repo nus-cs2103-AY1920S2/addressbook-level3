@@ -3,12 +3,15 @@ package com.notably.logic.commands.suggestion;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.Model;
+import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionItemImpl;
@@ -50,45 +53,40 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     private List<AbsolutePath> getPossiblePaths(Model model) {
         Objects.requireNonNull(model);
 
-        List<AbsolutePath> possiblePaths = new ArrayList<>();
-
-        BlockTreeItem source = model.getBlockTree().get(path);
-        List<String> components = path.getComponents();
-
-        possiblePaths.add(path);
-
-        List<BlockTreeItem> children = source.getBlockChildren();
-        if (children.size() != 0) {
-            for (BlockTreeItem child : children) {
-                getChildDfs(child, components, possiblePaths);
-            }
-        }
+        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
 
         return possiblePaths;
     }
 
     /**
-     * Traverses the tree block starting from the block with the path that the user inputs.
-     * @param curr Current BlockTreeItem.
-     * @param components The components of the current path.
-     * @param possiblePaths The list of possible paths.
+     * Generates all possible paths from the app's {@link BlockTree}
+     *
+     * @return List of all possible paths
      */
-    private void getChildDfs(BlockTreeItem curr, List<String> components,
-        List<AbsolutePath> possiblePaths) {
-        List<String> newComponents = new ArrayList<>();
-        newComponents.addAll(components);
-        newComponents.add(curr.getTitle().getText());
+    private List<AbsolutePath> getPossiblePaths(AbsolutePath path, Model model) {
+        List<AbsolutePath> possiblePaths = new ArrayList<>();
 
-        List<BlockTreeItem> children = curr.getBlockChildren();
+        Queue<AbsolutePath> pathQueue = new LinkedList<>();
+        pathQueue.offer(path);
 
-        if (children.size() == 0) { // if last element in THAT current path, add curr path to list of possible paths.
-            AbsolutePath newPath = AbsolutePath.fromComponents(newComponents);
-            possiblePaths.add(newPath);
-        } else {
-            for (BlockTreeItem child : children) {
-                getChildDfs(child, newComponents, possiblePaths);
-            }
+        while (!pathQueue.isEmpty()) {
+            AbsolutePath currentPath = pathQueue.poll();
+
+            List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
+            List<AbsolutePath> childrenPaths = childrenBlocks
+                    .stream()
+                    .map(item -> {
+                        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
+                        combinedComponents.add(item.getTitle().getText());
+                        return AbsolutePath.fromComponents(combinedComponents);
+                    })
+                    .collect(Collectors.toList());
+            pathQueue.addAll(childrenPaths);
+
+            possiblePaths.add(currentPath);
         }
+
+        return possiblePaths;
     }
 
     private List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
