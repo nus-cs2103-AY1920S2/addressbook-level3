@@ -19,7 +19,7 @@ import seedu.zerotoone.model.workout.Workout;
 public class CreateCommand extends ScheduleCommand {
     public static final String COMMAND_WORD = "create";
     public static final String MESSAGE_USAGE = "Usage: schedule create WORKOUT_ID d/<dateTime>";
-    public static final String MESSAGE_SUCCESS = "Scheduled workout: %1$s";
+    public static final String MESSAGE_SUCCESS = "New schedule added: %1$s";
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists";
 
     private final Index workoutId;
@@ -52,8 +52,7 @@ public class CreateCommand extends ScheduleCommand {
 
         model.addSchedule(schedule);
 
-        String outputMessage = String.format(MESSAGE_SUCCESS, workoutToSchedule.getWorkoutName());
-        return new CommandResult(outputMessage);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, schedule.toString()));
     }
 
     @Override
