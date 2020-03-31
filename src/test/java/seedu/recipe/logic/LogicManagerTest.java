@@ -30,11 +30,13 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.JsonRecipeBookStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
 import seedu.recipe.storage.StorageManager;
+import seedu.recipe.storage.plan.JsonPlannedBookStorage;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class LogicManagerTest {
@@ -50,10 +52,13 @@ public class LogicManagerTest {
     public void setUp() {
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookStorage(temporaryFolder.resolve("recipeBook.json"));
+        JsonPlannedBookStorage plannedBookStorage =
+                new JsonPlannedBookStorage(temporaryFolder.resolve("plannedBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonCookedRecordBookStorage recordBookStorage =
                 new JsonCookedRecordBookStorage(temporaryFolder.resolve("cookedRecordBook.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage, plannedBookStorage, userPrefsStorage);
+
         logic = new LogicManager(model, storage);
     }
 
@@ -80,11 +85,16 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
+        JsonPlannedBookStorage plannedBookStorage =
+                new JsonPlannedBookStorage(temporaryFolder.resolve("ioExceptionPlannedBook.json"));
+        // todo add tests for plannedbook
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonCookedRecordBookStorage recordBookStorage =
                 new JsonCookedRecordBookStorage(temporaryFolder.resolve("ioExceptionRecordBook.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage,
+                plannedBookStorage, userPrefsStorage);
+
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -139,7 +149,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
+
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook(), new PlannedBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

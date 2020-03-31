@@ -9,7 +9,7 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.UniqueRecipeList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the recipe-book level
  * Duplicates are not allowed (by .isSameRecipe comparison)
  */
 public class RecipeBook implements ReadOnlyRecipeBook {

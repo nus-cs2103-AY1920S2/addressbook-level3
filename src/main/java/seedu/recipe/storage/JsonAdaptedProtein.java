@@ -11,7 +11,7 @@ import seedu.recipe.model.util.QuantityUtil;
 /**
  * Jackson-friendly version of {@link Protein}.
  */
-class JsonAdaptedProtein {
+public class JsonAdaptedProtein {
 
     private final String proteinName;
     private final Quantity quantity;

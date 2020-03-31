@@ -1,5 +1,6 @@
 package seedu.recipe.model.plan;
 
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
@@ -11,27 +12,32 @@ import java.time.format.DateTimeParseException;
  * Represents a date in the planned recipes book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date implements Comparable<Date> {
+public class PlannedDate implements Comparable<PlannedDate> {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should be written in the format YYYY-MM-DD";
+            "PlannedDate should be written in the format YYYY-MM-DD";
 
     public static final String VALIDATION_REGEX = "^[0-9-]+";
     public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");
     public static final DateTimeFormatter DATE_AND_MONTH = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
-    public final LocalDate date;
+    private final LocalDate date;
 
     /**
-     * Constructs a {@code Date}.
+     * Constructs a {@code PlannedDate}.
      *
      * @param date A valid date.
      */
-    public Date(String date) {
+    public PlannedDate(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         this.date = LocalDate.parse(date);
+    }
+
+    public PlannedDate(LocalDate date) {
+        requireNonNull(date);
+        this.date = date;
     }
 
     /**
@@ -51,8 +57,32 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    public PlannedDate onFirstDayOfMonth() {
+        return new PlannedDate(date.withDayOfMonth(1));
+    }
+
+    public PlannedDate onLastDayOfMonth() {
+        return new PlannedDate(date.with(lastDayOfMonth()));
+    }
+
+    public int getDateOfMonth() {
+        return date.getDayOfMonth();
+    }
+
+    /**
+     *
+     * Not inclusive!
+     */
+    public boolean isWithinRange(PlannedDate start, PlannedDate end) {
+        return date.isAfter(start.date) && date.isBefore(end.date);
+    }
+
+    public String toStringForJson() {
+        return date.toString();
+    }
+
     @Override
-    public int compareTo(Date other) {
+    public int compareTo(PlannedDate other) {
         LocalDate otherLocalDate = other.date;
         if (date.isBefore(otherLocalDate)) {
             return -1;
@@ -71,13 +101,14 @@ public class Date implements Comparable<Date> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+                || (other instanceof PlannedDate // instanceof handles nulls
+                && date.equals(((PlannedDate) other).date)); // state check
     }
 
     @Override
     public int hashCode() {
         return date.hashCode();
     }
+
 
 }

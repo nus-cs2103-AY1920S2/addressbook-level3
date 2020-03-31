@@ -17,6 +17,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -25,8 +26,12 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class DeleteCommandTest {
 
+<<<<<<< HEAD
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
 
+=======
+    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+>>>>>>> upstream/master
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -36,7 +41,11 @@ public class DeleteCommandTest {
         String expectedMessageTemplate = "Deleted %1$s from recipe book!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
+<<<<<<< HEAD
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
+=======
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+>>>>>>> upstream/master
         expectedModel.deleteRecipe(recipeToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -60,7 +69,11 @@ public class DeleteCommandTest {
         String expectedMessageTemplate = "Deleted %1$s from recipe book!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
+<<<<<<< HEAD
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
+=======
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+>>>>>>> upstream/master
         expectedModel.deleteRecipe(recipeToDelete);
         showNoRecipe(expectedModel);
 

@@ -23,6 +23,8 @@ import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.cooked.CookedRecordBook;
+import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.util.SampleDataUtil;
 import seedu.recipe.storage.CookedRecordBookStorage;
 import seedu.recipe.storage.JsonCookedRecordBookStorage;
@@ -32,6 +34,8 @@ import seedu.recipe.storage.RecipeBookStorage;
 import seedu.recipe.storage.Storage;
 import seedu.recipe.storage.StorageManager;
 import seedu.recipe.storage.UserPrefsStorage;
+import seedu.recipe.storage.plan.JsonPlannedBookStorage;
+import seedu.recipe.storage.plan.PlannedBookStorage;
 import seedu.recipe.ui.Ui;
 import seedu.recipe.ui.UiManager;
 
@@ -63,7 +67,8 @@ public class MainApp extends Application {
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipeBookFilePath());
         CookedRecordBookStorage cookedRecordBookStorage = new JsonCookedRecordBookStorage(
                 userPrefs.getCookedRecordFilePath());
-        storage = new StorageManager(recipeBookStorage, cookedRecordBookStorage, userPrefsStorage);
+        PlannedBookStorage plannedBookStorage = new JsonPlannedBookStorage(userPrefs.getPlannedBookFilePath());
+        storage = new StorageManager(recipeBookStorage, cookedRecordBookStorage, plannedBookStorage,userPrefsStorage);
 
         initLogging(config);
 
@@ -82,14 +87,15 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
-        //to be changed later
         Optional<ReadOnlyCookedRecordBook> recordBookOptional;
         ReadOnlyCookedRecordBook initialRecords;
+        Optional<ReadOnlyPlannedBook> plannedBookOptional;
+        ReadOnlyPlannedBook initialPlannedData;
 
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample RecipeBook");
+                logger.info("Data file for recipes not found. Will be starting with a sample RecipeBook");
             }
             initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
 
@@ -117,7 +123,23 @@ public class MainApp extends Application {
             initialRecords = new CookedRecordBook();
         }
 
-        return new ModelManager(initialData, userPrefs, initialRecords);
+        try{
+            plannedBookOptional = storage.readPlannedBook();
+            if (!plannedBookOptional.isPresent()) {
+                logger.info("Data file for planned recipes not found. Will be starting with a blank PlannedBook");
+            }
+            initialPlannedData = plannedBookOptional.orElse(new PlannedBook());
+
+        } catch (DataConversionException e) {
+            // todo: split data conversion exception into diff types to handle this all in one try block
+            logger.warning("Data file not in the correct format. Will be starting with an empty PlannedBook");
+            initialPlannedData = new PlannedBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PlannedBook");
+            initialPlannedData = new PlannedBook();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialRecords, initialPlannedData);
     }
 
     private void initLogging(Config config) {

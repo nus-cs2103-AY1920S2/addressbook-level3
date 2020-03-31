@@ -9,7 +9,7 @@ import seedu.recipe.model.goal.Goal;
 /**
  * Jackson-friendly version of {@link Goal}.
  */
-class JsonAdaptedGoal {
+public class JsonAdaptedGoal {
 
     private final String goalName;
 

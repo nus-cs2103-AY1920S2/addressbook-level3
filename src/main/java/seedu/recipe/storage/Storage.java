@@ -9,11 +9,14 @@ import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.storage.plan.PlannedBookStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, UserPrefsStorage {
+
+public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, PlannedBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -30,6 +33,7 @@ public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, Use
     @Override
     void saveRecipeBook(ReadOnlyRecipeBook recipeBook) throws IOException;
 
+    // ====== CookedRecords feature ======
     @Override
     Path getCookedRecordBookFilePath();
 
@@ -38,5 +42,14 @@ public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, Use
 
     @Override
     void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException;
+
+    // ====== Planning feature ======
+    @Override
+    Path getPlannedBookFilePath();
+
+    @Override
+    Optional<ReadOnlyPlannedBook> readPlannedBook() throws DataConversionException, IOException;
+
+    void savePlannedBook(ReadOnlyPlannedBook plannedBook) throws IOException;
 
 }

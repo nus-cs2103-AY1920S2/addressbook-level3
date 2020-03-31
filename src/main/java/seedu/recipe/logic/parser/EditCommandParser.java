@@ -1,7 +1,6 @@
 package seedu.recipe.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
@@ -20,13 +19,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.recipe.commons.core.index.Index;
-
 import seedu.recipe.logic.commands.EditCommand;
 import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Step;
-
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;
@@ -109,7 +106,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Vegetable>> parseVegetablesForEdit(Collection<String> vegetables) throws ParseException {
         assert vegetables != null;
-
         if (vegetables.isEmpty()) {
             return Optional.empty();
         }
@@ -126,7 +122,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Protein>> parseProteinsForEdit(Collection<String> proteins) throws ParseException {
         assert proteins != null;
-
         if (proteins.isEmpty()) {
             return Optional.empty();
         }
@@ -140,11 +135,10 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses and adds the {@code Collection<String> fruits} into the {@code Set<Fruit>}
      * If {@code fruits} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Fruit>} containing zero Protein ingredients.
+     * {@code Set<Fruit>} containing zero Fruit ingredients.
      */
     private Optional<Set<Fruit>> parseFruitsForEdit(Collection<String> fruits) throws ParseException {
         assert fruits != null;
-
         if (fruits.isEmpty()) {
             return Optional.empty();
         }
@@ -162,7 +156,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Other>> parseOthersForEdit(Collection<String> others) throws ParseException {
         assert others != null;
-
         if (others.isEmpty()) {
             return Optional.empty();
         }
@@ -177,7 +170,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Goal>> parseGoalsForEdit(Collection<String> goals) throws ParseException {
         assert goals != null;
-
         if (goals.isEmpty()) {
             return Optional.empty();
         }
@@ -190,7 +182,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<List<Step>> parseStepsForEdit(Collection<String> steps) throws ParseException {
         assert steps != null;
-
         if (steps.isEmpty()) {
             return Optional.empty();
         }

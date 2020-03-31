@@ -14,15 +14,22 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.recipe.commons.core.GuiSettings;
+
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
+<<<<<<< HEAD
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.Date;
+=======
+import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+>>>>>>> upstream/master
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -177,6 +184,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyPlannedBook getPlannedBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Recipe> getFilteredRecipeList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -187,21 +199,40 @@ public class AddCommandTest {
         }
 
         @Override
-        public void planRecipe(Recipe recipeToSet, Date atDate) {
+        public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+<<<<<<< HEAD
         public void addRecord(Record record) {
+=======
+        public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+>>>>>>> upstream/master
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+<<<<<<< HEAD
         public ObservableList<Record> getFilteredRecordList() {
+=======
+        public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+>>>>>>> upstream/master
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+<<<<<<< HEAD
         public ReadOnlyCookedRecordBook getRecordBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -210,6 +241,12 @@ public class AddCommandTest {
         public boolean hasRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }
+=======
+        public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+>>>>>>> upstream/master
     }
 
     /**

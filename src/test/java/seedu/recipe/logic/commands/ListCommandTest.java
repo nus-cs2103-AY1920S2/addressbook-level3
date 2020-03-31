@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.PlannedBook;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -23,8 +24,13 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
+<<<<<<< HEAD
         model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook());
         expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(), model.getRecordBook());
+=======
+        model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+>>>>>>> upstream/master
     }
 
     @Test

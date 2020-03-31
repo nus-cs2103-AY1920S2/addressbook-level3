@@ -11,7 +11,7 @@ import seedu.recipe.model.util.QuantityUtil;
 /**
  * Jackson-friendly version of {@link Fruit}.
  */
-class JsonAdaptedFruit {
+public class JsonAdaptedFruit {
 
     private final String fruitName;
     private final Quantity quantity;
