@@ -31,6 +31,7 @@ import seedu.address.testutil.EditParcelDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
 import seedu.address.testutil.ReturnOrderBuilder;
+import seedu.address.testutil.ReturnUtil;
 
 public class OrderBookParserTest {
 
@@ -76,7 +77,7 @@ public class OrderBookParserTest {
         descriptor = new EditParcelDescriptorBuilder(returnOrder).build();
         command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
             + returnFlagInput + INDEX_FIRST_ORDER.getOneBased() + " "
-            + OrderUtil.getEditOrderDescriptorDetails(descriptor));
+            + ReturnUtil.getEditReturnOrderDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor, returnFlag), command);
     }
 
