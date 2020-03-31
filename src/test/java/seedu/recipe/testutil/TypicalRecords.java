@@ -41,8 +41,8 @@ public class TypicalRecords {
      */
     public static CookedRecordBook getTypicalRecordBook() {
         CookedRecordBook ab = new CookedRecordBook();
-        for (Record Record : getTypicalRecords()) {
-            ab.addRecord(Record);
+        for (Record record : getTypicalRecords()) {
+            ab.addRecord(record);
         }
         return ab;
     }

@@ -7,9 +7,8 @@ import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static seedu.recipe.testutil.Assert.assertThrows;
 import static seedu.recipe.testutil.TypicalRecipes.CAESAR_SALAD;
 import static seedu.recipe.testutil.TypicalRecipes.GRILLED_SANDWICH;
-import static seedu.recipe.testutil.TypicalRecords.CHOCOLATE_CAKE;
 import static seedu.recipe.testutil.TypicalRecords.BOILED_CHICKEN;
-
+import static seedu.recipe.testutil.TypicalRecords.CHOCOLATE_CAKE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -16,7 +16,6 @@ import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
-import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.recipe.Recipe;
 
