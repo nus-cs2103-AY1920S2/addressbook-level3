@@ -102,7 +102,7 @@ public class Item {
         String formattedItemName = getItemName().toString().substring(0, 1).toUpperCase()
                 + getItemName().toString().substring(1).toLowerCase();
         builder.append(formattedItemName)
-                .append(" | Price: $")
+                .append(" | Price: ")
                 .append(getItemPrice());
         return builder.toString();
     }
