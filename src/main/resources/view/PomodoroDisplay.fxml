@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="pomodoroPane" alignment="CENTER" maxHeight="50.0" maxWidth="800.0" styleClass="tasklist-card" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="pomodoroPane" alignment="CENTER" maxHeight="50.0" maxWidth="800.0" styleClass="tasklist-card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="taskInProgress" contentDisplay="CENTER" graphicTextGap="5.0" text="taskInProgress">
          <font>
