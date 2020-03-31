@@ -65,8 +65,6 @@ public class LogicManager implements Logic {
 
     CommandResult commandResult;
     Command command = addressBookParser.parseCommand(commandText);
-    Boolean isNull = command == null;
-    logger.info(isNull.toString());
     command.setData(undoRedoStack);
     commandResult = command.execute(model);
     this.undoRedoStack.push(command);
@@ -117,8 +115,6 @@ public class LogicManager implements Logic {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
     }
-
-
 
     // Updates summary panel
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());
