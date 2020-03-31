@@ -13,11 +13,14 @@ import fithelper.logic.parser.FitHelperParser;
 import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.ReadOnlyWeightRecords;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
+import fithelper.model.weight.Weight;
 import fithelper.storage.FitHelperStorage;
 
 import fithelper.storage.UserProfileStorage;
+import fithelper.storage.WeightRecordsStorage;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 
@@ -27,17 +30,21 @@ import jfxtras.icalendarfx.components.VEvent;
 public class LogicManager implements Logic {
     public static final String FITHELPER_FILE_OPS_ERROR_MESSAGE = "Could not save data to fithelper file: ";
     public static final String USERPROFILE_FILE_OPS_ERROR_MESSAGE = "Could not save data to user profile file: ";
+    public static final String WEIGHTRECORDS_FILE_OPS_ERROR_MESSAGE = "Could not save data to weight records file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final FitHelperStorage fitHelperStorage;
     private final UserProfileStorage userProfileStorage;
+    private final WeightRecordsStorage weightRecordsStorage;
     private final FitHelperParser fitHelperParser;
 
-    public LogicManager(Model model, FitHelperStorage fitHelperStorage, UserProfileStorage userProfileStorage) {
+    public LogicManager(Model model, FitHelperStorage fitHelperStorage, UserProfileStorage userProfileStorage,
+                        WeightRecordsStorage weightRecordsStorage) {
         this.model = model;
         this.fitHelperStorage = fitHelperStorage;
         this.userProfileStorage = userProfileStorage;
+        this.weightRecordsStorage = weightRecordsStorage;
         this.fitHelperParser = new FitHelperParser();
     }
 
@@ -65,6 +72,14 @@ public class LogicManager implements Logic {
             throw new CommandException(USERPROFILE_FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        // save weight records data
+        try {
+            weightRecordsStorage.saveWeightRecords(model.getWeightRecords());
+        } catch (IOException ioe) {
+            logger.severe(ioe.getMessage());
+            throw new CommandException(WEIGHTRECORDS_FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         return commandResult;
     }
 
@@ -76,6 +91,16 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyUserProfile getUserProfile() {
         return model.getUserProfile();
+    }
+
+    @Override
+    public ReadOnlyWeightRecords getWeightRecords() {
+        return model.getWeightRecords();
+    }
+
+    @Override
+    public ObservableList<Weight> getFilteredWeightList() {
+        return model.getFilteredWeightList();
     }
 
     @Override

@@ -20,6 +20,7 @@ import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
 
+import fithelper.model.weight.Weight;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -40,29 +41,40 @@ public class ModelManager implements Model {
     private final VeventList vEventList;
     private CalendarSettings calendarSettings = new CalendarSettings(LocalDateTime.now(), "tb");
     private final UserProfile userProfile;
+    private final WeightRecords weightRecords;
+    private final FilteredList<Weight> filteredWeights;
+
 
     /**
-     * Initializes a ModelManager with the given fitHelper and userPrefs.
+     * Initializes a ModelManager with the given fitHelper, userProfile and weightRecords.
      */
-    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserProfile userProfile) {
+    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserProfile userProfile,
+                        ReadOnlyWeightRecords weightRecords) {
         super();
-        requireAllNonNull(fitHelper);
+        requireAllNonNull(fitHelper, userProfile, weightRecords);
 
         logger.fine("Initializing with FitHelper: " + fitHelper);
 
+
         this.fitHelper = new VersionedFitHelper(fitHelper);
-        filteredDiaries = new FilteredList<Diary>(this.fitHelper.getDiaryList());
+        filteredDiaries = new FilteredList<>(this.fitHelper.getDiaryList());
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
         filteredTodayFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredTodaySportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
+
+        logger.fine("Initializing with UserProfile: " + userProfile);
         this.userProfile = new UserProfile(userProfile);
+
+        logger.fine("Initializing with Weight Records: " + weightRecords);
+        this.weightRecords = new WeightRecords(weightRecords);
+        filteredWeights = new FilteredList<>(this.weightRecords.getWeightList());
     }
 
     public ModelManager() {
-        this(new FitHelper(), new UserProfile());
+        this(new FitHelper(), new UserProfile(), new WeightRecords());
     }
 
     @Override
@@ -421,5 +433,64 @@ public class ModelManager implements Model {
     @Override
     public boolean isSameProfile(Profile newProfile) {
         return this.userProfile.getUserProfile().equals(newProfile);
+    }
+
+
+    // Methods about weight records.
+    @Override
+    public void setWeightRecords(ReadOnlyWeightRecords weightRecords) {
+        this.weightRecords.resetData(weightRecords);
+    }
+
+    @Override
+    public ReadOnlyWeightRecords getWeightRecords() {
+        return this.weightRecords;
+    }
+
+    @Override
+    public boolean hasWeight(Weight weight) {
+        requireNonNull(weight);
+        return weightRecords.hasWeight(weight);
+    }
+
+    @Override
+    public void addWeight(Weight weight) {
+        weightRecords.addWeight(weight);
+        updateFilteredWeightList(PREDICATE_SHOW_ALL_WEIGHTS);
+    }
+
+    /**
+     * Replaces the given weight {@code target} with {@code editedWeight}.
+     * {@code target} must exist in the weight Records.
+     * The date of {@code editedWeight} must not be the same as another existing weight in the weight records.
+     *
+     * @param target
+     * @param editedWeight
+     */
+    @Override
+    public void setWeight(Weight target, Weight editedWeight) {
+        requireAllNonNull(target, editedWeight);
+        weightRecords.setWeight(target, editedWeight);
+    }
+
+    /**
+     * Returns an unmodifiable view of the weight list of {@code Weight} backed by the internal list of
+     * {@code versionedWeightRecords}
+     */
+    @Override
+    public ObservableList<Weight> getFilteredWeightList() {
+        return filteredWeights;
+    }
+
+    /**
+     * Updates the filter of the filtered weight list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredWeightList(Predicate<Weight> predicate) {
+        requireNonNull(predicate);
+        filteredWeights.setPredicate(predicate);
     }
 }

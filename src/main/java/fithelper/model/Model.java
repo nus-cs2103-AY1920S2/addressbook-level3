@@ -9,8 +9,9 @@ import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 import fithelper.model.profile.Profile;
-
 import fithelper.model.today.Today;
+import fithelper.model.weight.Weight;
+
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 
@@ -21,6 +22,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
+    Predicate<Weight> PREDICATE_SHOW_ALL_WEIGHTS = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_UNDONE_ENTRIES = entry -> entry.getStatus().value.equals("Undone");
     Predicate<Entry> PREDICATE_SHOW_TODAY_ENTRIES = entry ->
             entry.getTime().getDateStr().equals(new Today().getTodayDateStr());
@@ -208,6 +210,44 @@ public interface Model {
      * Returns true if new profile is the same as original one, without comparing weight data.
      */
     boolean isSameProfile(Profile newProfile);
+
+
+    // Methods about weight records.
+
+    /**
+     * Replaces Weight Records data with the data in {@code weightRecords}.
+     */
+    void setWeightRecords(ReadOnlyWeightRecords weightRecords);
+
+    /** Returns the WeightRecords */
+    ReadOnlyWeightRecords getWeightRecords();
+
+    /**
+     * Returns true if weight record with the same date as {@code weight} exists in Weight Records.
+     */
+    boolean hasWeight(Weight weight);
+
+    /**
+     * Adds the given weight.
+     * {@code weight} must not already exist in the log book.
+     */
+    void addWeight(Weight weight);
+
+    /**
+     * Replaces the given weight {@code target} with {@code editedWeight}.
+     * {@code target} must exist in the log book.
+     * The weight date of {@code editedWeight} must not be the same as another existing entry in the log book.
+     */
+    void setWeight(Weight target, Weight editedWeight);
+
+    /** Returns an unmodifiable view of the filtered weight list */
+    ObservableList<Weight> getFilteredWeightList();
+
+    /**
+     * Updates the filter of the filtered weight records list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredWeightList(Predicate<Weight> predicate);
 
 }
 
