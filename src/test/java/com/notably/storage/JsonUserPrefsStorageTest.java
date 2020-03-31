@@ -17,7 +17,6 @@ import com.notably.commons.exceptions.DataConversionException;
 import com.notably.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
-
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 
     @TempDir
@@ -73,7 +72,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setBlockDataFilePath(Paths.get("data/blockdata.json"));
         return userPrefs;
     }
 
