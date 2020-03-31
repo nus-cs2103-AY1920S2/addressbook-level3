@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
@@ -78,8 +79,15 @@ public class SearchSuggestionCommand implements SuggestionCommand {
                             int frequency = blockBodies.length - 1;
                             String displayText = absolutePath.getStringRepresentation();
                             Runnable action = () -> {
-                                OpenCommand openCommand = new OpenCommand(absolutePath);
-                                openCommand.execute(model);
+                                try {
+                                    OpenCommand openCommand = new OpenCommand(absolutePath);
+                                    openCommand.execute(model);
+                                } catch (CommandException ex) {
+                                    /* notes suggested will definitely be able to be opened,
+                                       as the block actually exists.
+                                       AssertionError would never be thrown */
+                                    throw new AssertionError(ex.getMessage());
+                                }
                             };
                             SuggestionItem suggestionItem = new SuggestionItemImpl(displayText, frequency, action);
                             suggestions.add(suggestionItem);
