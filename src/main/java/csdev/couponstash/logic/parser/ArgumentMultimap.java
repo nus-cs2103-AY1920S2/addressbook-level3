@@ -40,7 +40,7 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns an empty string if no values of {@code prefix} is found in {@code argMultiMap}.
+     * Returns the default value if no values of {@code prefix} is found in {@code argMultiMap}.
      * Used for optional fields only.
      */
     public Optional<String> getValueForOptionalField(Prefix prefix, String defaultValue) {

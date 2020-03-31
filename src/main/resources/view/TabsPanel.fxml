@@ -10,22 +10,24 @@
       <tabs>
         <Tab fx:id="couponTab" text="Coupons">
           <content>
-            <VBox alignment="TOP_LEFT" styleClass="background">
-              <StackPane fx:id="couponListPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
-            </VBox>
+            <StackPane fx:id="couponListPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
           </content>
         </Tab>
-        <Tab fx:id="summaryTab" text="Summary">
+        <Tab fx:id="savedTab" text="Saved">
           <content>
-            <VBox alignment="TOP_LEFT" styleClass="background">
-              <StackPane fx:id="summaryPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
-            </VBox>
+            <StackPane fx:id="savedPanePlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"
+                       style="-fx-background-insets: 4 8 5 8;"/>
+          </content>
+        </Tab>
+        <Tab fx:id="helpTab" text="Help">
+          <content>
+            <StackPane fx:id="helpPanePlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
           </content>
         </Tab>
       </tabs>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
+      <opaqueInsets>
+        <Insets/>
+      </opaqueInsets>
     </TabPane>
   </children>
 </StackPane>

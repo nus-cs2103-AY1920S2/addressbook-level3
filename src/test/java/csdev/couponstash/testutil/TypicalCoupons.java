@@ -119,6 +119,8 @@ public class TypicalCoupons {
             .withCondition("While Stock Last")
             .withArchived("false")
             .build();
+
+    // Archived coupon
     public static final Coupon ELLE = new CouponBuilder().withName("Elle Meyer")
             .withPromoCode("9482224")
             .withSavings(ELLE_SAVINGS)
@@ -129,8 +131,9 @@ public class TypicalCoupons {
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived("true")
             .build();
+
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
             .withPromoCode("9482427")
             .withSavings(FIONA_SAVINGS)
@@ -143,6 +146,8 @@ public class TypicalCoupons {
             .withCondition("While Stock Last")
             .withArchived("false")
             .build();
+
+
     public static final Coupon GEORGE = new CouponBuilder().withName("George Best")
             .withPromoCode("9482442")
             .withSavings(GEORGE_SAVINGS)

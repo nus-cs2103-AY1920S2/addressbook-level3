@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
  */
 public class CouponCard extends UiPart<Region> {
 
-    private static final String FXML = "CouponListCard.fxml";
+    private static final String FXML = "CouponCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -53,6 +53,8 @@ public class CouponCard extends UiPart<Region> {
     private Label remindDate;
     @FXML
     private Label condition;
+    @FXML
+    private Label archived;
 
     /**
      * Constructor for a new CouponCard to be shown
@@ -69,25 +71,32 @@ public class CouponCard extends UiPart<Region> {
     public CouponCard(Coupon coupon, int displayedIndex, String moneySymbol) {
         super(FXML);
         this.coupon = coupon;
-        id.setText(displayedIndex + "");
-        idDup.setText(displayedIndex + ""); // duplicate is needed for UI purposes
+        setId(id, displayedIndex);
+        setId(idDup, displayedIndex); // duplicate is needed for UI purposes
         name.setText(coupon.getName().fullName);
         promoCode.setText("Promo Code: " + coupon.getPromoCode());
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
-        coupon.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        coupon.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tagsDup.getChildren().add(new Label(tag.tagName)));
+        setTags(coupon, tags);
+        setTags(coupon, tagsDup);
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("T&C: " + coupon.getCondition().value);
         // set savings pane
         SavingsPane savingsPane = new SavingsPane();
         savingsPane.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
         savings.getChildren().add(savingsPane.getRoot());
+        archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
+    }
+
+    public void setTags(Coupon coupon, FlowPane tagFlowPane) {
+        coupon.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
+    }
+
+    public void setId(Label idLabel, int index) {
+        idLabel.setText(index + "");
     }
 
     @Override
