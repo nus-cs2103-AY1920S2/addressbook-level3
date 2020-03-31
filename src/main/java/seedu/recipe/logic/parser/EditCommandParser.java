@@ -106,7 +106,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Vegetable>> parseVegetablesForEdit(Collection<String> vegetables) throws ParseException {
         assert vegetables != null;
-
         if (vegetables.isEmpty()) {
             return Optional.empty();
         }
@@ -123,7 +122,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Protein>> parseProteinsForEdit(Collection<String> proteins) throws ParseException {
         assert proteins != null;
-
         if (proteins.isEmpty()) {
             return Optional.empty();
         }
@@ -137,11 +135,10 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses and adds the {@code Collection<String> fruits} into the {@code Set<Fruit>}
      * If {@code fruits} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Fruit>} containing zero Protein ingredients.
+     * {@code Set<Fruit>} containing zero Fruit ingredients.
      */
     private Optional<Set<Fruit>> parseFruitsForEdit(Collection<String> fruits) throws ParseException {
         assert fruits != null;
-
         if (fruits.isEmpty()) {
             return Optional.empty();
         }
@@ -159,7 +156,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Other>> parseOthersForEdit(Collection<String> others) throws ParseException {
         assert others != null;
-
         if (others.isEmpty()) {
             return Optional.empty();
         }
@@ -174,7 +170,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Goal>> parseGoalsForEdit(Collection<String> goals) throws ParseException {
         assert goals != null;
-
         if (goals.isEmpty()) {
             return Optional.empty();
         }
@@ -187,7 +182,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<List<Step>> parseStepsForEdit(Collection<String> steps) throws ParseException {
         assert steps != null;
-
         if (steps.isEmpty()) {
             return Optional.empty();
         }
