@@ -31,9 +31,11 @@ import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
-import seedu.address.testutil.EditOrderDescriptorBuilder;
+import seedu.address.testutil.EditParcelDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
+import seedu.address.testutil.ReturnOrderBuilder;
+import seedu.address.testutil.ReturnUtil;
 
 public class OrderBookParserTest {
 
@@ -73,11 +75,26 @@ public class OrderBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
+        Flag orderFlag = CliSyntax.FLAG_ORDER_BOOK;
+        Flag returnFlag = CliSyntax.FLAG_RETURN_BOOK;
+        String orderFlagInput = orderFlag.getFlag() + " ";
+        String returnFlagInput = returnFlag.getFlag() + " ";
+
+        // Parsing order flag
         Order order = new OrderBuilder().build();
-        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(order).build();
+        EditCommand.EditParcelDescriptor descriptor = new EditParcelDescriptorBuilder(order).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_ORDER.getOneBased() + " " + OrderUtil.getEditOrderDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor), command);
+            + orderFlagInput + INDEX_FIRST_ORDER.getOneBased() + " "
+            + OrderUtil.getEditOrderDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor, orderFlag), command);
+
+        // Parsing return flag
+        ReturnOrder returnOrder = new ReturnOrderBuilder().build();
+        descriptor = new EditParcelDescriptorBuilder(returnOrder).build();
+        command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+            + returnFlagInput + INDEX_FIRST_ORDER.getOneBased() + " "
+            + ReturnUtil.getEditReturnOrderDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor, returnFlag), command);
     }
 
     @Test

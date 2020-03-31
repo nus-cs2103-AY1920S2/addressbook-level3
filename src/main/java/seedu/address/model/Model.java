@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Parcel;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
@@ -67,7 +68,14 @@ public interface Model {
     ReadOnlyOrderBook getOrderBook();
 
     /**
-     * Returns true if a person with the same identity as {@code order} exists in the order book.
+     * Returns true if a parcel exist.
+     * @return boolean representing the parcel existence.
+     */
+    boolean hasParcel(Parcel parcel);
+
+    /**
+     * Returns true if a Order with the same identity as {@code order} exists in the order book.
+     * @param order
      */
     boolean hasOrder(Order order);
 

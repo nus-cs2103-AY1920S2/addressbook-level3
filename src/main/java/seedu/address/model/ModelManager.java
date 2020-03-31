@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Parcel;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
@@ -161,6 +162,20 @@ public class ModelManager implements Model {
     public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder) {
         requireAllNonNull(target, editedReturnOrder);
         returnOrderBook.setReturnOrder(target, editedReturnOrder);
+    }
+
+    //=========== Parcel state check =============================================================
+
+    @Override
+    public boolean hasParcel(Parcel parcel) {
+        requireNonNull(parcel);
+        if (parcel instanceof Order) {
+            return hasOrder((Order) parcel);
+        } else if (parcel instanceof ReturnOrder) {
+            return hasReturnOrder((ReturnOrder) parcel);
+        } else {
+            return false;
+        }
     }
 
     //=========== Filtered Order List Accessors =============================================================

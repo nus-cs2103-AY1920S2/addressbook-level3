@@ -73,9 +73,9 @@ public class OrderUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditOrderDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditParcelDescriptor}'s details.
      */
-    public static String getEditOrderDescriptorDetails(EditCommand.EditOrderDescriptor descriptor) {
+    public static String getEditOrderDescriptorDetails(EditCommand.EditParcelDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getTid().ifPresent(Tid -> sb.append(PREFIX_TID).append(Tid.tid).append(" "));
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));

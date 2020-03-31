@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -18,6 +20,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CsvProcessor {
     public static final String MESSAGE_READ_FAILED = "The csv file is unable to read.";
     public static final String MESSAGE_INVALID_FORMAT = "The data in csv file should start with \"ot/\".";
+
+    private static final Logger logger = LogsCenter.getLogger(CsvProcessor.class);
 
     /**
      * Retrieve data from the given filePath.
@@ -30,8 +34,10 @@ public class CsvProcessor {
 
         String fileData;
         try {
+            logger.info("Retrieving data from csv file...");
             fileData = FileUtil.readFromFile(filePath);
         } catch (IOException e) {
+            logger.info("Failed to read the csv file at: " + filePath.toAbsolutePath());
             throw new ParseException(MESSAGE_READ_FAILED);
         }
 
@@ -51,6 +57,7 @@ public class CsvProcessor {
 
         // Check the first prefix is ot/.
         if (!fileDataTrimmed.startsWith(PREFIX_ORDERTYPE.toString())) {
+            logger.info("Invalid format found - Csv data does not start with orderType prefix.");
             throw new ParseException(MESSAGE_INVALID_FORMAT);
         }
 
@@ -68,6 +75,7 @@ public class CsvProcessor {
         List<String> data = new ArrayList<>();
 
         // Remove the first order type prefix and split the data according to order type prefix.
+        logger.fine("Processing csv data into list of string ...");
         String[] result = sentence.replaceFirst(PREFIX_ORDERTYPE.toString(), "").split(PREFIX_ORDERTYPE.toString());
         Collections.addAll(data, result);
         return data;

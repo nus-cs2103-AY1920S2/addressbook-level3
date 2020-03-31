@@ -23,7 +23,7 @@ import seedu.address.model.order.exceptions.OrderNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Order#isSameOrder(Order)
+ * @see Order#isSameParcel(Order)
  */
 public class UniqueOrderList implements Iterable<Order> {
 
@@ -36,7 +36,7 @@ public class UniqueOrderList implements Iterable<Order> {
      */
     public boolean contains(Order toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameOrder);
+        return internalList.stream().anyMatch(toCheck::isSameParcel);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UniqueOrderList implements Iterable<Order> {
             throw new OrderNotFoundException();
         }
 
-        if (!target.isSameOrder(editedOrder) && contains(editedOrder)) {
+        if (!target.isSameParcel(editedOrder) && contains(editedOrder)) {
             throw new DuplicateOrderException();
         }
 
@@ -147,7 +147,7 @@ public class UniqueOrderList implements Iterable<Order> {
     private boolean ordersAreUnique(List<Order> orders) {
         for (int i = 0; i < orders.size() - 1; i++) {
             for (int j = i + 1; j < orders.size(); j++) {
-                if (orders.get(i).isSameOrder(orders.get(j))) {
+                if (orders.get(i).isSameParcel(orders.get(j))) {
                     return false;
                 }
             }

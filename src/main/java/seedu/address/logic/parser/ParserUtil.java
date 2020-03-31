@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
@@ -28,6 +30,7 @@ import seedu.address.storage.CsvProcessor;
 public class ParserUtil {
     public static final String MESSAGE_INVALID_CSV_FILEPATH = "The csv file is not found in the data folder";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    private static final Logger logger = LogsCenter.getLogger(ParserUtil.class);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -127,7 +130,9 @@ public class ParserUtil {
     public static TimeStamp parseTimeStamp(String timeStamp) throws ParseException {
         requireNonNull(timeStamp);
         String trimmedTimeStamp = timeStamp.trim();
+        logger.fine("Checking whether it is valid timestamp");
         if (!TimeStamp.isValidTimeStamp(trimmedTimeStamp)) {
+            logger.info("Invalid timestamp: " + trimmedTimeStamp);
             throw new ParseException(TimeStamp.MESSAGE_CONSTRAINTS);
         }
         return new TimeStamp(trimmedTimeStamp);
@@ -172,7 +177,9 @@ public class ParserUtil {
     public static Comment parseComment(String comment) throws ParseException {
         requireNonNull(comment);
         String trimmedComment = comment.trim();
+        logger.fine("Check if it is a valid comment" + trimmedComment);
         if (!Comment.isValidComment(trimmedComment)) {
+            logger.info("Invalid Comment encountered: " + trimmedComment);
             throw new ParseException(Comment.MESSAGE_CONSTRAINTS);
         }
         return new Comment(trimmedComment);
@@ -203,8 +210,12 @@ public class ParserUtil {
     public static List<String> parseCsvFile(String filePath) throws ParseException {
         requireNonNull(filePath);
         String filePathTrimmed = filePath.trim();
+
+        logger.fine("Getting the path of the file: " + filePath);
         Path csvFilePath = Paths.get("data", filePathTrimmed);
+        logger.fine("Checking whether the file exists: " + filePath);
         if (!FileUtil.isFileExists(csvFilePath)) {
+            logger.info("File not exists: " + filePath);
             throw new ParseException(MESSAGE_INVALID_CSV_FILEPATH);
         }
         return CsvProcessor.retrieveData(csvFilePath);

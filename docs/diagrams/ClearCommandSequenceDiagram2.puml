@@ -18,66 +18,73 @@ group sd Execution of the Clear Command Sequence Diagram
 
 LogicManager -> ClearCommand ++ : execute(model)
 
-opt `-o` flag and `-f` flag found in flags
-    create OrderBook
-    ClearCommand -> OrderBook ++
+alt '-f' flag found in flags
+    ClearCommand -> ClearCommand ++ : updateModel(model)
+    alt '-o' flag also found in flags
+        create OrderBook
+        ClearCommand -> OrderBook ++
 
-    OrderBook --> ClearCommand -- : orderBook
+        OrderBook --> ClearCommand -- : orderBook
 
-    ClearCommand -> Model ++ : setOrderBook(orderBook)
-    Model --> ClearCommand --
+        ClearCommand -> Model ++ : setOrderBook(orderBook)
+        Model --> ClearCommand --
 
-    create CommandResult
-    ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_ORDER_BOOK
+        create CommandResult
+        ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_ORDER_BOOK
 
-    CommandResult --> ClearCommand -- : result
-else `-r` flag and `-f` flag found in flags
-    create ReturnOrderBook
-    ClearCommand -> ReturnOrderBook ++
+        CommandResult --> ClearCommand -- : result
 
-    ReturnOrderBook --> ClearCommand -- : returnOrderBook
+    else '-r' flag also found in flags
+        create ReturnOrderBook
+        ClearCommand -> ReturnOrderBook ++
 
-    ClearCommand -> Model ++ : setReturnOrderBook(returnOrderBook)
-    Model --> ClearCommand --
+        ReturnOrderBook --> ClearCommand -- : returnOrderBook
 
-    create CommandResult
-    ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_RETURN_BOOK
+        ClearCommand -> Model ++ : setReturnOrderBook(returnOrderBook)
+        Model --> ClearCommand --
 
-    CommandResult --> ClearCommand -- : result
-else Only `-f` flag found in flags
-    create OrderBook
-    ClearCommand -> OrderBook ++
-    OrderBook --> ClearCommand -- : OrderBook
+        create CommandResult
+        ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_RETURN_BOOK
 
-    create ReturnOrderBook
-    ClearCommand -> ReturnOrderBook ++
-    ReturnOrderBook --> ClearCommand -- : returnOrderBook
+        CommandResult --> ClearCommand -- : result
+    else Only '-f' flag found in flags
+        create OrderBook
+        ClearCommand -> OrderBook ++
+        OrderBook --> ClearCommand -- : OrderBook
 
-    ClearCommand -> Model ++ : setOrderBook(orderBook)
-    Model --> ClearCommand --
+        create ReturnOrderBook
+        ClearCommand -> ReturnOrderBook ++
+        ReturnOrderBook --> ClearCommand -- : returnOrderBook
 
-    ClearCommand -> Model ++ : setReturnOrderBook(returnOrderBook)
-    Model --> ClearCommand --
+        ClearCommand -> Model ++ : setOrderBook(orderBook)
+        Model --> ClearCommand --
 
-    create CommandResult
-    ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_BOTH_BOOK
+        ClearCommand -> Model ++ : setReturnOrderBook(returnOrderBook)
+        Model --> ClearCommand --
 
-    CommandResult --> ClearCommand -- : result
-else Only `-o` flag found in flags
-     create CommandResult
-     ClearCommand -> CommandResult ++ : MESSAGE_ENQUIRY_ORDER_BOOK
+        create CommandResult
+        ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_BOTH_BOOK
 
-    CommandResult --> ClearCommand -- : result
-else Only `-r` flag found in flags
-    create CommandResult
-    ClearCommand -> CommandResult ++ : MESSAGE_ENQUIRY_RETURN_BOOK
+        CommandResult --> ClearCommand -- : result
+    end
+    ClearCommand --> ClearCommand -- : result
+else '-f' flag is not found in flags
+    alt Only '-o' flag found in flags
+        create CommandResult
+        ClearCommand -> CommandResult ++ : MESSAGE_ENQUIRY_ORDER_BOOK
 
-    CommandResult --> ClearCommand -- : result
-else No flag found in flags
-    create CommandResult
-    ClearCommand -> CommandResult ++ : MESSAGE_ENQUIRY_BOTH_BOOK
+        CommandResult --> ClearCommand -- : result
+    else Only `-r` flag found in flags
+        create CommandResult
+        ClearCommand -> CommandResult ++ : MESSAGE_ENQUIRY_RETURN_BOOK
 
-    CommandResult --> ClearCommand -- : result
+        CommandResult --> ClearCommand -- : result
+    else No flag found in flags
+        create CommandResult
+        ClearCommand -> CommandResult ++ : MESSAGE_ENQUIRY_BOTH_BOOK
+
+        CommandResult --> ClearCommand -- : result
+    end
 end
 
 ClearCommand --> LogicManager : result

@@ -98,7 +98,7 @@ public class Order extends Parcel {
      * Returns true if both orders of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two orders.
      */
-    public boolean isSameOrder(Order otherOrder) {
+    public boolean isSameParcel(Parcel otherOrder) {
         if (otherOrder == this) {
             return true;
         }
