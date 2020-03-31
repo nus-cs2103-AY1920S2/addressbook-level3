@@ -1,11 +1,12 @@
 package csdev.couponstash.logic.commands;
 
-import csdev.couponstash.logic.commands.exceptions.CommandException;
-import csdev.couponstash.model.Model;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.model.Model;
 
 /**
  * Format full help instructions for every command for display.
@@ -22,8 +23,8 @@ public class HelpCommand extends Command {
 
     public static final String UNSUPPORTED_OS =
             "Your operating system does not allow the opening of the browser automatically. "
-            + "Visit https://ay1920s2-cs2103t-f09-1.github.io/main/UserGuide.html with your web browser "
-            + "to view the user guide.";
+                    + "Visit https://ay1920s2-cs2103t-f09-1.github.io/main/UserGuide.html with your web browser "
+                    + "to view the user guide.";
 
     public static final String ERROR = "An error has occurred. Please try the help command again.";
 
@@ -36,7 +37,12 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 
-    public static void openBrowser(String path) throws CommandException {
+    /**
+     * Open path in system browser.
+     * @param path
+     * @throws CommandException
+     */
+    private static void openBrowser(String path) throws CommandException {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("linux") || os.contains(("unix"))) {
@@ -49,7 +55,7 @@ public class HelpCommand extends Command {
                     throw new CommandException(UNSUPPORTED_OS);
                 }
             } catch (IOException e) {
-                    throw new CommandException(ERROR);
+                throw new CommandException(ERROR);
             }
         } else if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             try {
