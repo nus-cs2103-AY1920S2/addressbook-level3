@@ -2,9 +2,10 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.Mode;
-import seedu.eylah.diettracker.model.Model;
 
 /**
  * Sets the Mode of the Diet Tracker depending on user preferences. The 3 modes available are
@@ -31,7 +32,7 @@ public class ModeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
 
         model.setMode(mode);

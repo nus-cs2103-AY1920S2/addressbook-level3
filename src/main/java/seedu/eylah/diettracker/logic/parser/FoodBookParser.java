@@ -6,6 +6,7 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
 import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.logic.commands.Command;
@@ -16,7 +17,6 @@ import seedu.eylah.diettracker.logic.commands.HelpCommand;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.

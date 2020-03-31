@@ -1,0 +1,52 @@
+package seedu.eylah.diettracker.logic;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
+import seedu.eylah.diettracker.logic.commands.Command;
+import seedu.eylah.diettracker.logic.parser.FoodBookParser;
+import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.storage.FoodBookStorage;
+
+/**
+ * The main LogicManager of the app.
+ */
+public class DietLogicManager implements DietLogic {
+    public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    private final Logger logger = LogsCenter.getLogger(DietLogicManager.class);
+
+    private final DietModel model;
+    private final FoodBookStorage storage;
+    private final FoodBookParser foodBookParser;
+
+    public DietLogicManager(DietModel model, FoodBookStorage storage) {
+        this.model = model;
+        this.storage = storage;
+        foodBookParser = new FoodBookParser();
+    }
+
+    @Override
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        CommandResult commandResult;
+
+        Command command = foodBookParser.parseCommand(commandText);
+        commandResult = command.execute(model);
+
+        try {
+            storage.saveFoodBook(model.getFoodBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        } catch (Exception e) {
+            logger.info(e.toString());
+        }
+
+        return commandResult;
+    }
+
+}

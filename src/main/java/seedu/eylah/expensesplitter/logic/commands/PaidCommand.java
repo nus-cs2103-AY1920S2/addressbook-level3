@@ -5,9 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.math.BigDecimal;
 
 import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
-import seedu.eylah.expensesplitter.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -46,15 +47,15 @@ public class PaidCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(SplitterModel splitterModel) throws CommandException {
+        requireNonNull(splitterModel);
 
-        if (!model.isReceiptDone()) {
+        if (!splitterModel.isReceiptDone()) {
 
             return new CommandResult(MESSAGE_RECEIPT_UNDONE);
 
         } else {
-            ReadOnlyPersonAmountBook book = model.getPersonAmountBook();
+            ReadOnlyPersonAmountBook book = splitterModel.getPersonAmountBook();
             //This ensures that the indexOfPersonPaid is correct.
             if (indexOfPersonPaid.getZeroBased() < 0
                 || indexOfPersonPaid.getZeroBased() > book.getPersonList().size() - 1) {
@@ -68,7 +69,7 @@ public class PaidCommand extends Command {
             // owes.
             if (amountPaid == null) {
                 PaidCommand newPaidCommand = new PaidCommand(indexOfPersonPaid, initialAmount);
-                return newPaidCommand.execute(model);
+                return newPaidCommand.execute(splitterModel);
 
             } else {
                 //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
@@ -77,7 +78,7 @@ public class PaidCommand extends Command {
                         + "to get the index.");
                 }
 
-                model.paidPerson(person, amountPaid);
+                splitterModel.paidPerson(person, amountPaid);
                 String finalAmount = person.getAmount().toString();
 
                 return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "

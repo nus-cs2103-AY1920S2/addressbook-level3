@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.commons.util.StringUtil;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.self.Height;

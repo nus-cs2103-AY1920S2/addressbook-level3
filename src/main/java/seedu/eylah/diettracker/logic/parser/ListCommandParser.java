@@ -7,8 +7,8 @@ import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_SINGLE;
 
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ListCommand object

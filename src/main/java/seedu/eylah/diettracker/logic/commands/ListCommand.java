@@ -1,10 +1,11 @@
 package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.eylah.diettracker.model.Model.PREDICATE_SHOW_ALL_FOODS;
+import static seedu.eylah.diettracker.model.DietModel.PREDICATE_SHOW_ALL_FOODS;
 
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
+import seedu.eylah.diettracker.model.DietModel;
 
 /**
  * Lists all food and their calories.
@@ -37,7 +38,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(DietModel model) throws CommandException {
         requireNonNull(model);
         String listString;
 
