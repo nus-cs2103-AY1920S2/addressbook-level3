@@ -29,6 +29,8 @@ public class SortModuleCommand extends SortCommand {
 
     public static final String MESSAGE_SUCCESS = "Module %s has been sorted.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
+        + "by rating asc, by rating desc and matric.";
     public static final int FIRST_GROUP_INDEX = 0;
 
     private final String moduleCode;
@@ -52,15 +54,25 @@ public class SortModuleCommand extends SortCommand {
 
         module = model.getModule(module.getIdentifier());
 
-        if (type.equalsIgnoreCase("alphabetically")
-                || type.equalsIgnoreCase("alpha")) {
+        type = type.toLowerCase();
+
+        switch(type) {
+        case "alphabetically":
+        case "alpha":
+        case "alphabetical":
             module.sortGroupsAlphabetically();
-        } else if (type.equalsIgnoreCase("matric")) {
+            break;
+        case "matric":
             module.sortGroupsByMatricNumber();
-        } else if (type.equalsIgnoreCase("rating asc")) {
+            break;
+        case "rating asc":
             module.sortGroupsByRatingAscending();
-        } else {
+            break;
+        case "rating desc":
             module.sortGroupsByRatingDescending();
+            break;
+        default:
+            throw new CommandException(MESSAGE_INVALID_SORT);
         }
 
         if (model.getFilteredModuleList().isEmpty()) {
