@@ -68,16 +68,9 @@ public interface DietModel extends Model {
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 
-    /** Returns the String format of the foods consumed over the last number of days.
-     */
-    String listFoods(String mode, int numDays);
-
-
     /** Returns the String format of the foods based on the mode input.
      */
     String listFoods(String mode);
-
-    String listFoods(String mode, String tag);
 
 
     /**

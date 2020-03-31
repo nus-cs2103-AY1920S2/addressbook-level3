@@ -30,6 +30,11 @@ public class ListCommand extends Command {
     private Tag tag;
 
     /**
+     * Creates a ListCommand to list all food consumed by default.
+     */
+    public ListCommand() {}
+
+    /**
      * Creates a ListCommand to list the foods consumed for a certain duration of time based on the input mode.
      */
     public ListCommand(String mode) {
@@ -62,7 +67,7 @@ public class ListCommand extends Command {
             Date limit = new Date(LocalDateTime.now().minusDays((long) numDays));
             Predicate<Food> datePredicate = food -> food.getDate().isAfter(limit);
             model.updateFilteredFoodList(datePredicate);
-            String listDays = model.listFoods(mode, numDays);
+            String listDays = model.listFoods(mode);
             return new CommandResult(String.format(listDays));
         } else if (mode.equals("-e")) {
             Predicate<Food> tagPredicate = food -> food.getTags().contains(this.tag);
