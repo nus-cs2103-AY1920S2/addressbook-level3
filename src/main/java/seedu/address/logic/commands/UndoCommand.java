@@ -11,8 +11,8 @@ import seedu.address.model.Model;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String COMMAND_FUNCTION = "Undo the last entered command that changes the data. Listing and " +
-            "sorting do not count as changing the data.";
+    public static final String COMMAND_FUNCTION = "Undo the last entered command that changes the data. Listing and "
+            + "sorting do not count as changing the data.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n";
 
     public static final String MESSAGE_SUCCESS = "Command Undone!";
