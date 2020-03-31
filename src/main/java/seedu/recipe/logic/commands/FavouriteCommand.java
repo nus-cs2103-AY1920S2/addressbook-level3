@@ -1,6 +1,7 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.Arrays;
@@ -52,6 +53,7 @@ public class FavouriteCommand extends Command {
         }
         sb.append(" to favourites!");
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
         return new CommandResult(sb.toString());
     }

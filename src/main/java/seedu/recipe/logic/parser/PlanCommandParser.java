@@ -6,7 +6,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 import java.util.stream.Stream;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.PlanCommand;
+import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.plan.PlannedDate;
 
