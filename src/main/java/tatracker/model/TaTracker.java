@@ -28,6 +28,9 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static Group currentlyShownGroup;
     private static Module currentlyShownModule;
     private static Module currentlyShownModuleClaim;
+    private static long totalHours;
+    private static int rate;
+    private static long totalEarnings;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
@@ -44,6 +47,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownGroup = null;
         currentlyShownModule = null;
         currentlyShownModuleClaim = null;
+        totalHours = 0;
+        rate = 40;
     }
 
     /**
@@ -61,7 +66,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         requireNonNull(newData);
 
         setSessions(newData.getSessionList());
-        setDoneSessions(newData.getDoneSessionList());
+        setDoneSessionList(newData.getDoneSessionList());
         setModules(newData.getModuleList());
         setCurrentlyShownGroups(newData.getCurrentlyShownGroupList());
         setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
@@ -123,13 +128,19 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     public void addDoneSession(Session s) {
         doneSessions.add(s);
+        totalHours += Math.ceil(s.getDuration().toHours());
+    }
+
+    public static long getTotalEarnings(){
+        //return 100;
+        return rate * totalHours;
     }
 
     /**
      * Replaces the contents of the donesession list with {@code donesessions}.
      * {@code donesessions} must not contain duplicate donesessions.
      */
-    public void setDoneSessions(List<Session> donesessions) {
+    public void setDoneSessionList(List<Session> donesessions) {
         this.doneSessions.setSessions(donesessions);
     }
 

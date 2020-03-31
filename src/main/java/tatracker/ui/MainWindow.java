@@ -260,6 +260,10 @@ public class MainWindow extends UiPart<Stage> {
                 groupListPanel.updateCells(logic.getFilteredGroupList());
                 break;
 
+            case DONE:
+                claimsListPanel.updateLabel();
+                break;
+
             case HELP:
                 handleHelp();
                 break;

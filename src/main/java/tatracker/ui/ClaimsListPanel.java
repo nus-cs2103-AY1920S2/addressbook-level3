@@ -1,9 +1,12 @@
 package tatracker.ui;
 
+import static tatracker.model.TaTracker.getTotalEarnings;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,10 +23,21 @@ public class ClaimsListPanel extends UiPart<Region> {
     @FXML
     private ListView<Session> claimsListView;
 
+    @FXML
+    private Label totalEarnings;
+
     public ClaimsListPanel(ObservableList<Session> claimsList) {
         super(FXML);
         claimsListView.setItems(claimsList);
         claimsListView.setCellFactory(listView -> new ClaimsListViewCell());
+        totalEarnings.setText("Total Earnings: " + getTotalEarnings());
+    }
+
+    /**
+     * Update Label in order to facilitate incrementing total earnings
+     */
+    public void updateLabel() {
+        totalEarnings.setText("Total Earnings: " + getTotalEarnings());
     }
 
     /**

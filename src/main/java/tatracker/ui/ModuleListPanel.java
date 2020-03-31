@@ -37,7 +37,7 @@ public class ModuleListPanel extends UiPart<Region> {
      * @param moduleList the updated moduleList
      */
     public void updateCells(ObservableList<Module> moduleList) {
-        System.out.print("reached updateCells");
+        System.out.println("reached updateCells");
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }
