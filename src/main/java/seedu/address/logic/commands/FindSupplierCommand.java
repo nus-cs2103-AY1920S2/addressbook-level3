@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.supplier.NameContainsKeywordsPredicate;
+import seedu.address.model.supplier.SupplierNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all suppliers in address book whose name contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindSupplierCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final SupplierNameContainsKeywordsPredicate predicate;
 
-    public FindSupplierCommand(NameContainsKeywordsPredicate predicate) {
+    public FindSupplierCommand(SupplierNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
