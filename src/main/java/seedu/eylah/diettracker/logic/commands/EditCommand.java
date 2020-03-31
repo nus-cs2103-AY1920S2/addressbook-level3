@@ -18,6 +18,7 @@ import seedu.eylah.commons.util.CollectionUtil;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.food.Calories;
+import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;
@@ -114,6 +115,7 @@ public class EditCommand extends Command {
     public static class EditFoodDescriptor {
         private Name name;
         private Calories calories;
+        private Date date;
         private Set<Tag> tags;
 
         public EditFoodDescriptor() {}
@@ -125,6 +127,7 @@ public class EditCommand extends Command {
         public EditFoodDescriptor(EditFoodDescriptor toCopy) {
             setName(toCopy.name);
             setCalories(toCopy.calories);
+            setDate(toCopy.date);
             setTags(toCopy.tags);
         }
 
@@ -132,7 +135,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, calories, tags);
+            return CollectionUtil.isAnyNonNull(name, calories, date, tags);
         }
 
         public void setName(Name name) {
@@ -149,6 +152,14 @@ public class EditCommand extends Command {
 
         public Optional<Calories> getCalories() {
             return Optional.ofNullable(calories);
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         /**
@@ -185,6 +196,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getCalories().equals(e.getCalories())
+                    && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }
     }
