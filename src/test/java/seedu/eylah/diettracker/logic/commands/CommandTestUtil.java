@@ -61,6 +61,7 @@ public class CommandTestUtil {
 
     public static final HeightCommand HEIGHT_OBJ;
     public static final WeightCommand WEIGHT_OBJ;
+    public static final BmiCommand BMI_OBJ;
 
     public static final ModeCommand MODE_LOSS;
     public static final ModeCommand MODE_MAINTAIN;
@@ -73,6 +74,7 @@ public class CommandTestUtil {
 
         HEIGHT_OBJ = new HeightCommand(new Height(VALID_HEIGHT));
         WEIGHT_OBJ = new WeightCommand(new Weight(VALID_WEIGHT));
+        BMI_OBJ = new BmiCommand(new Height(VALID_HEIGHT), new Weight(VALID_WEIGHT));
 
         MODE_LOSS = new ModeCommand(Mode.LOSS);
         MODE_MAINTAIN = new ModeCommand(Mode.MAINTAIN);

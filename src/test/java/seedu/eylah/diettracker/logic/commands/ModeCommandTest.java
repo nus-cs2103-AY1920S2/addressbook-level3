@@ -4,16 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.MODE_GAIN;
-import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.MODE_MAINTAIN;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.MODE_LOSS;
 import static seedu.eylah.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.eylah.diettracker.model.Mode;
 import seedu.eylah.diettracker.model.ModelStub;
 import seedu.eylah.diettracker.model.self.SelfStub;
-import seedu.eylah.diettracker.model.Mode;
-
 
 public class ModeCommandTest {
 
