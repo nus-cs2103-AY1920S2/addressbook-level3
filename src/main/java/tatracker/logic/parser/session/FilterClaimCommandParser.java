@@ -1,7 +1,7 @@
 package tatracker.logic.parser.session;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import tatracker.logic.commands.session.FilterClaimCommand;
 import tatracker.logic.parser.ArgumentMultimap;
@@ -23,17 +23,17 @@ public class FilterClaimCommandParser implements Parser<FilterClaimCommand> {
      */
     public FilterClaimCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    FilterClaimCommand.MESSAGE_USAGE));
+                                    FilterClaimCommand.DETAILS.getUsage()));
         }
 
         String moduleCode = "";
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            moduleCode = ParserUtil.parseValue(argMultimap.getValue(MODULE).get());
         }
         return new FilterClaimCommand(new DoneSessionPredicate(moduleCode));
     }

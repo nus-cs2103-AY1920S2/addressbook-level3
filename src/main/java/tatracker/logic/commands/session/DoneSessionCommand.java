@@ -1,6 +1,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.Prefixes.INDEX;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
@@ -21,13 +23,14 @@ import tatracker.model.session.SessionType;
  */
 public class DoneSessionCommand extends Command {
 
-    public static final String COMMAND_WORD_DONE = "done";
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, COMMAND_WORD_DONE);
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a session as done in TA-Tracker. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer)";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            CommandWords.DONE_SESSION,
+            "Marks a session as done in TA-Tracker.",
+            List.of(INDEX),
+            List.of(),
+            INDEX
+    );
 
     public static final String MESSAGE_SUCCESS = "Session completed: %1$s";
     public static final String MESSAGE_INVALID_INDEX = "Index does not exists";

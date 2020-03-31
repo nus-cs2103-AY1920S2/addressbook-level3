@@ -1,6 +1,7 @@
 package tatracker.model;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;

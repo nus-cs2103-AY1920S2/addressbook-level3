@@ -82,7 +82,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
+        String listCommand = ListCommand.DETAILS.getFullCommandWord();
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -106,7 +106,8 @@ public class LogicManagerTest {
         expectedModel.addModule(expectedModule);
 
         // Execute add command
-        String addCommand = AddStudentCommand.COMMAND_WORD + MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04
+        String addCommand = AddStudentCommand.DETAILS.getFullCommandWord()
+                + MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04
                 + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
 
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();

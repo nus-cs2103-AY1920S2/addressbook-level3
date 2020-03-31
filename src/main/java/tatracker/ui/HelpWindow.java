@@ -8,7 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+
 import tatracker.commons.core.LogsCenter;
+import tatracker.logic.commands.CommandDictionary;
 
 /**
  * Controller for a help page
@@ -34,7 +36,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        helpMessage.setText(HELP_MESSAGE + "\n\n" + CommandDictionary.getHelpMessage());
     }
 
     /**

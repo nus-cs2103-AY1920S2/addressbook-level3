@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
@@ -292,7 +293,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setFilteredGroupList() {
-        taTracker.setCurrentlyShownGroups(new ArrayList<Group>());
+        taTracker.setCurrentlyShownGroups(new ArrayList<>());
     }
 
     @Override
@@ -360,7 +361,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setFilteredStudentList() {
-        taTracker.setCurrentlyShownStudents(new ArrayList<Student>());
+        taTracker.setCurrentlyShownStudents(new ArrayList<>());
     }
 
     @Override

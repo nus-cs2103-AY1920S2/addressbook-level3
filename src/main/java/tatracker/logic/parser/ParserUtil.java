@@ -216,17 +216,28 @@ public class ParserUtil {
         requireNonNull(rating);
         String trimmedRating = rating.trim();
 
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedRating)) {
+        if (!Rating.isValidRating(trimmedRating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
 
         int parsedRating = Integer.parseUnsignedInt(trimmedRating);
+        return new Rating(parsedRating);
+    }
 
-        if (!Rating.isValidRating(parsedRating)) {
-            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+    /**
+     * Parses a {@code String integer} into an integer primitive.
+     * This is different from the standard Java version as it does not
+     * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
+     */
+    public static int parseInteger(String integer) throws ParseException {
+        requireNonNull(integer);
+        String trimmedInteger = integer.trim();
+
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedInteger)) {
+            throw new ParseException("Value must be an unsigned number greater than or equal to 0");
         }
 
-        return new Rating(parsedRating);
+        return Integer.parseUnsignedInt(integer);
     }
 
     /**
