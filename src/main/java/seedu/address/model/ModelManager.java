@@ -4,33 +4,41 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.PetManager;
+import seedu.address.logic.PomodoroManager;
+import seedu.address.model.dayData.Date;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
-import seedu.address.ui.PetDisplayHandler;
-
-// TODO Set Pet attributes via ModelManager
 
 /** Represents the in-memory model of the address book data. */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskList taskList;
-    private final Pet pet;
     private final Pomodoro pomodoro;
-    private final PetDisplayHandler petDisplayHandler;
+    private final Statistics statistics;
+    private final Pet pet;
     private final UserPrefs userPrefs;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
+    private Comparator<Task>[] comparators;
+
+    private PomodoroManager pomodoroManager;
+    private PetManager petManager;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
     public ModelManager(
             ReadOnlyTaskList taskList,
             ReadOnlyPet pet,
             ReadOnlyPomodoro pomodoro,
+            ReadOnlyStatistics statistics,
             ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(taskList, userPrefs);
@@ -39,17 +47,16 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.pet = new Pet(pet); // initialize a pet as a model
-        this.pomodoro = new Pomodoro(pomodoro); // initialize a pet as a model
-        this.petDisplayHandler = new PetDisplayHandler(this.pet);
-        logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
-        logger.info(String.format("Initializing with Pomodoro: %s", this.pomodoro.toString()));
+        this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
+        this.statistics = new Statistics(statistics); // initialize a Statistics as a model
+        logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
     }
 
     public ModelManager() {
-        this(new TaskList(), new Pet(), new Pomodoro(), new UserPrefs());
+        this(new TaskList(), new Pet(), new Pomodoro(), new Statistics(), new UserPrefs());
     }
 
     // =========== UserPrefs
@@ -129,18 +136,30 @@ public class ModelManager implements Model {
     // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
-     * {@code versionedTaskList}
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of @FXML
+     * Serves as a reference point for TaskListPanel.java to update display {@code
+     * versionedTaskList}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return filteredTasks;
+        return this.filteredTasks;
     }
 
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void setComparator(Comparator<Task>[] comparators) {
+        requireNonNull(comparators);
+        this.comparators = comparators;
+        SortedList<Task> sortedFilteredTasks = new SortedList<>(filteredTasks);
+        for (int i = comparators.length - 1; i >= 0; i--) {
+            sortedFilteredTasks.setComparator(comparators[i]);
+        }
+        this.filteredTasks = new FilteredList<Task>(sortedFilteredTasks);
     }
 
     @Override
@@ -159,10 +178,12 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return taskList.equals(other.taskList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks);
+                && filteredTasks.equals(other.filteredTasks)
+                && comparators.equals(other.comparators);
     }
 
-    // TODO Add a manager for pets
+    // ============================ Pet Manager
+
     @Override
     public ReadOnlyPet getPet() {
         return pet;
@@ -173,29 +194,61 @@ public class ModelManager implements Model {
         this.pet.setName(name);
     }
 
-    // TODO add a manager for pomodoro
-    public ReadOnlyPomodoro getPomodoro() {
-        return pomodoro;
-    }
-
     @Override
-    public PetDisplayHandler getPetDisplayHandler() {
-        return petDisplayHandler;
-    }
-
-    @Override
-    public void updatePetDisplayHandler() {
-        this.petDisplayHandler.updatePetDisplay();
-    }
-
-    // ============================ Pomodoro Manager
-
-    public void setPomodoroTask(Task task) {
-        this.pomodoro.setTask(task);
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
     }
 
     @Override
     public void incrementExp() {
         this.pet.incrementExp();
+    }
+
+    @Override
+    public void setPetManager(PetManager petManager) {
+        this.petManager = petManager;
+        this.petManager.setPet(pet);
+    }
+
+    @Override
+    public void updateMoodWhenDone() {
+        petManager.updateMoodWhenTaskDone();
+        petManager.updatePetDisplayWhenDone();
+    }
+
+    // ============================ Pomodoro Manager
+
+    public ReadOnlyPomodoro getPomodoro() {
+        return pomodoro;
+    }
+
+    public void setPomodoroTask(Task task) {
+        this.pomodoro.setTask(task);
+    }
+
+    public void setPomodoroManager(PomodoroManager pomodoroManager) {
+        this.pomodoroManager = pomodoroManager;
+    }
+
+    public PomodoroManager getPomodoroManager() {
+        return pomodoroManager;
+    }
+
+    // ============================ Statistics Manager
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void updateDataDatesStatistics() {
+        statistics.updateDataDates();
+    }
+
+    public void updatesDayDataStatistics(DayData dayData) {
+        statistics.updatesDayData(dayData);
+    }
+
+    public DayData getDayDataFromDate(Date date) {
+        return statistics.getDayDataFromDate(date);
     }
 }

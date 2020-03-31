@@ -14,16 +14,22 @@ class JsonAdaptedPet {
     private final String name;
     private final String exp;
     private final String level;
+    private final String mood;
+    private final String lastDoneTaskTime;
 
     /** Constructs a {@code JsonAdaptedTask} with the given person details. */
     @JsonCreator
     public JsonAdaptedPet(
             @JsonProperty("name") String name,
             @JsonProperty("exp") String exp,
-            @JsonProperty("level") String level) {
+            @JsonProperty("level") String level,
+            @JsonProperty("mood") String mood,
+            @JsonProperty("lastDoneTaskTime") String lastDoneTaskTime) {
         this.name = name;
         this.exp = exp;
         this.level = level;
+        this.mood = mood;
+        this.lastDoneTaskTime = lastDoneTaskTime;
     }
 
     /** Converts a given {@code Task} into this class for Jackson use. */
@@ -31,6 +37,8 @@ class JsonAdaptedPet {
         name = source.getName();
         exp = source.getExp();
         level = source.getLevel();
+        mood = source.getMood();
+        lastDoneTaskTime = source.getLastDoneTaskTime();
     }
 
     /**
@@ -42,32 +50,32 @@ class JsonAdaptedPet {
     public ReadOnlyPet toModelType() throws IllegalValueException {
         // TODO set up proper model for all attributes of the Pet
         // if (name == null) {
-        //     throw new IllegalValueException(
-        //             String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
+        // throw new IllegalValueException(
+        // String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         // }
         // if (!Name.isValidName(name)) {
-        //     throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        // throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         // }
         // final Name modelName = new Name(name);
 
         // if (exp == null) {
-        //     throw new IllegalValueException(
-        //             String.format(MISSING_FIELD_MESSAGE_FORMAT, "exp"));
+        // throw new IllegalValueException(
+        // String.format(MISSING_FIELD_MESSAGE_FORMAT, "exp"));
         // }
         // if (!exp.isValidexp(exp)) {
-        //     throw new IllegalValueException(exp.MESSAGE_CONSTRAINTS);
+        // throw new IllegalValueException(exp.MESSAGE_CONSTRAINTS);
         // }
         // final exp modelexp = new exp(priority);
 
         // if (level == null) {
-        //     throw new IllegalValueException(
-        //             String.format(MISSING_FIELD_MESSAGE_FORMAT, level.class.getSimpleName()));
+        // throw new IllegalValueException(
+        // String.format(MISSING_FIELD_MESSAGE_FORMAT, level.class.getSimpleName()));
         // }
         // if (!level.isValidlevel(level)) {
-        //     throw new IllegalValueException(level.MESSAGE_CONSTRAINTS);
+        // throw new IllegalValueException(level.MESSAGE_CONSTRAINTS);
         // }
         // final level modellevel = new level(level);
 
-        return new Pet(name, exp, level);
+        return new Pet(name, exp, level, mood, lastDoneTaskTime);
     }
 }

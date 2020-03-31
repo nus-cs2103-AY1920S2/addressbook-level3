@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,6 +54,19 @@ public class ParserUtil {
         return indexes;
     }
 
+    // function for sorting and potentially tags
+    public static String[] parseUniqueKeyWords(String keywords) throws ParseException {
+        String trimmedKeyWords = keywords.trim();
+        String[] splitKeyWords = trimmedKeyWords.split("\\s*,\\s*");
+        ArrayList<String> unique = new ArrayList<>();
+        for (String s : splitKeyWords) {
+            if (!unique.contains(s)) {
+                unique.add(s);
+            }
+        }
+        return unique.toArray(new String[0]);
+    }
+
     /**
      * Parses a {@code String reminder} into a {@code Reminder}. Leading and trailing whitespaces
      * will be trimmed. Format to receive is DD/MM/YY@HH:mm eg 04/11/20@10:30
@@ -61,24 +74,14 @@ public class ParserUtil {
      * @throws ParseException if the given {@code reminder} is invalid.
      * @throws InvalidReminderException
      */
-    public static Reminder parseReminder(String reminder)
+    public static Reminder parseReminder(String reminderString)
             throws ParseException, InvalidReminderException {
-        requireNonNull(reminder);
-        String trimmedReminder = reminder.trim();
+        requireNonNull(reminderString);
+        String trimmedReminder = reminderString.trim();
         if (!Reminder.isValidReminder(trimmedReminder)) {
             throw new ParseException(Reminder.MESSAGE_CONSTRAINTS);
         }
-        String dateString = trimmedReminder.split("@")[0];
-        String timeString = trimmedReminder.split("@")[1];
-        String[] dateArr = dateString.split("/");
-        String[] timeArr = timeString.split(":");
-        int dayOfMonth = Integer.parseInt(dateArr[0]);
-        int month = Integer.parseInt(dateArr[1]);
-        int year = Integer.parseInt(dateArr[2]) + 2000;
-        int hour = Integer.parseInt(timeArr[0]);
-        int minute = Integer.parseInt(timeArr[1]);
-        LocalDateTime reminderTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
-        return new Reminder(reminderTime);
+        return new Reminder(reminderString);
     }
 
     /**

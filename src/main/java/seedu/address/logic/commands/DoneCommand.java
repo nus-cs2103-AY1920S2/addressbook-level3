@@ -2,12 +2,18 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Statistics;
+import seedu.address.model.dayData.Date;
+import seedu.address.model.dayData.DayData;
+import seedu.address.model.dayData.TasksDoneData;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
@@ -41,6 +47,9 @@ public class DoneCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
         StringBuilder tasksDone = new StringBuilder(MESSAGE_DONE_TASK_SUCCESS);
+
+        Task pommedTask = null;
+
         for (Index targetIndex : targetIndices) {
             targetIndex.getZeroBased();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -51,15 +60,45 @@ public class DoneCommand extends Command {
             if (taskToEdit.getDone().isDone) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TASK_TO_BE_DONED);
             }
+
             Task editedTask = createDoneTask(taskToEdit);
-            tasksDone.append(String.format("%n%s", editedTask));
-            model.setTask(taskToEdit, editedTask);
+
+            // Normal statistics update
+
+            // If task to be done is being pommed...
+            if (taskToEdit.equals(model.getPomodoro().getRunningTask())) {
+                pommedTask = taskToEdit;
+                model.setPomodoroTask(null);
+                updateStatisticsPomDone(model);
+            } else {
+                tasksDone.append(String.format("%n%s", editedTask));
+                model.setTask(taskToEdit, editedTask);
+                updateStatisticsRegularDone(model);
+            }
             // increment Pet EXP after completing a task
             model.incrementExp();
+            model.updateMoodWhenDone();
         }
-        // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // The last task to show is the pommed task
+        if (pommedTask != null) {
+            tasksDone.append(String.format("\n----Pom Task Done----"));
+            tasksDone.append(String.format("%n%s", pommedTask));
+            PomodoroManager pm = model.getPomodoroManager();
+            pm.pause();
+            pm.doneTask();
+            // Pause pom timer and check if wanna continue
+            tasksDone.append("\n" + pm.CHECK_DONE_MIDPOM_MESSAGE);
+            pm.checkMidPomDoneActions();
+        }
 
         return new CommandResult(tasksDone.toString());
+    }
+
+    private static Date getCurrentDate() {
+        LocalDateTime now = LocalDateTime.now();
+        Date date = new Date(now.format(Date.dateFormatter));
+        return date;
     }
 
     private static Task createDoneTask(Task taskToEdit) {
@@ -72,6 +111,24 @@ public class DoneCommand extends Command {
 
         return new Task(
                 updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
+    }
+
+    private static void updateStatisticsRegularDone(Model model) {
+        model.updateDataDatesStatistics();
+        Date dateOnDone = getCurrentDate();
+        Statistics stats = model.getStatistics();
+        DayData dayData = stats.getDayDataFromDate(dateOnDone);
+        DayData updatedDayData =
+                new DayData(
+                        dateOnDone,
+                        dayData.getPomDurationData(),
+                        new TasksDoneData("" + (dayData.getTasksDoneData().value + 1)));
+        stats.updatesDayData(updatedDayData);
+    }
+
+    private static void updateStatisticsPomDone(Model model) {
+        // Get the data from pomodoro manager
+        model.getPomodoroManager().updateStatistics(model);
     }
 
     @Override

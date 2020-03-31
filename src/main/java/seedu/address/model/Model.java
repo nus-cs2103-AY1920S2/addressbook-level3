@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.PetManager;
+import seedu.address.logic.PomodoroManager;
 import seedu.address.model.task.Task;
-import seedu.address.ui.PetDisplayHandler;
 
 /** The API of the Model component. */
 public interface Model {
@@ -64,17 +66,29 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
 
+    void setComparator(Comparator<Task>[] compare);
+
     ReadOnlyPet getPet();
 
     void setPetName(String name);
 
     void incrementExp();
 
-    PetDisplayHandler getPetDisplayHandler();
+    void incrementPomExp();
 
-    void updatePetDisplayHandler();
+    void updateMoodWhenDone();
 
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);
+
+    void setPomodoroManager(PomodoroManager pomodoroManager);
+
+    void setPetManager(PetManager PetManager);
+
+    PomodoroManager getPomodoroManager();
+
+    Statistics getStatistics();
+
+    public void updateDataDatesStatistics();
 }

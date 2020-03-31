@@ -9,20 +9,24 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.PetManager;
+import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
-import seedu.address.ui.PetDisplayHandler;
 
 public class AddCommandTest {
 
@@ -163,17 +167,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public void incrementPomExp() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMoodWhenDone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void incrementExp() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public PetDisplayHandler getPetDisplayHandler() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePetDisplayHandler() {
+        public void setComparator(Comparator<Task>[] compare) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -183,7 +192,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public PomodoroManager getPomodoroManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPomodoroManager(PomodoroManager pomodoroManager) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPetManager(PetManager PetManager) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPomodoroTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Statistics getStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateDataDatesStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }

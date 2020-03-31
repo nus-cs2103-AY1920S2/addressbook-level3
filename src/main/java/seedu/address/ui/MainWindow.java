@@ -5,9 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import java.nio.file.Paths;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -17,12 +17,18 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
+import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.PomCommand;
 import seedu.address.logic.commands.PomCommandResult;
+import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -37,15 +43,19 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private CommandCompletor commandCompletor;
     private PomodoroManager pomodoro;
+    private PetManager petManager;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private PetDisplayHandler petDisplayHandler;
+    private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
     private StatisticsDisplay statisticsDisplay;
+
+    private CommandBox commandBox;
 
     @FXML private StackPane commandBoxPlaceholder;
 
@@ -63,13 +73,18 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML private StackPane statisticsPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic, PomodoroManager pomodoro) {
+    @FXML private TabPane tabPanePlaceholder;
+
+    public MainWindow(
+            Stage primaryStage, Logic logic, PomodoroManager pomodoro, PetManager petManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.pomodoro = pomodoro;
+        this.petManager = petManager;
+        this.commandCompletor = new CommandCompletor();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -81,6 +96,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public StatisticsDisplay getStatisticsDisplay() {
+        return statisticsDisplay;
     }
 
     private void setAccelerators() {
@@ -127,8 +146,11 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        petDisplayHandler = getPetDisplayHandler();
-        petPlaceholder.getChildren().add(petDisplayHandler.getPetDisplay().getRoot());
+        petManager.updateMoodWhenLogIn();
+        petDisplay = new PetDisplay();
+        petManager.setPetDisplay(petDisplay);
+        petManager.updatePetDisplay();
+        petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -136,22 +158,20 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaskListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        pomodoroDisplay = new PomodoroDisplay("No task in progress.", "25:00");
+        pomodoroDisplay = new PomodoroDisplay();
         pomodoroPlaceholder.getChildren().add(pomodoroDisplay.getRoot());
         pomodoro.setTimerLabel(pomodoroDisplay.getTimerLabel());
         pomodoro.setResultDisplay(resultDisplay);
+        pomodoro.setMainWindow(this);
 
-        statisticsDisplay =
-                new StatisticsDisplay("Time spent on Pomodoro over the last 7 days",
-                        null,
-                        Paths.get("images", "statistics", "progressBarDaily50%.png"),
-                        "50 mins / 100 mins",
-                        "Medals earned: 0");
+        statisticsDisplay = new StatisticsDisplay();
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-       
+
+        // tabPanePlaceholder.getSelectionModel().select(1);
+
     }
 
     /** Sets the default size based on {@code guiSettings}. */
@@ -196,6 +216,21 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    /** */
+    private String suggestCommand(String commandText) {
+        String suggestion = commandCompletor.getSuggestedCommand(commandText);
+        if (suggestion.equals(commandText)) {
+            resultDisplay.setFeedbackToUser(commandCompletor.getFailureMessage());
+        } else {
+            resultDisplay.setFeedbackToUser(commandCompletor.getSuccessMessage());
+        }
+        return suggestion;
+    }
+
+    public void setTabFocusTasks() {
+        tabPanePlaceholder.getSelectionModel().select(0);
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -204,9 +239,82 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText)
             throws CommandException, ParseException {
 
+        try {
+            CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // Switch tabs related results
+            try {
+                SwitchTabCommandResult switchTabCommandResult =
+                        (SwitchTabCommandResult) commandResult;
+                tabPanePlaceholder
+                        .getSelectionModel()
+                        .select(switchTabCommandResult.getTabToSwitchIndex());
+            } catch (ClassCastException ce) {
+            }
+
+            // Pomodoro related results
+            try {
+                PomCommandResult pomCommandResult = (PomCommandResult) commandResult;
+
+                if (!pomCommandResult.getIsPause() && !pomCommandResult.getIsContinue()) {
+                    pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
+                    pomodoro.start(pomCommandResult.getTimerAmountInMin());
+                    pomodoro.setDoneParams(
+                            pomCommandResult.getModel(),
+                            pomCommandResult.getOriginList(),
+                            pomCommandResult.getTaskIndex());
+                }
+            } catch (ClassCastException ce) {
+
+            } catch (NullPointerException ne) {
+                resultDisplay.setFeedbackToUser("Sorry, you've got no tasks being POMmed.");
+            }
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                petManager.handleExit();
+                handleExit();
+            }
+            petManager.updatePetDisplay();
+            // update because sorting returns a new list
+
+            this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
+
+            // * Old implementation for sort
+            // personListPanel = new TaskListPanel(logic.getFilteredTaskList());
+            // personListPanelPlaceholder.getChildren().clear();
+            // personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    public void setPomCommandExecutor() {
+        commandBox = new CommandBox(this::pomExecuteCommand, this::suggestCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    public void setDefaultCommandExecutor() {
+        commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private CommandResult pomExecuteCommand(String commandText)
+            throws CommandException, ParseException {
+
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
+                petManager.updatePetDisplay();
                 if (commandText.toLowerCase().equals("y")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -214,6 +322,7 @@ public class MainWindow extends UiPart<Stage> {
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
+                    // logic.incrementPomExp();
                     return commandResult;
                     // Continue to next prompt from break-timer
                 } else if (commandText.toLowerCase().equals("n")) {
@@ -225,6 +334,7 @@ public class MainWindow extends UiPart<Stage> {
                                     false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.checkBreakActions();
+                    // logic.incrementPomExp();
                     return commandResult;
                 } else {
                     throw new ParseException(
@@ -245,13 +355,57 @@ public class MainWindow extends UiPart<Stage> {
                             new CommandResult("Alright, back to neutral!", false, false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.setPromptState(PROMPT_STATE.NONE);
+                    pomodoro.reset();
+                    this.setDefaultCommandExecutor();
                     return commandResult;
                 } else {
                     throw new ParseException(
                             "(Please confirm) Shall we take a 5-min break?\n"
                                     + "(Y) - 5-min timer begins. (N) - App goes neutral.");
                 }
+            case CHECK_DONE_MIDPOM:
+                if (commandText.toLowerCase().equals("n")) {
+                    CommandResult commandResult =
+                            new CommandResult("Alright, back to neutral!", false, false);
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                    pomodoro.setPromptState(PROMPT_STATE.NONE);
+                    pomodoro.reset();
+                    this.setDefaultCommandExecutor();
+                    return commandResult;
+                }
+                try {
+                    PomCommand pc = (PomCommand) (new TaskListParser().parseCommand(commandText));
+                    // if continuedPom was created, user put in a valid pom request. Execute as per
+                    // normal
+                    PomCommandResult pomCommandResult =
+                            (PomCommandResult) logic.execute(commandText);
+                    logger.info("Result: " + pomCommandResult.getFeedbackToUser());
+                    resultDisplay.setFeedbackToUser(pomCommandResult.getFeedbackToUser());
+                    if (pomCommandResult.getIsPause()) {
+                        pomodoro.pause();
+                    } else if (pomCommandResult.getIsContinue()) {
+                        pomodoro.unpause();
+                    } else {
+                        pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
+                        // pomodoro.start(pomCommandResult.getTimerAmountInMin());
+                        pomodoro.unpause();
+                        pomodoro.setDoneParams(
+                                pomCommandResult.getModel(),
+                                pomCommandResult.getOriginList(),
+                                pomCommandResult.getTaskIndex());
+                    }
+                    pomodoro.setPromptState(PROMPT_STATE.NONE);
+                    this.setDefaultCommandExecutor();
+                    return pomCommandResult;
+                } catch (ParseException | CommandException | ClassCastException e) {
+                    String message =
+                            "(Please confirm) Would you like to continue with another task (not done yet)\n"
+                                    + "(pom <index>) - next task pommed with remaining time. (N) - App goes neutral.";
+                    resultDisplay.setFeedbackToUser(message);
+                    throw new ParseException(message);
+                }
             case NONE:
+            default:
                 break;
         }
 
@@ -259,35 +413,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            // Pomodoro related results
-            try {
-                PomCommandResult pomCommandResult = (PomCommandResult) commandResult;
-                if (pomCommandResult.getIsPause()) {
-                    pomodoro.pause();
-                } else if (pomCommandResult.getIsContinue()) {
-                    pomodoro.unpause();
-                } else {
-                    pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
-                    pomodoro.start(pomCommandResult.getTimerAmountInMin());
-                    pomodoro.setDoneParams(
-                            pomCommandResult.getModel(),
-                            pomCommandResult.getOriginList(),
-                            pomCommandResult.getTaskIndex());
-                }
-            } catch (ClassCastException ce) {
-
-            } catch (NullPointerException ne) {
-                resultDisplay.setFeedbackToUser("Sorry, you've got no tasks being POMmed.");
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -322,9 +447,5 @@ public class MainWindow extends UiPart<Stage> {
         alert.setHeaderText(name);
         alert.setContentText(description);
         alert.show();
-    }
-
-    private PetDisplayHandler getPetDisplayHandler() {
-        return logic.getPetDisplayHandler();
     }
 }

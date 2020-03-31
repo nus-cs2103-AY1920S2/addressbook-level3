@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,13 +13,18 @@ import javafx.scene.layout.VBox;
 public class PetDisplay extends UiPart<Region> {
 
     private static final String FXML = "PetDisplay.fxml";
+    private Path DEFAULT_ACCESSORY_PLACEHOLDER = Paths.get("images", "pet", "medal.png");
+    private Path DEFAULT_PET_FILEPATH = Paths.get("images", "pet", "level1.png");
+    private Path DEFAULT_EXPBAR_FILEPATH = Paths.get("images", "pet", "ProgressBar0%.png");
+    private String DEFAULT_EXPBAR_TEXT = "0";
+    private String DEFAULT_LEVEL_TEXT = "1";
 
-    public Path petFilepath; // mutable
-    public Path accessoryFilepath; // mutable
+    private Path petFilepath; // mutable
+    private Path accessoryFilepath; // mutable
 
-    public Path expBarFilepath; // mutable
-    public String expBarText; // mutable
-    public String levelText; // mutable
+    private Path expBarFilepath; // mutable
+    private String expBarText; // mutable
+    private String levelText; // mutable
 
     @FXML private VBox petPane;
     @FXML private ImageView petPic;
@@ -27,68 +33,35 @@ public class PetDisplay extends UiPart<Region> {
     @FXML private ImageView accessoryPic;
     @FXML private Label levelView;
 
-    public PetDisplay(
-            Path petFilepath,
-            String expBarText,
-            Path expBarFilepath,
-            Path accessoryFilepath,
-            String levelText) {
+    public PetDisplay() {
         super(FXML);
-        this.petFilepath = petFilepath;
-        this.expBarFilepath = expBarFilepath;
-        this.expBarText = expBarText;
-        this.accessoryFilepath = null;
-        this.levelText = levelText;
+        this.accessoryFilepath = DEFAULT_ACCESSORY_PLACEHOLDER;
+        this.petFilepath = DEFAULT_PET_FILEPATH;
+        this.expBarFilepath = DEFAULT_EXPBAR_FILEPATH;
+        this.expBarText = DEFAULT_EXPBAR_TEXT;
+        this.levelText = DEFAULT_LEVEL_TEXT;
+    }
 
-        if (accessoryFilepath != null) {
-            this.accessoryFilepath = accessoryFilepath;
-            Image image = new Image(String.valueOf(accessoryFilepath));
-            accessoryPic.setImage(image);
-        }
-
-        expBarView.setText(expBarText);
-        levelView.setText(levelText);
-
-        // set up pet image
+    public void setPetImage(Path path) {
+        petFilepath = path;
         Image petImage = new Image(String.valueOf(petFilepath));
         petPic.setImage(petImage);
+    }
 
-        // set up experience bar image
+    public void setExpBarImage(Path path) {
+        expBarFilepath = path;
         Image expBarImage = new Image(String.valueOf(expBarFilepath));
         expBarPic.setImage(expBarImage);
     }
 
-    public void update(
-            Path petFilepath,
-            String expBarText,
-            Path expBarFilepath,
-            Path accessoryFilepath,
-            String levelText) {
-
-        this.petFilepath = petFilepath;
-        this.expBarFilepath = expBarFilepath;
-        this.expBarText = expBarText;
-        this.accessoryFilepath = null;
-        this.levelText = levelText;
-
-        if (accessoryFilepath != null) {
-            this.accessoryFilepath = accessoryFilepath;
-            Image image = new Image(String.valueOf(accessoryFilepath));
-            accessoryPic.setImage(image);
-        }
-
+    public void setExpBarText(String expBarInt) {
+        this.expBarText = expBarInt;
         expBarView.setText(expBarText);
-        System.out.println("PetDisplay: setBarText");
+    }
+
+    public void setLevelText(String levelText) {
+        this.levelText = levelText;
         levelView.setText(levelText);
-        System.out.println("PetDisplay: levelText");
-
-        // set up pet image
-        Image petImage = new Image(String.valueOf(petFilepath));
-        petPic.setImage(petImage);
-
-        // set up experience bar image
-        Image expBarImage = new Image(String.valueOf(expBarFilepath));
-        expBarPic.setImage(expBarImage);
     }
 
     @Override

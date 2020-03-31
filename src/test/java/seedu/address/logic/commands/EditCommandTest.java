@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Pet;
 import seedu.address.model.Pomodoro;
+import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
@@ -35,7 +36,12 @@ import seedu.address.testutil.TaskBuilder;
 public class EditCommandTest {
 
     private Model model =
-            new ModelManager(getTypicalTaskList(), new Pet(), new Pomodoro(), new UserPrefs());
+            new ModelManager(
+                    getTypicalTaskList(),
+                    new Pet(),
+                    new Pomodoro(),
+                    new Statistics(),
+                    new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -50,6 +56,7 @@ public class EditCommandTest {
                         new TaskList(model.getTaskList()),
                         new Pet(),
                         new Pomodoro(),
+                        new Statistics(),
                         new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedTask);
 
@@ -84,6 +91,7 @@ public class EditCommandTest {
                         new TaskList(model.getTaskList()),
                         new Pet(),
                         new Pomodoro(),
+                        new Statistics(),
                         new UserPrefs());
         expectedModel.setTask(lastTask, editedTask);
 
@@ -102,6 +110,7 @@ public class EditCommandTest {
                         new TaskList(model.getTaskList()),
                         new Pet(),
                         new Pomodoro(),
+                        new Statistics(),
                         new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -127,6 +136,7 @@ public class EditCommandTest {
                         new TaskList(model.getTaskList()),
                         new Pet(),
                         new Pomodoro(),
+                        new Statistics(),
                         new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedPerson);
 

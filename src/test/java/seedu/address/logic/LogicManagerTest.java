@@ -26,6 +26,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 import seedu.address.storage.JsonPetStorage;
 import seedu.address.storage.JsonPomodoroStorage;
+import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTaskListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -46,10 +47,17 @@ public class LogicManagerTest {
         JsonPetStorage petStorage = new JsonPetStorage(temporaryFolder.resolve("pet.json"));
         JsonPomodoroStorage pomodoroStorage =
                 new JsonPomodoroStorage(temporaryFolder.resolve("pomodoro.json"));
+        JsonStatisticsStorage statisticsStorage =
+                new JsonStatisticsStorage(temporaryFolder.resolve("statistics.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage =
-                new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
+                new StorageManager(
+                        taskListStorage,
+                        petStorage,
+                        pomodoroStorage,
+                        statisticsStorage,
+                        userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -79,10 +87,17 @@ public class LogicManagerTest {
         JsonPetStorage petStorage = new JsonPetStorage(temporaryFolder.resolve("pet.json"));
         JsonPomodoroStorage pomodoroStorage =
                 new JsonPomodoroStorage(temporaryFolder.resolve("pomodoro.json"));
+        JsonStatisticsStorage statisticsStorage =
+                new JsonStatisticsStorage(temporaryFolder.resolve("statistics.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage =
-                new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
+                new StorageManager(
+                        taskListStorage,
+                        petStorage,
+                        pomodoroStorage,
+                        statisticsStorage,
+                        userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -151,7 +166,11 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel =
                 new ModelManager(
-                        model.getTaskList(), model.getPet(), model.getPomodoro(), new UserPrefs());
+                        model.getTaskList(),
+                        model.getPet(),
+                        model.getPomodoro(),
+                        model.getStatistics(),
+                        new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

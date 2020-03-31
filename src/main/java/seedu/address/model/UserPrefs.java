@@ -14,6 +14,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path taskListFilePath = Paths.get("data", "tasklist.json");
     private Path petFilePath = Paths.get("data", "pet.json");
     private Path pomodoroFilePath = Paths.get("data", "pomodoro.json");
+    private Path statisticsFilePath = Paths.get("data", "statistics.json");
 
     /** Creates a {@code UserPrefs} with default values. */
     public UserPrefs() {}
@@ -31,6 +32,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setTaskListFilePath(newUserPrefs.getTaskListFilePath());
         setPetFilePath(newUserPrefs.getPetFilePath());
         setPomodoroFilePath(newUserPrefs.getPomodoroFilePath());
+        setStatisticsFilePath(newUserPrefs.getStatisticsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -54,6 +56,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return pomodoroFilePath;
     }
 
+    public Path getStatisticsFilePath() {
+        return statisticsFilePath;
+    }
+
     public void setTaskListFilePath(Path taskListFilePath) {
         requireNonNull(taskListFilePath);
         this.taskListFilePath = taskListFilePath;
@@ -67,6 +73,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setPomodoroFilePath(Path pomodoroFilePath) {
         requireNonNull(pomodoroFilePath);
         this.pomodoroFilePath = pomodoroFilePath;
+    }
+
+    public void setStatisticsFilePath(Path statisticsFilePath) {
+        requireNonNull(statisticsFilePath);
+        this.statisticsFilePath = statisticsFilePath;
     }
 
     @Override
