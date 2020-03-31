@@ -96,6 +96,17 @@ they can easily enter it into the TSS claims form at the end of the semester.
 
 [[Usage]]
 == Usage
+You can interact with TA-Tracker using the following commands.
+
+[NOTE]
+====
+As you type a command:
+
+* *valid inputs* will be highlighted in green
+* *invalid inputs* will be highlighted in red
+
+Furthermore, you will see the help information for the command that you are typing out.
+====
 
 ====
 *Command Format*
