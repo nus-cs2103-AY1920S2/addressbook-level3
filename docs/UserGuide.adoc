@@ -44,19 +44,43 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === View help : `help`
 
-Notably will display the list of features and commands available as well as their uses. +
+If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter]. Notably will show you a list of the commands it has and what they do. +
+
 Format: `help`
 
 === Exit the program: `exit`
 
-Exits the program. +
+If you're done with taking notes, use `exit` to close Notably straight from the command line. +
+
 Format: `exit`
 
 === Create a new note: `new`
 
-You can create a new note in your current working directory. +
-Format: `new -t TITLE [-b BODY] [-o]` +
-Example: `new -t Notably -b Lorem ipsum dolor sit amer -o`
+If you want to add a new note to the current working directory, use the `new` command and specify the `TITLE` of the note. +
+
+Format: `new -t TITLE [-b BODY] [-o]`
+
+[IMPORTANT]
+====
+* The `TITLE` for the note MUST be specified.
+* The `TITLE` for the note can only contain alphabets, numbers and whitespaces.
+====
+
+[NOTE]
+====
+* The `BODY` of the note is optional.
+* If the `BODY` is not specified, the note will have an empty `BODY`.
+* The `BODY` can contain alphabets, numbers, symbols, whitespaces and also line breaks (with `\n`)
+====
+
+[TIP]
+====
+* The `BODY` can even contain MarkDown formatted content. For more information, click here.
+* Use the optional `-o` flag to immediately open the note after creating it.
+====
+
+==== How to create a new note
+Example: `new -t Notably -b Lorem ipsum dolor sit amer`
 
 === Open an existing note: `open`
 
