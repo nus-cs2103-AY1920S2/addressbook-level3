@@ -6,8 +6,6 @@ import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.dayData.CustomQueue;
-import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
@@ -28,14 +25,12 @@ public class StatisticsDisplay extends UiPart<Region> {
             "/images/pet/ProgressBar0%.png";
     private static final String DEFAULT_PROGRESS_DAILY = "NaN mins";
     private static final String DEFAULT_PROGRESS_TARGET = "100 mins";
-    private static final String X_AXIS = "Day";
 
     private final String PROGRESS_UNITS = " mins";
 
     public String progressBarDailyFilepathString;
     public String progressDailyText;
-    public String medalsText;
-    public String progressTarget; // TODO @Fyonn will set
+    public String progressTargetText; // TODO @Fyonn will set
 
     @FXML private VBox statisticsPane;
     @FXML private BarChart<String, Integer> barChartPomDurationData;
@@ -43,27 +38,19 @@ public class StatisticsDisplay extends UiPart<Region> {
 
     @FXML private Label progressDaily;
     @FXML private ImageView progressBarDaily;
-    @FXML private Label medals;
+    @FXML private Label progressTarget;
 
     public StatisticsDisplay() {
         super(FXML);
         this.progressBarDailyFilepathString = DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER;
 
         this.progressDailyText = DEFAULT_PROGRESS_DAILY;
-        this.medalsText = DEFAULT_PROGRESS_TARGET;
+        this.progressTargetText = DEFAULT_PROGRESS_TARGET;
 
         progressDaily.setText(progressDailyText);
         Image progressBarDailyImage = new Image(DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER);
         progressBarDaily.setImage(progressBarDailyImage);
-        medals.setText(medalsText);
-
-        CategoryAxis xAxis1 = new CategoryAxis();
-        xAxis1.setLabel(X_AXIS);
-        NumberAxis yAxis1 = new NumberAxis();
-
-        CategoryAxis xAxis2 = new CategoryAxis();
-        xAxis2.setLabel(X_AXIS);
-        NumberAxis yAxis2 = new NumberAxis();
+        progressTarget.setText(progressTargetText);
     }
 
     public void updateGraphs(CustomQueue customQueue) {
@@ -117,7 +104,6 @@ public class StatisticsDisplay extends UiPart<Region> {
 
         XYChart.Series<String, Integer> dataSeriesPomDurationData = new XYChart.Series<>();
         XYChart.Series<String, Integer> dataSeriesTasksDoneData = new XYChart.Series<>();
-        //dataSeries.setName("You");
 
         for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
             String dateString = customQueue.get(i).getDate().toPrint();
@@ -128,9 +114,7 @@ public class StatisticsDisplay extends UiPart<Region> {
             int tasksDoneDataInt = customQueue.get(i).getTasksDoneData().value;
             dataSeriesTasksDoneData.getData().add(new XYChart.Data<>(dateString, tasksDoneDataInt));
         }
-
-        // xAxis.setCategories(FXCollections.observableArrayList("Tom", "Andrew", "Patrick"));
-
+        
         barChartPomDurationData.getData().clear();
         barChartTasksDoneData.getData().clear();
 
@@ -142,8 +126,6 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeriesPomDurationData.getChart().setAnimated(false);
         dataSeriesTasksDoneData.getChart().setAnimated(false);
 
-        //dataSeriesPomDurationData.getChart().getYAxis().setAnimated(false);
-        //dataSeriesTasksDoneData.getChart().getYAxis().setAnimated(false);
     }
     /*
     @Override

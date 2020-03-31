@@ -34,7 +34,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="medals" text="100 mins">
+                        <Label fx:id="progressTarget" text="100 mins">
                            <font>
                               <Font size="16.0" />
                            </font>
