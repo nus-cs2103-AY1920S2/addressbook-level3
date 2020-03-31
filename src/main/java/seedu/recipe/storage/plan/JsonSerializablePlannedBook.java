@@ -52,12 +52,14 @@ class JsonSerializablePlannedBook {
         PlannedBook plannedBook = new PlannedBook();
         for (JsonAdaptedPlannedRecipe jsonAdaptedPlannedRecipe : plannedRecipes) {
             PlannedRecipe plannedRecipe = jsonAdaptedPlannedRecipe.toModelType();
-            /*if (plannedBook.hasPlannedRecipe(plannedRecipe)) {
+            /*if (plannedBook.hasPlannedRecipe(plannedRecipe)) { todo
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLANNED_RECIPE);
             }*/
             plannedBook.addPlannedRecipe(plannedRecipe);
-            Recipe recipe = plannedRecipe.getRecipes();
-            plannedBook.addPlannedMapping(recipe, plannedRecipe);
+            List<Recipe> recipes = plannedRecipe.getRecipes();
+            for (Recipe recipe : recipes) {
+                plannedBook.addPlannedMapping(recipe, plannedRecipe);
+            }
         }
         return plannedBook;
     }

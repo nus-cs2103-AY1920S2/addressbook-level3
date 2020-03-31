@@ -72,7 +72,6 @@ public class PlanningListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 try {
-
                     setGraphic(new PlanningListCard(plannedRecipe, getIndex() + 1).getRoot());
                 } catch (IOException e) {
                     logger.warning("Failed to favourites icon : " + StringUtil.getDetails(e));

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class PlanningListCard extends UiPart<Region> {
 
     public final PlannedRecipe plannedRecipeObject;
     public final PlannedDate plannedDate;
-    public final Recipe recipe;
+    public final List<Recipe> recipes;
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n";
@@ -73,15 +74,23 @@ public class PlanningListCard extends UiPart<Region> {
     @FXML
     private Label stepsHeader;
 
+    @FXML
+    private VBox recipesBox;
+
     public PlanningListCard(PlannedRecipe plannedRecipe, int displayedIndex) throws IOException {
         super(FXML);
         this.plannedRecipeObject = plannedRecipe;
         this.plannedDate = plannedRecipe.getDate();
-        this.recipe = plannedRecipe.getRecipes();
-
         date.setText(plannedDate.toString());
 
-        id.setText(displayedIndex + ". ");
+        this.recipes = plannedRecipe.getRecipes();
+
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe recipe = recipes.get(i);
+            recipesBox.getChildren().add(new RecipeCard(recipe, i + 1).getRoot());
+        }
+
+        /*id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         name.setWrapText(true);
 
@@ -129,7 +138,7 @@ public class PlanningListCard extends UiPart<Region> {
             stepLabel.setStyle(styleIngredientsAndSteps);
             steps.getChildren().add(stepLabel);
         });
-        steps.setSpacing(5);
+        steps.setSpacing(5);*/
 
     }
 
@@ -148,6 +157,6 @@ public class PlanningListCard extends UiPart<Region> {
         // state check
         PlanningListCard card = (PlanningListCard) other;
         return id.getText().equals(card.id.getText())
-                && recipe.equals(card.recipe);
+                && recipes.equals(card.recipes);
     }
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
@@ -59,8 +60,10 @@ public class PlanCommand extends Command {
         }
 
         Recipe recipeToPlan = lastShownList.get(index.getZeroBased());
+        List<Recipe> recipesToPlan = new ArrayList<>();
+        recipesToPlan.add(recipeToPlan);
 
-        PlannedRecipe plannedRecipe = new PlannedRecipe(recipeToPlan, atDate);
+        PlannedRecipe plannedRecipe = new PlannedRecipe(recipesToPlan, atDate);
 
         model.addPlannedRecipe(plannedRecipe);
         model.addPlannedMapping(recipeToPlan, plannedRecipe);
