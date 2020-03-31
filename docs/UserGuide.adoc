@@ -283,21 +283,36 @@ e.g. `modreq computer science`
 •	help : help
 •	diary :
 * diary log LIMIT
+e.g. `diary log 10`
 * diary show ENTRY ID
+e.g. `diary show 3`
 * diary show DD-MM-YYYY
+e.g. `diary show 30-03-2020`
 * diary add ENTRY
+e.g. `diary add "Today is a good day"`
 * diary delete ENTRY ID
+e.g. `diary delete 1`
 * diary weather ID WEATHER
+e.g. `diary weather 1 SUNNY`
 * diary emotion ID EMOTION
+e.g. `diary emotion 1 HAPPY`
 * reminders : reminders
 * deadline : deadline DESCRIPTION /by DD-MM-YYYY HHMM
+e.g. `deadline Finish homework /by 30-03-2020 1800`
 * event :
 * event DESCRIPTION /at DD-MM-YYYY HHMM
+e.g. `event Prom /at 30-03-2020 1800`
 * event ID NAME_OF_PARTICIPANT
 * mymodplan: mymodplan
 ** mymodplan add MODULE CODE
+e.g. `mymodplan add CS2103T`
 ** mymodplan done MODULE CODE
+e.g. `mymodplan done CS2103T`
 * notes : notes
 ** notes ops/open loc/DIRECTORY
+e.g. `notes ops/open loc/Desktop/`
 ** notes ops/create loc/DIRECTORY
+e.g. `notes ops/create loc/Desktop/test.doc`
 ** notes ops/list loc/DIRECTORY
+e.g. `notes ops/list loc/Desktop/`
+
