@@ -38,7 +38,7 @@ public class RecipeListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new RecipePage(recipe, getIndex() + 1).getRoot());
+                setGraphic(new RecipeCard(recipe, getIndex() + 1).getRoot());
             }
         }
     }
