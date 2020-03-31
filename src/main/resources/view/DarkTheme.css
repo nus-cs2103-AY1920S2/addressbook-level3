@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    background-color: #FFD700; /* Used in the default.html file */
 }
 
 .label {
@@ -67,7 +67,7 @@
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -100,15 +100,21 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #FFEBE8;
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #FFEBE8;
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
 }
 
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -117,7 +123,7 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #2F4F4F;
 }
 
 .cell_big_label {
@@ -137,8 +143,8 @@
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: derive(#545970, 20%);
+     -fx-border-color: derive(black, 10%);
      -fx-border-top-width: 1px;
 }
 
@@ -329,7 +335,7 @@
 }
 
 #filterField, #transactionListPanel, #transactionWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, orangered, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
