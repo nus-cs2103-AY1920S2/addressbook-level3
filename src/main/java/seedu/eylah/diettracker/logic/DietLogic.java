@@ -7,6 +7,7 @@ import seedu.eylah.commons.logic.Logic;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
 import seedu.eylah.diettracker.model.food.Food;
 

@@ -1,6 +1,6 @@
 package seedu.eylah.diettracker.storage;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.eylah.diettracker.storage.JsonAdaptedFood.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.eylah.diettracker.testutil.TypicalFood.PASTA;
 import static seedu.eylah.testutil.Assert.assertThrows;
@@ -27,11 +27,16 @@ public class JsonAdaptedFoodTest {
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
-    // @Test
-    // public void toModelType_validFoodDetails_returnsFood() throws Exception {
-    //     JsonAdaptedFood food = new JsonAdaptedFood(PASTA);
-    //     assertEquals(PASTA, food.toModelType());
-    // }
+    @Test
+    public void toModelType_validFoodDetails_returnsFood() throws Exception {
+        JsonAdaptedFood food = new JsonAdaptedFood(PASTA);
+
+        // check if all fields the same
+        assertEquals(PASTA.getName(), food.toModelType().getName());
+        assertEquals(PASTA.getCalories(), food.toModelType().getCalories());
+        assertEquals(PASTA.getDate().toString(), food.toModelType().getDate().toString());
+        assertEquals(PASTA.getTags(), food.toModelType().getTags());
+    }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
