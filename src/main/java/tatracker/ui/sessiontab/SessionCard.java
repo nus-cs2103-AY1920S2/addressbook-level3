@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.sessiontab;
 
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import tatracker.model.session.Session;
+import tatracker.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Session}.

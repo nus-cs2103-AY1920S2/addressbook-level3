@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.claimstab;
 
 import static tatracker.model.TaTracker.getCurrentlyShownModuleClaim;
 
@@ -11,6 +11,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.module.Module;
+import tatracker.ui.UiPart;
+import tatracker.ui.studenttab.ModuleCard;
 
 /**
  * Panel containing the list of modules.
@@ -54,7 +56,7 @@ public class ModuleListPanelCopy extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ModuleCardCopy(module, getIndex() + 1).getRoot());
+                setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
                 if (module.equals(getCurrentlyShownModuleClaim())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "

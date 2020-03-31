@@ -19,6 +19,12 @@ import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.ui.claimstab.ClaimsListPanel;
+import tatracker.ui.claimstab.ModuleListPanelCopy;
+import tatracker.ui.sessiontab.SessionListPanel;
+import tatracker.ui.studenttab.GroupListPanel;
+import tatracker.ui.studenttab.ModuleListPanel;
+import tatracker.ui.studenttab.StudentListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
