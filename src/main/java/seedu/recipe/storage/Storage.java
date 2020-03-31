@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.recipe.commons.exceptions.DataConversionException;
+import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
@@ -14,7 +15,8 @@ import seedu.recipe.storage.plan.PlannedBookStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends RecipeBookStorage, PlannedBookStorage, UserPrefsStorage {
+
+public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, PlannedBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -30,6 +32,16 @@ public interface Storage extends RecipeBookStorage, PlannedBookStorage, UserPref
 
     @Override
     void saveRecipeBook(ReadOnlyRecipeBook recipeBook) throws IOException;
+
+    // ====== CookedRecords feature ======
+    @Override
+    Path getCookedRecordBookFilePath();
+
+    @Override
+    Optional<ReadOnlyCookedRecordBook> readCookedRecordBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException;
 
     // ====== Planning feature ======
     @Override

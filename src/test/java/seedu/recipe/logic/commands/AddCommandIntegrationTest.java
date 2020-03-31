@@ -3,6 +3,7 @@ package seedu.recipe.logic.commands;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,14 +24,17 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
     }
 
     @Test
     public void execute_newRecipe_success() {
         Recipe validRecipe = new RecipeBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
+        // System.out.println(validRecipe); // todo remove later
+
         expectedModel.addRecipe(validRecipe);
 
         assertCommandSuccess(new AddCommand(validRecipe), model,
