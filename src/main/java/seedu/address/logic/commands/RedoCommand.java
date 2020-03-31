@@ -8,30 +8,30 @@ import seedu.address.model.Model;
 /**
  * Adds a person to the address book.
  */
-public class UndoCommand extends Command {
+public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
-    public static final String COMMAND_FUNCTION = "Undo the last entered command that changes the data";
+    public static final String COMMAND_WORD = "redo";
+    public static final String COMMAND_FUNCTION = "Redo the last undo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n";
 
-    public static final String MESSAGE_SUCCESS = "Command Undone!";
-    public static final String MESSAGE_LAST_CHANGE = "Already At Last Change!";
+    public static final String MESSAGE_SUCCESS = "Command Redone!";
+    public static final String MESSAGE_LAST_CHANGE = "Nothing to Redo!";
 
     /**
-     * Creates an UndoCommand to add the specified {@code Person}
+     * Creates an RedoCommand to add the specified {@code Person}
      */
-    public UndoCommand() {
+    public RedoCommand() {
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.undoStackSize() == 1) {
+        if (model.redoStackSize() == 0) {
             throw new CommandException(MESSAGE_LAST_CHANGE);
         }
 
-        String commandType = model.undo();
+        String commandType = model.redo();
 
         if (commandType.equals("ADDRESS")) {
             return new CommandResult(String.format(MESSAGE_SUCCESS));

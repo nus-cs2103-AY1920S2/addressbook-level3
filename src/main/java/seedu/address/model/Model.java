@@ -112,11 +112,6 @@ public interface Model {
      */
     void updateFilteredPersonListResult(Predicate<Person> predicate);
 
-    /**
-     * Replaces restaurant book data with the data in {@code restaurantBook}.
-     */
-    void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook);
-
     /** Returns the RestaurantBook */
     ReadOnlyRestaurantBook getRestaurantBook();
 
@@ -153,11 +148,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
-
-    /**
-     * Replaces scheduler data with the data in {@code scheduler}.
-     */
-    void setScheduler(ReadOnlyScheduler scheduler);
 
     /** Returns the Scheduler */
     ReadOnlyScheduler getScheduler();
@@ -243,6 +233,12 @@ public interface Model {
     int undoStackSize();
 
     /**
+     *
+     * @return the number of states currently saved for redo
+     */
+    int redoStackSize();
+
+    /**
      * Undo the previously entered command
      */
     String undo();
@@ -250,5 +246,5 @@ public interface Model {
     /**
      * Redo any command that was undone
      */
-    void redo();
+    String redo();
 }

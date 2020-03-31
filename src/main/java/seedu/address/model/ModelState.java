@@ -21,7 +21,7 @@ public class ModelState {
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Person> bdayList;
 
-    private final String commandType;
+    private String commandType;
 
     /**
      * Initializes a ModelState with the given addressBook and userPrefs at the start.
@@ -42,7 +42,7 @@ public class ModelState {
         filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
         bdayList = new FilteredList<>(this.addressBook.getBdayList());
-        this.commandType = null;
+        this.commandType = "ADDRESS";
     }
 
     /**
@@ -68,6 +68,11 @@ public class ModelState {
         this.commandType = commandType;
     }
 
+    public static ModelState copy(ModelState m) {
+        return new ModelState(m.getAddressBook(), m.getRestaurantBook(), m.getScheduler(), m.getEventSchedule(),
+                m.getUserPrefs(), m.getCommandType());
+    }
+
     public AddressBook getAddressBook() { return this.addressBook; }
     public RestaurantBook getRestaurantBook() { return this.restaurantBook; }
     public Scheduler getScheduler() { return this.scheduler; }
@@ -80,4 +85,6 @@ public class ModelState {
     public FilteredList<Event> getFilteredEvents() { return this.filteredEvents; }
     public FilteredList<Person> getBdayList() { return this.bdayList; }
     public String getCommandType() { return this.commandType; }
+
+    public void setCommandType(String command) { this.commandType = command; }
 }
