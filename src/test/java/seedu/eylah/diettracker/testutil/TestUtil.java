@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.commons.core.index.Index;
 
 /**
  * A utility class for test cases.

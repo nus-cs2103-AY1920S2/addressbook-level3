@@ -1,11 +1,11 @@
 package seedu.eylah.diettracker.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX;
+import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.CALORIES_DESC_PASTA;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.NAME_DESC_PASTA;
 import static seedu.eylah.diettracker.testutil.TypicalFood.PASTA;
-import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX;
-import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.eylah.testutil.Assert.assertThrows;
 
 import java.io.IOException;
