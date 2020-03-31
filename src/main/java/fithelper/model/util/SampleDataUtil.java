@@ -3,7 +3,9 @@ package fithelper.model.util;
 import fithelper.model.FitHelper;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.ReadOnlyWeightRecords;
 import fithelper.model.UserProfile;
+import fithelper.model.WeightRecords;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Duration;
 import fithelper.model.entry.Entry;
@@ -97,9 +99,7 @@ public class SampleDataUtil {
                 new Age("19"),
                 new Address("Utown CAPT"),
                 new Height("168"),
-                new TargetWeight("50"),
-                new Weight(new Date("2020-03-01"), new WeightValue("52"),
-                        new Bmi(new Height("168"), new WeightValue("52")))
+                new TargetWeight("50")
         );
     }
 
@@ -113,6 +113,18 @@ public class SampleDataUtil {
         UserProfile sampleUserProfile = new UserProfile();
         sampleUserProfile.setUserProfile(getSampleProfile());
         return sampleUserProfile;
+    }
+
+
+
+    /**
+     * Gets sample WeightRecords which is empty.
+     *
+     * @return A empty Weight Records.
+     */
+    public static ReadOnlyWeightRecords getSampleWeightRecords() {
+        WeightRecords sampleWeightRecords = new WeightRecords();
+        return sampleWeightRecords;
     }
 
 
