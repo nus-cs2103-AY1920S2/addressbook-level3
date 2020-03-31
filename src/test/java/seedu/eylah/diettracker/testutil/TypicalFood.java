@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.eylah.diettracker.model.FoodBook;
+import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 
 /**
@@ -12,18 +13,29 @@ import seedu.eylah.diettracker.model.food.Food;
  */
 public class TypicalFood {
 
-    public static final Food PASTA = new FoodBuilder().withName("Mushroom Pasta").withTags("italian").build();
-    public static final Food BURGER = new FoodBuilder().withName("Chicken Burger").withTags("fastfood", "western")
-            .build();
-    public static final Food FRIES = new FoodBuilder().withName("French Fries").build();
-    public static final Food LATTE = new FoodBuilder().withName("Vanilla Latte").withTags("drinks").build();
-    public static final Food COKE = new FoodBuilder().withName("Coke").build();
-    public static final Food PIZZA = new FoodBuilder().withName("BBQ Pizza").build();
-    public static final Food HOTDOG = new FoodBuilder().withName("Hotdog").build();
+    public static final Food PASTA =
+            new FoodBuilder().withName("Mushroom Pasta").withCalories(1200).withDate(new Date(
+                    "2020-03-25T16:49:40.210009")).withTags("italian").build();
+    public static final Food BURGER =
+            new FoodBuilder().withName("Chicken Burger").withCalories(300).withDate(new Date(
+                    "2020-03-25T16:49:40.210009")).withTags("fastfood", "western").build();
+    public static final Food FRIES = new FoodBuilder().withName("French Fries").withDate(new Date(
+            "2020-03-25T16:49:40.210009")).withCalories(450).build();
+    public static final Food LATTE =
+            new FoodBuilder().withName("Vanilla Latte").withCalories(300).withDate(new Date(
+                    "2020-03-25T16:49:40.210009")).withTags("drinks").build();
+    public static final Food COKE = new FoodBuilder().withName("Coke").withDate(new Date(
+            "2020-03-25T16:49:40.210009")).withCalories(1200).build();
+    public static final Food PIZZA = new FoodBuilder().withName("BBQ Pizza").withDate(new Date(
+            "2020-03-25T16:49:40.210009")).withCalories(50).build();
+    public static final Food HOTDOG = new FoodBuilder().withName("Hotdog").withDate(new Date(
+            "2020-03-25T16:49:40.210009")).withCalories(320).build();
 
     // Manually added
-    public static final Food MILKSHAKE = new FoodBuilder().withName("Chocolate Milkshake").build();
-    public static final Food BAGUETTE = new FoodBuilder().withName("Baguette").build();
+    public static final Food MILKSHAKE = new FoodBuilder().withName("Chocolate Milkshake").withDate(new Date(
+            "2020-03-25T16:49:40.210009")).withCalories(1200).build();
+    public static final Food BAGUETTE = new FoodBuilder().withName("Baguette").withDate(new Date(
+            "2020-03-25T16:49:40.210009")).withCalories(420).build();
 
     // ADD AFTER INCORPORATING COMMANDS
     //// Manually added - Food's details found in {@code CommandTestUtil}
