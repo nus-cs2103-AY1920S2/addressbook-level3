@@ -49,6 +49,16 @@ public class Course extends ModelObject {
    * Overloaded constructor for edited object, loaded from storage, or sample data
    */
 
+  public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
+    requireAllNonNull(name, id, amount, tags);
+    this.name = name;
+    this.id = id;
+    this.amount = amount;
+    this.tags.addAll(tags);
+    this.assignedTeacherWithName = "None";
+    this.assignedStudentsWithNames = "None";
+  }
+
   public Course(Name name, ID id, Amount amount, ID assignedTeacherID, Set<ID> assignedStudentsID, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
@@ -184,7 +194,7 @@ public class Course extends ModelObject {
     }
 
     Course otherCourse = (Course) other;
-    return otherCourse.getId().equals(getId());
+    return otherCourse.getID().equals(getID());
   }
 
   @Override
@@ -198,7 +208,7 @@ public class Course extends ModelObject {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
         .append(" ID: ")
-        .append(getId())
+        .append(getID())
         .append(" Amount: ")
         .append(getAmount())
         .append(" AssignedTeacher: ")
