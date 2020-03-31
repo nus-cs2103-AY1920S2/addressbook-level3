@@ -2,6 +2,7 @@ package seedu.recipe.model.plan;
 
 import java.util.Objects;
 
+import seedu.recipe.model.Date;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -11,9 +12,9 @@ import seedu.recipe.model.recipe.Recipe;
 public class PlannedRecipe {
 
     private Recipe recipe;
-    private PlannedDate date;
+    private Date date;
 
-    public PlannedRecipe(Recipe recipe, PlannedDate date) {
+    public PlannedRecipe(Recipe recipe, Date date) {
         this.recipe = recipe;
         this.date = date;
     }
@@ -26,14 +27,14 @@ public class PlannedRecipe {
         this.recipe = recipe;
     }
 
-    public PlannedDate getDate() {
+    public Date getDate() {
         return date;
     }
 
     /**
      * Checks whether the date of this planned recipe falls within the {@code start} date and the {@code end} date.
      */
-    public boolean isWithinRange(PlannedDate start, PlannedDate end) {
+    public boolean isWithinRange(Date start, Date end) {
         return date.isWithinRange(start, end);
     }
 

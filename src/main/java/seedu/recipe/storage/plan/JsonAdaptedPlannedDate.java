@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.Date;
 
 /**
- * Jackson-friendly version of {@link PlannedDate}.
+ * Jackson-friendly version of {@link Date}.
  */
 public class JsonAdaptedPlannedDate {
 
@@ -24,7 +24,7 @@ public class JsonAdaptedPlannedDate {
     /**
      * Converts a given {@code plannedDate} into this class for Jackson use.
      */
-    public JsonAdaptedPlannedDate(PlannedDate plannedDate) {
+    public JsonAdaptedPlannedDate(Date plannedDate) {
         date = plannedDate.toStringForJson();
     }
 
@@ -34,15 +34,15 @@ public class JsonAdaptedPlannedDate {
     }
 
     /**
-     * Converts this Jackson-friendly adapted plannedDate object into the model's {@code PlannedDate} object.
-     * @return PlannedDate object that the adapted plannedDate was converted into.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted PlannedDate.
+     * Converts this Jackson-friendly adapted plannedDate object into the model's {@code Date} object.
+     * @return Date object that the adapted plannedDate was converted into.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Date.
      */
-    public PlannedDate toModelType() throws IllegalValueException {
-        if (!PlannedDate.isValidDate(date)) {
-            throw new IllegalValueException(PlannedDate.MESSAGE_CONSTRAINTS);
+    public Date toModelType() throws IllegalValueException {
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
 
-        return new PlannedDate(date);
+        return new Date(date);
     }
 }

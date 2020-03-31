@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.JsonAdaptedRecipe;
@@ -43,7 +43,7 @@ public class JsonAdaptedPlannedRecipe {
      */
     public PlannedRecipe toModelType() throws IllegalValueException {
         Recipe modelRecipe = recipe.toModelType();
-        PlannedDate modelPlannedDate = date.toModelType();
+        Date modelPlannedDate = date.toModelType();
         return new PlannedRecipe(modelRecipe, modelPlannedDate);
     }
 
