@@ -42,11 +42,11 @@ public class AddCommand extends Command {
             + PREFIX_REMARK + "too expensive"
             + PREFIX_DURATION + "1";
 
-    private static final String MESSAGE_COMMIT = "Add an entry";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
-
+    private static final String MESSAGE_COMMIT = "Add an entry";
+    
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
     private final Entry toAdd;
