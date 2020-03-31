@@ -65,12 +65,8 @@ public class RecipeView extends UiPart<Region> {
                 }
             }
         }
-
-        recipeImage = new ImageView(wr);
-
-        this.recipeView = new VBox();
-
-        // this.recipeImage.setImage(new Image());
+        
+        this.recipeImage.setImage(wr);
 
     }
 }
