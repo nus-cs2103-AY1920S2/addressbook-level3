@@ -53,7 +53,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Usage>> for details of each command.
 
-NOTE: TA-Tracker data is saved periodically so you don’t have to worry about saving your data manually.
+NOTE: TA-Tracker data is saved periodically so you don't have to worry about saving
+your data manually.
 
 [[Layout]]
 == Layout
@@ -62,7 +63,7 @@ into three different views - the Student View, the Session View and the Claims V
 
 === Student View
 Under the students tab, the Student View is used to show you the students that you're teaching. The students
-have been grouped according to module and group. The Student view has been divided into
+have been grouped according to module and group. The Student View has been divided into
 three sections.
 
 The first section shows a list of all the modules that you are a teaching
@@ -76,23 +77,23 @@ The third section shows a list of all students in the group of your choice. If y
 haven't chosen anything, by default you will be shown the students of the group in the
 first index in the list of groups.
 
-The purpose of the student view is to allow a TA to keep track of their students. It will
+The purpose of the student view is to allow you to keep track of your students. It will
 show you information such as student name, matriculation number, ratings you have given
 the student and contact details such as email and telegram id.
 
 === Session View
-Under the sessions tab, the Session View contains the upcoming tasks/ undone sessions that you have.
+Under the sessions tab, the Session View contains a list of the upcoming sessions
+that you haven't done yet.
 
 The sessions will be automatically sorted by their date.
 
 === Claims View
-Under the claims tab, the Claim View contains the list of all the claimable hours you
+Under the claims tab, the Claim View contains a list of all the claimable duties you
 have completed so far.
 
+The purpose of this view is to allow a you to keep track of all your claims so
+you can easily enter it into the TSS claims form at the end of the semester.
 It tracks all the sessions you have completed.
-
-The purpose of this view is to allow a TA to keep track of all their claims so that
-they can easily enter it into the TSS claims form at the end of the semester.
 
 [[Usage]]
 == Usage
@@ -119,29 +120,36 @@ Furthermore, you will see the help information for the command that you are typi
 *Common Parameters*
 
 * `PAGE_NAME` - one of the following pages:
-** sessions - Sessions: list of sessions according to date
-** students - Students: list of students you are teaching
-** claims - Claims Form: list of claimable sessions (only sessions that have been marked as done will be included here)
-* `INDEX` - The position of an item in a list
+** sessions - the Session View
+** students - the Student View
+** claims - the Claims View
+* `INDEX` - the position of an item in a list
 * `MATRIC_NUMBER` - the matriculation number of a student
-** Must start with an ‘A’
-** Must end with an letter
-** Must have 7 numbers in between the start and end letters
+** it must start with an ‘A’
+** it must end with a letter
+** it must have 7 numbers in between the start and end letters
 * `MOD_CODE` - the unique code for the module
-* `NAME` - based on the command, could mean student name or module name
+* `NAME` - based on the command, this could mean student name or module name
 * `GROUP_CODE` - the unique code for the group
-* `GROUP_TYPE` - Could be one of the following:
+* `NEW_GROUP_CODE` - the new group code
+* `GROUP_TYPE` - could be one of the following:
 ** tutorial
 ** lab
 ** recitations
 ** other
+* `NEW_GROUP_TYPE` - the new group type you want to change it to
+* `SORT_TYPE` - could be one of the following:
+** alphabetically
+** by rating (ascending order)
+** by rating (descending order)
+** by matric number (ascending order)
 * `SESSION_TYPE` - Could be one of the following:
-** consult - Consultations
-** tutorial - Tutorials
-** grading - Grading and assessments
-** prep - Class preparation
+** consult - consultations
+** tutorial - tutorials
+** grading - grading assessments
+** prep - class preparation
 ** todo - other tasks and notes
-** lab - Lab
+** lab - lab
 *`NOTES` - Extra description, note taking
 * `START`, `END` - a time parameter, in the following format: HH:mm
 * `DATE` - a date parameter, in the following format: dd-MM-yyyy
@@ -173,13 +181,13 @@ Format: `exit`
 Adds a new module to the TA-Tracker.
 
 When a new module is created, the Student View will show the groups
-and students of the new module (which will initially be empty).
+and students of the new module (which will initially be empty lists).
 
 Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
-No module with the given module code should exist in the TA-Tracker before adding
+No module with the given module code should exist in the TA-Tracker before you add
 a new module.
 ====
 
@@ -197,7 +205,7 @@ to the TA-Tracker.
 
 Deletes a module from the TA-Tracker.
 
-When a module is deleted, the student view will go back to its default
+When a module is deleted, the Student View will go back to its default
 setting and show the details for the first module and first group in the
 TA-Tracker. If there is no module and no group, it will show empty lists.
 
@@ -218,7 +226,33 @@ Examples:
 * `module delete m/CS2103`
 +
 Deletes the module with the module code CS2103 from the TA-Tracker.
-Adds a module with the module code CS2103 and name 'Software Engineering'
+====
+
+[[EditModule]]
+==== Editing a Module `module edit`
+
+Edits a module in the TA-Tracker.
+
+When a module is edited, the Student View will show the groups of the module and
+the students of the first group of the module. If the module doesn't have any groups
+or students, empty lists will be shown instead.
+
+Editing a module can only be used to change the name of the module. Module code can't
+be changed. Editing a module doesn't affect the students and groups inside the module.
+
+Format: `module edit m/MOD_CODE n/NEW NAME`
+
+[NOTE]
+====
+A module with the given module code must exist in the TA-Tracker before you edit it.
+====
+
+====
+Examples:
+
+* `module edit m/CS2103 n/Software Engineering`
++
+Changes the name of the module with module code CS2103 to 'Software Engineering'.
 ====
 
 [[AddGroup]]
@@ -227,7 +261,7 @@ Adds a module with the module code CS2103 and name 'Software Engineering'
 Adds a new group to the TA-Tracker.
 
 When a new group is created, the Student View will show the groups of the module
-this group belongs to and students of the new group (which will initially be an empty list).
+this new group belongs to and students of the new group (which will initially be an empty list).
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
@@ -253,8 +287,11 @@ has module code CS2103.
 ==== Deleting a Group `group delete`
 Deletes a group from the TA-Tracker.
 
-When a group is deleted, the Student View will show the details of the first group
-in the given module. If there is no group in the module, it will show the empty lists.
+When a group is deleted, the Student View will go back to its default
+setting and show the details for the first module and first group in the
+TA-Tracker. If there is no group in the module, it will show the empty lists.
+
+When a group is deleted from the TA-Tracker, all students in the group are also deleted.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
@@ -262,9 +299,9 @@ Format: `group delete g/GROUP_CODE m/MOD_CODE`
 ====
 [horizontal]
 * A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+you delete a group from it.
 
-* A group with the given group code must exist inside the module.
+* A group with the given group code must exist inside the module before you can delete it.
 ====
 
 ====
@@ -279,34 +316,35 @@ has module code CS2103.
 [[EditGroup]]
 ==== Editing a Group `group edit`
 
-TODO: FIX AFTER COMMAND HAS BEEN IMPLEMENTED
-
 Edits a group in the TA-Tracker.
 
-This command can change the group code and group type of the group. It will keep
-the students inside the group intact.
+This command can be used to change the group code and the group type of the group.
+The students inside the group will remain intact.
 
 When a group is edited, the Student View will show the groups of the module
-this group belongs to and students of the edited group.
+the edited group belongs to and students of the edited group.
 
-Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
+Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
 
 [NOTE]
 ====
 [horizontal]
 * A module with the given module code must exist in the TA-Tracker before
-you add a group to it.
+you attempt to edit a group inside it.
 
-* No group with the given group code should exist inside the module.
+* A group with the given group code should exist inside the module before editing it.
+
+* If you are changing the group code, the module shouldn't contain a group with the
+new group code.
 ====
 
 ====
 Examples:
 
-* `group add g/G03 m/CS2103 t/tutorial`
+* `group edit g/G03 m/CS2103 nt/tutorial`
 +
-Adds a group with the group code G03 which is a tutorial inside the module that
-has module code CS2103.
+Changes the group type of the group with group code G03, inside the module with
+module code CS2103, to be a tutorial.
 ====
 
 [[AddStudent]]
@@ -329,6 +367,7 @@ Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 
 * You cannot add multiple students with the same matric number inside the same module group.
 ====
+
 ====
 Examples:
 
@@ -416,9 +455,125 @@ Edits student with the matriculation number `A9876543K` to have:
 ====
 
 [[Sort]]
-==== Sort `sort`
+==== Sorting a Group `sort group`
 
-TODO: ADD DETAILS ONCE IMPLEMENTED
+Sorts the students inside the group you want to sort according to the way you indicate
+you want it to be sorted.
+
+The students can be sorted alphabetically, by rating in ascending order, by rating
+in descending order and by matriculation number in ascending order.
+
+When a group is sorted, Student View shows the groups of the module the sorted group
+belongs to and the students of the group that has been sorted.
+
+Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you sort a group inside it.
+
+* A group with the given group code must exist inside the module before you can
+sort it.
+
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort group g/G03 m/CS2103 t/alpha`
++
+Sorts the student inside G03 of module CS2103 alphabetically.
+====
+
+
+==== Sorting a Module `sort module`
+
+Sorts the students inside all the groups of the module you want to sort according
+to the way you indicate you want it to be sorted.
+
+The students can be sorted alphabetically, by rating in ascending order, by rating
+in descending order and by matriculation number in ascending order.
+
+When a module is sorted, Student View shows the groups of the module you sorted and
+the students of the first group in the module. If there are no groups in the module,
+it will show an empty list.
+
+Format: `sort module m/MOD_CODE t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* A module with the given module code must exist in the TA-Tracker before
+you sort it.
+
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort module m/CS2103 t/alpha`
++
+Sorts all groups inside the module CS2103 alphabetically.
+====
+
+==== Sorting Everything `sort all`
+
+Sorts the students inside all the groups all modules according to the way you indicate
+you want everything to be sorted.
+
+The students can be sorted alphabetically, by rating in ascending order, by rating
+in descending order and by matriculation number in ascending order.
+
+When all modules are sorted, Student View shows the groups of the first module in the module list
+and the students of the first group in the module being shown. If there are no modules
+or groups, empty lists will be shown.
+
+Format: `sort all t/SORT_TYPE`
+
+[NOTE]
+====
+[horizontal]
+* To sort alphabetically you can use the following to indicate sort type:
+** `alphabetically`
+** `alphabetical`
+** `alpha`
+
+* To sort by matriculation number, sort type must be `matric`.
+
+* To sort by rating in ascending order, sort type must be `rating asc`.
+
+* To sort by rating in descending order, sort type must be `rating desc`.
+====
+
+====
+Examples:
+
+* `sort all t/alpha`
++
+Sorts all groups inside all modules alphabetically.
+====
 
 [[FilterStudent]]
 ==== Filter `filter`
@@ -503,7 +658,6 @@ from 2pm to 4pm,
 with Alice and Bob.
 
 ====
-
 ==== Deleting a Session `session delete`
 
 Deletes a session. Deleted session will be removed from Session View.
@@ -607,6 +761,7 @@ Examples:
 Sets the current hourly rate to 25$.
 
 == GLOSSARY
+
 
 == FAQ
 

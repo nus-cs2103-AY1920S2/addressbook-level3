@@ -26,6 +26,8 @@ public class SortCommand extends Command {
             + PREFIX_TYPE + "alphabetically";
 
     public static final String MESSAGE_SUCCESS = "The modules have been sorted.";
+    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
+            + "by rating asc, by rating desc and matric.";
     private static final int FIRST_MODULE_INDEX = 0;
     private static final int FIRST_GROUP_INDEX = 0;
 
@@ -39,28 +41,26 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (type.equalsIgnoreCase("alphabetically")
-                || type.equalsIgnoreCase("alpha")) {
+        switch(type) {
+        case "alphabetically":
+        case "alpha":
+        case "alphabetical":
             model.sortModulesAlphabetically();
-        } else if (type.equalsIgnoreCase("matric")) {
+            break;
+        case "matric":
             model.sortModulesByMatricNumber();
-        } else if (type.equalsIgnoreCase("rating asc")) {
+            break;
+        case "rating asc":
             model.sortModulesByRatingAscending();
-        } else {
+            break;
+        case "rating desc":
             model.sortModulesByRatingDescending();
+            break;
+        default:
+            throw new CommandException(MESSAGE_INVALID_SORT);
         }
 
-        if (model.getFilteredModuleList().isEmpty()) {
-            model.setFilteredGroupList();
-            model.setFilteredStudentList();
-        } else {
-            model.updateGroupList(FIRST_MODULE_INDEX);
-            if (model.getFilteredGroupList().isEmpty()) {
-                model.setFilteredStudentList();
-            } else {
-                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
-            }
-        }
+        model.setDefaultStudentViewList();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS), Action.GOTO_STUDENT);
     }
