@@ -69,8 +69,8 @@ public class StatisticsWindow extends UiPart<Stage> {
         Collections.sort(modifiableProducts, new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
-                int o1Sales = o1.getMoney().value;
-                int o2Sales = o2.getMoney().value;
+                int o1Sales = o1.getProfit();
+                int o2Sales = o2.getProfit();
                 return o2Sales - o1Sales;
             }
         });

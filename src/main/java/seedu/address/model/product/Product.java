@@ -112,6 +112,13 @@ public class Product {
         return amountSoldCounter;
     }
 
+    public int getProfit() {
+        int sellingPrice = Integer.parseInt(price.value);
+        int cost = Integer.parseInt(costPrice.value);
+        int profit = amountSoldCounter * (sellingPrice - cost);
+        return profit;
+    }
+
     /**
      * Returns true if both products have the same identity and data fields.
      */
