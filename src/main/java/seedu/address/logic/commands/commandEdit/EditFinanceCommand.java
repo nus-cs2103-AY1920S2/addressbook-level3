@@ -98,11 +98,11 @@ public class EditFinanceCommand extends Command {
     Finance financeToEdit = lastShownList.get(index.getZeroBased());
     Finance editedFinance = createEditedFinance(financeToEdit, editFinanceDescriptor);
 
-    if (!financeToEdit.weakEquals(editedFinance) && model.hasFinance(editedFinance)) {
+    if (!financeToEdit.weakEquals(editedFinance) && model.has(editedFinance)) {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);
     }
 
-    model.setFinance(financeToEdit, editedFinance);
+    model.set(financeToEdit, editedFinance);
     model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
     return new CommandResult(String.format(MESSAGE_EDIT_FINANCE_SUCCESS, editedFinance));
   }

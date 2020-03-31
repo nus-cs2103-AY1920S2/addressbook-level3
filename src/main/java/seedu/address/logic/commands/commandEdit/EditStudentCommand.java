@@ -89,11 +89,11 @@ public class EditStudentCommand extends Command {
     Student studentToEdit = lastShownList.get(index.getZeroBased());
     Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
-    if (!studentToEdit.weakEquals(editedStudent) && model.hasStudent(editedStudent)) {
+    if (!studentToEdit.weakEquals(editedStudent) && model.has(editedStudent)) {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
 
-    model.setStudent(studentToEdit, editedStudent);
+    model.set(studentToEdit, editedStudent);
     model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
   }

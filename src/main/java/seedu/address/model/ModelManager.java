@@ -293,29 +293,6 @@ public class ModelManager implements Model {
     this.teacherAddressBook.resetData(teacherAddressBook);
   }
 
-  @Override
-  public boolean hasTeacher(Teacher teacher) {
-    requireNonNull(teacher);
-    return teacherAddressBook.has(teacher);
-  }
-
-  @Override
-  public void deleteTeacher(Teacher target) {
-    teacherAddressBook.remove(target);
-  }
-
-  @Override
-  public void addTeacher(Teacher teacher) {
-    teacherAddressBook.add(teacher);
-    updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
-  }
-  @Override
-  public void setTeacher(Teacher target, Teacher editedTeacher) {
-    requireAllNonNull(target, editedTeacher);
-
-    teacherAddressBook.set(target, editedTeacher);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Student> getStudentAddressBook() {
@@ -326,30 +303,6 @@ public class ModelManager implements Model {
   @Override
   public void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook) {
     this.studentAddressBook.resetData(studentAddressBook);
-  }
-
-  @Override
-  public boolean hasStudent(Student student) {
-    requireNonNull(student);
-    return studentAddressBook.has(student);
-  }
-
-  @Override
-  public void deleteStudent(Student target) {
-    studentAddressBook.remove(target);
-  }
-
-  @Override
-  public void addStudent(Student student) {
-    studentAddressBook.add(student);
-    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-  }
-
-  @Override
-  public void setStudent(Student target, Student editedStudent) {
-    requireAllNonNull(target, editedStudent);
-
-    studentAddressBook.set(target, editedStudent);
   }
 
   ///
@@ -364,30 +317,6 @@ public class ModelManager implements Model {
     this.financeAddressBook.resetData(financeAddressBook);
   }
 
-  @Override
-  public boolean hasFinance(Finance finance) {
-    requireNonNull(finance);
-    return financeAddressBook.has(finance);
-  }
-
-  @Override
-  public void deleteFinance(Finance target) {
-    financeAddressBook.remove(target);
-  }
-
-  @Override
-  public void addFinance(Finance finance) {
-    financeAddressBook.add(finance);
-    updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
-  }
-
-  @Override
-  public void setFinance(Finance target, Finance editedFinance) {
-    requireAllNonNull(target, editedFinance);
-
-    financeAddressBook.set(target, editedFinance);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Course> getCourseAddressBook() {
@@ -400,30 +329,6 @@ public class ModelManager implements Model {
     this.courseAddressBook.resetData(courseAddressBook);
   }
 
-  @Override
-  public boolean hasCourse(Course course) {
-    requireNonNull(course);
-    return courseAddressBook.has(course);
-  }
-
-  @Override
-  public void deleteCourse(Course target) {
-    courseAddressBook.remove(target);
-    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-  }
-
-  @Override
-  public void addCourse(Course course) {
-    courseAddressBook.add(course);
-    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-  }
-
-  @Override
-  public void setCourse(Course target, Course editedCourse) {
-    requireAllNonNull(target, editedCourse);
-    courseAddressBook.set(target, editedCourse);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
@@ -433,31 +338,6 @@ public class ModelManager implements Model {
   @Override
   public void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
     this.assignmentAddressBook.resetData(assignmentAddressBook);
-  }
-
-
-  //TODO
-  @Override
-  public boolean hasAssignment(Assignment assignment) {
-    requireNonNull(assignment);
-    return assignmentAddressBook.has(assignment);
-  }
-
-  @Override
-  public void deleteAssignment(Assignment assignment) {
-    assignmentAddressBook.remove(assignment);
-  }
-
-  @Override
-  public void addAssignment(Assignment assignment) {
-    requireNonNull(assignment);
-    assignmentAddressBook.add(assignment);
-    updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-  }
-
-  @Override
-  public void setAssignment(Assignment target, Assignment editedAssignment) {
-
   }
 
   //=========== Filtered List Accessors =============================================================
