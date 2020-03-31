@@ -53,6 +53,7 @@ class JsonSerializableInterviewee {
         for (JsonAdaptedInterviewee jsonInterviewee : interviewees) {
             storedInterviewees.add(jsonInterviewee.toModelType(questionList, attributeList, storage, finalised));
         }
+        // System.out.println("the size of the list is " + storedInterviewees.size());
         return IntervieweeList.fromList(uniqueIntervieweeId, storedInterviewees);
     }
 }

@@ -19,7 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path attributeDirectory = Paths.get("data", "attribute.json");
     private Path questionDirectory = Paths.get("data", "question.json");
     private Path metricDirectory = Paths.get("data", "metric.json");
-    private Path transcriptDirectory = Paths.get("data/transcript");
+    private Path transcriptDirectory = Paths.get("data/transcript/");
     private Path modelDirectory = Paths.get("data/remark");
 
     /**

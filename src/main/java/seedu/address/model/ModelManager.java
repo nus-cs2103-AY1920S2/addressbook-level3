@@ -63,11 +63,8 @@ public class ModelManager implements Model {
                         MetricList initialMetrics,Boolean finalised) {
         logger.fine("Initializing with user prefs " + userPrefs);
 
-        if (finalised) {
-            this.appPhase = AppPhase.INTERVIEW;
-        } else {
-            this.appPhase = AppPhase.NORMAL;
-        }
+        this.appPhase = AppPhase.NORMAL;
+        this.finalisedInterviewProperties = finalised;
         this.userPrefs = new UserPrefs(userPrefs);
         this.intervieweeList = initialInterviewees;
         this.attributeList = initialAttributes;
