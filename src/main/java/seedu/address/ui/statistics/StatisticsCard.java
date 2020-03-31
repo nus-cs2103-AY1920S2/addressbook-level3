@@ -50,8 +50,7 @@ public class StatisticsCard extends UiPart<Region> {
         price.setText("$" + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantitySold()));
         sales.setText("$" + product.getMoney().value);
-        int profitUpToDate = calculateProfit();
-        profit.setText("$" + profitUpToDate);
+        profit.setText("$" + calculateProfit());
     }
 
     private int calculateProfit() {

@@ -220,6 +220,8 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statisticsWindow.hide();
+        plotWindow.hide();
         primaryStage.hide();
     }
 
