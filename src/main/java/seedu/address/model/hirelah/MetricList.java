@@ -43,7 +43,8 @@ public class MetricList {
     }
 
     public ObservableList<Metric> getObservableList() {
-        return FXCollections.unmodifiableObservableList(metrics);
+        //return FXCollections.unmodifiableObservableList(metrics);
+        return metrics;
     }
 
     /**

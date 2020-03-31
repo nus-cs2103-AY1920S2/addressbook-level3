@@ -1,6 +1,7 @@
 package seedu.address.model.hirelah.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Attribute;
@@ -8,6 +9,7 @@ import seedu.address.model.hirelah.Attribute;
 /**
  * Jackson-friendly version of {@link Attribute}.
  */
+
 class JsonAdaptedAttributes {
     private final String attribute;
 
@@ -15,8 +17,12 @@ class JsonAdaptedAttributes {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedAttributes (Attribute source) {
-        attribute = source.toString();
+    public JsonAdaptedAttributes(@JsonProperty("attribute") String attribute) {
+        this.attribute = attribute;
+    }
+
+    public JsonAdaptedAttributes(Attribute attribute) {
+        this.attribute = attribute.toString();
     }
     /**
      * Converts this Jackson-friendly adapted Attribute object into the model's {@code Attribute} object.

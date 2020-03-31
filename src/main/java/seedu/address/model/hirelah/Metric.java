@@ -55,6 +55,25 @@ public class Metric {
     }
 
     /**
+     * used when storing the current instance of
+     * Metric into its Json file
+     * For example,
+     * Efficient-a4.0-a
+     * @return String representation of the hashmap
+     */
+
+    public String hashMapToString() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Attribute, Double> entry : attributeToWeight.entrySet()) {
+            String key = entry.getKey().toString() + "-a"; //"-a" is used as seperater
+            sb.append(key);
+            String value = entry.getValue().toString() + "-a";
+            sb.append(value);
+        }
+        return sb.toString();
+    }
+
+    /**
      * Get the name given to a metric.
      *
      * @return String name of the metric

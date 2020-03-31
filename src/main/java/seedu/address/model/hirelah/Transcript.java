@@ -1,6 +1,7 @@
 package seedu.address.model.hirelah;
 
 import java.time.Duration;
+import java.time.Instant;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,24 +18,44 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
 public class Transcript {
     private final RemarkList remarkList;
     private final ObservableMap<Attribute, Double> attributeToScoreMap;
-    private boolean isInterviewComplete;
+    private boolean completed;
 
     /**
      * Constructs a {@code Transcript} object
-     * that are associated with a particular interviewee.
+     * that are associated with a particular interviewee, starting now.
      */
     public Transcript(QuestionList questions, AttributeList attributes) {
-        isInterviewComplete = false;
-        this.remarkList = new RemarkList(questions.size());
+        this(questions, attributes, Instant.now());
+    }
+
+    /**
+     * Constructs a {@code Transcript} object associated with a particular interviewee.
+     */
+    public Transcript(QuestionList questions, AttributeList attributes, Instant startTime) {
+        this.remarkList = new RemarkList(questions.size(), startTime);
         this.attributeToScoreMap = FXCollections.observableHashMap();
+        this.completed = false;
         for (Attribute attribute : attributes) {
             attributeToScoreMap.put(attribute, Double.NaN);
         }
     }
 
+
+    public Instant getStartTime() {
+        return remarkList.getStartTime();
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void complete() {
+        this.completed = true;
+    }
+
+
     /**
      * Returns an unmodifiable view of the {@code RemarkList} associated with this {@code Transcript}.
-     *
      * @return An {@code ObservableList} tracking changes to the RemarkList.
      */
     public ObservableList<Remark> getRemarkListView() {
@@ -90,11 +111,26 @@ public class Transcript {
     }
 
     /**
+     * Adds a remark to the Transcript with given time. Used in storage.
+     */
+    public void addRemark(String message, Duration time) {
+        remarkList.addRemark(message, time);
+    }
+
+    /**
      * Marks the beginning of a {@code Question} in this {@code Transcript}.
      */
     public void startQuestion(int questionNumber, Question question)
             throws IllegalActionException, IllegalValueException {
         remarkList.startQuestion(questionNumber, question);
+    }
+
+    /**
+     * Marks the beginning of a {@code Question} in this {@code Transcript} with given time. Used in storage.
+     */
+    public void startQuestion(int questionNumber, Question question, Duration time)
+            throws IllegalActionException, IllegalValueException {
+        remarkList.startQuestion(questionNumber, question, time);
     }
 
     /**
@@ -117,22 +153,6 @@ public class Transcript {
      */
     public int getIndexOfQuestion(int questionIndex) throws IllegalActionException, IllegalValueException {
         return remarkList.getIndexOfQuestion(questionIndex);
-    }
-
-    /**
-     * Gets the completion status of this interview. If false, means that this interview is not yet complete.
-     *
-     * @return boolean the status of this interview.
-     */
-    public boolean getInterviewComplete() {
-        return this.isInterviewComplete;
-    }
-
-    /**
-     * Sets this interview as complete.
-     */
-    public void setInterviewComplete() {
-        this.isInterviewComplete = true;
     }
 
 }

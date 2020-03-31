@@ -29,7 +29,7 @@ public class Interviewee {
     private final StringProperty alias = new SimpleStringProperty(null);
     private final ObjectProperty<File> resume = new SimpleObjectProperty<>(null);
     private final ObjectProperty<Transcript> transcript = new SimpleObjectProperty<>(null);
-
+    private boolean interview = false;
     /**
      * Creates a new Interviewee in the system which starts with no alias, no resume and
      * being not yet interviewed.
@@ -42,8 +42,12 @@ public class Interviewee {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public boolean hasInterview() {
+        return interview;
     }
 
     public String getFullName() {

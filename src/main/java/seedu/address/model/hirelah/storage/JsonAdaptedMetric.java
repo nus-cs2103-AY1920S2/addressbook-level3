@@ -3,25 +3,34 @@ package seedu.address.model.hirelah.storage;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Metric;
+
 
 /**
  * Jackson-friendly version of {@link Metric}.
  */
 public class JsonAdaptedMetric {
     private String name;
-    private HashMap<Attribute, Double> attributeToWeight;
-    // storing of the hashmap will be done by the subsequent commit
+    private String attributeToWeight;
+
     /**
      * Constructs a {@code JsonAdaptedMetric} with the the relevant details.
      */
     @JsonCreator
+    public JsonAdaptedMetric(@JsonProperty("name") String source,
+                             @JsonProperty("attributeToWeight") String attributeToWeight) {
+        this.name = source;
+        this.attributeToWeight = attributeToWeight;
+    }
+
+
     public JsonAdaptedMetric(Metric source) {
         this.name = source.toString();
-        this.attributeToWeight = null; //temporary
+        this.attributeToWeight = source.hashMapToString();
     }
     /**
      * Converts this Jackson-friendly adapted metric object into the model's {@code Metric} object.
@@ -32,7 +41,16 @@ public class JsonAdaptedMetric {
         if (name == null) {
             throw new IllegalValueException("Invalid name for the matric");
         }
-        return new Metric(name, attributeToWeight); // do not contain the recording, alias and interview session
+        if (attributeToWeight == null || attributeToWeight.length() == 0) {
+            throw new IllegalValueException("Invalid Attribute to weight pair stored!");
+        }
+        String[] source = attributeToWeight.split("-a");
+        HashMap<Attribute, Double> destination = new HashMap<>();
+        for (int i = 0; i < source.length; i++) {
+            Attribute key = new Attribute(source[i++]);
+            Double value = Double.parseDouble(source[i]);
+            destination.put(key, value);
+        }
+        return new Metric(name, destination);
     }
-
 }
