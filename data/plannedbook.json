@@ -1,8 +1,8 @@
 {
   "plannedRecipes" : [ {
     "recipes" : [ {
-      "name" : "Chinese Tomato Egg Stir-fry",
-      "time" : "10",
+      "name" : "edit name test",
+      "time" : "100",
       "isFavourite" : false,
       "grains" : [ ],
       "vegetables" : [ "15.0g,  scallion", "550.0g,  tomatoes" ],
@@ -29,8 +29,8 @@
     "date" : "2015-01-01"
   }, {
     "recipes" : [ {
-      "name" : "Chinese Tomato Egg Stir-fry",
-      "time" : "10",
+      "name" : "edit name test",
+      "time" : "100",
       "isFavourite" : false,
       "grains" : [ ],
       "vegetables" : [ "15.0g,  scallion", "550.0g,  tomatoes" ],
@@ -79,8 +79,8 @@
       "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
       "goals" : [ "Bulk like the Hulk" ]
     }, {
-      "name" : "Chinese Tomato Egg Stir-fry",
-      "time" : "10",
+      "name" : "edit name test",
+      "time" : "100",
       "isFavourite" : false,
       "grains" : [ ],
       "vegetables" : [ "15.0g,  scallion", "550.0g,  tomatoes" ],
@@ -126,8 +126,8 @@
     "date" : "2020-02-02"
   }, {
     "recipes" : [ {
-      "name" : "Chinese Tomato Egg Stir-fry",
-      "time" : "10",
+      "name" : "edit name test",
+      "time" : "100",
       "isFavourite" : false,
       "grains" : [ ],
       "vegetables" : [ "15.0g,  scallion", "550.0g,  tomatoes" ],
