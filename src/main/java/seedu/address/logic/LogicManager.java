@@ -62,6 +62,7 @@ public class LogicManager implements Logic {
             storage.saveAttribute(model.getAttributeList());
             storage.saveQuestion(model.getQuestionList());
             storage.saveMetric(model.getMetricList());
+            storage.saveModel(model.isFinalisedInterviewProperties());
         } catch (IOException | IllegalValueException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

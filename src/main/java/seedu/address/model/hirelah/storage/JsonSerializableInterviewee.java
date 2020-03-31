@@ -20,8 +20,8 @@ import seedu.address.model.hirelah.QuestionList;
  */
 @JsonRootName(value = "interviewees")
 class JsonSerializableInterviewee {
-    public static final String MESSAGE_DUPLICATE_INTERVIEWEE = "Interviewee list contains duplicate";
-    private final List<JsonAdaptedInterviewee> interviewees = new ArrayList<>();
+    private final int uniqueIntervieweeId;
+    private final List<JsonAdaptedInterviewee> interviewees;
 
     /**
      * used to deserialise the interviewee
@@ -29,12 +29,16 @@ class JsonSerializableInterviewee {
      * @param interviewees list of object
      */
     @JsonCreator
-    public JsonSerializableInterviewee(@JsonProperty("interviewees") List<JsonAdaptedInterviewee> interviewees) {
-        this.interviewees.addAll(interviewees);
+    public JsonSerializableInterviewee(@JsonProperty("uniqueIntervieweeId") int uniqueIntervieweeId,
+                                       @JsonProperty("interviewees") List<JsonAdaptedInterviewee> interviewees) {
+        this.uniqueIntervieweeId = uniqueIntervieweeId;
+        this.interviewees = interviewees;
     }
 
     public JsonSerializableInterviewee(IntervieweeList source) {
+        this.uniqueIntervieweeId = source.getUniqueIntervieweeId();
         List<Interviewee> convertedList = source.getObservableList();
+        this.interviewees = new ArrayList<>();
         interviewees.addAll(convertedList.stream().map(JsonAdaptedInterviewee::new).collect(Collectors.toList()));
     }
 
@@ -42,13 +46,13 @@ class JsonSerializableInterviewee {
      * Converts into an IntervieweeList
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public IntervieweeList toModelType(QuestionList questionList, AttributeList attributeList, TranscriptStorage storage, Boolean finalised ) throws IllegalValueException, DataConversionException {
-        IntervieweeList newData = new IntervieweeList();
-
-        for (JsonAdaptedInterviewee jsonAdaptedInterviewee : interviewees) {
-            Interviewee interviewee = jsonAdaptedInterviewee.toModelType(questionList, attributeList, storage, finalised);
-            newData.addInterviewee(interviewee); //to be confirm
+    public IntervieweeList toModelType(QuestionList questionList, AttributeList attributeList,
+                                       TranscriptStorage storage, Boolean finalised)
+            throws DataConversionException, IllegalValueException {
+        List<Interviewee> storedInterviewees = new ArrayList<>();
+        for (JsonAdaptedInterviewee jsonInterviewee : interviewees) {
+            storedInterviewees.add(jsonInterviewee.toModelType(questionList, attributeList, storage, finalised));
         }
-        return newData;
+        return IntervieweeList.fromList(uniqueIntervieweeId, storedInterviewees);
     }
 }

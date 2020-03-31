@@ -50,6 +50,9 @@ public class RemarkList {
         remarks.add(new Remark(Duration.between(startTime, Instant.now()), message));
     }
 
+    /**
+     * Adds a remark to the list with given time. Used in storage.
+     */
     public void addRemark(String message, Duration time) {
         requireNonNull(message);
         remarks.add(new Remark(time, message));
@@ -69,6 +72,19 @@ public class RemarkList {
         }
         questionIndices[questionNumber] = remarks.size();
         remarks.add(new QuestionRemark(Duration.between(startTime, Instant.now()), questionNumber, question));
+    }
+
+    /**
+     * Adds a question remark to the list with given time. Used in storage.
+     */
+    public void startQuestion(int questionNumber, Question question, Duration time)
+            throws IllegalActionException, IllegalValueException {
+        requireNonNull(question);
+        if (isQuestionAnswered(questionNumber)) {
+            throw new IllegalActionException("Question is already answered!");
+        }
+        questionIndices[questionNumber] = remarks.size();
+        remarks.add(new QuestionRemark(time, questionNumber, question));
     }
 
     /**

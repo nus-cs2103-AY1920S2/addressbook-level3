@@ -17,13 +17,19 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.QuestionList;
-import seedu.address.model.hirelah.storage.*;
+import seedu.address.model.hirelah.storage.AttributeStorage;
+import seedu.address.model.hirelah.storage.IntervieweeStorage;
+import seedu.address.model.hirelah.storage.MetricStorage;
+import seedu.address.model.hirelah.storage.ModelStorage;
+import seedu.address.model.hirelah.storage.QuestionStorage;
+import seedu.address.model.hirelah.storage.Storage;
+import seedu.address.model.hirelah.storage.StorageManager;
+import seedu.address.model.hirelah.storage.TranscriptStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
@@ -61,7 +67,7 @@ public class MainApp extends Application {
         TranscriptStorage transcriptStorage = new TranscriptStorage(userPrefs.getTranscriptDirectory());
         ModelStorage modelStorage = new ModelStorage(userPrefs.getModelDirectory());
         storage = new StorageManager(userPrefsStorage, intervieweeStorage, attributeStorage,
-                questionStorage, metricStorage,transcriptStorage, modelStorage );
+                questionStorage, metricStorage, transcriptStorage, modelStorage);
 
         initLogging(config);
 
@@ -89,11 +95,9 @@ public class MainApp extends Application {
         MetricList initialMetrics;
         Boolean initialModel;
 
-       // TranscriptStorage transcriptStorage = new TranscriptStorage(userPrefs.getTranscriptDirectory());
         try {
             attributeListOptional = storage.readAttribute();
             questionListOptional = storage.readQuestion();
-           // metricListOptional = storage.readMetric();
             modelOptional = storage.readModel();
             if (modelOptional.isEmpty()) {
                 logger.info("model data file not found. Will be starting with an empty model file");
@@ -104,18 +108,17 @@ public class MainApp extends Application {
             if (questionListOptional.isEmpty()) {
                 logger.info("Question data file not found. Will be starting with an empty question file");
             }
-            if (metricListOptional.isEmpty()) {
-                logger.info("Metric data file not found.");
-            }
-          //  initialInterviewees = intervieweeListOptional.orElseGet(() -> new IntervieweeList());
+
             initialModel = modelOptional.orElse(false);
             initialAttributes = attributeListOptional.orElseGet(() -> new AttributeList());
             initialQuestions = questionListOptional.orElseGet(() -> new QuestionList());
-            initialMetrics = metricListOptional.orElseGet(() -> new MetricList());
 
             /** when the the model is not finalised, it will not initialise metric and transcript*/
-            if(!initialModel) {
+            if (!initialModel) {
                 initialMetrics = new MetricList();
+            } else {
+                metricListOptional = storage.readMetric();
+                initialMetrics = metricListOptional.orElse(new MetricList());
             }
             intervieweeListOptional = storage.readInterviewee(initialQuestions, initialAttributes, initialModel);
             initialInterviewees = intervieweeListOptional.orElse(new IntervieweeList());
@@ -129,6 +132,7 @@ public class MainApp extends Application {
             initialAttributes = new AttributeList();
             initialQuestions = new QuestionList();
             initialMetrics = new MetricList();
+            initialModel = false;
         }
         /** loading of the data for interviewee and their respective transcript*/
 

@@ -113,7 +113,7 @@ public class AttributeList implements Iterable<Attribute> {
 
     }
 
-    private boolean isDuplicate(Attribute attribute) {
+    public boolean isDuplicate(Attribute attribute) {
         return attributes.contains(attribute);
     }
 
