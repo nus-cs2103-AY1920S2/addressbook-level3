@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Deletes an order identified using it's displayed index from the address book.
@@ -26,7 +29,8 @@ public class DeleteCommand extends Command {
             + NEWLINE + "Parameters: FLAG (-r or -o) INDEX (must be a positive integer)"
             + NEWLINE + "Example: " + COMMAND_WORD + " -r" + " 1";
 
-    public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Order: %1$s";
+    public static final String MESSAGE_INVALID_FLAG = "Invalid flag given!";
 
     private final Index targetIndex;
     private final Flag listType;
@@ -39,6 +43,23 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (listType.equals(FLAG_ORDER_BOOK)) {
+            return deleteFromOrderList(model);
+        }
+        if (listType.equals(FLAG_RETURN_BOOK)) {
+            return deleteFromReturnList(model);
+        }
+        throw new CommandException(MESSAGE_INVALID_FLAG);
+    }
+
+    /**
+     * Delete an order from the order list.
+     *
+     * @param model used to delete order from
+     * @return CommandResult representing the delete operation
+     * @throws CommandException invalid {@code targetIndex} given
+     */
+    private CommandResult deleteFromOrderList(Model model) throws CommandException {
         List<Order> lastShownList = model.getFilteredOrderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -47,6 +68,25 @@ public class DeleteCommand extends Command {
 
         Order orderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteOrder(orderToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
+    }
+
+    /**
+     * Delete an order from the return order list.
+     *
+     * @param model used to delete order from
+     * @return CommandResult representing the delete operation
+     * @throws CommandException invalid {@code targetIndex} given
+     */
+    private CommandResult deleteFromReturnList(Model model) throws CommandException {
+        List<ReturnOrder> lastShownList = model.getFilteredReturnOrderList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        }
+
+        ReturnOrder orderToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteReturnOrder(orderToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
     }
 
