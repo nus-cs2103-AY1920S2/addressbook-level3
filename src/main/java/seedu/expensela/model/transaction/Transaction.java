@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents a Transaction in the expensela.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Transaction {
+public class Transaction implements Comparable<Transaction> {
 
     private final Name name;
     private final Amount amount;
@@ -108,4 +108,8 @@ public class Transaction {
         return builder.toString();
     }
 
+    @Override
+    public int compareTo(Transaction o) {
+        return o.getDate().transactionDate.compareTo(this.getDate().transactionDate);
+    }
 }

@@ -80,15 +80,15 @@ public class MonthlyDataPanel extends UiPart<Region> {
             angle = 0;
         }
         Paint fill;
-        Paint overlay = Color.web("#383838");
+        Paint overlay = Color.web("#619196");
         if (angle > 180) {
-            fill = Color.GREEN;
+            fill = Color.web("#BAFFC9");
         } else if (angle > 90) {
-            fill = Color.YELLOW;
+            fill = Color.web("FFFFBA");
         } else {
             overlayAngle = expense / budget * 360;
             angle = 100;
-            fill = Color.RED;
+            fill = Color.web("#FFB3BA");
         }
         outer.setRadiusX(55);
         outer.setRadiusY(55);
