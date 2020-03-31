@@ -21,7 +21,7 @@ public class ToggleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.switchToggleListOrChart();
+        model.switchToggleView();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

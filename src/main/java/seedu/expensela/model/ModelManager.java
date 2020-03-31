@@ -233,7 +233,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void switchToggleListOrChart() {
+    public void switchToggleView() {
         expenseLa.switchToggleView();
     }
 }

@@ -99,7 +99,7 @@ public interface Model {
     ToggleView getToggleView();
 
     /** Flips the switch of toggle list or chart object */
-    void switchToggleListOrChart();
+    void switchToggleView();
 
     /**
      * Get Total balance of the user.

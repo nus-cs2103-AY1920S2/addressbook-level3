@@ -6,9 +6,9 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
@@ -23,7 +23,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ChartAnalyticsPanel.class);
 
     @FXML
-    StackedBarChart<String, Number> stackedBarChart;
+    private StackedBarChart<String, Number> stackedBarChart;
 
     @FXML
     private CategoryAxis xAxis;
@@ -36,6 +36,10 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
         graphByWeek(transactionList);
     }
 
+    /**
+     * Creates a stacked bar chart, X axis is days of the week and Y axis is total expenditure, stacked by weeks.
+     * @param transactionList Transaction List filtered by a certain month.
+     */
     private void graphByWeek(ObservableList<Transaction> transactionList) {
         xAxis.setLabel("Day");
         xAxis.getCategories().addAll("Week 1", "Week 2", "Week 3", "Week 4");
@@ -75,6 +79,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
             case "SUNDAY":
                 spentByWeekAndDay[weekIndex][6] += amount.transactionAmount;
                 break;
+            default:
+                continue;
             }
         }
 

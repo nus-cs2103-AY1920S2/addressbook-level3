@@ -14,4 +14,8 @@ public class ToggleView {
     public void switchIsViewList() {
         this.isViewList = !this.isViewList;
     }
+
+    public void setIsViewList(boolean isViewList) {
+        this.isViewList = isViewList;
+    }
 }
