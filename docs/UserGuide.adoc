@@ -82,12 +82,6 @@ If you no longer need a note, or accidentally create a wrong one, don't worry. Y
 Format: `delete [-t] TITLE` +
 Example: `delete -t Notably/CS2103`
 
-=== Export a note: `export`
-
-You can export a note into other formats. +
-Format: `export [-t] TYPE` +
-Example: `export -t PDF`
-
 === Save the data
 
 Notes data are saved in the hard disk automatically after any command that changes the data. +
@@ -115,7 +109,6 @@ Mistypes, as long as they are not too far away from available commands, will be 
 * *Edit an existing note*: `edit -b BODY`
 * *Find a note based on certain keywords*: `search [-s] KEYWORD`
 * *Delete a note*: `delete [-t] TITLE`
-* *Export a note*: `export [-t] TYPE`
 * *Go back to the parent note*: `open ../`
 * *Navigate to a specific directory*: `open [-t] TITLE`
 * *Autofill*: kbd:[Tab]
@@ -147,7 +140,6 @@ image::Create4.png[width="790"]
 image::Create5.png[width="790"]
 +
 
-
 === Navigation
 
 . `open [-t] TITLE` to navigate to a specific directory.
@@ -155,15 +147,6 @@ image::Create5.png[width="790"]
 +
 image::Navigation.png[width="790"]
 +
-
-
-=== Export to other types
-
-. Users can export notes to other types using the `export [-t] TYPE` command.
-+
-image::Export.png[width="790"]
-+
-
 
 === Search
 
