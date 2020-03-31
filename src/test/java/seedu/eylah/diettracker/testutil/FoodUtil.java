@@ -42,7 +42,8 @@ public class FoodUtil {
     public static String getEditFoodDescriptorDetails(EditFoodDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
-        descriptor.getCalories().ifPresent(calories -> sb.append(PREFIX_CALORIES).append(calories.toString()).append(" "));
+        descriptor.getCalories().ifPresent(
+                calories -> sb.append(PREFIX_CALORIES).append(calories.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
