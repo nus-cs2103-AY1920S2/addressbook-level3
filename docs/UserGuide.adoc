@@ -79,6 +79,9 @@ You can open an existing note by specifynig its title. A slash `/` character can
 Format: `open [-t] TITLE` +
 Example: `open -t Notably/CS2103`
 
+.Demo for the `open` command (with suggestions)
+image:demo/Open.png[]
+
 === Edit an existing note: `edit`
 
 Edits body paragraph of the current note. This command replaces the current content of a note with the newly specified body. +
