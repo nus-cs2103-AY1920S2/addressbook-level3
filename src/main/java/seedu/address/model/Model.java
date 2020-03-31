@@ -8,7 +8,6 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.ID;
@@ -61,37 +60,23 @@ public interface Model {
    */
   void setAddressBookFilePath(Path addressBookFilePath);
 
-  /**
-   * Returns the AddressBook
-   */
+  boolean has(ModelObject obj) throws CommandException;
+
+  void delete(ModelObject obj) throws CommandException;
+
+  void add(ModelObject obj) throws CommandException;
+
+  void set(ModelObject target, ModelObject editedTarget) throws CommandException;
+
+  boolean hasCourse(ID courseID);
+
+  Course getCourse(ID courseID);
+
+
+    /**
+     * Returns the AddressBook
+  */
   ReadOnlyAddressBook getAddressBook();
-
-  /**
-   * Replaces address book data with the data in {@code addressBook}.
-   */
-  void setAddressBook(ReadOnlyAddressBook addressBook);
-
-  /**
-   * Returns true if a person with the same identity as {@code person} exists in the address book.
-   */
-  boolean hasPerson(Person person);
-
-  /**
-   * Deletes the given person. The person must exist in the address book.
-   */
-  void deletePerson(Person target);
-
-  /**
-   * Adds the given person. {@code person} must not already exist in the address book.
-   */
-  void addPerson(Person person);
-
-  /**
-   * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist
-   * in the address book. The person identity of {@code editedPerson} must not be the same as
-   * another existing person in the address book.
-   */
-  void setPerson(Person target, Person editedPerson);
 
   /**
    * Returns an unmodifiable view of the filtered person list
@@ -185,33 +170,6 @@ public interface Model {
   void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook);
 
   /**
-   * Returns true if a student with the same identity as {@code student} exists in the address
-   * book.
-   */
-  boolean hasStudent(Student student);
-
-  boolean hasStudent(ID studentID);
-
-  Student getStudent(ID studentID);
-
-    /**
-   * Deletes the given student. The student must exist in the address book.
-   */
-  void deleteStudent(Student target);
-
-  /**
-   * Adds the given student. {@code student} must not already exist in the address book.
-   */
-  void addStudent(Student student);
-
-  /**
-   * Replaces the given student {@code target} with {@code editedStudent}. {@code target} must exist
-   * in the address book. The student identity of {@code editedStudent} must not be the same as
-   * another existing student in the address book.
-   */
-  void setStudent(Student target, Student editedStudent);
-
-  /**
    * Returns an unmodifiable view of the filtered student list
    */
   ObservableList<Student> getFilteredStudentList();
@@ -244,33 +202,6 @@ public interface Model {
    * Replaces course address book data with the data in {@code teacerAddressBook}.
    */
   void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook);
-
-  /**
-   * Returns true if a course with the same identity as {@code course} exists in the address book.
-   */
-  boolean hasCourse(Course course);
-
-  boolean hasCourse(ID courseID);
-
-  Course getCourse(ID courseID);
-
-
-    /**
-   * Deletes the given course. The course must exist in the address book.
-   */
-  void deleteCourse(Course target);
-
-  /**
-   * Adds the given course. {@code course} must not already exist in the address book.
-   */
-  void addCourse(Course course);
-
-  /**
-   * Replaces the given course {@code target} with {@code editedCourse}. {@code target} must exist
-   * in the address book. The course identity of {@code editedCourse} must not be the same as
-   * another existing course in the address book.
-   */
-  void setCourse(Course target, Course editedCourse);
 
   /**
    * Returns an unmodifiable view of the filtered course list
@@ -307,29 +238,6 @@ public interface Model {
   void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook);
 
   /**
-   * Returns true if a finance with the same identity as {@code finance} exists in the address
-   * book.
-   */
-  boolean hasFinance(Finance finance);
-
-  /**
-   * Deletes the given finance. The finance must exist in the address book.
-   */
-  void deleteFinance(Finance target);
-
-  /**
-   * Adds the given finance. {@code finance} must not already exist in the address book.
-   */
-  void addFinance(Finance finance);
-
-  /**
-   * Replaces the given finance {@code target} with {@code editedFinance}. {@code target} must exist
-   * in the address book. The finance identity of {@code editedFinance} must not be the same as
-   * another existing finance in the address book.
-   */
-  void setFinance(Finance target, Finance editedFinance);
-
-  /**
    * Returns an unmodifiable view of the filtered finance list
    */
   ObservableList<Finance> getFilteredFinanceList();
@@ -362,29 +270,6 @@ public interface Model {
    * Replaces assignment address book data with the data in {@code teacerAddressBook}.
    */
   void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook);
-
-  /**
-   * Returns true if a assignment with the same identity as {@code assignment} exists in the address
-   * book.
-   */
-  boolean hasAssignment(Assignment assignment);
-
-  /**
-   * Deletes the given finance. The finance must exist in the address book.
-   */
-  void deleteAssignment(Assignment assignment);
-
-  /**
-   * Adds the given assignment. {@code assignment} must not already exist in the address book.
-   */
-  void addAssignment(Assignment assignment);
-
-  /**
-   * Replaces the given assignment {@code target} with {@code editedAssignment}. {@code target} must exist
-   * in the address book. The assignment identity of {@code editedAssignment} must not be the same as
-   * another existing finance in the address book.
-   */
-  void setAssignment(Assignment target, Assignment editedAssignment);
 
   /**
    * Returns an unmodifiable view of the filtered finance list

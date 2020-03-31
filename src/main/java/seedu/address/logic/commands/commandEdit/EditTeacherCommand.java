@@ -105,11 +105,11 @@ public class EditTeacherCommand extends Command {
     Teacher teacherToEdit = lastShownList.get(index.getZeroBased());
     Teacher editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
 
-    if (!teacherToEdit.weakEquals(editedTeacher) && model.hasTeacher(editedTeacher)) {
+    if (!teacherToEdit.weakEquals(editedTeacher) && model.has(editedTeacher)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
-    model.setTeacher(teacherToEdit, editedTeacher);
+    model.set(teacherToEdit, editedTeacher);
     model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
     return new CommandResult(String.format(MESSAGE_EDIT_TEACHER_SUCCESS, editedTeacher));
   }

@@ -41,7 +41,7 @@ public class DeleteFinanceCommand extends DeleteCommand {
     }
 
     Finance financeToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.deleteFinance(financeToDelete);
+    model.delete(financeToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_FINANCE_SUCCESS, financeToDelete));
   }
 

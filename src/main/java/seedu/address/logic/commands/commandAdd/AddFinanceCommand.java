@@ -207,11 +207,11 @@ public class AddFinanceCommand extends AddCommand {
           toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getTeacherID(), toAdd.getTags());
     }
 
-    if (model.hasFinance(toAdd)) {
+    if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);
     }
 
-    model.addFinance(toAdd);
+    model.add(toAdd);
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
