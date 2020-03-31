@@ -28,7 +28,7 @@ import seedu.address.model.util.Quantity;
 public class PlotProductSalesCommand extends Command {
     public static final String COMMAND_WORD = "plotsales";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plot the sales of product to the screen"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plot the sales of product to the screen\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
