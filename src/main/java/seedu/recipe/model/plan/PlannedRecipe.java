@@ -39,9 +39,14 @@ public class PlannedRecipe {
         return date;
     }
 
-    public void addToPlanned(PlannedRecipe plannedRecipe) {
+    /**
+     * Adds the recipes in {@code plannedRecipe} to the recipes in this Planned Recipe object and returns a new
+     * Planned Recipe object.
+     */
+    public PlannedRecipe plannedRecipeWithAllPlanned(PlannedRecipe plannedRecipe) {
         List<Recipe> newRecipes = plannedRecipe.getRecipes();
-        recipes.addAll(newRecipes);
+        newRecipes.addAll(recipes);
+        return new PlannedRecipe(newRecipes, date);
     }
 
     public boolean sameDate(PlannedRecipe other) {

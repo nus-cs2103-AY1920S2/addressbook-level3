@@ -52,7 +52,9 @@ public class UniquePlannedList {
         if (indexOfSameDate == -1) {
             observableList.add(plannedRecipe);
         } else {
-            observableList.get(indexOfSameDate).addToPlanned(plannedRecipe);
+            PlannedRecipe currentPlannedRecipe = observableList.get(indexOfSameDate)
+                    .plannedRecipeWithAllPlanned(plannedRecipe);
+            observableList.set(indexOfSameDate, currentPlannedRecipe);
         }
     }
 
