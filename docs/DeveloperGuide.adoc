@@ -173,7 +173,7 @@ If the given arguments are valid, a new `ClearCommand` object will be returned.
 
 In the `ClearCommandParser`, there will be two validation checks: +
 1. The flag is one of the three flags: `-f`, `-o` and `-r`. +
-2. There are no `-o` and `-r` flags in the arguments.
+2. The arguments do not have both `-o` and `-r` flags.
 
 After the `ClearCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
 to run the execute the clear Command, this is will be shown diagram below.
@@ -349,8 +349,8 @@ In this class, invalid arguments will result in a `ParseException`. +
 
 Two types of checks will be done before returning the `ImportCommand`:
 
-* Check whether the file is exists in the data folder.
-* Check whether the first prefix is `orderType` prefix.
+1. Check whether the file is exists in the data folder.
+2. Check whether the first prefix is `orderType` prefix.
 
 [NOTE]
 ====
@@ -359,7 +359,7 @@ giving to `ImportCommand`.
 ====
 
 After the `ImportCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
-to run the execute the import Command, this is will be shown at the diagram below.
+to run the execute the `ImportCommand`, this is will be shown at the diagram below.
 
 ==== Execution of Import Command Sequence Diagram
 
@@ -386,7 +386,7 @@ If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a
 
 If the user provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *specific search* will be performed. +
 
-* *Specfic search* will search orders based on the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`.
+* *Specific search* will search orders based on the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`.
 
 ==== Class Diagram for Search feature:
 
