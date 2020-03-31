@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
@@ -21,12 +23,20 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ORDER));
+    public void parse_validArgsOrderBook_returnsDeleteCommand() {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK);
+        assertParseSuccess(parser, "-o 1", deleteCommand);
+    }
+
+    @Test
+    public void parse_validArgsReturnBook_returnsDeleteCommand() {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK);
+        assertParseSuccess(parser, "-r 1", deleteCommand);
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }
