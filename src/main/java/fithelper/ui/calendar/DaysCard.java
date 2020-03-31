@@ -1,16 +1,10 @@
 package fithelper.ui.calendar;
 
-import static java.util.Objects.requireNonNull;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import fithelper.commons.util.EntriesUtil;
 import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
@@ -54,37 +48,10 @@ public class DaysCard extends UiPart<AnchorPane> {
     private void initialiseEntries(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         addFilteredEntries(sportList);
         addFilteredEntries(foodList);
-        Map<LocalDate, ObservableList<Entry>> entriesByDate = getEntriesByDate(combined);
-        Set<LocalDate> uniqueDateSet = new HashSet<>();
-        uniqueDateSet.addAll(entriesByDate.keySet());
-        List<LocalDate> sortedDates = new ArrayList<>();
-        sortedDates.addAll(uniqueDateSet);
-        java.util.Collections.sort(sortedDates);
-        for (LocalDate dateTime: sortedDates) {
-            ObservableList<Entry> temp = FXCollections.observableArrayList();
-            temp.addAll(entriesByDate.get(dateTime));
-            entries.add(temp);
-        }
+        Map<LocalDate, ObservableList<Entry>> entriesByDate = EntriesUtil.getEntriesByDate(combined);
+        entries = EntriesUtil.setEntriesByDate(entriesByDate);
         daysListView.setItems(entries);
         daysListView.setCellFactory(listView -> new DaysCard.ListViewCell());
-    }
-
-    /**
-     * Maps each entry by its date
-     */
-    private Map<LocalDate, ObservableList<Entry>> getEntriesByDate(ObservableList<Entry> entries) {
-        Map<LocalDate, ObservableList<Entry>> entriesByDate = new HashMap<>();
-
-        for (Entry entry: entries) {
-            LocalDate date = entry.getDate();
-            requireNonNull(date);
-            if (!entriesByDate.containsKey(date)) {
-                entriesByDate.put(date, FXCollections.observableArrayList());
-            }
-            entriesByDate.get(date).add(entry);
-        }
-
-        return entriesByDate;
     }
 
     /**
