@@ -178,7 +178,7 @@ Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]
 ==== Finding a recipe by name
 You can find a recipe by its name by appending `n/NAME [...]` to a `find` command.
 
-Example: You can type `find n/sandwich` and *CookBuddy* will display the recipes named sandwich to you.
+Example: You can type `find n/sandwich` and *CookBuddy* will display recipes that contain the word `sandwich` in their name.
 
 ==== Finding a recipe by ingredient
 You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
