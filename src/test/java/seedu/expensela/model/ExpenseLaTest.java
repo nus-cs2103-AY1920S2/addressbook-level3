@@ -20,7 +20,7 @@ import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.MonthlyDataBuilder;
 import seedu.expensela.testutil.TransactionBuilder;
 
-public class DateBookTest {
+public class ExpenseLaTest {
 
     private final ExpenseLa expenseLa = new ExpenseLa();
 
@@ -40,18 +40,6 @@ public class DateBookTest {
         expenseLa.resetData(newData);
         assertEquals(newData, expenseLa);
     }
-
-    /*
-    @Test
-    public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
-        // Two transactions with the same identity fields
-        Transaction editedPizza = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
-                .build();
-        List<Transaction> newTransactions = Arrays.asList(PIZZA, editedPizza);
-        ExpenseLaStub newData = new ExpenseLaStub(newTransactions);
-
-        assertThrows(DuplicateTransactionException.class, () -> expenseLa.resetData(newData));
-    } */
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
@@ -80,6 +68,11 @@ public class DateBookTest {
     @Test
     public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> expenseLa.getTransactionList().remove(0));
+    }
+
+    @Test
+    public void getMonthlyData() {
+        assertTrue(expenseLa.getMonthlyData() instanceof MonthlyData);
     }
 
     /**

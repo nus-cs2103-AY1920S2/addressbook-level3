@@ -61,7 +61,7 @@ Format: `help`
 
 === Set a monthly budget : `budget`
 
-Sets a spendable budget for the current month 
+Sets a spendable budget for the current month
 
 Format: `budget AMOUNT`
         `budget /repeat AMOUNT` (to set repeating budget of $AMOUNT for the coming months)
@@ -77,7 +77,7 @@ Adds an expense to the expense tracker. Expenses are stored as a transaction.
 
 Format: `spend /n NAME /d DATE /c CATEGORY`
 
-[TIP] 
+[TIP]
 Leaving the DATE option blank will auto fill with today's date
 [TIP]
 Leaving the CATEGORY option blank will auto fill with 'Others' category
@@ -89,13 +89,13 @@ Examples:
 
 === Key in income : `income`
 
-Adds an income to expense tracker. 
+Adds an income to expense tracker.
 
 Format: `income /n DESCRIPTION /d DATE`
 Format: `income /n DESCRIPTION /repeat (to set income of $AMOUNT recurring for all future months)
 Format: `income /n DESCRIPTION /delete (to delete certain recurring incomes)
 
-[TIP] 
+[TIP]
 Leaving the DATE option blank will auto fill with today's date
 
 Examples:
@@ -106,7 +106,7 @@ Examples:
 
 === Filter transactions : `filter`
 
-Filters transactions for user to see by filter type. 
+Filters transactions for user to see by filter type.
 
 Format: `filter /m YYYY-MM` to view a certain month's transactions
         `filter /y YYYY` to view a certain year's transactions
@@ -147,7 +147,7 @@ Returns any transaction having names `hawaiian`, `wood`, `fired` or `pizza`
 
 === Deleting a transaction : `delete`
 
-Deletes the specified transaction from the expense tracker. 
+Deletes the specified transaction from the expense tracker.
 
 Format: `delete TRANSACTION_ID`
 
@@ -166,7 +166,7 @@ Deletes the transaction with ID 1904850 in the expense tracker.
 === Analysis of transactions : `show analytics`
 
 Shows the analysis of transactions made in the filtered month/year. +
-Analysis will be shown in the form of a pie chart for categories and bar graph for month or week depending on the filter. 
+Analysis will be shown in the form of a pie chart for categories and bar graph for month or week depending on the filter.
 
 Format: `show analytics`
 
@@ -181,7 +181,7 @@ Format: `show list`
 
 === Exiting the program : `exit`
 
-Exits the program. 
+Exits the program.
 
 Format: `exit`
 
