@@ -5,10 +5,10 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_MODE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.Model;
-
-import java.util.logging.Logger;
 
 /**
  * Adds a entry to FitHelper.
@@ -25,9 +25,8 @@ public class CalendarCommand extends Command {
             + PREFIX_DATE + "tmr"
             + PREFIX_MODE + "list";
 
-    private static final String MESSAGE_COMMIT = "Switch to calendar page";
-
     public static final String MESSAGE_SUCCESS = "Now you are at Calendar Page ~";
+    private static final String MESSAGE_COMMIT = "Switch to calendar page";
 
     private static final Logger logger = LogsCenter.getLogger(CalendarCommand.class);
 
