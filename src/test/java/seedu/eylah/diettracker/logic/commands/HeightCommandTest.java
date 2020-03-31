@@ -1,43 +1,65 @@
 package seedu.eylah.diettracker.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.eylah.addressbook.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.eylah.addressbook.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.eylah.addressbook.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.eylah.addressbook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.HEIGHT_OBJ;
+import static seedu.eylah.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.eylah.addressbook.logic.commands.EditCommand;
-import seedu.eylah.addressbook.testutil.EditPersonDescriptorBuilder;
+import seedu.eylah.diettracker.model.ModelStub;
+import seedu.eylah.diettracker.model.self.Height;
+import seedu.eylah.diettracker.model.self.SelfStub;
+
 
 public class HeightCommandTest {
 
     @Test
+    public void constructor_nullHeight_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new HeightCommand(null));
+    }
+
+    @Test
+    public void execute_heightAcceptedByModel_setHeightSuccessful() throws Exception {
+        HeightCommandTest.ModelStubAcceptingHeightAdded modelStub = new ModelStubAcceptingHeightAdded();
+        Height validHeight = new Height("160");
+
+        CommandResult commandResult = new HeightCommand(validHeight).execute(modelStub);
+
+        assertEquals(String.format(HeightCommand.MESSAGE_ADD_HEIGHT_SUCCESS, validHeight),
+                commandResult.getFeedbackToUser());
+    }
+
+    @Test
     public void equals() {
+
         // same values -> returns true
-        EditCommand.EditPersonDescriptor descriptorWithSameValues = new EditCommand.EditPersonDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        assertTrue(HEIGHT_OBJ.equals(new HeightCommand(new Height("170.2"))));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(HEIGHT_OBJ.equals(HEIGHT_OBJ));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(HEIGHT_OBJ.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(HEIGHT_OBJ.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(HEIGHT_OBJ.equals(new HeightCommand(new Height("165.5"))));
+    }
 
-        // different name -> returns false
-        EditCommand.EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+    /**
+     * A Model stub that always accept the food being added.
+     */
+    private class ModelStubAcceptingHeightAdded extends ModelStub {
 
-        // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        ModelStubAcceptingHeightAdded() {}
+
+        @Override
+        public void setHeight(Height height) {
+            SelfStub.setHeight(height);
+        }
     }
 }

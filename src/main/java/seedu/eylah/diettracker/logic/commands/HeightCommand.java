@@ -27,6 +27,7 @@ public class HeightCommand extends Command {
      * Constructor for Command that includes input Height.
      */
     public HeightCommand(Height height) {
+        requireNonNull(height);
         this.height = height;
     }
 

@@ -17,6 +17,8 @@ import seedu.eylah.diettracker.model.FoodBook;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.NameContainsKeywordsPredicate;
+import seedu.eylah.diettracker.model.self.Height;
+import seedu.eylah.diettracker.model.self.Weight;
 import seedu.eylah.diettracker.testutil.EditFoodDescriptorBuilder;
 
 /**
@@ -32,6 +34,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FASTFOOD = "fastfood";
     public static final String VALID_TAG_FAVORITE = "favorite";
 
+    public static final String VALID_HEIGHT = "170.2";
+    public static final String VALID_WEIGHT = "65.7";
+
     public static final String NAME_DESC_PASTA = " " + PREFIX_NAME + " " + VALID_NAME_PASTA;
     public static final String NAME_DESC_PIZZA = " " + PREFIX_NAME + " " + VALID_NAME_PIZZA;
 
@@ -40,9 +45,12 @@ public class CommandTestUtil {
 
     public static final String TAG_DESC_FASTFOOD = " " + PREFIX_TAG + " " + VALID_TAG_FASTFOOD;
     public static final String TAG_DESC_FAVORITE = " " + PREFIX_TAG + " " + VALID_TAG_FAVORITE;
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " " + "James&"; // '&' not allowed in names
 
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " " + "James&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + " " + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_HEIGHT = "15o";
+    public static final String INVALID_WEIGHT = "6s";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -50,10 +58,15 @@ public class CommandTestUtil {
     public static final EditCommand.EditFoodDescriptor DESC_PASTA;
     public static final EditCommand.EditFoodDescriptor DESC_PIZZA;
 
+    public static final HeightCommand HEIGHT_OBJ;
+    public static final WeightCommand WEIGHT_OBJ;
+
     static {
         DESC_PASTA = new EditFoodDescriptorBuilder().withName(VALID_NAME_PASTA).build();
         DESC_PIZZA = new EditFoodDescriptorBuilder().withName(VALID_NAME_PIZZA)
                 .withTags(VALID_TAG_FASTFOOD, VALID_TAG_FAVORITE).build();
+        HEIGHT_OBJ = new HeightCommand(new Height(VALID_HEIGHT));
+        WEIGHT_OBJ = new WeightCommand(new Weight(VALID_WEIGHT));        
     }
 
     /**

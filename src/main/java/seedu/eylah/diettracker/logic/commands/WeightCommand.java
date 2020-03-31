@@ -27,6 +27,7 @@ public class WeightCommand extends Command {
      * Constructor for Command that includes input Weight.
      */
     public WeightCommand(Weight weight) {
+        requireNonNull(weight);
         this.weight = weight;
     }
 
