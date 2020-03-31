@@ -68,6 +68,9 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_RETURN_ORDER_SUCCESS = "Edited Return Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PARCEL = "This parcel already exists in the list.";
+    public static final String MULTIPLE_FLAGS_DETECTED = "Different flags detected, please check your input."
+        + Messages.NEWLINE + "Format example: " + COMMAND_WORD + " -o 1 n/Alex" + Messages.NEWLINE
+        + "OR " + COMMAND_WORD + " -r 1 n/Alex";
 
     private final Flag flag;
     private final Index index;

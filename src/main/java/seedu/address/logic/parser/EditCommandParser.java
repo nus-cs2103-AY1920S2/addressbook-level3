@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditParcelDescriptor;
-import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -50,6 +49,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         } else {
             throw new ParseException(MESSAGE_MISSING_FLAG);
         }
+
+        assert(flag != null);
 
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
@@ -113,7 +114,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
         if (argArr.contains(CliSyntax.FLAG_ORDER_BOOK.getFlag())
             && argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
-            throw new ParseException(SearchCommand.MULTIPLE_FLAGS_DETECTED);
+            throw new ParseException(EditCommand.MULTIPLE_FLAGS_DETECTED);
         }
 
         if (argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {

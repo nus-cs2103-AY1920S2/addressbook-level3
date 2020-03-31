@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_FLAG;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COD_DESC_AMY;
@@ -99,6 +100,21 @@ public class EditCommandParserTest {
         // edit order with return timestamp prefix instead of delivery timestamp prefix.
         assertParseFailure(parser, ORDER_FLAG_INPUT + "1 " + RETURN_TIMESTAMP_DESC_AMY,
             MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
+
+        // edit order with both return timestamp prefix and delivery timestamp prefix.
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "1 " + RETURN_TIMESTAMP_DESC_AMY
+                + DELIVERY_TIMESTAMP_DESC_AMY,
+            MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
+
+        // edit return with cash on delivery prefix.
+        assertParseFailure(parser, RETURN_FLAG_INPUT + "1 " + COD_DESC_AMY,
+            MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER);
+    }
+
+    @Test
+    public void parse_invalidMultiplePrefix_failure() {
+        assertParseFailure(parser, ORDER_FLAG_INPUT + RETURN_FLAG_INPUT + VALID_ADDRESS_AMY,
+            EditCommand.MULTIPLE_FLAGS_DETECTED);
     }
 
     @Test
