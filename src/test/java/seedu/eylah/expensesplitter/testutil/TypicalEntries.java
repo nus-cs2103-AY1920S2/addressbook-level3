@@ -9,7 +9,13 @@ import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.model.receipt.Receipt;
 
+/**
+ * A utility class containing a list of {@code Entry} objects to be used in tests.
+ */
 public class TypicalEntries {
+
+    // default entry
+    public static final Entry ENTRY_ONE = new EntryBuilder().build();
 
     // fields below are to make more entries
     private static final Item PIZZA = new ItemBuilder().withName("Pizza")
@@ -19,12 +25,9 @@ public class TypicalEntries {
     private static final Person ANNABELLE = new PersonBuilder().withName("Annabelle").build();
     private static final Person BOBBY = new PersonBuilder().withName("Bobby").build();
     private static final ArrayList<Person> PERSONS_LIST_TWO = new ArrayList<>(Arrays.asList(ANNABELLE, BOBBY));
-    private static final ArrayList<Person> PERSONS_LIST_THREE= new ArrayList<>(Arrays.asList(ANNABELLE));
+    private static final ArrayList<Person> PERSONS_LIST_THREE = new ArrayList<>(Arrays.asList(ANNABELLE));
 
-    // default entry
-    public static final Entry ENTRY_ONE = new EntryBuilder().build();
-
-    // mode entries to simulate receipt
+    // made entries to simulate receipt
     public static final Entry ENTRY_TWO = new EntryBuilder().withItem(PIZZA)
             .withPersons(PERSONS_LIST_TWO).build();
     public static final Entry ENTRY_THREE = new EntryBuilder().withItem(PASTA)

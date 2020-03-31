@@ -1,24 +1,22 @@
 package seedu.eylah.expensesplitter.model.receipt;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.eylah.expensesplitter.testutil.TypicalEntries.ENTRY_ONE;
 import static seedu.eylah.expensesplitter.testutil.TypicalItem.BEERTOWER;
 import static seedu.eylah.testutil.Assert.assertThrows;
 
-import seedu.eylah.expensesplitter.testutil.TypicalPersons;
-import seedu.eylah.expensesplitter.model.item.Item;
-import seedu.eylah.expensesplitter.model.person.Person;
-
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.eylah.expensesplitter.model.item.Item;
+import seedu.eylah.expensesplitter.model.person.Person;
+import seedu.eylah.expensesplitter.testutil.TypicalPersons;
 
 public class EntryTest {
     private final Entry entry = ENTRY_ONE;
     private final Item item = BEERTOWER;
-    private final ArrayList<Person>  persons = TypicalPersons.getTypicalPersonsArrayList();
+    private final ArrayList<Person> persons = TypicalPersons.getTypicalPersonsArrayList();
 
     @Test
     public void constructor_nullItemNullPersons_throwsNullPointerException() {
