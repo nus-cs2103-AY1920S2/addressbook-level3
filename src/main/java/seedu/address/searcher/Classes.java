@@ -33,4 +33,28 @@ public class Classes {
         output = output + "Venue: " + this.venue + "\n";
         return output;
     }
+
+    public String getLessonType() {
+        return this.lessonType;
+    }
+
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    public String getClassNo() {
+        return this.classNo;
+    }
+
+    public String getEndTime() {
+        return this.classNo;
+    }
+
+    public String getDay() {
+        return this.day;
+    }
+
+    public String getVenue() {
+        return this.venue;
+    }
 }
