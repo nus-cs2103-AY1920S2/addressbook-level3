@@ -12,7 +12,7 @@ import cookbuddy.logic.parser.exceptions.ParseException;
 public class FavCommandParser implements Parser<FavCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * Parses the given {@code String} of arguments in the context of the FavCommand
      * and returns a FavCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
