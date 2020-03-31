@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.Constants.ENTITY_NAME;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -20,11 +25,13 @@ import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
 import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
+import com.google.common.eventbus.Subscribe;
+
 
 /**
  * Manages storage of AddressBook data in local storage.
  */
-public class StorageManager implements Storage {
+public class StorageManager extends BaseManager implements Storage {
 
   private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
   private AddressBookStorage addressBookStorage;
@@ -271,5 +278,13 @@ public class StorageManager implements Storage {
           throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
     assignmentAddressBookStorage.saveAssignmentAddressBook(assignmentAddressBook, filePath);
+  }
+
+  @Override
+  @Subscribe
+  public void handleDataStorageChangeEvent(ENTITY_NAME entity_name) {
+    if (entity_name == ENTITY_NAME.COURSE) {
+      saveCourseAddressBook();
+    }
   }
 }
