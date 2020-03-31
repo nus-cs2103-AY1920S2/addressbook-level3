@@ -9,6 +9,7 @@ import java.util.Set;
 
 import tatracker.model.tag.Tag;
 
+
 /**
  * Represents a Student in the Ta-Tracker.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -77,10 +78,7 @@ public class Student {
         if (otherStudent == this) {
             return true;
         }
-
-        return otherStudent != null
-                && otherStudent.getName().equals(getName())
-                && otherStudent.getMatric().equals(getMatric());
+        return otherStudent != null && otherStudent.getMatric().equals(getMatric());
     }
 
     /**

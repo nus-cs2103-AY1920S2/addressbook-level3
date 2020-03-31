@@ -22,7 +22,9 @@ public class Prefixes {
 
     /* Module definitions */
     public static final Prefix MODULE = new Prefix("m/", "MODULE");
-    public static final Prefix MODULE_NAME = new Prefix("n/", "DESCRIPTION");
+    public static final Prefix MODULE_NAME = new Prefix("n/", "MODULE_NAME");
+    public static final Prefix MODULE_NEW_NAME = new Prefix("n/", "NEW_NAME");
+
 
     /* Group definitions */
     public static final Prefix GROUP = new Prefix("g/", "GROUP");

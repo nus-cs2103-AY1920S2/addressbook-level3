@@ -10,11 +10,11 @@ import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
-
 
 /**
  * Deletes a session identified using it's index.
@@ -51,7 +51,7 @@ public class DeleteSessionCommand extends Command {
 
         Session sessionToDelete = lastShownList.get(index.getZeroBased());
         model.deleteSession(sessionToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete), Action.GOTO_SESSION);
     }
 
     @Override

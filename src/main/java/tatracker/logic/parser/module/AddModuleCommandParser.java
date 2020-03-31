@@ -38,7 +38,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         String moduleCode = argMultimap.getValue(MODULE).get();
         String name = argMultimap.getValue(NAME).get();
 
-        Module module = new Module(moduleCode, name);
+        Module module = new Module(moduleCode.toUpperCase(), name);
 
         return new AddModuleCommand(module);
     }

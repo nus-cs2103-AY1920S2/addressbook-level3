@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
@@ -121,6 +122,11 @@ public class TaTrackerTest {
         @Override
         public ObservableList<Group> getCurrentlyShownGroupList() {
             return groups;
+        }
+
+        @Override
+        public ObservableList<Student> getCompleteStudentList() {
+            return null;
         }
 
     }

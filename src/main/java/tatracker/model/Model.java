@@ -11,6 +11,7 @@ import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 
+
 /**
  * The API of the Model component.
  */
@@ -69,6 +70,11 @@ public interface Model {
      * Replaces the GUI settings in the User Prefs.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Sets default settings of the student view.
+     */
+    void setDefaultStudentViewList();
 
     // ======== Session Methods ================================================
 
@@ -129,7 +135,7 @@ public interface Model {
      * Updates the filter of the filtered done session list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredDoneSessionList(Predicate<Session> predicate);
+    void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode);
 
     /**
      * Returns true if a given module with the same identity as {@code module}
@@ -164,6 +170,11 @@ public interface Model {
      */
     void sortModulesAlphabetically();
 
+    /**
+     * Sorts all students of all groups in all the modules by matric number.
+     */
+    void sortModulesByMatricNumber();
+
 
     /**
      * Replaces the given module {@code target} in the TaTracker with {@code editedModule}.
@@ -177,12 +188,18 @@ public interface Model {
     ObservableList<Module> getFilteredModuleList();
 
     /**
+     * Shows all modules.
+     */
+    void showAllModules();
+
+    /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
 
     // ======== Group Methods ==================================================
+
 
     /**
      * Returns true if a given group with the same identity as {@code group}

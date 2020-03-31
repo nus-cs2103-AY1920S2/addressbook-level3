@@ -74,6 +74,11 @@ public enum PrefixEntry {
             "", value -> true,
             "Introduction to AI"
     ),
+    MODULE_NEW_NAME(
+            Prefixes.MODULE_NEW_NAME,
+            "", value -> true,
+            "Software Engineering"
+    ),
 
     /* Group definitions */
     GROUP(

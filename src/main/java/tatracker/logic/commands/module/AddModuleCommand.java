@@ -9,6 +9,7 @@ import java.util.List;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -57,7 +58,7 @@ public class AddModuleCommand extends Command {
         } else {
             model.setFilteredStudentList(toAdd.getIdentifier(), FIRST_GROUP_INDEX);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
     }
 
     @Override

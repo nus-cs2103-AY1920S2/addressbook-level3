@@ -10,6 +10,7 @@ import java.util.List;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -85,19 +86,9 @@ public class DeleteStudentCommand extends Command {
 
         model.deleteStudent(studentToDelete, targetGroup, targetModule);
 
-        if (model.getFilteredModuleList().isEmpty()) {
-            model.setFilteredGroupList();
-            model.setFilteredStudentList();
-        } else {
-            model.updateGroupList(FIRST_MODULE_INDEX);
-            if (model.getFilteredGroupList().isEmpty()) {
-                model.setFilteredStudentList();
-            } else {
-                model.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
-            }
-        }
+        model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete), Action.GOTO_STUDENT);
     }
 
     @Override

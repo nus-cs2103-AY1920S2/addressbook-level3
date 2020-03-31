@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -24,16 +23,15 @@ import tatracker.model.student.Student;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final int FIRST_GROUP_INDEX = 0;
+    private static final int FIRST_MODULE_INDEX = 0;
 
     private final TaTracker taTracker;
     private final UserPrefs userPrefs;
+
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Module> filteredModules;
-
-    private long totalHours = 0;
-    private int rate;
-    private long totalEarnings;
 
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
@@ -49,6 +47,7 @@ public class ModelManager implements Model {
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
         filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
         filteredModules = new FilteredList<>(this.taTracker.getModuleList());
+        this.setDefaultStudentViewList();
     }
 
     public ModelManager() {
@@ -102,6 +101,26 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public void setDefaultStudentViewList() {
+        if (this.getFilteredModuleList().isEmpty()) {
+            this.setFilteredGroupList();
+            this.setFilteredStudentList();
+            taTracker.setCurrentlyShownGroup(null);
+            taTracker.setCurrentlyShownModule(null);
+        } else {
+            this.updateGroupList(FIRST_MODULE_INDEX);
+            taTracker.setCurrentlyShownModule(taTracker.getModule(FIRST_MODULE_INDEX));
+            if (this.getFilteredGroupList().isEmpty()) {
+                taTracker.setCurrentlyShownGroup(null);
+                this.setFilteredStudentList();
+            } else {
+                taTracker.setCurrentlyShownGroup(taTracker.getModule(FIRST_MODULE_INDEX).get(FIRST_GROUP_INDEX));
+                this.updateStudentList(FIRST_GROUP_INDEX, FIRST_MODULE_INDEX);
+            }
+        }
+    }
+
     // ======== Session Methods ================================================
 
     @Override
@@ -143,10 +162,7 @@ public class ModelManager implements Model {
     @Override
     public void addDoneSession(Session session) {
         taTracker.addDoneSession(session);
-        totalHours += Math.ceil(Duration.between
-                (session.getEndDateTime(), session.getStartDateTime())
-                .toHours());
-        updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS);
+        updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
     }
 
     /**
@@ -159,8 +175,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+    public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
+        if (!predicate.equals(PREDICATE_SHOW_ALL_SESSIONS)) {
+            taTracker.setCurrentlyShownModuleClaim(moduleCode);
+            System.out.println("filtered: " + moduleCode);
+        }
         filteredDoneSessions.setPredicate(predicate);
     }
 
@@ -210,6 +230,11 @@ public class ModelManager implements Model {
         taTracker.sortModulesByRatingDescending();
     }
 
+    @Override
+    public void sortModulesByMatricNumber() {
+        taTracker.sortModulesByMatricNumber();
+    }
+
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {
@@ -220,6 +245,11 @@ public class ModelManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
+    }
+
+    @Override
+    public void showAllModules() {
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     // ======== Group Methods ==================================================
@@ -233,10 +263,6 @@ public class ModelManager implements Model {
 
     //=========== Filtered Student List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code versionedTaTracker}
-     */
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
@@ -267,7 +293,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setFilteredGroupList() {
-        taTracker.setCurrentlyShownGroups(new ArrayList<Group>());
+        taTracker.setCurrentlyShownGroups(new ArrayList<>());
     }
 
     @Override
@@ -328,10 +354,6 @@ public class ModelManager implements Model {
         taTracker.setCurrentlyShownStudents(moduleIndex, groupIndex);
     }
 
-    /**
-     * TODO: Review filter functions.
-     */
-
     @Override
     public ObservableList<Student> getFilteredStudentList() {
         return taTracker.getCurrentlyShownStudentList();
@@ -339,7 +361,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setFilteredStudentList() {
-        taTracker.setCurrentlyShownStudents(new ArrayList<Student>());
+        taTracker.setCurrentlyShownStudents(new ArrayList<>());
     }
 
     @Override

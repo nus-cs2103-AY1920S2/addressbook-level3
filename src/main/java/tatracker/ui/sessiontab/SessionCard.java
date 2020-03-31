@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.sessiontab;
 
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import tatracker.model.session.Session;
+import tatracker.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Session}.
@@ -51,7 +53,7 @@ public class SessionCard extends UiPart<Region> {
         date.setText(session.getStartDateTime().format(dateFormat));
         time.setText(session.getStartDateTime().format(timeFormat) + " - "
                 + session.getEndDateTime().format(timeFormat));
-        module.setText(session.getModuleCode());
+        module.setText(session.getModuleCode().toUpperCase());
         description.setText(session.getDescription());
     }
 

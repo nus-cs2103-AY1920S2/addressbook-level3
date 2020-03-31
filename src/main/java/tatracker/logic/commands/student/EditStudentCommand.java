@@ -22,6 +22,7 @@ import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -84,7 +85,7 @@ public class EditStudentCommand extends Command {
 
         model.setStudent(studentToEdit, editedStudent);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent), Action.GOTO_STUDENT);
     }
 
     /**

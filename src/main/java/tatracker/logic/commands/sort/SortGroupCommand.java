@@ -1,4 +1,4 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.GROUP;
@@ -7,6 +7,10 @@ import static tatracker.logic.parser.Prefixes.SORT_TYPE;
 
 import java.util.List;
 
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -19,15 +23,18 @@ public class SortGroupCommand extends SortCommand {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
+            CommandWords.SORT_GROUP,
             "Sorts all students in the given group.",
-            List.of(SORT_TYPE, MODULE, GROUP),
+            List.of(GROUP, MODULE, SORT_TYPE),
             List.of(),
-            SORT_TYPE, MODULE, GROUP
+            GROUP, MODULE, SORT_TYPE
     );
 
     public static final String MESSAGE_SUCCESS = "Group %s has been sorted.";
     public static final String MESSAGE_INVALID_GROUP_CODE = "This group doesn't exist in the TA-Tracker";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
+            + "by rating asc, by rating desc and matric.";
 
     private final String groupCode;
     private final String moduleCode;
@@ -37,7 +44,7 @@ public class SortGroupCommand extends SortCommand {
         super(type);
         this.groupCode = groupCode;
         this.moduleCode = moduleCode;
-        this.type = type;
+        this.type = type.toLowerCase();
     }
 
     @Override
@@ -59,13 +66,23 @@ public class SortGroupCommand extends SortCommand {
 
         group = module.getGroup(groupCode);
 
-        if (type.equalsIgnoreCase("alphabetically")
-                || type.equalsIgnoreCase("alpha")) {
+        switch(type) {
+        case "alphabetically":
+        case "alpha":
+        case "alphabetical":
             group.sortStudentsAlphabetically();
-        } else if (type.equalsIgnoreCase("rating asc")) {
+            break;
+        case "matric":
+            group.sortStudentsByMatricNumber();
+            break;
+        case "rating asc":
             group.sortStudentsByRatingAscending();
-        } else {
+            break;
+        case "rating desc":
             group.sortStudentsByRatingDescending();
+            break;
+        default:
+            throw new CommandException(MESSAGE_INVALID_SORT);
         }
 
         if (model.getFilteredModuleList().isEmpty()) {
@@ -80,6 +97,6 @@ public class SortGroupCommand extends SortCommand {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, group));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, group), Action.GOTO_STUDENT);
     }
 }

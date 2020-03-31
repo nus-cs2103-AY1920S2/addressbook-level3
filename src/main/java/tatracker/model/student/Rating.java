@@ -14,10 +14,10 @@ public class Rating {
     public static final String MESSAGE_CONSTRAINTS = "Ratings should be a number"
             + " between 1 (POOR) to 5 (EXCELLENT) inclusive";
 
-    private static final int DEFAULT_VALUE = 3;
+    public static final int MIN_RATING = 1;
+    public static final int MAX_RATING = 5;
 
-    private static final int MIN_RATING = 1;
-    private static final int MAX_RATING = 5;
+    private static final int DEFAULT_VALUE = 3;
 
     public final int value;
 
@@ -56,6 +56,14 @@ public class Rating {
         return isValidRating(parsedRating);
     }
 
+    /**
+     * Returns the range of rating values.
+     * @return the range of rating values.
+     */
+    public static int getRatingRange() {
+        return MAX_RATING - MIN_RATING + 1;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -73,7 +81,7 @@ public class Rating {
      */
     @Override
     public String toString() {
-        return String.format("%d", value);
+        return String.format("%d/5", value);
     }
 
 }

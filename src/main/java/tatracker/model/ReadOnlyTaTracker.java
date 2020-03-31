@@ -1,6 +1,7 @@
 package tatracker.model;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
@@ -40,4 +41,10 @@ public interface ReadOnlyTaTracker {
      * This list will not contain any duplicate sessions.
      */
     ObservableList<Session> getDoneSessionList();
+
+    /**
+     * Returns an unmodifiable view of the student list.
+     * This list will contain ALL students in TA-Tracker.
+     */
+    ObservableList<Student> getCompleteStudentList();
 }

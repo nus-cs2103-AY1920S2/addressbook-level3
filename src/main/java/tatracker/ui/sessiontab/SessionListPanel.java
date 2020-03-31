@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.sessiontab;
 
 import java.util.logging.Logger;
 
@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.session.Session;
+import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of sessions.

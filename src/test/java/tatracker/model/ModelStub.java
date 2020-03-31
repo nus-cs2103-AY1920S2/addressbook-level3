@@ -60,6 +60,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setDefaultStudentViewList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasSession(Session session) {
         throw new AssertionError("This method should not be called.");
     }
@@ -100,7 +105,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+    public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -141,6 +146,11 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showAllModules() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -237,6 +247,11 @@ public class ModelStub implements Model {
 
     @Override
     public void sortModulesAlphabetically() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortModulesByMatricNumber() {
         throw new AssertionError("This method should not be called.");
     }
 

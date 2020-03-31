@@ -1,4 +1,4 @@
-package tatracker.ui;
+package tatracker.ui.studenttab;
 
 import java.util.Comparator;
 
@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import tatracker.model.student.Student;
+import tatracker.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Student}.
@@ -39,6 +41,8 @@ public class StudentCard extends UiPart<Region> {
     @FXML
     private Label matric;
     @FXML
+    private Label rating;
+    @FXML
     private FlowPane tags;
 
     public StudentCard(Student student, int displayedIndex) {
@@ -49,6 +53,7 @@ public class StudentCard extends UiPart<Region> {
         phone.setText(student.getPhone().value);
         email.setText(student.getEmail().value);
         matric.setText(student.getMatric().value);
+        rating.setText(student.getRating().toString());
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

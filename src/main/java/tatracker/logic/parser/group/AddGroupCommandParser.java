@@ -42,8 +42,8 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
         String moduleCode = argMultimap.getValue(MODULE).get();
         GroupType groupType = ParserUtil.parseGroupType(argMultimap.getValue(TYPE).get());
 
-        Group group = new Group(groupCode, groupType);
-        Module module = new Module(moduleCode);
+        Group group = new Group(groupCode.toUpperCase(), groupType);
+        Module module = new Module(moduleCode.toUpperCase());
 
         return new AddGroupCommand(group, module);
     }

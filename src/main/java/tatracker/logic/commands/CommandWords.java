@@ -11,20 +11,27 @@ public final class CommandWords {
     public static final String MODULE = "module";
     public static final String GROUP = "group";
     public static final String SESSION = "session";
+    public static final String CLAIM = "claim";
 
     /* List of command words for commands that are common between TA-Tracker models. */
     public static final String ADD_MODEL = "add";
     public static final String DELETE_MODEL = "delete";
     public static final String EDIT_MODEL = "edit";
+    public static final String FILTER_MODEL = "filter";
+
+    /* List of command words for the different sort types in TA-Tracker. */
+    public static final String SORT = "sort";
+    public static final String SORT_ALL = "all";
+    public static final String SORT_MODULE = "module";
+    public static final String SORT_GROUP = "group";
 
     /* List of command words for special actions in TA-Tracker. */
-    public static final String SORT = "sort";
     public static final String FIND = "find";
-
     public static final String CLEAR = "clear";
     public static final String EXIT = "exit";
     public static final String HELP = "help";
     public static final String LIST = "list";
 
+    /* Others */
     public static final String DONE_SESSION = "done";
 }

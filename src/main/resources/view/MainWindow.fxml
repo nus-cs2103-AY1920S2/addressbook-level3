@@ -2,18 +2,17 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
-<?import javafx.scene.control.SplitPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="TA-Tracker App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">  <icons>
     <Image url="@/images/icon.png" />
@@ -35,7 +34,7 @@
           </Menu>
                <Menu mnemonicParsing="false" text="Statistics">
                   <items>
-                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleHelp" text="Statistics" />
+                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleStatistic" text="Statistics" />
                   </items>
                </Menu>
         </MenuBar>
@@ -52,11 +51,11 @@
           </padding>
         </StackPane>
 
-        <TabPane prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
           <tabs>
-            <Tab fx:id="studentListTab" text="Students">
+            <Tab fx:id="studentListTab" text="Student">
               <content>
-                <SplitPane dividerPositions="0.6, 0.8">
+                <SplitPane dividerPositions="0.2, 0.4">
                   <items>
                     <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                     <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
@@ -65,17 +64,17 @@
                 </SplitPane>
               </content>
             </Tab>
-            <Tab fx:id="sessionListTab" text="Sessions">
+            <Tab fx:id="sessionListTab" text="Session">
               <content>
                 <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
             <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                 <SplitPane dividerPositions="0.8">
+                 <SplitPane dividerPositions="0.2">
                    <items>
-                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      <StackPane fx:id="moduleListPanelPlaceholderCopy" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                    </items>
                  </SplitPane>
                </content>

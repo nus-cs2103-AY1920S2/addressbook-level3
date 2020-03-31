@@ -19,7 +19,7 @@ import tatracker.model.student.exceptions.StudentNotFoundException;
  * updating of students uses Student#isSameStudent(Student) for equality so as to ensure that the student being added or
  * updated is unique in terms of identity in the UniqueStudentList. However, the removal of a student uses
  * Student#equals(Object) so as to ensure that the student with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Student#isSameStudent(Student)
@@ -45,6 +45,12 @@ public class UniqueStudentList implements Iterable<Student> {
         @Override
         public int compare(Student student, Student other) {
             return (-1) * (student.getRating().toString()).compareTo(other.getRating().toString());
+        }
+    };
+    private Comparator<Student> matric = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getMatric().toString()).compareTo(other.getMatric().toString());
         }
     };
 
@@ -139,11 +145,14 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.setAll(students);
     }
 
+
     /**
-     * returns alphabetical comparator.
+     * Returns all students of a particular rating
+     *
+     * @param rating The target rating of students to return
      */
-    public Comparator<Student> getAlphabetically() {
-        return alphabetically;
+    public List<Student> getStudentsOfRating(Rating rating) {
+        return internalList.filtered(s -> s.getRating().equals(rating));
     }
 
     /**
@@ -158,6 +167,13 @@ public class UniqueStudentList implements Iterable<Student> {
      */
     public void sortByRatingAscending() {
         FXCollections.sort(internalList, ratingAscending);
+    }
+
+    /**
+     * Sorts the students by matric number.
+     */
+    public void sortByMatric() {
+        FXCollections.sort(internalList, matric);
     }
 
     /**
@@ -184,7 +200,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueStudentList // instanceof handles nulls
-                        && internalList.equals(((UniqueStudentList) other).internalList));
+                && internalList.equals(((UniqueStudentList) other).internalList));
     }
 
     @Override

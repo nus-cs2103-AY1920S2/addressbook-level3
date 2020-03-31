@@ -12,12 +12,16 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.DeleteCommand;
 import tatracker.logic.commands.ExitCommand;
+import tatracker.logic.commands.GotoCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
+import tatracker.logic.commands.statistic.ShowStatisticCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
 import tatracker.logic.parser.session.SessionCommandParser;
+import tatracker.logic.parser.sort.SortCommandParser;
+import tatracker.logic.parser.statistic.ShowStatisticCommandParser;
 import tatracker.logic.parser.student.StudentCommandParser;
 
 /**
@@ -51,6 +55,9 @@ public class TaTrackerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case CommandWords.CLAIM:
+            return new ClaimCommandParser().parseCommand(arguments);
+
         case CommandWords.STUDENT:
             return new StudentCommandParser().parseCommand(arguments);
 
@@ -69,6 +76,9 @@ public class TaTrackerParser {
         case CommandWords.FIND:
             return new FindCommandParser().parse(arguments);
 
+        case GotoCommand.COMMAND_WORD:
+            return new GotoCommandParser().parse(arguments);
+
         case CommandWords.LIST:
             return new ListCommand();
 
@@ -83,6 +93,9 @@ public class TaTrackerParser {
 
         case CommandWords.SORT:
             return new SortCommandParser().parse(arguments);
+
+        case ShowStatisticCommand.COMMAND_WORD:
+            return new ShowStatisticCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

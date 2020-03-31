@@ -97,7 +97,6 @@ public class UniqueDoneSessionList implements Iterable<Session> {
      * The session must exist in the list.
      */
     public void remove(int n) {
-        requireNonNull(n);
         if (n < 0 || n > internalList.size()) {
             throw new SessionNotFoundException();
         }
