@@ -30,8 +30,9 @@ class ImportCommand {
 
     /' Methods '/
     + execute(model : Model) : CommandResult
-    + equals(Object other) : boolean
-    - printResult() : String
+    + equals(other : Object) : boolean
+    - processData(model : Model)
+    - {static} printResult() : String
 }
 ImportCommand --up|> "{abstract}\nCommand"
 @enduml

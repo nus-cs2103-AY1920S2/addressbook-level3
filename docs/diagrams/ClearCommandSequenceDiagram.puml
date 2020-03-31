@@ -27,6 +27,7 @@ OrderBookParser -> ClearCommandParser ++ : parse("-o -f")
 
 ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
 loop until no flag in args
+
     ClearCommandParser -> ClearCommandParser ++ : isValidFlag(flag)
     ClearCommandParser --> ClearCommandParser -- : true
 

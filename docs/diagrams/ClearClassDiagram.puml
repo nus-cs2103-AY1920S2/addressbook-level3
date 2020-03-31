@@ -33,7 +33,8 @@ class ClearCommand {
 
     /' Methods '/
     + execute(model : Model) : CommandResult
-    + equals(Object other) : boolean
+    + equals(other : Object) : boolean
+    - updateModel(model : Model) : CommandResult
 }
 ClearCommand --up|> "{abstract}\nCommand"
 @enduml
