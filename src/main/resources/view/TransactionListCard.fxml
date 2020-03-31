@@ -21,7 +21,7 @@
         <Insets top="15" right="5" bottom="5" left="15" />
       </padding>
       <HBox alignment="CENTER">
-        <VBox maxWidth="300" minWidth="300">
+        <VBox maxWidth="425" minWidth="425">
           <HBox spacing="5" alignment="TOP_LEFT">
             <Label fx:id="id" styleClass="cell_big_label">
               <minWidth>
@@ -36,18 +36,19 @@
         </VBox>
 
         <Separator orientation="VERTICAL" valignment="CENTER" prefHeight="70"
-                   GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
-
-        <VBox maxWidth="250" minWidth="250" alignment="CENTER">
-          <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
+                   GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+        <VBox maxWidth="175" minWidth="175" alignment="CENTER">
+          <Label fx:id="amount" styleClass="cell_amount_label" text="\$amount" />
         </VBox>
 
         <Separator orientation="VERTICAL" valignment="CENTER" prefHeight="70"
-                   GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+                   GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
+
+        <VBox maxWidth="200" minWidth="200" alignment="CENTER_LEFT">
+          <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
+        </VBox>
+
         <Pane HBox.hgrow="ALWAYS"></Pane>
-        <HBox spacing="5" alignment="CENTER_LEFT">
-          <Label fx:id="amount" styleClass="cell_amount_label" text="\$amount" />
-        </HBox>
       </HBox>
     </VBox>
   </GridPane>

@@ -51,7 +51,7 @@ public class TransactionCard extends UiPart<Region> {
         name.setText(transaction.getName().transactionName);
         amount.setText(transaction.getAmount().toString());
         date.setText(transaction.getDate().transactionDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)).toString());
-        remark.setText(transaction.getRemark().transactionRemark);
+        remark.setText("Remarks: \n" + transaction.getRemark().transactionRemark);
         category.getChildren().add(getColouredCategoryLabel(transaction.getCategory().transactionCategory));
     }
 
