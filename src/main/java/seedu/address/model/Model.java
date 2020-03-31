@@ -16,6 +16,18 @@ public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
     Predicate<ReturnOrder> PREDICATE_SHOW_ALL_RETURNS = unused -> true;
 
+    /** {@code Predicate} that evaluates true only when all the orders
+     *  are delivered.
+     */
+    Predicate<Order> PREDICATE_SHOW_DONE_ORDERS = Order::isDelivered;
+    Predicate<ReturnOrder> PREDICATE_SHOW_DONE_RETURNS = ReturnOrder::isDelivered;
+
+    /** {@code Predicate} that evaluates true only when all the orders
+     *  are not delivered.
+     */
+    Predicate<Order> PREDICATE_SHOW_UNDONE_ORDERS = order -> !order.isDelivered();
+    Predicate<ReturnOrder> PREDICATE_SHOW_UNDONE_RETURNS = order -> !order.isDelivered();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
