@@ -124,9 +124,15 @@ There is no need to save manually.
 
 Suggestions will be provided as commands are being filled in. For clarity, see the mockups below.
 
+.Demo for the suggestions feature
+image:demo/Suggestions.png[]
+
 === Auto correct
 
 Mistypes, as long as they are not too far away from available commands, will be accepted. This will give the user a more fluid typing experience.
+
+.Demo for the suggestions feature
+image:demo/Correction.png[]
 
 == FAQ
 
