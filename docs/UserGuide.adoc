@@ -70,6 +70,8 @@ Listed below are the notations used to define a relative path.
 * `..` (Move to parent note)
 * `exampleNote` (Move to child node titled "exampleNote")
 
+
+
 [NOTE]
 The title of a Note can take in alphanumeric variables and spaces.
 
@@ -129,6 +131,22 @@ Example: `search -s CS2103`
 If you no longer need a note, or accidentally create a wrong one, don't worry. You can always delete your note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
 Format: `delete [-t] TITLE` +
 Example: `delete -t Notably/CS2103`
+
+[IMPORTANT]
+If your target path is a subtree, the whole subtree including the child would be deleted.
+
+.Demo for the delete command (before deletion)
+image::/demo/Delete1.png[width="790"]
+
+.Demo for the delete command (after deletion)
+image::/demo/Delete2.png[width="790"]
+
+[NOTE]
+You can achieve the same result by using a `AbsolutePath` instead. `delete -t /Workspace/Notably`
+
+
+[IMPORTANT]
+If the target `Path` is a subtree, the whole
 
 === Export a note: `export`
 
