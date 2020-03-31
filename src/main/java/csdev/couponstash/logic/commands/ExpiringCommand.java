@@ -6,10 +6,8 @@ import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.DateIsEqualsPredicate;
 import csdev.couponstash.model.coupon.DateIsInMonthYearPredicate;
-import javafx.collections.ObservableList;
 
 
 /**
@@ -20,9 +18,10 @@ public class ExpiringCommand extends Command {
 
     public static final String COMMAND_WORD = "expiring";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all coupons whose expiry date is "
-            + "the specified dates (in D-M-YYYY format) and displays them as a list with index numbers.\n"
-            + "Parameters: Future date in D-M-YYYY format\n"
-            + "Example: " + COMMAND_WORD + " 31-12-2020";
+            + "the specified date (in D-M-YYYY format) or in the specified Month Year (in M-YYYY format) "
+            + "and displays them as a list with index numbers.\n"
+            + "Parameters: Date in D-M-YYYY format or Year Month in M-YYYY format\n"
+            + "Example: " + COMMAND_WORD + " 31-12-2020 or " + COMMAND_WORD + " 12-2020";
 
     private final Predicate predicate;
     private final String date;

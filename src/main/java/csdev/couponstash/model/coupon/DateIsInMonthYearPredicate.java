@@ -1,15 +1,12 @@
 package csdev.couponstash.model.coupon;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.function.Predicate;
 
 import csdev.couponstash.commons.util.DateUtil;
 
 /**
- * Tests that a {@code Coupon}'s {@code ExpiryDate} is equals the specified date.
+ * Tests that a {@code Coupon}'s {@code ExpiryDate} is in the specified YearMonth.
  */
 public class DateIsInMonthYearPredicate implements Predicate<Coupon> {
     private final YearMonth date;

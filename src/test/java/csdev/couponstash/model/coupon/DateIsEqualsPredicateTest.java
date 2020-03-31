@@ -35,18 +35,18 @@ public class DateIsEqualsPredicateTest {
     }
 
     @Test
-    public void test_expiryDateIsBefore_returnsTrue() {
+    public void test_expiryDateIsEquals_returnsTrue() {
         // One keyword
-        DateIsEqualsPredicate predicate = new DateIsEqualsPredicate("2-6-2020");
+        DateIsEqualsPredicate predicate = new DateIsEqualsPredicate("1-6-2020");
         assertTrue(predicate.test(new CouponBuilder().withExpiryDate("1-6-2020").build()));
 
         // Different date format
         predicate = new DateIsEqualsPredicate("30-08-2020");
-        assertTrue(predicate.test(new CouponBuilder().withExpiryDate("1-8-2020").build()));
+        assertTrue(predicate.test(new CouponBuilder().withExpiryDate("30-8-2020").build()));
     }
 
     @Test
-    public void test_expiryDateNotBefore_returnsFalse() {
+    public void test_expiryDateNotEquals_returnsFalse() {
         //No coupons before expiry date
         DateIsEqualsPredicate predicate = new DateIsEqualsPredicate("1-6-2020");
         assertFalse(predicate.test(new CouponBuilder().withExpiryDate("30-8-2020").build()));
