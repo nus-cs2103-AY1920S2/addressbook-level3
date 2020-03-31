@@ -1,9 +1,9 @@
 package com.notably.model.block;
 
-import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.notably.model.block.exceptions.DuplicateBlockException;
@@ -132,12 +132,23 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         }
 
         BlockTreeItem otherBlock = (BlockTreeItem) obj;
-        return otherBlock.getTitle().equals(this.getTitle());
+
+        if (this.getBlockChildren().size() != otherBlock.getBlockChildren().size()) {
+            return false;
+        }
+
+        for (int childIndex = 0; childIndex < this.getBlockChildren().size(); childIndex++) {
+            if (!this.getBlockChildren().get(childIndex).equals(otherBlock.getBlockChildren().get(childIndex))) {
+                return false;
+            }
+        }
+
+        return this.getTitle().getText().equals(otherBlock.getTitle().getText());
     }
 
     @Override
     public int hashCode() {
-        return hash(this.getTitle(), this.getTreeItem().getParent());
+        return Objects.hash(getTitle().getText(), getBlockChildren());
     }
 
 }
