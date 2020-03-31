@@ -173,6 +173,9 @@ Our module search function consists of 2 main implementation
 - This module planning feature enables users to store any module they have taken or are taking now in NUS.
 * Implementation: Modules are created with `moduleAdd` command, followed by the module code and grade (if applicable)
 Our program will check if the module code is valid by using the search feature above.
+* The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
+
+image::ModuleAddSequenceDiagram.png[]
 
 ==== Update your grades
 - For modules that you have taken, users can store their grade in our application.
