@@ -18,7 +18,9 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-Welcome to MODdy! MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
+Welcome to MODdy!
+
+MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
 It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 This user guide aims to give you a clearer understanding on how to use MODdy as well as a summary of its features.
 
