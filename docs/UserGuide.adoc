@@ -65,7 +65,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Address Book
 
-The address book allows you to add other individuals, such as professors and fellow classmates to your addressbook. Information such as phone number and email of the person will be saved into the address book for easier communication for projects or to schedule consultation relating to the module. 
+The address book allows you to add other individuals, such as professors and fellow classmates to your addressbook. Information such as phone number and email of the person will be saved into the address book for easier communication for projects or to schedule consultation relating to the module.
 
 ==== Adding a person: `add`
 
@@ -159,7 +159,7 @@ A person can have any number of tags (including 0)
 
 === Profile
 
-This feature allows individuals to see their own profile, their target cap, their current cap and the all modules that the individual have taken. 
+This feature allows individuals to see their own profile, their target cap, their current cap and the all modules that the individual have taken.
 
 
 ==== View CAP summary : `cap`
@@ -174,7 +174,7 @@ If cap breakdown is inputted, it will show a breakdown of all the modules and gr
 
 ==== View module requirement: `modreq`
 
-- Shows the modules requirement for the major specified. This function will show the core modules that the individual have to take before graduation but have not taken yet. 
+- Shows the modules requirement for the major specified. This function will show the core modules that the individual have to take before graduation but have not taken yet.
 
 - Format: `modreq MAJOR`
 
@@ -239,7 +239,7 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 
 === Calender
 
-A calender in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines. 
+A calender in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
 
 ==== Todo list: `todo`
 
