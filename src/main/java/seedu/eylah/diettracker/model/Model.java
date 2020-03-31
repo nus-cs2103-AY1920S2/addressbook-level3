@@ -96,6 +96,9 @@ public interface Model {
      */
     String listFoods(String mode);
 
+    String listFoods(String mode, String tag);
+
+
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
