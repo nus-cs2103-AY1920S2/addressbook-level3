@@ -29,24 +29,28 @@ public class ShowStatisticCommand extends Command {
     public static final String MESSAGE_OPENED_STATS = "Opened Statistic Window.";
     public static final String MESSAGE_INVALID_MODULE = "Target module not found!";
 
-    public final String targetModuleCode;
+    private final Module module;
 
-    public ShowStatisticCommand(String moduleCode) {
-        this.targetModuleCode = moduleCode;
+    public ShowStatisticCommand() {
+        this(null);
+    }
+
+    public ShowStatisticCommand(Module module) {
+        this.module = module;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (targetModuleCode == null) {
+        if (module == null) {
             return new StatisticCommandResult(MESSAGE_OPENED_STATS, null);
         }
 
-        if (model.hasModule(new Module(targetModuleCode))) {
-            return new StatisticCommandResult(MESSAGE_OPENED_STATS, targetModuleCode);
+        if (!model.hasModule(module)) {
+            throw new CommandException(MESSAGE_INVALID_MODULE);
         }
 
-        throw new CommandException(MESSAGE_INVALID_MODULE);
+        return new StatisticCommandResult(MESSAGE_OPENED_STATS, module.getIdentifier());
     }
 }
