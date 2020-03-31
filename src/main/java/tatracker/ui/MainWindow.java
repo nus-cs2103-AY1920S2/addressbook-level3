@@ -256,7 +256,7 @@ public class MainWindow extends UiPart<Stage> {
             switch (commandResult.getNextAction()) {
             case DONE:
                 claimsListPanel.updateLabel();
-                handleGoto(sessionListTab);
+                handleGoto(claimsListTab);
                 break;
 
             case EXIT:
