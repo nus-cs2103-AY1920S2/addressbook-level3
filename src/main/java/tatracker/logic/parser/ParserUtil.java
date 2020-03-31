@@ -13,7 +13,6 @@ import tatracker.commons.core.index.Index;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.GroupType;
-import tatracker.model.rating.Rating;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -202,7 +201,7 @@ public class ParserUtil {
     public static GroupType parseGroupType(String type) {
         requireNonNull(type);
         String trimmedType = type.trim();
-        switch(trimmedType.toLowerCase()) {
+        switch (trimmedType.toLowerCase()) {
         case "lab":
             return GroupType.LAB;
         default:
@@ -232,6 +231,7 @@ public class ParserUtil {
 
     /**
      * Parses and returns the tab name specified by the user in the goto command
+     *
      * @param tabName user input
      * @return the tab specified by the user
      * @throws ParseException invalid tab name
@@ -239,7 +239,7 @@ public class ParserUtil {
     public static String parseTabName(String tabName) throws ParseException {
         requireNonNull(tabName);
         String trimmedType = tabName.trim();
-        switch(trimmedType.toLowerCase()) {
+        switch (trimmedType.toLowerCase()) {
         case "student":
             return "student";
         case "session":

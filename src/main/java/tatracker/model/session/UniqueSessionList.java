@@ -165,7 +165,7 @@ public class UniqueSessionList implements Iterable<Session> {
     public Duration getTotalDuration() {
         Duration totalDuration = Duration.ofHours(0);
         for (Session session : internalList) {
-            totalDuration = totalDuration.plus(session.getSessionDuration());
+            totalDuration = totalDuration.plus(session.getDuration());
         }
 
         return totalDuration;

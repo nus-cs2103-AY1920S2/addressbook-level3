@@ -7,9 +7,9 @@ import java.util.List;
 import javafx.util.Pair;
 
 import tatracker.model.ReadOnlyTaTracker;
-import tatracker.model.rating.Rating;
 import tatracker.model.session.SessionType;
 import tatracker.model.session.UniqueSessionList;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 import tatracker.ui.StatisticWindow;
@@ -33,7 +33,7 @@ public class Statistic {
         UniqueStudentList sList = new UniqueStudentList();
 
         fList.setSessions(taTracker.getSessionList());
-        sList.setStudents(taTracker.getStudentList());
+        sList.setStudents(taTracker.getCompleteStudentList());
 
         // If targetModule is not null, filter by target module.
         if (targetModuleCode != null) {
@@ -55,12 +55,12 @@ public class Statistic {
         }
 
         // Setup worst students
-        List<Student> students = new ArrayList(taTracker.getStudentList());
-        students.sort(Comparator.comparingInt((Student a) -> a.rating.value));
+        List<Student> students = new ArrayList(taTracker.getCompleteStudentList());
+        students.sort(Comparator.comparingInt((Student a) -> a.getRating().value));
         worstStudents = new Pair[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
         for (int i = 0; i < StatisticWindow.NUM_STUDENTS_TO_DISPLAY; ++i) {
             if (i < students.size()) {
-                worstStudents[i] = new Pair<>(students.get(i).getName().fullName, students.get(i).rating.value);
+                worstStudents[i] = new Pair<>(students.get(i).getName().fullName, students.get(i).getRating().value);
             } else {
                 worstStudents[i] = new Pair<>("", 0);
             }

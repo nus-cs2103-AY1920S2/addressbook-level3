@@ -10,7 +10,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import tatracker.model.rating.Rating;
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
 
@@ -153,7 +152,7 @@ public class UniqueStudentList implements Iterable<Student> {
      * @param rating The target rating of students to return
      */
     public List<Student> getStudentsOfRating(Rating rating) {
-        return internalList.filtered(s -> s.rating.equals(rating));
+        return internalList.filtered(s -> s.getRating().equals(rating));
     }
 
     /**
