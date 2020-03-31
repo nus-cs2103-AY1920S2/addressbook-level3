@@ -241,6 +241,38 @@ image::UndoRedoState5.png[]
 ** Cons: File I/O may incur comparable overhead for smaller databases, and abrupt termination of the application may result in temporary files being left behind and cluttering space.
 // end::undoredo[]
 
+// tag::dataencryption[]
+=== Data Encryption
+==== Proposed Implementation
+The data encryption adn decryption mechanism is facilitated by `FileCryptoUtil`. The crypto algorithm employed is Advanced
+Encryption Standard (AES) under symmetric encryption algorithm, where both the encryption and decryption uses same key.
+
+`FileCryptoUtil` will implement the following operations:
+`FileCryptoUtil#encryptFile()` -- encrypts human readable Json file into unreadable encrypted file.
+`FileCryptoUtil#decryptFile()` -- decrypts unreadable file back to readable json file.
+
+These methods are public static and are exposed to all for now.
+
+Given below is an example on how the encryption and decryption behave at each step.
+
+** *Encryption*:
+
+Whenever the user enters a valid command, under the `LogicManager#execute()`, the data is firstly convert to JsonAdaptedObject and stored in a Json file.
+Next, `FileCryptoUtil#encryption()` is called. A cipher will be initiated based on the specific SecretKey,
+ the algorithm used for encryption, and the transformation of the data.
+The data in the json file will be read by bit and encrypted to unreadable format. The encrypted data is then stored in the encrypted file.
+
+[NOTE]
+If the command cannot be executed successfully in `LogicManager#execute()`, then exception will be thrown before `FileCryptoUtil#encryption()`,
+ and the encryption will not be activated.
+
+** *Decryption* :
+
+When the user launches the application. `FileCryptoUtil#decryption()` will be called before the reading Json file into `StorageManager`.
+A cipher will be initiated based on same SecretKey, algorithm and transformation used in the encryption of the data.
+The data in the encrypted file is then read by bit and decrypted by the cipher into readable Json format.
+The readable Json data is then stored in the Json file, which can be read by `JsonUtil#readJsonFile()` to JsonAdaptedObject.
+
 ==== Design Considerations
 
 ===== Aspect: Key management for cipher
