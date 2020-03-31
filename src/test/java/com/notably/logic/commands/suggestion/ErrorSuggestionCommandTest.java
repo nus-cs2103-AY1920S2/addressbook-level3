@@ -41,7 +41,8 @@ public class ErrorSuggestionCommandTest {
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toRoot);
+        DeleteSuggestionCommand deleteSuggestionCommand =
+            new DeleteSuggestionCommand(toRoot, toRoot.getStringRepresentation());
         assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 

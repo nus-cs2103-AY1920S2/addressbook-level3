@@ -1,6 +1,5 @@
 package com.notably.logic.suggestion;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -108,7 +107,7 @@ public class SuggestionEngineImplTest {
         }
 
         List<String> expectedInputs = new ArrayList<>();
-        expectedInputs.add("open " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add("oen -t " + toCs2103Week1Lecture.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
