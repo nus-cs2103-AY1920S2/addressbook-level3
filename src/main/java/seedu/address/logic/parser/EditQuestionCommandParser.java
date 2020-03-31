@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.address.logic.commands.EditQuestionCommand;
@@ -10,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new EditQuestionCommand object
  */
-public class EditQuestionCommandParser {
+public class EditQuestionCommandParser implements Parser<EditQuestionCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditQuestionCommand
@@ -34,7 +33,7 @@ public class EditQuestionCommandParser {
             int index = Integer.parseInt(argMultimap.getPreamble());
             return new EditQuestionCommand(index, argMultimap.getValue(PREFIX_QUESTION).get());
         } catch (NumberFormatException e) {
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditQuestionCommand.MESSAGE_USAGE));
         }
     }
 }

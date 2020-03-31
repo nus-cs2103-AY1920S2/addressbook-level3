@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  * to the Interviewee's Transcript.
  */
 public class RemarkCommand extends Command {
-    public static final String MESSAGE_SUCCESS = "Added the remark";
+    public static final String MESSAGE_SUCCESS = "Added the remark.";
 
     private final String remark;
 

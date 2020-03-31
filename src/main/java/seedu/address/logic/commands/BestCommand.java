@@ -25,12 +25,12 @@ public class BestCommand extends Command {
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
     public static final String MESSAGE_SIZE_NOT_A_NUMBER = "The size of the interviewees provided is not a number.";
     public static final String MESSAGE_NON_POSITIVE_SIZE = "The size of the interviewees provided must be positive.";
-    public static final String MESSAGE_PARAM_NOT_FOUND = "The param prefix provided: %s is not found.";
-    public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees based on %s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds best N candidates from the list.\n"
-            + "Parameters: "
-            + " NUMBER_OF_INTERVIEWEES [-a ATTRIBUTE_PREFIX] [-m METRIC_PREFIX]\n"
-            + "e.g. best 3 -a lea";
+    public static final String MESSAGE_PARAM_NOT_FOUND = "The parameter provided: %s is not found.";
+    public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "<number of interviewees> "
+            + "[-a <attribute>] [-m <metrics>]"
+            + ": Finds best N candidates from the list.\n"
+            + "e.g. best 3 -a leadership";
 
     private final String numberOfInterviewees;
     private final String paramPrefix;
@@ -77,7 +77,8 @@ public class BestCommand extends Command {
         ObservableList<Interviewee> observableInterviewees = model.getFilteredIntervieweeListView();
         ObservableList<Interviewee> bestNInterviewees = model.getBestNInterviewees();
         getBestN(bestNInterviewees, observableInterviewees, comparator, size);
-        return new ToggleCommandResult(MESSAGE_SUCCESS, ToggleView.BEST_INTERVIEWEE);
+        return new ToggleCommandResult(
+                String.format(MESSAGE_SUCCESS, numberOfInterviewees), ToggleView.BEST_INTERVIEWEE);
     }
 
     /**
@@ -183,5 +184,13 @@ public class BestCommand extends Command {
         } catch (NumberFormatException e) {
             throw new CommandException(MESSAGE_SIZE_NOT_A_NUMBER);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BestCommand // instanceof handles nulls
+                && numberOfInterviewees.equals(((BestCommand) other).numberOfInterviewees)
+                && paramType.equals(((BestCommand) other).paramType));
     }
 }

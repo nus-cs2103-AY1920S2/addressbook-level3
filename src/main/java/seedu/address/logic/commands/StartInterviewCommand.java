@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.ModelUtil.validateFinalisation;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Interviewee;
@@ -11,6 +13,7 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
  */
 public class StartInterviewCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Interview with %s started!";
+    public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
 
     private String identifier;
 
@@ -20,6 +23,7 @@ public class StartInterviewCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         try {
             Interviewee interviewee = model.getIntervieweeList().getInterviewee(identifier);
             model.startInterview(interviewee);
@@ -27,5 +31,12 @@ public class StartInterviewCommand extends Command {
         } catch (IllegalActionException e) {
             throw new CommandException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof StartInterviewCommand // instanceof handles nulls
+                && identifier.equals(((StartInterviewCommand) other).identifier));
     }
 }
