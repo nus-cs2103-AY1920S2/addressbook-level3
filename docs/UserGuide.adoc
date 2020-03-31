@@ -167,7 +167,7 @@ You can list all the existing recipes from *CookBuddy* using the `list` command.
 
 Format: `list`
 
-=== Recipe Finding — `find`
+=== Finding recipes — `find`
 You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
 
 Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]
