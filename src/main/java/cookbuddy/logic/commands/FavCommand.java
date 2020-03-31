@@ -1,14 +1,14 @@
 package cookbuddy.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import cookbuddy.commons.core.Messages;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Favourites a recipe identified using it's displayed index from the recipe book.

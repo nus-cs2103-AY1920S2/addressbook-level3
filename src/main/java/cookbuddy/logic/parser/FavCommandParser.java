@@ -1,10 +1,10 @@
 package cookbuddy.logic.parser;
 
+import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.FavCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
-
-import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

@@ -74,6 +74,10 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         return recipes.count();
     }
 
+    /**
+     * favourites a recipe from the recipe book.
+     * @param recipe the recipe to be favourited.
+     */
     public void fav(Recipe recipe) {
         requireNonNull(recipe);
         recipe.favRecipe();

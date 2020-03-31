@@ -35,7 +35,7 @@ public class Fav {
 
     @Override
     public String toString() {
-        if(favStatus == true) {
+        if (favStatus == true) {
             return "\u2665";
         } else {
             return "\u2661";

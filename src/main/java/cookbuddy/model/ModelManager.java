@@ -96,15 +96,9 @@ public class ModelManager implements Model {
 
     @Override
     public void favRecipe(Recipe recipe) {
-        //recipeBook.fav(recipe);
-        recipe.favRecipe();
+        recipeBook.fav(recipe);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
-
-    /*@Override
-    public void unFavRecipe(Recipe recipe) {
-        recipeBook.unFav(recipe);
-    }*/
 
     @Override
     public long count() {
