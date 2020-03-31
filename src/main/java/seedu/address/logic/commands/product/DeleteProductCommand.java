@@ -36,6 +36,8 @@ public class DeleteProductCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // delete product
         List<Product> lastShownList = model.getFilteredProductList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -44,7 +46,10 @@ public class DeleteProductCommand extends Command {
 
         Product productToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteProduct(productToDelete);
-        deleteProductTransactions(model, productToDelete);
+
+        // remove transactions with deleted product
+        updateTransactionList(model, productToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete));
     }
 
@@ -53,7 +58,7 @@ public class DeleteProductCommand extends Command {
      * @param model
      * @param productToDelete
      */
-    private void deleteProductTransactions(Model model, Product productToDelete) {
+    private void updateTransactionList(Model model, Product productToDelete) {
         List<Transaction> transactions = model.getInventorySystem().getTransactionList();
 
         for (int i = 0; i < transactions.size(); i++) {

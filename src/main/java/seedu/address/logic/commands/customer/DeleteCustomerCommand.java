@@ -36,6 +36,8 @@ public class DeleteCustomerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // delete customer
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -44,7 +46,9 @@ public class DeleteCustomerCommand extends Command {
 
         Customer customerToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(customerToDelete);
-        deleteCustomerTransactions(model, customerToDelete);
+
+        // remove transactions with deleted customer
+        updateTransactionList(model, customerToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, customerToDelete));
     }
 
@@ -53,7 +57,7 @@ public class DeleteCustomerCommand extends Command {
      * @param model
      * @param customerToDelete
      */
-    private void deleteCustomerTransactions(Model model, Customer customerToDelete) {
+    private void updateTransactionList(Model model, Customer customerToDelete) {
         List<Transaction> transactions = model.getInventorySystem().getTransactionList();
 
         for (int i = 0; i < transactions.size(); i++) {

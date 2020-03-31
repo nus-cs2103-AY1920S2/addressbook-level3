@@ -81,22 +81,41 @@ public class EditTransactionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        EditProductDescriptor editOriginalProductDescriptor = new EditProductDescriptor();
-        EditProductDescriptor editUpdatedProductDescriptor = new EditProductDescriptor();
-
+        // create edited transaction
         List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
 
         if (index.getZeroBased() >= lastShownTransactionList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor, model);
 
-        if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasTransaction(editedTransaction)) {
+        if (modelHasDuplicateTransaction(model, editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
+        // update transaction list
+        model.setTransaction(transactionToEdit, editedTransaction);
+        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+
+        // update product details
+        updateProduct(model, transactionToEdit, editedTransaction);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction));
+    }
+
+    /**
+     * Update product quantity and money based on edited transaction.
+     * @param model
+     * @param transactionToEdit
+     * @param editedTransaction
+     * @throws CommandException
+     */
+    private void updateProduct(Model model, Transaction transactionToEdit, Transaction editedTransaction)
+            throws CommandException {
+        EditProductDescriptor editOriginalProductDescriptor = new EditProductDescriptor();
+        EditProductDescriptor editUpdatedProductDescriptor = new EditProductDescriptor();
         Product originalProductToEdit = model.findProductById(transactionToEdit.getProductId());
         Quantity originalProductOldQuantity = originalProductToEdit.getQuantity();
         Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
@@ -137,10 +156,23 @@ public class EditTransactionCommand extends Command {
 
         model.setProduct(updatedProductToEdit, editedUpdatedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+    }
 
-        model.setTransaction(transactionToEdit, editedTransaction);
-        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction));
+    /**
+     * Check whether model has duplicate product
+     * @param model
+     * @param editedTransaction
+     * @return true if model has duplicate product, else false
+     */
+    private boolean modelHasDuplicateTransaction(Model model, Transaction editedTransaction) {
+        List<Transaction> transactions = model.getInventorySystem().getTransactionList();
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+            if (transaction.equals(editedTransaction)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -165,7 +197,7 @@ public class EditTransactionCommand extends Command {
             }
 
             updatedCustomer = model.getFilteredCustomerList().get(updatedCustomerIndex.getZeroBased());
-            updatedCustomerId = model.getFilteredProductList().get(updatedCustomerIndex.getZeroBased()).getId();
+            updatedCustomerId = updatedCustomer.getId();
         } else {
             updatedCustomer = transactionToEdit.getCustomer();
             updatedCustomerId = transactionToEdit.getCustomerId();
@@ -250,11 +282,11 @@ public class EditTransactionCommand extends Command {
                     money, description);
         }
 
-        public void setCustomerIndex(Index customer) {
+        public void setCustomerIndex(Index customerIndex) {
             this.customerIndex = customerIndex;
         }
 
-        public void setProductIndex(Index product) {
+        public void setProductIndex(Index productIndex) {
             this.productIndex = productIndex;
         }
 
@@ -319,6 +351,18 @@ public class EditTransactionCommand extends Command {
                     && getQuantity().equals(e.getQuantity())
                     && getMoney().equals(e.getMoney())
                     && getDescription().equals(e.getDescription());
+        }
+
+        @Override
+        public String toString() {
+            return "EditTransactionDescriptor{"
+                    + "customerIndex=" + customerIndex
+                    + ", productIndex=" + productIndex
+                    + ", dateTime=" + dateTime
+                    + ", quantity=" + quantity
+                    + ", money=" + money
+                    + ", description=" + description
+                    + '}';
         }
     }
 }

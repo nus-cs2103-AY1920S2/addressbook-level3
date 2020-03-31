@@ -66,6 +66,24 @@ public class AddTransactionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Transaction toAdd = transactionFactory.createTransaction(model);
+
+        if (model.hasTransaction(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+        }
+
+        updateProduct(model, toAdd);
+
+        model.addTransaction(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Updates product details based on transaction to be added.
+     * @param model
+     * @param toAdd
+     * @throws CommandException
+     */
+    private void updateProduct(Model model, Transaction toAdd) throws CommandException {
         List<Product> lastShownList = model.getFilteredProductList();
 
         Index productIndex = getProductIndex(lastShownList);
@@ -83,10 +101,6 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-        if (model.hasTransaction(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
-        }
-
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
@@ -96,9 +110,6 @@ public class AddTransactionCommand extends Command {
             NotificationWindow window = new NotificationWindow();
             window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }
-
-        model.addTransaction(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     private Index getProductIndex(List<Product> lastShownList) throws CommandException {

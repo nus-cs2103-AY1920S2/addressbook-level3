@@ -97,6 +97,7 @@ public class Transaction {
         }
 
         Transaction otherTransaction = (Transaction) other;
+
         return otherTransaction.getCustomerId().equals(getCustomerId())
                 && otherTransaction.getProductId().equals(getProductId())
                 && otherTransaction.getDateTime().equals(getDateTime())

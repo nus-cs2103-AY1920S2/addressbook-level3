@@ -42,8 +42,8 @@ public class DeleteTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
 
+        // delete transaction
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -51,7 +51,21 @@ public class DeleteTransactionCommand extends Command {
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteTransaction(transactionToDelete);
 
+        // update product quantity and money
+        updateProduct(model, transactionToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, transactionToDelete));
+    }
+
+    /**
+     * Adds the quantity and money back to the product of the transaction to be deleted.
+     * @param model
+     * @param transactionToDelete
+     * @throws CommandException
+     */
+    private void updateProduct(Model model, Transaction transactionToDelete) throws CommandException {
+        EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
         Product productToEdit = model.findProductById(transactionToDelete.getProductId());
 
         Quantity oldQuantity = productToEdit.getQuantity();
@@ -70,9 +84,6 @@ public class DeleteTransactionCommand extends Command {
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
-
-        model.deleteTransaction(transactionToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, transactionToDelete));
     }
 
     @Override
