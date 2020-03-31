@@ -18,6 +18,7 @@ import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
 
 /**
@@ -43,7 +44,7 @@ public class ModelManager implements Model {
 
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(this.nasaBook.getDeepCopyList());
+        filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
         this.historyManager = new HistoryManager(historyBook);
         initialisation();
     }
@@ -330,9 +331,9 @@ public class ModelManager implements Model {
     public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
         updateFilteredModuleList(x -> x.getModuleCode().equals(moduleCode));
         Module module = filteredModules.get(0);
-        for (Activity x : module.getDeepCopyList()) {
-            System.out.println(x);
-        }
+//        for (Activity x : module.getDeepCopyList()) {
+//            System.out.println(x);
+//        }
         return module.getDeepCopyList();
     }
 
@@ -346,6 +347,14 @@ public class ModelManager implements Model {
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         for (Module module : filteredModules) {
             module.updateFilteredActivityList(predicate);
+        }
+    }
+
+    @Override
+    public void sortActivityList(SortMethod sortMethod) {
+        requireNonNull(sortMethod);
+        for (Module module : filteredModules) {
+            module.sortActivityList(sortMethod);
         }
     }
 

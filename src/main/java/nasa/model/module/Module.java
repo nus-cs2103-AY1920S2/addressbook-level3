@@ -1,5 +1,6 @@
 package nasa.model.module;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -7,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import javafx.collections.transformation.SortedList;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Name;
@@ -127,6 +129,39 @@ public class Module {
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         filteredActivity.setPredicate(predicate);
     }
+
+    public void sortActivityList(SortMethod sortMethod) {
+        Comparator<Activity> nameSorter = Comparator.comparing(l -> l.getName().toString(),
+                String.CASE_INSENSITIVE_ORDER.reversed());
+        Comparator<Activity> dateSorter = Comparator.comparing(l -> l.getDate().getDate(),
+                Comparator.reverseOrder());
+        Comparator<Activity> prioritySorter = Comparator.comparing(l -> l.getPriority().toString(),
+                Comparator.reverseOrder());
+        switch (sortMethod.getSortMethodString()) {
+            case "name":
+                System.out.println("Attempting to sort by name");
+                this.activityList.getActivityList().sort(nameSorter);
+                break;
+            case "date":
+                System.out.println("Attempting to sort by date");
+                this.activityList.getActivityList().sort(dateSorter);
+                break;
+            case "priority":
+                System.out.println("Attempting to sort by priority");
+                this.activityList.getActivityList().sort(prioritySorter);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + sortMethod);
+        }
+    }
+    /**
+     * Returns an unmodifiable view of the list of {@code Activity} backed by the internal list of
+     * {@code UniqueActivityList}
+     */
+//    public ObservableList<Activity> getSortedActivityList() {
+//        return sortedActivities;
+//    }
+
     /**
      * Returns true if both modules of the same module code.
      * @param otherModule the module to be compared to
