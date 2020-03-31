@@ -123,6 +123,11 @@ public class TaTrackerTest {
             return groups;
         }
 
+        @Override
+        public ObservableList<Student> getCompleteStudentList() {
+            return null;
+        }
+
     }
 
 }

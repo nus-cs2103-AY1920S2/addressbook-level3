@@ -2,6 +2,7 @@ package tatracker.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -149,6 +150,22 @@ public class TaTracker implements ReadOnlyTaTracker {
     @Override
     public ObservableList<Session> getDoneSessionList() {
         return doneSessions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Student> getCompleteStudentList() {
+        UniqueStudentList hack = new UniqueStudentList();
+        List<Student> allStudents = new ArrayList<>();
+        for (Module m : modules) {
+            for (Group g : m.getGroupList()) {
+                for (Student s : g.getStudentList()) {
+                    allStudents.add(s);
+                }
+            }
+        }
+
+        hack.setStudents(allStudents);
+        return hack.asUnmodifiableObservableList();
     }
 
     public void setCurrentlyShownModuleClaim(String moduleCode) {
