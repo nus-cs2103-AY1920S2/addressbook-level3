@@ -162,7 +162,7 @@ recipe to contain two instructions:
     * boil eggs
     * slice apples
 
-=== Recipe Listing — `list`
+=== Listing recipes — `list`
 You can list all the existing recipes from *CookBuddy* using the `list` command.
 
 Format: `list`
