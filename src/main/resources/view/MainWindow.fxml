@@ -63,6 +63,11 @@
                                             <StackPane fx:id="statisticsPlaceholder" prefWidth="340.0" />
                                         </content>
                                     </Tab>
+                                    <Tab text="Settings">
+                                        <content>
+                                            <StackPane fx:id="settingsPlaceholder" prefWidth="340.0" />
+                                        </content>
+                                    </Tab>
                                 </tabs>
                             </TabPane>
                         </items>
