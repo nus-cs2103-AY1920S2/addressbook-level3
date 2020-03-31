@@ -65,7 +65,7 @@ public class RecipeView extends UiPart<Region> {
                 }
             }
         }
-        
+
         this.recipeImage.setImage(wr);
 
     }
