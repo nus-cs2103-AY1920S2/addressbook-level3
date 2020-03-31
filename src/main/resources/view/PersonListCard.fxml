@@ -18,7 +18,7 @@
         </columnConstraints>
         <HBox alignment="TOP_CENTER" fillHeight="false" prefWidth="717.0">
             <GridPane.margin>
-                <Insets bottom="20.0" />
+                <Insets bottom="25.0" />
             </GridPane.margin>
             <GridPane alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                 <columnConstraints>
