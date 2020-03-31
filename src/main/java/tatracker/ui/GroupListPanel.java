@@ -22,7 +22,6 @@ public class GroupListPanel extends UiPart<Region> {
     private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
-    private Group currentlyShownGroup = getCurrentlyShownGroup();
 
     @FXML
     private ListView<Group> groupListView;
@@ -46,7 +45,7 @@ public class GroupListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
-                if (group.equals(currentlyShownGroup)) {
+                if (group.equals(getCurrentlyShownGroup())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");

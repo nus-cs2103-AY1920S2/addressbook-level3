@@ -6,6 +6,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.session.DoneSessionPredicate;
@@ -39,7 +40,8 @@ public class FilterModuleTssCommand extends Command {
         model.updateFilteredDoneSessionList(predicate, predicate.getModuleCode());
         return new CommandResult(
                 String.format(Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW,
-                                model.getFilteredDoneSessionList().size()));
+                                model.getFilteredDoneSessionList().size()),
+                Action.FILTER);
     }
 
     @Override

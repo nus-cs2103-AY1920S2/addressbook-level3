@@ -254,6 +254,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandResult.getNextAction()) {
+            case FILTER:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                break;
+
             case HELP:
                 handleHelp();
                 break;
@@ -261,6 +265,7 @@ public class MainWindow extends UiPart<Stage> {
             case EXIT:
                 handleExit();
                 break;
+
             case GOTO_STUDENT:
                 handleGoto(studentListTab);
                 break;

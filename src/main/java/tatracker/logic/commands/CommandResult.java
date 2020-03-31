@@ -24,6 +24,7 @@ public class CommandResult {
         GOTO_STUDENT,
         GOTO_SESSION,
         GOTO_CLAIMS,
+        FILTER,
         HELP,
         EXIT,
         NONE
