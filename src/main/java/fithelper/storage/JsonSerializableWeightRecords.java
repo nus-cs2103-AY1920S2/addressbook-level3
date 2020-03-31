@@ -1,16 +1,17 @@
 package fithelper.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.ReadOnlyWeightRecords;
 import fithelper.model.WeightRecords;
 import fithelper.model.weight.Weight;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable WeightRecords that is serializable to JSON format.

@@ -2,11 +2,12 @@ package fithelper.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.weight.Bmi;
 import fithelper.model.weight.Date;
-import fithelper.model.weight.WeightValue;
 import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 
 /**
  * Jackson-friendly version of {@link Weight}.

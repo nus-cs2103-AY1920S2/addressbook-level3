@@ -20,10 +20,6 @@ import fithelper.model.profile.Gender;
 import fithelper.model.profile.Height;
 import fithelper.model.profile.Profile;
 import fithelper.model.profile.TargetWeight;
-import fithelper.model.weight.Bmi;
-import fithelper.model.weight.Date;
-import fithelper.model.weight.Weight;
-import fithelper.model.weight.WeightValue;
 
 /**
  * Contains utility methods for populating {@code FitHelper} with sample data.

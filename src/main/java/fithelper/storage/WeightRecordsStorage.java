@@ -1,11 +1,11 @@
 package fithelper.storage;
 
-import fithelper.commons.exceptions.DataConversionException;
-import fithelper.model.ReadOnlyWeightRecords;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import fithelper.commons.exceptions.DataConversionException;
+import fithelper.model.ReadOnlyWeightRecords;
 
 /**
  * Represents a storage for {@link fithelper.model.WeightRecords}.

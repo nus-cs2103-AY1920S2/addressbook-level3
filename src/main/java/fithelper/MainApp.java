@@ -110,12 +110,12 @@ public class MainApp extends Application {
             }
             initialWeightData = weightRecordsOptional.orElseGet(SampleDataUtil::getSampleWeightRecords);
         } catch (DataConversionException e) {
-            logger.warning("WeightRecords data file not in the correct format. " +
-                    "Will be starting with an empty WeightRecords");
+            logger.warning("WeightRecords data file not in the correct format. "
+                    + "Will be starting with an empty WeightRecords");
             initialWeightData = getSampleWeightRecords();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the weight records file. " +
-                    "Will be starting with an empty WeightRecords");
+            logger.warning("Problem while reading from the weight records file. "
+                    + "Will be starting with an empty WeightRecords");
             initialWeightData = getSampleWeightRecords();
         }
 

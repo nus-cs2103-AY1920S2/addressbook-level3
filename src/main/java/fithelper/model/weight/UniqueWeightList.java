@@ -1,16 +1,15 @@
 package fithelper.model.weight;
 
-import fithelper.model.weight.Weight;
-import fithelper.model.weight.exceptions.DuplicateWeightException;
-import fithelper.model.weight.exceptions.WeightNotFoundException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
+import fithelper.model.weight.exceptions.DuplicateWeightException;
+import fithelper.model.weight.exceptions.WeightNotFoundException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of weight records that enforces uniqueness between its elements and does not allow nulls.

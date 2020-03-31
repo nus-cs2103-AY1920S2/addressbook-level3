@@ -1,13 +1,13 @@
 package fithelper.model;
 
-import fithelper.model.weight.Weight;
-import fithelper.model.weight.UniqueWeightList;
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import fithelper.model.weight.UniqueWeightList;
+import fithelper.model.weight.Weight;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all weight-related data at the WeightRecords level

@@ -48,7 +48,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given fitHelper, userProfile and weightRecords.
      */
-    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserProfile userProfile, ReadOnlyWeightRecords weightRecords) {
+    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserProfile userProfile,
+                        ReadOnlyWeightRecords weightRecords) {
         super();
         requireAllNonNull(fitHelper, userProfile, weightRecords);
 
