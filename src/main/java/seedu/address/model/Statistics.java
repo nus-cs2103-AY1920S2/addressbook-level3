@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.dayData.CustomQueue;
@@ -23,6 +24,14 @@ public class Statistics implements ReadOnlyStatistics {
         }
     }
 
+    public Statistics(LocalDate localDate) {
+        customQueue = new CustomQueue();
+        try {
+            customQueue.init(localDate);
+        } catch (InvalidTableException e) {
+        }
+    }
+
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
     public Statistics(ReadOnlyStatistics toBeCopied) {
         this();
@@ -30,11 +39,6 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     //// list overwrite operations
-
-    /** Clears list */
-    public void clearList() {
-        this.customQueue.clear();
-    }
 
     /** Replaces the contents of the list with {@code dayDataList}. */
     public void setDayDatas(List<DayData> dayDataList) {
@@ -57,9 +61,14 @@ public class Statistics implements ReadOnlyStatistics {
     public void updateDataDates() {
         try {
             customQueue.updateDataDatesCustom();
-        } catch (InvalidTableException e) {
+        } catch (InvalidTableException e) { }
+    }
 
-        }
+    /** reinitialises dayDataList to current day while retaining stored data. */
+    public void updateDataDates(LocalDate localDate) {
+        try {
+            customQueue.updateDataDatesCustom(localDate);
+        } catch (InvalidTableException e) { }
     }
 
     /**
@@ -67,7 +76,7 @@ public class Statistics implements ReadOnlyStatistics {
      *
      * @param dayData
      */
-    public void updatesDayData(DayData dayData) throws DayDataNotFoundException {
+    public void updatesDayData(DayData dayData) {
         try {
             customQueue.updatesDayDataCustom(dayData);
         } catch (DayDataNotFoundException e) {
@@ -79,7 +88,7 @@ public class Statistics implements ReadOnlyStatistics {
      *
      * @param date
      */
-    public DayData getDayDataFromDate(Date date) throws DayDataNotFoundException {
+    public DayData getDayDataFromDate(Date date) {
         try {
             return customQueue.getDayDataFromDateCustom(date);
         } catch (DayDataNotFoundException e) {
@@ -88,6 +97,15 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     // util method
+    /** Clears list */
+    public void clearList() {
+        this.customQueue.clear();
+    }
+
+    public void pop() {
+        this.customQueue.pop();
+    }
+
     /** Adds a dayData to the end of the internallist. */
     public void addDayData(DayData dayData) {
         customQueue.add(dayData);
@@ -95,8 +113,7 @@ public class Statistics implements ReadOnlyStatistics {
 
     @Override
     public String toString() {
-        return customQueue.asUnmodifiableObservableList().size() + " dayDatas";
-        // TODO: refine later
+        return "Statistics: " + customQueue.toString();
     }
 
     @Override

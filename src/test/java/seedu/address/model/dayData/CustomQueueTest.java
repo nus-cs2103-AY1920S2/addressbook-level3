@@ -21,16 +21,16 @@ import static seedu.address.testutil.TypicalDayDatas.DAYNEW2;
 public class CustomQueueTest {
 
     private CustomQueue customQueue = new CustomQueue();
-    private LocalDate TYPICAL_TASKS_LATEST_LOCAL_DATE = LocalDate.parse("2020-03-23");
+    private LocalDate TYPICAL_STATISTICS_LATEST_LOCAL_DATE = LocalDate.parse("2020-03-23");
     private LocalDate VALID_LOCAL_DATE = LocalDate.parse("2018-11-13");
 
     @Test
     public void updateDataDatesCustom_success() throws InvalidTableException {
         customQueue.init(VALID_LOCAL_DATE);
-        customQueue.updateDataDatesCustom(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.updateDataDatesCustom(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
 
         CustomQueue expectedCustomQueue = new CustomQueue();
-        expectedCustomQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         assertEquals(expectedCustomQueue, customQueue);
     }
 
@@ -66,7 +66,7 @@ public class CustomQueueTest {
 
     @Test
     public void getDayDataFromDateCustom_validDayData_returnsDayData() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         DayData day0Empty = new DayDataBuilder(DAY0)
                 .withPomDurationData("0")
                 .withTasksDoneData("0")
@@ -86,7 +86,7 @@ public class CustomQueueTest {
 
     @Test
     public void contains_taskInList_returnsTrue() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.pop();
 
         customQueue.add(DAYNEW);
@@ -95,7 +95,7 @@ public class CustomQueueTest {
 
     @Test
     public void contains_dayDataWithSameIdentityFieldsInList_returnsTrue() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.pop();
 
         customQueue.add(DAYNEW);
@@ -109,7 +109,7 @@ public class CustomQueueTest {
 
     @Test
     public void clear_success() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.clear();
         assertTrue(customQueue.size() == 0);
     }
@@ -137,14 +137,14 @@ public class CustomQueueTest {
 
     @Test
     public void setDayData_editedDayDataIsSameDayData_success() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.pop();
 
         customQueue.add(DAYNEW);
         customQueue.setDayData(DAYNEW, DAYNEW);
 
         CustomQueue expectedCustomQueue = new CustomQueue();
-        expectedCustomQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         expectedCustomQueue.pop();
 
         expectedCustomQueue.add(DAYNEW);
@@ -153,7 +153,7 @@ public class CustomQueueTest {
 
     @Test
     public void setDayData_editedDayDataHasSameIdentity_success() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.pop();
 
         customQueue.add(DAYNEW);
@@ -165,7 +165,7 @@ public class CustomQueueTest {
         customQueue.setDayData(DAYNEW, editedDayData);
 
         CustomQueue expectedCustomQueue = new CustomQueue();
-        expectedCustomQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         expectedCustomQueue.pop();
 
         expectedCustomQueue.add(editedDayData);
@@ -173,15 +173,15 @@ public class CustomQueueTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+    public void setDayData_editedDayDataHasDifferentIdentity_success() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.pop();
 
         customQueue.add(DAYNEW);
         customQueue.setDayData(DAYNEW, DAYNEW2);
 
         CustomQueue expectedCustomQueue = new CustomQueue();
-        expectedCustomQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         expectedCustomQueue.pop();
 
         expectedCustomQueue.add(DAYNEW2);
@@ -206,13 +206,13 @@ public class CustomQueueTest {
 
     @Test
     public void setDayDatas_customQueue_replacesOwnListWithProvidedCustomQueue() throws InvalidTableException {
-        customQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         customQueue.pop();
 
         customQueue.add(DAYNEW);
 
         CustomQueue expectedCustomQueue = new CustomQueue();
-        expectedCustomQueue.init(TYPICAL_TASKS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
         expectedCustomQueue.pop();
 
         expectedCustomQueue.add(DAYNEW);
