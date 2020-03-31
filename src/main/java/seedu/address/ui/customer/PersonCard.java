@@ -52,7 +52,11 @@ public class PersonCard extends UiPart<Region> {
         email.setText(customer.getEmail().value);
         customer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label newLabel = new Label(tag.tagName);
+                    newLabel.setStyle("-fx-background-color:#242424");
+                    tags.getChildren().add(newLabel);
+                });
     }
 
     @Override
