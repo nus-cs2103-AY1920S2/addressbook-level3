@@ -1,8 +1,15 @@
 package nasa.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
 import nasa.logic.commands.CommandResult;
@@ -18,6 +25,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final List<String> commandHistory = new ArrayList<>();
+    private int historyIndex = 0;
 
     @FXML
     private TextField commandTextField;
@@ -27,6 +36,35 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+            switch (key.getCode()) {
+                case UP:
+                    if (historyIndex == 0) {
+                        break;
+                    }
+                    historyIndex--;
+                        commandTextField.setText(commandHistory.get(historyIndex));
+                break;
+                case DOWN:
+                    if (historyIndex == commandHistory.size() - 1) {
+                        break;
+                    }
+                    historyIndex++;
+                    commandTextField.setText(commandHistory.get(historyIndex));
+                break;
+                default:
+                    break;
+            }
+        });
+    }
+    public static void runSafe(final Runnable runnable) {
+        Objects.requireNonNull(runnable, "runnable");
+        if (Platform.isFxApplicationThread()) {
+            runnable.run();
+        }
+        else {
+            Platform.runLater(runnable);
+        }
     }
 
     /**
@@ -35,6 +73,8 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
+            commandHistory.add(commandTextField.getText());
+            historyIndex++;
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
