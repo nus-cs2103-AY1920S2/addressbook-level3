@@ -104,7 +104,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+    public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         throw new AssertionError("This method should not be called.");
     }
 

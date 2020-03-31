@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -32,10 +31,6 @@ public class ModelManager implements Model {
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Module> filteredModules;
-
-    private long totalHours = 0;
-    private int rate;
-    private long totalEarnings;
 
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
@@ -166,10 +161,7 @@ public class ModelManager implements Model {
     @Override
     public void addDoneSession(Session session) {
         taTracker.addDoneSession(session);
-        totalHours += Math.ceil(Duration.between
-                (session.getEndDateTime(), session.getStartDateTime())
-                .toHours());
-        updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS);
+        updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
     }
 
     /**
@@ -182,8 +174,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredDoneSessionList(Predicate<Session> predicate) {
+    public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
+        if (!predicate.equals(PREDICATE_SHOW_ALL_SESSIONS)) {
+            taTracker.setCurrentlyShownModuleClaim(moduleCode);
+            System.out.println("filtered: " + moduleCode);
+        }
         filteredDoneSessions.setPredicate(predicate);
     }
 
