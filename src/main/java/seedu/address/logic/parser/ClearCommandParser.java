@@ -66,7 +66,7 @@ public class ClearCommandParser implements Parser<ClearCommand> {
      * @return true if '-o' and '-r' flags are found in the same command line, otherwise return false.
      */
     private boolean isInvalidFlagFormat(String flag, HashSet<String> flags) {
-        return (flag.equals(FLAG_RETURN_BOOK.toString()) && flags.contains(FLAG_ORDER_BOOK.toString())) ||
-                (flag.equals(FLAG_ORDER_BOOK.toString()) && flags.contains(FLAG_RETURN_BOOK.toString()));
+        return (flag.equals(FLAG_RETURN_BOOK.toString()) && flags.contains(FLAG_ORDER_BOOK.toString()))
+                || (flag.equals(FLAG_ORDER_BOOK.toString()) && flags.contains(FLAG_RETURN_BOOK.toString()));
     }
 }
