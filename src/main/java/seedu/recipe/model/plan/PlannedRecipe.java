@@ -3,6 +3,7 @@ package seedu.recipe.model.plan;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.recipe.model.Date;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 
@@ -13,9 +14,9 @@ import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 public class PlannedRecipe implements Comparable<PlannedRecipe> {
 
     private List<Recipe> recipes;
-    private PlannedDate date;
+    private Date date;
 
-    public PlannedRecipe(List<Recipe> recipes, PlannedDate date) {
+    public PlannedRecipe(List<Recipe> recipes, Date date) {
         this.recipes = recipes;
         this.date = date;
     }
@@ -51,7 +52,7 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
     /**
      * Checks whether this PlannedRecipe is planned on {@code otherDate}.
      */
-    public boolean isOnDate(PlannedDate otherDate) {
+    public boolean isOnDate(Date otherDate) {
         return date.equals(otherDate);
     }
 
@@ -59,11 +60,11 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
      * Checks whether the date of this planned recipe falls within the {@code start} date and the {@code end} date.
      * The start and end date is non-inclusive.
      */
-    public boolean isWithinRange(PlannedDate start, PlannedDate end) {
+    public boolean isWithinRange(Date start, Date end) {
         return date.isWithinRange(start, end);
     }
 
-    public PlannedDate getDate() {
+    public Date getDate() {
         return date;
     }
 

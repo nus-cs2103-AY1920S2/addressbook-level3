@@ -12,8 +12,8 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -36,13 +36,13 @@ public class PlanCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Recipe %1$s planned at %2$s";
 
     private final Index index;
-    private final PlannedDate atDate;
     private final Tab planTab = Tab.PLANNING;
+    private final Date atDate;
 
     /**
      * Creates an PlanCommand to set the specified {@code Recipe} on a certain date
      */
-    public PlanCommand(Index index, PlannedDate date) {
+    public PlanCommand(Index index, Date date) {
         requireNonNull(index);
         requireNonNull(date);
         this.index = index;

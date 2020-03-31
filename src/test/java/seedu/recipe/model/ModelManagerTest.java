@@ -7,6 +7,8 @@ import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static seedu.recipe.testutil.Assert.assertThrows;
 import static seedu.recipe.testutil.TypicalRecipes.CAESAR_SALAD;
 import static seedu.recipe.testutil.TypicalRecipes.GRILLED_SANDWICH;
+import static seedu.recipe.testutil.TypicalRecords.BOILED_CHICKEN;
+import static seedu.recipe.testutil.TypicalRecords.CHOCOLATE_CAKE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,9 +17,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.GuiSettings;
+import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
 import seedu.recipe.testutil.RecipeBookBuilder;
+import seedu.recipe.testutil.RecordBookBuilder;
 
 public class ModelManagerTest {
 
@@ -98,12 +102,16 @@ public class ModelManagerTest {
     public void equals() {
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(CAESAR_SALAD).withRecipe(GRILLED_SANDWICH).build();
         RecipeBook differentRecipeBook = new RecipeBook();
+        CookedRecordBook recordBook = new RecordBookBuilder().withRecord(BOILED_CHICKEN)
+                .withRecord(CHOCOLATE_CAKE).build();
+        CookedRecordBook differentRecordBook = new CookedRecordBook();
         UserPrefs userPrefs = new UserPrefs();
         PlannedBook plannedBook = new PlannedBook();
 
         // same values -> returns true
-        modelManager = new ModelManager(recipeBook, plannedBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(recipeBook, plannedBook, userPrefs);
+        modelManager = new ModelManager(recipeBook, userPrefs, recordBook, plannedBook);
+        ModelManager modelManagerCopy = new ModelManager(recipeBook, userPrefs, recordBook, plannedBook);
+
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -116,12 +124,15 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different recipeBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentRecipeBook, plannedBook, userPrefs)));
+
+        assertFalse(modelManager.equals(new ModelManager(differentRecipeBook, userPrefs,
+                differentRecordBook, plannedBook)));
 
         // different filteredList -> returns false
         String[] keywords = CAESAR_SALAD.getName().fullName.split("\\s+");
         modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(recipeBook, plannedBook, userPrefs)));
+
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs, recordBook, plannedBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
@@ -129,6 +140,8 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setRecipeBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(recipeBook, plannedBook, differentUserPrefs)));
+
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs, recordBook, plannedBook)));
+
     }
 }

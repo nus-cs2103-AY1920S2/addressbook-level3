@@ -1,8 +1,10 @@
 package seedu.recipe.model.plan;
 
-public class PlannedRecipeOnDatePredicate extends PlannedRecipeWithinDateRangePredicate {
+import seedu.recipe.model.Date;
 
-    public PlannedRecipeOnDatePredicate(PlannedDate onDate) {
+/*public class PlannedRecipeOnDatePredicate extends PlannedRecipeWithinDateRangePredicate {
 
-    }
-}
+    *//*public PlannedRecipeOnDatePredicate(Date onDate) {
+
+    }*//*
+}*/

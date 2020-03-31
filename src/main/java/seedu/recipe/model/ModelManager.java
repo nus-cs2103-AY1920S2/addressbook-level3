@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
+import seedu.recipe.model.cooked.CookedRecordBook;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
@@ -27,12 +29,16 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
+    private final CookedRecordBook cookedRecordBook;
+    private final FilteredList<Record> filteredRecords;
     private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
+
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook plannedBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyCookedRecordBook cookedRecordBook, ReadOnlyPlannedBook plannedBook) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
@@ -43,11 +49,14 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
+        this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
+        this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
         filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
     }
 
     public ModelManager() {
-        this(new RecipeBook(), new PlannedBook(), new UserPrefs());
+        this(new RecipeBook(), new UserPrefs(), new CookedRecordBook(), new PlannedBook());
+
     }
 
     //=========== UserPrefs ==================================================================================
@@ -234,5 +243,28 @@ public class ModelManager implements Model {
     }
 
 
+
+    //=========== Cooked Recipe List Accessors =============================================================
+
+    @Override
+    public void addRecord(Record record) {
+        cookedRecordBook.addRecord(record);
+    }
+
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return filteredRecords;
+    }
+
+    @Override
+    public ReadOnlyCookedRecordBook getRecordBook() {
+        return cookedRecordBook;
+    }
+
+    @Override
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return cookedRecordBook.hasRecord(record);
+    }
 
 }

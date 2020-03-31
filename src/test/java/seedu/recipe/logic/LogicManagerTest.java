@@ -32,6 +32,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.storage.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.JsonRecipeBookStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
 import seedu.recipe.storage.StorageManager;
@@ -54,7 +55,11 @@ public class LogicManagerTest {
         JsonPlannedBookStorage plannedBookStorage =
                 new JsonPlannedBookStorage(temporaryFolder.resolve("plannedBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, plannedBookStorage, userPrefsStorage);
+        JsonCookedRecordBookStorage recordBookStorage =
+                new JsonCookedRecordBookStorage(temporaryFolder.resolve("cookedRecordBook.json"));
+        StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage,
+                plannedBookStorage, userPrefsStorage);
+
         logic = new LogicManager(model, storage);
     }
 
@@ -86,7 +91,11 @@ public class LogicManagerTest {
         // todo add tests for plannedbook
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, plannedBookStorage, userPrefsStorage);
+        JsonCookedRecordBookStorage recordBookStorage =
+                new JsonCookedRecordBookStorage(temporaryFolder.resolve("ioExceptionRecordBook.json"));
+        StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage,
+                plannedBookStorage, userPrefsStorage);
+
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -141,7 +150,9 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

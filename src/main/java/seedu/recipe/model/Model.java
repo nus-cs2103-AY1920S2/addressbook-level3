@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import seedu.recipe.commons.core.GuiSettings;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -169,5 +169,24 @@ public interface Model {
 
     //updateAndFillPlannedList todo
 
-    List<PlannedRecipe> get
+    //List<PlannedRecipe> get todo
+
+    /**
+     * Adds a record in the cookedRecord list
+     */
+    void addRecord(Record record);
+
+    /** Returns an unmodifiable view of the filtered record list */
+    ObservableList<Record> getFilteredRecordList();
+
+    /**
+     * Replaces record book data with the data in {@code CookedRecordBook}.
+     */
+    ReadOnlyCookedRecordBook getRecordBook();
+
+    /**
+     * Returns true if a record with the same identity as {@code record} exists in the record book.
+     */
+    boolean hasRecord(Record record);
+
 }

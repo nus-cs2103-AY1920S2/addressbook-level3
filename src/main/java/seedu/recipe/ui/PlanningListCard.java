@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -20,8 +20,9 @@ public class PlanningListCard extends UiPart<Region> {
     private static final String FXML = "PlanningListCard.fxml";
 
     public final PlannedRecipe plannedRecipeObject;
-    public final PlannedDate plannedDate;
+    public final Date plannedDate;
     public final List<Recipe> recipes;
+
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n";

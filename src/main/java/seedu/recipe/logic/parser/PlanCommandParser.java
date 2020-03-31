@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.Date;
 
 /**
  * Parses input arguments and creates a new PlanCommand object
@@ -35,7 +35,7 @@ public class PlanCommandParser implements Parser<PlanCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
-        PlannedDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         return new PlanCommand(index, date);
     }

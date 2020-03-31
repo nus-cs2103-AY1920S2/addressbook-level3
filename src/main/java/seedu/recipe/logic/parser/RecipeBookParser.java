@@ -11,6 +11,7 @@ import seedu.recipe.logic.commands.AddIngredientCommand;
 import seedu.recipe.logic.commands.AddStepCommand;
 import seedu.recipe.logic.commands.ClearCommand;
 import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CookedCommand;
 import seedu.recipe.logic.commands.DeleteCommand;
 import seedu.recipe.logic.commands.DeleteIngredientCommand;
 import seedu.recipe.logic.commands.DeleteStepCommand;
@@ -84,6 +85,9 @@ public class RecipeBookParser {
 
         case ListGoalsCommand.COMMAND_WORD:
             return new ListGoalsCommand();
+
+        case CookedCommand.COMMAND_WORD:
+            return new CookedCommandParser().parse(arguments);
 
         case FavouriteCommand.COMMAND_WORD:
             return new FavouriteCommandParser().parse(arguments);
