@@ -185,7 +185,7 @@ You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to
 
 Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
 
-=== Recipe counting — `count`
+=== Counting recipes — `count`
 You can count the total number of recipes stored in *CookBuddy* using the `count` command.
 
 Format: `count`
