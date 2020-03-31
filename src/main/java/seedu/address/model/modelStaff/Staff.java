@@ -17,11 +17,14 @@ import seedu.address.model.tag.Tag;
  * A Staff can be a teacher or an admin. This can be check by isTeacher() method.
  */
 public class Staff extends ModelObject {
-
+  public enum Level {
+    TEACHER,
+    ADMIN
+  }
   // Identity fields
   private final Name name;
   //private final ID id;
-  private final boolean isTeacher;
+  private final Level level;
   private final Phone phone;
   private final Email email;
   private final Address address;
@@ -34,10 +37,10 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Staff(Name name, Boolean isTeacher, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
-    requireAllNonNull(name, phone, email, address, tags);
+  public Staff(Name name, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
+    requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
-    this.isTeacher = isTeacher;
+    this.level = level;
     this.phone = phone;
     this.email = email;
     this.salary = salary;
@@ -66,7 +69,23 @@ public class Staff extends ModelObject {
    * @return true if this is a teacher, false if this is an admin.
    */
   public boolean isTeacher() {
-    return isTeacher;
+    return level == Level.TEACHER;
+  }
+
+  /**
+   * Check if this staff is an admin.
+   * @return true if this is a teacher, false if this is an admin.
+   */
+  public boolean isAdmin() {
+    return level == Level.ADMIN;
+  }
+
+  /**
+   * Check if this staff is an admin.
+   * @return true if this is a teacher, false if this is an admin.
+   */
+  public Level getLevel() {
+    return level;
   }
 
   /**
@@ -176,7 +195,7 @@ public class Staff extends ModelObject {
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     String title = "";
-    if (isTeacher) {
+    if (isTeacher()) {
       title = "Teacher ";
     } else {
       title = "Admin ";

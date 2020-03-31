@@ -22,6 +22,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -79,13 +80,14 @@ public class EditTeacherCommand extends Command {
     assert teacherToEdit != null;
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
+    Level updatedLevel = editTeacherDescriptor.getLevel().orElse(teacherToEdit.getLevel());
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
     Email updatedEmail = editTeacherDescriptor.getEmail().orElse(teacherToEdit.getEmail());
     Salary updatedSalary = editTeacherDescriptor.getSalary().orElse(teacherToEdit.getSalary());
     Address updatedAddress = editTeacherDescriptor.getAddress().orElse(teacherToEdit.getAddress());
     Set<Tag> updatedTags = editTeacherDescriptor.getTags().orElse(teacherToEdit.getTags());
 
-    return new Staff(updatedName, true, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
+    return new Staff(updatedName, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
         updatedTags);
   }
 
@@ -135,6 +137,7 @@ public class EditTeacherCommand extends Command {
   public static class EditTeacherDescriptor {
 
     private Name name;
+    private Level level;
     private Phone phone;
     private Email email;
     private Salary salary;
@@ -149,6 +152,7 @@ public class EditTeacherCommand extends Command {
      */
     public EditTeacherDescriptor(EditTeacherDescriptor toCopy) {
       setName(toCopy.name);
+      setLevel(toCopy.level);
       setPhone(toCopy.phone);
       setEmail(toCopy.email);
       setSalary(toCopy.salary);
@@ -165,6 +169,14 @@ public class EditTeacherCommand extends Command {
 
     public Optional<Name> getName() {
       return Optional.ofNullable(name);
+    }
+
+    public Optional<Level> getLevel() {
+      return Optional.ofNullable(level);
+    }
+
+    public void setLevel(Level level) {
+      this.level = level;
     }
 
     public void setName(Name name) {

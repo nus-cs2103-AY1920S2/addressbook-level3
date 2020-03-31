@@ -48,11 +48,11 @@ public class SampleDataUtil {
 
   public static Staff[] getSampleTeachers() {
     return new Staff[]{
-        new Staff(new Name("Bob Ross"), true ,new Phone("88283902"), new Email("bob.ross@gmail.com"),
+        new Staff(new Name("Bob Ross"), Staff.Level.TEACHER ,new Phone("88283902"), new Email("bob.ross@gmail.com"),
             new Salary("9000"),
             new Address("Serangoon"),
             getTagSet("Friendly", "LovesArt")),
-        new Staff(new Name("Martin Henz"), false, new Phone("98765432"), new Email("henz@gmail.com"),
+        new Staff(new Name("Martin Henz"), Staff.Level.TEACHER, new Phone("98765432"), new Email("henz@gmail.com"),
             new Salary("100"),
             new Address("311, Clementi Ave 2, #02-25"),
             getTagSet("WishfulThinking", "Experienced")),
