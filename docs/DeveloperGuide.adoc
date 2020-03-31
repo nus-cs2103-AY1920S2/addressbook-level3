@@ -216,6 +216,7 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+[[Student-View]]
 === Student View
 *Student view* is the term used to characterise the different functionalities
 related to the students.
@@ -240,6 +241,23 @@ is affiliated with. Each group contains a `UniqueStudentsList` that contains the
 The `UniqueSessionList` contains a list of all the *sessions that have already been
 done* associated with the module. This list is used in the TSS view.
 
+====
+*Alternative Implementation*
+
+* An alternative implementation would be to a `UniqueModuleList` for all modules, a `list`
+for all groups and a `list` for all students and then filter by module code or group
+code according to how the user would want it to be.
+
+* While this would be easier to
+implement, it would also introduce cyclic dependencies as not only would students
+need to keep a track of their groups, but groups would also keep a track of their students.
+
+* Furthermore, an issue would be that there would be multiple groups with the same group
+code in the list containing all groups as multiple modules can share the same group code.
+
+* Similarly, there would be multiple instances of the same student in the list as the
+same student could be a part of multiple groups.
+====
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
@@ -441,7 +459,7 @@ and determines that the sort command word is `all` and creates and returns a
 5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
 is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 
-6. The SortCommand returns a CommandResult with a success message.
+6. The `SortCommand` returns a `CommandResult` with a success message.
 
 ==== Implementation of the Student Add and Delete Commands
 
