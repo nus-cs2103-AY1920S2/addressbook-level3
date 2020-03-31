@@ -1,4 +1,4 @@
-= NusProductivity
+= NUSProductivity
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,14 +18,16 @@ By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-NusProductivity is an application for better management of your school work. The app is set out to enhance your productivity in school through 5 main features, allowing you to plan module, keep track of your cap, note taking, todo list planning and allowing you to log down your thoughts for each day through a diary. This app is designed mainly for NUS students with the possibility to customise it for students from other University in the future. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+NUSProductivity is an application designed to let you better manage your school work. The app is set out to enhance your productivity in school through 5 main features, module planning, CAP (cumulative average point) tracking, note taking, deadline and task listing, and finally, diary logging. This app is designed mainly for NUS students with the possibility to customise it for students from other universities in the future. More importantly, NUSProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Read on to get you started on using the application!
 
-== Quick Start
+==  Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `NUSProductivity.jar` link:{repoURL}/releases[here].
+This section allows you to start up NUSProductivity with ease. Detailed steps are listed below.
+
+.  Ensure you have Java `11` or above installed on your computer.
+.  Download the latest version of `NUSProductivity.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for NUSProductivity.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds (screenshot of GUI shown below).
 +
 image::Ui.png[width="790"]
 +
@@ -33,15 +35,17 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com ` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`search`**`CS2103T` : searches for the module `CS2103T`
+* **`deadline`**`deadline finish homework by 30-03-2020 1800` : schedules a deadline on the calendar for you to finish your homework
+* *`cap`* : calculates your CAP
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+
+This section shows the detailed list of usable commands.
 
 ====
 *Command Format*
@@ -212,7 +216,7 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 - Adds a diary entry to the diary book.
 - Format: `diaryAdd ec/ENTRY_CONTENT`
 
-==== Viewing diary logs: `diaryShow`
+==== Viewing diary logs: `diaryLog`
 - Shows all diary entry IDs.
 - Format: `diaryLog `
 
@@ -237,32 +241,21 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 - Format: `diaryMood id/ENTRY_ID m/MOOD`
 
 
-=== Calender
+=== Calendar
 
-A calender in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
+A calendar in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
 
-==== Todo list: `todo`
+==== ToDo: `todo`
 
-- Shows the list of tasks that are scheduled for the week with the deadline.
+- Schedules a task to the calendar.
 
-- Format: `todo`
+- Format: `todo DESCRIPTION`
 
 ==== Deadline: `deadline`
 
-- Adds a new task to the todo list. The deadline will be shown alongside the task description.
+- Schedules a task tagged with a deadline to the calendar.
 
 - Format: `deadline DESCRIPTION /by DD-MM-YYYY HHMM`
-
-==== Event: `event`
-
-- Adds a new task to the todo list. The date of the event will be shown alongside the task description.
-
-- Format:
-
-a. `event DESCRIPTION /at DD-MM-YYYY HHMM`
-b. `event ID NAME_OF_PARTICIPANT` : add the contact card of the specific participant to the event
-
-
 
 === Notes
 
@@ -281,6 +274,8 @@ c.	`notes ops/create loc/test.doc`: Creates the file test.doc at usr/Desktop, if
 
 == Command Summary
 
+This section summarizes the list of commands.
+
 •	add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
  e.g. `add n/James Ho p/22224444 e/jamesho@example.com t/friend t/colleague`
 •	clear : clear
@@ -291,10 +286,9 @@ c.	`notes ops/create loc/test.doc`: Creates the file test.doc at usr/Desktop, if
 •	find : find KEYWORD [MORE_KEYWORDS] +
  e.g. `find James Jake`
 •	list: list
-•	cap : cap {breakdown}
+•	cap : cap {BREAKDOWN}
 •	modreq : modreq {\MAJOR} +
 e.g. `modreq computer science`
-•	todo: todo
 •	help : help
 •	diary :
 * diary log LIMIT
@@ -311,13 +305,10 @@ e.g. `diary delete 1`
 e.g. `diary weather 1 SUNNY`
 * diary emotion ID EMOTION
 e.g. `diary emotion 1 HAPPY`
-* reminders : reminders
+* todo : todo DESCRIPTION
+e.g. `todo water plants`
 * deadline : deadline DESCRIPTION /by DD-MM-YYYY HHMM
 e.g. `deadline Finish homework /by 30-03-2020 1800`
-* event :
-* event DESCRIPTION /at DD-MM-YYYY HHMM
-e.g. `event Prom /at 30-03-2020 1800`
-* event ID NAME_OF_PARTICIPANT
 * mymodplan: mymodplan
 ** mymodplan add MODULE CODE
 e.g. `mymodplan add CS2103T`

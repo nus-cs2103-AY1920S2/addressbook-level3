@@ -198,6 +198,8 @@ Users can use `grade` command, followed by the module code and the grade in orde
 * Weather
 * Mood
 
+=== ToDo List
+
 === [Proposed] Pathing
 
 Given below is the consideration and proposed implementation for pathing in the future versions.
