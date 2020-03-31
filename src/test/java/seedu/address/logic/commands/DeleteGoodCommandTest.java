@@ -60,7 +60,7 @@ class DeleteGoodCommandTest {
         String expectedMessage = String.format(DeleteGoodCommand.MESSAGE_DELETE_GOOD_SUCCESS,
                 goodToDelete.getGoodName().fullGoodName);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), getTypicalInventory(),
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalInventory(),
                 getTypicalTransactionHistory(), new UserPrefs());
         expectedModel.deleteGood(goodToDelete);
         showNoInventory(expectedModel);
@@ -95,7 +95,7 @@ class DeleteGoodCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different Good -> returns false
+        // different index -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
