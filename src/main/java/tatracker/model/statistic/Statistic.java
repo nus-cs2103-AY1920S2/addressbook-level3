@@ -24,7 +24,7 @@ public class Statistic {
     public final int[] studentRatingBinValues;
     public final Pair<String, Integer>[] worstStudents;
 
-    public Statistic(ReadOnlyTaTracker taTracker, Module targetModule) {
+    public Statistic(ReadOnlyTaTracker taTracker, String targetModuleCode) {
 
         UniqueSessionList fList = new UniqueSessionList();
         UniqueStudentList sList = new UniqueStudentList();
@@ -33,11 +33,11 @@ public class Statistic {
         sList.setStudents(taTracker.getStudentList());
 
         // If targetModule is not null, filter by target module.
-        if (targetModule != null) {
-            targetModuleCode = targetModule.getIdentifier();
+        if (targetModuleCode != null) {
+            this.targetModuleCode = targetModuleCode;
             fList = fList.getSessionsOfModuleCode(targetModuleCode);
         } else {
-            targetModuleCode = ALL_MODULES_STRING;
+            this.targetModuleCode = ALL_MODULES_STRING;
         }
 
         this.numHoursPerCategory = new int[SessionType.NUM_SESSION_TYPES];

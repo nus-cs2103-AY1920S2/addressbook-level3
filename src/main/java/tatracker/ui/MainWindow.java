@@ -18,6 +18,7 @@ import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.statistic.StatisticCommandResult;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.statistic.Statistic;
 import tatracker.ui.claimstab.ClaimsListPanel;
@@ -216,12 +217,16 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStatistic() {
+        handleStatistic(null);
+    }
+
+    public void handleStatistic(String moduleCode) {
         if (statisticWindow != null && statisticWindow.isShowing()) {
             statisticWindow.hide();
         }
 
         // Create a new statistic window
-        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), null));
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode));
         statisticWindow.show();
         statisticWindow.focus();
     }
@@ -279,6 +284,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult instanceof StatisticCommandResult) {
+                StatisticCommandResult scr = (StatisticCommandResult) commandResult;
+                handleStatistic(scr.targetModuleCode);
+            }
 
             switch (commandResult.getNextAction()) {
             case DONE:
