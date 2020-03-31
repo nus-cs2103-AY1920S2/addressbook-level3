@@ -16,7 +16,7 @@ import seedu.address.model.good.GoodName;
 /**
  * Parses input arguments and creates a new DeleteSupplierCommand object
  */
-public class DeleteCommandParser implements Parser<DeleteSupplierCommand> {
+public class DeleteSupplierCommandParser implements Parser<DeleteSupplierCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteSupplierCommand

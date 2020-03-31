@@ -21,7 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.supplier.NameContainsKeywordsPredicate;
+import seedu.address.model.supplier.SupplierNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindSupplierCommand}.
@@ -34,10 +34,10 @@ public class FindSupplierCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        SupplierNameContainsKeywordsPredicate firstPredicate =
+                new SupplierNameContainsKeywordsPredicate(Collections.singletonList("first"));
+        SupplierNameContainsKeywordsPredicate secondPredicate =
+                new SupplierNameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindSupplierCommand findFirstCommand = new FindSupplierCommand(firstPredicate);
         FindSupplierCommand findSecondCommand = new FindSupplierCommand(secondPredicate);
@@ -62,7 +62,7 @@ public class FindSupplierCommandTest {
     @Test
     public void execute_zeroKeywords_noSupplierFound() {
         String expectedMessage = String.format(MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        SupplierNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindSupplierCommand command = new FindSupplierCommand(predicate);
         expectedModel.updateFilteredSupplierList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -72,7 +72,7 @@ public class FindSupplierCommandTest {
     @Test
     public void execute_multipleKeywords_multipleSuppliersFound() {
         String expectedMessage = String.format(MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        SupplierNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindSupplierCommand command = new FindSupplierCommand(predicate);
         expectedModel.updateFilteredSupplierList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -90,7 +90,7 @@ public class FindSupplierCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private SupplierNameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new SupplierNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

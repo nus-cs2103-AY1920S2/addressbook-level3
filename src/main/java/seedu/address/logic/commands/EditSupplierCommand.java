@@ -53,6 +53,7 @@ public class EditSupplierCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the address book.";
 
+    private static Set<Offer> supplierToEditOffer = null;
     private final Index index;
     private final EditSupplierDescriptor editSupplierDescriptor;
 
@@ -98,8 +99,8 @@ public class EditSupplierCommand extends Command {
      * return the combined set
      */
     public static <Offer> Set<Offer> mergeOfferSets(Set<Offer> supplierToEditOffer,
-                                                    Set<Offer> EditSupplierDescriptorOffer) {
-        return Stream.concat(EditSupplierDescriptorOffer.stream(),
+                                                    Set<Offer> editSupplierDescriptorOffer) {
+        return Stream.concat(editSupplierDescriptorOffer.stream(),
                 supplierToEditOffer.stream()).collect(Collectors.toSet());
     }
 
