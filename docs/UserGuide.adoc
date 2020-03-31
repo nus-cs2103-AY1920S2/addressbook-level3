@@ -172,7 +172,6 @@ image::/demo/Delete2.png[width="790"]
 You can achieve the same result by using a `AbsolutePath` instead. `delete -t /Workspace/Notably`
 
 
-
 === Save the data
 
 Notes data are saved in the hard disk automatically after any command that changes the data. +
