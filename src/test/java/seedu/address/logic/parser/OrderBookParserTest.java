@@ -51,7 +51,8 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+                DeleteCommand.COMMAND_WORD + " " + FLAG_ORDER_BOOK.toString() + " "
+                        + INDEX_FIRST_ORDER.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK), command);
     }
 
