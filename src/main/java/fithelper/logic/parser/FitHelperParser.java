@@ -27,7 +27,6 @@ import fithelper.logic.commands.UndoCommand;
 import fithelper.logic.commands.UpdateCommand;
 import fithelper.logic.commands.WeightCommand;
 
-
 import fithelper.logic.commands.diary.AddDiaryCommand;
 import fithelper.logic.commands.diary.DiaryCommand;
 import fithelper.logic.commands.diary.EditDiaryCommand;
