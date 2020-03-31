@@ -74,6 +74,11 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         return recipes.count();
     }
 
+    public void fav(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.favRecipe();
+    }
+
 
     /**
      * Adds a recipe to the recipe book.

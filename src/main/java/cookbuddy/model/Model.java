@@ -63,6 +63,18 @@ public interface Model {
     long count();
 
     /**
+     *
+     * Favourites the recipe
+     */
+    void favRecipe(Recipe recipe);
+
+    /**
+     *
+     * Un-Favourites the recipe
+     */
+    //void unFavRecipe(Recipe recipe);
+
+    /**
      * Deletes the given recipe.
      * The recipe must exist in the recipe book.
      */

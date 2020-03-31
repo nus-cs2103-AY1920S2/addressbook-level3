@@ -35,6 +35,7 @@ class JsonAdaptedRecipe {
     private final int serving;
     private final int rating;
     private final int difficulty;
+    private final String fav;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -44,7 +45,7 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
             @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
                              @JsonProperty("serving") int serving, @JsonProperty("rating") int rating,
-                             @JsonProperty("difficulty") int difficulty,
+                             @JsonProperty("difficulty") int difficulty, @JsonProperty("fav") String fav,
                                      @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
@@ -52,6 +53,7 @@ class JsonAdaptedRecipe {
         this.calorie = calorie;
         this.serving = serving;
         this.rating = rating;
+        this.fav = fav;
         this.difficulty = difficulty;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -69,6 +71,7 @@ class JsonAdaptedRecipe {
         serving = source.getServing().serving;
         rating = source.getRating().rating;
         difficulty = source.getDifficulty().difficulty;
+        fav = source.getFavStatus().toString();
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -116,7 +119,13 @@ class JsonAdaptedRecipe {
         final Rating modelRating = new Rating(rating);
         final Difficulty modelDifficulty = new Difficulty(difficulty);
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelServe,
+
+        Recipe toReturn = new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelServe,
                 modelRating, modelDifficulty, modelTags);
+
+        if(fav.equals("\u2665")) {
+            toReturn.favRecipe();
+        }
+        return toReturn;
     }
 }
