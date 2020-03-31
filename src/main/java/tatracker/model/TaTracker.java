@@ -30,7 +30,6 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static Module currentlyShownModuleClaim;
     private static long totalHours;
     private static int rate;
-    private static long totalEarnings;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
