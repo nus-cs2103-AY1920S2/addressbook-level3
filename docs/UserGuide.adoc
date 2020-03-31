@@ -20,6 +20,20 @@ By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
 Notably is for those who *prefer to use a desktop app for managing notes*. More importantly, Notably is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
+=== An Introduction to Notably
+The image shown below highlights the different sections of Notably's user interface:
+
+.Notably GUI quickguide
+image::introToNotably.png[width="900"]
+
+=== Symbols used in this guide
+[NOTE]
+Denotes something that you may want to take note of.
+[TIP]
+Denotes something that may be helpful if you are having any difficulties.
+[WARNING]
+Denotes a warning for something critical.
+
 == Quick Start [Work in progress]
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -42,6 +56,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `-t TITLE -b BODY`, `-b BODY -t TITLE` is also acceptable.
 ====
 
+====
+*Paths*
+
+* `Paths` are used to specify the directory you want to `Commands` to be executed.
+* There are 2 types of  `Path` namely:
+- AbsolutePath (Take reference from the root)
+- RelativePath (Take reference from the current directory)
+
+The Relative Path operate similar to the command line input that you may be familiar with.
+Listed below are the notations used to define a relative path.
+
+* `..` (Move to parent note)
+* `exampleNote` (Move to child node titled "exampleNote")
+
+[NOTE]
+The title of a Note can take in alphanumeric variables and spaces.
+
+**Example**
+
+The picture below helps to illustrate the use of `RelativePath` and `AbsolutePath`
+
+.DataStructure example to illustrate Path
+image::PathExample1.png[width="790"]
+
+The `AbsolutePath` `/CS2101` is equivalent to `RelativePath` `../2101`
+
+Thus `open /CS2101` and `open ../CS2101` would yield the same result.
+
+[NOTE]
+Paths are used by the `open` and `delete` command
+
+[WARNING]
+We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
+====
 === View help : `help`
 
 Notably will display the list of features and commands available as well as their uses. +
