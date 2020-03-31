@@ -2,7 +2,7 @@ package seedu.zerotoone.model.schedule;
 
 import java.util.Comparator;
 
-import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.workout.Workout;
 
 /**
  * STEPH_TODO_JAVADOC
@@ -10,10 +10,10 @@ import seedu.zerotoone.model.exercise.Exercise;
 public class ScheduledWorkout {
 
     private final Schedule schedule;
-    private final Exercise workoutToSchedule; // TO_CHANGE_EXERCISE_TO_WORKOUT
+    private final Workout workoutToSchedule;
     private final DateTime dateTime;
 
-    public ScheduledWorkout(Schedule schedule, Exercise workoutToSchedule, DateTime dateTime) {
+    public ScheduledWorkout(Schedule schedule, Workout workoutToSchedule, DateTime dateTime) {
         this.schedule = schedule;
         this.workoutToSchedule = workoutToSchedule;
         this.dateTime = dateTime;
@@ -33,7 +33,7 @@ public class ScheduledWorkout {
     }
 
     public String getScheduledWorkoutName() {
-        return workoutToSchedule.getExerciseName().fullName; // TO_CHANGE_EXERCISE_TO_WORKOUT
+        return workoutToSchedule.getWorkoutName().fullName;
     }
 
     public DateTime getDateTime() {

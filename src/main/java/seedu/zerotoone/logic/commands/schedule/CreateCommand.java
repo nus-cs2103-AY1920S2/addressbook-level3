@@ -9,9 +9,9 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.schedule.DateTime;
 import seedu.zerotoone.model.schedule.OneTimeSchedule;
+import seedu.zerotoone.model.workout.Workout;
 
 /**
  * STEPH_TODO_JAVADOC
@@ -38,13 +38,13 @@ public class CreateCommand extends ScheduleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Exercise> lastShownList = model.getFilteredExerciseList(); // TO_CHANGE_EXERCISE_TO_WORKOUT
+        List<Workout> lastShownList = model.getFilteredWorkoutList();
 
         if (workoutId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
-        Exercise workoutToSchedule = lastShownList.get(workoutId.getZeroBased()); // TO_CHANGE_EXERCISE_TO_WORKOUT
+        Workout workoutToSchedule = lastShownList.get(workoutId.getZeroBased());
         OneTimeSchedule schedule = new OneTimeSchedule(workoutToSchedule, dateTime);
         if (model.hasSchedule(schedule)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
@@ -52,8 +52,7 @@ public class CreateCommand extends ScheduleCommand {
 
         model.addSchedule(schedule);
 
-        // TO_CHANGE_EXERCISE_TO_WORKOUT
-        String outputMessage = String.format(MESSAGE_SUCCESS, workoutToSchedule.getExerciseName());
+        String outputMessage = String.format(MESSAGE_SUCCESS, workoutToSchedule.getWorkoutName());
         return new CommandResult(outputMessage);
     }
 
