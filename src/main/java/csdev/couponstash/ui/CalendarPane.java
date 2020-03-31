@@ -11,6 +11,9 @@ import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.element.MonthView;
+import csdev.couponstash.model.element.ObservableMonthView;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,11 +37,11 @@ public class CalendarPane extends UiPart<Region> {
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     private static final String MAX_YEAR_MESSAGE = "You have reached the maximum calendar year.";
     private static final String MIN_YEAR_MESSAGE = "You have reached the minimum calendar year.";
-    private static final DateTimeFormatter DATE_FORMATTER = DateUtil.DATE_TIME_FORMATTER_FOR_CALENDAR;
     private static final DateTimeFormatter MONTH_YEAR_FORMATTER = DateUtil.MONTH_YEAR_FORMATTER_FOR_CALENDAR;
     private ArrayList<DateCell> dateCells;
     private YearMonth currentYearMonth;
     private ObservableList<Coupon> coupons;
+    private ObservableMonthView monthView;
     private Logic logic;
 
     @FXML
@@ -58,8 +61,11 @@ public class CalendarPane extends UiPart<Region> {
         currentYearMonth = YearMonth.now();
         dateCells = new ArrayList<>();
         this.coupons = logic.getFilteredCouponList();
+        this.monthView = logic.getMonthView();
         this.logic = logic;
-        coupons.addListener((ListChangeListener<? super Coupon>) change -> fillUpCalendar());
+        coupons.addListener((ListChangeListener<? super Coupon>) change -> updateCalendarWithExpiringYearMonth());
+        monthView.addListener((ChangeListener<? super MonthView>) (observable, oldValue, newValue) ->
+                updateCalendarWithYearMonth(newValue.getYearMonth()));
         initializeUi();
         fillUpCalendar();
     }
@@ -271,6 +277,46 @@ public class CalendarPane extends UiPart<Region> {
             throw new IllegalValueException(MAX_YEAR_MESSAGE);
         }
     }
+
+    /**
+     * Shows specified Year Month and updates the calendar with specified Year Month's data.
+     */
+    public void updateCalendarWithYearMonth(YearMonth yearMonth) {
+        currentYearMonth = yearMonth;
+        fillUpCalendar();
+        logger.info("Calender showing specified Year Month.");
+    }
+
+    /**
+     * Shows Year Month of specified Year Month/date of the expiring command and updates the calendar
+     * with the Year Month's data.
+     */
+    public void updateCalendarWithExpiringYearMonth() {
+        if (allCouponsHasSameYearMonth()) {
+            currentYearMonth = coupons.get(0).getExpiryDate().getYearMonthOfDate();
+            fillUpCalendar();
+            logger.info("Calender showing current Year Month.");
+        } else {
+            currentYearMonth = YearMonth.now();
+            fillUpCalendar();
+        }
+    }
+
+    /**
+     * Returns true if all coupons in the current observable list has the same YearMonth.
+     */
+    private boolean allCouponsHasSameYearMonth() {
+        Boolean allIsSameYearMonth = true;
+        YearMonth firstYearMonth = coupons.get(0).getExpiryDate().getYearMonthOfDate();
+        for (Coupon coupon : coupons) {
+            YearMonth currYearMonth = coupon.getExpiryDate().getYearMonthOfDate();
+            if (!currYearMonth.equals(firstYearMonth)) {
+                allIsSameYearMonth = false;
+            }
+        }
+        return allIsSameYearMonth;
+    }
+
 
     /**
      * Updates the calendar with previous month's data.

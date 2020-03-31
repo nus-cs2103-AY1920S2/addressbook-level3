@@ -4,6 +4,7 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 
 import csdev.couponstash.commons.util.DateUtil;
@@ -50,6 +51,16 @@ public class ExpiryDate {
      */
     public LocalDate getDate() {
         return DateUtil.parseString(value);
+    }
+
+    /**
+     * Returns the expiry date as a YearMonth of the date.
+     * @return Expiry Date as a YearMonth of the Date.
+     */
+    public YearMonth getYearMonthOfDate() {
+        int month = date.getMonthValue();
+        int year = date.getYear();
+        return YearMonth.of(year, month);
     }
 
     @Override

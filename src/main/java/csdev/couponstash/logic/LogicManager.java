@@ -15,6 +15,7 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.storage.Storage;
 
 import csdev.couponstash.ui.CsTab;
@@ -61,6 +62,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Coupon> getFilteredCouponList() {
         return model.getFilteredCouponList();
+    }
+
+    @Override
+    public ObservableMonthView getMonthView() {
+        return model.getMonthView();
     }
 
     @Override

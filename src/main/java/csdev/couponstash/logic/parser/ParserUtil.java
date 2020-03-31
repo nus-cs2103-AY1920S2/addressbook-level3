@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.parser;
 
+import static csdev.couponstash.commons.util.DateUtil.MONTH_YEAR_VALIDATION_REGEX;
 import static csdev.couponstash.model.coupon.RemindDate.DATE_FORMATTER;
 import static java.util.Objects.requireNonNull;
 
@@ -177,8 +178,12 @@ public class ParserUtil {
         YearMonth ym;
         String trimmedDate = yearMonth.trim();
         try {
-            ym = YearMonth.parse(trimmedDate, DateUtil.YEAR_MONTH_FORMATTER);
-        } catch (DateTimeParseException pe) {
+            if (!trimmedDate.matches(MONTH_YEAR_VALIDATION_REGEX)) {
+                throw new ParseException(DateUtil.MESSAGE_YEAR_MONTH_WRONG_FORMAT);
+            } else {
+                ym = YearMonth.parse(trimmedDate, DateUtil.YEAR_MONTH_FORMATTER);
+            }
+        } catch (ParseException | DateTimeParseException pe) {
             throw new ParseException(DateUtil.MESSAGE_YEAR_MONTH_WRONG_FORMAT);
         }
         return ym;
