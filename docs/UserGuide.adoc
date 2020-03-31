@@ -131,7 +131,7 @@ image:demo/Suggestions.png[]
 
 Mistypes, as long as they are not too far away from available commands, will be accepted. This will give the user a more fluid typing experience.
 
-.Demo for the suggestions feature
+.Demo for the auto-correction feature
 image:demo/Correction.png[]
 
 == FAQ
