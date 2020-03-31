@@ -9,6 +9,7 @@ import tatracker.logic.parser.PrefixDictionary;
  * Represents all compulsory information for a command.
  */
 public class CommandDetails {
+    private static final String NO_SUBWORD = "";
 
     private final String commandWord;
     private final String subWord;
@@ -19,13 +20,15 @@ public class CommandDetails {
     private final String usage;
     private final String example;
 
-    public CommandDetails(String commandWord, String info,
+    public CommandDetails(String commandWord,
+                          String info,
                           List<Prefix> parameters, List<Prefix> optionals,
                           Prefix ... prefixesForExample) {
-        this(commandWord, "", info, parameters, optionals, prefixesForExample);
+        this(commandWord, NO_SUBWORD, info, parameters, optionals, prefixesForExample);
     }
 
-    public CommandDetails(String commandWord, String subWord, String info,
+    public CommandDetails(String commandWord, String subWord,
+                          String info,
                           List<Prefix> parameters, List<Prefix> optionals,
                           Prefix ... prefixesForExample) {
         this.commandWord = commandWord;
@@ -36,7 +39,7 @@ public class CommandDetails {
         this.dictionary = new PrefixDictionary(parameters, optionals);
 
         this.usage = this.dictionary.getPrefixesWithInfo();
-        this.example = this.dictionary.getPrefixesWithExamples();
+        this.example = this.dictionary.getPrefixesWithExamples(prefixesForExample);
     }
 
     public String getFullCommandWord() {
@@ -53,6 +56,10 @@ public class CommandDetails {
 
     public String getInfo() {
         return info;
+    }
+
+    public PrefixDictionary getDictionary() {
+        return dictionary;
     }
 
     public List<Prefix> getParameters() {

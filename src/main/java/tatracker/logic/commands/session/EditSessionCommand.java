@@ -24,7 +24,6 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
@@ -50,9 +49,6 @@ public class EditSessionCommand extends Command {
             START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
 
     public static final String INFO = "Edits a session in the TA-Tracker.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS, OPTIONALS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(INDEX,
-            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "

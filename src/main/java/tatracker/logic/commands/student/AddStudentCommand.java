@@ -18,7 +18,6 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -44,9 +43,6 @@ public class AddStudentCommand extends Command {
     public static final List<Prefix> OPTIONALS = List.of(PHONE, EMAIL, RATING, TAG);
 
     public static final String INFO = "Adds a student into the given module group.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS, OPTIONALS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(
-            MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a student to the into the given module group.\n"

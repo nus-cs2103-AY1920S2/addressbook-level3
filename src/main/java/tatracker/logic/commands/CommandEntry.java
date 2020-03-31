@@ -14,200 +14,83 @@ import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.commands.student.DeleteStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.parser.Prefix;
+import tatracker.logic.parser.PrefixDictionary;
 
 /**
  * Stores a list of all the commands.
  */
 public enum CommandEntry {
-    // NONE("", "", List.of(), List.of(), "", ""),
-    STUDENT_ADD(
-            AddStudentCommand.COMMAND_WORD,
-            AddStudentCommand.INFO,
-            AddStudentCommand.PARAMETERS,
-            AddStudentCommand.OPTIONALS,
-            AddStudentCommand.USAGE,
-            AddStudentCommand.EXAMPLE
-    ),
-    STUDENT_DELETE(
-            DeleteStudentCommand.COMMAND_WORD,
-            DeleteStudentCommand.INFO,
-            DeleteStudentCommand.PARAMETERS,
-            DeleteStudentCommand.USAGE,
-            DeleteStudentCommand.EXAMPLE
-    ),
-    STUDENT_EDIT(
-            EditStudentCommand.COMMAND_WORD,
-            EditStudentCommand.INFO,
-            EditStudentCommand.PARAMETERS,
-            EditStudentCommand.OPTIONALS,
-            EditStudentCommand.USAGE,
-            EditStudentCommand.EXAMPLE
-    ),
-    GROUP_ADD(
-            AddGroupCommand.COMMAND_WORD,
-            AddGroupCommand.INFO,
-            AddGroupCommand.PARAMETERS,
-            AddGroupCommand.USAGE,
-            AddGroupCommand.EXAMPLE
-    ),
-    GROUP_DELETE(
-            DeleteGroupCommand.COMMAND_WORD,
-            DeleteGroupCommand.INFO,
-            DeleteGroupCommand.PARAMETERS,
-            DeleteGroupCommand.USAGE,
-            DeleteGroupCommand.EXAMPLE
-    ),
-    GROUP_EDIT(
-            EditGroupCommand.COMMAND_WORD,
-            EditGroupCommand.INFO,
-            EditGroupCommand.PARAMETERS,
-            EditGroupCommand.OPTIONALS,
-            EditGroupCommand.USAGE,
-            EditGroupCommand.EXAMPLE
-    ),
-    MODULE_ADD(
-            AddModuleCommand.COMMAND_WORD,
-            AddModuleCommand.INFO,
-            AddModuleCommand.PARAMETERS,
-            AddModuleCommand.USAGE,
-            AddModuleCommand.EXAMPLE
-    ),
-    MODULE_DELETE(
-            DeleteModuleCommand.COMMAND_WORD,
-            DeleteModuleCommand.INFO,
-            DeleteModuleCommand.PARAMETERS,
-            DeleteModuleCommand.USAGE,
-            DeleteModuleCommand.EXAMPLE
-    ),
-    SESSION_ADD(
-            AddSessionCommand.COMMAND_WORD,
-            AddSessionCommand.INFO,
-            AddSessionCommand.PARAMETERS,
-            AddSessionCommand.OPTIONALS,
-            AddSessionCommand.USAGE,
-            AddSessionCommand.EXAMPLE
-    ),
-    SESSION_DELETE(
-            DeleteSessionCommand.COMMAND_WORD,
-            DeleteSessionCommand.INFO,
-            DeleteSessionCommand.PARAMETERS,
-            DeleteSessionCommand.USAGE,
-            DeleteSessionCommand.EXAMPLE
-    ),
-    SESSION_EDIT(
-            EditSessionCommand.COMMAND_WORD,
-            EditSessionCommand.INFO,
-            EditSessionCommand.PARAMETERS,
-            EditSessionCommand.OPTIONALS,
-            EditSessionCommand.USAGE,
-            EditSessionCommand.EXAMPLE
-    ),
-    // SORT_STUDENT(
-    //         SortCommand.COMMAND_WORD,
-    //         SortCommand.INFO,
-    //         SortCommand.PARAMETERS,
-    //         SortCommand.USAGE,
-    //         SortCommand.EXAMPLE
-    // ),
-    // SORT_GROUP(
-    //         SortGroupCommand.COMMAND_WORD,
-    //         SortGroupCommand.INFO,
-    //         SortGroupCommand.PARAMETERS,
-    //         SortGroupCommand.USAGE,
-    //         SortGroupCommand.EXAMPLE
-    // ),
-    // SORT_MODULE(
-    //         SortModuleCommand.COMMAND_WORD,
-    //         SortModuleCommand.INFO,
-    //         SortModuleCommand.PARAMETERS,
-    //         SortModuleCommand.USAGE,
-    //         SortModuleCommand.EXAMPLE
-    // ),
-    CLEAR(
-            ClearCommand.COMMAND_WORD,
-            ClearCommand.INFO
-    ),
-    HELP(
-            HelpCommand.COMMAND_WORD,
-            HelpCommand.INFO
-    ),
-    EXIT(
-            ExitCommand.COMMAND_WORD,
-            ExitCommand.INFO
-    );
+    STUDENT_ADD(AddStudentCommand.DETAILS),
+    STUDENT_DELETE(DeleteStudentCommand.DETAILS),
+    STUDENT_EDIT(EditStudentCommand.DETAILS),
+    GROUP_ADD(AddGroupCommand.DETAILS),
+    GROUP_DELETE(DeleteGroupCommand.DETAILS),
+    GROUP_EDIT(EditGroupCommand.DETAILS),
+    MODULE_ADD(AddModuleCommand.DETAILS),
+    MODULE_DELETE(DeleteModuleCommand.DETAILS),
+    SESSION_ADD(AddSessionCommand.DETAILS),
+    SESSION_DELETE(DeleteSessionCommand.DETAILS),
+    SESSION_EDIT(EditSessionCommand.DETAILS),
+    // SORT_STUDENT(SortCommand.DETAILS),
+    // SORT_GROUP(SortGroupCommand.DETAILS),
+    // SORT_MODULE(SortModuleCommand.DETAILS),
+    CLEAR(ClearCommand.DETAILS),
+    HELP(HelpCommand.DETAILS),
+    EXIT(ExitCommand.DETAILS);
 
-    private final String commandWord;
-    private final String info;
+    private final CommandDetails details;
 
-    private final List<Prefix> parameters;
-    private final List<Prefix> optionals;
-
-    private final String usage;
-    private final String example;
-
-    CommandEntry(String commandWord,
-                 String info,
-                 List<Prefix> parameters,
-                 List<Prefix> optionals,
-                 String usage,
-                 String example) {
-
-        this.commandWord = commandWord;
-        this.info = info;
-        this.parameters = parameters;
-        this.optionals = optionals;
-        this.usage = usage;
-        this.example = example;
+    CommandEntry(CommandDetails details) {
+        this.details = details;
     }
 
-    CommandEntry(String commandWord,
-                 String info,
-                 List<Prefix> parameters,
-                 String usage,
-                 String example) {
-        this(commandWord, info, parameters, List.of(), usage, example);
-    }
-
-    CommandEntry(String commandWord,
-                 String info) {
-        this(commandWord, info, List.of(), List.of(), "", "");
+    public String getFullCommandWord() {
+        return details.getFullCommandWord();
     }
 
     public String getCommandWord() {
-        return commandWord;
+        return details.getCommandWord();
+    }
+
+    public String getSubWord() {
+        return details.getSubWord();
     }
 
     public String getInfo() {
-        return info;
+        return details.getInfo();
+    }
+
+    public PrefixDictionary getDictionary() {
+        return details.getDictionary();
     }
 
     public List<Prefix> getParameters() {
-        return parameters;
+        return details.getParameters();
     }
 
     public List<Prefix> getOptionals() {
-        return optionals;
+        return details.getOptionals();
     }
 
     public String getUsage() {
-        return usage;
+        return details.getUsage();
     }
 
     public String getExample() {
-        return example;
+        return details.getExample();
     }
 
-    @Override
-    public String toString() {
-
-        final StringBuilder sb = new StringBuilder()
-                .append(commandWord).append("\n")
-                .append(info).append("\n")
-                .append(parameters).append("\n")
-                .append(optionals).append("\n")
-                .append(usage).append("\n")
-                .append(example).append("\n");
-
-        return sb.toString();
-    }
+    // @Override
+    // public String toString() {
+    //
+    //     final StringBuilder sb = new StringBuilder()
+    //             .append(commandWord).append("\n")
+    //             .append(info).append("\n")
+    //             .append(parameters).append("\n")
+    //             .append(optionals).append("\n")
+    //             .append(usage).append("\n")
+    //             .append(example).append("\n");
+    //
+    //     return sb.toString();
+    // }
 }

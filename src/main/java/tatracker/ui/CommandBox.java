@@ -1,6 +1,5 @@
 package tatracker.ui;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,8 +33,8 @@ public class CommandBox extends UiPart<Region> {
     private static final Pattern LAST_PREFIX = Pattern.compile(
             ".*\\s+(?<prefix>\\S+/)(?<value>.*)(?<trailingSpaces>\\s*)");
 
-    private CommandEntry commandEntry;
-    private Map<String, PrefixEntry> dictionary;
+    private CommandEntry commandEntry = null;
+    private PrefixDictionary dictionary = PrefixDictionary.getEmptyDictionary();
 
     // private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -50,8 +49,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         this.resultDisplay = resultDisplay;
 
-        this.commandEntry = null;
-        this.dictionary = Map.of();
+        resetCommandEntry();
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((property, oldInput, newInput) -> highlightInput(newInput));
@@ -116,6 +114,7 @@ public class CommandBox extends UiPart<Region> {
     private void highlightInput(String input) {
         if (input.isEmpty()) {
             // logger.info("No input");
+            resetCommandEntry();
             setStyleToDefault();
             return;
         }
@@ -124,19 +123,22 @@ public class CommandBox extends UiPart<Region> {
         final String commandWord = result.getKey();
         final String arguments = result.getValue();
 
-        changeCommandEntry(commandWord);
-
         if (commandWord.isEmpty()) {
             // logger.info("Invalid input");
+            resetCommandEntry();
             setStyleToIndicateCommandFailure();
             resultDisplay.setFeedbackToUser("");
             return;
         }
+
+        changeCommandEntry(commandWord);
+
         if (arguments.isEmpty()) {
             setStyleToIndicateValidCommand();
             resultDisplay.setFeedbackToUser(commandEntry.getUsage());
             return;
         }
+
         highlightArguments(arguments);
     }
 
@@ -157,8 +159,8 @@ public class CommandBox extends UiPart<Region> {
         final String prefix = result.getKey();
         final String value = result.getValue();
 
-        if (dictionary.containsKey(prefix)) {
-            PrefixEntry prefixEntry = dictionary.get(prefix);
+        if (dictionary.hasPrefixEntry(prefix)) {
+            PrefixEntry prefixEntry = dictionary.getPrefixEntry(prefix);
 
             setStyleToIndicateValidCommand();
             resultDisplay.setFeedbackToUser(prefixEntry.getPrefixWithInfo());
@@ -187,7 +189,7 @@ public class CommandBox extends UiPart<Region> {
         String word2 = word1 + " " + matcher.group("word2");
 
         boolean isBasicCommand = CommandDictionary.hasCommandWord(word1);
-        boolean isComplexCommand = CommandDictionary.hasCommandWord(word2);
+        boolean isComplexCommand = CommandDictionary.hasFullCommandWord(word2);
 
         if (isComplexCommand) {
             // logger.info("Complex Command");
@@ -219,18 +221,25 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Changes the reference to one of the commands, which is specified by {@code commandWord}.
      */
-    private void changeCommandEntry(String commandWord) {
-        if (commandWord.isEmpty()) {
-            commandEntry = null;
-            dictionary = Map.of();
-        } else {
-            commandEntry = CommandDictionary.getCommandEntry(commandWord);
-            dictionary = PrefixDictionary.createPrefixDictionary(
-                    commandEntry.getParameters(), commandEntry.getOptionals());
-        }
-
-        // logger.info(commandEntry == null ? "NO COMMAND" : commandEntry.toString());
+    private void resetCommandEntry() {
+        commandEntry = null;
+        dictionary = PrefixDictionary.getEmptyDictionary();
+        // logger.info("NO COMMAND");
     }
+
+    /**
+     * Changes the reference to one of the commands, which is specified by {@code commandWord}.
+     */
+    private void changeCommandEntry(String fullCommandWord) {
+        // Call this only if full command word is valid
+        assert CommandDictionary.hasFullCommandWord(fullCommandWord);
+
+        commandEntry = CommandDictionary.getEntryWithFullCommandWord(fullCommandWord);
+        dictionary = commandEntry.getDictionary();
+
+        // logger.info(commandEntry.toString());
+    }
+
 
     /**
      * Returns true if the given input has trailing white spaces.

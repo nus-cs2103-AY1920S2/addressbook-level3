@@ -10,7 +10,6 @@ import java.util.List;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -33,8 +32,6 @@ public class SortGroupCommand extends SortCommand {
     public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE, MODULE, GROUP);
 
     public static final String INFO = "Sorts all students in the given group.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(SORT_TYPE, MODULE, GROUP);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in the given group. "

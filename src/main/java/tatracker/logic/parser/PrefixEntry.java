@@ -25,7 +25,7 @@ public enum PrefixEntry {
     ),
     KEYWORD(
             Prefixes.KEYWORD,
-            "alice"
+            "alice"//, "bob", "charlie"
     ),
     MORE_KEYWORDS(
             Prefixes.MORE_KEYWORDS,

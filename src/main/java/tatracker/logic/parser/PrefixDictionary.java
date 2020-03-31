@@ -2,8 +2,9 @@ package tatracker.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -13,14 +14,23 @@ import java.util.stream.Collectors;
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
 public class PrefixDictionary {
+    /** Collects all the prefix entries into a lookup table. */
     private static final Map<Prefix, PrefixEntry> PREFIXES = Arrays
             .stream(PrefixEntry.values())
             .collect(Collectors.toUnmodifiableMap(PrefixEntry::getPrefix, entry -> entry));
+
+    private static final PrefixDictionary EMPTY_DICTIONARY = new PrefixDictionary();
+
+    private static final String MESSAGE_UNKNOWN_ENTRY = "Dictionary does not contain the prefix: %s";
 
     private final Map<String, PrefixEntry> dictionary;
 
     private final List<Prefix> parameters;
     private final List<Prefix> optionals;
+
+    public PrefixDictionary() {
+        this(List.of(), List.of());
+    }
 
     public PrefixDictionary(List<Prefix> parameters) {
         this(parameters, List.of());
@@ -32,20 +42,48 @@ public class PrefixDictionary {
 
         this.parameters = List.copyOf(parameters);
         this.optionals = List.copyOf(optionals);
-        this.dictionary = createPrefixDictionary(this.parameters, this.optionals);
+
+        this.dictionary = createDictionary(this.parameters, this.optionals);
     }
 
     /**
-     * Creates a new Prefix dictionary for syntax matching. If there are duplicate prefixes,
-     * the first inserted prefix is kept, and the rest are skipped.
+     * Creates a new Prefix dictionary for syntax matching.
+     *
+     * If there are duplicate prefixes, the first inserted prefix is kept, and the rest are skipped.
+     * Duplicates are skipped since repeated prefixes must mean the same thing, or else
+     * it will be unclear what the prefix represents.
+     *
+     * Each prefix in {@code parameters} and {@code optionals} must have a matching {@code PrefixEntry}.
      */
-    public static Map<String, PrefixEntry> createPrefixDictionary(List<Prefix> parameters, List<Prefix> optionals) {
-        List<Prefix> prefixes = new ArrayList<>();
-        prefixes.addAll(parameters);
-        prefixes.addAll(optionals);
+    private static Map<String, PrefixEntry> createDictionary(List<Prefix> parameters, List<Prefix> optionals) {
+        Map<String, PrefixEntry> dict = new HashMap<>();
 
-        return prefixes.stream()
-                .collect(Collectors.toUnmodifiableMap(Prefix::getPrefix, PREFIXES::get, (first, second) -> first));
+        for (Prefix p : parameters) {
+            assert PREFIXES.containsKey(p);
+
+            String prefix = p.getPrefix();
+            if (!dict.containsKey(prefix)) {
+                dict.put(prefix, PREFIXES.get(p));
+            }
+        }
+
+        for (Prefix p : optionals) {
+            assert PREFIXES.containsKey(p);
+
+            String prefix = p.getPrefix();
+            if (!dict.containsKey(prefix)) {
+                dict.put(prefix, PREFIXES.get(p));
+            }
+        }
+
+        return Collections.unmodifiableMap(dict);
+    }
+
+    /**
+     * Returns the same unmodifiable empty {@code PrefixDictionary}.
+     */
+    public static PrefixDictionary getEmptyDictionary() {
+        return EMPTY_DICTIONARY;
     }
 
     public List<Prefix> getParameters() {
@@ -57,29 +95,35 @@ public class PrefixDictionary {
     }
 
     /**
-     * Returns the matching CommandEntry.
+     * Returns true if the {@code prefix} is part of the dictionary.
      */
+    public boolean hasPrefixEntry(Prefix prefix) {
+        return dictionary.containsKey(prefix.getPrefix());
+    }
+
+    /**
+     * Returns true if the {@code prefix} is part of the dictionary.
+     */
+    public boolean hasPrefixEntry(String prefix) {
+        requireNonNull(prefix);
+        return dictionary.containsKey(prefix);
+    }
+
+    public PrefixEntry getPrefixEntry(Prefix prefix) {
+        return getPrefixEntry(prefix.getPrefix());
+    }
+
     public PrefixEntry getPrefixEntry(String prefix) {
         requireNonNull(prefix);
         return dictionary.get(prefix);
     }
 
-    // public static PrefixEntry getPrefixEntry(Prefix prefix) {
-    //     requireNonNull(prefix);
-    //     return PREFIXES.get(prefix);
-    // }
-
+    /**
+     * Returns true if the {@code prefix} is part of the dictionary.
+     */
     public String getPrefixesWithInfo() {
-        return getPrefixesWithInfo(parameters, optionals);
-    }
-
-    public static String getPrefixesWithInfo(List<Prefix> parameters) {
-        return getPrefixesWithInfo(parameters, List.of());
-    }
-
-    public static String getPrefixesWithInfo(List<Prefix> parameters, List<Prefix> optionals) {
-        String params = formatPrefixes(parameters, p -> PREFIXES.get(p).getPrefixWithInfo());
-        String opts = formatPrefixes(optionals, p -> PREFIXES.get(p).getPrefixWithOptionalInfo());
+        String params = joinPrefixes(parameters, p -> getPrefixEntry(p).getPrefixWithInfo());
+        String opts = joinPrefixes(optionals, p -> getPrefixEntry(p).getPrefixWithOptionalInfo());
 
         if (params.isEmpty()) {
             return opts;
@@ -88,22 +132,23 @@ public class PrefixDictionary {
         }
     }
 
-    public String getPrefixesWithExamples() {
-        String params = formatPrefixes(parameters, p -> PREFIXES.get(p).getPrefixWithExamples());
-        String opts = formatPrefixes(optionals, p -> PREFIXES.get(p).getPrefixWithExamples());
-
-        if (params.isEmpty()) {
-            return opts;
-        } else {
-            return params + " " + opts;
-        }
+    /**
+     * Returns a String joining all the prefix examples in {@code prefixes}.
+     * Each prefix in {@code prefixes} must have a matching PrefixEntry in the current dictionary.
+     *
+     * @throws IllegalArgumentException if there is a prefix in {@code prefixes}
+     * that does not match an entries in the current dictionary.
+     */
+    public String getPrefixesWithExamples(Prefix ... prefixes) throws IllegalArgumentException {
+        return joinPrefixes(Arrays.asList(prefixes), p -> {
+            if (!hasPrefixEntry(p)) {
+                throw new IllegalArgumentException(String.format(MESSAGE_UNKNOWN_ENTRY, p.getInfo()));
+            }
+            return getPrefixEntry(p).getPrefixWithExamples();
+        });
     }
 
-    public static String getPrefixesWithExamples(Prefix ... prefixes) {
-        return formatPrefixes(Arrays.asList(prefixes), p -> PREFIXES.get(p).getPrefixWithExamples());
-    }
-
-    private static String formatPrefixes(List<Prefix> prefixes, Function<Prefix, String> mapper) {
+    private static String joinPrefixes(List<Prefix> prefixes, Function<Prefix, String> mapper) {
         return prefixes.stream()
                 .map(mapper)
                 .collect(Collectors.joining(" "));

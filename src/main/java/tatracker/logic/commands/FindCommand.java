@@ -3,13 +3,11 @@ package tatracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.KEYWORD;
 import static tatracker.logic.parser.Prefixes.MORE_KEYWORDS;
-import static tatracker.logic.parser.Prefixes.SORT_TYPE;
 
 import java.util.List;
 
 import tatracker.commons.core.Messages;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
@@ -25,7 +23,7 @@ public class FindCommand extends Command {
                     + " and displays them as a list with index numbers.",
             List.of(KEYWORD),
             List.of(MORE_KEYWORDS),
-            SORT_TYPE, KEYWORD, MORE_KEYWORDS
+            KEYWORD, MORE_KEYWORDS
     );
 
     public static final String COMMAND_WORD = "find";
@@ -35,8 +33,6 @@ public class FindCommand extends Command {
 
     public static final String INFO = "Finds all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(SORT_TYPE, KEYWORD, MORE_KEYWORDS);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

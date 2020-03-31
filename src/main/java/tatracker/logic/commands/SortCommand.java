@@ -8,7 +8,6 @@ import java.util.List;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 
 /**
@@ -29,8 +28,6 @@ public class SortCommand extends Command {
     public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE);
 
     public static final String INFO = "Sorts all students in TA-Tracker with in-built rules.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(SORT_TYPE);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"

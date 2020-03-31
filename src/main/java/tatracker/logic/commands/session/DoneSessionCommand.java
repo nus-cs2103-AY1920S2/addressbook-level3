@@ -13,7 +13,6 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -37,8 +36,6 @@ public class DoneSessionCommand extends Command {
     public static final List<Prefix> PARAMETERS = List.of(INDEX);
 
     public static final String INFO = "Marks a session as done in TA-Tracker.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(INDEX);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a session as done in TA-Tracker. "

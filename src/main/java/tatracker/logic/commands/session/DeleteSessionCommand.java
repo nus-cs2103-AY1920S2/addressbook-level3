@@ -20,7 +20,6 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -44,8 +43,6 @@ public class DeleteSessionCommand extends Command {
     public static final List<Prefix> PARAMETERS = List.of(INDEX);
 
     public static final String INFO = "Deletes the session identified by its index.";
-    public static final String USAGE = PrefixDictionary.getPrefixesWithInfo(PARAMETERS);
-    public static final String EXAMPLE = PrefixDictionary.getPrefixesWithExamples(INDEX);
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the session identified by its index.\n"
