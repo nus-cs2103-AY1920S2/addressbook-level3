@@ -37,7 +37,7 @@ public class ListCommandParser implements Parser<ListCommand> {
             mode = "-d";
         } else if (arePrefixesPresent(argMultimap, PREFIX_DAYS)) {
             mode = "-t";
-        } else if (arePrefixesPresent(argMultimap, PREFIX_LIST_TAG)){
+        } else if (arePrefixesPresent(argMultimap, PREFIX_LIST_TAG)) {
             mode = "-e";
         } else {
 

@@ -3,12 +3,12 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.diettracker.model.Model.PREDICATE_SHOW_ALL_FOODS;
 
+import java.util.function.Predicate;
+
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.tag.Tag;
-
-import java.util.function.Predicate;
 
 /**
  * Lists all food and their calories.
@@ -59,8 +59,8 @@ public class ListCommand extends Command {
             String listDays = model.listFoods(mode, numDays);
             return new CommandResult(String.format(listDays));
         } else if (mode.equals("-e")) {
-            Predicate<Food> PREDICATE_SHOW_TAGGED_FOOD = food -> food.getTags().contains(this.tag);
-            model.updateFilteredFoodList(PREDICATE_SHOW_TAGGED_FOOD);
+            Predicate<Food> tagPredicate = food -> food.getTags().contains(this.tag);
+            model.updateFilteredFoodList(tagPredicate);
             String listTag = model.listFoods(mode);
             return new CommandResult(listTag);
         } else {
