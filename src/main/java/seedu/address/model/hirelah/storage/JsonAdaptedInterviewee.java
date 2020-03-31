@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.beans.property.ObjectProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Interviewee;
 
@@ -15,7 +16,7 @@ class JsonAdaptedInterviewee {
     private String fullName;
     private final int id;
     private String alias;
-    // private ObjectProperty<File> resume;
+    private final boolean transcript;
 
 
     /**
@@ -23,19 +24,23 @@ class JsonAdaptedInterviewee {
      */
     @JsonCreator
     public JsonAdaptedInterviewee(@JsonProperty("fullName") String fullName,
-                                  @JsonProperty("id") int id, @JsonProperty("alias") String alias) {
+                                  @JsonProperty("id") int id, @JsonProperty("alias") String alias,
+                                  @JsonProperty("transcript") boolean transcript) {
         this.fullName = fullName;
         this.id = id;
         this.alias = alias;
-        // this.resume = resume;
-        //this.interview = interview;
+        this.transcript = transcript;
     }
     public JsonAdaptedInterviewee(Interviewee source) {
         fullName = source.getFullName();
         id = source.getId();
         alias = source.getAlias().orElseGet(() -> null);
-        // resume = source.resumeProperty();
-        // interview = source.getTranscript();
+        if (source.getTranscript().isEmpty()){
+            transcript = false;
+        }
+        else {
+            transcript = true;
+        }
     }
     /**
      * Converts this Jackson-friendly adapted person object into the model's {@code Interviewee} object.
@@ -43,13 +48,8 @@ class JsonAdaptedInterviewee {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
 
-    public Interviewee toModelType() throws IllegalValueException {
-        if (fullName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Name"));
-        }
-        if (Integer.valueOf(id) == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ID"));
-        }
-        return new Interviewee(fullName, id); // do not contain the recording, alias and interview session
+    public Interviewee toModelType(TranscriptStorage transcriptStorage) throws IllegalValueException {
+
+        return new Interviewee(fullName, id); //
     }
 }

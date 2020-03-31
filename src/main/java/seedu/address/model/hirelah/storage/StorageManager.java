@@ -10,10 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.hirelah.AttributeList;
-import seedu.address.model.hirelah.IntervieweeList;
-import seedu.address.model.hirelah.MetricList;
-import seedu.address.model.hirelah.QuestionList;
+import seedu.address.model.hirelah.*;
 import seedu.address.storage.UserPrefsStorage;
 
 /**
@@ -45,11 +42,11 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to Metric data file: " + getIntervieweeDirectory());
         intervieweeStorage.saveInterview(source);
     }
-    public Optional<IntervieweeList> readInterviewee() throws DataConversionException {
-        return readInterviewee(intervieweeStorage.getPath());
+    public Optional<IntervieweeList> readInterviewee(QuestionList questionList, AttributeList attributeList) throws DataConversionException {
+        return readInterviewee(intervieweeStorage.getPath(), QuestionList questionList, AttributeList attributeList);
     }
     /** Reads the Json file and converts them to Interviewee objects*/
-    public Optional<IntervieweeList> readInterviewee(Path filepath) throws DataConversionException {
+    public Optional<IntervieweeList> readInterviewee(Path filepath, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
         logger.fine("Attempting to read data from Interviewee file: " + filepath);
         return intervieweeStorage.readInterviewee(filepath);
     }

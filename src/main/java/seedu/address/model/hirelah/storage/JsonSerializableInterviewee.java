@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
 
 /**
- * An Immutable Interviewee that is serializable to JSON format {@link IntervieweeList}.
+ * An Immutable InterviewList that is serializable to JSON format {@link IntervieweeList}.
  */
 @JsonRootName(value = "interviewees")
 class JsonSerializableInterviewee {

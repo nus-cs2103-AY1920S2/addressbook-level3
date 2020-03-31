@@ -32,6 +32,10 @@ public class QuestionStorage {
         return this.path;
     }
 
+    public Optional<QuestionList> readQuestion() throws DataConversionException {
+        return readQuestion(this.path);
+    }
+
     /**
      * reads the data from the current Path to
      * retrieve all the information regarding Question.

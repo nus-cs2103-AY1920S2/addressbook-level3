@@ -50,6 +50,11 @@ public class RemarkList {
         remarks.add(new Remark(Duration.between(startTime, Instant.now()), message));
     }
 
+    public void addRemark(String message, Duration time) {
+        requireNonNull(message);
+        remarks.add(new Remark(time, message));
+    }
+
     /**
      * Indicates the beginning of an answer to a question by inserting a QuestionRemark into the list.
      *
@@ -121,5 +126,12 @@ public class RemarkList {
             throw new IllegalActionException("This question was not answered!");
         }
         return questionIndices[questionIndex];
+    }
+    public int getNumbOfQns() {
+        return questionIndices.length;
+    }
+
+    public Instant getStartTime() {
+        return startTime;
     }
 }

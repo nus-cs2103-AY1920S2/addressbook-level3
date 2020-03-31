@@ -1,6 +1,9 @@
 package seedu.address.model.hirelah;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +20,7 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
 public class Transcript {
     private final RemarkList remarkList;
     private final ObservableMap<Attribute, Double> attributeToScoreMap;
+    private final boolean completed = false;
 
     /**
      * Constructs a {@code Transcript} object
@@ -28,6 +32,34 @@ public class Transcript {
         for (Attribute attribute : attributes) {
             attributeToScoreMap.put(attribute, Double.NaN);
         }
+    }
+
+    /**
+     * For storage usage.
+     */
+    public Transcript(QuestionList questions, AttributeList attributes, Instant startTime) {
+        this.remarkList = new RemarkList(questions.size(), startTime);
+        this.attributeToScoreMap = FXCollections.observableHashMap();
+        for (Attribute attribute : attributes) {
+            attributeToScoreMap.put(attribute, Double.NaN);
+        }
+    }
+
+
+    public int getNumbOfQns() {
+        return this.remarkList.getNumbOfQns();
+    }
+
+    public Instant getStartTime() {
+        return remarkList.getStartTime();
+    }
+
+   public HashMap<Attribute,Double> getMap() {
+       return (HashMap<Attribute, Double>) attributeToScoreMap;
+   }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     /**
@@ -84,6 +116,10 @@ public class Transcript {
      */
     public void addRemark(String message) {
         remarkList.addRemark(message);
+    }
+
+    public void addRemark(String message, Duration time) {
+        remarkList.addRemark(message, time);
     }
 
     /**
