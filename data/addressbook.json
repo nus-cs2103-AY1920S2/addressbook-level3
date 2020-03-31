@@ -175,5 +175,16 @@
     "others" : [ ],
     "steps" : [ ],
     "goals" : [ ]
+  }, {
+    "name" : "my gma Chicken RICE",
+    "time" : "20",
+    "isFavourite" : false,
+    "grains" : [ "50.0g,  rice" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ ]
   } ]
 }

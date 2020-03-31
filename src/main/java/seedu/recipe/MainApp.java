@@ -82,7 +82,8 @@ public class MainApp extends Application {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
         //to be changed later
-        ReadOnlyCookedRecordBook stub = new CookedRecordBook();
+        Optional<ReadOnlyCookedRecordBook> recordBookOptional;
+        ReadOnlyCookedRecordBook initialRecords;
 
         try {
             recipeBookOptional = storage.readRecipeBook();
@@ -90,6 +91,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample RecipeBook");
             }
             initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
@@ -98,7 +100,22 @@ public class MainApp extends Application {
             initialData = new RecipeBook();
         }
 
-        return new ModelManager(initialData, userPrefs, stub);
+        try {
+            recordBookOptional = storage.readCookedRecord();
+            if (!recordBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Recordbook");
+            }
+            initialRecords = recordBookOptional.orElseGet(SampleDataUtil::getSampleRecordBook);
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty recordbook");
+            initialRecords = new CookedRecordBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty recordbook");
+            initialRecords = new CookedRecordBook();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialRecords);
     }
 
     private void initLogging(Config config) {

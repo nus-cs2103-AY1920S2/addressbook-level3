@@ -21,6 +21,8 @@ public class CookedCommand extends Command {
             + "Parameters: INDEX NUMBER(s) (must be positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_DUPLICATE_RECORD = "This recipe has already been added!";
+
     private final Index[] targetIndex;
 
     public CookedCommand(Index[] targetIndex) {
@@ -37,10 +39,12 @@ public class CookedCommand extends Command {
             if (targetIndex[i].getZeroBased() >= mostRecentList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
-
             Recipe recipeCooked = mostRecentList.get(targetIndex[i].getZeroBased());
             Date now = new Date();
             Record record = new Record(recipeCooked.getName());
+            if (model.hasRecord(record)) {
+                throw new CommandException(MESSAGE_DUPLICATE_RECORD);
+            }
             model.addRecord(record);
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");

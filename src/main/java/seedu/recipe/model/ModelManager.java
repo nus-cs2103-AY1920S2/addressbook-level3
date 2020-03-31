@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     private final VersionedRecipeBook states;
     private final PlannedRecipeMap plannedRecipes;
     private final CookedRecordBook cookedRecordBook;
-    private final FilteredList<Record> records;
+    private final FilteredList<Record> filteredRecords;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -46,7 +46,7 @@ public class ModelManager implements Model {
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
         this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
-        this.records = new FilteredList<>(this.cookedRecordBook.getRecordsList());
+        this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
         plannedRecipes = new PlannedRecipeMap(); // todo: planned recipes cant be saved currently
     }
 
@@ -207,6 +207,22 @@ public class ModelManager implements Model {
     @Override
     public void addRecord(Record record) {
         cookedRecordBook.addRecord(record);
+    }
+
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return filteredRecords;
+    }
+
+    @Override
+    public ReadOnlyCookedRecordBook getRecordBook() {
+        return cookedRecordBook;
+    }
+
+    @Override
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return cookedRecordBook.hasRecord(record);
     }
 
 }

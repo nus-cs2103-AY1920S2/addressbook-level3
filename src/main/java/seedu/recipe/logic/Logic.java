@@ -8,6 +8,7 @@ import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -47,4 +48,10 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns an unmodifiable view of cooked records
+     * @return list
+     */
+    ObservableList<Record> getFilteredRecordList();
 }

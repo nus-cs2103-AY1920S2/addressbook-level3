@@ -136,4 +136,10 @@ public interface Model {
      */
 
     void addRecord(Record record);
+
+    ObservableList<Record> getFilteredRecordList();
+
+    ReadOnlyCookedRecordBook getRecordBook();
+
+    boolean hasRecord(Record record);
 }
