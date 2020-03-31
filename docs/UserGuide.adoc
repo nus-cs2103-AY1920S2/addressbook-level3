@@ -48,7 +48,7 @@ Notably will display the list of features and commands available as well as thei
 Format: `help`
 
 .Demo for the `help` command
-image:demo/Help.png[width="790"]
+image:demo/Help.png[]
 
 === Exit the program: `exit`
 
@@ -56,7 +56,7 @@ Exits the program. +
 Format: `exit`
 
 .Demo for the `exit` command
-image:demo/Exit.png[width="790"]
+image:demo/Exit.png[]
 
 === Create a new note: `new`
 
@@ -65,13 +65,13 @@ Format: `new -t TITLE [-b BODY] [-o]` +
 Example: `new -t Notably -b Lorem ipsum dolor sit amer -o`
 
 .Demo for the `new` command (with all parameters)
-image:demo/New1.png[width="790"]
+image:demo/New1.png[]
 
 .Demo for the `new` command (with only title parameter)
-image:demo/New2.png[width="790"]
+image:demo/New2.png[]
 
-.Demo for the `new` command (final state)
-image:demo/New3.png[width="790"]
+.Demo for the `new` command (after new note creations)
+image:demo/New3.png[]
 
 === Open an existing note: `open`
 
