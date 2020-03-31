@@ -71,6 +71,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> goodNames} into a {@code Set<GoodName>}.
+     */
+    public static Set<GoodName> parseGoodNames(Collection<String> goodNames) throws ParseException {
+        requireAllNonNull(goodNames);
+        final Set<GoodName> goodNameSet = new HashSet<>();
+        for (String goodName : goodNames) {
+            goodNameSet.add(parseGoodName(goodName));
+        }
+        return goodNameSet;
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
