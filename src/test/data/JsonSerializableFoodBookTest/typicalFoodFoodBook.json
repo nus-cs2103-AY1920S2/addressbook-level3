@@ -1,0 +1,13 @@
+{
+  "foods" : [ {
+    "name" : "Pasta Aglio Olio",
+    "calories": "1200",
+    "date": "",
+    "tagged" : [ "favorite" ]
+  }, {
+    "name" : "Pizza Pepperoni",
+    "calories": "560",
+    "date": "",
+    "tagged" : [ "fastfood", "favorite" ]
+  }]
+}
