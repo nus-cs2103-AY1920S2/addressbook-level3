@@ -75,7 +75,7 @@ public class UniquePlannedList {
     public boolean hasPlannedRecipe(PlannedRecipe otherPlannedRecipe) {
         if (!observableList.contains(otherPlannedRecipe)) {
             for (PlannedRecipe plannedRecipe : observableList) {
-                if (plannedRecipe.hasSameDateAndContainsSameRecipe(otherPlannedRecipe)) {
+                if (plannedRecipe.hasSameDateAndContainsSameRecipe(otherPlannedRecipe)) { // todo check this
                     return false;
                 }
             }

@@ -9,11 +9,13 @@ import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
+import seedu.recipe.model.plan.DuplicatePlannedRecipeException;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -32,6 +34,8 @@ public class PlanCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "3 "
             + PREFIX_DATE + "2020-03-16";
+
+    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "Planned recipe at %1$s already exists.";
 
     public static final String MESSAGE_SUCCESS = "Recipe %1$s planned at %2$s";
 
@@ -64,12 +68,11 @@ public class PlanCommand extends Command {
 
         PlannedRecipe plannedRecipe = new PlannedRecipe(recipesToPlan, atDate);
 
-/*        try {
+        try {
             model.addPlannedRecipe(plannedRecipe);
-        } catch () {
-            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
-        }*/
-        model.addPlannedRecipe(plannedRecipe);
+        } catch (DuplicatePlannedRecipeException dp) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PLANNED_RECIPE, index.getOneBased()));
+        }
         model.addPlannedMapping(recipeToPlan, plannedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
