@@ -1,5 +1,10 @@
 package seedu.address.model.hirelah.storage;
 
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,19 +15,17 @@ import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * A class to represent a Transcript in JSON.
+ */
 public class JsonSerializableTranscript {
-    private final HashMap<String,Double> attributeToScore;
+    private final HashMap<String, Double> attributeToScore;
     private final List<JsonAdaptedRemark> remarkList;
     private final Instant startTime;
     private final boolean completed;
 
     @JsonCreator
-    public JsonSerializableTranscript(@JsonProperty("attributeToScore") HashMap<String,Double> attributeToScore ,
+    public JsonSerializableTranscript(@JsonProperty("attributeToScore") HashMap<String, Double> attributeToScore ,
                                       @JsonProperty("remarkList") List<JsonAdaptedRemark> remarkList,
                                       @JsonProperty("completed") boolean completed,
                                       @JsonProperty("startTime") Instant startTime) {
@@ -42,6 +45,15 @@ public class JsonSerializableTranscript {
         this.completed = transcript.isCompleted();
     }
 
+    /**
+     * Converts the JsonSerializableTranscript to a Transcript with validation of Questions and Attributes.
+     *
+     * @param questions the questions of the session.
+     * @param attributes the attributes of the session.
+     * @return the Transcript restored from json.
+     * @throws IllegalValueException if saved Transcript represents an illegal state.
+     * @throws IllegalActionException if saved Transcript represents an illegal state.
+     */
     public Transcript toModelType(QuestionList questions, AttributeList attributes)
             throws IllegalValueException, IllegalActionException {
         Transcript transcript = new Transcript(questions, attributes, startTime);

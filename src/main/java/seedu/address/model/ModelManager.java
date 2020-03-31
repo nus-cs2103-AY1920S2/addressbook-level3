@@ -60,7 +60,7 @@ public class ModelManager implements Model {
 
     public ModelManager(ReadOnlyUserPrefs userPrefs, IntervieweeList initialInterviewees,
                         AttributeList initialAttributes, QuestionList initialQuestions,
-                        MetricList initialMetrics,Boolean finalised) {
+                        MetricList initialMetrics, Boolean finalised) {
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.appPhase = AppPhase.NORMAL;

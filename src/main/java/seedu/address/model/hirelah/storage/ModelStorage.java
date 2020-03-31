@@ -1,17 +1,20 @@
 package seedu.address.model.hirelah.storage;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.JsonUtil;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.JsonUtil;
 
+/**
+ * A class to store Model state, which is only a single boolean to indicate if it is finalised.
+ */
 public class ModelStorage {
     private static final Logger logger = LogsCenter.getLogger(ModelStorage.class);
     private final Path path;
@@ -47,7 +50,6 @@ public class ModelStorage {
      * @param  source of the data. Cannot be null.
      */
     public void saveModel(boolean source) throws IOException {
-        requireNonNull(source);
         requireNonNull(path);
         FileUtil.createIfMissing(path);
         JsonUtil.saveJsonFile(new JsonSerializableModel(source), path);

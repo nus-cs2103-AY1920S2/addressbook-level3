@@ -1,13 +1,16 @@
 package seedu.address.model.hirelah.storage;
 
+import java.time.Duration;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.model.hirelah.Question;
+
 import seedu.address.model.hirelah.QuestionRemark;
 import seedu.address.model.hirelah.Remark;
 
-import java.time.Duration;
-
+/**
+ * A class to represent {@code Remark} and its subclass {@code QuestionRemark} in JSON.
+ */
 public class JsonAdaptedRemark {
     private final Duration time;
     private final String message;
@@ -26,8 +29,7 @@ public class JsonAdaptedRemark {
         message = source.getMessage();
         if (source instanceof QuestionRemark) {
             questionNumber = ((QuestionRemark) source).getQuestionNumber();
-        }
-        else {
+        } else {
             questionNumber = null;
         }
     }
@@ -43,5 +45,4 @@ public class JsonAdaptedRemark {
     public Integer getQuestionNumber() {
         return questionNumber;
     }
-
 }

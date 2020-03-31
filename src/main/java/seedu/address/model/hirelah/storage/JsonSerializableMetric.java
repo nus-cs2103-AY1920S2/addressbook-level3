@@ -39,7 +39,7 @@ public class JsonSerializableMetric {
         MetricList newData = new MetricList();
         for (JsonAdaptedMetric jsonAdaptedmetrics : metrics) {
             Metric metric = jsonAdaptedmetrics.toModelType();
-             newData.getObservableList().add(metric);
+            newData.getObservableList().add(metric);
 
         }
         return newData;

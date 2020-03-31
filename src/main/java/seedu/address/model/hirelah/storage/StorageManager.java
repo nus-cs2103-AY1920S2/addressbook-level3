@@ -8,10 +8,14 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.hirelah.*;
+import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.QuestionList;
+import seedu.address.model.hirelah.Transcript;
 import seedu.address.storage.UserPrefsStorage;
 
 /**
@@ -44,18 +48,23 @@ public class StorageManager implements Storage {
 
     // ================ InterviewStorage methods ==============================
     /** Save all the IntervieweeList into their Json file*/
-    public void saveInterviewee(IntervieweeList source) throws IOException, IllegalValueException {
-        logger.fine("Attempting to write to Metric data file: " + getIntervieweeDirectory());
+    public void saveInterviewee(IntervieweeList source) throws IOException {
+        logger.fine("Attempting to write to Interviewee data file: " + getIntervieweeDirectory());
         intervieweeStorage.saveInterview(source);
     }
 
-    public Optional<IntervieweeList> readInterviewee(QuestionList questionList, AttributeList attributeList,Boolean initialModel) throws DataConversionException {
-        return readInterviewee(intervieweeStorage.getPath(), questionList, attributeList,initialModel);
+    public Optional<IntervieweeList> readInterviewee(QuestionList questionList,
+                                                     AttributeList attributeList,
+                                                     Boolean initialModel) throws DataConversionException {
+        return readInterviewee(intervieweeStorage.getPath(), questionList, attributeList, initialModel);
     }
     /** Reads the Json file and converts them to Interviewee objects*/
-    public Optional<IntervieweeList> readInterviewee(Path filepath, QuestionList questionList, AttributeList attributeList, Boolean initialModel) throws DataConversionException {
+    public Optional<IntervieweeList> readInterviewee(Path filepath, QuestionList questionList,
+                                                     AttributeList attributeList,
+                                                     Boolean initialModel) throws DataConversionException {
         logger.fine("Attempting to read data from Interviewee file: " + filepath);
-        return intervieweeStorage.readInterviewee(filepath,questionList, attributeList, initialModel, this.transcriptStorage);
+        return intervieweeStorage
+                .readInterviewee(filepath, questionList, attributeList, initialModel, this.transcriptStorage);
     }
 
     public Path getIntervieweeDirectory() {
@@ -65,7 +74,7 @@ public class StorageManager implements Storage {
     // ================ AttributeStorage methods ==============================
     /** Save all the AttributeList into their Json file*/
     public void saveAttribute(AttributeList source) throws IOException, IllegalValueException {
-        logger.fine("Attempting to write to Metric data file: " + getAttributeDirectory());
+        logger.fine("Attempting to write to Attribute data file: " + getAttributeDirectory());
         attributeStorage.saveAttributes(source);
     }
 
@@ -83,7 +92,7 @@ public class StorageManager implements Storage {
 
     // ================ QuestionStorage methods ==============================
     /** Save all the QuestionList into their Json file*/
-    public void saveQuestion(QuestionList source) throws IOException, IllegalValueException {
+    public void saveQuestion(QuestionList source) throws IOException {
         logger.fine("Attempting to write to Metric data file: " + getQuestionDirectory());
         questionStorage.saveQuestions(source);
     }
@@ -91,6 +100,7 @@ public class StorageManager implements Storage {
     public Optional<QuestionList> readQuestion() throws DataConversionException {
         return readQuestion(questionStorage.getPath());
     }
+
     /** Reads the Json file and converts them to Interviewee objects*/
     public Optional<QuestionList> readQuestion(Path filepath) throws DataConversionException {
         logger.fine("Attempting to read data from Question file: " + filepath);
@@ -111,7 +121,8 @@ public class StorageManager implements Storage {
     public Optional<MetricList> readMetric() throws DataConversionException {
         return readMetric(metricStorage.getPath());
     }
-    /** Reads the Json file and converts them to Interviewee objects*/
+
+    /** Reads the Json file and converts them to Interviewee objects */
     public Optional<MetricList> readMetric(Path filepath) throws DataConversionException {
         logger.fine("Attempting to read data from Metric file: " + filepath);
         return metricStorage.readMetric(filepath);
@@ -122,19 +133,16 @@ public class StorageManager implements Storage {
     }
 
     // ================ TranscriptStorage methods ================================
-    /** Save all the MetricList into their Json file*/
-    public void saveTranscript(Interviewee source) throws IOException, IllegalValueException {
-        logger.fine("Attempting to write to Metric data file: " + getMetricDirectory());
+    /** Save all the MetricList into their Json file */
+    public void saveTranscript(Interviewee source) throws IOException {
+        logger.fine("Attempting to write to Transcript data file: " + getMetricDirectory());
         transcriptStorage.saveTranscript(source);
     }
 
-    /*public Optional<Transcript> readTranscript(Path path, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
-        return readTranscript(transcriptStorage.getPath(),questionList, attributeList);
-    }*/
-
-    /** Reads the Json file and converts them to Interviewee objects*/
-    public Optional<Transcript> readTranscript(Path filepath, QuestionList questionList, AttributeList attributeList) throws DataConversionException {
-        logger.fine("Attempting to read data from Metric file: " + filepath);
+    /** Reads the Json file and converts them to Interviewee objects */
+    public Optional<Transcript> readTranscript(Path filepath, QuestionList questionList, AttributeList attributeList)
+            throws DataConversionException {
+        logger.fine("Attempting to read data from Transcript file: " + filepath);
         return transcriptStorage.readTranscript(filepath, questionList, attributeList);
     }
 
@@ -142,6 +150,13 @@ public class StorageManager implements Storage {
     public Path getModelDirectory() {
         return modelStorage.getPath();
     }
+
+    /**
+     * Saves the Model state to hard disk.
+     *
+     * @param model the model state - whether the model is finalised.
+     * @throws IOException if an error occurs while writing the file.
+     */
     public void saveModel(Boolean model) throws IOException {
         logger.fine("Attempting to write to Model data file: " + getModelDirectory());
         modelStorage.saveModel(model);
@@ -150,8 +165,12 @@ public class StorageManager implements Storage {
     public Optional<Boolean> readModel() throws DataConversionException {
         return readModel(getModelDirectory());
     }
+
+    /**
+     *
+     */
     public Optional<Boolean> readModel(Path filePath) throws DataConversionException {
-        logger.fine("Attempting to read data from Metric file: " + filePath);
+        logger.fine("Attempting to read data from Model file: " + filePath);
         return modelStorage.readModel(filePath);
     }
 
