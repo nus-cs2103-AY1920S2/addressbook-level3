@@ -98,6 +98,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
+        setUpLogic(logic);
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -120,6 +121,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      * Focuses on the help window.
      */
     public void focus() {
+        setUpLogic(logic);
         getRoot().requestFocus();
     }
 }
