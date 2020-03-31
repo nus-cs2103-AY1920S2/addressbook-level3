@@ -64,6 +64,15 @@ You can create a new note in your current working directory. +
 Format: `new -t TITLE [-b BODY] [-o]` +
 Example: `new -t Notably -b Lorem ipsum dolor sit amer -o`
 
+.Demo for the `new` command (with all parameters)
+image:demo/New1.png[width="790"]
+
+.Demo for the `new` command (with only title parameter)
+image:demo/New2.png[width="790"]
+
+.Demo for the `new` command (final state)
+image:demo/New3.png[width="790"]
+
 === Open an existing note: `open`
 
 You can open an existing note by specifynig its title. A slash `/` character can be used to denote a filesystem-like hierarchy. +
