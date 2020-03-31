@@ -168,8 +168,13 @@ public interface Model {
      */
     void sortAssignment(Comparator<Assignment> comparator);
 
+    /**
+     * Sets an assignment
+     * @param assignmentToUpdate assignment to be replaced
+     * @param updatedAssignment assignment to replace the replaced
+     */
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
-  
+
     /**
      * Calculates the schedule for the upcoming numDays (today inclusive).
      */

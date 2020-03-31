@@ -221,7 +221,7 @@ public class ModelStub implements Model {
     public ObservableList<Day> getScheduleVisualResult() {
         throw new AssertionError("This method should not be called.");
     }
-    
+
     public void calculateScheduleIntensity(int numDays) {
         throw new AssertionError("This method should not be called.");
     }
@@ -242,7 +242,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public String redo() { {
+    public String redo() {
         throw new AssertionError("This method should not be called.");
     }
 }
