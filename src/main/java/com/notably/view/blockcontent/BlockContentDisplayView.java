@@ -12,6 +12,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.web.WebView;
 
+/**
+ * Read-only and rendered view of the currently open block's content.
+ */
 public class BlockContentDisplayView extends ViewPart<WebView> {
     private static final String FXML = "blockcontent/BlockContentDisplayView.fxml";
 
