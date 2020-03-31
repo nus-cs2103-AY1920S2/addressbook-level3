@@ -1,6 +1,5 @@
 package com.notably.model.block;
 
-import static com.notably.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -8,15 +7,6 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is non-null
  */
 public class Body {
-    public static final String MESSAGE_CONSTRAINTS =
-        "Body should not be blank";
-
-    /*
-    * The string can be empty (initialization of an empty body) but
-    * the body cannot contain only whitespace characters, e.g. "  " is invalid.
-    */
-    public static final String VALIDATION_REGEX = "(?!^ +$)^.+$";
-
     public final String blockBody;
 
     /**
@@ -26,17 +16,7 @@ public class Body {
      */
     public Body(String body) {
         requireNonNull(body);
-        checkArgument(isValidBody(body), MESSAGE_CONSTRAINTS);
-        blockBody = body;
-    }
-
-    /**
-     * Returns true if a given string is a valid body.
-     *
-     * @param test The body string to test.
-     */
-    public static boolean isValidBody(String test) {
-        return test.equals("") || test.matches(VALIDATION_REGEX);
+        blockBody = body.trim();
     }
 
     /**
