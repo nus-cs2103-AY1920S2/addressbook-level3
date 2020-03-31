@@ -24,9 +24,9 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tatracker.logic.parser.Prefixes.TAG;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static tatracker.testutil.TypicalIndexes.INDEX_THIRD_STUDENT;
@@ -45,10 +45,10 @@ import tatracker.testutil.EditStudentDescriptorBuilder;
 
 public class EditStudentCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String TAG_EMPTY = " " + TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.DETAILS.getUsage());
 
     private EditStudentCommandParser parser = new EditStudentCommandParser();
 

@@ -11,15 +11,10 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Tabs should be switched. */
-    //private final boolean switchTab;
-
-    /** Help information should be shown to the user. */
-    //private final boolean showHelp;
-
-    /** The application should exit. */
-    //private final boolean exit;
-
+    /**
+     * Represents all the actions that can occur in the GUI.
+     * Note that each action cannot happen at the same time.
+     */
     public enum Action {
         DONE,
         EXIT,

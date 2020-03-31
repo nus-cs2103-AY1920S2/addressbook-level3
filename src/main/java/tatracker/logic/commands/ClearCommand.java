@@ -2,6 +2,8 @@ package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
@@ -11,9 +13,14 @@ import tatracker.model.TaTracker;
  */
 public class ClearCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "TA-Tracker has been cleared!";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.CLEAR,
+            "Clears all TA-Tracker stored data.",
+            List.of(),
+            List.of()
+    );
 
+    public static final String MESSAGE_SUCCESS = "TA-Tracker has been cleared!";
 
     @Override
     public CommandResult execute(Model model) {

@@ -1,5 +1,7 @@
 package tatracker.logic.commands;
 
+import java.util.List;
+
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
@@ -8,7 +10,12 @@ import tatracker.model.Model;
  */
 public class ExitCommand extends Command {
 
-    public static final String COMMAND_WORD = "exit";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.EXIT,
+            "Exits TA-Tracker.",
+            List.of(),
+            List.of()
+    );
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting TA-Tracker as requested ...";
 
