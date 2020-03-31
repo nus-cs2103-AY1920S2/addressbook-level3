@@ -9,6 +9,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
@@ -28,7 +29,9 @@ public class RecipeCard extends UiPart<Region> {
     public final Recipe recipe;
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
+    @FXML
+    private HBox title;
     @FXML
     private Label name;
     @FXML
@@ -51,7 +54,9 @@ public class RecipeCard extends UiPart<Region> {
         super(FXML);
         this.recipe = recipe;
 
-        this.cardPane.setBackground(Background.EMPTY);
+        this.cardPane.setStyle("-fx-background-color: transparent;");
+        this.title.setStyle("-fx-background-color: transparent;");
+        this.tags.setStyle("-fx-background-color: transparent;");
 
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);

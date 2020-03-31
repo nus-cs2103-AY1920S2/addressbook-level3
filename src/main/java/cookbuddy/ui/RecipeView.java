@@ -34,6 +34,7 @@ public class RecipeView extends UiPart<Region> {
         this.name.setText(recipe.getName().name);
         this.ingredients.setItems(FXCollections.observableList(this.recipe.getIngredients().asList()));
         this.instructions.setItems(FXCollections.observableList(this.recipe.getInstructions().asList()));
-        // this.recipeImage.setImage(new Image());
+
+        this.ingredients.setStyle(".list-cell:empty {-fx-background-color: transparent;}");
     }
 }
