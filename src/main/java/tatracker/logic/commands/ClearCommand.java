@@ -13,18 +13,13 @@ import tatracker.model.TaTracker;
 public class ClearCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
-            "clear",
+            CommandWords.CLEAR,
             "Clears all TA-Tracker stored data.",
             List.of(),
             List.of()
     );
 
-    public static final String COMMAND_WORD = "clear";
-
-    public static final String INFO = "Clears all TA-Tracker stored data.";
-
     public static final String MESSAGE_SUCCESS = "TA-Tracker has been cleared!";
-
 
     @Override
     public CommandResult execute(Model model) {

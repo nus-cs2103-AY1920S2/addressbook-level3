@@ -2,6 +2,7 @@ package tatracker.logic.commands;
 
 /**
  * Contains a list of common command words in TA-Tracker.
+ * These have been separated as they will be used by the CommandDictionary in future versions.
  */
 public final class CommandWords {
 
@@ -18,4 +19,12 @@ public final class CommandWords {
 
     /* List of command words for special actions in TA-Tracker. */
     public static final String SORT = "sort";
+    public static final String FIND = "find";
+
+    public static final String CLEAR = "clear";
+    public static final String EXIT = "exit";
+    public static final String HELP = "help";
+    public static final String LIST = "list";
+
+    public static final String DONE_SESSION = "done";
 }

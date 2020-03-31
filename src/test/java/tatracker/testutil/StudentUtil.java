@@ -30,7 +30,7 @@ public class StudentUtil {
      * Returns an add command string for adding the {@code student}.
      */
     public static String getAddCommand(Student student) {
-        return AddStudentCommand.COMMAND_WORD + " " + getStudentDetails(student) + " "
+        return AddStudentCommand.DETAILS.getFullCommandWord() + " " + getStudentDetails(student) + " "
                 + GROUP + " " + TEST_GROUP.getIdentifier() + " "
                 + MODULE + " " + TEST_MODULE.getIdentifier();
     }

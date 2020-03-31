@@ -45,7 +45,8 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
                 DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddSessionCommand.DETAILS.getUsage()));
         }
 
         LocalDate date = LocalDate.now();

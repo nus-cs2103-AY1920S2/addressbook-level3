@@ -12,7 +12,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -32,24 +31,6 @@ public class DeleteStudentCommand extends Command {
             List.of(),
             MATRIC, MODULE, GROUP
     );
-
-    public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.DELETE_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(MATRIC, MODULE, GROUP);
-
-    public static final String INFO = "Deletes the student with the given matric number from the given module group.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the student with the given matric number from the given module group.\n"
-            + "Parameters:\n"
-            + MATRIC + "MATRIC "
-            + MODULE + "MODULE "
-            + GROUP + "GROUP\n"
-            + "Example:\n"
-            + COMMAND_WORD + " "
-            + MATRIC + "A0181234G "
-            + MODULE + "CS3243 "
-            + GROUP + "G06 ";
 
     public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
     public static final String MESSAGE_INVALID_MODULE_FORMAT =

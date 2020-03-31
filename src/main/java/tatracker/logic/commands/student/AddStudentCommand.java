@@ -17,7 +17,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -36,36 +35,6 @@ public class AddStudentCommand extends Command {
             List.of(PHONE, EMAIL, RATING, TAG),
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
     );
-
-    public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.ADD_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(MATRIC, MODULE, GROUP, NAME);
-    public static final List<Prefix> OPTIONALS = List.of(PHONE, EMAIL, RATING, TAG);
-
-    public static final String INFO = "Adds a student into the given module group.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a student to the into the given module group.\n"
-            + "Parameters:\n"
-            + MATRIC + "MATRIC "
-            + MODULE + "MODULE "
-            + GROUP + "GROUP "
-            + NAME + "NAME "
-            + "[" + PHONE + "PHONE] "
-            + "[" + EMAIL + "EMAIL] "
-            + "[" + RATING + "RATING] "
-            + "[" + TAG + "TAG]...\n"
-            + "Example:\n"
-            + COMMAND_WORD + " "
-            + MATRIC + "A0181234G "
-            + MODULE + "CS3243 "
-            + GROUP + "G06 "
-            + NAME + "John Doe "
-            + PHONE + "98765432 "
-            + EMAIL + "johnd@example.com "
-            + RATING + "3 "
-            + TAG + "friends "
-            + TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New student added: %s\n To Module: %s\n To Group: %s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";

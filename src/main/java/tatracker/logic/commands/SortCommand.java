@@ -2,12 +2,10 @@ package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.SORT_TYPE;
-import static tatracker.logic.parser.Prefixes.TYPE;
 
 import java.util.List;
 
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 
 /**
@@ -22,21 +20,6 @@ public class SortCommand extends Command {
             List.of(),
             SORT_TYPE
     );
-
-    public static final String COMMAND_WORD = CommandWords.SORT;
-
-    public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE);
-
-    public static final String INFO = "Sorts all students in TA-Tracker with in-built rules.";
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"
-            + "all groups of all modules in the TA-Tracker. "
-            + "Parameters: "
-            + TYPE + "SORT TYPE "
-            + "Example: " + COMMAND_WORD + " "
-            + TYPE + "alphabetically"
-            + "\nOther variations include group code and module code.";
 
     public static final String MESSAGE_SUCCESS = "The modules have been sorted.";
     private static final int FIRST_MODULE_INDEX = 0;

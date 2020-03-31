@@ -29,7 +29,8 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
 
         if (!arePrefixesPresent(argMultimap, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteModuleCommand.DETAILS.getUsage()));
         }
 
         String moduleCode = argMultimap.getValue(MODULE).get();

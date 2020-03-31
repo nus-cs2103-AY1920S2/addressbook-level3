@@ -7,7 +7,6 @@ import static tatracker.logic.parser.Prefixes.MORE_KEYWORDS;
 import java.util.List;
 
 import tatracker.commons.core.Messages;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
@@ -18,26 +17,13 @@ import tatracker.model.student.NameContainsKeywordsPredicate;
 public class FindCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
-            "find",
+            CommandWords.FIND,
             "Finds all students whose names contain any of the specified keywords (case-insensitive)"
                     + " and displays them as a list with index numbers.",
             List.of(KEYWORD),
             List.of(MORE_KEYWORDS),
             KEYWORD, MORE_KEYWORDS
     );
-
-    public static final String COMMAND_WORD = "find";
-
-    public static final List<Prefix> PARAMETERS = List.of(KEYWORD);
-    public static final List<Prefix> OPTIONALS = List.of(MORE_KEYWORDS);
-
-    public static final String INFO = "Finds all students whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all students whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final NameContainsKeywordsPredicate predicate;
 

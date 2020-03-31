@@ -3,7 +3,6 @@ package tatracker.logic.commands.group;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
-import static tatracker.logic.parser.Prefixes.TYPE;
 
 import java.util.List;
 
@@ -12,8 +11,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -31,19 +28,6 @@ public class DeleteGroupCommand extends Command {
             List.of(),
             MODULE, GROUP
     );
-
-    public static final String COMMAND_WORD = CommandWords.GROUP + " " + CommandWords.DELETE_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(MODULE, GROUP);
-
-    public static final String INFO = "Deletes the group identified by the group code.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the  group identified by the group code.\n"
-            + "Parameters: " + MODULE + " MODULE_CODE " + Prefixes.GROUP + " GROUP_CODE"
-            + TYPE + " GROUP_TYPE\n"
-            + "Example: " + COMMAND_WORD + " " + MODULE + "CS2013T " + Prefixes.GROUP + "G03 "
-            + TYPE + "lab";
 
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";

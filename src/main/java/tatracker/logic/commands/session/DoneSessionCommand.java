@@ -12,7 +12,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -23,24 +22,12 @@ public class DoneSessionCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
-            "done",
+            CommandWords.DONE_SESSION,
             "Marks a session as done in TA-Tracker.",
             List.of(INDEX),
             List.of(),
             INDEX
     );
-
-    public static final String DONE_MODEL = "done";
-    public static final String COMMAND_WORD = CommandWords.SESSION + " " + DONE_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(INDEX);
-
-    public static final String INFO = "Marks a session as done in TA-Tracker.";
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a session as done in TA-Tracker. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_SUCCESS = "Session completed: %1$s";
     public static final String MESSAGE_INVALID_INDEX = "Index does not exists";

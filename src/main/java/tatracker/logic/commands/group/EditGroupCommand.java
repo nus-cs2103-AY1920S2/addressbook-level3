@@ -13,8 +13,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
@@ -33,20 +31,6 @@ public class EditGroupCommand extends Command {
             List.of(NEWGROUP, NEWTYPE), // TODO: new type not needed?
             MODULE, GROUP, NEWGROUP, NEWTYPE
     );
-
-    public static final String COMMAND_WORD = CommandWords.GROUP + " " + CommandWords.EDIT_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(MODULE, GROUP);
-    public static final List<Prefix> OPTIONALS = List.of(NEWGROUP, NEWTYPE); // TODO: new type not needed?
-
-    public static final String INFO = "Edits the group identified by the group code.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the  group identified by the group code.\n"
-            + "Parameters: " + MODULE + " MODULE_CODE " + Prefixes.GROUP + "GROUP_CODE"
-            + NEWTYPE + "NEW GROUP TYPE  " + NEWGROUP + "NEW GROUP NAME "
-            + "Example: " + COMMAND_WORD + " " + MODULE + "CS2013T " + Prefixes.GROUP + "G03 "
-            + NEWTYPE + "lab " + NEWGROUP + "G05";
 
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Edited Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";

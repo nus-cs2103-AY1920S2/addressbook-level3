@@ -10,15 +10,11 @@ import tatracker.model.Model;
 public class ExitCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
-            "exit",
+            CommandWords.EXIT,
             "Exits TA-Tracker.",
             List.of(),
             List.of()
     );
-
-    public static final String COMMAND_WORD = "exit";
-
-    public static final String INFO = "Exits TA-Tracker.";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting TA-Tracker as requested ...";
 

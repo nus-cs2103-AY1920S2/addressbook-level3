@@ -35,7 +35,8 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditGroupCommand.DETAILS.getUsage()));
         }
 
         String groupCode = argMultimap.getValue(GROUP).get();

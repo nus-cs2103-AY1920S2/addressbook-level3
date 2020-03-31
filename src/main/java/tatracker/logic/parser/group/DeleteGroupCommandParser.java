@@ -31,7 +31,8 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
 
         if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
                  || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteGroupCommand.DETAILS.getUsage()));
         }
 
         String groupCode = argMultimap.getValue(GROUP).get();

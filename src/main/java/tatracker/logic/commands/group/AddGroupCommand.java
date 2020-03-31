@@ -12,8 +12,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.Prefixes;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -30,23 +28,6 @@ public class AddGroupCommand extends Command {
             List.of(),
             GROUP, MODULE, TYPE
     );
-
-    public static final String COMMAND_WORD = CommandWords.GROUP + " " + CommandWords.ADD_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(GROUP, MODULE, TYPE);
-
-    public static final String INFO = "Adds a group into TA-Tracker.";
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a group into TA-Tracker. "
-            + "Parameters: "
-            + Prefixes.GROUP + "GROUP CODE "
-            + MODULE + "MODULE CODE "
-            + TYPE + "GROUP TYPE "
-            + "Example: " + COMMAND_WORD + " "
-            + Prefixes.GROUP + "G06 "
-            + MODULE + "CS2100 "
-            + TYPE + "lab";
 
     public static final String MESSAGE_SUCCESS = "New Group added: %s";
     public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";

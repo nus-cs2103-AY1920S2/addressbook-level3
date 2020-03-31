@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SORT_TYPE;
-import static tatracker.logic.parser.Prefixes.TYPE;
 
 import java.util.List;
 
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -26,23 +24,6 @@ public class SortGroupCommand extends SortCommand {
             List.of(),
             SORT_TYPE, MODULE, GROUP
     );
-
-    public static final String COMMAND_WORD = CommandWords.SORT;
-
-    public static final List<Prefix> PARAMETERS = List.of(SORT_TYPE, MODULE, GROUP);
-
-    public static final String INFO = "Sorts all students in the given group.";
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in the given group. "
-            + "Parameters: "
-            + GROUP + "GROUP CODE "
-            + MODULE + "MODULE CODE "
-            + TYPE + "SORT TYPE "
-            + "Example: " + COMMAND_WORD + " "
-            + GROUP + "G06 "
-            + MODULE + "CS2100 "
-            + TYPE + "alphabetically";
 
     public static final String MESSAGE_SUCCESS = "Group %s has been sorted.";
     public static final String MESSAGE_INVALID_GROUP_CODE = "This group doesn't exist in the TA-Tracker";

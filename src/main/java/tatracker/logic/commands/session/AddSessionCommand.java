@@ -16,7 +16,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 
@@ -33,31 +32,6 @@ public class AddSessionCommand extends Command {
             List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
             START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
     );
-
-    public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.ADD_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of();
-    public static final List<Prefix> OPTIONALS = List.of(
-            START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
-
-    public static final String INFO = "Adds a session in the TA-Tracker.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a session in TA-Tracker. "
-            + "Parameters: "
-            + "[" + START_TIME + "START] "
-            + "[" + END_TIME + "END] "
-            + "[" + DATE + "DATE] "
-            + "[" + RECUR + "RECURS] "
-            + "[" + MODULE + "MODULE CODE] "
-            + "[" + SESSION_TYPE + "SESSION TYPE] "
-            + "[" + NOTES + "NOTES] "
-            + "Example: " + COMMAND_WORD + " "
-            + START_TIME + "14:00 "
-            + END_TIME + "16:00 "
-            + DATE + "19-02-2020 "
-            + MODULE + "CS2103T "
-            + SESSION_TYPE + "tutorial "
-            + NOTES + "Location: PLAB 04";
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";

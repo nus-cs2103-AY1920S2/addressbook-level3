@@ -24,7 +24,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -47,28 +46,6 @@ public class EditStudentCommand extends Command {
             List.of(NAME, PHONE, EMAIL, RATING, TAG),
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
     );
-
-    public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.EDIT_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(MATRIC, MODULE, GROUP);
-    public static final List<Prefix> OPTIONALS = List.of(NAME, PHONE, EMAIL, RATING, TAG);
-
-    public static final String INFO = "Edits the student at the displayed list index.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
-            + "by the index number used in the displayed student list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + NAME + "NAME] "
-            + "[" + PHONE + "PHONE] "
-            + "[" + EMAIL + "EMAIL] "
-            + "[" + MATRIC + "MATRIC] "
-            + "[" + RATING + "RATING] "
-            + "[" + TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PHONE + "91234567 "
-            + EMAIL + "johndoe@example.com "
-            + MATRIC + "A0181234J";
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

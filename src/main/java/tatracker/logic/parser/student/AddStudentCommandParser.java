@@ -47,7 +47,8 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         if (!arePrefixesPresent(argMultimap, MATRIC, MODULE, GROUP, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddStudentCommand.DETAILS.getUsage()));
         }
 
         // ==== Identity fields ====

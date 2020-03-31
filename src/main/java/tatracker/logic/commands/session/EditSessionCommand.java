@@ -23,7 +23,6 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Prefix;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
@@ -41,28 +40,6 @@ public class EditSessionCommand extends Command {
             List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
             START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
     );
-
-    public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.EDIT_MODEL;
-
-    public static final List<Prefix> PARAMETERS = List.of(INDEX);
-    public static final List<Prefix> OPTIONALS = List.of(
-            START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
-
-    public static final String INFO = "Edits a session in the TA-Tracker.";
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + START_TIME + "START] "
-            + "[" + END_TIME + "END] "
-            + "[" + DATE + "DATE] "
-            + "[" + RECUR + "] "
-            + "[" + MODULE + "MODULE CODE] "
-            + "[" + SESSION_TYPE + "SESSION TYPE] "
-            + "[" + NOTES + "NOTES] "
-            + "Example: " + COMMAND_WORD + " 2 "
-            + DATE + "20-02-2020 ";
 
     public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

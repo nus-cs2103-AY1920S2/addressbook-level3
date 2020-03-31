@@ -30,7 +30,8 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
         if (!arePrefixesPresent(argMultimap, MODULE, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddModuleCommand.DETAILS.getUsage()));
         }
 
         // No need to parse trimmed strings

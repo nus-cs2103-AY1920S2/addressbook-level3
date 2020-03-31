@@ -35,7 +35,7 @@ public class DeleteStudentCommandParser implements Parser<DeleteStudentCommand> 
         if (!arePrefixesPresent(argMultimap, MATRIC, GROUP, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteStudentCommand.MESSAGE_USAGE));
+                    DeleteStudentCommand.DETAILS.getUsage()));
         }
 
         Matric matric = ParserUtil.parseMatric(argMultimap.getValue(MATRIC).get());
