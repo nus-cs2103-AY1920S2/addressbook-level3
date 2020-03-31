@@ -38,38 +38,52 @@ public class SuggestionsWindowView extends ViewPart<Region> {
                                  Property<Optional<String>> responseText) {
         super(FXML);
         autoUpdateSuggestionsDisplay(suggestionsList, responseText);
-        suggestionsListPanel.setItems(suggestionsList);
-        suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
+        initializeSuggestionsList(suggestionsList);
     }
 
     /**
-     * Sets weak and strong listeners to update the visibility of the {@code SuggestionsWindow}, and its components.
+     * Sets listeners to update the visibility of the {@code SuggestionsWindow}, and its components.
      * @param suggestionsList
      * @param responseText The info text to be displayed above the suggestions list, if any.
      */
     private void autoUpdateSuggestionsDisplay(ObservableList<SuggestionItem> suggestionsList,
                                               Property<Optional<String>> responseText) {
-        suggestionsList.addListener((ListChangeListener<SuggestionItem>) (listener -> {
-            suggestionsListPanel.setPrefHeight(suggestionsList.size() * LIST_CELL_HEIGHT + 2);
-            if (suggestionsList.size() == 0) {
-                suggestionsListPanel.setManaged(false);
-            } else {
-                suggestionsListPanel.setManaged(true);
-            }
-        }));
-
         responseText.addListener((observable, oldValue, newValue) -> {
             Optional<String> response = responseText.getValue();
             if (response.isPresent() && !response.equals("")) {
-                suggestionsText.setManaged(true);
+                setSuggestionsTextRenderingStatus(true);
                 suggestionsText.setText(response.get());
             } else {
                 suggestionsText.setText("");
-                suggestionsText.setManaged(false);
+                setSuggestionsTextRenderingStatus(false);
             }
         });
+
+        suggestionsList.addListener((ListChangeListener<SuggestionItem>) (listener -> {
+            suggestionsListPanel.setPrefHeight(suggestionsList.size() * LIST_CELL_HEIGHT + 2);
+            if (suggestionsList.size() == 0) {
+                setSuggestionsListRenderingStatus(false);
+            } else {
+                setSuggestionsListRenderingStatus(true);
+
+            }
+        }));
     }
 
+    private void initializeSuggestionsList(ObservableList<SuggestionItem> suggestionsList) {
+        suggestionsListPanel.setItems(suggestionsList);
+        suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
+    }
+
+    private void setSuggestionsListRenderingStatus(boolean bool) {
+        suggestionsListPanel.setManaged(bool);
+        suggestionsListPanel.setVisible(bool);
+    }
+
+    private void setSuggestionsTextRenderingStatus(boolean bool) {
+        suggestionsText.setManaged(bool);
+        suggestionsText.setVisible(bool);
+    }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code SuggestionItem}.

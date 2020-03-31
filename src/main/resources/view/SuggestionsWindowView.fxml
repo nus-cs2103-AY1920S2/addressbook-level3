@@ -6,7 +6,7 @@
 
 <?import javafx.scene.control.Label?>
 <VBox fx:id="suggestionsBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      styleClass="suggestions-Window">
+      styleClass="suggestions-Window" >
     <Label fx:id="suggestionsText" VBox.vgrow="NEVER" prefWidth="Infinity" managed="false">
         <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
