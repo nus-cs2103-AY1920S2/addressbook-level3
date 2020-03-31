@@ -72,7 +72,7 @@ public class OrderBookParser {
             return new SearchCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommand(arguments);
 
         case NearbyCommand.COMMAND_WORD:
             return new NearbyCommandParser().parse(arguments);
