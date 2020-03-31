@@ -86,6 +86,7 @@ public class OrderBookParserTest {
         TransactionId transactionId = order.getTid();
         ModelManager modelManager = new ModelManager();
         modelManager.addOrder(order);
+
         ReturnCommand commandForExistingOrderToBeReturned = (ReturnCommand) parser.parseCommand(
                 ReturnCommand.COMMAND_WORD + " tid/" + transactionId);
         assertEquals(new ReturnCommand(null, transactionId),
