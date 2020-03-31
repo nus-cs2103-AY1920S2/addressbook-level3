@@ -17,6 +17,7 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
+import seedu.address.ui.PetDisplay;
 
 /** Represents the in-memory model of the address book data. */
 public class ModelManager implements Model {
@@ -28,7 +29,7 @@ public class ModelManager implements Model {
     private final Pet pet;
     private final UserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
-    private Comparator<Task>[] comparators;
+    private Comparator<Task>[] comparators = new Comparator[0];
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
@@ -178,8 +179,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return taskList.equals(other.taskList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks)
-                && comparators.equals(other.comparators);
+                && filteredTasks.equals(other.filteredTasks);
     }
 
     // ============================ Pet Manager
