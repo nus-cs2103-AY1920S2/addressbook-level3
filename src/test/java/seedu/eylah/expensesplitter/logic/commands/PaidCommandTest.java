@@ -13,7 +13,6 @@ import seedu.eylah.expensesplitter.model.ModelManager;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReceiptBookStub;
 import seedu.eylah.expensesplitter.model.UserPrefs;
-import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.testutil.TypicalPersons;
 
 public class PaidCommandTest {
