@@ -109,11 +109,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public ReadOnlyRestaurantBook getRestaurantBook() {
         throw new AssertionError("This method should not be called.");
     }
@@ -145,11 +140,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setScheduler(ReadOnlyScheduler scheduler) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -194,11 +184,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public ReadOnlyEventSchedule getEventSchedule() {
         throw new AssertionError("This method should not be called.");
     }
@@ -236,9 +221,28 @@ public class ModelStub implements Model {
     public ObservableList<Day> getScheduleVisualResult() {
         throw new AssertionError("This method should not be called.");
     }
+  
+    public void calculateScheduleIntensity(int numDays) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
-    public void calculateScheduleIntensity(int numDays) {
+    public int undoStackSize() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int redoStackSize() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String undo() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String redo() { {
         throw new AssertionError("This method should not be called.");
     }
 }

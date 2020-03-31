@@ -16,6 +16,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteInfoCommand;
+import seedu.address.logic.commands.DeleteRestaurantCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditInfoCommand;
@@ -27,8 +28,10 @@ import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.ListRestaurantCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowBirthdayCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.VisitedRestaurantCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -64,6 +67,9 @@ public class AddressBookParser {
 
         case AddRestaurantCommand.COMMAND_WORD:
             return new AddRestaurantCommandParser().parse(arguments, model);
+
+        case DeleteRestaurantCommand.COMMAND_WORD:
+            return new DeleteRestaurantCommandParser().parse(arguments, model);
 
         case ListRestaurantCommand.COMMAND_WORD:
             return new ListRestaurantCommand();
@@ -130,6 +136,12 @@ public class AddressBookParser {
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments, model);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

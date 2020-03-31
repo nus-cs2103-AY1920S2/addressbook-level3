@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,17 +25,21 @@ import seedu.address.model.restaurant.Restaurant;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final RestaurantBook restaurantBook;
-    private final Scheduler scheduler;
-    private final EventSchedule eventSchedule;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Person> filteredPersonsResult;
-    private final FilteredList<Restaurant> filteredRestaurants;
-    private final FilteredList<Assignment> filteredAssignments;
-    private final FilteredList<Event> filteredEvents;
-    private final FilteredList<Person> bdayList;
+    private final Stack<ModelState> undoStates;
+    private final Stack<ModelState> redoStates;
+    private ModelState currentModel;
+
+    private AddressBook addressBook;
+    private RestaurantBook restaurantBook;
+    private Scheduler scheduler;
+    private EventSchedule eventSchedule;
+    private UserPrefs userPrefs;
+    private FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersonsResult;
+    private FilteredList<Restaurant> filteredRestaurants;
+    private FilteredList<Assignment> filteredAssignments;
+    private FilteredList<Event> filteredEvents;
+    private FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,21 +51,19 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
-        filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
-        this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.scheduler = new Scheduler(scheduler);
-        this.eventSchedule = new EventSchedule(eventSchedule);
-        filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
-        filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
-        bdayList = new FilteredList<>(this.addressBook.getBdayList());
+        this.currentModel = new ModelState(addressBook, restaurantBook, scheduler, eventSchedule, userPrefs);
+        this.undoStates = new Stack<>();
+        this.redoStates = new Stack<>();
+        undoStates.push(currentModel);
+        update();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new RestaurantBook(), new Scheduler(), new EventSchedule(), new UserPrefs());
+        this.currentModel = new ModelState();
+        this.undoStates = new Stack<>();
+        this.redoStates = new Stack<>();
+        undoStates.push(currentModel);
+        update();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -102,6 +105,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        createNewState("ADDRESS");
         this.addressBook.resetData(addressBook);
     }
 
@@ -118,11 +122,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+        createNewState("ADDRESS");
         addressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
+        createNewState("ADDRESS");
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -130,26 +136,16 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
+        createNewState("ADDRESS");
         addressBook.setPerson(target, editedPerson);
     }
 
     //========== Schoolwork Tracker ==========================================================================
     @Override
-    public void setScheduler(ReadOnlyScheduler scheduler) {
-        this.scheduler.resetData(scheduler);
-    }
-
-    @Override
     public void addAssignment(Assignment assignment) {
+        createNewState("ASSIGNMENTS");
         scheduler.addAssignment(assignment);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-    }
-
-    @Override
-    public boolean hasAssignment(Assignment assignment) {
-        requireNonNull(assignment);
-        return scheduler.hasAssignment(assignment);
     }
 
     @Override
@@ -159,15 +155,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyScheduler getScheduler() {
-        return scheduler;
+    public void setAssignment(Assignment target, Assignment markedAssignment) {
+        requireAllNonNull(target, markedAssignment);
+        scheduler.setAssignment(target, markedAssignment);
     }
 
     @Override
-    public void setAssignment(Assignment target, Assignment markedAssignment) {
-        requireAllNonNull(target, markedAssignment);
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return scheduler.hasAssignment(assignment);
+    }
 
-        scheduler.setAssignment(target, markedAssignment);
+    @Override
+    public ReadOnlyScheduler getScheduler() {
+        return scheduler;
     }
 
     @Override
@@ -178,13 +179,14 @@ public class ModelManager implements Model {
     //=========== Event Schedule ================================================================================
 
     @Override
-    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
-        this.eventSchedule.resetData(eventSchedule);
+    public void addEvent(Event event) {
+        eventSchedule.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void addEvent(Event event) {
-        eventSchedule.addEvent(event);
+    public void sortEvent(Comparator<Event> comparator) {
+        eventSchedule.sortEvent(comparator);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
@@ -192,12 +194,6 @@ public class ModelManager implements Model {
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return eventSchedule.hasEvent(event);
-    }
-
-    @Override
-    public void sortEvent(Comparator<Event> comparator) {
-        eventSchedule.sortEvent(comparator);
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -213,11 +209,6 @@ public class ModelManager implements Model {
     //=========== RestaurantBook ================================================================================
 
     @Override
-    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBookBook) {
-        this.restaurantBook.resetData(restaurantBook);
-    }
-
-    @Override
     public ReadOnlyRestaurantBook getRestaurantBook() {
         return restaurantBook;
     }
@@ -230,19 +221,21 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteRestaurant(Restaurant target) {
+        createNewState("RESTAURANTS");
         restaurantBook.removeRestaurant(target);
     }
 
     @Override
-    public void addRestaurant(Restaurant person) {
-        restaurantBook.addRestaurant(person);
+    public void addRestaurant(Restaurant restaurant) {
+        createNewState("RESTAURANTS");
+        restaurantBook.addRestaurant(restaurant);
         updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
     }
 
     @Override
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireAllNonNull(target, editedRestaurant);
-
+        createNewState("RESTAURANTS");
         restaurantBook.setRestaurant(target, editedRestaurant);
     }
 
@@ -371,4 +364,88 @@ public class ModelManager implements Model {
     public ObservableList<Day> getScheduleVisualResult() {
         return this.scheduler.getScheduleVisual();
     }
+
+    //=========== Undo and Redo ========================================================================
+
+    /**
+     * Duplicates current state, pops current state, pushes the duplicate, the push the current state into undostack
+     * @param commandType the command type (which databased is changed) that led to this state
+     */
+    private void createNewState(String commandType) {
+        ModelState state = ModelState.copy(currentModel);
+
+        currentModel = undoStates.pop();
+        currentModel.setCommandType(commandType);
+        update();
+
+        undoStates.push(state);
+        undoStates.push(currentModel);
+
+        while (!redoStates.isEmpty()) {
+            redoStates.pop();
+        }
+    }
+
+    /**
+     * Make all attributes point to the current state ones
+     */
+    private void update() {
+        this.addressBook = this.currentModel.getAddressBook();
+        this.userPrefs = this.currentModel.getUserPrefs();
+        filteredPersons = this.currentModel.getFilteredPersons();
+        filteredPersonsResult = this.currentModel.getFilteredPersonsResult();
+        this.restaurantBook = this.currentModel.getRestaurantBook();
+        this.scheduler = this.currentModel.getScheduler();
+        this.eventSchedule = this.currentModel.getEventSchedule();
+        filteredRestaurants = this.currentModel.getFilteredRestaurants();
+        filteredAssignments = this.currentModel.getFilteredAssignments();
+        filteredEvents = this.currentModel.getFilteredEvents();
+        bdayList = this.currentModel.getBdayList();
+    }
+
+    /**
+     * Returns the size of the undo stack
+     * @return size of undo stack
+     */
+    public int undoStackSize() { return undoStates.size(); }
+
+
+    /**
+     * Returns size of redo stack
+     * @return size of redo stack
+     */
+    public int redoStackSize() { return redoStates.size(); }
+
+
+    /**
+     * Un-does the last operation that alters something, pops the top of the undo stack into the redo stack
+     * and makes the resulting top of the new undo stack the current state
+     * @return the command type that represents which database is changed
+     */
+    public String undo() {
+        String commandType = undoStates.peek().getCommandType();
+        ModelState popped = undoStates.pop();
+        redoStates.push(popped);
+        currentModel = undoStates.peek();
+        update();
+
+        return commandType;
+    }
+
+
+    /**
+     * Re-does the last undone operation, pops the top of redo stack into the undo stack
+     * and makes the resulting top of the new undo stack the current state
+     * @return the command type that represents which database is changed
+     */
+    public String redo() {
+        String commandType = redoStates.peek().getCommandType();
+        ModelState popped = redoStates.pop();
+        undoStates.push(popped);
+        currentModel = undoStates.peek();
+        update();
+
+        return commandType;
+    }
+
 }
