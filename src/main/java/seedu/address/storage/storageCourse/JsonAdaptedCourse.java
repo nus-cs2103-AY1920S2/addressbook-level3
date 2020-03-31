@@ -58,7 +58,7 @@ class JsonAdaptedCourse {
    */
   public JsonAdaptedCourse(Course source) {
     name = source.getName().fullName;
-    courseID = source.getID().value;
+    courseID = source.getId().value;
     amount = source.getAmount().value;
     assignedTeacher = source.getAssignedTeacherID().toString();
     assignedStudentsID.addAll(source.getAssignedStudentsID().stream()

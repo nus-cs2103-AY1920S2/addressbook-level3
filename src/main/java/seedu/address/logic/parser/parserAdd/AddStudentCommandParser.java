@@ -52,7 +52,6 @@ public class AddStudentCommandParser extends AddCommandParser {
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID id = ParserUtil.parseID(argMultimap.getValue(PREFIX_STUDENTID).get());
     AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

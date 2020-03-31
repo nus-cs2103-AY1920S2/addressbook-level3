@@ -62,6 +62,20 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     /**
+     * Returns true if a course with the same identity as {@code course} exists in the address book.
+     */
+    public boolean has(ID objID) {
+        requireNonNull(objID);
+        return objects.contains(objID);
+    }
+
+    public K get(ID objID) {
+        requireNonNull(objID);
+        return objects.get(objID);
+    }
+
+
+    /**
      * Adds a course to the address book. The course must not already exist in the address book.
      */
     public void add(K object) {
@@ -88,7 +102,7 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
 
     public boolean containsID(ID objectID) {
         for (K object : objects) {
-            if (object.getID().equals(objectID)) {
+            if (object.getId().equals(objectID)) {
                 return true;
             }
         }

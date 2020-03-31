@@ -7,23 +7,30 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelGeneric.AddressBookGeneric;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
+import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 
 /**
@@ -39,6 +46,7 @@ public class ModelManager implements Model {
   private final FinanceAddressBook financeAddressBook;
   private final CourseAddressBook courseAddressBook;
   private final AssignmentAddressBook assignmentAddressBook;
+  private final ProgressAddressBook progressAddressBook;
 
   private final UserPrefs userPrefs;
   private final FilteredList<Person> filteredPersons;
@@ -47,6 +55,8 @@ public class ModelManager implements Model {
   private final FilteredList<Finance> filteredFinances;
   private final FilteredList<Course> filteredCourses;
   private final FilteredList<Assignment> filteredAssignments;
+  private final FilteredList<Progress> filteredProgresses;
+
 
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -54,11 +64,14 @@ public class ModelManager implements Model {
   public ModelManager(ReadOnlyAddressBook addressBook,
                       ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook, ReadOnlyAddressBookGeneric<Student> studentAddressBook,
                       ReadOnlyAddressBookGeneric<Finance> financeAddressBook, ReadOnlyAddressBookGeneric<Course> courseAddressBook,
-                      ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook,
+                      ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, ReadOnlyAddressBookGeneric<Progress> progressAssignmentBook,
                       ReadOnlyUserPrefs userPrefs) {
     super();
     requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
-             assignmentAddressBook, userPrefs);
+            assignmentAddressBook, progressAssignmentBook, userPrefs);
+
+    logger.info("Model Manager check:" + assignmentAddressBook.toString());
+
 
     logger.info("Model Manager check:" + assignmentAddressBook.toString());
 
@@ -74,6 +87,7 @@ public class ModelManager implements Model {
     this.financeAddressBook = new FinanceAddressBook(financeAddressBook);
     this.courseAddressBook = new CourseAddressBook(courseAddressBook);
     this.assignmentAddressBook = new AssignmentAddressBook(assignmentAddressBook);
+    this.progressAddressBook = new ProgressAddressBook(progressAssignmentBook);
 
     this.userPrefs = new UserPrefs(userPrefs);
     filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -82,6 +96,7 @@ public class ModelManager implements Model {
     filteredFinances = new FilteredList<>(this.financeAddressBook.getList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getList());
+    filteredProgresses = new FilteredList<>(this.progressAddressBook.getList());
 
     for (Course course : filteredCourses) {
       course.processAssignedStudents(filteredStudents);
@@ -101,8 +116,8 @@ public class ModelManager implements Model {
 
   public ModelManager() {
     this(new AddressBook(), new TeacherAddressBook(), new StudentAddressBook(),
-        new FinanceAddressBook(), new CourseAddressBook(),
-            new AssignmentAddressBook(),
+            new FinanceAddressBook(), new CourseAddressBook(),
+            new AssignmentAddressBook(), new ProgressAddressBook(),
             new UserPrefs());
   }
 
@@ -196,6 +211,25 @@ public class ModelManager implements Model {
     userPrefs.setAssignmentAddressBookFilePath(assignmentAddressBookFilePath);
   }
 
+  /**
+   * Returns the user prefs' assignment address book file path.
+   */
+  @Override
+  public Path getProgressAddressBookFilePath() {
+    return userPrefs.getProgressAddressBookFilePath();
+  }
+
+  /**
+   * Sets the user prefs' address book file path.
+   *
+   * @param progressAddressBookFilePath
+   */
+  @Override
+  public void setProgressAddressBookFilePath(Path progressAddressBookFilePath) {
+    requireNonNull(progressAddressBookFilePath);
+    userPrefs.setProgressAddressBookFilePath(progressAddressBookFilePath);
+  }
+
   @Override
   public ReadOnlyAddressBook getAddressBook() {
     return addressBook;
@@ -203,34 +237,111 @@ public class ModelManager implements Model {
 
   //=========== AddressBook ================================================================================
   ///
+
+
+  // ================================== FACTORY HELPERS =================================================
+  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
+    if (obj instanceof Teacher) {
+      return Arrays.asList(
+              this.teacherAddressBook,
+              PREDICATE_SHOW_ALL_TEACHERS,
+              filteredTeachers);
+    } else if (obj instanceof Student) {
+      return Arrays.asList(
+              this.studentAddressBook,
+              PREDICATE_SHOW_ALL_STUDENTS,
+              filteredStudents);
+    } else if (obj instanceof Finance) {
+      return Arrays.asList(
+              this.financeAddressBook,
+              PREDICATE_SHOW_ALL_FINANCES,
+              filteredFinances);
+    } else if (obj instanceof Course) {
+      return Arrays.asList(
+              this.courseAddressBook,
+              PREDICATE_SHOW_ALL_COURSES,
+              filteredCourses);
+    } else if (obj instanceof Assignment) {
+      return Arrays.asList(
+              this.assignmentAddressBook,
+              PREDICATE_SHOW_ALL_ASSIGNMENTS,
+              filteredAssignments);
+    }
+    throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
+  }
+
+  private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
+    return (AddressBookGeneric)getEntityFactory(obj).get(0);
+  }
+
+  private Predicate getPredicateAll(ModelObject obj) throws CommandException {
+    return (Predicate)getEntityFactory(obj).get(1);
+  }
+
+  private FilteredList getFilterList(ModelObject obj) throws CommandException {
+    return (FilteredList)getEntityFactory(obj).get(2);
+  }
+  // ======================================================================================================
+
+
+  // =================================== CRUD METHODS =====================================================
   @Override
-  public void setAddressBook(ReadOnlyAddressBook addressBook) {
-    this.addressBook.resetData(addressBook);
+  public boolean has(ModelObject obj) throws CommandException {
+    requireNonNull(obj);
+    return getAddressBook(obj).has(obj);
   }
 
   @Override
-  public boolean hasPerson(Person person) {
-    requireNonNull(person);
-    return addressBook.hasPerson(person);
+  public void delete(ModelObject obj) throws CommandException {
+    getAddressBook(obj).remove(obj);
+    getFilterList(obj).setPredicate(getPredicateAll(obj));
   }
 
   @Override
-  public void deletePerson(Person target) {
-    addressBook.removePerson(target);
+  public void add(ModelObject obj) throws CommandException {
+    getAddressBook(obj).add(obj);
+    getFilterList(obj).setPredicate(getPredicateAll(obj));
   }
 
   @Override
-  public void addPerson(Person person) {
-    addressBook.addPerson(person);
-    updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+  public void set(ModelObject target, ModelObject editedTarget) throws CommandException {
+    requireAllNonNull(target, editedTarget);
+    getAddressBook(target).set(target, editedTarget);
+  }
+
+  // =========================== CRUD METHODS DONE VIA ID =====================================================
+
+  @Override
+  public boolean hasStudent(ID studentID) {
+    return studentAddressBook.has(studentID);
   }
 
   @Override
-  public void setPerson(Person target, Person editedPerson) {
-    requireAllNonNull(target, editedPerson);
-
-    addressBook.setPerson(target, editedPerson);
+  public Student getStudent(ID studentID) {
+    return studentAddressBook.get(studentID);
   }
+
+  @Override
+  public boolean hasCourse(ID courseID) {
+    return courseAddressBook.has(courseID);
+  }
+
+  @Override
+  public Course getCourse(ID courseID) {
+    return courseAddressBook.get(courseID);
+  }
+
+  @Override
+  public boolean hasAssignment(ID assignmentID) {
+    return false;
+  }
+
+  @Override
+  public Assignment getAssignment(ID assignmentID) {
+    return null;
+  }
+  // =====================================================================================================
+
 
   ///
   @Override
@@ -242,29 +353,6 @@ public class ModelManager implements Model {
   @Override
   public void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook) {
     this.teacherAddressBook.resetData(teacherAddressBook);
-  }
-
-  @Override
-  public boolean hasTeacher(Teacher teacher) {
-    requireNonNull(teacher);
-    return teacherAddressBook.has(teacher);
-  }
-
-  @Override
-  public void deleteTeacher(Teacher target) {
-    teacherAddressBook.remove(target);
-  }
-
-  @Override
-  public void addTeacher(Teacher teacher) {
-    teacherAddressBook.add(teacher);
-    updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
-  }
-  @Override
-  public void setTeacher(Teacher target, Teacher editedTeacher) {
-    requireAllNonNull(target, editedTeacher);
-
-    teacherAddressBook.set(target, editedTeacher);
   }
 
   ///
@@ -279,30 +367,6 @@ public class ModelManager implements Model {
     this.studentAddressBook.resetData(studentAddressBook);
   }
 
-  @Override
-  public boolean hasStudent(Student student) {
-    requireNonNull(student);
-    return studentAddressBook.has(student);
-  }
-
-  @Override
-  public void deleteStudent(Student target) {
-    studentAddressBook.remove(target);
-  }
-
-  @Override
-  public void addStudent(Student student) {
-    studentAddressBook.add(student);
-    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-  }
-
-  @Override
-  public void setStudent(Student target, Student editedStudent) {
-    requireAllNonNull(target, editedStudent);
-
-    studentAddressBook.set(target, editedStudent);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook() {
@@ -313,30 +377,6 @@ public class ModelManager implements Model {
   @Override
   public void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook) {
     this.financeAddressBook.resetData(financeAddressBook);
-  }
-
-  @Override
-  public boolean hasFinance(Finance finance) {
-    requireNonNull(finance);
-    return financeAddressBook.has(finance);
-  }
-
-  @Override
-  public void deleteFinance(Finance target) {
-    financeAddressBook.remove(target);
-  }
-
-  @Override
-  public void addFinance(Finance finance) {
-    financeAddressBook.add(finance);
-    updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
-  }
-
-  @Override
-  public void setFinance(Finance target, Finance editedFinance) {
-    requireAllNonNull(target, editedFinance);
-
-    financeAddressBook.set(target, editedFinance);
   }
 
   ///
@@ -351,30 +391,6 @@ public class ModelManager implements Model {
     this.courseAddressBook.resetData(courseAddressBook);
   }
 
-  @Override
-  public boolean hasCourse(Course course) {
-    requireNonNull(course);
-    return courseAddressBook.has(course);
-  }
-
-  @Override
-  public void deleteCourse(Course target) {
-    courseAddressBook.remove(target);
-    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-  }
-
-  @Override
-  public void addCourse(Course course) {
-    courseAddressBook.add(course);
-    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-  }
-
-  @Override
-  public void setCourse(Course target, Course editedCourse) {
-    requireAllNonNull(target, editedCourse);
-    courseAddressBook.set(target, editedCourse);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
@@ -386,30 +402,16 @@ public class ModelManager implements Model {
     this.assignmentAddressBook.resetData(assignmentAddressBook);
   }
 
-
-  //TODO
   @Override
-  public boolean hasAssignment(Assignment assignment) {
-    requireNonNull(assignment);
-    return assignmentAddressBook.has(assignment);
+  public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
+    this.progressAddressBook.resetData(progressAddressBook);
   }
 
   @Override
-  public void deleteAssignment(Assignment assignment) {
-    assignmentAddressBook.remove(assignment);
+  public ReadOnlyAddressBookGeneric<Progress> getProgressAddressBook() {
+    return progressAddressBook;
   }
 
-  @Override
-  public void addAssignment(Assignment assignment) {
-    requireNonNull(assignment);
-    assignmentAddressBook.add(assignment);
-    updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-  }
-
-  @Override
-  public void setAssignment(Assignment target, Assignment editedAssignment) {
-
-  }
 
   //=========== Filtered List Accessors =============================================================
 
@@ -474,6 +476,21 @@ public class ModelManager implements Model {
   }
 
   /**
+   * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
+   * {@code versionedCourseAddressBook}
+   */
+  @Override
+  public ObservableList<Course> getFilteredCourseList() {
+    return filteredCourses;
+  }
+
+  @Override
+  public void updateFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+  }
+
+  /**
    * Returns an unmodifiable view of the list of {@code Assignment} backed by the internal list of
    * {@code versionedAssignmentAddressBook}
    */
@@ -489,20 +506,33 @@ public class ModelManager implements Model {
   }
 
   /**
-   * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
-   * {@code versionedCourseAddressBook}
+   * Returns an unmodifiable view of the filtered finance list
    */
   @Override
-  public ObservableList<Course> getFilteredCourseList() {
-    return filteredCourses;
+  public ObservableList<Progress> getFilteredProgressList() {
+    return filteredProgresses;
   }
 
+  /**
+   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+   *
+   * @param predicate
+   * @throws NullPointerException if {@code predicate} is null.
+   */
   @Override
-  public void updateFilteredCourseList(Predicate<Course> predicate) {
+  public void updateFilteredProgressList(Predicate<Progress> predicate) {
     requireNonNull(predicate);
-    filteredCourses.setPredicate(predicate);
+    filteredProgresses.setPredicate(predicate);
   }
 
+  // ========================== For Assigning of X to Y =========================
+
+  public void assignStudentToCourse(ID studentID, ID courseID) {
+    // if student exists
+    // if course exists
+    // if student not already assigned to the course
+    // if course doesn't already have the student
+  }
 
   @Override
   public boolean equals(Object obj) {
@@ -516,47 +546,22 @@ public class ModelManager implements Model {
       return false;
     }
 
-    // state check
+    //
     ModelManager other = (ModelManager) obj;
     return userPrefs.equals(other.userPrefs)
-        && teacherAddressBook.equals(other.teacherAddressBook)
-        && studentAddressBook.equals(other.studentAddressBook)
-        && courseAddressBook.equals(other.courseAddressBook)
-        && financeAddressBook.equals(other.financeAddressBook)
-        && assignmentAddressBook.equals(other.assignmentAddressBook)
-        && filteredTeachers.equals(other.filteredTeachers)
-        && filteredStudents.equals(other.filteredStudents)
-        && filteredCourses.equals(other.filteredCourses)
-        && filteredFinances.equals(other.filteredFinances)
-        && filteredAssignments.equals(other.filteredAssignments);
+            && teacherAddressBook.equals(other.teacherAddressBook)
+            && studentAddressBook.equals(other.studentAddressBook)
+            && courseAddressBook.equals(other.courseAddressBook)
+            && financeAddressBook.equals(other.financeAddressBook)
+            && assignmentAddressBook.equals(other.assignmentAddressBook)
+            && progressAddressBook.equals(other.progressAddressBook)
+            && filteredTeachers.equals(other.filteredTeachers)
+            && filteredStudents.equals(other.filteredStudents)
+            && filteredCourses.equals(other.filteredCourses)
+            && filteredFinances.equals(other.filteredFinances)
+            && filteredAssignments.equals(other.filteredAssignments)
+            && filteredProgresses.equals(other.filteredProgresses);
 
-  }
 
-  private class NameIdTuple implements Comparable<NameIdTuple>{
-    private String name;
-    private String id;
-    NameIdTuple(String name, String id){
-      this.name = name;
-      this.id = id;
-    }
-
-    public String getName(){
-      return this.name;
-    }
-
-    public String getID(){
-      return this.id;
-    }
-
-    @Override
-    public int compareTo(NameIdTuple o) {
-      return Integer.parseInt(id) - (Integer.parseInt(o.getID()));
-    }
-
-    @Override
-    public String toString(){
-      return getName() + "(" + getID() + ")";
-    }
   }
 }
-

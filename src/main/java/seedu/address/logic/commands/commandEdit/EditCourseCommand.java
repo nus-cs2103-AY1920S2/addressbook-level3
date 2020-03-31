@@ -77,7 +77,7 @@ public class EditCourseCommand extends Command {
     Amount updatedAmount = editCourseDescriptor.getAmount().orElse(courseToEdit.getAmount());
     Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
 
-    return new Course(updatedName, courseToEdit.getID(), updatedAmount, updatedTags);
+    return new Course(updatedName, courseToEdit.getId(), updatedAmount, updatedTags);
   }
 
   @Override
@@ -92,11 +92,11 @@ public class EditCourseCommand extends Command {
     Course courseToEdit = lastShownList.get(index.getZeroBased());
     Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
 
-    if (!courseToEdit.weakEquals(editedCourse) && model.hasCourse(editedCourse)) {
+    if (!courseToEdit.weakEquals(editedCourse) && model.has(editedCourse)) {
       throw new CommandException(MESSAGE_DUPLICATE_COURSE);
     }
 
-    model.setCourse(courseToEdit, editedCourse);
+    model.set(courseToEdit, editedCourse);
     model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
   }
