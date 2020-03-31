@@ -46,7 +46,7 @@ public class CommandResult {
         return exit;
     }
 
-    /*
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -54,18 +54,16 @@ public class CommandResult {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.eylah.addressbook.logic.commands.CommandResult)) {
+        if (!(other instanceof CommandResult)) {
             return false;
         }
 
-        seedu.eylah.addressbook.logic.commands.CommandResult otherCommandResult =
-        (seedu.eylah.addressbook.logic.commands.CommandResult) other;
-
+        CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
-    */
+
 
 
     @Override
