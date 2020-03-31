@@ -20,6 +20,7 @@ import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.TransactionHistory;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodNameContainsKeywordsPredicate;
 import seedu.address.model.supplier.NameContainsKeywordsPredicate;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
@@ -158,6 +159,20 @@ public class CommandTestUtil {
         model.updateFilteredSupplierList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredSupplierList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the good at the given {@code targetIndex} in the
+     * {@code model}'s inventory.
+     */
+    public static void showGoodAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredGoodList().size());
+
+        Good good = model.getFilteredGoodList().get(targetIndex.getZeroBased());
+        final String[] splitName = good.getGoodName().fullGoodName.split("\\s+");
+        model.updateFilteredGoodList(new GoodNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredGoodList().size());
     }
 
 }
