@@ -13,6 +13,7 @@ import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -94,5 +95,10 @@ public class LogicManager implements Logic {
     @Override
     public void incrementPomExp() {
         model.incrementPomExp();
+    }
+
+    @Override
+    public CustomQueue getCustomQueue() {
+        return model.getStatistics().getCustomQueue();
     }
 }

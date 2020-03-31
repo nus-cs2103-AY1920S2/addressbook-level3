@@ -129,12 +129,21 @@ public class StatisticsDisplay extends UiPart<Region> {
             dataSeriesTasksDoneData.getData().add(new XYChart.Data<>(dateString, tasksDoneDataInt));
         }
 
+        // xAxis.setCategories(FXCollections.observableArrayList("Tom", "Andrew", "Patrick"));
+
         barChartPomDurationData.getData().clear();
         barChartTasksDoneData.getData().clear();
 
         barChartPomDurationData.getData().add(dataSeriesPomDurationData);
         barChartTasksDoneData.getData().add(dataSeriesTasksDoneData);
 
+        dataSeriesPomDurationData.getChart().getXAxis().setAnimated(false);
+        dataSeriesTasksDoneData.getChart().getXAxis().setAnimated(false);
+        dataSeriesPomDurationData.getChart().setAnimated(false);
+        dataSeriesTasksDoneData.getChart().setAnimated(false);
+
+        //dataSeriesPomDurationData.getChart().getYAxis().setAnimated(false);
+        //dataSeriesTasksDoneData.getChart().getYAxis().setAnimated(false);
     }
     /*
     @Override
