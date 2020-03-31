@@ -26,7 +26,7 @@ public class BmiCommand extends Command {
             + "Example: " + COMMAND_WORD + " -h 170 -w 65";
 
     public static final String MESSAGE_CALCULATE_BMI_SUCCESS = "The BMI Calculated is: %1$s\n"
-            + "Your BMI is in the %1$s category.";
+            + "Your BMI is in the %2$s category.";
 
     private final Height height;
     private final Weight weight;
@@ -58,7 +58,7 @@ public class BmiCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        return new CommandResult(String.format(MESSAGE_CALCULATE_BMI_SUCCESS, bmi));
+        return new CommandResult(String.format(MESSAGE_CALCULATE_BMI_SUCCESS, bmi, bmi.getCategory()));
     }
 
     @Override
