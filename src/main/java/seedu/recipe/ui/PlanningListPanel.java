@@ -11,8 +11,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 
+import javafx.util.Callback;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.util.StringUtil;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.UniquePlannedList;
 
@@ -53,12 +55,13 @@ public class PlanningListPanel extends UiPart<Region> {
         weekHeader.setStyle(weekStyleHeader);
 
         planningListView.setItems(plannedRecipes);
-        planningListView.setCellFactory(listView -> new PlanningListViewCell());
+        planningListView.setCellFactory(planningListView -> new PlanningListViewCell());
+        PlannedDate currentDate;
 
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code PlannedRecipe} using a {@code PlanningListCard}.
      */
     class PlanningListViewCell extends ListCell<PlannedRecipe> {
         @Override
@@ -69,6 +72,7 @@ public class PlanningListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 try {
+
                     setGraphic(new PlanningListCard(plannedRecipe, getIndex() + 1).getRoot());
                 } catch (IOException e) {
                     logger.warning("Failed to favourites icon : " + StringUtil.getDetails(e));

@@ -12,7 +12,8 @@ import seedu.recipe.model.recipe.Recipe;
 
 /**
  * Wraps all data at the planned-recipe-book level
- * Duplicates are not allowed (by .isSameRecipe comparison) todo
+ * Duplicates are not allowed (by .isSameRecipe comparison)
+ * //todo, shift the Map to another class
  */
 public class PlannedBook implements ReadOnlyPlannedBook {
 
@@ -80,7 +81,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     /**
      * Removes the planned recipe from the plannedRecipe list.
      */
-    public void removePlannedRecipes(PlannedRecipe plannedRecipe) {
+    public void removePlannedRecipe(PlannedRecipe plannedRecipe) {
         plannedRecipes.remove(plannedRecipe);
     }
 
@@ -91,7 +92,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         if (recipeToPlannedRecipeMap.containsKey(recipe)) {
             List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
             for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-                removePlannedRecipes(plannedRecipe);
+                removePlannedRecipe(plannedRecipe);
             }
             recipeToPlannedRecipeMap.remove(recipe);
         }
@@ -107,7 +108,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
             List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
             recipeToPlannedRecipeMap.remove(target);
             for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-                plannedRecipe.setRecipe(editedRecipe);
+                plannedRecipe.setRecipe(target, editedRecipe);
             }
             recipeToPlannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
         }

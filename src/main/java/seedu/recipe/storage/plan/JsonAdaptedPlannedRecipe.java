@@ -32,7 +32,7 @@ public class JsonAdaptedPlannedRecipe {
      * Converts a given {@code plannedRecipe} into this class for Jackson use.
      */
     public JsonAdaptedPlannedRecipe(PlannedRecipe plannedRecipe) {
-        recipe = new JsonAdaptedRecipe(plannedRecipe.getRecipe());
+        recipe = new JsonAdaptedRecipe(plannedRecipe.getRecipes());
         date = new JsonAdaptedPlannedDate(plannedRecipe.getDate().toStringForJson());
     }
 

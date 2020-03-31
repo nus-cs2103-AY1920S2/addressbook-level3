@@ -1,5 +1,6 @@
 package seedu.recipe.model.plan;
 
+import java.util.List;
 import java.util.Objects;
 
 import seedu.recipe.model.recipe.Recipe;
@@ -10,24 +11,41 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class PlannedRecipe {
 
-    private Recipe recipe;
+    private List<Recipe> recipes;
     private PlannedDate date;
 
-    public PlannedRecipe(Recipe recipe, PlannedDate date) {
-        this.recipe = recipe;
+    public PlannedRecipe(List<Recipe> recipes, PlannedDate date) {
+        this.recipes = recipes;
         this.date = date;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    /**
+     * Replaces the {@code target} Recipe with the {@code newRecipe} recipe in the planned recipe's list of recipes.
+     */
+    public void setRecipe(Recipe target, Recipe newRecipe) {
+        int index = recipes.indexOf(target);
+        recipes.set(index, newRecipe);
     }
 
     public PlannedDate getDate() {
         return date;
+    }
+
+    public void addToPlanned(PlannedRecipe plannedRecipe) {
+        List<Recipe> newRecipes = plannedRecipe.getRecipes();
+        recipes.addAll(newRecipes);
+    }
+
+    public boolean sameDate(PlannedRecipe other) {
+        return date.equals(other.date);
     }
 
     /**
@@ -37,9 +55,10 @@ public class PlannedRecipe {
         return date.isWithinRange(start, end);
     }
 
+
     @Override
     public int hashCode() {
-        return Objects.hash(recipe, date);
+        return Objects.hash(recipes, date);
     }
 
     @Override
@@ -47,6 +66,6 @@ public class PlannedRecipe {
         return other == this // short circuit if same object
                 || (other instanceof PlannedRecipe // instanceof handles nulls
                 && date.equals(((PlannedRecipe) other).date) // state check
-                && recipe.equals(((PlannedRecipe) other).recipe));
+                && recipes.equals(((PlannedRecipe) other).recipes));
     }
 }

@@ -77,7 +77,7 @@ public class PlanningListCard extends UiPart<Region> {
         super(FXML);
         this.plannedRecipeObject = plannedRecipe;
         this.plannedDate = plannedRecipe.getDate();
-        this.recipe = plannedRecipe.getRecipe();
+        this.recipe = plannedRecipe.getRecipes();
 
         date.setText(plannedDate.toString());
 
