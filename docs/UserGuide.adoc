@@ -290,7 +290,7 @@ Example: +
 [[listamount]]
 ==== List amounts owed `listamount`
 
-Display all the person(s) and the amount they owe.
+You can display all the person(s) and the amount they owe you.
 
 Format: +
 `listamount` +
