@@ -31,7 +31,7 @@ public class MetricList {
     private static final String ALREADY_EXISTS_MESSAGE = "This metric is already exists!";
     private static final String DUPLICATE_MESSAGE = "There are multiple metrics with the same prefix.";
     private static final String INCOMPLETE_MESSAGE = "The number of attributes and the number of weights is not equal.";
-    private static final String NOT_FOUND_MESSAGE = "No metrics with the entered prefix.";
+    private static final String NOT_FOUND_MESSAGE = "No metrics with the entered name or prefix.";
 
     private ObservableList<Metric> metrics;
 

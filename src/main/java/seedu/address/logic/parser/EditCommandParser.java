@@ -18,7 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class EditCommandParser implements Parser<Command> {
 
     private static final Pattern BASIC_EDIT_COMMAND_FORMAT =
-            Pattern.compile("(?<editCommandWord>\\S+) (?<editArguments>.+)");
+            Pattern.compile("(?<editCommandWord>\\S+)(?<editArguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
