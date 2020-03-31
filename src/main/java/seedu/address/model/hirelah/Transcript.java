@@ -20,47 +20,41 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
 public class Transcript {
     private final RemarkList remarkList;
     private final ObservableMap<Attribute, Double> attributeToScoreMap;
-    private final boolean completed = false;
+    private boolean completed;
 
     /**
      * Constructs a {@code Transcript} object
-     * that are associated with a particular interviewee.
+     * that are associated with a particular interviewee, starting now.
      */
     public Transcript(QuestionList questions, AttributeList attributes) {
-        this.remarkList = new RemarkList(questions.size());
-        this.attributeToScoreMap = FXCollections.observableHashMap();
-        for (Attribute attribute : attributes) {
-            attributeToScoreMap.put(attribute, Double.NaN);
-        }
+        this(questions, attributes, Instant.now());
     }
 
     /**
-     * For storage usage.
+     * Constructs a {@code Transcript} object associated with a particular interviewee.
      */
     public Transcript(QuestionList questions, AttributeList attributes, Instant startTime) {
         this.remarkList = new RemarkList(questions.size(), startTime);
         this.attributeToScoreMap = FXCollections.observableHashMap();
+        this.completed = false;
         for (Attribute attribute : attributes) {
             attributeToScoreMap.put(attribute, Double.NaN);
         }
     }
 
-
-    public int getNumbOfQns() {
-        return this.remarkList.getNumbOfQns();
-    }
 
     public Instant getStartTime() {
         return remarkList.getStartTime();
     }
 
-   public HashMap<Attribute,Double> getMap() {
-       return (HashMap<Attribute, Double>) attributeToScoreMap;
-   }
-
     public boolean isCompleted() {
         return completed;
     }
+
+    public void complete() {
+        this.completed = true;
+    }
+
 
     /**
      * Returns an unmodifiable view of the {@code RemarkList} associated with this {@code Transcript}.
@@ -118,6 +112,9 @@ public class Transcript {
         remarkList.addRemark(message);
     }
 
+    /**
+     * Adds a remark to the Transcript with given time. Used in storage.
+     */
     public void addRemark(String message, Duration time) {
         remarkList.addRemark(message, time);
     }
@@ -128,6 +125,14 @@ public class Transcript {
     public void startQuestion(int questionNumber, Question question)
             throws IllegalActionException, IllegalValueException {
         remarkList.startQuestion(questionNumber, question);
+    }
+
+    /**
+     * Marks the beginning of a {@code Question} in this {@code Transcript} with given time. Used in storage.
+     */
+    public void startQuestion(int questionNumber, Question question, Duration time)
+            throws IllegalActionException, IllegalValueException {
+        remarkList.startQuestion(questionNumber, question, time);
     }
 
     /**

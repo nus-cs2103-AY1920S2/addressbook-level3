@@ -1,5 +1,6 @@
 package seedu.address.model.hirelah;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -49,6 +50,37 @@ public class IntervieweeList {
     }
 
     /**
+     * Restores an IntervieweeList from saved session.
+     *
+     * @param id the current uniqueIntervieweeId.
+     * @param storedInterviewees the list of stored interviewees.
+     * @return The restored {@code IntervieweeList}.
+     * @throws IllegalValueException if the saved interviewees result in an invalid IntervieweeList.
+     */
+    public static IntervieweeList fromList(int id, List<Interviewee> storedInterviewees) throws IllegalValueException {
+        IntervieweeList intervieweeList = new IntervieweeList();
+        intervieweeList.uniqueIntervieweeId = id;
+        for (Interviewee interviewee : storedInterviewees) {
+            if (interviewee.getId() >= id
+                    || intervieweeList.interviewees.containsKey(interviewee.getId())) {
+                throw new IllegalValueException("Illegal interviewee id value");
+            }
+            intervieweeList.interviewees.put(interviewee.getId(), interviewee);
+
+            if (intervieweeList.identifierIndices.containsKey(interviewee.getFullName())
+                    || (interviewee.getAlias().isPresent()
+                    && intervieweeList.identifierIndices.containsKey(interviewee.getAlias().get()))) {
+                throw new IllegalValueException("Duplicate identifiers");
+            }
+            intervieweeList.identifierIndices.put(interviewee.getFullName(), interviewee.getId());
+            interviewee.getAlias().ifPresent(alias ->
+                    intervieweeList.identifierIndices.put(alias, interviewee.getId()));
+            intervieweeList.observableList.addAll(intervieweeList.interviewees.values());
+        }
+        return intervieweeList;
+    }
+
+    /**
      * Initializes a new empty IntervieweeList with no interviewees. uniqueInterviewId starts at 1.
      */
     public IntervieweeList() {
@@ -57,6 +89,10 @@ public class IntervieweeList {
 
     public ObservableList<Interviewee> getObservableList() {
         return FXCollections.unmodifiableObservableList(observableList);
+    }
+
+    public int getUniqueIntervieweeId() {
+        return this.uniqueIntervieweeId;
     }
 
     /**

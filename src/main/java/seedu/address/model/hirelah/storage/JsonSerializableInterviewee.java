@@ -17,8 +17,8 @@ import seedu.address.model.hirelah.IntervieweeList;
  */
 @JsonRootName(value = "interviewees")
 class JsonSerializableInterviewee {
-    public static final String MESSAGE_DUPLICATE_INTERVIEWEE = "Interviewee list contains duplicate";
-    private final List<JsonAdaptedInterviewee> interviewees = new ArrayList<>();
+    private final int uniqueIntervieweeId;
+    private final List<JsonAdaptedInterviewee> interviewees;
 
     /**
      * used to deserialise the interviewee
@@ -26,12 +26,16 @@ class JsonSerializableInterviewee {
      * @param interviewees list of object
      */
     @JsonCreator
-    public JsonSerializableInterviewee(@JsonProperty("interviewees") List<JsonAdaptedInterviewee> interviewees) {
-        this.interviewees.addAll(interviewees);
+    public JsonSerializableInterviewee(@JsonProperty("uniqueIntervieweeId") int uniqueIntervieweeId,
+                                       @JsonProperty("interviewees") List<JsonAdaptedInterviewee> interviewees) {
+        this.uniqueIntervieweeId = uniqueIntervieweeId;
+        this.interviewees = interviewees;
     }
 
     public JsonSerializableInterviewee(IntervieweeList source) {
+        this.uniqueIntervieweeId = source.getUniqueIntervieweeId();
         List<Interviewee> convertedList = source.getObservableList();
+        this.interviewees = new ArrayList<>();
         interviewees.addAll(convertedList.stream().map(JsonAdaptedInterviewee::new).collect(Collectors.toList()));
     }
 
@@ -40,11 +44,8 @@ class JsonSerializableInterviewee {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public IntervieweeList toModelType() throws IllegalValueException {
-        IntervieweeList newData = new IntervieweeList();
-        for (JsonAdaptedInterviewee jsonAdaptedInterviewee : interviewees) {
-            Interviewee interviewee = jsonAdaptedInterviewee.toModelType();
-            newData.addInterviewee(interviewee.getFullName()); // temporary only store the name first
-        }
-        return newData;
+        List<Interviewee> storedInterviewees =  interviewees.stream()
+                .map(jsonInterviewee -> jsonInterviewee.toModelType()).collect(Collectors.toList());
+        return IntervieweeList.fromList(uniqueIntervieweeId, storedInterviewees);
     }
 }
