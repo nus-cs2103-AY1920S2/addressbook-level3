@@ -14,7 +14,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.CollectionUtil;
@@ -62,6 +64,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the location book.";
     public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
 
+    private static final String MESSAGE_COMMIT = "Edit an entry";
+
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
+
     private final Index index;
     private final EditEntryDescriptor editEntryDescriptor;
 
@@ -106,6 +112,10 @@ public class EditCommand extends Command {
         model.setVevent(entryToEdit, editedEntry);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         //model.updateFil
+
+        model.commit(MESSAGE_COMMIT);
+        logger.info(String.format("Edited a new entry [%s]", editEntryDescriptor.toString()));
+
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

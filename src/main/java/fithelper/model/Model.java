@@ -27,6 +27,42 @@ public interface Model {
     Predicate<Entry> someDatePredicate(String dateStr);
 
     /**
+     * Returns true if the model has previous baking home states to restore.
+     */
+    boolean canUndo();
+
+    /**
+     * Returns true if the model has undone baking home states to restore.
+     */
+    boolean canRedo();
+
+    /**
+     * Restores fitHelper to its previous state.
+     * @return the commit message of the current state.
+     */
+    String undo();
+
+    /**
+     * Restores fitHelper to its previously undone state.
+     * @return the commit message of the previous state.
+     */
+    String redo();
+
+    /**
+     * Saves the current FitHelper state for undo/redo.
+     *
+     * @param commitMessage the message describing the details of the commit
+     */
+    void commit(String commitMessage);
+
+    /**
+     * Sets the status of version control.
+     * If {@code isEnabled} is false, version control is disabled. As a result,
+     * {@code commit()} will not save the current FitHelper state.
+     */
+    void setVersionControl(Boolean isEnabled);
+
+    /**
      * Replaces FitHelper data with the data in {@code fitHelper}.
      */
     void setFitHelper(ReadOnlyFitHelper fitHelper);
