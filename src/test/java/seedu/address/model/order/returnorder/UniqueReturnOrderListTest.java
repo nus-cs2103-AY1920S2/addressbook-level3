@@ -1,4 +1,4 @@
-package seedu.address.model.order;
+package seedu.address.model.order.returnorder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.order.exceptions.DuplicateReturnOrderException;
 import seedu.address.model.order.exceptions.OrderNotFoundException;
-import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.testutil.ReturnOrderBuilder;
 
 public class UniqueReturnOrderListTest {

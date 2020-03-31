@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
@@ -112,6 +113,15 @@ public class DeliveredCommandTest {
                 new DeliveredCommand.DeliveredOrderDescriptor());
 
         assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidFlagUnfilteredOrderList_throwsCommandException() {
+        Flag invalidFlag = new Flag("f");
+        DeliveredCommand deliveredCommand = new DeliveredCommand(INDEX_FIRST_ORDER, invalidFlag,
+                new DeliveredCommand.DeliveredOrderDescriptor());
+
+        assertCommandFailure(deliveredCommand, model, DeliveredCommand.MESSAGE_USAGE);
     }
 
     @Test

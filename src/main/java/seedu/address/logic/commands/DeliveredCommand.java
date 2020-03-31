@@ -64,31 +64,11 @@ public class DeliveredCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (isFlagForOrderList()) {
-            if (isIndexValidForOrderList(model)) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
-            }
-            Order orderToBeDelivered = model.getFilteredOrderList().get(targetIndex.getZeroBased());
-            if (!orderToBeDelivered.isDelivered()) {
-                deliverAndUpdateOrderList(model);
-                return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
-            } else {
-                updateOrderList(model);
-                return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
-            }
+            return processDeliveryOfOrder(model);
         } else if (isFlagForReturnList()) {
-            if (isIndexValidForReturnList(model)) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
-            }
-            ReturnOrder returnOrderToBeDelivered = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
-            if (!returnOrderToBeDelivered.isDelivered()) {
-                deliverAndUpdateReturnList(model);
-                return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
-            } else {
-                updateReturnList(model);
-                return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
-            }
+            return processDeliveryOfReturnOrder(model);
         } else {
-            return new CommandResult(String.format(MESSAGE_USAGE));
+            throw new CommandException(String.format(MESSAGE_USAGE));
         }
     }
 
@@ -113,8 +93,48 @@ public class DeliveredCommand extends Command {
     }
 
     /**
+     * Processes the input for the delivery of an order and outputs the correct CommandResult.
+     * @param model The current Model
+     * @return A CommandResult based on the order
+     * @throws CommandException CommandException thrown when user inputs an invalid index.
+     */
+    private CommandResult processDeliveryOfOrder(Model model) throws CommandException {
+        if (isIndexValidForOrderList(model)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
+        }
+        Order orderToBeDelivered = model.getFilteredOrderList().get(targetIndex.getZeroBased());
+        if (!orderToBeDelivered.isDelivered()) {
+            deliverAndUpdateOrderList(model);
+            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+        } else {
+            updateOrderList(model);
+            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
+        }
+    }
+
+    /**
+     * Processes the input for the delivery of a return order and outputs the correct CommandResult.
+     * @param model The current Model
+     * @return A CommandResult based on the return order
+     * @throws CommandException CommandException thrown when user inputs an invalid index.
+     */
+    private CommandResult processDeliveryOfReturnOrder(Model model) throws CommandException {
+        if (isIndexValidForReturnList(model)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
+        }
+        ReturnOrder returnOrderToBeDelivered = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
+        if (!returnOrderToBeDelivered.isDelivered()) {
+            deliverAndUpdateReturnList(model);
+            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
+        } else {
+            updateReturnList(model);
+            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
+        }
+    }
+
+    /**
      * Sets the order in model as delivered and updates the entire list of orders.
-     * @param model
+     * @param model The current Model
      */
     private void deliverAndUpdateOrderList(Model model) {
         List<Order> orderList = model.getFilteredOrderList();
@@ -131,7 +151,7 @@ public class DeliveredCommand extends Command {
 
     /**
      * Sets the return order in model as delivered and updates the entire list of return orders.
-     * @param model
+     * @param model The current Model
      */
     private void deliverAndUpdateReturnList(Model model) {
         List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();

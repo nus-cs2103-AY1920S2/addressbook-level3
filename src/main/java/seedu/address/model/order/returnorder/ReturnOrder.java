@@ -182,9 +182,7 @@ public class ReturnOrder extends Parcel {
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Item Type: ")
-                .append(getItemType())
-                .append(" Parcel Status: ")
-                .append("Return Order");
+                .append(getItemType());
         if (this.isDelivered()) {
             builder.append(" Return Status: ").append("Returned to Warehouse: " + getWarehouse());
         } else {

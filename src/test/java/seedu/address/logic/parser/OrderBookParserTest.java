@@ -15,16 +15,20 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeliveredCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NearbyCommand;
+import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.returnorder.ReturnOrder;
 import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditParcelDescriptorBuilder;
@@ -58,6 +62,18 @@ public class OrderBookParserTest {
     }
 
     @Test
+    public void parseCommand_delivered() throws Exception {
+        DeliveredCommand commandForOrder = (DeliveredCommand) parser.parseCommand(
+                DeliveredCommand.COMMAND_WORD + " -o " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new DeliveredCommand(INDEX_FIRST_ORDER, new Flag("o"),
+                new DeliveredCommand.DeliveredOrderDescriptor()), commandForOrder);
+        DeliveredCommand commandforReturnOrder = (DeliveredCommand) parser.parseCommand(
+                DeliveredCommand.COMMAND_WORD + " -r " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new DeliveredCommand(INDEX_FIRST_ORDER, new Flag("r"),
+                new DeliveredCommand.DeliveredOrderDescriptor()), commandforReturnOrder);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Flag orderFlag = CliSyntax.FLAG_ORDER_BOOK;
         Flag returnFlag = CliSyntax.FLAG_RETURN_BOOK;
@@ -79,6 +95,24 @@ public class OrderBookParserTest {
             + returnFlagInput + INDEX_FIRST_ORDER.getOneBased() + " "
             + ReturnUtil.getEditReturnOrderDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor, returnFlag), command);
+    }
+
+    @Test
+    public void parseCommand_return() throws Exception {
+        Order order = new OrderBuilder().buildDelivered();
+        TransactionId transactionId = order.getTid();
+        ModelManager modelManager = new ModelManager();
+        modelManager.addOrder(order);
+
+        ReturnCommand commandForExistingOrderToBeReturned = (ReturnCommand) parser.parseCommand(
+                ReturnCommand.COMMAND_WORD + " tid/" + transactionId);
+        assertEquals(new ReturnCommand(null, transactionId),
+                commandForExistingOrderToBeReturned);
+
+        ReturnCommand commandForNewReturn = (ReturnCommand) parser.parseCommand(OrderUtil.getReturnCommand(order));
+        ReturnOrder returnOrder = new ReturnOrder(order);
+        assertEquals(new ReturnCommand(returnOrder, transactionId),
+                commandForNewReturn);
     }
 
     @Test

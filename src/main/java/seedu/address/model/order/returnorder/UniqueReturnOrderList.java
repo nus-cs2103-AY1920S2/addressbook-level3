@@ -1,4 +1,4 @@
-package seedu.address.model.order;
+package seedu.address.model.order.returnorder;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.exceptions.DuplicateReturnOrderException;
 import seedu.address.model.order.exceptions.OrderNotFoundException;
-import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * A list of return orders that enforces uniqueness between its elements and does not allow nulls.

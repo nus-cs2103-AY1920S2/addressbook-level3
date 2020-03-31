@@ -44,14 +44,10 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                         PREFIX_COMMENT);
 
         if (onlyTransactionIdPresent(argMultimap)) {
-            try {
-                TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
-                return new ReturnCommand(null, tid);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE), pe);
-            }
+            TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
+            return new ReturnCommand(null, tid);
         }
+
         if (anyCompulsoryPrefixMissing(argMultimap)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
         }
@@ -82,9 +78,9 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
 
     /**
      * Creates a return order based on the input keyed in by the user.
-     * @param argMultimap
-     * @return ReturnOrder
-     * @throws ParseException
+     * @param argMultimap The arguments parsed by user input.
+     * @return ReturnOrder A return order based on attributes keyed in by user.
+     * @throws ParseException An exception will be thrown if input is invalid.
      */
     private ReturnOrder createReturnOrder(ArgumentMultimap argMultimap) throws ParseException {
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
