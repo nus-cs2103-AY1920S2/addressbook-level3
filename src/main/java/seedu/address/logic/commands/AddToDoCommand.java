@@ -14,8 +14,8 @@ public class AddToDoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds todo. Format of input should be:" +
-            " todo <description> \n" + "Example: todo water plants";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds todo. Format of input should be:"
+            + " todo <description> \n" + "Example: todo water plants";
 
     public static final String MESSAGE_SUCCESS = "Todo added: ";
 

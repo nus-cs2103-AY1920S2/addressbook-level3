@@ -14,8 +14,8 @@ public class AddDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds deadline. Format of input should be:" +
-            " deadline <description> by {DD-MM-YYYY} \n" + "Example: deadline CS2101 presentation script by 02-04-2020";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds deadline. Format of input should be:"
+            + " deadline <description> by {DD-MM-YYYY} \n" + "Example: deadline CS2101 presentation script by 02-04-2020";
 
     public static final String MESSAGE_SUCCESS = "Deadline added: ";
 
