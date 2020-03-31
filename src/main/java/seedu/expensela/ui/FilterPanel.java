@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Filter;
 

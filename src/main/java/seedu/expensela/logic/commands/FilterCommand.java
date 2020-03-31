@@ -2,8 +2,6 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.function.Predicate;
 
 import seedu.expensela.commons.core.Messages;

@@ -1,20 +1,26 @@
 package seedu.expensela.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.expensela.commons.core.Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW;
+import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
+
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
-import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 
-import java.util.Arrays;
-import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.expensela.commons.core.Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW;
-import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
+
+
 
 class FilterCommandTest {
 

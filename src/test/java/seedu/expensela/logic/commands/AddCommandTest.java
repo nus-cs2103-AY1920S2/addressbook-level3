@@ -147,7 +147,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2) {
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate1,
+                                                  Predicate<Transaction> predicate2) {
             throw new AssertionError("This method should not be called.");
         }
 

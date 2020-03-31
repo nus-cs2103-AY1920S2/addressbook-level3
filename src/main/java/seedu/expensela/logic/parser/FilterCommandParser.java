@@ -1,7 +1,8 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.*;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_MONTH;
 
 import java.util.Arrays;
 
@@ -31,25 +32,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         try {
-//            if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-//                // set filter
-//                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-//                // sends the next word after "category" to see if it matches any transaction categories
-//                return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)));
-//            }
-//
-//            if (argMultimap.getValue(PREFIX_MONTH).isPresent()) {
-//                // sends the next word after "date" to see if it matches any transaction dates
-//                String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
-//                // removes the day in the string version of transaction date, so we filter by month
-//                String dateMinusDay;
-//                if (date.equals("all")) {
-//                    dateMinusDay = "all";
-//                } else {
-//                    dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
-//                }
-//
-//                return new FilterCommand(new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
             if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() && argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
                 String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
@@ -65,9 +47,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 }
                 return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)),
                         new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
-            }
-            else if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
-                    !argMultimap.getValue(PREFIX_MONTH).isPresent()) {
+            } else if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()
+                    && !argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
                 String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
                 // set date as all transaction dates
@@ -75,9 +56,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
                 return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)),
                         new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
-            }
-            else if (!argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
-                    argMultimap.getValue(PREFIX_MONTH).isPresent()) {
+            } else if (!argMultimap.getValue(PREFIX_CATEGORY).isPresent()
+                    && argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
                 String cat = "all";
 

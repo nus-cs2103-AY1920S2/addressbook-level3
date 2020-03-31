@@ -1,7 +1,5 @@
 package seedu.expensela.model;
 
-import java.time.LocalDate;
-
 /**
  * Filter class to handle category and date filter
  */
