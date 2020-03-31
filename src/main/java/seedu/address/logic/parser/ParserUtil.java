@@ -15,6 +15,7 @@ import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
+import seedu.address.model.good.Good;
 import seedu.address.model.supplier.Address;
 import seedu.address.model.supplier.Email;
 import seedu.address.model.supplier.Name;
@@ -68,6 +69,18 @@ public class ParserUtil {
             throw new ParseException(GoodName.MESSAGE_CONSTRAINTS);
         }
         return new GoodName(trimmedName);
+    }
+
+    /**
+     * Parses {@code Collection<String> goodNames} into a {@code Set<GoodName>}.
+     */
+    public static Set<GoodName> parseGoodNames(Collection<String> goodNames) throws ParseException {
+        requireAllNonNull(goodNames);
+        final Set<GoodName> goodNameSet = new HashSet<>();
+        for (String goodName : goodNames) {
+            goodNameSet.add(parseGoodName(goodName));
+        }
+        return goodNameSet;
     }
 
     /**

@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Iterator;
 
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 
 
@@ -62,6 +64,18 @@ public class Supplier {
      */
     public Set<Offer> getOffers() {
         return Collections.unmodifiableSet(offers);
+    }
+
+    public String RemoveGood(GoodName goodName) {
+        Iterator<Offer> itr = offers.iterator();
+        while(itr.hasNext()) {
+            Offer tempOffer = itr.next();
+            if(tempOffer.getGood().equals(goodName)) {
+                itr.remove();
+                return "done";
+            }
+        }
+        return null;
     }
 
     /**
