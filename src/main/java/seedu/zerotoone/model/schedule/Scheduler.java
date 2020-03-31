@@ -22,7 +22,9 @@ public class Scheduler {
     public Scheduler(ScheduleList scheduleList) {
         this.scheduleList = new ScheduleList(scheduleList);
         this.scheduledWorkoutList = new ScheduledWorkoutList();
-        this.sortedScheduledWorkoutList = new SortedList<>(this.scheduledWorkoutList.getScheduledWorkoutList());
+        this.sortedScheduledWorkoutList = new SortedList<>(
+                scheduledWorkoutList.getScheduledWorkoutList(),
+                ScheduledWorkout.getComparator());
         populateSortedScheduledWorkoutList();
     }
 
@@ -55,6 +57,12 @@ public class Scheduler {
         populateSortedScheduledWorkoutList();
     }
 
+    public void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule) {
+        scheduleList.setSchedule(scheduleToEdit, editedSchedule);
+
+        populateSortedScheduledWorkoutList();
+    }
+
     /**
      *
      * @param scheduledWorkoutToDelete
@@ -71,16 +79,10 @@ public class Scheduler {
      *
      */
     private void populateSortedScheduledWorkoutList() {
-        // List<ScheduledWorkout> newScheduledWorkouts = new ArrayList<>();
-        // for (Schedule schedule : scheduleList) {
-        //     Optional<List<ScheduledWorkout>> scheduledWorkouts = schedule.getScheduledWorkout();
-        //     scheduledWorkouts.ifPresent(newScheduledWorkouts::addAll);
-        // }
         List<ScheduledWorkout> newScheduledWorkouts = scheduleList.getScheduleList().stream()
                 .map(Schedule::getScheduledWorkout)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                // .forEach(newScheduledWorkouts::addAll);
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         setScheduledWorkouts(newScheduledWorkouts);
