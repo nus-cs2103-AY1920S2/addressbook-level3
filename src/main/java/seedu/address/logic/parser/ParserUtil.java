@@ -174,7 +174,19 @@ public class ParserUtil {
         if (!Deadline.isValidDate(trimmedDate)) {
             throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
         }
-        return new Deadline(trimmedDescription, trimmedDate, trimmedCategory);
+        return new Deadline(trimmedDescription, trimmedDate, trimmedCategory, "add");
+    }
+
+    /**
+     * Parses a {@code String description, @code String date} into an {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Task parseRemoveDeadline(String index) throws ParseException {
+        requireNonNull(index);
+        int indexInt = Integer.parseInt(index.trim());
+        return new Deadline(indexInt, "delete");
     }
 
     /**

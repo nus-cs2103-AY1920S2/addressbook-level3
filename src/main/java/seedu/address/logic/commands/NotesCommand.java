@@ -141,7 +141,7 @@ public class NotesCommand extends Command {
             filesArrayList.add(note);
         }
         Notes.setList(filesArrayList);
-        Notes.CURRENT_DIRECTORY = "Current Directory: " + pathName;
+        Notes.setCurrentDirectory("Current Directory: " + pathName);
         return new CommandResult(MESSAGE_LISTED_DIR + pathName);
     }
 

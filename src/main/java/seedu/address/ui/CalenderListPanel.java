@@ -33,12 +33,40 @@ public class CalenderListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Task deadline, boolean empty) {
             super.updateItem(deadline, empty);
-
             if (empty || deadline == null) {
                 setGraphic(null);
                 setText(null);
+
+                setCircleNotVisible();
+                System.out.println("here");
             } else {
                 setGraphic(new CalenderDeadline(deadline, getIndex() + 1).getRoot());
+                System.out.println("Else");
+                String[] date = deadline.getDate().split("-");
+                int year = Integer.parseInt(date[2]);
+                String day = date[0];
+                int month = Integer.parseInt(date[1]);
+
+                setCircleNotVisible();
+
+                /** problem with setting circle to not visible
+                 *  is that this else runs random number of time, so you dont know how many count to --
+                 */
+                if (CalenderPanel.getYear() == year
+                        && CalenderPanel.getCurrentMonth() == month) {
+                    CalenderDate calenderDate = CalenderPanel.getCalenderDatesArrayList()
+                            .get(Integer.parseInt(day) - 1);
+                    calenderDate.setCircleVisible();
+                    calenderDate.increaseCount();
+                }
+            }
+        }
+
+        private void setCircleNotVisible() {
+            for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
+                if (calenderDate.getCount() == 0) {
+                    calenderDate.setCircleNotVisible();
+                }
             }
         }
     }

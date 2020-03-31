@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.todolist.Task;
-import seedu.address.todolist.ToDo;
 
 /**
  * Adds a todo.
@@ -40,7 +39,7 @@ public class AddToDoCommand extends Command {
         }
 
         model.addToDo(todoToAdd);
-        return new CommandResult(MESSAGE_SUCCESS +  todoToAdd);
+        return new CommandResult(MESSAGE_SUCCESS + todoToAdd);
     }
 
     @Override

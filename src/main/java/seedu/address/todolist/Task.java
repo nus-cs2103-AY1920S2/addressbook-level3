@@ -1,11 +1,10 @@
 package seedu.address.todolist;
 
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 /**
  * <h1> Task Class </h1>
@@ -15,9 +14,10 @@ import java.util.regex.Pattern;
  */
 
 public class Task {
+    private static ObservableList<Task> deadlineTaskList;
     private String description;
     private boolean isDone;
-    private static ObservableList<Task> deadlineTaskList;
+
 
     /**
      * Constructor for task class
@@ -75,6 +75,14 @@ public class Task {
 
     public String getDate() {
         return "None";
+    }
+
+    public String getOperation() {
+        return "None";
+    }
+
+    public int getIndex() {
+        return -1;
     }
 
     @Override

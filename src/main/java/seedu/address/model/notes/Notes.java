@@ -22,7 +22,7 @@ public class Notes {
 
     public static final String HOME_DIRECTORY = System.getProperty("user.home");
 
-    public static String CURRENT_DIRECTORY = "Current Directory: " + HOME_DIRECTORY;
+    private static String currentDirectory = "Current Directory: " + HOME_DIRECTORY;
 
     private static final String[] validOperationsDummy = {"open", "create", "delete", "createfolder", "list"};
 
@@ -74,6 +74,14 @@ public class Notes {
 
         filesArrayListFiltered.setAll(notesList);
 
+    }
+
+    public static String getCurrentDirectory() {
+        return currentDirectory;
+    }
+
+    public static void setCurrentDirectory(String directory) {
+        currentDirectory = directory;
     }
 
     public String getOperation() {

@@ -50,7 +50,7 @@ public class NotesListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new NotesCard(note, getIndex() + 1).getRoot());
-                currentDirectory.setText(Notes.CURRENT_DIRECTORY);
+                currentDirectory.setText(Notes.getCurrentDirectory());
 
             }
         }

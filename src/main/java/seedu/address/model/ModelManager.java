@@ -19,9 +19,8 @@ import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.todolist.Deadline;
 import seedu.address.todolist.Task;
-import seedu.address.todolist.ToDo;
+
 
 /**
  * Represents the in-memory model of the address book data.

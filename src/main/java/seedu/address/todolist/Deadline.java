@@ -7,21 +7,35 @@ package seedu.address.todolist;
 
 public class Deadline extends Task {
 
-    protected String by;
     public static final String MESSAGE_CONSTRAINTS = "Please enter valid Date in the format DD-MM-YYYY";
+    protected String by;
     protected String category;
+    protected String operation;
+    protected int index;
 
     /**
      * Constructor for deadline class
      * @param description describes content of task
      * @param by sets targeted completion date of task
      */
-    public Deadline(String description, String by, String category) {
+    public Deadline(String description, String by, String category, String operation) {
         super(description);
         this.by = by;
         this.category = category;
+        this.operation = operation;
     }
 
+    public Deadline(int index, String operation) {
+        super("Delete task");
+        this.index = index;
+        this.operation = operation;
+    }
+
+    /**
+     * dummy docs.
+     * @param date
+     * @return
+     */
     public static boolean isValidDate(String date) {
 
         try {
@@ -42,7 +56,6 @@ public class Deadline extends Task {
             return false;
         }
 
-
     }
 
     @Override
@@ -53,6 +66,16 @@ public class Deadline extends Task {
     @Override
     public String getCategory() {
         return this.category;
+    }
+
+    @Override
+    public String getOperation() {
+        return this.operation;
+    }
+
+    @Override
+    public int getIndex() {
+        return this.index;
     }
 
     @Override
