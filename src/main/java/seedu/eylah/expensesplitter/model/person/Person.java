@@ -79,7 +79,7 @@ public class Person {
         String formattedName = getName().toString().substring(0, 1).toUpperCase()
                 + getName().toString().substring(1).toLowerCase();
         builder.append(formattedName)
-                .append(" owes: $")
+                .append(" owes: ")
                 .append(getAmount());
         return builder.toString();
     }

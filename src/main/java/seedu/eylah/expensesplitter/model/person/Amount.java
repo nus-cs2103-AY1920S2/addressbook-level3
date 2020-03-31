@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.AppUtil.checkArgument;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Represents a Person's amount in Expense Splitter in EYLAH.
@@ -44,7 +47,12 @@ public class Amount {
 
     @Override
     public String toString() {
-        return amount.toString();
+        BigDecimal display = amount.setScale(3, RoundingMode.HALF_EVEN);
+        NumberFormat usdCostFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        usdCostFormat.setMinimumFractionDigits( 1 );
+        usdCostFormat.setMaximumFractionDigits( 2 );
+        usdCostFormat.setMinimumFractionDigits( 2 );
+        return usdCostFormat.format(display.doubleValue());
     }
 
     /**
