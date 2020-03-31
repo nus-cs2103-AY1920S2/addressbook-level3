@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.util.Pair;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.commons.util.StringUtil;
@@ -27,6 +26,9 @@ import tatracker.logic.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     public static final String VALID_STYLE_CLASS = "valid";
+
+    private static final String MESSAGE_WELCOME = "Welcome to TA-Tracker\n\n";
+    private static final String MESSAGE_HELP = "Enter help to view the list of commands";
 
     private static final String FXML = "CommandBox.fxml";
 
@@ -58,24 +60,12 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.resultDisplay = resultDisplay;
+        this.resultDisplay.setFeedbackToUser(MESSAGE_WELCOME + MESSAGE_HELP);
 
         resetCommandEntry();
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((property, oldInput, newInput) -> highlightInput(newInput));
-    }
-
-    /**
-     * Handles the Enter button pressed event.
-     */
-    @FXML
-    private void handleCommandEntered() {
-        try {
-            commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
-            setStyleToIndicateCommandFailure();
-        }
     }
 
     /**
@@ -124,32 +114,26 @@ public class CommandBox extends UiPart<Region> {
     private void highlightInput(String input) {
         if (input.isEmpty()) {
             logger.info("======== [ No input ]");
-            resetCommandEntry();
-            setStyleToDefault();
+            handleNoInput();
             return;
         }
 
-        Pair<String, String> result = parseInput(input);
-        final String commandWord = result.getKey();
-        final String arguments = result.getValue();
+        CommandMatch match = parseInput(input);
 
-        if (commandWord.isEmpty()) {
+        if (!match.hasFullCommandWord()) {
             logger.info("======== [ Invalid input ]");
-            resetCommandEntry();
-            setStyleToIndicateCommandFailure();
-            resultDisplay.setFeedbackToUser("");
+            handleInvalidInput();
             return;
         }
 
-        changeCommandEntry(commandWord);
+        changeCommandEntry(match.fullCommandWord);
 
-        if (arguments.isEmpty()) {
-            setStyleToIndicateValidCommand();
-            resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+        if (!match.hasArguments()) {
+            handleNoArguments();
             return;
         }
 
-        highlightArguments(arguments);
+        highlightArguments(match.arguments);
     }
 
     /**
@@ -159,43 +143,84 @@ public class CommandBox extends UiPart<Region> {
         assert !arguments.isEmpty();
 
         if (hasTrailingSpaces(arguments)) {
-            setStyleToDefault();
-            resultDisplay.setFeedbackToUser(commandEntry.getUsage());
             logger.info("======== [ Next argument? ]");
+            handleNextArgument();
             return;
         }
 
-        ArgumentResult result = parseArguments(arguments);
+        ArgumentMatch result = parseArguments(arguments);
 
-        boolean needsIndex = dictionary.hasIndex() && !StringUtil.isNonZeroUnsignedInteger(result.index);
+        boolean needsIndex = dictionary.hasIndex() && !result.hasValidIndex();
         if (needsIndex) {
             logger.info("======== [ Needs Index ]");
         }
 
-        if (!needsIndex && dictionary.hasPrefix(result.lastPrefix)) {
+        boolean hasRequiredPrefix = dictionary.hasPrefix(result.lastPrefix);
+        if (!needsIndex && hasRequiredPrefix) {
             PrefixEntry prefixEntry = dictionary.getPrefixEntry(result.lastPrefix);
 
-            setStyleToIndicateValidCommand();
-            resultDisplay.setFeedbackToUser(prefixEntry.getPrefixWithInfo());
-
             logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), result.lastValue));
+            handleRequiredPrefix(prefixEntry);
         } else {
-            setStyleToIndicateCommandFailure();
-            resultDisplay.setFeedbackToUser(commandEntry.getUsage());
-
             logger.info("======== [ No prefix ] ");
+            handleNoPrefix();
         }
+    }
+
+    /**
+     * Handles the Enter button pressed event.
+     */
+    @FXML
+    private void handleCommandEntered() {
+        try {
+            commandExecutor.execute(commandTextField.getText());
+            commandTextField.setText("");
+        } catch (CommandException | ParseException e) {
+            setStyleToIndicateCommandFailure();
+        }
+    }
+
+    private void handleNoInput() {
+        resetCommandEntry();
+        setStyleToDefault();
+        resultDisplay.setFeedbackToUser(MESSAGE_HELP);
+    }
+
+    private void handleInvalidInput() {
+        resetCommandEntry();
+        setStyleToIndicateCommandFailure();
+        resultDisplay.setFeedbackToUser("");
+    }
+
+    private void handleNoArguments() {
+        setStyleToIndicateValidCommand();
+        resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+    }
+
+    private void handleNextArgument() {
+        setStyleToDefault();
+        resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+    }
+
+    private void handleNoPrefix() {
+        setStyleToIndicateCommandFailure();
+        resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+    }
+
+    private void handleRequiredPrefix(PrefixEntry prefixEntry) {
+        setStyleToIndicateValidCommand();
+        resultDisplay.setFeedbackToUser(prefixEntry.getPrefixWithInfo());
     }
 
     /**
      * Returns a pair containing the command word and arguments from the given input.
      */
-    private Pair<String, String> parseInput(String input) {
+    private CommandMatch parseInput(String input) {
         Matcher matcher = COMMAND_FORMAT.matcher(input);
 
         if (!matcher.matches()) {
             logger.info("============ [ Invalid Command ]");
-            return new Pair<>("", "");
+            return new CommandMatch();
         }
 
         String word1 = matcher.group("word1");
@@ -206,20 +231,20 @@ public class CommandBox extends UiPart<Region> {
 
         if (isComplexCommand) {
             logger.fine("============ [ Complex Command ]");
-            return new Pair<>(word2, matcher.group("args2"));
+            return new CommandMatch(word2, matcher.group("args2"));
         } else if (isBasicCommand) {
             logger.fine("============ [ Basic Command ]");
-            return new Pair<>(word1, matcher.group("args1"));
+            return new CommandMatch(word1, matcher.group("args1"));
         } else {
             logger.fine("============ [ Unknown Command ]");
-            return new Pair<>("", "");
+            return new CommandMatch();
         }
     }
 
     /**
      * Returns a pair containing the last prefix and the value associated with it from the given input.
      */
-    private ArgumentResult parseArguments(String arguments) {
+    private ArgumentMatch parseArguments(String arguments) {
         Matcher indexMatcher = FIRST_INDEX.matcher(arguments);
         Matcher prefixMatcher = LAST_PREFIX.matcher(arguments);
 
@@ -228,7 +253,7 @@ public class CommandBox extends UiPart<Region> {
 
         if (!hasIndex && !hasPrefix) {
             logger.info("============ [ No prefixes ]");
-            return new ArgumentResult(arguments.trim());
+            return new ArgumentMatch(arguments.trim());
         }
 
         String index = "";
@@ -246,7 +271,7 @@ public class CommandBox extends UiPart<Region> {
             value = prefixMatcher.group("value");
         }
 
-        return new ArgumentResult(index, prefix, value);
+        return new ArgumentMatch(index, prefix, value);
     }
 
     /**
@@ -296,21 +321,50 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Wraps the result of an command matching from a {@code Matcher}.
+     */
+    private static class CommandMatch {
+        public final String fullCommandWord;
+        public final String arguments;
+
+        public CommandMatch() {
+            this("", "");
+        }
+
+        public CommandMatch(String fullCommandWord, String arguments) {
+            this.fullCommandWord = fullCommandWord;
+            this.arguments = arguments;
+        }
+
+        public boolean hasFullCommandWord() {
+            return !fullCommandWord.isEmpty();
+        }
+
+        public boolean hasArguments() {
+            return !arguments.isEmpty();
+        }
+    }
+
+    /**
      * Wraps the result of an argument matching from a {@code Matcher}.
      */
-    private static class ArgumentResult {
+    private static class ArgumentMatch {
         public final String index;
         public final String lastPrefix;
         public final String lastValue;
 
-        public ArgumentResult(String arguments) {
+        public ArgumentMatch(String arguments) {
             this("", "", arguments);
         }
 
-        public ArgumentResult(String index, String lastPrefix, String lastValue) {
+        public ArgumentMatch(String index, String lastPrefix, String lastValue) {
             this.index = index;
             this.lastPrefix = lastPrefix;
             this.lastValue = lastValue;
+        }
+
+        public boolean hasValidIndex() {
+            return StringUtil.isNonZeroUnsignedInteger(index);
         }
     }
 }

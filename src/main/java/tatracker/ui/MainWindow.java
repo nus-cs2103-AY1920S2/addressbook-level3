@@ -23,8 +23,6 @@ import tatracker.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-    private static final String MESSAGE_WELCOME = "Welcome to TA-Tracker\n\n"
-            + "Enter help to view the list of commands";
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -150,7 +148,6 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        resultDisplay.setFeedbackToUser(MESSAGE_WELCOME);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaTrackerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
