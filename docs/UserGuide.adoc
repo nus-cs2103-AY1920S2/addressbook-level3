@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W16-4/main
 
 By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+NusProductivity is an application for better management of your school work. The app is set out to enhance your productivity in school through 5 main features, allowing you to plan module, keep track of your cap, note taking, todo list planning and allowing you to log down your thoughts for each day through a diary. This app is designed mainly for NUS students with the possibility to customise it for students from other University in the future. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `NUSProductivity.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for NUSProductivity.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -51,15 +51,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
+=== General
 
-=== Viewing help : `help`
+==== Viewing help : `help`
 
 - Format: `help`
 
-=== Adding a person: `add`
+==== Exiting the program : `exit`
 
-- Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...`
+- Exits the program.
+
+- Format: `exit`
+
+=== Address Book
+
+The address book allows you to add other individuals, such as professors and fellow classmates to your addressbook. Information such as phone number and email of the person will be saved into the address book for easier communication for projects or to schedule consultation relating to the module.
+
+==== Adding a person: `add`
+
+- Adds a person to the address book.
+- Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -70,13 +81,13 @@ A person can have any number of tags (including 0)
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com p/1234567 t/criminal`
 
 
-=== Listing all persons : `list`
+==== Listing all persons : `list`
 
 - Shows a list of all persons in the address book.
 
 - Format: `list`
 
-=== Editing a person : `edit`
+==== Editing a person : `edit`
 
 - Edits an existing person in the address book.
 
@@ -86,7 +97,7 @@ A person can have any number of tags (including 0)
 •	Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …
 •	At least one of the optional fields must be provided.
 •	Existing values will be updated to the input values.
-•	When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+•	When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 •	You can remove all the person’s tags by typing t/ without specifying any tags after it.
 ****
 
@@ -97,28 +108,28 @@ A person can have any number of tags (including 0)
 * `edit 2 n/Betsy Crower t/` +
  Edits the name of the `2nd person` to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: find
+==== Locating persons by name: find
 
 - Finds persons whose names contain any of the given keywords.
 
 - Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g hans will match Hans
+* The search is case insensitive. e.g. hans will match Hans
 * The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
 * Only the name is searched.
 * Only full words will be matched e.g. Han will not match Hans
 * Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
 ****
 
-Examples:
+- Examples:
 
 * `find John` +
  Returns `john` and `John Doe`
 * `find Betsy Tim John` +
  Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+==== Deleting a person : `delete`
 
 - Deletes the specified person from the address book.
 
@@ -139,142 +150,184 @@ Examples:
  `delete 1` +
  Deletes the 1st person in the results of the find command.
 
-=== Clearing all entries : `clear`
+==== Clearing all entries : `clear`
 
 - Clears all entries from the address book.
 
 - Format: `clear`
 
-=== Exiting the program : `exit`
 
-- Exits the program.
+=== Profile
 
-- Format: `exit`
+This feature allows individuals to see their own profile, their target cap, their current cap and the all modules that the individual have taken.
 
-=== View CAP summary : `cap`
+
+==== View CAP summary : `cap`
 
 - Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
 
-- Format: `cap {breakdown}`
+- Format: `cap BREAKDOWN`
 
 ****
 If cap breakdown is inputted, it will show a breakdown of all the modules and grades that is tagged to the module.
 ****
 
-=== View module requirement: `modreq`
+==== View module requirement: `modreq`
 
-- Shows the modules requirement for the major specified.
+- Shows the modules requirement for the major specified. This function will show the core modules that the individual have to take before graduation but have not taken yet.
 
-- Format: `modreq {/MAJOR}`
+- Format: `modreq MAJOR`
 
 - Example:
 
 * `modreq computer science`
 
 
-=== Module information: `module`
+==== Module information: `module`
 
 - Shows basic information about the module, such as time of lecture, tutorial, exam venues and
 professor’s contact associated with the module.
 
-- Format: `module {/MODULE CODE}`
+- Format: `module MODULE CODE`
 
 - Example:
 
 * `module CS2103T`
 
-=== Diary: `diary`
-
-- Format:
-
-a.	`diary log {Limit}`: Shows the most recent diary entry IDs. The number of entry IDs is capped at limit. If no limit
-        is given, shows the most recent 10 diary entry IDs.
-b.  `diary show {ENTRY ID}` : Shows the diary entry for the specified entry ID.
-c.	`diary show {DD-MM-YYYY}` : Shows the diary entry at the specified date if there is any
-d.	`diary add {ENTRY}` : Adds the specific entry to the diary book, date and time will be logged automatically
-e.	`diary delete {ENTRY ID}` : Deletes the specified diary ID’s entry.
-f.  `diary weather {ID} {Weather}` :  tag the diary with the specific ID with a specific weather (e.g. sunny, cloudy)
-g.  `diary emotion {ID} {Emotion}` :  tag the diary with the specific ID with a specific emotion (e.g. happy, blue)
-
-
-=== Todo list: `todo`
-
-- Shows the list of tasks that are scheduled for the week with the deadline.
-
-- Format: `todo`
-
-=== Deadline: `deadline`
-
-- Adds a new task to the todo list. The deadline will be shown alongside the task description.
-
-- Format: `deadline {/Description} /by {DD-MM-YYYY} {HHMM}`
-
-=== Event: `event`
-
-- Adds a new task to the todo list. The date of the event will be shown alongside the task description.
-
-- Format:
-
-a. `event {/Description} /at {DD-MM-YYYY} {HHMM}`
-b. `event {ID} {name of participant}` : add the contact card of the specific participant to the event
-
-=== Module planning: `mymodplan`
+==== Module planning: `mymodplan`
 
 - Shows list of modules taken/to be taken to fulfill major requirements.
 
 - Format:
 
 a.	`mymodplan`: shows module planning list
-b.	`mymodplan add {/MODULE CODE}`: adds a module to the module plan
-c.	`mymodplan done {/MODULE CODE}`: marks a module as taken/done
+b.	`mymodplan add MODULE CODE`: adds a module to the module plan
+c.	`mymodplan done MODULE CODE`: marks a module as taken/done
+
+=== Diary
+
+The diary feature allows you to jot down any thoughts, be it for your personal life or for school work, or just a concept that you may not understand that you will have to revisit in the future.
+
+==== Adding an diary entry: `diaryAdd`
+- Adds a diary entry to the diary book.
+- Format: `diaryAdd ec/ENTRY_CONTENT`
+
+==== Viewing diary logs: `diaryShow`
+- Shows all diary entry IDs.
+- Format: `diaryLog `
+
+==== Viewing diary entries with specified entry ID: `diaryShow`
+- Shows the diary entry for the specified entry ID.
+- Format: `diaryShow id/ENTRY_ID`
+
+==== Viewing diary entries with specified date: `diaryShow`
+- Shows the diary entry at the specified date if there is any, date needs to be in DD-MM-YYYY.
+- Format: `diaryShow date/DATE`
+
+==== Deleting an diary entry: `diaryDelete`
+- Deletes the specified diary ID’s entry.
+- Format: `diaryDelete id/ENTRY_ID`
+
+==== Tagging weather: `diaryWeather`
+- Tags the diary with the specific ID with a specific weather (e.g. sunny, cloudy)
+- Format: `diaryWeather id/ENTRY_ID w/WEATHER`
+
+==== Tagging mood: `diaryMood`
+- Tags the diary with the specific ID with a specific mood (e.g. happy, stressed)
+- Format: `diaryMood id/ENTRY_ID m/MOOD`
 
 
-=== Note Taking: `notes`
+=== Calender
+
+A calender in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
+
+==== Todo list: `todo`
+
+- Shows the list of tasks that are scheduled for the week with the deadline.
+
+- Format: `todo`
+
+==== Deadline: `deadline`
+
+- Adds a new task to the todo list. The deadline will be shown alongside the task description.
+
+- Format: `deadline DESCRIPTION /by DD-MM-YYYY HHMM`
+
+==== Event: `event`
+
+- Adds a new task to the todo list. The date of the event will be shown alongside the task description.
+
+- Format:
+
+a. `event DESCRIPTION /at DD-MM-YYYY HHMM`
+b. `event ID NAME_OF_PARTICIPANT` : add the contact card of the specific participant to the event
+
+
+
+=== Notes
+
+Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
+
+==== Note Taking: `notes`
 
 - Allows for users to create documents for notes, organise their notes in folders.
 Default location is set to user's desktop.
 
-- Format: notes ops/{COMMAND} loc/{DIRECTORY}
+- Format: notes ops/COMMAND loc/DIRECTORY
 
 a.	`notes ops/list loc/NUS/`: shows content in usr/Desktop/NUS/ folder, content will be updated in the UI
 b.	`notes ops/open loc/test.doc`: Opens the file test.doc at usr/Desktop, if file is not present, error message will be shown.
 c.	`notes ops/create loc/test.doc`: Creates the file test.doc at usr/Desktop, if file is already present, error message will be shown.
 
-=== Command Summary
+== Command Summary
 
-•	contactAdd contactAdd n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
- e.g. `contactAdd n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-•	contactClear : contactClear
-•	contactDelete : contactDelete INDEX +
+•	add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
+ e.g. `add n/James Ho p/22224444 e/jamesho@example.com t/friend t/colleague`
+•	clear : clear
+•	delete : delete INDEX +
  e.g. `delete 3`
-•	contactEdit : contactEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]… +
+•	edit : edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]… +
  e.g. `edit 2 n/James Lee e/jameslee@example.com`
-•	contactFind : contactFind KEYWORD [MORE_KEYWORDS] +
+•	find : find KEYWORD [MORE_KEYWORDS] +
  e.g. `find James Jake`
-•	addressbooklist: list
+•	list: list
 •	cap : cap {breakdown}
 •	modreq : modreq {\MAJOR} +
 e.g. `modreq computer science`
 •	todo: todo
 •	help : help
 •	diary :
-* diary log {Limit}
-* diary show {ENTRY ID}
-* diary show {DD-MM-YYYY}
-* diary add {ENTRY}
-* diary delete {ENTRY ID}
-* diary weather {ID} {Weather}
-* diary emotion {ID} {Emotion}
-•	reminders : reminders
-•	deadline : deadline {/Description} /by {DD-MM-YYYY} {HHMM}
-•   event :
-* event {/Description} /at {DD-MM-YYYY} {HHMM}
-* event {ID} {name of participant}
-•	mymodplan:
-•	mymodplan
-•	mymodplan add {/MODULE CODE}
-•	mymodplan done {/MODULE CODE}
-•	notes :
-* notes ops/open loc/{DIRECTORY}
-* notes ops/create loc/{DIRECTORY}
-* notes ops/list loc/{DIRECTORY}
+* diary log LIMIT
+e.g. `diary log 10`
+* diary show ENTRY ID
+e.g. `diary show 3`
+* diary show DD-MM-YYYY
+e.g. `diary show 30-03-2020`
+* diary add ENTRY
+e.g. `diary add "Today is a good day"`
+* diary delete ENTRY ID
+e.g. `diary delete 1`
+* diary weather ID WEATHER
+e.g. `diary weather 1 SUNNY`
+* diary emotion ID EMOTION
+e.g. `diary emotion 1 HAPPY`
+* reminders : reminders
+* deadline : deadline DESCRIPTION /by DD-MM-YYYY HHMM
+e.g. `deadline Finish homework /by 30-03-2020 1800`
+* event :
+* event DESCRIPTION /at DD-MM-YYYY HHMM
+e.g. `event Prom /at 30-03-2020 1800`
+* event ID NAME_OF_PARTICIPANT
+* mymodplan: mymodplan
+** mymodplan add MODULE CODE
+e.g. `mymodplan add CS2103T`
+** mymodplan done MODULE CODE
+e.g. `mymodplan done CS2103T`
+* notes : notes
+** notes ops/open loc/DIRECTORY
+e.g. `notes ops/open loc/Desktop/`
+** notes ops/create loc/DIRECTORY
+e.g. `notes ops/create loc/Desktop/test.doc`
+** notes ops/list loc/DIRECTORY
+e.g. `notes ops/list loc/Desktop/`
+

@@ -66,7 +66,7 @@ public class NotesCommand extends Command {
      * @return a CommandResult based on whether the operation succeed or failed.
      */
     public CommandResult openDoc(String path) {
-        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
         try {
             if (Desktop.isDesktopSupported()) {
@@ -89,7 +89,7 @@ public class NotesCommand extends Command {
      */
     public CommandResult createDoc(String path) {
         String currentDirectory = path.split("/")[0];
-        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
         try {
             myFile.createNewFile();
@@ -108,7 +108,7 @@ public class NotesCommand extends Command {
      * @return a CommandResult based on whether the operation succeed or failed.
      */
     public CommandResult createFolder(String path) {
-        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
 
         if (myFile.mkdir()) { // return true if directory is created
@@ -126,7 +126,7 @@ public class NotesCommand extends Command {
      * @return dummy
      */
     public CommandResult listFiles(String path) {
-        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
         ArrayList<Notes> filesArrayList = new ArrayList<>();
 
@@ -152,7 +152,7 @@ public class NotesCommand extends Command {
      */
     private ArrayList<Notes> listfilesArray(String path) {
 
-        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
         ArrayList<Notes> filesArrayList = new ArrayList<>();
 

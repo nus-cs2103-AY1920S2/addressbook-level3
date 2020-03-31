@@ -18,11 +18,7 @@ public class Classes {
         this.classNo = input.substring(3, input.indexOf("startTime") - 3);
         this.startTime = input.substring(input.indexOf("startTime") + 12, input.indexOf("endTime") - 3);
         this.endTime = input.substring(input.indexOf("endTime") + 10, input.indexOf("weeks") - 3);
-        try {
-            this.size = Integer.parseInt(input.substring(input.indexOf("size") + 6, input.indexOf("},{\"")));
-        } catch (StringIndexOutOfBoundsException e) {
-            this.size = Integer.parseInt(input.substring(input.indexOf("size") + 6, input.indexOf("examDate") - 4));
-        }
+        this.size = Integer.parseInt(input.substring(input.indexOf("size") + 6));
         this.venue = input.substring(input.indexOf("venue") + 8, input.indexOf("\"day\":") - 3);
         this.day = input.substring(input.indexOf("\"day\":") + 7, input.indexOf("lessonType") - 3);
         this.lessonType = input.substring(input.indexOf("lessonType") + 13, input.indexOf("size") - 3);
@@ -36,5 +32,29 @@ public class Classes {
         output = output + "Size: " + this.size + "\n";
         output = output + "Venue: " + this.venue + "\n";
         return output;
+    }
+
+    public String getLessonType() {
+        return this.lessonType;
+    }
+
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    public String getClassNo() {
+        return this.classNo;
+    }
+
+    public String getEndTime() {
+        return this.classNo;
+    }
+
+    public String getDay() {
+        return this.day;
+    }
+
+    public String getVenue() {
+        return this.venue;
     }
 }

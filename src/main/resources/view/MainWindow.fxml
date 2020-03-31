@@ -33,9 +33,9 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
-            <TabPane prefHeight="600.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="200.0" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab fx:id="diaryTab" text="Diary">
+                <Tab id="diaryTab" fx:id="diaryTab" text="Diary">
                      <content>
                         <StackPane fx:id="diaryListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                      </content></Tab>
@@ -46,7 +46,10 @@
                        <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </content>
                   </Tab>
-                  <Tab fx:id="calenderTab" text="Calender" />
+                  <Tab fx:id="calenderTab" text="Calender">
+                     <content>
+                        <StackPane fx:id="calenderPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                     </content></Tab>
                   <Tab fx:id="notesTab" text="Notes">
                      <content>
                         <StackPane fx:id="notesListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />

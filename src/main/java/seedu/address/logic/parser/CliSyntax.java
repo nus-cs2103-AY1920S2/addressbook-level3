@@ -15,6 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_ENTRY_CONTENT = new Prefix("ec/");
     public static final Prefix PREFIX_GRADE = new Prefix("g/");
     public static final Prefix PREFIX_MODULE_CODE = new Prefix("m/");
-    public static final Prefix PREFIX_MODULE_CREDIT = new Prefix("mc/");
 
 }

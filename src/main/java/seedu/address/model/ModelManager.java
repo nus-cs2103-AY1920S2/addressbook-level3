@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,7 +14,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
-import seedu.address.model.nusmodule.Capulator;
+import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.ModuleBook;
+import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.todolist.Deadline;
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
     private final ObservableList<DiaryEntry> diaryEntries;
     private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
-    private List<NusModule> modules;
+    private ModuleBook moduleBook;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,7 +51,7 @@ public class ModelManager implements Model {
         diaryEntries = this.addressBook.getDiaryList();
         diaryBook = new DiaryBook();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
-        modules = new ArrayList<>();
+        moduleBook = new ModuleBook();
     }
 
     public ModelManager() {
@@ -161,23 +161,32 @@ public class ModelManager implements Model {
 
     /**
      * Dummy java docs
-     * @param module
+     * @param
      * @return
      */
-    public boolean hasModule(NusModule module) {
-        requireNonNull(module);
-        return modules.contains(module);
+    @Override
+    public boolean hasModule(ModuleCode moduleCode) {
+        return moduleBook.hasModule(moduleCode);
     }
 
     @Override
     public void addModule(NusModule module) {
-        modules.add(module);
+        moduleBook.addModule(module);
+    }
+
+    @Override
+    public void deleteModule(ModuleCode moduleCode) {
+        moduleBook.deleteModule(moduleCode);
+    }
+
+    @Override
+    public void gradeModule(ModuleCode moduleCode, Grade updatedGrade) {
+        moduleBook.gradeModule(moduleCode, updatedGrade);
     }
 
     @Override
     public double getCap() {
-        Capulator capulator = new Capulator(modules);
-        return capulator.calculateCap();
+        return moduleBook.getCap();
     }
 
 
