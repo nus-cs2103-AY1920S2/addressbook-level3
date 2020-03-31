@@ -1,5 +1,7 @@
 package tatracker.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -140,9 +142,11 @@ public class CommandBox extends UiPart<Region> {
     private void highlightArguments(String arguments) {
         assert !arguments.isEmpty();
 
-        if (hasTrailingSpaces(arguments)) {
+        logger.info("" + getTrailingWhitespaces(arguments));
+
+        if (getTrailingWhitespaces(arguments) > 0) {
             logger.info("======== [ Next argument? ]");
-            handleNextArgument();
+            handleNextArgument(arguments);
             return;
         }
 
@@ -209,9 +213,16 @@ public class CommandBox extends UiPart<Region> {
         resultDisplay.setFeedbackToUser(getCommandFeedback());
     }
 
-    private void handleNextArgument() {
+    /**
+     * Controls the result of entering trailing spaces at the end of a command.
+     * @param arguments to count the number of trailing whitespaces in the command.
+     */
+    private void handleNextArgument(String arguments) {
         setStyleToDefault();
-        resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+
+        if (getTrailingWhitespaces(arguments) > 1) {
+            resultDisplay.setFeedbackToUser(getCommandFeedback());
+        }
     }
 
     private void handleNoPrefix() {
@@ -313,10 +324,16 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Returns true if the given input has trailing white spaces.
+     * Returns true if the given input has more than one whitespace at the end.
      */
-    private boolean hasTrailingSpaces(String input) {
-        return !input.equals(input.stripTrailing());
+    private int getTrailingWhitespaces(String input) {
+        requireNonNull(input);
+        int length = input.length();
+        int trimmedLength = input.stripTrailing().length();
+
+        assert trimmedLength <= length;
+
+        return length - trimmedLength;
     }
 
     /**
