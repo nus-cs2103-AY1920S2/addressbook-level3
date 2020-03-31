@@ -72,6 +72,26 @@ public class ModelState {
     }
 
     /**
+     * Initializes an empty ModelState.
+     */
+    public ModelState() {
+        super();
+
+        this.addressBook = new AddressBook();
+        this.userPrefs = new UserPrefs();
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
+        filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
+        this.restaurantBook = new RestaurantBook();
+        this.scheduler = new Scheduler();
+        this.eventSchedule = new EventSchedule();
+        filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
+        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
+        filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
+        bdayList = new FilteredList<>(this.addressBook.getBdayList());
+        this.commandType = commandType;
+    }
+
+    /**
      * Makes a copy of the state m
      * @param m the state to be copied
      * @return a new copy of the state m
@@ -83,27 +103,40 @@ public class ModelState {
 
     public AddressBook getAddressBook() { return this.addressBook; }
 
+
     public RestaurantBook getRestaurantBook() { return this.restaurantBook; }
+
 
     public Scheduler getScheduler() { return this.scheduler; }
 
+
     public EventSchedule getEventSchedule() { return this.eventSchedule; }
+
 
     public UserPrefs getUserPrefs() { return this.userPrefs; }
 
+
     public FilteredList<Person> getFilteredPersons() { return this.filteredPersons; }
+
 
     public FilteredList<Person> getFilteredPersonsResult() { return this.filteredPersonsResult; }
 
+
     public FilteredList<Restaurant> getFilteredRestaurants() { return this.filteredRestaurants; }
+
 
     public FilteredList<Assignment> getFilteredAssignments() { return this.filteredAssignments; }
 
+
     public FilteredList<Event> getFilteredEvents() { return this.filteredEvents; }
+
 
     public FilteredList<Person> getBdayList() { return this.bdayList; }
 
+
     public String getCommandType() { return this.commandType; }
 
+
     public void setCommandType(String command) { this.commandType = command; }
+
 }
