@@ -11,6 +11,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
@@ -69,10 +72,7 @@ public class ReturnCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (toBeCreated == null) {
-            Order orderToBeReturned = model.getOrderBook().getOrderByTransactionId(tid);
-            if (orderToBeReturned == null) {
-                throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
-            }
+            Order orderToBeReturned = getOrderByTransactionId(model);
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
             }
@@ -84,6 +84,23 @@ public class ReturnCommand extends Command {
         }
         model.addReturnOrder(toBeCreated);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeCreated));
+    }
+
+    /**
+     * Gets the order from the model based on its Transaction ID.
+     * @param model
+     * @return
+     * @throws CommandException
+     */
+    private Order getOrderByTransactionId(Model model) throws CommandException {
+        List<Order> ordersToBeReturned = model.getOrderBook().getOrderList()
+                .stream().filter(order -> order.getTid().equals(tid)).collect(Collectors.toList());
+        if (ordersToBeReturned.isEmpty()) {
+            throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
+        }
+        assert(ordersToBeReturned.size() <= 1);
+        Order orderToBeReturned = ordersToBeReturned.get(0);
+        return orderToBeReturned;
     }
 
     @Override
