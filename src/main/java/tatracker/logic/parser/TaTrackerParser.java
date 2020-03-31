@@ -1,6 +1,7 @@
 package tatracker.logic.parser;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_HELP;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -14,13 +15,11 @@ import tatracker.logic.commands.ExitCommand;
 import tatracker.logic.commands.FindCommand;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.commands.ListCommand;
-//import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.SortCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
 import tatracker.logic.parser.session.SessionCommandParser;
-//import tatracker.logic.parser.student.EditStudentCommandParser;
 import tatracker.logic.parser.student.StudentCommandParser;
 
 /**
@@ -41,9 +40,13 @@ public class TaTrackerParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
+        if (userInput.isEmpty()) {
+            throw new ParseException(MESSAGE_HELP);
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND + MESSAGE_HELP);
         }
 
         final String commandWord = matcher.group("commandWord");

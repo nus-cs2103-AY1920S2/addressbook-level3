@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
+import tatracker.commons.core.Messages;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.CommandDictionary;
 import tatracker.logic.commands.CommandEntry;
@@ -26,9 +27,6 @@ import tatracker.logic.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     public static final String VALID_STYLE_CLASS = "valid";
-
-    private static final String MESSAGE_WELCOME = "Welcome to TA-Tracker\n\n";
-    private static final String MESSAGE_HELP = "Enter help to view the list of commands";
 
     private static final String FXML = "CommandBox.fxml";
 
@@ -60,7 +58,7 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.resultDisplay = resultDisplay;
-        this.resultDisplay.setFeedbackToUser(MESSAGE_WELCOME + MESSAGE_HELP);
+        this.resultDisplay.setFeedbackToUser(Messages.MESSAGE_WELCOME + Messages.MESSAGE_HELP);
 
         resetCommandEntry();
 
@@ -167,6 +165,20 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    private String getCommandFeedback() {
+        return String.format("%s\nParameters: %s\nExample: %s",
+                commandEntry.getInfo(),
+                commandEntry.getUsage(),
+                commandEntry.getExample());
+    }
+
+    private String getPrefixFeedback(PrefixEntry prefixEntry) {
+        return String.format("%s\n%s\nExample: %s",
+                prefixEntry.getPrefixWithInfo(),
+                prefixEntry.getConstraint(),
+                prefixEntry.getPrefixWithExamples());
+    }
+
     /**
      * Handles the Enter button pressed event.
      */
@@ -183,7 +195,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleNoInput() {
         resetCommandEntry();
         setStyleToDefault();
-        resultDisplay.setFeedbackToUser(MESSAGE_HELP);
+        resultDisplay.setFeedbackToUser(Messages.MESSAGE_HELP);
     }
 
     private void handleInvalidInput() {
@@ -194,7 +206,7 @@ public class CommandBox extends UiPart<Region> {
 
     private void handleNoArguments() {
         setStyleToIndicateValidCommand();
-        resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+        resultDisplay.setFeedbackToUser(getCommandFeedback());
     }
 
     private void handleNextArgument() {
@@ -204,12 +216,12 @@ public class CommandBox extends UiPart<Region> {
 
     private void handleNoPrefix() {
         setStyleToIndicateCommandFailure();
-        resultDisplay.setFeedbackToUser(commandEntry.getUsage());
+        resultDisplay.setFeedbackToUser(getCommandFeedback());
     }
 
     private void handleRequiredPrefix(PrefixEntry prefixEntry) {
         setStyleToIndicateValidCommand();
-        resultDisplay.setFeedbackToUser(prefixEntry.getPrefixWithInfo());
+        resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
     }
 
     /**

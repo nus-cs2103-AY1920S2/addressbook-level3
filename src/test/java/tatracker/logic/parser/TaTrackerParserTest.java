@@ -2,7 +2,7 @@ package tatracker.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_HELP;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
@@ -94,7 +94,7 @@ public class TaTrackerParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+        assertThrows(ParseException.class, MESSAGE_HELP, ()
             -> parser.parseCommand(""));
     }
 

@@ -1,6 +1,6 @@
 package tatracker.logic.parser;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.TYPE;
@@ -25,7 +25,7 @@ public class SortCommandParser implements Parser<SortCommand> {
                 MODULE, GROUP);
 
         if (!argMultimap.getValue(TYPE).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND);
         }
 
         String type = ParserUtil.parseValue(argMultimap.getValue(TYPE).get());
