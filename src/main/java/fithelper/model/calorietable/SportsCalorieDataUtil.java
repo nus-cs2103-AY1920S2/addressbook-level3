@@ -4,14 +4,14 @@ package fithelper.model.calorietable;
  * Data about calorie consumption of a sports in primitive form.
  */
 public class SportsCalorieDataUtil {
-    public static final String DATA = "Cycling (<22.5 kmh)/563//" + "Cycling (22.5-26 kmh)/704//"
-            + "Weightlifting (light)/211//" + "Weightlifting (vigorous)/387//" + "Cycling (>26 kmh)/844//"
+    public static final String DATA = "Cycling (<22.5 kmph)/563//" + "Cycling (22.5-26 kmph)/704//"
+            + "Weightlifting (light)/211//" + "Weightlifting (vigorous)/387//" + "Cycling (>26 kmph)/844//"
             + "Rowing machine (light)/246//" + "Rowing machine (moderate)/493//"
             + "Rowing machine (vigorous)/600//" + "Aerobics (low impact)/352//"
             + "Aerobics (high impact)/493//" + "Aerobics (step aerobics)/598//"
             + "Stretching (mild)/176//" + "Stretching (intense)/281//"
-            + "Running (8-11 kmh)/563 - 800//" + "Running (12-14 kmh)/880 - 985//"
-            + "Running (14.5-17.5 kmh)/1056 - 1267//" + "Cross country/633//"
+            + "Running (8-11 kmph)/563 - 800//" + "Running (12-14 kmph)/880 - 985//"
+            + "Running (14.5-17.5 kmph)/1056 - 1267//" + "Cross country/633//"
             + "Stairclimbing/1056//" + "Track and field (shot, discus)/281//"
             + "Track and field (high jump, pole vault)/422//" + "Track and field (hurdles)/704//"
             + "Archery/246//" + "Badminton/317//" + "Basketball (competitive)/563//"
@@ -35,5 +35,7 @@ public class SportsCalorieDataUtil {
             + "Canoeing (moderate)/493//" + "Canoeing (vigorous)/844//"
             + "Swimming backstroke/493//" + "Swimming breaststroke/704//"
             + "Swimming butterfly/744//" + "Swimming sidestroke/563//" + "Swimming leisurely, not laps/422//"
-            + "Water polo/704//" + "Water volleyball/211//" + "Water jogging/563//";
+            + "Water polo/704//" + "Water volleyball/211//" + "Water jogging/563//"
+            + "Walk (2-4 kmph)/100 - 211//" + "Walk (5-6.5 kmph)/232 - 352//"
+            + "Walk (7-8 kmph)/443 - 563//" + "Race walking/457//";
 }
