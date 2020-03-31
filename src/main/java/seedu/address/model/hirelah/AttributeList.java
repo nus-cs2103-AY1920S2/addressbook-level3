@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /*

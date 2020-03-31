@@ -65,7 +65,7 @@ public class QuestionList {
      */
     public Question find(int index) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
-            throw new IllegalValueException("The index is out of bound");
+            throw new IllegalValueException("No such question exists!");
         }
         return questions.get(index - 1);
     }
@@ -80,7 +80,7 @@ public class QuestionList {
      */
     public Question delete(int index) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
-            throw new IllegalValueException("The index is out of bound");
+            throw new IllegalValueException("No such question exists!");
         }
         Question question = questions.get(index - 1);
         questions.remove(index - 1);
@@ -99,7 +99,7 @@ public class QuestionList {
 
     public Question edit(int index, String description) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
-            throw new IllegalValueException("The index is out of bound");
+            throw new IllegalValueException("No such question exists!");
         }
         Question current = questions.get(index - 1);
         Question question = new Question(description);
