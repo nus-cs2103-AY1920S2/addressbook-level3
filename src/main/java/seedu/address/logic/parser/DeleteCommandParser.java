@@ -53,6 +53,9 @@ public class DeleteCommandParser implements Parser<DeleteSupplierCommand> {
         if (goodNames.isEmpty()) {
             return Optional.empty();
         }
+
+        //This is to initialize a good name list
+        //if there is no good names, it will initialise as empty collection
         Collection<String> goodNameList = goodNames.size() == 1 && goodNames.contains("") ? Collections.emptyList()
                 : goodNames;
         return Optional.of(ParserUtil.parseGoodNames(goodNameList));

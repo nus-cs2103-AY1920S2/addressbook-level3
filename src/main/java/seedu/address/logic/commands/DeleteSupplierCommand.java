@@ -18,7 +18,7 @@ import seedu.address.model.good.GoodName;
 import seedu.address.model.supplier.Supplier;
 
 /**
- * Deletes a supplier identified using it's displayed index from the address book or delete a specific good in the
+ * Deletes a supplier identified using its displayed index from the address book or delete a specific good in the
  * supplier's list
  */
 public class DeleteSupplierCommand extends Command {
@@ -33,7 +33,7 @@ public class DeleteSupplierCommand extends Command {
 
     public static final String MESSAGE_DELETE_SUPPLIER_SUCCESS = "Deleted Supplier: %1$s";
     public static final String MESSAGE_DELETE_GOOD = "Deleted good in the supplier's list";
-    public static final String MESSAGE_COULD_NOT_FIND = "good could not be found in the supplier's list";
+    public static final String MESSAGE_COULD_NOT_FIND_GOOD = "GOOD COULD NOT BE FOUND IN THE SUPPLIER'S LIST!";
 
     private final Index index;
     private final DeleteSupplierGoodName deleteSupplierGoodName;
@@ -68,8 +68,8 @@ public class DeleteSupplierCommand extends Command {
         } else {
             Supplier supplierToDelete = lastShownList.get(index.getZeroBased());
             Supplier editedSupplier = supplierToDelete;
-            if (editedSupplier.removeGood(deleteSupplierGoodName.goodNames.iterator().next()) == null) {
-                return new CommandResult(String.format(MESSAGE_COULD_NOT_FIND, supplierToDelete));
+            if (!editedSupplier.removeGood(deleteSupplierGoodName.goodNames.iterator().next())) {
+                return new CommandResult(String.format(MESSAGE_COULD_NOT_FIND_GOOD, supplierToDelete));
             }
             model.setSupplier(supplierToDelete, editedSupplier);
             model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);

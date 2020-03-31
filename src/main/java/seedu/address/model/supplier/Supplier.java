@@ -69,16 +69,16 @@ public class Supplier {
     /**
      * This is to remove a good from supplier's list after giving the good's name
      */
-    public String removeGood(GoodName goodName) {
+    public boolean removeGood(GoodName goodName) {
         Iterator<Offer> itr = offers.iterator();
         while (itr.hasNext()) {
             Offer tempOffer = itr.next();
             if (tempOffer.getGood().equals(goodName)) {
                 itr.remove();
-                return "done";
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     /**
