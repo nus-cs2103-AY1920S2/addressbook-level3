@@ -26,8 +26,8 @@ Are you a Teaching Assistant at School of Computing who is tired of having to ke
 track of all your claimable hours in some unappealing excel spreadsheet just so you
 can fill up the TSS Claims form accurately at the end of the semester? Do you want
 a place where you can keep track of things related to your teaching duties, such as
-keeping a track of your strongest and weakest students? If so, TA-Tracker is the tool
-for you!
+keeping a track of your strongest and weakest students, all in one place? If so,
+TA-Tracker is the tool for you!
 
 TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
 who want to be able to track and manage their students and claimable
@@ -40,6 +40,9 @@ Line Interface* (CLI) while still having the benefits of a Graphical User Interf
 
 == Quick Start
 
+This section gives you a step-by-step explanation on how you can download and open
+the application.
+
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your TA tracker.
@@ -47,6 +50,7 @@ Line Interface* (CLI) while still having the benefits of a Graphical User Interf
 
 +
 image::Ui.png[width="790"]
+This is what the GUI looks like when the TA-Tracker is opened for the first time.
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -55,6 +59,117 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 NOTE: TA-Tracker data is saved periodically so you don't have to worry about saving
 your data manually.
+
+== About the User Guide
+This User Guide introduces you to TA-Tracker's features and shows you how you can use
+the TA-Tracker to make your life as a Teaching Assistant easier.
+
+=== Commonly Used Symbols:
+This section shows you the symbols commonly used in the User Guide.
+
+[NOTE]
+====
+This symbol indicates that there is something that you should take note of.
+====
+
+[TIP]
+====
+This symbol indicates that a tip is being mentioned.
+====
+
+[CAUTION]
+====
+This symbol indicates that there is something you should be careful to avoid.
+====
+
+=== Command Format
+
+All the commands written in the user guide follow some rules that have been mentioned
+below. This will help you better understand how to use the commands.
+
+====
+* Words in `UPPER_CASE` are the parameters to be supplied by the user .
+For example, in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
+* Items in square brackets are optional.
+For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/Fast learner` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times.
+For example, `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend` (i.e. once) or
+`t/friend t/family` (i.e. multiple times).
+* Parameters can be in any order.
+For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+=== Common Parameters
+
+This section lists and explains what the parameters commonly used in the commands mean.
+
+[width="%",cols="20%,<40,40,options="header",]
+|=======================================================================
+|Parameter | Explanation | Examples
+
+| `PAGE_NAME` | This refers to the different tab names. | *students* - to indicate the
+Student View
+
+*sessions* - to indicate the Session View
+
+*claims* - to indicate the Claim View
+
+|`INDEX` | Indicates the position of an item in a list | *1* - refers to the
+first item in a list
+
+| `MATRIC_NUMBER` | Refers to the matriculation number of a student.
+
+It must start with an A, have 7 numbers in between and end with an alphabet.
+
+| *A0123456X*
+
+|`MOD_CODE` | Refers to the unique code given to the module.
+
+You can personalise this and give it your own code. However, we recommend you
+use the module's code.
+
+| *CS2103T*
+
+| `NAME` | Depending on the command, this could either refer to the student's name
+or the module's name. | *John Doe* or *Software Engineering*
+
+| `GROUP_CODE` | Refers to the unique code given to the group.
+
+You can personalise this and create your own code. However, we recommend that you use
+the group's code assigned by SoC | *G06*
+
+| `NEW_GROUP_CODE` |
+|=======================================================================
+
+* `MOD_CODE` - the unique code for the module
+* `NAME` - based on the command, this could mean student name or module name
+* `GROUP_CODE` - the unique code for the group
+* `NEW_GROUP_CODE` - the new group code
+* `GROUP_TYPE` - could be one of the following:
+** tutorial
+** lab
+** recitations
+** other
+* `NEW_GROUP_TYPE` - the new group type you want to change it to
+* `SORT_TYPE` - could be one of the following:
+** alphabetically
+** by rating (ascending order)
+** by rating (descending order)
+** by matric number (ascending order)
+* `SESSION_TYPE` - Could be one of the following:
+** consult - consultations
+** tutorial - tutorials
+** grading - grading assessments
+** prep - class preparation
+** todo - other tasks and notes
+** lab - lab
+*`NOTES` - Extra description, note taking
+* `START`, `END` - a time parameter, in the following format: HH:mm
+* `DATE` - a date parameter, in the following format: dd-MM-yyyy
+*`WEEK` - indicates the recurring period of sessions
+* `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
+* `./` - indicates the presence of a tag that will be specified in a later section of the guide.
+====
 
 [[Layout]]
 == Layout
@@ -109,54 +224,6 @@ As you type a command:
 Furthermore, you will see the help information for the command that you are typing out.
 ====
 
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-*Common Parameters*
-
-* `PAGE_NAME` - one of the following pages:
-** sessions - the Session View
-** students - the Student View
-** claims - the Claims View
-* `INDEX` - the position of an item in a list
-* `MATRIC_NUMBER` - the matriculation number of a student
-** it must start with an ‘A’
-** it must end with a letter
-** it must have 7 numbers in between the start and end letters
-* `MOD_CODE` - the unique code for the module
-* `NAME` - based on the command, this could mean student name or module name
-* `GROUP_CODE` - the unique code for the group
-* `NEW_GROUP_CODE` - the new group code
-* `GROUP_TYPE` - could be one of the following:
-** tutorial
-** lab
-** recitations
-** other
-* `NEW_GROUP_TYPE` - the new group type you want to change it to
-* `SORT_TYPE` - could be one of the following:
-** alphabetically
-** by rating (ascending order)
-** by rating (descending order)
-** by matric number (ascending order)
-* `SESSION_TYPE` - Could be one of the following:
-** consult - consultations
-** tutorial - tutorials
-** grading - grading assessments
-** prep - class preparation
-** todo - other tasks and notes
-** lab - lab
-*`NOTES` - Extra description, note taking
-* `START`, `END` - a time parameter, in the following format: HH:mm
-* `DATE` - a date parameter, in the following format: dd-MM-yyyy
-*`WEEK` - indicates the recurring period of sessions
-* `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
-* `./` - indicates the presence of a tag that will be specified in a later section of the guide.
-====
 
 === Navigation
 
