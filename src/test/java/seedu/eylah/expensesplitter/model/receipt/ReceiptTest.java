@@ -21,11 +21,6 @@ public class ReceiptTest {
     }
 
     @Test
-    public void hasEntry_nullEntry_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> receipt.hasEntry(null));
-    }
-
-    @Test
     public void hasEntry_entryNotInReceipt_returnsFalse() {
         assertFalse(receipt.hasEntry(ENTRY_ONE));
     }
