@@ -1,8 +1,12 @@
 package tatracker.logic.commands.commons;
 
+import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.TAB_NAME;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
@@ -31,6 +35,20 @@ public class GotoCommand extends Command {
         STUDENT,
         SESSION,
         CLAIMS;
+
+        public static final String MESSAGE_CONSTRAINTS = "Options: student, session, claims";
+
+        private static final Map<String, Tab> TABS = Arrays.stream(values())
+                .collect(Collectors.toUnmodifiableMap(tab -> tab.name().toLowerCase(), tab -> tab));
+
+        public static boolean isValidTab(String test) {
+            return TABS.containsKey(test.toLowerCase());
+        }
+
+        public static Tab getTab(String tabName) {
+            requireNonNull(tabName);
+            return TABS.get(tabName.toLowerCase());
+        }
 
         @Override
         public String toString() {

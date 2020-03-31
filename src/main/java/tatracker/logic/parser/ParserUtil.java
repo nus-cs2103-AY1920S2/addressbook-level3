@@ -242,7 +242,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses and returns the tab name specified by the user in the goto command
+     * Parses and returns the tab na`me specified by the user in the goto command
      *
      * @param tabName user input
      * @return the tab specified by the user
@@ -250,16 +250,11 @@ public class ParserUtil {
      */
     public static Tab parseTabName(String tabName) throws ParseException {
         requireNonNull(tabName);
-        String trimmedType = tabName.trim().toLowerCase();
-        switch (trimmedType) {
-        case "student":
-            return Tab.STUDENT;
-        case "session":
-            return Tab.SESSION;
-        case "claims":
-            return Tab.CLAIMS;
-        default:
+        String trimmedType = tabName.trim();
+
+        if (!Tab.isValidTab(trimmedType)) {
             throw new ParseException(MESSAGE_INVALID_TAB);
         }
+        return Tab.getTab(trimmedType);
     }
 }

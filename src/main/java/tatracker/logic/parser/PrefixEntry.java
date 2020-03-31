@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -33,7 +34,7 @@ public enum PrefixEntry {
     ),
     TAB_NAME(
             Prefixes.TAB_NAME,
-            "Options: student, session, claims", value -> List.of("student", "session", "claims").contains(value),
+            Tab.MESSAGE_CONSTRAINTS, Tab::isValidTab,
             "student"
     ),
 
