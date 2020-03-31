@@ -80,7 +80,7 @@ public class NotablyParser {
             return List.of(new ExitCommand());
 
         default:
-            throw new ParseException("Invalid Command");
+            throw new ParseException("Invalid Command Word");
         }
     }
 
