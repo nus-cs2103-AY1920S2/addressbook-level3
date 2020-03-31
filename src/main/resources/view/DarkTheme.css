@@ -366,3 +366,8 @@
     -fx-font-size: 13;
     -fx-padding: 5 40 0 0
 }
+
+.circle-data-label {
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+}
