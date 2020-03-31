@@ -17,6 +17,7 @@ import seedu.recipe.logic.Logic;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -35,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private MainTabPanel mainTabPanel;
-    private RecipeListPanel planningListPanel;
+    private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -122,9 +123,9 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
         recipeListPanel = new RecipeListPanel(recipeList);
 
-        //using recipe list as stub for planning list, to be editted later
-        ObservableList<Recipe> planningList = logic.getFilteredRecipeList();
-        planningListPanel = new RecipeListPanel(planningList);
+        //using recipe list as stub for planning list, to be editted later todo
+        ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
+        planningListPanel = new PlanningListPanel(plannedList);
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());

@@ -1,7 +1,6 @@
 package seedu.recipe.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
@@ -20,13 +19,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.recipe.commons.core.index.Index;
-
 import seedu.recipe.logic.commands.EditCommand;
 import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Step;
-
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;

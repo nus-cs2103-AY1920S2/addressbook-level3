@@ -15,14 +15,15 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
 
     @Test
     public void equals() {

@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,8 +14,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.model.plan.Date;
-import seedu.recipe.model.plan.PlannedRecipeMap;
+import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -22,29 +26,34 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final RecipeBook recipeBook;
+    private final PlannedBook plannedBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
-    private final PlannedRecipeMap plannedRecipes;
+    private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
+    private final Map<Recipe, List<PlannedRecipe>> recipeToPlannedRecipeMap;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook plannedBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
         logger.fine("Initializing with recipe book: " + recipeBook + " and user prefs " + userPrefs);
 
         this.recipeBook = new RecipeBook(recipeBook);
+        this.plannedBook = new PlannedBook(plannedBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
-        plannedRecipes = new PlannedRecipeMap(); // todo: planned recipes cant be saved currently
+        filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
+        recipeToPlannedRecipeMap = new HashMap<>(this.plannedBook.getRecipeToPlannedRecipeMap());
+        // todo: planned recipes cant be saved currently
     }
 
     public ModelManager() {
-        this(new RecipeBook(), new UserPrefs());
+        this(new RecipeBook(), new PlannedBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -152,6 +161,13 @@ public class ModelManager implements Model {
         setRecipeBook(states.redo(numberOfRedo));
     }
 
+    //=========== PlannedBook ================================================================================
+
+    @Override
+    public ReadOnlyPlannedBook getPlannedBook() {
+        return plannedBook;
+    }
+
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
@@ -169,6 +185,40 @@ public class ModelManager implements Model {
         filteredRecipes.setPredicate(predicate);
     }
 
+    //=========== Plan Recipe List Accessors =============================================================
+
+    @Override
+    public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
+        plannedBook.addPlannedRecipe(plannedRecipe);
+    }
+
+    @Override
+    public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.addPlannedMapping(recipe, plannedRecipe);
+    }
+
+    @Override
+    public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+        plannedBook.removeAllPlannedMappingForRecipe(recipe);
+    }
+
+    @Override
+    public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+        plannedBook.setPlannedRecipe(target, editedRecipe);
+    }
+
+    @Override
+    public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+        return filteredPlannedRecipes;
+    }
+
+    @Override
+    public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
+        requireNonNull(predicate);
+        filteredPlannedRecipes.setPredicate(predicate);
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -184,15 +234,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return recipeBook.equals(other.recipeBook)
+                && plannedBook.equals(other.plannedBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredRecipes.equals(other.filteredRecipes);
     }
 
-    //=========== Planned Recipe List Accessors =============================================================
 
-    @Override
-    public void planRecipe(Recipe recipeToSet, Date atDate) {
-        plannedRecipes.add(recipeToSet, atDate);
-    }
 
 }

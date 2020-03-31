@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path recipeBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path plannedBookFilePath = Paths.get("data", "plannedbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setRecipeBookFilePath(newUserPrefs.getRecipeBookFilePath());
+        setPlannedBookFilePath(newUserPrefs.getPlannedBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.recipeBookFilePath = recipeBookFilePath;
     }
 
+    public Path getPlannedBookFilePath() {
+        return plannedBookFilePath;
+    }
+
+    public void setPlannedBookFilePath(Path plannedBookFilePath) {
+        requireNonNull(plannedBookFilePath);
+        this.plannedBookFilePath = plannedBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,19 +79,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && recipeBookFilePath.equals(o.recipeBookFilePath);
+                && recipeBookFilePath.equals(o.recipeBookFilePath)
+                && plannedBookFilePath.equals(o.plannedBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, recipeBookFilePath);
+        return Objects.hash(guiSettings, recipeBookFilePath, plannedBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + recipeBookFilePath);
+        sb.append("\nLocal recipe data file location : " + recipeBookFilePath);
+        sb.append("\nLocal planned recipe data file location: " + plannedBookFilePath);
         return sb.toString();
     }
 

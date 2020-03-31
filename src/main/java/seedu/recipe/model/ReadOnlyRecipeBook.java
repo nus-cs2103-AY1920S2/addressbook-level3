@@ -13,5 +13,4 @@ public interface ReadOnlyRecipeBook {
      * This list will not contain any duplicate recipes.
      */
     ObservableList<Recipe> getRecipeList();
-
 }

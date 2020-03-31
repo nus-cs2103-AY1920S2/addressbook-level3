@@ -14,13 +14,16 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.recipe.commons.core.GuiSettings;
+
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -175,6 +178,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyPlannedBook getPlannedBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Recipe> getFilteredRecipeList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -185,9 +193,35 @@ public class AddCommandTest {
         }
 
         @Override
-        public void planRecipe(Recipe recipeToSet, Date atDate) {
+        public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeAllPlannedMappingForRecipe(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

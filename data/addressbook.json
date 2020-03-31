@@ -1,30 +1,8 @@
 {
   "recipes" : [ {
-    "name" : "Vegan Thai Green Curry Soup",
-    "time" : "35",
-    "isFavourite" : false,
-    "grains" : [ "200.0g,  rice vermicelli noodles" ],
-    "vegetables" : [ "1.0cup,  broccoli florets", "100.0g,  button mushrooms sliced", "10.0g,  Thai red eye bird's chili" ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ "0.5tsp,  brown sugar", "0.25cup,  coconut milk", "2.0tsp,  oil", "1.0tsp,  Salt", "1.0tsp,  soy sauce", "1.0tbsp,  Thai Green Curry Paste" ],
-    "steps" : [ "Heat oil in a saucepan. Add the vegetables (broccoli, mushroom) and saute till they turn soft. Transfer to a plate and set aside.", "In the same saucepan, add the green curry paste. Saute the curry paste for a minute.", "Add the coconut milk, brown sugar and soy sauce. Stir until the curry paste is nicely dissolved.", "Now add the vegetable stock, salt, red chillies and stir to combine.", "Bring the soup to a boil over high heat. Reduce the heat and allow the soup to simmer for 5 minutes.", "Add the vermicelli noodles and the vegetables. Simmer till the noodles are cooked.", "Turn off the heat and give soup a nice stir. Taste and adjust the seasoning and consistency accordingly. If too thick add more stock or coconut milk.", "Just before serving garnish soup with fresh herbs, crushed peanuts and juice of lemon.", "Serve Thai Green Curry Soup warm." ],
-    "goals" : [ "Herbivore" ]
-  }, {
-    "name" : "Thai Basil Ground Beef Bowl",
-    "time" : "25",
-    "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ "2.0cup,  asparagus (chopped)", "200.0g,  cauliflower", "20.0g,  garlic clove", "20.0g,  garlic cloves (minced)", "0.25cup,  onion", "0.25cup,  Thai basil" ],
-    "proteins" : [ "500.0g,  95% lean ground beef", "1.0tbsp,  fresh ginger (minced)" ],
-    "fruits" : [ ],
-    "others" : [ "2.0tsp,  chilli paste", "1.0tbsp,  coconut oil (or olive oil)", "2.0tbsp,  low sodium soy sauce" ],
-    "steps" : [ "Prepare the cauliflower rice. Chop the cauliflower into florets and add to a food processor with the onion and garlic. Pulse into fine rice like pieces. You may have to do this in batches depending on your food processor. To cook, saute the cauliflower rice in 1 tbsp. coconut oil over medium heat until soft. You can also microwave it for 4-5 minutes.", "Add the beef to a hot nonstick skillet over medium high heat. Brown and break up the larger chunks as you go until no longer pink.", "Add in the garlic, ginger, green onions, and asparagus. Cook until the asparagus is just tender, about 3-4 minutes.", "Add the soy sauce, chili paste, and basil. Cook for 30 seconds and remove from heat. Taste and season as needed with additional soy or chili sauce.", "Serve the Thai Basil Beef over the cauliflower rice." ],
-    "goals" : [ "Bulk like the Hulk" ]
-  }, {
     "name" : "Barley Pilaf",
     "time" : "50",
-    "isFavourite" : false,
+    "isFavourite" : true,
     "grains" : [ "0.5cup,  small pieces of broken spaghetti" ],
     "vegetables" : [ "2.0tbsp,  chives (chopped)", "50.0g,  small onion (chopped)" ],
     "proteins" : [ "2.5cup,  low-sodium chicken broth" ],
@@ -34,7 +12,7 @@
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "Asian BBQ Chicken",
-    "time" : "30",
+    "time" : "15",
     "isFavourite" : false,
     "grains" : [ ],
     "vegetables" : [ "1.0tbsp,  garlic & ginger (finely chopped)" ],
@@ -165,15 +143,15 @@
     "steps" : [ "In a slow cooker, combine all ingredients and set to low heat. Cover and let cook for 8 to 9 hours.", "Stir and remove to serving bowls. This method works best if started before you go to bed." ],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
-    "name" : "testMissingIngredient",
-    "time" : "13",
+    "name" : "chicken rice",
+    "time" : "30",
     "isFavourite" : false,
-    "grains" : [ ],
+    "grains" : [ "300.0g,  Rice" ],
     "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ "1.0cup,  dried cranberries", "1.0cup,  dried figs" ],
+    "proteins" : [ "300.0g,  Chicken Thigh" ],
+    "fruits" : [ ],
     "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ ]
+    "steps" : [ "Boil chicken", "While chicken is cooking, add sesame oil and crushed ginger into rice and cook it", "When chicken is done, dip it into iced water", "Serve while rice is hot" ],
+    "goals" : [ "Bulk like the Hulk" ]
   } ]
 }

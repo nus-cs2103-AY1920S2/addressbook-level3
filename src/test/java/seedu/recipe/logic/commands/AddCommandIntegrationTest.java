@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -22,15 +23,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
+        model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newRecipe_success() {
         Recipe validRecipe = new RecipeBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
-        // System.out.println(validRecipe); // todo remove later
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
         expectedModel.addRecipe(validRecipe);
 
         assertCommandSuccess(new AddCommand(validRecipe), model,

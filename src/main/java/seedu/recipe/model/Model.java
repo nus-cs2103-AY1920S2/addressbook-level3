@@ -4,8 +4,10 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.recipe.commons.core.GuiSettings;
-import seedu.recipe.model.plan.Date;
+import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -14,6 +16,9 @@ import seedu.recipe.model.recipe.Recipe;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<PlannedRecipe> PREDICATE_SHOW_ALL_PLANNED_RECIPES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -116,6 +121,9 @@ public interface Model {
      */
     void redoRecipeBook(int numberOfRedo);
 
+    /** Returns the PlannedBook */
+    ReadOnlyPlannedBook getPlannedBook();
+
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<Recipe> getFilteredRecipeList();
 
@@ -126,8 +134,38 @@ public interface Model {
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
 
     /**
-     * Adds a recipe to a date in the plannedRecipe list
+     * Adds a planned recipe to the plannedRecipe list
      */
-    void planRecipe(Recipe recipeToSet, Date atDate);
+    void addPlannedRecipe(PlannedRecipe plannedRecipe);
 
+    /**
+     * Adds a {@code plannedRecipe} to the {@code recipe} key in the Recipe to PlannedRecipe map.
+     */
+    void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
+
+    /**
+     * Removes all PlannedRecipe mapped to the {@code recipe} key.
+     */
+    void removeAllPlannedMappingForRecipe(Recipe recipe);
+
+    /**
+     * Replaces the {@code target} Recipe with the {@code editedRecipe} Recipe in the
+     * mapping from Recipe to PlannedRecipe map.
+     * Updates the references to Recipe in each PlannedRecipe.
+     */
+    void setPlannedRecipe(Recipe target, Recipe editedRecipe);
+
+    /**
+     * Returns an unmodifiable view of the planned recipes.
+     */
+    ObservableList<PlannedRecipe> getFilteredPlannedList();
+
+
+    /**
+     * Updates the filtered planned list to be filtered using the {@code predicate}.
+     * todo throw exception?
+     */
+    void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
+
+    //updateAndFillPlannedList todo
 }

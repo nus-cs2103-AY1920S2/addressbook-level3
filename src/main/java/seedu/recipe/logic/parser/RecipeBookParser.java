@@ -24,8 +24,8 @@ import seedu.recipe.logic.commands.FindCommand;
 import seedu.recipe.logic.commands.HelpCommand;
 import seedu.recipe.logic.commands.ListCommand;
 import seedu.recipe.logic.commands.ListGoalsCommand;
+import seedu.recipe.logic.commands.PlanCommand;
 import seedu.recipe.logic.commands.RedoCommand;
-import seedu.recipe.logic.commands.ScheduleCommand;
 import seedu.recipe.logic.commands.SwitchCommand;
 import seedu.recipe.logic.commands.UndoCommand;
 import seedu.recipe.logic.commands.UnfavouriteCommand;
@@ -118,8 +118,8 @@ public class RecipeBookParser {
         case EditIngredientCommand.COMMAND_WORD:
             return new EditIngredientCommandParser().parse(arguments);
 
-        case ScheduleCommand.COMMAND_WORD:
-            return new ScheduleCommandParser().parse(arguments);
+        case PlanCommand.COMMAND_WORD:
+            return new PlanCommandParser().parse(arguments);
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
