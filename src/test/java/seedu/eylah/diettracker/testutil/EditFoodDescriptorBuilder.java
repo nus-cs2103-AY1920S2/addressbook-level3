@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.eylah.diettracker.logic.commands.EditCommand.EditFoodDescriptor;
+import seedu.eylah.diettracker.model.food.Calories;
+import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;
@@ -40,6 +42,22 @@ public class EditFoodDescriptorBuilder {
      */
     public EditFoodDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code EditFoodDescriptor} that we are building.
+     */
+    public EditFoodDescriptorBuilder withCalories(String calories) {
+        descriptor.setCalories(new Calories(Long.parseLong(calories)));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code EditFoodDescriptor} that we are building.
+     */
+    public EditFoodDescriptorBuilder withDate(String date) {
+        descriptor.setDate(new Date(date));
         return this;
     }
 

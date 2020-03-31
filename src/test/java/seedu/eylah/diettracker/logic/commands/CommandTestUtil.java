@@ -28,6 +28,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_PIZZA = "Pizza Pepperoni";
     public static final String VALID_CALORIES_PASTA = "1200";
     public static final String VALID_CALORIES_PIZZA = "560";
+    public static final String VALID_DATE_PIZZA = "2020-03-25T16:49:40.210011";
     public static final String VALID_TAG_FASTFOOD = "fastfood";
     public static final String VALID_TAG_FAVORITE = "favorite";
 
