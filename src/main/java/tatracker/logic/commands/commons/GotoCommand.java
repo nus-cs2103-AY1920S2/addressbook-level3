@@ -24,23 +24,37 @@ public class GotoCommand extends Command {
             TAB_NAME
     );
 
+    /**
+     * Represents the name of a tab view in TA-Tracker.
+     */
+    public enum Tab {
+        STUDENT,
+        SESSION,
+        CLAIMS;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
+
     public static final String MESSAGE_SWITCHED_TAB = "Switched to %s tab.";
 
-    private final String tabName;
-
+    private final Tab tab;
     private final Action tabToSwitchTo;
 
-    public GotoCommand(String tabName) {
-        this.tabName = tabName.toLowerCase();
-        switch(this.tabName) {
-        case "student":
-            this.tabToSwitchTo = Action.GOTO_STUDENT;
+    public GotoCommand(Tab tab) {
+        this.tab = tab;
+
+        switch(tab) {
+        case STUDENT:
+            tabToSwitchTo = Action.GOTO_STUDENT;
             break;
-        case "session":
-            this.tabToSwitchTo = Action.GOTO_SESSION;
+        case SESSION:
+            tabToSwitchTo = Action.GOTO_SESSION;
             break;
-        case "claims":
-            this.tabToSwitchTo = Action.GOTO_CLAIMS;
+        case CLAIMS:
+            tabToSwitchTo = Action.GOTO_CLAIMS;
             break;
         default:
             assert false;
@@ -52,6 +66,6 @@ public class GotoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(String.format(MESSAGE_SWITCHED_TAB, tabName), tabToSwitchTo);
+        return new CommandResult(String.format(MESSAGE_SWITCHED_TAB, tab), tabToSwitchTo);
     }
 }

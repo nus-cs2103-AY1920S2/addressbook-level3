@@ -5,6 +5,7 @@ import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.stream.Stream;
 
 import tatracker.logic.commands.commons.GotoCommand;
+import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.parser.exceptions.ParseException;
 
 
@@ -19,15 +20,12 @@ public class GotoCommandParser implements Parser<GotoCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public GotoCommand parse(String args) throws ParseException {
-
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-
-        if (argMultimap.getPreamble().isEmpty()) {
+        try {
+            Tab tabName = ParserUtil.parseTabName(args);
+            return new GotoCommand(tabName);
+        } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.DETAILS.getUsage()));
         }
-
-        String tabName = ParserUtil.parseTabName(argMultimap.getPreamble());
-        return new GotoCommand(tabName);
     }
 
     /**

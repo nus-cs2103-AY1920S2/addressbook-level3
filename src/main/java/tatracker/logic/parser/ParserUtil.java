@@ -11,6 +11,7 @@ import java.util.Set;
 
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.StringUtil;
+import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.GroupType;
 import tatracker.model.session.SessionType;
@@ -247,16 +248,16 @@ public class ParserUtil {
      * @return the tab specified by the user
      * @throws ParseException invalid tab name
      */
-    public static String parseTabName(String tabName) throws ParseException {
+    public static Tab parseTabName(String tabName) throws ParseException {
         requireNonNull(tabName);
-        String trimmedType = tabName.trim();
-        switch (trimmedType.toLowerCase()) {
+        String trimmedType = tabName.trim().toLowerCase();
+        switch (trimmedType) {
         case "student":
-            return "student";
+            return Tab.STUDENT;
         case "session":
-            return "session";
+            return Tab.SESSION;
         case "claims":
-            return "claims";
+            return Tab.CLAIMS;
         default:
             throw new ParseException(MESSAGE_INVALID_TAB);
         }
