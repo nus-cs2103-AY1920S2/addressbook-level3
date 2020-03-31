@@ -47,14 +47,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Notably will display the list of features and commands available as well as their uses. +
 Format: `help`
 
-+
 image:demo/Help.png[width="790"]
-+
 
 === Exit the program: `exit`
 
 Exits the program. +
 Format: `exit`
+
+image:demo/Exit.png[width="790"]
 
 === Create a new note: `new`
 
