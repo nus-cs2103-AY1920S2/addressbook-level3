@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.AddCommand;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;

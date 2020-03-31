@@ -3,12 +3,12 @@ package fithelper.logic.commands.diary;
 import static fithelper.logic.commands.CommandResult.DisplayedPage.DIARY;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
 import fithelper.model.Model;
-
-import java.util.logging.Logger;
 
 /**
  * Adds a entry to FitHelper.

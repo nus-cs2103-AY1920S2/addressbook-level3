@@ -5,6 +5,8 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.Command;
@@ -14,8 +16,6 @@ import fithelper.model.Model;
 import fithelper.model.diary.Content;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
-
-import java.util.logging.Logger;
 
 /**
  * Edits the details of an existing diary in the location book.
