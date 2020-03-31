@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.good.GoodNameContainsKeywordsPredicate;
-import seedu.address.model.supplier.NameContainsKeywordsPredicate;
+import seedu.address.model.supplier.SupplierNameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.TransactionHistoryBuilder;
@@ -263,7 +263,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredSupplierList(new SupplierNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, inventory,
                 transactionHistory, userPrefs)));
 

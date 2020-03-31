@@ -53,10 +53,9 @@ public class EditSupplierCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the address book.";
 
+    private static Set<Offer> supplierToEditOffer = null;
     private final Index index;
     private final EditSupplierDescriptor editSupplierDescriptor;
-
-    public static Set<Offer> supplierToEditOffer;
 
     /**
      * @param index of the supplier in the filtered supplier list to edit
@@ -98,8 +97,8 @@ public class EditSupplierCommand extends Command {
      * return the combined set
      */
     public static <Offer> Set<Offer> mergeOfferSets(Set<Offer> supplierToEditOffer,
-                                                    Set<Offer> EditSupplierDescriptorOffer) {
-        return Stream.concat(EditSupplierDescriptorOffer.stream(),
+                                                    Set<Offer> editSupplierDescriptorOffer) {
+        return Stream.concat(editSupplierDescriptorOffer.stream(),
                 supplierToEditOffer.stream()).collect(Collectors.toSet());
     }
 
@@ -217,10 +216,6 @@ public class EditSupplierCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code offers} is null.
          */
-        //public Optional<Set<Offer>> getOffers() {
-        //    return (offers != null) ? Optional.of(Collections.unmodifiableSet(offers)) : Optional.empty();
-        //}
-
         public Optional<Set<Offer>> getOffers() {
             return (offers != null) ? Optional.of(Collections.unmodifiableSet(mergeOfferSets(supplierToEditOffer,
                     offers))) : Optional.empty();

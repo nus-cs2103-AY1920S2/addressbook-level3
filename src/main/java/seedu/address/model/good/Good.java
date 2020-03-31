@@ -100,8 +100,8 @@ public class Good {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getGoodName())
-                .append(goodQuantity)
-                .append(threshold);
+                .append(" Quantity: " + goodQuantity)
+                .append(" Threshold: " + threshold);
         return builder.toString();
     }
 }
