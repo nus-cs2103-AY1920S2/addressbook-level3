@@ -18,7 +18,7 @@ By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. This app is designed mainly for NUS students with the possibility to customise it for the rest of the student in the future. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 == Quick Start
 
@@ -168,7 +168,7 @@ If cap breakdown is inputted, it will show a breakdown of all the modules and gr
 
 ==== View module requirement: `modreq`
 
-- Shows the modules requirement for the major specified.
+- Shows the modules requirement for the major specified. This function will show the core modules that the individual have to take before graduation but have not taken yet. 
 
 - Format: `modreq MAJOR`
 
@@ -203,15 +203,15 @@ c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 - Adds a diary entry to the diary book.
 - Format: `diaryAdd ec/ENTRY_CONTENT`
 
-==== Showing diary logs: `diaryShow`
+==== Viewing diary logs: `diaryShow`
 - Shows all diary entry IDs.
 - Format: `diaryLog `
 
-==== Showing diary entries with specified entry ID: `diaryShow`
+==== Viewing diary entries with specified entry ID: `diaryShow`
 - Shows the diary entry for the specified entry ID.
 - Format: `diaryShow id/ENTRY_ID`
 
-==== Showing diary entries with specified date: `diaryShow`
+==== Viewing diary entries with specified date: `diaryShow`
 - Shows the diary entry at the specified date if there is any, date needs to be in DD-MM-YYYY.
 - Format: `diaryShow date/DATE`
 
