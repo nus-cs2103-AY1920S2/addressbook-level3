@@ -42,8 +42,8 @@ public class PaidCommand extends Command {
         requireNonNull(indexOfPersonPaid);
         requireNonNull(amountPaid);
         this.indexOfPersonPaid = indexOfPersonPaid;
-        if (amountPaid.equals("")) {
-            this.amountPaid = null;
+        if (amountPaid.equals("all")) {
+            this.amountPaid = "all";
         } else {
             this.amountPaid = amountPaid;
         }
@@ -66,12 +66,14 @@ public class PaidCommand extends Command {
             }
 
             Person person = book.getPersonByIndex(indexOfPersonPaid.getZeroBased());
+
             String initialAmount = person.getAmount().toString();
+
 
             // This cases handles when user key in `paid 1` which stands for paid the full amount Person in Index 1
             // owes.
-            if (amountPaid == null) {
-                PaidCommand newPaidCommand = new PaidCommand(indexOfPersonPaid, initialAmount);
+            if (amountPaid == "all") {
+                PaidCommand newPaidCommand = new PaidCommand(indexOfPersonPaid, initialAmount.substring(1));
                 return newPaidCommand.execute(splitterModel);
 
             } else {
@@ -83,7 +85,6 @@ public class PaidCommand extends Command {
 
                 splitterModel.paidPerson(person, amountPaid);
                 String finalAmount = person.getAmount().toString();
-
                 return new CommandResult(MESSAGE_SUCCESS + person.getName() + ". Amount decreased from "
                     + initialAmount + " to " + finalAmount + ".");
             }
