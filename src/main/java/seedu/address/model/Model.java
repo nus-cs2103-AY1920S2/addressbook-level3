@@ -82,7 +82,7 @@ public interface Model {
 
     void setPomodoroTask(Task task);
 
-    //void setPomodoroTime(String time);
+    // void setPomodoroTime(String time);
 
     void setPomodoroManager(PomodoroManager pomodoroManager);
 
