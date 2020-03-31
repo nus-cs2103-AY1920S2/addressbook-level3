@@ -93,7 +93,7 @@ public class DeleteSuggestionCommandTest {
     }
 
     @Test
-    public void execute_correctAbsolutePathWithPrefix_generateResponseCorrectly() {
+    public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
         model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand =
                 new DeleteSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
@@ -141,7 +141,7 @@ public class DeleteSuggestionCommandTest {
     }
 
     @Test
-    public void execute_correctAbsolutePathWithoutPrefix_generateResponseCorrectly() {
+    public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
         model.setInput(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand =
                 new DeleteSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
