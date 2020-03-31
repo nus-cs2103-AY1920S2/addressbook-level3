@@ -4,7 +4,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="suggestionsWindow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
-    <Label fx:id="suggestionsText" VBox.vgrow="NEVER"/>
-    <ListView fx:id="suggestionsListPanel" VBox.vgrow="NEVER" focusTraversable="false"/>
+<VBox fx:id="suggestionsBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      styleClass="suggestions-Window">
+    <Label fx:id="suggestionsText" VBox.vgrow="NEVER" prefWidth="Infinity" managed="false"/>
+    <ListView fx:id="suggestionsListPanel" VBox.vgrow="NEVER" focusTraversable="false" managed="false"/>
 </VBox>

@@ -4,7 +4,10 @@ import java.util.Optional;
 
 import com.notably.model.suggestion.SuggestionItem;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.Property;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,9 +23,10 @@ import javafx.scene.layout.VBox;
 public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
+    private IntegerBinding listSizeProperty;
 
     @FXML
-    private VBox suggestionsWindow;
+    private VBox suggestionsBox;
 
     @FXML
     private Label suggestionsText;
@@ -33,11 +37,39 @@ public class SuggestionsWindowView extends ViewPart<Region> {
     public SuggestionsWindowView(ObservableList<SuggestionItem> suggestionsList,
                                  Property<Optional<String>> responseText) {
         super(FXML);
-        suggestionsText.setText("Suggestions Text Box");
-
+        autoUpdateSuggestionsDisplay(suggestionsList, responseText);
         suggestionsListPanel.setItems(suggestionsList);
         suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
     }
+
+    /**
+     * Sets weak and strong listeners to update the visibility of the {@code SuggestionsWindow}, and its components.
+     * @param suggestionsList
+     * @param responseText The info text to be displayed above the suggestions list, if any.
+     */
+    private void autoUpdateSuggestionsDisplay(ObservableList<SuggestionItem> suggestionsList,
+                                              Property<Optional<String>> responseText) {
+        suggestionsList.addListener((ListChangeListener)(listener -> {
+            suggestionsListPanel.setPrefHeight(suggestionsList.size()*26+2);
+            if (suggestionsList.size()==0) {
+                suggestionsListPanel.setManaged(false);
+            } else {
+                suggestionsListPanel.setManaged(true);
+            }
+        }));
+
+        responseText.addListener((observable, oldValue, newValue) -> {
+            Optional<String> response = responseText.getValue();
+            if (response.isPresent() && !response.equals("")) {
+                suggestionsText.setManaged(true);
+                suggestionsText.setText(response.get());
+            } else {
+                suggestionsText.setManaged(false);
+                suggestionsText.setText("");
+            }
+        });
+    }
+
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code SuggestionItem}.
