@@ -15,11 +15,11 @@ import seedu.address.model.person.Person;
  * Panel containing the list of Persons whose birthday is upcoming in the next 5 days (including today).
  */
 public class PersonListBdayPanel extends UiPart<Region> {
-    private static final String FXML = "personListBdayPanel.fxml";
+    private static final String FXML = "PersonListBdayPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListBdayPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Person> bdayListView;
 
     @FXML
     private Label title;
@@ -28,8 +28,8 @@ public class PersonListBdayPanel extends UiPart<Region> {
         super(FXML);
         title.setText("Upcoming Birthdays:");
 
-        personListView.setItems(bdayList);
-        personListView.setCellFactory(listView -> new PersonListBdayPanel.PersonBdayViewCell());
+        bdayListView.setItems(bdayList);
+        bdayListView.setCellFactory(listView -> new PersonListBdayPanel.PersonBdayViewCell());
     }
 
     /**
