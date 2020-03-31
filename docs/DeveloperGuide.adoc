@@ -1102,8 +1102,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the CLI interface with welcome message. The window size may not be optimum.
 
-_{ more test cases ... }_
-
 === Adding a Food in Diet Tracker
 
 . Adding a Food
@@ -1140,10 +1138,35 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+
+=== Add Item In Expense Splitter
+
+. Adding an Item into the current Receipt.
+
+.. Add item command format: `additem -i ITEMNAME -p ITEMPRICE -n PERSON [-n PERSON]`
+
+.. Test case: `additem -i pasta -p 33.50 -n John -n Bob` +
+Expected: Adds an item with the above details to current receipt and increase the person amount equal to dividing the price
+with the number of person splitting that item.
+
+.. Test case: `Invalid Syntax` +
+Expected: No item is added to the current receipt and no change to person amount.
+Error details shown in the response message.
+
+=== List Receipt In Expense Splitter
+
+. Listing the items contained in the current receipt. The order of items listed depends on the order of items added
+by the user.
+
+.. List Receipt command format: `listreceipt`
+
+.. Test case: `listamount` +
+Expected: List all items in the current receipt, its price and amount associated with each person involved
+in splitting that item.
+
+
 === Saving data
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Manual saving is not required as data is already saved in the hard disk after any commands that changes the data.
 
 _{ more test cases ... }_
