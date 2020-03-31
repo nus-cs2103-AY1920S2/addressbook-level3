@@ -42,9 +42,6 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             title = userInput.trim();
-            if (title.isEmpty()) {
-                throw new ParseException("Path cannot be empty");
-            }
         } else {
             title = argMultimap.getValue(PREFIX_TITLE).get();
         }

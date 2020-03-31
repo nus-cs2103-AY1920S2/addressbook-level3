@@ -40,23 +40,10 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         model.setResponseText(RESPONSE_MESSAGE);
 
         // Set suggestions
-        List<AbsolutePath> possiblePaths = getPossiblePaths(model);
+        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         model.setSuggestions(suggestions);
-    }
-
-    /**
-     * Gets the list of possible absolute paths, based on the user's input path.
-     * @param model The app's model.
-     * @return List of possible absolute paths, based on the user's input path.
-     */
-    private List<AbsolutePath> getPossiblePaths(Model model) {
-        Objects.requireNonNull(model);
-
-        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
-
-        return possiblePaths;
     }
 
     /**
