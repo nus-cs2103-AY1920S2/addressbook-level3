@@ -110,7 +110,7 @@ public class MainWindow extends ViewPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getBlockDataFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, model.inputProperty());

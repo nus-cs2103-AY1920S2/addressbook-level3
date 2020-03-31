@@ -18,11 +18,10 @@ public interface Logic {
      */
     void execute(String commandText) throws CommandException, ParseException;
 
-
     /**
-     * TODO: Change to BlockStoragePath
+     * Gets the path of the block data file.
      */
-    Path getAddressBookFilePath();
+    Path getBlockDataFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
