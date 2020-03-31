@@ -147,14 +147,21 @@ public class CommandBox extends UiPart<Region> {
         }
 
         boolean hasRequiredPrefix = dictionary.hasPrefix(result.lastPrefix);
-        if (!needsIndex && hasRequiredPrefix) {
-            PrefixEntry prefixEntry = dictionary.getPrefixEntry(result.lastPrefix);
 
-            logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), result.lastValue));
-            handleRequiredPrefix(prefixEntry);
-        } else {
+        if (needsIndex || !hasRequiredPrefix) {
             logger.info("======== [ No prefix ] ");
             handleNoPrefix();
+            return;
+        }
+
+        PrefixEntry prefixEntry = dictionary.getPrefixEntry(result.lastPrefix);
+
+        logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), result.lastValue));
+
+        if (prefixEntry.isValidValue(result.lastValue)) {
+            handleRequiredPrefix(prefixEntry);
+        } else {
+            handleInvalidPrefix(prefixEntry);
         }
     }
 
@@ -220,6 +227,11 @@ public class CommandBox extends UiPart<Region> {
 
     private void handleRequiredPrefix(PrefixEntry prefixEntry) {
         setStyleToIndicateValidCommand();
+        resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
+    }
+
+    private void handleInvalidPrefix(PrefixEntry prefixEntry) {
+        setStyleToIndicateCommandFailure();
         resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
     }
 
