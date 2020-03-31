@@ -1,7 +1,9 @@
 package nasa.ui;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
 
 import javafx.application.Platform;
@@ -12,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
+import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
@@ -25,8 +28,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final List<String> commandHistory = new ArrayList<>();
-    private int historyIndex = 0;
+    private final List<String> commandHistory;
+    private ListIterator<String> commandHistoryIterator;;
 
     @FXML
     private TextField commandTextField;
@@ -34,23 +37,41 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        commandHistory = new LinkedList<String>();
+        commandHistoryIterator = commandHistory.listIterator();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+            //Overriding default redo
+            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
+                event.consume();
+                try {
+                    commandExecutor.execute("redo");
+                } catch (CommandException | ParseException e) {
+                    setStyleToIndicateCommandFailure();
+                }
+            //Overriding default undo
+            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
+                event.consume();
+                try {
+                    commandExecutor.execute("undo");
+                } catch (CommandException | ParseException e) {
+                    setStyleToIndicateCommandFailure();
+                }
+            }
+        });
+        //Controls to view command history
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
             switch (key.getCode()) {
                 case UP:
-                    if (historyIndex == 0) {
-                        break;
+                    if (commandHistoryIterator.hasPrevious()) {
+                        commandTextField.setText(commandHistoryIterator.previous());
                     }
-                    historyIndex--;
-                        commandTextField.setText(commandHistory.get(historyIndex));
                 break;
                 case DOWN:
-                    if (historyIndex == commandHistory.size() - 1) {
-                        break;
+                    if (commandHistoryIterator.hasNext()) {
+                        commandTextField.setText(commandHistoryIterator.next());
                     }
-                    historyIndex++;
-                    commandTextField.setText(commandHistory.get(historyIndex));
                 break;
                 default:
                     break;
@@ -74,7 +95,8 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandHistory.add(commandTextField.getText());
-            historyIndex++;
+            commandHistoryIterator = commandHistory
+                    .listIterator(commandHistory.size());
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
