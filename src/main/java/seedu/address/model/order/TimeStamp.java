@@ -48,6 +48,9 @@ public class TimeStamp {
         return true;
     }
 
+    public LocalDateTime getOrderTimeStamp() {
+        return this.timeStamp;
+    }
     @Override
     public String toString() {
         return value;
