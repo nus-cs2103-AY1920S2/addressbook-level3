@@ -271,7 +271,7 @@ public class PetManager {
         // set up experience bar image
         petDisplay.setExpBarImage(expBarFilepath);
 
-        //update pet name
+        // update pet name
         petDisplay.setPetName(this.pet.getName());
     }
 

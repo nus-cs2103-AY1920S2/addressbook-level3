@@ -28,8 +28,6 @@ import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Pomodoro;
-import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -176,7 +174,6 @@ public class MainWindow extends UiPart<Stage> {
 
         settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro());
         settingsPlaceholder.getChildren().add(settingsDisplay.getRoot());
-
 
         // tabPanePlaceholder.getSelectionModel().select(1);
 

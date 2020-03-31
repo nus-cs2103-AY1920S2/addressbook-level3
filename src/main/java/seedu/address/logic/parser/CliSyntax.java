@@ -13,6 +13,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_PET = new Prefix("pet/");
     public static final Prefix PREFIX_POM = new Prefix("pom/");
     public static final Prefix PREFIX_DAILY = new Prefix("daily/");
-
-
 }

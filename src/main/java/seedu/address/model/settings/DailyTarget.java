@@ -3,14 +3,13 @@ package seedu.address.model.settings;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
 public class DailyTarget implements Comparable {
 
     public static final String MESSAGE_CONSTRAINTS = "Daily Target should not exceed 720 mins";
     public static final String VALIDATION_REGEX = "[1-720]";
     public final String value;
 
-    public DailyTarget (String dailyTarget) {
+    public DailyTarget(String dailyTarget) {
         requireNonNull(dailyTarget);
         checkArgument(isValidDailyTarget(dailyTarget), MESSAGE_CONSTRAINTS);
         value = dailyTarget;
@@ -47,7 +46,7 @@ public class DailyTarget implements Comparable {
         if (!(other instanceof DailyTarget)) {
             return 0;
         }
-    DailyTarget otherPriority = (DailyTarget) other;
+        DailyTarget otherPriority = (DailyTarget) other;
         return otherPriority.value.compareTo(this.value);
     }
 }

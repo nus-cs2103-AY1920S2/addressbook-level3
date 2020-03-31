@@ -1,31 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAILY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAILY;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 import seedu.address.logic.commands.SetCommand;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.settings.DailyTarget;
-import seedu.address.model.settings.PomDuration;
 import seedu.address.model.settings.PetName;
 
 public class SetCommandParser implements Parser<SetCommand> {
 
     public SetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args,
-                        PREFIX_PET,
-                        PREFIX_POM,
-                        PREFIX_DAILY);
-        
-        if ( !(arePrefixesPresent(argMultimap, PREFIX_PET) || arePrefixesPresent(argMultimap, PREFIX_POM) || arePrefixesPresent(argMultimap, PREFIX_DAILY)) || !argMultimap.getPreamble().isEmpty()) {
+                ArgumentTokenizer.tokenize(args, PREFIX_PET, PREFIX_POM, PREFIX_DAILY);
+
+        if (!(arePrefixesPresent(argMultimap, PREFIX_PET)
+                        || arePrefixesPresent(argMultimap, PREFIX_POM)
+                        || arePrefixesPresent(argMultimap, PREFIX_DAILY))
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
@@ -34,13 +28,13 @@ public class SetCommandParser implements Parser<SetCommand> {
                 (argMultimap.getValue(PREFIX_PET).isEmpty())
                         ? ParserUtil.parsePetName("")
                         : ParserUtil.parsePetName(argMultimap.getValue(PREFIX_PET).get());
-        
-        // PomDuration pomDuration = 
+
+        // PomDuration pomDuration =
         //         (argMultimap.getValue(PREFIX_POM).isEmpty())
         //                 ? ParserUtil.parsePomDuration("")
-        //                 : ParserUtil.parsePomDuration(argMultimap.getValue(PREFIX_POM).get());    
-        
-        // DailyTarget dailyTarget = 
+        //                 : ParserUtil.parsePomDuration(argMultimap.getValue(PREFIX_POM).get());
+
+        // DailyTarget dailyTarget =
         //         (argMultimap.getValue(PREFIX_DAILY).isEmpty())
         //                 ? ParserUtil.parseDailyTarget("")
         //                 : ParserUtil.parseDailyTarget(argMultimap.getValue(PREFIX_DAILY).get());
