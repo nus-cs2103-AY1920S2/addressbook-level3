@@ -4,9 +4,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -15,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommandParser.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -29,6 +32,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             Index index = ParserUtil.parseIndex(removeFlagString);
             return new DeleteCommand(index, listType);
         } catch (ParseException pe) {
+            logger.info("Invalid Delete Command arguments given for parsing");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
@@ -49,6 +53,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         if (hasRegex(returnListRegex, args)) {
             return FLAG_RETURN_BOOK;
         }
+        logger.info(String.format("Invalid arguments given for getFlag function: %s", args));
         throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
@@ -61,6 +66,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         if (flag.equals(FLAG_RETURN_BOOK)) {
             return String.format(regex, FLAG_RETURN_BOOK);
         }
+        logger.info(String.format("Invalid flag given for getFlagRegex: %s", flag.toString()));
         throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
