@@ -37,6 +37,7 @@
          <Label fx:id="calorie" styleClass="cell_small_label" text="\$calorie" />
          <Label fx:id="serving" styleClass="cell_small_label" text="\$serving" />
          <Label fx:id="diff" styleClass="cell_small_label" text="\$diff" />
+        <Label fx:id="fav" styleClass="cell_small_label" text="\$fav" />
     </VBox>
       <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1">
          <padding>
@@ -60,6 +61,7 @@
             <Label fx:id="calorie1" styleClass="cell_small_label" text="\$calorie" />
             <Label fx:id="serving1" styleClass="cell_small_label" text="\$serving" />
             <Label fx:id="diff1" styleClass="cell_small_label" text="\$diff" />
+             <Label fx:id="fav1" styleClass="cell_small_label" text="\$fav" />
          </children>
       </VBox>
       <rowConstraints>

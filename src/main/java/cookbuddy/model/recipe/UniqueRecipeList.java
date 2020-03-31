@@ -55,6 +55,10 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.add(toAdd);
     }
 
+    public void favRecipe(Recipe recipe) {
+        recipe.favRecipe();
+    }
+
     /**
      * Replaces the recipe {@code target} in the list with {@code editedRecipe}.
      * {@code target} must exist in the list.
@@ -71,8 +75,12 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
             throw new DuplicateRecipeException();
         }
+        if (target.getFavStatus().toString().equals("\2665") == true) {
+            editedRecipe.favRecipe();
+        }
 
         internalList.set(index, editedRecipe);
+
     }
 
     /**

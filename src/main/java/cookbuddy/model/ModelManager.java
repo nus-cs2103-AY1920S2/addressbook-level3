@@ -95,6 +95,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void favRecipe(Recipe recipe) {
+        recipeBook.fav(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
     public long count() {
         return recipeBook.count();
     }
@@ -113,7 +119,6 @@ public class ModelManager implements Model {
     @Override
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
-
         recipeBook.setRecipe(target, editedRecipe);
     }
 
