@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 
@@ -54,6 +55,11 @@ public class OrderBookParserTest {
                 DeleteCommand.COMMAND_WORD + " " + FLAG_ORDER_BOOK.toString() + " "
                         + INDEX_FIRST_ORDER.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK), command);
+
+        DeleteCommand command1 = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + FLAG_RETURN_BOOK.toString() + " "
+                        + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK), command1);
     }
 
     @Test
@@ -77,7 +83,7 @@ public class OrderBookParserTest {
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchCommand(new OrderContainsKeywordsPredicate(keywords),
-            new ReturnOrderContainsKeywordsPredicate(keywords)), command);
+                new ReturnOrderContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -95,9 +101,20 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_nearby() throws Exception {
         NearbyCommand nearbyCommand = (NearbyCommand) parser.parseCommand(
-                NearbyCommand.COMMAND_WORD + " -o " + "1"
-        );
+                NearbyCommand.COMMAND_WORD + " -o " + "1");
         assertEquals(new NearbyCommand(" -o 1"), nearbyCommand);
+
+        NearbyCommand nearbyCommand1 = (NearbyCommand) parser.parseCommand(
+                NearbyCommand.COMMAND_WORD + " -r 1");
+        assertEquals(new NearbyCommand(" -r 1"), nearbyCommand1);
+
+        NearbyCommand nearbyCommand2 = (NearbyCommand) parser.parseCommand(
+                NearbyCommand.COMMAND_WORD + " -o central");
+        assertEquals(new NearbyCommand(" -o central"), nearbyCommand2);
+
+        NearbyCommand nearbyCommand3 = (NearbyCommand) parser.parseCommand(
+                NearbyCommand.COMMAND_WORD + " -r central");
+        assertEquals(new NearbyCommand(" -r central"), nearbyCommand3);
     }
 
     @Test
