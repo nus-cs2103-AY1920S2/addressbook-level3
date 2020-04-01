@@ -22,8 +22,6 @@ public class StatisticsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(StatisticsPanel.class);
 
     @FXML
-    private Label statistics;
-    @FXML
     public PieChart pieChart;
 
     public StatisticsPanel(ObservableList<Module> moduleList) {
@@ -35,6 +33,5 @@ public class StatisticsPanel extends UiPart<Region> {
         }
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(data);
         pieChart.setData(pieChartData);
-        pieChart.setTitle("PLEASE");
     }
 }

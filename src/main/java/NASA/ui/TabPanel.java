@@ -32,15 +32,10 @@ public class TabPanel extends UiPart<Region> {
     private TabPane tabPane;
     @FXML
     private HBox statisticsList;
-    @FXML
-    private Label noModules;
 
 
     public TabPanel(Logic logic) {
         super(FXML);
-        if(!logic.getFilteredModuleList().isEmpty()) {
-            noModules.setManaged(false);
-        }
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
         statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());
