@@ -380,7 +380,7 @@ This indicates that the order list should be operated on and
 all orders in the order list that have an `AREA` of `central`
 should be displayed to the user.
 
-.Nearby Command Sequence Diagram 2
+.Nearby Command Sequence Diagram of `nearby` `-o` `central`
 image::NearbyCommandSequenceDiagram2.svg[]
 
 The `NearbyCommandParser` will check for invalid arguments given by the user. +
@@ -404,6 +404,16 @@ This class was created to reduce the responsibility of the `NearbyCommand` class
 The model will then be updated using the `updateFilteredOrderList(orderPredicate)` function.
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
+
+
+The sequence diagram below shows the interactions for a `nearby` command execution of
+`nearby`. +
+This will result in a `ParseException` as invalid arguments are provided.
+
+.Nearby Command Sequence Diagram of `nearby`
+image::NearbySequenceDiagramParseException.svg[]
+
+The exception will be thrown in the `NearbyCommandParser`.
 
 
 [[import]]

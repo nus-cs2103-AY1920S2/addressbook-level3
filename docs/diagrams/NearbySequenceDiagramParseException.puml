@@ -1,0 +1,30 @@
+@startuml
+/' Sequence Diagram for parse exception in Nearby Command '/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":NearbyCommandParser" as NearbyCommandParser LOGIC_COLOR
+end box
+
+
+[-> LogicManager : execute("nearby")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("nearby")
+activate OrderBookParser
+
+create NearbyCommandParser
+OrderBookParser -> NearbyCommandParser
+activate NearbyCommandParser
+
+NearbyCommandParser --> OrderBookParser
+deactivate NearbyCommandParser
+
+OrderBookParser -> NearbyCommandParser : parse("")
+activate NearbyCommandParser
+return ParseException(MESSAGE_INVALID_COMMAND_FORMAT)
+
+return ParseException(MESSAGE_INVALID_COMMAND_FORMAT)
+return ParseException(MESSAGE_INVALID_COMMAND_FORMAT)
+@enduml
