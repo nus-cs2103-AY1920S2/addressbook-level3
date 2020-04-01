@@ -9,8 +9,10 @@ import java.util.regex.Pattern;
 import nasa.logic.commands.AddModuleCommand;
 import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
+import nasa.logic.commands.ContinueCommand;
 import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.commands.DeleteModuleCommand;
+import nasa.logic.commands.DoneCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
@@ -73,6 +75,12 @@ public class NasaBookParser {
 
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
+
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommandParser().parse(arguments);
+
+        case ContinueCommand.COMMAND_WORD:
+            return new ContinueCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
