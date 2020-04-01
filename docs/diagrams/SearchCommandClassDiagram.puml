@@ -3,30 +3,26 @@ skinparam backgroundColor #ffffff
 skinparam classAttributeIconSize 0
 hide circle
 
-OrderContainsKeywordsPredicate -down-> ArgumentMultimap
-ReturnOrderContainsKeywordsPredicate -down-> ArgumentMultimap
 "{abstract}\nCommand" <|-- SearchCommand
-ReturnOrderContainsKeywordsPredicate <-down- SearchCommand
+ReturnOrderContainsKeywordsPredicate "1" <-left- SearchCommand : returnPredicate
 ReturnOrderContainsKeywordsPredicate -[dashed]-|> Predicate
-OrderContainsKeywordsPredicate <-down- SearchCommand
-OrderContainsKeywordsPredicate -[dashed]-|> Predicate
+OrderContainsKeywordsPredicate "1" <-down- SearchCommand : orderPredicate
+OrderContainsKeywordsPredicate -[dashed]left-|> Predicate
+SearchCommand .right.> Model
+SearchCommandParser .down.> SearchCommand
 
 abstract class "{abstract}\nCommand" {
     {abstract} execute(Model model) : CommandResult
 }
 
 class SearchCommand {
-    'Fields of SearchCommand
-    + COMMON_WORD : String
-    + MESSAGE_USAGE : String
-    + MULTIPLE_FLAGS_DETECTED : String
-    - orderPredicate : OrderContainsKeywordsPredicate
-    - returnPredicate : ReturnOrderContainsKeywordsPredicate
-    - NEWLINE : String
-
     'Methods of SearchCommand
     + execute(model : Model) : CommandResult
-    + equals(other : Object) : boolean
+}
+
+interface Model <<interface>> {
+    + updateFilteredOrderList(predicate: Predicate<Order>) : void
+    + updateFilteredReturnOrderList(predicate: Predicate<ReturnOrder>) : void
 }
 
 class OrderContainsKeywordsPredicate<Order> {
@@ -36,9 +32,6 @@ class OrderContainsKeywordsPredicate<Order> {
     - isGeneralSearch : boolean
 
     'Methods of OrderContainsKeywordsPredicate
-    + test(order : Order) : boolean
-    + equals(other : Object) : boolean
-
 }
 
 class ReturnOrderContainsKeywordsPredicate<Order> {
@@ -46,11 +39,6 @@ class ReturnOrderContainsKeywordsPredicate<Order> {
     - keywords : List<String>
     - argumentMultimap : ArgumentMultimap
     - isGeneralSearch : boolean
-
-    'Methods of ReturnOrderContainsKeywordsPredicate
-    + test(order : Order) : boolean
-    + equals(other : Object) : boolean
-
 }
 
 interface Predicate<T> <<interface>> {
@@ -58,10 +46,8 @@ interface Predicate<T> <<interface>> {
     + test(t : T) : boolean
 }
 
-class ArgumentMultimap {
-    'Fields of ArgumentMultimap
-    - argMultimap : Map<Prefix, List<String>>
-
+class SearchCommandParser {
+    + parse(String args) : SearchCommand
 }
 
 @enduml

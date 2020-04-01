@@ -4,11 +4,12 @@ skinparam classAttributeIconSize 0
 hide circle
 
 "{abstract}\nCommand" <|-- EditCommand
-Index <-down- EditCommand
-Flag <-down- EditCommand
+Index "1" <-down- EditCommand : index
 EditCommand ..> Model
-EditCommand --* EditParcelDescriptor
-EditCommand ..> CommandException : throws
+EditCommand --* "1" EditParcelDescriptor : editParcelDescriptor
+EditCommandParser ..> EditParcelDescriptor : editParcelDescriptor
+EditCommandParser .right.> EditCommand
+EditCommandParser .-down-> Index
 
 abstract class "{abstract}\nCommand" {
     {abstract} execute(Model model) : CommandResult
@@ -16,16 +17,7 @@ abstract class "{abstract}\nCommand" {
 
 class EditCommand {
     'Fields of SearchCommand
-    + COMMON_WORD : String
-    + MESSAGE_USAGE : String
-    + MESSAGE_EDIT_ORDER_SUCCESS : String
-    + MESSAGE_EDIT_RETURN_ORDER_SUCCESS : String
-    + MESSAGE_NOT_EDITED : String
-    + MESSAGE_DUPLICATE_PARCEL : String
-    + MULTIPLE_FLAGS_DETECTED : String
     - flag : Flag
-    - index : Index
-    - editParcelDescriptor : EditParcelDescriptor
 
     'Methods of SearchCommand
     + execute(model : Model) : CommandResult
@@ -50,6 +42,11 @@ class EditParcelDescriptor {
 
 }
 
+class EditCommandParser {
+
+    + parse(args : String) : EditCommand
+}
+
 
 interface Model <<interface>> {
     'Interface Methods
@@ -60,11 +57,5 @@ interface Model <<interface>> {
 class Index {
     + getZeroBased() : int
 }
-
-class Flag {
-
-}
-
-
 
 @enduml
