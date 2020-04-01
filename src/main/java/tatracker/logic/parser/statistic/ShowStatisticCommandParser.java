@@ -2,7 +2,6 @@ package tatracker.logic.parser.statistic;
 
 import tatracker.logic.commands.statistic.ShowStatisticCommand;
 import tatracker.logic.parser.Parser;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new ShowStatisticCommand object
@@ -21,6 +20,6 @@ public class ShowStatisticCommandParser implements Parser<ShowStatisticCommand> 
             return new ShowStatisticCommand();
         }
 
-        return new ShowStatisticCommand(new Module(trimmedArgs));
+        return new ShowStatisticCommand(trimmedArgs);
     }
 }

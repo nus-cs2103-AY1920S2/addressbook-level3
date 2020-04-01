@@ -36,13 +36,13 @@ public class AddGroupCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
 
     private final Group toAdd;
-    private final Module targetModule;
+    private final String targetModule;
 
     /**
     * Creates an addGroupCommand
     */
 
-    public AddGroupCommand(Group group, Module module) {
+    public AddGroupCommand(Group group, String module) {
         requireNonNull(group);
         requireNonNull(module);
         toAdd = group;
@@ -58,7 +58,7 @@ public class AddGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
+        Module actualModule = model.getModule(targetModule);
 
         if (actualModule.hasGroup(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_GROUP);

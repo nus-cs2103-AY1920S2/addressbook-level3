@@ -17,7 +17,6 @@ import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new EditGroupCommand object
@@ -39,11 +38,10 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
                     EditGroupCommand.DETAILS.getUsage()));
         }
 
-        String groupCode = argMultimap.getValue(GROUP).get();
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
         Group group = new Group(groupCode);
-        Module module = new Module(moduleCode);
 
         String newGroupCode;
         if (argMultimap.getValue(NEWGROUP).isPresent()) {
@@ -59,7 +57,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
             newGroupType = null;
         }
 
-        return new EditGroupCommand(group, module, newGroupCode, newGroupType);
+        return new EditGroupCommand(group, moduleCode, newGroupCode, newGroupType);
     }
 
     /**
