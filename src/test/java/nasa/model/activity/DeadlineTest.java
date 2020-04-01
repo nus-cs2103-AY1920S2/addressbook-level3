@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
+import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalActivities.DEADLINE_LATE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,5 +33,13 @@ class DeadlineTest {
 
         subject.setDueDate(date);
         assertTrue(subject.getDueDate().equals(date));
+    }
+
+    @Test
+    void percentage() {
+        Deadline subject = (Deadline) DEADLINE;
+        subject.setDate(new Date("20-03-2020 00:00"));
+        subject.setDueDate(Date.now().addDaysToCurrDate(20));
+        assertTrue(subject.percentage() > 50);
     }
 }
