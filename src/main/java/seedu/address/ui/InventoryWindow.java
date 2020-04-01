@@ -131,11 +131,6 @@ public class InventoryWindow extends UiPart<Stage> {
         getRoot().centerOnScreen();
     }
 
-//    public void update() {
-//        quantityLineChart.getData().setAll(dataSeries);
-//        salesLineChart.getData().setAll(dataSeries);
-//    }
-
     /**
      * Returns true if the inventory window is currently being shown.
      */

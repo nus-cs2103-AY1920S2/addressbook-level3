@@ -263,6 +263,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            statisticsWindow = new StatisticsWindow(logic);
+            inventoryWindow = new InventoryWindow(logic);
 
             if (commandResult.isShowPlot()) {
                 handlePlot(commandResult.getDataSeries(), commandResult.getTitle());
