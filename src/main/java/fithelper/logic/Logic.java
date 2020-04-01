@@ -78,4 +78,6 @@ public interface Logic {
     String getCalendarMode();
 
     LocalDateTime getCalendarShow();
+
+    void setCalendarShow();
 }

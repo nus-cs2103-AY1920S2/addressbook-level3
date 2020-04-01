@@ -428,8 +428,12 @@ public class ModelManager implements Model {
 
     @Override
     public void setCalendarShow(String show) {
-        Time time = new Time(show);
-        calendarSettings.setShow(time.getDateTime());
+        if (show == null) {
+            calendarSettings.setShow(null);
+        } else {
+            Time time = new Time(show);
+            calendarSettings.setShow(time.getDateTime());
+        }
     }
 
     public LocalDateTime getCalendarShow() {

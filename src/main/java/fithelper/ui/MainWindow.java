@@ -265,6 +265,7 @@ public class MainWindow extends UiPart<Stage> {
             DayCardWithStage temp = new DayCardWithStage(entries, logic.getCalendarShow().toLocalDate());
             temp.getRoot().show();
             temp.getRoot().centerOnScreen();
+            logic.setCalendarShow();
         }
         if ("tb".equals(logic.getCalendarMode())) {
             calendarPanel.updateScheduler();

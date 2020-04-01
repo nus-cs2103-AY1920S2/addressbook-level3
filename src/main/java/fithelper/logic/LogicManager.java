@@ -153,5 +153,9 @@ public class LogicManager implements Logic {
         return model.getCalendarShow();
     }
 
+    public void setCalendarShow() {
+        model.setCalendarShow(null);
+    }
+
 }
 
