@@ -160,25 +160,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortCoupons(Prefix prefixToSortBy, String commandText) {
-        requireNonNull(prefixToSortBy);
-
-        Comparator<Coupon> cmp = null;
-
-        if (prefixToSortBy.equals(PREFIX_NAME)) {
-            cmp = (x, y) -> x
-                    .toString()
-                    .toLowerCase()
-                    .compareTo(y.toString().toLowerCase());
-        } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
-            cmp = (x, y) -> x
-                    .getExpiryDate()
-                    .getDate()
-                    .compareTo(
-                            y.getExpiryDate().getDate()
-                    );
-        }
-
+    public void sortCoupons(Comparator<Coupon> cmp) {
+        requireNonNull(cmp);
         sortedCoupons.setComparator(cmp);
     }
 

@@ -5,9 +5,12 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
+
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Coupon;
 
 /**
  * Creates an SortCommand to sort by specified prefix.
@@ -18,6 +21,9 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the coupons in CouponStash. "
             + "It is possible to sort by coupon name or expiry date. "
+            + "The order will persist throughout the runtime of the program. "
+            + "This will sort any coupons currently on screen. For example, sorting after finding "
+            + "will sort all the found coupons. (including archived ones, which will appear at the bottom)\n"
             + "Parameters: "
             + "The field you want to sort by, either "
             + PREFIX_NAME + " or " + PREFIX_EXPIRY_DATE + "\n"
@@ -44,7 +50,25 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
 
-        model.sortCoupons(prefixToSortBy, commandText);
+        Comparator<Coupon> cmp = null;
+        if (prefixToSortBy.equals(PREFIX_NAME)) {
+            cmp = (x, y) -> x
+                    .toString()
+                    .toLowerCase()
+                    .compareTo(y.toString().toLowerCase());
+        } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
+            cmp = (x, y) -> x
+                    .getExpiryDate()
+                    .getDate()
+                    .compareTo(
+                            y.getExpiryDate().getDate()
+                    );
+        }
+
+        model.sortCoupons(cmp);
+
+        // Put non-archived at the top.
+        model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, prefixToSortBy.toString())
