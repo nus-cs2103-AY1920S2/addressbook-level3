@@ -232,7 +232,6 @@ public interface Model {
      * @param sortMethod The method of sorting.
      */
     void sortActivityList(SortMethod sortMethod);
-
     void setActivityByIndex(Module module, Index index, Activity activity);
     void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity);
     void editActivityByIndex(Module module, Index index, Object... args);
@@ -244,6 +243,5 @@ public interface Model {
     void undoHistory();
     boolean redoHistory();
     boolean setSchedule(ModuleCode module, Name activity, Index type);
-
     String quote();
 }
