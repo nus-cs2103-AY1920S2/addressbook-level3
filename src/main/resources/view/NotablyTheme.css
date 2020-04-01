@@ -26,6 +26,7 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Open Sans";
+    -fx-background-color: pink;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -74,13 +75,17 @@
 }
 
 .stack-pane {
-     -fx-background-color: white;
+    -fx-background-color: white;
 }
 
-.pane-without-border {
-     -fx-background-color: white;
-     -fx-border-color: white;
-     -fx-border-top-width: 2px;
+.commandBox-pane {
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+.note-block-pane {
+    -fx-background-color: white;
+    -fx-border-color: white;
 }
 
 .status-bar {
@@ -230,6 +235,11 @@
     -fx-padding: 8 1 8 1;
 }
 
+.suggestions-Window {
+    -fx-background-color: white;
+}
+
+
 #commandTypeLabel {
     -fx-background-color: white;
     -fx-font-size: 11px;
@@ -245,6 +255,34 @@
     -fx-font-family: "Open Sans";
     -fx-font-size: 12pt;
     -fx-text-fill: black;
+}
+
+#suggestionsText {
+    -fx-background-color: #E8E7E4;
+    -fx-background-radius: 10px;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-radius: 10px;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 10pt;
+    -fx-text-fill: black;
+}
+
+#blockContentTextArea {
+    -fx-text-box-border: transparent;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-scale-x: 0;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-cell:empty {
+    -fx-opacity: 0;
 }
 
 #filterField {

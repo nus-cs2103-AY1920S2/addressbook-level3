@@ -17,6 +17,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +38,7 @@ public class MainWindow extends ViewPart<Stage> {
     private HelpWindow helpWindow;
     private SideBarTreeView sidebarTreeView;
     private BlockContent blockContent;
+    private SuggestionsWindowView suggestionsWindowView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -52,6 +54,9 @@ public class MainWindow extends ViewPart<Stage> {
 
     @FXML
     private StackPane blockContentPlaceholder;
+
+    @FXML
+    private VBox suggestionsWindow;
 
     public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
@@ -120,6 +125,9 @@ public class MainWindow extends ViewPart<Stage> {
         sideBarPlaceholder.getChildren().add(sidebarTreeView.getRoot());
 
         blockContent = new BlockContent(blockContentPlaceholder, model);
+
+        suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(), model.responseTextProperty());
+        suggestionsWindow.getChildren().add(suggestionsWindowView.getRoot());
     }
 
     /**
