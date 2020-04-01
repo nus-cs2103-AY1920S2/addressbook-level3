@@ -370,6 +370,10 @@ public class ModelManager implements Model {
         return Quote.getQuote();
     }
 
+    /**
+     * To sort activity according to sort method.
+     * @param sortMethod The method of sorting.
+     */
     public void sortActivityList(SortMethod sortMethod) {
         requireNonNull(sortMethod);
         for (Module module : filteredModules) {
