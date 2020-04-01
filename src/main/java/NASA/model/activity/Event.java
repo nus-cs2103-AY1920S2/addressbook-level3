@@ -9,11 +9,11 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event extends Activity {
-    private Date startDate;
-    private Date endDate;
-
     public static final String INVALID_EVENT =
         "Event provided is invalid!";
+
+    private Date startDate;
+    private Date endDate;
 
     /**
      * Initialise Event with default status and priority.

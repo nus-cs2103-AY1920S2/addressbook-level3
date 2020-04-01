@@ -8,12 +8,12 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Lesson extends Activity {
+    public static final String INVALID_LESSON =
+        "Lesson provided is invalid!";
+
     private int numOfDaysTillNextLesson = 7; // Frequency of lesson in number of days (eg. every 7 days) Default is 7.
     private Date startDate;
     private Date endDate;
-
-    public static final String INVALID_LESSON =
-        "Lesson provided is invalid!";
 
     /**
      * Initialise Lessons with default status and priority.
