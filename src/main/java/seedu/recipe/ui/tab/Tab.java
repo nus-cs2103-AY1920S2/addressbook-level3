@@ -7,5 +7,5 @@ public enum Tab {
     RECIPES,
     PLANNING,
     GOALS,
-    ACHIEVEMENT
+    ACHIEVEMENTS
 }

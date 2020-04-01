@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
-    private RecipeListPanel goalsListPanel;
+    private RecipeListPanel cookedListPanel;
     private RecipeListPanel achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -59,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane recipeListPanelPlaceholder;
 
     @FXML
-    private StackPane goalsListPanelPlaceholder;
+    private StackPane cookedListPanelPlaceholder;
 
     @FXML
     private StackPane achievementsListPanelPlaceholder;
@@ -134,14 +134,14 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
-        //using recipe list as stub for goalslist and achievements, to be edited later todo
+        //using recipe list as stub for cookedlist and achievements, to be edited later todo
         ObservableList<Recipe> goalsList = logic.getFilteredRecipeList();
-        goalsListPanel = new RecipeListPanel(goalsList);
+        cookedListPanel = new RecipeListPanel(goalsList);
 
         ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
         achievementsListPanel = new RecipeListPanel(achievementsList);
 
-        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, goalsListPanel, achievementsListPanel);
+        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, cookedListPanel, achievementsListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -213,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
         case GOALS:
             showGoalsTab();
             break;
-        case ACHIEVEMENT:
+        case ACHIEVEMENTS:
             showAchievementsTab();
             break;
         default:
