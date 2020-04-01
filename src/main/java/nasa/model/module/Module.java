@@ -24,7 +24,8 @@ public class Module {
 
     /**
      * Constructs a {@code module}
-     * @param moduleCode module code
+     * @param moduleCode ModuleCode
+     * @param moduleName ModuleName
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
@@ -89,6 +90,7 @@ public class Module {
     /**
      * Replaces the contents of this list with {@code activities}
      * {@code activities} must not contain duplicate activities.
+     * @param activities List
      */
     public void setActivities(List<Activity> activities) {
         activityList.setActivities(activities);

@@ -34,6 +34,9 @@ public class ModelManager implements Model {
 
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
+     * @param nasaBook ReadOnlyNasaBook
+     * @param historyBook ReadOnlyHistory
+     * @param userPrefs ReadOnlyUserPrefs
      */
     public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
                         ReadOnlyUserPrefs userPrefs) {

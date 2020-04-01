@@ -47,7 +47,7 @@ public class Date {
 
     /**
      * Checks if a given string is a valid date.
-     *
+     * @param test String
      * @return true if the string matches date format.
      */
     public static boolean isValidDate(String test) {

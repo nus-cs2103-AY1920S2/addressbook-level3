@@ -21,6 +21,7 @@ public class Schedule {
 
     /**
      * Construct a schedule from string.
+     * @param input String
      */
     public Schedule(String input) {
         String[] in = input.split(",");
@@ -31,7 +32,7 @@ public class Schedule {
 
     /**
      * Initialise schedule with the default type of 0.
-     * @param date
+     * @param date Date
      */
     public Schedule(Date date) {
         this.date = date;
@@ -41,8 +42,8 @@ public class Schedule {
 
     /**
      * Initialise schedule with specific type.
-     * @param date
-     * @param type
+     * @param date Date
+     * @param type int
      */
     public Schedule(Date date, int type) {
         checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
@@ -54,6 +55,7 @@ public class Schedule {
 
     /**
      * Method to extend the date of a module activity.
+     * @return boolean
      */
     public boolean update() {
         boolean hasUpdate = false;
@@ -66,6 +68,7 @@ public class Schedule {
 
     /**
      * Set scheduling.
+     * @param type int
      */
     public void setType(int type) {
         checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
@@ -84,6 +87,7 @@ public class Schedule {
 
     /**
      * Initialise schedules.
+     * @param type int
      */
     public void init(int type) {
         switch (type) {
@@ -106,6 +110,7 @@ public class Schedule {
 
     /**
      * Get next running date.
+     * @return Date
      */
     public Date getDate() {
         return date;
