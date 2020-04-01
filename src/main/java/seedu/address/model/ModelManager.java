@@ -12,8 +12,11 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
@@ -36,7 +39,7 @@ import seedu.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager extends BaseManager implements Model {
 
   private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -245,33 +248,42 @@ public class ModelManager implements Model {
       return Arrays.asList(
               this.teacherAddressBook,
               PREDICATE_SHOW_ALL_TEACHERS,
-              filteredTeachers);
+              filteredTeachers,
+              Constants.ENTITY_TYPE.TEACHER);
     } else if (obj instanceof Student) {
       return Arrays.asList(
               this.studentAddressBook,
               PREDICATE_SHOW_ALL_STUDENTS,
-              filteredStudents);
+              filteredStudents,
+              Constants.ENTITY_TYPE.STUDENT);
     } else if (obj instanceof Finance) {
       return Arrays.asList(
               this.financeAddressBook,
               PREDICATE_SHOW_ALL_FINANCES,
-              filteredFinances);
+              filteredFinances,
+              Constants.ENTITY_TYPE.FINANCE);
     } else if (obj instanceof Course) {
       return Arrays.asList(
               this.courseAddressBook,
               PREDICATE_SHOW_ALL_COURSES,
-              filteredCourses);
+              filteredCourses,
+              Constants.ENTITY_TYPE.COURSE);
     } else if (obj instanceof Assignment) {
       return Arrays.asList(
               this.assignmentAddressBook,
               PREDICATE_SHOW_ALL_ASSIGNMENTS,
-              filteredAssignments);
+              filteredAssignments,
+              Constants.ENTITY_TYPE.ASSIGNMENT);
     }
     throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
   private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
     return (AddressBookGeneric)getEntityFactory(obj).get(0);
+  }
+
+  private ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException {
+    return (ReadOnlyAddressBookGeneric)getEntityFactory(obj).get(0);
   }
 
   private Predicate getPredicateAll(ModelObject obj) throws CommandException {
@@ -281,8 +293,15 @@ public class ModelManager implements Model {
   private FilteredList getFilterList(ModelObject obj) throws CommandException {
     return (FilteredList)getEntityFactory(obj).get(2);
   }
+
+  private Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
+    return (Constants.ENTITY_TYPE)getEntityFactory(obj).get(3);
+  }
   // ======================================================================================================
 
+  private void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook, Constants.ENTITY_TYPE entityType) {
+    raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
+  }
 
   // =================================== CRUD METHODS =====================================================
   @Override
@@ -295,18 +314,21 @@ public class ModelManager implements Model {
   public void delete(ModelObject obj) throws CommandException {
     getAddressBook(obj).remove(obj);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
   }
 
   @Override
   public void add(ModelObject obj) throws CommandException {
     getAddressBook(obj).add(obj);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
   }
 
   @Override
   public void set(ModelObject target, ModelObject editedTarget) throws CommandException {
     requireAllNonNull(target, editedTarget);
     getAddressBook(target).set(target, editedTarget);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(target), getEntityType(target));
   }
 
   // =========================== CRUD METHODS DONE VIA ID =====================================================

@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenterSingleton;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -104,6 +105,8 @@ public class MainApp extends Application {
     logic = new LogicManager(model, storage);
 
     ui = new UiManager(logic);
+
+    initEventsCenterSingleton();
   }
 
   /**
@@ -323,5 +326,9 @@ public class MainApp extends Application {
     } catch (IOException e) {
       logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
     }
+  }
+
+  public void initEventsCenterSingleton() {
+    EventsCenterSingleton.getInstance().registerHandler(this);
   }
 }

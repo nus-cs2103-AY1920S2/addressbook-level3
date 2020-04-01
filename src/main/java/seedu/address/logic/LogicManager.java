@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -65,60 +64,56 @@ public class LogicManager implements Logic {
 
     CommandResult commandResult;
     Command command = addressBookParser.parseCommand(commandText);
-    Boolean isNull = command == null;
-    logger.info(isNull.toString());
     command.setData(undoRedoStack);
     commandResult = command.execute(model);
     this.undoRedoStack.push(command);
-    if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand
-        || command instanceof ClearTeacherCommand || command instanceof EditTeacherCommand) {
-      try {
-        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand
-        || command instanceof ClearStudentCommand || command instanceof EditStudentCommand) {
-      try {
-        logger.info("Attempting to save student address book");
-        storage.saveStudentAddressBook(model.getStudentAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand
-        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
-      try {
-        storage.saveCourseAddressBook(model.getCourseAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddFinanceCommand || command instanceof DeleteFinanceCommand
-        || command instanceof ClearFinanceCommand || command instanceof EditFinanceCommand) {
-      try {
-        storage.saveFinanceAddressBook(model.getFinanceAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddAssignmentCommand || command instanceof DeleteAssignmentCommand ||
-            command instanceof ClearAssignmentCommand) {
-      try {
-        logger.info("Attempting to save assignment address book");
-        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AssignCommandBase) {
-      try {
-        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
-        storage.saveStudentAddressBook(model.getStudentAddressBook());
-        storage.saveCourseAddressBook(model.getCourseAddressBook());
-        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    }
-
-
+//    if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand
+//        || command instanceof ClearTeacherCommand || command instanceof EditTeacherCommand) {
+//      try {
+//        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+//      } catch (IOException ioe) {
+//        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//      }
+//    } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand
+//        || command instanceof ClearStudentCommand || command instanceof EditStudentCommand) {
+//      try {
+//        logger.info("Attempting to save student address book");
+//        storage.saveStudentAddressBook(model.getStudentAddressBook());
+//      } catch (IOException ioe) {
+//        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//      }
+//    } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand
+//        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
+//      try {
+//        storage.saveCourseAddressBook(model.getCourseAddressBook());
+//      } catch (IOException ioe) {
+//        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//      }
+//    } else if (command instanceof AddFinanceCommand || command instanceof DeleteFinanceCommand
+//        || command instanceof ClearFinanceCommand || command instanceof EditFinanceCommand) {
+//      try {
+//        storage.saveFinanceAddressBook(model.getFinanceAddressBook());
+//      } catch (IOException ioe) {
+//        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//      }
+//    } else if (command instanceof AddAssignmentCommand || command instanceof DeleteAssignmentCommand ||
+//            command instanceof ClearAssignmentCommand) {
+//      try {
+//        logger.info("Attempting to save assignment address book");
+//        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
+//      } catch (IOException ioe) {
+//        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//      }
+//    } else if (command instanceof AssignCommandBase) {
+//      try {
+//        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+//        storage.saveStudentAddressBook(model.getStudentAddressBook());
+//        storage.saveCourseAddressBook(model.getCourseAddressBook());
+//      } catch (IOException ioe) {
+//        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//      }
+//    }
+//
 
     // Updates summary panel
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());
