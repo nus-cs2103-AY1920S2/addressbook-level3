@@ -22,7 +22,7 @@ public class DoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_FAV_RECIPE_SUCCESS = "Completed Recipe: %1$s";
+    public static final String MESSAGE_DONE_RECIPE_SUCCESS = "Completed Recipe: %1$s";
 
     private final Index targetIndex;
 
@@ -41,7 +41,7 @@ public class DoneCommand extends Command {
 
         Recipe recipeToDo = lastShownList.get(targetIndex.getZeroBased());
         model.attemptRecipe(recipeToDo);
-        return new CommandResult(String.format(MESSAGE_FAV_RECIPE_SUCCESS, recipeToDo.getName()));
+        return new CommandResult(String.format(MESSAGE_DONE_RECIPE_SUCCESS, recipeToDo.getName()));
     }
 
     @Override
