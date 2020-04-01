@@ -15,4 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
     public static final Prefix PREFIX_END_DATE = new Prefix("ed/");
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
+    public static final Prefix PREFIX_SORT_METHOD = new Prefix("sm/");
 }

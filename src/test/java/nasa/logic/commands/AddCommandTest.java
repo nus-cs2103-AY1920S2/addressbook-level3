@@ -26,6 +26,7 @@ import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
 import nasa.testutil.ModuleBuilder;
 
@@ -329,6 +330,12 @@ public class AddCommandTest {
         public String quote() {
             return null;
         }
+
+        @Override
+        public void sortActivityList(SortMethod sortMethod) {
+
+        }
+
         /*
         @Override
         public boolean hasModule(Module module) {
@@ -500,6 +507,11 @@ public class AddCommandTest {
         @Override
         public String quote() {
             return null;
+        }
+
+        @Override
+        public void sortActivityList(SortMethod sortMethod) {
+
         }
     }
 

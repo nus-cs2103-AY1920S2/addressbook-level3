@@ -187,59 +187,6 @@ Examples:
 ** `Mdelete m/CS2030 CS2040 CS1010` +
 Deletes the respective modules associated with the MODULE_CODES.
 
-=== Adding checklist item to activity: `chadd` `[coming in v1.3]`
-Adds a checklist item into the specified module activity +
-Format: `chadd m/MODULE_CODE INDEX c/CHECKLIST_ITEM`
-
-** Adds checklist item `CHECKLIST_ITEM` to the activity in the module (MODULE_CODE) identified by activity number INDEX.
-** Can only add `CHECKLIST_ITEM` to an existing activity (ie. `INDEX` must exist in the module activity list).
-** Can only add to an existing module (ie. `MODULE_CODE` must exist).
-** A `CHECKLIST_ID` will be generated that is unique WITHIN each activity.
-
-Examples:
-
-** `chadd m/CS2101 12 c/Prepare script` +
-Adds checklist item "Prepare script" to activity with INDEX 12 in module CS2101. The checklist item default status is undone.
-
-=== Delete checklist item from activity: `chdel` `[coming in v1.3]`
-Deletes a checklist item from an existing activity. +
-Format: `chdel m/MODULE_CODE INDEX CHECKLIST_ID`
-
-** Deletes the checklist item identified by `CHECKLIST_ID` from the activity identified by `INDEX` in module `MODULE_CODE`.
-** Can only delete an existing checklist item from an existing activity (ie. `INDEX` and its respective `CHECKLIST_ID` must exist in the module activity list).
-** In addition, the MODULE_CODE must exist.
-
-Examples:
-
-** `chdel m/CS2030 12 1` +
-Deletes checklist item with checklist ID 1 from activity with INDEX 12 in the module (CS2030) list.
-
-=== Set checklist item in activity to done: `chdone` `[coming in v1.3]`
-Sets a checklist item in a activity in a specific module to done. +
-Format: `chdone m/MODULE_CODE INDEX CHECKLIST_ID`
-
-** Sets the checklist item identified by `CHECKLIST_ID` from the activity with INDEX in MODULE_CODE activity-list to done.
-** INDEX and CHECKLIST_ID must exist in the module activity-list.
-** MODULE_CODE must also exist in the application.
-
-Examples:
-
-** `chdone m/CS2030 10 1` +
-Sets the checklist item with checklist ID 1 from activity with INDEX 10 in CS2030 activity-list to done.
-
-=== Set checklist item in activity to undone: `chundone` `[coming in v1.3]`
-Sets a checklist item in a activity in a specific module to done. +
-Format: `chundone m/MODULE_CODE INDEX CHECKLIST_ID`
-
-** Sets the checklist item identified by `CHECKLIST_ID` from the activity with INDEX in MODULE_CODE activity-list to not done.
-** INDEX and CHECKLIST_ID must exist in the module activity-list.
-** MODULE_CODE must also exist in the application.
-
-Examples:
-
-** `chundone m/CS2030 10 1` +
-Sets the checklist item with checklist ID 1 from activity with INDEX 10 in CS2030 activity-list to not done.
-
 === Creating shortcuts: `shortcut` `[coming in v1.3]`
 Creates a shortcut for specified activity. +
 Format: `shortcut s/SHORTCUT c/COMMAND`
@@ -329,6 +276,35 @@ image::export_example.png[width="300", align="middle"]
 ** Activities are listed as calendar events as shown. Full design not confirmed, image courtesy of [https://www.knack.com/templates/event-calendar[knack]]
 
 // end::delete[]
+
+=== Sort activities `sort` `[coming in v1.3]`
+Sorts all activities in their respective modules by a specified criteria and ascending/descending order. +
+Format: `sort sm/SORT_CRITERIA [ob/ORDER]`
+
+The list of sort criteria is given below: +
+Lexicographical order (non-case-sensitive): `name` +
+Date added: `date` +
+Priority: `priority`
+
+Order by:
+
+Ascending: `asc` +
+ Lexicographically biggest, latest added, highest priority at the top of the module activity list.
+
+Descending: `dsc` +
+ Lexicographically biggest, latest added, highest priority at the bottom of the module activity list.
+
+If order is not specified, ascending order is used
+
+Examples:
+
+** `sort sm/name ob/dsc` +
+Sorts by non-case-sensitive, lexicographical order of the activity's name, in descending order.
+
+** `sort sm/priority` +
+Sorts by non-case-sensitive, lexicographical order of the activity's name, in ascending order.
+
+
 === Clearing all entries : `clear`
 
 Clears all entries from the NASA application (including module activity-lists created). +
@@ -368,6 +344,21 @@ the next due date will be 16 + 7 + 4 which is 27-03-2020 00:00.
 
 === Edit checklist item of activity
 To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.
+=======
+*Q*: How do I populate NASA with an activity (ie. Deadline, Event, Lesson) that occur regularly (eg. weekly)? +
+*A*: Use the automate command (see section ‘Automation’)
+
+*Q*: What are the differences between Deadline, Event and Lesson? +
+*A*: All three activities are labels to describe the type of activity in a module. There are no functional differences between the 3 activities.
+
+*Q*: How many modules can I add into NASA? +
+*A*: NASA is optimised to display up to 10 modules at once - More than enough modules that a university student will typically take in a semester. Should you exceed 10 modules, please delete existing modules before adding new modules.
+
+*Q*: How many activities can I add into each module? +
+*A*: There is no limit, so add away!
+
+*Q*: There is an unreported bug. What should I do? +
+*A*: Please contact us here! We will respond as soon as possible.
 
 == Command Summary
 =======
@@ -387,9 +378,12 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 | *Export* | `export`
 | *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
 | *Statistics* | `statistics [tp/TIME_PERIOD]`
+<<<<<<< HEAD
 | *Chadd* | `chadd ACTIVITY_ID CHECKLIST_ITEM`
 | *Chdel* | `chdel ACTIVITY_ID CHECKLIST_ID`
 | *Repeat* | `repeat m/MODULE_CODE a/ACTIVITYNAME r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
 | *Redo* | `redo`
+=======
+>>>>>>> 0199208a34a225dbdf0b021d9a30f209098633bf

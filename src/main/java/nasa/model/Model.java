@@ -12,6 +12,7 @@ import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
 
 /**
@@ -225,6 +226,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+
+    /**
+     * Sorts filtered activity list of all modules by method specified by sortMethod
+     * @param sortMethod The method of sorting.
+     */
+    void sortActivityList(SortMethod sortMethod);
 
     void setActivityByIndex(Module module, Index index, Activity activity);
     void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity);
