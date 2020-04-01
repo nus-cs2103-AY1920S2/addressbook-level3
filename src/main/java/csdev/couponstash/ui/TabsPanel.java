@@ -1,5 +1,6 @@
 package csdev.couponstash.ui;
 
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.control.SingleSelectionModel;
@@ -53,11 +54,13 @@ public class TabsPanel extends UiPart<Region> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
+        MoneySymbol currentMoneySymbol = logic.getStashSettings().getMoneySymbol();
+
         couponListPanel = new CouponListPanel(
-                logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
+                logic.getFilteredCouponList(), currentMoneySymbol);
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        summaryTab = new SummaryTab(logic);
+        summaryTab = new SummaryTab(logic.getAllCouponList(), currentMoneySymbol);
         savedPanePlaceholder.getChildren().add(summaryTab.getRoot());
 
         helpPane = new HelpPane(logic);

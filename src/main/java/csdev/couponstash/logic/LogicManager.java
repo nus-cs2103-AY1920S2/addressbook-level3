@@ -73,6 +73,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Coupon> getAllCouponList() {
+        return model.getAllCouponList();
+    }
+
+    @Override
     public Path getCouponStashFilePath() {
         return model.getCouponStashFilePath();
     }

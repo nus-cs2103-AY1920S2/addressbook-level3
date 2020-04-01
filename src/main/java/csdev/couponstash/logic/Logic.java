@@ -37,6 +37,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of coupons */
     ObservableList<Coupon> getFilteredCouponList();
 
+    /** Returns an unmodifiable view of every single coupon */
+    ObservableList<Coupon> getAllCouponList();
+
     /**
      * Returns the user prefs' CouponStash file path.
      */
