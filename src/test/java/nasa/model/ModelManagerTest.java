@@ -41,6 +41,7 @@ class ModelManagerTest {
     void getFilteredActivityListTest() {
         ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
 
+        System.out.println(list.get(0).getName().toString());
         assertEquals("Homework", list.get(0).getName().toString());
         assertEquals("Test", list.get(1).getName().toString());
         assertEquals("Prepare group meeting", list.get(2).getName().toString());

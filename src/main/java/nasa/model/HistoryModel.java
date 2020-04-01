@@ -2,7 +2,7 @@ package nasa.model;
 
 /**
  * API of History interface.
- * @param <T> Type
+ * @param <T>
  */
 public interface HistoryModel<T> {
 

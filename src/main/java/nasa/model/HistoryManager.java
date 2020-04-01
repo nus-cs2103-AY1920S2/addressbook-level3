@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 /**
  * A wrapper class to handle various history data.
- * @param <T> Type
+ * @param <T>
  */
 public class HistoryManager<T> implements HistoryModel<T> {
 

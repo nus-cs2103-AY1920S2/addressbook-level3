@@ -17,9 +17,6 @@ public class Event extends Activity {
 
     /**
      * Initialise Event with default status and priority.
-     * @param name Name
-     * @param startDate Date
-     * @param endDate Date
      */
     public Event(Name name, Date startDate, Date endDate) {
         super(name);
@@ -29,13 +26,6 @@ public class Event extends Activity {
         checkArgument(isValidEvent(this), INVALID_EVENT);
     }
 
-    /**
-     * Initialise Event with default status and priority.
-     * @param name Name
-     * @param note Note
-     * @param startDate Date
-     * @param endDate Date
-     */
     public Event(Name name, Note note, Date startDate, Date endDate) {
         super(name, note);
         requireAllNonNull(startDate, endDate);
@@ -43,14 +33,6 @@ public class Event extends Activity {
         this.endDate = endDate;
     }
 
-    /**
-     * Initialise Event with default status and priority.
-     * @param name Name
-     * @param note Note
-     * @param priority Priority
-     * @param startDate Date
-     * @param endDate Date
-     */
     public Event(Name name, Note note, Priority priority, Date startDate, Date endDate) {
         super(name, note, priority);
         requireAllNonNull(startDate, endDate);
@@ -61,12 +43,6 @@ public class Event extends Activity {
     /**
      * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
-     * @param name Name
-     * @param note Note
-     * @param status Status
-     * @param priority Priority
-     * @param startDate Date
-     * @param endDate Date
      */
     public Event(Name name, Note note, Status status, Priority priority, Date startDate, Date endDate) {
         super(name, Date.now(), note, status, priority);
@@ -77,13 +53,6 @@ public class Event extends Activity {
     /**
      * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
-     * @param name Name
-     * @param date Date
-     * @param note Note
-     * @param status Status
-     * @param priority Priority
-     * @param startDate Date
-     * @param endDate Date
      */
     public Event(Name name, Date date, Note note, Status status, Priority priority, Date startDate, Date endDate) {
         super(name, date, note, status, priority);

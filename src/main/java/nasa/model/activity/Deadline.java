@@ -38,12 +38,6 @@ public class Deadline extends Activity {
     /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
-     * @param name Name
-     * @param date Date
-     * @param note Note
-     * @param status Status
-     * @param priority Priority
-     * @param dueDate Date
      */
     public Deadline(Name name, Date date, Note note, Status status, Priority priority, Date dueDate) {
         super(name, date, note, status, priority);
@@ -59,26 +53,12 @@ public class Deadline extends Activity {
         this.updateStatus();
     }
 
-    /**
-     * Return the difference in due date and date of creation.
-     * @return int
-     */
     public int getDifferenceInDay() {
         return (int) getDate().getDifference(dueDate)[0];
     }
 
     /**
-     * Calculate the percentage towards the dateline.
-     * @return int
-     */
-    public int percentage() {
-        double currentDifference = (double) Date.now().getDifference(getDate())[0] * -1;
-        return (int) (100 * (currentDifference / getDifferenceInDay()));
-    }
-
-    /**
      * Get days remaining for the task.
-     * @return int
      */
     public int getDaysRemaining() {
         return (int) this.dueDate.getDifference(Date.now())[0];
