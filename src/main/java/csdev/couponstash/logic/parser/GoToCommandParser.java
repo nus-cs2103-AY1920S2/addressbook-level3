@@ -1,6 +1,7 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_MONTH_YEAR;
 
 import java.time.format.DateTimeParseException;
 
@@ -21,10 +22,17 @@ public class GoToCommandParser implements Parser<GoToCommand> {
      */
     @Override
     public GoToCommand parse(String args) throws ParseException {
-        String trimmedArg = args.trim();
+        ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_MONTH_YEAR);
+        boolean monthYearPresent = argMultiMap.getValue(PREFIX_MONTH_YEAR).isPresent();
+
         try {
-            ParserUtil.parseYearMonth(trimmedArg);
-            return new GoToCommand(trimmedArg);
+            if (monthYearPresent) {
+                String my = argMultiMap.getValue(PREFIX_MONTH_YEAR).get();
+                ParserUtil.parseYearMonth(my);
+                return new GoToCommand(my);
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE));
+            }
         } catch (DateTimeParseException | ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE), pe);
