@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.foodiebot.commons.core.Messages;
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.randomize.Randomize;
@@ -25,6 +27,8 @@ public class RandomizeCommand extends Command {
 
     private final Randomize randomize;
 
+    private Messages messages;
+
     private String prefix;
     private String action = "";
     private Optional<Index> index;
@@ -32,24 +36,26 @@ public class RandomizeCommand extends Command {
     public RandomizeCommand(String prefix, String action, Randomize randomize) {
         this.prefix = prefix;
         this.action = action;
-        this.randomize = randomize;
+        this.randomize = Randomize.checkRandomize();
     }
 
     public RandomizeCommand(String prefix, Index index, Randomize randomize) {
         this.prefix = prefix;
         this.index = Optional.of(index);
-        this.randomize = randomize;
+        this.randomize = Randomize.checkRandomize();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException, IOException {
         requireNonNull(model);
+        ParserContext.setCurrentContext(ParserContext.RANDOMIZE_CONTEXT);
 
         randomize.setPrefix(prefix);
         randomize.setAction(action);
 
         FileReader fileC = model.listOfCanteens();
         FileReader fileS = model.listOfStalls();
+        randomize.resetInternalList();
         if (prefix.contains("c")) {
             if (index.isPresent()) {
                 List<Canteen> canteenList = model.getFilteredCanteenList();
@@ -57,6 +63,9 @@ public class RandomizeCommand extends Command {
                 randomize.setCanteenIndex(canteen);
             } else {
                 randomize.setCanteens(fileC);
+                if (!randomize.ifCanteenNamePresent()) {
+                    throw new CommandException(Messages.MESSAGE_INVALID_CANTEEN_NAME);
+                }
             }
             randomize.getOptionsByCanteen(fileS);
         } else if (prefix.contains("t")) {

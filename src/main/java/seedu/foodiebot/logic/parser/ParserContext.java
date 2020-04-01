@@ -17,6 +17,7 @@ public class ParserContext {
     public static final String INVALID_CONTEXT_MESSAGE = "Wrong context to use this command. Current Context: ";
     public static final String SUGGESTED_CONTEXT_MESSAGE = "Context to use this command in: ";
     public static final String FAVORITE_CONTEXT = "FAVORITE";
+    public static final String RANDOMIZE_CONTEXT = "RANDOMIZE";
 
     private static String currentContext = ParserContext.MAIN_CONTEXT;
     private static String previousContext = ParserContext.MAIN_CONTEXT;

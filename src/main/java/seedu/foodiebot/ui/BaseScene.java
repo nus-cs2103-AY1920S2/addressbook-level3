@@ -269,6 +269,10 @@ public class BaseScene {
                     && ParserContext.getCurrentStall().isPresent()) {
                     ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
                     handleListFood();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.RANDOMIZE_CONTEXT)
+                        && ParserContext.getCurrentStall().isPresent()) {
+                    ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
+                    handleListFood();
                 }
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
@@ -321,6 +325,9 @@ public class BaseScene {
                     break;
                 case ParserContext.CANTEEN_CONTEXT:
                     handleListStalls();
+                    break;
+                case ParserContext.RANDOMIZE_CONTEXT:
+                    handleListRandomize();
                     break;
                 case ParserContext.FAVORITE_CONTEXT:
                     switch (ParserContext.getPreviousContext()) {

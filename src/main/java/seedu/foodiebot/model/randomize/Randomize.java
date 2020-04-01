@@ -80,9 +80,15 @@ public class Randomize {
         ObservableList<Stall> internalList = FXCollections.observableArrayList(optionsList);
         ObservableList<Stall> internalUnmodifiableList =
                 FXCollections.unmodifiableObservableList(internalList);
-        System.out.println(internalList);
-        resetInternalList();
         return internalUnmodifiableList;
+    }
+
+    /**
+     * This method returns a List of stall objects.
+     * @return List of Stall object.
+     */
+    public List<Stall> getOptionsList() {
+        return optionsList;
     }
 
     /**
@@ -106,6 +112,7 @@ public class Randomize {
      * @param file which is provided from the RandomizeCommand
      */
     public void setCanteens(FileReader file) throws CommandException {
+        resetInternalList();
         JSONParser parser = new JSONParser();
         try {
             JSONObject obj = (JSONObject) parser.parse(file);
@@ -133,6 +140,14 @@ public class Randomize {
         action = selectedCanteen;
         int numOfStalls = canteen.getNumberOfStalls();
         mapStalls.put(selectedCanteen, numOfStalls);
+    }
+
+    /**
+     * This method check if the canteen name provided by user is valid.
+     * @return true if canteen name is valid.
+     */
+    public boolean ifCanteenNamePresent() {
+        return mapStalls.containsKey(action);
     }
 
     /**
@@ -197,7 +212,6 @@ public class Randomize {
 
     /**
      * This method add the option to the list
-     *
      * @param listOfStalls List of Stall object with the matching canteen.
      */
     private void generateFiveOptions(List<Stall> listOfStalls) {
@@ -232,7 +246,6 @@ public class Randomize {
 
     /**
      * This method produce a list of options from the jsonfile (foodiebot-stalls.json).
-     *
      * @param file which is provided from the RandomizeCommand.
      */
     public void getOptionsByTags(FileReader file) throws CommandException {
