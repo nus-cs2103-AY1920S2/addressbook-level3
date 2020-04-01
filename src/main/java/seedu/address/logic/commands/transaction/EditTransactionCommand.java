@@ -91,7 +91,7 @@ public class EditTransactionCommand extends Command {
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor, model);
 
-        if (modelHasDuplicateTransaction(model, editedTransaction)) {
+        if (modelHasDuplicateTransaction(model, editedTransaction, transactionToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
@@ -164,11 +164,13 @@ public class EditTransactionCommand extends Command {
      * @param editedTransaction
      * @return true if model has duplicate product, else false
      */
-    private boolean modelHasDuplicateTransaction(Model model, Transaction editedTransaction) {
+    private boolean modelHasDuplicateTransaction(Model model,
+                                                 Transaction editedTransaction,
+                                                 Transaction transactionToEdit) {
         List<Transaction> transactions = model.getInventorySystem().getTransactionList();
         for (int i = 0; i < transactions.size(); i++) {
             Transaction transaction = transactions.get(i);
-            if (transaction.equals(editedTransaction)) {
+            if (!transaction.equals(transactionToEdit) && transaction.equals(editedTransaction)) {
                 return true;
             }
         }

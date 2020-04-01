@@ -1,14 +1,15 @@
 package seedu.address.ui.statistics;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.ui.UiPart;
-
-import java.util.List;
 
 /**
  * An UI component that displays information of a {@code Product}.

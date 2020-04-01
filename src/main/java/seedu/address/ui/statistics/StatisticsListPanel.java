@@ -19,8 +19,8 @@ import seedu.address.ui.UiPart;
  */
 public class StatisticsListPanel extends UiPart<Region> {
     private static final String FXML = "StatisticsListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(StatisticsListPanel.class);
     private static List<Transaction> transactions = new ArrayList<>();
+    private final Logger logger = LogsCenter.getLogger(StatisticsListPanel.class);
 
     @FXML
     private ListView<Product> statisticsListView;

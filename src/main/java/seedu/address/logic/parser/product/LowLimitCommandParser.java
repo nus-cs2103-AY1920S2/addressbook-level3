@@ -29,7 +29,7 @@ public class LowLimitCommandParser implements Parser<LowLimitCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PRODUCT, PREFIX_THRESHOLD);
 
-        if (!anyPrefixesPresent(argMultimap, PREFIX_PRODUCT, PREFIX_THRESHOLD)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT, PREFIX_THRESHOLD)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LowLimitCommand.MESSAGE_USAGE));
         }
@@ -41,10 +41,10 @@ public class LowLimitCommandParser implements Parser<LowLimitCommand> {
     }
 
     /**
-     * Returns true if any of the prefixes contains empty {@code Optional} values in the given
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
