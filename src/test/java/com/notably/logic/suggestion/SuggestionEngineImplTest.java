@@ -154,7 +154,7 @@ public class SuggestionEngineImplTest {
         model.setInput("edt -t NewNote -b lorem ipsum");
 
         // Expected result
-        String expectedResponseText = "Edit a currently open note";
+        String expectedResponseText = "Edit this note";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
