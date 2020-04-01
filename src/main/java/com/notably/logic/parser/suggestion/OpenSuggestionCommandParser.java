@@ -24,7 +24,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
 
     public OpenSuggestionCommandParser(Model model) {
         this.model = model;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD, true);
     }
 
     /**

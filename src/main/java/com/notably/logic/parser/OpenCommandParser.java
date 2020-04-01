@@ -22,7 +22,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
 
     public OpenCommandParser(Model notablyModel) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD, false);
     }
     /**
      * Creates OpenCommand with user input.
