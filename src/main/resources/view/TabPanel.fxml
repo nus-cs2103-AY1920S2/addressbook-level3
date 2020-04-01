@@ -23,11 +23,6 @@
                         <HBox fx:id="moduleList" styleClass="pane-with-border" minWidth="340" prefWidth="500" prefHeight="1000"
                               AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                               AnchorPane.bottomAnchor="0.0" alignment="CENTER" >
-                            <Label fx:id="noModules" maxWidth="Infinity" styleClass="no-modules" minHeight="200"
-                                   maxHeight="Infinity" wrapText="true" alignment="BOTTOM_CENTER"
-                                   text="No modules added... Use madd m/[MODULE_CODE] n/[MODULE_NAME] to start adding!"
-                                   HBox.hgrow="ALWAYS">
-                            </Label>
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10" />
                             </padding>

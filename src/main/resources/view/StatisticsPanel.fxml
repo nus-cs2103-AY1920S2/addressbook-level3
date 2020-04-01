@@ -6,13 +6,7 @@
 <?import javafx.scene.layout.Region?>
 <Pane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-            <Label fx:id="statistics" styleClass="cell_big_label" text="Statistics">
-                <minWidth>
-                    <!-- Ensures that the label text is never truncated -->
-                    <Region fx:constant="USE_PREF_SIZE"/>
-                </minWidth>
-            </Label>
-            <PieChart fx:id="pieChart" layoutX="50.0"/>
+            <PieChart fx:id="pieChart" layoutX="50.0" title="Overall Statistics" styleClass="cell_big_label"/>
         </children>
 </Pane>
 
