@@ -105,6 +105,22 @@ public class AbsolutePathCorrectionEngineTest {
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/b");
+  
+        final AbsolutePath expectedCorrectedItem = toAnotherBlock;
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
+        final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus, expectedCorrectedItem);
+
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
+
+    @Test
+    public void correct_differentCase() {
+        final int distanceThreshold = 1;
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
+                model, distanceThreshold);
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/ANOTHER/BLOCK");
 
         final AbsolutePath expectedCorrectedItem = toAnotherBlock;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;

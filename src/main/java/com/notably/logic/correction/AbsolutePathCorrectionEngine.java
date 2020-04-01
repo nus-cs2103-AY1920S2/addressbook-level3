@@ -33,7 +33,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
      * For example, "/path/to/no" will forward match with "/path/to/note".
      */
     public AbsolutePathCorrectionEngine(Model model, int distanceThreshold, boolean forwardMatch) {
-        this(new LevenshteinDistanceCalculator(), model, distanceThreshold, forwardMatch);
+        this(new LevenshteinDistanceCalculator(false), model, distanceThreshold, forwardMatch);
     }
 
     /**
