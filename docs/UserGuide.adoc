@@ -372,7 +372,7 @@ Format: `chart [g/goal]`
 
 == Achievement
 
-==== Display streak: `streak`
+==== Display streak: `streak` [Coming in v1.4]
 Displays number of consecutive days user has cooked a meal from the app +
 Format: `streak`
 
