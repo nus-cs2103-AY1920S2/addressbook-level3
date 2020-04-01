@@ -1,12 +1,12 @@
 package fithelper.model.diary;
 
-import fithelper.commons.core.LogsCenter;
-import fithelper.logic.commands.diary.DeleteDiaryCommand;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.logging.Logger;
 import java.util.Objects;
+
+import fithelper.commons.core.LogsCenter;
+import fithelper.logic.commands.diary.DeleteDiaryCommand;
 
 /**
  * Represents a diary in diary list.

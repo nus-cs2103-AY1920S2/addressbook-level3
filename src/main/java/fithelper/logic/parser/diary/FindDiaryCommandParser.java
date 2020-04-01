@@ -6,16 +6,17 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 import fithelper.logic.commands.diary.FindDiaryCommand;
-import fithelper.logic.parser.*;
+import fithelper.logic.parser.ArgumentMultimap;
+import fithelper.logic.parser.ArgumentTokenizer;
+import fithelper.logic.parser.Parser;
+import fithelper.logic.parser.ParserUtil;
+import fithelper.logic.parser.Prefix;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.diary.DiaryContentContainsKeywordsPredicate;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.diary.DiaryDatePredicate;
-import fithelper.model.entry.NameContainsKeywordsPredicate;
-import fithelper.model.entry.Type;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -54,4 +55,5 @@ public class FindDiaryCommandParser implements Parser<FindDiaryCommand> {
         return argumentMultimap.getValue(prefix).isPresent();
     }
 }
+
 
