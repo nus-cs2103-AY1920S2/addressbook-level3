@@ -12,8 +12,8 @@ import javafx.scene.layout.VBox;
  * The UI element that holds the Savings, this is
  * displayed as a blue box beside the Coupon.
  */
-public class SavingsPane extends UiPart<Region> {
-    private static final String FXML = "SavingsPane.fxml";
+public class SavingsBox extends UiPart<Region> {
+    private static final String FXML = "SavingsBox.fxml";
     // to set certain elements to be invisible
     private static final String HIDDEN = "visibility: hidden;";
     // allow CSS styles for each label in the FlowPane
@@ -30,12 +30,12 @@ public class SavingsPane extends UiPart<Region> {
     @FXML
     private FlowPane saveables;
 
-    public SavingsPane() {
-        super(SavingsPane.FXML);
+    public SavingsBox() {
+        super(SavingsBox.FXML);
     }
 
     /**
-     * Sets the Savings to be displayed in this SavingsPane.
+     * Sets the Savings to be displayed in this SavingsBox.
      *
      * @param s The Savings to be displayed.
      * @param moneySymbol Money symbol for the display.
@@ -46,22 +46,22 @@ public class SavingsPane extends UiPart<Region> {
             .forEach(sva -> {
                 Label label = new Label(sva.getValue());
                 // ensure that label has the correct CSS style
-                label.getStyleClass().add(SavingsPane.SAVEABLE_CLASS);
+                label.getStyleClass().add(SavingsBox.SAVEABLE_CLASS);
                 saveables.getChildren().add(label);
             }), () -> {
-                this.saveables.setStyle(SavingsPane.HIDDEN);
-                this.numericalAmount.setTranslateY(SavingsPane.NUMERICAL_AMOUNT_TRANSLATE_AMOUNT);
+                this.saveables.setStyle(SavingsBox.HIDDEN);
+                this.numericalAmount.setTranslateY(SavingsBox.NUMERICAL_AMOUNT_TRANSLATE_AMOUNT);
             });
 
         // handle numerical value
         String savingsNumber = getSavingsString(s, moneySymbol);
         if (savingsNumber.isBlank()) {
-            this.numericalAmount.setStyle(SavingsPane.HIDDEN);
+            this.numericalAmount.setStyle(SavingsBox.HIDDEN);
         } else {
             this.numericalAmount.setText(savingsNumber);
             // resize numerical amount dynamically
             this.numericalAmount.setStyle("-fx-font-size: "
-                    + (SavingsPane.BASE_FONT_SIZE / savingsNumber.length())
+                    + (SavingsBox.BASE_FONT_SIZE / savingsNumber.length())
                     + ";");
         }
     }
@@ -69,7 +69,7 @@ public class SavingsPane extends UiPart<Region> {
     /**
      * Given a Savings object and the money symbol, return
      * a String containing a formatted numerical value for
-     * use in SavingsPane, or an empty String if the
+     * use in SavingsBox, or an empty String if the
      * Savings does not have any MonetaryAmount
      * or PercentageAmount (only Saveable).
      *
