@@ -356,12 +356,16 @@ Format: `(st)schedule n/NUM_DAYS`
 ==== Create a new social event: `event`
 
 Creates a social event. +
-Format: `event d/DATE t/TIME`
+Format: `event et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 
 ****
-* `DATE` must be in a YYYY-MM-DD format.
-* `TIME` must be in a HH:MM format.
+* `EVENT DATE` must be in a YYYY-MM-DD HH:MM format
 ****
+
+==== Listing all events: `eventlist`
+
+Lists all social events in your Event Book. +
+Format: `eventlist`
 
 === Saving the data
 
