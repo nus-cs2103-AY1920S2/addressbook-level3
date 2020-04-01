@@ -34,7 +34,15 @@ public class SearchCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_multipleFlagArg_throwsParseException() {
+        String input = SearchCommand.COMMAND_WORD + " " + CliSyntax.FLAG_RETURN_BOOK.getFlag() + " "
+            + CliSyntax.FLAG_ORDER_BOOK.getFlag() + " abc";
+        assertParseFailure(parser, input, SearchCommand.MULTIPLE_FLAGS_DETECTED);
     }
 
     @Test
@@ -64,10 +72,20 @@ public class SearchCommandParserTest {
             new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), argumentMultimap));
         assertParseSuccess(parser, " -o a/Alice Bob", expectedSearchCommand);
 
+        // order flag with no prefix
+        expectedSearchCommand = new SearchCommand(
+            new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        assertParseSuccess(parser, " -o Alice Bob", expectedSearchCommand);
+
         // return flag
         expectedSearchCommand = new SearchCommand(
             new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), argumentMultimap));
         assertParseSuccess(parser, " -r a/Alice Bob", expectedSearchCommand);
+
+        // return flag with no prefix
+        expectedSearchCommand = new SearchCommand(
+            new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        assertParseSuccess(parser, " -r Alice Bob", expectedSearchCommand);
     }
 
     @ParameterizedTest
@@ -79,6 +97,7 @@ public class SearchCommandParserTest {
     /**
      * A function to return a {@code Stream<Arguments>} object containing all possible arguments to test
      * the functionality of search command with prefixes.
+     *
      * @return {@code Stream<Arguments>} object containing all possible prefix arguments
      */
     private static Stream<Arguments> generalisePrefix() {
@@ -127,6 +146,7 @@ public class SearchCommandParserTest {
         amComment.put(PREFIX_COMMENT, "Hi bye");
 
         ArgumentMultimap amMix = new ArgumentMultimap();
+        amMix.put(new Prefix(""), "");
         amMix.put(PREFIX_COMMENT, "Hi bye");
         amMix.put(PREFIX_WAREHOUSE, "Pulau ubin");
         amMix.put(PREFIX_DELIVERY_TIMESTAMP, "2020-05-06 1500");
@@ -198,8 +218,15 @@ public class SearchCommandParserTest {
                     new OrderContainsKeywordsPredicate(Arrays.asList("Hi", "bye"), amComment),
                     new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Hi", "bye"), amComment)),
                 " c/Hi bye"
+            ),
+            // Mix prefix test
+            Arguments.of(new SearchCommand(
+                new OrderContainsKeywordsPredicate(
+                    Arrays.asList("Hi", "bye", "Pulau", "ubin", "2020-05-06", "1500"), amMix),
+                new ReturnOrderContainsKeywordsPredicate(
+                    Arrays.asList("Hi", "bye", "Pulau", "ubin", "2020-05-06", "1500"), amMix)),
+                " c/Hi bye w/ Pulau ubin dts/2020-05-06 1500"
             )
         );
     }
-
 }
