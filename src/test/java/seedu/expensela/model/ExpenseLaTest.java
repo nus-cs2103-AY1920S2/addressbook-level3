@@ -81,6 +81,7 @@ public class ExpenseLaTest {
     private static class ExpenseLaStub implements ReadOnlyExpenseLa {
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
         private final MonthlyData monthlyData = new MonthlyDataBuilder().build();
+        private final ToggleView toggleView = new ToggleView();
 
         ExpenseLaStub(Collection<Transaction> transactions) {
             this.transactions.setAll(transactions);
@@ -94,6 +95,11 @@ public class ExpenseLaTest {
         @Override
         public MonthlyData getMonthlyData() {
             return monthlyData;
+        }
+
+        @Override
+        public ToggleView getToggleView() {
+            return toggleView;
         }
     }
 

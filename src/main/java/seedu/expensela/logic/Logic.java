@@ -9,6 +9,7 @@ import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.Filter;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.ToggleView;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
@@ -38,6 +39,8 @@ public interface Logic {
     MonthlyData getMonthlyData();
 
     Filter getFilter();
+
+    ToggleView getToggleView();
 
     /**
      * Returns the user prefs' expensela file path.
