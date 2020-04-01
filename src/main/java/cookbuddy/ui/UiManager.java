@@ -6,6 +6,7 @@ import cookbuddy.MainApp;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.Logic;
+import cookbuddy.model.recipe.Recipe;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -22,13 +23,15 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/recipe_book_32.png";
 
-    private Logic logic;
-    private MainWindow mainWindow;
+
+    private static Logic logic;
+    private static MainWindow mainWindow;
 
     public UiManager(Logic logic) {
         super();
         this.logic = logic;
     }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -46,6 +49,10 @@ public class UiManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    public static void changeRecipe(Recipe e) {
+        mainWindow.defaultFill(e);
     }
 
     private Image getImage(String imagePath) {
