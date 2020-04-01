@@ -179,11 +179,11 @@ We allow users to add Expense/Income transactions into ExpenseLa which denotes a
 We store every single `Transaction` added by the user into an `ObservableList<Transaction>`, which is a list object in `TransactionList`. We used an `ObservableList` to easily reflect changes to the list by any other component of ExpenseLa using the list.
 
 There are two ways of implementing a Transaction:
-* Adding an expense (negative transaction): add 
+* Adding an expense (negative transaction): add
 * Adding an income (positive transaction): add i/
 These two commands will indicate whether the transaction is positive or negative.
 
-When inserting a new Expense/Income, the `AddTransactionCommandParser` will detemine which object to initialise depending on whether the i/ syntax is present. 
+When inserting a new Expense/Income, the `AddTransactionCommandParser` will detemine which object to initialise depending on whether the i/ syntax is present.
 
 The following sequence diagram shows how the add transaction operation works:
 

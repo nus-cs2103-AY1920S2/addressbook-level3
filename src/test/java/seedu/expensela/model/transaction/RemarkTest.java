@@ -1,6 +1,5 @@
 package seedu.expensela.model.transaction;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -9,11 +8,6 @@ class RemarkTest {
 
     @Test
     void isValidRemark() {
-
-//        // invalid remark
-//        assertFalse(Remark.isValidRemark(" ")); // spaces only
-//        assertFalse(Remark.isValidRemark("^")); // only non-alphanumeric characters
-//        assertFalse(Remark.isValidRemark("peter*")); // contains non-alphanumeric characters
 
         // valid remark
         assertTrue(Remark.isValidRemark("peter jack")); // alphabets only
