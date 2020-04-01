@@ -1,9 +1,6 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
-import java.util.Locale;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +13,7 @@ import javafx.scene.layout.Region;
 
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.util.StringUtil;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.UniquePlannedList;
 
@@ -46,20 +44,16 @@ public class PlanningListPanel extends UiPart<Region> {
     private Label monthHeader;
 
     @FXML
-    private Label weekHeader;
+    private Label dayHeader;
 
     public PlanningListPanel(ObservableList<PlannedRecipe> plannedRecipes) {
         super(FXML);
-        LocalDate today = LocalDate.now();
-        Locale singaporeLocale = new Locale("en", "SGP");
-        monthHeader.setText(today.getMonth().getDisplayName(TextStyle.FULL, singaporeLocale));
+        Date today = Date.today();
+        monthHeader.setText(today.getMonthName());
         monthHeader.setStyle(monthStyleHeader);
 
-        /*        WeekFields weekFields = WeekFields.of(singaporeLocale.getDefault());
-        int weekNumber = today.get(weekFields.weekOfMonth());
-        weekHeader.setText("Week: " + weekNumber);*/
-        weekHeader.setText(today.getDayOfWeek() + ": " + today.toString());
-        weekHeader.setStyle(weekStyleHeader);
+        dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
+        dayHeader.setStyle(weekStyleHeader);
 
         planningListView.setItems(plannedRecipes);
         planningListView.setCellFactory(planningListView -> new PlanningListViewCell());

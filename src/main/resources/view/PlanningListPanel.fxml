@@ -10,7 +10,7 @@
     <top>
       <VBox spacing = "5">
         <Label fx:id="monthHeader" styleClass="cell_big_label"/>
-        <Label fx:id="weekHeader" styleClass="cell_big_label"/>
+        <Label fx:id="dayHeader" styleClass="cell_big_label"/>
       </VBox>
     </top>
     <center>
