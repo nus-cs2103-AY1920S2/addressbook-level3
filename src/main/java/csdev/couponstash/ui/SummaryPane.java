@@ -29,8 +29,8 @@ import javafx.scene.text.Text;
 /**
  * Savings summary of CouponStash.
  */
-public class SummaryTab extends UiPart<Region> {
-    private static final String FXML = "SummaryTab.fxml";
+public class SummaryPane extends UiPart<Region> {
+    private static final String FXML = "SummaryPane.fxml";
 
     private static final String SAVED_TOTAL_PRE_MESSAGE = "You saved a total of ";
     private static final String SAVEABLES_PRE_MESSAGE = "And these saveables too!";
@@ -68,12 +68,12 @@ public class SummaryTab extends UiPart<Region> {
      * @param allCoupons
      * @param moneySymbol
      */
-    public SummaryTab(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
+    public SummaryPane(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
         super(FXML);
         this.allCoupons = allCoupons;
         this.moneySymbol = moneySymbol;
-        savedText.setText(SummaryTab.SAVED_TOTAL_PRE_MESSAGE);
-        saveablesText.setText(SummaryTab.SAVEABLES_PRE_MESSAGE);
+        savedText.setText(SummaryPane.SAVED_TOTAL_PRE_MESSAGE);
+        saveablesText.setText(SummaryPane.SAVEABLES_PRE_MESSAGE);
     }
 
     /**
@@ -169,7 +169,7 @@ public class SummaryTab extends UiPart<Region> {
                 pms.getMonetaryAmountAsDouble()
         );
         dataList.add(data);
-        Text dataLabel = new Text(SummaryTab.formatMoneyAmount(pms.getMonetaryAmountAsDouble()));
+        Text dataLabel = new Text(SummaryPane.formatMoneyAmount(pms.getMonetaryAmountAsDouble()));
         data.nodeProperty().addListener((obv, oldNode, newNode) -> {
             if (newNode != null) {
                 addListenersForLabel(newNode, dataLabel);
