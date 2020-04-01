@@ -86,6 +86,6 @@ public class SportsCalorieDataUtil {
             + "Water jogging\t563\n"
             + "Walk (2-4 kmph)\t100 - 211\n"
             + "Walk (5-6.5 kmph)\t232 - 352\n"
-            + "Walk (7-8 kmph)\t443 - 563\n" 
+            + "Walk (7-8 kmph)\t443 - 563\n"
             + "Race walking\t457\n";
 }
