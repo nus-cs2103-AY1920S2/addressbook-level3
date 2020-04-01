@@ -727,6 +727,9 @@ You can filter the students in Student View in the following ways:
 2. module code `m/`
 ****
 
+The group with the specified `GROUP_CODE` and the module with the specified
+`MOD_CODE` will be highlighted in the list.
+
 Using both module code and group code will show you the students
 inside the group with the given group code. The group must belong to the module specified
 by the module code.
@@ -925,6 +928,8 @@ session type  ‘Tutorial` will be shown.
 ==== Filter `filter`
 
 You can use this command to filters sessions in the Claims View by the module code.
+
+The module with the specified `MOD_CODE` will be highlighted in the list.
 
 All completed sessions with matching module code are displayed. Keyword is case-insensitive.
 
