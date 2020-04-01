@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.product;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
@@ -42,6 +43,9 @@ public class LowLimitCommand extends Command {
     private QuantityThreshold threshold;
 
     public LowLimitCommand(Index productIndex, QuantityThreshold threshold) {
+        requireNonNull(productIndex);
+        requireNonNull(threshold);
+
         this.productIndex = productIndex;
         this.threshold = threshold;
     }
@@ -72,5 +76,23 @@ public class LowLimitCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedProduct));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof LowLimitCommand)) {
+            return false;
+        }
+
+        // state check
+        LowLimitCommand e = (LowLimitCommand) other;
+
+        return productIndex.equals(e.productIndex) && threshold.equals(e.threshold);
     }
 }

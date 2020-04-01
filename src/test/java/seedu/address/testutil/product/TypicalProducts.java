@@ -8,7 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_WATCH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SALES_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SALES_WATCH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_THRESHOLD_BAG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_THRESHOLD_WATCH;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +52,7 @@ public class TypicalProducts {
     public static final Product FAN = new ProductBuilder(FAN_ID).withDescription("Fan").withPrice("94")
             .withQuantity("4").withMoney("678").withThreshold("1").withCostPrice("0").build();
     public static final Product GAME = new ProductBuilder(GAME_ID).withDescription("Game").withPrice("92")
-            .withQuantity("8").withMoney("468").withCostPrice("0").build();
+            .withQuantity("8").withMoney("468").withThreshold("1").withCostPrice("0").build();
 
     // Manually added
     public static final Product HAT = new ProductBuilder(HAT_ID).withDescription("Hat").withPrice("84")
@@ -64,12 +67,15 @@ public class TypicalProducts {
             .withPrice(VALID_PRICE_WATCH)
             .withQuantity(VALID_QUANTITY_WATCH)
             .withMoney(VALID_SALES_WATCH)
+            .withThreshold(VALID_THRESHOLD_WATCH)
             .build();
     public static final Product BAG = new ProductBuilder(BAG_ID)
             .withDescription(VALID_DESCRIPTION_BAG)
             .withCostPrice(VALID_COSTPRICE_BAG)
             .withPrice(VALID_PRICE_BAG)
             .withQuantity(VALID_QUANTITY_BAG)
+            .withMoney(VALID_SALES_BAG)
+            .withThreshold(VALID_THRESHOLD_BAG)
             .build();
 
     public static final String KEYWORD_MATCHING_BEIGE = "Beige"; // A keyword that matches MEIER

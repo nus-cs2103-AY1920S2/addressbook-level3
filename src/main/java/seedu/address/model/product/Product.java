@@ -30,13 +30,12 @@ public class Product {
 
     private QuantityThreshold threshold;
     private double progress;
-    private int amountSoldCounter;
 
     /**
      * Every field must be present and not null.
      */
     public Product(Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money money, QuantityThreshold threshold, double progress, int count) {
+                   Money money, QuantityThreshold threshold, double progress) {
         requireAllNonNull(description, costPrice, price, quantity);
         this.id = UUID.randomUUID();
         this.description = description;
@@ -46,14 +45,13 @@ public class Product {
         this.money = money;
         this.threshold = threshold;
         this.progress = progress;
-        updateQuantitySold();
     }
 
     /**
      * Every field must be present and not null.
      */
     public Product(UUID id, Description description, CostPrice costPrice, Price price, Quantity quantity,
-                   Money money, QuantityThreshold threshold, double progress, int count) {
+                   Money money, QuantityThreshold threshold, double progress) {
         requireAllNonNull(id, description, costPrice, price, quantity);
         this.id = id;
         this.description = description;
@@ -63,7 +61,6 @@ public class Product {
         this.money = money;
         this.threshold = threshold;
         this.progress = progress;
-        updateQuantitySold();
     }
 
     public UUID getId() {
@@ -106,12 +103,18 @@ public class Product {
         this.progress = progress;
     }
 
-    public void updateQuantitySold() {
-        this.amountSoldCounter = getMoney().value / Integer.parseInt(getPrice().value);
-    }
+    public int getQuantitySold(List<Transaction> transactions) {
+        int count = 0;
 
-    public int getQuantitySold() {
-        return amountSoldCounter;
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+
+            if (transaction.getProduct().equals(this)) {
+                int quantity = transaction.getQuantity().value;
+                count += quantity;
+            }
+        }
+        return count;
     }
 
     public int getProfit(List<Transaction> transactions) {

@@ -100,7 +100,6 @@ public class AddTransactionCommand extends Command {
         if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
-        editedProduct.updateQuantitySold();
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
