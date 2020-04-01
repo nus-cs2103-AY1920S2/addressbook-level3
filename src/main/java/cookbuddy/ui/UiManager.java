@@ -1,5 +1,6 @@
 package cookbuddy.ui;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 import cookbuddy.MainApp;
@@ -51,7 +52,7 @@ public class UiManager implements Ui {
         }
     }
 
-    public static void changeRecipe(Recipe e) {
+    public static void changeRecipe(Recipe e) throws FileNotFoundException {
         mainWindow.defaultFill(e);
     }
 

@@ -2,6 +2,7 @@ package cookbuddy.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import cookbuddy.commons.core.Messages;
@@ -45,7 +46,11 @@ public class ViewCommand extends Command {
         }
 
         Recipe recipeToView = lastShownList.get(targetIndex.getZeroBased());
-        UiManager.changeRecipe(recipeToView);
+        try {
+            UiManager.changeRecipe(recipeToView);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return new CommandResult(String.format(MESSAGE_VIEW_RECIPE_SUCCESS, recipeToView.getName()));
     }
 
