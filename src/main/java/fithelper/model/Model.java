@@ -203,6 +203,8 @@ public interface Model {
     void setCalendarMode(String mode);
     String getCalendarMode();
 
+    void setCalendarShow(String show);
+    LocalDateTime getCalendarShow();
 
     // Methods about user profile.
 

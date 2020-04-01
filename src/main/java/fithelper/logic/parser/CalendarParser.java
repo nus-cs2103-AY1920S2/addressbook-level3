@@ -2,6 +2,8 @@ package fithelper.logic.parser;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_MODE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SHOW;
+
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
@@ -23,6 +25,9 @@ public class CalendarParser {
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
             calendarCommand.setMode(argMultimap.getValue(PREFIX_MODE).get());
         }
+        if (argMultimap.getValue(PREFIX_SHOW).isPresent()) {
+            calendarCommand.setShow(argMultimap.getValue(PREFIX_SHOW).get());
+        }
         return calendarCommand;
     }
 
@@ -34,7 +39,7 @@ public class CalendarParser {
     public CalendarCommand parse(String args) {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer
-                .tokenize(args, PREFIX_DATE, PREFIX_MODE);
+                .tokenize(args, PREFIX_DATE, PREFIX_MODE, PREFIX_SHOW);
         if (argMultimap.getValue(PREFIX_DATE).isPresent() && argMultimap.getValue(PREFIX_MODE).isPresent()) {
             return calendarCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

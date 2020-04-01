@@ -1,6 +1,6 @@
 package fithelper.ui.calendar;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import fithelper.model.calculator.CalorieCalculator;
 import fithelper.model.entry.Entry;
@@ -12,14 +12,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * A section which displays entries of a day.
  */
-public class DayCard extends UiPart<AnchorPane> {
-    private static final String FXML = "DayCard.fxml";
+public class DayCardWithStage extends UiPart<Stage> {
+    private static final String FXML = "DayCardWithStage.fxml";
     private ObservableList<Entry> entries;
     private CalorieCalculator stats;
 
@@ -32,10 +32,20 @@ public class DayCard extends UiPart<AnchorPane> {
     @FXML
     private ListView<Entry> listView;
 
-    public DayCard(ObservableList<Entry> entriesToSet, LocalDateTime dateToSet) {
+    public DayCardWithStage(Stage root) {
+        super(FXML, root);
+    }
+    /**
+     * Creates a new DayPage.
+     */
+    public DayCardWithStage() {
+        this(new Stage());
+    }
+
+    public DayCardWithStage(ObservableList<Entry> entriesToSet, LocalDate dateToSet) {
         super(FXML);
-        LocalDateTime time = dateToSet;
-        dayTitle.setText(time.toLocalDate().toString());
+        LocalDate time = dateToSet;
+        dayTitle.setText(time.toString());
         entries = FXCollections.observableArrayList();
         entries = entriesToSet;
         getGenerator();

@@ -13,51 +13,40 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * Display two calendars.
  */
-public class CalendarPanel extends UiPart<AnchorPane> {
-    private static final String FXML = "CalendarPanel.fxml";
+public class ListPanel extends UiPart<AnchorPane> {
+    private static final String FXML = "ListPanel.fxml";
     private ObservableList<Entry> foodList;
     private ObservableList<Entry> sportList;
-    private final CalendarPage calendarPage;
     private DaysCard daysPage;
     private MonthView monthView;
-    private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private CalorieCalculatorByDateRange stats;
+    private DailyStatusList dailyStatusList;
 
-    @FXML
-    private StackPane calendarPagePlaceholder;
 
     @FXML
     private AnchorPane monthViewPlaceholder;
 
     @FXML
-    private StackPane upcomingListPlaceholder;
-
-    @FXML
     private AnchorPane daysPagePlaceholder;
 
+    @FXML
+    private StackPane dailyStatusListPlaceholder;
 
     /**
      * Creates a calendar page displaying two components from {@code }.
      */
-    public CalendarPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList,
-                         ObservableList<VEvent> events) {
+    public ListPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         super(FXML);
         this.foodList = foodList;
         this.sportList = sportList;
         logger.info("Initializing Calendar Page");
-        calendarPage = new CalendarPage(events);
         daysPage = new DaysCard(foodList, sportList, LocalDateTime.now());
         set(LocalDateTime.now());
-    }
-
-    public void updateScheduler() {
-        calendarPage.updateScheduler();
     }
 
     // set date reference based on parameter date
@@ -66,14 +55,12 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         monthView = new MonthView(date, stats, foodList, sportList);
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
-        upcomingList = new UpcomingList(foodList, sportList, date);
-        upcomingListPlaceholder.getChildren().clear();
-        upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         daysPagePlaceholder.getChildren().clear();
-        calendarPage.setDate(date);
-        calendarPage.updateScheduler();
-        calendarPagePlaceholder.getChildren().clear();
-        calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
+        daysPage = new DaysCard(foodList, sportList, date);
+        daysPagePlaceholder.getChildren().add(daysPage.getRoot());
+        dailyStatusListPlaceholder.getChildren().clear();
+        dailyStatusList = new DailyStatusList(foodList, sportList, date);
+        dailyStatusListPlaceholder.getChildren().add(dailyStatusList.getRoot());
     }
 
     public void getGenerator(LocalDateTime date) {

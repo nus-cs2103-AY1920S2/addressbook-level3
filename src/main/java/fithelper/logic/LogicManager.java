@@ -148,5 +148,10 @@ public class LogicManager implements Logic {
         return model.getCalendarMode();
     }
 
+    @Override
+    public LocalDateTime getCalendarShow() {
+        return model.getCalendarShow();
+    }
+
 }
 

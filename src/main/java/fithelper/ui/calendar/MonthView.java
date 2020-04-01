@@ -6,12 +6,16 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 
 import fithelper.model.calculator.CalorieCalculatorByDateRange;
+import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -22,7 +26,10 @@ public class MonthView extends UiPart<AnchorPane> {
     private static final String FXML = "MonthView.fxml";
     private ArrayList<DayNode> allCalendarDays;
     private AnchorPane view;
+    private ObservableList<Entry> foodList;
+    private ObservableList<Entry> sportsList;
     private YearMonth currentYearMonth;
+    private CalorieCalculatorByDateRange stats;
 
     @FXML
     private Label monthYearTitle;
@@ -30,19 +37,20 @@ public class MonthView extends UiPart<AnchorPane> {
     /**
      * Create a calendar view
      */
-    public MonthView(LocalDateTime dateToSet, CalorieCalculatorByDateRange stats) {
+    public MonthView(LocalDateTime dateToSet, CalorieCalculatorByDateRange stats,
+                     ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
         super(FXML);
         currentYearMonth = YearMonth.from(dateToSet);
+        this.stats = stats;
+        this.foodList = foodList;
+        this.sportsList = sportsList;
+        this.monthYearTitle = monthYearTitle;
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
         view = new AnchorPane();
         calendar.setPrefSize(60, 40);
         calendar.setGridLinesVisible(false);
         allCalendarDays = new ArrayList<>(42);
-        Label monthYearTitle = new Label();
-        monthYearTitle.setText(currentYearMonth.getMonth().toString() + " "
-                + String.valueOf(currentYearMonth.getYear()));
-
         // Days of the week labels
         Text[] dayNames = new Text[]{new Text("S"), new Text("M"), new Text("T"),
             new Text("W"), new Text("T"), new Text("F"), new Text("S")};
@@ -50,7 +58,7 @@ public class MonthView extends UiPart<AnchorPane> {
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                DayNode ap = new DayNode();
+                DayNode ap = new DayNode(foodList, sportsList);
                 ap.setPrefSize(20, 20);
                 ap.setStyle("-fx-border-color:white;");
                 calendar.add(ap, j, i);
@@ -63,14 +71,17 @@ public class MonthView extends UiPart<AnchorPane> {
                     allCalendarDays.add(ap);
                 }
             }
-            // Populate calendar with the appropriate day numbers
+            Button previousMonth = new Button("<<");
+            previousMonth.setOnAction(e -> previousMonth());
+            Button nextMonth = new Button(">>");
+            nextMonth.setOnAction(e -> nextMonth());
             populateCalendar(currentYearMonth, stats);
-            // Create the calendar view
-            AnchorPane.setTopAnchor(monthYearTitle, 0.0);
-            AnchorPane.setLeftAnchor(monthYearTitle, 10.0);
+            HBox titleBar = new HBox(previousMonth, monthYearTitle, nextMonth);
+            AnchorPane.setTopAnchor(titleBar, 0.0);
+            AnchorPane.setLeftAnchor(titleBar, 10.0);
             AnchorPane.setTopAnchor(calendar, 20.0);
             monthYearTitle.setTextFill(Color.web("#789cce"));
-            view = new AnchorPane(monthYearTitle, calendar);
+            view = new AnchorPane(titleBar, calendar);
         }
     }
 
@@ -108,9 +119,35 @@ public class MonthView extends UiPart<AnchorPane> {
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
         }
+        monthYearTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));
+    }
+
+    /**
+     * Move the month back by one. Repopulate the calendar with the correct dates.
+     */
+    private void previousMonth() {
+        currentYearMonth = currentYearMonth.minusMonths(1);
+        getGenerator(currentYearMonth.atDay(1));
+        populateCalendar(currentYearMonth, stats);
+    }
+
+    /**
+     * Move the month forward by one. Repopulate the calendar with the correct dates.
+     */
+    private void nextMonth() {
+        currentYearMonth = currentYearMonth.plusMonths(1);
+        getGenerator(currentYearMonth.atDay(1));
+        populateCalendar(currentYearMonth, stats);
     }
 
     public AnchorPane getView() {
         return view;
+    }
+
+    public void getGenerator(LocalDate date) {
+        LocalDate givenDate = date;
+        LocalDate start = givenDate.withDayOfMonth(1);
+        LocalDate end = givenDate.withDayOfMonth(givenDate.lengthOfMonth());
+        stats = new CalorieCalculatorByDateRange(foodList, sportsList, start, end);
     }
 }

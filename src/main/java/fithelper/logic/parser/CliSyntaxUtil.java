@@ -20,6 +20,7 @@ public class CliSyntaxUtil {
     public static final Prefix PREFIX_MODE = new Prefix("m/");
     public static final Prefix PREFIX_DIARYCONTENT = new Prefix("dc/");
     public static final Prefix PREFIX_DURATION = new Prefix("dr/");
+    public static final Prefix PREFIX_SHOW = new Prefix("sh/");
 
     public static final Prefix PREFIX_ATTRIBUTE = new Prefix("attr/");
     public static final Prefix PREFIX_VALUE = new Prefix("v/");

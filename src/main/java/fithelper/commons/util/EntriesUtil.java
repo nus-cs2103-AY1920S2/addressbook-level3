@@ -49,5 +49,24 @@ public class EntriesUtil {
         }
         return entriesByDate;
     }
+
+    /**
+     * Return a list of all entries of a particular date
+     */
+    public static ObservableList<Entry> getEntries(ObservableList<Entry>foodList,
+                                                   ObservableList<Entry>sportsList, LocalDate date) {
+        ObservableList<Entry> temp = FXCollections.observableArrayList();;
+        for (Entry entry: foodList) {
+            if (entry.getDate().equals(date)) {
+                temp.add(entry);
+            }
+        }
+        for (Entry entry: sportsList) {
+            if (entry.getDate().equals(date)) {
+                temp.add(entry);
+            }
+        }
+        return temp;
+    }
 }
 
