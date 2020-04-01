@@ -29,7 +29,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_PIZZA = "Pepperoni Pizza";
     public static final String VALID_NAME_AIRPODS = "Apple Airpods";
     public static final String VALID_AMOUNT_PIZZA = "23.00";
-    public static final String VALID_AMOUNT_AIRPODS = "188";
+    public static final String VALID_AMOUNT_AIRPODS = "188.00";
     public static final String VALID_DATE_PIZZA = "2020-02-03";
     public static final String VALID_DATE_AIRPODS = "2020-02-19";
     public static final String VALID_REMARK_PIZZA = "Treat myself";
