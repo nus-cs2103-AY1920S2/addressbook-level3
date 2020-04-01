@@ -28,7 +28,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
     public ModuleListPanel(ObservableList<Module> moduleList) {
         super(FXML);
-        if(!moduleList.isEmpty()) {
+        if (!moduleList.isEmpty()) {
             noModules.setManaged(false);
         }
         moduleListView.setItems(moduleList);

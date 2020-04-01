@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.layout.HBox?>
 <HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-        <children>
-            <PieChart fx:id="pieChart" layoutX="50.0" visible="true" title="Overall Statistics"
-                      styleClass="cell_big_label"/>
-            <BarChart fx:id="barChart">
-                <xAxis>
-                    <CategoryAxis fx:id="xAxis" side="BOTTOM" label="Modules" />
-                </xAxis>
-                <yAxis>
-                    <NumberAxis fx:id="yAxis" side="LEFT" label="Activities"/>
-                </yAxis>
-            </BarChart>
-        </children>
+    <PieChart fx:id="pieChart" layoutX="50.0" title="Overall Statistics"
+              styleClass="cell_big_label"/>
+    <BarChart fx:id="barChart">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" side="BOTTOM" label="Modules"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT" label="Activities"/>
+        </yAxis>
+    </BarChart>
 </HBox>
 

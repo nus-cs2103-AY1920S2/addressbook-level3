@@ -5,7 +5,6 @@ import static nasa.commons.util.AppUtil.checkArgument;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Represents the official name of the module.

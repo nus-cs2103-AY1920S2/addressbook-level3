@@ -68,7 +68,7 @@ public class MainWindow extends UiPart<Stage> {
                 try {
                     executeCommand("redo");
                 } catch (ParseException | CommandException e) {
-
+                    logger.info("Invalid command.");
                 }
                 //Overriding default undo
             } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
@@ -76,7 +76,7 @@ public class MainWindow extends UiPart<Stage> {
                 try {
                     executeCommand("undo");
                 } catch (ParseException | CommandException e) {
-
+                    logger.info("Invalid command");
                 }
             } else if (event.getCode() == KeyCode.TAB) {
                 tabPanel.next();

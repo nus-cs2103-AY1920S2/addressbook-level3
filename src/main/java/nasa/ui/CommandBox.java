@@ -3,9 +3,7 @@ package nasa.ui;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Objects;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -27,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private final List<String> commandHistory;
-    private ListIterator<String> commandHistoryIterator;;
+    private ListIterator<String> commandHistoryIterator;
 
     @FXML
     private TextField commandTextField;
@@ -35,7 +33,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        commandHistory = new LinkedList<String>();
+        commandHistory = new LinkedList<>();
         commandHistoryIterator = commandHistory.listIterator();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -54,37 +52,27 @@ public class CommandBox extends UiPart<Region> {
         });
         //Controls to view command history
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
-                switch (key.getCode()) {
-                    case UP:
-                        if (commandHistoryIterator.hasPrevious()) {
-                            commandTextField.setText(commandHistoryIterator.previous());
-                        }
-                        break;
-                    case DOWN:
-                        if (commandHistoryIterator.hasNext()) {
-                            commandTextField.setText(commandHistoryIterator.next());
-                        }
-                        break;
-                    case H:
-                        if (key.isControlDown()) {
-                            commandTextField.setText("help");
-                            handleCommandEntered();
-                        }
-                        break;
-                    default:
-                        break;
-
+            switch (key.getCode()) {
+            case UP:
+                if (commandHistoryIterator.hasPrevious()) {
+                    commandTextField.setText(commandHistoryIterator.previous());
                 }
+                break;
+            case DOWN:
+                if (commandHistoryIterator.hasNext()) {
+                    commandTextField.setText(commandHistoryIterator.next());
+                }
+                break;
+            case H:
+                if (key.isControlDown()) {
+                    commandTextField.setText("help");
+                    handleCommandEntered();
+                }
+                break;
+            default:
+                break;
+            }
         });
-    }
-    public static void runSafe(final Runnable runnable) {
-        Objects.requireNonNull(runnable, "runnable");
-        if (Platform.isFxApplicationThread()) {
-            runnable.run();
-        }
-        else {
-            Platform.runLater(runnable);
-        }
     }
 
     /**

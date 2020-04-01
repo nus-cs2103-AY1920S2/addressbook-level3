@@ -2,7 +2,6 @@
 
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,56 +9,44 @@
 <?import javafx.scene.layout.StackPane?>
 <AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
             AnchorPane.bottomAnchor="0.0">
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-         minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
-         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-         AnchorPane.bottomAnchor="0.0">
-    <tabs>
-        <Tab text="Modules">
-            <content>
+    <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
+             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+             AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.bottomAnchor="0.0">
+            <Tab text="Modules">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <HBox fx:id="moduleList" styleClass="pane-with-border" minWidth="340" prefWidth="500" prefHeight="1000"
-                              AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.bottomAnchor="0.0" alignment="CENTER" >
-                            <padding>
-                                <Insets top="10" right="10" bottom="10" left="10" />
-                            </padding>
-                            <StackPane fx:id="moduleListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
-                        </HBox>
-                    </children>
-                </AnchorPane>
-            </content>
-        </Tab>
-        <Tab text="Calendar">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <StackPane fx:id="calendarPlaceholder" styleClass="pane-with-border" prefHeight="545.0"
-                                   prefWidth="1001.0"
-                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </Tab>
-        <Tab text="Statistics">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <HBox fx:id="statisticsList" styleClass="transparent-pane" minWidth="340" prefWidth="500"
-                              prefHeight="1000"
-                              AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.bottomAnchor="0.0">
+                    <HBox fx:id="moduleList" styleClass="pane-with-border" minWidth="340" prefWidth="500"
+                          prefHeight="1000"
+                          AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.bottomAnchor="0.0" alignment="CENTER">
                         <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <StackPane fx:id="moduleListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Calendar">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <StackPane fx:id="calendarPlaceholder" styleClass="pane-with-border" prefHeight="545.0"
+                               prefWidth="1001.0"
+                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                               AnchorPane.topAnchor="0.0"/>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Statistics">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <HBox fx:id="statisticsList" styleClass="transparent-pane" minWidth="340" prefWidth="500"
+                          prefHeight="1000"
+                          AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.bottomAnchor="0.0">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
                         <StackPane fx:id="statisticsPanelPlaceholder" HBox.hgrow="ALWAYS"/>
-                        </HBox>
-                    </children>
+                    </HBox>
                 </AnchorPane>
-            </content>
-        </Tab>
-    </tabs>
-</TabPane>
+            </Tab>
+    </TabPane>
 </AnchorPane>
