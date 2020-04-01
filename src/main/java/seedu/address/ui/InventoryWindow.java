@@ -61,8 +61,7 @@ public class InventoryWindow extends UiPart<Stage> {
         XYChart.Series dataSeries = new XYChart.Series();
         HashMap<Integer, Integer> allProductQuantities = new HashMap<>();
 
-        products.forEach(p ->
-        {
+        products.forEach(p -> {
             if (allProductQuantities.containsKey(p.getQuantity().value)) {
                 int oldValue = allProductQuantities.get(p.getQuantity().value);
                 allProductQuantities.put(p.getQuantity().value, oldValue + 1);
@@ -87,8 +86,7 @@ public class InventoryWindow extends UiPart<Stage> {
         XYChart.Series dataSeries = new XYChart.Series();
         HashMap<Integer, Integer> allProductSales = new HashMap<>();
 
-        products.forEach(p ->
-        {
+        products.forEach(p -> {
             if (allProductSales.containsKey(p.getMoney().value)) {
                 int oldValue = allProductSales.get(p.getMoney().value);
                 allProductSales.put(p.getMoney().value, oldValue + 1);
