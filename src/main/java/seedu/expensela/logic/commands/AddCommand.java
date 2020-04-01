@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.expensela.logic.parser.CliSyntax.*;
 
 import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.Transaction;
 
@@ -46,7 +47,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        model.setFilter(new Filter(null, null));
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }

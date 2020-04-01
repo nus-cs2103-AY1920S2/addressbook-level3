@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private TransactionListPanel transactionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ChartAnalyticsPanel chartAnalyticsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -47,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane monthlyDataPlaceholder;
 
     @FXML
-    private StackPane transactionListPanelPlaceholder;
+    private StackPane transactionListAndChartAnalyticsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -117,7 +118,8 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData(), logic.getTotalBalance());
-        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+        chartAnalyticsPanel = new ChartAnalyticsPanel(logic.getFilteredTransactionList());
+        transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
         monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
 
         filterPanel = new FilterPanel(logic.getFilter()); // instantiate filterPanel
@@ -189,7 +191,22 @@ public class MainWindow extends UiPart<Stage> {
             monthlyDataPlaceholder.getChildren().clear();
             monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData(), logic.getTotalBalance());
             monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
+
+            transactionListAndChartAnalyticsPanelPlaceholder.getChildren().clear();
+            if (logic.getToggleView().getIsViewList()) {
+                transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
+                transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+            } else {
+                chartAnalyticsPanel = new ChartAnalyticsPanel(logic.getFilteredTransactionList());
+                transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(chartAnalyticsPanel.getRoot());
+            }
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // updating filterPanel
+            filterPanelPlaceholder.getChildren().clear();
+            filterPanel = new FilterPanel(logic.getFilter());
+            filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

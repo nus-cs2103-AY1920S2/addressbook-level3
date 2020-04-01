@@ -15,7 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.expensela.commons.core.GuiSettings;
-import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
+import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.testutil.ExpenseLaBuilder;
 import seedu.expensela.testutil.MonthlyDataBuilder;
 
@@ -119,13 +120,12 @@ public class ModelManagerTest {
         // different expenseLa -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentExpenseLa, userPrefs)));
 
-        // different filteredList -> returns false
-        String[] keywords = PIZZA.getName().transactionName.split("\\s+");
-        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredTransactionList(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
+                new DateEqualsKeywordPredicate(Arrays.asList("all")));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

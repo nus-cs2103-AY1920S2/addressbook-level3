@@ -16,4 +16,8 @@ public interface ReadOnlyExpenseLa {
     ObservableList<Transaction> getTransactionList();
 
     MonthlyData getMonthlyData();
+
+    ToggleView getToggleView();
+
+    Filter getFilter();
 }

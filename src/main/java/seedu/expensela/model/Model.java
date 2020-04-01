@@ -85,7 +85,7 @@ public interface Model {
      * Updates the filter of the unfiltered transaction list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+    void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2);
 
     /** Returns a view of monthly data object */
     MonthlyData getMonthlyData();
@@ -94,6 +94,14 @@ public interface Model {
     void setMonthlyData(MonthlyData monthlyData);
 
     Filter getFilter();
+
+    void setFilter(Filter filter);
+
+    /** Returns a view of toggle list or chart object */
+    ToggleView getToggleView();
+
+    /** Flips the switch of toggle list or chart object */
+    void switchToggleView();
 
     /**
      * Get Total balance of the user.

@@ -14,6 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_BUDGET = new Prefix("b/");
     public static final Prefix PREFIX_RECURRING = new Prefix("rc/");
     public static final Prefix PREFIX_INCOME = new Prefix("i/");
-
+    public static final Prefix PREFIX_MONTH = new Prefix("m/");
 
 }

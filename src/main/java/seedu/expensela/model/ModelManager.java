@@ -40,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         filter = this.expenseLa.getFilter();
+        updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
     public ModelManager() {
@@ -105,7 +106,7 @@ public class ModelManager implements Model {
         boolean positive = target.getAmount().positive;
         double amount = target.getAmount().transactionAmount;
         updateMonthlyData(positive, amount * (-1));
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class ModelManager implements Model {
         boolean positive = transaction.getAmount().positive;
         double amount = transaction.getAmount().transactionAmount;
         updateMonthlyData(positive, amount);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     /**
@@ -163,10 +164,23 @@ public class ModelManager implements Model {
         return unfilteredTransactions;
     }
 
+    /**
+    * Applies setPredicate(predicate) to 2 different filteredLists and then making unfilteredTransactions
+     * a filteredList containing the elements list 1 and 2 have in common.
+     */
     @Override
-    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
-        requireNonNull(predicate);
-        unfilteredTransactions.setPredicate(predicate);
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2) {
+        if (predicate1 != null && predicate2 != null) {
+            Predicate<Transaction> predicate = predicate1.and(predicate2);
+            unfilteredTransactions.setPredicate(predicate);
+        } else if (predicate1 != null && predicate2 == null) {
+            unfilteredTransactions.setPredicate(predicate1);
+        } else if (predicate1 == null && predicate2 != null) {
+            unfilteredTransactions.setPredicate(predicate2);
+        } else {
+            throw new NullPointerException();
+        }
+
     }
 
 
@@ -212,6 +226,15 @@ public class ModelManager implements Model {
         return filter;
     }
 
+    /**
+     * Update filter object
+     */
+    @Override
+    public void setFilter(Filter filter) {
+        expenseLa.setFilter(filter);
+        updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
+    }
+
     @Override
     public Double getTotalBalance() {
         return userPrefs.getTotalBalance();
@@ -221,5 +244,19 @@ public class ModelManager implements Model {
     public void updateTotalBalance(Double balance) {
         userPrefs.setTotalBalance(balance);
         System.out.println(userPrefs.getTotalBalance());
+    }
+
+    //=========== Monthly Data Accessors =============================================================
+    /**
+     * Returns toggle list or chart object
+     */
+    @Override
+    public ToggleView getToggleView() {
+        return this.expenseLa.getToggleView();
+    }
+
+    @Override
+    public void switchToggleView() {
+        expenseLa.switchToggleView();
     }
 }

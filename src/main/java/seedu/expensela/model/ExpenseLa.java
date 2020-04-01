@@ -2,10 +2,13 @@ package seedu.expensela.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.expensela.model.monthlydata.MonthlyData;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.TransactionList;
 
@@ -17,6 +20,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     private final Filter filter;
     private final MonthlyData monthlyData;
     private final TransactionList transactions;
+    private final ToggleView toggleView;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,9 +30,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      *   among constructors.
      */
     {
-        filter = new Filter(null, null);
+        String date = LocalDate.now().toString().substring(0, 7);
+        filter = new Filter(null, new DateEqualsKeywordPredicate(Arrays.asList(date)));
         monthlyData = new MonthlyData(null, null, null, null);
         transactions = new TransactionList();
+        toggleView = new ToggleView();
     }
 
     public ExpenseLa() {}
@@ -57,6 +63,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         this.monthlyData.setIncome(monthlyData.getIncome());
     }
 
+    public void setFilter(Filter filter) {
+        this.filter.setFilterCategoryName(filter.getCategoryNamePredicate());
+        this.filter.setDateMonth(filter.getDateMonthPredicate());
+    }
+
     /**
      * Resets the existing data of this {@code ExpenseLa} with {@code newData}.
      */
@@ -65,6 +76,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
 
         setTransactions(newData.getTransactionList());
         setMonthlyData(newData.getMonthlyData());
+        setFilter(newData.getFilter());
     }
 
     //// transaction-level operations
@@ -105,6 +117,10 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         transactions.remove(key);
     }
 
+    public void switchToggleView() {
+        toggleView.switchIsViewList();
+    }
+
     //// util methods
 
     @Override
@@ -123,6 +139,10 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         return this.monthlyData;
     }
 
+    @Override
+    public ToggleView getToggleView() {
+        return this.toggleView;
+    }
 
     public Filter getFilter() {
         return this.filter;

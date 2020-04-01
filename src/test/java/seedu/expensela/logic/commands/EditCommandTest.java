@@ -42,8 +42,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

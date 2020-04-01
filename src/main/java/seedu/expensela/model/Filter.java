@@ -1,33 +1,79 @@
 package seedu.expensela.model;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
+import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
+import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Filter class to handle category and date filter
  */
 public class Filter {
 
-    private String categoryName;
-    private LocalDate dateMonth;
+    private Predicate<Transaction> categoryName;
+    private Predicate<Transaction> dateMonth;
 
-    public Filter(String categoryName, LocalDate dateMonth) {
-        this.categoryName = categoryName;
-        this.dateMonth = dateMonth;
+    public Filter(Predicate<Transaction> categoryName, Predicate<Transaction> dateMonth) {
+        if (categoryName == null) {
+            this.categoryName = new CategoryEqualsKeywordPredicate(Arrays.asList("all"));
+        } else {
+            this.categoryName = categoryName;
+        }
+        if (dateMonth == null) {
+            this.dateMonth = new DateEqualsKeywordPredicate(Arrays.asList("all"));
+        } else {
+            this.dateMonth = dateMonth;
+        }
     }
 
     public String getFilterCategoryName() {
-        return this.categoryName;
+        if (this.categoryName == null) {
+            return "all";
+        } else {
+            return this.categoryName.toString();
+        }
     }
 
-    public void setFilterCategoryName(String categoryName) {
+    public Predicate<Transaction> getCategoryNamePredicate() {
+        return categoryName;
+    }
+
+    public Predicate<Transaction> getDateMonthPredicate() {
+        return dateMonth;
+    }
+
+    public void setFilterCategoryName(Predicate<Transaction> categoryName) {
         this.categoryName = categoryName;
     }
 
-    public LocalDate getDateMonth() {
-        return this.dateMonth;
+    public String getDateMonth() {
+        if (this.dateMonth == null) {
+            return "all";
+        } else {
+            return this.dateMonth.toString();
+        }
     }
 
-    public void setDateMonth(LocalDate dateMonth) {
+    public void setDateMonth(Predicate<Transaction> dateMonth) {
         this.dateMonth = dateMonth;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Filter)) {
+            return false;
+        }
+        return ((Filter) other).categoryName.equals(this.categoryName)
+                && ((Filter) other).dateMonth.equals(this.dateMonth);
+    }
+
+    @Override
+    public String toString() {
+        return "Category filter: " + categoryName.toString() + "\n Date filter: " + dateMonth;
     }
 }

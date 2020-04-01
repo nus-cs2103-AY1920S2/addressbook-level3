@@ -377,3 +377,16 @@
     -fx-text-fill: white;
     -fx-font-size: 13;
 }
+
+.filter-label-left {
+     -fx-text-fill: white;
+     -fx-font-size: 13;
+     -fx-padding: 0 0 0 10
+ }
+
+.filter-label-right {
+     padding-right: 50px;
+     -fx-text-fill: white;
+     -fx-font-size: 13;
+     -fx-padding: 0 10 0 0
+}

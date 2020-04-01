@@ -104,7 +104,7 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoTransaction(Model model) {
-        model.updateFilteredTransactionList(p -> false);
+        model.updateFilteredTransactionList(p -> false, null);
 
         assertTrue(model.getFilteredTransactionList().isEmpty());
     }

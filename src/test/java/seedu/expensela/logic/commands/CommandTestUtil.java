@@ -122,7 +122,7 @@ public class CommandTestUtil {
 
         Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
         final String[] splitName = transaction.getName().transactionName.split("\\s+");
-        model.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])), null);
 
         assertEquals(1, model.getFilteredTransactionList().size());
     }

@@ -3,6 +3,7 @@ package seedu.expensela.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.expensela.commons.core.Messages;
+import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 
@@ -28,15 +29,11 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredTransactionList(predicate);
-
-        if (model.getFilteredTransactionList().size() == 0) {
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_WORD_NOT_FOUND, model.getFilteredTransactionList().size()));
-        } else {
-            return new CommandResult(
+        model.setFilter(new Filter(null, null));
+        model.updateFilteredTransactionList(predicate, null);
+        return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
-        }
+
     }
 
     @Override

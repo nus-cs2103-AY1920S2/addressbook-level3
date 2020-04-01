@@ -15,6 +15,7 @@ import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.ToggleView;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.storage.Storage;
@@ -71,6 +72,16 @@ public class LogicManager implements Logic {
     @Override
     public Filter getFilter() {
         return model.getFilter();
+    }
+
+    @Override
+    public void setFilter(Filter filter) {
+        model.setFilter(filter);
+    }
+
+    @Override
+    public ToggleView getToggleView() {
+        return model.getToggleView();
     }
 
     @Override

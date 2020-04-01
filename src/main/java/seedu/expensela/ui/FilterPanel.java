@@ -26,9 +26,8 @@ public class FilterPanel extends UiPart<Region> {
     public FilterPanel(Filter filter) {
         super(FXML);
         this.filter = filter;
-        filterTypeLabel.setText("Category: All");
-        filterNameLabel.setText("Date: All");
+        filterTypeLabel.setText("Category: " + filter.getFilterCategoryName());
+        filterNameLabel.setText("Month: " + filter.getDateMonth());
     }
-
 }
 

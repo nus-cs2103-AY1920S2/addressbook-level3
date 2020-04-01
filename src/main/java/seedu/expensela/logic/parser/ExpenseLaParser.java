@@ -18,6 +18,7 @@ import seedu.expensela.logic.commands.FindCommand;
 import seedu.expensela.logic.commands.HelpCommand;
 import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.commands.ResetBalanceCommand;
+import seedu.expensela.logic.commands.ToggleCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**
@@ -79,6 +80,9 @@ public class ExpenseLaParser {
 
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
+
+        case ToggleCommand.COMMAND_WORD:
+            return new ToggleCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
