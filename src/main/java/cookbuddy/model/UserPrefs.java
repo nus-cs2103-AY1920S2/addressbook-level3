@@ -14,7 +14,8 @@ import cookbuddy.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path recipeBookFilePath = Paths.get("data" , "recipebook.json");
+    private Path dataFilePath = Paths.get("data" , "recipebook.json");
+    private Path recipeImagePath = Paths.get("data", "recipes");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,8 +36,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setRecipeBookFilePath(newUserPrefs.getRecipeBookFilePath());
+        setDataFilePath(newUserPrefs.getDataFilePath());
+        setRecipeImagePath(newUserPrefs.getRecipeImagePath());
     }
+
 
     public GuiSettings getGuiSettings() {
         return guiSettings;
@@ -47,14 +50,25 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getRecipeBookFilePath() {
-        return recipeBookFilePath;
+    public Path getDataFilePath() {
+        return dataFilePath;
     }
 
-    public void setRecipeBookFilePath(Path recipeBookFilePath) {
-        requireNonNull(recipeBookFilePath);
-        this.recipeBookFilePath = recipeBookFilePath;
+    public void setDataFilePath(Path dataFilePath) {
+        requireNonNull(dataFilePath);
+        this.dataFilePath = dataFilePath;
     }
+
+    @Override
+    public Path getRecipeImagePath() {
+        return recipeImagePath;
+    }
+
+    public void setRecipeImagePath(Path recipeImagePath) {
+        requireNonNull(recipeImagePath);
+        this.recipeImagePath = recipeImagePath;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -68,19 +82,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-               && recipeBookFilePath.equals(o.recipeBookFilePath);
+               && dataFilePath.equals(o.dataFilePath)
+               && recipeImagePath.equals(o.recipeImagePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, recipeBookFilePath);
+        return Objects.hash(guiSettings, dataFilePath, recipeImagePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + recipeBookFilePath);
+        sb.append("\nLocal data file location : " + dataFilePath);
+        sb.append("\nRecipes image location : " + recipeImagePath);
         return sb.toString();
     }
 

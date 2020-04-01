@@ -67,7 +67,7 @@ Show an image of CookBuddy here.
 
    * `list` : lists all the recipes in the recipe book
 
-   * `new recipe n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate`:
+   * `new recipe n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate p/~/Downloads/chickenrice.jpg:`:
     adds a recipe named "Ham Sandwich" to *CookBuddy*.
 
    * `delete 3` : deletes the 3rd recipe shown in the current list
@@ -106,7 +106,7 @@ You can add a new recipe to *CookBuddy* using the `new` command.
 [NOTE]
 Parameters in *bold* indicate they are mandatory.
 
-Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [cal/CALORIES] [s/SERVING_SIZE]
+Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [p/PATH] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]`
 
 
@@ -115,6 +115,7 @@ Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ..
     * `n/` - *name*
     * `ing/` - *ingredients*
     * `ins/` - *instructions*
+	* `p/`   - path (absolute path of the image)
     * `cal/` - calories (in kcal)
     * `s/` - serving size (any number greater than 0)
     * `r/` - rating (scale of 0 to 5)
@@ -143,7 +144,7 @@ Example: You can type `delete 1` and *CookBuddy* will delete the recipe at index
 === Modifying a recipe — `modify`
 You can modify the attributes of an existing recipe in *CookBuddy* using the `modify` command.
 
-Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [cal/CALORIES] [s/SERVING_SIZE]
+Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [p/PATH] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]`
 
 ==== Modifying a recipe's ingredients
