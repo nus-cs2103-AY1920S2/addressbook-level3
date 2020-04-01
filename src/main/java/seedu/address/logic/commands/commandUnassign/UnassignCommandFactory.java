@@ -26,11 +26,11 @@ public class UnassignCommandFactory {
         if (AssignTeacherToCourseCommand.isValidDescriptor(assignDescriptor)) {
                 outputCommand = new AssignTeacherToCourseCommand(assignDescriptor);
             }
-        else if (AssignStudentToCourseCommand.isValidDescriptor(assignDescriptor)) {
-                outputCommand = new AssignStudentToCourseCommand(assignDescriptor);
+        else*/ if (AssignStudentToCourseCommand.isValidDescriptor(assignDescriptor)) {
+                outputCommand = new UnassignStudentFromCourseCommand(assignDescriptor);
             }
 
-        else */ if (AssignAssignmentToCourseCommand.isValidDescriptor(assignDescriptor)) {
+        else if (AssignAssignmentToCourseCommand.isValidDescriptor(assignDescriptor)) {
                 outputCommand = new UnassignAssignmentFromCourseCommand(assignDescriptor);
             }
         else {

@@ -608,6 +608,29 @@ public class ModelManager extends BaseManager implements Model {
 
   }
 
+  public void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Student foundStudent = getStudent(studentID);
+
+    foundCourse.removeStudent(studentID);
+    foundStudent.removeCourse(courseID);
+    foundCourse.processAssignedStudents(
+            (FilteredList<Student>) getFilteredStudentList());
+    foundStudent.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundStudent, foundStudent);
+    getAddressBook(foundStudent).set(foundStudent, foundStudent);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
+  }
+
+
 
   @Override
   public boolean equals(Object obj) {

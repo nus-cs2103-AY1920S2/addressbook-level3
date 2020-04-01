@@ -315,4 +315,6 @@ public interface Model {
     // ======================== FOR UNASSIGN COMMANDS ============================== //
 
     void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
+
+    void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
 }

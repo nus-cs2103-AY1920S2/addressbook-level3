@@ -133,6 +133,10 @@ public class Course extends ModelObject {
     this.assignedAssignmentsID.remove(assignmentID);
   }
 
+  public void removeStudent(ID studentID) {
+    this.assignedAssignmentsID.remove(studentID);
+  }
+
 
   public Set<ID> getAssignedAssignmentsID() {
     return Collections.unmodifiableSet(assignedAssignmentsID);
