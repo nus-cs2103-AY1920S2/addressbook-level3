@@ -24,6 +24,14 @@
     -fx-opacity: 1;
 }
 
+.no-modules {
+    -fx-color-label-visible: white;
+    -fx-font-size: 25px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 25px;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -39,9 +47,6 @@
     -fx-opacity: 0;
 }
 
-.tab-pane {
-    -fx-tab-min-width: 90px;
-}
 
 .tab {
     -fx-background-insets: 0 1 0 1,0,0;
@@ -67,6 +72,7 @@
     -fx-alignment: CENTER;
     -fx-text-fill: white;
 }
+
 
 .table-view {
     -fx-base: #000000;
@@ -201,6 +207,10 @@
     -fx-border-top-width: 1px;
     -fx-border-radius: 25;
     -fx-background-radius: 25;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
 }
 
 .status-bar {
@@ -433,3 +443,5 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+

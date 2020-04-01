@@ -1,6 +1,5 @@
 package nasa.ui;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -14,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
-import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;

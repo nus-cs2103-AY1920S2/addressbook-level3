@@ -2,13 +2,8 @@ package nasa.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Control;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.control.Tab;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -16,7 +11,6 @@ import javafx.scene.layout.StackPane;
 
 import nasa.commons.core.LogsCenter;
 import nasa.logic.Logic;
-import nasa.model.module.Module;
 
 /**
  * Tab for modules.
@@ -26,19 +20,32 @@ public class TabPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TabPanel.class);
 
     private ModuleListPanel moduleListPanel;
+    private StatisticsPanel statisticsPanel;
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
     @FXML
+    private StackPane statisticsPanelPlaceholder;
+    @FXML
     private HBox moduleList;
     @FXML
     private TabPane tabPane;
+    @FXML
+    private HBox statisticsList;
+    @FXML
+    private Label noModules;
 
 
     public TabPanel(Logic logic) {
         super(FXML);
+        if(!logic.getFilteredModuleList().isEmpty()) {
+            noModules.setManaged(false);
+        }
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());
+        statisticsPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        tabPane.setTabMinWidth(100);
     }
 
     public void next() {
