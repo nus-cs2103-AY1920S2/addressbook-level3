@@ -36,7 +36,8 @@ public class RecipeView extends UiPart<Region> {
     @FXML
     private ListView<Instruction> instructions;
 
-    public RecipeView(Recipe recipe, int displayedIndex) throws FileNotFoundException {
+
+    public RecipeView(Recipe recipe) throws FileNotFoundException {
         super(FXML);
         this.recipe = recipe;
 
@@ -63,5 +64,12 @@ public class RecipeView extends UiPart<Region> {
 
         this.recipeImage.setImage(wr);
 
+        this.ingredients.setStyle(".list-cell:empty {-fx-background-color: transparent;}");
+    }
+
+    public RecipeView() {
+        super(FXML);
+        this.recipe = null;
+        this.name.setText("Welcome to CookBuddy!");
     }
 }

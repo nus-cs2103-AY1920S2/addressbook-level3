@@ -119,7 +119,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws FileNotFoundException {
-        recipeView = new RecipeView(logic.getFilteredRecipeList().get(0), 1);
+        if (logic.getFilteredRecipeList().size() == 0) {
+            recipeView = new RecipeView();
+        } else {
+            recipeView = new RecipeView(logic.getFilteredRecipeList().get(0));
+        }
+
         this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
 
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());

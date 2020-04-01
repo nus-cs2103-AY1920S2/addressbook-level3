@@ -10,12 +10,14 @@ import cookbuddy.logic.commands.Command;
 import cookbuddy.logic.commands.CountCommand;
 import cookbuddy.logic.commands.DeleteCommand;
 import cookbuddy.logic.commands.ExitCommand;
+import cookbuddy.logic.commands.FavCommand;
 import cookbuddy.logic.commands.FindCommand;
 import cookbuddy.logic.commands.HelpCommand;
 import cookbuddy.logic.commands.ListCommand;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.logic.commands.ResetCommand;
+import cookbuddy.logic.commands.UnFavCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,6 +55,12 @@ public class RecipeBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case FavCommand.COMMAND_WORD:
+            return new FavCommandParser().parse(arguments);
+
+        case UnFavCommand.COMMAND_WORD:
+            return new UnFavCommandParser().parse(arguments);
 
         case ResetCommand.COMMAND_WORD:
             return new ResetCommand();

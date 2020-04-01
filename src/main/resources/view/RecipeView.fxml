@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <GridPane fx:id="recipeViewGrid" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0" />
@@ -21,7 +20,7 @@
     <RowConstraints minHeight="10.0" prefHeight="160.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <Label fx:id="name" alignment="CENTER" styleClass="header" text="\\$first" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+      <Label fx:id="name" alignment="CENTER" styleClass="header" text="\\$first" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
