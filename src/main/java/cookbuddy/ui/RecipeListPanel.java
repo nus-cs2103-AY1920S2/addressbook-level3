@@ -2,8 +2,8 @@ package cookbuddy.ui;
 
 import java.util.logging.Logger;
 
-
 import cookbuddy.commons.core.LogsCenter;
+
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

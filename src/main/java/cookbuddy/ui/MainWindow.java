@@ -25,7 +25,7 @@ import jfxtras.styles.jmetro.Style;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    public static final JMetro jMetro = new JMetro(Style.LIGHT);
+    public static final JMetro JMETRO = new JMetro(Style.LIGHT);
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -67,8 +67,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-        jMetro.setAutomaticallyColorPanes(true);
-        jMetro.setScene(this.primaryStage.getScene());
+        JMETRO.setAutomaticallyColorPanes(true);
+        JMETRO.setScene(this.primaryStage.getScene());
 
         setAccelerators();
 
@@ -119,8 +119,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
-        }
-        else {
+        } else {
             recipeView = new RecipeView(logic.getFilteredRecipeList().get(0));
         }
 
