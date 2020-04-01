@@ -18,15 +18,12 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
-import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.ingredient.Other;
-import seedu.recipe.model.recipe.ingredient.Quantity;
-import seedu.recipe.model.recipe.ingredient.Unit;
 import seedu.recipe.testutil.RecipeBuilder;
 
 /**
