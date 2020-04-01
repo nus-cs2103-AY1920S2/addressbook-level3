@@ -62,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
   private StackPane dataListPanelPlaceholder;
 
   @FXML
+  private StackPane extraListPanelPlaceholder;
+
+  @FXML
   private StackPane studentListPanelPlaceholder;
 
   @FXML
@@ -155,7 +158,9 @@ public class MainWindow extends UiPart<Stage> {
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
 
+    CourseListPanel courseListPanel2 = new CourseListPanel(logic.getFilteredCourseList());
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+    extraListPanelPlaceholder.getChildren().add(courseListPanel2.getRoot());
     SummaryPanel summaryPanel = new SummaryPanel();
     //summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());

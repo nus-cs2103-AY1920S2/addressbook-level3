@@ -99,13 +99,49 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #736DFF, #6A26FF);
+.list-cell:filled:even #cardPaneCourse {
+    -fx-background-color: linear-gradient(from 80% 80% to 100% 100%, #776EFF, #766EFF);
 
 }
 
-.list-cell:filled:odd {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #D182FF, #736DFF);
+.list-cell:filled:odd #cardPaneCourse {
+    -fx-background-color: linear-gradient(from 20% 80% to 100% 100%, #9263FF, #8284FF);
+}
+
+.list-cell:filled:even #cardPaneStudent {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FF8989, #F7C29A);
+}
+
+.list-cell:filled:odd #cardPaneStudent {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FFB586, #F7D79A);
+}
+
+.list-cell:filled:even #cardPaneTeacher {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #31AFD8, #427CBF);
+}
+
+.list-cell:filled:odd #cardPaneTeacher {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #358DD6, #4262BC);
+
+}
+
+.list-cell:filled:even #cardPaneAssignment {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #EDADC7, #C493B0);
+}
+
+.list-cell:filled:odd #cardPaneAssignment {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #D199B6, #A68BA5);
+
+}
+
+
+.list-cell:filled:even #cardPaneFinance {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #73AB84, #99D19C);
+
+}
+
+.list-cell:filled:odd #cardPaneFinance {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #75AA68, #73CE91);
 }
 
 .list-cell:filled:selected {

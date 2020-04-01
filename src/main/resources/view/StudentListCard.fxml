@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPane" xmlns="http://javafx.com/javafx/8"
+<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPaneStudent" xmlns="http://javafx.com/javafx/8"
   fx:id="cardPane">
   <GridPane HBox.hgrow="ALWAYS">
     <VBox GridPane.columnIndex="0" alignment="CENTER_LEFT" minHeight="105">
