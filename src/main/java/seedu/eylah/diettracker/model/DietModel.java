@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.eylah.commons.model.Model;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Weight;
@@ -16,6 +17,18 @@ public interface DietModel extends Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Food> PREDICATE_SHOW_ALL_FOODS = unused -> true;
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    @Override
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    /**
+     * Returns the user prefs.
+     */
+    @Override
+    ReadOnlyUserPrefs getUserPrefs();
 
     /**
      * Returns the user prefs' food book file path.
@@ -68,16 +81,9 @@ public interface DietModel extends Model {
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 
-    /** Returns the String format of the foods consumed over the last number of days.
-     */
-    String listFoods(String mode, int numDays);
-
-
     /** Returns the String format of the foods based on the mode input.
      */
     String listFoods(String mode);
-
-    String listFoods(String mode, String tag);
 
 
     /**
