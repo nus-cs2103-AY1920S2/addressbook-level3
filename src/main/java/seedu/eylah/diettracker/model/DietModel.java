@@ -15,6 +15,9 @@ import seedu.eylah.diettracker.model.self.Weight;
  */
 public interface DietModel extends Model {
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Food> PREDICATE_SHOW_ALL_FOODS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -26,9 +29,6 @@ public interface DietModel extends Model {
      */
     @Override
     ReadOnlyUserPrefs getUserPrefs();
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Food> PREDICATE_SHOW_ALL_FOODS = unused -> true;
 
     /**
      * Returns the user prefs' food book file path.
