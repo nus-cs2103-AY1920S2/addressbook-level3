@@ -1,5 +1,10 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.commons;
 
+import java.util.List;
+
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
@@ -8,10 +13,12 @@ import tatracker.model.Model;
  */
 public class HelpCommand extends Command {
 
-    public static final String COMMAND_WORD = "help";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final CommandDetails DETAILS = new CommandDetails(
+            "help",
+            "Shows program usage instructions.",
+            List.of(),
+            List.of()
+    );
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 

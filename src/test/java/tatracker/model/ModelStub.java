@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -114,7 +115,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasModule(Module module) {
+    public boolean hasModule(String moduleCode) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -159,7 +160,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasGroup(Group group, Module targetModule) {
+    public boolean hasGroup(String groupCode, String moduleCode) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -170,7 +171,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteGroup(Group target, Module targetModule) {
+    public void deleteGroup(String target, String targetModule) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -205,9 +206,10 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
-        throw new AssertionError("This method should not be called.");
+    public boolean hasStudent(Student student, String targetGroup, String targetModule) {
+        return false;
     }
+
 
     @Override
     public void addStudent(Student student) {
@@ -215,7 +217,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addStudent(Student student, Group targetGroup, Module targetModule) {
+    public void addStudent(Student student, String targetGroup, String targetModule) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -225,7 +227,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
+    public void deleteStudent(Student target, String targetGroup, String targetModule) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -304,9 +306,9 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public boolean hasModule(Module module) {
-            requireNonNull(module);
-            return this.module.equals(module);
+        public boolean hasModule(String moduleCode) {
+            requireNonNull(moduleCode);
+            return this.module.equals(moduleCode);
         }
     }
 
@@ -322,19 +324,19 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public boolean hasModule(Module module) {
-            requireNonNull(module);
+        public boolean hasModule(String moduleCode) {
+            requireNonNull(moduleCode);
             return true;
         }
 
         @Override
-        public boolean hasGroup(Group group, Module module) {
-            requireNonNull(group);
+        public boolean hasGroup(String groupCode, String module) {
+            requireNonNull(groupCode);
             return true;
         }
 
         @Override
-        public boolean hasStudent(Student student, Group group, Module module) {
+        public boolean hasStudent(Student student, String group, String module) {
             requireNonNull(student);
             return this.student.isSameStudent(student);
         }
@@ -371,25 +373,25 @@ public class ModelStub implements Model {
         public final ArrayList<Student> studentsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasModule(Module module) {
-            requireNonNull(module);
+        public boolean hasModule(String moduleCode) {
+            requireNonNull(moduleCode);
             return true;
         }
 
         @Override
-        public boolean hasGroup(Group group, Module module) {
-            requireNonNull(group);
+        public boolean hasGroup(String groupCode, String module) {
+            requireNonNull(groupCode);
             return true;
         }
 
         @Override
-        public boolean hasStudent(Student student, Group group, Module module) {
+        public boolean hasStudent(Student student, String group, String module) {
             requireNonNull(student);
             return studentsAdded.stream().anyMatch(student::isSameStudent);
         }
 
         @Override
-        public void addStudent(Student student, Group group, Module module) {
+        public void addStudent(Student student, String group, String module) {
             requireNonNull(student);
             studentsAdded.add(student);
         }
@@ -407,9 +409,9 @@ public class ModelStub implements Model {
         public final ArrayList<Module> modulesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasModule(Module module) {
-            requireNonNull(module);
-            return modulesAdded.stream().anyMatch(module::equals);
+        public boolean hasModule(String moduleCode) {
+            requireNonNull(moduleCode);
+            return modulesAdded.stream().anyMatch(moduleCode::equals);
         }
 
         @Override

@@ -1,8 +1,8 @@
 package tatracker.logic.parser.group;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.stream.Stream;
 
@@ -12,8 +12,6 @@ import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new DeleteGroupCommand object
@@ -27,20 +25,18 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
      */
     public DeleteGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_GROUP, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, GROUP, MODULE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_GROUP, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
                  || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteGroupCommand.DETAILS.getUsage()));
         }
 
-        String groupCode = argMultimap.getValue(PREFIX_GROUP).get();
-        String moduleCode = argMultimap.getValue(PREFIX_MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
-        Group group = new Group(groupCode);
-        Module module = new Module(moduleCode);
-
-        return new DeleteGroupCommand(group, module);
+        return new DeleteGroupCommand(groupCode, moduleCode);
     }
 
     /**

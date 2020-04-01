@@ -1,9 +1,9 @@
 package tatracker.logic.parser.session;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,31 +31,31 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
      */
     public FilterSessionCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE,
-                PREFIX_MODULE, PREFIX_SESSION_TYPE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, DATE,
+                MODULE, SESSION_TYPE);
 
-        if ((!arePrefixesPresent(argMultimap, PREFIX_DATE)
-                && !arePrefixesPresent(argMultimap, PREFIX_MODULE)
-                && !arePrefixesPresent(argMultimap, PREFIX_SESSION_TYPE))
+        if ((!arePrefixesPresent(argMultimap, DATE)
+                && !arePrefixesPresent(argMultimap, MODULE)
+                && !arePrefixesPresent(argMultimap, SESSION_TYPE))
                 || !argMultimap.getPreamble().isEmpty()) {
 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            FilterSessionCommand.MESSAGE_USAGE));
+                            FilterSessionCommand.DETAILS.getUsage()));
         }
 
         List<String> argsList = new ArrayList<>();
 
-        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            argsList.add(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()).toString());
+        if (argMultimap.getValue(DATE).isPresent()) {
+            argsList.add(ParserUtil.parseDate(argMultimap.getValue(DATE).get()).toString());
         }
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            argsList.add((ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get())));
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            argsList.add((ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase())));
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_TYPE).isPresent()) {
+        if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
             argsList.add((
-                    ParserUtil.parseSessionType(argMultimap.getValue(PREFIX_SESSION_TYPE).get()).toString()));
+                    ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()).toString()));
         }
 
         return new FilterSessionCommand(new SessionPredicate(argsList));

@@ -3,6 +3,7 @@ package tatracker.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;

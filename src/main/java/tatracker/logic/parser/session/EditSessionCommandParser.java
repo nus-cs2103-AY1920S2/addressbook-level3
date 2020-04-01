@@ -2,13 +2,13 @@ package tatracker.logic.parser.session;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NOTES;
+import static tatracker.logic.parser.Prefixes.RECUR;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +21,6 @@ import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
-
 
 /*
  * === BUGS ===
@@ -44,54 +43,55 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
      */
     public EditSessionCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
-                PREFIX_DATE, PREFIX_RECUR, PREFIX_MODULE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, START_TIME, END_TIME,
+                DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSessionCommand.MESSAGE_USAGE),
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditSessionCommand.DETAILS.getUsage()),
                     pe);
         }
 
         EditSessionCommand.EditSessionDescriptor editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor();
 
         LocalDate date = LocalDate.now(); // Arbitrary default value. Will be overwritten by EditSessionCommand
-        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        if (argMultimap.getValue(DATE).isPresent()) {
+            date = ParserUtil.parseDate(argMultimap.getValue(DATE).get());
             editSessionDescriptor.setIsDateChanged(true);
         }
 
-        if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
-            LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        if (argMultimap.getValue(START_TIME).isPresent()) {
+            LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
             editSessionDescriptor.setStartTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
         }
 
-        if (argMultimap.getValue(PREFIX_ENDTIME).isPresent()) {
-            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
+        if (argMultimap.getValue(END_TIME).isPresent()) {
+            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
             editSessionDescriptor.setEndTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     endTime.getHour(), endTime.getMinute(), endTime.getSecond()));
         }
 
-        if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            editSessionDescriptor.setRecurring(Integer.parseInt(
-                    ParserUtil.parseValue(argMultimap.getValue(PREFIX_RECUR).get())));
+        if (argMultimap.getValue(RECUR).isPresent()) {
+            editSessionDescriptor.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            editSessionDescriptor.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get()));
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            editSessionDescriptor.setModuleCode(ParserUtil
+                    .parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_TYPE).isPresent()) {
+        if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
             editSessionDescriptor.setSessionType(
-                    ParserUtil.parseSessionType(argMultimap.getValue(PREFIX_SESSION_TYPE).get()));
+                    ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_NOTES).isPresent()) {
-            editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(PREFIX_NOTES).get()));
+        if (argMultimap.getValue(NOTES).isPresent()) {
+            editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(NOTES).get()));
         }
 
         // TODO: Check if editing should be allowed if there are no fields

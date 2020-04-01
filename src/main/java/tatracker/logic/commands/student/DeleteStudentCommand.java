@@ -1,11 +1,14 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
@@ -21,19 +24,14 @@ import tatracker.model.student.Student;
  */
 public class DeleteStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.DELETE_MODEL;
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the student with the given matric number from the given module group.\n"
-            + "Parameters:\n"
-            + PREFIX_MATRIC + "MATRIC "
-            + PREFIX_MODULE + "MODULE "
-            + PREFIX_GROUP + "GROUP\n"
-            + "Example:\n"
-            + COMMAND_WORD + " "
-            + PREFIX_MATRIC + "A0181234G "
-            + PREFIX_MODULE + "CS3243 "
-            + PREFIX_GROUP + "G06 ";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.DELETE_MODEL,
+            "Deletes the student with the given matric number from the given module group.",
+            List.of(MATRIC, MODULE, GROUP),
+            List.of(),
+            MATRIC, MODULE, GROUP
+    );
 
     public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
     public static final String MESSAGE_INVALID_MODULE_FORMAT =
@@ -43,14 +41,11 @@ public class DeleteStudentCommand extends Command {
     public static final String MESSAGE_INVALID_STUDENT_FORMAT =
             "There is no student in the (%s) group (%s) with the given matric number: %s";
 
-    public static final int FIRST_GROUP_INDEX = 0;
-    public static final int FIRST_MODULE_INDEX = 0;
-
     private final Matric toDelete;
-    private final Group targetGroup;
-    private final Module targetModule;
+    private final String targetGroup;
+    private final String targetModule;
 
-    public DeleteStudentCommand(Matric matric, Group group, Module module) {
+    public DeleteStudentCommand(Matric matric, String group, String module) {
         requireNonNull(matric);
         requireNonNull(group);
         requireNonNull(module);
@@ -64,25 +59,24 @@ public class DeleteStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule.getIdentifier()));
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule));
         }
 
         if (!model.hasGroup(targetGroup, targetModule)) {
             throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT,
-                    targetModule.getIdentifier(),
-                    targetGroup.getIdentifier()));
+                    targetModule,
+                    targetGroup));
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
-        Group actualGroup = actualModule.getGroup(targetGroup.getIdentifier());
+        Module actualModule = model.getModule(targetModule);
+        Group actualGroup = actualModule.getGroup(targetGroup);
 
         Student studentToDelete = actualGroup.getStudent(toDelete);
 
-        // TODO: consider replacing has methods with id instead of actual objects
         if (studentToDelete == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT,
-                    targetModule.getIdentifier(),
-                    targetGroup.getIdentifier(),
+                    targetModule,
+                    targetGroup,
                     toDelete));
         }
 

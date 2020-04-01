@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -139,8 +140,9 @@ public interface Model {
     /**
      * Returns true if a given module with the same identity as {@code module}
      * exists in TaTracker.
+     * @param moduleCode
      */
-    boolean hasModule(Module module);
+    boolean hasModule(String moduleCode);
 
     /**
      * Adds the given module into the TaTracker.
@@ -203,9 +205,10 @@ public interface Model {
     /**
      * Returns true if a given group with the same identity as {@code group}
      * exists in a module that is in TaTracker.
-     * @param targetModule module that contains {@code group}.
+     * @param groupCode
+     * @param moduleCode module that contains {@code group}.
      */
-    boolean hasGroup(Group group, Module targetModule);
+    boolean hasGroup(String groupCode, String moduleCode);
 
     /**
      * Adds the given group into a module that is in TaTracker.
@@ -216,10 +219,10 @@ public interface Model {
 
     /**
      * Deletes the given group {@code target} from a module that is in TaTracker.
-     * @param target group to delete, which must exist in the TaTracker module.
-     * @param targetModule module to delete group {@code target} from, which must exist in the TaTracker.
+     * @param target group code whose group to delete, which must exist in the TaTracker module.
+     * @param targetModule module code whose module has the group that must be deleted.
      */
-    void deleteGroup(Group target, Module targetModule);
+    void deleteGroup(String target, String targetModule);
 
     /**
      * Replaces the given group {@code target} in a TaTracker module with {@code editedGroup}.
@@ -262,7 +265,7 @@ public interface Model {
      * @param targetGroup group to check if {@code student} is enrolled in.
      * @param targetModule module that contains {@code group}.
      */
-    boolean hasStudent(Student student, Group targetGroup, Module targetModule);
+    boolean hasStudent(Student student, String targetGroup, String targetModule);
 
     /**
      * Adds the given student.
@@ -276,7 +279,7 @@ public interface Model {
      * @param targetGroup group to add {@code student} into, which must exist in the TaTracker module.
      * @param targetModule module to add {@code student} into, which must exist in the TaTracker.
      */
-    void addStudent(Student student, Group targetGroup, Module targetModule);
+    void addStudent(Student student, String targetGroup, String targetModule);
 
     /**
      * Deletes the given student.
@@ -290,7 +293,7 @@ public interface Model {
      * @param targetGroup group to delete student {@code target} from, which must exist in the TaTracker module.
      * @param targetModule module to delete student {@code target} from, which must exist in the TaTracker.
      */
-    void deleteStudent(Student target, Group targetGroup, Module targetModule);
+    void deleteStudent(Student target, String targetGroup, String targetModule);
 
     /**
      * Replaces the given student {@code target} with {@code editedStudent}.

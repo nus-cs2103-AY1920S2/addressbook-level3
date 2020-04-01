@@ -1,9 +1,12 @@
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.SORT_TYPE;
 
+import java.util.List;
+
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
@@ -16,64 +19,51 @@ import tatracker.model.module.Module;
  */
 public class SortModuleCommand extends SortCommand {
 
-    public static final String COMMAND_WORD = CommandWords.SORT + " " + CommandWords.SORT_MODULE;
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"
-            + "all groups of the given module. \n"
-            + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_TYPE + "SORT TYPE \n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS2100 "
-            + PREFIX_TYPE + "alphabetically";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SORT,
+            CommandWords.SORT_MODULE,
+            "Sorts all students in all groups of the given module.",
+            List.of(MODULE, SORT_TYPE),
+            List.of(),
+            MODULE, SORT_TYPE
+    );
 
     public static final String MESSAGE_SUCCESS = "Module %s has been sorted.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
-        + "by rating asc, by rating desc and matric.";
     public static final int FIRST_GROUP_INDEX = 0;
 
     private final String moduleCode;
-    private String type;
 
-    public SortModuleCommand(String moduleCode, String type) {
+    public SortModuleCommand(SortType type, String moduleCode) {
         super(type);
         this.moduleCode = moduleCode;
-        this.type = type;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode, "");
-
-        if (!model.hasModule(module)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        module = model.getModule(module.getIdentifier());
-
-        type = type.toLowerCase();
+        Module module = model.getModule(moduleCode);
 
         switch(type) {
-        case "alphabetically":
-        case "alpha":
-        case "alphabetical":
-            module.sortGroupsAlphabetically();
+        case ALPHABETIC:
+            model.sortModulesAlphabetically();
             break;
-        case "matric":
-            module.sortGroupsByMatricNumber();
+        case MATRIC:
+            model.sortModulesByMatricNumber();
             break;
-        case "rating asc":
-            module.sortGroupsByRatingAscending();
+        case RATING_ASC:
+            model.sortModulesByRatingAscending();
             break;
-        case "rating desc":
-            module.sortGroupsByRatingDescending();
+        case RATING_DESC:
+            model.sortModulesByRatingDescending();
             break;
         default:
-            throw new CommandException(MESSAGE_INVALID_SORT);
+            throw new CommandException(SortType.MESSAGE_CONSTRAINTS);
         }
 
         if (model.getFilteredModuleList().isEmpty()) {

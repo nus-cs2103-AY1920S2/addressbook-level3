@@ -17,10 +17,9 @@ public class ShowStatisticCommandParser implements Parser<ShowStatisticCommand> 
     public ShowStatisticCommand parse(String args) {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new ShowStatisticCommand(null);
+            return new ShowStatisticCommand();
         }
 
         return new ShowStatisticCommand(trimmedArgs);
     }
-
 }

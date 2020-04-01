@@ -1,13 +1,15 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
-import static tatracker.logic.commands.CommandWords.MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.MODULE;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
@@ -17,22 +19,21 @@ import tatracker.model.module.Module;
  */
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = MODULE + " " + DELETE_MODEL;
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the module identified by the module code.\n"
-            + "Parameters: " + PREFIX_MODULE + " MODULE_CODE\n"
-            + "Example: " + COMMAND_WORD + " CS2013T";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.MODULE,
+            CommandWords.DELETE_MODEL,
+            "Deletes the module identified by the module code.",
+            List.of(MODULE),
+            List.of(),
+            MODULE
+    );
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with this module code.";
 
-    public static final int FIRST_GROUP_INDEX = 0;
-    public static final int FIRST_MODULE_INDEX = 0;
+    private final String module;
 
-    private final Module module;
-
-    public DeleteModuleCommand(Module module) {
+    public DeleteModuleCommand(String module) {
         this.module = module;
     }
 
@@ -44,7 +45,7 @@ public class DeleteModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module moduleToDelete = model.getModule(module.getIdentifier());
+        Module moduleToDelete = model.getModule(module);
         model.deleteModule(moduleToDelete);
 
         model.setDefaultStudentViewList();

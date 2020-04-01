@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import javafx.util.Pair;
-
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.session.SessionType;
 import tatracker.model.session.UniqueSessionList;
@@ -25,7 +23,7 @@ public class Statistic {
     public final String targetModuleCode;
     public final int[] numHoursPerCategory;
     public final int[] studentRatingBinValues;
-    public final Pair<String, Integer>[] worstStudents;
+    public final RatedStudent[] worstStudents;
 
     public Statistic(ReadOnlyTaTracker taTracker, String targetModuleCode) {
 
@@ -55,14 +53,14 @@ public class Statistic {
         }
 
         // Setup worst students
-        List<Student> students = new ArrayList(taTracker.getCompleteStudentList());
+        List<Student> students = new ArrayList<>(taTracker.getCompleteStudentList());
         students.sort(Comparator.comparingInt((Student a) -> a.getRating().value));
-        worstStudents = new Pair[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
+        worstStudents = new RatedStudent[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
         for (int i = 0; i < StatisticWindow.NUM_STUDENTS_TO_DISPLAY; ++i) {
             if (i < students.size()) {
-                worstStudents[i] = new Pair<>(students.get(i).getName().fullName, students.get(i).getRating().value);
+                worstStudents[i] = new RatedStudent(students.get(i));
             } else {
-                worstStudents[i] = new Pair<>("", 0);
+                worstStudents[i] = new RatedStudent();
             }
         }
     }
@@ -77,6 +75,35 @@ public class Statistic {
 
     public double getTotalPay() {
         return getTotalHours() * 40; //TODO: Change 40 to rate
+    }
+
+    /**
+     * Represents a Statistics entry containing a Student's name and their associated rating.
+     */
+    public static class RatedStudent {
+        private final Student student;
+        private final String fullName;
+        private final int rating;
+
+        public RatedStudent() {
+            this.student = null;
+            this.fullName = "";
+            this.rating = 0;
+        }
+
+        public RatedStudent(Student student) {
+            this.student = student;
+            this.fullName = student.getName().fullName;
+            this.rating = student.getRating().value;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
+
+        public int getRating() {
+            return rating;
+        }
     }
 }
 

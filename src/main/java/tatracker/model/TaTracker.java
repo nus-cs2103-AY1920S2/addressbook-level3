@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -127,8 +128,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     // ======== Done Session Methods =================================================
 
     /**
-     * adds a session
-     * @param s
+     * Adds a completed session to the list of done sessions.
      */
     public void addDoneSession(Session s) {
         doneSessions.add(s);
@@ -202,9 +202,9 @@ public class TaTracker implements ReadOnlyTaTracker {
     /**
      * Returns true if a module with the same module code exists in the TATracker.
      */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return modules.contains(module);
+    public boolean hasModule(String moduleCode) {
+        requireNonNull(moduleCode);
+        return modules.contains(new Module(moduleCode));
     }
 
     /**
@@ -305,34 +305,24 @@ public class TaTracker implements ReadOnlyTaTracker {
     // ======== Group Methods ==================================================
 
     /**
-     * Returns group from TATracker.
-     */
-    public boolean getGroup(String moduleId, String groupId) {
-
-        Module module = new Module(moduleId);
-        Group group = new Group(groupId);
-        return hasGroup(group, module);
-    }
-
-    /**
      * Returns true if a group with the same group code exists in the TATracker.
      */
-    public boolean hasGroup(Group group, Module targetModule) {
-        requireNonNull(group);
+    public boolean hasGroup(String groupCode, String moduleCode) {
+        requireNonNull(groupCode, moduleCode);
 
-        if (!hasModule(targetModule)) {
+        if (!hasModule(moduleCode)) {
             return false;
         }
 
-        Module module = getModule(targetModule.getIdentifier());
-        return module.hasGroup(group);
+        Module module = getModule(moduleCode);
+        return module.hasGroup(new Group(groupCode));
     }
 
     /**
      * Adds a group to the TATracker.
      */
     public void addGroup(Group group, Module targetModule) {
-        if (!hasModule(targetModule)) {
+        if (!hasModule(targetModule.getIdentifier())) {
             throw new ModuleNotFoundException();
         }
         Module module = getModule(targetModule.getIdentifier());
@@ -344,7 +334,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code key} must exist in the ta-tracker.
      */
     public void removeGroup(Group group, Module targetModule) {
-        if (!hasModule(targetModule)) {
+        if (!hasModule(targetModule.getIdentifier())) {
             throw new ModuleNotFoundException();
         }
         Module module = getModule(targetModule.getIdentifier());
@@ -359,7 +349,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     public void setGroup(Group target, Group editedGroup, Module targetModule) {
         requireNonNull(editedGroup);
 
-        if (!hasModule(targetModule)) {
+        if (!hasModule(targetModule.getIdentifier())) {
             throw new ModuleNotFoundException();
         }
 
@@ -414,15 +404,15 @@ public class TaTracker implements ReadOnlyTaTracker {
      * @param targetGroup group to check if {@code student} is enrolled in.
      * @param targetModule module that contains {@code group}.
      */
-    public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
+    public boolean hasStudent(Student student, String targetGroup, String targetModule) {
         requireNonNull(student);
 
         if (!hasGroup(targetGroup, targetModule)) {
             return false;
         }
 
-        Module module = getModule(targetModule.getIdentifier());
-        Group group = module.getGroup(targetGroup.getIdentifier());
+        Module module = getModule(targetModule);
+        Group group = module.getGroup(targetGroup);
         return group.hasStudent(student);
     }
 
@@ -440,7 +430,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * @param targetGroup group to add {@code student} into, which must exist in the TaTracker module.
      * @param targetModule module to add {@code student} into, which must exist in the TaTracker.
      */
-    public void addStudent(Student student, Group targetGroup, Module targetModule) {
+    public void addStudent(Student student, String targetGroup, String targetModule) {
         if (!hasModule(targetModule)) {
             throw new ModuleNotFoundException();
         }
@@ -449,8 +439,8 @@ public class TaTracker implements ReadOnlyTaTracker {
             throw new GroupNotFoundException();
         }
 
-        Module module = getModule(targetModule.getIdentifier());
-        Group group = module.getGroup(targetGroup.getIdentifier());
+        Module module = getModule(targetModule);
+        Group group = module.getGroup(targetGroup);
         group.addStudent(student);
     }
 
@@ -468,7 +458,7 @@ public class TaTracker implements ReadOnlyTaTracker {
      * @param targetGroup group to delete student {@code target} from, which must exist in the TaTracker module.
      * @param targetModule module to delete student {@code target} from, which must exist in the TaTracker.
      */
-    public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
+    public void deleteStudent(Student target, String targetGroup, String targetModule) {
         if (!hasModule(targetModule)) {
             throw new ModuleNotFoundException();
         }
@@ -477,8 +467,8 @@ public class TaTracker implements ReadOnlyTaTracker {
             throw new GroupNotFoundException();
         }
 
-        Module module = getModule(targetModule.getIdentifier());
-        Group group = module.getGroup(targetGroup.getIdentifier());
+        Module module = getModule(targetModule);
+        Group group = module.getGroup(targetGroup);
         group.deleteStudent(target);
     }
 
@@ -499,11 +489,11 @@ public class TaTracker implements ReadOnlyTaTracker {
      * @param targetModule module with the student to edit, which must exist in the TaTracker.
      */
     public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
-        if (!hasModule(targetModule)) {
+        if (!hasModule(targetModule.getIdentifier())) {
             throw new ModuleNotFoundException();
         }
 
-        if (!hasGroup(targetGroup, targetModule)) {
+        if (!hasGroup(targetGroup.getIdentifier(), targetModule.getIdentifier())) {
             throw new GroupNotFoundException();
         }
 

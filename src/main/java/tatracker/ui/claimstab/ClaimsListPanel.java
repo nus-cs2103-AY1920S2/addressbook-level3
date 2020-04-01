@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.session.Session;
 import tatracker.ui.UiPart;

@@ -1,6 +1,6 @@
 package tatracker.logic.parser;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -8,7 +8,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.commands.FindCommand;
+import tatracker.logic.commands.commons.FindCommand;
+import tatracker.logic.parser.commons.FindCommandParser;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -18,8 +19,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser,
-                "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        FindCommand.MESSAGE_USAGE));
+                "     ", MESSAGE_INVALID_COMMAND);
     }
 
     @Test

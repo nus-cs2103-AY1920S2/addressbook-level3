@@ -1,16 +1,18 @@
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandWords.EDIT_MODEL;
-import static tatracker.logic.commands.CommandWords.GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NEWGROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NEWTYPE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NEWGROUP;
+import static tatracker.logic.parser.Prefixes.NEWTYPE;
+
+import java.util.List;
 
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.group.Group;
@@ -22,14 +24,14 @@ import tatracker.model.module.Module;
  */
 public class EditGroupCommand extends Command {
 
-    public static final String COMMAND_WORD = GROUP + " " + EDIT_MODEL;
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the  group identified by the group code.\n"
-            + "Parameters: " + PREFIX_MODULE + " MODULE_CODE " + PREFIX_GROUP + "GROUP_CODE"
-            + PREFIX_NEWTYPE + "NEW GROUP TYPE  " + PREFIX_NEWGROUP + "NEW GROUP NAME "
-            + "Example: " + COMMAND_WORD + " " + PREFIX_MODULE + "CS2013T " + PREFIX_GROUP + "G03 "
-            + PREFIX_NEWTYPE + "lab " + PREFIX_NEWGROUP + "G05";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.GROUP,
+            CommandWords.EDIT_MODEL,
+            "Edits the group identified by the group code.",
+            List.of(MODULE, GROUP),
+            List.of(NEWGROUP, NEWTYPE), // TODO: new type not needed?
+            MODULE, GROUP, NEWGROUP, NEWTYPE
+    );
 
     public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
@@ -38,11 +40,11 @@ public class EditGroupCommand extends Command {
         + " you want to change it to.";
 
     private final Group group;
-    private final Module targetModule;
+    private final String targetModule;
     private final String newGroupCode;
     private final GroupType newGroupType;
 
-    public EditGroupCommand(Group group, Module module, String newGroupCode, GroupType newGroupType) {
+    public EditGroupCommand(Group group, String module, String newGroupCode, GroupType newGroupType) {
         this.group = group;
         this.targetModule = module;
         this.newGroupCode = newGroupCode;
@@ -57,13 +59,13 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
+        Module actualModule = model.getModule(targetModule);
 
         if (!actualModule.hasGroup(group)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
-        if (newGroupCode != group.getIdentifier()) {
+        if (!newGroupCode.equals(group.getIdentifier())) {
             if (actualModule.hasGroup(group)) {
                 throw new CommandException(MESSAGE_DUPLICATE_GROUP);
             }

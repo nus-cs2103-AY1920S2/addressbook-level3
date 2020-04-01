@@ -1,10 +1,11 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.commons;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 
 import java.util.Arrays;
 
-import tatracker.logic.commands.FindCommand;
+import tatracker.logic.commands.commons.FindCommand;
+import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
@@ -21,8 +22,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND);
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

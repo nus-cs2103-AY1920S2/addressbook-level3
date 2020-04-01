@@ -1,7 +1,7 @@
 package tatracker.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.ListCommand;
+import tatracker.logic.commands.commons.ListCommand;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.parser.exceptions.ParseException;
@@ -76,13 +76,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        String sessionDeleteCommand = "session delete 9";
+        assertCommandException(sessionDeleteCommand, MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
+        String listCommand = ListCommand.DETAILS.getFullCommandWord();
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -106,12 +106,13 @@ public class LogicManagerTest {
         expectedModel.addModule(expectedModule);
 
         // Execute add command
-        String addCommand = AddStudentCommand.COMMAND_WORD + MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04
+        String addCommand = AddStudentCommand.DETAILS.getFullCommandWord()
+                + MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04
                 + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
 
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();
 
-        expectedModel.addStudent(expectedStudent, expectedGroup, expectedModule);
+        expectedModel.addStudent(expectedStudent, expectedGroup.getIdentifier(), expectedModule.getIdentifier());
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

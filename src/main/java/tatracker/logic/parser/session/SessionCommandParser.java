@@ -1,6 +1,6 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.HelpCommand;
-import tatracker.logic.commands.session.DoneSessionCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,16 +32,13 @@ public class SessionCommandParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND);
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-
-        case CommandWords.FILTER_MODEL:
-            return new FilterSessionCommandParser().parse(arguments);
 
         case CommandWords.ADD_MODEL:
             return new AddSessionCommandParser().parse(arguments);
@@ -54,7 +49,10 @@ public class SessionCommandParser {
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);
 
-        case DoneSessionCommand.COMMAND_WORD_DONE:
+        case CommandWords.FILTER_MODEL:
+            return new FilterSessionCommandParser().parse(arguments);
+
+        case CommandWords.DONE_SESSION:
             return new DoneSessionCommandParser().parse(arguments);
 
         default:

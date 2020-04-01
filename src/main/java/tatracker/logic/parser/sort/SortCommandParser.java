@@ -1,18 +1,19 @@
 package tatracker.logic.parser.sort;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.TYPE;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.HelpCommand;
+import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.sort.SortCommand;
 import tatracker.logic.commands.sort.SortGroupCommand;
 import tatracker.logic.commands.sort.SortModuleCommand;
+import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
@@ -37,50 +38,48 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.DETAILS.getUsage()));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String args = matcher.group("arguments");
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE,
-                PREFIX_MODULE, PREFIX_GROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, TYPE, MODULE, GROUP);
 
-        String type;
-        String moduleCode;
-        String groupCode;
+        boolean hasType = argMultimap.getValue(TYPE).isPresent();
+        boolean hasModule = argMultimap.getValue(MODULE).isPresent();
+        boolean hasGroup = argMultimap.getValue(GROUP).isPresent();
+
+        SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
+        String moduleCode = argMultimap.getValue(MODULE).map(String::trim).orElse("").toUpperCase();
+        String groupCode = argMultimap.getValue(GROUP).map(String::trim).orElse("").toUpperCase();
 
         switch (commandWord) {
 
         case CommandWords.SORT_ALL:
-            if (!argMultimap.getValue(PREFIX_TYPE).isPresent()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            if (!hasType) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SortCommand.DETAILS.getUsage()));
             }
-            type = ParserUtil.parseValue(argMultimap.getValue(PREFIX_TYPE).get());
             return new SortCommand(type);
 
         case CommandWords.SORT_MODULE:
-            if (!argMultimap.getValue(PREFIX_TYPE).isPresent()
-                    || !argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+            if (!(hasType && hasModule)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortModuleCommand.MESSAGE_USAGE));
+                        SortModuleCommand.DETAILS.getUsage()));
             }
-            type = ParserUtil.parseValue(argMultimap.getValue(PREFIX_TYPE).get());
-            moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
-            return new SortModuleCommand(moduleCode, type);
+            return new SortModuleCommand(type, moduleCode);
 
         case CommandWords.SORT_GROUP:
-            if (!argMultimap.getValue(PREFIX_TYPE).isPresent() || !argMultimap.getValue(PREFIX_MODULE).isPresent()
-                    || !argMultimap.getValue(PREFIX_GROUP).isPresent()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortGroupCommand.MESSAGE_USAGE));
+            if (!(hasType && hasModule && hasGroup)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SortGroupCommand.DETAILS.getUsage()));
             }
-            type = ParserUtil.parseValue(argMultimap.getValue(PREFIX_TYPE).get());
-            moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
-            groupCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get());
-            return new SortGroupCommand(groupCode, moduleCode, type);
+            return new SortGroupCommand(type, groupCode, moduleCode);
 
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SortCommand.DETAILS.getUsage()));
         }
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tatracker.model.session.exceptions.DuplicateSessionException;
 import tatracker.model.session.exceptions.SessionNotFoundException;
 
@@ -96,7 +97,6 @@ public class UniqueDoneSessionList implements Iterable<Session> {
      * The session must exist in the list.
      */
     public void remove(int n) {
-        requireNonNull(n);
         if (n < 0 || n > internalList.size()) {
             throw new SessionNotFoundException();
         }

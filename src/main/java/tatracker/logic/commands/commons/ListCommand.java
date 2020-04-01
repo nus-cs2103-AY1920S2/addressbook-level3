@@ -1,8 +1,13 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.model.Model.PREDICATE_SHOW_ALL_SESSIONS;
 
+import java.util.List;
+
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 
@@ -11,7 +16,12 @@ import tatracker.model.Model;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            "list",
+            "Listed all students",
+            List.of(),
+            List.of()
+    );
 
     public static final String MESSAGE_SUCCESS = "Listed all sessions";
 
