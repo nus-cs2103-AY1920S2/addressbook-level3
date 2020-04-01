@@ -62,7 +62,7 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
         fav.setText(recipe.getFavStatus().toString());
-        done.setText(recipe.getDoneStatus().toString());
+        done.setText("Attempted: " + recipe.getDoneStatus().toString());
         serving.setText(recipe.getServing().toString());
         rating.setText(recipe.getRating().toString());
         diff.setText("Difficulty: " + recipe.getDifficulty().toString());
