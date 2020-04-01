@@ -102,6 +102,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<DayData> getCustomQueue() {
         return model.getStatistics().getCustomQueue();
+    }
 
     @Override
     public ReadOnlyPomodoro getPomodoro() {
