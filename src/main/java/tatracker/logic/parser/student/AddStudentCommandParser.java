@@ -54,8 +54,8 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         Matric matric = ParserUtil.parseMatric(argMultimap.getValue(MATRIC).get());
 
-        String module = argMultimap.getValue(MODULE).get();
-        String group = argMultimap.getValue(GROUP).get();
+        String module = argMultimap.getValue(MODULE).get().toUpperCase();
+        String group = argMultimap.getValue(GROUP).get().toUpperCase();
 
         Name name = ParserUtil.parseName(argMultimap.getValue(NAME).get());
 

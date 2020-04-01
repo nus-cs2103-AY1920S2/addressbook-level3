@@ -33,8 +33,8 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
                     DeleteGroupCommand.DETAILS.getUsage()));
         }
 
-        String groupCode = argMultimap.getValue(GROUP).get();
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
         return new DeleteGroupCommand(groupCode, moduleCode);
     }

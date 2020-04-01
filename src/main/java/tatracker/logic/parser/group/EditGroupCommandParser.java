@@ -38,8 +38,8 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
                     EditGroupCommand.DETAILS.getUsage()));
         }
 
-        String groupCode = argMultimap.getValue(GROUP).get();
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
         Group group = new Group(groupCode);
 

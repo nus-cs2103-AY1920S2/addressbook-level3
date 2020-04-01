@@ -37,7 +37,7 @@ public class FilterClaimCommandParser implements Parser<FilterClaimCommand> {
         String moduleCode = "";
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            moduleCode = ParserUtil.parseValue(argMultimap.getValue(MODULE).get());
+            moduleCode = ParserUtil.parseValue(argMultimap.getValue(MODULE).get()).toUpperCase();
         }
         return new FilterClaimCommand(new DoneSessionPredicate(moduleCode));
     }

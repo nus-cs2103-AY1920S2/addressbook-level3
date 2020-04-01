@@ -34,7 +34,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
                     EditModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
         String newName = ParserUtil.parseValue(argMultimap.getValue(NAME).get());
 

@@ -32,7 +32,7 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
                     DeleteModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
         return new DeleteModuleCommand(moduleCode);
     }
