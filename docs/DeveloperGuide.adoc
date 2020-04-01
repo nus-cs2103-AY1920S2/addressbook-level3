@@ -194,10 +194,132 @@ The `execute(model)` function of the `ClearCommand` will have the 6 following se
 After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
 
 
-=== Delete feature
-The delete feature allows the user to delete orders in either the order list or return order list.
+=== Delete Feature
+In this section, you will learn more about how the `delete` feature is implemented.
+
+==== What is the Delete Feature
+The delete feature allows the user to delete orders in either the order list or return order list. +
 
 The delete feature was implemented as a `DeleteCommand` in the `Logic` package. +
+
+The `delete` command has the following format: +
+
+* `delete` `FLAG` `INDEX`
+
+[NOTE]
+====
+1. A `FLAG` is a compulsory argument that indicates the list to delete from. +
+It can be either `-o` or `-r`. +
+A `-o` `FLAG` argument indicates deletion from the order list. +
+A `-r` `FLAG` argument indicates deletion from the return order list. +
+
+2. An `INDEX` is a compulsory argument that identifies the specific order to
+delete in the list. +
+The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
+====
+
+==== Execution paths of Delete command
+In this section, you will learn more about the execution paths for the `delete` command.
+
+.Delete Command Activity Diagram
+image::DeleteActivityDiagram.svg[]
+
+There are four possible execution paths for the `delete` command
+
+1. User provides an invalid `delete` command input +
+This results in a parse exception +
+
+2. User provides a valid `delete` command input that has a flag indicating deletion
+from the order list. +
+The specified order will be deleted from the order list. +
+
+3. User provides a valid `delete` command input that has a flag indicating deletion
+from the return order list. +
+The specified return order will be deleted from the return order list. +
+
+4. User provides an invalid `delete` command input that has an invalid flag. +
+A Command Exception wil be generated.
+
+
+==== Structure of Delete command
+In this section, you will learn more about the relationships between objects
+related to the `delete` command.
+
+.Delete Command Class Diagram
+image::DeleteClassDiagram.svg[]
+
+In the `DeleteCommand` class, there are also static strings present that represent the
+various possible messages. +
+For some of the message strings, there are placeholder %s strings used for including dynamic input +
+These messages are the following:
+
+1. `MESSAGE_DELETE_ORDER_SUCCESS` +
+Deleted Order: %1$s +
+
+2. `MESSAGE_INVALID_FLAG` +
+Invalid flag given! +
+
+==== Interactions between Delete command and its associated objects
+In this section, you will learn more about the `delete` command and its inner workings.
+
+The sequence diagram below shows the interactions for a `delete` command execution of
+`delete` `-o` `1`. +
+This indicates that the first order should be deleted from the order
+list.
+
+.Delete Command Sequence Diagram for `delete` `-o` `1`
+image::DeleteSequenceDiagram.svg[]
+
+The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
+If the given arguments are valid, a new `DeleteCommand` object will be returned. +
+In this class, invalid arguments will result in a `ParseException`. +
+Two checks will be done for the arguments:
+
+1. Invalid `FLAG` argument
+
+2. Invalid `INDEX` argument
+
+When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
+`DeleteCommand` will first check the list to delete from. +
+
+The `deleteFromOrderList(model)` method of `DeleteCommand` will then
+be called and the filtered order list will be obtained from the `getFilteredOrderList()`
+method of the `model`. +
+
+The specified order at `INDEX` 1 will be deleted using the `deleteOrder(order)` method
+in the `model`.
+
+A new `CommandResult` will be created and returned to the `LogicManager`.
+
+
+The sequence diagram below shows the interactions for a `delete` command execution of
+`delete` `-r` `2`. +
+This indicates that the second order should be deleted from the return order
+list.
+
+.Delete Command Sequence Diagram for `delete` `-r` `2`
+image::DeleteSequenceDiagram2.svg[]
+
+The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
+If the given arguments are valid, a new `DeleteCommand` object will be returned. +
+In this class, invalid arguments will result in a `ParseException`. +
+Two checks will be done for the arguments:
+
+1. Invalid `FLAG` argument
+
+2. Invalid `INDEX` argument
+
+When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
+`DeleteCommand` will first check the list to delete from. +
+
+The `deleteFromReturnList(model)` method of `DeleteCommand` will then
+be called and the filtered return order list will be obtained from the `getFilteredReturnOrderList()`
+method of the `model`. +
+
+The specified return order at `INDEX` 2 will be deleted using the `deleteReturnOrder(returnOrder)` method
+in the `model`.
+
+A new `CommandResult` will be created and returned to the `LogicManager`.
 
 
 === Delivered feature
@@ -235,10 +357,10 @@ will be updated to show the change. +
 2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
 display the original order book.
 
-=== Nearby feature
+=== Nearby Feature
 In this section, you will learn more about how the `nearby` feature is implemented.
 
-==== What is the Nearby feature
+==== What is the Nearby Feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
 
