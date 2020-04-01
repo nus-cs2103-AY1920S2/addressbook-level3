@@ -21,7 +21,6 @@ activate DeliveredCommand
 DeliveredCommand -> DeliveredCommand: isFlagForOrderList()
 activate DeliveredCommand
 DeliveredCommand --> DeliveredCommand: true
-alt order was not delivered
 deactivate DeliveredCommand
 
 DeliveredCommand -> Model : processDeliveryOfOrder(model)
@@ -33,6 +32,7 @@ activate Order
 Order --> Model
 deactivate Order
 
+alt order was not delivered
 Model -> Model : isDelivered()
 activate Model
 Model --> Model : false
@@ -51,7 +51,7 @@ DeliveredCommand -> Order : createDeliveredOrder(orderToBeDelivered, deliveredPa
 activate Order
 Order --> DeliveredCommand : editedOrder
 deactivate Order
-DeliveredCommand -> Model
+DeliveredCommand -> Model : editedOrder
 activate Model
 Model -> Model : setOrder(orderToBeDelivered, editedOrder)
 Model -> Model : deliverOrder(editedOrder)
@@ -60,11 +60,27 @@ Model --> DeliveredCommand
 deactivate Model
 
 DeliveredCommand -> CommandResult ++
-CommandResult --> DeliveredCommand --
+CommandResult --> DeliveredCommand -- : result
 
 DeliveredCommand --> LogicManager -- : result
 deactivate LogicManager
 end
+else order was delivered
+Model -> Model : isDelivered()
+activate Model
+Model --> Model : true
+Model --> DeliveredCommand : true
+activate DeliveredCommand
+DeliveredCommand -> Model : updateOrderList(model)
+Model -> Model : updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS)
+Model --> DeliveredCommand
+deactivate Model
+
+DeliveredCommand -> CommandResult ++
+CommandResult --> DeliveredCommand -- : result
+
+DeliveredCommand --> LogicManager -- : result
+deactivate LogicManager
 end
 
 @enduml

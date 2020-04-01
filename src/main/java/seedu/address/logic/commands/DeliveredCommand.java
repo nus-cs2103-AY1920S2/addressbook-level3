@@ -171,7 +171,8 @@ public class DeliveredCommand extends Command {
      * Creates and returns a {@code deliveredOrder} with the details of {@code orderToDeliver}
      * edited with {@code donePersonDescriptor}.
      */
-    private static Order createDeliveredOrder(Order orderToDeliver, DeliveredParcelDescriptor deliveredParcelDescriptor) {
+    private static Order createDeliveredOrder(Order orderToDeliver,
+                                              DeliveredParcelDescriptor deliveredParcelDescriptor) {
         assert orderToDeliver != null;
 
         TransactionId updatedTid = deliveredParcelDescriptor.getTid().orElse(orderToDeliver.getTid());
