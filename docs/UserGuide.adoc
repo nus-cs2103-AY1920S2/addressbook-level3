@@ -194,20 +194,24 @@ Under the students tab, the Student View is used to show you the students that y
 have been grouped according to the *module* and *group* they belong to. The Student View has been divided into
 three sections.
 
-The first section shows you a list of all the modules that you are a teaching
+. The first column shows you a list of all the modules that you are a teaching
 assistant for.
 
-The second section shows you a list of all groups in a module of your choice.
-If you haven't chosen anything, by default you will be shown the groups of the module
-in the first index in the list of modules.
+. The second column shows you a list of all groups in a module of your choice.
+If you haven't chosen anything, you will be shown the groups of the module
+in the first index in the list of modules by default.
 
-The third section shows you a list of all students in the group of your choice. If you
-haven't chosen anything, by default you will be shown the students of the group in the
-first index in the list of groups.
+. The third column shows you a list of all students in the group of your choice. If you
+haven't chosen anything, you will be shown the students of the group in the
+first index in the list of groups by default.
 
 The purpose of the student view is to help you keep track a of your students. It will
-show you information such as student name, matriculation number, ratings you have given
-the student and contact details such as email and telegram id.
+show you information such as:
+
+* student name,
+* matriculation number,
+* ratings you have given the student (on a scale from 1 - 5)
+* and contact details such as email and phone number.
 
 === Session View
 Under the sessions tab, the Session View contains a list of the upcoming sessions
@@ -221,6 +225,9 @@ have completed so far.
 
 The purpose of this view is to allow a you to keep track of all your claims so
 you can easily enter it into the TSS claims form at the end of the semester.
+
+The claims under this tab can be sorted by module code to enable you to easily see
+what claims to submit for each of the modules that you teach.
 
 [[Usage]]
 == Usage
