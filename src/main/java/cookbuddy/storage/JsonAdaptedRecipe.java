@@ -130,7 +130,7 @@ class JsonAdaptedRecipe {
             toReturn.favRecipe();
         }
 
-        if(done.equals("Yes")) {
+        if (done.equals("Yes")) {
             toReturn.attemptRecipe();
         }
 
