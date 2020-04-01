@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import tatracker.commons.core.index.Index;
+import tatracker.commons.util.DateTimeUtil;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.parser.exceptions.ParseException;
@@ -29,9 +29,6 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
-
-    private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
-    private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -151,11 +148,11 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        try {
-            return LocalDate.parse(trimmedDate);
-        } catch (DateTimeParseException dtpe) {
-            throw new ParseException(MESSAGE_INVALID_DATE);
+
+        if (!DateTimeUtil.isDate(trimmedDate)) {
+            throw new ParseException(DateTimeUtil.CONSTRAINTS_DATE);
         }
+        return LocalDate.parse(trimmedDate);
     }
 
     /**
@@ -166,11 +163,11 @@ public class ParserUtil {
     public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        try {
-            return LocalTime.parse(trimmedTime);
-        } catch (DateTimeParseException dtpe) {
-            throw new ParseException(MESSAGE_INVALID_TIME);
+
+        if (!DateTimeUtil.isTime(trimmedTime)) {
+            throw new ParseException(DateTimeUtil.CONSTRAINTS_TIME);
         }
+        return LocalTime.parse(trimmedTime);
     }
 
     /**
