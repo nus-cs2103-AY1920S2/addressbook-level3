@@ -126,6 +126,9 @@ public class MainWindow extends UiPart<Stage> {
         fillInfo();
     }
 
+    /**
+     * fills in the ingredient/instruction fields
+     */
     public void fillInfo() {
         this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
 
@@ -142,9 +145,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 }
 
-
+    /**
+     * Fills in information for the recipe
+     */
     public void fillInnerParts() {
-        if(logic.getFilteredRecipeList().size() == 0) {
+        if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
             fillInfo();
         } else {

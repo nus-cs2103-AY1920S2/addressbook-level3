@@ -1,17 +1,18 @@
 package cookbuddy.logic.commands;
 
-import static cookbuddy.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 import cookbuddy.commons.core.Messages;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.ui.*;
+import cookbuddy.ui.UiManager;
 
 
-import java.util.List;
+
 
 /**
  * Lists all recipes in the recipe book to the user.
