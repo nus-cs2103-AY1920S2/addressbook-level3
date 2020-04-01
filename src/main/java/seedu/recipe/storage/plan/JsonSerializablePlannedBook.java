@@ -55,11 +55,8 @@ class JsonSerializablePlannedBook {
             if (plannedBook.contains(plannedRecipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLANNED_RECIPE);
             }
-            plannedBook.addPlannedRecipe(plannedRecipe);
             List<Recipe> recipes = plannedRecipe.getRecipes();
-            for (Recipe recipe : recipes) {
-                plannedBook.addPlannedMapping(recipe, plannedRecipe);
-            }
+            plannedBook.addPlanForAllRecipes(recipes, plannedRecipe);
         }
         return plannedBook;
     }

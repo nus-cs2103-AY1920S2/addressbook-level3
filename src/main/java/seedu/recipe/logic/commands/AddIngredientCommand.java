@@ -79,7 +79,7 @@ public class AddIngredientCommand extends Command {
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-        model.setPlannedRecipe(recipeToEdit, editedRecipe);
+        model.setRecipeInPlans(recipeToEdit, editedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
 

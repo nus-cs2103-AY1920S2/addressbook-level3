@@ -17,6 +17,6 @@ public interface ReadOnlyPlannedBook {
      */
     ObservableList<PlannedRecipe> getPlannedList();
 
-    Map<Recipe, List<PlannedRecipe>> getRecipeToPlannedRecipeMap();
+    Map<Recipe, List<PlannedRecipe>> getPlannedRecipeMap();
 
 }

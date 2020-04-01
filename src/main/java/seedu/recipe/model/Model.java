@@ -141,43 +141,29 @@ public interface Model {
     void setPlannedBook(PlannedBook plannedBook);
 
     /**
-     * Adds the {@code plannedRecipe} to the plannedRecipe list
+     * Adds the {@code plannedRecipe} that plans for {@code recipe}.
      */
-    void addPlannedRecipe(PlannedRecipe plannedRecipe);
+    void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe);
 
     /**
-     * Deletes the {@code plannedRecipe} with all the recipes it contains in its internal recipe list
-     * from the plannedRecipe list.
+     * Adds the {@code plannedRecipe} that plans for all {@code recipes}.
      */
-    void deletePlannedRecipe(PlannedRecipe plannedRecipe);
+    void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe);
 
     /**
-     * Deletes the {@code recipe} from the internal recipe list in the {@code plannedRecipe}.
+     * Deletes the {@code recipe} plan.
      */
-    void deleteRecipeFromPlannedRecipe(Recipe recipe, PlannedRecipe plannedRecipe);
+    void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe);
 
     /**
-     * Adds a {@code plannedRecipe} to the {@code recipe} key in the Recipe to PlannedRecipe map.
+     * Deletes all plans for {@code recipe}.
      */
-    void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
+    void deleteAllPlansFor(Recipe recipe);
 
     /**
-     * Deletes a {@code plannedRecipe} at the {@code recipe} key in the Recipe to PlannedRecipe map.
+     * Updates the recipe in the planned recipes from {@code target} to {@code editedRecipe}.
      */
-    void deletePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
-
-
-    /**
-     * Removes all PlannedRecipe mapped to the {@code recipe} key.
-     */
-    void deleteAllPlannedMappingForRecipe(Recipe recipe);
-
-    /**
-     * Replaces the {@code target} Recipe with the {@code editedRecipe} Recipe in the
-     * mapping from Recipe to PlannedRecipe map.
-     * Updates the references to Recipe in each PlannedRecipe.
-     */
-    void setPlannedRecipe(Recipe target, Recipe editedRecipe);
+    void setRecipeInPlans(Recipe target, Recipe editedRecipe);
 
     /**
      * Returns an unmodifiable view of the planned recipes.
@@ -185,14 +171,11 @@ public interface Model {
     ObservableList<PlannedRecipe> getFilteredPlannedList();
 
     /**
-     * Updates the filtered planned list to be filtered using the {@code predicate}.
-     * todo throw exception?
+     * Updates the filtered planned list to be filtered using the {@code predicate}. //todo: throw exception
      */
     void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
 
-    //updateAndFillPlannedList todo
-
-    //List<PlannedRecipe> get todo
+    //updateAndFillPlannedList //todo: implement for weekly view
 
     /**
      * Adds a record in the cookedRecord list

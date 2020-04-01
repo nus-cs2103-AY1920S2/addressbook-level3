@@ -18,11 +18,11 @@ import seedu.recipe.model.recipe.Recipe;
 public class PlannedBook implements ReadOnlyPlannedBook {
 
     private final UniquePlannedList plannedRecipes;
-    private Map<Recipe, List<PlannedRecipe>> recipeToPlannedRecipeMap;
+    private final Map<Recipe, List<PlannedRecipe>> plannedRecipeMap;
 
     public PlannedBook() {
         plannedRecipes = new UniquePlannedList();
-        recipeToPlannedRecipeMap = new HashMap<>();
+        plannedRecipeMap = new HashMap<>();
     }
 
     /**
@@ -35,26 +35,32 @@ public class PlannedBook implements ReadOnlyPlannedBook {
 
 
     /**
-     * Replaces the contents of the planned recipe map with {@code plannedRecipes}.
+     * Replaces the contents of the planned recipe list with {@code plannedRecipes}.
      * {@code plannedRecipes} must not contain duplicate recipes on the same day.
      */
     public void setPlannedRecipes(ObservableList<PlannedRecipe> plannedRecipes) {
         this.plannedRecipes.setPlannedRecipes(plannedRecipes);
     }
 
+    /**
+     * Replaces the contents of the planned recipe to recipe mapping with {@code plannedRecipes}.
+     */
+    public void setPlannedRecipeMap(Map<Recipe, List<PlannedRecipe>> plannedRecipeMap) {
+        this.plannedRecipeMap.clear();
+        this.plannedRecipeMap.putAll(plannedRecipeMap);
+    }
 
     /**
      * Resets the existing data of this {@code PlannedBook} with {@code newData}.
-     * @param newData
      */
     public void resetData(ReadOnlyPlannedBook newData) {
         requireNonNull(newData);
 
         setPlannedRecipes(newData.getPlannedList());
-        recipeToPlannedRecipeMap = newData.getRecipeToPlannedRecipeMap();
+        setPlannedRecipeMap(newData.getPlannedRecipeMap());
     }
 
-    // ===== Recipe-level methods =====
+    // ===== PlannedRecipe-level methods =====
 
     /**
      * Checks whether the planned book contains {@code plannedRecipe}.
@@ -66,78 +72,109 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     /**
      * Adds a {@code plannedRecipe} into plannedRecipes.
      * The planned recipe must not exist in the planned book.
+     * Adds the mapping from {@code recipe} to {@code plannedRecipe} as well.
      */
-    public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
+    public void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
         plannedRecipes.add(plannedRecipe);
+        addPlannedMapping(recipe, plannedRecipe);
     }
 
+    /**
+     * Adds a {@code plannedRecipe} into plannedRecipes.
+     * The planned recipe must not exist in the planned book.
+     * Adds the mapping from all {@code recipe} to {@code plannedRecipe} as well.
+     */
+    public void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
+        plannedRecipes.add(plannedRecipe);
+        addAllPlannedMapping(recipes, plannedRecipe);
+    }
 
     /**
-     * Adds a {@code plannedRecipe} to the mapping of Recipe to PlannedRecipe.
+     * Deletes {@code recipe} from all planned recipes.
+     * Deletes all the {@code recipe} key in the mapping as well.
      */
-    public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
-        if (recipeToPlannedRecipeMap.containsKey(recipe)) {
-            recipeToPlannedRecipeMap.get(recipe).add(plannedRecipe);
-        } else {
-            List<PlannedRecipe> plannedRecipes = new ArrayList<>();
-            plannedRecipes.add(plannedRecipe);
-            recipeToPlannedRecipeMap.put(recipe, plannedRecipes);
+    public void deleteAllPlansFor(Recipe recipe) {
+        if (plannedRecipeMap.containsKey(recipe)) {
+            List<PlannedRecipe> plannedRecipesForRecipe = plannedRecipeMap.get(recipe);
+            for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
+                deleteRecipeFromPlannedRecipe(recipe, plannedRecipe);
+            }
+            plannedRecipeMap.remove(recipe);
         }
     }
 
-
     /**
-     * Deletes the {@code plannedRecipe} from the plannedRecipes list.
-     */
-    public void deletePlannedRecipe(PlannedRecipe plannedRecipe) {
-        plannedRecipes.remove(plannedRecipe);
-    }
-
-    /**
-     * Deletes the {@code recipe} from the internal list in the {@code plannedRecipe}.
+     * Deletes one {@code recipe} from the internal list in the {@code plannedRecipe}.
      * If the {@code recipe} is the last recipe in the internal list, delete the {@code plannedRecipe}
-     * from the plannedRecipes list
+     * from the plannedRecipes list.
+     * Deletes the mapping from {@code recipe} to {@code plannedRecipe} in the mapping as well.
      */
     public void deleteRecipeFromPlannedRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+        deleteOnePlannedMapping(recipe, plannedRecipe); // deletes mapping
         int sizeOfInternalList = plannedRecipe.getRecipes().size();
         if (sizeOfInternalList == 1) { // recipe to be deleted is the last recipe
             deletePlannedRecipe(plannedRecipe);
         } else {
-            plannedRecipe.getRecipes().remove(recipe); // check: need to remove and add plannedrecipe?
-        }
-    }
-
-    public void deletePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
-        recipeToPlannedRecipeMap.get(recipe).remove(plannedRecipe);
-    }
-
-    /**
-     * Removes all planned recipes on this {@code recipe} key in the mapping from recipe to planned recipe.
-     */
-    public void deleteAllPlannedMappingForRecipe(Recipe recipe) {
-        if (recipeToPlannedRecipeMap.containsKey(recipe)) {
-            List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(recipe);
-            for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
-                deletePlannedRecipe(plannedRecipe);
-            }
-            recipeToPlannedRecipeMap.remove(recipe);
+            plannedRecipe.getRecipes().remove(recipe);
         }
     }
 
     /**
-     * Shifts the planned recipes on this {@code target} key to the {@code editedRecipe} key in the mapping from
-     * recipe to planned recipe.
-     * Updates the Recipe referenced in each PlannedRecipe.
+     * Updates the recipe in the planned recipes from {@code target} to {@code editedRecipe}.
      */
-    public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
-        if (recipeToPlannedRecipeMap.containsKey(target)) {
-            List<PlannedRecipe> plannedRecipesForRecipe = recipeToPlannedRecipeMap.get(target);
-            recipeToPlannedRecipeMap.remove(target);
+    public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
+        if (plannedRecipeMap.containsKey(target)) {
+            List<PlannedRecipe> plannedRecipesForRecipe = plannedRecipeMap.get(target);
+            plannedRecipeMap.remove(target);
             for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
                 plannedRecipe.setRecipe(target, editedRecipe);
             }
-            recipeToPlannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
+            plannedRecipeMap.put(editedRecipe, plannedRecipesForRecipe);
         }
+    }
+
+    /**
+     * Deletes the {@code plannedRecipe} with all its internal recipes from the plannedRecipes list.
+     */
+    private void deletePlannedRecipe(PlannedRecipe plannedRecipe) {
+        plannedRecipes.remove(plannedRecipe);
+    }
+
+    // ===== Private mapping methods =====
+
+    /**
+     * Adds a {@code plannedRecipe} to the key {@code recipe} in the mapping of Recipe to PlannedRecipe.
+     */
+    private void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        if (plannedRecipeMap.containsKey(recipe)) {
+            plannedRecipeMap.get(recipe).add(plannedRecipe);
+        } else {
+            List<PlannedRecipe> plannedRecipes = new ArrayList<>();
+            plannedRecipes.add(plannedRecipe);
+            plannedRecipeMap.put(recipe, plannedRecipes);
+        }
+    }
+
+    /**
+     * Adds {@code plannedRecipe} to all the keys in {@code recipes} in the mapping of Recipe to PlannedRecipe.
+     */
+    private void addAllPlannedMapping(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
+        for (Recipe recipe : recipes) {
+            if (plannedRecipeMap.containsKey(recipe)) {
+                plannedRecipeMap.get(recipe).add(plannedRecipe);
+            } else {
+                List<PlannedRecipe> plannedRecipes = new ArrayList<>();
+                plannedRecipes.add(plannedRecipe);
+                plannedRecipeMap.put(recipe, plannedRecipes);
+            }
+        }
+    }
+
+    /**
+     * Deletes one {@code plannedRecipe} in the list of planned recipes at the {@code recipe} key.
+     */
+    private void deleteOnePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedRecipeMap.get(recipe).remove(plannedRecipe);
     }
 
     // ===== Util methods =====
@@ -148,8 +185,8 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     }
 
     @Override
-    public Map<Recipe, List<PlannedRecipe>> getRecipeToPlannedRecipeMap() {
-        return recipeToPlannedRecipeMap;
+    public Map<Recipe, List<PlannedRecipe>> getPlannedRecipeMap() {
+        return plannedRecipeMap;
     }
 
     @Override

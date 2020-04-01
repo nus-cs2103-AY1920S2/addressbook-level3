@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -196,38 +197,28 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
-        plannedBook.addPlannedRecipe(plannedRecipe);
+    public void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.addPlanForOneRecipe(recipe, plannedRecipe);
     }
 
     @Override
-    public void deletePlannedRecipe(PlannedRecipe plannedRecipe) {
-        plannedBook.deletePlannedRecipe(plannedRecipe);
+    public void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
+        plannedBook.addPlanForAllRecipes(recipes, plannedRecipe);
     }
 
     @Override
-    public void deleteRecipeFromPlannedRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+    public void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe) {
         plannedBook.deleteRecipeFromPlannedRecipe(recipe, plannedRecipe);
     }
 
     @Override
-    public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
-        plannedBook.addPlannedMapping(recipe, plannedRecipe);
+    public void deleteAllPlansFor(Recipe recipe) {
+        plannedBook.deleteAllPlansFor(recipe);
     }
 
     @Override
-    public void deletePlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
-        plannedBook.deletePlannedMapping(recipe, plannedRecipe);
-    }
-
-    @Override
-    public void deleteAllPlannedMappingForRecipe(Recipe recipe) {
-        plannedBook.deleteAllPlannedMappingForRecipe(recipe);
-    }
-
-    @Override
-    public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
-        plannedBook.setPlannedRecipe(target, editedRecipe);
+    public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
+        plannedBook.setRecipeInPlans(target, editedRecipe);
     }
 
     @Override

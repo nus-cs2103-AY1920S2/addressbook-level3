@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
             Index indexAfterEachDeletion = Index.fromZeroBased(targetIndex[i].getZeroBased() - i);
             Recipe recipeToDelete = lastShownList.get(indexAfterEachDeletion.getZeroBased());
             model.deleteRecipe(recipeToDelete);
-            model.deleteAllPlannedMappingForRecipe(recipeToDelete);
+            model.deleteAllPlansFor(recipeToDelete);
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");
             }

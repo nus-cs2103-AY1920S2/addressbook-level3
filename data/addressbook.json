@@ -1,9 +1,9 @@
 {
   "recipes" : [ {
-    "name" : "barley pilaf 2",
+    "name" : "edit name 2",
     "time" : "30",
     "isFavourite" : false,
-    "grains" : [ "0.5cup,  small pieces of broken spaghetti" ],
+    "grains" : [ "1.0cup,  small pieces of broken spaghetti" ],
     "vegetables" : [ "2.0tbsp,  chives (chopped)", "50.0g,  small onion (chopped)" ],
     "proteins" : [ "2.5cup,  low-sodium chicken broth" ],
     "fruits" : [ ],

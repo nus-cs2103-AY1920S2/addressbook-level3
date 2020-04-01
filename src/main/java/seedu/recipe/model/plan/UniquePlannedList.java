@@ -36,6 +36,10 @@ public class UniquePlannedList {
             throw new DuplicatePlannedRecipeException();
         }
 
+        if (!recipesAreUnique(plannedRecipes)) {
+            throw new DuplicatePlannedRecipeException();
+        }
+
         observableList.clear();
         observableList.setAll(plannedRecipes);
     }
@@ -46,7 +50,7 @@ public class UniquePlannedList {
     public void add(PlannedRecipe plannedRecipe) {
         requireNonNull(plannedRecipe);
         if (observableList.contains(plannedRecipe) || hasPlannedRecipe(plannedRecipe)) {
-            throw new DuplicatePlannedRecipeException(); // todo bugg
+            throw new DuplicatePlannedRecipeException();
         }
 
         int indexOfSameDate = indexOfPlannedRecipeWithSameDate(plannedRecipe);
@@ -70,17 +74,18 @@ public class UniquePlannedList {
     }
 
     /**
-     * Returns true if the list contains an equivalent recipe at the planned date.
+     * Returns true if the list contains the same recipes at the planned date from {@code otherPlannedRecipe}.
      */
     public boolean hasPlannedRecipe(PlannedRecipe otherPlannedRecipe) {
-        if (!observableList.contains(otherPlannedRecipe)) {
-            for (PlannedRecipe plannedRecipe : observableList) {
-                if (plannedRecipe.hasSameDateAndContainsSameRecipe(otherPlannedRecipe)) { // todo check this
-                    return false;
-                }
+        if (observableList.contains(otherPlannedRecipe)) {
+            return true;
+        }
+        for (PlannedRecipe plannedRecipe : observableList) {
+            if (plannedRecipe.hasSameRecipeInPlan(otherPlannedRecipe)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -98,7 +103,7 @@ public class UniquePlannedList {
     }
 
     /**
-     * Returns true if {@code plannedRecipes} contains only unique recipes.
+     * Returns true if {@code plannedRecipes} contains only unique planned recipes.
      */
     private boolean plannedRecipesAreUnique(List<PlannedRecipe> plannedRecipes) {
         for (int i = 0; i < plannedRecipes.size() - 1; i++) {
@@ -106,6 +111,18 @@ public class UniquePlannedList {
                 if (plannedRecipes.get(i).equals(plannedRecipes.get(j))) {
                     return false;
                 }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if all recipes in {@code plannedRecipes} contains only unique recipes.
+     */
+    public boolean recipesAreUnique(List<PlannedRecipe> plannedRecipes) {
+        for (PlannedRecipe plannedRecipe : plannedRecipes) {
+            if (!plannedRecipe.recipesAreUnique()) {
+                return false;
             }
         }
         return true;

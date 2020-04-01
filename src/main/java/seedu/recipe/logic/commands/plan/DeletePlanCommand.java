@@ -67,8 +67,7 @@ public class DeletePlanCommand extends Command {
         }
 
         Recipe recipeToDelete = recipesAtPlannedDate.get(plannedIndex.getZeroBased());
-        model.deleteRecipeFromPlannedRecipe(recipeToDelete, plannedRecipeToEdit);
-        model.deletePlannedMapping(recipeToDelete, plannedRecipeToEdit);
+        model.deleteRecipeFromOnePlan(recipeToDelete, plannedRecipeToEdit);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
 

@@ -9,6 +9,7 @@ import static seedu.recipe.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -193,17 +195,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
+        public void setPlannedBook(PlannedBook plannedBook) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
+        public void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteAllPlannedMappingForRecipe(Recipe recipe) {
+        public void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteAllPlansFor(Recipe recipe) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -238,7 +250,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
+        public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
 

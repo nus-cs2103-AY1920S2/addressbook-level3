@@ -1,7 +1,9 @@
 package seedu.recipe.model.plan;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.recipe.model.Date;
 import seedu.recipe.model.recipe.Recipe;
@@ -52,19 +54,34 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
 
     /**
      * Returns true if {@code plannedRecipe} is planned on the same day and all its recipes
-     * can be found in the current PlannedRecipe's list.
+     * can be found in the current PlannedRecipe's list, or if duplicate recipes are found in {@code plannedRecipe}.
      */
-    public boolean hasSameDateAndContainsSameRecipe(PlannedRecipe plannedRecipe) {
-        return date.equals(plannedRecipe.date)
-                && recipes.contains(plannedRecipe.getRecipes());
+    public boolean hasSameRecipeInPlan(PlannedRecipe plannedRecipe) {
+        if (plannedRecipe.recipesAreUnique()) {
+            return date.equals(plannedRecipe.date) && recipes.containsAll(plannedRecipe.getRecipes());
+        }
+        return true;
     }
 
 
     /**
-     * Checks whether it is planned on {@code onDate}.
+     * Returns true if it is planned on {@code onDate}.
      */
     public boolean isOnDate(Date onDate) {
         return date.equals(onDate);
+    }
+
+    /**
+     * Returns true if the recipes in the internal recipe list consist of unique recipes.
+     */
+    public boolean recipesAreUnique() {
+        Set<Recipe> uniqueRecipeSet = new HashSet<>();
+        for (Recipe recipe: recipes) {
+            if (!uniqueRecipeSet.add(recipe)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
