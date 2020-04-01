@@ -4,14 +4,12 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.recipe.model.Date;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
-import seedu.recipe.storage.JsonAdaptedGoal;
 
 /**
  * Represents a Record in the cooked records book.
