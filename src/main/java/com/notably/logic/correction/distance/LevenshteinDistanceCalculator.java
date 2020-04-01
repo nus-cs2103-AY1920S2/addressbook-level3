@@ -7,15 +7,15 @@ import java.util.Objects;
  * Inspired by https://web.stanford.edu/class/cs124/lec/med.pdf.
  */
 public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
-    private final boolean caseSensitive;
+    private final boolean isCaseSensitive;
 
     /**
      * Creates a {@link LevenshteinDistanceCalculator} instance
      *
-     * @param caseSensitive Whether or not edit distance should account for case difference
+     * @param isCaseSensitive Whether or not edit distance should account for case difference
      */
-    public LevenshteinDistanceCalculator(boolean caseSensitive) {
-        this.caseSensitive = caseSensitive;
+    public LevenshteinDistanceCalculator(boolean isCaseSensitive) {
+        this.isCaseSensitive = isCaseSensitive;
     }
 
     /**
@@ -43,7 +43,7 @@ public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
             for (int j = 1; j <= second.length(); j++) {
                 char firstChar = first.charAt(i - 1);
                 char secondChar = second.charAt(j - 1);
-                if (!caseSensitive) {
+                if (!isCaseSensitive) {
                     firstChar = Character.toLowerCase(firstChar);
                     secondChar = Character.toLowerCase(secondChar);
                 }
