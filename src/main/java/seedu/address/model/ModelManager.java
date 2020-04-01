@@ -363,13 +363,14 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public boolean hasAssignment(ID assignmentID) {
-    return false;
+    return assignmentAddressBook.has(assignmentID);
   }
 
   @Override
   public Assignment getAssignment(ID assignmentID) {
-    return null;
+    return assignmentAddressBook.get(assignmentID);
   }
+
   // =====================================================================================================
 
 
@@ -557,14 +558,46 @@ public class ModelManager extends BaseManager implements Model {
 
   // ========================== For Assigning of X to Y =========================
 
-  public void assignStudentToCourse(ID studentID, ID courseID) {
-    // if student exists
-    // if course exists
-    // if student not already assigned to the course
-    // if course doesn't already have the student
+  public void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Student foundStudent = getStudent(studentID);
+
+    foundCourse.addStudent(studentID);
+    foundStudent.addCourse(courseID);
+    foundCourse.processAssignedStudents(
+            (FilteredList<Student>) getFilteredStudentList());
+    foundStudent.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundStudent, foundStudent);
+    getAddressBook(foundStudent).set(foundStudent, foundStudent);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
   }
 
-  @Override
+  public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Assignment foundAssignment = getAssignment(assignmentID);
+
+    foundCourse.addAssignment(assignmentID);
+    foundAssignment.addCourseID(courseID);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundAssignment, foundAssignment);
+    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+
+  }
+
+    @Override
   public boolean equals(Object obj) {
     // short circuit if same object
     if (obj == this) {
