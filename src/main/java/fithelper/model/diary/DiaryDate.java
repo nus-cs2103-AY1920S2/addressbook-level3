@@ -92,7 +92,7 @@ public class DiaryDate {
         }
 
         DiaryDate diaryDate = (DiaryDate) o;
-        return diaryDate.equals(diaryDate.diaryDate);
+        return diaryDate.toString().equalsIgnoreCase(diaryDate.diaryDate.toString());
     }
 
     @Override

@@ -20,8 +20,8 @@ public class Profile {
     private final Address address;
     private final Height height;
     private final TargetWeight targetWeight;
-    private final WeightValue currentWeight;
-    private final Bmi currentBmi;
+    private WeightValue currentWeight;
+    private Bmi currentBmi;
 
     /**
      * Construct an empty profile.
@@ -117,6 +117,14 @@ public class Profile {
 
     public Bmi getCurrentBmi() {
         return currentBmi;
+    }
+
+    public void setCurrentWeight(WeightValue newWeightValue) {
+        this.currentWeight = newWeightValue;
+    }
+
+    public void setCurrentBmi(Bmi newBmi) {
+        this.currentBmi = newBmi;
     }
 
     @Override

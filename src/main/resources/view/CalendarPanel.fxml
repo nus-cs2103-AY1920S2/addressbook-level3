@@ -25,6 +25,11 @@
             <Insets top="10.0" />
         </GridPane.margin>
     </StackPane>
+    <StackPane fx:id="dailyStatusListPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0" prefHeight="310.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <GridPane.margin>
+            <Insets top="10.0" />
+        </GridPane.margin>
+    </StackPane>
     <AnchorPane fx:id="daysPagePlaceholder" AnchorPane.leftAnchor="0.0" GridPane.halignment="LEFT" prefHeight="480.0" style="-fx-background-color: white;"/>
     <GridPane.margin>
         <Insets />

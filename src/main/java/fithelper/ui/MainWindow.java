@@ -116,7 +116,7 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(helpWindow.getRoot());
         profilePage = new ProfilePage(logic.getUserProfile());
         setAllPageAnchor(profilePage.getRoot());
-        weightPage = new WeightPage();
+        weightPage = new WeightPage(logic.getUserProfile(), logic.getFilteredWeightList());
         setAllPageAnchor(weightPage.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
@@ -173,6 +173,8 @@ public class MainWindow extends UiPart<Stage> {
             showProfilePage();
             break;
         case WEIGHT:
+            updateProfilePage();
+            updateWeightPage();
             showWeightPage();
             break;
         default:
@@ -268,6 +270,13 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(profilePage.getRoot());
         currentPage.setText("Profile");
+    }
+
+    /**
+     * Update content of weight page with latest values.
+     */
+    private void updateWeightPage() {
+        weightPage = new WeightPage(logic.getUserProfile(), logic.getFilteredWeightList());
     }
 
     /**

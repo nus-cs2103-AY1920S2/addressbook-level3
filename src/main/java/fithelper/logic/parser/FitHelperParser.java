@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fithelper.logic.commands.AddCommand;
+import fithelper.logic.commands.AddWeightCommand;
 import fithelper.logic.commands.CalendarCommand;
 import fithelper.logic.commands.CheckCommand;
 import fithelper.logic.commands.ClearCommand;
@@ -28,10 +29,18 @@ import fithelper.logic.commands.UpdateCommand;
 import fithelper.logic.commands.WeightCommand;
 
 import fithelper.logic.commands.diary.AddDiaryCommand;
+import fithelper.logic.commands.diary.AppendDiaryCommand;
+import fithelper.logic.commands.diary.ClearDiaryCommand;
+import fithelper.logic.commands.diary.DeleteDiaryCommand;
 import fithelper.logic.commands.diary.DiaryCommand;
 import fithelper.logic.commands.diary.EditDiaryCommand;
+import fithelper.logic.commands.diary.FindDiaryCommand;
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
+import fithelper.logic.parser.diary.AppendDiaryCommandParser;
+import fithelper.logic.parser.diary.ClearDiaryCommandParser;
+import fithelper.logic.parser.diary.DeleteDiaryCommandParser;
 import fithelper.logic.parser.diary.EditDiaryCommandParser;
+import fithelper.logic.parser.diary.FindDiaryCommandParser;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.logic.parser.revoke.RedoCommandParser;
 import fithelper.logic.parser.revoke.UndoCommandParser;
@@ -68,6 +77,12 @@ public class FitHelperParser {
         case AddDiaryCommand.COMMAND_WORD:
             return new AddDiaryCommandParser().parse(arguments);
 
+        case AppendDiaryCommand.COMMAND_WORD:
+            return new AppendDiaryCommandParser().parse(arguments);
+
+        case AddWeightCommand.COMMAND_WORD:
+            return new AddWeightCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -77,14 +92,23 @@ public class FitHelperParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case DeleteDiaryCommand.COMMAND_WORD:
+            return new DeleteDiaryCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case ClearDiaryCommand.COMMAND_WORD:
+            return new ClearDiaryCommandParser().parse(arguments);
 
         case CheckCommand.COMMAND_WORD:
             return new CheckCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindDiaryCommand.COMMAND_WORD:
+            return new FindDiaryCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
@@ -128,6 +152,7 @@ public class FitHelperParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
+
         case RedoCommand.COMMAND_WORD:
             return new RedoCommandParser().parse(arguments);
 

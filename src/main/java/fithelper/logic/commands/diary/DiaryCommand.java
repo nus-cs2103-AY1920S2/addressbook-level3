@@ -1,11 +1,9 @@
 package fithelper.logic.commands.diary;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.DIARY;
+import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
-import java.util.logging.Logger;
-
-import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
 import fithelper.model.Model;
@@ -21,16 +19,12 @@ public class DiaryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Now you are at Diary Page ~";
 
-    private static final String MESSAGE_COMMIT = "View my diary";
-
-    private static final Logger logger = LogsCenter.getLogger(DiaryCommand.class);
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.commit(MESSAGE_COMMIT);
-        logger.info("Switched to Diary Page");
+        model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS), DIARY, false);
     }

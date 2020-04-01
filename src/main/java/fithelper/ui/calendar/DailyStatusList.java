@@ -19,8 +19,8 @@ import javafx.scene.layout.AnchorPane;
 /**
  * Display list of entries by dates
  */
-public class DaysCard extends UiPart<AnchorPane> {
-    private static final String FXML = "DaysListCard.fxml";
+public class DailyStatusList extends UiPart<AnchorPane> {
+    private static final String FXML = "DailyStatusList.fxml";
 
     @FXML
     private Label listTitle;
@@ -32,7 +32,7 @@ public class DaysCard extends UiPart<AnchorPane> {
     private ObservableList<Entry> combined;
     private ObservableList<ObservableList<Entry>> entries;
 
-    public DaysCard(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime
+    public DailyStatusList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime
             dateToSet) {
         super(FXML);
         time = dateToSet;
@@ -51,7 +51,7 @@ public class DaysCard extends UiPart<AnchorPane> {
         Map<LocalDate, ObservableList<Entry>> entriesByDate = EntriesUtil.getEntriesByDate(combined);
         entries = EntriesUtil.setEntriesByDate(entriesByDate);
         daysListView.setItems(entries);
-        daysListView.setCellFactory(listView -> new DaysCard.ListViewCell());
+        daysListView.setCellFactory(listView -> new DailyStatusList.ListViewCell());
     }
 
     /**
@@ -79,7 +79,7 @@ public class DaysCard extends UiPart<AnchorPane> {
                 setText(null);
             } else {
                 LocalDateTime temp = entries.get(0).getDateTime();
-                setGraphic(new DayCard(entries, temp).getRoot());
+                setGraphic(new DailyStatus(entries, temp).getRoot());
             }
         }
     }
