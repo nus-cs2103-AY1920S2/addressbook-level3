@@ -6,7 +6,6 @@ import com.notably.model.suggestion.SuggestionItem;
 
 import javafx.beans.Observable;
 import javafx.beans.property.Property;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
