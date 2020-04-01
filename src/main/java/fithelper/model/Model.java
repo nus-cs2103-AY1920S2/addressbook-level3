@@ -1,5 +1,6 @@
 package fithelper.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Predicate;
@@ -248,6 +249,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredWeightList(Predicate<Weight> predicate);
+
+    LocalDate getLastWeightDate();
 
 }
 

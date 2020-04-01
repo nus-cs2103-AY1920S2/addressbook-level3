@@ -3,6 +3,7 @@ package fithelper.model;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Predicate;
@@ -492,5 +493,21 @@ public class ModelManager implements Model {
     public void updateFilteredWeightList(Predicate<Weight> predicate) {
         requireNonNull(predicate);
         filteredWeights.setPredicate(predicate);
+    }
+
+    @Override
+    public LocalDate getLastWeightDate() {
+        ObservableList<Weight> weights = this.weightRecords.getWeightList();
+        if (weights.size() == 0) {
+            return null;
+        } else {
+            LocalDate last = weights.get(0).getDate().value;
+            for (int i = 1; i < weights.size(); i++) {
+                if (weights.get(i).getDate().value.compareTo(last) > 0) {
+                    last = weights.get(i).getDate().value;
+                }
+            }
+            return last;
+        }
     }
 }

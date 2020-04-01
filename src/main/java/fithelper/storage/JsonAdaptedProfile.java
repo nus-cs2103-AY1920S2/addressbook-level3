@@ -12,6 +12,8 @@ import fithelper.model.profile.Height;
 import fithelper.model.profile.Name;
 import fithelper.model.profile.Profile;
 import fithelper.model.profile.TargetWeight;
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.WeightValue;
 
 /**
  * Jackson-friendly version of {@link Profile}.
@@ -26,6 +28,8 @@ class JsonAdaptedProfile {
     private final String address;
     private final String height;
     private final String targetWeight;
+    private final String currentWeight;
+    private final String currentBmi;
 
     /**
      * Constructs a {@code JsonAdaptedProfile} with the given profile details.
@@ -36,13 +40,17 @@ class JsonAdaptedProfile {
                               @JsonProperty("age") String age,
                               @JsonProperty("address") String address,
                               @JsonProperty("height") String height,
-                              @JsonProperty("targetWeight") String targetWeight) {
+                              @JsonProperty("targetWeight") String targetWeight,
+                              @JsonProperty("currentWeight") String currentWeight,
+                              @JsonProperty("currentBmi") String currentBmi) {
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.address = address;
         this.height = height;
         this.targetWeight = targetWeight;
+        this.currentWeight = currentWeight;
+        this.currentBmi = currentBmi;
     }
 
     /**
@@ -55,6 +63,8 @@ class JsonAdaptedProfile {
         address = source.getAddress().value;
         height = String.valueOf(source.getHeight().value);
         targetWeight = String.valueOf(source.getTargetWeight().value);
+        currentWeight = String.valueOf(source.getCurrentWeight().value);
+        currentBmi = String.valueOf(source.getCurrentBmi().value);
     }
 
     /**
@@ -153,6 +163,38 @@ class JsonAdaptedProfile {
     }
 
     /**
+     * Build {@code WeightValue} based on Json file string.
+     *
+     * @return Attribute currentWeight.
+     * @throws IllegalValueException Invalid value for currentWeight.
+     */
+    public WeightValue buildWeightValue() throws IllegalValueException {
+        if (currentWeight == null) {
+            return null;
+        }
+        if (!WeightValue.isValidWeightValue(currentWeight)) {
+            throw new IllegalValueException(WeightValue.MESSAGE_CONSTRAINTS);
+        }
+        return new WeightValue(currentWeight);
+    }
+
+    /**
+     * Build {@code Bmi} based on Json file string.
+     *
+     * @return Attribute currentBmi.
+     * @throws IllegalValueException Invalid value for currentBmi.
+     */
+    public Bmi buildBmi() throws IllegalValueException {
+        if (currentBmi == null) {
+            return null;
+        }
+        if (!Bmi.isValidBmi(Double.parseDouble(currentBmi))) {
+            throw new IllegalValueException(Bmi.MESSAGE_CONSTRAINTS);
+        }
+        return new Bmi(Double.parseDouble(currentBmi));
+    }
+
+    /**
      * Converts this Jackson-friendly adapted profile object into the model's {@code Profile} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted profile.
@@ -164,9 +206,16 @@ class JsonAdaptedProfile {
         final Address modelAddress = buildAddress();
         final Height modelHeight = buildHeight();
         final TargetWeight modelTargetWeight = buildTargetWeight();
+        final WeightValue modelCurrentWeight = buildWeightValue();
+        final Bmi modelCurrentBmi = buildBmi();
+
+        if (modelCurrentWeight == null) {
+            return new Profile(modelName, modelGender, modelAge, modelAddress,
+                    modelHeight, modelTargetWeight);
+        }
 
         return new Profile(modelName, modelGender, modelAge, modelAddress,
-                modelHeight, modelTargetWeight);
+                modelHeight, modelTargetWeight, modelCurrentWeight, modelCurrentBmi);
     }
 
 }
