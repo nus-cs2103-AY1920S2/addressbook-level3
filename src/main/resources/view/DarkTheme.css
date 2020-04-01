@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #FFEBE8; /* Used in the default.html file */
+    background-color: #3e7b91; /* Used in the default.html file */
 }
 
 .label {
@@ -90,7 +90,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#FFEBE8, 20%);
+    -fx-background-color: derive(#619196, 0%);
 }
 
 .list-cell {

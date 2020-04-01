@@ -18,6 +18,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setExpenseLa(new ExpenseLa());
+        model.updateTotalBalance(0.00);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

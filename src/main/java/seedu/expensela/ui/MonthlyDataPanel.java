@@ -74,6 +74,10 @@ public class MonthlyDataPanel extends UiPart<Region> {
      * @param expense
      */
     private void drawCircle(double budget, double expense) {
+        if (budget == 0 && expense == 0) {
+            budget = 1;
+            expense = 1;
+        }
         double angle = 360 - expense / budget * 360;
         double overlayAngle = 0;
         if (angle < 0) {
