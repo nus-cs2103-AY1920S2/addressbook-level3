@@ -69,5 +69,20 @@ public class StringCorrectionEngineTest {
         CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
     }
+
+    @Test
+    public void correct_differentCase() {
+        final int distanceThreshold = 1;
+        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
+        final String uncorrectedInput = "HElP";
+
+        final String expectedCorrectedItem = "help";
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
+        final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus, expectedCorrectedItem);
+
+        CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
 }
 
