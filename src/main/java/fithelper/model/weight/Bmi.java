@@ -3,11 +3,9 @@ package fithelper.model.weight;
 import static fithelper.commons.util.AppUtil.checkArgument;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import fithelper.model.profile.Height;
-
 /**
  * Represents a User's Bmi in one weight record.
- * Guarantees: immutable; is valid as declared in {@link #isValidBmi(Height, WeightValue)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidBmi(double test)}
  */
 public class Bmi {
 
@@ -21,23 +19,17 @@ public class Bmi {
      *
      * @param bmi A valid bmi of user.
      */
-    public Bmi(String bmi) {
+    public Bmi(double bmi) {
         requireAllNonNull(bmi);
         checkArgument(isValidBmi(bmi), MESSAGE_CONSTRAINTS);
-        this.value = Double.parseDouble(bmi);
+        this.value = bmi;
     }
 
     /**
      * Returns true if a given string is a valid Bmi.
      */
-    public static boolean isValidBmi(String test) {
-        double testValue;
-        try {
-            testValue = Double.parseDouble(test);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return testValue > 0;
+    public static boolean isValidBmi(double test) {
+        return test > 0;
     }
 
     @Override
