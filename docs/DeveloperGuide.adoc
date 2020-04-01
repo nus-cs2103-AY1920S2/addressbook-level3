@@ -16,11 +16,51 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+== Introduction
+
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage their students and claimable
+hours in one place.
+
+Teaching Assistants at SoC have to keep a track of:
+
+* students
+* students' participation marks
+* notes they have for certain students that they can later use for recommendations.
+* claimable hours so that they can fill up the TSS Claims form at the end of each semester.
+
+Rather than managing this through several excel
+spreadsheets and notes, TA-Tracker allows TAs to track everything in a single, convenient-to-use
+platform.
+
+In particular, TA-Tracker is a *Command Line Interface (CLI)* application packaged
+with a *Graphical User Interface (GUI)*. This means that users are expected to interact
+with the TA-Tracker mainly through the command line, but each command executed will
+evoke a visual response in the TA-Tracker.
+
+Any help on the development of the TA-Tracker would be greatly appreciated, and there
+are a couple of ways that you can do so:
+
+* contribute to TA-Tracker's code base by expanding its features
+** such as adding an option to enter assignment grades
+* help us improve test coverage
+* propose and implement improvements on current features
+
+This guide aims to kick-start your journey as a contributor to the TA-Tracker by getting
+you up to speed with how TA-Tracker's codebase and inner workings function. It also
+hopes to serve as a useful reference to current contributors in times of confusion or
+when faced with difficulties.
+
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+You can refer to the guide <<SettingUp#, here>>.
 
 == Design
+
+TA-Tracker has been designed with `Object-Oriented Programming`
+principles in mind. This section serves to give a description of the
+major components in the architecture of TA-Tracker. Subsequent sections
+provide more information on the inner workings of individual components.
 
 [[Design-Architecture]]
 === Architecture
@@ -28,7 +68,8 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -64,9 +105,10 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other
+for the scenario where the user issues the command `session delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `session delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -102,19 +144,27 @@ link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 .  `TaTrackerParser` uses specialized command parsers to parse the user command.
 .. `StudentCommandParser`, `ModuleCommandParser`, `GroupCommandParser`, and `SessionCommandParser`
 parse commands that interact with the models that they are named after.
-.. Other parsers, such as `HelpCommandParser` and `FilterCommandParser` parse commands that
-interact with the TA-Tracker user interface.
+.. Other parsers, such as `HelpCommandParser`, `SortCommandParser` and `FilterCommandParser`
+parse commands that interact with the TA-Tracker user interface.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `group add m/CS2103 g/G03 t/lab` Command
+image::AddGroupSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+[NOTE]
+====
+[horizontal]
+* The lifeline for `GroupCommandParser` and `AddGroupCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+* Since the purpose of this diagram is to show the interactions within the `Logic` component,
+irrelevant interactions with the `Model` component have been omitted.
+====
 
 [[Design-Model]]
 === Model component
@@ -132,7 +182,10 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `TaTracker`, which `Student` can reference. This would allow `TaTracker` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
+reference. This would allow `TaTracker` to only require one `Tag` object per unique
+`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
+such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -170,174 +223,126 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+[[StudentView]]
+=== Student View
+*Student view* is the term used to characterise the different functionalities
+related to the students.
 
-The undo/redo mechanism is facilitated by `VersionedTaTracker`.
-It extends `TaTracker` with an undo/redo history, stored internally as an `taTrackerStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedTaTracker#commit()` -- Saves the current TA-Tracker state in its history.
-* `VersionedTaTracker#undo()` -- Restores the previous TA-Tracker state from its history.
-* `VersionedTaTracker#redo()` -- Restores a previously undone TA-Tracker state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitTaTracker()`, `Model#undoTaTracker()` and `Model#redoTaTracker()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedTaTracker` will be initialized with the initial TA-Tracker state, and the `currentStatePointer` pointing to that single TA-Tracker state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th student in the TA-Tracker. The `delete` command calls `Model#commitTaTracker()`, causing the modified state of the TA-Tracker after the `delete 5` command executes to be saved in the `taTrackerStateList`, and the `currentStatePointer` is shifted to the newly inserted TA-Tracker state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new student. The `add` command also calls `Model#commitTaTracker()`, causing another modified TA-Tracker state to be saved into the `taTrackerStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitTaTracker()`, so the TA-Tracker state will not be saved into the `taTrackerStateList`.
-
-Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTaTracker()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TA-Tracker state, and restores the TA-Tracker to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial TA-Tracker state, then there are no previous TA-Tracker states to restore. The `undo` command uses `Model#canUndoTaTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoTaTracker()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the TA-Tracker to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `taTrackerStateList.size() - 1`, pointing to the latest TA-Tracker state, then there are no undone TA-Tracker states to restore. The `redo` command uses `Model#canRedoTaTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the TA-Tracker, such as `list`, will usually not call `Model#commitTaTracker()`, `Model#undoTaTracker()` or `Model#redoTaTracker()`. Thus, the `taTrackerStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitTaTracker()`. Since the `currentStatePointer` is not pointing at the end of the `taTrackerStateList`, all TA-Tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire TA-Tracker.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the student being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of TA-Tracker states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTaTracker`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-//tag::moduleview[]
-=== Module View
-Module view is the term used to characterise the different functionalities
-related to the modules and groups that the user is affiliated with.
+Students are a part of *groups* and groups are a part of *modules*.
 
 ==== Model Framework
 The following class diagram shows how different classes are related in the
-functioning of the module view.
+functioning of the `Student View`.
 
 .Module View - Class Diagram
 image::ModuleModelClassDiagram.png[]
 
-The TaTracker model class contains a UniqueModuleList which helps it keep track
-of the different modules the user is associated with. Each module contains a
-UniqueGroupList and a UniqueSessionList.
+The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
+of the different *modules* the user is associated with. Each `Module` contains a
+`UniqueGroupList` and a `UniqueSessionList`.
 
-The UniqueGroupList contains a list of all the groups of a module that the user
-is affiliated with. Each group contains a UniqueStudentsList that contains the
-students in that group.
+The `UniqueGroupList` contains a list of all the *groups* of a module that the user
+is affiliated with. Each `Group` contains a `UniqueStudentsList` that contains the
+*students* in that group.
 
-The UniqueSessionList contains a list of all the done sessions associated with the module.
-This list is used in the TSS view.
+The `UniqueSessionList` contains a list of all the *sessions that have already been
+done* associated with the module. This list is used in the TSS view.
 
-==== Implementation of the Module Add and Delete Commands
+====
+*Alternative Implementation*
+
+* An alternative implementation would be to have a single `UniqueModuleList` to store
+all modules, a `List` to store all groups and a `List` to store all students.
+
+* We would then have to filter by module code and/or group code to show the appropriate
+groups and students.
+
+* This would require students to keep track of which group and which module they're
+a part of. Similarly, groups would have to keep a track of the students it contains.
+This would create a cyclic dependency (which could be solved using an association class).
+
+* The `List` of groups could contain multiple groups with the same group code as group code
+is only unique within a module. Group codes can be shared across modules.
+
+* While this implementation would make it easier to generate a report at the end of
+the semester (explained towards the end of the guide), it would require more commands
+and complicate the model. That is why we decided to stick to our current implementation.
+
+====
+==== Implementation of the Module Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
-between the logic and model components of the TA-Tracker when the user enters the
-command 'module add m/CS2103 n/Software Engineering'.
+between the `Logic` and `Model` components of the TA-Tracker when the user enters the
+command `module add m/CS2103 n/Software Engineering`.
 
-Note: This diagram assumes that there is no module with the module code 'CS2103'
+Note: This diagram assumes that there is no module with the module code `CS2103`
 pre-existing in the TA-Tracker.
 
 .Module Add - Sequence Diagram
 image::AddModuleSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+[NOTE]
+====
+* The lifeline for `ModuleCommandParser` and `AddModuleCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
 
-2. The TATrackerParser sees that the command is of type module and passes the
-command to the ModuleCommandParser.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-3. The ModuleCommandParser sees that the command is of type add and passes the
-arguments to the AddModuleCommandParser.
+2. The `TaTrackerParser` sees that the command is of type *module* and passes the
+command to the `ModuleCommandParser`.
 
-4. The AddModuleCommandParser creates a Module with the given module code and
+3. The `ModuleCommandParser` sees that the command is of type *add* and passes the
+arguments to the `AddModuleCommandParser`.
+
+4. The `AddModuleCommandParser` creates a `Module` with the given module code and
 name.
 
-5. The AddModuleCommandParser then creates an AddModuleCommand object and passes
-it the created module. The parser then returns the AddModuleCommand
+5. The `AddModuleCommandParser` then creates an `AddModuleCommand` object and passes
+it the created module. The parser then returns the `AddModuleCommand` object.
 
-6. LogicManager calls AddModuleCommad's execute method. The AddModuleCommand object
+6. LogicManager calls `AddModuleCommand` 's execute method. The `AddModuleCommand` object
 checks whether a module with the given module code already exists in TA-Tracker.
 If it does, a command exception is thrown saying that a module with the given module
 code already exists in the TA-Tracker.
 
 7. If no such module exists, the module is added to the TA-Tracker.
 
-8. The SortGroupCommand returns a CommandResult with a success message.
+8. The `AddModuleCommand` returns a `CommandResult` with a success message.
 
-The command used to delete a module has been implemented in a similar way. Tha main
-difference is that the DeleteModuleCommand checks whether an object with the given
+The command used to delete a module has been implemented in a similar way. The main
+difference is that the `DeleteModuleCommand` checks whether an object with the given
 module code exists in the TA-Tracker. If no such module exists, a command exception
 is thrown saying that a module with the given module code doesn't exist. If it does
-exist, first all the sessions linked to that module are removed.
+exist, *first all the sessions linked to that module are removed*.
 Then the module is removed from the TA-Tracker.
 
-==== Implementation of the Group Add and Delete Commands
+The `module edit` command has been implemented in a similar manner.
 
-The following activity diagram shows the steps taken by the AddGroupCommand object
-when the execute method is called.
+==== Implementation of the Group Add, Delete and Edit Commands
 
-.Group Add - Activity Diagram
-image::AddGroupActivityDiagram.png[]
+A group is added to the TA-Tracker in a similar manner to to how a module is added to
+the TA-Tracker.
 
-It should be noted that these are the steps followed assuming that no exception is
-thrown. Before getting the module from TA-Tracker's model, the DeleteGroupCommand object
-checks whether such a module even exists. If it doesn't exists, it throws a command
-exception saying that no such module exists. Before adding a group to the module, the
-object even checks whether the module already has a group with the given group code.
-If it exists, a command exception is thrown saying that there is already a group
-with the given group code.
+The following steps are taken once the execute command of an AddGroupCommand object
+is called:
 
-The interactions between the logic and model components when adding a group are similar
+. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker.
+.. If it exists, the module is retrieved.
+.. If it doesn't exist, an exception is thrown explaining that the module doesn't
+exist.
+. The `AddGroupCommand` object checks whether a *group* with the same group code as
+the new group exists in the module retrieved beforehand.
+.. If it doesn't exist, the group is added to the module and a `CommandResult` object
+with the success message is returned.
+.. If it does exist, an exception is thrown explaining that you can't have two groups
+with the same group code in a module.
+
+The interactions between the `Logic` and `Model` components when adding a group are similar
 to the interactions when deleting a group as shown below.
 
 The following sequence diagram shows the interactions between the logic and model
-components when the user inputs the command 'group delete m/CS2103 g/G03'.
+components when the user inputs the command `group delete m/CS2103 g/G03`.
 
 Note: This diagram is under the case where a group with the group code G03 does exist
 in the module with module code CS2103 inside the TA-Tracker.
@@ -345,50 +350,74 @@ in the module with module code CS2103 inside the TA-Tracker.
 .Group Delete - Sequence Diagram
 image::DeleteGroupSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+[NOTE]
+====
+* The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-2. The TATrackerParser sees that the command is of type group and passes the
-command to the GroupCommandParser.
+* The module object named `m` and the group object named `g` are created as default
+module and group objects because the DeleteGroupCommand object's constructor takes
+in objects of type `Group` and `Module`.
 
-3. The GroupCommandParser sees that the command is of type delete and passes the
-arguments to the DeleteGroupCommandParser.
+* These objects are used to retrieve the actual module (the module object named `M`)
+and the delete the desired group from it.
+====
 
-4. The DeleteGroupCommandParser creates a Module with the given module code and
-a group with the given group code.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-5. The DeleteGroupCommandParser then creates a DeleteGroupCommand object and passes
-it the created module and group. The parser then returns the DeleteGroupCommand
+2. The `TaTrackerParser` sees that the command is of type *group* and passes the
+command to the `GroupCommandParser`.
 
-6. LogicManager calls DeleteGroupCommand's execute method. The DeleteGroupCommand object
-checks whether a module with the given module code already exists in TA-Tracker.
+3. The `GroupCommandParser` sees that the command is of type *delete* and passes the
+arguments to the `DeleteGroupCommandParser`.
+
+4. The `DeleteGroupCommandParser` creates a `Module` with the given module code and
+a `Group` with the given group code.
+
+5. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
+it the created module and group. The parser then returns the `DeleteGroupCommand` object.
+
+6. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
+checks whether a *module* with the given module code already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a module with the given module
 code doesn't exist in the TA-Tracker.
 
-7. If the module exists, the DeleteGroupCommand object retrieves the module from the
-model and checks whether the module has a group with the given group code. If it doesn't,
+7. If the module exists, the `DeleteGroupCommand` object retrieves the module from the
+model and checks whether the module has a *group* with the given group code. If it doesn't,
 a command exception is thrown saying that no such group exists. If the group does
 exist, it is removed from the module.
 
-8. The SortGroupCommand returns a CommandResult with a success message.
+8. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
+
+The `group edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Sort Command
 
-The sort command allows the user to sort the students in the module view either alphabetically
-or by rating.
+The sort command allows the user to sort the students in the module view either *alphabetically*,
+by *rating (in ascending or descending order)* or by *matriculation number*.
 
 The sort command can be used in three ways:
 
-1. sort g/GROUP_CODE m/MODULE_CODE t/TYPE : When a user enters the command in this
+1. `sort group g/GROUP_CODE m/MODULE_CODE t/TYPE` : When a user enters the command in this
 manner, they are sorting all the students of the given group in the given module
-by type TYPE (which can be either alphabetical or by rating).
+by type TYPE.
 
-2. sort g/MODULE_CODE t/TYPE : When a user enters a command in this manner, they
+2. `sort module g/MODULE_CODE t/TYPE` : When a user enters a command in this manner, they
 are sorting all the students of all the groups in the given module by type TYPE
 (which can be either alphabetical or by rating).
 
-3. sort t/TYPE : When a user enters a command in this manner, they are sorting all
+3. `sort all t/TYPE` : When a user enters a command in this manner, they are sorting all
 students of all groups of all the modules in the TA-Tracker by the type TYPE (which
 can be either alphabetical or by rating).
+
+[NOTE]
+====
+* `TYPE` here could mean any of the following:
+** `alpha`, `alphabetical` or `alphabetically` to sort alphabteically.
+** `rating asc` to sort by rating in ascending order.
+** `rating desc` to sort by rating in descending order.
+** `matric` to sort by matriculation number.
+====
 
 Since these sort commands function differently but use the same parser, the following
 class structure is used.
@@ -396,67 +425,58 @@ class structure is used.
 .Sort Commands - Class Diagram
 image::SortCommandsClassDiagram.png[]
 
-Since the different commands use the same parser, the SortCommandParser needs to check
+Since the different commands use the same parser, the `SortCommandParser` needs to check
 which prefixes have been passed and return the appropriate command accordingly.
 The following activity diagram shows the steps the SortCommandParser takes once
 its parse command is called (assuming that no exception is thrown).
 
-If the user enters a sort command with no valid prefix, a command exception is thrown
-thats explains the usage of the sort command.
-
 .SortCommandParser - Activity Diagram
 image::SortParserActivityDiagram.png[]
 
-The following sequence diagram illustrates the interactions between the logic and
-model components when the user enters the command 'sort m/CS2103 g/G03 t/alpha'.
+[NOTE]
+====
+* Typically, the alternative paths would emerge from a single diamond but due to
+a limitation in PlantUML's beta version of showing activity diagrams, we were
+unable to show it that way.
 
-Note: To allow the user to type quickly, for type both 'alpha' and 'alphabetically'
-sort the students lexicographically.
+* The final else clause would throw an error explaining that the command format is
+invalid. But due to a limitation in PlantUML's beta version of showing activity diagrams,
+we were unable to indicate exceptions thrown in the proper way and decided to mention
+it here instead.
+
+* Command word here refers to `all`, `module` or `group`.
+
+* If the user enters the `sort` command with a command word but doesn't include the
+appropriate parameters with the correct prefixes, a command exception is thrown.
+====
+
+The following sequence diagram illustrates the interactions between the logic and
+model components when the user enters the command `sort all t/matric`.
 
 .Sort - Sequence Diagram
-image::SortGroupSequenceDiagram.png[]
+image::SortAllSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+[NOTE]
+====
+* The lifeline for `SortCommandParser`` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
 
-2. The TATrackerParser sees that the command is of type sort and passes the
-command to the SortCommandParser.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+2. The `TaTrackerParser` sees that the command is of type `sort` and passes the
+command to the `SortCommandParser`.
 
 3. The SortCommandParser performs the steps shown in the previous activity diagram
-and creates and returns a SortGroupCommand.
+and determines that the sort command word is `all` and creates and returns a
+`SortCommand`.
 
-4. LogicManager calls SortGroupCommand's execute method.
+4. `LogicManager` calls `SortCommand` 's execute method.
 
-5. The SortGroupCommand creates a Module with the given module code and a group with
-the given group code. The SortGroupCommand object checks whether a module with the
-given module code already exists in TA-Tracker.
-If it doesn't, a command exception is thrown saying that a module with the given module
-code doesn't exist in the TA-Tracker.
+5. `SortCommand` checks the type of sorting that is indicated. Since the sort type
+is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 
-6. If the module exists, the SortGroupCommand object retrieves the module from the
-model and checks whether the module has a group with the given group code. If it doesn't,
-a command exception is thrown saying that no such group exists.
-
-7. If the group does exist, it is sorted according to the type of sort specified.
-
-8. The SortGroupCommand returns a CommandResult with a success message.
-
-//tag::studentview[]
-=== Student View
-Student view is the term used to characterise the different functionalities
-related to the students that the user is affiliated with.
-
-==== Model Framework
-The following class diagram shows how different classes are related in the
-functioning of the student view.
-
-.Student View - Class Diagram
-image::StudentModelClassDiagram.png[]
-
-The TaTracker model class contains a UniqueStudentList which helps it keep track
-of the different students the user is associated with. Each student has a name,
-matric and a default rating of 3/5 which can be edited by the user later. Each
-student also has a Phone and an Email, which is represented as an empty string
-if the user does not include the optional values.
+6. The `SortCommand` returns a `CommandResult` with a success message.
 
 ==== Implementation of the Student Add and Delete Commands
 
@@ -761,91 +781,92 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |TA |see an overview of events in a week |know what I have that week in a glance
 
-|`* *` |TA |give students ratings |keep a track of student participation in class
-
-|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
-
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
+|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
 |`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
 
-|`* *` |TA |be able to get tasks on a particular date |
-
-|`* *` |TA |filter by a module |see events relating to a particular module clearly
-
-|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
-
 |`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
-
-|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
-
-|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
 
 |`* * *` |user |change between the different pages |view the information on the different pages
 
 |`* * *` |TA |add students to a particular module |
 
-|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
-
 |`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
 
 |`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
-
-|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
-
-|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
 
 |`* * *` |TA |edit student details |
 
 |`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
 
 |`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
-
-|`* *` |TA |give students ratings |keep a track of student participation in class
-
-|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
 
 |`* * *` |TA |schedule consultation sessions with my students |keep track of claimable hours spent in consultations
 
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
-
 |`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
-
-|`* *` |TA |be able to get tasks on a particular date |
-
-|`* *` |TA |filter by a module |see events relating to a particular module clearly
-
-|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
 
 |`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
 
 |`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
-|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
-
 |`* * *` |user |change between the different pages |view the information on the different pages
 
 |`* * *` |TA |add students to a particular module |
 
-|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
-
 |`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
 
 |`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
-
-|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
-
-|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
 
 |`* * *` |TA |edit student details |
 
 |`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
 
 |`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
+
+|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* *` |TA |give students ratings |keep a track of student participation in class
+
+|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
+
+|`* *` |TA |be able to get tasks on a particular date |
+
+|`* *` |TA |filter by a module |see events relating to a particular module clearly
+
+|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
+
+|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
+
+|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
+
+|`* *` |TA |give students ratings |keep a track of student participation in class
+
+|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
+
+|`* *` |TA |be able to get tasks on a particular date |
+
+|`* *` |TA |filter by a module |see events relating to a particular module clearly
+
+|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
+
+|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
+
+|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
+
+|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
+
+|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
+
+|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
+
+|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
 
 |`*` |user |change the default view of the application |
 
