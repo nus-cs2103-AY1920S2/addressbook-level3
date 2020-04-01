@@ -26,6 +26,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_TASK = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<NusModule> PREDICATE_SHOW_ALL_MODULES_TAKEN = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -137,6 +140,10 @@ public interface Model {
     void gradeModule(ModuleCode moduleCode, Grade grade);
 
     double getCap();
+
+    ObservableList<NusModule> getModulesListTaken();
+
+    void updateModulesListTaken(Predicate<NusModule> predicate);
 
     //=========== Deadline ==================================================================================
 

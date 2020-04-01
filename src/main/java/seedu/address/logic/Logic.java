@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.todolist.Task;
 
@@ -73,5 +74,9 @@ public interface Logic {
      * Returns a list of deadline Tasks
      */
     ObservableList<Task> getDeadlineTaskList();
+
+
+    //=========== Profile Module ==================================================================================
+    ObservableList<NusModule> getModulesListTaken();
 
 }

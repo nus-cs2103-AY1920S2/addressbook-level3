@@ -409,3 +409,7 @@
 
 }
 
+#moduleName .label .text {
+    -fx-font-sze: 100pt;
+}
+
