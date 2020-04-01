@@ -44,20 +44,12 @@ CsvProcessor -> FileUtil ++ : readFromFile(filePath)
 
 FileUtil --> CsvProcessor -- : fileData
 
-CsvProcessor -> CsvProcessor ++ : processData(fileData)
+CsvProcessor --> ParseUtil -- : fileData
 
-CsvProcessor -> CsvProcessor ++ : getCsvData(fileData)
-
-CsvProcessor --> CsvProcessor -- : data
-
-CsvProcessor --> CsvProcessor -- : data
-
-CsvProcessor --> ParseUtil -- : data
-
-ParseUtil --> ImportCommandParser -- : data
+ParseUtil --> ImportCommandParser -- : fileData
 
 create ImportCommand
-ImportCommandParser -> ImportCommand ++ : data
+ImportCommandParser -> ImportCommand ++ : fileData
 
 ImportCommand --> ImportCommandParser -- : importCommand
 
@@ -70,6 +62,6 @@ OrderBookParser --> LogicManager -- : importCommand
 
 ref over LogicManager,  Model : Execution of the Import Command Sequence Diagram
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml

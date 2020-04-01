@@ -97,7 +97,7 @@ ImportCommand --> LogicManager -- : result
 CommandResult -[hidden]-> ImportCommand
 destroy ImportCommand
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 
 end
