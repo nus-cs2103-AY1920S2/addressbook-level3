@@ -1,7 +1,26 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.commands.CommandTestUtil.*;
+import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_FOOD;
+import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_SHOPPING;
+import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.expensela.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
