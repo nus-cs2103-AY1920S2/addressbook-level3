@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/exerciseList-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W16-2/main
 
 By: `Team AY1920S2 W16-2`      Since: `Feb 2020`
 
@@ -122,12 +122,13 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
+* stores the Session data.
 * stores the Exercise data.
 * stores the Workout data.
-* stores the Session data.
+* stores the Schedule data.
 * stores the Log data.
-* exposes an unmodifiable `ObservableList<Exercise>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* exposes an unmodifiable `ObservableList<Session>`, `ObservableList<Exercise>`, `ObservableList<Workout>`, `ObservableList<ScheduledWorkout>`, `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Zero To One`, which `Exercise` can reference. This would allow `Zero To One` to only require one `Tag` object per unique `Tag`, instead of each `Exercise` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -157,7 +158,7 @@ Classes used by multiple components are in the `seedu.zerotoone.commons` package
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== [Proposed] Undo/Redo feature [SAMPLE]
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedExerciseList`.
@@ -238,27 +239,45 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::session[]
+=== Session
+==== Implementation
+insert implementation stuff here
+==== Design Considerations
+insert design considerations here
+// end::session[]
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::exercise[]
+=== Exercise
+==== Implementation
+insert implementation stuff here
+==== Design Considerations
+insert design considerations here
+// end::exercise[]
 
-// end::dataencryption[]
+// tag::workout[]
+=== Workout
+==== Implementation
+insert implementation stuff here
+==== Design Considerations
+insert design considerations here
+// end::workout[]
 
-=== Logging
+// tag::schedule[]
+=== Schedule
+==== Implementation
+insert implementation stuff here
+==== Design Considerations
+insert design considerations here
+// end::schedule[]
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+// tag::log[]
+=== Log
+==== Implementation
+insert implementation stuff here
+==== Design Considerations
+insert design considerations here
+// end::log[]
 
 [[Implementation-Configuration]]
 === Configuration
