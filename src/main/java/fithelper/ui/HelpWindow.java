@@ -41,8 +41,9 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "  or shows entries of a particular date\n"
             + "check x/TYPE k/KEYWORDS\n"
             + "  - search the pre-set database for calorie intake/consumption of common food/sports\n"
-            + "update attr/ATTRIBUTE v/VALUE\n"
-            + "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n";
+            + "update -f attr/ATTRIBUTE v/VALUE\n"
+            + "  - edit the information of the user profile\n"
+            + "[ATTRIBUTE can only be name/gender/age/address/height/weight/targetweight]\n";
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
             + "please refer to the user guide via\n";
     public static final String USERGUIDE_URL =

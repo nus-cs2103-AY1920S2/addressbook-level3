@@ -21,9 +21,9 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all entries whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: "
-            + PREFIX_TYPE + "TYPE (optional)"
+            + PREFIX_TYPE + "TYPE (optional) "
             + PREFIX_KEYWORD + "[keyword list]"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "sports "
             + PREFIX_KEYWORD + "noodles ";
 

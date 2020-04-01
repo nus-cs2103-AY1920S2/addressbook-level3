@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,7 +21,6 @@ import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
-
 import fithelper.model.weight.Weight;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -341,13 +340,13 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Searches the {@code FoodCalorieTable} and add all entries whose name contains the keyword into a list
-     * add returns the list.
+     * Searches the {@code FoodCalorieTable} and add at most 3 entries whose name matches the keyword into a set
+     * add returns the set.
      *
      * @param keywords keyword for searching
-     * @return a list of {@code CalorieEntry} with matching keyword
+     * @return a set of {@code CalorieEntry} with matching keyword
      */
-    public List<CalorieEntry> searchFoodCalorieTable(String keywords) {
+    public Set<CalorieEntry> searchFoodCalorieTable(String keywords) {
         return fitHelper.addCalorieEntries("f", keywords);
     }
 
@@ -358,7 +357,7 @@ public class ModelManager implements Model {
      * @param keywords keywords for searching
      * @return a list of {@code CalorieEntry} with matching keywords
      */
-    public List<CalorieEntry> searchSportsCalorieTable(String keywords) {
+    public Set<CalorieEntry> searchSportsCalorieTable(String keywords) {
         return fitHelper.addCalorieEntries("s", keywords);
     }
 

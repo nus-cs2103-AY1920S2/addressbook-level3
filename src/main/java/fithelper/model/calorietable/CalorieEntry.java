@@ -1,5 +1,7 @@
 package fithelper.model.calorietable;
 
+import java.util.Objects;
+
 /**
  * An entry about calorie intake/consumption of a food/sports.
  */
@@ -18,5 +20,21 @@ public abstract class CalorieEntry {
 
     public String getCalorie() {
         return calorie;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o instanceof CalorieEntry) {
+            CalorieEntry other = (CalorieEntry) o;
+            return other.getName().equals(this.name);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
