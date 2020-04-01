@@ -23,7 +23,7 @@ public class MainTabPanel extends UiPart<Region> {
     private StackPane planningListPanelPlaceholder;
 
     @FXML
-    private StackPane goalsListPanelPlaceholder;
+    private StackPane cookedListPanelPlaceholder;
 
     @FXML
     private StackPane achievementsListPanelPlaceholder;
@@ -34,14 +34,14 @@ public class MainTabPanel extends UiPart<Region> {
 
     //TODO: change last argument's RecipeListPanel to AchievementsListPanel once class is created
     public MainTabPanel(RecipeListPanel recipeListPanel, PlanningListPanel planningListPanel,
-                        RecipeListPanel goalsListPanel, RecipeListPanel achievementsListPanel) {
+                        CookedListPanel cookedListPanel, RecipeListPanel achievementsListPanel) {
         super(FXML);
 
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
         planningListPanelPlaceholder.getChildren().add(planningListPanel.getRoot());
 
-        goalsListPanelPlaceholder.getChildren().add(goalsListPanel.getRoot());
+        cookedListPanelPlaceholder.getChildren().add(cookedListPanel.getRoot());
 
         achievementsListPanelPlaceholder.getChildren().add(achievementsListPanel.getRoot());
 

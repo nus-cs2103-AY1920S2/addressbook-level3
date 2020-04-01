@@ -17,6 +17,7 @@ import seedu.recipe.logic.Logic;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -38,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
-    private RecipeListPanel goalsListPanel;
+    private CookedListPanel cookedListPanel;
     private RecipeListPanel achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -59,7 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane recipeListPanelPlaceholder;
 
     @FXML
-    private StackPane goalsListPanelPlaceholder;
+    private StackPane cookedListPanelPlaceholder;
 
     @FXML
     private StackPane achievementsListPanelPlaceholder;
@@ -134,14 +135,14 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
-        //using recipe list as stub for goalslist and achievements, to be edited later todo
-        ObservableList<Recipe> goalsList = logic.getFilteredRecipeList();
-        goalsListPanel = new RecipeListPanel(goalsList);
+        ObservableList<Record> cookedList = logic.getFilteredRecordList();
+        cookedListPanel = new CookedListPanel(cookedList);
 
+        //using recipe list as stub for chievements, to be edited later todo
         ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
         achievementsListPanel = new RecipeListPanel(achievementsList);
 
-        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, goalsListPanel, achievementsListPanel);
+        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, cookedListPanel, achievementsListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -213,7 +214,7 @@ public class MainWindow extends UiPart<Stage> {
         case GOALS:
             showGoalsTab();
             break;
-        case ACHIEVEMENT:
+        case ACHIEVEMENTS:
             showAchievementsTab();
             break;
         default:
