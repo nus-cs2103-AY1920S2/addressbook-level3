@@ -70,11 +70,13 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             } else if (assigningStudentContainsCourse) {
             throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
-            model.assignStudentToCourse(studentID, courseID);
+                model.assignStudentToCourse(studentID, courseID);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    assigningStudent.getName(), studentID.value,
-                    assignedCourse.getName(), courseID.value));
+                return new CommandResult(String.format(MESSAGE_SUCCESS,
+                        assigningStudent.getName(), studentID.value,
+                        assignedCourse.getName(), courseID.value));
+
+            }
         }
     }
 }
