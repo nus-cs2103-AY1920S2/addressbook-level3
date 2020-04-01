@@ -8,14 +8,19 @@ if () then ([command arguments is valid])
     :Execute nearby command;
     if () then ([Flag given])
         if () then ([Flag is Return Order Flag])
-        :Obtain all matching nearby orders in return order list;
-        :Show all nearby orders for return order list;
+        :Obtain all matching nearby orders
+        in return order list;
+        :Show all nearby orders
+        for return order list;
         else ([Flag is Order Flag])
-        :Obtain all matching nearby orders in order list;
-        :Show all nearby orders for order list;
+        :Obtain all matching nearby orders
+        in order list;
+        :Show all nearby orders for
+        order list;
         endif
     else ([No flags given])
-        :Obtain all matching nearby orders for all lists;
+        :Obtain all matching nearby orders
+        for all lists;
         :Show all nearby orders for all lists;
     endif
 else ([else])
