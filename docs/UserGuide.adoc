@@ -107,12 +107,13 @@ This section lists and explains what the parameters commonly used in the command
 |=======================================================================
 |Parameter | Explanation | Examples
 
-| `PAGE_NAME` | This refers to the different tab names. | *students* - to indicate the
-Student View
+| `TAB_NAME` | This refers to the different tab names. |
 
-*sessions* - to indicate the Session View
+*student* - to indicate the Student View
 
-*claims* - to indicate the Claim View
+*session* - to indicate the Session View
+
+*claims* - to indicate the Claims View
 
 |`INDEX` | Indicates the position of an item in a list | *1* - refers to the
 first item in a list
@@ -253,19 +254,20 @@ Format: `help`
 
 ==== Changing tabs : `goto`
 
-Switches to a specified tab.
+By using this command, you can switch to a specified tab.
+
 Format: `goto TAB_NAME`
 
 ==== Exiting the program : `exit`
 
-Using this command, you can exit the program.
+By using this command, you can exit the program.
 
 Format: `exit`
 
 === Student View
 
-This sections gives an explanation of all the commands that can be used on the Student
-View.
+This sections gives an explanation of all the commands that can be used
+in the Student View.
 
 [[AddModule]]
 ==== Adding a Module `module add`
@@ -275,11 +277,20 @@ You can use this command to add a new module to the TA-Tracker.
 When a new module is created, the Student View will show the groups
 and students of the new module (which won't include anything, initially).
 
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
+
 Format: `module add m/MOD_CODE n/NAME`
 
 [NOTE]
 ====
 * You can't have two modules with the same module code in the TA-Tracker.
+====
+
+[TIP]
+====
+* You can't edit the `MOD_CODE` once the module has been created, so do take
+care to ensure that the code is correct.
 ====
 
 ====
@@ -300,7 +311,8 @@ When you delete a module, all groups, students and sessions associated with
 the module will also be deleted.
 
 When a module is deleted, the Student View will go back to its default
-setting.
+setting. The tab that you are viewing will automatically be switched to the
+student tab as well, if you were currently on a different tab.
 
 Format: `module delete m/MOD_CODE`
 
@@ -322,8 +334,9 @@ this will delete the module with the module code `CS2103` from the TA-Tracker.
 
 You can use this command to edit a module in the TA-Tracker.
 
-You can only use this command to change the name of the module. Module code can't
-be changed. Editing a module doesn't affect the students and groups inside the module.
+You can only use this command to change the name of the module. The module
+code can't be changed. Editing a module doesn't affect the students and
+groups inside the module.
 
 When a module is edited, the Student View will show the groups of the module and
 the students of the first group of the module.
@@ -351,6 +364,9 @@ You can use this command to add a group to the TA-Tracker.
 When a new group is created, the Student View will show the groups of the module
 this new group belongs to and students of the new group.
 
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
+
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 [NOTE]
@@ -361,7 +377,7 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * You cannot add a group to a module that doesn't exist.
 
-* You cannot add multiple groups with the same group code in the same module.
+* You cannot add multiple groups with the same group code into the same module.
 ====
 
 ====
@@ -381,7 +397,8 @@ You can use this command to delete a group from the TA-Tracker.
 When a group is deleted from the TA-Tracker, all students in the group are also deleted.
 
 When a group is deleted, the Student View will go back to its default
-setting.
+setting. The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
@@ -417,7 +434,8 @@ This command can be used to change the group code and the group type of the grou
 The students inside the group will remain intact.
 
 When a group is edited, the Student View will show the groups of the module
-the edited group belongs to and students of the edited group.
+the edited group belongs to and students of the edited group. The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
 
@@ -431,8 +449,8 @@ you want to edit.
 
 * You can't edit a group that doesn't exist.
 
-* If you are changing the group code, the module shouldn't contain a group with the
-new group code.
+* If you are changing the group code, the module shouldn't contain a group that has the
+same group code as the new group code.
 ====
 
 ====
@@ -451,6 +469,9 @@ You can use this command to add a new student to the TA-Tracker.
 
 When a new student is added, the Student View will show that the new student
 is added into the student list of the provided module group.
+
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 [e/EMAIL] [r/RATING] [t/TAG]…​`
@@ -478,7 +499,7 @@ inside group `G03` of the module `CS2103`.
 ====
 [horizontal]
 * You can use the rating feature to give your students participation marks. All students
-are given a default rating of 3. You can either give them a custom rating in the add student
+are given a default rating of 3 (average). You can either give them a custom rating in the add student
 command or you can later edit their rating by using the edit student command (details given below.)
 ====
 
@@ -491,7 +512,11 @@ You can use this command to delete a student from the TA-Tracker.
 
 When a student is removed, the Student View will show that the student
 is removed from the student list of the provided module group.
-If there are no more students inside the module group, an empty list will be shown.
+If there are no more students inside the module group, an empty list will
+be shown.
+
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
@@ -520,6 +545,9 @@ You can use this command to edit a student in the TA-Tracker.
 
 When a student is edited, the Student View will show that the student has been
 edited in the student list of the provided module group.
+
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
@@ -573,6 +601,9 @@ in descending order or by matriculation number in ascending order.
 When a group is sorted, Student View shows the groups of the module the sorted group
 belongs to and the students of the group that has been sorted.
 
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
+
 Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 
 [NOTE]
@@ -615,6 +646,9 @@ When a module is sorted, Student View shows the groups of the module you sorted 
 the students of the first group in the module. If there are no groups in the module,
 it will show an empty list.
 
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
+
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
 
 [NOTE]
@@ -652,6 +686,9 @@ in descending order and by matriculation number in ascending order.
 When all modules are sorted, Student View shows the groups of the first module in the module list
 and the students of the first group in the module being shown. If there are no modules
 or groups, empty lists will be shown.
+
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `sort all t/SORT_TYPE`
 
@@ -694,6 +731,9 @@ You can filter the students in Student View in the following ways:
 Using both module code and group code will show you the students
 inside the group with the given group code of the module specified
 by the module code.
+
+The tab that you are viewing will automatically be switched to the student
+tab as well, if you were currently on a different tab.
 
 Format: `student filter [m/MOD_CODE] g/GROUP_CODE`
 
