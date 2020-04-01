@@ -444,7 +444,11 @@ Format: `predict`
 === Plotting sales: `plotsales`.
 
 Plot a graph with the sales of the selected product in the past week. +
-Format: `plotsales PRODUCT_INDEX`
+Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
+
+[NOTE]
+The start date and end date attributes are optional. If omitted, the system
+will plot the last 7 days by default.
 
 image::SalesPlot.png[align="center"]
 

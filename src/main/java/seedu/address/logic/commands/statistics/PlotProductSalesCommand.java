@@ -1,10 +1,9 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.transaction.DateTime.populateDates;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
-
+import static seedu.address.model.transaction.DateTime.populateDates;
 
 import java.util.ArrayList;
 import java.util.List;
