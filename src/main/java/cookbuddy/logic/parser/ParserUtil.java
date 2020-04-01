@@ -11,9 +11,9 @@ import java.util.stream.Stream;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
-import cookbuddy.model.recipe.ImagePath;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.Instruction;
@@ -30,7 +30,7 @@ import cookbuddy.model.recipe.attribute.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given";
+    public static final String MESSAGE_INVALID_FILEPATH = "Image not found or invalid image path given";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -98,15 +98,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String input} into an {@code ImagePath}.
+     * Parses a {@code String input} into an {@code Image}.
      */
-    public static ImagePath parseFilePath(String input) throws ParseException {
+    public static Image parseFilePath(String input) throws ParseException {
         requireNonNull(input);
         String trimmedPath = input.trim();
-        if (!ImagePath.isValidFilePath(trimmedPath)) {
+        if (!Image.isValidImageFilePath(trimmedPath)) {
             throw new ParseException(MESSAGE_INVALID_FILEPATH);
         }
-        return new ImagePath(trimmedPath);
+        return new Image(trimmedPath);
     }
 
     /**

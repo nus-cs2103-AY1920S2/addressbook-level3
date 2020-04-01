@@ -10,6 +10,7 @@ import java.util.Set;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.Fav;
+import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -27,7 +28,7 @@ public class Recipe {
     private final Name name;
     private final IngredientList ingredients;
     private final InstructionList instructions;
-    private final ImagePath filePath;
+    private final Image filePath;
     private final Calorie calorie;
     private final Serving serving;
     private final Rating rating;
@@ -39,7 +40,7 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, ImagePath filePath,
+    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Image filePath,
                   Calorie calorie, Serving serving, Rating rating, Difficulty difficulty, Set<Tag> tags) {
         requireAllNonNull(name, ingredients, instructions);
         this.name = name;
@@ -65,7 +66,7 @@ public class Recipe {
         return instructions;
     }
 
-    public ImagePath getFilePath() {
+    public Image getImageFilePath() {
         return filePath;
     }
 
@@ -109,7 +110,7 @@ public class Recipe {
         return otherRecipe != null && otherRecipe.getName().equals(getName())
             && otherRecipe.getIngredients().equals(getIngredients())
             && otherRecipe.getInstructions().equals(getInstructions())
-            && otherRecipe.getFilePath().equals(getFilePath());
+            && otherRecipe.getImageFilePath().equals(getImageFilePath());
     }
 
     public void favRecipe() {
@@ -135,8 +136,8 @@ public class Recipe {
         }
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
-            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getFilePath()
-            .equals(getFilePath())
+            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getImageFilePath()
+            .equals(getImageFilePath())
             && otherRecipe.getCalorie().equals(getCalorie()) && otherRecipe.getRating().equals(getRating())
             && otherRecipe.getDifficulty().equals(getDifficulty())
             && otherRecipe.getTags().equals(getTags());
@@ -152,7 +153,7 @@ public class Recipe {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
-            " Instructions: ").append(getInstructions()).append("Path: ").append(getFilePath()).append(
+            " Instructions: ").append(getInstructions()).append("Path: ").append(getImageFilePath()).append(
             " Calories: ").append(getCalorie()).append(" Serving size: ").append(getServing()).append(
             " Rating: ").append(getRating()).append(" Difficulty ").append(getDifficulty()).append(
             " Tags" + ": ");

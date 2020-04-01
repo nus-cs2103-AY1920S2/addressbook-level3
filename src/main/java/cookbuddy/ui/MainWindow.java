@@ -121,7 +121,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    public void defaultFill(Recipe recipe) throws FileNotFoundException {
+    public void defaultFill(Recipe recipe) {
         if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
         } else {
@@ -153,7 +153,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills in information for the recipe
      */
-    public void fillInnerParts() throws FileNotFoundException {
+    public void fillInnerParts() {
         if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
             fillInfo();

@@ -3,7 +3,7 @@ package cookbuddy.logic.parser;
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static cookbuddy.logic.parser.CliSyntax.PREFIX_FILEPATH;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_IMAGEFILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -36,7 +36,7 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
     public ModifyCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_FILEPATH,
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_IMAGEFILEPATH,
                 PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY, PREFIX_TAG);
 
         Index index;
@@ -61,8 +61,9 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
                 ParserUtil.parseInstructions(argMultimap.getValue(PREFIX_INSTRUCTIONS).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_FILEPATH).isPresent()) {
-            editRecipeDescriptor.setFilePath(ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILEPATH).get()));
+        if (argMultimap.getValue(PREFIX_IMAGEFILEPATH).isPresent()) {
+            editRecipeDescriptor
+                .setImageFilePath(ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_IMAGEFILEPATH).get()));
         }
 
         if (argMultimap.getValue(PREFIX_SERVING).isPresent()) {

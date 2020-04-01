@@ -52,7 +52,7 @@ public class UiManager implements Ui {
         }
     }
 
-    public static void changeRecipe(Recipe e) throws FileNotFoundException {
+    public static void changeRecipe(Recipe e) {
         mainWindow.defaultFill(e);
     }
 
