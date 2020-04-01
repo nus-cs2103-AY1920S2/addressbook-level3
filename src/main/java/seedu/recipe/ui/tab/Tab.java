@@ -5,5 +5,7 @@ package seedu.recipe.ui.tab;
  */
 public enum Tab {
     RECIPES,
-    PLANNING
+    PLANNING,
+    GOALS,
+    ACHIEVEMENT
 }
