@@ -47,7 +47,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
 
             prefWidthProperty().bind(moduleListView.widthProperty()
-                    .divide(moduleListView.getItems().size()).subtract(10));
+                    .divide(moduleListView.getItems().size()).subtract(5));
             //TODO Fit modules to screen
             minWidthProperty().set(200);
             setMaxWidth(Control.USE_PREF_SIZE);

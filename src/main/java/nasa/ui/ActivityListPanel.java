@@ -39,8 +39,7 @@ public class ActivityListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Activity activity, boolean empty) {
             super.updateItem(activity, empty);
-            prefWidthProperty().bind(activityListView.widthProperty().subtract(100));
-            setMaxWidth(Control.USE_PREF_SIZE);
+            prefWidthProperty().bind(activityListView.widthProperty().subtract(10));
 
             if (empty || activity == null) {
                 setGraphic(null);
