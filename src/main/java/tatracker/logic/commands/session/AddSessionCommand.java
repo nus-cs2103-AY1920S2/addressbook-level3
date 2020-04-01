@@ -36,6 +36,7 @@ public class AddSessionCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
+    private static final String MESSAGE_INVALID_MODULE_CODE = "A module with the given module code doesn't exist";
 
     private final Session toAdd;
 
@@ -50,6 +51,10 @@ public class AddSessionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.hasModule(toAdd.getModuleCode())) {
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
+        }
 
         if (model.hasSession(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SESSION);
