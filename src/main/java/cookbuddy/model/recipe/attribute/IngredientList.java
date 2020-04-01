@@ -68,6 +68,6 @@ public class IngredientList {
 
     @Override
     public String toString() {
-        return ingredientData.stream().map(Ingredient::toString).collect(Collectors.joining(System.lineSeparator()));
+        return ingredientData.stream().map(Ingredient::toString).collect(Collectors.joining(";"));
     }
 }

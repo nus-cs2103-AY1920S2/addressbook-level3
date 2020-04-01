@@ -3,7 +3,9 @@ package cookbuddy.model.recipe.attribute;
 import static cookbuddy.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a Recipe's ingredient in its {@code IngredientList}. Guarantees:
@@ -28,8 +30,8 @@ public class Ingredient {
     public Ingredient(String ingredientString) {
         requireNonNull(ingredientString);
 
-        List<String> ingredientParts = List.of(ingredientString.split(","));
-        ingredientParts.forEach(String::trim);
+        List<String> ingredientParts = Arrays.stream(ingredientString.split(",")).map(String::trim).collect(Collectors.toList());
+
 
         checkArgument(isValidName(ingredientParts.get(0)), MESSAGE_CONSTRAINTS);
         checkArgument(isValidName(ingredientParts.get(1)), MESSAGE_CONSTRAINTS);

@@ -69,6 +69,6 @@ public class InstructionList {
     @Override
     public String toString() {
         return instructionData.stream().map(Instruction::toString)
-                .collect(Collectors.joining(System.lineSeparator()));
+                .collect(Collectors.joining(";"));
     }
 }
