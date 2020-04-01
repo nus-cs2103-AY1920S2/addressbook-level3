@@ -121,11 +121,13 @@ public class MainWindow extends UiPart<Stage> {
     public void defaultFill(Recipe recipe) {
         if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
-        }
-        else {
+        } else {
             recipeView = new RecipeView(recipe);
         }
+        fillInfo();
+    }
 
+    public void fillInfo() {
         this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
 
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
@@ -139,10 +141,16 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
+}
+
 
     public void fillInnerParts() {
-        defaultFill(logic.getFilteredRecipeList().get(0));
+        if(logic.getFilteredRecipeList().size() == 0) {
+            recipeView = new RecipeView();
+            fillInfo();
+        } else {
+            defaultFill(logic.getFilteredRecipeList().get(0));
+        }
     }
 
     /**
