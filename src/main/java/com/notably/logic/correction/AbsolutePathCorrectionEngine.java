@@ -23,7 +23,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
     private final int distanceThreshold;
 
     public AbsolutePathCorrectionEngine(Model model, int distanceThreshold) {
-        this(new LevenshteinDistanceCalculator(), model, distanceThreshold);
+        this(new LevenshteinDistanceCalculator(false), model, distanceThreshold);
     }
 
     public AbsolutePathCorrectionEngine(EditDistanceCalculator editDistanceCalculator,
