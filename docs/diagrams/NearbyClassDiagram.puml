@@ -10,36 +10,6 @@ class DistrictInfo {
     + {static} NORTH_EAST : String
     + {static} WEST : String
     + {static} NORTH : String
-
-    - {static} district1 : List<String>
-    - {static} district2 : List<String>
-    - {static} district3 : List<String>
-    - {static} district4 : List<String>
-    - {static} district5 : List<String>
-    - {static} district6 : List<String>
-    - {static} district7 : List<String>
-    - {static} district8 : List<String>
-    - {static} district9 : List<String>
-    - {static} district10 : List<String>
-    - {static} district11 : List<String>
-    - {static} district12 : List<String>
-    - {static} district13 : List<String>
-    - {static} district14 : List<String>
-    - {static} district15 : List<String>
-    - {static} district16 : List<String>
-    - {static} district17 : List<String>
-    - {static} district18 : List<String>
-    - {static} district19 : List<String>
-    - {static} district20 : List<String>
-    - {static} district21 : List<String>
-    - {static} district22 : List<String>
-    - {static} district23 : List<String>
-    - {static} district24 : List<String>
-    - {static} district25 : List<String>
-    - {static} district26 : List<String>
-    - {static} district27 : List<String>
-    - {static} district28 : List<String>
-
     - {static} centralArea : List<String>
     - {static} eastArea : List<String>
     - {static} northEastArea : List<String>
@@ -51,6 +21,12 @@ class DistrictInfo {
     + {static} sameAreaRegex(searchTerm : String) : List<String>
 }
 
+class Model<<interface>> {
+    + updateFilteredOrderList(predicate : Predicate<Order>) : void
+    + updateFilteredReturnOrderList(predicate : Predicate<ReturnOrder>) : void
+}
+Model ..up> Predicate
+
 class NearbyCommandUtil {
     /' Fields '/
     - {static} postalSectorInfo : HashMap<Integer, String>
@@ -58,36 +34,7 @@ class NearbyCommandUtil {
     + {static} isValidPostalSector(postalSector : Index) : boolean
     + {static} getGeneralLocation(postalSector : Index) : Optional<String>
     + {static} sameGeneralLocation(location : String) : List<String>
-
     - {static} initialize() : void
-    - {static} addDistrict1 : void
-    - {static} addDistrict2 : void
-    - {static} addDistrict3 : void
-    - {static} addDistrict4 : void
-    - {static} addDistrict5 : void
-    - {static} addDistrict6 : void
-    - {static} addDistrict7 : void
-    - {static} addDistrict8 : void
-    - {static} addDistrict9 : void
-    - {static} addDistrict10 : void
-    - {static} addDistrict11 : void
-    - {static} addDistrict12 : void
-    - {static} addDistrict13 : void
-    - {static} addDistrict14 : void
-    - {static} addDistrict15 : void
-    - {static} addDistrict16 : void
-    - {static} addDistrict17 : void
-    - {static} addDistrict18 : void
-    - {static} addDistrict19 : void
-    - {static} addDistrict20 : void
-    - {static} addDistrict21 : void
-    - {static} addDistrict22 : void
-    - {static} addDistrict23 : void
-    - {static} addDistrict24 : void
-    - {static} addDistrict25 : void
-    - {static} addDistrict26 : void
-    - {static} addDistrict27 : void
-    - {static} addDistrict28 : void
 }
 
 class Index {
@@ -102,17 +49,9 @@ class Index {
 
 class NearbyCommand {
     /' Fields '/
-    + {static} COMMAND_WORD : String
-    + {static} NEWLINE : String
-    + {static} MESSAGE_USAGE : String
-    + {static} MESSAGE_SUCCESS_POSTAL_SECTOR : String
-    + {static} MESSAGE_SUCCESS_AREA : String
-    + {static} MESSAGE_FAILURE_POSTAL_SECTOR : String
-    + {static} MESSAGE_FAILURE_AREA : String
     - searchTerm : String
     - isOrderListSearch : boolean
     - isReturnListSearch : boolean
-
     /' Methods '/
     + execute(model : Model) : CommandResult
     - getPostalSectorPredicate() : Predicate<Order>
@@ -129,11 +68,20 @@ abstract class "{abstract}\nCommand" {
     + {abstract} execute(model : Model) : CommandResult
 }
 
+interface Predicate<T> <<interface>> {
+    + test(t : T) : boolean
+}
+
 NearbyCommand --up|> "{abstract}\nCommand"
+NearbyCommand ..right> NearbyCommandUtil
+NearbyCommand ..up|> Model
+NearbyCommand ..left> DistrictInfo
 
 class NearbyCommandParser implements Parser {
     + parse(args : String) : NearbyCommand
 }
+
+NearbyCommandParser ..> NearbyCommand
 
 interface Parser<T> <<interface>> {
     parse(userInput : String) : T

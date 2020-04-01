@@ -54,7 +54,7 @@ DeleteCommand -> Model : getFilteredReturnOrderList()
 activate Model
 Model --> DeleteCommand : lastShownList
 deactivate Model
-DeleteCommand -> Model : deleteReturnOrder(2)
+DeleteCommand -> Model : deleteReturnOrder(returnOrder)
 activate Model
 deactivate Model
 create CommandResult

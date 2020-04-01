@@ -318,10 +318,133 @@ in it back to the `LogicManager`.
 
 After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
 
-=== Delete feature
-The delete feature allows the user to delete orders in either the order list or return order list.
+
+=== Delete Feature
+In this section, you will learn more about how the `delete` feature is implemented.
+
+==== What is the Delete Feature
+The delete feature allows the user to delete orders in either the order list or return order list. +
 
 The delete feature was implemented as a `DeleteCommand` in the `Logic` package. +
+
+The `delete` command has the following format: +
+
+* `delete` `FLAG` `INDEX`
+
+[NOTE]
+====
+1. A `FLAG` is a compulsory argument that indicates the list to delete from. +
+It can be either `-o` or `-r`. +
+A `-o` `FLAG` argument indicates deletion from the order list. +
+A `-r` `FLAG` argument indicates deletion from the return order list. +
+
+2. An `INDEX` is a compulsory argument that identifies the specific order to
+delete in the list. +
+The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
+====
+
+==== Execution paths of Delete command
+In this section, you will learn more about the execution paths for the `delete` command.
+
+.Delete Command Activity Diagram
+image::DeleteActivityDiagram.svg[]
+
+There are four possible execution paths for the `delete` command
+
+1. User provides an invalid `delete` command input +
+This results in a parse exception +
+
+2. User provides a valid `delete` command input that has a flag indicating deletion
+from the order list. +
+The specified order will be deleted from the order list. +
+
+3. User provides a valid `delete` command input that has a flag indicating deletion
+from the return order list. +
+The specified return order will be deleted from the return order list. +
+
+4. User provides an invalid `delete` command input that has an invalid flag. +
+A Command Exception wil be generated.
+
+
+==== Structure of Delete command
+In this section, you will learn more about the relationships between objects
+related to the `delete` command.
+
+.Delete Command Class Diagram
+image::DeleteClassDiagram.svg[]
+
+In the `DeleteCommand` class, there are also static strings present that represent the
+various possible messages. +
+For some of the message strings, there are placeholder %s strings used for including dynamic input +
+These messages are the following:
+
+1. `MESSAGE_DELETE_ORDER_SUCCESS` +
+Deleted Order: %1$s +
+
+2. `MESSAGE_INVALID_FLAG` +
+Invalid flag given! +
+
+==== Interactions between Delete command and its associated objects
+In this section, you will learn more about the `delete` command and its inner workings.
+
+The sequence diagram below shows the interactions for a `delete` command execution of
+`delete` `-o` `1`. +
+This indicates that the first order should be deleted from the order
+list.
+
+.Delete Command Sequence Diagram for `delete` `-o` `1`
+image::DeleteSequenceDiagram.svg[]
+
+The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
+If the given arguments are valid, a new `DeleteCommand` object will be returned. +
+In this class, invalid arguments will result in a `ParseException`. +
+Two checks will be done for the arguments:
+
+1. Invalid `FLAG` argument
+
+2. Invalid `INDEX` argument
+
+When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
+`DeleteCommand` will first check the list to delete from. +
+
+The `deleteFromOrderList(model)` method of `DeleteCommand` will then
+be called and the filtered order list will be obtained from the `getFilteredOrderList()`
+method of the `model`. +
+
+The specified order at `INDEX` 1 will be deleted using the `deleteOrder(order)` method
+in the `model`.
+
+A new `CommandResult` will be created and returned to the `LogicManager`.
+
+
+The sequence diagram below shows the interactions for a `delete` command execution of
+`delete` `-r` `2`. +
+This indicates that the second order should be deleted from the return order
+list.
+
+.Delete Command Sequence Diagram for `delete` `-r` `2`
+image::DeleteSequenceDiagram2.svg[]
+
+The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
+If the given arguments are valid, a new `DeleteCommand` object will be returned. +
+In this class, invalid arguments will result in a `ParseException`. +
+Two checks will be done for the arguments:
+
+1. Invalid `FLAG` argument
+
+2. Invalid `INDEX` argument
+
+When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
+`DeleteCommand` will first check the list to delete from. +
+
+The `deleteFromReturnList(model)` method of `DeleteCommand` will then
+be called and the filtered return order list will be obtained from the `getFilteredReturnOrderList()`
+method of the `model`. +
+
+The specified return order at `INDEX` 2 will be deleted using the `deleteReturnOrder(returnOrder)` method
+in the `model`.
+
+A new `CommandResult` will be created and returned to the `LogicManager`.
 
 
 === Delivered feature
@@ -404,55 +527,127 @@ image::EditCommandSequenceDiagram.svg[]
 The above figure illustrates the interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`.
 
 
-=== Nearby feature
+=== Nearby Feature
+In this section, you will learn more about how the `nearby` feature is implemented.
+
+==== What is the Nearby Feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
 
-The nearby feature can have an optional `FLAG` argument. This can be either `-o` or `-r`. +
+The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
+
+The `nearby` command has two possible formats: +
+
+1. `nearby` `FLAG` `POSTAL_SECTOR`
+2. `nearby` `FLAG` `AREA`
+
+[NOTE]
+====
+1. `FLAG` is an optional argument and indicates which order list to search on. +
+It can be either `-o` or `-r`.
 A `-o` `FLAG` argument indicates that the order list will be searched. +
 A `-r` `FLAG` argument indicates that the return order list will be searched. +
 By default, if no `FLAG` arguments are provided, both order list and return order list will be searched.
 
-There are currently two possible search options:
+2. Searching of nearby orders is done by either `POSTAL_SECTOR` or `AREA` +
 
-. Searching by *postal sector*
-* A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
-* The list of postal sectors and their corresponding general locations can be found
-https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[on this website].
+* A `POSTAL_SECTOR` refers to the first *two* digits of a six digit Singapore postal code. +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[on this website]. +
 
-[start=2]
-. Searching by *area*
-* An *area* refers to one of the five areas of Singapore
+* An `AREA` refers to one of the five areas of Singapore:
 ** Central
 ** East
 ** North East
 ** West
 ** North
-* You can obtain more detailed information about each area from
+** You can obtain more detailed information about each area from
 https://keylocation.sg/singapore/districts-map[this website]
+====
 
-The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
 
-==== Class Diagram for Nearby feature
+==== Execution paths of Nearby command
+In this section, you will learn more about the execution paths for the `nearby` command.
+
+.Nearby Command Activity Diagram
+image::NearbyActivityDiagram.svg[]
+
+There are four possible execution paths for the `nearby` command
+
+1. User provides an invalid `nearby` command input +
+This results in a parse exception +
+2. User provides a valid `nearby` command input that has no flags +
+All matching nearby orders will be shown for all lists (order list and return order list) +
+3. User provides a valid `nearby` command input that has one flag. This flag indicates the order list (`-o`) +
+All matching nearby orders will be shown for the order list.
+4. User provides a valid `nearby` command input that has one flag. This flag indicates the return order list (`-r`) +
+All matching nearby orders will be shown for the return order list.
+
+The matching orders are determined based on the given user argument. +
+If a two digit integer is given, searching of nearby orders will be based on their postal sector. +
+Else, searching of nearby orders will be based on their area. +
+There are currently five areas that are searchable:
+
+1. Central
+2. East
+3. North-East
+4. West
+5. North
+
+==== Structure of Nearby command
+In this section, you will learn more about the relationships between objects
+related to the `nearby` command.
+
 .Nearby Command Class Diagram
 image::NearbyClassDiagram.svg[]
 
-==== Sequence Diagram for searching by postal sector
-The sequence diagram for the *Nearby Command* when searching by *postal sector*
-is shown below:
+In the `NearbyCommand` class, there are also static strings present that represent the
+various possible messages. +
+For some of the message strings, there are placeholder %s strings used for including dynamic input +
+These messages are the following:
 
-.Nearby Command Sequence Diagram
+1. `MESSAGE_USAGE` +
+nearby: View all orders located at the same postal sector based on the displayed list. +
+Parameters: [FLAG] POSTAL_SECTOR or AREA +
+An optional flag may be given to indicate the list to be searched for. +
+The flag can be either -o for orders for -r for return orders +
+A postal sector is the first two digits of a six digit Singapore postal code +
+An area is one of the following: Central, East, North-East, West, North +
+Example: nearby -o 14 +
+Example: nearby -r central +
+Example: nearby east +
+2. `MESSAGE_SUCCESS_POSTAL_SECTOR` +
+Displayed all orders in postal sector. +
+General Location: %1$s +
+3. `MESSAGE_SUCCESS_AREA` +
+Displayed all orders in area (%s) +
+4. `MESSAGE_FAILURE_POSTAL_SECTOR` +
+Invalid postal sector given. +
+5. `MESSAGE_FAILURE_AREA` +
+Invalid area given. +
+
+
+==== Interactions between Nearby command and its associated objects
+In this section, you will learn more about the `nearby` command and its inner workings.
+
+The sequence diagram below shows the interactions for a `nearby` command execution of
+`nearby` `-o` `14`. +
+This indicates that the order list should be operated on and
+all orders in the order list that have a `POSTAL_SECTOR` of `14`
+should be displayed to the user.
+
+
+.Nearby Command Sequence Diagram for `nearby` `-o` `14`
 image::NearbyCommandSequenceDiagram1.svg[]
 
 The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
-If the given arguments are valid, a new `NearbyCommand` object will be returned.
+If the given arguments are valid, a new `NearbyCommand` object will be returned. +
 In this class, invalid arguments will result in a `ParseException`. +
 Two types of invalid arguments are checked for: empty arguments
 and arguments with only whitespace characters.
 
 The `execute()` function of the `NearbyCommand` will first check if the given arguments
 are in the format required for postal sector search (the argument can be converted into an integer).
-The check is done by the `isPostalSectorSearch()` function. +
 If the first check is successful, the argument will be converted into an integer and
 a second check is performed via the `isValidPostalSector(Index postalSector)` function
 of the `NearbyCommandUtil` helper class.
@@ -466,16 +661,18 @@ This class was created to reduce the responsibility of the `NearbyCommand` class
 * A `HashMap` was used to store information about postal sectors and their respective general locations.
 ====
 
-The `showPostalSectors(Model model, Index postalSector)` function of the `NearbyCommand` is called.
-This function updates the model's filtered order list using the predicate obtained from the
-`getPostalSectorPredicate()` function.
+The `model` will then be updated by the `updateFilteredOrderList(orderPredicate)` function. +
 
 A `CommandResult` is then generated and returned to the `LogicManager`.
 
-==== Sequence Diagram for searching by area
-The sequence diagram for the *Nearby Command* when searching by *area* is shown below:
 
-.Nearby Command Sequence Diagram 2
+The sequence diagram below shows the interactions for a `nearby` command execution of
+`nearby` `-o` `central`. +
+This indicates that the order list should be operated on and
+all orders in the order list that have an `AREA` of `central`
+should be displayed to the user.
+
+.Nearby Command Sequence Diagram of `nearby` `-o` `central`
 image::NearbyCommandSequenceDiagram2.svg[]
 
 The `NearbyCommandParser` will check for invalid arguments given by the user. +
@@ -487,7 +684,7 @@ A new `NearbyCommand` will be created and returned to `LogicManager`.
 
 `LogicManager` will then call the `execute()` function of the `NearbyCommand`. +
 There will then be a check for whether the given argument is a valid area with the
-function `isValidArea(String area)` present in the `DistrictInfo` class.
+function `isValidArea(area)` present in the `DistrictInfo` class.
 
 [NOTE]
 ====
@@ -496,9 +693,20 @@ identifying areas. +
 This class was created to reduce the responsibility of the `NearbyCommand` class. +
 ====
 
-The model will then be updated using the predicate obtained from the `getAreaPredicate()` function.
+The model will then be updated using the `updateFilteredOrderList(orderPredicate)` function.
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
+
+
+The sequence diagram below shows the interactions for a `nearby` command execution of
+`nearby`. +
+This will result in a `ParseException` as invalid arguments are provided.
+
+.Nearby Command Sequence Diagram of `nearby`
+image::NearbySequenceDiagramParseException.svg[]
+
+The exception will be thrown in the `NearbyCommandParser`.
+
 
 [[import]]
 === Import feature
