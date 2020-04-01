@@ -1,7 +1,5 @@
 package seedu.foodiebot.logic.commands;
 
-import java.util.Optional;
-
 import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 
@@ -28,7 +26,7 @@ public class ExitCommand extends Command {
         switch (context) {
         case ParserContext.CANTEEN_CONTEXT:
             ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
-            ParserContext.setCurrentCanteen(Optional.empty());
+            ParserContext.setCanteenContext(null);
             return new CommandResult(COMMAND_WORD, CHANGE_CONTEXT_ACKNOWLEDGEMENT + context,
                 false, false);
 
@@ -37,7 +35,7 @@ public class ExitCommand extends Command {
                 ParserContext.setCurrentContext(ParserContext.RANDOMIZE_CONTEXT);
             } else {
                 ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
-                ParserContext.setCurrentStall(Optional.empty());
+                ParserContext.setStallContext(null);
             }
             return new CommandResult(COMMAND_WORD, CHANGE_CONTEXT_ACKNOWLEDGEMENT + context,
                 false, false);
@@ -52,7 +50,7 @@ public class ExitCommand extends Command {
 
         case ParserContext.TRANSACTIONS_CONTEXT:
             ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
-            ParserContext.setCurrentCanteen(Optional.empty());
+            ParserContext.setCanteenContext(null);
             return new CommandResult(COMMAND_WORD, CHANGE_CONTEXT_ACKNOWLEDGEMENT + context,
                     false, false);
 

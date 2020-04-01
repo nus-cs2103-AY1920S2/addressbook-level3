@@ -37,4 +37,9 @@ class FilterCommandParserTest {
         assertParseSuccess(parser, VALID_TAG_ALPHANUMERIC, new FilterCommand(VALID_TAG_ALPHANUMERIC));
         assertParseSuccess(parser, VALID_TAG_SYMBOLS, new FilterCommand(VALID_TAG_SYMBOLS));
     }
+
+    @Test
+    public void parse_index() {
+        assertParseSuccess(parser, "1", new FilterCommand(1));
+    }
 }

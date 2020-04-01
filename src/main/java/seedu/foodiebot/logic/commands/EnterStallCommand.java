@@ -96,7 +96,6 @@ public class EnterStallCommand extends Command {
                 if (s.getName().toString().equalsIgnoreCase(stallName.get())) {
                     currentCanteenName = s.getCanteenName();
                     ParserContext.setStallContext(s);
-                    ParserContext.setCurrentStall(Optional.of(s));
                     //Might have 2 stalls from 2 canteens with same name
                     String finalCurrentCanteenName1 = currentCanteenName;
                     model.updateFilteredFoodList(f -> f.getStallName().equalsIgnoreCase(s.getName().toString())

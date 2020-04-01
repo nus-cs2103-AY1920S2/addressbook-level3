@@ -24,9 +24,10 @@ public class EnterStallCommandParser implements Parser<EnterStallCommand> {
 
 
         if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)
-                || ParserContext.getCurrentContext().equals(ParserContext.RANDOMIZE_CONTEXT)) {
+            || ParserContext.getCurrentContext().equals(ParserContext.RANDOMIZE_CONTEXT)) {
             try {
-                index = ParserUtil.parseStallIndex(enteredText, ParserContext.getCurrentCanteen().get());
+                index = ParserUtil.parseStallIndex(enteredText,
+                    ParserContext.getCurrentCanteen().orElseGet(() -> null));
                 return new EnterStallCommand(index);
             } catch (Exception ex) {
                 if (ex instanceof IndexOutOfBoundsException) {
@@ -34,15 +35,12 @@ public class EnterStallCommandParser implements Parser<EnterStallCommand> {
                 }
                 return new EnterStallCommand(enteredText);
             }
-        }
-
-        //if (!ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
-        else {
+        } else {
+            //if (!ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
             throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext()
-                    + "\n" + ParserContext.SUGGESTED_CONTEXT_MESSAGE
-                    + ParserContext.MAIN_CONTEXT + ", " + ParserContext.CANTEEN_CONTEXT);
+                + "\n" + ParserContext.SUGGESTED_CONTEXT_MESSAGE
+                + ParserContext.MAIN_CONTEXT + ", " + ParserContext.CANTEEN_CONTEXT);
         }
-
     }
 }
 
