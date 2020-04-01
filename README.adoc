@@ -7,7 +7,7 @@ https://coveralls.io/github/AY1920S2-CS2103-T09-4/main?branch=master[image:https
 https://www.codacy.com/gh/AY1920S2-CS2103-T09-4/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S2-CS2103-T09-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/a63e9ddf5c874d14b9e100210e9ef80a[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/FitHelper.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
