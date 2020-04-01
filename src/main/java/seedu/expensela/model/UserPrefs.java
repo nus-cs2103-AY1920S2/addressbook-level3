@@ -56,6 +56,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public void setTotalBalance(Double totalBalance) {
         requireNonNull(totalBalance);
+        totalBalance = Math.round(totalBalance * 100.0) / 100.0;
         this.balance = totalBalance;
     }
 

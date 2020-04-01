@@ -243,7 +243,6 @@ public class ModelManager implements Model {
     @Override
     public void updateTotalBalance(Double balance) {
         userPrefs.setTotalBalance(balance);
-        System.out.println(userPrefs.getTotalBalance());
     }
 
     //=========== Monthly Data Accessors =============================================================

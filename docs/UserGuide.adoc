@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ExpenseLa - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S2-CS2103-T09-3`      Since: `Feb 2020`      Licence: `MIT`
 
 == Product Overview
 
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`budget 1000`* : set a budget of $1000 for the current month
-* **`spend 100`**`/n Wagyu Steak /d 2020-02-28 /c food` : adds an expense named `Wagyu Steak` spent on `2020-02-28` in category `food` to the expense tracker
-* **`delete`**`999999999` : deletes the expense with id `999999999` in the current list
-* **`filter`**`/m 2020-02` : filters out all transactions made on `2020-02`
+* *`budget b/1000 rc/no`* : set a non-recurring budget of $1000 for the current month
+* **`add a/100`**`n/Wagyu Steak d/2020-02-28 c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on `2020-02-28` in category `FOOD` to the expense tracker
+* **`delete`**`1` : deletes the expense with id `1` in the current list
+* **`filter`**`m/ 2020-02` : filters to only show transactions made on `2020-02`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,11 +47,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `filter /c OBJECT`, `OBJECT` is a parameter which can be used as `filter /c Food`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `filter c/OBJECT`, `OBJECT` is a parameter which can be used as `filter c/FOOD`.
 
-* Items in square brackets are optional e.g `spend AMOUNT /n OBJECT [/d DATE] [/c CAT]` and can used as `spend 100 /n Pizza` or `spend 100 /n Pizza /d 2020-02-02 /c Food`
+* Items in square brackets are optional e.g `spend a/AMOUNT n/ OBJECT [d/ DATE] [c/ CAT]` and can used as `add a/100 n/Pizza` or `add a/100 n/Pizza d/2020-02-02 c/Food`
 
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME a/AMOUNT`, `a/AMOUNT n/NAME` is also acceptable.
 ====
 
 
@@ -59,90 +59,57 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+
 === Set a monthly budget : `budget`
 
 Sets a spendable budget for the current month
 
-Format: `budget AMOUNT`
-        `budget /repeat AMOUNT` (to set repeating budget of $AMOUNT for the coming months)
+Format: `budget b/AMOUNT rc/no` (to set a budget for the given month only)
+        `budget b/AMOUNT rc/yes` (to set repeating budget of $AMOUNT for the coming months)
 
 Examples:
 
-* `budget 1000`
-* `budget /repeat 1500`
+* `budget b/1000 rc/no`
+* `budget rc/yes b/1500`
 
-=== Key in expenditure : `spend`
 
-Adds an expense to the expense tracker. Expenses are stored as a transaction.
+=== Reset total balance `resetbalance`
 
-Format: `spend /n NAME /d DATE /c CATEGORY`
+Reset Balance value to the total from the amount of all transactions in stored in the application so far
+
+
+=== Key in transaction : `add`
+
+Adds an expense or income to the expense tracker. Expenses/incomes are stored as a transaction.
+
+Format: `add [i/] n/ NAME a/ AMOUNT [d/ DATE] [c/ CATEGORY] [r/ REMARK]  `
 
 [TIP]
 Leaving the DATE option blank will auto fill with today's date
 [TIP]
-Leaving the CATEGORY option blank will auto fill with 'Others' category
-
-Examples:
-
-* `spend /n Grab Share /d 2020-02-19 /c Transport`
-* `spend /n Valentines Flowers`
-
-=== Key in income : `income`
-
-Adds an income to expense tracker.
-
-Format: `income /n DESCRIPTION /d DATE`
-Format: `income /n DESCRIPTION /repeat (to set income of $AMOUNT recurring for all future months)
-Format: `income /n DESCRIPTION /delete (to delete certain recurring incomes)
-
+Leaving the CATEGORY option blank will auto fill with 'MISC' category
 [TIP]
-Leaving the DATE option blank will auto fill with today's date
+Not including i/ will make transaction an expense by default while including i/ will make it an income
 
 Examples:
 
-* `income /n Sell used iPhone /d 2020-02-19`
-* `income /n Internship pay /repeat`
-* `income /n Internship pay /delete`
+* `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
+* `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD`
+* `add i/ a/ 200.00 n/ pocket money c/INCOME`
+
 
 === Filter transactions : `filter`
 
 Filters transactions for user to see by filter type.
 
 Format: `filter /m YYYY-MM` to view a certain month's transactions
-        `filter /y YYYY` to view a certain year's transactions
-        `filter /f YYYY-MM /t YYYY-MM` to view transactions from a range of months `[coming in v2.0]`
         `filter /c CATEGORY` to view transactions of a certain category
-        `filter reset` to reset view to latest
 
 Examples:
 
-* `filter /m 2020-02`
-* `filter /y 2020`
-* `filter /f 2020-02 /t 2019-07`
-* `filter /c Transport`
-* `filter reset`
-
-=== Search transactions : `search`
-
-Search for transactions with certain keywords.
-
-Format: `search KEYWORD [MORE_KEYWORDS]`
-
-[TIP]
-Only the name is searched. The search is case insensitive. e.g `hans` will match `Hans`
-
-[TIP]
-Only full words will be matched e.g. `Han` will not match `Hans`
-
-[TIP]
-Transactions matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-
-* `search pizza` +
-Returns any transaction having names  `pizza` and `Domino's Pizza`
-* `search hawaiian wood fired pizza` +
-Returns any transaction having names `hawaiian`, `wood`, `fired` or `pizza`
+* `filter m/ 2020-02`
+* `filter c/ TRANSPORT`
+* `filter m/ 2020-03 c/ FOOD`
 
 
 === Deleting a transaction : `delete`
@@ -158,25 +125,48 @@ The transaction ID of a particular transaction can be found either by searching 
 
 Examples:
 
-* `search pizza` +
-`delete 1904850` +
-Deletes the transaction with ID 1904850 in the expense tracker.
+* `delete 3` +
+Deletes the transaction with ID 3 in the expense tracker.
 
 
-=== Analysis of transactions : `show analytics`
+=== Edit a transaction : `edit`
 
-Shows the analysis of transactions made in the filtered month/year. +
-Analysis will be shown in the form of a pie chart for categories and bar graph for month or week depending on the filter.
+Edit the specified transaction from the expense tracker
 
-Format: `show analytics`
+Format: `edit TRANSACTION_ID [n/ NAME] [a/ AMOUNT] [d/ DATE] [c/ CAT] [r/ REMARK]`
+
+Examples:
+
+* `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
+* `edit 2 a/ 16.00 n/ Pizza c/ FOOD`
+* `edit 3 a/ 200.00 n/ pocket money`
 
 
-=== List of transactions : `show list`
+=== Analysis of transactions : `toggle`
 
-Shows the list of transaction made in the filtered month/year. +
-To switch between analytics and list view of transactions.
+Toggle between list view of transactions and analytics view with bar graph and pie chart to show expense trend
 
-Format: `show list`
+
+=== Find transaction by name : `find`
+
+Find Transaction that matches one of the words from a given list of keywords
+
+Format: `find KEYWORD_1 [KEYWORD_2] ... [KEYWORD_N]`
+
+
+Examples:
+
+* `find bottle school`
+
+
+=== List of transactions : `list`
+
+List all transactions and reset all filters
+
+
+=== Clear all data : `clear`
+
+Clear all data in expenseLa including monthly data and total balance
 
 
 === Exiting the program : `exit`
@@ -187,7 +177,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically as a json file after any command that changes the data. +
+ExpenseLa data are saved in the hard disk automatically as a json file after any command that changes the data. +
 There is no need to save manually.
 
 
@@ -198,33 +188,31 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Budget* : `budget AMOUNT` +
-           `budget /repeat AMOUNT` +
-e.g. `budget 1000` +
-     `budget /repeat 1500`
-* *Spend* : `spend /n NAME /d DATE /c CATEGORY` +
-e.g. `spend /n Grab Share /d 2020-02-19 /c Transport` +
-     `spend /n Valentines Flowers` +
-     `spend /n Flowers /d 2020-02-19` +
-     `spend /n Pizza /c Food`
-* *Income* : `income /n NAME /d DATE` +
-e.g. `income /n Sell used iPhone /d 2020-02-19` +
-     `income /n Pocket Money from mommy`
+* *Budget* : `budget a/ AMOUNT rc/ no` +
+           `budget rc/ yes a/ AMOUNT` +
+e.g. `budget a/ 1000 rc/ no` +
+     `budget a/ 1500 rc/ yes`
+* *add* : `add a/ AMOUNT n/ NAME [d/ DATE] [c/ CATEGORY] [r/ REMARK]` +
+e.g. * `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+       `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD` +
+       `add i/ a/ 200.00 n/ pocket money c/INCOME`
 * *Filter* : `filter /m YYYY-MM` +
-             `filter /y YYYY` +
-             `filter /f YYYY-MM /t YYYY-MM` `[coming in v2.0]` +
              `filter /c CATEGORY` +
-             `filter reset` +
-e.g. `filter /m 2020-02` +
-     `filter /y 2020` +
-     `filter /f 2020-02 /t 2019-07` +
-     `filter /c Transport` +
-     `filter reset`
-* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
-e.g. `search pizza` +
-     `search hawaiian wood fired pizza`
+e.g. `filter m/ 2020-02` +
+     `filter c/ FOOD` +
+     `filter c/ TRANSPORT m/ 2020-03`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find pizza` +
+     `find hawaiian wood fired pizza`
 * *Delete* : `delete TRANSACTION_ID` +
-e.g. `delete 902947392183`
-* *Analytics* : `show analytics`
-* *List* : `show list`
+e.g. `delete 3`
+* *Edit* : `edit TRANSACTION_ID [n/ NAME] [a/ AMOUNT] [d/ DATE] [c/ CAT] [r/ REMARK]` +
+e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
+     `edit 2 a/ 16.00 n/ Pizza c/ FOOD` +
+     `edit 3 a/ 200.00 n/ pocket money`
+* *Toggle* : `toggle`
+* *Reset Balance*: `resetbalance`
+* *Clear*: `clear`
+* *Exit*: `exit`
+* *List* : `list`
 * *Help* : `help`
