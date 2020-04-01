@@ -1,5 +1,6 @@
 package com.notably.logic.parser.suggestion;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,7 +42,6 @@ public class OpenSuggestionCommandParserTest {
     private static OpenSuggestionCommandParser openSuggestionCommandParser;
 
     private static final String COMMAND_WORD = "open";
-    private static final String PREFIX_TITLE = "-t";
     private static final String RESPONSE_MESSAGE = "Open a note";
 
     @BeforeAll
@@ -84,25 +84,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(openSuggestionCommandParser, " /CS2103",
-            "Invalid input");
-
-        assertParseFailure(openSuggestionCommandParser, " /CS2 103",
-                "Invalid input");
-
-        assertParseFailure(openSuggestionCommandParser, " preamble -t /CS2103",
-            "Invalid input");
-    }
-
-    @Test
     public void parse_uncorrectedPath_throwsParseException() {
         assertParseFailure(openSuggestionCommandParser, " -t randomBlock", "Invalid path");
     }
 
     @Test
-    public void parse_correctPath_returnsOpenSuggestionCommand() throws ParseException {
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2103");
+    public void parse_correctAbsolutePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation();
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath =
+            openSuggestionCommandParser.parse(arg);
         assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
 
         commandCorrectPath.execute(model);
@@ -111,16 +102,18 @@ public class OpenSuggestionCommandParserTest {
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
-        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
-                null);
+        SuggestionItem cs2103Week1 = new SuggestionItemImpl(toCs2103Week1.getStringRepresentation(), null);
         SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
         SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+            null);
 
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
         expectedSuggestions.add(cs2103);
-        expectedSuggestions.add(cs2103Week1Lecture);
+        expectedSuggestions.add(cs2103Week1);
         expectedSuggestions.add(cs2103Week2);
         expectedSuggestions.add(cs2103Week3);
+        expectedSuggestions.add(cs2103Week1Lecture);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
@@ -133,9 +126,10 @@ public class OpenSuggestionCommandParserTest {
 
         List<String> expectedInputs = new ArrayList<>();
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
@@ -147,8 +141,11 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedPath_returnsOpenSuggestionCommand() throws ParseException {
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(" -t /CS2104");
+    public void parse_correctAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " " + toCs2103.getStringRepresentation();
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath =
+            openSuggestionCommandParser.parse(arg);
         assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
 
         commandCorrectPath.execute(model);
@@ -157,6 +154,7 @@ public class OpenSuggestionCommandParserTest {
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1 = new SuggestionItemImpl(toCs2103Week1.getStringRepresentation(), null);
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
                 null);
         SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
@@ -164,9 +162,62 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
         expectedSuggestions.add(cs2103);
-        expectedSuggestions.add(cs2103Week1Lecture);
+        expectedSuggestions.add(cs2103Week1);
         expectedSuggestions.add(cs2103Week2);
         expectedSuggestions.add(cs2103Week3);
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        // check display text
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week2.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week3.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
+    @Test
+    public void parse_correctedAbsolutePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " " + PREFIX_TITLE + " /CS2104";
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectedPath =
+            openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectedPath instanceof OpenSuggestionCommand);
+
+        commandCorrectedPath.execute(model);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        // Expected result
+        SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1 = new SuggestionItemImpl(toCs2103Week1.getStringRepresentation(), null);
+        SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
+        SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+        expectedSuggestions.add(cs2103);
+        expectedSuggestions.add(cs2103Week1);
+        expectedSuggestions.add(cs2103Week2);
+        expectedSuggestions.add(cs2103Week3);
+        expectedSuggestions.add(cs2103Week1Lecture);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
@@ -179,9 +230,10 @@ public class OpenSuggestionCommandParserTest {
 
         List<String> expectedInputs = new ArrayList<>();
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
-        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week2.getStringRepresentation());
         expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week3.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
@@ -191,4 +243,218 @@ public class OpenSuggestionCommandParserTest {
             assertEquals(expectedInput, input);
         }
     }
+
+    @Test
+    public void parse_correctedAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " /CS2104";
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+
+        commandCorrectPath.execute(model);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        // Expected result
+        SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1 = new SuggestionItemImpl(toCs2103Week1.getStringRepresentation(), null);
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+        SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
+        SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+        expectedSuggestions.add(cs2103);
+        expectedSuggestions.add(cs2103Week1);
+        expectedSuggestions.add(cs2103Week2);
+        expectedSuggestions.add(cs2103Week3);
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        // check display text
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week2.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week3.getStringRepresentation());
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
+    @Test
+    public void parse_correctRelativePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " -t Lecture";
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+
+        commandCorrectPath.execute(model);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        //Expected result
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        // check display text
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
+    @Test
+    public void parse_correctRelativePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " Lecture";
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+
+        commandCorrectPath.execute(model);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        //Expected result
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        // check display text
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
+    @Test
+    public void parse_correctedRelativePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " " + PREFIX_TITLE + " Lectre";
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath =
+                openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+
+        commandCorrectPath.execute(model);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        //Expected result
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        // check display text
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
+    @Test
+    public void parse_correctedRelativePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
+        String arg = " Lectre";
+        model.setInput(COMMAND_WORD + arg);
+        SuggestionCommand commandCorrectPath =
+                openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+
+        commandCorrectPath.execute(model);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        //Expected result
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        // check display text
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add(COMMAND_WORD + " " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+    }
+
 }

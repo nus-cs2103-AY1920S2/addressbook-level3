@@ -13,6 +13,7 @@ import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.EditCommand;
+import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
@@ -64,7 +65,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInput_newCommand() throws Exception {
-        Command command = parser.parseCommand("nw -t 1234 -b Hi").get(0);
+        Command command = parser.parseCommand("new -t 1234 -b i love 2103").get(0);
 
         assertTrue(command instanceof NewCommand);
 
@@ -159,4 +160,10 @@ public class NotablyParserTest {
         assertTrue(command instanceof HelpCommand);
     }
 
+    @Test
+    public void parseCommand_exitCommandInput_exitCommand() throws Exception {
+        Command command = parser.parseCommand("exit").get(0);
+
+        assertTrue(command instanceof ExitCommand);
+    }
 }

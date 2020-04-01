@@ -16,6 +16,16 @@ public interface BlockModel {
     BlockTree getBlockTree();
 
     /**
+     * Replaces the content of the BlockTree with items from the new tree.
+     */
+    void setBlockTree(BlockTree blockTree);
+
+    /**
+     * Replaces the data of the {@code BlockModel} with {@code newData}.
+     */
+    void resetData(BlockModel newData);
+
+    /**
      * Gets the absolute path of the currently open block.
      */
     AbsolutePath getCurrentlyOpenPath();
@@ -49,10 +59,4 @@ public interface BlockModel {
      * Sets the currently open block to a new block. (For edit command)
      */
     void updateCurrentlyOpenBlockBody(Body newBody);
-
-    /*
-    TODO: To implement after storage classes are ready
-    void setBlockTree(List<Block> blocks);
-    void resetData(BlockModel newData);
-    */
 }

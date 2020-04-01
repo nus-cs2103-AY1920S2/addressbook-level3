@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import com.notably.commons.LogsCenter;
 import com.notably.commons.exceptions.DataConversionException;
-import com.notably.model.ReadOnlyUserPrefs;
-import com.notably.model.UserPrefs;
 import com.notably.model.block.BlockTree;
+import com.notably.model.userpref.ReadOnlyUserPrefModel;
+import com.notably.model.userpref.UserPrefModel;
 
 /**
  * Manages storage of Block data in local storage.
@@ -35,12 +35,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+    public Optional<UserPrefModel> readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.readUserPrefs();
     }
 
     @Override
-    public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+    public void saveUserPrefs(ReadOnlyUserPrefModel userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 

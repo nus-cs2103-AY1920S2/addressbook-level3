@@ -24,7 +24,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
 
     public OpenSuggestionCommandParser(Model model) {
         this.model = model;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD, true);
     }
 
     /**
@@ -38,17 +38,19 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
 
+        String title;
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format("Invalid input"));
+            title = userInput.trim();
+        } else {
+            title = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
-        String title = argMultimap.getValue(PREFIX_TITLE).get();
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 
         return correctedPath
-            .map(OpenSuggestionCommand::new)
+            .map(path -> new OpenSuggestionCommand(path, title))
             .orElseThrow(() -> new ParseException("Invalid path"));
     }
 }

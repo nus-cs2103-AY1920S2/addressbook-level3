@@ -3,7 +3,9 @@ package com.notably.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
+import com.notably.model.block.exceptions.NoSuchBlockException;
 
 /**
  * Represents a command that opens a path.
@@ -22,9 +24,13 @@ public class OpenCommand extends Command {
      * @param notablyModel used to open path.
      */
     @Override
-    public void execute(Model notablyModel) {
+    public void execute(Model notablyModel) throws CommandException {
         requireNonNull(notablyModel);
-        notablyModel.setCurrentlyOpenBlock(path);
+        try {
+            notablyModel.setCurrentlyOpenBlock(path);
+        } catch (NoSuchBlockException ex) {
+            throw new CommandException(ex.getMessage());
+        }
     }
 
 }

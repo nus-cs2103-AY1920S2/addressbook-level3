@@ -10,8 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.notably.commons.GuiSettings;
-import com.notably.model.UserPrefs;
 import com.notably.model.block.BlockTree;
+import com.notably.model.userpref.UserPrefModel;
+import com.notably.model.userpref.UserPrefModelImpl;
 import com.notably.testutil.TypicalBlockTree;
 
 public class StorageManagerTest {
@@ -39,10 +40,10 @@ public class StorageManagerTest {
          * {@link JsonUserPrefsStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
-        UserPrefs original = new UserPrefs();
+        UserPrefModel original = new UserPrefModelImpl();
         original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
         storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
+        UserPrefModel retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
 

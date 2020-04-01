@@ -17,6 +17,9 @@ import com.notably.model.block.BlockTree;
 import com.notably.model.block.Body;
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
+import com.notably.model.userpref.ReadOnlyUserPrefModel;
+import com.notably.model.userpref.UserPrefModel;
+import com.notably.model.userpref.UserPrefModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 
 import javafx.beans.property.BooleanProperty;
@@ -30,7 +33,7 @@ import javafx.collections.ObservableList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private UserPrefs userPrefs;
+    private UserPrefModel userPrefModel;
     private SuggestionModel suggestionModel;
     private ViewStateModel viewStateModel;
     private BlockModel blockModel;
@@ -39,55 +42,61 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given model parts.
      */
     public ModelManager(BlockModel blockModel, SuggestionModel suggestionModel, ViewStateModel viewStateModel,
-            ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(blockModel, suggestionModel, viewStateModel, userPrefs);
+            ReadOnlyUserPrefModel userPrefModel) {
+        requireAllNonNull(blockModel, suggestionModel, viewStateModel, userPrefModel);
 
         this.suggestionModel = suggestionModel;
         this.viewStateModel = viewStateModel;
         this.blockModel = blockModel;
-        this.userPrefs = new UserPrefs(userPrefs);
+        this.userPrefModel = new UserPrefModelImpl(userPrefModel);
     }
 
     /**
-     * Shorthand for initializing a {@link ModelManager} without {@link UserPrefs}.
+     * Shorthand for initializing a {@link ModelManager} without {@link UserPrefModel}.
      */
     public ModelManager(BlockModel blockModel, SuggestionModel suggestionModel, ViewStateModel viewStateModel) {
-        this(blockModel, suggestionModel, viewStateModel, new UserPrefs());
+        this(blockModel, suggestionModel, viewStateModel, new UserPrefModelImpl());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== UserPrefModel ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public void setUserPrefModel(ReadOnlyUserPrefModel userPrefModel) {
+        requireNonNull(userPrefModel);
+        this.userPrefModel.setUserPrefModel(userPrefModel);
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public ReadOnlyUserPrefModel getUserPrefModel() {
+        return userPrefModel.getUserPrefModel();
+    }
+
+    @Override
+    public void resetUserPrefModel(ReadOnlyUserPrefModel newUserPrefModel) {
+        requireNonNull(newUserPrefModel);
+        userPrefModel.resetUserPrefModel(newUserPrefModel);
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
+        return userPrefModel.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
+        userPrefModel.setGuiSettings(guiSettings);
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getBlockDataFilePath() {
+        return userPrefModel.getBlockDataFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setBlockDataFilePath(Path blockDataFilePath) {
+        requireNonNull(blockDataFilePath);
+        userPrefModel.setBlockDataFilePath(blockDataFilePath);
     }
 
     //=========== Suggestion Model =============================================================
@@ -159,6 +168,16 @@ public class ModelManager implements Model {
     @Override
     public BlockTree getBlockTree() {
         return blockModel.getBlockTree();
+    }
+
+    @Override
+    public void setBlockTree(BlockTree blockTree) {
+        blockModel.setBlockTree(blockTree);
+    }
+
+    @Override
+    public void resetData(BlockModel newData) {
+        blockModel.resetData(newData);
     }
 
     @Override

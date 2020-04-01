@@ -15,7 +15,7 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
     private final int distanceThreshold;
 
     public StringCorrectionEngine(List<String> options, int distanceThreshold) {
-        this(new LevenshteinDistanceCalculator(), options, distanceThreshold);
+        this(new LevenshteinDistanceCalculator(false), options, distanceThreshold);
     }
 
     public StringCorrectionEngine(EditDistanceCalculator editDistanceCalculator,

@@ -39,13 +39,6 @@ public class JsonAdaptedBlockTreeItemTest {
     }
 
     @Test
-    public void toModelType_invalidBody_throwsIllegalValueException() {
-        JsonAdaptedBlockTreeItem blockTreeItem = new JsonAdaptedBlockTreeItem("Title", " ",
-            new ArrayList<JsonAdaptedBlockTreeItem>());
-        assertThrows(IllegalValueException.class, Body.MESSAGE_CONSTRAINTS, blockTreeItem::toModelType);
-    }
-
-    @Test
     public void toModelType_nullBody_throwsIllegalValueException() {
         JsonAdaptedBlockTreeItem blockTreeItem = new JsonAdaptedBlockTreeItem("Title", null,
             new ArrayList<JsonAdaptedBlockTreeItem>());

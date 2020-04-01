@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import com.notably.commons.exceptions.DataConversionException;
-import com.notably.model.ReadOnlyUserPrefs;
-import com.notably.model.UserPrefs;
+import com.notably.model.userpref.ReadOnlyUserPrefModel;
+import com.notably.model.userpref.UserPrefModel;
 
 /**
- * Represents a storage for {@link com.notably.model.UserPrefs}.
+ * Represents a storage for {@link com.notably.model.UserPrefModel}.
  */
 public interface UserPrefsStorage {
 
@@ -24,13 +24,13 @@ public interface UserPrefsStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<UserPrefModel> readUserPrefs() throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link com.notably.model.ReadOnlyUserPrefs} to the storage.
+     * Saves the given {@link com.notably.model.ReadOnlyUserPrefModel} to the storage.
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
+    void saveUserPrefs(ReadOnlyUserPrefModel userPrefs) throws IOException;
 
 }
