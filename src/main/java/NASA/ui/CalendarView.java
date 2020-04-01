@@ -66,6 +66,15 @@ public class CalendarView extends UiPart<Region> {
         loadActivities(moduleObservableList);
 
         // allow updating of calendar
+        // TODO: whenever a module is added, do this also
+        moduleObservableList.addListener(new ListChangeListener<Module>() {
+            @Override
+            public void onChanged(Change<? extends Module> c) {
+                resetCalendar();
+                loadActivities(moduleObservableList);
+                updateCalendar(moduleObservableList);
+            }
+        });
         updateCalendar(moduleObservableList);
     }
 
