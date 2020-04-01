@@ -176,10 +176,10 @@ public class ParserUtil {
     /**
      * Parses a {@code String sessionType} into a {@code SessionType}
      */
-    public static SessionType parseSessionType(String sessionType) {
+    public static SessionType parseSessionType(String sessionType) throws ParseException {
         requireNonNull(sessionType);
         String trimmedType = sessionType.trim();
-        assert (trimmedType.equals(trimmedType.toLowerCase()));
+
         switch (trimmedType) {
         case "tutorial":
             return SessionType.TUTORIAL;
@@ -191,22 +191,31 @@ public class ParserUtil {
             return SessionType.GRADING;
         case "preparation":
             return SessionType.PREPARATION;
-        default:
+        case "other":
             return SessionType.OTHER;
+        default:
+            throw new ParseException(SessionType.MESSAGE_CONSTRAINTS);
         }
     }
 
     /**
      * Parses and returns Group Type of group.
      */
-    public static GroupType parseGroupType(String type) {
+    public static GroupType parseGroupType(String type) throws ParseException {
         requireNonNull(type);
         String trimmedType = type.trim();
-        switch (trimmedType.toLowerCase()) {
+
+        switch (trimmedType) {
+        case "tutorial":
+            return GroupType.TUTORIAL;
         case "lab":
             return GroupType.LAB;
+        case "recitation":
+            return GroupType.RECITATION;
+        case "other":
+            return GroupType.OTHER;
         default:
-            return GroupType.TUTORIAL;
+            throw new ParseException(GroupType.MESSAGE_CONSTRAINTS);
         }
     }
 
