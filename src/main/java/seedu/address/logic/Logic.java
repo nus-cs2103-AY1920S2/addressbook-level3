@@ -8,6 +8,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.dayData.CustomQueue;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
 /** API of the Logic component */
@@ -42,6 +44,8 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     void incrementPomExp();
+
+    ObservableList<DayData> getCustomQueue();
 
     ReadOnlyPomodoro getPomodoro();
 }

@@ -36,7 +36,7 @@ class JsonSerializableDayDataList {
      */
     public JsonSerializableDayDataList(ReadOnlyStatistics source) {
         dayDatas.addAll(
-                source.getDayDataList()
+                source.getCustomQueue()
                         .stream()
                         .map(JsonAdaptedDayData::new)
                         .collect(Collectors.toList()));

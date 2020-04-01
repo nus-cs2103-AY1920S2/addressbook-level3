@@ -1,167 +1,234 @@
 package seedu.address.model.dayData;
 
-import static seedu.address.testutil.Assert.assertThrows;
-
 import org.junit.jupiter.api.Test;
+import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
+import seedu.address.model.dayData.exceptions.InvalidTableException;
+import seedu.address.testutil.DayDataBuilder;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_POM_DURATION_DATA;
+import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_TASKS_DONE_DATA;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalDayDatas.DAY0;
+import static seedu.address.testutil.TypicalDayDatas.DAYNEW;
+import static seedu.address.testutil.TypicalDayDatas.DAYNEW2;
 
 public class CustomQueueTest {
 
-    private final CustomQueue customQueue = new CustomQueue();
+    private CustomQueue customQueue = new CustomQueue();
+    private LocalDate TYPICAL_STATISTICS_LATEST_LOCAL_DATE = LocalDate.parse("2020-03-23");
+    private LocalDate VALID_LOCAL_DATE = LocalDate.parse("2018-11-13");
 
     @Test
-    public void contains_nullTask_throwsNullPointerException() {
+    public void updateDataDatesCustom_success() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        customQueue.updateDataDatesCustom(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+
+        CustomQueue expectedCustomQueue = new CustomQueue();
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        assertEquals(expectedCustomQueue, customQueue);
+    }
+
+    @Test
+    public void updateDataDatesCustom_nullLocalDatethrowsNullPointerException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(NullPointerException.class, () -> customQueue.updateDataDatesCustom(null));
+    }
+
+    @Test
+    public void updatesDayDataCustom_nullLocalDatethrowsNullPointerException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(NullPointerException.class, () -> customQueue.updatesDayDataCustom(null));
+    }
+
+    @Test
+    public void updatesDayDataCustom_nonexistentDayDatathrowsDayDataNotFoundException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(DayDataNotFoundException.class, () -> customQueue.updatesDayDataCustom(DAYNEW));
+    }
+
+    @Test
+    public void getDayDataFromDateCustom_nullLocalDatethrowsNullPointerException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(NullPointerException.class, () -> customQueue.getDayDataFromDateCustom(null));
+    }
+
+    @Test
+    public void getDayDataFromDateCustom_nonexistentDayDatathrowsDayDataNotFoundException() throws InvalidTableException {
+        customQueue.init(VALID_LOCAL_DATE);
+        assertThrows(DayDataNotFoundException.class, () -> customQueue.getDayDataFromDateCustom(DAYNEW.getDate()));
+    }
+
+    @Test
+    public void getDayDataFromDateCustom_validDayData_returnsDayData() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        DayData day0Empty = new DayDataBuilder(DAY0)
+                .withPomDurationData("0")
+                .withTasksDoneData("0")
+                .build();
+        assertEquals(day0Empty, customQueue.getDayDataFromDateCustom(day0Empty.getDate()));
+    }
+
+    @Test
+    public void contains_nullDayDatathrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> customQueue.contains(null));
     }
-    /*
-       @Test
-       public void contains_taskNotInList_returnsFalse() {
-           assertFalse(uniqueTaskList.contains(HOMEWORK10));
-       }
 
-       @Test
-       public void contains_taskInList_returnsTrue() {
-           uniqueTaskList.add(HOMEWORK10);
-           assertTrue(uniqueTaskList.contains(HOMEWORK10));
-       }
+    @Test
+    public void contains_DayDataNotInList_returnsFalse() {
+        assertFalse(customQueue.contains(DAYNEW));
+    }
 
-       @Test
-       public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-           uniqueTaskList.add(HOMEWORK10);
-           Task editedAlice =
-                   new TaskBuilder(HOMEWORK10)
-                           .withDescription(VALID_DESCRIPTION_TASK2)
-                           .withTags(VALID_TAG_MA1521)
-                           .build();
-           assertTrue(uniqueTaskList.contains(editedAlice));
-       }
+    @Test
+    public void contains_taskInList_returnsTrue() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.pop();
 
-       @Test
-       public void add_nullPerson_throwsNullPointerException() {
-           assertThrows(NullPointerException.class, () -> uniqueTaskList.add(null));
-       }
+        customQueue.add(DAYNEW);
+        assertTrue(customQueue.contains(DAYNEW));
+    }
 
-       @Test
-       public void add_duplicatePerson_throwsDuplicatePersonException() {
-           uniqueTaskList.add(HOMEWORK10);
-           assertThrows(DuplicateTaskException.class, () -> uniqueTaskList.add(HOMEWORK10));
-       }
+    @Test
+    public void contains_dayDataWithSameIdentityFieldsInList_returnsTrue() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.pop();
 
-       @Test
-       public void setPerson_nullTargetPerson_throwsNullPointerException() {
-           assertThrows(NullPointerException.class, () -> uniqueTaskList.setTask(null, HOMEWORK10));
-       }
+        customQueue.add(DAYNEW);
+        DayData editedDayData =
+                new DayDataBuilder(DAYNEW)
+                        .withPomDurationData(VALID_POM_DURATION_DATA)
+                        .withTasksDoneData(VALID_TASKS_DONE_DATA)
+                        .build();
+        assertTrue(customQueue.contains(editedDayData));
+    }
 
-       @Test
-       public void setPerson_nullEditedPerson_throwsNullPointerException() {
-           assertThrows(NullPointerException.class, () -> uniqueTaskList.setTask(HOMEWORK10, null));
-       }
+    @Test
+    public void clear_success() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.clear();
+        assertTrue(customQueue.size() == 0);
+    }
 
-       @Test
-       public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-           assertThrows(
-                   TaskNotFoundException.class, () -> uniqueTaskList.setTask(HOMEWORK10, HOMEWORK10));
-       }
+    @Test
+    public void add_nullDayData_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> customQueue.add(null));
+    }
+    
+    @Test
+    public void setDayData_nullTargetDayData_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> customQueue.setDayData(null, DAYNEW));
+    }
 
-       @Test
-       public void setPerson_editedPersonIsSamePerson_success() {
-           uniqueTaskList.add(HOMEWORK10);
-           uniqueTaskList.setTask(HOMEWORK10, HOMEWORK10);
-           UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-           expectedUniqueTaskList.add(HOMEWORK10);
-           assertEquals(expectedUniqueTaskList, uniqueTaskList);
-       }
+    @Test
+    public void setDayData_nullEditedDayDatan_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> customQueue.setDayData(DAYNEW, null));
+    }
 
-       @Test
-       public void setPerson_editedPersonHasSameIdentity_success() {
-           uniqueTaskList.add(HOMEWORK10);
-           Task editedAlice =
-                   new TaskBuilder(HOMEWORK10)
-                           .withDescription(VALID_DESCRIPTION_TASK2)
-                           .withTags(VALID_TAG_MA1521)
-                           .build();
-           uniqueTaskList.setTask(HOMEWORK10, editedAlice);
-           UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-           expectedUniquePersonList.add(editedAlice);
-           assertEquals(expectedUniquePersonList, uniqueTaskList);
-       }
+    @Test
+    public void setDayData_targetDayDataNotInList_throwsDayDataNotFoundException() {
+        assertThrows(
+                DayDataNotFoundException.class, () -> customQueue.setDayData(DAYNEW, DAYNEW));
+    }
 
-       @Test
-       public void setPerson_editedPersonHasDifferentIdentity_success() {
-           uniqueTaskList.add(HOMEWORK10);
-           uniqueTaskList.setTask(HOMEWORK10, TASK2);
-           UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-           expectedUniquePersonList.add(TASK2);
-           assertEquals(expectedUniquePersonList, uniqueTaskList);
-       }
+    @Test
+    public void setDayData_editedDayDataIsSameDayData_success() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.pop();
 
-       @Test
-       public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-           uniqueTaskList.add(HOMEWORK10);
-           uniqueTaskList.add(TASK2);
-           assertThrows(DuplicateTaskException.class, () -> uniqueTaskList.setTask(HOMEWORK10, TASK2));
-       }
+        customQueue.add(DAYNEW);
+        customQueue.setDayData(DAYNEW, DAYNEW);
 
-       @Test
-       public void remove_nullPerson_throwsNullPointerException() {
-           assertThrows(NullPointerException.class, () -> uniqueTaskList.remove(null));
-       }
+        CustomQueue expectedCustomQueue = new CustomQueue();
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.pop();
 
-       @Test
-       public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-           assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.remove(HOMEWORK10));
-       }
+        expectedCustomQueue.add(DAYNEW);
+        assertEquals(expectedCustomQueue, customQueue);
+    }
 
-       @Test
-       public void remove_existingPerson_removesPerson() {
-           uniqueTaskList.add(HOMEWORK10);
-           uniqueTaskList.remove(HOMEWORK10);
-           UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-           assertEquals(expectedUniqueTaskList, uniqueTaskList);
-       }
+    @Test
+    public void setDayData_editedDayDataHasSameIdentity_success() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.pop();
 
-       @Test
-       public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-           assertThrows(
-                   NullPointerException.class, () -> uniqueTaskList.setTasks((UniqueTaskList) null));
-       }
+        customQueue.add(DAYNEW);
+        DayData editedDayData =
+                new DayDataBuilder(DAYNEW)
+                        .withPomDurationData(VALID_POM_DURATION_DATA)
+                        .withTasksDoneData(VALID_TASKS_DONE_DATA)
+                        .build();
+        customQueue.setDayData(DAYNEW, editedDayData);
 
-       @Test
-       public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-           uniqueTaskList.add(HOMEWORK10);
-           UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-           expectedUniqueTaskList.add(TASK2);
-           uniqueTaskList.setTasks(expectedUniqueTaskList);
-           assertEquals(expectedUniqueTaskList, uniqueTaskList);
-       }
+        CustomQueue expectedCustomQueue = new CustomQueue();
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.pop();
 
-       @Test
-       public void setPersons_nullList_throwsNullPointerException() {
-           assertThrows(NullPointerException.class, () -> uniqueTaskList.setTasks((List<Task>) null));
-       }
+        expectedCustomQueue.add(editedDayData);
+        assertEquals(expectedCustomQueue, customQueue);
+    }
 
-       @Test
-       public void setPersons_list_replacesOwnListWithProvidedList() {
-           uniqueTaskList.add(HOMEWORK10);
-           List<Task> taskList = Collections.singletonList(TASK2);
-           uniqueTaskList.setTasks(taskList);
-           UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-           expectedUniqueTaskList.add(TASK2);
-           assertEquals(expectedUniqueTaskList, uniqueTaskList);
-       }
+    @Test
+    public void setDayData_editedDayDataHasDifferentIdentity_success() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.pop();
 
-       @Test
-       public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-           List<Task> listWithDuplicateTask = Arrays.asList(HOMEWORK10, HOMEWORK10);
-           assertThrows(
-                   DuplicateTaskException.class, () -> uniqueTaskList.setTasks(listWithDuplicateTask));
-       }
+        customQueue.add(DAYNEW);
+        customQueue.setDayData(DAYNEW, DAYNEW2);
 
-       @Test
-       public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-           assertThrows(
-                   UnsupportedOperationException.class,
-                   () -> uniqueTaskList.asUnmodifiableObservableList().remove(0));
-       }
+        CustomQueue expectedCustomQueue = new CustomQueue();
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.pop();
 
-    */
+        expectedCustomQueue.add(DAYNEW2);
+        assertEquals(expectedCustomQueue, customQueue);
+    }
+
+    @Test
+    public void remove_nullDayData_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> customQueue.remove(null));
+    }
+
+    @Test
+    public void remove_dayDataDoesNotExist_throwsDayDataNotFoundException() {
+        assertThrows(DayDataNotFoundException.class, () -> customQueue.remove(DAYNEW));
+    }
+
+    @Test
+    public void setDayDatas_nullCustomQueue_throwsNullPointerException() {
+        assertThrows(
+                NullPointerException.class, () -> customQueue.setDayDatas((CustomQueue)null));
+    }
+
+    @Test
+    public void setDayDatas_customQueue_replacesOwnListWithProvidedCustomQueue() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.pop();
+
+        customQueue.add(DAYNEW);
+
+        CustomQueue expectedCustomQueue = new CustomQueue();
+        expectedCustomQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        expectedCustomQueue.pop();
+
+        expectedCustomQueue.add(DAYNEW);
+        customQueue.setDayDatas(expectedCustomQueue);
+        assertEquals(expectedCustomQueue, customQueue);
+    }
+
+    @Test
+    public void setDayDatas_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> customQueue.setDayDatas((List<DayData>) null));
+    }
+
+    @Test
+    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> customQueue.asUnmodifiableObservableList().remove(0));
+    }
 }

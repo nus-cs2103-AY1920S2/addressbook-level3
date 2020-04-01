@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,7 +29,13 @@ import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyPet;
+import seedu.address.model.dayData.CustomQueue;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Reminder;
+
+import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
+import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -250,6 +257,11 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // Swap to tasks tab
+            tabPanePlaceholder
+                    .getSelectionModel()
+                    .select(TASKS_TAB_INDEX);
+
             // Switch tabs related results
             try {
                 SwitchTabCommandResult switchTabCommandResult =
@@ -257,6 +269,10 @@ public class MainWindow extends UiPart<Stage> {
                 tabPanePlaceholder
                         .getSelectionModel()
                         .select(switchTabCommandResult.getTabToSwitchIndex());
+                if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
+                    ObservableList<DayData> customQueue = logic.getCustomQueue();
+                    statisticsDisplay.updateGraphs(customQueue);
+                }
             } catch (ClassCastException ce) {
             }
 
