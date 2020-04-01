@@ -17,8 +17,6 @@ import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
-import com.notably.model.block.BlockTree;
-import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.userpref.ReadOnlyUserPrefModel;
@@ -86,22 +84,22 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel,
         ViewStateModel viewStateModel, ReadOnlyUserPrefModel userPrefs) {
-        Optional<BlockTree> blockTreeOptional;
-        BlockTree initialData;
+        Optional<BlockModel> blockModelOptional;
+        BlockModel initialData;
         try {
-            blockTreeOptional = storage.readBlockTree();
-            if (!blockTreeOptional.isPresent()) {
+            blockModelOptional = storage.readBlockModel();
+            if (!blockModelOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BlockTree");
             }
-            initialData = blockTreeOptional.orElseGet(SampleDataUtil::getSampleBlockTree);
+            initialData = blockModelOptional.orElseGet(SampleDataUtil::getSampleBlockModel);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty BlockTree");
-            initialData = new BlockTreeImpl();
+            initialData = new BlockModelImpl();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty BlockTree");
-            initialData = new BlockTreeImpl();
+            initialData = new BlockModelImpl();
         }
-        blockModel.setBlockTree(initialData);
+        blockModel.resetData(initialData);
         return new ModelManager(blockModel, suggestionModel, viewStateModel , userPrefs);
     }
 
