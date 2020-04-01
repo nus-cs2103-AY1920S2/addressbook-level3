@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.DateIsEqualsPredicate;
 import csdev.couponstash.model.coupon.DateIsInMonthYearPredicate;
 
@@ -24,7 +25,7 @@ public class ExpiringCommand extends Command {
             + "Parameters: Date in D-M-YYYY format or Year Month in M-YYYY format\n"
             + "Example: " + COMMAND_WORD + " 31-12-2020 or " + COMMAND_WORD + " 12-2020";
 
-    private final Predicate predicate;
+    private final Predicate<Coupon> predicate;
     private final String date;
 
     public ExpiringCommand(DateIsEqualsPredicate predicate) {
