@@ -15,6 +15,7 @@ import fithelper.commons.util.ModeUtil;
 import fithelper.model.calendar.CalendarSettings;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
+import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
@@ -116,6 +117,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearDiaryFitHelper() {
+        this.fitHelper.clearDiary();
+    }
+
+    @Override
     public ReadOnlyFitHelper getFitHelper() {
         return this.fitHelper;
     }
@@ -137,6 +143,12 @@ public class ModelManager implements Model {
     public boolean hasDiary(Diary diary) {
         requireNonNull(diary);
         return fitHelper.hasDiary(diary);
+    }
+
+    @Override
+    public boolean hasDiaryDate(DiaryDate diaryDate) {
+        requireNonNull(diaryDate);
+        return fitHelper.hasDiaryDate(diaryDate);
     }
 
     @Override
@@ -194,7 +206,7 @@ public class ModelManager implements Model {
      * @param editedDiary
      */
     @Override
-    public void setDiary(String target, Diary editedDiary) {
+    public void setDiary(Diary target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
         fitHelper.setDiary(target, editedDiary);
     }

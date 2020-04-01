@@ -11,16 +11,17 @@ import java.util.Objects;
 public class Content {
 
     public static final String MESSAGE_CONSTRAINTS = "Content should be no more than 200 characters";
-    private String value;
+    public final String value;
+    private String content;
 
     /**
      * Creates a {@code Content}.
      *
-     * @param value a valid content.
+     * @param content a valid content.
      */
-    public Content(String value) {
-        checkArgument(isValidContent(value), MESSAGE_CONSTRAINTS);
-        this.value = value;
+    public Content(String content) {
+        checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
+        this.value = content;
     }
 
     /**
@@ -42,27 +43,27 @@ public class Content {
         return value;
     }
 
-    /**
+   /* *//**
      * Sets the value of the content.
      * @param value the content to be set
-     */
+     *//*
     public void setValue(String value) {
         checkArgument(isValidContent(value), MESSAGE_CONSTRAINTS);
         this.value = value;
-    }
+    }*/
 
     /**
-     * Adds new content to a diary.
-     * @param appendingStr the new string being being added
+     * Appends a new content to the previous one.
+     * @param appendedContent
      */
-    public void add(String appendingStr) {
+    public Content appendContent(Content appendedContent) {
         StringBuilder sb = new StringBuilder(this.value);
-        checkArgument(isValidContent(new StringBuilder(this.value).append(appendingStr).toString()),
+        checkArgument(isValidContent(new StringBuilder(this.value).append(appendedContent.value).toString()),
                 MESSAGE_CONSTRAINTS);
         if (!isContentEmpty()) {
             sb.append(" ");
         }
-        this.value = sb.append(appendingStr).toString();
+        return new Content(sb.append(appendedContent.value).toString());
     }
 
     public static boolean isValidContent(String value) {
@@ -83,7 +84,7 @@ public class Content {
             return false;
         }
         Content content = (Content) o;
-        return this.value.equals(content.value);
+        return this.value.equalsIgnoreCase(content.value);
     }
 
     @Override
