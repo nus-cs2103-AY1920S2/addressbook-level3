@@ -72,6 +72,12 @@ public interface Model {
     void attemptRecipe(Recipe recipe);
 
     /**
+     * Un-Makrs a recipe as attempted/done
+     * @param recipe the recipe to be un-marked.
+     */
+    void unAttemptRecipe(Recipe recipe);
+
+    /**
      *
      * Favourites the recipe
      */

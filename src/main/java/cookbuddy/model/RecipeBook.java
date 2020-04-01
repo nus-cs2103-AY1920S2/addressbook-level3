@@ -101,6 +101,15 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         recipe.attemptRecipe();
     }
 
+    /**
+     * Un-Marks the recipe as attempted, marking it as not done.
+     * @param recipe the recipe to be un-marked.
+     */
+    public void unAttempt(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.unAttemptRecipe();
+    }
+
 
     /**
      * Adds a recipe to the recipe book.

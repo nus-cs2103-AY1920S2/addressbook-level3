@@ -19,6 +19,7 @@ import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.logic.commands.ResetCommand;
 import cookbuddy.logic.commands.UnFavCommand;
+import cookbuddy.logic.commands.UndoCommand;
 import cookbuddy.logic.commands.ViewCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
 
@@ -60,6 +61,9 @@ public class RecipeBookParser {
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
 
         case FavCommand.COMMAND_WORD:
             return new FavCommandParser().parse(arguments);
