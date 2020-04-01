@@ -57,4 +57,12 @@ public class ContinueCommand extends Command {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ContinueCommand // instanceof handles nulls
+            && index.equals(((ContinueCommand) other).index)
+            && moduleCode.equals(moduleCode)); // state check
+    }
 }
