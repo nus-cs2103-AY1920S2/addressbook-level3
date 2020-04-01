@@ -4,10 +4,12 @@ import java.util.logging.Logger;
 
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
+import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.model.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -116,12 +118,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    public void defaultFill(Recipe recipe) {
         if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
         }
         else {
-            recipeView = new RecipeView(logic.getFilteredRecipeList().get(0));
+            recipeView = new RecipeView(recipe);
         }
 
         this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
@@ -137,6 +139,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    public void fillInnerParts() {
+        defaultFill(logic.getFilteredRecipeList().get(0));
     }
 
     /**

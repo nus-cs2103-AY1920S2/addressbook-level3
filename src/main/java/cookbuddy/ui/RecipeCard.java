@@ -40,7 +40,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label instructions;
     @FXML
-    private Label calorie;
+    private Label fav;
     @FXML
     private Label serving;
     @FXML
@@ -59,9 +59,9 @@ public class RecipeCard extends UiPart<Region> {
 
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
-        calorie.setText(recipe.getCalorie().toString() + " calories");
-        serving.setText("Serving size: " + recipe.getServing().toString() + " pax");
-        rating.setText("Rating: " + recipe.getRating().toString());
+        fav.setText(recipe.getFavStatus().toString());
+        serving.setText(recipe.getServing().toString());
+        rating.setText(recipe.getRating().toString());
         diff.setText("Difficulty: " + recipe.getDifficulty().toString());
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

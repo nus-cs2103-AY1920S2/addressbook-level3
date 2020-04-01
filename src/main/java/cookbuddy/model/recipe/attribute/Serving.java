@@ -47,7 +47,8 @@ public class Serving {
      * Format state as text for viewing.
      */
     public String toString() {
-        return String.valueOf(serving);
+        return "\uD83C\uDF74" + " : " + serving;
+        //return "\uD83C\uDF7D" + " : " + serving;
     }
 
 }
