@@ -15,6 +15,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -157,8 +159,8 @@ public class MainWindow extends UiPart<Stage> {
 
         petManager.updateMoodWhenLogIn();
         petDisplay = new PetDisplay();
-        petManager.setPetDisplay(petDisplay);
-        petManager.updatePetDisplay();
+        petManager.setMainWindow(this);
+        updatePetDisplay();
         petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -302,7 +304,7 @@ public class MainWindow extends UiPart<Stage> {
                 petManager.handleExit();
                 handleExit();
             }
-            petManager.updatePetDisplay();
+            updatePetDisplay();
             // update because sorting returns a new list
 
             this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
@@ -336,7 +338,7 @@ public class MainWindow extends UiPart<Stage> {
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
-                petManager.updatePetDisplay();
+                updatePetDisplay();
                 if (commandText.toLowerCase().equals("y")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -442,6 +444,20 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void updatePetDisplay() {
+        String petName = petManager.getPetName();
+        String levelText = petManager.getLevelText();
+        String expBarInt = petManager.getExpBarInt();
+        Path expBarImage = petManager.getExpBarImage();
+        Path petImage = petManager.getPetImage();
+
+        petDisplay.setPetName(petName);
+        petDisplay.setLevelText(levelText);
+        petDisplay.setExpBarText(expBarInt);
+        petDisplay.setExpBarImage(expBarImage);
+        petDisplay.setPetImage(petImage);
     }
 
     @FXML

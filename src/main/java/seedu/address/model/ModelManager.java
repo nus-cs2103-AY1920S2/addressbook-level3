@@ -47,6 +47,7 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.pet = new Pet(pet); // initialize a pet as a model
+        System.out.println("PPPPPPPPPPPPPPPPPPPPPPP" + this.pet);
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
         logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
@@ -205,14 +206,14 @@ public class ModelManager implements Model {
 
     @Override
     public void setPetManager(PetManager petManager) {
+        System.out.println("FFFFFF" + this.pet);
         this.petManager = petManager;
-        this.petManager.setPet(pet);
+        this.petManager.setPet(this.pet);
     }
 
     @Override
     public void updateMoodWhenDone() {
         petManager.updateMoodWhenTaskDone();
-        petManager.updatePetDisplayWhenDone();
     }
 
     // ============================ Pomodoro Manager
