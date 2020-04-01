@@ -6,19 +6,41 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface TaskListStorage <<Interface>>
+Interface PetStorage <<Interface>>
+Interface PomodoroStorage <<Interface>>
+Interface StatisticsStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonTaskListStorage
+class JsonPetStorage
+class JsonPomodoroStorage
+class JsonStatisticsStorage
+class JsonSerializableDayDataList
+class JsonAdaptedDayData
+
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> TaskListStorage
+StorageManager o--> PetStorage
+StorageManager o--> PomodoroStorage
+StorageManager o--> StatisticsStorage
+
+JsonPetStorage .up.|> PetStorage 
+JsonPetStorage .down.> JsonAdaptedPet
+
+JsonPomodoroStorage .up.|> PomodoroStorage 
+JsonPomodoroStorage .down.> JsonAdaptedPomodoro
+
+JsonStatisticsStorage .up.|> StatisticsStorage
+JsonStatisticsStorage ..> JsonSerializableDayDataList
+JsonSerializableDayDataList ..> JsonAdaptedDayData
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonTaskListStorage .left.|> TaskListStorage
+JsonTaskListStorage .down.> JsonSerializableTaskList
+JsonSerializableTaskList ..> JsonAdaptedTask
+JsonAdaptedTask ..> JsonAdaptedTag
 @enduml
