@@ -153,10 +153,9 @@ public class EditProductCommand extends Command {
         Money updatedSales = editProductDescriptor.getMoney().orElse(productToEdit.getMoney());
         QuantityThreshold updatedThreshold = editProductDescriptor.getThreshold().orElse(productToEdit.getThreshold());
         double updatedProgress = productToEdit.getProgress();
-        int updatedCount = productToEdit.getQuantitySold();
 
         return new Product(id, updatedDescription, updatedCostPrice, updatedPrice, updatedQuantity,
-                updatedSales, updatedThreshold, updatedProgress, updatedCount);
+                updatedSales, updatedThreshold, updatedProgress);
     }
 
     @Override

@@ -110,7 +110,7 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(id, description, costPrice, price, quantity, money, threshold, 1, 0);
+        return new Product(id, description, costPrice, price, quantity, money, threshold, 1);
     }
 
 }

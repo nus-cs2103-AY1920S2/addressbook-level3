@@ -81,8 +81,6 @@ public class DeleteTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-        editedProduct.updateQuantitySold();
-
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
     }

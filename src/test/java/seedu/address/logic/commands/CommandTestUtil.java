@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_THRESHOLD;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.product.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.product.Product;
+import seedu.address.model.util.QuantityThreshold;
 import seedu.address.testutil.customer.EditPersonDescriptorBuilder;
 import seedu.address.testutil.product.EditProductDescriptorBuilder;
 
@@ -57,6 +59,8 @@ public class CommandTestUtil {
     public static final String VALID_QUANTITY_BAG = "2";
     public static final String VALID_SALES_WATCH = "22";
     public static final String VALID_SALES_BAG = "44";
+    public static final String VALID_THRESHOLD_WATCH = "20";
+    public static final String VALID_THRESHOLD_BAG = "12";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -79,6 +83,8 @@ public class CommandTestUtil {
     public static final String QUANTITY_DESC_WATCH = " " + PREFIX_QUANTITY + VALID_QUANTITY_WATCH;
     public static final String SALES_DESC_BAG = " " + PREFIX_SALES + VALID_SALES_BAG;
     public static final String SALES_DESC_WATCH = " " + PREFIX_SALES + VALID_SALES_WATCH;
+    public static final String THRESHOLD_DESC_BAG = " " + PREFIX_THRESHOLD + VALID_THRESHOLD_BAG;
+    public static final String THRESHOLD_DESC_WATCH = " " + PREFIX_THRESHOLD + VALID_THRESHOLD_WATCH;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -100,6 +106,9 @@ public class CommandTestUtil {
     public static final EditProductCommand.EditProductDescriptor DESC_BAG;
     public static final EditProductCommand.EditProductDescriptor DESC_WATCH;
 
+    public static final QuantityThreshold THRESHOLD_BAG;
+    public static final QuantityThreshold THRESHOLD_WATCH;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -109,10 +118,12 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         DESC_BAG = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_BAG)
                 .withCostPrice(VALID_COSTPRICE_BAG).withPrice(VALID_PRICE_BAG).withQuantity(VALID_QUANTITY_BAG)
-                .withSales(VALID_SALES_BAG).build();
+                .withSales(VALID_SALES_BAG).withThreshold(VALID_THRESHOLD_BAG).build();
         DESC_WATCH = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH)
-                .withCostPrice(VALID_COSTPRICE_WATCH).withPrice(VALID_PRICE_WATCH)
-                .withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH).build();
+                .withCostPrice(VALID_COSTPRICE_WATCH).withPrice(VALID_PRICE_WATCH).withQuantity(VALID_QUANTITY_WATCH)
+                .withSales(VALID_SALES_WATCH).withThreshold(VALID_THRESHOLD_WATCH).build();
+        THRESHOLD_BAG = new QuantityThreshold(VALID_THRESHOLD_BAG);
+        THRESHOLD_WATCH = new QuantityThreshold(VALID_THRESHOLD_WATCH);
     }
 
     /**
