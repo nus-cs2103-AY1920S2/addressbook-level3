@@ -212,6 +212,15 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder2.getChildren().add(restaurantListPanel.getRoot());
     }
 
+    /**
+     * Display address book on first panel.
+     */
+    @FXML
+    private void handleAddress() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -263,6 +272,8 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.isShowSchedule()) {
                 handleShowSchedule();
             }
+
+            handleAddress();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

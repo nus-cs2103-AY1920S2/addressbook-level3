@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -69,25 +70,42 @@ public class AddRestaurantNoteCommand extends Command {
         }
 
         Restaurant restaurantToEdit = lastShownList.get(index.getZeroBased());
+
+        ArrayList<Note> updatedRecFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getRecommendedFood()) {
+            updatedRecFood.add(i);
+        }
+
+        ArrayList<Note> updatedGoodFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getGoodFood()) {
+            updatedGoodFood.add(i);
+        }
+
+        ArrayList<Note> updatedBadFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getBadFood()) {
+            updatedBadFood.add(i);
+        }
+
         if (!recommendedFood.note.isEmpty()) {
-            restaurantToEdit.getRecommendedFood().add(recommendedFood);
+            updatedRecFood.add(recommendedFood);
         }
         if (!goodFood.note.isEmpty()) {
-            restaurantToEdit.getGoodFood().add(goodFood);
+            updatedGoodFood.add(goodFood);
         }
         if (!badFood.note.isEmpty()) {
-            restaurantToEdit.getBadFood().add(badFood);
+            updatedBadFood.add(badFood);
         }
+
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
-                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), restaurantToEdit.getRecommendedFood(),
-                restaurantToEdit.getGoodFood(), restaurantToEdit.getBadFood());
+                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), updatedRecFood,
+                updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         return new CommandResult(String.format(generateSuccessMessage(editedRestaurant), editedRestaurant),
-                false, false, false, false, false, true, false, false);
+                false, false, false, false, false, false, true, false);
     }
 
     /**

@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.commands.AddRestaurantNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -34,7 +33,7 @@ public class AddRestaurantNoteCommandParser implements Parser<AddRestaurantNoteC
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddInfoCommand.MESSAGE_USAGE), ive);
+                    AddRestaurantNoteCommand.MESSAGE_USAGE), ive);
         }
 
         if (!argMultimap.getValue(PREFIX_RECOMMENDED).isPresent() && !argMultimap.getValue(PREFIX_GOOD).isPresent()

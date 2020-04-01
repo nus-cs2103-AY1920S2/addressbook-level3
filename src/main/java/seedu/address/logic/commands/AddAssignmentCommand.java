@@ -22,7 +22,7 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_ESTHOURS + "ESTIMATED HOURS\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "CS2103 Team Project "
-            + PREFIX_DEADLINE + "04-18 23:59 "
+            + PREFIX_DEADLINE + "2020-04-18 23:59 "
             + PREFIX_ESTHOURS + "180";
 
     public static final String MESSAGE_SUCCESS = "New assignment added:\n%1$s";

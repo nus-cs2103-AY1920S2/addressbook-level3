@@ -70,6 +70,15 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
+        } else if (command.toString().contains("undo")) {
+            try {
+                storage.saveAddressBook(model.getAddressBook());
+                storage.saveScheduler(model.getScheduler());
+                storage.saveEventSchedule(model.getEventSchedule());
+                storage.saveRestaurantBook(model.getRestaurantBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         return commandResult;

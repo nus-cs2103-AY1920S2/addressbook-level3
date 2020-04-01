@@ -53,7 +53,8 @@ public class VisitedRestaurantCommand extends Command {
         }
 
         model.setRestaurant(restaurantToUpdate, updatedRestaurant);
-        return new CommandResult(String.format(MESSAGE_UPDATE_STATUS_SUCCESS, updatedRestaurant.getName()));
+        return new CommandResult(String.format(MESSAGE_UPDATE_STATUS_SUCCESS, updatedRestaurant.getName()), false,
+                false, false, false, false, false, true, false);
     }
 
     /**

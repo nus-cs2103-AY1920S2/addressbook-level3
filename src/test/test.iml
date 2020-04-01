@@ -10,5 +10,8 @@
     <orderEntry type="module" module-name="main" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-base:mac:11.0.2" level="project" />
+    <orderEntry type="module" module-name="main.main" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-graphics:win:11.0.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-fxml:win:11.0.2" level="project" />
   </component>
 </module>
