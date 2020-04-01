@@ -11,11 +11,11 @@ public class FoodCalorieTable implements CalorieTable {
 
     public FoodCalorieTable() {
         String data = FoodCalorieDataUtil.DATA;
-        String[] listOfEntries = data.split("//");
+        String[] listOfEntries = data.split("\n");
         for (String entry : listOfEntries) {
-            String[] attributes = entry.split("/");
+            String[] attributes = entry.split("\t");
             if (attributes.length == 3) {
-                entries.add(new FoodCalorieEntry(attributes[0], attributes[1], attributes[2]));
+                entries.add(new FoodCalorieEntry(attributes[0], attributes[2], attributes[1]));
             }
         }
     }

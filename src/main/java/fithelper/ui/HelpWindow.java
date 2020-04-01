@@ -14,9 +14,10 @@ import javafx.scene.layout.AnchorPane;
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<AnchorPane> {
-    public static final String LIST_OF_VALID_COMMANDS = "Common commands and their format are as follows:\n"
+    public static final String LIST_OF_VALID_COMMANDS = "Common commands, their format and functions are as follows:\n"
+            + "(Please note that TYPE can only be f/food/s/sports)\n"
             + "add x/TYPE n/NAME t/YYYY-MM-DD 24:60 l/LOCATION c/CALORIE\n"
-            + "  - add a food/exercise entry [TYPE can only be f/food/s/sports]\n"
+            + "  - add a food/exercise entry\n"
             + "list (x/TYPE) (d/YYYY-MM-DD)\n"
             + "  - list entries (of food/sport in a given day)\n"
             + "reminder (x/TYPE) (d/YYYY-MM-DD)\n"
@@ -27,20 +28,20 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "  - edit the information of an entry\n"
             + "delete x/type (d/YYYY-MM-DD) i/INDEX\n"
             + "  - delete an entry\n"
-            + "home(i.e. dashboard)/today/weight/profile/help\n"
-            + "  - switch to the specified page"
+            + "home (i.e. dashboard) /today/weight/profile/help\n"
+            + "  - switch to the specified page\n"
             + "find (x/TYPE) keywords\n"
             + "  - show all (food/sports) entries (whose description contains any of the keywords)\n"
             + "diary YYYY-MM-DD\n"
             + "  - record the diary for a date\n"
-            + "check x/TYPE keywords\n"
-            + "  - show records of calorie intake of some food or calorie consumption per hour of some sports\n"
             + "table x/TYPE YYYY-MM-DD\n"
             + "  - show calorie table of a specified date\n"
             + "calendar [OPT]d/datestring [OPT]m/'ls' or tb\n"
-            + "  - show calendar of a specified time period, mode can be switched to list or timetable\n";
-    //+ "update attr/ATTRIBUTE v/VALUE\n"
-    //+ "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n"
+            + "  - show calendar of a specified time period, mode can be switched to list or timetable\n"
+            + "check x/TYPE k/KEYWORDS\n"
+            + "  - search the pre-set database for calorie intake/consumption of common food/sports\n"
+            + "update attr/ATTRIBUTE v/VALUE\n"
+            + "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n";
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
             + "please refer to the user guide via\n";
     public static final String USERGUIDE_URL =

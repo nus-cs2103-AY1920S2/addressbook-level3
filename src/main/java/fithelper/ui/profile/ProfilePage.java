@@ -65,7 +65,7 @@ public class ProfilePage extends UiPart<AnchorPane> {
         address.setText(profile.getAddress().toString());
         height.setText(profile.getHeight().toString() + " cm");
         targetweight.setText(profile.getTargetWeight().toString() + " kg");
-        // Need to be updated after weight database is ready.
+
         String weightText;
         String bmiText;
         if (profile.getCurrentWeight() == null) {
@@ -80,8 +80,6 @@ public class ProfilePage extends UiPart<AnchorPane> {
             bmiText = profile.getCurrentBmi().toString();
         }
         currentbmi.setText(bmiText);
-        //currentweight.setText(profile.getCurrentWeight().toString() + " kg");
-        //currentbmi.setText(profile.getCurrentBmi().toString());
     }
 
 }

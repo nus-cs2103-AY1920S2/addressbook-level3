@@ -53,10 +53,10 @@ class JsonAdaptedWeight {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Bmi.class.getSimpleName()));
         }
-        if (!Bmi.isValidBmi(bmi)) {
+        if (!Bmi.isValidBmi(Double.parseDouble(bmi))) {
             throw new IllegalValueException(Bmi.MESSAGE_CONSTRAINTS);
         }
-        return new Bmi(bmi);
+        return new Bmi(Double.parseDouble(bmi));
     }
 
     /**

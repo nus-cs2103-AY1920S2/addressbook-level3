@@ -20,6 +20,8 @@ import fithelper.model.profile.Age;
 import fithelper.model.profile.Gender;
 import fithelper.model.profile.Height;
 import fithelper.model.profile.TargetWeight;
+import fithelper.model.weight.Date;
+import fithelper.model.weight.WeightValue;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -259,6 +261,37 @@ public class ParserUtil {
             throw new ParseException(TargetWeight.MESSAGE_CONSTRAINTS);
         }
         return new TargetWeight(trimmedTargetWeight);
+    }
+
+
+    // methods related to weight
+
+    /**
+     * Parses a {@code String date} into a {@code Date} in weight.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseWeightDate(String date) throws ParseException {
+        requireNonNull (date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String weightValue} into a {@code WeightValue} in weight.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code weightValue} is invalid.
+     */
+    public static WeightValue parseWeightValue(String weightValue) throws ParseException {
+        requireNonNull (weightValue);
+        String trimmedWeightValue = weightValue.trim();
+        if (!WeightValue.isValidWeightValue(trimmedWeightValue)) {
+            throw new ParseException(WeightValue.MESSAGE_CONSTRAINTS);
+        }
+        return new WeightValue(trimmedWeightValue);
     }
 
 }
