@@ -1,4 +1,4 @@
-package nasa.ui;
+package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-
+import nasa.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Module}.

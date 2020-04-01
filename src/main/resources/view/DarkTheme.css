@@ -24,20 +24,55 @@
     -fx-opacity: 1;
 }
 
+.no-modules {
+    -fx-color-label-visible: white;
+    -fx-font-size: 25px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 25px;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.tab-pane {
-    -fx-padding: 0 0 0 1;
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
 }
 
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
 }
+
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-padding: 5px 50px;
+}
+.tab-pane .tab {
+    -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-font-family: Helvetica;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}
+
 
 .table-view {
     -fx-base: #000000;
@@ -88,7 +123,7 @@
 }
 
 .list-view {
-    -fx-padding: 10;
+    -fx-padding: 0;
     -fx-background-color: black;
     -fx-background-radius: 25;
 }
@@ -101,12 +136,16 @@
     -fx-background-radius: 15;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 10;
+    -fx-padding: 5;
 
 }
 
 .list-cell:filled {
     -fx-background-color: #32174d;
+    -fx-border-width: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 30px;
 }
 
 .list-cell:empty {
@@ -122,27 +161,25 @@
     -fx-border-width: 1;
 }
 
-.list-cell .label {
-    -fx-text-fill: white;
-}
 
 .activity_big_label {
     -fx-font-family: "Verdana";
-    -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #303030;
+    -fx-font-size: 15px;
+    -fx-color-label-visible: black;
     -fx-font-weight: bold;
 }
 
 .activity_small_label {
+    -fx-text-fill: #303030;
     -fx-font-family: "Verdana";
-    -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 10px;
 }
 
 .cell_big_label {
     -fx-font-family: "Impact";
     -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
     -fx-padding: 10 10 10 10;
 }
 
@@ -168,6 +205,10 @@
     -fx-border-top-width: 1px;
     -fx-border-radius: 25;
     -fx-background-radius: 25;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
 }
 
 .status-bar {
@@ -230,6 +271,12 @@
     -fx-font-family: "Microsoft Sans Serif";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
+    -fx-text-alignment: center;
+
+}
+
+.menu-button {
+    -fx-min-width: 50;
 }
 
 .menu .left-container {
@@ -337,10 +384,19 @@
 }
 
 #activityPane {
-    -fx-background-color: #336699;
     -fx-border-width: 0;
     -fx-background-radius: 15;
     -fx-padding: 10px;
+}
+
+.list-cell:odd #activityPane {
+    -fx-background-color: #C7CEEA;
+
+}
+
+.list-cell:even #activityPane {
+    -fx-background-color:  #B9D6F3;
+
 }
 
 #activityListView {
@@ -349,8 +405,31 @@
     -fx-background-radius: 15;
 }
 
+#activityListView .list-cell{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 15;
+}
+
+
+#pieChart, #barChart {
+    -fx-background-radius: 15px;
+    -fx-background-color: white;
+}
+
+.chart-bar {
+    -fx-bar-fill: #32174d;
+}
+
+.default-color0.chart-pie { -fx-pie-color: #FF9AA2; }
+.default-color2.chart-pie { -fx-pie-color: #FFDAC1; }
+.default-color3.chart-pie { -fx-pie-color: #E2F0CB; }
+.default-color4.chart-pie { -fx-pie-color: #B5EAD7; }
+.default-color5.chart-pie { -fx-pie-color: #C7CEEA; }
+
 #modulePane {
      -fx-border-width: 0;
+    -fx-padding: 0;
  }
 
 #commandTypeLabel {
@@ -394,9 +473,16 @@
     -fx-font-size: 11;
 }
 
-.calendar_grid {
-    -fx-background-color:  black;
-    -fx-border-style: dashed;
-    -fx-border-width: 1;
-    -fx-border-color: gray;
+.calendarGrid .grid-pane {
+    -fx-border-color: green;
+    -fx-border-width: 2px;
+}
+
+.calendarGrid .label {
+    -fx-text-fill: white;
+}
+.grid-pane {
+
+-fx-background-fill: black, white ;
+-fx-background-insets: 0, 0 1 1 0 ;
 }

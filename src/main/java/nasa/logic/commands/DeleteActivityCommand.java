@@ -1,7 +1,6 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static nasa.logic.commands.addcommands.AddCommand.MESSAGE_MODULE_NOT_FOUND;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import nasa.commons.core.index.Index;

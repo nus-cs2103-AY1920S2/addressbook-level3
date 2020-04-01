@@ -1,8 +1,14 @@
 package nasa.ui;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
 import nasa.logic.commands.CommandResult;
@@ -18,6 +24,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final List<String> commandHistory;
+    private ListIterator<String> commandHistoryIterator;
 
     @FXML
     private TextField commandTextField;
@@ -25,8 +33,46 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        commandHistory = new LinkedList<>();
+        commandHistoryIterator = commandHistory.listIterator();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+            //Overriding default redo
+            if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
+                event.consume();
+                commandTextField.setText("redo");
+                handleCommandEntered();
+            //Overriding default undo
+            } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
+                event.consume();
+                commandTextField.setText("undo");
+                handleCommandEntered();
+            }
+        });
+        //Controls to view command history
+        commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+            switch (key.getCode()) {
+            case UP:
+                if (commandHistoryIterator.hasPrevious()) {
+                    commandTextField.setText(commandHistoryIterator.previous());
+                }
+                break;
+            case DOWN:
+                if (commandHistoryIterator.hasNext()) {
+                    commandTextField.setText(commandHistoryIterator.next());
+                }
+                break;
+            case H:
+                if (key.isControlDown()) {
+                    commandTextField.setText("help");
+                    handleCommandEntered();
+                }
+                break;
+            default:
+                break;
+            }
+        });
     }
 
     /**
@@ -35,6 +81,9 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
+            commandHistory.add(commandTextField.getText());
+            commandHistoryIterator = commandHistory
+                    .listIterator(commandHistory.size());
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {

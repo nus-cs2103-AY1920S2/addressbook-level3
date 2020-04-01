@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import nasa.model.module.Module;
+import nasa.ui.activity.ActivityListPanel;
 
 /**
  * An UI component that displays information of a {@code Module}.

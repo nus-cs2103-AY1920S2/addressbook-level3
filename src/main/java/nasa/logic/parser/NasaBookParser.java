@@ -18,6 +18,7 @@ import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.QuoteCommand;
 import nasa.logic.commands.RedoCommand;
 import nasa.logic.commands.RepeatCommand;
+import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
@@ -98,6 +99,9 @@ public class NasaBookParser {
 
         case QuoteCommand.COMMAND_WORD:
             return new QuoteCommand();
+
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

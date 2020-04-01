@@ -206,9 +206,9 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
      * @param index Index
      * @param predicate Predicate
+     * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
 
@@ -221,8 +221,8 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
      * @param predicate Predicate
+     * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
 
