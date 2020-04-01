@@ -5,7 +5,7 @@ import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents Deadlines method in Nasa Book.
+ * Represents Deadlines method in NASA.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Deadline extends Activity {
@@ -14,6 +14,13 @@ public class Deadline extends Activity {
             "Deadline should be after date of creation.";
 
     private Date dueDate;
+
+    public Deadline(Name name, Date dueDate) {
+        super(name);
+        requireNonNull(dueDate);
+        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
+        this.dueDate = dueDate;
+    }
 
     public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
@@ -37,18 +44,29 @@ public class Deadline extends Activity {
         this.dueDate = dueDate;
     }
 
-    public Date getDateline() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDateLine(Date date) {
+    public void setDueDate(Date date) {
         this.dueDate = date;
-        updateStatus();
+        this.updateStatus();
+    }
+
+    public int getDifferenceInDay() {
+        return (int) getDate().getDifference(dueDate)[0];
+    }
+
+    /**
+     * Get days remaining for the task.
+     */
+    public int getDaysRemaining() {
+        return (int) this.dueDate.getDifference(Date.now())[0];
     }
 
     @Override
     public void updateStatus() {
-        if (status == Status.ONGOING && Date.now().isAfter(getDateline())) {
+        if (status == Status.ONGOING && Date.now().isAfter(getDueDate())) {
             status = Status.LATE;
         }
     }
@@ -57,8 +75,18 @@ public class Deadline extends Activity {
         return date.isAfter(Date.now());
     }
 
-    //TODO: detailed implementation of deadline regeneration
+    @Override
     public Deadline regenerate() {
+        if (super.getSchedule().update()) {
+            setDueDate(getSchedule().getDate().addDaysToCurrDate(getDifferenceInDay()));
+            setStatus(Status.ONGOING);
+        }
         return this;
+    }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int dueDateMonth = dueDate.getDate().getMonth().getValue();
+        return month == dueDateMonth;
     }
 }

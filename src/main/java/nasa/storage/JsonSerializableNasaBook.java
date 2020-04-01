@@ -14,7 +14,7 @@ import nasa.model.ReadOnlyNasaBook;
 import nasa.model.module.Module;
 
 /**
- * An Immutable NASABook that is serializable to JSON format.
+ * An Immutable NASA that is serializable to JSON format.
  */
 @JsonRootName(value = "nasabook")
 class JsonSerializableNasaBook {

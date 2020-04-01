@@ -1,6 +1,6 @@
 package nasa.logic.commands.addcommands;
 
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.Assert.assertThrows;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
@@ -26,8 +27,8 @@ public class AddEventCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new NasaBook(), new UserPrefs());
-        module = new Module(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
+        model = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
+        module = new Module(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         model.addModule(module);
     }
 
@@ -35,20 +36,20 @@ public class AddEventCommandTest {
     public void execute_newEvent_success() {
         Event event = new EventBuilder().build();
 
-        Model expectedModel = new ModelManager(new NasaBook(), new UserPrefs());
-        expectedModel.addModule(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
+        Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
+        expectedModel.addModule(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         expectedModel.addActivity(module, event);
 
-        AddEventCommand command = new AddEventCommand(event, new ModuleCode(VALID_MODULE_CS1231));
+        AddEventCommand command = new AddEventCommand(event, new ModuleCode(VALID_MODULE_CODE_CS1231));
         assertCommandSuccess(command, model, String.format(AddEventCommand.MESSAGE_SUCCESS, event), expectedModel);
     }
 
     @Test
     public void execute_duplicateEvent_failure() {
         Event event = new EventBuilder().build();
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
         AddEventCommand command = new AddEventCommand(event,
-            new ModuleCode(VALID_MODULE_CS1231));
+            new ModuleCode(VALID_MODULE_CODE_CS1231));
 
         expectedModel.addActivity(module, event);
         assertThrows(CommandException.class, AddEventCommand.MESSAGE_DUPLICATED_ACTIVITY, () ->
@@ -57,7 +58,8 @@ public class AddEventCommandTest {
 
     @Test
     public void constructor_nullDeadline_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddEventCommand(null, new ModuleCode(VALID_MODULE_CS1231)));
+        assertThrows(NullPointerException.class, () -> new AddEventCommand(null,
+                new ModuleCode(VALID_MODULE_CODE_CS1231)));
     }
 
     @Test

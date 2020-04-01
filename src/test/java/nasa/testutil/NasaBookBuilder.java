@@ -1,6 +1,5 @@
 package nasa.testutil;
 
-import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
 
@@ -14,15 +13,15 @@ import nasa.model.module.UniqueModuleList;
  */
 public class NasaBookBuilder {
 
-    public static final Module DEFAULT_MODULE_1 = CS2103T;
-    public static final Module DEFAULT_MODULE_2 = CS2106;
-    public static final Module DEFAULT_MODULE_3 = GEH1001;
+    public static final Module DEFAULT_MODULE_1 = CS2106;
+    public static final Module DEFAULT_MODULE_2 = GEH1001;
+    public static final Module DEFAULT_MODULE_3 = new ModuleBuilder().build();
 
     private UniqueModuleList moduleList;
 
     public NasaBookBuilder() {
         moduleList = new UniqueModuleList();
-        moduleList.add(DEFAULT_MODULE_1);
+        moduleList.add(DEFAULT_MODULE_1); // first module in moduleList
         moduleList.add(DEFAULT_MODULE_2);
         moduleList.add(DEFAULT_MODULE_3);
     }
@@ -72,7 +71,9 @@ public class NasaBookBuilder {
      */
     public NasaBook build() {
         NasaBook nasaBook = new NasaBook();
-        nasaBook.setModuleList(moduleList);
+        UniqueModuleList newModuleList = new UniqueModuleList();
+        newModuleList.setModules(moduleList.getDeepCopyList());
+        nasaBook.setModuleList(newModuleList);
         return nasaBook;
     }
 

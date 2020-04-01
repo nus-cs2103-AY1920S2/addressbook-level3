@@ -11,6 +11,7 @@ import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.SortMethod;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -30,6 +31,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code zeroBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseZeroIndex(String zeroBasedIndex) throws ParseException {
+        String trimmedIndex = zeroBasedIndex.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Index.fromZeroBased(Integer.parseInt(trimmedIndex));
     }
 
     /**
@@ -91,7 +105,7 @@ public class ParserUtil {
         requireNonNull(priority);
         String priorityTrimmed = priority.trim();
         if (!Priority.isValidPriorityValue(priorityTrimmed)) {
-            throw new ParseException(Priority.PRIORITY_RANGE_CONSTRAINTS);
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
         return new Priority(priorityTrimmed);
     }
@@ -126,5 +140,21 @@ public class ParserUtil {
             throw new ParseException(ModuleName.MESSAGE_CONSTRAINTS);
         }
         return new ModuleName(moduleNameTrimmed);
+    }
+
+    /**
+     * Parses {@code String sortMethod} into a {@code SortMethod}
+     * Checks if String sortMethod is correct.
+     * @param sortMethod to be used to sort activity list
+     * @return SortMethod object
+     * @throws ParseException
+     */
+    public static SortMethod parseSortMethod(String sortMethod) throws ParseException {
+        requireNonNull(sortMethod);
+        String sortMethodTrimmed = sortMethod.trim();
+        if (!SortMethod.isValidSortMethod(sortMethodTrimmed)) {
+            throw new ParseException(SortMethod.MESSAGE_CONSTRAINTS);
+        }
+        return new SortMethod(sortMethodTrimmed);
     }
 }

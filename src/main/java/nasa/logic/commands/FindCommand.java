@@ -6,13 +6,14 @@ import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
 import javafx.collections.ObservableList;
 
 import nasa.logic.commands.exceptions.CommandException;
-
 import nasa.model.Model;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 import nasa.model.module.Module;
 
 /**
+ * Finds and lists all activities in NASA whose name contains any of the argument keywords.
  * Represents the command for finding specific activities.
+ * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 

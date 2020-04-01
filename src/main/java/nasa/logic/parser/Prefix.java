@@ -2,7 +2,7 @@ package nasa.logic.parser;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
- * E.g. 't/' in 'add James t/ friend'.
+ * E.g. 'm/' in 'add m/CS2103T'.
  */
 public class Prefix {
     private final String prefix;

@@ -7,7 +7,7 @@ import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 
 /**
- * Class to build example modules.
+ * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
 
@@ -60,10 +60,16 @@ public class ModuleBuilder {
         activityList.add(TASK_5);
     }
 
+    public ModuleBuilder(Module moduleToCopy) {
+        name = moduleToCopy.getModuleName();
+        code = moduleToCopy.getModuleCode();
+        UniqueActivityList newActivityList = new UniqueActivityList();
+        newActivityList.setActivities(moduleToCopy.getDeepCopyList());
+        activityList = newActivityList;
+    }
+
     /**
-     * Build module with name.
-     * @param name of module
-     * @return ModuleBuilder
+     * Sets the {@code ModuleName} of the {@code Module} that we are building.
      */
     public ModuleBuilder withName(String name) {
         this.name = new ModuleName(name);
@@ -71,9 +77,7 @@ public class ModuleBuilder {
     }
 
     /**
-     * Build module with module code.
-     * @param code module code
-     * @return ModuleBuilder
+     * Sets the {@code ModuleCode} of the {@code Module} that we are building.
      */
     public ModuleBuilder withCode(String code) {
         this.code = new ModuleCode(code);
@@ -105,7 +109,7 @@ public class ModuleBuilder {
      */
     public Module build() {
         Module module = new Module(code, name);
-        module.setActivities(activityList);
+        module.setActivities(activityList.getDeepCopyList());
         return module;
     }
 

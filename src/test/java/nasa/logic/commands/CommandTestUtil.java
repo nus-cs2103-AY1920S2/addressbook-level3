@@ -9,7 +9,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.testutil.Assert.assertThrows;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -19,6 +18,8 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;
+import nasa.testutil.EditActivityDescriptorBuilder;
+import nasa.testutil.EditModuleDescriptorBuilder;
 
 /**
  * Test util.
@@ -26,8 +27,8 @@ import nasa.model.module.Module;
 public class CommandTestUtil {
 
     // valid module names and codes
-    public static final String VALID_MODULE_CS2030 = "CS2030";
-    public static final String VALID_MODULE_CS1231 = "CS1231";
+    public static final String VALID_MODULE_CODE_CS2030 = "CS2030";
+    public static final String VALID_MODULE_CODE_CS1231 = "CS1231";
     public static final String VALID_MODULE_NAME_CS2030 = "Programming Methodology II";
     public static final String VALID_MODULE_NAME_CS1231 = "Discrete Structures";
 
@@ -36,23 +37,26 @@ public class CommandTestUtil {
     public static final String VALID_ACTIVITY_NAME_TUTORIAL = "Weekly Tutorial";
     public static final String VALID_ACTIVITY_NAME_EXAM = "Final Paper";
     public static final String VALID_NOTES_TEST = "This is merely a testing of the notes";
+    public static final String VALID_NOTES_TEST_2 = "Notes test two";
     public static final String VALID_PRIORITY_HIGH = "1";
     public static final String VALID_PRIORITY_LOW = "5";
     public static final String VALID_DATE_TEST = "12-12-2020 23:59";
     public static final String VALID_DATE_TEST_2 = "14-12-2020 23:59";
 
     // parameters with their prefixes
-    public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
-    public static final String MODULE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CS1231;
+    public static final String MODULE_CODE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CODE_CS2030;
+    public static final String MODULE_CODE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CODE_CS1231;
     public static final String MODULE_NAME_DESC_CS2030 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS2030;
     public static final String MODULE_NAME_DESC_CS1231 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS1231;
     public static final String ACTIVITY_NAME_DESC_HWK = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_HWK;
     public static final String ACTIVITY_NAME_DESC_TUTORIAL = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_TUTORIAL;
     public static final String ACTIVITY_NAME_DESC_EXAM = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_EXAM;
     public static final String NOTES_DESC_TEST = " " + PREFIX_NOTE + VALID_NOTES_TEST;
+    public static final String NOTES_DESC_TEST_2 = " " + PREFIX_NOTE + VALID_NOTES_TEST_2;
     public static final String PRIORITY_DESC_HIGH = " " + PREFIX_PRIORITY + VALID_PRIORITY_HIGH;
     public static final String PRIORITY_DESC_LOW = " " + PREFIX_PRIORITY + VALID_PRIORITY_LOW;
     public static final String DATE_DESC_TEST = " " + PREFIX_DATE + VALID_DATE_TEST;
+    public static final String DATE_DESC_TEST_2 = " " + PREFIX_DATE + VALID_DATE_TEST_2;
     public static final String DATE_DESC_TEST_FROM = " " + PREFIX_START_DATE + VALID_DATE_TEST;
     public static final String DATE_DESC_TEST_TO = " " + PREFIX_END_DATE + VALID_DATE_TEST_2;
 
@@ -73,6 +77,24 @@ public class CommandTestUtil {
     //extra test strings
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final EditActivityCommand.EditActivityDescriptor DESC_EXAM;
+    public static final EditActivityCommand.EditActivityDescriptor DESC_HWK;
+    public static final EditModuleCommand.EditModuleDescriptor DESC_CS2030;
+    public static final EditModuleCommand.EditModuleDescriptor DESC_CS1231;
+
+    static {
+        DESC_EXAM = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_EXAM)
+                .withDate(VALID_DATE_TEST).withNote(VALID_NOTES_TEST).withPriority(VALID_PRIORITY_HIGH)
+                .build();
+        DESC_HWK = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_HWK)
+                .withDate(VALID_DATE_TEST_2).withNote(VALID_NOTES_TEST_2).withPriority(VALID_PRIORITY_LOW)
+                .build();
+        DESC_CS2030 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CODE_CS2030)
+                .withModuleName(VALID_MODULE_NAME_CS2030).build();
+        DESC_CS1231 = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULE_CODE_CS1231)
+                .withModuleName(VALID_MODULE_NAME_CS1231).build();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

@@ -137,9 +137,10 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.remove(index.getZeroBased());
     }
 
-    public void setModules(UniqueModuleList replacement) {
+    public UniqueModuleList setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        return this;
     }
 
     /**
@@ -231,11 +232,25 @@ public class UniqueModuleList implements Iterable<Module> {
                 .get();
     }
 
+    public ObservableList<Module> getDeepCopyList() {
+        ObservableList<Module> deepCopyList = FXCollections.observableArrayList();
+        for (Module mods : internalUnmodifiableList) {
+            Module moduleTemp = new Module(mods.getModuleCode(), mods.getModuleName());
+            moduleTemp.setActivities(mods.getActivities().getDeepCopyList());
+            deepCopyList.add(moduleTemp);
+        }
+        return deepCopyList;
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Module> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    public ObservableList<Module> asModifiableObservableList() {
+        return internalList;
     }
 
     @Override

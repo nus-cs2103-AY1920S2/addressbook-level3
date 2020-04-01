@@ -1,0 +1,6 @@
+{
+  "modules": [ {
+    "name": "Person with invalid code field: Ha!ns Mu@ster",
+    "address": "4th street"
+  } ]
+}

@@ -1,9 +1,14 @@
 package nasa.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import nasa.model.NasaBook;
 import nasa.model.module.Module;
 
 /**
- * Contains examples of modules use for testing
+ * A utility class containing a list of {@code Module} objects to be used in tests.
  */
 public class TypicalModules {
 
@@ -28,4 +33,19 @@ public class TypicalModules {
             .build();
 
     private TypicalModules() {} // prevents instantiation
+
+    /**
+     * Returns an {@code NasaBook} with all the typical modules.
+     */
+    public static NasaBook getTypicalNasaBook() {
+        NasaBook nb = new NasaBook();
+        for (Module module : getTypicalModules()) {
+            nb.addModule(module.getDeepCopyModule());
+        }
+        return nb;
+    }
+
+    public static List<Module> getTypicalModules() {
+        return new ArrayList<>(Arrays.asList(CS2103T, CS2106));
+    }
 }

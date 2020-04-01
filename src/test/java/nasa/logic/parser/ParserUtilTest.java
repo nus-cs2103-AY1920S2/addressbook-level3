@@ -15,7 +15,11 @@ import nasa.model.module.ModuleName;
 
 public class ParserUtilTest {
 
-    private static final String WHITESPACE = " \t\r\n";
+    private static final String INVALID_DATE = "2020-12-20 12:59";
+    private static final String INVALID_ACTIVITY_NAME = " ";
+    private static final String INVALID_NOTE = "\t\r";
+    private static final String INVALID_PRIORITY = "-2";
+    private static final String INVALID_MODULE_NAME = "C@!;'[]";
 
     private static final String VALID_DATE = "20-08-2020 23:59";
     private static final String VALID_ACTIVITY_NAME = "CS2103T TP";
@@ -23,12 +27,7 @@ public class ParserUtilTest {
             + "prepare for new features.";
     private static final String VALID_PRIORITY = "3";
     private static final String VALID_MODULE_NAME = "Computer organisation";
-
-    private static final String INVALID_DATE = "2020-12-20 12:59";
-    private static final String INVALID_ACTIVITY_NAME = " ";
-    private static final String INVALID_NOTE = "\t\r";
-    private static final String INVALID_PRIORITY = "-2";
-    private static final String INVALID_MODULE_NAME = "C@!;'[]";
+    private static final String WHITESPACE = " \t\r\n";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -39,6 +38,51 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+    }
+
+    /*
+    @Test
+    public void parseIndex_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+    }
+     */
+
+    @Test
+    public void parseName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseModuleName((String) null));
+    }
+
+    @Test
+    public void parseModuleName_validModuleNameWithoutWhitespaces_returnsModuleName() throws Exception {
+        ModuleName expectedModuleName = new ModuleName(VALID_MODULE_NAME);
+        assertEquals(expectedModuleName, ParserUtil.parseModuleName(VALID_MODULE_NAME));
+    }
+
+    @Test
+    public void parseModuleName_validModuleNameWithWhitespaces_returnsModuleName() throws Exception {
+        String moduleNameWithWhitespaces = WHITESPACE + VALID_MODULE_NAME + WHITESPACE;
+        ModuleName expectedModuleName = new ModuleName(VALID_MODULE_NAME);
+        assertEquals(expectedModuleName, ParserUtil.parseModuleName(moduleNameWithWhitespaces));
+    }
+
+    @Test
+    public void parseModuleName_invalidModuleNameWithoutWhitespaces_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseModuleName(INVALID_MODULE_NAME));
+    }
+
+    @Test
+    public void parseModuleName_invalidModuleNameWithWhitespaces_throwsParseException() {
+        String moduleNameWithWhitespaces = WHITESPACE + INVALID_MODULE_NAME + WHITESPACE;
+        assertThrows(ParseException.class, () -> ParserUtil.parseModuleName(moduleNameWithWhitespaces));
+    }
+
+    @Test
+    public void parseDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
     }
 
     @Test
@@ -66,6 +110,11 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseActivityName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseActivityName(null));
+    }
+
+    @Test
     public void parseActivityName_validNameWithoutWhitespaces_returnsName() throws Exception {
         Name expectedName = new Name(VALID_ACTIVITY_NAME);
         assertEquals(expectedName, ParserUtil.parseActivityName(VALID_ACTIVITY_NAME));
@@ -87,6 +136,11 @@ public class ParserUtilTest {
     public void parseActivityName_invalidNameWithWhitespaces_throwsParseException() {
         String nameWithWhiteSpaces = WHITESPACE + INVALID_ACTIVITY_NAME + WHITESPACE;
         assertThrows(ParseException.class, () -> ParserUtil.parseActivityName(nameWithWhiteSpaces));
+    }
+
+    @Test
+    public void parseNote_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNote(null));
     }
 
     @Test
@@ -114,6 +168,11 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parsePriority_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePriority(null));
+    }
+
+    @Test
     public void parsePriority_validPriorityWithoutWhitespaces_returnsPriority() throws Exception {
         Priority expectedPriority = new Priority(VALID_PRIORITY);
         assertEquals(expectedPriority, ParserUtil.parsePriority(VALID_PRIORITY));
@@ -135,29 +194,5 @@ public class ParserUtilTest {
     public void parsePriority_invalidPriorityWithWhitespaces_throwsParseException() {
         String priorityWithWhitespaces = WHITESPACE + INVALID_PRIORITY + WHITESPACE;
         assertThrows(ParseException.class, () -> ParserUtil.parsePriority(priorityWithWhitespaces));
-    }
-
-    @Test
-    public void parseModuleName_validModuleNameWithoutWhitespaces_returnsModuleName() throws Exception {
-        ModuleName expectedModuleName = new ModuleName(VALID_MODULE_NAME);
-        assertEquals(expectedModuleName, ParserUtil.parseModuleName(VALID_MODULE_NAME));
-    }
-
-    @Test
-    public void parseModuleName_validModuleNameWithWhitespaces_returnsModuleName() throws Exception {
-        String moduleNameWithWhitespaces = WHITESPACE + VALID_MODULE_NAME + WHITESPACE;
-        ModuleName expectedModuleName = new ModuleName(VALID_MODULE_NAME);
-        assertEquals(expectedModuleName, ParserUtil.parseModuleName(moduleNameWithWhitespaces));
-    }
-
-    @Test
-    public void parseModuleName_invalidModuleNameWithoutWhitespaces_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseModuleName(INVALID_MODULE_NAME));
-    }
-
-    @Test
-    public void parseModuleName_invalidModuleNameWithWhitespaces_throwsParseException() {
-        String moduleNameWithWhitespaces = WHITESPACE + INVALID_MODULE_NAME + WHITESPACE;
-        assertThrows(ParseException.class, () -> ParserUtil.parseModuleName(moduleNameWithWhitespaces));
     }
 }

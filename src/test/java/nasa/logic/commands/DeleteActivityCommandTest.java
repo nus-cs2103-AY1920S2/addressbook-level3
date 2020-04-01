@@ -4,20 +4,21 @@ import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 import static nasa.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
+import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
-import nasa.testutil.NasaBookBuilder;
 
 public class DeleteActivityCommandTest {
 
-    private Model model = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
 
     @Test
     public void execute_validActivityUnfilteredList_success() {
@@ -26,9 +27,9 @@ public class DeleteActivityCommandTest {
         DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(INDEX_FIRST_ACTIVITY, moduleCode);
 
         String expectedMessage = String.format(INDEX_FIRST_ACTIVITY.toString()
-            + DeleteActivityCommand.MESSAGE_SUCCESS);
+            + DeleteActivityCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS);
 
-        ModelManager expectedModel = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
         expectedModel.removeActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY);
 
         assertCommandSuccess(deleteActivityCommand, model, expectedMessage, expectedModel);
@@ -50,11 +51,6 @@ public class DeleteActivityCommandTest {
         ModuleCode moduleCode = new ModuleCode("UTW1001K");
         DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(INDEX_FIRST_ACTIVITY, moduleCode);
 
-        assertCommandFailure(deleteActivityCommand, model, DeleteActivityCommand.MESSAGE_FAILURE);
-
-        // a null module
-        deleteActivityCommand = new DeleteActivityCommand(INDEX_FIRST_ACTIVITY, null);
-
-        assertCommandFailure(deleteActivityCommand, model, DeleteActivityCommand.MESSAGE_FAILURE);
+        assertCommandFailure(deleteActivityCommand, model, DeleteActivityCommand.MESSAGE_MODULE_NOT_FOUND);
     }
 }

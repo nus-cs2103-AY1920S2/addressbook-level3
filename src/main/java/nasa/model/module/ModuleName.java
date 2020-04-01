@@ -1,8 +1,10 @@
 package nasa.model.module;
 
 import static java.util.Objects.requireNonNull;
-
 import static nasa.commons.util.AppUtil.checkArgument;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Represents the official name of the module.
@@ -19,7 +21,11 @@ public class ModuleName {
     public ModuleName(String moduleName) {
         requireNonNull(moduleName);
         checkArgument(isValidModuleName(moduleName), MESSAGE_CONSTRAINTS);
-        this.moduleName = moduleName;
+        this.moduleName =
+                Arrays.stream(moduleName.split(" "))
+                        .map(word -> Character.toTitleCase(
+                                word.charAt(0)) + word.substring(1)
+                        .toLowerCase()).collect(Collectors.joining(" "));
     }
 
     public static boolean isValidModuleName(String test) {

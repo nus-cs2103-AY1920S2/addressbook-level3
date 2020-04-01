@@ -12,7 +12,9 @@ import nasa.commons.exceptions.DataConversionException;
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.commons.util.FileUtil;
 import nasa.commons.util.JsonUtil;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * A class to access NasaBook data stored as a json file on the hard disk.
@@ -21,19 +23,25 @@ public class JsonNasaBookStorage implements NasaBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonNasaBookStorage.class);
 
-    private Path filePath;
+    private Path filePathOne;
+    private Path filePathTwo;
 
-    public JsonNasaBookStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonNasaBookStorage(Path filePathOne, Path filePathTwo) {
+        this.filePathOne = filePathOne;
+        this.filePathTwo = filePathTwo;
     }
 
     public Path getNasaBookFilePath() {
-        return filePath;
+        return filePathOne;
+    }
+
+    public Path getHistoryBookFilePath() {
+        return filePathTwo;
     }
 
     @Override
     public Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException {
-        return readNasaBook(filePath);
+        return readNasaBook(filePathOne);
     }
 
     /**
@@ -60,8 +68,36 @@ public class JsonNasaBookStorage implements NasaBookStorage {
     }
 
     @Override
+    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException {
+        return readHistoryBook(filePathTwo);
+    }
+
+    /**
+     * Similar to {@link #readHistoryBook()}.
+     * @param filePath
+     * @return
+     * @throws DataConversionException
+     */
+    public Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException {
+        requireNonNull(filePath);
+
+        Optional<JsonAdaptedHistory> jsonHistoryBook = JsonUtil.readJsonFile(
+                filePath, JsonAdaptedHistory.class);
+        if (!jsonHistoryBook.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonHistoryBook.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
     public void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException {
-        saveNasaBook(nasaBook, filePath);
+        saveNasaBook(nasaBook, filePathOne);
     }
 
     /**
@@ -77,5 +113,30 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
     }
 
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook)
+            throws IOException {
+        saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
+    }
+
+    /**
+     * Similar to {@link #saveUltimate(ReadOnlyNasaBook, ReadOnlyHistory, Path, Path)}.
+     * @param nasaBook
+     * @param historyBook
+     * @param filePathOne
+     * @param filePathTwo
+     * @throws IOException
+     */
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
+                             Path filePathTwo) throws IOException {
+        requireNonNull(nasaBook);
+        requireNonNull(filePathOne);
+        requireNonNull(filePathTwo);
+
+        FileUtil.createIfMissing(filePathOne);
+        FileUtil.createIfMissing(filePathTwo);
+        JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePathOne);
+        JsonUtil.saveJsonFile(new JsonAdaptedHistory(historyBook), filePathTwo);
+    }
 }
 

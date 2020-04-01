@@ -5,8 +5,11 @@ import static nasa.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+
 
 /**
  * Represents Date of an Activity.
@@ -71,6 +74,15 @@ public class Date {
         return date.isEqual(other.getDate());
     }
 
+    public long[] getDifference(Date other) {
+        Duration duration = Duration.between(date, other.getDate());
+        duration = duration.minusDays(duration.toDaysPart());
+        Period period = Period.between(date.toLocalDate(), other.getDate().toLocalDate());
+        long[] diffInTime = {period.getDays(), period.getMonths(), period.getYears(), duration.toHoursPart(),
+                duration.toMinutesPart()};
+        return diffInTime;
+    }
+
     /**
      * Constructs a new date from the current date and number of days to add to this current date.
      * @param numOfDaysToAdd number of days from the current day
@@ -79,6 +91,18 @@ public class Date {
     public Date addDaysToCurrDate(int numOfDaysToAdd) {
         LocalDateTime oldDateTime = this.getDate();
         LocalDateTime newDateTime = oldDateTime.plusDays(numOfDaysToAdd);
+        String newDateTimeStr = newDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return new Date(newDateTimeStr);
+    }
+
+    /**
+     * Constructs a new date from the current date and number of days to add to this current date.
+     * @param numOfMonthsToAdd number of months from the current day
+     * @return a new instance of date
+     */
+    public Date addMonthsToCurrDate(int numOfMonthsToAdd) {
+        LocalDateTime oldDateTime = this.getDate();
+        LocalDateTime newDateTime = oldDateTime.plusMonths(numOfMonthsToAdd);
         String newDateTimeStr = newDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         return new Date(newDateTimeStr);
     }

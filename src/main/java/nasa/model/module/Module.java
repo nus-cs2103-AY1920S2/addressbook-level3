@@ -1,5 +1,6 @@
 package nasa.model.module;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -9,6 +10,7 @@ import javafx.collections.transformation.FilteredList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.activity.UniqueActivityList;
 
 /**
@@ -31,8 +33,6 @@ public class Module {
         this.filteredActivity = new FilteredList<>(activityList.getActivityList());
         this.moduleName = moduleName;
     }
-
-    //Priority priority;
 
     /**
      * Retrieve the moduleCode of the module.
@@ -95,8 +95,22 @@ public class Module {
         return activityList.getActivityByIndex(index);
     }
 
+    public Activity getActivityByName(Name name) {
+        return activityList.getActivityByName(name);
+    }
+
     public ObservableList<Activity> getFilteredActivityList() {
         return filteredActivity;
+    }
+
+    public ObservableList<Activity> getDeepCopyList() {
+        return activityList.getDeepCopyList();
+    }
+
+    public Module getDeepCopyModule() {
+        Module newModule = new Module(getModuleCode(), getModuleName());
+        newModule.setActivities(activityList.getDeepCopyList());
+        return newModule;
     }
 
     public void setActivityByIndex(Index index, Activity activity) {
@@ -114,6 +128,30 @@ public class Module {
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         filteredActivity.setPredicate(predicate);
     }
+
+    /**
+     * Sorts module's activity list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting the activities in the module activity list.
+     */
+    public void sortActivityList(SortMethod sortMethod) {
+        Comparator<Activity> comparator = sortMethod.getComparator();
+        this.activityList.getActivityList().sort(comparator);
+    }
+
+    /**
+     * Returns true if both modules of the same module code.
+     * @param otherModule the module to be compared to
+     * @return true if both modules are the same instance, or both have the same module code, otherwise, false
+     */
+    public boolean isSameModule(Module otherModule) {
+        if (otherModule == this) {
+            return true;
+        }
+
+        return otherModule != null
+                && otherModule.getModuleCode().equals(getModuleCode());
+    }
+
     /**
      * Returns true if both are the same module.
      * This defines a stronger notion of equality between two activities.
@@ -130,5 +168,10 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", moduleCode, moduleName);
     }
 }

@@ -8,12 +8,10 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
-
 import nasa.logic.parser.ArgumentMultimap;
 import nasa.logic.parser.ArgumentTokenizer;
 import nasa.logic.parser.ParserUtil;
 import nasa.logic.parser.exceptions.ParseException;
-
 import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
@@ -47,22 +45,28 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
-        // optional fields - must see if it exist, else create null
-        Note note;
-        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
-            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-        } else {
-            note = null;
-        }
+        try {
+            Deadline deadline = new Deadline(activityName, dueDate);
 
-        Priority priority;
-        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = null;
-        }
+            // optional fields - must see if it exist, else create null
+            Note note;
+            if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
+                note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+                deadline.setNote(note);
+            } else {
+                note = null;
+            }
 
-        Deadline deadline = new Deadline(activityName, note, priority, dueDate);
-        return new AddDeadlineCommand(deadline, moduleCode);
+            Priority priority = new Priority();
+            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+            }
+            deadline.setPriority(priority);
+
+            return new AddDeadlineCommand(deadline, moduleCode);
+        } catch (IllegalArgumentException e) {
+            // if user provides a due date that is already past
+            throw new ParseException(Deadline.DUE_DATE_CONSTRAINTS);
+        }
     }
 }

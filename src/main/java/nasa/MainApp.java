@@ -16,10 +16,11 @@ import nasa.commons.util.ConfigUtil;
 import nasa.commons.util.StringUtil;
 import nasa.logic.Logic;
 import nasa.logic.LogicManager;
-
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.UserPrefs;
@@ -50,7 +51,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing NasaBook ]===========================");
+        logger.info("=============================[ Initializing NASA ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -58,7 +59,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath());
+        NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath(),
+                userPrefs.getHistoryBookFilePath());
         storage = new StorageManager(nasaBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -71,28 +73,38 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s NASA and {@code userPrefs}. <br>
+     * The data from the sample NASA will be used instead if {@code storage}'s NASA is not found,
+     * or an empty NASA will be used instead if errors occur when reading {@code storage}'s NASA.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyNasaBook> nasaBookOptional;
-        ReadOnlyNasaBook initialData;
+        Optional<ReadOnlyHistory> historyBookOptional;
+        ReadOnlyNasaBook initialNasaBook;
+        ReadOnlyHistory initialHistoryBook;
         try {
             nasaBookOptional = storage.readNasaBook();
+            historyBookOptional = storage.readHistoryBook();
             if (!nasaBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample NasaBook");
             }
-            initialData = nasaBookOptional.orElseGet(SampleDataUtil::getSampleNasaBook);
+
+            if (!historyBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample HistoryBook");
+            }
+            initialNasaBook = nasaBookOptional.orElseGet(SampleDataUtil::getSampleNasaBook);
+            initialHistoryBook = historyBookOptional.orElseGet(SampleDataUtil::getSampleHistoryBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty NasaBook");
-            initialData = new NasaBook();
+            initialNasaBook = new NasaBook();
+            initialHistoryBook = new HistoryBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty NasaBook");
-            initialData = new NasaBook();
+            initialNasaBook = new NasaBook();
+            initialHistoryBook = new HistoryBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialNasaBook, initialHistoryBook, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -153,7 +165,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty NASA");
             initializedPrefs = new UserPrefs();
         }
 
@@ -169,13 +181,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting NasaBook " + MainApp.VERSION);
+        logger.info("Starting NASA " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Nasa Book ] =============================");
+        logger.info("============================ [ Stopping NASA ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

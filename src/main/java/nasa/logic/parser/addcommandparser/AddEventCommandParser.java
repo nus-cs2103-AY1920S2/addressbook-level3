@@ -45,23 +45,27 @@ public class AddEventCommandParser extends AddCommandParser {
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
         Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
+        try {
+            Event event = new Event(activityName, startDate, endDate);
 
-        // optional fields - must see if it exist, else create null
-        Note note;
-        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
-            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-        } else {
-            note = null;
+            // optional fields - must see if it exist, else create null
+            Note note;
+            if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
+                note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+                event.setNote(note);
+            } else {
+                note = null;
+            }
+
+            Priority priority = new Priority();
+            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+            }
+            event.setPriority(priority);
+            return new AddEventCommand(event, moduleCode);
+        } catch (IllegalArgumentException e) {
+            // if the start date is > end date or end date is already in the past
+            throw new ParseException(Event.INVALID_EVENT);
         }
-
-        Priority priority;
-        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = null;
-        }
-
-        Event event = new Event(activityName, note, priority, startDate, endDate);
-        return new AddEventCommand(event, moduleCode);
     }
 }

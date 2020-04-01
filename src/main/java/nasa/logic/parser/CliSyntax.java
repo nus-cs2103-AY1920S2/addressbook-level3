@@ -5,7 +5,7 @@ package nasa.logic.parser;
  */
 public class CliSyntax {
 
-    /* Prefix definitions for NASA */
+    /* Prefix definitions */
     public static final Prefix PREFIX_MODULE = new Prefix("m/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_ACTIVITY_NAME = new Prefix("a/");
@@ -15,4 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
     public static final Prefix PREFIX_END_DATE = new Prefix("ed/");
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
+    public static final Prefix PREFIX_SORT_METHOD = new Prefix("sm/");
 }

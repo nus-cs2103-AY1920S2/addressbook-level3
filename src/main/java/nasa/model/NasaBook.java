@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
@@ -36,7 +38,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     public NasaBook() {}
 
     /**
-     * Creates a NasaBook using the moduleList in the {@code toBeCopied}
+     * Creates a NasaBook using the Modules in the {@code toBeCopied}
      */
     public NasaBook(ReadOnlyNasaBook toBeCopied) {
         this();
@@ -84,6 +86,12 @@ public class NasaBook implements ReadOnlyNasaBook {
      * @param moduleList must not be empty
      */
     public void setModuleList(UniqueModuleList moduleList) {
+        requireNonNull(moduleList);
+
+        this.moduleList.setModules(moduleList);
+    }
+
+    public void setModuleList(List<Module> moduleList) {
         requireNonNull(moduleList);
 
         this.moduleList.setModules(moduleList);
@@ -311,6 +319,31 @@ public class NasaBook implements ReadOnlyNasaBook {
         moduleList.remove(key);
     }
 
+    public UniqueModuleList getList() {
+        return moduleList;
+    }
+
+    /**
+     * Reschedule all activity based on user presets.
+     */
+    public void scheduleAll() {
+        moduleList.asModifiableObservableList().stream()
+                .forEach(x -> x.getActivities().getActivityList().stream()
+                        .forEach(y -> y.regenerate()));
+    }
+
+    public void setSchedule(ModuleCode module, Name activity, Index type) {
+        moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
+    }
+
+    /**
+     * Return a new NasaBook, to avoid pointing to the same data when testing.
+     */
+    public NasaBook deepCopyNasaBook() {
+        NasaBook newNasaBook = new NasaBook();
+        newNasaBook.setModuleList(getDeepCopyList());
+        return newNasaBook;
+    }
     //// util methods
 
     @Override
@@ -320,8 +353,27 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     @Override
+    public UniqueModuleList getUniqueModuleList() {
+        return moduleList;
+    }
+
+    @Override
     public ObservableList<Module> getModuleList() {
         return moduleList.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Ensure that the class being extracted does not points to the same object.
+     */
+    @Override
+    public ObservableList<Module> getDeepCopyList() {
+        ObservableList<Module> deepCopyList = FXCollections.observableArrayList();
+        for (Module mods : moduleList.asUnmodifiableObservableList()) {
+            Module moduleTemp = new Module(mods.getModuleCode(), mods.getModuleName());
+            moduleTemp.setActivities(mods.getActivities());
+            deepCopyList.add(moduleTemp);
+        }
+        return deepCopyList;
     }
 
     @Override

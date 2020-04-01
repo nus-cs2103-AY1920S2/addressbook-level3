@@ -11,12 +11,15 @@ import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.commands.DeleteModuleCommand;
-import nasa.logic.commands.EditActivityCommand;
-import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
+import nasa.logic.commands.RedoCommand;
+import nasa.logic.commands.RepeatCommand;
+import nasa.logic.commands.SortCommand;
+import nasa.logic.commands.StatisticsCommand;
+import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.logic.commands.addcommands.AddLessonCommand;
@@ -50,7 +53,8 @@ public class NasaBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+
+        switch (commandWord.toLowerCase()) {
 
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
@@ -63,12 +67,6 @@ public class NasaBookParser {
 
         case AddDeadlineCommand.COMMAND_WORD:
             return new AddDeadlineCommandParser().parse(arguments);
-
-        case EditModuleCommand.COMMAND_WORD:
-            return new EditModuleCommandParser().parse(arguments);
-
-        case EditActivityCommand.COMMAND_WORD:
-            return new EditActivityCommandParser().parse(arguments);
 
         case DeleteActivityCommand.COMMAND_WORD:
             return new DeleteActivityCommandParser().parse(arguments);
@@ -90,6 +88,21 @@ public class NasaBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
+        case RepeatCommand.COMMAND_WORD:
+            return new RepeatActivityCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

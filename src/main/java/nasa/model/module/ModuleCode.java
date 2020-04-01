@@ -28,7 +28,7 @@ public class ModuleCode {
     public ModuleCode(String moduleCode) {
         requireNonNull(moduleCode);
         checkArgument(isValidModuleCode(moduleCode), MESSAGE_CONSTRAINTS);
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toUpperCase();
     }
 
     /**
@@ -48,7 +48,8 @@ public class ModuleCode {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ModuleCode // instanceof handles nulls
-                && moduleCode.equals(((ModuleCode) other).moduleCode)); // state check
+                && moduleCode.toLowerCase().equals(((ModuleCode) other)
+            .moduleCode.toLowerCase())); // state check
     }
 
     @Override

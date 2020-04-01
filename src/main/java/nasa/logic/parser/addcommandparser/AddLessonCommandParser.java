@@ -47,22 +47,27 @@ public class AddLessonCommandParser extends AddCommandParser {
         Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
-        // optional fields - must see if it exist, else create null
-        Note note;
-        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
-            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-        } else {
-            note = null;
-        }
+        try {
+            Lesson lesson = new Lesson(activityName, startDate, endDate);
 
-        Priority priority;
-        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = null;
-        }
+            // optional fields - must see if it exist, else create null
+            Note note;
+            if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
+                note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+                lesson.setNote(note);
+            } else {
+                note = null;
+            }
 
-        Lesson lesson = new Lesson(activityName, note, priority, startDate, endDate);
-        return new AddLessonCommand(lesson, moduleCode);
+            Priority priority = new Priority();
+            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+            }
+            lesson.setPriority(priority);
+            return new AddLessonCommand(lesson, moduleCode);
+        } catch (IllegalArgumentException e) {
+            // if the start date is > end date or end date is already in the past
+            throw new ParseException(Lesson.INVALID_LESSON);
+        }
     }
 }
