@@ -20,7 +20,6 @@ import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
-import nasa.model.quote.Quote;
 
 /**
  * Represents the in-memory model of the NASA data.
@@ -35,9 +34,6 @@ public class ModelManager implements Model {
 
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
-     * @param nasaBook ReadOnlyNasaBook
-     * @param historyBook ReadOnlyHistory
-     * @param userPrefs ReadOnlyUserPrefs
      */
     public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
                         ReadOnlyUserPrefs userPrefs) {
@@ -49,7 +45,7 @@ public class ModelManager implements Model {
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
-        this.historyManager = new HistoryManager<>(historyBook);
+        this.historyManager = new HistoryManager(historyBook);
         initialisation();
     }
 
@@ -66,8 +62,7 @@ public class ModelManager implements Model {
      */
     public void initialisation() {
         updateSchedule();
-        //updateHistory();
-        Quote.readFile();
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -98,16 +93,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean redoHistory() {
-        boolean hasRedo = historyManager.redo();
-        if (hasRedo) {
+    public void redoHistory() {
+        if (historyManager.redo()) {
             nasaBook.setModuleList(historyManager.getItem());
             updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         }
-        return hasRedo;
     }
 
     //=========== UserPrefs ==================================================================================
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -154,7 +148,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyHistory<UniqueModuleList> getHistoryBook() {
+    public ReadOnlyHistory getHistoryBook() {
         return historyManager.getHistoryBook();
     }
 
@@ -304,17 +298,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasActivity(ModuleCode target, Name activity) {
-        requireAllNonNull(target, activity);
-        return nasaBook.hasActivity(target, activity);
-    }
-
-    @Override
-    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
+    public void setSchedule(ModuleCode module, Name activity, Index type) {
         requireAllNonNull(module, activity, type);
-        boolean hasExecuted = nasaBook.setSchedule(module, activity, type);
+        nasaBook.setSchedule(module, activity, type);
         updateHistory();
-        return hasExecuted;
     }
 
     //=========== Filtered Module List Accessors =============================================================
@@ -326,11 +313,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
-    }
-
-    @Override
-    public Module getModule(ModuleCode moduleCode) {
-        return nasaBook.getModule(moduleCode);
     }
 
     @Override

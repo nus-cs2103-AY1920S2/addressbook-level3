@@ -37,8 +37,6 @@ public class Note {
 
     /**
      * Returns true if a given string is considered valid notes.
-     * @param test String
-     * @return boolean
      */
     public static boolean isValidNote(String test) {
         return test.trim().matches(VALIDATION_REGEX);

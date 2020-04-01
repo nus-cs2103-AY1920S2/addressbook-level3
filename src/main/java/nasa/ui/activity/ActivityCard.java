@@ -1,17 +1,13 @@
 package nasa.ui.activity;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Activity;
-import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
 import nasa.ui.UiPart;
+
 
 /**
  * An UI component that displays information of a {@code Module}.
@@ -41,12 +37,6 @@ public class ActivityCard extends UiPart<Region> {
     private Label status;
     @FXML
     private Label priority;
-    @FXML
-    private Group type;
-    @FXML
-    private Label labelForCircle;
-    @FXML
-    private Circle circle;
 
 
 
@@ -58,21 +48,6 @@ public class ActivityCard extends UiPart<Region> {
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
         priority.setText(activity.getPriority().toString());
-        if (activity instanceof Deadline) {
-            labelForCircle.setText("D");
-            int urgent = ((Deadline) activity).percentage();
-            if (urgent < 50) {
-                circle.setFill(Color.GREEN);
-            } else if (urgent < 80) {
-                circle.setFill(Color.YELLOW);
-            } else {
-                circle.setFill(Color.RED);
-            }
-        } else if (activity instanceof Event) {
-            labelForCircle.setText("E");
-        } else {
-            labelForCircle.setText("L");
-        }
     }
 
     @Override

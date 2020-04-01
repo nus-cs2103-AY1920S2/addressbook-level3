@@ -194,12 +194,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean redoHistory() {
+        public void redoHistory() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public boolean setSchedule(ModuleCode module, Name activity, Index type) {
+        public void setSchedule(ModuleCode module, Name activity, Index type) {
             throw new AssertionError("This method should not be called");
         }
     }
@@ -237,11 +237,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Module getModule(ModuleCode target) {
-            return null;
-        }
-
-        @Override
         public void addActivity(Module target, Activity activity) {
 
         }
@@ -263,11 +258,6 @@ public class AddCommandTest {
 
         @Override
         public boolean hasActivity(ModuleCode target, Activity activity) {
-            return false;
-        }
-
-        @Override
-        public boolean hasActivity(ModuleCode target, Name name) {
             return false;
         }
 
@@ -322,13 +312,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean setSchedule(ModuleCode module, Name activity, Index type) {
-            return false;
-        }
+        public void setSchedule(ModuleCode module, Name activity, Index type) {
 
-        @Override
-        public String quote() {
-            return null;
         }
 
         @Override
@@ -385,11 +370,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Module getModule(ModuleCode target) {
-            return null;
-        }
-
-        @Override
         public void addActivity(Module target, Activity activity) {
 
         }
@@ -411,11 +391,6 @@ public class AddCommandTest {
 
         @Override
         public boolean hasActivity(ModuleCode target, Activity activity) {
-            return false;
-        }
-
-        @Override
-        public boolean hasActivity(ModuleCode target, Name name) {
             return false;
         }
 
@@ -485,8 +460,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean redoHistory() {
-            return true;
+        public void redoHistory() {
+
         }
 
         @Override
@@ -500,14 +475,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean setSchedule(ModuleCode module, Name activity, Index type) {
-            return false;
-        }
-
-        @Override
-        public String quote() {
-            return null;
-        }
+        public void setSchedule(ModuleCode module, Name activity, Index type) {}
 
         @Override
         public void sortActivityList(SortMethod sortMethod) {
