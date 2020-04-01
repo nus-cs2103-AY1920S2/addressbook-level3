@@ -331,9 +331,6 @@ public class ModelManager implements Model {
     public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
         updateFilteredModuleList(x -> x.getModuleCode().equals(moduleCode));
         Module module = filteredModules.get(0);
-//        for (Activity x : module.getDeepCopyList()) {
-//            System.out.println(x);
-//        }
         return module.getDeepCopyList();
     }
 

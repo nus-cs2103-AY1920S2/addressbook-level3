@@ -2,8 +2,6 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_SORT_METHOD;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import nasa.model.Model;
 import nasa.model.module.SortMethod;

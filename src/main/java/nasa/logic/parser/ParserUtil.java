@@ -142,6 +142,13 @@ public class ParserUtil {
         return new ModuleName(moduleNameTrimmed);
     }
 
+    /**
+     * Parses {@code String sortMethod} into a {@code SortMethod}
+     * Checks if String sortMethod is correct.
+     * @param sortMethod to be used to sort activity list
+     * @return SortMethod object
+     * @throws ParseException
+     */
     public static SortMethod parseSortMethod(String sortMethod) throws ParseException {
         requireNonNull(sortMethod);
         String sortMethodTrimmed = sortMethod.trim();

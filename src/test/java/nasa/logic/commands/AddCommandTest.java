@@ -9,11 +9,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import nasa.model.module.Module;
-import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
-import nasa.model.module.SortMethod;
-import nasa.model.module.UniqueModuleList;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -28,6 +23,11 @@ import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Name;
+import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
+import nasa.model.module.SortMethod;
+import nasa.model.module.UniqueModuleList;
 import nasa.testutil.ModuleBuilder;
 
 public class AddCommandTest {

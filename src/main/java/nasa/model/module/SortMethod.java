@@ -1,11 +1,11 @@
 package nasa.model.module;
 
-import nasa.model.activity.Activity;
+import static java.util.Objects.requireNonNull;
+import static nasa.commons.util.AppUtil.checkArgument;
 
 import java.util.Comparator;
 
-import static java.util.Objects.requireNonNull;
-import static nasa.commons.util.AppUtil.checkArgument;
+import nasa.model.activity.Activity;
 
 /**
  * Represents a SortMethod in NASA.
@@ -32,8 +32,7 @@ public class SortMethod {
      * Returns true if a given string is a valid method of sorting.
      */
     public static boolean isValidSortMethod(String test) {
-        boolean isValid = (test.equals("name") || test.equals("date") || test.equals("priority") );
-        return isValid;
+        return (test.equals("name") || test.equals("date") || test.equals("priority"));
     }
 
     /**
@@ -69,17 +68,17 @@ public class SortMethod {
                 Comparator.reverseOrder());
 
         switch (method) {
-            case "name":
-                System.out.println("Attempting to sort by name");
-                return nameSorter;
-            case "date":
-                System.out.println("Attempting to sort by date");
-                return dateSorter;
-            case "priority":
-                System.out.println("Attempting to sort by priority");
-                return prioritySorter;
-            default:
-                throw new IllegalStateException("Unexpected value: " + getSortMethodString());
+        case "name":
+            System.out.println("Attempting to sort by name");
+            return nameSorter;
+        case "date":
+            System.out.println("Attempting to sort by date");
+            return dateSorter;
+        case "priority":
+            System.out.println("Attempting to sort by priority");
+            return prioritySorter;
+        default:
+            throw new IllegalStateException("Unexpected value: " + getSortMethodString());
         }
     }
 

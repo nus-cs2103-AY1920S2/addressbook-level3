@@ -1,18 +1,13 @@
 package nasa.logic.parser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_SORT_METHOD;
 
-import nasa.logic.commands.EditModuleCommand;
+import java.util.NoSuchElementException;
+
 import nasa.logic.commands.SortCommand;
-import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.SortMethod;
-
-import java.util.NoSuchElementException;
 
 /**
  * Parses input arguments and creates a new SortCommand object.
