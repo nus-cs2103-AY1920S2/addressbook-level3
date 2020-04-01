@@ -28,6 +28,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private CalorieCalculatorByDateRange stats;
+    private DailyStatusList dailyStatusList;
 
     @FXML
     private StackPane calendarPagePlaceholder;
@@ -40,6 +41,9 @@ public class CalendarPanel extends UiPart<AnchorPane> {
 
     @FXML
     private AnchorPane daysPagePlaceholder;
+
+    @FXML
+    private StackPane dailyStatusListPlaceholder;
 
     /**
      * Creates a calendar page displaying two components from {@code }.
@@ -63,9 +67,6 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     public void set(LocalDateTime date, String mode) {
         getGenerator(date);
         monthView = new MonthView(date, stats);
-        upcomingList = new UpcomingList(foodList, sportList, date);
-        upcomingListPlaceholder.getChildren().clear();
-        upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
         if ("ls".equals(mode)) {
@@ -73,12 +74,21 @@ public class CalendarPanel extends UiPart<AnchorPane> {
             daysPagePlaceholder.getChildren().clear();
             daysPage = new DaysCard(foodList, sportList, date);
             daysPagePlaceholder.getChildren().add(daysPage.getRoot());
+            upcomingListPlaceholder.getChildren().clear();
+            dailyStatusListPlaceholder.getChildren().clear();
+            dailyStatusList = new DailyStatusList(foodList, sportList, date);
+            dailyStatusListPlaceholder.getChildren().add(dailyStatusList.getRoot());
         } else {
             daysPagePlaceholder.getChildren().clear();
             calendarPage.setDate(date);
             calendarPage.updateScheduler();
             calendarPagePlaceholder.getChildren().clear();
             calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
+            dailyStatusListPlaceholder.getChildren().clear();
+            upcomingListPlaceholder.getChildren().clear();
+            upcomingList = new UpcomingList(foodList, sportList, date);
+            upcomingListPlaceholder.getChildren().clear();
+            upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         }
     }
 
