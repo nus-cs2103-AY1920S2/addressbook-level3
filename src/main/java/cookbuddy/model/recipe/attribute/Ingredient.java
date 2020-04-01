@@ -30,7 +30,8 @@ public class Ingredient {
     public Ingredient(String ingredientString) {
         requireNonNull(ingredientString);
 
-        List<String> ingredientParts = Arrays.stream(ingredientString.split(",")).map(String::trim).collect(Collectors.toList());
+        List<String> ingredientParts = Arrays.stream(ingredientString.split(",")).map(String::trim).collect(
+                Collectors.toList());
 
 
         checkArgument(isValidName(ingredientParts.get(0)), MESSAGE_CONSTRAINTS);
