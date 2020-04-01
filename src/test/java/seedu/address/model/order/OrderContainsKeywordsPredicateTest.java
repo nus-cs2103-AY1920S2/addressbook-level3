@@ -24,6 +24,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.Parcel.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
 public class OrderContainsKeywordsPredicateTest {

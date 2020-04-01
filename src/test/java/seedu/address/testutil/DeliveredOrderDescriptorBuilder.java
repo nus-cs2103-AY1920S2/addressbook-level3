@@ -1,38 +1,38 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.DeliveredCommand;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
+import seedu.address.model.Parcel.comment.Comment;
+import seedu.address.model.Parcel.itemtype.TypeOfItem;
+import seedu.address.model.Parcel.ParcelAttributes.Address;
+import seedu.address.model.Parcel.order.CashOnDelivery;
+import seedu.address.model.Parcel.ParcelAttributes.Email;
+import seedu.address.model.Parcel.ParcelAttributes.Name;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.ParcelAttributes.Phone;
+import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
+import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
+import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
 
 /**
  * A utility class to help with building EditParcelDescriptor objects.
  */
 public class DeliveredOrderDescriptorBuilder {
 
-    private DeliveredCommand.DeliveredOrderDescriptor descriptor;
+    private DeliveredCommand.DeliveredParcelDescriptor descriptor;
 
     public DeliveredOrderDescriptorBuilder() {
-        descriptor = new DeliveredCommand.DeliveredOrderDescriptor();
+        descriptor = new DeliveredCommand.DeliveredParcelDescriptor();
     }
 
-    public DeliveredOrderDescriptorBuilder(DeliveredCommand.DeliveredOrderDescriptor descriptor) {
-        this.descriptor = new DeliveredCommand.DeliveredOrderDescriptor(descriptor);
+    public DeliveredOrderDescriptorBuilder(DeliveredCommand.DeliveredParcelDescriptor descriptor) {
+        this.descriptor = new DeliveredCommand.DeliveredParcelDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code DoneOrderDescriptor} with fields containing {@code order}'s details
      */
     public DeliveredOrderDescriptorBuilder(Order order) {
-        descriptor = new DeliveredCommand.DeliveredOrderDescriptor();
+        descriptor = new DeliveredCommand.DeliveredParcelDescriptor();
         descriptor.setTid(order.getTid());
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
@@ -127,7 +127,7 @@ public class DeliveredOrderDescriptorBuilder {
         return this;
     }
 
-    public DeliveredCommand.DeliveredOrderDescriptor build() {
+    public DeliveredCommand.DeliveredParcelDescriptor build() {
         return descriptor;
     }
 }

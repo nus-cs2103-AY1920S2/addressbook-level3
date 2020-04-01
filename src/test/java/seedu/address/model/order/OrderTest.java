@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalOrders.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Parcel.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
 public class OrderTest {

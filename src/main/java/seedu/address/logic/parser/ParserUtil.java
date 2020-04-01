@@ -12,16 +12,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
+import seedu.address.model.Parcel.comment.Comment;
+import seedu.address.model.Parcel.itemtype.TypeOfItem;
+import seedu.address.model.Parcel.ParcelAttributes.Address;
+import seedu.address.model.Parcel.order.CashOnDelivery;
+import seedu.address.model.Parcel.ParcelAttributes.Email;
+import seedu.address.model.Parcel.ParcelAttributes.Name;
+import seedu.address.model.Parcel.ParcelAttributes.Phone;
+import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
+import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
+import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
 import seedu.address.storage.CsvProcessor;
 
 /**

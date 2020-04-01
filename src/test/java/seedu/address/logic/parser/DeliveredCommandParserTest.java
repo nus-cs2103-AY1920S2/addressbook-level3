@@ -19,7 +19,7 @@ public class DeliveredCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDoneCommand() {
-        DeliveredCommand.DeliveredOrderDescriptor descriptor = new DeliveredCommand.DeliveredOrderDescriptor();
+        DeliveredCommand.DeliveredParcelDescriptor descriptor = new DeliveredCommand.DeliveredParcelDescriptor();
         assertParseSuccess(parser, "1 -o", new DeliveredCommand(INDEX_FIRST_ORDER, FLAG_ORDER_BOOK,
                 descriptor));
         assertParseSuccess(parser, "2 -o", new DeliveredCommand(INDEX_SECOND_ORDER, FLAG_ORDER_BOOK,

@@ -9,13 +9,13 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.Warehouse;
+import seedu.address.model.Parcel.comment.Comment;
+import seedu.address.model.Parcel.itemtype.TypeOfItem;
+import seedu.address.model.Parcel.ParcelAttributes.Address;
+import seedu.address.model.Parcel.ParcelAttributes.Name;
+import seedu.address.model.Parcel.ParcelAttributes.Phone;
+import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
+import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
 
 public class ParserUtilTest {
     private static final String INVALID_TID = " ";

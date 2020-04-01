@@ -15,8 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyReturnOrderBook;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
 import seedu.address.storage.Storage;
 
 /**

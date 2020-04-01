@@ -15,8 +15,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.order.exceptions.DuplicateOrderException;
-import seedu.address.model.order.exceptions.OrderNotFoundException;
+import seedu.address.model.Parcel.order.UniqueOrderList;
+import seedu.address.model.Parcel.exceptions.DuplicateOrderException;
+import seedu.address.model.Parcel.exceptions.OrderNotFoundException;
+import seedu.address.model.Parcel.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
 public class UniqueOrderListTest {

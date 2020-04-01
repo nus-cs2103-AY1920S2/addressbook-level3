@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.UniqueOrderList;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
+import seedu.address.model.Parcel.order.UniqueOrderList;
 
 /**
  * Wraps all data at the order-book level

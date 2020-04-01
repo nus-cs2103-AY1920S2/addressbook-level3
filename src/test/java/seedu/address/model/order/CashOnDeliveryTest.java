@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Parcel.order.CashOnDelivery;
+import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
 import seedu.address.testutil.Assert;
 
 public class CashOnDeliveryTest {

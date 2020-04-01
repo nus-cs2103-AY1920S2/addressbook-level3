@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
+
 class WarehouseTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.logic.Logic;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
 
 /**
  * The Show Window. Displays the statistics regarding the orders that

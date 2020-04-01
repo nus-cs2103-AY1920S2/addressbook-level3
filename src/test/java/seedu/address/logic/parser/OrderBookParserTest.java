@@ -28,11 +28,11 @@ import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.OrderContainsKeywordsPredicate;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.returnorder.ReturnOrder;
-import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.ReturnOrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditParcelDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
@@ -74,11 +74,11 @@ public class OrderBookParserTest {
         DeliveredCommand commandForOrder = (DeliveredCommand) parser.parseCommand(
                 DeliveredCommand.COMMAND_WORD + " -o " + INDEX_FIRST_ORDER.getOneBased());
         assertEquals(new DeliveredCommand(INDEX_FIRST_ORDER, new Flag("o"),
-                new DeliveredCommand.DeliveredOrderDescriptor()), commandForOrder);
+                new DeliveredCommand.DeliveredParcelDescriptor()), commandForOrder);
         DeliveredCommand commandforReturnOrder = (DeliveredCommand) parser.parseCommand(
                 DeliveredCommand.COMMAND_WORD + " -r " + INDEX_FIRST_ORDER.getOneBased());
         assertEquals(new DeliveredCommand(INDEX_FIRST_ORDER, new Flag("r"),
-                new DeliveredCommand.DeliveredOrderDescriptor()), commandforReturnOrder);
+                new DeliveredCommand.DeliveredParcelDescriptor()), commandforReturnOrder);
     }
 
     @Test

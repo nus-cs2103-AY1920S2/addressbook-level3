@@ -21,9 +21,9 @@ import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Parcel;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.Parcel;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
 import seedu.address.testutil.OrderBuilder;
 
 public class InsertCommandTest {

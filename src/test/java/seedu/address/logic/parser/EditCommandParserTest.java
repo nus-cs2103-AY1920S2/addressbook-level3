@@ -54,12 +54,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
+import seedu.address.model.Parcel.comment.Comment;
+import seedu.address.model.Parcel.itemtype.TypeOfItem;
+import seedu.address.model.Parcel.ParcelAttributes.Address;
+import seedu.address.model.Parcel.ParcelAttributes.Name;
+import seedu.address.model.Parcel.ParcelAttributes.Phone;
+import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
 import seedu.address.testutil.EditParcelDescriptorBuilder;
 
 public class EditCommandParserTest {

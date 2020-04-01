@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Parcel;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.Parcel;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
 
 /**
  * The API of the Model component.

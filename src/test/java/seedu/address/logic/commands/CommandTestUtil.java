@@ -23,10 +23,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.OrderContainsKeywordsPredicate;
-import seedu.address.model.order.returnorder.ReturnOrder;
-import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.ReturnOrderContainsKeywordsPredicate;
 import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
 import seedu.address.testutil.EditParcelDescriptorBuilder;
 
@@ -111,8 +111,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditParcelDescriptor DESC_AMY;
     public static final EditCommand.EditParcelDescriptor DESC_BOB;
 
-    public static final DeliveredCommand.DeliveredOrderDescriptor AMY_DESC;
-    public static final DeliveredCommand.DeliveredOrderDescriptor BOB_DESC;
+    public static final DeliveredCommand.DeliveredParcelDescriptor AMY_DESC;
+    public static final DeliveredCommand.DeliveredParcelDescriptor BOB_DESC;
 
     static {
         DESC_AMY = new EditParcelDescriptorBuilder().withTid(VALID_TID_AMY)

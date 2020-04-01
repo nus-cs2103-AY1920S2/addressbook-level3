@@ -1,16 +1,16 @@
 package seedu.address.testutil;
 
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.comment.Comment;
+import seedu.address.model.Parcel.itemtype.TypeOfItem;
+import seedu.address.model.Parcel.ParcelAttributes.Address;
+import seedu.address.model.Parcel.order.CashOnDelivery;
+import seedu.address.model.Parcel.ParcelAttributes.Email;
+import seedu.address.model.Parcel.ParcelAttributes.Name;
+import seedu.address.model.Parcel.ParcelAttributes.Phone;
+import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
+import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
+import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
 
 /**
  * A utility class to help with building Return Order objects.

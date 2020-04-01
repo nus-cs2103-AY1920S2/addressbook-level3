@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.Parcel.returnorder.ReturnOrder;
 
 /**
  * A utility class for Return.
