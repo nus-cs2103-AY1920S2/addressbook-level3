@@ -112,11 +112,6 @@ public interface Model {
      */
     void updateFilteredPersonListResult(Predicate<Person> predicate);
 
-    /**
-     * Replaces restaurant book data with the data in {@code restaurantBook}.
-     */
-    void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook);
-
     /** Returns the RestaurantBook */
     ReadOnlyRestaurantBook getRestaurantBook();
 
@@ -154,11 +149,6 @@ public interface Model {
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
-    /**
-     * Replaces scheduler data with the data in {@code scheduler}.
-     */
-    void setScheduler(ReadOnlyScheduler scheduler);
-
     /** Returns the Scheduler */
     ReadOnlyScheduler getScheduler();
 
@@ -178,7 +168,17 @@ public interface Model {
      */
     void sortAssignment(Comparator<Assignment> comparator);
 
+    /**
+     * Sets an assignment
+     * @param assignmentToUpdate assignment to be replaced
+     * @param updatedAssignment assignment to replace the replaced
+     */
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
+
+    /**
+     * Calculates the schedule for the upcoming numDays (today inclusive).
+     */
+    void calculateScheduleIntensity(int numDays);
 
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
@@ -188,11 +188,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
-
-    /**
-     * Replaces event schedule data with the data in {@code eventSchedule}.
-     */
-    void setEventSchedule(ReadOnlyEventSchedule eventSchedule);
 
     /** Returns the Event Schedule */
     ReadOnlyEventSchedule getEventSchedule();
@@ -234,8 +229,27 @@ public interface Model {
      */
     ObservableList<Day> getScheduleVisualResult();
 
+    //=========== Undo and Redo =======================================================================
+
     /**
-     * Calculates the schedule for the upcoming numDays (today inclusive).
+     *
+     * @return the number of states currently saved for undo
      */
-    void calculateScheduleIntensity(int numDays);
+    int undoStackSize();
+
+    /**
+     *
+     * @return the number of states currently saved for redo
+     */
+    int redoStackSize();
+
+    /**
+     * Undo the previously entered command
+     */
+    String undo();
+
+    /**
+     * Redo any command that was undone
+     */
+    String redo();
 }

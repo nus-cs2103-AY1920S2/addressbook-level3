@@ -40,11 +40,14 @@ public class HelpCommand extends Command {
             + "14. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "15. " + ScheduleCommand.COMMAND_WORD + ": " + ScheduleCommand.COMMAND_FUNCTION + "\n"
             + "16. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "17. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "18. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "19. " + AddRestaurantNoteCommand.COMMAND_WORD + ": " + AddRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
-            + "20. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "21. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "17. " + DeleteRestaurantCommand.COMMAND_WORD + ": " + DeleteRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "18. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "19. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "20. " + AddRestaurantNoteCommand.COMMAND_WORD + ": " + AddRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
+            + "21. " + UndoCommand.COMMAND_WORD + ": " + UndoCommand.COMMAND_FUNCTION + "\n"
+            + "22. " + RedoCommand.COMMAND_WORD + ": " + RedoCommand.COMMAND_FUNCTION + "\n"
+            + "23. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "24. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
@@ -86,11 +89,14 @@ public class HelpCommand extends Command {
         commands.add("14. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("15. " + ScheduleCommand.MESSAGE_USAGE + "\n");
         commands.add("16. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("17. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("18. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("19. " + AddRestaurantNoteCommand.MESSAGE_USAGE + "\n");
-        commands.add("20. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("21. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("17. " + DeleteRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("18. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("19. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("20. " + AddRestaurantNoteCommand.MESSAGE_USAGE + "\n");
+        commands.add("21. " + UndoCommand.MESSAGE_USAGE + "\n");
+        commands.add("22. " + RedoCommand.MESSAGE_USAGE + "\n");
+        commands.add("23. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("24. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }

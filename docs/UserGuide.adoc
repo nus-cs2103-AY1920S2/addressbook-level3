@@ -262,7 +262,7 @@ Adds a new restaurant called rubbish at bedok with 2 dollar signs price point an
 ==== Deletes a restaurant: `(rt)delete`
 
 Deletes a restaurant from the list +
-Format: `(rt)delete n/NAME`
+Format: `(rt)delete INDEX`
 
 ==== Add notes to a restaurant: `(rt)notes`
 

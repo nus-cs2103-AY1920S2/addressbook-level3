@@ -10,6 +10,7 @@ public class Day {
     private ArrayList<DueAssignment> dueAssignments;
 
     public Day() {
+        this.hours = new Hours(0);
         this.dueAssignments = new ArrayList<DueAssignment>();
     }
 
