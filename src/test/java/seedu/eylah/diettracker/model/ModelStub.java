@@ -69,17 +69,7 @@ public class ModelStub implements DietModel {
     }
 
     @Override
-    public String listFoods(String mode, int numDays) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public String listFoods(String mode) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public String listFoods(String mode, String tag) {
         throw new AssertionError("This method should not be called.");
     }
 
