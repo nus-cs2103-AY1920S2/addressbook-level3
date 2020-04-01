@@ -66,12 +66,12 @@ public class JsonAdaptedDssm {
         }
 
         public JsonAdaptedDateSavingsPair(LocalDate ld, PureMonetarySavings pms) {
-            this.date = DateUtil.formatDate(ld);
+            this.date = DateUtil.formatDateToString(ld);
             this.savings = new JsonAdaptedPureMonetarySavings(pms);
         }
 
         public LocalDate getDate() {
-            return DateUtil.parseString(date);
+            return DateUtil.parseStringToDate(date);
         }
 
         public PureMonetarySavings getSavings() throws IllegalValueException {
