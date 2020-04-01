@@ -64,7 +64,7 @@ your data manually.
 This User Guide introduces you to TA-Tracker's features and shows you how you can use
 the TA-Tracker to make your life as a Teaching Assistant easier.
 
-=== Commonly Used Symbols:
+=== Commonly Used Symbols
 This section shows you the symbols commonly used in the User Guide.
 
 [NOTE]
@@ -88,12 +88,12 @@ All the commands written in the user guide follow some rules that have been ment
 below. This will help you better understand how to use the commands.
 
 ====
-* Words in `UPPER_CASE` are the parameters to be supplied by the user .
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
 For example, in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
 * Items in square brackets are optional.
 For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/Fast learner` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times.
-For example, `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend` (i.e. once) or
+For example, `[t/TAG]...` can be left empty (i.e. 0 times), `t/friend` (i.e. once) or
 `t/friend t/family` (i.e. multiple times).
 * Parameters can be in any order.
 For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -272,11 +272,11 @@ Format: `exit`
 
 === Student View
 
-This sections gives an explanation of all the commands that can be used
+This section gives an explanation of all the commands that can be used
 in the Student View.
 
 [[AddModule]]
-==== Adding a Module `module add`
+==== Adding a Module : `module add`
 
 You can use this command to add a new module to the TA-Tracker.
 
@@ -309,7 +309,7 @@ to the TA-Tracker.
 ====
 
 [[DeleteModule]]
-==== Deleting a Module `module delete`
+==== Deleting a Module : `module delete`
 
 You can use this command to delete a module from the TA-Tracker.
 
@@ -336,7 +336,7 @@ this will delete the module with the module code `CS2103` from the TA-Tracker.
 ====
 
 [[EditModule]]
-==== Editing a Module `module edit`
+==== Editing a Module : `module edit`
 
 You can use this command to edit a module in the TA-Tracker.
 
@@ -363,7 +363,7 @@ This will change the name of the module with module code `CS2103` to `Software E
 ====
 
 [[AddGroup]]
-==== Adding a Group `group add`
+==== Adding a Group : `group add`
 
 You can use this command to add a group to the TA-Tracker.
 
@@ -391,12 +391,12 @@ Examples:
 
 * `group add g/G03 m/CS2103 t/tutorial`
 +
-Thi will add a group with the group code `G03`, which is a `tutorial`, inside the module that
+This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
 has module code `CS2103`.
 ====
 
 [[DeleteGroup]]
-==== Deleting a Group `group delete`
+==== Deleting a Group : `group delete`
 
 You can use this command to delete a group from the TA-Tracker.
 
@@ -432,7 +432,7 @@ has module code `CS2103`.
 ====
 
 [[EditGroup]]
-==== Editing a Group `group edit`
+==== Editing a Group : `group edit`
 
 You can use this command to edit a group in the TA-Tracker.
 
@@ -469,7 +469,7 @@ module code `CS2103`, to be a `tutorial`.
 ====
 
 [[AddStudent]]
-==== Adding a Student `student add`
+==== Adding a Student : `student add`
 
 You can use this command to add a new student to the TA-Tracker.
 
@@ -512,7 +512,7 @@ command or you can later edit their rating by using the edit student command (de
 
 
 [[DeleteStudent]]
-==== Deleting a Student `student delete`
+==== Deleting a Student : `student delete`
 
 You can use this command to delete a student from the TA-Tracker.
 
@@ -545,7 +545,7 @@ the module `CS2103`.
 ====
 
 [[EditStudent]]
-==== Editing a Student `student edit`
+==== Editing a Student : `student edit`
 
 You can use this command to edit a student in the TA-Tracker.
 
@@ -596,7 +596,7 @@ Edits student with the matriculation number `A9876543K` to have:
 ====
 
 [[Sort]]
-==== Sorting a Group `sort group`
+==== Sorting a Group : `sort group`
 
 You can use this command to sort the students belonging to a specified group.
 The students will be sorted according to your specified `SORT_TYPE`.
@@ -637,7 +637,7 @@ Sorts the student inside `G03` of module `CS2103` `alphabetically`.
 ====
 
 
-==== Sorting a Module `sort module`
+==== Sorting a Module : `sort module`
 
 You can use this command to sort the students belonging to all the groups of the specified module.
 The students will be sorted according to your specified `SORT_TYPE`.
@@ -676,7 +676,7 @@ Examples:
 Sorts all groups inside the module `CS2103` `alphabetically`.
 ====
 
-==== Sorting Everything `sort all`
+==== Sorting Everything : `sort all`
 
 You can sort all of the students in TA-Tracker.
 The students will be sorted according to your specified `SORT_TYPE`.
@@ -715,7 +715,7 @@ Sorts all groups inside all modules `alphabetically`.
 ====
 
 [[FilterStudent]]
-==== Filter `filter`
+==== Filter : `filter`
 
 You can use this command to find the students in a particular group
 and module.
@@ -763,7 +763,7 @@ This shows you the students in the first group of the module `CS2103`
 [NOTE]
 ====
 [horizontal]
-*Keywords are case-insensitive. eg. `cs2103t` is the same as `CS2103T`*
+*Keywords are case-insensitive. e.g. `cs2103t` is the same as `CS2103T`*
 ====
 
 
@@ -772,7 +772,7 @@ This shows you the students in the first group of the module `CS2103`
 This section explains the different commands that can be used in the session view.
 
 [[AddSession]]
-==== Adding a Session `session add`
+==== Adding a Session : `session add`
 
 You can use this command to add a new session.
 
@@ -802,7 +802,7 @@ details by using the edit session command (details given below.)
 [NOTE]
 ====
 [horizontal]
-`NOTES`:: notes for this session (eg: weekly tutorials, prep sessions, consultation with John Doe)
+`NOTES`:: notes for this session (e.g.: weekly tutorials, prep sessions, consultation with John Doe)
 ====
 
 ====
@@ -815,7 +815,7 @@ from 2pm to 4pm,
 containing a note "with Alice and Bob".
 
 ====
-==== Deleting a Session `session delete`
+==== Deleting a Session : `session delete`
 
 You can use this command to delete a session.
 
@@ -839,7 +839,7 @@ Examples:
 This command deletes the third session in the Session View.
 ====
 
-==== Editing a Session `session edit`
+==== Editing a Session : `session edit`
 You can use this command to edit a session in the TA-Tracker.
 
 The tab that you are viewing will automatically be switched to the session
@@ -869,7 +869,7 @@ Edits the session at index 1 to have:
 ** The new note "Location: PLAB04"
 ====
 
-==== Marking a Session as Done `session done`
+==== Marking a Session as Done : `session done`
 
 You can use this command to mark a session as done.
 
@@ -889,7 +889,7 @@ Examples:
 This will mark the 25th session in the Session View as done.
 ====
 
-==== Filter `filter`
+==== Filter : `filter`
 
 You can use this command to filter the sessions in the Session View.
 
@@ -925,7 +925,7 @@ session type  ‘Tutorial` will be shown.
 
 === Claims View
 
-==== Filter `filter`
+==== Filter : `filter`
 
 You can use this command to filters sessions in the Claims View by the module code.
 
@@ -943,7 +943,7 @@ Example:
 All sessions in the Claims View with module code `CS2103T` are displayed.
 ====
 
-==== Changing the hourly rate `set`
+==== Changing the hourly rate : `set rate`
 
 TODO: EDIT ONCE IMPLEMENTED
 
@@ -1000,7 +1000,7 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 * *Sorting a Group:* `sort group g/GROUP_CODE m/MOD_CODE`
 * *Sorting a Module:* `sort module m/MOD_CODE`
 * *Sorting All Modules:* `sort all`
-* *Filter:*`student filter m/MOD_CODE [g/GROUP_CODE]`
+* *Filter:* `student filter m/MOD_CODE [g/GROUP_CODE]`
 
 === Session View
 
