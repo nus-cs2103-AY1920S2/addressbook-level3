@@ -1,0 +1,96 @@
+@startuml
+/' Sequence Diagram for insert '/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":InsertCommandParser" as InsertCommandParser LOGIC_COLOR
+participant "insertCommand:InsertCommand" as InsertCommand LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+create LogicManager
+[-> LogicManager : execute("insert tid/A11 n/Amos p/91234567"...")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("insert tid/A11 n/Amos p/91234567"...")
+activate OrderBookParser
+
+create InsertCommandParser
+
+OrderBookParser -> InsertCommandParser ++ : parse("tid/A11 n/Amos p/91234567"...")
+activate InsertCommandParser
+create ArgumentTokenizer
+
+InsertCommandParser -> ArgumentTokenizer ++ : tokenize(args, PREFIX_TID...)
+activate ArgumentTokenizer
+
+ArgumentTokenizer --> InsertCommandParser -- : argMultimap
+deactivate ArgumentTokenizer
+
+InsertCommandParser -> InsertCommandParser ++ : arePrefixesPresent(argMultimap, PREFIX_TID..)
+InsertCommandParser --> InsertCommandParser -- :
+
+create ArgumentMultimap
+InsertCommandParser -> ArgumentMultimap ++ : getValue(PREFIX_TID), getValue(PREFIX_NAME), ....
+activate ArgumentMultimap
+
+ArgumentMultimap --> InsertCommandParser -- : argTID, argName ....
+deactivate ArgumentMultimap
+
+create ParserUtil
+InsertCommandParser -> ParserUtil ++ : parseTid(argTID), parseName(argName), ....
+activate ParserUtil
+
+ParserUtil --> InsertCommandParser --
+deactivate ParserUtil
+
+create InsertCommand
+
+InsertCommandParser -> InsertCommand ++ : Order
+activate InsertCommand
+
+InsertCommand --> InsertCommandParser -- : insertCommand
+deactivate InsertCommand
+InsertCommandParser --> OrderBookParser -- : insertCommand
+
+deactivate InsertCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+InsertCommandParser -[hidden]-> OrderBookParser
+
+OrderBookParser --> LogicManager -- : insertCommand
+
+LogicManager -> InsertCommand ++ : execute(model)
+
+activate InsertCommand
+
+InsertCommand -> Model ++ : hasOrder(toAdd)
+
+Model --> InsertCommand -- :
+
+InsertCommand -> Model : addOrder(toAdd)
+
+
+create CommandResult
+
+InsertCommand -> CommandResult ++ : message
+activate CommandResult
+
+CommandResult --> InsertCommand -- : commandResult
+
+deactivate CommandResult
+
+InsertCommand --> LogicManager -- : commandResult
+
+ref over LogicManager,  Model : Execution of the Insert Command Sequence Diagram
+deactivate InsertCommand
+[<--LogicManager
+deactivate LogicManager
+@enduml

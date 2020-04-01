@@ -51,7 +51,6 @@ public class ListCommand extends Command {
         requireNonNull(model);
 
         switch (listArg) {
-
         case DONE:
             model.updateFilteredOrderList(PREDICATE_SHOW_DONE_ORDERS);
             model.updateFilteredReturnOrderList(PREDICATE_SHOW_DONE_RETURNS);
