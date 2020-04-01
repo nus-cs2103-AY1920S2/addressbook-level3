@@ -294,7 +294,10 @@ delivery status will be instantiated using the `createDeliveredOrder` or `create
 
 Then, the `setOrder` or `setReturnOrder` method will be called to replace the original `Order` or `ReturnOrder` object
 respectively in `model`. The `deliverOrder` or `deliverReturnOrder` method will be called to to set the
-delivery status of the object to delivered.
+delivery status of the object to delivered. Then, the `updateFilteredOrderList()` method or `updateFilteredReturnOrderList()`
+method to update the list in the `model`. +
+
+Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
 
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
