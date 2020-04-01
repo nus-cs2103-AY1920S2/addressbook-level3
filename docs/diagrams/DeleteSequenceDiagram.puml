@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T1
+box Delete LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":TaskListParser" as TaskListParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
