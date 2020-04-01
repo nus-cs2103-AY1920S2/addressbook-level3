@@ -51,7 +51,7 @@ public class VeventList {
      * Maps events to VEvents
      */
     private ArrayList<VEvent> entriesToVEvents(FilteredList<Entry> foodEntries, FilteredList<Entry> sportsEntries) {
-        ArrayList<VEvent> veventList = new ArrayList();
+        ArrayList<VEvent> veventList = new ArrayList<>();
         for (Entry entry: foodEntries) {
             veventList.add(entryToVEvent(entry));
         }
