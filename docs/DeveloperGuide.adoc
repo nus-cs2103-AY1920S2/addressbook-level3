@@ -305,10 +305,85 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Update User Profile
+=== Add Weight Records
 
-The following sequence diagram shows how the update operation works to change user profile in model:
-image:UpdateSequenceDiagram.png[]
+FitHelper allows the user to track with their weight change easily by allowing user to add their current weight and previous weight.
+
+==== Sample
+An example usage scenario and how the `addWeight` command behaves at each step is shown below.
+
+**Step 1.**
+
+* The user launches the application for the first time.
+* `UniqueWeightList` in Model contains no default weights before the user adds any.
+* `weightrecords.json` in local Storage contains no weight records as well.
+
+**Step 2.**
+
+* The user inputs `addWeight` command word, followed by `v/WEIGHT_VALUE` and an optional `d/DATE`.
+* `UI` passes the input to `Logic`.
+* `Logic` then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
+
+**Step 3.**
+
+* `Logic` passes the user input to `FitHelperParser`.
+* `FitHelperParser` identifies that this is a `AddWeightCommand` through the command word "addWeight".
+* It then creates a `AddWeightCommandParser` to parse the input into a `AddWeightCommand` and return back.
+
+**Step 4.**
+
+* `Logic` gets the `AddWeightCommand` and execute it.
+* The execution firstly check is the new weight date is after today's date and if there is already a existing weight in the UniqueList.
+* Both of these two cases will throw corresponding `CommandException`.
+* Then the execution add the new `Weight` into model.
+* Finally, it returns a `CommandResult` to `UI`, containing the response to the user and the displayPage, which equals to `WEIGHT` page.
+
+**Step 5.**
+
+* `UI` displays the response in the `CommandResult`.
+* In addition, UI will change to display Weight Page after updating Profile Page and Weight Page.
+
+==== Implementation
+
+===== Storage
+
+A weight is stored with three attributes in the `weightrecords.json` database:
+
+* `date` : the date of the weight record in format of `yyyy-MM-dd`, if no date is provided by the user, the *default value* is the date of today
+* `weightValue` : a double value with two decimal places.
+* `bmi` : the BMI value is also a double value with two decimal places.
+It is auto-computed and stored, using the formula : `BMI = Weight Value(kg) / Height(m)^2`.
+The Height value gets from user profile in `userprofile.json` database.
+
+===== Model
+
+* A single weight is represented as model `Weight` with the attributes of `Date`, `WeightValue`, and `Bmi`. +
+
+* In `ModelManager`, all weights are represented by `WeightRecords weightRecords`.
+** The `WeightRecords` class implements `ReadOnlyWeightRecords` interface, and therefore can return an *unmodifiable* version of a *unique* list of weights.
+** The `WeightRecords` wraps a `UniqueWeightList` which allows adding and iterating. *Unique* here refers to the constraint that no two weight with the same date can exist in the list/database.
+
+* In `ModelManager`, a `FilteredList<Weight> filteredWeight` object is used to store and update a filtered version of all weights.
+** The
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
+wraps a `ObservableList` and filters using a provided `Predicate`. +
+
+===== UI
+When user input `addWeight` command to `UI`, the input is passed to `Logic` part as a `String`.
+
+After `addWeight` command is executed, a `CommandResult` with `DisplayPage` equals `WEIGHT` will be passed back to `MainWindow` in `UI` part. Then:
+
+* Firstly, it will call `updateProfilePage()`, since if the newly added weight has the lasted date, Current Weight and Current BMI in uer profile will need to be updated.
+* Secondly, it will call `updateWeightPage()`, since if a new weight is added successfully, new points should be added on to Weight Line Chart and BMI Line Chart.
+The text content of top notification will also be updated if the gap between Current Weight and Target Weight is changed.
+* Lastly, it will call `showWeightPage()`. This allows the Main Window auto-switch to Weight Page after each `addWeight` command by user.
+
+===== Logic
+
+The Sequence Diagram below shows how the components interact with each other for the mentioned scenario in sample.
+
+.Sequence Diagram for Add Weight Feature
+image:AddWeightSequenceDiagram.png[]
 
 === Check calorie intake/consumption of some common food/sports
 
@@ -383,8 +458,7 @@ Refer to the guide <<DevOps#, here>>.
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%,30%,30%,30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
@@ -587,11 +661,11 @@ Windows, Linux, Unix, OS-X
 |edit
 
 |d/
-|Date in format of *date hh:mm*
-|calendar
+|Date in format of *yyyy-MM-dd*
+|calendar, addWeight
 
 |dr/
-|Duration in format of *yyyy-mm-dd yyyy-mm-dd*
+|Duration in format of *yyyy-MM-dd yyyy-MM-dd*
 |add, edit
 
 |dc/
@@ -608,7 +682,7 @@ Windows, Linux, Unix, OS-X
 
 |v/
 |Attribute Value in user profile
-|update
+|update, addWeight
 
 |===
 
@@ -641,7 +715,7 @@ Windows, Linux, Unix, OS-X
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name* : FitHelper
 
 Author: ...
 
@@ -673,7 +747,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. The window size is fixed.
 
 . Shutdown
-.. Users are able to shutdown the application using CML with following commands:
+.. Users are able to shutdown the application using CLI with following commands:
 - `exit`
 - `quit`
 - `bye`

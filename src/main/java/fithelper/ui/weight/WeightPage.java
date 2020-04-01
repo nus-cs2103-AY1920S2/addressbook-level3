@@ -130,7 +130,7 @@ public class WeightPage extends UiPart<AnchorPane> {
     }
 
     /**
-     * Install tooltip for  line chart.
+     * Install tooltip for line charts.
      */
     public void installToolTipXyChart(ObservableList<XYChart.Data<String, Double>> data) {
         data.stream().forEach(d -> {
