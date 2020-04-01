@@ -31,9 +31,12 @@ import javafx.scene.text.Text;
  */
 public class SummaryPane extends UiPart<Region> {
     private static final String FXML = "SummaryPane.fxml";
-
+    // message to be shown before the numerical amount saved
     private static final String SAVED_TOTAL_PRE_MESSAGE = "You saved a total of ";
+    // message to be shown before the list of saveables
     private static final String SAVEABLES_PRE_MESSAGE = "And these saveables too!";
+    // controls font size of number amount
+    private static final int BASE_FONT_SIZE = 125;
 
     // Independent Ui parts residing in this Ui container
     private ObservableList<Coupon> allCoupons;
@@ -64,9 +67,12 @@ public class SummaryPane extends UiPart<Region> {
     private MonetaryAmount shownMonetaryAmount = new MonetaryAmount(0.0);
 
     /**
+     * Constructor for a new SummaryPane. This is the
+     * tab that holds the savings summary graph.
      *
-     * @param allCoupons
-     * @param moneySymbol
+     * @param allCoupons The ObservableList of all the Coupons
+     *                   in Coupon Stash, whether hidden or shown.
+     * @param moneySymbol The money symbol as set in user preferences.
      */
     public SummaryPane(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
         super(FXML);
@@ -77,7 +83,9 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
-     *
+     * Updates the SummaryPane based on changes in total savings
+     * of the Coupons. This method is called whenever the active
+     * tab is switched to the summary tab.
      */
     public void updateView() {
         // ensure that existing items are cleared from the view
@@ -107,8 +115,13 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
+     * Given a PureMonetarySavings, retrieves the Saveables
+     * that it holds, makes a new Label for each one and places
+     * these Labels in the VBox that shows the total saveables
+     * in the SummaryPane.
      *
-     * @param savingsSum
+     * @param savingsSum The PureMonetarySavings representing the
+     *                   total savings accumulated by the user.
      */
     private void addToSaveables(PureMonetarySavings savingsSum) {
         savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList
@@ -119,8 +132,11 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
+     * Gets a hash table that maps a date to the savings
+     * earned on that date, across all Coupons.
      *
-     * @return
+     * @return DateSavingsSumMap that maps dates to savings
+     *         on that particular date (from every Coupon).
      */
     private DateSavingsSumMap getMapOfAllCoupons() {
         DateSavingsSumMap map = new DateSavingsSumMap();
@@ -131,9 +147,12 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
+     * Gets a chart series for use in the bar graph.
      *
-     * @param mapOfAllCoupons
-     * @return
+     * @param mapOfAllCoupons The DateSavingsSumMap representing
+     *                        savings earned on each date from
+     *                        using every Coupon in Coupon Stash.
+     * @return XYChart Series with the data in the map provided.
      */
     private XYChart.Series<String, Number> getSeries(DateSavingsSumMap mapOfAllCoupons) {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
@@ -154,10 +173,16 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
+     * Converts an entry from a DateSavingsSumMap to a
+     * data entry in the form of XYChart Data, and adds
+     * this to the given List of XYChart Data.
      *
-     * @param ld
-     * @param pms
-     * @param dataList
+     * @param ld LocalDate representing date that the
+     *           savings was earned.
+     * @param pms PureMonetarySavings representing the
+     *            amount of savings earned.
+     * @param dataList The List of XYChart Data to be
+     *                 populated with data.
      */
     private void addMapEntryToList(
             LocalDate ld,
@@ -179,9 +204,14 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
+     * Given the JavaFX Node of a certain data element,
+     * as well as a Text label representing the amount of the
+     * data element, add listeners to the Node such that the
+     * Text label provided will be displayed correctly with
+     * the data (when this data is rendered in the BarChart).
      *
-     * @param node
-     * @param dataLabel
+     * @param node The Node of a data element.
+     * @param dataLabel The Label to be applied to the Node.
      */
     private void addListenersForLabel(Node node, Text dataLabel) {
         // listener to add label when possible
