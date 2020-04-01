@@ -4,6 +4,9 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static java.util.Objects.requireNonNull;
 
+import java.time.YearMonth;
+
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
 
@@ -40,6 +43,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
+        model.updateMonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
         String view = "";
         if (prefixToList.toString().isEmpty()) {
             model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);

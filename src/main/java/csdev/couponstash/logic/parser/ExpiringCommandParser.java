@@ -4,6 +4,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 
 import java.time.YearMonth;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.ExpiringCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.DateIsEqualsPredicate;
@@ -24,7 +25,7 @@ public class ExpiringCommandParser implements Parser<ExpiringCommand> {
     public ExpiringCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         try {
-            if (args.trim().matches(ExpiryDate.VALIDATION_REGEX)) {
+            if (args.trim().matches(DateUtil.DATE_VALIDATION_REGEX)) {
                 ExpiryDate expiryDate = ParserUtil.parseExpiryDate(trimmedArgs);
                 return new ExpiringCommand(new DateIsEqualsPredicate(expiryDate.value));
             } else {

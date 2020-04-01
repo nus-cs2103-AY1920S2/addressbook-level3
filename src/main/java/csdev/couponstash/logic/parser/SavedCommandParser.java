@@ -50,7 +50,7 @@ public class SavedCommandParser implements Parser<SavedCommand> {
             }
             LocalDate specDate;
             try {
-                specDate = DateUtil.parseString(specificDate.get());
+                specDate = DateUtil.parseStringToDate(specificDate.get());
             } catch (DateTimeParseException e) {
                 throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
             }
@@ -61,8 +61,8 @@ public class SavedCommandParser implements Parser<SavedCommand> {
             LocalDate sDate;
             LocalDate eDate;
             try {
-                sDate = DateUtil.parseString(strStart);
-                eDate = DateUtil.parseString(strEnd);
+                sDate = DateUtil.parseStringToDate(strStart);
+                eDate = DateUtil.parseStringToDate(strEnd);
             } catch (DateTimeParseException e) {
                 throw new ParseException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
             }
