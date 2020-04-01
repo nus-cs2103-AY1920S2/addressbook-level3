@@ -52,6 +52,6 @@ OrderBookParser --> LogicManager -- : clearCommand
 ref over LogicManager,  Model : Execution of the Clear Command Sequence Diagram
 
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml
