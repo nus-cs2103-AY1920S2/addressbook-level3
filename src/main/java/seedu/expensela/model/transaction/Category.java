@@ -10,15 +10,15 @@ import static seedu.expensela.commons.util.AppUtil.checkArgument;
 public class Category {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Valid categories are: FOOD," +
-                    " SHOPPING," +
-                    " TRANSPORT," +
-                    " GROCERIES," +
-                    " HEALTH," +
-                    " RECREATION," +
-                    " INCOME," +
-                    " UTILITIES OR" +
-                    " MISC";
+            "Valid categories are: FOOD,"
+                    + " SHOPPING,"
+                    + " TRANSPORT,"
+                    + " GROCERIES,"
+                    + " HEALTH,"
+                    + " RECREATION,"
+                    + " INCOME,"
+                    + " UTILITIES OR"
+                    + " MISC";
 
     /*
      * The first character of the category must not be a whitespace,

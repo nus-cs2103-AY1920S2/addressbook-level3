@@ -82,14 +82,6 @@ public class JsonAdaptedTransactionTest {
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
-//    @Test
-//    public void toModelType_invalidRemark_throwsIllegalValueException() {
-//        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(VALID_NAME, VALID_AMOUNT, "false",
-//                VALID_DATE, INVALID_REMARK, VALID_CATEGORY);
-//        String expectedMessage = Remark.MESSAGE_CONSTRAINTS;
-//        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
-//    }
-
     @Test
     public void toModelType_nullRemark_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(VALID_NAME, VALID_AMOUNT, "false",

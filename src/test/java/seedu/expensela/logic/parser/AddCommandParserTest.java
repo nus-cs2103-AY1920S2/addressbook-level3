@@ -8,6 +8,7 @@ import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_SHOPP
 import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
@@ -20,7 +21,6 @@ import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
@@ -29,9 +29,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
-import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.TransactionBuilder;
 
@@ -112,10 +112,6 @@ public class AddCommandParserTest {
         // invalid date
         assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC
                 + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
-
-//        // invalid remark
-//        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
-//                + INVALID_REMARK_DESC + CATEGORY_DESC_SHOPPING, Remark.MESSAGE_CONSTRAINTS);
 
         //invalid category
         assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS

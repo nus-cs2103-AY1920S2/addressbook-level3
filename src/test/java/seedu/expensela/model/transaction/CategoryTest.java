@@ -21,9 +21,6 @@ class CategoryTest {
     @Test
     void isValidCategory() {
 
-//        // null category
-//        assertThrows(NullPointerException.class, () -> Category.isValidCategory(null));
-
         // invalid category
         assertFalse(Category.isValidCategory("")); // empty string
         assertFalse(Category.isValidCategory(" ")); // spaces only

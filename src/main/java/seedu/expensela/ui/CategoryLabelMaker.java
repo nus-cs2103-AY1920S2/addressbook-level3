@@ -1,4 +1,4 @@
-package thrift.ui;
+package seedu.expensela.ui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
  * Factory class for making coloured labels.
  */
 public class CategoryLabelMaker {
-    
+
     private static final String BACKGROUND_COLOR_GREEN = "-fx-background-color: #00897B";
     private static final String BACKGROUND_COLOR_RED = "-fx-background-color: #e53935";
     private static final String BACKGROUND_COLOR_BLUE = "-fx-background-color: #3949AB";

@@ -1,6 +1,5 @@
 package seedu.expensela.logic.parser;
 
-import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_FILTER;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -12,10 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.expensela.logic.commands.FilterCommand;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
-
-
-
-
 
 class FilterCommandParserTest {
     private FilterCommandParser parser = new FilterCommandParser();
