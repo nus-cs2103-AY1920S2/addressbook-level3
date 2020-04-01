@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import seedu.address.MainApp;
-import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.EventsCenterSingleton;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc. It
@@ -74,12 +74,12 @@ public abstract class UiPart<T> {
   }
 
   /**
-   * Registers the object as an event handler at the {@link EventsCenter}
+   * Registers the object as an event handler at the {@link EventsCenterSingleton}
    *
    * @param handler usually {@code this}
    */
   protected void registerAsAnEventHandler(Object handler) {
-    EventsCenter.getInstance().registerHandler(handler);
+    EventsCenterSingleton.getInstance().registerHandler(handler);
   }
 
   /**

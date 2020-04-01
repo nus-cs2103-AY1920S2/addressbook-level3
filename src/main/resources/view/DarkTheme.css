@@ -245,12 +245,8 @@
  */
 
 .button {
-     -fx-border-color: black;
-         -fx-border-width: 1, 1;
-         -fx-border-style: solid, segments(1, 1);
-         -fx-border-radius: 0, 0;
-         -fx-border-insets: -1 -1 -1 -1, 0;
-         -fx-background-color: #f79256;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
 }
 
 .button:hover {
@@ -373,5 +369,5 @@
 }
 
 #buttonBar {
-     -fx-background-color: derive(#1d4e89, 20%);
+     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #3916FC, #A17CFF);
 }

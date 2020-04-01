@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
+<?import javafx.scene.image.ImageView?>
 <fx:root minHeight="910" minWidth="1000" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
@@ -36,7 +37,14 @@
         <HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
           <VBox fx:id="buttonBar" minWidth="150.0" spacing="5" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
             <children>
-              <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="80.0" prefWidth="150.0" text="Students" />
+              <HBox>
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@ourImages/book.png" />
+                  </image>
+                </ImageView>
+                <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="80.0" prefWidth="150.0" text="Students"/>
+              </HBox>
               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToTeacher" prefHeight="80.0" prefWidth="150.0" text="Teachers" />
               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="80.0" prefWidth="150.0" text="Courses" />
               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance" prefHeight="80.0" prefWidth="150.0" text="Finances" />

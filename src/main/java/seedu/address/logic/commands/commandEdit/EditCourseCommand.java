@@ -74,11 +74,10 @@ public class EditCourseCommand extends Command {
     assert courseToEdit != null;
 
     Name updatedName = editCourseDescriptor.getName().orElse(courseToEdit.getName());
-    ID updatedCourseID = editCourseDescriptor.getID().orElse(courseToEdit.getId());
     Amount updatedAmount = editCourseDescriptor.getAmount().orElse(courseToEdit.getAmount());
     Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
 
-    return new Course(updatedName, updatedCourseID, updatedAmount, updatedTags);
+    return new Course(updatedName, courseToEdit.getId(), updatedAmount, updatedTags);
   }
 
   @Override
@@ -93,11 +92,11 @@ public class EditCourseCommand extends Command {
     Course courseToEdit = lastShownList.get(index.getZeroBased());
     Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
 
-    if (!courseToEdit.weakEquals(editedCourse) && model.hasCourse(editedCourse)) {
+    if (!courseToEdit.weakEquals(editedCourse) && model.has(editedCourse)) {
       throw new CommandException(MESSAGE_DUPLICATE_COURSE);
     }
 
-    model.setCourse(courseToEdit, editedCourse);
+    model.set(courseToEdit, editedCourse);
     model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
   }
@@ -127,7 +126,6 @@ public class EditCourseCommand extends Command {
   public static class EditCourseDescriptor {
 
     private Name name;
-    private ID courseID;
     private Amount amount;
     private Set<Tag> tags;
 
@@ -139,7 +137,6 @@ public class EditCourseCommand extends Command {
      */
     public EditCourseDescriptor(EditCourseDescriptor toCopy) {
       setName(toCopy.name);
-      setID(toCopy.courseID);
       setAmount(toCopy.amount);
       setTags(toCopy.tags);
     }
@@ -148,7 +145,7 @@ public class EditCourseCommand extends Command {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, courseID, amount, tags);
+      return CollectionUtil.isAnyNonNull(name, amount, tags);
     }
 
     public Optional<Name> getName() {
@@ -157,14 +154,6 @@ public class EditCourseCommand extends Command {
 
     public void setName(Name name) {
       this.name = name;
-    }
-
-    public Optional<ID> getID() {
-      return Optional.ofNullable(courseID);
-    }
-
-    public void setID(ID courseID) {
-      this.courseID = courseID;
     }
 
     public Optional<Amount> getAmount() {
@@ -207,7 +196,6 @@ public class EditCourseCommand extends Command {
       EditCourseDescriptor e = (EditCourseDescriptor) other;
 
       return getName().equals(e.getName())
-          && getID().equals(e.getID())
           && getAmount().equals(e.getAmount())
           && getTags().equals(e.getTags());
     }

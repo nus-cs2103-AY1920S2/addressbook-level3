@@ -1,11 +1,14 @@
 package seedu.address.logic.commands.commandAdd;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelFinance.Finance;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
@@ -32,6 +35,8 @@ public class AddAssignmentCommand extends AddCommand {
 
   private final Assignment toAdd;
 
+  private Integer index;
+
   /**
    * Creates an AddCommand to add the specified {@code Assignment}
    */
@@ -40,19 +45,29 @@ public class AddAssignmentCommand extends AddCommand {
     toAdd = asgmt;
   }
 
-  protected void generateOppositeCommand() {
+  public AddAssignmentCommand(Assignment asgmt, Integer index) {
+    requireAllNonNull(asgmt, index);
+    this.toAdd = asgmt;
+    this.index = index;
+  }
 
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new DeleteAssignmentCommand(this.toAdd);
   }
 
   @Override
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
-    if (model.hasAssignment(toAdd)) {
+    if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
     }
 
-    model.addAssignment(toAdd);
+    if (index == null) {
+      model.add(toAdd);
+    } else {
+      model.addAtIndex(toAdd, index);
+    }
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 

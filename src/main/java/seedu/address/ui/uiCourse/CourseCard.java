@@ -1,12 +1,15 @@
 package seedu.address.ui.uiCourse;
 
 import java.util.Comparator;
+import java.util.Set;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.ID;
 import seedu.address.ui.UiPart;
 
 /**
@@ -42,6 +45,8 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private Label assignedStudents;
   @FXML
+  private Label assignedAssignments;
+  @FXML
   private Label amount;
   @FXML
   private FlowPane tags;
@@ -53,6 +58,13 @@ public class CourseCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     teacherID.setText(course.getId().value);
     courseID.setText(course.getId().value);
+    StringBuilder assignmentsStrings = new StringBuilder();
+    Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
+    for(ID x : assignmentIDS) {
+      assignmentsStrings.append(x.toString() + "-");
+    }
+    assignedAssignments.setText(assignmentsStrings.toString());
+    course.getAssignedAssignmentsID();
     amount.setText(course.getAmount().value);
     assignedTeacher.setText(course.getAssignedTeacherWithName());
     assignedStudents.setText(course.getAssignedStudentsWithNames());

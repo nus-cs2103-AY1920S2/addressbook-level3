@@ -14,7 +14,7 @@ import seedu.address.model.modelTeacher.Teacher;
 /**
  * Deletes a teacher identified using it's displayed index from the address book.
  */
-public class DeleteTeacherCommand extends Command {
+public class DeleteTeacherCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-teacher";
 
@@ -31,8 +31,12 @@ public class DeleteTeacherCommand extends Command {
     this.targetIndex = targetIndex;
   }
 
+  protected void generateOppositeCommand() throws CommandException {
+
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Teacher> lastShownList = model.getFilteredTeacherList();
 
@@ -41,7 +45,7 @@ public class DeleteTeacherCommand extends Command {
     }
 
     Teacher teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.deleteTeacher(teacherToDelete);
+    model.delete(teacherToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_TEACHER_SUCCESS, teacherToDelete));
   }
 

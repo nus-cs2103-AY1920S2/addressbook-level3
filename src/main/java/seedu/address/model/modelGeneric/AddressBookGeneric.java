@@ -1,6 +1,7 @@
 package seedu.address.model.modelGeneric;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.ID;
 
 import java.util.List;
 
@@ -61,10 +62,28 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     /**
+     * Returns true if a course with the same identity as {@code course} exists in the address book.
+     */
+    public boolean has(ID objID) {
+        requireNonNull(objID);
+        return objects.contains(objID);
+    }
+
+    public K get(ID objID) {
+        requireNonNull(objID);
+        return objects.get(objID);
+    }
+
+
+    /**
      * Adds a course to the address book. The course must not already exist in the address book.
      */
     public void add(K object) {
         objects.add(object);
+    }
+
+    public void addAtIndex(K object, Integer idx) {
+        objects.addAtIndex(object, idx);
     }
 
     /**
@@ -85,8 +104,16 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         objects.remove(key);
     }
 
-    //// util methods
+    public boolean containsID(ID objectID) {
+        for (K object : objects) {
+            if (object.getId().equals(objectID)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    //// util methods
     @Override
     public String toString() {
         return objects.asUnmodifiableObservableList().size() + " objects";

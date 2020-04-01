@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
+import java.util.HashMap;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.CommandResult;
@@ -24,7 +25,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
-    public static final String MESSAGE_SUCCESS = "Successfully added student %s(%s) to course %s(%s)";
+    public static final String MESSAGE_SUCCESS = "Successfully assigned student %s (%s) to course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
     private Set<Tag> ArrayList;
@@ -42,52 +43,35 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
-        String courseidString = this.assignDescriptor.getAssignID(PREFIX_COURSEID).value;
-        String studentidString = this.assignDescriptor.getAssignID(PREFIX_STUDENTID).value;
-        String courseName = "";
-        String studentName = "";
 
-        boolean courseExists = false;
-        boolean studentExists = false;
-        Course foundCourse = null;
-        Student foundStudent = null;
+        // Check whether both IDs even exists
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 
-        for (Course course : model.getFilteredCourseList()) {
-            if (course.getId().value.equals(courseidString)) {
-                courseName = course.getName().toString();
-                courseExists = true;
-                foundCourse = course;
-                break;
-            }
-        }
+        boolean courseExists = model.hasCourse(courseID);
+        boolean studentExists = model.hasStudent(studentID);
 
-        for (Student student : model.getFilteredStudentList()) {
-            if (student.getID().value.equals(studentidString)) {
-                studentName = student.getName().toString();
-                studentExists = true;
-                foundStudent = student;
-                break;
-            }
-        }
+        Course assignedCourse = model.getCourse(courseID);
+        Student assigningStudent = model.getStudent(studentID);
+
+        boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
+        boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+        } else if (assignedCourseContainsStudent) {
+            throw new CommandException("Course already has that student assigned to it!");
+        } else if (assigningStudentContainsCourse) {
+            throw new CommandException("Student is assigned to the course already");
         } else {
-            ID courseid = ParserUtil.parseCourseid(courseidString);
-            ID studentid = ParserUtil.parseStudentid(studentidString);
-            foundCourse.addStudent(studentid);
-            foundStudent.addCourse(courseid);
-            foundCourse.processAssignedStudents(
-                (FilteredList<Student>) model.getFilteredStudentList());
-            foundStudent.processAssignedCourses(
-                (FilteredList<Course>) model.getFilteredCourseList());
-            model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-            model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+            model.assignStudentToCourse(studentID, courseID);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentidString, courseName, courseidString));
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    assigningStudent.getName(), studentID.value,
+                    assignedCourse.getName(), courseID.value));
         }
-
     }
 }

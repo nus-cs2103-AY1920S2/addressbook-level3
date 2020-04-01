@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenterSingleton;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -28,6 +29,7 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
@@ -103,6 +105,8 @@ public class MainApp extends Application {
     logic = new LogicManager(model, storage);
 
     ui = new UiManager(logic);
+
+    initEventsCenterSingleton();
   }
 
   /**
@@ -211,23 +215,25 @@ public class MainApp extends Application {
 
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();
+
       if (!assignmentAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        logger.info("Data file not found. Will be starting with a sample AssignmentAddressBook");
       }
       assignmentInitialData = assignmentAddressBookOptional
               .orElseGet(SampleDataUtil::getSampleAssignmentAddressBook);
     } catch (DataConversionException e) {
       logger.warning(
-              "Data file not in the correct format. Will be starting with an empty AddressBook");
+              "Data file not in the correct format. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     } catch (IOException e) {
       logger.warning(
-              "Problem while reading from the file. Will be starting with an empty AddressBook");
+              "Problem while reading from the file. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     }
+    logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
-        courseInitialData, assignmentInitialData, userPrefs);
+        courseInitialData, assignmentInitialData, new ProgressAddressBook(), userPrefs);
   /*
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
             courseInitialData, userPrefs);
@@ -320,5 +326,9 @@ public class MainApp extends Application {
     } catch (IOException e) {
       logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
     }
+  }
+
+  public void initEventsCenterSingleton() {
+    EventsCenterSingleton.getInstance().registerHandler(this);
   }
 }

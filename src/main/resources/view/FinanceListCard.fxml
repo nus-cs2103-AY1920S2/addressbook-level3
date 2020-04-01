@@ -2,44 +2,50 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPane" xmlns="http://javafx.com/javafx/8"
-  fx:id="cardPane">
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
-    <VBox GridPane.columnIndex="0" alignment="CENTER_LEFT" minHeight="105">
-      <FlowPane fx:id="tags"/>
+    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+      <FlowPane fx:id="tags" />
       <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label styleClass="cell_big_label" fx:id="id">
+        <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE"/>
+            <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label styleClass="cell_big_label" text="\$first" fx:id="name"/>
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="Finance Type: "/>
-        <Label styleClass="cell_small_label" text="\$financeType" fx:id="financeType"/>
+        <Label styleClass="cell_small_label" text="Finance Type: " />
+        <Label fx:id="financeType" styleClass="cell_small_label" text="\$financeType" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="Date: "/>
-        <Label styleClass="cell_small_label" text="\$date" fx:id="date"/>
+        <Label styleClass="cell_small_label" text="Date: " />
+        <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="Amount: $"/>
-        <Label styleClass="cell_small_label" text="\$amount" fx:id="amount"/>
+        <Label styleClass="cell_small_label" text="Amount: $" />
+        <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
       </HBox>
       <padding>
-        <Insets bottom="5" left="15" right="5" top="5"/>
+        <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
     </VBox>
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.ID;
 
 /**
  * A generic list that enforces uniqueness between its elements and does not allow nulls. A
@@ -34,6 +36,25 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
+     * Returns true if the list contains an equivalent item as the given argument.
+     */
+    public boolean contains(ID toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(x -> x.getId().equals(toCheck));
+    }
+
+    /**
+     * Returns object if the ID matches.
+     */
+    public K get(ID toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream()
+                .filter(x -> x.getId().equals(toCheck))
+                .findFirst()
+                .get();
+    }
+
+    /**
      * Adds a course to the list. The course must not already exist in the list.
      */
     public void add(K toAdd) {
@@ -42,6 +63,14 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
             throw toAdd.getDuplicateException();
         }
         internalList.add(toAdd);
+    }
+
+    public void addAtIndex(K toAdd, Integer idx) {
+        requireAllNonNull(toAdd, idx);
+        if (contains(toAdd)) {
+            throw toAdd.getDuplicateException();
+        }
+        internalList.add(idx, toAdd);
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -16,14 +17,8 @@ import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
-import seedu.address.logic.commands.commandClear.ClearCourseCommand;
-import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
-import seedu.address.logic.commands.commandClear.ClearStudentCommand;
-import seedu.address.logic.commands.commandClear.ClearTeacherCommand;
-import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
-import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
-import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
-import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
+import seedu.address.logic.commands.commandClear.*;
+import seedu.address.logic.commands.commandDelete.*;
 import seedu.address.logic.commands.commandEdit.EditCourseCommand;
 import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
 import seedu.address.logic.commands.commandEdit.EditStudentCommand;
@@ -73,51 +68,6 @@ public class LogicManager implements Logic {
     command.setData(undoRedoStack);
     commandResult = command.execute(model);
     this.undoRedoStack.push(command);
-    if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand
-        || command instanceof ClearTeacherCommand || command instanceof EditTeacherCommand) {
-      try {
-        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand
-        || command instanceof ClearStudentCommand || command instanceof EditStudentCommand) {
-      try {
-        storage.saveStudentAddressBook(model.getStudentAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand
-        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
-      try {
-        storage.saveCourseAddressBook(model.getCourseAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddFinanceCommand || command instanceof DeleteFinanceCommand
-        || command instanceof ClearFinanceCommand || command instanceof EditFinanceCommand) {
-      try {
-        storage.saveFinanceAddressBook(model.getFinanceAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddAssignmentCommand) {
-      try {
-        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AssignCommandBase) {
-      try {
-        storage.saveTeacherAddressBook(model.getTeacherAddressBook());
-        storage.saveStudentAddressBook(model.getStudentAddressBook());
-        storage.saveCourseAddressBook(model.getCourseAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    }
-
-
 
     // Updates summary panel
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());

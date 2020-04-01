@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.AssignedCourses;
@@ -30,6 +32,13 @@ public class Student extends ModelObject {
   /**
    * Every field must be present and not null.
    */
+  public Student(Name name, Set<Tag> tags) throws ParseException {
+    requireAllNonNull(name, tags);
+    this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.tags.addAll(tags);
+  }
+
   public Student(Name name, ID id, Set<Tag> tags) {
     requireAllNonNull(name, id, tags);
     this.name = name;
@@ -51,8 +60,16 @@ public class Student extends ModelObject {
     return name;
   }
 
-  public ID getID() {
+  public ID getId() {
     return id;
+  }
+
+  public boolean containsCourse(ID courseID) {
+    if (this.assignedCoursesID.contains(courseID)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -124,7 +141,7 @@ public class Student extends ModelObject {
     Student otherStudentCast = (Student)otherStudent;
     return otherStudentCast != null
         && otherStudentCast.getName().equals(getName())
-        && otherStudentCast.getID().equals(getID());
+        && otherStudentCast.getId().equals(getId());
   }
 
   /**
@@ -143,7 +160,7 @@ public class Student extends ModelObject {
 
     Student otherStudent = (Student) other;
     return otherStudent.getName().equals(getName())
-        && otherStudent.getID().equals(getID())
+        && otherStudent.getId().equals(getId())
         && otherStudent.getTags().equals(getTags());
   }
 
@@ -158,7 +175,7 @@ public class Student extends ModelObject {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
         .append(" ID: ")
-        .append(getID())
+        .append(getId())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

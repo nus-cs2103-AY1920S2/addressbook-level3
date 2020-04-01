@@ -1,5 +1,7 @@
 package seedu.address.model.modelAssignment;
 
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
@@ -7,10 +9,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -23,17 +22,36 @@ public class Assignment extends ModelObject {
   // Identity fields
   private final String ENTITY_NAME = "assignment";
   private final Name name;
-  private final ID assignmentId;
+  private final ID id;
+  private ID assignedCourseID;
   private final Deadline deadline;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
    */
-  public Assignment(Name name, ID id, Deadline deadline, Set<Tag> tags) {
-    requireAllNonNull(name, id, deadline, tags);
+
+  public Assignment(Name name, Deadline deadline, Set<Tag> tags) throws ParseException {
+    requireAllNonNull(name, deadline, tags);
     this.name = name;
-    this.assignmentId = id;
+    this.id = UuidManager.assignNewUUID(this);
+    this.deadline = deadline;
+    this.tags.addAll(tags);
+  }
+
+  public Assignment(Name name, ID assignmentId, Deadline deadline, Set<Tag> tags) {
+    requireAllNonNull(name, assignmentId, deadline, tags);
+    this.name = name;
+    this.id = assignmentId;
+    this.deadline = deadline;
+    this.tags.addAll(tags);
+  }
+
+  public Assignment(Name name, ID assignmentId, ID courseID, Deadline deadline, Set<Tag> tags) {
+    requireAllNonNull(name, assignmentId, deadline, tags);
+    this.name = name;
+    this.id = assignmentId;
+    this.assignedCourseID = courseID;
     this.deadline = deadline;
     this.tags.addAll(tags);
   }
@@ -43,13 +61,28 @@ public class Assignment extends ModelObject {
   }
 
   public ID getId() {
-    return assignmentId;
+    return id;
   }
 
   public Deadline getDeadline() {
     return deadline;
   }
 
+  public void addCourseID(ID courseID) {
+    this.assignedCourseID = courseID;
+  }
+
+  public ID getAssignedCourseID() {
+    return this.assignedCourseID;
+  }
+
+  public boolean isAssignedToCourse() {
+    if (this.assignedCourseID == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
@@ -102,7 +135,7 @@ public class Assignment extends ModelObject {
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, assignmentId, deadline, tags);
+    return Objects.hash(name, id, deadline, tags);
   }
 
   @Override

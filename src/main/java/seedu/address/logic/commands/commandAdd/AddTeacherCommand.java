@@ -54,7 +54,7 @@ public class AddTeacherCommand extends AddCommand {
     toAdd = teacher;
   }
 
-  protected void generateOppositeCommand() {
+  protected void generateOppositeCommand() throws CommandException {
 
   }
 
@@ -62,11 +62,11 @@ public class AddTeacherCommand extends AddCommand {
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
-    if (model.hasTeacher(toAdd)) {
+    if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
-    model.addTeacher(toAdd);
+    model.add(toAdd);
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
