@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.CategoryAxis?>
-
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-  <VBox id="summary-tab" minHeight="300">
-    <Label id="saved-text" fx:id="savedText" />
-    <Label id="numerical-amount" fx:id="numericalAmount" />
-    <HBox>
-      <BarChart id="savings-chart" fx:id="savingsChart">
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox id="summary-tab" alignment="CENTER" minHeight="300" StackPane.alignment="CENTER">
+    <Label id="saved-text" fx:id="savedText" contentDisplay="CENTER" prefHeight="17.0" />
+    <Label id="numerical-amount" fx:id="numericalAmount" contentDisplay="CENTER" prefHeight="17.0" />
+    <HBox alignment="CENTER" prefHeight="338.0" prefWidth="643.0">
+      <BarChart id="savings-chart" fx:id="savingsChart" prefHeight="338.0" prefWidth="321.0">
         <xAxis>
           <CategoryAxis id="days-axis" fx:id="daysAxis" />
         </xAxis>
@@ -23,9 +21,9 @@
           <NumberAxis id="savings-axis" fx:id="savingsAxis" />
         </yAxis>
       </BarChart>
-      <VBox>
-        <Label id="saveables-text" fx:id="saveablesText" />
-        <VBox id="all-saveables"  fx:id="allSaveables" />
+      <VBox id="saveables-box" alignment="CENTER" prefHeight="338.0" prefWidth="301.0">
+        <Label id="saveables-text" fx:id="saveablesText" contentDisplay="CENTER" prefHeight="17.0" />
+        <VBox id="all-saveables" fx:id="allSaveables" alignment="CENTER" prefHeight="303.0" prefWidth="277.0" />
       </VBox>
     </HBox>
   </VBox>

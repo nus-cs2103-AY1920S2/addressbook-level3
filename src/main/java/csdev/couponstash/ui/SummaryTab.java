@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -54,9 +55,12 @@ public class SummaryTab extends UiPart<Region> {
 
     public void updateView() {
         // set the graph
+        XYChart.Series<String, Number> savingsPerWeek = new XYChart.Series<String, Number>();
+        savingsChart.getData().add(savingsPerWeek);
+        // sum up the total savings
 
         // set saveables
-        addToSaveables(allCoupons.get(0).getTotalSavings());
+
         // set the total amount
         this.numericalAmount.setText(this.moneySymbol.getString());
     }
@@ -65,7 +69,6 @@ public class SummaryTab extends UiPart<Region> {
         savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList.stream()
                 .forEach(sva -> {
                     Label label = new Label(sva.getValue());
-                    System.out.println(label);
                     allSaveables.getChildren().add(label);
                 }));
     }

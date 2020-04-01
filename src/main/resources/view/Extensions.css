@@ -133,8 +133,13 @@
   -fx-background-color: #46998F;
   -fx-background-radius: 10;
   -fx-background-insets: 4 8 5 8;
+  -fx-text-alignment: center;
+  -fx-effect: -fx-paneShadow;
 }
 
 #summary-tab #all-saveables {
   -fx-background-color: #75be86;
+  -fx-background-radius: 10;
+  -fx-effect: -fx-paneShadow;
+  -fx-text-fill: white;
 }
