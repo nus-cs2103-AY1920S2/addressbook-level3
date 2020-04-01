@@ -197,12 +197,15 @@ Examples:
 ** `shortcut s/l c/list` +
 Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
-=== Generating statistics: `statistics`
-Displays statistics of activities completed. +
+=== Generating statistics
+Displays statistics of all activities.
+
+Switch to statistics tab using the TAB key.
+
+
 Format: `statistics [tp/TIME_PERIOD] [m/MODULE_CODE]`
 
-** Displays statistics on activities completed.
-** By default, displays progression of all completed activities.
+Customising statistics parameters `[coming in v2.0]`
 ** Can add `TIME_PERIOD` of week, month and year to see activities specific to that time period.
 ** Can add `MODULE_CODE` to see activities specific to that module.
 
@@ -327,14 +330,15 @@ the data of your previous NASA folder.
 |===
 |Command|Syntax
 
-| *MAdd* |`add m/MODULE_CODE n/MODULE_NAME`
-| *TAdd* |`TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
-| *Clear* | `clear`
-| *Delete* | `delete m/MODULE_CODE INDEX`
-| *Edit* | `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITY_NAME]`
-| *Find* | `find KEYWORD [MORE_KEYWORDS]`
-| *List* | `list [m/MODULE_CODE...]`
-| *Help* | `help`
-| *Export* | `export`
-| *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
-| *Statistics* | `statistics [tp/TIME_PERIOD]`
+| *add* |`add m/MODULE_CODE n/MODULE_NAME`
+| *deadline/event/lesson* |`TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
+| *clear* | `clear`
+| *delete* | `delete m/MODULE_CODE INDEX`
+| *edit* | `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITY_NAME]`
+| *find* | `find KEYWORD [MORE_KEYWORDS]`
+| *list* | `list [m/MODULE_CODE...]`
+| *help* | `help`
+| *export* | `export`
+| *shortcut* | `shortcut s/SHORTCUT c/COMMAND`
+| *statistics* | `statistics [tp/TIME_PERIOD]`
+
