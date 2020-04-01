@@ -38,6 +38,8 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
+    private RecipeListPanel goalsListPanel;
+    private RecipeListPanel achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -55,6 +57,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane recipeListPanelPlaceholder;
+
+    @FXML
+    private StackPane goalsListPanelPlaceholder;
+
+    @FXML
+    private StackPane achievementsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,11 +131,17 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
         recipeListPanel = new RecipeListPanel(recipeList);
 
-        //using recipe list as stub for planning list, to be editted later todo
         ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
-        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel);
+        //using recipe list as stub for goalslist and achievements, to be edited later todo
+        ObservableList<Recipe> goalsList = logic.getFilteredRecipeList();
+        goalsListPanel = new RecipeListPanel(goalsList);
+
+        ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
+        achievementsListPanel = new RecipeListPanel(achievementsList);
+
+        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, goalsListPanel, achievementsListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -196,6 +210,12 @@ public class MainWindow extends UiPart<Stage> {
         case PLANNING:
             showPlanningTab();
             break;
+        case GOALS:
+            showGoalsTab();
+            break;
+        case ACHIEVEMENT:
+            showAchievementsTab();
+            break;
         default:
             break;
         }
@@ -245,5 +265,19 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showPlanningTab() {
         mainTabPanel.switchToPlanningTab();
+    }
+
+    /**
+     * Switch to goals tab.
+     */
+    private void showGoalsTab() {
+        mainTabPanel.switchToGoalsTab();
+    }
+
+    /**
+     * Switch to achievements tab.
+     */
+    private void showAchievementsTab() {
+        mainTabPanel.switchToAchievementsTab();
     }
 }
