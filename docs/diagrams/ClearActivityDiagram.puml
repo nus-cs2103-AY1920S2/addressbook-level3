@@ -1,0 +1,50 @@
+@startuml
+
+start
+:User enter clear command;
+if () then ([Arguments are empty])
+    :set Flags as null;
+else ([else])
+    :Retrieve flags from arguments;
+endif
+:Create a new Clear Command based on flags;
+:Logic Manager executes the command;
+
+if () then (([flags contains '-f' flag])
+    if () then ([flags also contains '-o' flag])
+    :Clear the order book in Model;
+    else ([else])
+        if() then ([flags also contain '-r' flag])
+        :Clear the return order book in Model;
+        else ([flags only contains 'f' flag])
+        :Clear both order book and
+         return order book in Model;
+        endif
+    endif
+    :Return back CommandResult with the success message to user;
+
+else ([else])
+    if() then([flags do not contains 'f' flag])
+        if () then ([flags contains '-o' flag])
+            :Return back CommandResult
+            with the confirmation message
+             to clear order book to user;
+        else ([flags contains 'r' flag])
+            :Return back CommandResult
+            with the confirmation message
+             to clear return order book to user;
+        endif
+    else ([flags equal to null])
+    :Return back CommandResult
+    with the confirmation message
+     to clear both order book
+     and return order book to user;
+    endif
+    :Pop up appears with the confirmation message;
+    if () then ([User press yes button])
+        :Clear the respective order book based on the command;
+    else ([User press no button])
+    endif
+endif
+stop
+@enduml

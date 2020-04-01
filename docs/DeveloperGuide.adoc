@@ -259,45 +259,64 @@ everything from the order book and return book. When completed, the execute(mode
 to the `LogicManager`, indicating that the command execution is a success.
 
 === Clear feature
-The clear feature allows the user to remove the orders and return orders by input one command line.
+In this section, the <<what-is-clear, functionality>> of the `import` feature, the expected <<clear-execution-path, execution path>>,
+the <<clear-structure, structure>> of the `ClearCommand` class and the <<clear-interaction, interactions>>
+between objects with the `ClearCommand` object will be discussed.
 
-The clear feature was implemented as a `ClearCommand` in the `Logic` package. +
+[[what-is-clear]]
+==== What is the Clear feature
+The `clear` feature was implemented as a `ClearCommand` in the `logic` package. +
+The `clear` feature allows the user to remove the orders and return orders by input one command line. +
 
-==== Class Diagram for Clear feature
-.Clear Class Diagram
+[[clear-execution-path]]
+==== Execution paths of Clear Command
+The execution path of the `ClearCommand` is shown below: +
+
+.Clear Class Activity Diagram
+image::ClearActivityDiagram.svg[]
+
+After user enter the `clear` command, the `ClearCommandParser` will check if the arguments are empty, if yes,
+it will set the flags as null, otherwise it will retrieve the flags from the arguments. Afterward, the `ClearCommandParser`
+will create and return a new `ClearCommand` object to the `LogicManager`, which will execute the `ClearCommand`.
+During the execution of the `ClearCommand`, if `-f` flag is found in flags, the respective order book will be cleared and
+display a success message to the user, otherwise, a pop up will appeared with the confirmation message. Upon pressing
+the 'Yes' button, the respective order book will be cleared.
+
+[[clear-structure]]
+==== Structure of Clear Command
+The following diagram shows the overview of the `ClearCommand` Class Diagram: +
+
+.Clear Command Class Diagram
 image::ClearClassDiagram.svg[]
 
-==== Sequence Diagram for clearing both order book and return order book
-The sequence diagram for the *Clear Command* is shown below: +
+[[clear-interaction]]
+==== Interactions between objects when Clear Command is executed
+In this section, the interactions between objects when `ClearCommand` is executed will be display in the Clear Command
+Sequence Diagram below: +
 
 .Clear Command Sequence Diagram
 image::ClearCommandSequenceDiagram.svg[]
 
 The arguments passed to the Clear Command will be parsed by the `ClearCommandParser` class +
-If the given arguments are valid, a new `ClearCommand` object will be returned.
+If the given arguments are valid, a new `Clear` Command object will be returned.
 
 In the `ClearCommandParser`, there will be two validation checks: +
-1. The flag is one of the three flags: `-f`, `-o` and `-r`. +
-2. The arguments do not have both `-o` and `-r` flags.
+1. `isValidFlag(flag)`: Check whether the flag is one of the three flags: `-f`, `-o` and `-r` +
+2. `isInvalidFlagFormat(flag, flags)`: Ensure the arguments do not have both `-o` and `-r` flags.
 
-After the `ClearCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
-to run the execute the clear Command, this is will be shown diagram below.
-
-==== Execution of Clear Command Sequence Diagram
+Afterwards, a new `ClearCommand` object will be created by `ClearCommandParser` and it is being returned
+to the `LogicManager`. The `LogicManager` will start to run the execute the `clear` Command, which will be
+shown in details in below diagram:
 
 .Execution of Clear Command Sequence Diagram
 image::ClearCommandSequenceDiagram2.svg[]
 
-The `execute(model)` function of the `ClearCommand` will have the 6 following sequences: +
-1. `-o` flag and `-f` flag found in flags: Pass a new `OrderBook` to `model`. +
-2. `-r` flag and `-f` flag found in flags: Pass a new `ReturnOrderBook` to `model`. +
-3. Only `-f` flag found in flags: Pass a new `ReturnOrderBook` and a new `OrderBook` to `model`. +
-4. Only `-o` flag found in flags: Pass the confirmation message for clearing the `OrderBook` to `CommandResult`. +
-5. Only `-r` flag found in flags: Pass the confirmation message for clearing the `ReturnOrderBook` to `CommandResult`. +
-6. No flag found in flags: Pass the confirmation message for clearing both `OrderBook` and `ReturnOrderBook` to `CommandResult`. +
+After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by creating a
+new `OrderBook` object and pass it to `Model#setOrerBook(orderBook)`, whereby the `Model` will then update its own
+orderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
+in it back to the `LogicManager`.
 
 After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
-
 
 === Delete feature
 The delete feature allows the user to delete orders in either the order list or return order list.
@@ -438,24 +457,45 @@ A new `CommandResult` will be created and returned to the `LogicManager`.
 
 [[import]]
 === Import feature
-The import feature allows users to save the trouble of adding the delivery orders and the return orders one by one
+In this section, the <<what-is-import, functionality>> of the `import` feature, the expected <<import-execution-path, execution path>>, the <<import-structure, structure>> of the
+`ImportCommand` class and the <<import-interaction, interactions>> between objects with the `ImportCommand` object will be discussed.
+
+[[what-is-import]]
+==== What is the Import feature
+The `import` feature was implemented as the `ImportCommand` in the `logic` package. +
+The `import` feature allows users to save the trouble of adding the delivery orders and the return orders one by one
 when they have large amount of delivery orders or return orders to add into Delino.
 
-The import feature was implemented as a `ImportCommand` in the `Logic` package.
+[[import-execution-path]]
+==== Execution paths of Import Command
+The execution path of the `ImportCommand` is shown below: +
 
-==== Class Diagram for Import feature:
+.Import Command Activity Diagram
+image::ImportActivityDiagram.svg[]
+
+After the user enter the `import` command, the filePath will be checked if it is valid. If yes, display the error
+message to the user, otherwise, check if the file is able to read. If the file is unable to read, display the error
+message to the user, otherwise, data will be retrieve from the `CSV file` and being processed. A new `ImportCommand` will
+be created and pass to `Logic Manager`, whereby it will executes the command. For every data inside the list,
+add order or return order based on the `orderType` value. Finally, display the `import` result to the user after
+finished processing the data.
+
+[[import-structure]]
+==== Structure of Import Command
+The following diagram shows the overview structure of the `ImportCommand` Class Diagram: +
 
 .Import Command Class Diagram
 image::ImportClassDiagram.svg[]
 
-==== Sequence Diagram for importing the csv file.
-The sequence diagram for the *Import Command* when import the data from the  *csv file*
-is shown below:
+[[import-interaction]]
+==== Interactions between objects when Import Command is executed
+In this section, the interactions between the objects when `ImportCommand` is executed will be shown in the Import Command
+Sequence Diagram below: +
 
 .Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram.svg[]
 
-The arguments passed to the Import Command will be parsed by the `ImportCommandParser` class. +
+The arguments passed to the `import` Command will be parsed by the `ImportCommandParser` class. +
 If the given arguments are valid, a new `ImportCommand` object will be returned.
 In this class, invalid arguments will result in a `ParseException`. +
 
@@ -471,23 +511,21 @@ giving to `ImportCommand`.
 ====
 
 After the `ImportCommand` object is being returned to the `LogicManager`, the `LogicManager` will start
-to run the execute the `ImportCommand`, this is will be shown at the diagram below.
-
-==== Execution of Import Command Sequence Diagram
+to run the execute the `ImportCommand`, this will be shown at the diagram below.
 
 .Execution of Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram2.svg[]
 
-The `execute(model)` function of the `ImportCommand` will first check if the data given starts with
+The `ImportCommand#execute(model)` will first check if the data given starts with
 *order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
 
-Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return the `InsertCommand` or `ReturnCommand` respective
-if it successfully parse the data. The `ImportCommand` will then call the `execute(Model)` function of `InsertCommand`
-or `ReturnCommand`. This will cause a delivery order or return order being added into the `Model`.
+Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return the `InsertCommand` or `ReturnCommand` respectively
+if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute(Model)`
+or `ReturnCommand#execute(Model)` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
 
 The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
 which is then pass back to the `LogicManager`.
-**
+
 [[search]]
 === Search feature
 The search function allow users to search for any orders according to the provided input. +
