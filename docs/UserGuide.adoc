@@ -133,6 +133,9 @@ Format: `deletec INDEX`
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+[WARNING]
+Deletes transactions that are associated with this particular customer as well.
+
 Examples:
 
 * `listc` +
@@ -148,7 +151,8 @@ Clears all entries from the customer list. +
 Format: `clearc`
 
 [WARNING]
-Permanently deletes all the stored customer data in the application.
+Permanently deletes all the stored customer data in the application. +
+Deletes all transactions as well.
 
 === Adding a product: `addp`
 
@@ -245,7 +249,8 @@ Clears all entries from the product list. +
 Format: `clearp`
 
 [WARNING]
-Permanently deletes all the stored product data in the application.
+Permanently deletes all the stored product data in the application. +
+Deletes all transactions as well.
 
 === Adding a transaction : `addt`
 
@@ -416,7 +421,7 @@ image::PopupNotification.png[align="center"]
 [NOTE]
 This is a passive feature.
 
-=== Predicting the sales for the next month : `predict`.
+=== Predicting the sales for the next month : `predict`
 
 Predict sales for the next month based on sales in the previous three months +
 Format: `predict`

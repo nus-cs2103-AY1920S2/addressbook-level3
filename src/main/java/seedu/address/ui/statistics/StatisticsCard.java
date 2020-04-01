@@ -5,7 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.ui.UiPart;
+
+import java.util.List;
 
 /**
  * An UI component that displays information of a {@code Product}.
@@ -41,7 +44,7 @@ public class StatisticsCard extends UiPart<Region> {
     @FXML
     private Label profit;
 
-    public StatisticsCard(Product product, int displayedIndex) {
+    public StatisticsCard(Product product, int displayedIndex, List<Transaction> transactions) {
         super(FXML);
         this.product = product;
         id.setText(displayedIndex + ". ");
@@ -50,7 +53,7 @@ public class StatisticsCard extends UiPart<Region> {
         price.setText("$" + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantitySold()));
         sales.setText("$" + product.getMoney().value);
-        profit.setText("$" + product.getProfit());
+        profit.setText("$" + product.getProfit(transactions));
     }
 
     @Override

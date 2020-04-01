@@ -1,5 +1,7 @@
 package seedu.address.ui.statistics;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -9,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.ui.UiPart;
 
 /**
@@ -17,12 +20,14 @@ import seedu.address.ui.UiPart;
 public class StatisticsListPanel extends UiPart<Region> {
     private static final String FXML = "StatisticsListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(StatisticsListPanel.class);
+    private static List<Transaction> transactions = new ArrayList<>();
 
     @FXML
     private ListView<Product> statisticsListView;
 
-    public StatisticsListPanel(ObservableList<Product> productList) {
+    public StatisticsListPanel(ObservableList<Product> productList, List<Transaction> transactions) {
         super(FXML);
+        this.transactions = transactions;
         statisticsListView.setItems(productList);
         statisticsListView.setCellFactory(listView -> new StatisticsListViewCell());
     }
@@ -39,7 +44,7 @@ public class StatisticsListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new StatisticsCard(product, getIndex() + 1).getRoot());
+                setGraphic(new StatisticsCard(product, getIndex() + 1, transactions).getRoot());
             }
         }
     }
