@@ -34,21 +34,28 @@
                 <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
               </Menu>
             </MenuBar>
-            <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
           <VBox>
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-without-border"
+            <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" styleClass="commandBox-pane"
                        minWidth="180">
               <padding>
-                <Insets top="5" right="10" bottom="5" left="10" />
+                <Insets top="10" right="20" bottom="1" left="20" />
               </padding>
             </StackPane>
-            <StackPane VBox.vgrow="ALWAYS" fx:id="blockContentPlaceholder"/>
+
+            <StackPane VBox.vgrow="ALWAYS" styleClass="note-block-pane">
+              <StackPane fx:id="blockContentPlaceholder" VBox.vgrow="ALWAYS" focusTraversable="true" />
+              <VBox fx:id="suggestionsWindow" StackPane.alignment="TOP_CENTER" VBox.vgrow="NEVER" />
+              <padding>
+                <Insets top="1" right="20" bottom="5" left="20" />
+              </padding>
+            </StackPane>
           </VBox>
         </SplitPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>
