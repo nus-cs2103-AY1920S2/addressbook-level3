@@ -21,13 +21,33 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
     private final EditDistanceCalculator editDistanceCalculator;
     private final Model model;
     private final int distanceThreshold;
+    private final boolean forwardMatch;
 
-    public AbsolutePathCorrectionEngine(Model model, int distanceThreshold) {
-        this(new LevenshteinDistanceCalculator(false), model, distanceThreshold);
+    /**
+     * Creates an {@link AbsolutePathCorrectionEngine}.
+     *
+     * @param model App's model
+     * @param distanceThreshold Edit distance threshold between paths
+     * @param forwardMatch Whether or not to do forward matching. Forward matching refers to the idea
+     * that two paths will be regarded similar if one is an incomplete representation of another.
+     * For example, "/path/to/no" will forward match with "/path/to/note".
+     */
+    public AbsolutePathCorrectionEngine(Model model, int distanceThreshold, boolean forwardMatch) {
+        this(new LevenshteinDistanceCalculator(false), model, distanceThreshold, forwardMatch);
     }
 
+    /**
+     * Creates an {@link AbsolutePathCorrectionEngine}.
+     *
+     * @param editDistanceCalculator Edit distance calculator instance
+     * @param model App's model
+     * @param distanceThreshold Edit distance threshold between paths
+     * @param forwardMatch Whether or not to do forward matching. Forward matching refers to the idea
+     * that two paths will be regarded similar if one is an incomplete representation of another.
+     * For example, "/path/to/no" will forward match with "/path/to/note".
+     */
     public AbsolutePathCorrectionEngine(EditDistanceCalculator editDistanceCalculator,
-            Model model, int distanceThreshold) {
+            Model model, int distanceThreshold, boolean forwardMatch) {
         Objects.requireNonNull(editDistanceCalculator);
         Objects.requireNonNull(model);
 
@@ -38,6 +58,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         this.editDistanceCalculator = editDistanceCalculator;
         this.model = model;
         this.distanceThreshold = distanceThreshold;
+        this.forwardMatch = forwardMatch;
     }
 
     /**
@@ -118,10 +139,22 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         List<String> firstComponents = firstPath.getComponents();
         List<String> secondComponents = secondPath.getComponents();
 
-        // Calculate the cumulative distance between the two paths component-by-component.
+        // Calculate the cumulative distance between the two paths component-by-component
         int i = 0;
         int distance = 0;
         while (i < firstComponents.size() && i < secondComponents.size()) {
+            // Check for possible forward matching
+            if (forwardMatch && i == firstComponents.size() - 1
+                    && secondComponents.get(i).startsWith(firstComponents.get(i))) {
+                i++;
+                continue;
+            }
+            if (forwardMatch && i == secondComponents.size() - 1
+                    && firstComponents.get(i).startsWith(secondComponents.get(i))) {
+                i++;
+                continue;
+            }
+
             distance += editDistanceCalculator.calculateDistance(firstComponents.get(i), secondComponents.get(i));
             i++;
         }

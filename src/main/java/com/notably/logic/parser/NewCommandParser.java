@@ -21,7 +21,7 @@ import com.notably.model.block.Title;
 /**
  * Represents a Parser for New Command.
  */
-public class NewCommandParser implements CommandParser {
+public class NewCommandParser implements CommandParser<Command> {
     private Model notablyModel;
 
     public NewCommandParser(Model notablyModel) {
