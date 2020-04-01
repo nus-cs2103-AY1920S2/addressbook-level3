@@ -776,26 +776,30 @@ You can use this command to add a new session.
 The new session will be shown in the Session View, and will automatically
 be marked as un-done.
 
+The tab that you are viewing will automatically be switched to the session
+tab as well, if you were currently on a different tab.
+
 Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
 
 
 [TIP]
 ====
-. If you want to create a session at the current point in time, you can leave the start time
-`s/START`, end time `e/END` and date `d/DATE` out. This will create a session which has both
-the start time and the end time set to the current time (the time you entered the command into
-TA-Tracker).
+. If you want to create a session at the current point in time, you can omit the start time
+`s/START`, end time `e/END` and date `d/DATE`.
 
-. A session of current date and time will be automatically generated.
+. A session which has both the start time and the end time set to the current time (the time you entered the command into
+TA-Tracker). will be automatically generated.
 
-. Once the session has ended, you can come back and change the end time and add other
+. Additionally, the date of the session will automatically set to be today's date.
+
+. Once the session has ended, you can come back and edit the end time. You can also add other
 details by using the edit session command (details given below.)
 ====
 
 [NOTE]
 ====
 [horizontal]
-`NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
+`NOTES`:: notes for this session (eg: weekly tutorials, prep sessions, consultation with John Doe)
 ====
 
 ====
@@ -805,15 +809,19 @@ Examples:
 +
 This command adds a consultation session on 19 Feb 2020,
 from 2pm to 4pm,
-with Alice and Bob.
+containing a note "with Alice and Bob".
 
 ====
 ==== Deleting a Session `session delete`
 
-You can use this command to delete a session. The deleted session will be removed from
-the Session View.
+You can use this command to delete a session.
+
+The tab that you are viewing will automatically be switched to the session
+tab as well, if you were currently on a different tab.
 
 Format: `session delete INDEX`
+
+Deletes the session with the given unique index from TA-Tracker.
 
 ====
 [horizontal]
@@ -829,17 +837,47 @@ This command deletes the third session in the Session View.
 ====
 
 ==== Editing a Session `session edit`
-TODO - ADD DETAILS
+You can use this command to edit a session in the TA-Tracker.
+
+The tab that you are viewing will automatically be switched to the session
+tab as well, if you were currently on a different tab.
+
+Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
+[m/MODULE] [t/SESSION_TYPE] [n/NOTES]​`
+
+[NOTE]
+====
+[horizontal]
+
+* You must edit the session with at least one of the optional fields.
+====
+====
+Examples:
+
+* `edit 1 s/14:00 e/16:00 d/19-02-2020 m/CS3243 t/grading n/Location: PLAB 04`
++
+Edits the session at index 1 to have:
+
+** The new start time at 14:00
+** The new end time at 16:00
+** The new date on 19-02-2020
+** The new module code CS3243
+** The new type grading
+** The new note "Location: PLAB04"
+====
 
 ==== Marking a Session as Done `session done`
 
-You can use this command to labels a session as done.
+You can use this command to mark a session as done.
 
-The session will automatically appear as a new claim in the TSS view.
+The session will automatically appear as a new claim in the Claims view.
+
+The tab that you are viewing will automatically be switched to the claims
+tab as well, if you were currently on a different tab.
 
 Format: `session done INDEX`
 
-Marks the session with the given unique session identifier as done.
+Marks the session with the given unique index as done.
 
 ====
 Examples:
@@ -850,20 +888,22 @@ This will mark the 25th session in the Session View as done.
 
 ==== Filter `filter`
 
-You can use this command to filter the sessions by certain keywords in the Session View.
+You can use this command to filter the sessions in the Session View.
 
-You should be specific when filtering sessions. You can filter the sessions by the following
+You should be specific when filtering sessions. You can filter the sessions by using the following
 keywords:
 
-* Module code - filtering by module code will show you only the sessions affiliated
+* `MOD_CODE` - filtering by module code will show you only the sessions affiliated
 with that module.
 
-* Session type - filtering by session type will show you only the sessions of that session
-type.
+* `SESSION_TYPE` - filtering by session type will show you only the sessions with the specified type
 
-* Date - filtering by a date will show you only the sessions on that date.
+* `DATE` - filtering by a date will show you only the sessions on that date.
 
 The keyword is case-insensitive.
+
+The tab that you are viewing will automatically be switched to the session
+tab as well, if you were currently on a different tab.
 
 Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 
@@ -962,8 +1002,8 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 ==== Session commands
 * *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
 * *Delete Session:* `session delete INDEX`
-* *Edit Session:*
-* *Mark as Done:*
+* *Edit Session:* `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR] [m/MODULE] [t/SESSION_TYPE] [n/NOTES]`
+* *Mark as Done:* `session done INDEX`
 
 ==== Others
 * *Filter:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
