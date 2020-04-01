@@ -148,6 +148,7 @@ public class SampleDataUtil {
      * Randomise the groupings and students.
      * @return module 1, group 1 containing students from {@code module1Group1Students};
      */
+    /*
     public static TaTracker module1Group1() {
         TaTracker sampleAb = new TaTracker();
         sampleAb.addModule(getSampleModules()[0]);
@@ -157,11 +158,13 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
+     */
 
     /**
      * Randomise the groupings and students.
      * @return module 1, group 2 containing students from {@code module1Group2Students};
      */
+    /*
     public static TaTracker module1Group2() {
         TaTracker sampleAb = new TaTracker();
         sampleAb.addModule(getSampleModules()[0]);
@@ -171,11 +174,13 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
+     */
 
     /**
      * Randomise the groupings and students.
      * @return module 2, group 1 containing students from {@code module2Group1Students};
      */
+    /*
     public static TaTracker module2Group1() {
         TaTracker sampleAb = new TaTracker();
         sampleAb.addModule(getSampleModules()[1]);
@@ -185,11 +190,13 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
+     */
 
     /**
      * Randomise the groupings and students.
      * @return module 2, group 2 containing students from {@code module2Group2Students};
      */
+    /*
     public static TaTracker module2Group2() {
         TaTracker sampleAb = new TaTracker();
         sampleAb.addModule(getSampleModules()[1]);
@@ -199,6 +206,7 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
+     */
 
 
     /**
@@ -210,21 +218,25 @@ public class SampleDataUtil {
         sampleAb.addModule(getSampleModules()[0]);
         sampleAb.addGroup(getSampleGroups()[0], getSampleModules()[0]);
         for (int i = 0; i < module1Group1Students().length; i++) {
-            sampleAb.addStudent(module1Group1Students()[i], getSampleGroups()[0], getSampleModules()[0]);
+            sampleAb.addStudent(module1Group1Students()[i],
+                    getSampleGroups()[0].toString(), getSampleModules()[0].toString());
         }
         sampleAb.addGroup(getSampleGroups()[1], getSampleModules()[0]);
         for (int i = 0; i < module1Group2Students().length; i++) {
-            sampleAb.addStudent(module1Group2Students()[i], getSampleGroups()[1], getSampleModules()[0]);
+            sampleAb.addStudent(module1Group2Students()[i],
+                    getSampleGroups()[1].toString(), getSampleModules()[0].toString());
         }
 
         sampleAb.addModule(getSampleModules()[1]);
         sampleAb.addGroup(getSampleGroups()[3], getSampleModules()[1]);
         for (int i = 0; i < module2Group2Students().length; i++) {
-            sampleAb.addStudent(module2Group2Students()[i], getSampleGroups()[3], getSampleModules()[1]);
+            sampleAb.addStudent(module2Group2Students()[i],
+                    getSampleGroups()[3].toString(), getSampleModules()[1].toString());
         }
         sampleAb.addGroup(getSampleGroups()[2], getSampleModules()[1]);
         for (int i = 0; i < module2Group1Students().length; i++) {
-            sampleAb.addStudent(module2Group1Students()[i], getSampleGroups()[2], getSampleModules()[1]);
+            sampleAb.addStudent(module2Group1Students()[i],
+                    getSampleGroups()[2].toString(), getSampleModules()[1].toString());
         }
         return sampleAb;
     }
