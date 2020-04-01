@@ -62,7 +62,6 @@ public class AddTeacherCommandParser extends AddCommandParser {
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID id = ParserUtil.parseID(argMultimap.getValue(PREFIX_TEACHERID).get());
 
     Phone phone = new Phone("Unknown");
     Email email = new Email("Unknown");
@@ -90,7 +89,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
     */
 
-    Teacher teacher = new Teacher(name, id, phone, email, salary, address, tagList);
+    Teacher teacher = new Teacher(name, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);
   }

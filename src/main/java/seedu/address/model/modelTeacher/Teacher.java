@@ -1,15 +1,18 @@
 package seedu.address.model.modelTeacher;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +28,16 @@ public class Teacher extends Person {
   /**
    * Every field must be present and not null.
    */
+
+  public Teacher(Name name, Phone phone, Email email, Salary salary, Address address,
+      Set<Tag> tags) {
+    super(name, phone, email, address, tags);
+    this.assignedCoursesWithNames = "None";
+    this.id = new ID("");
+    this.salary = salary;
+    this.tags.addAll(tags);
+  }
+
   public Teacher(Name name, ID id, Phone phone, Email email, Salary salary, Address address,
       Set<Tag> tags) {
     super(name, phone, email, address, tags);
