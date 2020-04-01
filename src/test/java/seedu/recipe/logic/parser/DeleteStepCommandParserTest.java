@@ -19,11 +19,11 @@ import seedu.recipe.logic.commands.DeleteStepCommand;
 public class DeleteStepCommandParserTest {
 
     private DeleteStepCommandParser parser = new DeleteStepCommandParser();
-    private Integer[] VALID_STEP_INDEX = new Integer[] {1};
+    private final Integer[] validStepIndex = new Integer[] {1};
 
     @Test
     public void parse_validArgs_returnsDeleteStepCommand() {
-        assertParseSuccess(parser, "2 2", new DeleteStepCommand(INDEX_SECOND_RECIPE, VALID_STEP_INDEX));
+        assertParseSuccess(parser, "2 2", new DeleteStepCommand(INDEX_SECOND_RECIPE, validStepIndex));
     }
 
     @Test

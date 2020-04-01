@@ -27,13 +27,13 @@ import seedu.recipe.testutil.RecipeBuilder;
 public class DeleteStepCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
-    private final Integer[] INDEX_SECOND_STEP = new Integer[] {1}; // Index of steps is zero-based (implemented as such)
-    private final Integer[] INDEX_OUT_OF_BOUNDS_STEP = new Integer[] {Integer.MAX_VALUE};
+    private final Integer[] indexSecondStep = new Integer[] {1}; // Steps are zero-indexed by design
+    private final Integer[] indexOutOfBoundsStep = new Integer[] {Integer.MAX_VALUE};
 
     @Test
     public void execute_validRecipeAndStepIndexUnfilteredList_success() {
         Recipe recipeToDeleteSteps = model.getFilteredRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_SECOND_RECIPE, INDEX_SECOND_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_SECOND_RECIPE, indexSecondStep);
 
         String expectedMessageTemplate = DeleteStepCommand.MESSAGE_DELETE_STEPS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
@@ -53,14 +53,14 @@ public class DeleteStepCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, INDEX_SECOND_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, indexSecondStep);
 
         assertCommandFailure(deleteStepCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_invalidStepIndexUnfilteredList_throwsCommandException() {
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, INDEX_OUT_OF_BOUNDS_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexOutOfBoundsStep);
 
         assertCommandFailure(deleteStepCommand, model, DeleteStepCommand.MESSAGE_INVALID_STEP_INDEX);
     }
@@ -68,7 +68,7 @@ public class DeleteStepCommandTest {
     @Test
     public void execute_invalidIndexAndStepIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, INDEX_OUT_OF_BOUNDS_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, indexOutOfBoundsStep);
 
         // The error for RECIPE index out of bounds should be thrown first even though STEP index is also out of bounds
         assertCommandFailure(deleteStepCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -79,7 +79,7 @@ public class DeleteStepCommandTest {
         showRecipeAtIndex(model, INDEX_SECOND_RECIPE);
 
         Recipe recipeToDeleteSteps = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, INDEX_SECOND_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexSecondStep);
 
         String expectedMessageTemplate = DeleteStepCommand.MESSAGE_DELETE_STEPS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
@@ -104,7 +104,7 @@ public class DeleteStepCommandTest {
         // Ensures that outOfBoundIndex is still in bounds of recipe book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, INDEX_SECOND_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, indexSecondStep);
 
         assertCommandFailure(deleteStepCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
@@ -113,7 +113,7 @@ public class DeleteStepCommandTest {
     public void execute_invalidStepIndexFilteredList_throwsCommandException() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
 
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, INDEX_OUT_OF_BOUNDS_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexOutOfBoundsStep);
 
         assertCommandFailure(deleteStepCommand, model, DeleteStepCommand.MESSAGE_INVALID_STEP_INDEX);
     }
@@ -126,7 +126,7 @@ public class DeleteStepCommandTest {
         // Ensures that outOfBoundIndex is still in bounds of recipe book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
-        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, INDEX_OUT_OF_BOUNDS_STEP);
+        DeleteStepCommand deleteStepCommand = new DeleteStepCommand(outOfBoundIndex, indexOutOfBoundsStep);
 
         // The error for RECIPE index out of bounds should be thrown first even though STEP index is also out of bounds
         assertCommandFailure(deleteStepCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -134,14 +134,14 @@ public class DeleteStepCommandTest {
 
     @Test
     public void equals() {
-        DeleteStepCommand deleteStepFirstCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, INDEX_SECOND_STEP);
-        DeleteStepCommand deleteStepSecondCommand = new DeleteStepCommand(INDEX_SECOND_RECIPE, INDEX_SECOND_STEP);
+        DeleteStepCommand deleteStepFirstCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexSecondStep);
+        DeleteStepCommand deleteStepSecondCommand = new DeleteStepCommand(INDEX_SECOND_RECIPE, indexSecondStep);
 
         // same object -> returns true
         assertTrue(deleteStepFirstCommand.equals(deleteStepFirstCommand));
 
         // same values -> returns true
-        DeleteStepCommand deleteStepFirstCommandCopy = new DeleteStepCommand(INDEX_FIRST_RECIPE, INDEX_SECOND_STEP);
+        DeleteStepCommand deleteStepFirstCommandCopy = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexSecondStep);
         assertTrue(deleteStepFirstCommand.equals(deleteStepFirstCommandCopy));
 
         // different types -> returns false

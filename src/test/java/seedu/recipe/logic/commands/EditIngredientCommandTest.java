@@ -23,6 +23,7 @@ import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.testutil.RecipeBuilder;
@@ -154,19 +155,29 @@ public class EditIngredientCommandTest {
 
     @Test
     public void equals() {
+        // Create first EditRecipeDescriptors with a changed "other" ingredient
         Set<Other> editedOther = new TreeSet<>();
         editedOther.add(otherWithNewQuantity);
-
         EditRecipeDescriptor firstEditRecipeDescriptor = new EditRecipeDescriptor();
-        EditRecipeDescriptor secondEditRecipeDescriptor = new EditRecipeDescriptor();
-
         firstEditRecipeDescriptor.setOthers(editedOther);
-        secondEditRecipeDescriptor.setOthers(editedOther);
 
+        // Create two EditIngredientCommands with the same EditRecipeDescriptors but different target recipes
         EditIngredientCommand editIngredientFirstCommand = new EditIngredientCommand(
                 INDEX_SECOND_RECIPE, firstEditRecipeDescriptor);
         EditIngredientCommand editIngredientSecondCommand = new EditIngredientCommand(
-                INDEX_THIRD_RECIPE, secondEditRecipeDescriptor);
+                INDEX_THIRD_RECIPE, firstEditRecipeDescriptor);
+
+        // Create second EditRecipeDescriptor with a changed grain ingredient
+        Grain grainWithNewQuantity = new Grain("Bread", RecipeBuilder.DEFAULT_QUANTITY);
+        Set<Grain> editedGrain = new TreeSet<>();
+        editedGrain.add(grainWithNewQuantity);
+        EditRecipeDescriptor secondEditRecipeDescriptor = new EditRecipeDescriptor();
+        secondEditRecipeDescriptor.setGrains(editedGrain);
+
+        // Create a third EditIngredientCommand with the new and different EditRecipeDescriptor,
+        // but with the same target recipe as editIngredientFirstCommand
+        EditIngredientCommand editIngredientThirdCommand = new EditIngredientCommand(
+                INDEX_SECOND_RECIPE, secondEditRecipeDescriptor);
 
         // same object -> returns true
         assertTrue(editIngredientFirstCommand.equals(editIngredientFirstCommand));
@@ -184,5 +195,8 @@ public class EditIngredientCommandTest {
 
         // different recipe -> returns false
         assertFalse(editIngredientFirstCommand.equals(editIngredientSecondCommand));
+
+        // different EditRecipeDescriptor -> returns false
+        assertFalse(editIngredientFirstCommand.equals(editIngredientThirdCommand));
     }
 }

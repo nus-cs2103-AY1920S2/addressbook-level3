@@ -31,16 +31,16 @@ import seedu.recipe.testutil.RecipeBuilder;
 public class AddStepCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
-    private final Step FIRST_NEW_STEP = new Step("New step 1");
-    private final Step SECOND_NEW_STEP = new Step("New step 2");
+    private final Step firstNewStep = new Step("New step 1");
+    private final Step secondNewStep = new Step("New step 2");
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Recipe recipeToAddSteps = model.getFilteredRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
 
-        List<Step> stepsToAdd= new ArrayList<>();
-        stepsToAdd.add(FIRST_NEW_STEP);
-        stepsToAdd.add(SECOND_NEW_STEP);
+        List<Step> stepsToAdd = new ArrayList<>();
+        stepsToAdd.add(firstNewStep);
+        stepsToAdd.add(secondNewStep);
         AddStepCommand addStepCommand = new AddStepCommand(INDEX_SECOND_RECIPE, stepsToAdd);
 
         String expectedMessageTemplate = "Successfully added step(s) to %1$s!";
@@ -61,9 +61,9 @@ public class AddStepCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        List<Step> stepsToAdd= new ArrayList<>();
-        stepsToAdd.add(FIRST_NEW_STEP);
-        stepsToAdd.add(SECOND_NEW_STEP);
+        List<Step> stepsToAdd = new ArrayList<>();
+        stepsToAdd.add(firstNewStep);
+        stepsToAdd.add(secondNewStep);
         AddStepCommand addStepCommand = new AddStepCommand(outOfBoundIndex, stepsToAdd);
 
         assertCommandFailure(addStepCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -75,9 +75,9 @@ public class AddStepCommandTest {
 
         Recipe recipeToAddSteps = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
 
-        List<Step> stepsToAdd= new ArrayList<>();
-        stepsToAdd.add(FIRST_NEW_STEP);
-        stepsToAdd.add(SECOND_NEW_STEP);
+        List<Step> stepsToAdd = new ArrayList<>();
+        stepsToAdd.add(firstNewStep);
+        stepsToAdd.add(secondNewStep);
         AddStepCommand addStepCommand = new AddStepCommand(INDEX_FIRST_RECIPE, stepsToAdd);
 
         String expectedMessageTemplate = "Successfully added step(s) to %1$s!";
@@ -103,9 +103,9 @@ public class AddStepCommandTest {
         // Ensures that outOfBoundIndex is still in bounds of recipe book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
-        List<Step> stepsToAdd= new ArrayList<>();
-        stepsToAdd.add(FIRST_NEW_STEP);
-        stepsToAdd.add(SECOND_NEW_STEP);
+        List<Step> stepsToAdd = new ArrayList<>();
+        stepsToAdd.add(firstNewStep);
+        stepsToAdd.add(secondNewStep);
         AddStepCommand addStepCommand = new AddStepCommand(outOfBoundIndex, stepsToAdd);
 
         assertCommandFailure(addStepCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -113,9 +113,9 @@ public class AddStepCommandTest {
 
     @Test
     public void equals() {
-        List<Step> stepsToAdd= new ArrayList<>();
-        stepsToAdd.add(FIRST_NEW_STEP);
-        stepsToAdd.add(SECOND_NEW_STEP);
+        List<Step> stepsToAdd = new ArrayList<>();
+        stepsToAdd.add(firstNewStep);
+        stepsToAdd.add(secondNewStep);
 
         AddStepCommand addStepFirstCommand = new AddStepCommand(INDEX_FIRST_RECIPE, stepsToAdd);
         AddStepCommand addStepSecondCommand = new AddStepCommand(INDEX_SECOND_RECIPE, stepsToAdd);

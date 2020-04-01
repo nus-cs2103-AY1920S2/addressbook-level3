@@ -10,6 +10,7 @@ import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
@@ -56,7 +57,7 @@ public class EditStepCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        EditCommand.EditRecipeDescriptor editRecipeDescriptor = new EditCommand.EditRecipeDescriptor();
+        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
 
         List<Step> updatedStepsList = new ArrayList<>(recipeToEdit.getSteps());
@@ -78,7 +79,7 @@ public class EditStepCommand extends Command {
     /**
      * Checks if the step number that the user wishes to edit exists within the steps list.
      */
-    public boolean canEditStep(List<Step> updatedStepsList, int stepIndex) {
+    private boolean canEditStep(List<Step> updatedStepsList, int stepIndex) {
         return stepIndex <= updatedStepsList.size() - 1;
     }
 
