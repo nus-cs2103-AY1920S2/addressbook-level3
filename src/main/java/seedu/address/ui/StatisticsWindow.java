@@ -17,7 +17,7 @@ import seedu.address.model.product.Product;
 import seedu.address.ui.statistics.StatisticsListPanel;
 
 /**
- * Controller for a help page
+ * Controller for a statistics window.
  */
 public class StatisticsWindow extends UiPart<Stage> {
 
@@ -48,7 +48,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets up the logic to manage products and transactions.
+     * Sets up the logic to manage products.
      * @param logic
      */
     private void setUpLogic(Logic logic) {
@@ -69,8 +69,8 @@ public class StatisticsWindow extends UiPart<Stage> {
         Collections.sort(modifiableProducts, new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
-                int o1Sales = o1.getMoney().value;
-                int o2Sales = o2.getMoney().value;
+                int o1Sales = o1.getProfit();
+                int o2Sales = o2.getProfit();
                 return o2Sales - o1Sales;
             }
         });
@@ -79,7 +79,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the statistics window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -98,28 +98,30 @@ public class StatisticsWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
+        setUpLogic(logic);
         getRoot().show();
         getRoot().centerOnScreen();
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the statistics window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the statistics window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the statistics window.
      */
     public void focus() {
+        setUpLogic(logic);
         getRoot().requestFocus();
     }
 }

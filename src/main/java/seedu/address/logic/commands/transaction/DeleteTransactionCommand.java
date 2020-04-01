@@ -77,10 +77,11 @@ public class DeleteTransactionCommand extends Command {
         editProductDescriptor.setSales(newSales);
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
-
         if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
+
+        editedProduct.updateQuantitySold();
 
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
