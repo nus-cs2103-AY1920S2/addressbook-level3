@@ -83,4 +83,10 @@ public class Deadline extends Activity {
         }
         return this;
     }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int dueDateMonth = dueDate.getDate().getMonth().getValue();
+        return month == dueDateMonth;
+    }
 }
