@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
-import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
 import cookbuddy.logic.commands.exceptions.CommandException;
