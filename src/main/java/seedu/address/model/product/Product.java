@@ -2,9 +2,11 @@ package seedu.address.model.product;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
@@ -112,10 +114,19 @@ public class Product {
         return amountSoldCounter;
     }
 
-    public int getProfit() {
-        int sellingPrice = Integer.parseInt(price.value);
-        int cost = Integer.parseInt(costPrice.value);
-        int profit = amountSoldCounter * (sellingPrice - cost);
+    public int getProfit(List<Transaction> transactions) {
+        int profit = 0;
+
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
+
+            if (transaction.getProduct().equals(this)) {
+                int price = transaction.getMoney().value;
+                int quantity = transaction.getQuantity().value;
+                int costPrice = Integer.parseInt(transaction.getProduct().getCostPrice().value);
+                profit += (price - costPrice * quantity);
+            }
+        }
         return profit;
     }
 

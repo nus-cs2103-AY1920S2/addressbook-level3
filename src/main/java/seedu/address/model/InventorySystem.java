@@ -86,8 +86,10 @@ public class InventorySystem implements ReadOnlyInventorySystem {
 
         if (commandWord.equals(ClearCustomerCommand.COMMAND_WORD)) {
             setPersons(newData.getPersonList());
+            setTransactions(newData.getTransactionList());
         } else if (commandWord.equals(ClearProductCommand.COMMAND_WORD)) {
             setProducts(newData.getProductList());
+            setTransactions(newData.getTransactionList());
         } else if (commandWord.equals(ClearTransactionCommand.COMMAND_WORD)) {
             setTransactions(newData.getTransactionList());
         }
