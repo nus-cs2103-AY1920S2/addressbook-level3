@@ -1,0 +1,29 @@
+@startuml
+
+start
+:User enter import command;
+if () then ([filePath is invalid])
+    :Display error message to user;
+
+else ([else])
+    if() then ([File is unable to read])
+        :Display error message to user;
+
+    else ([else])
+        :Retrieve data from the CSV file;
+        :Process the data;
+        :Create a new ImportCommand;
+        :Logic Manager executes the command;
+        repeat
+            if () then ([order value found in orderType])
+            :Add order;
+            else ([return value found in orderType])
+            :Add return order;
+            endif
+        repeat while () is ([Still have more data in list?])
+        ->[else];
+        :Display the import result to user;
+        endif
+        endif
+stop
+@enduml
