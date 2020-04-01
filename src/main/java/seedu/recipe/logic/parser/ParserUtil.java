@@ -14,12 +14,11 @@ import java.util.stream.Stream;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.goal.Goal;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
-
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
@@ -514,16 +513,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String date} into a {@code PlannedDate}.
+     * Parses {@code String date} into a {@code Date}.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static PlannedDate parseDate(String date) throws ParseException {
+    public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!PlannedDate.isValidDate(trimmedDate)) {
-            throw new ParseException(PlannedDate.MESSAGE_CONSTRAINTS);
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new PlannedDate(trimmedDate);
+        return new Date(trimmedDate);
     }
 }

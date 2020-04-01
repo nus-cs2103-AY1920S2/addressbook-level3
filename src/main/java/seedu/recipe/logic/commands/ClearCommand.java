@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.recipe.model.Model;
 import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.plan.PlannedBook;
 
 /**
  * Clears the recipe book.
@@ -11,13 +12,14 @@ import seedu.recipe.model.RecipeBook;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Recipe book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Recipe book and planned recipes have been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setRecipeBook(new RecipeBook());
+        model.setPlannedBook(new PlannedBook());
         model.commitRecipeBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -7,12 +7,12 @@ import java.util.ArrayList;
  */
 public class VersionedRecipeBook extends RecipeBook {
 
-    private final ArrayList<ReadOnlyRecipeBook> addressBookStateList;
+    private final ArrayList<ReadOnlyRecipeBook> recipeBookStateList;
     private int currentStatePointer;
 
     public VersionedRecipeBook(ReadOnlyRecipeBook recipeBook) {
-        this.addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(recipeBook);
+        this.recipeBookStateList = new ArrayList<>();
+        recipeBookStateList.add(recipeBook);
 
         this.currentStatePointer = 0;
     }
@@ -22,7 +22,7 @@ public class VersionedRecipeBook extends RecipeBook {
      * of the RecipeBook (relative to the current state) stored in the list.
      */
     public boolean canUndo(int numberOfUndo) {
-        assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+        assert currentStatePointer >= 0 && currentStatePointer < recipeBookStateList.size();
         assert numberOfUndo >= 0;
         if (numberOfUndo > 0) {
             return numberOfUndo <= currentStatePointer;
@@ -36,12 +36,12 @@ public class VersionedRecipeBook extends RecipeBook {
      * of the RecipeBook (relative to the current state) stored in the list.
      */
     public boolean canRedo(int numberOfRedo) {
-        assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+        assert currentStatePointer >= 0 && currentStatePointer < recipeBookStateList.size();
         assert numberOfRedo >= 0;
         if (numberOfRedo > 0) {
-            return numberOfRedo <= addressBookStateList.size() - 1 - currentStatePointer;
+            return numberOfRedo <= recipeBookStateList.size() - 1 - currentStatePointer;
         } else {
-            return currentStatePointer < addressBookStateList.size() - 1;
+            return currentStatePointer < recipeBookStateList.size() - 1;
         }
     }
 
@@ -51,14 +51,14 @@ public class VersionedRecipeBook extends RecipeBook {
      * after the current state.
      */
     public void commit(ReadOnlyRecipeBook recipeBook) {
-        assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
-        if (currentStatePointer != addressBookStateList.size() - 1) {
-            while (addressBookStateList.size() - 1 > currentStatePointer) {
-                int lastIndex = addressBookStateList.size() - 1;
-                addressBookStateList.remove(lastIndex);
+        assert currentStatePointer >= 0 && currentStatePointer < recipeBookStateList.size();
+        if (currentStatePointer != recipeBookStateList.size() - 1) {
+            while (recipeBookStateList.size() - 1 > currentStatePointer) {
+                int lastIndex = recipeBookStateList.size() - 1;
+                recipeBookStateList.remove(lastIndex);
             }
         }
-        addressBookStateList.add(recipeBook);
+        recipeBookStateList.add(recipeBook);
         currentStatePointer++;
     }
 
@@ -72,10 +72,10 @@ public class VersionedRecipeBook extends RecipeBook {
         }
         while (numberOfUndo > 0) {
             currentStatePointer--;
-            assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+            assert currentStatePointer >= 0 && currentStatePointer < recipeBookStateList.size();
             numberOfUndo--;
         }
-        return addressBookStateList.get(currentStatePointer);
+        return recipeBookStateList.get(currentStatePointer);
     }
 
     /**
@@ -84,14 +84,14 @@ public class VersionedRecipeBook extends RecipeBook {
     public ReadOnlyRecipeBook redo(int numberOfRedo) {
         assert numberOfRedo >= 0;
         if (numberOfRedo == 0) {
-            currentStatePointer = addressBookStateList.size() - 1;
+            currentStatePointer = recipeBookStateList.size() - 1;
         }
         while (numberOfRedo > 0) {
             currentStatePointer++;
-            assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+            assert currentStatePointer >= 0 && currentStatePointer < recipeBookStateList.size();
             numberOfRedo--;
         }
-        return addressBookStateList.get(currentStatePointer);
+        return recipeBookStateList.get(currentStatePointer);
     }
 
 }

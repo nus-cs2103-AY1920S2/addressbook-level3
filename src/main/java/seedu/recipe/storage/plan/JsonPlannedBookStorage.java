@@ -27,7 +27,7 @@ public class JsonPlannedBookStorage implements PlannedBookStorage {
         this.filePath = filePath;
     }
 
-    @Override // need override? todo
+    @Override
     public Path getPlannedBookFilePath() {
         return filePath;
     }
@@ -44,7 +44,7 @@ public class JsonPlannedBookStorage implements PlannedBookStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     @Override
-    public Optional<ReadOnlyPlannedBook> readPlannedBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyPlannedBook> readPlannedBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializablePlannedBook> jsonPlannedBook = JsonUtil.readJsonFile(

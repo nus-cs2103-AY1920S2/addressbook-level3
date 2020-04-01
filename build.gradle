@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'recipebook.jar'
+    archiveName = 'healthybaby.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

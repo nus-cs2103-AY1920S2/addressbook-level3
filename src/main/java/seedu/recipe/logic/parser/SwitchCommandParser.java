@@ -28,6 +28,10 @@ public class SwitchCommandParser implements Parser<SwitchCommand> {
             return new SwitchCommand(Tab.RECIPES);
         } else if (specifiedTab.equals("planning")) {
             return new SwitchCommand(Tab.PLANNING);
+        } else if (specifiedTab.equals("goals")) {
+            return new SwitchCommand(Tab.GOALS);
+        } else if (specifiedTab.equals("achievements")) {
+            return new SwitchCommand(Tab.ACHIEVEMENTS);
         } else {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SwitchCommand.MESSAGE_USAGE));
