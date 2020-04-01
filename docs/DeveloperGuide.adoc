@@ -58,7 +58,8 @@ You can refer to the guide <<SettingUp#, here>>.
 == Design
 
 TA-Tracker has been designed with `Object-Oriented Programming`
-principles in mind. This section serves to give a description of the
+principles in mind. We also attempted to use `Defensive Programming` wherever
+possible. This section serves to give a description of the
 major components in the architecture of TA-Tracker. Subsequent sections
 provide more information on the inner workings of individual components.
 
@@ -225,7 +226,7 @@ This section describes some noteworthy details on how certain features are imple
 
 [[StudentView]]
 === Student View
-*Student view* is the term used to characterise the different functionalities
+*Student View* is the term used to characterise the different functionalities
 related to the students.
 
 Students are a part of *groups* and groups are a part of *modules*.
@@ -266,7 +267,8 @@ is only unique within a module. Group codes can be shared across modules.
 
 * While this implementation would make it easier to generate a report at the end of
 the semester (explained towards the end of the guide), it would require more commands
-and complicate the model. That is why we decided to stick to our current implementation.
+and the creation of association classes which would unnecessarily complicate the model.
+That is why we decided to stick to our current implementation.
 
 ====
 ==== Implementation of the Module Add, Delete and Edit Commands
@@ -314,8 +316,8 @@ The command used to delete a module has been implemented in a similar way. The m
 difference is that the `DeleteModuleCommand` checks whether an object with the given
 module code exists in the TA-Tracker. If no such module exists, a command exception
 is thrown saying that a module with the given module code doesn't exist. If it does
-exist, *first all the sessions linked to that module are removed*.
-Then the module is removed from the TA-Tracker.
+exist, *first all the sessions linked to that module are removed* , then the module
+is removed from the TA-Tracker.
 
 The `module edit` command has been implemented in a similar manner.
 
@@ -355,12 +357,9 @@ image::DeleteGroupSequenceDiagram.png[]
 * The lifeline for `GroupCommandParser` and `DeleteGroupCommandParser` should end at the
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-* The module object named `m` and the group object named `g` are created as default
-module and group objects because the DeleteGroupCommand object's constructor takes
-in objects of type `Group` and `Module`.
-
-* These objects are used to retrieve the actual module (the module object named `M`)
-and the delete the desired group from it.
+* The main difference between the `Module` and `Group` commands is that the `Group`
+commands require extra checks to check whether a group with the given group code
+exists inside the module with the given module code.
 ====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
@@ -371,23 +370,20 @@ command to the `GroupCommandParser`.
 3. The `GroupCommandParser` sees that the command is of type *delete* and passes the
 arguments to the `DeleteGroupCommandParser`.
 
-4. The `DeleteGroupCommandParser` creates a `Module` with the given module code and
-a `Group` with the given group code.
+4. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
+it the module code, group code and group type. The parser then returns the `DeleteGroupCommand` object.
 
-5. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
-it the created module and group. The parser then returns the `DeleteGroupCommand` object.
-
-6. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
+5. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
 checks whether a *module* with the given module code already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a module with the given module
 code doesn't exist in the TA-Tracker.
 
-7. If the module exists, the `DeleteGroupCommand` object retrieves the module from the
-model and checks whether the module has a *group* with the given group code. If it doesn't,
+6. If the module exists, the `DeleteGroupCommand` then checks whether a group with the
+given group code exists within that module. If it doesn't,
 a command exception is thrown saying that no such group exists. If the group does
 exist, it is removed from the module.
 
-8. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
+7. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
 
 The `group edit` command has been implemented in a similar manner.
 
@@ -413,7 +409,7 @@ can be either alphabetical or by rating).
 [NOTE]
 ====
 * `TYPE` here could mean any of the following:
-** `alpha`, `alphabetical` or `alphabetically` to sort alphabteically.
+** `alpha`, `alphabetical` or `alphabetically` to sort alphabetically.
 ** `rating asc` to sort by rating in ascending order.
 ** `rating desc` to sort by rating in descending order.
 ** `matric` to sort by matriculation number.
@@ -458,8 +454,14 @@ image::SortAllSequenceDiagram.png[]
 
 [NOTE]
 ====
-* The lifeline for `SortCommandParser`` should end at the
+* The lifeline for `SortCommandParser` should end at the
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+* The `Logic` component of the `Sort` commands differs from other components as the
+`Module`, `Group` and `Student` components have their own parsers (such as the `ModuleCommandParser`,
+`GroupCommandParser` and `StudentCommandParser` respectively) which direct the commands
+towards their own individual parsers. The `Sort` commands, on the other hand, have
+a single `SortCommandParser` which handles the parsing for all three kinds of commands.
 ====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
@@ -489,6 +491,12 @@ pre-existing in the TA-Tracker.
 
 .Student Add - Sequence Diagram
 image::AddStudentSequenceDiagram.png[]
+
+[NOTE]
+====
+* The lifeline for `StudentCommandParser` and `AddStudentCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
 
 1. LogicManager uses the TATrackerParser to first parse the user command.
 
