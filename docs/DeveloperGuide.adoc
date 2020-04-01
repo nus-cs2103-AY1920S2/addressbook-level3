@@ -357,14 +357,14 @@ the <<command_prefix, `INDEX`>> should not be greater than the size of the order
 [[execution-paths-delivered]]
 === Execution Paths of Delivered Command
 .Activity Diagram of the Delivered Command
-image::DeliveredCommandActivityDiagram.svg[]
+image::DeliveredCommandActivityDiagram.png[]
 The above activity diagram shows the logic behind the `DeliveredCommand` which is determined in
 the `DeliveredCommandParser` class when the user inputs the command word `delivered` to activate the
 `delivered` feature.
 
 [[structure-delivered]]
 ==== Structure of Delivered Command
-image::DeliveredClassDiagram.svg[]
+image::DeliveredClassDiagram.png[]
 The above class diagram shows the structure of the `DeliveredCommand` and
 its associated classes and interfaces. Some methods and fields are not included because they are
 not extensively utilised in `DeliveredCommand`; such as public static fields and getter/setter methods.
@@ -373,10 +373,10 @@ not extensively utilised in `DeliveredCommand`; such as public static fields and
 The sequence diagrams for the *Delivered Command* are shown below.
 
 .Search Command Sequence Diagram
-image::DeliveredSequenceDiagram.svg[]
+image::DeliveredSequenceDiagram.png[]
 
 .Execution of Delivered Command
-image::DeliveredSequenceDiagram2.svg[]
+image::DeliveredSequenceDiagram2.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
 method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
