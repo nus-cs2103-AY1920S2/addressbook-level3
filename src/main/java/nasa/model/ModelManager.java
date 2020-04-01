@@ -371,7 +371,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * To sort activity according to sort method.
+     * Sort activity according to sort method.
      * @param sortMethod The method of sorting.
      */
     public void sortActivityList(SortMethod sortMethod) {
