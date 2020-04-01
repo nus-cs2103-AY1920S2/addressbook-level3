@@ -64,7 +64,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
             threshold = new QuantityThreshold(lowLimit);
         }
 
-        Product product = new Product(description, costPrice, price, quantity, sales, threshold, 1, 0);
+        Product product = new Product(description, costPrice, price, quantity, sales, threshold, 1);
 
         return new AddProductCommand(product);
     }

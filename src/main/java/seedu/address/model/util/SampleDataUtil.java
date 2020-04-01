@@ -46,10 +46,10 @@ public class SampleDataUtil {
     public static Product[] getSampleProducts() {
         return new Product[] {
             new Product(new Description("iPad Pro"), new CostPrice("599"), new Price("1299"), new Quantity("40"),
-                    new Money(Money.DEFAULT_VALUE), new QuantityThreshold("8"), 1, 0),
+                    new Money(Money.DEFAULT_VALUE), new QuantityThreshold("8"), 1),
             new Product(new Description("Samsung Galaxy S10"), new CostPrice("399"), new Price("899"),
                     new Quantity("100"), new Money(Money.DEFAULT_VALUE),
-                    new QuantityThreshold("20"), 1, 0)
+                    new QuantityThreshold("20"), 1)
         };
     }
 
