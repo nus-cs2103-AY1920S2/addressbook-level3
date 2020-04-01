@@ -4,10 +4,8 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+import java.util.Set;
 
-import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.entry.Type;
@@ -56,22 +54,22 @@ public class CheckCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, IllegalValueException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
         String typeValue = checkType.getValue();
-        List<? extends CalorieEntry> result;
+        Set<CalorieEntry> result;
         if ("food".equals(typeValue)) {
             result = model.searchFoodCalorieTable(keywords);
         } else {
             result = model.searchSportsCalorieTable(keywords);
         }
         if (result.size() > 0) {
-            String userFeedback = MESSAGE_SUCCESS;
+            StringBuilder userFeedback = new StringBuilder(MESSAGE_SUCCESS);
             for (CalorieEntry entry : result) {
-                userFeedback += entry;
+                userFeedback.append(entry);
             }
-            userFeedback += MESSAGE_HINT;
-            return new CommandResult(userFeedback);
+            userFeedback.append(MESSAGE_HINT);
+            return new CommandResult(userFeedback.toString());
         } else {
             return new CommandResult(MESSAGE_FAILURE_PART1 + checkType
                     + MESSAGE_FAILURE_PART2 + keywords + "\n");

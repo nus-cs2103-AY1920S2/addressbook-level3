@@ -3,7 +3,9 @@ package fithelper.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.calorietable.FoodCalorieTable;
@@ -384,34 +386,111 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Searches one of the tables and add all entries whose name contains the keywords into a list
-     * add returns the list.
+     * Searches one of the tables and add all entries whose name contains the keywords into a set
+     * add returns the set.
      *
      * @param type
      * @param keywords
-     * @return a list of {@code CalorieEntry} with matching keywords.
+     * @return a set of {@code CalorieEntry} with matching keywords.
      */
-    public List<CalorieEntry> addCalorieEntries(String type, String keywords) {
-        List<CalorieEntry> result = new ArrayList<>();
-        List<? extends CalorieEntry> entries;
-        //String[] keywordsByWord = keywords.split(" ");
+    public Set<CalorieEntry> addCalorieEntries(String type, String keywords) {
+        assert "f".equals(type) || "s".equals(type) : "check type can only be f(food) or s(sports)";
+        Set<CalorieEntry> result = new HashSet<>();
+        Set<? extends CalorieEntry> entries;
+        keywords = keywords.toLowerCase();
+        String[] keywordsByWord = keywords.split(" ");
         if ("f".equals(type)) {
             entries = foodCalorieTable.getEntries();
         } else {
             entries = sportsCalorieTable.getEntries();
         }
         int count = 0;
+        count = searchEachWordCompleteMatch(keywordsByWord, result, entries, count);
+        if (count < 3) {
+            count = searchWholeWordPartialMatch(keywords, result, entries, count);
+        }
+        if (count < 3 && keywordsByWord.length > 1) {
+            searchEachWordPartialMatch(keywordsByWord, result, entries, count);
+        }
+        return result;
+    }
+
+    /**
+     * Checks if any {@code CalorieEntry} in the entry set whose name is the same of one of the keywords.
+     * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
+     *
+     * @param keywords array of keywords
+     * @param result set to contain matching entries
+     * @param entries entry set
+     * @param count number of entries in the set so far
+     * @return number of {@code CalorieEntry} added at the end of the method.
+     */
+    private int searchEachWordCompleteMatch(String[] keywords, Set<CalorieEntry> result,
+                                            Set<? extends CalorieEntry> entries, int count) {
         for (CalorieEntry entry : entries) {
             String name = entry.getName();
             if (count == 3) {
                 break;
             }
-            if (name.toLowerCase().contains(keywords.toLowerCase())) {
+            for (String keyword : keywords) {
+                if (name.toLowerCase().equals(keyword)) {
+                    result.add(entry);
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Checks if any {@code CalorieEntry} in the entry set whose name contains the keywords as a whole.
+     * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
+     *
+     * @param keywords keywords as a whole
+     * @param result set to contain matching entries
+     * @param entries entry set
+     * @param count number of entries in the set so far
+     * @return number of {@code CalorieEntry} added at the end of the method.
+     */
+    private int searchWholeWordPartialMatch(String keywords, Set<CalorieEntry> result,
+                                            Set<? extends CalorieEntry> entries, int count) {
+        for (CalorieEntry entry : entries) {
+            String name = entry.getName();
+            if (count == 3) {
+                break;
+            }
+            if (name.toLowerCase().contains(keywords)) {
                 result.add(entry);
                 count++;
             }
         }
+        return count;
+    }
 
-        return result;
+    /**
+     * Checks if any {@code CalorieEntry} in the entry set whose name contains one of the keywords.
+     * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
+     *
+     * @param keywords array of keywords
+     * @param result set to contain matching entries
+     * @param entries entry set
+     * @param count number of entries in the set so far
+     */
+    private void searchEachWordPartialMatch(String[] keywords, Set<CalorieEntry> result,
+                                            Set<? extends CalorieEntry> entries, int count) {
+        for (CalorieEntry entry : entries) {
+            String name = entry.getName();
+            if (count == 3) {
+                break;
+            }
+            for (String keyword : keywords) {
+                if (name.toLowerCase().contains(keyword)) {
+                    result.add(entry);
+                    count++;
+                    break;
+                }
+            }
+        }
     }
 }
