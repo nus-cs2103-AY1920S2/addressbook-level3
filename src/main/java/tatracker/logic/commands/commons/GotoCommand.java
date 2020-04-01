@@ -36,7 +36,8 @@ public class GotoCommand extends Command {
         SESSION,
         CLAIMS;
 
-        public static final String MESSAGE_CONSTRAINTS = "Options: student, session, claims";
+        public static final String MESSAGE_CONSTRAINTS =
+                "These are the only tab names: student, session, claims";
 
         private static final Map<String, Tab> TABS = Arrays.stream(values())
                 .collect(Collectors.toUnmodifiableMap(tab -> tab.name().toLowerCase(), tab -> tab));

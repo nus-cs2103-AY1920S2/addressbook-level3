@@ -31,7 +31,6 @@ public class ParserUtil {
 
     private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
     private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
-    private static final String MESSAGE_INVALID_TAB = "Tabs should be either student, session or claims.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -262,7 +261,7 @@ public class ParserUtil {
         String trimmedType = tabName.trim();
 
         if (!Tab.isValidTab(trimmedType)) {
-            throw new ParseException(MESSAGE_INVALID_TAB);
+            throw new ParseException(Tab.MESSAGE_CONSTRAINTS);
         }
         return Tab.getTab(trimmedType);
     }
