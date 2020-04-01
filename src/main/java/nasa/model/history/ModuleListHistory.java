@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 /**
  * Class that manage all histories.
- * @param <T> Type
+ * @param <T>
  */
 public class ModuleListHistory<T> extends History<T> {
 
@@ -23,7 +23,6 @@ public class ModuleListHistory<T> extends History<T> {
 
     /**
      * Return unmodifiable list containing histories.
-     * @return ObservableList
      */
     public ObservableList<T> asUnmodifiableObservableList() {
         List<T> list = new ArrayList<>(super.getStack());

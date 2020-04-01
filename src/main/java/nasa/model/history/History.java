@@ -24,7 +24,7 @@ public abstract class History<T> {
 
     /**
      * Push an item into stack from item.
-     * @param item must not be null.
+     * @param item
      */
     public void push(T item) {
         if (this.item != null) {
@@ -35,7 +35,7 @@ public abstract class History<T> {
 
     /**
      * Push an item directly into the stack.
-     * @param item must not be null.
+     * @param item
      */
     public void pushDirectly(T item) {
         stack.push(item);
@@ -43,7 +43,6 @@ public abstract class History<T> {
 
     /**
      * Pop an item from the stack. To get previous item.
-     * @return boolean
      */
     public boolean pop() {
         if (!isEmpty()) {
@@ -56,7 +55,6 @@ public abstract class History<T> {
 
     /**
      * Pop an item from the stack directly.
-     * @return T.
      */
     public T popDirectly() {
         return stack.pop();

@@ -39,15 +39,13 @@ public class ActivityListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Activity activity, boolean empty) {
             super.updateItem(activity, empty);
-            ActivityCard temp;
             prefWidthProperty().bind(activityListView.widthProperty().subtract(10));
 
             if (empty || activity == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                temp = new ActivityCard(activity, getIndex() + 1);
-                setGraphic(temp.getRoot());
+                setGraphic(new ActivityCard(activity, getIndex() + 1).getRoot());
             }
         }
     }

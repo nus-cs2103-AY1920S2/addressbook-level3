@@ -25,8 +25,7 @@ public class Module {
 
     /**
      * Constructs a {@code module}
-     * @param moduleCode ModuleCode
-     * @param moduleName ModuleName
+     * @param moduleCode module code
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
@@ -80,10 +79,6 @@ public class Module {
         return activityList;
     }
 
-    public boolean hasActivity(Name name) {
-        return activityList.hasActivity(name);
-    }
-
     public void setActivities(UniqueActivityList replacement) {
         activityList.setActivities(replacement);
     }
@@ -91,7 +86,6 @@ public class Module {
     /**
      * Replaces the contents of this list with {@code activities}
      * {@code activities} must not contain duplicate activities.
-     * @param activities List
      */
     public void setActivities(List<Activity> activities) {
         activityList.setActivities(activities);

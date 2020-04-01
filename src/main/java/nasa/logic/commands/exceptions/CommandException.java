@@ -1,7 +1,5 @@
 package nasa.logic.commands.exceptions;
 
-import nasa.logic.commands.Command;
-
 /**
  * Represents an error which occurs during execution of a {@link Command}.
  */
