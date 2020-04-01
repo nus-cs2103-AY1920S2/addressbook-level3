@@ -1,6 +1,5 @@
 package cookbuddy.ui;
 
-
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.Ingredient;

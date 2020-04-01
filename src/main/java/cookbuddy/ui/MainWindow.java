@@ -1,6 +1,5 @@
 package cookbuddy.ui;
 
-import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 import cookbuddy.commons.core.GuiSettings;

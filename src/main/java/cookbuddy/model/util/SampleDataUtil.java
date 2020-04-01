@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import cookbuddy.model.ReadOnlyRecipeBook;
 import cookbuddy.model.RecipeBook;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.Instruction;

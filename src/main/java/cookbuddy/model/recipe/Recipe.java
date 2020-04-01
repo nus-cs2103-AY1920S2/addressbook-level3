@@ -9,6 +9,7 @@ import java.util.Set;
 
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Done;
 import cookbuddy.model.recipe.attribute.Fav;
 import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
@@ -34,6 +35,7 @@ public class Recipe {
     private final Rating rating;
     private final Difficulty difficulty;
     private final Fav favStatus = new Fav(false);
+    private final Done doneStatus = new Done(false);
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -90,6 +92,10 @@ public class Recipe {
         return favStatus;
     }
 
+    public Done getDoneStatus() {
+        return doneStatus;
+    }
+
     /**
      * Returns an immutable tag set, which throws
      * {@code UnsupportedOperationException} if modification is attempted.
@@ -119,6 +125,10 @@ public class Recipe {
 
     public void unFavRecipe() {
         favStatus.unFav();
+    }
+
+    public void attemptRecipe() {
+        doneStatus.attempt();
     }
 
     /**

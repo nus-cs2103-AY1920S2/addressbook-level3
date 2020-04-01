@@ -16,10 +16,10 @@ import java.util.stream.Stream;
 
 import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
