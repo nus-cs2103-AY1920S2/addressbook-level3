@@ -5,7 +5,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import tatracker.commons.core.index.Index;
+import tatracker.commons.util.DateTimeUtil;
+import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
+import tatracker.logic.commands.sort.SortType;
+import tatracker.model.group.GroupType;
+import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -21,7 +26,7 @@ public enum PrefixEntry {
     /* Placeholders */
     INDEX(
             Prefixes.INDEX,
-            Index.MESSAGE_CONSTRAINTS, value -> true,
+            Index.MESSAGE_CONSTRAINTS, StringUtil::isNonZeroUnsignedInteger,
             "1"
     ),
     KEYWORD(
@@ -41,27 +46,27 @@ public enum PrefixEntry {
     /* Session definitions */
     START_TIME(
             Prefixes.START_TIME,
-            "", value -> true,
+            DateTimeUtil.CONSTRAINTS_TIME, DateTimeUtil::isTime,
             "14:00"
     ),
     END_TIME(
             Prefixes.END_TIME,
-            "", value -> true,
+            DateTimeUtil.CONSTRAINTS_TIME, DateTimeUtil::isTime,
             "16:00"
     ),
     DATE(
             Prefixes.DATE,
-            "", value -> true,
-            "19-02-2020"
+            DateTimeUtil.CONSTRAINTS_DATE, DateTimeUtil::isDate,
+            "2020-02-19"
     ),
     RECUR(
             Prefixes.RECUR,
-            "", value -> true,
+            "Recurring weeks must be an unsigned number", StringUtil::isNonZeroUnsignedInteger,
             "1" // Number of weeks
     ),
     SESSION_TYPE(
             Prefixes.SESSION_TYPE,
-            "", value -> true,
+            SessionType.MESSAGE_CONSTRAINTS, SessionType::isValidSessionType,
             "grading"
     ),
     NOTES(
@@ -104,12 +109,12 @@ public enum PrefixEntry {
     ),
     TYPE(
             Prefixes.TYPE,
-            "", value -> true,
+            GroupType.MESSAGE_CONSTRAINTS, GroupType::isValidGroupType,
             "tutorial"
     ),
     NEWTYPE(
             Prefixes.NEWTYPE,
-            "", value -> true,
+            GroupType.MESSAGE_CONSTRAINTS, GroupType::isValidGroupType,
             "lab"
     ),
 
@@ -148,7 +153,7 @@ public enum PrefixEntry {
     /* Action definitions */
     SORT_TYPE(
             Prefixes.SORT_TYPE,
-            "", value -> true,
+            SortType.MESSAGE_CONSTRAINTS, SortType::isValidSortType,
             "alphabetically"
     );
 
