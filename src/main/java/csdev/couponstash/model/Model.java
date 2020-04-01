@@ -42,8 +42,13 @@ public interface Model {
     /**
      * {@code Comparator} to sort non-archived coupons at the top
      */
-    Comparator<Coupon> COMPARATOR_NON_ARCHVIED_FIRST = (c1, c2) ->
-            c1.getArchived().toString().compareTo(c2.getArchived().toString());
+    Comparator<Coupon> COMPARATOR_NON_ARCHVIED_FIRST = (c1, c2) -> {
+        String first = c1.getArchived().toString();
+        String second = c2.getArchived().toString();
+        int result = first.compareTo(second);
+        return first.compareTo(second);
+    };
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
