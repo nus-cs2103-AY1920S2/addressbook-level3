@@ -15,6 +15,9 @@ import seedu.recipe.logic.parser.Prefix;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Date;
 
+/**
+ * Parses input arguments and creates a new DeletePlanCommand object
+ */
 public class DeletePlanCommandParser implements Parser<DeletePlanCommand> {
 
     /**
@@ -30,7 +33,8 @@ public class DeletePlanCommandParser implements Parser<DeletePlanCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePlanCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeletePlanCommand.MESSAGE_USAGE), pe);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {

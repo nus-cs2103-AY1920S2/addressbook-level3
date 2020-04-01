@@ -34,7 +34,8 @@ public class PlanCommand extends Command {
             + "3 "
             + PREFIX_DATE + "2020-03-16";
 
-    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "A plan on %1$s for the recipe at %2$s already exists.";
+    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "A plan on %1$s for the recipe at"
+            + "%2$s already exists.";
 
     public static final String MESSAGE_SUCCESS = "Recipe %1$s planned at %2$s";
 
