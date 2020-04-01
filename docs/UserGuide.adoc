@@ -26,7 +26,7 @@ FitHelper mainly serves as a fitness log book where users can *mark down their d
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `FitHelper.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Fitness Helper.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -37,25 +37,30 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all logs
-* **`adds`**`n/running t/Wednesday 6 pm l/utown gym c/500kcal es/False` : adds an entry named `swimming` to the fitness log book.
+* **`adds`**`n/running t/Wednesday 6 pm l/utown gym c/500kcal es/False` : adds an entry named `swimming` to the dashboard page.
 * **`delete`**`3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 == Common Fields and Keywords
-* *n/* entry name
 * *x/* entry type
+* *n/* entry name
 * *t/* entry time
 * *l/* entry location
 * *c/* entry calorie
-* *r/* remark
-* *i/* index
-* *dr/* duration a double number representing time in hours
+* *s/* entry status
+* *r/* entry remark
+* *i/* entry index
 * *k/* keyword (in `find`)
-* *[DATE]* txt containing relevant date information
-* *[TIME]* a time in the fixed format of txt hh:mm
-* *[INDEX]* a positive integer indicating the position of an entry in the list
+* *d/* date in format yyyy-MM-dd
+* *m/* mode
+* *dc/* diary content
+* *dr/* duration
+* *attr/* profile attribute name
+* *v/* profile attribute value
+* *-f* force change
+
 
 [[Features]]
 == Features
@@ -67,8 +72,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [r/REMARK]` can be used as `n/swimming r/energy consuming but fun` or as `n/running`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME t/Wednesday 6 pm`, `t/Wednesday 6 pm n/NAME` is also acceptable.
-* `X` in this document refers to f/s, representing two types of entries: food and sports. e.g. `addX` represents either `addf` or `adds`; `add[X]` means the field `X` is optional.
-* The field `TIME` should be entered in the fixed format of `yyyy-mm-dd[ hh:mm]` where the `hours` and `minutes` can be omitted.
+* `x/` in this document refers to type of entries: food/sport, it can also be write in short form: f/s.
+* The field `TIME` can entered with natural language, e.g. `t/tomorrow 3pm`
 * The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
 ====
 
@@ -207,17 +212,26 @@ The user's current 'fitness level` and total rewarding points will be displayed.
 === Clearing all entries : `clear`
 
 Clears all entries from the fitness log book. +
+
 Format: `clear`
 
 === Exiting the program : `exit`
 
 Exits the program. +
+
 Format: `exit`
 
 === Saving the data
 
 fitness log book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+There is no need to save manually. +
+****
+Three local database in Json format will exist after running FitHelper:
+
+* *fithelper.json* : data related to entries and diaries.
+* *userprofile.json* : data related to user profile.
+* *weightrecords.json* : data related to weight records.
+****
 
 // remark::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -243,77 +257,75 @@ example:
 Asks the application to display a table that shows calorie intake from food consumption
 or calorie consumption from exercise in a particular day specified by the user.
 
-format: `tableX DATE`
+Format: `tableX DATE`
 
 example:
 
 * `tableX 2020-02-02`
 
-=== Record Profile
+=== Profile Page: `profile`
+Profile page serves to be a summary for basic user data. +
+The profile information includes: Name, Age, Gender, Address, Height, Target Weight, Current Weight and Current BMI. +
 
-Adds new user basic personal data to profile. +
-Format: `recordprofile addr/ADDRESS n/NAME g/GENDER h/HEIGHT cw/CURRENTWEIGHT tw/TARGETWEIGHT`
+Format: `profile`
 
-****
-* New user should record basic profile first data before using other commands.
-* One user can ony *initiate profile data once*.
-* The value of each attribute need to in correct data type:
-- addr/n: string of address/name
-- g: *male/female*
-- h: number in *meter*
-- cw/tw: number in *kilogram*.
-****
+=== Update Profile Data : `update`
 
-Examples:
+Update user data in the profile by attributes. Profile attributes include: Name, Age, Address, Gender, Height and Target Weight. +
+Every `update` command will lead to the profile page. +
 
-* `recordprofile addr/utown n/Alice g/female h/1.68 cw/50 tw/45`
-* `recordprofile addr/rvrc n/Bob g/male h/1.8 cw/70 tw/65.5`
-
-=== Update Profile Data
-
-Update user data in the profile by attributes. +
-Format: `update attr/ATTRIBUTE v/VALUE`
+Format: `update [-f] attr/ATTRIBUTE v/VALUE`
 
 ****
-* The updated attribute must have original value.
+* If no user profile data is provided by the user, FitHelper will initialize with the sample profile data.
+* The updated attribute name is *not* case-sensitive and can include spaces, but the name must match some fields in user profile.
+* e.g. Both `attr/target weight` and `attr/TARGETWEIGHT` are acceptable.
 * Any updated value should follow its original data type.
+* If the chosen updated attribute has already had original value, *flag `-f`* need to be used to enable *force overwrite*.
 
 ****
 
 Examples:
 
-* `update attr/h v/1.7`
-* `update attr/name v/Alice Wang`
+* `update attr/height v/160`
+* `update -f attr/name v/Alice Wang`
 
-=== Weight Graph Page
+=== Weight Page: `weight`
 
-Weight graph page serves to be a summary for user's weight and BMI changes according to time. +
-It shows user data in graph for easy understanding. By default, it will generate graph from all history data. User can also set a duration to generate graph for that specific time range. +
-Format: `weightgraph (dr/yyyy-mm-dd yyyy-mm-dd)`
+Weight page serves to be a summary for user's weight and BMI changes according to time. +
+It shows user data in graph for easy understanding. By default, it will generate graph from all history data chronologically.
 
-* *Current Data Table* +
-The table of user's latest data of weight and computed BMI. BMI value is computed based on latest weight and height. +
-Weight value can be: below/ above/ equals to target wieght value. +
-BMI value can be: too low/ moderate / too high.
+* *Gap notification* +
+The top notification shows the comparison between user current weight and target weight. +
+- If current weight is *larger* than target, the gap between the two will be highlighted.
+- If current weight is *the same or less* than the target, a succeed notification will be generated.
 
 * *Trend Graph - Weight* +
-Display a trend graph of user's weight. Target weight line and the gap between target and current weight will be highlighted in the graph.
+Display a trend graph of user's weight according to time.
 
 * *Trend Graph - BMI* +
-Display a trend graph of user's BMI. Lowest and highest healthy BMI lines will be highlighted in the graph to specify a healthy range.
+Display a trend graph of user's BMI according to time. The BMI value is calculated by weight and height value at that date.
 
-* *Progress Graph* +
-Display a progress graph using coloring to indicate the gap between current Weight and Target weight. A percentage number will be shown explicitly in the graph.
+Format: `weight`
+
+=== Add Weight Records : `addWeight`
+
+Add a new weight record into the weight records database. A weight record is related to date and weight value, and a auto-computed BMI value will be stored as well. +
+Every `addWeight` command will lead to the weight page. If the new weight record is added successfully, explicit changes of new points in the two trend graph can be found. +
+
+Format: `addWeight v/WEIGHT_VALUE [d/DATE]`
+
+****
+* If no weight record exists in the database, "Not Available Now" will be shown in profile page's Current Weight and Current BMI fields.
+* The date of the new weighe record can be *omitted*. By default, it will refer to the date of today.
+* The date should be in format of `yyyy-MM-dd`.
+* *No two weight records should have the same date.* If adding a weight record with the same date as an existing weight, a warning will be generated, and thus fail to add.
+****
 
 Examples:
 
-* `weightgraph`
-* `weightgraph dr/2020-01-01 2020-02-14`
-
-=== Profile Page
-Profile page serves to be a summary for basic user data. +
-It shows information includes: address, name, gender, height, current weight, target weight and current BMI. +
-Format: `profile`
+* `addWeight v/50.0 d/2020-02-01`
+* `addWeight v/52.30`
 
 === Calendar View
 Calendar view will display all the exercises and meals for each day of the current month. For past dates, signs of different colors will be highlighted to show whether the calories intake exceeds or is below the target. +
@@ -410,3 +422,7 @@ Examples:
 * *List* : `list`
 * *Help* : `help`
 * *Calendar* : `calendar`
+* *Profile*: `profile`
+* *Update*: `update [-f] attr/ATTRIBUTE V/VALUE`
+* *Weight*: `weight`
+* *AddWeight* `addWeight v/VALUE [d/DATE]`
