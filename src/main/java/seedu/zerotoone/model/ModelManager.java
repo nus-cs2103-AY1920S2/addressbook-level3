@@ -168,12 +168,23 @@ public class ModelManager implements Model {
         exerciseList.setExercise(target, editedExercise);
     }
 
+    @Override
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+        requireNonNull(predicate);
+        filteredExercises.setPredicate(predicate);
+    }
+
     // -----------------------------------------------------------------------------------------
     // Session List
 
     @Override
     public Path getSessionListFilePath() {
         return userPrefs.getLogListFilePath();
+    }
+
+    @Override
+    public void deleteSession(int targetId) {
+        sessionList.removeSession(targetId);
     }
 
     @Override
@@ -188,9 +199,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+    public void updateFilteredSessionList(Predicate<Session> predicate) {
         requireNonNull(predicate);
-        filteredExercises.setPredicate(predicate);
+        filteredSessions.setPredicate(predicate);
     }
 
     @Override
@@ -234,6 +245,8 @@ public class ModelManager implements Model {
     public ObservableList<Session> getFilteredSessionList() {
         return filteredSessions;
     }
+
+
 
     @Override
     public boolean hasSchedule(Schedule schedule) {
@@ -334,7 +347,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredExercises.equals(other.filteredExercises);
+                && filteredExercises.equals(other.filteredExercises)
+                && sessionList.equals(other.sessionList);
         // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
     }
 }

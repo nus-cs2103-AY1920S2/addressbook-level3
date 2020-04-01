@@ -14,10 +14,12 @@ import seedu.zerotoone.logic.commands.SkipCommand;
 import seedu.zerotoone.logic.commands.StartCommand;
 import seedu.zerotoone.logic.commands.StopCommand;
 import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
+import seedu.zerotoone.logic.commands.log.LogCommand;
 import seedu.zerotoone.logic.commands.schedule.ScheduleCommand;
 import seedu.zerotoone.logic.commands.workout.WorkoutCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
+import seedu.zerotoone.logic.parser.log.LogCommandParser;
 import seedu.zerotoone.logic.parser.schedule.ScheduleCommandParser;
 import seedu.zerotoone.logic.parser.session.StartCommandParser;
 import seedu.zerotoone.logic.parser.workout.WorkoutCommandParser;
@@ -66,6 +68,8 @@ public class ParserManager {
             return new WorkoutCommandParser().parse(arguments);
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
+        case LogCommand.COMMAND_WORD:
+            return new LogCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

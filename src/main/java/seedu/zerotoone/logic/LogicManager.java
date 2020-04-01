@@ -93,7 +93,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Session> getFilteredSessionList() {
-        return null;
+        return model.getFilteredSessionList();
     }
 
     @Override
