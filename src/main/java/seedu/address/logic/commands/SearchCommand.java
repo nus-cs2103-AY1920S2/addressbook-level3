@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
-import seedu.address.model.Parcel.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
 
 /**
  * Finds and lists all orders in order book whose name contains any of the argument keywords.

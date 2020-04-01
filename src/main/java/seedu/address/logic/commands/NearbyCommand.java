@@ -17,8 +17,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Parcel.order.Order;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Used to identify orders in the order book, return order book that belong to a given

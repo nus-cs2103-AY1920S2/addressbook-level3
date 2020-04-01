@@ -15,16 +15,16 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Parcel.comment.Comment;
-import seedu.address.model.Parcel.itemtype.TypeOfItem;
-import seedu.address.model.Parcel.ParcelAttributes.Address;
-import seedu.address.model.Parcel.ParcelAttributes.Email;
-import seedu.address.model.Parcel.ParcelAttributes.Name;
-import seedu.address.model.Parcel.ParcelAttributes.Phone;
-import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
-import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
-import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Parses input arguments and creates a new AddCommand object

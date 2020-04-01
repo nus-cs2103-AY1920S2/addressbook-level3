@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
-import seedu.address.model.Parcel.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new SearchCommand object

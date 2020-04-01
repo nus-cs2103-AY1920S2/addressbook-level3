@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.ReturnOrderBook;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * A utility class to help with building ReturnOrderbook objects.

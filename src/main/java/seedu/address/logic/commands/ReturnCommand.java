@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Parcel.order.Order;
-import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Adds a order to the order book.

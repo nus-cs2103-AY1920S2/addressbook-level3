@@ -25,8 +25,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import seedu.address.logic.commands.SearchCommand;
-import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
-import seedu.address.model.Parcel.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
 

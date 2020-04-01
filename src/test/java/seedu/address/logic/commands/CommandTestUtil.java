@@ -23,11 +23,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
-import seedu.address.model.Parcel.order.Order;
-import seedu.address.model.Parcel.OrderContainsKeywordsPredicate;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
-import seedu.address.model.Parcel.ReturnOrderContainsKeywordsPredicate;
-import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
+import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
+import seedu.address.testutil.DeliveredParcelDescriptorBuilder;
 import seedu.address.testutil.EditParcelDescriptorBuilder;
 
 /**
@@ -131,7 +131,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_BOB)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        AMY_DESC = new DeliveredOrderDescriptorBuilder().withTid(VALID_TID_AMY)
+        AMY_DESC = new DeliveredParcelDescriptorBuilder().withTid(VALID_TID_AMY)
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
@@ -139,7 +139,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS).build();
-        BOB_DESC = new DeliveredOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        BOB_DESC = new DeliveredParcelDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)

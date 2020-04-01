@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.parcel.order.Order;
 
 /**
  * Unmodifiable view of an order book

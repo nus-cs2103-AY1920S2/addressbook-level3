@@ -15,7 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeliveredCommand.DeliveredParcelDescriptor;
-import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
+import seedu.address.testutil.DeliveredParcelDescriptorBuilder;
 
 public class DeliveredParcelDescriptorTest {
 
@@ -38,32 +38,32 @@ public class DeliveredParcelDescriptorTest {
         assertFalse(AMY_DESC.equals(BOB_DESC));
 
         // different name -> returns false
-        DeliveredParcelDescriptor editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC)
+        DeliveredParcelDescriptor editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC)
                 .withName(VALID_NAME_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different TID -> returns false
-        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withTid(VALID_TID_BOB).build();
+        editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC).withTid(VALID_TID_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withPhone(VALID_PHONE_BOB).build();
+        editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC).withPhone(VALID_PHONE_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different delivery timestamp -> returns false
-        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withTimeStamp(VALID_TIMESTAMP_BOB).build();
+        editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC).withTimeStamp(VALID_TIMESTAMP_BOB).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different comment -> returns false
-        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withComment(VALID_COMMENT_NIL).build();
+        editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC).withComment(VALID_COMMENT_NIL).build();
         assertFalse(AMY_DESC.equals(editedAmy));
 
         // different Item Types -> returns false
-        editedAmy = new DeliveredOrderDescriptorBuilder(AMY_DESC).withItemType(VALID_TYPE_PLASTIC).build();
+        editedAmy = new DeliveredParcelDescriptorBuilder(AMY_DESC).withItemType(VALID_TYPE_PLASTIC).build();
         assertFalse(AMY_DESC.equals(editedAmy));
     }
 }

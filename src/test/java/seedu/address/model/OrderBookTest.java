@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.Parcel.order.Order;
-import seedu.address.model.Parcel.exceptions.DuplicateOrderException;
+import seedu.address.model.parcel.exceptions.DuplicateOrderException;
+import seedu.address.model.parcel.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
 public class OrderBookTest {

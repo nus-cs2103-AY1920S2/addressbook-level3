@@ -14,7 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Parcel.order.Order;
+import seedu.address.model.parcel.order.Order;
 
 /**
  * Adds a order to the order book.

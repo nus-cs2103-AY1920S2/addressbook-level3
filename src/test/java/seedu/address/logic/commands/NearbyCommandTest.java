@@ -23,8 +23,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.Parcel.order.Order;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Contains integration tests (interactions with the Model) and unit test for

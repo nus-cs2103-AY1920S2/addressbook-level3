@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReturnOrderBook;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * An Immutable OrderBook that is serializable to JSON format.

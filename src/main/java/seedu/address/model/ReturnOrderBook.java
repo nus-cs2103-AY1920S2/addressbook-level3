@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
-import seedu.address.model.Parcel.returnorder.UniqueReturnOrderList;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.UniqueReturnOrderList;
 
 
 /**

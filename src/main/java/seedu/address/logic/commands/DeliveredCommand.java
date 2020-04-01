@@ -12,18 +12,18 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
-import seedu.address.model.Parcel.comment.Comment;
-import seedu.address.model.Parcel.itemtype.TypeOfItem;
-import seedu.address.model.Parcel.ParcelAttributes.Address;
-import seedu.address.model.Parcel.order.CashOnDelivery;
-import seedu.address.model.Parcel.ParcelAttributes.Email;
-import seedu.address.model.Parcel.ParcelAttributes.Name;
-import seedu.address.model.Parcel.order.Order;
-import seedu.address.model.Parcel.ParcelAttributes.Phone;
-import seedu.address.model.Parcel.ParcelAttributes.TimeStamp;
-import seedu.address.model.Parcel.ParcelAttributes.TransactionId;
-import seedu.address.model.Parcel.ParcelAttributes.Warehouse;
-import seedu.address.model.Parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.order.CashOnDelivery;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Adds a order to the order book.
@@ -206,7 +206,8 @@ public class DeliveredCommand extends Command {
         Phone updatedPhone = deliveredParcelDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
         Email updatedEmail = deliveredParcelDescriptor.getEmail().orElse(returnOrderToDeliver.getEmail());
         Address updatedAddress = deliveredParcelDescriptor.getAddress().orElse(returnOrderToDeliver.getAddress());
-        TimeStamp updateTimeStamp = deliveredParcelDescriptor.getTimeStamp().orElse(returnOrderToDeliver.getTimestamp());
+        TimeStamp updateTimeStamp = deliveredParcelDescriptor.getTimeStamp().orElse(returnOrderToDeliver
+                .getTimestamp());
         Warehouse updatedWarehouse = deliveredParcelDescriptor.getWarehouse().orElse(returnOrderToDeliver
                 .getWarehouse());
         Comment updatedComment = deliveredParcelDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
