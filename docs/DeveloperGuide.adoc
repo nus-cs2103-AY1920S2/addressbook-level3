@@ -325,9 +325,26 @@ insert design considerations here
 // tag::schedule[]
 === Schedule
 ==== Implementation
-insert implementation stuff here
+The following sequence diagram shows how the `schedule create` operation works:
+
+image::ScheduleCreateSequenceDiagram.png[]
+
+
+The following sequence diagram shows how the `scheduledWorkout` are populated to user view:
+
+image::PopulateSortedScheduledWorkoutList.png[]
+
 ==== Design Considerations
-insert design considerations here
+
+===== Aspect: How to handle editing and deletion of recurring schedules
+
+* **Alternative 1:** Saves `scheduledWorkout` objects.
+** Pros: Easy to implement.
+** Cons: Hard to maintain when it comes to `edit` or `delete` of recurring scheduled workouts.
+* **Alternative 2 (current choice):** Saves `schedule` objects that can be used to produce `scheduledWorkout` when
+requested.
+** Pros: Changes to recurring schedules can populated to `scheduledWorkout` more easily.
+** Cons: Much more complicated model.
 // end::schedule[]
 
 // tag::log[]
