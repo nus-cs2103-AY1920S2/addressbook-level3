@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -320,6 +321,13 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void add(ModelObject obj) throws CommandException {
     getAddressBook(obj).add(obj);
+    getFilterList(obj).setPredicate(getPredicateAll(obj));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
+  }
+
+  @Override
+  public void addAtIndex(ModelObject obj, Integer index) throws CommandException {
+    getAddressBook(obj).addAtIndex(obj, index);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
     postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
   }

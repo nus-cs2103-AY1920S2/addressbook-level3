@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -68,6 +69,8 @@ public interface Model {
     void delete(ModelObject obj) throws CommandException;
 
     void add(ModelObject obj) throws CommandException;
+
+    void addAtIndex(ModelObject obj, Integer index) throws CommandException;
 
     void set(ModelObject target, ModelObject editedTarget) throws CommandException;
 

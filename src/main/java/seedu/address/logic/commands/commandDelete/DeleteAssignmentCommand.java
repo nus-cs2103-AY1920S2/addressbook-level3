@@ -3,9 +3,13 @@ package seedu.address.logic.commands.commandDelete;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStudent.Student;
 
 import java.util.List;
 
@@ -25,24 +29,53 @@ public class DeleteAssignmentCommand extends DeleteCommand {
 
   public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "Deleted assignment: %1$s";
 
-  private final Index targetIndex;
+  private Index targetIndex;
+
+  private Assignment toDelete;
 
   public DeleteAssignmentCommand(Index targetIndex) {
     this.targetIndex = targetIndex;
   }
 
+  public DeleteAssignmentCommand(Assignment toDelete) {
+    this.toDelete = toDelete;
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
-    requireNonNull(model);
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
     List<Assignment> lastShownList = model.getFilteredAssignmentList();
+    if (this.toDelete == null) {
+      if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
+      }
 
-    if (targetIndex.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
+      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
     }
+    if (this.targetIndex == null) {
+      this.targetIndex = getIndex(lastShownList);
+    }
+  }
 
-    Assignment assignmentToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.delete(assignmentToDelete);
-    return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, assignmentToDelete));
+  @Override
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new AddAssignmentCommand(toDelete, targetIndex.getZeroBased());
+  }
+
+  // TODO: Find way to abstract this
+  public Index getIndex(List<Assignment> lastShownList) throws CommandException {
+    for (int i = 0; i < lastShownList.size(); i++) {
+      if (lastShownList.get(i).equals(this.toDelete)) {
+        return Index.fromZeroBased(i);
+      }
+    }
+    throw new CommandException("This id not in list");
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
+    model.delete(this.toDelete);
+    return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, this.toDelete));
   }
 
   @Override
