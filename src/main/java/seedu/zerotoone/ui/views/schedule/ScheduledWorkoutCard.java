@@ -1,6 +1,6 @@
 package seedu.zerotoone.ui.views.schedule;
 
-import java.time.LocalDateTime;
+import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,22 +28,7 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
         super(FXML);
         scheduledWorkoutId.setText(String.format("%d. ", displayedIndex));
         scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName());
-        dateTime.setText(getFormattedDateTimeString(scheduledWorkout));
-    }
-
-    private String getFormattedDateTimeString(ScheduledWorkout scheduledWorkout) {
-        LocalDateTime localDateTime = scheduledWorkout.getDateTime().getLocalDateTime();
-        int year = localDateTime.getYear();
-        int day = localDateTime.getDayOfMonth();
-        int hour = localDateTime.getHour();
-        int minute = localDateTime.getMinute();
-        String month = capitalize(localDateTime.getMonth().toString());
-        String dayOfWeek = capitalize(localDateTime.getDayOfWeek().toString().substring(0, 3));
-        return String.format("%s %s %s, %02d:%02d, %s", day, month, year, hour, minute, dayOfWeek);
-    }
-
-    private static String capitalize(String str) {
-        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        dateTime.setText(getPrettyDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
     }
 
     @Override

@@ -17,7 +17,7 @@ class JacksonSessionSet {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "SessionSet's %s field is missing!";
     public static final String MALFORMED_BOOLEAN_MESSAGE = "SessionSet's isFinished field is incorrect!";
-    private Pattern isBoolean = Pattern.compile("true|false", Pattern.CASE_INSENSITIVE);
+    private static final Pattern IS_BOOLEAN = Pattern.compile("true|false", Pattern.CASE_INSENSITIVE);
 
     private final String weight;
     private final String numReps;
@@ -66,7 +66,7 @@ class JacksonSessionSet {
 
         if (isFinished == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "isFinished"));
-        } else if (!isBoolean.matcher(isFinished.trim()).matches()) {
+        } else if (!IS_BOOLEAN.matcher(isFinished.trim()).matches()) {
             throw new IllegalValueException(MALFORMED_BOOLEAN_MESSAGE);
         }
 

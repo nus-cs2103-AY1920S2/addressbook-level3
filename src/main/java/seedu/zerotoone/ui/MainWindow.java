@@ -48,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReportWindow reportWindow;
 
     @FXML
     private VBox tabsVBox;
@@ -92,6 +93,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        reportWindow = new ReportWindow();
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 24);
@@ -154,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
         scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
 
 
-        logListPanel = new LogListPanel(logic.getSessionList());
+        logListPanel = new LogListPanel(logic.getFilteredSessionList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
         tabPanePlaceHolder.setMinWidth(530);
@@ -194,6 +197,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the report window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleReport() {
+        if (!reportWindow.isShowing()) {
+            reportWindow.show();
+        } else {
+            reportWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -207,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        reportWindow.hide();
         primaryStage.hide();
     }
 
@@ -223,6 +239,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowReport()) {
+                handleReport();
             }
 
             if (commandResult.isExit()) {
