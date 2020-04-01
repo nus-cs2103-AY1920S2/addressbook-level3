@@ -22,7 +22,7 @@ public class DateIsEqualsPredicate implements Predicate<Coupon> {
     @Override
     public boolean test(Coupon coupon) {
         LocalDate ed = coupon.getExpiryDate().getDate();
-        LocalDate givenDate = DateUtil.parseString(date);
+        LocalDate givenDate = DateUtil.parseStringToDate(date);
         return ed.isEqual(givenDate);
     }
 

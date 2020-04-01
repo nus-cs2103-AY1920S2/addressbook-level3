@@ -11,8 +11,7 @@ import javafx.beans.value.ObservableValueBase;
  * Represents an observable view of a month on the Calendar in the CouponStash with a {@MonthView}.
  */
 public class ObservableMonthView extends ObservableValueBase<MonthView> {
-    private MonthView monthView = new MonthView(DateUtil.getFormattedYearMonthString(YearMonth.now(),
-            DateUtil.YEAR_MONTH_FORMATTER));
+    private MonthView monthView = new MonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
     private String value;
 
     /**

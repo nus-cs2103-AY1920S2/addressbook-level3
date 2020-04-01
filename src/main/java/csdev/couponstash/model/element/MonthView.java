@@ -25,7 +25,7 @@ public class MonthView {
         requireNonNull(yearMonthString);
         checkArgument(DateUtil.isValidYearMonth(yearMonthString), MESSAGE_CONSTRAINTS);
 
-        this.yearMonth = YearMonth.parse(yearMonthString, DateUtil.YEAR_MONTH_FORMATTER);
+        this.yearMonth = DateUtil.parseStringToYearMonth(yearMonthString);
         this.value = yearMonthString;
     }
 

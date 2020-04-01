@@ -2,7 +2,6 @@ package csdev.couponstash.ui;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -37,7 +36,6 @@ public class CalendarPane extends UiPart<Region> {
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     private static final String MAX_YEAR_MESSAGE = "You have reached the maximum calendar year.";
     private static final String MIN_YEAR_MESSAGE = "You have reached the minimum calendar year.";
-    private static final DateTimeFormatter MONTH_YEAR_FORMATTER = DateUtil.MONTH_YEAR_FORMATTER_FOR_CALENDAR;
     private ArrayList<DateCell> dateCells;
     private YearMonth currentYearMonth;
     private ObservableList<Coupon> coupons;
@@ -63,7 +61,7 @@ public class CalendarPane extends UiPart<Region> {
         this.coupons = logic.getFilteredCouponList();
         this.monthView = logic.getMonthView();
         this.logic = logic;
-        coupons.addListener((ListChangeListener<? super Coupon>) change -> updateCalendarWithExpiringYearMonth());
+        coupons.addListener((ListChangeListener<? super Coupon>) change -> fillUpCalendar());
         monthView.addListener((ChangeListener<? super MonthView>) (observable, oldValue, newValue) ->
                 updateCalendarWithYearMonth(newValue.getYearMonth()));
         initializeUi();
@@ -109,7 +107,7 @@ public class CalendarPane extends UiPart<Region> {
      * Updates the calendar's title to the current month and year.
      */
     private void updateCalendarTitle() {
-        String calendarTitleText = currentYearMonth.format(MONTH_YEAR_FORMATTER);
+        String calendarTitleText = currentYearMonth.format(DateUtil.MONTH_YEAR_FORMATTER_FOR_CALENDAR);
         calendarHeader.setText(calendarTitleText);
     }
 
@@ -228,13 +226,13 @@ public class CalendarPane extends UiPart<Region> {
     private void setDateCellCircle(DateCell dateCell, LocalDate date) {
         Circle circle = new Circle(15);
         StackPane.setAlignment(circle, Pos.CENTER);
-        if (dateCell.getNumberOfCoupons() > 0 && dateIsInCurrentMonth(date)) {
+        if (date.isEqual(LocalDate.now())) {
             circle.setFill(Paint.valueOf("#02075D"));
             dateCell.setCircle(circle);
-            dateCell.setCursor();
-        } else if (date.isEqual(LocalDate.now())) {
-            circle.setFill(Paint.valueOf("#DF6D54"));
+        } else if (dateCell.getNumberOfCoupons() > 0 && dateIsInCurrentMonth(date)) {
+            circle.setFill(Paint.valueOf("#B80f0A"));
             dateCell.setCircle(circle);
+            dateCell.setCursor();
         } else {
             circle = new Circle(0);
             dateCell.setCircle(circle);
@@ -263,22 +261,6 @@ public class CalendarPane extends UiPart<Region> {
     }
 
     /**
-     * Updates the calendar with next month's data.
-     *
-     * @throws IllegalValueException If the next month is after the maximum year.
-     */
-    public void updateCalendarWithNextMonth() throws IllegalValueException {
-        if (DateUtil.isValidYear(currentYearMonth.plusMonths(1).getYear())) {
-            closeAllDisplayedCouponWindows();
-            currentYearMonth = currentYearMonth.plusMonths(1);
-            fillUpCalendar();
-            logger.info("Calendar showing next month.");
-        } else {
-            throw new IllegalValueException(MAX_YEAR_MESSAGE);
-        }
-    }
-
-    /**
      * Shows specified Year Month and updates the calendar with specified Year Month's data.
      */
     public void updateCalendarWithYearMonth(YearMonth yearMonth) {
@@ -287,34 +269,21 @@ public class CalendarPane extends UiPart<Region> {
         logger.info("Calender showing specified Year Month.");
     }
 
-    /**
-     * Shows Year Month of specified Year Month/date of the expiring command and updates the calendar
-     * with the Year Month's data.
-     */
-    public void updateCalendarWithExpiringYearMonth() {
-        if (allCouponsHasSameYearMonth()) {
-            currentYearMonth = coupons.get(0).getExpiryDate().getYearMonthOfDate();
-            fillUpCalendar();
-            logger.info("Calender showing current Year Month.");
-        } else {
-            currentYearMonth = YearMonth.now();
-            fillUpCalendar();
-        }
-    }
 
     /**
-     * Returns true if all coupons in the current observable list has the same YearMonth.
+     * Updates the calendar with next month's data.
+     *
+     * @throws IllegalValueException If the next month is after the maximum year.
      */
-    private boolean allCouponsHasSameYearMonth() {
-        Boolean allIsSameYearMonth = true;
-        YearMonth firstYearMonth = coupons.get(0).getExpiryDate().getYearMonthOfDate();
-        for (Coupon coupon : coupons) {
-            YearMonth currYearMonth = coupon.getExpiryDate().getYearMonthOfDate();
-            if (!currYearMonth.equals(firstYearMonth)) {
-                allIsSameYearMonth = false;
-            }
+    public void updateCalendarWithNextMonth() throws IllegalValueException {
+        if (DateUtil.isValidYear(currentYearMonth.plusMonths(1).getYear())) {
+            closeAllDisplayedCouponWindows();
+            currentYearMonth = currentYearMonth.plusMonths(1);
+            monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
+            logger.info("Calendar showing next month.");
+        } else {
+            throw new IllegalValueException(MAX_YEAR_MESSAGE);
         }
-        return allIsSameYearMonth;
     }
 
 
@@ -327,7 +296,7 @@ public class CalendarPane extends UiPart<Region> {
         if (DateUtil.isValidYear(currentYearMonth.minusMonths(1).getYear())) {
             closeAllDisplayedCouponWindows();
             currentYearMonth = currentYearMonth.minusMonths(1);
-            fillUpCalendar();
+            monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
             logger.info("Calender showing previous month.");
         } else {
             throw new IllegalValueException(MIN_YEAR_MESSAGE);
