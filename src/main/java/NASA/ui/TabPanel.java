@@ -7,7 +7,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import nasa.commons.core.LogsCenter;
 import nasa.logic.Logic;
