@@ -16,7 +16,7 @@ public class Done {
 
     public static final String VALIDATION_REGEX = "Y|N";
 
-    public final Boolean isDone;
+    private final Boolean isDone;
 
     /**
      * Constructs a {@code Done}.

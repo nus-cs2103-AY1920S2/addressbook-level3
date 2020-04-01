@@ -57,7 +57,7 @@ public class DoneCommand extends Command {
             }
             // Person person = lastShownList.get(targetIndex.getZeroBased());
             Task taskToEdit = lastShownList.get(targetIndex.getZeroBased());
-            if (taskToEdit.getDone().isDone) {
+            if (taskToEdit.getDone().getIsDone()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TASK_TO_BE_DONED);
             }
 
