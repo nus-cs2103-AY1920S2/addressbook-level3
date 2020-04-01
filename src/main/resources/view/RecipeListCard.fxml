@@ -24,15 +24,15 @@
             <Label fx:id="name" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="\$first" />
          </children>
       </HBox>
-      <Label fx:id="rating" styleClass="cell_small_label" stylesheets="@DarkTheme.css" text="\$rating" />
+      <Label fx:id="rating" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="\$rating" />
       <FlowPane fx:id="tags" stylesheets="@DarkTheme.css" />
-      <Label fx:id="calorie" styleClass="cell_small_label" text="\$calorie">
+      <Label fx:id="fav" styleClass="cell_icon_label" text="\$fav">
          <stylesheets>
             <URL value="@Extensions.css" />
             <URL value="@DarkTheme.css" />
          </stylesheets>
       </Label>
-      <Label fx:id="serving" styleClass="cell_small_label" text="\$serving">
+      <Label fx:id="serving" styleClass="cell_big_label" text="\$serving">
          <stylesheets>
             <URL value="@Extensions.css" />
             <URL value="@DarkTheme.css" />
