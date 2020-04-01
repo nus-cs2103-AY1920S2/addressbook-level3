@@ -43,8 +43,8 @@ public class SessionCard extends UiPart<Region> {
         super(FXML);
         sessionId.setText(String.format("%d. ", displayedIndex));
         exerciseName.setText(session.getExerciseName().fullName);
-        startTime.setText(DateUtil.getFormattedDateTimeString(session.getStartTime()));
-        endTime.setText(DateUtil.getFormattedDateTimeString(session.getEndTime()));
+        startTime.setText(DateUtil.getPrettyDateTimeString(session.getStartTime()));
+        endTime.setText(DateUtil.getPrettyDateTimeString(session.getEndTime()));
 
         List<SessionSet> exerciseSetsList = session.getSets();
         for (int i = 0; i < exerciseSetsList.size(); i++) {

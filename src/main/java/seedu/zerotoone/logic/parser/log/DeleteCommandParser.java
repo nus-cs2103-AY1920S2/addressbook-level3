@@ -7,7 +7,6 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.log.DeleteCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.logic.parser.exercise.ExerciseParserUtil;
 import seedu.zerotoone.logic.parser.util.ParserUtil;
 
 /**

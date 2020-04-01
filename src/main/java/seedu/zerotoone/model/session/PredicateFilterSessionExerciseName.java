@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.zerotoone.commons.util.StringUtil;
-import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * Tests that a {@code Session}'s {@code Name} matches any of the keywords given.

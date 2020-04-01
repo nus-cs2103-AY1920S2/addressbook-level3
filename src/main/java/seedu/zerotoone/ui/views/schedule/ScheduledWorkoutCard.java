@@ -1,8 +1,6 @@
 package seedu.zerotoone.ui.views.schedule;
 
-import static seedu.zerotoone.commons.util.DateUtil.getFormattedDateTimeString;
-
-import java.time.LocalDateTime;
+import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -30,7 +28,7 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
         super(FXML);
         scheduledWorkoutId.setText(String.format("%d. ", displayedIndex));
         scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName());
-        dateTime.setText(getFormattedDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
+        dateTime.setText(getPrettyDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
     }
 
     @Override

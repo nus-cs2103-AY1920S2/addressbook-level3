@@ -11,7 +11,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 import seedu.zerotoone.logic.commands.log.FindCommand;
-import seedu.zerotoone.logic.commands.schedule.CreateCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
@@ -39,7 +38,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             exerciseNameOptional = Optional.of(new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_START).isPresent()){
+        if (argMultimap.getValue(PREFIX_SESSION_START).isPresent()) {
             try {
                 startTimeOptional =
                     Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_SESSION_START).get()));
@@ -48,7 +47,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_END).isPresent()){
+        if (argMultimap.getValue(PREFIX_SESSION_END).isPresent()) {
             try {
                 endTimeOptional =
                     Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_SESSION_END).get()));

@@ -19,7 +19,8 @@ import seedu.zerotoone.model.workout.WorkoutName;
  */
 public class FindCommand extends LogCommand {
     public static final String COMMAND_WORD = "find";
-    public static final String MESSAGE_USAGE = "Usage: log find [e/exercise_name] [st/start_time] [et/end_time] [w/workout_name]";
+    public static final String MESSAGE_USAGE =
+        "Usage: log find [e/exercise_name] [st/start_time] [et/end_time] [w/workout_name]";
     public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "%1$d sessions found!";
 
     private final Optional<LocalDateTime> startTimeOptional;
@@ -55,9 +56,7 @@ public class FindCommand extends LogCommand {
             predicate = predicate.and(session -> session.getEndTime().equals(endTimeOptional.get()));
         }
 
-//        if (workoutNameOptional.isPresent()) {
-//          Not impl yet
-//        }
+        // todo implement workout
 
         model.updateFilteredSessionList(predicate);
 

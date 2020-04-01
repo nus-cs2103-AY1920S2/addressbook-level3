@@ -46,7 +46,7 @@ public class CommandResult {
         return showHelp;
     }
 
-    public boolean isShowReport(){
+    public boolean isShowReport() {
         return showReport;
     }
 

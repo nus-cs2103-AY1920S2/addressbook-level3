@@ -2,10 +2,17 @@ package seedu.zerotoone.commons.util;
 
 import java.time.LocalDateTime;
 
-import seedu.zerotoone.model.schedule.ScheduledWorkout;
-
+/**
+ * This utility class helps consolidate all date helper functions,
+ */
 public class DateUtil {
-    public static String getFormattedDateTimeString(LocalDateTime dateTime) {
+    /**
+     * Gets pretty date time string.
+     *
+     * @param dateTime the date time
+     * @return the formatted date time string
+     */
+    public static String getPrettyDateTimeString(LocalDateTime dateTime) {
         int year = dateTime.getYear();
         int day = dateTime.getDayOfMonth();
         int hour = dateTime.getHour();

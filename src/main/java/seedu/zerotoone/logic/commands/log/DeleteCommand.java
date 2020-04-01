@@ -1,7 +1,7 @@
 package seedu.zerotoone.logic.commands.log;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.zerotoone.commons.util.DateUtil.getFormattedDateTimeString;
+import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.logic.commands.log.LogCommand;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.session.Session;
 
@@ -41,7 +40,7 @@ public class DeleteCommand extends LogCommand {
 
         String outputMessage = String.format(MESSAGE_DELETE_SESSION_SUCCESS,
             sessionToDelete.getExerciseName().toString(),
-            getFormattedDateTimeString(sessionToDelete.getStartTime()));
+            getPrettyDateTimeString(sessionToDelete.getStartTime()));
         return new CommandResult(outputMessage);
     }
 
