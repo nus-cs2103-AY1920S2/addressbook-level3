@@ -226,8 +226,7 @@ This section describes some noteworthy details on how certain features are imple
 
 [[StudentView]]
 === Student View
-*Student View* is the term used to characterise the different functionalities
-related to the students.
+*Student View* is used to display all modules, groups and students in the TA-Tracker.
 
 Students are a part of *groups* and groups are a part of *modules*.
 
@@ -457,11 +456,10 @@ image::SortAllSequenceDiagram.png[]
 * The lifeline for `SortCommandParser` should end at the
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-* The `Logic` component of the `Sort` commands differs from other components as the
-`Module`, `Group` and `Student` components have their own parsers (such as the `ModuleCommandParser`,
-`GroupCommandParser` and `StudentCommandParser` respectively) which direct the commands
-towards their own individual parsers. The `Sort` commands, on the other hand, have
-a single `SortCommandParser` which handles the parsing for all three kinds of commands.
+* The `SortCommandParser`, which creates `Sort` commands, is different from the other
+command parsers. While the other commands have another level of parsing (such as the
+`ModuleCommandParser` for `Module` commands), the SortCommandParser
+creates all the different Sort commands within itself.
 ====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
