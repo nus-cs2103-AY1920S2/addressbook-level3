@@ -1,0 +1,36 @@
+@startuml
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+interface Model <<interface>> {
+    + updateFilteredOrderList(Predicate<Order> predicate) : void
+    + updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) : void
+}
+interface Predicate <<interface>> {
+}
+
+class ListCommand implements Model{
+    /' Fields '/
+    + {static} COMMAND_WORD : String
+    + {static} DONE : String
+    + {static} UNDONE : String
+    + {static} EMPTY_ARGUMENT : String
+    + {static} MESSAGE_SUCCESS : String
+    + {static} MESSAGE_SUCCESS_DONE : String
+    + {static} MESSAGE_SUCCESS_UNDONE : String
+    + {static} MESSAGE_FAILURE : String
+    + {static} MESSAGE_USAGE : String
+    - listArg : String
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+}
+ListCommand --up|> "{abstract}\nCommand"
+Model ..> Predicate
+@enduml

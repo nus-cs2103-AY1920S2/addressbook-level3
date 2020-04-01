@@ -153,6 +153,111 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+[[insert]]
+=== Insert Feature
+This section, will <<what-is-insert, introduce>> the Insert Feature. In addition, it will show the expected
+<<insert-sequence, path-execution>>, the <<insert-class, structure>> of the of the *InsertCommand* class and
+it will also describe the <<insert-activity, interaction>> of objects between the *InsertCommand* object and other object classes.
+
+[[what-is-insert]]
+==== What is the Insert feature
+The insert feature allows the user to insert an incoming delivery order into the list using the command line.
+The order consists of : Transaction ID, Name, Phone, Address, Email, Delivery Timestamp, Warehouse location,
+CashOnDelivery
+
+The order also consists of two optional fields that can be added:
+
+. Type of Item
+
+. Comment for Courier
+
+[[insert-class]]
+==== Structure of Insert feature
+.Insert Class Diagram
+image::InsertClassDiagram.svg[]
+
+[[insert-activity]]
+==== Path Execution of Insert Command
+.Insert Activity Diagram
+image::InsertActivityDiagram.svg[]
+
+[[insert-sequence]]
+==== Interaction between objects when the *Insert Command* is executed
+Here is the sequence diagram for the *Insert Command* as shown below: +
+
+.Insert
+image::InsertCommandSequenceDiagram.svg[]
+
+The arguments of the Insert Command will be parsed using the parse method of the `InsertCommandParser` class. +
+The `InsertCommandParser` will tokenize the arguments parsed in using the tokenize method of `ArgumentTokenizer` class which
+returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the arguments parsed in matches with the
+tokenized arguments using the arePrefixesPresent method.
+
+There are two scenarios : +
+
+. Some compulsory prefixes are not present : +
+`InsertCommandParser` will throw a new `ParseException` object to the `LogicManager`.
+
+. All compulsory prefixes are present in the arguments : +
+It will the  proceed to use the getValue method of the `ArgumentMultimap` class to get the value of the prefix. For example,
+if the argument parsed in is tid/A12345, the getValue method will get the value 'A12345'. Subsequently, it will use the
+`ParseUtil` methods to get the corresponding object values and put it into the parameters of the new `Order` object.
+The order object will be put into the parameter of the `InsertCommand` object and this will be returned
+to the `LogicManager` class for execution.
+
+`LogicManager` will call the execute() method of this `InsertCommand` object. In the execute() method, it will use the `Model` class
+to call hasOrder method to check for duplicates, if it is a duplicate, the order will throw a CommandException which
+indicates that there is a duplicate order in the OrderBook already. Else, it will successfully inserts the new order
+using addOder method. Finally, it return a new `CommandResult` object, containing a String that indicates a successful
+insertion.
+
+[[list]]
+=== List feature
+This section describes the <<list-functionality, functionality>> , the <<list-structure, structure>>,
+<<list-interactions, interactions>> between objects and <<list-path, path>> the path execution of the *List Command*.
+
+[[list-functionality]]
+==== What is the List feature
+List feature allows the user to see all the orders from both Delivery Orders and Return Orders.
+
+The user can enter `list` to display all the orders. Besides that, the user can also input `done` to dispay
+all delivered orders and `undone` to display all orders that are not delivered.
+
+[[list-structure]]
+==== Structure List feature
+The structure of the List Feature is as shown below:
+
+.List Class Diagram
+image::ListClassDiagram.svg[]
+
+[[list-path]]
+==== Path execution of the List Command
+.List Activity Diagram
+image::ListActivityDiagram.svg[]
+
+The above activity diagram shows the logic and the path execution when the *List Command* is executed.
+
+[[list-interactions]]
+==== Interaction between objects during execution of List Command
+The sequence diagram for the *List Command* is shown below: +
+
+.List Command Sequence Diagram
+image::ListCommandSequenceDiagram.svg[]
+
+The user first calls the command "list".
+[NOTE]
+====
+The second argument of the `list` command can be `done` or `undone` or an empty String.
+====
+
+The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
+the second argument into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
+Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
+the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
+argument is empty, the predicate that is parsed to the two methods will always result to true, which means to list
+everything from the order book and return book. When completed, the execute(model) will return a `CommandResult` object
+to the `LogicManager`, indicating that the command execution is a success.
+
 === Clear feature
 The clear feature allows the user to remove the orders and return orders by input one command line.
 
