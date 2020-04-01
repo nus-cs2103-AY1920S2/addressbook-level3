@@ -34,6 +34,17 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully sorted by %s";
 
+    public static final Comparator<Coupon> NAME_COMPARATOR = (x, y) -> x
+            .toString()
+            .toLowerCase()
+            .compareTo(y.toString().toLowerCase());
+    public static final Comparator<Coupon> EXPIRY_COMPARATOR = (x, y) -> x
+            .getExpiryDate()
+            .getDate()
+            .compareTo(
+                    y.getExpiryDate().getDate()
+            );
+
     private Prefix prefixToSortBy;
 
     /**
@@ -52,20 +63,12 @@ public class SortCommand extends Command {
 
         Comparator<Coupon> cmp = null;
         if (prefixToSortBy.equals(PREFIX_NAME)) {
-            cmp = (x, y) -> x
-                    .toString()
-                    .toLowerCase()
-                    .compareTo(y.toString().toLowerCase());
+            model.sortCoupons(NAME_COMPARATOR);
         } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
-            cmp = (x, y) -> x
-                    .getExpiryDate()
-                    .getDate()
-                    .compareTo(
-                            y.getExpiryDate().getDate()
-                    );
+            model.sortCoupons(EXPIRY_COMPARATOR);
         }
 
-        model.sortCoupons(cmp);
+
 
         // Put non-archived at the top.
         model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);

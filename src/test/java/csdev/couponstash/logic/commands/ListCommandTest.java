@@ -2,6 +2,9 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.logic.commands.CommandTestUtil.showCouponAtIndex;
+import static csdev.couponstash.logic.parser.CliSyntax.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,5 +74,27 @@ public class ListCommandTest {
         expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "used");
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_USED_COUPONS);
         assertCommandSuccess(new ListCommand(CliSyntax.PREFIX_USAGE), model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void testEquals() {
+        ListCommand listActive = new ListCommand();
+        ListCommand listArchived = new ListCommand(PREFIX_ARCHIVE);
+
+        // same object -> returns true
+        assertTrue(listActive.equals(listActive));
+
+        // same values -> returns true
+        ListCommand listActiveCopy = new ListCommand();
+        assertTrue(listActive.equals(listActiveCopy));
+
+        // different types -> returns false
+        assertFalse(listActive.equals(1));
+
+        // null -> returns false
+        assertFalse(listActive.equals(null));
+
+        // different coupon -> returns false
+        assertFalse(listActive.equals(listArchived));
     }
 }

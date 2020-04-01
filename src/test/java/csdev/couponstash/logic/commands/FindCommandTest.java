@@ -73,8 +73,10 @@ public class FindCommandTest {
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalCoupons.CARL, TypicalCoupons.FIONA, TypicalCoupons.ELLE),
-                model.getFilteredCouponList());
+        assertEquals(
+                Arrays.asList(TypicalCoupons.CARL, TypicalCoupons.FIONA, TypicalCoupons.ELLE),
+                model.getFilteredCouponList()
+        );
     }
 
     /**
