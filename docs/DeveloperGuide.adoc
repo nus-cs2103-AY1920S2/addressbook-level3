@@ -235,9 +235,21 @@ will be updated to show the change. +
 2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
 display the original order book.
 
-=== Edit feature
-The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `FLAG` and `INDEX`. +
-`FLAG` to indicate which parcel type to edit; `-o` and  `-r` `FLAG` to represent Order or Return Order respectively. +
+=== Edit Feature
+
+In this section, the <<what-is-edit,functionality>> of the `edit` feature, the expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the `EditCommand` class
+and the <<edit-interactions, interactions>> between objects with the `EditCommand` object will be discussed.
+
+[[what-is-edit]]
+==== What is Edit Command
+
+The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
+
+`edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
+
+
+The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `<<command_flags, FLAG>>` and `INDEX`. +
+`<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>`` to represent Order or Return Order respectively. +
 `INDEX` to indicate which parcel the user wants to edit. +
 The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>.
 
@@ -246,17 +258,20 @@ The list of the different parcel fields are listed in Appendix E: <<command_pref
 Limitation to editing time is that the user cannot edit a delivery date or return date of an order or return order respectively to a past date.
 ====
 
-The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
 
+[[edit-path-execution]]
 ==== Execution paths of Edit Command
 
 
+[[edit-structure]]
 ==== Structure of Edit Command
 
 .Edit Command Class Diagram
 image::EditCommandClassDiagram.png[]
-The class diagram above describes the structure of `EditCommand`.
+The class diagram above depicts the structure of `EditCommand`. As per any `Command` class, `EditCommand` needs to extend the abstract class `Command`. +
+Information that are left out in this class diagram are the common messages used in `EditCommand`.
 
+[[edit-interactions]]
 ==== Interactions between Edit Command and it's associated objects
 
 .Edit Command Sequence Diagram
@@ -478,7 +493,7 @@ The sequence diagram above illustrates the interactions between objects when `se
 Particularly, the interactions shown is a success `search` command executed by the user and only an abstract view is shown.
 
 
-LogicManager first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
+`LogicManager` first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
 
 [TIP]
 ====
