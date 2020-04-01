@@ -32,7 +32,6 @@ public interface Model {
   Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
   Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
-
     String COURSE_ENTITY_NAME = "course";
 
     /**
@@ -91,6 +90,9 @@ public interface Model {
     /**
      * Returns the AddressBook
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8262acbefef917ecffa19da46254798e19c1a6f9
   */
   ReadOnlyAddressBook getAddressBook();
 
@@ -280,7 +282,6 @@ public interface Model {
 
   // ====================================================================== //
   // There is no CRUD operations for Progress objects for now
-
     /**
      * Returns the user prefs' assignment address book file path.
      */
