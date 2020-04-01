@@ -3,6 +3,8 @@ package com.notably.testutil;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockImpl;
+import com.notably.model.block.BlockModel;
+import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.block.Body;
@@ -11,7 +13,7 @@ import com.notably.model.block.Title;
 /**
  * A utility class containing a list of {@code Block} objects to be used in tests.
  */
-public class TypicalBlockTree {
+public class TypicalBlockModel {
     public static final Block Y2S2 = new BlockImpl(new Title("Y2S2"));
     public static final Block CS2103T = new BlockImpl(new Title("CS2103T"),
         new Body("Software Engineering"));
@@ -33,9 +35,10 @@ public class TypicalBlockTree {
         new Body("Design and Analysis of Algorithms"));
 
     /**
-     * Returns an {@code BlockTree} with the typical blocks.
+     * Returns an {@code BlockModel} with the typical blocks.
      */
-    public static BlockTree getTypicalBlockTree() {
+    public static BlockModel getTypicalBlockModel() {
+        BlockModel blockModel = new BlockModelImpl();
         BlockTree blockTree = new BlockTreeImpl();
         blockTree.add(AbsolutePath.TO_ROOT_PATH, Y2S2);
         blockTree.add(AbsolutePath.fromString("/Y2S2"), CS2103T);
@@ -48,6 +51,9 @@ public class TypicalBlockTree {
         blockTree.add(AbsolutePath.fromString("/Y2S2/CS2106"), CS2106_TUTORIALS);
         blockTree.add(AbsolutePath.fromString("/Y2S2/CS2106/Tutorials"), CS2106_TUTORIAL_1);
 
-        return blockTree;
+        blockModel.setBlockTree(blockTree);
+        blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/Y2S2"));
+
+        return blockModel;
     }
 }
