@@ -57,7 +57,7 @@ public class StaffCard extends UiPart<Region> {
     phone.setText(staff.getPhone().value);
     address.setText(staff.getAddress().value);
     email.setText(staff.getEmail().value);
-
+    assignedCourses.setText(staff.getAssignedCourses().toString());
     salary.setText(staff.getSalary().value);
     staff.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
