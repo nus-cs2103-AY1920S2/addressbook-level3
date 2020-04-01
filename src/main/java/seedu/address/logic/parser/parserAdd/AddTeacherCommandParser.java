@@ -81,13 +81,6 @@ public class AddTeacherCommandParser extends AddCommandParser {
     AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    /*
-    Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-    Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-    Salary salary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_SALARY).get());
-    Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-    */
-
     Staff teacher = new Staff(name, Staff.Level.TEACHER, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);

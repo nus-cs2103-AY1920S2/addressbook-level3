@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.commandList.ListAssignmentCommand;
-import seedu.address.logic.commands.commandList.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -31,13 +30,8 @@ public class ListAssignmentCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-<<<<<<< HEAD
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getStaffAddressBook(),
-=======
             getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalProgressAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
+        expectedModel = new ModelManager(model.getAddressBook(), model.getStaffAddressBook(),
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
                 model.getAssignmentAddressBook(), model.getProgressAddressBook(), new UserPrefs());
     }

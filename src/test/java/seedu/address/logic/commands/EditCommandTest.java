@@ -47,52 +47,6 @@ import seedu.address.testutil.PersonBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-<<<<<<< HEAD
-        getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(),  new UserPrefs());
-
-    @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new StaffAddressBook(model.getStaffAddressBook())
-        , new StudentAddressBook(model.getStudentAddressBook()), new FinanceAddressBook(model.getFinanceAddressBook()),
-            new CourseAddressBook(model.getCourseAddressBook()), new AssignmentAddressBook(model.getAssignmentAddressBook()),
-                new CourseStudentAddressBook(model.getCourseStudentAddressBook()),
-                new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
-
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new StaffAddressBook(model.getStaffAddressBook())
-        ,new StudentAddressBook(model.getStudentAddressBook()) ,new FinanceAddressBook(model.getFinanceAddressBook()),
-            new CourseAddressBook(model.getCourseAddressBook()), new AssignmentAddressBook(model.getAssignmentAddressBook()),
-            new CourseStudentAddressBook(model.getCourseStudentAddressBook()),
-            new UserPrefs());
-        expectedModel.setPerson(lastPerson, editedPerson);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-=======
         getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalProgressAddressBook(),new UserPrefs());
 //
 //    @Test
@@ -134,7 +88,6 @@ public class EditCommandTest {
 //
 //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
 //    }
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
