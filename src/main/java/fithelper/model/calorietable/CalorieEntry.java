@@ -1,7 +1,5 @@
 package fithelper.model.calorietable;
 
-import fithelper.model.entry.Calorie;
-
 import java.util.Objects;
 
 /**

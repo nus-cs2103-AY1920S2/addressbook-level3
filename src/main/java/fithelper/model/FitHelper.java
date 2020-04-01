@@ -370,12 +370,12 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Searches one of the tables and add all entries whose name contains the keywords into a list
-     * add returns the list.
+     * Searches one of the tables and add all entries whose name contains the keywords into a set
+     * add returns the set.
      *
      * @param type
      * @param keywords
-     * @return a list of {@code CalorieEntry} with matching keywords.
+     * @return a set of {@code CalorieEntry} with matching keywords.
      */
     public Set<CalorieEntry> addCalorieEntries(String type, String keywords) {
         assert "f".equals(type) || "s".equals(type) : "check type can only be f(food) or s(sports)";
@@ -399,6 +399,16 @@ public class FitHelper implements ReadOnlyFitHelper {
         return result;
     }
 
+    /**
+     * Checks if any {@code CalorieEntry} in the entry set whose name is the same of one of the keywords.
+     * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
+     *
+     * @param keywords array of keywords
+     * @param result set to contain matching entries
+     * @param entries entry set
+     * @param count number of entries in the set so far
+     * @return number of {@code CalorieEntry} added at the end of the method.
+     */
     private int searchEachWordCompleteMatch(String[] keywords, Set<CalorieEntry> result,
                                             Set<? extends CalorieEntry> entries, int count) {
         for (CalorieEntry entry : entries) {
@@ -417,6 +427,16 @@ public class FitHelper implements ReadOnlyFitHelper {
         return count;
     }
 
+    /**
+     * Checks if any {@code CalorieEntry} in the entry set whose name contains the keywords as a whole.
+     * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
+     *
+     * @param keywords keywords as a whole
+     * @param result set to contain matching entries
+     * @param entries entry set
+     * @param count number of entries in the set so far
+     * @return number of {@code CalorieEntry} added at the end of the method.
+     */
     private int searchWholeWordPartialMatch(String keywords, Set<CalorieEntry> result,
                                             Set<? extends CalorieEntry> entries, int count) {
         for (CalorieEntry entry : entries) {
@@ -432,6 +452,15 @@ public class FitHelper implements ReadOnlyFitHelper {
         return count;
     }
 
+    /**
+     * Checks if any {@code CalorieEntry} in the entry set whose name contains one of the keywords.
+     * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
+     *
+     * @param keywords array of keywords
+     * @param result set to contain matching entries
+     * @param entries entry set
+     * @param count number of entries in the set so far
+     */
     private void searchEachWordPartialMatch(String[] keywords, Set<CalorieEntry> result,
                                             Set<? extends CalorieEntry> entries, int count) {
         for (CalorieEntry entry : entries) {

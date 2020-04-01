@@ -1,7 +1,6 @@
 package fithelper.model.calorietable;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,9 +11,9 @@ public class SportsCalorieTable implements CalorieTable {
 
     public SportsCalorieTable() {
         String data = SportsCalorieDataUtil.DATA;
-        String[] listOfEntries = data.split("//");
+        String[] listOfEntries = data.split("\n");
         for (String entry : listOfEntries) {
-            String[] attributes = entry.split("/");
+            String[] attributes = entry.split("\t");
             if (attributes.length == 2) {
                 entries.add(new SportsCalorieEntry(attributes[0], attributes[1]));
             }

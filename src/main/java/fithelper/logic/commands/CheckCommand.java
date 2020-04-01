@@ -4,11 +4,8 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Set;
 
-import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.entry.Type;

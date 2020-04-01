@@ -1,5 +1,13 @@
 package fithelper.model;
 
+import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.ModeUtil;
@@ -15,14 +23,6 @@ import fithelper.model.weight.Weight;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
-
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the in-memory model of the FitHelper data.
@@ -327,11 +327,11 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Searches the {@code FoodCalorieTable} and add all entries whose name contains the keyword into a list
-     * add returns the list.
+     * Searches the {@code FoodCalorieTable} and add at most 3 entries whose name matches the keyword into a set
+     * add returns the set.
      *
      * @param keywords keyword for searching
-     * @return a list of {@code CalorieEntry} with matching keyword
+     * @return a set of {@code CalorieEntry} with matching keyword
      */
     public Set<CalorieEntry> searchFoodCalorieTable(String keywords) {
         return fitHelper.addCalorieEntries("f", keywords);
