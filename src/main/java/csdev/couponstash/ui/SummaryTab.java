@@ -1,5 +1,6 @@
 package csdev.couponstash.ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +14,17 @@ import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * Savings summary of CouponStash.
@@ -36,6 +41,8 @@ public class SummaryTab extends UiPart<Region> {
 
     // Individual FXML components
     @FXML
+    private StackPane baseNode;
+    @FXML
     private Label savedText;
     @FXML
     private Label numericalAmount;
@@ -50,19 +57,37 @@ public class SummaryTab extends UiPart<Region> {
     @FXML
     private VBox allSaveables;
 
+    // JavaFX location where bar graph labels are put
+    ObservableList<Node> barGraphLabels = null;
+
+    // Total amount to show in the summary tab
     private MonetaryAmount shownMonetaryAmount = new MonetaryAmount(0.0);
 
-
+    /**
+     *
+     * @param allCoupons
+     * @param moneySymbol
+     */
     public SummaryTab(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
         super(FXML);
         this.allCoupons = allCoupons;
         this.moneySymbol = moneySymbol;
         savedText.setText(SummaryTab.SAVED_TOTAL_PRE_MESSAGE);
         saveablesText.setText(SummaryTab.SAVEABLES_PRE_MESSAGE);
-        this.updateView();
     }
 
+    /**
+     *
+     */
     public void updateView() {
+        // ensure that existing items are cleared from the view
+        this.allSaveables.getChildren().clear();
+        this.savingsChart.getData().clear();
+        // clear the bar graph labels when view is updated
+        if (this.barGraphLabels != null) {
+            this.barGraphLabels.removeIf(element -> element instanceof Text);
+        }
+
         // set the graph
         DateSavingsSumMap mapOfAllCoupons = getMapOfAllCoupons();
         XYChart.Series<String, Number> savingsPerWeek = this.getSeries(mapOfAllCoupons);
@@ -81,38 +106,111 @@ public class SummaryTab extends UiPart<Region> {
         this.updateTotalAmount();
     }
 
+    /**
+     *
+     * @param savingsSum
+     */
     private void addToSaveables(PureMonetarySavings savingsSum) {
-        savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList.stream()
+        savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList
                 .forEach(sva -> {
                     Label label = new Label(sva.getValue());
                     allSaveables.getChildren().add(label);
                 }));
     }
 
+    /**
+     *
+     * @return
+     */
     private DateSavingsSumMap getMapOfAllCoupons() {
         DateSavingsSumMap map = new DateSavingsSumMap();
         this.allCoupons.stream()
                 .map(Coupon::getSavingsMap)
                 .forEach(map::addAll);
-        System.out.println(map.size());
         return map;
     }
 
+    /**
+     *
+     * @param mapOfAllCoupons
+     * @return
+     */
     private XYChart.Series<String, Number> getSeries(DateSavingsSumMap mapOfAllCoupons) {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        List<XYChart.Data<String, Number>> listOfData =
-                new ArrayList<XYChart.Data<String, Number>>();
-        mapOfAllCoupons.forEach((date, savings) ->
-                listOfData.add(new XYChart.Data<String, Number>(
-                        DateUtil.formatDate(date),
-                        savings.getMonetaryAmountAsDouble()
-                )));
+        List<XYChart.Data<String, Number>> listOfData = new ArrayList<XYChart.Data<String, Number>>();
+        mapOfAllCoupons.forEach((date, savings) -> this.addMapEntryToList(date, savings, listOfData));
         series.setData(FXCollections.observableList(listOfData));
         return series;
     }
 
+    /**
+     * Updates the total amount shown in the Summary Tab.
+     * To be used to force money symbol to change, or to
+     * force the total amount shown to change.
+     */
     private void updateTotalAmount() {
         this.numericalAmount.setText(
                 this.shownMonetaryAmount.getStringWithMoneySymbol(this.moneySymbol.getString()));
+    }
+
+    /**
+     *
+     * @param ld
+     * @param pms
+     * @param dataList
+     */
+    private void addMapEntryToList(
+            LocalDate ld,
+            PureMonetarySavings pms,
+            List<XYChart.Data<String, Number>> dataList) {
+
+        XYChart.Data<String, Number> data = new XYChart.Data<String, Number>(
+                DateUtil.formatDate(ld),
+                pms.getMonetaryAmountAsDouble()
+        );
+        dataList.add(data);
+        Text dataLabel = new Text(SummaryTab.formatMoneyAmount(pms.getMonetaryAmountAsDouble()));
+        data.nodeProperty().addListener((obv, oldNode, newNode) -> {
+            if (newNode != null) {
+                addListenersForLabel(newNode, dataLabel);
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param node
+     * @param dataLabel
+     */
+    private void addListenersForLabel(Node node, Text dataLabel) {
+        // listener to add label when possible
+        node.parentProperty().addListener((obv, oldParent, newParent) -> {
+            if (newParent != null) {
+                ObservableList<Node> children = ((Group) newParent).getChildren();
+                children.add(dataLabel);
+                // store the list of children so we can update the
+                // labels when the labels need to be updated
+                this.barGraphLabels = children;
+            }
+        });
+        // listener to set label position
+        node.boundsInParentProperty().addListener((obv, oldBounds, newBounds) -> {
+            dataLabel.setLayoutX(Math.round(newBounds.getMinX() + newBounds.getWidth() / 2
+                    - dataLabel.prefWidth(-1) / 2));
+            dataLabel.setLayoutY(newBounds.getMinY());
+        });
+    }
+
+    /**
+     * Formats a numerical amount to look like a
+     * monetary amount (2 decimal places).
+     *
+     * @param amount The Number to be formatted.
+     * @return String representing the amount, but
+     *         formatted to 2 decimal places.
+     */
+    private static String formatMoneyAmount(Number amount) {
+        return String.format("%.2f", amount.doubleValue());
     }
 }

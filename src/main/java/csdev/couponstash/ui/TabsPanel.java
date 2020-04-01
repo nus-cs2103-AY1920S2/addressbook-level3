@@ -17,7 +17,7 @@ public class TabsPanel extends UiPart<Region> {
 
     // Independent Ui parts residing in this Ui container
     private CouponListPanel couponListPanel;
-    private SummaryTab summaryTab;
+    private SummaryTab summaryPane;
     private HelpPane helpPane;
     private Logic logic;
 
@@ -25,7 +25,7 @@ public class TabsPanel extends UiPart<Region> {
     private Tab couponTab;
 
     @FXML
-    private Tab savedTab;
+    private Tab summaryTab;
 
     @FXML
     private Tab helpTab;
@@ -48,6 +48,13 @@ public class TabsPanel extends UiPart<Region> {
     public TabsPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                (ov, oldTab, newTab) -> {
+                    if (newTab == summaryTab) {
+                        summaryPane.updateView();
+                    }
+                }
+        );
     }
 
     /**
@@ -60,8 +67,8 @@ public class TabsPanel extends UiPart<Region> {
                 logic.getFilteredCouponList(), currentMoneySymbol);
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        summaryTab = new SummaryTab(logic.getAllCouponList(), currentMoneySymbol);
-        savedPanePlaceholder.getChildren().add(summaryTab.getRoot());
+        summaryPane = new SummaryTab(logic.getAllCouponList(), currentMoneySymbol);
+        savedPanePlaceholder.getChildren().add(summaryPane.getRoot());
 
         helpPane = new HelpPane(logic);
         helpPanePlaceholder.getChildren().add(helpPane.getRoot());
@@ -73,7 +80,7 @@ public class TabsPanel extends UiPart<Region> {
     public CsTab selectedTab() {
         if (couponTab.isSelected()) {
             return CsTab.COUPONS;
-        } else if (savedTab.isSelected()) {
+        } else if (summaryTab.isSelected()) {
             return CsTab.SAVED;
         } else {
             return CsTab.HELP;
@@ -92,11 +99,11 @@ public class TabsPanel extends UiPart<Region> {
             break;
 
         case SAVED:
-            selectionModel.select(savedTab);
+            selectionModel.select(summaryTab);
             break;
 
         case HELP:
-            selectionModel.select(savedTab);
+            selectionModel.select(helpTab);
             break;
 
         default:

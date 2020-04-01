@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="baseNode" >
   <VBox id="summary-tab" alignment="CENTER" minHeight="300" StackPane.alignment="CENTER">
     <Label id="saved-text" fx:id="savedText" contentDisplay="CENTER" prefHeight="17.0" />
     <Label id="numerical-amount" fx:id="numericalAmount" contentDisplay="CENTER" prefHeight="17.0" />
