@@ -157,7 +157,7 @@ Example: `delete -t Notably/CS2103`
 [IMPORTANT]
 If your target path is a subtree, the whole subtree including the child would be deleted.
 
-.Demo for the delete command (before deletion)
+.Demo for the delete command
 image::demo/Delete1.png[]
 
 .Demo for the delete command (after deletion)
