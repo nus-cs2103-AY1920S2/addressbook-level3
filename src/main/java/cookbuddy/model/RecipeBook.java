@@ -1,12 +1,12 @@
 package cookbuddy.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.UniqueRecipeList;
 import javafx.collections.ObservableList;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the recipe-book level
@@ -90,6 +90,11 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     public void unFav(Recipe recipe) {
         requireNonNull(recipe);
         recipe.unFavRecipe();
+    }
+
+    public void attempt(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.attemptRecipe();
     }
 
 

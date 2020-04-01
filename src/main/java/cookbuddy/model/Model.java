@@ -1,11 +1,11 @@
 package cookbuddy.model;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
-
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
+
+import java.nio.file.Path;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -62,6 +62,13 @@ public interface Model {
      */
     long count();
 
+
+    /**
+     * Marks a recipe as attempted/done
+     * @param recipe the recipe to be marked.
+     */
+    void attemptRecipe(Recipe recipe);
+
     /**
      *
      * Favourites the recipe
@@ -69,16 +76,10 @@ public interface Model {
     void favRecipe(Recipe recipe);
 
     /**
-     * Un-favourites the recipe
+     * Un-Favourites the recipe
      *
      */
     void unFavRecipe(Recipe recipe);
-
-    /**
-     *
-     * Un-Favourites the recipe
-     */
-    //void unFavRecipe(Recipe recipe);
 
     /**
      * Deletes the given recipe.

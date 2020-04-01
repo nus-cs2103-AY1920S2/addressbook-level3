@@ -1,17 +1,17 @@
 package cookbuddy.model;
 
-import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
+import java.nio.file.Path;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the in-memory model of the recipe book data.
@@ -92,6 +92,12 @@ public class ModelManager implements Model {
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
         return recipeBook.hasRecipe(recipe);
+    }
+
+    @Override
+    public void attemptRecipe(Recipe recipe) {
+        recipeBook.attempt(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override

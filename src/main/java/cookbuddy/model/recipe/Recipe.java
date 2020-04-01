@@ -1,21 +1,13 @@
 package cookbuddy.model.recipe;
 
-import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import cookbuddy.model.recipe.attribute.*;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import cookbuddy.model.recipe.attribute.Calorie;
-import cookbuddy.model.recipe.attribute.Difficulty;
-import cookbuddy.model.recipe.attribute.Fav;
-import cookbuddy.model.recipe.attribute.IngredientList;
-import cookbuddy.model.recipe.attribute.InstructionList;
-import cookbuddy.model.recipe.attribute.Name;
-import cookbuddy.model.recipe.attribute.Rating;
-import cookbuddy.model.recipe.attribute.Serving;
-import cookbuddy.model.recipe.attribute.Tag;
+import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Recipe in the recipe book. Guarantees: details are present and
@@ -32,6 +24,7 @@ public class Recipe {
     private final Rating rating;
     private final Difficulty difficulty;
     private final Fav favStatus = new Fav(false);
+    private final Done doneStatus = new Done(false);
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -83,6 +76,10 @@ public class Recipe {
         return favStatus;
     }
 
+    public Done getDoneStatus() {
+        return doneStatus;
+    }
+
     /**
      * Returns an immutable tag set, which throws
      * {@code UnsupportedOperationException} if modification is attempted.
@@ -111,6 +108,10 @@ public class Recipe {
 
     public void unFavRecipe() {
         favStatus.unFav();
+    }
+
+    public void attemptRecipe() {
+        doneStatus.attempt();
     }
 
     /**

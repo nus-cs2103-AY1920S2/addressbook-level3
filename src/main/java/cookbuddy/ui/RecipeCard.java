@@ -1,7 +1,5 @@
 package cookbuddy.ui;
 
-import java.util.Comparator;
-
 import cookbuddy.model.recipe.Recipe;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,6 +7,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
@@ -42,6 +42,8 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label fav;
     @FXML
+    private Label done;
+    @FXML
     private Label serving;
     @FXML
     private Label rating;
@@ -60,6 +62,7 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
         fav.setText(recipe.getFavStatus().toString());
+        done.setText(recipe.getDoneStatus().toString());
         serving.setText(recipe.getServing().toString());
         rating.setText(recipe.getRating().toString());
         diff.setText("Difficulty: " + recipe.getDifficulty().toString());
