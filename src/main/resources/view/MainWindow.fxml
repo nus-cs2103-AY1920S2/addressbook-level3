@@ -32,7 +32,8 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
             <Menu mnemonicParsing="false" text="Statistics">
-                <MenuItem fx:id="statisticsMenuItem" mnemonicParsing="false" onAction="#handleStatistics" text="Statistics" />
+                <MenuItem fx:id="topSellingProduct" mnemonicParsing="false" onAction="#handleStatistics" text="Statistics" />
+                <MenuItem fx:id="inventory" mnemonicParsing="false" onAction="#handleInventory" text="Inventory" />
             </Menu>
         </MenuBar>
 
