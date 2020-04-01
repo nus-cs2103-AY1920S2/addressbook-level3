@@ -110,6 +110,10 @@ public class Group {
         return students.contains(student);
     }
 
+    public boolean hasStudent(Matric matric) {
+        return students.contains(matric);
+    }
+
     /**
      * Returns the student enrolled in this module with the given
      * matriculation number (the student id).

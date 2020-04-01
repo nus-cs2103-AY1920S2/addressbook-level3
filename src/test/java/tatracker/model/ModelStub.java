@@ -12,6 +12,7 @@ import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 /**
@@ -206,10 +207,14 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasStudent(Student student, String targetGroup, String targetModule) {
-        return false;
+    public boolean hasStudent(Matric student, String targetGroup, String targetModule) {
+        throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public Student getStudent(Matric matric, String groupCode, String moduleCode) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public void addStudent(Student student) {
@@ -237,7 +242,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
+    public void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -336,9 +341,9 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public boolean hasStudent(Student student, String group, String module) {
-            requireNonNull(student);
-            return this.student.isSameStudent(student);
+        public boolean hasStudent(Matric matric, String group, String module) {
+            requireNonNull(matric);
+            return matric.equals(student.getMatric());
         }
     }
 
@@ -385,9 +390,9 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public boolean hasStudent(Student student, String group, String module) {
-            requireNonNull(student);
-            return studentsAdded.stream().anyMatch(student::isSameStudent);
+        public boolean hasStudent(Matric matric, String group, String module) {
+            requireNonNull(matric);
+            return studentsAdded.stream().map(Student::getMatric).anyMatch(matric::equals);
         }
 
         @Override

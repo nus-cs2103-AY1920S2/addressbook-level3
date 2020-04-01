@@ -66,6 +66,14 @@ public class UniqueStudentList implements Iterable<Student> {
         return internalList.stream().anyMatch(toCheck::isSameStudent);
     }
 
+    /**
+     * Returns true if the list contains an equivalent student with the given matric number.
+     */
+    public boolean contains(Matric toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(student -> student.getMatric().equals(toCheck));
+    }
+
     public Student get(int n) {
         return internalList.get(n);
     }

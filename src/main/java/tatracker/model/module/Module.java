@@ -8,6 +8,8 @@ import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueSessionList;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Student;
 
 /**
  * Represents a module in the TAT.
@@ -69,6 +71,10 @@ public class Module {
         return groups.get(n);
     }
 
+    public Student getStudent(Matric matric, String groupCode) {
+        return groups.get(groupCode).getStudent(matric);
+    }
+
     /**
      * Returns the group list.
      */
@@ -88,6 +94,17 @@ public class Module {
      */
     public ObservableList<Session> getSessionList() {
         return doneSessions.asUnmodifiableObservableList();
+    }
+
+    public boolean hasStudent(Matric matric, String targetGroup) {
+        return groups.get(targetGroup).hasStudent(matric);
+    }
+
+    /**
+     * Adds a group to the list of module groups.
+     */
+    public void setStudent(Student student, Student editedStudent, String targetGroup) {
+        groups.get(targetGroup).setStudent(student, editedStudent);
     }
 
     public boolean hasGroup(Group group) {
