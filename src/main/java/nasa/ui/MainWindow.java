@@ -116,7 +116,6 @@ public class MainWindow extends UiPart<Stage> {
         Can use {@code logic.getFilteredActivityList()}
          */
 
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

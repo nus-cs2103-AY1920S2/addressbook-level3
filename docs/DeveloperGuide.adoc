@@ -382,6 +382,8 @@ This is how it goes :
 .. If scheduler sees `0` nothing will be done and the activity will get deleted.
 .. If scheduler sees `1`,`2` or `3` it will update to the new date.
 
+image::activityDiagramAutomation.png[]
+
 === Sort Activity Feature (To be implemented)
 
 Activities (ie. deadlines, lessons and events) are sorted by a specific criteria, such as date added or priority.

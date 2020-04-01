@@ -104,7 +104,6 @@ public class ModelManager implements Model {
     }
 
     //=========== UserPrefs ==================================================================================
-
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);

@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -40,14 +39,15 @@ public class ActivityListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Activity activity, boolean empty) {
             super.updateItem(activity, empty);
-            prefWidthProperty().bind(activityListView.widthProperty().subtract(100));
-            setMaxWidth(Control.USE_PREF_SIZE);
+            ActivityCard temp;
+            prefWidthProperty().bind(activityListView.widthProperty());
 
             if (empty || activity == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ActivityCard(activity, getIndex() + 1).getRoot());
+                temp = new ActivityCard(activity, getIndex() + 1);
+                setGraphic(temp.getRoot());
             }
         }
     }
