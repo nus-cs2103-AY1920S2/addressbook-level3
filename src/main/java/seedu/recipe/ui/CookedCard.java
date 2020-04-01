@@ -33,6 +33,8 @@ public class CookedCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label date;
+    @FXML
     private Label id;
 
     public CookedCard(Record record, int displayedIndex) throws IOException {
@@ -41,6 +43,8 @@ public class CookedCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(record.getName().fullName);
         name.setWrapText(true);
+        date.setText("Cooked on " + record.getDate().toString());
+        date.setWrapText(true);
     }
 
     @Override

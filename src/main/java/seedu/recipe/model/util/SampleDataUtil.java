@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import seedu.recipe.model.Date;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.RecipeBook;
@@ -200,12 +201,12 @@ public class SampleDataUtil {
 
     public static Record[] getSampleRecords() {
         return new Record[] {
-            new Record(new Name("Caesar Salad")),
-            new Record(new Name("Grilled Sandwich")),
-            new Record(new Name("Boiled Chicken")),
-            new Record(new Name("Chocolate Cake")),
-            new Record(new Name("Omelet")),
-            new Record(new Name("Tuna Bread"))
+            new Record(new Name("Caesar Salad"), new Date()),
+            new Record(new Name("Grilled Sandwich"), new Date()),
+            new Record(new Name("Boiled Chicken"), new Date()),
+            new Record(new Name("Chocolate Cake"), new Date()),
+            new Record(new Name("Omelet"), new Date()),
+            new Record(new Name("Tuna Bread"), new Date())
         };
     }
 

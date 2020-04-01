@@ -1,5 +1,6 @@
 package seedu.recipe.testutil;
 
+import seedu.recipe.model.Date;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.recipe.Name;
 
@@ -9,11 +10,14 @@ import seedu.recipe.model.recipe.Name;
 public class RecordBuilder {
 
     public static final String DEFAULT_NAME = "Egg Tomato Stir Fry";
+    public static final String DEFAULT_DATE = "2020-04-01";
 
     private Name name;
+    private Date date;
 
     public RecordBuilder() {
         name = new Name(DEFAULT_NAME);
+        date = new Date(DEFAULT_DATE);
     }
 
     /**
@@ -21,6 +25,7 @@ public class RecordBuilder {
      */
     public RecordBuilder(Record recordToCopy) {
         name = recordToCopy.getName();
+        date = recordToCopy.getDate();
     }
 
     /**
@@ -31,10 +36,16 @@ public class RecordBuilder {
         return this;
     }
 
-
+    /**
+     * Sets the {@code Date} of the {@code Record} that we are building.
+     */
+    public RecordBuilder withDate(String date) {
+        this.date = new Date(date);
+        return this;
+    }
 
     public Record build() {
-        return new Record(name);
+        return new Record(name, date);
     }
 
 }

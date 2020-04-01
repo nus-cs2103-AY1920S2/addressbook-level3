@@ -1,27 +1,15 @@
 {
   "records" : [ {
-    "name" : "Chinese Tomato Egg Stir-fry"
+    "name" : "Chinese Tomato Egg Stir-fry",
+    "date" : "2020-03-02"
   }, {
-    "name" : "5 Ingredient Spelt Spaghetti"
+    "name" : "Sweet and Sour Chicken",
+    "date" : "2020-03-10"
   }, {
-    "name" : "Bacon, Spinach Caramelized Onion Pasta"
+    "name" : "5 Ingredient Spelt Spaghetti",
+    "date" : "2020-03-20"
   }, {
-    "name" : "Healthy Chicken Salad Sandwich"
-  }, {
-    "name" : "All Veggie Sandwich"
-  }, {
-    "name" : "Summer Asian Slaw"
-  }, {
-    "name" : "Avocado Couscous Grapefruit salad with honey lime dressing"
-  }, {
-    "name" : "testMissingIngredient"
-  }, {
-    "name" : "Vegan Thai Green Curry Soup"
-  }, {
-    "name" : "Thai Basil Ground Beef Bowl"
-  }, {
-    "name" : "Barley Pilaf"
-  }, {
-    "name" : "Asian BBQ Chicken"
-  } ]
+    "name" : "Quick Carrot Daikon Stir-fry",
+    "date" : "2020-03-28"
+  }]
 }
