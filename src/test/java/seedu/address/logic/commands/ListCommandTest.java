@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 import seedu.address.testutil.OrderBuilder;
 
 /**

@@ -5,56 +5,77 @@ skinparam arrowColor #123456
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>> {
-Interface ReadOnlyReturnOrderBook <<Interface>>
-Interface ReadOnlyOrderBook <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
+Class ReturnOrderBook
 Class OrderBook
-class ReturnOrderBook
-Class ReadOnlyOrderBook
-class ReadOnlyReturnOrderBook
-Class Model
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
 
+Package Parcel {
+Class Parcel <<abstract>>
 
 Package ReturnOrder {
-Class ReturnOrder
+Class ReturnOrder extends Parcel
+Class UniqueReturnOrderList
+}
+
+Package Comment {
+Class Comment
+}
+
+Package ItemType {
+Class TypeOfItem
+}
+
+Package Order {
+Class Order extends Parcel
+Class CashOnDelivery
+Class UniqueOrderList
+}
+
+Package ParcelAttributes {
 Class TransactionId
 Class Address
 Class Name
 Class Phone
-Class UniqueReturnOrderList
-Class Warehouse
+Class Email
 Class TimeStamp
+Class Warehouse
+Class CashOnDelivery
 }
 
-OrderBook *-right-> "1" UniqueOrderList
-UniqueOrderList o-right-> Order
+ReturnOrderBook *-> "1" UniqueReturnOrderList
+OrderBook *-> "1" UniqueOrderList
 
-Order *--> TransactionId
-Order *--> Name
-Order *--> Phone
-Order *--> Warehouse
-Order *--> Email
-Order *--> Address
-Order *--> Timestamp
-Order *--> CashOnDelivery
-Order *--> Comment
-Order *--> TypeOfItem
+UniqueOrderList *-> Order
+UniqueReturnOrderList *-> ReturnOrder
 
-ReturnBook *-right-> "1" UniqueReturnOrderList
-UniqueReturnOrderList *-right-> "1" ReturnOrder
+ReturnOrderBook -down[hidden]-> Parcel
+OrderBook -down[hidden]-> Parcel
+ParcelAttributes -up[hidden]-> Order
+Comment -down[hidden]-> ParcelAttributes
+TypeOfItem -down[hidden]-> ParcelAttributes
+ParcelAttributes -left[hidden]-> ReturnOrder
+UniqueReturnOrderList -up[hidden]-> ReturnOrder
+UniqueOrderList -down[hidden]-> Order
+CashOnDelivery -left[hidden]-> Order
 
+Order *--> "1" TransactionId
+ReturnOrder *--> "1" TransactionId
+Order *--> "1" Name
+ReturnOrder *--> "1" Name
+Order *--> "1" Phone
+ReturnOrder *--> "1" Phone
+Order *--> "1" Warehouse
+ReturnOrder *--> "1" Warehouse
+Order *--> "1" Email
+ReturnOrder *--> "1" Email
+Order *--> "1" Address
+ReturnOrder *--> "1" Address
+Order *--> "1" TimeStamp
+ReturnOrder *--> "1" TimeStamp
+Order *--> "1" CashOnDelivery
+Order ---> "0..1" Comment
+Order ---> "0..1" TypeOfItem
+ReturnOrder ---> "0..1" Comment
+ReturnOrder ---> "0..1" TypeOfItem
 
-
-ReturnOrder *--> TransactionId
-ReturnOrder *--> Name
-ReturnOrder *--> Phone
-ReturnOrder *--> Warehouse
-ReturnOrder *--> Address
-ReturnOrder *--> Timestamp
-ReturnOrder ---> Comment
-ReturnOrder ---> TypeOfItem
+}
 @enduml

@@ -13,8 +13,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Deletes an order identified using it's displayed index from the address book.

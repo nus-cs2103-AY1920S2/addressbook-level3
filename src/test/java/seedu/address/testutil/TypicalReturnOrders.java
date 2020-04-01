@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.ReturnOrderBook;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * A utility class containing a list of {@code ReturnOrder} objects to be used in tests.

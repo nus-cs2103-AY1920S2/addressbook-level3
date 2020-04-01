@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import static seedu.address.model.order.TimeStamp.FORMAT_CHECKER;
+import static seedu.address.model.parcel.parcelattributes.TimeStamp.FORMAT_CHECKER;
 
 import java.time.LocalDateTime;
 

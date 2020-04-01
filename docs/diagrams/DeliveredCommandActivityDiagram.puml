@@ -1,0 +1,43 @@
+@startuml
+start
+:User enters the delivered command and keywords;
+If () then ([valid flag is given])
+    If () then (["-o" flag is given])
+        If () then ([valid index is given])
+            :Create a new DeliveredCommand
+             based on user input,
+             flag and index;
+            :Mark the order of the given
+             index in the order list
+             as delivered and print
+             success message to user;
+        else ([invalid index is given])
+            :Throw an exception to tell
+            user that an invalid
+            index was given;
+    endif
+    else (["-r" flag is given])
+        If () then ([valid index is given])
+            :Create a new DeliveredCommand
+             based on user input,
+             flag and index;
+            :Mark the return order of
+             the given index in the
+             return order list as
+             delivered and print success
+             message to user;
+        else ([invalid index is given])
+            :Throw an exception
+             to tell user that
+             an invalid index
+             was given;
+    endif
+endif
+else ([invalid flag is given])
+    :Throw an exception to
+     tell user that an
+     invalid flag was given;
+endif
+stop
+
+@enduml

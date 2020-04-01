@@ -2,18 +2,18 @@ package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditParcelDescriptor;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Parcel;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
+import seedu.address.model.parcel.Parcel;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.order.CashOnDelivery;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
 
 /**
  * A utility class to help with building EditParcelDescriptor objects.

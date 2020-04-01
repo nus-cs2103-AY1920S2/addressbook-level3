@@ -15,7 +15,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ReturnCommand;
-import seedu.address.model.order.Order;
+import seedu.address.model.parcel.order.Order;
 
 /**
  * A utility class for Order.

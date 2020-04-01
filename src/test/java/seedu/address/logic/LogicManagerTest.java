@@ -34,7 +34,7 @@ import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.order.Order;
+import seedu.address.model.parcel.order.Order;
 
 import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonReturnOrderBookStorage;

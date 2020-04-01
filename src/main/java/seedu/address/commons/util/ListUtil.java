@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Functions for filtering the list

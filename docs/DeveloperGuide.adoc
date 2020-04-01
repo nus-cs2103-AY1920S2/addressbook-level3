@@ -327,160 +327,105 @@ The delete feature allows the user to delete orders in either the order list or 
 
 The delete feature was implemented as a `DeleteCommand` in the `Logic` package. +
 
-The `delete` command has the following format: +
-
-* `delete` `FLAG` `INDEX`
-
-[NOTE]
-====
-1. A `FLAG` is a compulsory argument that indicates the list to delete from. +
-It can be either `-o` or `-r`. +
-A `-o` `FLAG` argument indicates deletion from the order list. +
-A `-r` `FLAG` argument indicates deletion from the return order list. +
-
-2. An `INDEX` is a compulsory argument that identifies the specific order to
-delete in the list. +
-The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
-====
-
-==== Execution paths of Delete command
-In this section, you will learn more about the execution paths for the `delete` command.
-
-.Delete Command Activity Diagram
-image::DeleteActivityDiagram.svg[]
-
-There are four possible execution paths for the `delete` command
-
-1. User provides an invalid `delete` command input +
-This results in a parse exception +
-
-2. User provides a valid `delete` command input that has a flag indicating deletion
-from the order list. +
-The specified order will be deleted from the order list. +
-
-3. User provides a valid `delete` command input that has a flag indicating deletion
-from the return order list. +
-The specified return order will be deleted from the return order list. +
-
-4. User provides an invalid `delete` command input that has an invalid flag. +
-A Command Exception wil be generated.
+[[delivered]]
+=== Delivered Feature
+In this section, the <<what-is-delivered, functionality>> of the `delivered` feature, the
+<<execution-paths-delivered, expected execution path>>,
+the <<structure-delivered, structure>> of the `DeliveredCommand` class and the <<sequence-delivered, interactions>>
+between objects with the `DeliveredCommand` will be discussed.
 
 
-==== Structure of Delete command
-In this section, you will learn more about the relationships between objects
-related to the `delete` command.
+[[what-is-delivered]]
+==== What is the Delivered feature
+The `delivered` function allows the user to mark orders or return orders
+as delivered after delivering an order or a return order. +
 
-.Delete Command Class Diagram
-image::DeleteClassDiagram.svg[]
+The `delivered` feature was implemented as the `DeliveredCommand` in the `logic` package. +
+The `delivered` function requires a valid <<command_prefix, `FLAG`>> and a valid <<command_prefix, `INDEX`>>. +
+i.e. `delivered` <<command_prefix, `INDEX`>> <<command_prefix, `FLAG`>>
 
-In the `DeleteCommand` class, there are also static strings present that represent the
-various possible messages. +
-For some of the message strings, there are placeholder %s strings used for including dynamic input +
-These messages are the following:
+The <<command_prefix, `FLAG`>> can either be '-o' or '-r', which indicates which list
+(order list or return order list respectively) to mark the parcel from. The <<command_prefix, `FLAG`>> is
+only valid when either '-o' and '-r' is used. All other inputs will be regarded as invalid. +
 
-1. `MESSAGE_DELETE_ORDER_SUCCESS` +
-Deleted Order: %1$s +
+The <<command_prefix, `INDEX`>> is a positive integer that determines
+which order or return order to be marked as delivered. The <<command_prefix, `INDEX`>> is only valid if
+it is a positive integer and if it is not bigger than the size of the order list or return order list, depending
+on the <<command_prefix, `FLAG`>>that is provided. For instance, if the '-o' <<command_prefix, `FLAG`>> is provided,
+the <<command_prefix, `INDEX`>> should not be greater than the size of the order list. +
 
-2. `MESSAGE_INVALID_FLAG` +
-Invalid flag given! +
+[[execution-paths-delivered]]
+=== Execution Paths of Delivered Command
+.Activity Diagram of the Delivered Command
+image::DeliveredCommandActivityDiagram.png[]
+The above activity diagram shows the logic behind the `DeliveredCommand` which is determined in
+the `DeliveredCommandParser` class when the user inputs the command word `delivered` to activate the
+`delivered` feature.
 
-==== Interactions between Delete command and its associated objects
-In this section, you will learn more about the `delete` command and its inner workings.
-
-The sequence diagram below shows the interactions for a `delete` command execution of
-`delete` `-o` `1`. +
-This indicates that the first order should be deleted from the order
-list.
-
-.Delete Command Sequence Diagram for `delete` `-o` `1`
-image::DeleteSequenceDiagram.svg[]
-
-The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
-If the given arguments are valid, a new `DeleteCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
-Two checks will be done for the arguments:
-
-1. Invalid `FLAG` argument
-
-2. Invalid `INDEX` argument
-
-When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
-`DeleteCommand` will first check the list to delete from. +
-
-The `deleteFromOrderList(model)` method of `DeleteCommand` will then
-be called and the filtered order list will be obtained from the `getFilteredOrderList()`
-method of the `model`. +
-
-The specified order at `INDEX` 1 will be deleted using the `deleteOrder(order)` method
-in the `model`.
-
-A new `CommandResult` will be created and returned to the `LogicManager`.
-
-
-The sequence diagram below shows the interactions for a `delete` command execution of
-`delete` `-r` `2`. +
-This indicates that the second order should be deleted from the return order
-list.
-
-.Delete Command Sequence Diagram for `delete` `-r` `2`
-image::DeleteSequenceDiagram2.svg[]
-
-The arguments passed to the `delete` command will be parsed by the `DeleteCommandParser` class. +
-If the given arguments are valid, a new `DeleteCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
-Two checks will be done for the arguments:
-
-1. Invalid `FLAG` argument
-
-2. Invalid `INDEX` argument
-
-When the `LogicManager` runs the `execute()` method of `DeleteCommand`,
-`DeleteCommand` will first check the list to delete from. +
-
-The `deleteFromReturnList(model)` method of `DeleteCommand` will then
-be called and the filtered return order list will be obtained from the `getFilteredReturnOrderList()`
-method of the `model`. +
-
-The specified return order at `INDEX` 2 will be deleted using the `deleteReturnOrder(returnOrder)` method
-in the `model`.
-
-A new `CommandResult` will be created and returned to the `LogicManager`.
-
-
-=== Delivered feature
-The delivered feature allows the user to mark orders as delivered after delivering an order.
-
-The delivered feature was implemented as a `DoneCommand` in the `Logic` package. +
-
-==== Class Diagram for Done feature
-image::DoneClassDiagram.svg[]
+[[structure-delivered]]
+==== Structure of Delivered Command
+image::DeliveredClassDiagram.png[]
+The above class diagram shows the structure of the `DeliveredCommand` and
+its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in `DeliveredCommand`; such as public static fields and getter/setter methods.
 
 ==== Sequence Diagram for delivering an order
-The sequence diagram for the *Delivered Command* is shown below.
+The sequence diagrams for the *Delivered Command* are shown below.
 
-image::DoneSequenceDiagram.svg[]
+.Search Command Sequence Diagram
+image::DeliveredSequenceDiagram.png[]
 
-The arguments passed to the Done Command will be parsed by the `DoneCommandParser` class. +
-If the given arguments are valid, a new `DoneCommand` object will be returned.
-In this class, invalid arguments will result in a `ParseException`. +
-Two types of invalid arguments are checked for: empty arguments
-and arguments with only whitespace characters.
+.Execution of Delivered Command
+image::DeliveredSequenceDiagram2.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`delivered` command word that will be parsed. +
 
-The `execute()` function of the `DoneCommand` will first check if the given arguments
-are in the format required for an order to be marked as complete
-(i.e. both the command word `return` and `INDEX` are present)
-The check is done within the `execute()` function. +
+Then, a `DeliveredCommandParser` object will be created to parse the arguments after removing
+the command word `delivered` from the user's input. Based on the command word `delivered`,
+a `DeliveredCommand` object will be created. +
 
-If the input is valid, the particular order based on the integer `INDEX` will be used to +
-obtain this order from the order book. This order will be checked if it was delivered. +
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input; which is determined by the `execute` method in
+`DeliveredCommand`. +
 
-1. If it was not delivered, it will trigger the `setOrder()`, `deliverOrder()`
-and `updateFilteredOrderList()` functions. These methods will be used to replace
-the existing order with the new order that has a delivered status. Also, the order book
-will be updated to show the change. +
+The `execute` method of `DeliveredCommand` will first check if a valid
+<<command_prefix, `FLAG`>> is present in the user's input. If the <<command_prefix, `FLAG`>>
+is not valid, a `CommandException` will be thrown to the user to tell him/her that their
+input was invalid and tell them the format which their input should follow. +
 
-2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
-display the original order book.
+If a valid <<command_prefix, `FLAG`>> is present, this will trigger the
+`processDeliveryOfOrder` method in `DeliveredCommand` which will check if
+a valid <<command_prefix, `INDEX`>> is present in the user's input. +
+
+If the <<command_prefix, `INDEX`>> is not valid, `processDeliveryOfOrder` method will throw
+a `CommandException` to the user; telling him/her that their input was invalid and the format
+that their input should follow. i.e. `delivered` <<command_prefix, `FLAG`>>
+ <<command_prefix, `INDEX`>> +
+
+If both <<command_prefix, `FLAG`>> and <<command_prefix, `INDEX`>> are valid, an `Order`
+or `ReturnOrder` object will be created based on the <<command_prefix, `FLAG`>>.
+The <<command_prefix, `INDEX`>> will determine which order or return order to take from
+the order list or return order list respectively using the appropriate getter method.
+The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `isDelivered()` method. +
+
+If the `Order` or `ReturnOrder` was already delivered, this will call the `updateOrderList(model)` or
+`updatedReturnOrderList(model)` method respectively in `DeliveredCommand` and a new
+instance of `CommandResult` will be created to tell the user that the order or return order was delivered. +
+
+If the `Order` or `ReturnOrder` was not delivered, this will call the `deliverAndUpdateOrderList(model)` or
+`deliverAndUpdateReturnOrderList(model)` respectively in `DeliveredCommand`. In these methods, the particular `Order` or
+`ReturnOrder` will be retrieved from the `model` using the `getFilteredOrderList()` or `getFilteredReturnOrderList()`
+method. Based on the retrieved `Order` or `ReturnOrder`, a new `Order` or `ReturnOrder` with the `delivered`
+delivery status will be instantiated using the `createDeliveredOrder` or `createDeliveredReturnOrder` methods respectively. +
+
+Then, the `setOrder` or `setReturnOrder` method will be called to replace the original `Order` or `ReturnOrder` object
+respectively in `model`. The `deliverOrder` or `deliverReturnOrder` method will be called to to set the
+delivery status of the object to delivered. Then, the `updateFilteredOrderList()` method or `updateFilteredReturnOrderList()`
+method to update the list in the `model`. +
+
+Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
 
 === Edit Feature
 
