@@ -1,0 +1,276 @@
+@startuml
+' !include ../style.puml
+' skinparam arrowThickness 1.1
+' skinparam arrowColor MODEL_COLOR
+' skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+'skinparam linetype polyline
+'skinparam linetype ortho
+
+package Time {
+    enum Semester <<enumeration>> {
+        ONE,
+        TWO,
+        SPECIAL_ONE,
+        SPECIAL_TWO
+    }
+
+    class SemesterYear {
+        +sem : Semester
+        +academicYear : int
+    }
+
+    class StudentSemester {
+        +semYear : SemesterYear
+        +degreeYear : int
+    }
+}
+
+package Module {
+    class ModuleTime {
+        -startTime : LocalTime
+        -endTime : LocalTime
+        -dayOfWeek : DayOfWeek
+    }
+
+    abstract class Lesson {
+        -time : ModuleTime
+        +getTime() : ModuleTime
+    }
+
+    together {
+        class Lecture extends Lesson {
+        }
+
+        class Tutorial extends Lesson {
+        }
+
+        class Sectional extends Lesson {
+        }
+
+        class Laboratory extends Lesson {
+        }
+    }
+
+    ' Base module data; actual enrollment is modelled with Enrollment
+    class ModuleOffering {
+        -code : int
+        -description : String
+        -credit : int
+        -sem : Semester
+        -isGraded : boolean
+        -lessons : List<Lesson>
+
+        +getCode() : int
+        +getDescription() : String
+        ' NOTE: credit value is not authoritative; use Enrollment for calculations instead
+        +getCredits() : int
+        +getSem() : int
+        +getLessons() : List<Lesson>
+    }
+}
+
+' An Enrollment has a module offering (at some semester of some year) and a possible grade
+class Enrollment {
+    +mod : ModuleOffering
+    +grade : Optional<Grade>
+    +credit : int
+    +getGradePoints() : Optional<Float>
+}
+
+package Grades {
+    enum LetterGrade <<enumeration>> {
+        A_PLUS
+        A
+        A_MINUS
+        B_PLUS
+        B
+        B_MINUS
+        C_PLUS
+        C
+        D_PLUS
+        D
+        F
+        CS
+        CU
+        W
+        EXE
+    }
+
+    class Grade {
+        -letterGrade : LetterGrade
+        -isSu : boolean
+        +getGradePoints(int credit) : Optional<Float>
+    }
+
+    class CumulativeGrade {
+        -numSU : int
+        -totalGradePoints : float
+        -totalCredits : int
+        +getValue() : Optional<Float>
+    }
+}
+
+class TimeTable {
+    -enrollments : List<Enrollment>
+}
+
+class Student {
+    +studentNumber : String
+    +studentName : String
+    +matriculationSemester : SemesterYear
+    +graduationSemester : StudentSemester
+    +electives : List<ElectiveProgramme>
+    +degrees : List<DegreeProgramme>
+    +hasFulfilled(ModuleSet) : boolean
+}
+
+class ModuleCode {
+    +code : String
+}
+
+class User {
+    -student : Student
+    -timeTables : Map<StudentSemester, TimeTable>
+    ' Rationale:  exempted modules aren't taken in any semester
+    -exemptedModules : ModuleSet
+    +getGpa() : CumulativeGrade
+    ' Returns a list of modules that have been exempted, had been taken, or is being taken
+    +getSatisfiedModules() : ModuleSet
+}
+
+
+package Graduation {
+    enum AggregationType {
+        ANY,
+        ALL
+    }
+    interface GraduationRequirement <<interface>> {
+        +isFulfilled(ModuleSet) : boolean
+        +getAggregationType() : AggregationType
+    }
+
+
+    interface TerminalGraduationRequirement <<interface>> extends GraduationRequirement {
+        +code : ModuleCode
+
+        -getRequirements() : ModuleCode
+        +getAggregationType() : AggregationType
+        +isFulfilled(ModuleSet) : boolean
+        +toString() : String
+    }
+
+    interface CompoundGraduationRequirement <<interface>> extends GraduationRequirement {
+        +requirements : List<GraduationRequirement>
+
+        -getRequirements() : List<GraduationRequirement>
+        +getAggregationType() : AggregationType
+        +isFulfilled(ModuleSet) : boolean
+        +toString() : String
+    }
+
+    class ModuleSet {
+        -codes : Set<ModuleCode>
+        +add(ModuleCode) : void
+        +remove(ModuleCode) : void
+        +contains(ModuleCode) : boolean
+    }
+}
+
+package Programmes {
+    interface ElectiveProgramme <<enumeration>> {
+        +isFulfilled(ModuleSet) : boolean
+        +getExemptions() : ModuleSet
+    }
+    class ResidentCollege implements ElectiveProgramme
+    class NUSOverseasCollege implements ElectiveProgramme
+    class UniversityScholarsProgramme implements ElectiveProgramme
+    class NoProgramme implements ElectiveProgramme
+
+    enum DegreeType {
+        MAJOR,
+        MINOR
+    }
+
+
+    interface DegreeProgramme <<interface>> {
+        +isFulfilled(ModuleSet) : boolean
+        +getName() : String
+    }
+
+    interface CsProgramme <<interface>> extends DegreeProgramme {
+    }
+
+    interface IsProgramme <<interface>> extends DegreeProgramme {
+    }
+
+    class CsMajorProgramme implements CsProgramme {
+        -name : String = "CS"
+        -type : DegreeType = MAJOR
+        -baseRequirement : GraduationRequirement
+        -focusArea : FocusArea
+        +isFulfilled(ModuleSet) : boolean
+        +getName() : String
+    }
+
+    note right of CsMajorProgramme
+        Association with GraduationRequirement not drawn for clarity
+        <color:red>TODO</color>: Confirm structure of CsMajorProgramme
+        <color:red>TODO</color>: Model participation in elective programmes
+        <color:red>TODO</color>: Model Focus Areas, Electives, Unrestricted Electives, etc.
+    end note
+}
+
+note top of Programmes
+    Declaration of majors/minors should be supported,
+    but do not currently affect the planner.
+    Instead, the planner can assume that the student is taking a single major in CS.
+end note
+
+'Programmes ...- ProgrammesNote
+
+
+' Associations
+Grade --> LetterGrade
+Enrollment-->"1" Grade
+
+' Enrollment is an association class of Student and ModuleOffering
+' However, Student does not directly store Enrollment
+(Student, ModuleOffering) . Enrollment
+
+StudentSemester -->"1" SemesterYear
+SemesterYear -->"1" Semester
+
+Lesson *-->"1" ModuleTime
+ModuleOffering -->"1" Semester
+ModuleOffering *-->"*"  Lesson
+
+Enrollment -->"1" ModuleOffering
+TimeTable -->"*" Enrollment
+
+User *-->"*" TimeTable
+User *-->"*" ModuleCode
+User *-->"*" StudentSemester
+User -->"1" CumulativeGrade
+User *-->"1" Student
+User *-->"1" ModuleSet
+
+Student -->"*" DegreeProgramme
+Student -->"*" ElectiveProgramme
+Student --> StudentSemester
+
+' These should be associated with classes implementing GraduationRequirement instead
+' (but please omit the association line in the diagram)
+'TerminalGraduationRequirement -->"1" AggregationType
+'CompoundGraduationRequirement -->"1" AggregationType
+
+CsMajorProgramme -->"1" DegreeType
+
+' For layout
+together {
+    class Student
+    class ModuleOffering
+}
+
+@enduml
+

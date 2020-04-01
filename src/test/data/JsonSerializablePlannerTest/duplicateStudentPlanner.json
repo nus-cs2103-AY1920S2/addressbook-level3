@@ -1,0 +1,13 @@
+{
+  "activeStudentIndex" : -1,
+  "students" : [ {
+    "name" : "Ben",
+    "major" : "CS",
+    "timeTableMap" : [ ]
+  }, {
+    "name" : "Ben",
+    "major" : "CS",
+    "timeTableMap" : [ ]
+  } ],
+  "enrolledModules" : [ ]
+}

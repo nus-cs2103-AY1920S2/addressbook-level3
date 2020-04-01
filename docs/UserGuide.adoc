@@ -1,9 +1,13 @@
-= AddressBook Level 3 - User Guide
+= NUS Module Planner - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,36 +16,82 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W13-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W13-4`      Since: `Jan 2020`      Licence: `MIT`
+
+Thank you for your interest in the *NUS Module Planner* and welcome to the *User Guide*!
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+The *NUS Module Planner* (_NUSModPlnr_) is for Computer Science (CS) students at the National University of Singapore (NUS) to manage their enrollments in NUS modules over their school life. **With NUSModPlnr, module planning has never been easier!**
+
+When starting up the application, you will be able to see the *Home Screen* (_Figure 1. below_).
+
+.Home Screen View
+image::Ui.png[width="600", align="left"]
+
+Do you want to keep track of the modules you will be taking over multiple semesters? Do you want to easily create multiple plans of these multiple semesters?
+
+Are you frustrated about managing the numerous details of the graduation requirements for a CS degree? NUSModPlnr allows you to check which graduation requirements you can satisfy, on the fly.
+
+Do you want to keep track of your grades to better decide on which modules to enrol in? NUSModPlnr provides a simple way to calculate grade statistics.
+
+If you can type fast, NUSModPlnr can help you plan your modules in a fast, yet intuitive way. NUSModPlnr is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== How To Use This User Guide
+
+NUSModPlnr is a timetable and enrollment management application, which help you add plans which consist of your degree programme and timetables for different semesters.
+
+//Within each timetable, users can add modules they intend to enrol in. After managing student plans, timetables and modules, users can request information about the plan. This includes the student's cumulative grades and the status of graduation requirements (for the degree programme that was set).
+
+====
+This *User Guide* is designed to bring you through the following features:
+
+. Viewing Help
+. Creating a New Student
+. Declaring a Major
+. Viewing and Adding Modules
+. Viewing, Adding and Selecting Timetables
+. Managing and Viewing Grades
+. Exiting the Application
+====
+
+====
+Please note the following which may serve as points of interests throughout this *User Guide*:
+
+. `keyword` : This grey highlight indicates commands that you can type with more info in Features.
+
+. kbd:[Enter] : This grey highlight with white outline indicates a keyboard's key to use.
+
+[NOTE]
+This symbol and corresponding box has information that you may wish to take note of.
+
+[TIP]
+This symbol and corresponding box has tips from the team, which we think might be useful for you.
+====
 
 == Quick Start
 
+If you are looking to jump right into the application, you can follow the below quick steps to get the application up and running:
+
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `nusmodplnr.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your NUS Module Planner.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Refer to Section 3, “Features” for details of each command.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+[TIP]
+These steps are recommended only if you have experience in setting up the application for first time use, or already have a saved file you would like to continue working with.
 
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
 == Features
+
+These are the key features that are part of the NUSModPlnr!
+
+[TIP]
+Before you dive into the commands themselves, do familiarise yourself with how the *User Guide* has been formatted in terms of the commands to key in!
 
 ====
 *Command Format*
@@ -52,126 +102,380 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+====
+*Common Parameters*
+
+These are parameters that are commonly used in commands available in NUSModPlnr.
+
+* `MODULE_CODE` - a code for a module in NUS
+* `INDEX` - a index number of an item listed
+** Must be a positive integer
+* `NAME` - a name of a plan
+** Must be alphanumeric, possibly with spaces
+* `SEM`
+** Must be one of the following: `ONE`, `TWO`, `SPECIAL_ONE`, `SPECIAL_TWO`
+* `YEAR` - a year number
+** Must be a non-negative integer
+====
+
+Let's begin!
+
+=== Main Navigation
+
+The following commands below are part of the application's *Main Navigation*.
+
+==== Viewing help : `help`
+
+If you get lost or are unsure on what commands to use, while in the application, you can use the `help` command.
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Exiting the program : `exit`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+When you are done using the application, you can exit the program with the `exit` command.
 
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Declaration Management
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+The following commands below are part of the application's *Declaration Management*, which allow you to declare important details of your academic plan, such as your `majors`, `minors`, `specialisations` and `tracks`.
+
+[NOTE]
+All the following commands require a `student` to be selected (using the `student active` command).
+
+==== Declaring your major: `declare major`
+
+You can use this command to declare the `major` of your studies, which is also required for the module planning.
+
+Format: `declare major MAJOR`
+
+Examples:
+
+* `declare major comsci`
+
+==== Declaring your minor: `declare minor`
+
+You can use this command to declare any `minors` of your studies, which will affect module planning.
+
+Format: `declare minor MINOR`
+
+Examples:
+
+* `declare minor none`
+* `declare minor comsci`
+
+==== Declaring your specialisation: `declare spec`
+
+You can use this command to declare any `specialisations` in your studies, should you require them in module planning.
+
+Format: `declare spec [ACTION] [SPEC]`
+
+Examples:
+
+* `declare spec add it-security`
+* `declare spec remove it-security`
+
+==== Declaring your track: `declare track`
+
+You can use this command to declare any `tracks` in your studies, should you require them in module planning.
+
+Format: `declare track [ACTION] [SPEC]`
+
+Examples:
+
+* `declare track add networking`
+* `declare track remove networking`
+
+=== Grade Management
+
+The following commands below are part of the application's *Grade Management*, which allow you to manage and view your `grades` to see modules affected in your academic plan.
+
+==== Managing a module's grade: `module grade`
+
+This command displays the `grade` of the specified module.
+
+[NOTE]
+This command require a timetable to be selected (using the `timetable active` command).
+
+Format: `module grade MODULE_CODE`
+
+Example:
+
+* `module grade CS2040`
+
+Furthermore, this follow-up command sets the `grade` of the specified module.
+
+[NOTE]
+This command require a timetable to be selected (using the `timetable active` command).
+
+Format: `module grade MODULE_CODE grade/GRADE`
+
+Example:
+
+* `module grade CS2040 grade/A`
+
+==== Viewing a student's grade: `student grade`
+
+This command displays  the cumulative grade of the selected student (_see the `student active` command_).
+
+[NOTE]
+This command require a student to be selected (using the `student active` command).
+
+Format: `student grade`
+
+Example:
+
+* `student grade`
+
+=== Module Management
+The following commands below are part of the application's *Module Management*, which allow you manage the `modules` of your academic plan.
+
+When managing your `modules`, you will be able to see the *Module View Screen* (_Figure 2. below_).
+
+.Home Screen View
+image::ModuleList.png[width="600", align="left"]
+
+[NOTE]
+All the following commands require a `timetable` to be selected (_using the `timetable active` command_).
+
+==== Adding a module: `module add`
+
+This command adds a `module` to your `timetable` for the selected `semester` (see `timetable active`) and `student` (see `student active`).
+
+Format: `module add MODULE_CODE`
+
+Example:
+
+* `module add CS2040`
+
+==== Removing a module: `module remove`
+
+This command removes a `module` to your `timetable` for the selected `semester` (see `timetable active`) and `student` (see `student active`).
+
+Format: `module remove MODULE_CODE`
+
+Example:
+
+* `module remove CS2040`
+
+==== Viewing added modules: `module list`
+
+This command displays a list of `modules` of your `timetable` for the selected `semester` (see `timetable active`) and `student` (see `student active`).
+
+Format: `module list`
+
+Example:
+
+* `module list`
+
+==== Viewing exempted modules: `module list exempted`
+
+This command displays a list of `modules` that you have declared as exempted.
+
+Format: `module list exempted
+
+Example:
+
+* `module list exempted`
+
+=== Student Management
+
+The following commands below are part of the application's *Student Management*, which allow you manage the `students` *which include you* for the academic planning.
+
+When managing `students`, you will be able to see the *Student View Screen* (_Figure 3. below_).
+
+.Student List View
+image::StudentList.png[width="600", align="left"]
+
+==== Adding a student: `student add`
+
+This command adds a `student` to the student list.
+
+Format: `student add n/NAME major/MAJOR`
+
+Example:
+
+* `student add n/Alice major/CS`
+
+==== Removing a student: `student remove`
+
+This command removes the `student` with the number `INDEX` from the student list.
+
+Format: `student remove INDEX`
+
+Example:
+
+* `student remove 1`
+
+==== Selecting a student: `student active`
+
+This command selects the student with the number `INDEX` from the student list.
+
+Format: `student active INDEX`
+
+Example:
+
+* `student active 1`
+
+==== Viewing the student list: `student list`
+
+This commands displays a numbered list of students in the student list (if populated).
+
+Format: `student list`
+
+Example:
+
+* `student list`
+
+=== Timetable Management
+
+The following commands below are part of the application's *Timetable Management*, which allow you manage the `timetables` of your academic plan.
+
+When managing your `timetable`, you will be able to see the *Timetable View Screen* (_Figure 4. below_).
+
+.Timetable List View
+image::TimeTableList.png[width="600", align="left"]
+
+[NOTE]
+All the following commands require a student to be selected (_using the `student active` command_).
+
+==== Adding a timetable: `timetable add`
+
+This command adds a `timetable` to the specified `semester` of the selected `student` (see `student active`).
+
+Format: `timetable add year/YEAR sem/SEM`
+
+Example:
+
+* `timetable add year/2 sem/ONE`
+
+==== Removing a timetable: `timetable remove`
+
+This command removes a `timetable` to the specified `semester` of the selected `student` (see `student active`).
+
+Format: `timetable remove year/YEAR sem/SEM`
+
+Example:
+
+* `timetable remove year/2 sem/ONE`
+
+==== Selecting a timetable: `timetable active`
+
+This command selects the `timetable` of the specified `semester` of the selected `student` (see `student active`).
+
+Format: `timetable active year/YEAR sem/SEM`
+
+Example:
+
+* `timetable active year/2 sem/ONE`
+
+==== Listing timetables: `timetable list`
+
+This command lists all the `timetables`  of the selected `student` (see `student active`).
+
+Format: `timetable list`
+
+Example:
+
+* `timetable list`
+
+=== Saving Your Data
+
+NUS Module Planner data is saved to the hard disk automatically after any command that changes the data. +
+
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::sharingdatafiles[]
+=== Sharing Your Data Files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Coming soon to you!
+
+////
+_{Explain how the user can share their data files here!}_
+////
+// end::sharingdatafiles[]
 
 == FAQ
 
+This provides a list of *Frequently Asked Questions (FAQ)*, that users may have!
+
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NUSModPlnr folder.
+
+[TIP]
+If you have questions, feel free to open an issue in our *Issue Tracker* on GitHub!
+
+== Glossary
+
+This *Glossary* provides explanations for keywords used throughout the *User Guide*.
+
+[horizontal]
+
+[[CLI]] Command Line Interface::
+Type of computer interface based on entering text commands and viewing text output, as opposed to using other hardware inputs such as a mouse.
+
+[[major]] Major::
+Refers to one of academic majors students read in NUS.
+
+[[minor]] Minor::
+Refers to one of academic minors students can optionally read in NUS.
+
+[[module]] Module::
+Refers to one of multiple academic modules students read in NUS.
+
+[[nus]] NUS::
+Stands for "National University of Singapore", the university this application was developed for.
+
+[[specialisation]] Specialisation::
+Refers to one of academic specialisations students can optionally read in NUS.
+
+[[timetable]] Timetable::
+Refers to the module timetable that students will go for classes in NUS.
+
+[[track]] Track::
+Refers to one of academic tracks students can optionally read in NUS.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+This section provides a quick summary on all the commands currently available in the application.
+
+[TIP]
+If you need more in-depth information on a specific command, you can kbd:[CTRL + F] the exact command name to find it in the *Features* section.
+
+=== Main Navigation
+
+* *Viewing help* : `help`
+* *Exiting the program* : `exit`
+
+=== Declaration Management
+
+* *Declaring your major* : `declare major`
+* *Declaring your minor* : `declare minor`
+* *Declaring your specialisation* : `declare spec`
+* *Declaring your track* : `declare track`
+
+=== Grade Management
+
+* *Managing a module's grade* : `module grade`
+* *Viewing a student's grade* : `student grade`
+
+=== Module Management
+
+* *Adding a module* : `module add`
+* *Removing a module* : `module remove`
+* *Viewing added modules* : `module list`
+* *Viewing exempted modules* : `module list exempted`
+
+=== Student Management
+
+* *Adding a student* : `student add`
+* *Removing a student* : `student remove`
+* *Selecting a student* : `student active`
+* *Viewing the student list* : `student list`
+
+=== Timetable Management
+
+* *Adding a timetable* : `timetable add`
+* *Removing a timetable* : `timetable remove`
+* *Selecting a timetable* : `timetable active`
+* *Listing timetables* : `timetable list`

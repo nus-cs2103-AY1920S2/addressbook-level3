@@ -1,9 +1,13 @@
-= AddressBook Level 3 - Developer Guide
+= NUS Module Planner - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,9 +16,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W13-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S2-CS2103T-W13-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -34,7 +38,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/planner/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/planner/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -64,9 +68,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `student remove 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `student remove 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -77,11 +81,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/planner/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,20 +100,20 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/planner/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PlannerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("student remove 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `student remove 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `StudentRemoveCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -117,19 +121,21 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/model/PlannerModel.java[`PlannerModel.java`]
 
-The `Model`,
+The `PlannerModel`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Planner data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+////
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Planner`, which `Person` can reference. This would allow `Planner` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+////
 
 [[Design-Storage]]
 === Storage component
@@ -137,110 +143,376 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Planner data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.planner.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Declaration Implementation
+==== Declare Major
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `declare major` command associates an existing `Major` entity (with all associated values) provided by the user.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+It is appended with the tag `MAJOR`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+`Major` entities are automatically created and populated through the JSON data received from NUSMods.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+===== Current Implementation
 
-image::UndoRedoState3.png[]
+`MajorSetCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `MajorSetCommand` is parsed using `MajorCommandParser` to split the user input into relevant fields.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
 
-The following sequence diagram shows how the undo operation works:
+image::sequenceDiagram3.1.1.png[]
 
-image::UndoSequenceDiagram.png[]
+Given below is an example usage scenario and how the `declare` mechanism behaves at each step:
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+. User enters the command. `MajorCommandParser` will associate the specified `Major` object (if it exists).
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+As of this time, `Student` entities can only be associated in a 1-1 relationship with a `Major` entity.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+===== Design Considerations
+====== Aspect: How `MajorSetCommand` Executes
 
-image::UndoRedoState4.png[]
+==== Declare Minor
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The `declare minor` command associates an existing `Minor` entity (with all associated values) provided by the user.
 
-image::UndoRedoState5.png[]
+It is appended with the tag `MINOR`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+[NOTE]
+`Minor` entities are automatically created and populated through the JSON data received from NUSMods.
 
-image::CommitActivityDiagram.png[]
+===== Current Implementation
 
-==== Design Considerations
+`MinorSetCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `MinorSetCommand` is parsed using `MinorCommandParser` to split the user input into relevant fields.
 
-===== Aspect: How undo & redo executes
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+image::sequenceDiagram3.1.2.png[]
 
-===== Aspect: Data structure to support the undo/redo commands
+Given below is an example usage scenario and how the `declare` mechanism behaves at each step:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+. User enters the command. `MinorCommandParser` will associate the specified `Minor` object (if it exists).
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+[NOTE]
+As of this time, `Student` entities can only be associated in a 1-0..1 relationship with a `Minor` entity.
 
-_{Explain here how the data encryption feature will be implemented}_
+===== Design Considerations
+====== Aspect: How `MinorSetCommand` Executes
 
-// end::dataencryption[]
+==== Declare Track
+
+The `declare track` command associates an existing `Track` entity (with all associated values) provided by the user.
+
+It is appended with the tag `ACTION` and `TRACK`.
+
+[NOTE]
+`Track` entities are automatically created and populated through the JSON data received from NUSMods.
+
+===== Current Implementation
+
+`TrackSetCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `TrackSetCommand` is parsed using `TrackCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::sequenceDiagram3.1.3.png[]
+
+Given below is an example usage scenario and how the `declare` mechanism behaves at each step:
+
+. User enters the command. `TrackCommandParser` will associate the specified `Minor` object (if it exists).
+
+[NOTE]
+As of this time, `Student` entities can only be associated in a 1-0..1 relationship with a `Track` entity.
+
+===== Design Considerations
+====== Aspect: How `TrackSetCommand` Executes
+
+==== Declare Specialisation
+
+The `declare spec` command associates an existing `Specialisation` entity (with all associated values) provided by the user.
+
+It is appended with the tag `ACTION` and `SPEC`.
+
+[NOTE]
+`Specialisation` entities are automatically created and populated through the JSON data received from NUSMods.
+
+===== Current Implementation
+
+`SpecialisationSetCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `SpecialisationSetCommand` is parsed using `SpecialisationCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::sequenceDiagram3.1.4.png[]
+
+Given below is an example usage scenario and how the `declare` mechanism behaves at each step:
+
+. User enters the command. `SpecialisationCommandParser` will associate the specified `Specialisation` object (if it exists).
+
+[NOTE]
+As of this time, `Student` entities can only be associated in a 1-0..1 relationship with a `Specialisation` entity.
+
+===== Design Considerations
+====== Aspect: How `SpecialisationSetCommand` Executes
+
+=== Module Implementation
+==== Add Module
+
+The `module add` command associates an existing `Module` entity (with all associated values) provided by the user.
+
+It is appended with the tag `MODULE_CODE`.
+
+[NOTE]
+`Module` entities are automatically created and populated through the JSON data received from NUSMods.
+
+===== Current Implementation
+
+`ModuleAddCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ModuleAddCommand` is parsed using `ModuleAddCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::sequenceDiagram3.2.1.png[]
+
+Given below is an example usage scenario and how the `add` mechanism behaves at each step:
+
+. User enters the command. `ModuleAddCommandParser` will associate the specified `Module` object (if it exists).
+
+===== Design Considerations
+====== Aspect: How `ModuleAddCommand` Executes
+
+==== Remove Module
+
+The `module remove` command disassociates a `Module` entity (with all associated values) when instructed by the user.
+
+It is appended with the tag `MODULE_CODE`.
+
+===== Current Implementation
+
+`ModuleRemoveCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ModuleRemoveCommand` is parsed using `ModuleRemoveCommandParser` to parse the action.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::sequenceDiagram3.2.2.png[]
+
+Given below is an example usage scenario and how the `remove` mechanism behaves at each step:
+
+. User enters the command. `ModuleRemoveCommandParser` will disassociate the specified `Module` object (if it exists), along with its associated values.
+
+===== Design Considerations
+====== Aspect: How `ModuleRemoveCommand` Executes
+
+==== List Modules
+
+The `module list` command lists all `Module` entities.
+
+===== Current Implementation
+
+`ModuleListCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ModuleListCommand` is parsed using `ModuleCommandParser` to get the command input.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::sequenceDiagram3.2.3.png[]
+
+Given below is an example usage scenario and how the `list` mechanism behaves at each step:
+
+. User enters the command. `ModuleCommandParser` will list all `Module` objects (if any exists).
+
+[NOTE]
+When appended with `exempted` (i.e. `module list exempted`) the command lists all `Module` entities that have been marked as exempted.
+
+===== Design Considerations
+====== Aspect: How `ModuleListCommand` Executes
+
+=== Student Implementation
+==== Add Student
+
+The `student add` command creates a `Student` entity (with name and/or major) with the fields provided by the user.
+
+It is appended with the tags `n/NAME` and `major/MAJOR`.
+
+* `Student(Name name,)` -- Creates a `Student` entity with only the student's name.
+* `Student(Name name, Major major)` -- Creates a `Student` entity with both the student's name and intended major.
+* `Student(Name name, Major major, TimeTableMap timeTableMap)` -- Creates a `Student` entity with the student's TimeTable, alongside student's name and intended major.
+* `Student(Name name, Degrees degrees, Major major)` -- Creates a `Student` entity with the student's Degrees, alongside the student's name and intended major.
+
+===== Current Implementation
+
+`StudentAddCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `StudentAddCommand` is parsed using `StudentAddCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::StudentAddSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `add` mechanism behaves at each step:
+
+. User launches the application.
+.. If it is the first time, a `Student` object will be created using `StudentAddCommand`.
+. User enters the command. `StudentAddCommandParser` will create a `Student` object, which can contain `name`, `major`, `timetable` and/or `degrees`.
+
+===== Design Considerations
+====== Aspect: How `StudentAddCommand` Executes
+
+==== Remove Student
+
+The `student remove` command destroys a `Student` entity (with all associated values) when instructed by the user.
+
+It is appended with the tag `INDEX`.
+
+===== Current Implementation
+
+`StudentRemoveCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `StudentRemoveCommand` is parsed using `StudentRemoveCommandParser` to parse the action.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::StudentRemoveSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `remove` mechanism behaves at each step:
+
+. User enters the command. `StudentRemoveCommandParser` will destroy the specified `Student` object (if it exists), along with its associated values.
+
+===== Design Considerations
+====== Aspect: How `StudentRemoveCommand` Executes
+
+==== Active Student
+
+The `student active` command selects the specified `Student` entity with its associated values, by the index input provided by the user.
+
+It is appended with the tag `INDEX`.
+
+===== Current Implementation
+
+`StudentActiveCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `StudentActiveCommand` is parsed using `StudentActiveCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::StudentActiveSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `active` mechanism behaves at each step:
+
+. User enters the command. `StudentActiveCommandParser` will select the specified `Student` object (if it exists), by the specified index.
+
+===== Design Considerations
+====== Aspect: How `StudentActiveCommand` Executes
+
+==== List Students
+
+The `student list` command lists all `Student` entities.
+
+===== Current Implementation
+
+`StudentListCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `StudentListCommand` is parsed using `StudentCommandParser` to get the command input.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::StudentListSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `list` mechanism behaves at each step:
+
+. User enters the command. `StudentCommandParser` will list all `Student` objects (if any exists).
+
+===== Design Considerations
+====== Aspect: How `StudentListCommand` Executes
+
+=== Timetable Implementation
+==== Add Timetable
+
+The `timetable add` command creates a `TimeTable` entity (possibly with enrollments, year and semester) provided by the user.
+
+It is appended with the tags `year/YEAR` and `sem/SEM`.
+
+* `TimeTable()` -- Creates a `TimeTable` entity with no associated values.
+* `TimeTable(List<Enrollment> enrollments)` -- Creates a `TimeTable` entity with an associated `Enrollment` list.
+
+===== Current Implementation
+
+`TimeTableAddCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `TimeTableAddCommand` is parsed using `TimeTableAddCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::TimeTableAddSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `add` mechanism behaves at each step:
+
+. User launches the application.
+.. If it is the first time, a `TimeTable` object will be created using `TimeTableAddCommand`.
+. User enters the command. `TimeTableAddCommandParser` will create a `TimeTable` object, which can contain `enrollments`.
+
+===== Design Considerations
+====== Aspect: How `TimeTableAddCommand` Executes
+
+==== Remove TimeTable
+
+The `timetable remove` command destroys a `TimeTable` entity (with all associated values) when instructed by the user.
+
+It is appended with the tags `year/YEAR` and `sem/SEM`.
+
+===== Current Implementation
+
+`TimeTableRemoveCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `TimeTableRemoveCommand` is parsed using `TimeTableRemoveCommandParser` to parse the action.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::TimeTableRemoveSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `remove` mechanism behaves at each step:
+
+. User enters the command. `TimeTableRemoveCommandParser` will destroy the specified `TimeTable` object (if it exists), along with its associated values.
+
+===== Design Considerations
+====== Aspect: How `TimeTableRemoveCommand` Executes
+
+==== Active TimeTable
+
+The `TimeTable active` command selects the specified `TimeTable` entity with its associated values, by the index input provided by the user.
+
+It is appended with the tags `year/YEAR` and `sem/SEM`.
+
+===== Current Implementation
+
+`TimeTableActiveCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `TimeTableActiveCommand` is parsed using `TimeTableActiveCommandParser` to split the user input into relevant fields.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::TimeTableActiveSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `active` mechanism behaves at each step:
+
+. User enters the command. `TimeTableActiveCommandParser` will select the specified `TimeTable` object (if it exists), by the specified index.
+
+===== Design Considerations
+====== Aspect: How `TimeTableActiveCommand` Executes
+
+==== List Timetables
+
+The `timetable list` command lists all `TimeTable` entities.
+
+===== Current Implementation
+
+`TimeTableListCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `TimeTableListCommand` is parsed using `TimeTableCommandParser` to get the command input.
+
+The following high-level sequence diagram illustrates the interactions between the `Ui`, `Logic` & `Model` components when a module is being added.
+
+image::TimeTableListSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the `list` mechanism behaves at each step:
+
+. User enters the command. `TimeTableCommandParser` will list all `TimeTable` objects (if any exists).
+
+===== Design Considerations
+====== Aspect: How `TimeTableListCommand` Executes
 
 === Logging
 
@@ -277,15 +549,19 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+=== Target User Profile
 
-* has a need to manage a significant number of contacts
+* targets prospective, incoming and current Undergraduate NUS Students
+* needs to plan/track academic progression via enrolling and passed modules
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+=== Value Proposition
+
+* aggregates all information regarding modules and graduation requirements in a single app
+* manages academic progress and module planning faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -294,72 +570,382 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that I ...
+|`* * *` |new user |see usage instructions |can refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |freshman |declare what my major is |get the right graduation requirements to follow
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |freshman |declare what I am exempted from (e.g. Polytechnic Exemptions) |am not recommended modules that I am exempted from
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |freshman |declare what tracks/specializations (Focus Areas) I am interested/am taking |am given recommendations that will fulfill the requirements of that track/specialization
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |current undergraduate student |view the list of modules which I have taken |can remember what modules I have taken
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |current undergraduate student |view the list of modules which I have declared exempted from |can remember what modules I am exempted from
+
+|`* * *` |freshman |see a list of all available modules in NUS |can see what modules is available for me to take
+
+|`* * *` |current undergraduate student |enter the grades I got for each module |can view my Cumulative Average Point (CAP) for each and all semesters
+
+|`* * *` |current undergraduate student |can see if a module is being offered in a semester that I want |can plan my academic plan correctly
+
+|`* * *` |current undergraduate student |see the list of grades I obtained for each module |can have a better understanding of my academic performance
+
+|`* *` |current undergraduate student in-residence |declare that I am part of a Residential College program |am given recommendations that take into account UTCP modules
+
+|`* *` |current undergraduate student |declare my intention of overloading modules |am given recommendations to graduate faster
+
+|`* *` |current undergraduate student |declare my intention of underloading modules |am given recommendations to graduate faster
+
+|`* *` |freshman |verify if I can graduate on time given currently selected modules |am given recommendations of feasible modules to take
+
+|`* *` |current undergraduate student |check which lecturer is teaching the module |can decide if I should take that module in that semester
+
+|`* *` |current undergraduate student with NOC acceptance |declare that I am part of NOC programme |can count NOC modules towards my graduation requirements
+
+|`* *` |current undergraduate student with USP acceptance |declare that I am part of the university scholar programme |can replace my requirements for graduation with USP modules
+
+|`* *` |current undergraduate student |can check the venue of the class |can plan my traveling route during module planning
+
+|`* *` |current undergraduate student |change the colours of the module planner for customizable |can enjoy dark theme
+
+|`* *` |current undergraduate student on internship |declare when I would like to undergo an internship |can plan the timing of my modules
+
+|`* *` |current undergraduate student |view changes in Grade Point Average (GPA) according to projected grades |can have a better understanding of my academic performance
+
+|`* *` |freshman |automatically select non-conflicting lecture and tutorial slots based on preferences |can create usable timetables based on my preferences
+
+|`*` |current undergraduate student on exchange |set the module to be non graded to pass or fail |can set the overseas module to be pass or fail without affecting my CAP
+
+|`*` |freshman |declare what my minor(s) is/are |get the right graduation requirements to follow
+
+|`*` |current undergraduate student |see which pathways would be more challenging (i.e. Level 3K, 4K, 5K modules) |can choose a better course pathway in terms of maximising GPA/fulfilling course requirements
+
+|`*` |freshman |set preferences (e.g. ‘free’ days/only after 12 PM) in order to automatically organise the timetable |have an efficient and personalised timetable
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Planner` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+=== Use Case: Add Plan (UCA01)
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a plan
+2.  User supplies plan name and plan major
+3.  Planner adds the plan
 +
-Use case ends.
+Use case ends
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 2a. Any of the plan or major is missing or invalid
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. Planner shows an error message
 +
-Use case resumes at step 2.
+Use case ends
 
-_{More to be added}_
+=== Use Case: Delete Plan (UCA02)
+
+*MSS*
+
+1.  User requests to list plans
+2.  Planner shows a list of plans
+3.  User requests to delete a specific plan in the list
+4.  Planner deletes the plan
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Planner shows an error message
++
+Use case resumes at step 2
+
+=== Use Case: Select Plan (UCA03)
+
+*MSS*
+
+1.  User requests to list plans
+2.  Planner shows a list of plans
+3.  User requests to select a specific plan in the list
+4.  Planner selects the plan as the active plan
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Planner shows an error message
++
+Use case resumes at step 2
+
+=== Use Case: Add Timetable (UCB01)
+
+*MSS*
+
+1.  User [.underline]#selects a plan (UCA03)#
+2.  User requests to add a timetable
+3.  User specifies semester of the timetable
+4.  Planner adds the timetable to the active plan
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. There is no plan currently selected
++
+[none]
+** 2a1. Planner shows an error message
++
+Use case ends
+
+* 3a. The given semester is invalid
++
+[none]
+** 3a1. Planner shows an error message
++
+Use case ends
+
+=== Use Case: Delete Timetable (UCB02)
+
+*MSS*
+
+1.  User [.underline]#selects a plan (UCA03)#
+2.  User requests to list timetables
+3.  Planner shows a list of timetables of the active plan
+4.  User specifies a corresponding semester for a timetable to delete
+5.  Planner deletes the timetable from the active plan
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. There is no plan currently selected
++
+[none]
+** 2a1. Planner shows an error message
++
+Use case ends
+
+* 4a. The given semester is invalid
++
+[none]
+** 3a1. Planner shows an error message
++
+Use case ends
+
+=== Use Case: Select Timetable (UCB03)
+
+*MSS*
+
+1.  User [.underline]#selects a plan (UCA03)#
+2.  User requests to list timetables
+3.  Planner shows a list of timetables of the active plan
+4.  User requests to select a specific timetable in the list
+5.  Planner selects the timetable as the active timetable
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends
+
+* 4a. The given semester is invalid
++
+[none]
+** 3a1. Planner shows an error message
++
+Use case resumes at step 3
+
+=== Use Case: Add Module (UCC01)
+
+*MSS*
+
+1.  User [.underline]#selects a timetable (UCB03)#
+2.  User requests to add a specified module
+3.  Planner adds the module to the active timetable
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The given module is invalid
++
+[none]
+** 2a1. Planner shows an error message
++
+Use case ends
+
+[none]
+* 2b. The given module already exists in the timetable
++
+[none]
+** 2b1. Planner shows an error message
++
+Use case ends
+
+=== Use Case: Delete Module (UCC02)
+
+*MSS*
+
+1.  User [.underline]#selects a timetable (UCB03)#
+2.  User requests to delete a specified module
+3.  Planner deletes the module from the active timetable
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The given module is invalid
++
+[none]
+** 2a1. Planner shows an error message
++
+Use case ends
+
+[none]
+* 2b. The given module does not exist in the timetable
++
+[none]
+** 2b1. Planner shows an error message
++
+Use case ends
+
+=== Use Case: List Grades (UCD01)
+
+*MSS*
+
+1.  User [.underline]#selects a plan (UCA03)#
+2.  User requests to list grades
+3.  Planner lists grades and statistics
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The user requests to list all modules taken
++
+[none]
+** 2a1. Planner lists all modules taken and their respective grades
++
+Use case ends
+
+=== Use Case: Set Module Grade (UCD02)
+
+*MSS*
+
+1.  User [.underline]#selects a timetable (UCB03)#
+2.  User requests to set the grade of a specified module
+3.  Planner sets the grade of the specified module
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The given module is invalid
++
+[none]
+** 2a1. Planner shows an error message
++
+Use case ends
+
+[none]
+* 2b. The given module does not exist in the timetable
++
+[none]
+** 2b1. Planner shows an error message
++
+Use case ends
+
+[none]
+* 2c. The given grade is invalid
++
+[none]
+** 2c1. Planner shows an error message
++
+Use case ends
 
 [appendix]
-== Non Functional Requirements
+== Non-Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. The application should be able to run on all major operating systems (i.e. Windows 10, macOS Catalina, and Ubuntu 18.04 LTS).
+. The user should run the software with OpenJDK 11 (as per constraints).
+. The application should come prepackaged with pre-populated data (for offline use).
+. The application be able to hold up to 10 students and their respective module plans/enrollments without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[horizontal]
+[[api]] API::
+Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[locale]] Locale::
+Stands for a setting on the user's computer that defines the user's language and region.
+
+[[mainstream-os]] Mainstream OS::
+References major operating systems (i.e. Windows 10, macOS Catalina, and Ubuntu 18.04 LTS).
+
+[[major]] Major::
+Refers to one of academic majors students read in NUS.
+
+[[minor]] Minor::
+Refers to one of academic minors students can optionally read in NUS.
+
+[[module]] Module::
+Refers to one of multiple academic modules students read in NUS.
+
+[[MSS]] MSS::
+Stands for "Main Success Scenario" that describes the interaction for a given use case, which assumes that nothing goes wrong.
+
+[[nfr]] NFR::
+Stands for "Non-Functional Requirement(s)".
+
+[[nus]] NUS::
+Stands for "National University of Singapore", the university this application was developed for.
+
+[[puml]] PlantUML::
+Is a tool used to render diagrams used in this document.
+
+[[specialisation]] Specialisation::
+Refers to one of academic specialisations students can optionally read in NUS.
+
+[[timetable]] Timetable::
+Refers to the module timetable that students will go for classes in NUS.
+
+[[track]] Track::
+Refers to one of academic tracks students can optionally read in NUS.
 
 [appendix]
 == Product Survey
@@ -392,7 +978,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample plans. The window size may not be optimal.
 
 . Saving window preferences
 
@@ -400,26 +986,178 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a Plan
 
-=== Deleting a person
+. Adding a plan while all plans are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all plans using the `student list` command. All plans will be displayed the list.
+.. Test case: `student add name/Alice major/CS` +
+   Expected: Plan is added to the list. Details of the deleted plan are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `student add major/CS` +
+   Expected: No plan is added. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `student add`, `student add name/` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Deleting a Plan
 
-=== Saving data
+. Deleting a plan while all plans are listed
+
+.. Prerequisites: List all plans using the `student list` command. All plans will be displayed the list. At least one plan should be listed.
+.. Test case: `student remove 1` +
+   Expected: First plan is deleted from the list. Details of the deleted plan are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `student remove 0` +
+   Expected: No plan is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `student remove`, `student remove x` (where x is larger than the list size), `student remove text` (where `text` is not a whole number) +
+   Expected: Similar to previous.
+
+=== Selecting a Plan
+
+. Selecting a plan while all plans are listed
+
+.. Prerequisites: List all plans using the `student list` command. All plans will be displayed the list. At least one plan should be listed.
+.. Test case: `student active 1` +
+   Expected: Plan is selected as the active plan. Details of the selected plan are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `student active 0` +
+   Expected: No plan is selected. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `student active`, `student active xyz` +
+   Expected: Similar to previous.
+
+=== Adding a Timetable
+
+. Adding a timetable while a plan is selected and the selected plan's timetables are listed
+
+.. Prerequisites: Select a plan using the `student active` command. A plan will be set as the active plan. Plan should be empty.
+.. Test case: `timetable add year/1 sem/ONE` +
+   Expected: Timetable is added to the plan. Details of the added timetable are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `timetable add year/1 sem/THREE` +
+   Expected: No timetable is added. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `timetable add`, `timetable add year/` +
+   Expected: Similar to previous.
+
+. Adding a timetable while a plan is selected with an existing timetable of the same semester
+
+.. Prerequisites: Select a plan using the `student active` command. Add a timetable using the `timetable add year/1 sem/ONE` command
+.. Test case: `timetable add year/1 sem/ONE` +
+   Expected: No timetable is added. Error details are shown in the status message. Status bar remains the same.
+
+=== Deleting a Timetable
+
+. Deleting a timetable while a plan is selected and the selected plan's timetables are listed
+
+.. Prerequisites: Select a plan using the `student active` command. A plan will be set as the active plan. Then list timetables with `timetable list`. At least one timetable should be listed.
+.. Test case: `timetable remove year/YEAR sem/SEM` (where `YEAR` and `SEM` are the year and semester of one of the listed timetables, respectively). +
+   Expected: Specified timetable is deleted from the list. Details of the deleted plan are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `timetable remove` +
+   Expected: No timetable is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `timetable remove year sem`, `timetable remove year/x` (where x is larger than the list size), `timetable remove text` +
+   Expected: Similar to previous.
+
+=== Selecting a Timetable
+
+. Selecting a timetable while a plan is selected and the selected plan's timetables are listed
+
+.. Prerequisites: Select a plan using the `student active` command. A plan will be set as the active plan. Then list timetables with `timetable list`. At least one timetable should be listed.
+.. Test case: `timetable active year/YEAR sem/SEM` (where `YEAR` and `SEM` are the year and semester of one of the listed timetables, respectively). +
+   Expected: Specified timetable is deleted from the list. Details of the deleted plan are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `timetable active` +
+   Expected: No timetable is selected. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `timetable active year sem`, `timetable active year/x` (where x is larger than the list size), `timetable active text` +
+   Expected: Similar to previous.
+
+=== Adding a Module
+
+. Adding a module while a timetable is selected and the selected timetable's modules are listed
+
+.. Prerequisites: Select a timetable using the `timetable active` command. A timetable will be set as the active timetable.
+.. Test case: `module add CS2040` +
+   Expected: Module is added to the timetable. Details of the added module are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `module add text` +
+   Expected: No module is added. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `module add`, +
+   Expected: Similar to previous.
+
+. Adding a module while a timetable is selected with the same module existing in the same timetable
+
+.. Prerequisites: Select a timetable using the `timetable active` command. Add a module using the `module add CS2040` command
+.. Test case: `module add CS2040` +
+   Expected: No module is added. Error details are shown in the status message. Status bar remains the same.
+
+=== Deleting a Module
+
+. Deleting a module while a timetable is selected and the selected timetable's modules are listed
+
+.. Prerequisites: Select a timetable using the `timetable active` command. A timetable will be set as the active timetable. Then list modules with `module list`. At least one module should be listed.
+.. Test case: `module remove MODULE_CODE` (where `MODULE_CODE` is one of the listed modules). +
+   Expected: Specified module is deleted from the list. Details of the deleted timetable are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `module remove` +
+   Expected: No module is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `module remove text` +
+   Expected: Similar to previous.
+
+=== Setting the Grade of a Module
+
+. Setting the grade of a module while a timetable is selected and the selected timetable's modules are listed
+
+.. Prerequisites: Select a timetable using the `timetable active` command. A timetable will be set as the active timetable. Then list modules with `module list`. At least one module should be listed.
+.. Test case: `module grade MODULE_CODE grade/A` (where `MODULE_CODE` is one of the listed modules). +
+   Expected: Grade of specified module is updated. Details of the deleted timetable are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `module grade` +
+   Expected: Module grade is not updated. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `module grade text` +
+   Expected: Similar to previous.
+
+=== Viewing the Grade of a Module
+
+. Viewing the grade of a module while a timetable is selected and the selected timetable's modules are listed
+
+.. Prerequisites: Select a timetable using the `timetable active` command. A timetable will be set as the active timetable. Then list modules with `module list`. At least one module should be listed.
+.. Test case: `module grade MODULE_CODE` (where `MODULE_CODE` is one of the listed modules). +
+   Expected: Grade of specified module is displayed. Details of the deleted timetable are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `module grade` +
+   Expected: Module grade is not displayed. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `module grade text` +
+   Expected: Similar to previous.
+
+=== Viewing the Grades of a Plan
+
+. Viewing the grades of a plan while the plan is selected
+
+.. Prerequisites: Select a plan using the `student active` command. A plan will be set as the active plan.
+.. Test case: `student grade` +
+   Expected: Selected student's grades are listed in the status message.
+
+=== Viewing the Graduation Requirements of a Plan
+
+. Viewing the graduation requirements of a plan while the plan is selected
+
+.. Prerequisites: Select a plan using the `student active` command. A plan will be set as the active plan.
+.. Test case: `major status` +
+   Expected: Selected student's graduation requirements are listed in the status message.
+
+=== Setting the Specialisation of a Plan
+
+. Setting the specialisation of a plan while the plan is selected
+
+.. Prerequisites: Select a plan using the `student active` command. A plan will be set as the active plan.
+.. Test case: `specialisation set algo` +
+   Expected: Selected student's specialisation is updated. Details of the new specialisation are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `specialisation set abcdefg` +
+   Expected: Selected student's specialisation is not updated. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `specialisation set` +
+   Expected: Similar to previous.
+
+
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
+////
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+////
 
-_{ more test cases ... }_
+.. Test case: Delete the file named `planner.json` in the `data` folder, relative to the path of the jar file.
+   Launch the app by double-clicking the jar file. +
+   Expected: Shows the GUI with a set of sample plans.
+.. Test case: Edit the file named `planner.json` in the `data` folder such that it is no longer valid JSON.
+   This can be done by deleting the last non-whitespace character in the file, which should be a curly closing bracket. +
+   Expected: Shows the GUI with a set of sample plans.
