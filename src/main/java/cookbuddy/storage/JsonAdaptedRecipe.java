@@ -28,6 +28,7 @@ class JsonAdaptedRecipe {
     private final int rating;
     private final int difficulty;
     private final String fav;
+    private final String done;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -38,7 +39,7 @@ class JsonAdaptedRecipe {
             @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
                              @JsonProperty("serving") int serving, @JsonProperty("rating") int rating,
                              @JsonProperty("difficulty") int difficulty, @JsonProperty("fav") String fav,
-                                     @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("done") String done, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -46,6 +47,7 @@ class JsonAdaptedRecipe {
         this.serving = serving;
         this.rating = rating;
         this.fav = fav;
+        this.done = done;
         this.difficulty = difficulty;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -64,6 +66,7 @@ class JsonAdaptedRecipe {
         rating = source.getRating().rating;
         difficulty = source.getDifficulty().difficulty;
         fav = source.getFavStatus().toString();
+        done = source.getDoneStatus().toString();
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -118,6 +121,11 @@ class JsonAdaptedRecipe {
         if (fav.equals("\u2665")) {
             toReturn.favRecipe();
         }
+
+        if(done.equals("Yes")) {
+            toReturn.attemptRecipe();
+        }
+
         return toReturn;
     }
 }

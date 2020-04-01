@@ -97,18 +97,21 @@ public class ModelManager implements Model {
     @Override
     public void attemptRecipe(Recipe recipe) {
         recipeBook.attempt(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
     public void favRecipe(Recipe recipe) {
         recipeBook.fav(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
     public void unFavRecipe(Recipe recipe) {
         recipeBook.unFav(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 

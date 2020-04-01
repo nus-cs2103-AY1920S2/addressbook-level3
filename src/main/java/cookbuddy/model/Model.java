@@ -13,6 +13,8 @@ import java.util.function.Predicate;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+    /** {@code Predicate} that always evaluates to false */
+    Predicate<Recipe> PREDICATE_SHOW_NO_RECIPES = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
