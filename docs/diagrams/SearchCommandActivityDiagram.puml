@@ -1,0 +1,35 @@
+@startuml
+start
+:User input keywords to be searched;
+:Parse input;
+if () then ([valid command input])
+If () then ([flag is given])
+    If () then ([prefix is given])
+        :Search for all
+        parcel of flag type with
+        matching keywords in
+         given prefix field;
+    else ([prefix is not given])
+        :Search for all parcel of
+        flag type with
+         matching keywords in
+         any prefix field;
+    endif
+else ([flag is not given])
+    if () then ([prefix is given])
+        :Search for all parcel type
+         with matching keywords
+         in given prefix field;
+    else ([prefix not given])
+    :Search for all parcel
+    type with matching
+    keywords in any prefix field;
+    endif
+endif
+    :Update list with parcels found;
+else ([invalid command input])
+    :Throw parsing error message;
+endif
+:Display result to user;
+stop
+@enduml

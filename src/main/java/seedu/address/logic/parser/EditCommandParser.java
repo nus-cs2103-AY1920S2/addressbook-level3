@@ -106,12 +106,12 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Returns a {@code Flag} object according to the flag user provided in.
      *
-     * @param arg String object representing the user input.
+     * @param args String object representing the user input.
      * @return {@code Flag} object representing the flag given.
      * @throws ParseException ParseException is thrown when multiple different flags are detected.
      */
-    private Flag extractFlag(String arg) throws ParseException {
-        List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
+    private Flag extractFlag(String args) throws ParseException {
+        List<String> argArr = Arrays.asList(args.trim().split("\\s"));
         if (argArr.contains(CliSyntax.FLAG_ORDER_BOOK.getFlag())
             && argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
             throw new ParseException(EditCommand.MULTIPLE_FLAGS_DETECTED);

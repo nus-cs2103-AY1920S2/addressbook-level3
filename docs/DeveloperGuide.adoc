@@ -359,6 +359,51 @@ will be updated to show the change. +
 2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
 display the original order book.
 
+=== Edit Feature
+
+In this section, the <<what-is-edit,functionality>> of the `edit` feature, the expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the `EditCommand` class
+and the <<edit-interactions, interactions>> between objects with the `EditCommand` object will be discussed.
+
+[[what-is-edit]]
+==== What is Edit Command
+
+The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
+
+`edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
+
+
+The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `<<command_flags, FLAG>>` and `INDEX`. +
+`<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>`` to represent Order or Return Order respectively. +
+`INDEX` to indicate which parcel the user wants to edit. +
+The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>.
+
+[IMPORTANT]
+====
+Limitation to editing time is that the user cannot edit a delivery date or return date of an order or return order respectively to a past date.
+====
+
+
+[[edit-path-execution]]
+==== Execution paths of Edit Command
+
+
+[[edit-structure]]
+==== Structure of Edit Command
+
+.Edit Command Class Diagram
+image::EditCommandClassDiagram.png[]
+The class diagram above depicts the structure of `EditCommand`. As per any `Command` class, `EditCommand` needs to extend the abstract class `Command`. +
+Information that are left out in this class diagram are the common messages used in `EditCommand`.
+
+[[edit-interactions]]
+==== Interactions between Edit Command and it's associated objects
+
+.Edit Command Sequence Diagram
+image::EditCommandSequenceDiagram.svg[]
+
+The above figure illustrates the interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`.
+
+
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
@@ -527,30 +572,71 @@ The `ImportCommand` will call its own `printResult()` function and return a Stri
 which is then pass back to the `LogicManager`.
 
 [[search]]
-=== Search feature
-The search function allow users to search for any orders according to the provided input. +
-There are two mode of searching, *general search* or *specific search*. +
-If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be performed. +
+=== Search Feature
 
-* *General search* will search for all fields in an order and return orders that have any matching fields. +
+In this section, the <<what-is-search,functionality>> of the `search` feature, the expected <<search-path-execution, execution path>>, the <<search-structure, structure>> of the `SearchCommand` class
+and the <<search-interactions, interactions>> between objects with the `SearchCommand` object will be discussed.
+
+[[what-is-search]]
+==== What is the Search feature
+
+The `search` feature was implemented as the `SearchCommand` in the `logic` package.
+
+The search function allow users to search for any orders according to the provided input. +
+
+`search` feature format: `search` `<<command_flags, [FLAG]>>` `<<command_prefix, [ORDER_ATTRIBUTE_PREFIX]>>`/`[KEYWORD]`
+
+[IMPORTANT]
+A space is needed in between each word.
+
+There are two mode of searching, *general search* or *specific search*. +
+If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be performed on orders, return orders, or both depending on the `<<command_flag, FLAG>>`. +
+
+The `<<command_flags, [FLAG]>>` `-o` when given, searches only for parcels in the order list. +
+The `<<command_flags, [FLAG]>>` `-r` when given, searches only for the parcels in the return list.
+
+* *General search* will search for all fields in an order/return orders/both that have any matching fields. +
 
 If the user provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *specific search* will be performed. +
 
-* *Specific search* will search orders based on the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`.
+* *Specific search* will search orders/return orders/both based on the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`.
 
-==== Class Diagram for Search feature:
+[[search-path-execution]]
+==== Execution paths of Search Command
 
+.Search Command Activity Diagram
+image::SearchCommandActivityDiagram.svg[]
+
+The above activity diagram illustrates the different execution paths of `search` command. +
+Whenever a user keys in an input with the `search` keyword, the `SearchCommandParser` class will handle the parsing of input. +
+User input will be validated in the `SearchCommandParser` class.
+
+Input is deemed as invalid and `ParseException` is thrown under these scenarios: +
+1) `<<command_flags, FLAG>>` given is not `-o` or `-r`. +
+2) Multiple `<<command_flags, FLAG>>` detected. +
+3) No `KEYWORD` is given after `search`.
+
+View the list of allowed prefixes in this `search` command <<command_prefix, here>>.
+
+[[search-structure]]
+==== Structure of Search Command
 .Search Command Class Diagram
 image::SearchCommandClassDiagram.png[]
 
-==== Sequence Diagram for Search feature:
+The above class diagram depicts the structure of the class `SearchCommand`. As per any `Command` class, `SearchCommand` needs to extend the abstract class `Command`. +
+Information that are left out in this class diagram are the common messages used in `SearchCommand`.
 
-The sequence diagram for the *Search Command* when searching for any orders that contain *Alice* in any of it's field is shown below:
+[[search-interactions]]
+==== Interactions between objects when Search Command is executed
 
 .Search Command Sequence Diagram
 image::SearchCommandSequenceDiagram.svg[]
 
-LogicManager first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
+The sequence diagram above illustrates the interactions between objects when `search` command is performed by the user. +
+Particularly, the interactions shown is a success `search` command executed by the user and only an abstract view is shown.
+
+
+`LogicManager` first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
 
 [TIP]
 ====
@@ -558,24 +644,21 @@ LogicManager first calls `parseCommand` with arguments representing the user inp
 * If the given arguments are invalid or empty, a `ParseException` object will be thrown (not shown in the diagram).
 ====
 
-Upon validation of the arguments, `SearchCommandParser` will call for the `tokenize` static method in `ArgumentTokenizer` to get an `ArgumentMultimap` object containing all the user input keywords.
-Each keyword will be stored in the `ArgumentMultimap` object to it's corresponding prefix.
-If no prefix is given, `ArgumentMultimap` will store the user input as a value tagged to an empty string key; the empty string key is referred to as the *preamble*. +
+The `SearchCommandParser` will then checks for the presence of any `<<command_flags, FLAG>>`. The presence of one will result in different `SearchCommand` constructor being called. +
+The `SearchCommandParser` will call the both the `OrderContainsKeywordsPredicate` constructor and the `ReturnOrderContainsKeywordsPredicate` if no `<<command_flags, FLAG>>` is given. +
+However, if a `<<command_flags, FLAG>>` is given, the corresponding predicate will be instantiated and passed as an parameter for the `SearchCommand` constructor with the other left as null value.
 
-Using the `ArgumentMultimap` object, `SearchCommandParser` will check if the preamble is empty. +
-If the preamble is not empty, a *general search* will be performed in which the `SearchCommandParser` will call the
-`OrderContainsKeywordsPredicate` constructor. The constructor accepts the user input as a parameter (`keyword`). +
-If the preamble is empty, `SearchCommandParser` will call the overloaded constructor of `OrderContainsKeywordsPredicate`, passing the pre-processed user input as `keyword` and the `ArgumentMultimap`. +
+[IMPORTANT]
+====
+* What is not shown is that optionally, either `OrderContainsKeywordsPredicate` or `ReturnOrderContainsKeywordsPredicate` can be null if a `<<command_flags, FLAG>>` is given. However, under no circumstances should both be null.
+====
 
-For both scenarios, `OrderContainsKeywordsPredicate` object will be returned to `SearchCommandParser`. After which, a new instance of `SearchCommand` object will be created and returned back to the `LogicManager` through `OrderBookParser`.
+The parsing of user input utilises `ArgumentTokenzier` (not shown in sequence diagram) to process and split each `KEYWORD` to it's corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, if given any. +
 
-.Search Command Sequence Diagram 2
-image::SearchCommandSequenceDiagram2.svg[]
+If the preamble to any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is not empty, a *general search* will be performed in which `KEYWORD` will be searched through all fields of parcel. +
+However, if `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is given and the preamble is empty, the *specific search* will be performed. Only parcel fields that correspond to the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` will be searched and matched with the `KEYWORD`.
 
-After which, the `LogicManager` will then call the `execute` function of `SearchCommand` object passing a `model` object as an argument. +
-The `model` will then update the list of shown orders using the `OrderContainsKeywordsPredicate` object.
-
-Lastly, a new `CommandResult` object will be created and returned to the `LogicManager`.
+The order and return order list updates automatically as the JavaFX class `ObservableList` is used to listen to any changes.
 
 
 === Logging
