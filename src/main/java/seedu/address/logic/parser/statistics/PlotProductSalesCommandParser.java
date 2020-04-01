@@ -35,7 +35,7 @@ public class PlotProductSalesCommandParser implements Parser<PlotProductSalesCom
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(args);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlotProductSalesCommand.MESSAGE_USAGE), pe);
