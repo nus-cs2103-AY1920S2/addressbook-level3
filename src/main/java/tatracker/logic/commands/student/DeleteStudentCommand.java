@@ -41,14 +41,11 @@ public class DeleteStudentCommand extends Command {
     public static final String MESSAGE_INVALID_STUDENT_FORMAT =
             "There is no student in the (%s) group (%s) with the given matric number: %s";
 
-    public static final int FIRST_GROUP_INDEX = 0;
-    public static final int FIRST_MODULE_INDEX = 0;
-
     private final Matric toDelete;
-    private final Group targetGroup;
-    private final Module targetModule;
+    private final String targetGroup;
+    private final String targetModule;
 
-    public DeleteStudentCommand(Matric matric, Group group, Module module) {
+    public DeleteStudentCommand(Matric matric, String group, String module) {
         requireNonNull(matric);
         requireNonNull(group);
         requireNonNull(module);
@@ -62,25 +59,24 @@ public class DeleteStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule.getIdentifier()));
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule));
         }
 
         if (!model.hasGroup(targetGroup, targetModule)) {
             throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT,
-                    targetModule.getIdentifier(),
-                    targetGroup.getIdentifier()));
+                    targetModule,
+                    targetGroup));
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
-        Group actualGroup = actualModule.getGroup(targetGroup.getIdentifier());
+        Module actualModule = model.getModule(targetModule);
+        Group actualGroup = actualModule.getGroup(targetGroup);
 
         Student studentToDelete = actualGroup.getStudent(toDelete);
 
-        // TODO: consider replacing has methods with id instead of actual objects
         if (studentToDelete == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT,
-                    targetModule.getIdentifier(),
-                    targetGroup.getIdentifier(),
+                    targetModule,
+                    targetGroup,
                     toDelete));
         }
 

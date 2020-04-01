@@ -11,7 +11,6 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.module.Module;
 
 /**
  * Format full help instructions for every command for display.
@@ -29,13 +28,13 @@ public class ShowStatisticCommand extends Command {
     public static final String MESSAGE_OPENED_STATS = "Opened Statistic Window.";
     public static final String MESSAGE_INVALID_MODULE = "Target module not found!";
 
-    private final Module module;
+    private final String module;
 
     public ShowStatisticCommand() {
         this(null);
     }
 
-    public ShowStatisticCommand(Module module) {
+    public ShowStatisticCommand(String module) {
         this.module = module;
     }
 
@@ -51,6 +50,6 @@ public class ShowStatisticCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE);
         }
 
-        return new StatisticCommandResult(MESSAGE_OPENED_STATS, module.getIdentifier());
+        return new StatisticCommandResult(MESSAGE_OPENED_STATS, module);
     }
 }

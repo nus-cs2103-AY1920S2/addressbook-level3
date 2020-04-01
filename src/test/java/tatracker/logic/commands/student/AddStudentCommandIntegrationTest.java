@@ -52,18 +52,22 @@ public class AddStudentCommandIntegrationTest {
         expectedModule.addGroup(expectedGroup);
         expectedModel.addModule(expectedModule);
 
-        expectedModel.addStudent(validStudent, expectedGroup, expectedModule);
+        expectedModel.addStudent(validStudent, expectedGroup.getIdentifier(),
+                expectedModule.getIdentifier());
 
-        assertAddStudentCommandSuccess(new AddStudentCommand(validStudent, testGroup, testModule), model,
-                String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent, testModule, testGroup), expectedModel);
+        assertAddStudentCommandSuccess(new AddStudentCommand(validStudent,
+                        testGroup.getIdentifier(), testModule.getIdentifier()), model,
+                String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent,
+                        testModule, testGroup), expectedModel);
     }
 
     @Test
     public void execute_duplicateStudent_throwsCommandException() {
         Student student = new StudentBuilder().build();
-        model.addStudent(student, testGroup, testModule);
+        model.addStudent(student, testGroup.getIdentifier(), testModule.getIdentifier());
 
-        assertCommandFailure(new AddStudentCommand(student, testGroup, testModule),
+        assertCommandFailure(new AddStudentCommand(student, testGroup.getIdentifier(),
+                        testModule.getIdentifier()),
                 model, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT);
     }
 

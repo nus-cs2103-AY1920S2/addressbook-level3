@@ -33,10 +33,10 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
     private static final int FIRST_GROUP_INDEX = 0;
 
-    private final Module targetModule;
+    private final String targetModule;
     private final String newName;
 
-    public EditModuleCommand(Module module, String newName) {
+    public EditModuleCommand(String module, String newName) {
         this.targetModule = module;
         this.newName = newName;
     }
@@ -49,7 +49,7 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
+        Module actualModule = model.getModule(targetModule);
         actualModule.setName(newName);
 
         model.showAllModules();

@@ -40,11 +40,11 @@ public class EditGroupCommand extends Command {
         + " you want to change it to.";
 
     private final Group group;
-    private final Module targetModule;
+    private final String targetModule;
     private final String newGroupCode;
     private final GroupType newGroupType;
 
-    public EditGroupCommand(Group group, Module module, String newGroupCode, GroupType newGroupType) {
+    public EditGroupCommand(Group group, String module, String newGroupCode, GroupType newGroupType) {
         this.group = group;
         this.targetModule = module;
         this.newGroupCode = newGroupCode;
@@ -59,7 +59,7 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
+        Module actualModule = model.getModule(targetModule);
 
         if (!actualModule.hasGroup(group)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);

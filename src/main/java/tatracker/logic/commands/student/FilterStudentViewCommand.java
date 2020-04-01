@@ -14,8 +14,6 @@ import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 
 /**
  *Filters by Group and/or Module under Student View.
@@ -80,13 +78,10 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterGroup(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode);
-        Group group = new Group(groupCode);
-
-        if (!model.hasModule(module)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         } else {
-            if (!model.hasGroup(group, module)) {
+            if (!model.hasGroup(groupCode, moduleCode)) {
                 model.setFilteredStudentList();
                 throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
             } else {
@@ -105,9 +100,7 @@ public class FilterStudentViewCommand extends Command {
     public CommandResult filterModule(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode);
-
-        if (!model.hasModule(module)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         } else {
             model.updateFilteredGroupList(moduleCode);

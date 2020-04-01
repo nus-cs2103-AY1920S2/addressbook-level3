@@ -47,7 +47,7 @@ public class AddModuleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasModule(toAdd)) {
+        if (model.hasModule(toAdd.getIdentifier())) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
