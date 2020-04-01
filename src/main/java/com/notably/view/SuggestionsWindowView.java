@@ -23,6 +23,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
 
     private static final String FXML = "SuggestionsWindowView.fxml";
     private static final int LIST_CELL_HEIGHT = 28;
+    private static final int LIST_HORIZONTAL_MARGIN = 2;
 
     @FXML
     private VBox suggestionsBox;
@@ -59,7 +60,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         });
 
         suggestionsList.addListener((Observable observable) -> {
-            suggestionsListPanel.setPrefHeight(suggestionsList.size() * LIST_CELL_HEIGHT + 2);
+            suggestionsListPanel.setPrefHeight(computePrefListHeight(suggestionsList.size()));
             if (suggestionsList.size() == 0) {
                 setSuggestionsListRenderingStatus(false);
             } else {
@@ -81,6 +82,10 @@ public class SuggestionsWindowView extends ViewPart<Region> {
     private void setSuggestionsTextRenderingStatus(boolean bool) {
         responseText.setManaged(bool);
         responseText.setVisible(bool);
+    }
+
+    private int computePrefListHeight(int listSize) {
+        return listSize * LIST_CELL_HEIGHT + LIST_HORIZONTAL_MARGIN;
     }
 
     /**
