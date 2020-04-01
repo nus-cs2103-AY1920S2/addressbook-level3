@@ -56,10 +56,10 @@ public class PlotWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show(XYChart.Series dataSeries, String title) {
+    public void show(XYChart.Series dataSeries, String titleText) {
         logger.fine("Showing plot window.");
         barChart.getData().setAll(dataSeries);
-        this.title.setText(title);
+        title.setText(titleText);
         getRoot().show();
         getRoot().centerOnScreen();
     }

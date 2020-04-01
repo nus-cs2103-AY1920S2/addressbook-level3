@@ -47,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
+    private InventoryWindow inventoryWindow;
     private PlotWindow plotWindow;
 
     @FXML
@@ -56,7 +57,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private MenuItem statisticsMenuItem;
+    private MenuItem topSellingProduct;
+
+    @FXML
+    private MenuItem inventory;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -87,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statisticsWindow = new StatisticsWindow(logic);
+        inventoryWindow = new InventoryWindow(logic);
         plotWindow = new PlotWindow();
     }
 
@@ -96,7 +101,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-        setAccelerator(statisticsMenuItem, KeyCombination.valueOf("F2"));
+        setAccelerator(topSellingProduct, KeyCombination.valueOf("F2"));
+        setAccelerator(inventory, KeyCombination.valueOf("F3"));
     }
 
     /**
@@ -211,6 +217,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the inventory window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleInventory() {
+        if (!inventoryWindow.isShowing()) {
+            inventoryWindow.show();
+        } else {
+            inventoryWindow.focus();
+        }
+    }
+
+
     void show() {
         primaryStage.show();
     }
@@ -225,6 +244,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         statisticsWindow.hide();
+        inventoryWindow.hide();
         plotWindow.hide();
         primaryStage.hide();
     }
@@ -243,6 +263,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            statisticsWindow = new StatisticsWindow(logic);
+            inventoryWindow = new InventoryWindow(logic);
 
             if (commandResult.isShowPlot()) {
                 handlePlot(commandResult.getDataSeries(), commandResult.getTitle());

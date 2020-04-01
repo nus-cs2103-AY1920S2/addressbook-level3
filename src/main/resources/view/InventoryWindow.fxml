@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="InventoryHistogram" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/stats-icon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <root>
+                  <AnchorPane style="-fx-background-color: #101010;" styleClass="notification-window">
+                      <children>
+                  <VBox layoutX="15.0" layoutY="28.200000762939453">
+                     <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                              <Group>
+                                       <children>
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Product Quantity Histogram" textAlignment="CENTER" textFill="#e797fd">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                              </Group>
+                                    <LineChart fx:id="quantityLineChart" legendVisible="false" prefHeight="150.0" prefWidth="174.0">
+                                       <xAxis>
+                                          <NumberAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Group>
+                                       <children>
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Product Sales Histogram" textAlignment="CENTER" textFill="#e797fd">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                    <LineChart fx:id="salesLineChart" legendVisible="false" prefHeight="150.0" prefWidth="238.0">
+                                      <xAxis>
+                                        <NumberAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                      </children>
+                  </AnchorPane>
+            </root>
+        </Scene>
+    </scene>
+</fx:root>
