@@ -8,7 +8,7 @@
 <?import javafx.scene.control.ListView?>
 <StackPane id="daysPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" prefHeight="480" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <StackPane prefWidth="500.0">
+        <StackPane prefWidth="470.0">
             <children>
                 <Label fx:id="listTitle" StackPane.alignment="TOP_LEFT" textFill="#789cce">
                     <StackPane.margin>
@@ -19,12 +19,12 @@
         </StackPane>
         <StackPane id="listPanel" alignment="BOTTOM_CENTER">
             <children>
-                <ScrollPane id="listScrollPane" fitToWidth="true" prefWidth="500.0" prefHeight="480" minHeight="-Infinity">
+                <ScrollPane id="listScrollPane" fitToWidth="true" prefWidth="470.0" prefHeight="480" minHeight="-Infinity">
                     <StackPane.margin>
                         <Insets top="20.0" />
                     </StackPane.margin>
                     <content>
-                        <ListView fx:id="daysListView" prefWidth="500.0" prefHeight="475" minHeight="-Infinity"/>
+                        <ListView fx:id="daysListView" prefWidth="470.0" prefHeight="475" minHeight="-Infinity"/>
                     </content>
                 </ScrollPane>
             </children>

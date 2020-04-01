@@ -3,6 +3,7 @@ package fithelper.logic.commands;
 import static fithelper.logic.commands.CommandResult.DisplayedPage.CALENDAR;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_MODE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SHOW;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.model.Model;
@@ -18,14 +19,17 @@ public class CalendarCommand extends Command {
             + "Parameters (Optional): "
             + PREFIX_DATE + "DATE "
             + PREFIX_MODE + "MODE "
+            + PREFIX_SHOW + "SHOW "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "tmr"
-            + PREFIX_MODE + "list";
+            + PREFIX_MODE + "list"
+            + PREFIX_SHOW + "2020-04-20";
 
     public static final String MESSAGE_SUCCESS = "Now you are at Calendar Page ~";
 
     private String dateToSet;
     private String mode;
+    private String show;
 
     @Override
     public CommandResult execute(Model model) {
@@ -42,6 +46,9 @@ public class CalendarCommand extends Command {
         } else {
             mode = "timetable";
         }
+        if (show != null) {
+            model.setCalendarShow(show);
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date: "
                 + model.getCalendarDate().toLocalDate())
@@ -56,6 +63,9 @@ public class CalendarCommand extends Command {
     public void setMode(String mode) {
         requireNonNull(mode);
         this.mode = mode;
+    }
+    public void setShow(String show) {
+        this.show = show;
     }
 
     @Override
