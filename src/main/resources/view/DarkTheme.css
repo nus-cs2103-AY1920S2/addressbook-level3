@@ -271,6 +271,12 @@
     -fx-font-family: "Microsoft Sans Serif";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
+    -fx-text-alignment: center;
+
+}
+
+.menu-button {
+    -fx-min-width: 50;
 }
 
 .menu .left-container {

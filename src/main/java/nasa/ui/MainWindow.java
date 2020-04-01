@@ -42,6 +42,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
     @FXML
+    private MenuItem undoMenuItem;
+    @FXML
+    private MenuItem redoMenuItem;
+    @FXML
     private StackPane resultDisplayPlaceholder;
     @FXML
     private StackPane statusbarPlaceholder;
@@ -65,19 +69,11 @@ public class MainWindow extends UiPart<Stage> {
             //Overriding default redo
             if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
                 event.consume();
-                try {
-                    executeCommand("redo");
-                } catch (ParseException | CommandException e) {
-                    logger.info("Invalid command.");
-                }
+                handleRedo();
                 //Overriding default undo
             } else if (event.getCode() == KeyCode.Z && event.isShortcutDown()) {
                 event.consume();
-                try {
-                    executeCommand("undo");
-                } catch (ParseException | CommandException e) {
-                    logger.info("Invalid command");
-                }
+                handleUndo();
             } else if (event.getCode() == KeyCode.TAB) {
                 tabPanel.next();
             }
@@ -165,6 +161,27 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleUndo() {
+        try {
+            executeCommand("undo");
+        } catch (ParseException | CommandException e) {
+            logger.info("Invalid command");
+        }
+    }
+
+    @FXML
+    public void handleRedo() {
+        try {
+            executeCommand("redo");
+        } catch (ParseException | CommandException e) {
+            logger.info("Invalid command.");
         }
     }
 
