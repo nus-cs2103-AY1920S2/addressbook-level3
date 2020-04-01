@@ -46,26 +46,28 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
         boolean courseExists = model.hasCourse(courseID);
         boolean AssignmentExists = model.hasAssignment(AssignmentID);
 
-        Course assignedCourse = model.getCourse(courseID);
-        Assignment assigningAssignment = model.getAssignment(AssignmentID);
-
-        boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(AssignmentID);
-        boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
-
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!AssignmentExists) {
             throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ID);
-        } else if(assignedCourseContainsAssignment) {
-            throw new CommandException("This course already has the assignment assigned to it!");
-        } else if(assigningAssignmentContainsCourse) {
-            throw new CommandException("The assignment has already been assigned already!");
         } else {
-            model.assignAssignmentToCourse(AssignmentID, courseID);
+            Course assignedCourse = model.getCourse(courseID);
+            Assignment assigningAssignment = model.getAssignment(AssignmentID);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    assigningAssignment.getName(), AssignmentID.value,
-                    assignedCourse.getName(), courseID.value));
+            boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(AssignmentID);
+            boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
+
+            if(assignedCourseContainsAssignment) {
+                throw new CommandException("This course already has the assignment assigned to it!");
+            } else if(assigningAssignmentContainsCourse) {
+                throw new CommandException("The assignment has already been assigned already!");
+            } else {
+                model.assignAssignmentToCourse(AssignmentID, courseID);
+
+                return new CommandResult(String.format(MESSAGE_SUCCESS,
+                        assigningAssignment.getName(), AssignmentID.value,
+                        assignedCourse.getName(), courseID.value));
+            }
         }
     }
 }
