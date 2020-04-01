@@ -51,6 +51,14 @@ public class RemarkList {
     }
 
     /**
+     * Adds a remark to the list with given time. Used in storage.
+     */
+    public void addRemark(String message, Duration time) {
+        requireNonNull(message);
+        remarks.add(new Remark(time, message));
+    }
+
+    /**
      * Indicates the beginning of an answer to a question by inserting a QuestionRemark into the list.
      *
      * @param questionNumber the question number.
@@ -64,6 +72,19 @@ public class RemarkList {
         }
         questionIndices[questionNumber] = remarks.size();
         remarks.add(new QuestionRemark(Duration.between(startTime, Instant.now()), questionNumber, question));
+    }
+
+    /**
+     * Adds a question remark to the list with given time. Used in storage.
+     */
+    public void startQuestion(int questionNumber, Question question, Duration time)
+            throws IllegalActionException, IllegalValueException {
+        requireNonNull(question);
+        if (isQuestionAnswered(questionNumber)) {
+            throw new IllegalActionException("Question is already answered!");
+        }
+        questionIndices[questionNumber] = remarks.size();
+        remarks.add(new QuestionRemark(time, questionNumber, question));
     }
 
     /**
@@ -121,5 +142,12 @@ public class RemarkList {
             throw new IllegalActionException("This question was not answered!");
         }
         return questionIndices[questionIndex];
+    }
+    public int getNumbOfQns() {
+        return questionIndices.length;
+    }
+
+    public Instant getStartTime() {
+        return startTime;
     }
 }

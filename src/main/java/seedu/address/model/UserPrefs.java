@@ -50,6 +50,24 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public Path getSessionsDirectory() {
         return sessionsDirectory;
     }
+    public Path getIntervieweeDirectory() {
+        return sessionsDirectory.resolve("interviewee.json");
+    }
+    public Path getAttributeDirectory() {
+        return sessionsDirectory.resolve("attribute.json");
+    }
+    public Path getQuestionDirectory() {
+        return sessionsDirectory.resolve("question.json");
+    }
+    public Path getMetricDirectory() {
+        return sessionsDirectory.resolve("metric.json");
+    }
+    public Path getTranscriptDirectory() {
+        return sessionsDirectory.resolve("transcript");
+    }
+    public Path getModelDirectory() {
+        return sessionsDirectory.resolve("model.json");
+    }
 
     public void setSessionsDirectory(Path sessionsDirectory) {
         requireNonNull(sessionsDirectory);

@@ -17,7 +17,7 @@ public class Remark {
      * @param time The time when the remark was made.
      * @param message The remark message.
      */
-    Remark(Duration time, String message) {
+    public Remark(Duration time, String message) {
         this.time = time;
         this.message = message;
     }

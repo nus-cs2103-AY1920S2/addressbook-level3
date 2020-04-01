@@ -77,7 +77,8 @@ public class BestCommand extends Command {
         ObservableList<Interviewee> observableInterviewees = model.getFilteredIntervieweeListView();
         ObservableList<Interviewee> bestNInterviewees = model.getBestNInterviewees();
         getBestN(bestNInterviewees, observableInterviewees, comparator, size);
-        return new ToggleCommandResult(MESSAGE_SUCCESS, ToggleView.BEST_INTERVIEWEE);
+        return new ToggleCommandResult(
+                String.format(MESSAGE_SUCCESS, numberOfInterviewees), ToggleView.BEST_INTERVIEWEE);
     }
 
     /**
@@ -183,5 +184,13 @@ public class BestCommand extends Command {
         } catch (NumberFormatException e) {
             throw new CommandException(MESSAGE_SIZE_NOT_A_NUMBER);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BestCommand // instanceof handles nulls
+                && numberOfInterviewees.equals(((BestCommand) other).numberOfInterviewees)
+                && paramType.equals(((BestCommand) other).paramType));
     }
 }

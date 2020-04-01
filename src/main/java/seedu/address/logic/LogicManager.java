@@ -1,11 +1,13 @@
 package seedu.address.logic;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,7 +19,7 @@ import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.Question;
-import seedu.address.storage.Storage;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -25,7 +27,6 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
     private final Model model;
     private final Storage storage;
     private final InterviewParser interviewParser;
@@ -56,11 +57,15 @@ public class LogicManager implements Logic {
         }
         commandResult = command.execute(model);
 
-        //try {
-        //    storage.saveAddressBook(model.getAddressBook());
-        //} catch (IOException ioe) {
-        //    throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        //}
+        try {
+            storage.saveInterviewee(model.getIntervieweeList());
+            storage.saveAttribute(model.getAttributeList());
+            storage.saveQuestion(model.getQuestionList());
+            storage.saveMetric(model.getMetricList());
+            storage.saveModel(model.isFinalisedInterviewProperties());
+        } catch (IOException | IllegalValueException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
 
         return commandResult;
     }
@@ -114,4 +119,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }

@@ -22,7 +22,6 @@ import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -57,6 +56,21 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyUserPrefs userPrefs, IntervieweeList initialInterviewees,
+                        AttributeList initialAttributes, QuestionList initialQuestions,
+                        MetricList initialMetrics, Boolean finalised) {
+        logger.fine("Initializing with user prefs " + userPrefs);
+
+        this.appPhase = AppPhase.NORMAL;
+        this.finalisedInterviewProperties = finalised;
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.intervieweeList = initialInterviewees;
+        this.attributeList = initialAttributes;
+        this.questionList = initialQuestions;
+        this.metricList = initialMetrics;
+        this.bestNIntervieweeList = FXCollections.observableArrayList();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -239,5 +253,6 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return userPrefs.equals(other.userPrefs);
     }
+
 
 }
