@@ -31,9 +31,8 @@ public class DeletePlanCommand extends Command {
             + "Example: " + COMMAND_WORD + " 3 "
             + PREFIX_DATE + "2020-03-16 ";
 
-    public static final String MESSAGE_SUCCESS = "Planned recipe:\n"
-            + "%1$s\n"
-            + "at Index %2$s is deleted.";
+    public static final String MESSAGE_SUCCESS = "Planned recipe at Index %2$s is deleted:\n"
+            + "%1$s\n";
 
     private final Index plannedIndex;
     private final Date atDate;
@@ -71,6 +70,7 @@ public class DeletePlanCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToDelete, plannedIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToDelete, plannedIndex.getOneBased()),
+                false, planTab, false);
     }
 }

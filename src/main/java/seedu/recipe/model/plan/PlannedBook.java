@@ -95,8 +95,9 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      */
     public void deleteAllPlansFor(Recipe recipe) {
         if (plannedRecipeMap.containsKey(recipe)) {
-            List<PlannedRecipe> plannedRecipesForRecipe = plannedRecipeMap.get(recipe);
-            for (PlannedRecipe plannedRecipe : plannedRecipesForRecipe) {
+            List<PlannedRecipe> plans = new ArrayList<>();
+            plans.addAll(plannedRecipeMap.get(recipe));
+            for (PlannedRecipe plannedRecipe : plans) {
                 deleteRecipeFromPlannedRecipe(recipe, plannedRecipe);
             }
             plannedRecipeMap.remove(recipe);

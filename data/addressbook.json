@@ -1,28 +1,17 @@
 {
   "recipes" : [ {
-    "name" : "edit name 2",
-    "time" : "30",
-    "isFavourite" : false,
-    "grains" : [ "1.0cup,  small pieces of broken spaghetti" ],
-    "vegetables" : [ "2.0tbsp,  chives (chopped)", "50.0g,  small onion (chopped)" ],
-    "proteins" : [ "2.5cup,  low-sodium chicken broth" ],
-    "fruits" : [ ],
-    "others" : [ "1.0cup,  hulled barley", "10.0g,  Salt & Pepper", "1.0tbsp,  unsalted butter" ],
-    "steps" : [ "Melt butter in saucepan over medium heat. Add onion and cook until soft and light golden brown.", "Add barley and stir until grains are coated in butter.", "Add broth and 0.5 tsp salt, bring to a boil.", "Reduce heat to medium low, cover, and simmer for 20mins.", "Uncover and quickly stir in spaghetti. Cover and continue to simmer, stirring occasionally.", "Once most liquid is absorbed and barley and spaghetti are tender, remove from hit and let sit.", "Season to taste with salt and pepper and sprinkle with chopped chives." ],
-    "goals" : [ "Wholesome Wholemeal" ]
-  }, {
-    "name" : "Asian BBQ Chicken",
+    "name" : "Asian BBQ Chicken 2",
     "time" : "15",
     "isFavourite" : false,
     "grains" : [ ],
     "vegetables" : [ "1.0tbsp,  garlic & ginger (finely chopped)" ],
     "proteins" : [ "100.0g,  chicken breast" ],
     "fruits" : [ ],
-    "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil" ],
-    "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "Serve with rice." ],
+    "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
+    "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "edited step 3", "hi" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
-    "name" : "Sweet and Sour Chicken",
+    "name" : "Sweet and Sour Chicken 2",
     "time" : "20",
     "isFavourite" : false,
     "grains" : [ ],
