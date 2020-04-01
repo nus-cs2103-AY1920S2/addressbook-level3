@@ -134,7 +134,7 @@ public class Course extends ModelObject {
   }
 
   public void removeStudent(ID studentID) {
-    this.assignedAssignmentsID.remove(studentID);
+    this.assignedStudentsID.remove(studentID);
   }
 
 
