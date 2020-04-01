@@ -51,10 +51,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * {@code diaries} must not contain duplicate diaries.
      */
     public void setDiaries(List<Diary> diaries) {
-        List<Diary> diaryList = new ArrayList<>();
-        for (Diary diary : diaries) {
-            diaryList.add(diary);
-        }
+        List<Diary> diaryList = new ArrayList<>(diaries);
         this.diaries.setDiaries(diaryList);
     }
 
@@ -169,7 +166,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * Clears the diary data of this {@code FitHelper}.
      */
     public void clearDiary() {
-        setDiaries(new ArrayList<Diary>());
+        setDiaries(new ArrayList<>());
     }
 
     //// diary-level operations
@@ -232,11 +229,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         if (hasEntry(entry)) {
             count--;
         }
-        if (count >= 2) {
-            hasTimeClashes = true;
-        } else {
-            hasTimeClashes = false;
-        }
+        hasTimeClashes = count >= 2;
         return hasTimeClashes;
     }
 
