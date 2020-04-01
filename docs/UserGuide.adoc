@@ -258,6 +258,12 @@ By using this command, you can switch to a specified tab.
 
 Format: `goto TAB_NAME`
 
+[NOTE]
+====
+* You cannot go to a tab which does not exist in TA-Tracker
+====
+
+
 ==== Exiting the program : `exit`
 
 By using this command, you can exit the program.
@@ -592,14 +598,11 @@ Edits student with the matriculation number `A9876543K` to have:
 [[Sort]]
 ==== Sorting a Group `sort group`
 
-You can use this command to sort the students inside the group you want to sort
-according to the way you indicate.
+You can use this command to sort the students belonging to a specified group.
+The students will be sorted according to your specified `SORT_TYPE`.
 
-The students can be sorted alphabetically, by rating in ascending order, by rating
-in descending order or by matriculation number in ascending order.
-
-When a group is sorted, Student View shows the groups of the module the sorted group
-belongs to and the students of the group that has been sorted.
+When a group is sorted, Student View shows all the groups of the module that the sorted group
+belongs to, as well as the students belonging to the group that has been sorted.
 
 The tab that you are viewing will automatically be switched to the student
 tab as well, if you were currently on a different tab.
@@ -636,15 +639,12 @@ Sorts the student inside `G03` of module `CS2103` `alphabetically`.
 
 ==== Sorting a Module `sort module`
 
-You can use this command to sort the students inside all the groups of the module you want to sort according
-to the way you indicate.
+You can use this command to sort the students belonging to all the groups of the specified module.
+The students will be sorted according to your specified `SORT_TYPE`.
 
-The students can be sorted alphabetically, by rating in ascending order, by rating
-in descending order and by matriculation number in ascending order.
-
-When a module is sorted, Student View shows the groups of the module you sorted and
-the students of the first group in the module. If there are no groups in the module,
-it will show an empty list.
+When a module is sorted, Student View shows the groups of the module you specified,
+as well as the students that belong to the first group in the module. If there are no groups in the module,
+it will show an empty student list and module list.
 
 The tab that you are viewing will automatically be switched to the student
 tab as well, if you were currently on a different tab.
@@ -678,13 +678,12 @@ Sorts all groups inside the module `CS2103` `alphabetically`.
 
 ==== Sorting Everything `sort all`
 
-You can sort the students inside all the groups in all modules according to the way you indicate.
+You can sort all of the students in TA-Tracker.
+The students will be sorted according to your specified `SORT_TYPE`.
 
-The students can be sorted alphabetically, by rating in ascending order, by rating
-in descending order and by matriculation number in ascending order.
 
 When all modules are sorted, Student View shows the groups of the first module in the module list
-and the students of the first group in the module being shown. If there are no modules
+and the students belonging to the first group of the module being shown. If there are no modules
 or groups, empty lists will be shown.
 
 The tab that you are viewing will automatically be switched to the student
@@ -729,7 +728,7 @@ You can filter the students in Student View in the following ways:
 ****
 
 Using both module code and group code will show you the students
-inside the group with the given group code of the module specified
+inside the group with the given group code. The group must belong to the module specified
 by the module code.
 
 The tab that you are viewing will automatically be switched to the student
@@ -746,7 +745,7 @@ This will show you all students in module `CS2103T`, under group `G06`.
 ====
 
 Using just the module code will show you all the students
-inside the first group of module specified by the given module code.
+belonging to the first group of the module specified by the given module code.
 
 Format: `student filter m/MOD_CODE`
 
@@ -767,14 +766,14 @@ This shows you the students in the first group of the module `CS2103`
 
 === Session View
 
-This section explains the different commands that can be used on the session view.
+This section explains the different commands that can be used in the session view.
 
 [[AddSession]]
 ==== Adding a Session `session add`
 
 You can use this command to add a new session.
 
-The new session will be shown under Session View, and will automatically
+The new session will be shown in the Session View, and will automatically
 be marked as un-done.
 
 Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
@@ -782,12 +781,14 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 
 [TIP]
 ====
-If you want to create a session at this point of time, you can leave the start time
-`s/START`, end time `e/END` and date `d/DATE` out.
+. If you want to create a session at the current point in time, you can leave the start time
+`s/START`, end time `e/END` and date `d/DATE` out. This will create a session which has both
+the start time and the end time set to the current time (the time you entered the command into
+TA-Tracker).
 
-A session of current date and time will be automatically generated.
+. A session of current date and time will be automatically generated.
 
-Once the session has ended, you can come back and change the end time and add other
+. Once the session has ended, you can come back and change the end time and add other
 details by using the edit session command (details given below.)
 ====
 
