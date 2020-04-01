@@ -9,6 +9,11 @@ import java.util.Objects;
 public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
     private final boolean caseSensitive;
 
+    /**
+     * Creates a {@link LevenshteinDistanceCalculator} instance
+     *
+     * @param caseSensitive Whether or not edit distance should account for case difference
+     */
     public LevenshteinDistanceCalculator(boolean caseSensitive) {
         this.caseSensitive = caseSensitive;
     }
