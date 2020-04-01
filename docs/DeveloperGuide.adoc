@@ -256,11 +256,62 @@ insert design considerations here
 // end::exercise[]
 
 // tag::workout[]
-=== Workout
+=== Workout Manager
+==== Overview
+The workout feature in ZeroToOne allows users to manage their workouts! Users will be able to create a workout, add exercises to it,
+as well as edit the workout and its exercises.
+
 ==== Implementation
-insert implementation stuff here
+The Workout Manager consists of a `WorkoutList`, which contains a number of workouts that the user has created.
+Each workout consists of a `WorkoutId`, a `WorkoutName` and finally, an `WorkoutExerciseList`.
+
+The following class diagram shows the overview of the Workout Manager:
+
+image::WorkoutManagerClassDiagram.png[]
+
+Figure: Workout Manager Class Diagram
+
+ZeroToOne's `Model` extends the `WorkoutModel`. Here are all the functions to carry out workout-related activities:
+
+* `Model#getWorkoutListFilePath()` - Retrieves the `Path` of the `WorkoutList`
+* `Model#setWorkoutListFilePath(Path workoutListFilePath)` - Sets the `Path` of the `WorkoutList`
+* `Model#setWorkoutList(ReadOnlyWorkoutList workoutList)` - Sets the `WorkoutList` to be a `ReadOnlyWorkoutList`
+* `Model#getWorkoutList()` - Returns an unmodifiable `ReadOnlyWorkoutList`
+* `Model#hasWorkout(Workout workout)` - Returns true if a workout exists in the workout list
+* `Model#deleteWorkout(Workout target)` - Deletes a specified workout from the workout list
+* `Model#addWorkout(Workout target)` - Adds a new workout to the workout list
+* `Model#setWorkout(Workout target, Workout editedWorkout)` - Replaces a particular workout with an edited workout
+* `Model#getFilteredWorkoutList()` - Returns an unmodifiable view of `ObservableList<Workout>`
+* `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` - Updates the filter of `FilteredWorkoutList`
+
+To illustrate an example of a command from the Workout Manager, the following sequence diagram
+depicts flow of the program when the command `workout find w/Strength Training`
+
+image::WorkoutManagerSequenceDiagram.png[]
+
+Figure: Workout Manager Sequence Diagram
+
+. When the user runs the command `workout find w/Strength Training`, the `LogicManager` will first take in the command, by calling the `execute()` function on it.
+. Next, the `WorkoutCommandParser` has to `parseCommand()` for the command.
+. Once the command has been parsed as a `FindCommand`, it will be passed on to the `FindCommandParser`, which will then `findWorkout()` for the requested workout in the `Model`.
+. Finally, the requested `Workout` will be returned as the `CommandResult`.
+.. `Model#updateFilteredWorkoutList(Predicate<Workout> predicate)` is used to update the view of the workout list to show the requested Workout(s).
+
 ==== Design Considerations
-insert design considerations here
+
+===== Aspect: Exercises in workout
+
+* Option 1: Use existing Exercise class in workouts
+** Advantage: Building on an existing class is simpler and more intuitive
+** Disadvantage: Introduces a dependency on the Exercise class
+* Option 2: Create a new WorkoutExercise class for workouts
+** Advantage: Creates an extra layer of abstraction
+** Disadvantage: More code needed which may be redundant
+
+In the end, we decided to stick with Option 1. This is because creating a new WorkoutExercise class
+is redundant and unnecessary, when there is no functional difference between an Exercise and a WorkoutExercise,
+other than the context that they are referenced in. To simplify matters, using the existing Exercise class
+to construct workouts was better.
 // end::workout[]
 
 // tag::schedule[]
