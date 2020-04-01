@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.todolist.Task;
@@ -97,6 +98,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getDeadlineTaskList() {
         return model.getDeadlineTaskList();
+    }
+
+    @Override
+    public ObservableList<NusModule> getModulesListTaken() {
+        return model.getModulesListTaken();
     }
 
 }

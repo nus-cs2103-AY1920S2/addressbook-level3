@@ -5,12 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * Wraps all module-related data at the module-book level
  * Duplicates are not allowed
  */
 public class ModuleBook {
     private List<NusModule> modules;
+    private ObservableList<NusModule> modulesTakenList;
 
     public ModuleBook() {
         this.modules = new ArrayList<>();
@@ -25,7 +29,9 @@ public class ModuleBook {
      * The module must not already exist in the module book.
      */
     public void addModule(NusModule module) {
+
         this.modules.add(module);
+        this.modulesTakenList.add(module);
     }
 
     /**
@@ -40,6 +46,7 @@ public class ModuleBook {
             }
         }
         modules.remove(index);
+        this.modulesTakenList.remove(index);
     }
 
     /**
@@ -51,7 +58,9 @@ public class ModuleBook {
         requireNonNull(grade);
         for (NusModule module: modules) {
             if (module.getModuleCode().equals(moduleCode)) {
+                modulesTakenList.remove(module);
                 module.setGrade(grade);
+                modulesTakenList.add(module);
             }
         }
     }
@@ -67,6 +76,11 @@ public class ModuleBook {
             }
         }
         return false;
+    }
+
+    public ObservableList<NusModule> getModulesTakenList() {
+        modulesTakenList = FXCollections.observableArrayList(modules);
+        return modulesTakenList;
     }
 
     public double getCap() {

@@ -36,6 +36,7 @@ public class ModelManager implements Model {
     private final FilteredList<Notes> filesInFolder;
     private ModuleBook moduleBook;
     private final FilteredList<Task> deadlineTaskList;
+    private final FilteredList<NusModule> moduleListTaken;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -54,6 +55,7 @@ public class ModelManager implements Model {
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
         moduleBook = new ModuleBook();
+        moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
     }
 
     public ModelManager() {
@@ -191,6 +193,15 @@ public class ModelManager implements Model {
         return moduleBook.getCap();
     }
 
+    public ObservableList<NusModule> getModulesListTaken() {
+        return moduleListTaken;
+    }
+
+    @Override
+    public void updateModulesListTaken(Predicate<NusModule> predicate) {
+        requireNonNull(predicate);
+        moduleListTaken.setPredicate(predicate);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -44,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private DiaryListPanel diaryListPanel;
     private CalenderPanel calenderPanel;
     private CalenderListPanel calenderListPanel;
+    private ModulesTakenListPanel modulesTakenListPanel;
 
 
     @FXML
@@ -65,10 +67,22 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane diaryListPanelPlaceholder;
 
     @FXML
+    private AnchorPane modulesTaken;
+
+    @FXML
+    private AnchorPane profile;
+
+    @FXML
     private AnchorPane calenderPanelPlaceholder;
 
     @FXML
     private AnchorPane deadlinePanelPlaceholder;
+
+    @FXML
+    private SplitPane profileSplitPane;
+
+    @FXML
+    private SplitPane calenderSplitPane;
 
     @FXML
     private TabPane tabPane;
@@ -151,6 +165,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        defaultSettings();
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -169,6 +184,10 @@ public class MainWindow extends UiPart<Stage> {
         deadlinePanelPlaceholder.getChildren().add(calenderListPanel.getRoot());
         setAnchorPaneSize(deadlinePanelPlaceholder, deadlinePanelPlaceholder.getChildren().get(0));
 
+        modulesTakenListPanel = new ModulesTakenListPanel(logic.getModulesListTaken());
+        modulesTaken.getChildren().add(modulesTakenListPanel.getRoot());
+        setAnchorPaneSize(modulesTaken, modulesTaken.getChildren().get(0));
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -177,6 +196,20 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Default Settings.
+     */
+    void defaultSettings() {
+        profileSplitPane.setDividerPositions(0.25f, 0.75f);
+        profileSplitPane.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true));
+        calenderSplitPane.setDividerPositions(0.25f, 0.75f);
+        calenderSplitPane.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true));
+
+
     }
 
 
@@ -197,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+
     }
 
     /**

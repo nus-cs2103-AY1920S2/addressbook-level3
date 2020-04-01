@@ -215,6 +215,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<NusModule> getModulesListTaken() {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateModulesListTaken(Predicate<NusModule> predicate) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addDeadline(Task deadline) {
             throw new AssertionError("This method should not be called.");
         }

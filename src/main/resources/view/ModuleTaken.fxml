@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="cardPane" fx:id="cardPane" prefHeight="66.0" prefWidth="224.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="grid" HBox.hgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+         </columnConstraints>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="154.0" spacing="5">
+               <children>
+                  <Label fx:id="moduleName" prefHeight="26.0" prefWidth="114.0" style="-fx-font-size: 25; -fx-font-family: Noteworthy;" styleClass="cell_small_label" stylesheets="@DarkTheme.css" text="moduleName" translateX="30.0">
+                     <font>
+                        <Font name="Noteworthy Light" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="grade" style="-fx-font-family: Noteworthy; -fx-font-size: 25; -fx-text-fill: #679b9b679b9b;" stylesheets="@DarkTheme.css" text="grade" translateX="150.0" />
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</HBox>
