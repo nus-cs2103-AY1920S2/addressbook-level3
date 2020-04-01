@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.eylah.commons.model.Model;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Weight;
@@ -13,6 +14,18 @@ import seedu.eylah.diettracker.model.self.Weight;
  * The API of the Model component.
  */
 public interface DietModel extends Model {
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    @Override
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    /**
+     * Returns the user prefs.
+     */
+    @Override
+    ReadOnlyUserPrefs getUserPrefs();
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Food> PREDICATE_SHOW_ALL_FOODS = unused -> true;
