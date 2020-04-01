@@ -394,6 +394,40 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user who wants to lose weight |set my target weight|have a clear target to work towards
 
+|`* * *` |user who wants to set diet plans |add a food entry|can plan my diet
+
+|`* * *` |user who wants to control calorie intake |view the calorie in each food entry|can keep track of my calorie intake
+
+|`* * *` |user who wants to set sports plans |add a sport entry|can plan for my sport exercises
+
+|`* * *` |user who wants to increase calorie consumption |view the calorie consumption for each sport entry|can keep track of my calorie consumption
+
+|`* * *` |user who wants to adjust my diet/sports plans |edit a food/sports entry|can have my plans and records updated
+
+|`* * *` |user who wants to remove my diet/sports plans |delete a food/sports entry |
+
+|`* * *` |user who wants to search for an entry |search by keywords in the entry name |can find related entries without having to scan through all the entries
+
+|`* * *` |user who wants see today's plans |switch to Today Page and view the daily food/sports plans|can have a general idea of the daily diet/sports arrangements
+
+|`* * *` |user who needs some suggestions for my daily plan |switch to Today Page and view FitHelper feedback|I know whether my daily food/sports plan is suitable
+
+|`* * *` |user who wants to know my daily performance |switch to Today Page and view my performance report|I know my food calorie intake distribution and my task completion
+
+|`* * *` |user who types wrongly sometimes |undo my previous command |I do not need to delete explicitly using a long command
+
+|`* * *` |user who types wrongly sometimes |redo my previous undo command |I can re-executed a undone command
+
+|`* * *` |user who wants to keep a diary |add a diary log for a specific day|note down my schedules, feelings, goals and so on as a self-encouragement
+
+|`* * *` |user who wants to append more content to a previous diary |append new content to existing diaries|enrich my previous diaries' content
+
+|`* * *` |user who wants to replace the content of a previous diary with new content |edit existing diaries|modify the content to an updated version
+
+|`* * *` |user who wants to remove some diary logs |delete existing diaries|keep abandon some diary logs that I do not want to keep
+
+|`* * *` |user who wants to clear my diary |clear all existing diaries|I can re-start my diary from a white paper
+
 |`* *` |user who wants keep fit |acknowledge my weight change trend according to time |keep track of my weight change easily
 
 |`* *` |user who wants to lose weight |compare between my current weight and target weight |know the gap clearly
@@ -403,8 +437,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user|view pending tasks and status of daily calories goals in a calendar |have cleaner display of data
 
 |`* *` |user who wants to have a clean user interface |clear entries regularly | do not need to see irrelevant information
-
-|`* *` |user who types wrongly sometimes |undo my previous command |I do not need to delete explicitly using a long command
 
 |`* *` |user|leave the application when I need |It does not occupy additional space in my computer
 
