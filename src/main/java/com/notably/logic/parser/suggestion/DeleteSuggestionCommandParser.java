@@ -24,7 +24,7 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
 
     public DeleteSuggestionCommandParser(Model model) {
         this.model = model;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD, true);
     }
 
     /**
@@ -42,9 +42,6 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             title = userInput.trim();
-            if (title.isEmpty()) {
-                throw new ParseException("Path cannot be empty");
-            }
         } else {
             title = argMultimap.getValue(PREFIX_TITLE).get();
         }
