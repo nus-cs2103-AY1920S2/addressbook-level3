@@ -550,7 +550,7 @@ public class ModelManager extends BaseManager implements Model {
 
   // ========================== For Assigning of X to Y =========================
 
-  public void assignStudentToCourse(ID studentID, ID courseID) {
+  public void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
     Course foundCourse = getCourse(courseID);
     Student foundStudent = getStudent(studentID);
 
@@ -562,14 +562,31 @@ public class ModelManager extends BaseManager implements Model {
             (FilteredList<Course>) getFilteredCourseList());
     updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundStudent, foundStudent);
+    getAddressBook(foundStudent).set(foundStudent, foundStudent);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
   }
 
-  public void assignAssignmentToCourse(ID assignmentID, ID courseID) {
+  public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
     Course foundCourse = getCourse(courseID);
     Assignment foundAssignment = getAssignment(assignmentID);
 
     foundCourse.addAssignment(assignmentID);
     foundAssignment.addCourseID(courseID);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundAssignment, foundAssignment);
+    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+
   }
 
     @Override

@@ -27,21 +27,16 @@ public class AssignCommandFactory {
 
         AssignCommandBase outputCommand = null;
 
-        if ( (prefixes[0].equals(PREFIX_COURSEID) && prefixes[1].equals(PREFIX_TEACHERID)) || (prefixes[1].equals(PREFIX_COURSEID) && prefixes[0].equals(PREFIX_TEACHERID)) ){
-            if (AssignTeacherToCourseCommand.isValidDescriptor(assignDescriptor)) {
+        if ( AssignTeacherToCourseCommand.isValidDescriptor(assignDescriptor)) {
                 outputCommand = new AssignTeacherToCourseCommand(assignDescriptor);
             }
-        }
-        else if ( (prefixes[0].equals(PREFIX_COURSEID) && prefixes[1].equals(PREFIX_STUDENTID)) || (prefixes[1].equals(PREFIX_COURSEID) && prefixes[0].equals(PREFIX_STUDENTID)) ){
-            if (AssignStudentToCourseCommand.isValidDescriptor(assignDescriptor)) {
+        else if (AssignStudentToCourseCommand.isValidDescriptor(assignDescriptor)) {
                 outputCommand = new AssignStudentToCourseCommand(assignDescriptor);
             }
-        }
-        else if ( (prefixes[0].equals(PREFIX_COURSEID) && prefixes[1].equals(PREFIX_ASSIGNMENTID)) || (prefixes[1].equals(PREFIX_COURSEID) && prefixes[0].equals(PREFIX_ASSIGNMENTID)) ){
-            if (AssignAssignmentToCourseCommand.isValidDescriptor(assignDescriptor)) {
+
+        else if (AssignAssignmentToCourseCommand.isValidDescriptor(assignDescriptor)) {
                 outputCommand = new AssignAssignmentToCourseCommand(assignDescriptor);
             }
-        }
         else {
             // Thrown when there is no valid assignment such as Teachers -> Students
             throw new ParseException(ASSIGNMENT_FAILURE_MESSAGE);

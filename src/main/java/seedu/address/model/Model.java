@@ -308,8 +308,8 @@ public interface Model {
 
     // ======================== FOR ASSIGN COMMANDS ============================== //
 
-    void assignStudentToCourse(ID studentID, ID courseID);
+    void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
 
-    void assignAssignmentToCourse(ID assignmentID, ID courseID);
+    void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
 
 }
