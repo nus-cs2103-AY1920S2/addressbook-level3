@@ -22,10 +22,14 @@ public class InventoryWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(InventoryWindow.class);
     private static final String FXML = "InventoryWindow.fxml";
     private ObservableList<Product> products;
-    private XYChart.Series<Integer, Integer> dataSeries;
+    private XYChart.Series<Integer, Integer> quantityDataSeries;
+    private XYChart.Series<Integer, Integer> salesDataSeries;
 
     @FXML
-    private LineChart<Integer, Integer> lineChart;
+    private LineChart<Integer, Integer> quantityLineChart;
+
+    @FXML
+    private LineChart<Integer, Integer> salesLineChart;
 
     @FXML
     private Label title;
@@ -45,15 +49,15 @@ public class InventoryWindow extends UiPart<Stage> {
     public InventoryWindow(Logic logic) {
         this(new Stage());
         products = logic.getInventorySystem().getProductList();
-        dataSeries = fetchProductQuantity(products);
+        quantityDataSeries = fetchProductQuantity();
+        salesDataSeries = fetchProductSales();
     }
 
     /**
      * Sorts the product list according to product revenue.
-     * @param products
      * @return sorted list
      */
-    private XYChart.Series fetchProductQuantity(ObservableList<Product> products) {
+    private XYChart.Series fetchProductQuantity() {
         XYChart.Series dataSeries = new XYChart.Series();
         HashMap<Integer, Integer> allProductQuantities = new HashMap<>();
 
@@ -68,6 +72,32 @@ public class InventoryWindow extends UiPart<Stage> {
         });
 
         for (Map.Entry<Integer, Integer> entry: allProductQuantities.entrySet()) {
+            XYChart.Data nextData = new XYChart.Data(entry.getKey().intValue(), entry.getValue().intValue());
+            dataSeries.getData().add(nextData);
+        }
+
+        return dataSeries;
+    }
+
+    /**
+     * Sorts the product list according to product revenue.
+     * @return sorted list
+     */
+    private XYChart.Series fetchProductSales() {
+        XYChart.Series dataSeries = new XYChart.Series();
+        HashMap<Integer, Integer> allProductSales = new HashMap<>();
+
+        products.forEach(p ->
+        {
+            if (allProductSales.containsKey(p.getMoney().value)) {
+                int oldValue = allProductSales.get(p.getMoney().value);
+                allProductSales.put(p.getMoney().value, oldValue + 1);
+            } else {
+                allProductSales.put(p.getMoney().value, 1);
+            }
+        });
+
+        for (Map.Entry<Integer, Integer> entry: allProductSales.entrySet()) {
             XYChart.Data nextData = new XYChart.Data(entry.getKey().intValue(), entry.getValue().intValue());
             dataSeries.getData().add(nextData);
         }
@@ -95,10 +125,16 @@ public class InventoryWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
-        lineChart.getData().setAll(dataSeries);
+        quantityLineChart.getData().setAll(quantityDataSeries);
+        salesLineChart.getData().setAll(salesDataSeries);
         getRoot().show();
         getRoot().centerOnScreen();
     }
+
+//    public void update() {
+//        quantityLineChart.getData().setAll(dataSeries);
+//        salesLineChart.getData().setAll(dataSeries);
+//    }
 
     /**
      * Returns true if the inventory window is currently being shown.
