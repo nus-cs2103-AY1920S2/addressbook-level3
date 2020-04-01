@@ -13,9 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.ModelManager;
-import seedu.eylah.diettracker.model.UserPrefs;
+import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.model.DietModelManager;
+
 import seedu.eylah.diettracker.model.food.Food;
 
 /**
@@ -24,7 +25,7 @@ import seedu.eylah.diettracker.model.food.Food;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalFoodBook(), new UserPrefs());
+    private DietModel model = new DietModelManager(getTypicalFoodBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +34,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getFoodBook(), new UserPrefs());
+        DietModelManager expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
         expectedModel.deleteFood(foodToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +57,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
-        Model expectedModel = new ModelManager(model.getFoodBook(), new UserPrefs());
+        DietModel expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
         expectedModel.deleteFood(foodToDelete);
         showNoFood(expectedModel);
 
@@ -101,7 +102,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoFood(Model model) {
+    private void showNoFood(DietModel model) {
         model.updateFilteredFoodList(p -> false);
 
         assertTrue(model.getFilteredFoodList().isEmpty());

@@ -15,13 +15,12 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 
-import seedu.eylah.commons.core.GuiSettings;
-//import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
+import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
+import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.FoodBook;
 import seedu.eylah.diettracker.model.Mode;
-import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
-import seedu.eylah.diettracker.model.ReadOnlyUserPrefs;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Weight;
@@ -81,7 +80,7 @@ public class AddCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    private class ModelStub implements DietModel {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -89,16 +88,6 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
             throw new AssertionError("This method should not be called.");
         }
 

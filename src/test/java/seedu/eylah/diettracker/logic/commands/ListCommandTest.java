@@ -8,22 +8,22 @@ import static seedu.eylah.diettracker.testutil.TypicalFood.getTypicalFoodBook;
 import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 
-import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.ModelManager;
-import seedu.eylah.diettracker.model.UserPrefs;
+import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.diettracker.model.DietModel;
+import seedu.eylah.diettracker.model.DietModelManager;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
 public class ListCommandTest {
 
-    private Model model;
-    private Model expectedModel;
+    private DietModel model;
+    private DietModel expectedModel;
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalFoodBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getFoodBook(), new UserPrefs());
+        model = new DietModelManager(getTypicalFoodBook(), new UserPrefs());
+        expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
     }
 
     //@Test
