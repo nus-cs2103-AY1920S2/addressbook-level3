@@ -65,4 +65,11 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code s} represents an unsigned integer.
+     */
+    public static boolean isUnsignedInteger(String s) {
+        return isNonZeroUnsignedInteger(s) | "0".equals(s);
+    }
 }

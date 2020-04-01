@@ -69,8 +69,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         }
 
         if (argMultimap.getValue(RECUR).isPresent()) {
-            sessionToAdd.setRecurring(Integer.parseInt(
-                    ParserUtil.parseValue(argMultimap.getValue(RECUR).get())));
+            sessionToAdd.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {

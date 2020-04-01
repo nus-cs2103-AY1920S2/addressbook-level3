@@ -28,6 +28,7 @@ import tatracker.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
 
     private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
     private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
@@ -238,15 +239,26 @@ public class ParserUtil {
      * This is different from the standard Java version as it does not
      * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
      */
-    public static int parseInteger(String integer) throws ParseException {
+    public static int parseUnsignedInteger(String integer) throws ParseException {
         requireNonNull(integer);
         String trimmedInteger = integer.trim();
 
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedInteger)) {
-            throw new ParseException("Value must be an unsigned number greater than or equal to 0");
+        if (!StringUtil.isUnsignedInteger(trimmedInteger)) {
+            throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
         }
 
         return Integer.parseUnsignedInt(integer);
+    }
+
+    /**
+     * Parses a {@code String numWeeks} into a number of weeks.
+     */
+    public static int parseNumWeeks(String numWeeks) throws ParseException {
+        try {
+            return parseUnsignedInteger(numWeeks);
+        } catch (ParseException pe) {
+            throw new ParseException("Recurring weeks must be an unsigned number");
+        }
     }
 
     /**
