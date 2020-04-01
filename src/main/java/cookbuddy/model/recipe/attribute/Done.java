@@ -3,7 +3,7 @@ package cookbuddy.model.recipe.attribute;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Recipe's favourite status in the recipe book.
+ * Represents a Recipe's Done status in the recipe book.
  * Guarantees: mutable.
  */
 public class Done {
@@ -15,7 +15,7 @@ public class Done {
     private boolean doneStatus;
 
     /**
-     * Constructs a {@code Fav status}.
+     * Constructs a {@code Done status}.
      *
      * @param status true or false.
      */
