@@ -7,20 +7,17 @@ participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
 participant ":GroupCommandParser" as GroupCommandParser LOGIC_COLOR
 participant ":DeleteGroupCommandParser" as DeleteGroupCommandParser LOGIC_COLOR
 participant "d:DeleteGroupCommand" as DeleteGroupCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "m:Module" as Module MODEL_COLOR
-participant "g:Group" as Group MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
-participant "M:Module" as ActualModule MODEL_COLOR
 end box
 
-[-> LogicManager : execute("group delete \nm/CS2103 g/G03")
+[-> LogicManager : execute(\n"group delete \nm/CS2103 g/G03")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("group delete \nm/CS2103 g/G03")
+LogicManager -> TaTrackerParser : parseCommand(\n"group delete \nm/CS2103 g/G03")
 activate TaTrackerParser
 
 create GroupCommandParser
@@ -40,18 +37,6 @@ deactivate DeleteGroupCommandParser
 
 GroupCommandParser -> DeleteGroupCommandParser : parseCommand("m/CS2103 g/G03")
 activate DeleteGroupCommandParser
-
-create Module
-DeleteGroupCommandParser -> Module : Module("CS2103")
-activate Module
-Module --> DeleteGroupCommandParser
-deactivate Module
-
-create Group
-DeleteGroupCommandParser -> Group : Group("G03")
-activate Group
-Group --> DeleteGroupCommandParser
-deactivate Group
 
 create DeleteGroupCommand
 DeleteGroupCommandParser -> DeleteGroupCommand : DeleteGroupCommand(g, m)
@@ -75,25 +60,16 @@ deactivate TaTrackerParser
 LogicManager -> DeleteGroupCommand : execute()
 activate DeleteGroupCommand
 
-DeleteGroupCommand -> Model : hasModule(m)
+DeleteGroupCommand -> Model : hasModule("CS2103")
 activate Model
 Model --> DeleteGroupCommand : true
+
+DeleteGroupCommand -> Model : hasGroup("G03", "CS2103")
+Model --> DeleteGroupCommand : true
+
+DeleteGroupCommand -> Model : deleteGroup("G03", "CS2103")
+Model --> DeleteGroupCommand
 deactivate Model
-
-DeleteGroupCommand -> Model : getModule(m)
-activate Model
-Model --> DeleteGroupCommand : M
-deactivate Model
-
-DeleteGroupCommand -> ActualModule : hasGroup(g)
-activate ActualModule
-ActualModule --> DeleteGroupCommand : true
-deactivate ActualModule
-
-DeleteGroupCommand -> ActualModule : deleteGroup(g)
-activate ActualModule
-ActualModule --> DeleteGroupCommand
-deactivate ActualModule
 
 create CommandResult
 DeleteGroupCommand -> CommandResult : CommandResult()
