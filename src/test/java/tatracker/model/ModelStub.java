@@ -313,7 +313,7 @@ public class ModelStub implements Model {
         @Override
         public boolean hasModule(String moduleCode) {
             requireNonNull(moduleCode);
-            return this.module.equals(moduleCode);
+            return moduleCode.equals(module.getIdentifier());
         }
     }
 
@@ -416,7 +416,7 @@ public class ModelStub implements Model {
         @Override
         public boolean hasModule(String moduleCode) {
             requireNonNull(moduleCode);
-            return modulesAdded.stream().anyMatch(moduleCode::equals);
+            return modulesAdded.stream().map(Module::getIdentifier).anyMatch(moduleCode::equals);
         }
 
         @Override
