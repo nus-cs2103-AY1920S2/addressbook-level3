@@ -17,6 +17,7 @@ import seedu.recipe.logic.Logic;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -38,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
-    private RecipeListPanel cookedListPanel;
+    private CookedListPanel cookedListPanel;
     private RecipeListPanel achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -134,10 +135,10 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
-        //using recipe list as stub for cookedlist and achievements, to be edited later todo
-        ObservableList<Recipe> goalsList = logic.getFilteredRecipeList();
-        cookedListPanel = new RecipeListPanel(goalsList);
+        ObservableList<Record> cookedList = logic.getFilteredRecordList();
+        cookedListPanel = new CookedListPanel(cookedList);
 
+        //using recipe list as stub for chievements, to be edited later todo
         ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
         achievementsListPanel = new RecipeListPanel(achievementsList);
 
