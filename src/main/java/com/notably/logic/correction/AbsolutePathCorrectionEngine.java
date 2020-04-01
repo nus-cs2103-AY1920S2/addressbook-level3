@@ -143,7 +143,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         int i = 0;
         int distance = 0;
         while (i < firstComponents.size() && i < secondComponents.size()) {
-            String firstComponent = firstComponents.get(i);  
+            String firstComponent = firstComponents.get(i);
             String secondComponent = secondComponents.get(i);
 
             // Check for possible forward matching
