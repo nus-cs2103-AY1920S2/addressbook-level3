@@ -50,11 +50,10 @@ public class SuggestionsWindowView extends ViewPart<Region> {
                                               Property<Optional<String>> responseTextProperty) {
         responseTextProperty.addListener((observable, oldValue, newValue) -> {
             Optional<String> response = responseTextProperty.getValue();
-            if (response.isPresent() && !response.equals("")) {
-                setSuggestionsTextRenderingStatus(true);
+            if (response.isPresent()) {
                 responseText.setText(response.get());
+                setSuggestionsTextRenderingStatus(true);
             } else {
-                responseText.setText("");
                 setSuggestionsTextRenderingStatus(false);
             }
         });
