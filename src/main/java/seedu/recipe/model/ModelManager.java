@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -35,7 +33,6 @@ public class ModelManager implements Model {
     private final CookedRecordBook cookedRecordBook;
     private final FilteredList<Record> filteredRecords;
     private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
-    private final Map<Recipe, List<PlannedRecipe>> recipeToPlannedRecipeMap;
 
 
     /**
@@ -56,8 +53,6 @@ public class ModelManager implements Model {
         this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
         this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
         filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
-        recipeToPlannedRecipeMap = new HashMap<>(this.plannedBook.getRecipeToPlannedRecipeMap());
-        // todo: planned recipes cant be saved currently
     }
 
     public ModelManager() {
@@ -170,13 +165,6 @@ public class ModelManager implements Model {
         setRecipeBook(states.redo(numberOfRedo));
     }
 
-    //=========== PlannedBook ================================================================================
-
-    @Override
-    public ReadOnlyPlannedBook getPlannedBook() {
-        return plannedBook;
-    }
-
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
@@ -194,26 +182,43 @@ public class ModelManager implements Model {
         filteredRecipes.setPredicate(predicate);
     }
 
+    //=========== PlannedBook ================================================================================
+
+    @Override
+    public ReadOnlyPlannedBook getPlannedBook() {
+        return plannedBook;
+    }
+
+    @Override
+    public void setPlannedBook(PlannedBook plannedBook) {
+        this.plannedBook.resetData(plannedBook);
+    }
+
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addPlannedRecipe(PlannedRecipe plannedRecipe) {
-        plannedBook.addPlannedRecipe(plannedRecipe);
+    public void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.addPlanForOneRecipe(recipe, plannedRecipe);
     }
 
     @Override
-    public void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe) {
-        plannedBook.addPlannedMapping(recipe, plannedRecipe);
+    public void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
+        plannedBook.addPlanForAllRecipes(recipes, plannedRecipe);
     }
 
     @Override
-    public void removeAllPlannedMappingForRecipe(Recipe recipe) {
-        plannedBook.removeAllPlannedMappingForRecipe(recipe);
+    public void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe) {
+        plannedBook.deleteRecipeFromPlannedRecipe(recipe, plannedRecipe);
     }
 
     @Override
-    public void setPlannedRecipe(Recipe target, Recipe editedRecipe) {
-        plannedBook.setPlannedRecipe(target, editedRecipe);
+    public void deleteAllPlansFor(Recipe recipe) {
+        plannedBook.deleteAllPlansFor(recipe);
+    }
+
+    @Override
+    public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
+        plannedBook.setRecipeInPlans(target, editedRecipe);
     }
 
     @Override

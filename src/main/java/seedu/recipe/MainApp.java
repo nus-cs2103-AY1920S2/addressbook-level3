@@ -93,6 +93,21 @@ public class MainApp extends Application {
         ReadOnlyPlannedBook initialPlannedData;
 
         try {
+            plannedBookOptional = storage.readPlannedBook();
+            if (!plannedBookOptional.isPresent()) {
+                logger.info("Data file for planned recipes not found. Will be starting with a blank PlannedBook");
+            }
+            initialPlannedData = plannedBookOptional.orElse(new PlannedBook());
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty PlannedBook");
+            initialPlannedData = new PlannedBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PlannedBook");
+            initialPlannedData = new PlannedBook();
+        }
+
+        try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
                 logger.info("Data file for recipes not found. Will be starting with a sample RecipeBook");
@@ -100,8 +115,10 @@ public class MainApp extends Application {
             initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook"
+                    + " and PlannedBook");
             initialData = new RecipeBook();
+            initialPlannedData = new PlannedBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file for recipes. "
                     + "Will be starting with an empty RecipeBook");
@@ -121,22 +138,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Recordbook");
             initialRecords = new CookedRecordBook();
-        }
-
-        try {
-            plannedBookOptional = storage.readPlannedBook();
-            if (!plannedBookOptional.isPresent()) {
-                logger.info("Data file for planned recipes not found. Will be starting with a blank PlannedBook");
-            }
-            initialPlannedData = plannedBookOptional.orElse(new PlannedBook());
-
-        } catch (DataConversionException e) {
-            // todo: split data conversion exception into diff types to handle this all in one try block
-            logger.warning("Data file not in the correct format. Will be starting with an empty PlannedBook");
-            initialPlannedData = new PlannedBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty PlannedBook");
-            initialPlannedData = new PlannedBook();
         }
 
         return new ModelManager(initialData, userPrefs, initialRecords, initialPlannedData);

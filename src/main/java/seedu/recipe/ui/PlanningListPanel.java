@@ -1,6 +1,9 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -47,18 +50,24 @@ public class PlanningListPanel extends UiPart<Region> {
 
     public PlanningListPanel(ObservableList<PlannedRecipe> plannedRecipes) {
         super(FXML);
-        monthHeader.setText("Placeholder for Month");
+        LocalDate today = LocalDate.now();
+        Locale singaporeLocale = new Locale("en", "SGP");
+        monthHeader.setText(today.getMonth().getDisplayName(TextStyle.FULL, singaporeLocale));
         monthHeader.setStyle(monthStyleHeader);
-        weekHeader.setText("Placeholder for week of Month");
+
+        /*        WeekFields weekFields = WeekFields.of(singaporeLocale.getDefault());
+        int weekNumber = today.get(weekFields.weekOfMonth());
+        weekHeader.setText("Week: " + weekNumber);*/
+        weekHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         weekHeader.setStyle(weekStyleHeader);
 
         planningListView.setItems(plannedRecipes);
-        planningListView.setCellFactory(listView -> new PlanningListViewCell());
+        planningListView.setCellFactory(planningListView -> new PlanningListViewCell());
 
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code PlannedRecipe} using a {@code PlanningListCard}.
      */
     class PlanningListViewCell extends ListCell<PlannedRecipe> {
         @Override

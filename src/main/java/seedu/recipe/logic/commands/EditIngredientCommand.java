@@ -8,6 +8,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
+import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
@@ -81,6 +82,8 @@ public class EditIngredientCommand extends Command {
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.setRecipeInPlans(recipeToEdit, editedRecipe);
+        model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
 
         return new CommandResult(String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));

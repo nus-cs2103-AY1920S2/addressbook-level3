@@ -2,6 +2,7 @@ package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.commands.EditCommand.createEditedRecipe;
+import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.ArrayList;
@@ -67,6 +68,8 @@ public class DeleteStepCommand extends Command {
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.setRecipeInPlans(recipeToEdit, editedRecipe);
+        model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitRecipeBook();
 
         return new CommandResult(String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString()));

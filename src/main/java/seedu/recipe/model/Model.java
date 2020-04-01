@@ -1,11 +1,13 @@
 package seedu.recipe.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -134,40 +136,46 @@ public interface Model {
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
 
     /**
-     * Adds a planned recipe to the plannedRecipe list
+     * Replaces the data in the planned book with data from {@code plannedBook}.
      */
-    void addPlannedRecipe(PlannedRecipe plannedRecipe);
+    void setPlannedBook(PlannedBook plannedBook);
 
     /**
-     * Adds a {@code plannedRecipe} to the {@code recipe} key in the Recipe to PlannedRecipe map.
+     * Adds the {@code plannedRecipe} that plans for {@code recipe}.
      */
-    void addPlannedMapping(Recipe recipe, PlannedRecipe plannedRecipe);
+    void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe);
 
     /**
-     * Removes all PlannedRecipe mapped to the {@code recipe} key.
+     * Adds the {@code plannedRecipe} that plans for all {@code recipes}.
      */
-    void removeAllPlannedMappingForRecipe(Recipe recipe);
+    void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe);
 
     /**
-     * Replaces the {@code target} Recipe with the {@code editedRecipe} Recipe in the
-     * mapping from Recipe to PlannedRecipe map.
-     * Updates the references to Recipe in each PlannedRecipe.
+     * Deletes the {@code recipe} plan.
      */
-    void setPlannedRecipe(Recipe target, Recipe editedRecipe);
+    void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe);
+
+    /**
+     * Deletes all plans for {@code recipe}.
+     */
+    void deleteAllPlansFor(Recipe recipe);
+
+    /**
+     * Updates the recipe in the planned recipes from {@code target} to {@code editedRecipe}.
+     */
+    void setRecipeInPlans(Recipe target, Recipe editedRecipe);
 
     /**
      * Returns an unmodifiable view of the planned recipes.
      */
     ObservableList<PlannedRecipe> getFilteredPlannedList();
 
-
     /**
-     * Updates the filtered planned list to be filtered using the {@code predicate}.
-     * todo throw exception?
+     * Updates the filtered planned list to be filtered using the {@code predicate}. //todo: throw exception
      */
     void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
 
-    //updateAndFillPlannedList todo
+    //updateAndFillPlannedList //todo: implement for weekly view
 
     /**
      * Adds a record in the cookedRecord list
@@ -186,5 +194,4 @@ public interface Model {
      * Returns true if a record with the same identity as {@code record} exists in the record book.
      */
     boolean hasRecord(Record record);
-
 }

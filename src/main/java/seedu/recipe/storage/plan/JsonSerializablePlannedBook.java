@@ -52,12 +52,11 @@ class JsonSerializablePlannedBook {
         PlannedBook plannedBook = new PlannedBook();
         for (JsonAdaptedPlannedRecipe jsonAdaptedPlannedRecipe : plannedRecipes) {
             PlannedRecipe plannedRecipe = jsonAdaptedPlannedRecipe.toModelType();
-            /*if (plannedBook.hasPlannedRecipe(plannedRecipe)) {
+            if (plannedBook.contains(plannedRecipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLANNED_RECIPE);
-            }*/
-            plannedBook.addPlannedRecipe(plannedRecipe);
-            Recipe recipe = plannedRecipe.getRecipe();
-            plannedBook.addPlannedMapping(recipe, plannedRecipe);
+            }
+            List<Recipe> recipes = plannedRecipe.getRecipes();
+            plannedBook.addPlanForAllRecipes(recipes, plannedRecipe);
         }
         return plannedBook;
     }
