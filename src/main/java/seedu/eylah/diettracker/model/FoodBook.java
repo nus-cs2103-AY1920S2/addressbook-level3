@@ -2,6 +2,7 @@ package seedu.eylah.diettracker.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -97,8 +98,7 @@ public class FoodBook implements ReadOnlyFoodBook {
 
     @Override
     public String toString() {
-        return foods.asUnmodifiableObservableList().size() + " foods";
-        // TODO: refine later
+        return Arrays.toString(foods.asUnmodifiableObservableList().toArray());
     }
 
     @Override
