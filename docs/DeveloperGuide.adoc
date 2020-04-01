@@ -22,10 +22,14 @@ TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TA
 who want to be able to track and manage their students and claimable
 hours in one place.
 
-Teaching Assistants at SoC have to keep a track of their students, students' participation
-marks and notes they have for certain students that they can later use for reccomendations.
-They also have to keep a track of their claimable hours so that they can fill up the TSS
-Claims form at the end of each semester. Rather than managing this through several excel
+Teaching Assistants at SoC have to keep a track of:
+
+* students
+* students' participation marks
+* notes they have for certain students that they can later use for recommendations.
+* claimable hours so that they can fill up the TSS Claims form at the end of each semester.
+
+Rather than managing this through several excel
 spreadsheets and notes, TA-Tracker allows TAs to track everything in a single, convenient-to-use
 platform.
 
@@ -35,9 +39,12 @@ with the TA-Tracker mainly through the command line, but each command executed w
 evoke a visual response in the TA-Tracker.
 
 Any help on the development of the TA-Tracker would be greatly appreciated, and there
-are a couple of ways that you can do so - contribute to TA-Tracker's code base by
-expanding its features (such as adding an option to enter assignment grades), by
-improving test coverage or by proposing and implementing improvements on current features.
+are a couple of ways that you can do so:
+
+* contribute to TA-Tracker's code base by expanding its features
+** such as adding an option to enter assignment grades
+* help us improve test coverage
+* propose and implement improvements on current features
 
 This guide aims to kick-start your journey as a contributor to the TA-Tracker by getting
 you up to speed with how TA-Tracker's codebase and inner workings function. It also
@@ -50,7 +57,7 @@ You can refer to the guide <<SettingUp#, here>>.
 
 == Design
 
-TA-Tracker has been designed with Object-Oriented Programming
+TA-Tracker has been designed with `Object-Oriented Programming`
 principles in mind. This section serves to give a description of the
 major components in the architecture of TA-Tracker. Subsequent sections
 provide more information on the inner workings of individual components.
@@ -175,7 +182,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `TaTracker`, which `Student` can
+As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
 reference. This would allow `TaTracker` to only require one `Tag` object per unique
 `Tag`, instead of each `Student` needing their own `Tag` object. An example of what
 such a model may look like is given below. +
@@ -216,7 +223,7 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-[[Student-View]]
+[[StudentView]]
 === Student View
 *Student view* is the term used to characterise the different functionalities
 related to the students.
@@ -225,17 +232,17 @@ Students are a part of *groups* and groups are a part of *modules*.
 
 ==== Model Framework
 The following class diagram shows how different classes are related in the
-functioning of the Student View.
+functioning of the `Student View`.
 
 .Module View - Class Diagram
 image::ModuleModelClassDiagram.png[]
 
-The TaTracker `Model` class contains a `UniqueModuleList` which helps it keep track
-of the different *modules* the user is associated with. Each `module` contains a
+The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
+of the different *modules* the user is associated with. Each `Module` contains a
 `UniqueGroupList` and a `UniqueSessionList`.
 
 The `UniqueGroupList` contains a list of all the *groups* of a module that the user
-is affiliated with. Each group contains a `UniqueStudentsList` that contains the
+is affiliated with. Each `Group` contains a `UniqueStudentsList` that contains the
 *students* in that group.
 
 The `UniqueSessionList` contains a list of all the *sessions that have already been
@@ -244,24 +251,28 @@ done* associated with the module. This list is used in the TSS view.
 ====
 *Alternative Implementation*
 
-* An alternative implementation would be to a `UniqueModuleList` for all modules, a `list`
-for all groups and a `list` for all students and then filter by module code or group
-code according to how the user would want it to be.
+* An alternative implementation would be to have a single `UniqueModuleList` to store
+all modules, a `List` to store all groups and a `List` to store all students.
 
-* While this would be easier to
-implement, it would also introduce cyclic dependencies as not only would students
-need to keep a track of their groups, but groups would also keep a track of their students.
+* We would then have to filter by module code and/or group code to show the appropriate
+groups and students.
 
-* Furthermore, an issue would be that there would be multiple groups with the same group
-code in the list containing all groups as multiple modules can share the same group code.
+* This would require students to keep track of which group and which module they're
+a part of. Similarly, groups would have to keep a track of the students it contains.
+This would create a cyclic dependency (which could be solved using an association class).
 
-* Similarly, there would be multiple instances of the same student in the list as the
-same student could be a part of multiple groups.
+* The `List` of groups could contain multiple groups with the same group code as group code
+is only unique within a module. Group codes can be shared across modules.
+
+* While this implementation would make it easier to generate a report at the end of
+the semester (explained towards the end of the guide), it would require more commands
+and complicate the model. That is why we decided to stick to our current implementation.
+
 ====
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
-between the `logic` and `model` components of the TA-Tracker when the user enters the
+between the `Logic` and `Model` components of the TA-Tracker when the user enters the
 command `module add m/CS2103 n/Software Engineering`.
 
 Note: This diagram assumes that there is no module with the module code `CS2103`
@@ -278,10 +289,10 @@ destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type `module` and passes the
+2. The `TaTrackerParser` sees that the command is of type *module* and passes the
 command to the `ModuleCommandParser`.
 
-3. The `ModuleCommandParser` sees that the command is of type `add` and passes the
+3. The `ModuleCommandParser` sees that the command is of type *add* and passes the
 arguments to the `AddModuleCommandParser`.
 
 4. The `AddModuleCommandParser` creates a `Module` with the given module code and
@@ -297,13 +308,13 @@ code already exists in the TA-Tracker.
 
 7. If no such module exists, the module is added to the TA-Tracker.
 
-8. The `AddGroupCommand` returns a `CommandResult` with a success message.
+8. The `AddModuleCommand` returns a `CommandResult` with a success message.
 
 The command used to delete a module has been implemented in a similar way. The main
 difference is that the `DeleteModuleCommand` checks whether an object with the given
 module code exists in the TA-Tracker. If no such module exists, a command exception
 is thrown saying that a module with the given module code doesn't exist. If it does
-exist, first all the sessions linked to that module are removed.
+exist, *first all the sessions linked to that module are removed*.
 Then the module is removed from the TA-Tracker.
 
 The `module edit` command has been implemented in a similar manner.
@@ -316,22 +327,22 @@ the TA-Tracker.
 The following steps are taken once the execute command of an AddGroupCommand object
 is called:
 
-. The AddGroupCommand object checks whether the module is present in the model of the TA-Tracker.
-.. If it is not present, an exception is thrown explaining that the module doesn't
+. The `AddGroupCommand` object checks whether the *module* is present in the model of the TA-Tracker.
+.. If it exists, the module is retrieved.
+.. If it doesn't exist, an exception is thrown explaining that the module doesn't
 exist.
-. If the module does exist, the module is retrieved from the TA-Tracker's model.
-. The AddGroupCommand object checks whether a group with the same group code as the new group exists in
-the module beforehand.
+. The `AddGroupCommand` object checks whether a *group* with the same group code as
+the new group exists in the module retrieved beforehand.
+.. If it doesn't exist, the group is added to the module and a `CommandResult` object
+with the success message is returned.
 .. If it does exist, an exception is thrown explaining that you can't have two groups
 with the same group code in a module.
-. If such a group doesn't exist, the group is added to the module.
-. A command result with an appropriate success message is returned.
 
-The interactions between the logic and model components when adding a group are similar
+The interactions between the `Logic` and `Model` components when adding a group are similar
 to the interactions when deleting a group as shown below.
 
 The following sequence diagram shows the interactions between the logic and model
-components when the user inputs the command 'group delete m/CS2103 g/G03'.
+components when the user inputs the command `group delete m/CS2103 g/G03`.
 
 Note: This diagram is under the case where a group with the group code G03 does exist
 in the module with module code CS2103 inside the TA-Tracker.
@@ -354,25 +365,25 @@ and the delete the desired group from it.
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TaTrackerParser` sees that the command is of type `group` and passes the
+2. The `TaTrackerParser` sees that the command is of type *group* and passes the
 command to the `GroupCommandParser`.
 
-3. The `GroupCommandParser` sees that the command is of type `delete` and passes the
+3. The `GroupCommandParser` sees that the command is of type *delete* and passes the
 arguments to the `DeleteGroupCommandParser`.
 
-4. The `DeleteGroupCommandParser` creates a `Mmdule` with the given module code and
-a `group` with the given group code.
+4. The `DeleteGroupCommandParser` creates a `Module` with the given module code and
+a `Group` with the given group code.
 
 5. The `DeleteGroupCommandParser` then creates a `DeleteGroupCommand` object and passes
 it the created module and group. The parser then returns the `DeleteGroupCommand` object.
 
 6. `LogicManager` calls `DeleteGroupCommand` 's execute method. The `DeleteGroupCommand` object
-checks whether a module with the given module code already exists in TA-Tracker.
+checks whether a *module* with the given module code already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a module with the given module
 code doesn't exist in the TA-Tracker.
 
 7. If the module exists, the `DeleteGroupCommand` object retrieves the module from the
-model and checks whether the module has a group with the given group code. If it doesn't,
+model and checks whether the module has a *group* with the given group code. If it doesn't,
 a command exception is thrown saying that no such group exists. If the group does
 exist, it is removed from the module.
 
@@ -444,6 +455,12 @@ model components when the user enters the command `sort all t/matric`.
 
 .Sort - Sequence Diagram
 image::SortAllSequenceDiagram.png[]
+
+[NOTE]
+====
+* The lifeline for `SortCommandParser`` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
 
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
