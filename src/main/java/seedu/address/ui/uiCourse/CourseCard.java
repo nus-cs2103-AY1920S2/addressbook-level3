@@ -58,12 +58,14 @@ public class CourseCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     teacherID.setText(course.getId().value);
     courseID.setText(course.getId().value);
-    StringBuilder assignmentsStrings = new StringBuilder();
+
     Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
-    for(ID x : assignmentIDS) {
-      assignmentsStrings.append(x.toString() + "-");
+    String assignmentsStrings = "None";
+    if (assignmentIDS.size() > 0) {
+      assignmentsStrings = assignmentIDS.toString();
     }
-    assignedAssignments.setText(assignmentsStrings.toString());
+    assignedAssignments.setText(assignmentsStrings);
+
     course.getAssignedAssignmentsID();
     amount.setText(course.getAmount().value);
     assignedTeacher.setText(course.getAssignedTeacherWithName());

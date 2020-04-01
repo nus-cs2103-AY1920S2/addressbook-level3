@@ -11,7 +11,6 @@ import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -36,6 +35,7 @@ public class Student extends ModelObject {
     requireAllNonNull(name, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
+    this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 

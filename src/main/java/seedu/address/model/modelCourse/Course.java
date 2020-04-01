@@ -7,10 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.UuidManager;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStudent.Student;
@@ -46,6 +43,8 @@ public class Course extends ModelObject {
     this.id = UuidManager.assignNewUUID(this);
     this.amount = amount;
     this.tags.addAll(tags);
+    this.assignedTeacherWithName = "None";
+    this.assignedStudentsWithNames = "None";
   }
 
   /**

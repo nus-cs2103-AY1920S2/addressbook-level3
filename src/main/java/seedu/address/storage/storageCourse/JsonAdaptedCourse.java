@@ -66,7 +66,12 @@ class JsonAdaptedCourse {
     name = source.getName().fullName;
     courseID = source.getId().value;
     amount = source.getAmount().value;
-    assignedTeacher = source.getAssignedTeacherID().toString();
+    ID assignedTeacherID = source.getAssignedTeacherID();
+    String assignedTeacherTemp = "";
+    if (assignedTeacherID != null){
+      assignedTeacherTemp = assignedTeacherID.toString();
+    }
+    assignedTeacher = assignedTeacherTemp;
     assignedStudentsID.addAll(source.getAssignedStudentsID().stream()
         .map(JsonCourseAdaptedID::new)
         .collect(Collectors.toList()));

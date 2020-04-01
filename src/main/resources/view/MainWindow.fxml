@@ -49,13 +49,13 @@
           </VBox>
 
           <VBox fx:id="rightBar" minWidth="1000.0" prefWidth="2000" spacing="5" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-            <StackPane  minWidth="1500.0" minHeight="300.0" prefHeight="700" fx:id="dataListPanelPlaceholder"/>
+            <StackPane  minWidth="1000.0" minHeight="460.0" prefHeight="460" fx:id="dataListPanelPlaceholder"/>
           </VBox>
         </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" />
 
-        <StackPane  minWidth="1000.0" minHeight="300.0" fx:id="resultDisplayPlaceholder" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <StackPane  minWidth="1000.0" minHeight="200.0" fx:id="resultDisplayPlaceholder" prefHeight="200" styleClass="pane-with-border" VBox.vgrow="NEVER">
         </StackPane>
 
         <StackPane  fx:id="commandBoxPlaceholder" minHeight="50.0" prefHeight="50" styleClass="pane-with-border">

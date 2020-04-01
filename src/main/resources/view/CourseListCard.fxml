@@ -40,12 +40,10 @@
         <Label styleClass="cell_small_label" text="Assigned Students: " />
         <Label fx:id="assignedStudents" styleClass="cell_small_label" text="\$assignedStudents" />
       </HBox>
-         <HBox prefHeight="0.0" prefWidth="129.0">
-            <children>
-               <Label text="Assigned Assignments:" />
-               <Label fx:id="assignedAssignments" text="\$assignedAssignments" />
-            </children>
-         </HBox>
+      <HBox>
+        <Label styleClass="cell_small_label" text="Assigned Assignments: " />
+        <Label fx:id="assignedAssignments" styleClass="cell_small_label" text="\$assignedAssignments" />
+      </HBox>
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
