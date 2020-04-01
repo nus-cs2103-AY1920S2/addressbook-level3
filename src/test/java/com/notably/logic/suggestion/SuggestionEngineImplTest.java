@@ -172,7 +172,7 @@ public class SuggestionEngineImplTest {
         model.setInput("ex");
 
         // Expected result
-        String expectedResponseText = "Exit Notably app";
+        String expectedResponseText = "Exit the application";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 }
