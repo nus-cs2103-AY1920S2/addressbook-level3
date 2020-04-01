@@ -28,5 +28,4 @@
             <PieChart fx:id="graphView" />
         </center>
     </BorderPane>
-
 </HBox>
