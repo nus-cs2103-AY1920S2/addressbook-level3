@@ -68,6 +68,10 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get())
             );
         }
+        if (argMultimap.getValue(PREFIX_TRANS_DESCRIPTION).isPresent()) {
+            editTransactionDescriptor.setDescription(
+                    ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCRIPTION).get()));
+        }
 
         if (!editTransactionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTransactionCommand.MESSAGE_NOT_EDITED);
