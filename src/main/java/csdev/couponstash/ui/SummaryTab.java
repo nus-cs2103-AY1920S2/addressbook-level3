@@ -9,8 +9,8 @@ import javafx.scene.layout.Region;
 /**
  * Savings summary of CouponStash.
  */
-public class SavedPane extends UiPart<Region> {
-    private static final String FXML = "SavedPane.fxml";
+public class SummaryTab extends UiPart<Region> {
+    private static final String FXML = "SummaryTab.fxml";
 
     // Independent Ui parts residing in this Ui container
     private Logic logic;
@@ -18,9 +18,9 @@ public class SavedPane extends UiPart<Region> {
     @FXML
     private Label label;
 
-    public SavedPane(Logic logic) {
+    public SummaryTab(Logic logic) {
         super(FXML);
         this.logic = logic;
-        label.setText("THIS SPACE IS FOR THE SAVED SUMMARY!!!");
+        label.setText("You saved a total of ");
     }
 }

@@ -16,7 +16,7 @@ public class TabsPanel extends UiPart<Region> {
 
     // Independent Ui parts residing in this Ui container
     private CouponListPanel couponListPanel;
-    private SavedPane savedPane;
+    private SummaryTab summaryTab;
     private HelpPane helpPane;
     private Logic logic;
 
@@ -57,8 +57,8 @@ public class TabsPanel extends UiPart<Region> {
                 logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        savedPane = new SavedPane(logic);
-        savedPanePlaceholder.getChildren().add(savedPane.getRoot());
+        summaryTab = new SummaryTab(logic);
+        savedPanePlaceholder.getChildren().add(summaryTab.getRoot());
 
         helpPane = new HelpPane(logic);
         helpPanePlaceholder.getChildren().add(helpPane.getRoot());
