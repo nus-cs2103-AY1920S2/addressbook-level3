@@ -11,5 +11,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_DIARY_DATE = "The diary date provided is invalid";
     public static final String MESSAGE_FOOD_LISTED_OVERVIEW = "%1$d food listed!";
     public static final String MESSAGE_SPORTS_LISTED_OVERVIEW = "%1$d sports listed!";
+    public static final String MESSAGE_DIARY_LISTED_OVERVIEW = "%1$d diary listed!";
 
 }

@@ -33,11 +33,13 @@ import fithelper.logic.commands.diary.ClearDiaryCommand;
 import fithelper.logic.commands.diary.DeleteDiaryCommand;
 import fithelper.logic.commands.diary.DiaryCommand;
 import fithelper.logic.commands.diary.EditDiaryCommand;
+import fithelper.logic.commands.diary.FindDiaryCommand;
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.diary.AppendDiaryCommandParser;
 import fithelper.logic.parser.diary.ClearDiaryCommandParser;
 import fithelper.logic.parser.diary.DeleteDiaryCommandParser;
 import fithelper.logic.parser.diary.EditDiaryCommandParser;
+import fithelper.logic.parser.diary.FindDiaryCommandParser;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.logic.parser.revoke.RedoCommandParser;
 import fithelper.logic.parser.revoke.UndoCommandParser;
@@ -100,6 +102,9 @@ public class FitHelperParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindDiaryCommand.COMMAND_WORD:
+            return new FindDiaryCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);

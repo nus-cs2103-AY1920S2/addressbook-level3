@@ -1,6 +1,7 @@
 package fithelper.logic.commands.diary;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.DIARY;
+import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.logic.commands.Command;
@@ -22,6 +23,8 @@ public class DiaryCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS), DIARY, false);
     }
