@@ -116,6 +116,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearDiaryFitHelper() {
+        this.fitHelper.clearDiary();
+    }
+
+    @Override
     public ReadOnlyFitHelper getFitHelper() {
         return this.fitHelper;
     }

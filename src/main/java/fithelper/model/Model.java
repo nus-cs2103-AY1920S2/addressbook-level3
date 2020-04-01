@@ -73,6 +73,9 @@ public interface Model {
     /** Returns the FitHelper */
     ReadOnlyFitHelper getFitHelper();
 
+    /** clears the diary data of the FitHelper */
+    void clearDiaryFitHelper();
+
     /**
      * Returns true if diary log with the same identity as {@code diary} exists in the FitHelper.
      */

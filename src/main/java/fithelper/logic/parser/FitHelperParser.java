@@ -27,9 +27,15 @@ import fithelper.logic.commands.UndoCommand;
 import fithelper.logic.commands.UpdateCommand;
 import fithelper.logic.commands.WeightCommand;
 
-import fithelper.logic.commands.diary.*;
+import fithelper.logic.commands.diary.AddDiaryCommand;
+import fithelper.logic.commands.diary.AppendDiaryCommand;
+import fithelper.logic.commands.diary.ClearDiaryCommand;
+import fithelper.logic.commands.diary.DeleteDiaryCommand;
+import fithelper.logic.commands.diary.DiaryCommand;
+import fithelper.logic.commands.diary.EditDiaryCommand;
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.diary.AppendDiaryCommandParser;
+import fithelper.logic.parser.diary.ClearDiaryCommandParser;
 import fithelper.logic.parser.diary.DeleteDiaryCommandParser;
 import fithelper.logic.parser.diary.EditDiaryCommandParser;
 import fithelper.logic.parser.exceptions.ParseException;
@@ -85,6 +91,9 @@ public class FitHelperParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case ClearDiaryCommand.COMMAND_WORD:
+            return new ClearDiaryCommandParser().parse(arguments);
 
         case CheckCommand.COMMAND_WORD:
             return new CheckCommandParser().parse(arguments);

@@ -163,6 +163,13 @@ public class FitHelper implements ReadOnlyFitHelper {
         setEntries(newData.getFoodList(), newData.getSportsList(), newData.getReminderList());
     }
 
+    /**
+     * Clears the diary data of this {@code FitHelper}.
+     */
+    public void clearDiary() {
+        setDiaries(new ArrayList<Diary>());
+    }
+
     //// diary-level operations
 
     /**
