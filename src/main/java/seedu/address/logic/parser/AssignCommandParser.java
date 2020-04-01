@@ -1,15 +1,12 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.LogicManager;
@@ -24,13 +21,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AssignCommandParser implements Parser<AssignCommandBase> {
 
     public static final String MESSAGE_USAGE =
-        "assign command must have 2 parameters only!"
+        "assign command must have 2 parameters only, 1 of which must be the CourseID!"
         + "\n1. Assigning a student to a course"
         + "\n2. Assigning a teacher to a course"
+        + "\n3. Assigning an assignment to a course"
         + "\nParameters: "
         + "\n" + PREFIX_COURSEID + "COURSEID"
+        + "\n AND"
         + "\n" + PREFIX_STUDENTID + "STUDENTID"
-        + "\n" + PREFIX_TEACHERID + "TEACHERID "
+        + " OR " + PREFIX_TEACHERID + "TEACHERID"
+        + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
         + "\n" + "Example: "  + "assign "
         + PREFIX_COURSEID + "829 "
         + PREFIX_STUDENTID + "33 ";
@@ -44,8 +44,9 @@ public class AssignCommandParser implements Parser<AssignCommandBase> {
     public AssignCommandBase parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TEACHERID, PREFIX_COURSEID, PREFIX_STUDENTID);
+                ArgumentTokenizer.tokenize(args, PREFIX_TEACHERID, PREFIX_COURSEID, PREFIX_STUDENTID, PREFIX_ASSIGNMENTID);
 
+        Map<Prefix, List<String>> test = argMultimap.getArgMultimap();
         Map<Prefix, List<String>> q = argMultimap.getArgMultimap();
 
         // TODO: validate based on optional params as well.
@@ -62,6 +63,10 @@ public class AssignCommandParser implements Parser<AssignCommandBase> {
 
         if (argMultimap.getValue(PREFIX_STUDENTID).isPresent()) {
             assignDescriptor.setAssignEntity(PREFIX_STUDENTID, ParserUtil.parseID(argMultimap.getValue(PREFIX_STUDENTID).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_ASSIGNMENTID).isPresent()) {
+            assignDescriptor.setAssignEntity(PREFIX_ASSIGNMENTID, ParserUtil.parseID(argMultimap.getValue(PREFIX_ASSIGNMENTID).get()));
         }
 
         Set<Prefix> allAssignPrefixes = assignDescriptor.getAllAssignKeys();

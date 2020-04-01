@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -31,57 +32,59 @@ public interface Model {
   Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
   Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
-  String COURSE_ENTITY_NAME = "course";
+    String COURSE_ENTITY_NAME = "course";
 
-  /**
-   * Returns the user prefs.
-   */
-  ReadOnlyUserPrefs getUserPrefs();
+    /**
+     * Returns the user prefs.
+     */
+    ReadOnlyUserPrefs getUserPrefs();
 
-  /**
-   * Replaces user prefs data with the data in {@code userPrefs}.
-   */
-  void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
-  /**
-   * Returns the user prefs' GUI settings.
-   */
-  GuiSettings getGuiSettings();
+    /**
+     * Returns the user prefs' GUI settings.
+     */
+    GuiSettings getGuiSettings();
 
-  /**
-   * Sets the user prefs' GUI settings.
-   */
-  void setGuiSettings(GuiSettings guiSettings);
+    /**
+     * Sets the user prefs' GUI settings.
+     */
+    void setGuiSettings(GuiSettings guiSettings);
 
-  /**
-   * Returns the user prefs' address book file path.
-   */
-  Path getAddressBookFilePath();
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getAddressBookFilePath();
 
-  /**
-   * Sets the user prefs' address book file path.
-   */
-  void setAddressBookFilePath(Path addressBookFilePath);
+    /**
+     * Sets the user prefs' address book file path.
+     */
+    void setAddressBookFilePath(Path addressBookFilePath);
 
-  boolean has(ModelObject obj) throws CommandException;
+    boolean has(ModelObject obj) throws CommandException;
 
-  void delete(ModelObject obj) throws CommandException;
+    void delete(ModelObject obj) throws CommandException;
 
-  void add(ModelObject obj) throws CommandException;
+    void add(ModelObject obj) throws CommandException;
 
-  void set(ModelObject target, ModelObject editedTarget) throws CommandException;
+    void addAtIndex(ModelObject obj, Integer index) throws CommandException;
 
-  boolean hasStudent(ID studentID);
+    void set(ModelObject target, ModelObject editedTarget) throws CommandException;
 
-  Student getStudent(ID studentID);
+    boolean hasStudent(ID studentID);
 
-  boolean hasCourse(ID courseID);
+    Student getStudent(ID studentID);
 
-  Course getCourse(ID courseID);
+    boolean hasCourse(ID courseID);
 
-  boolean hasAssignment(ID assignmentID);
+    Course getCourse(ID courseID);
 
-  Assignment getAssignment(ID assignmentID);
+    boolean hasAssignment(ID assignmentID);
+
+    Assignment getAssignment(ID assignmentID);
 
 
     /**
@@ -127,9 +130,6 @@ public interface Model {
 
   /**
    * Returns an unmodifiable view of the filtered staff list
-=======
-   * Returns an unmodifiable view of the filtered teacher list
->>>>>>> cc58058640d6b9fdcab1ce76c9dad9da09540efa
    */
   ObservableList<Staff> getFilteredStaffList();
 
@@ -278,7 +278,6 @@ public interface Model {
 
   // ====================================================================== //
   // There is no CRUD operations for Progress objects for now
-
     /**
      * Returns the user prefs' assignment address book file path.
      */
@@ -311,5 +310,10 @@ public interface Model {
      */
     void updateFilteredProgressList(Predicate<Progress> predicate);
 
+    // ======================== FOR ASSIGN COMMANDS ============================== //
+
+    void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
+
+    void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
 
 }

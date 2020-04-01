@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "undo success";
-    public static final String MESSAGE_FAILURE = "undo failure, no more commands";
+    public static final String MESSAGE_FAILURE = "Sorry! There's no Undoable Command!";
 
     @Override
     public final CommandResult execute(Model model) throws CommandException {

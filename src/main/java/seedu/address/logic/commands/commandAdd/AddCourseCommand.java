@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandAdd;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -13,6 +14,7 @@ import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStudent.Student;
 
 /**
  * Adds a course to the address book.
@@ -20,8 +22,6 @@ import seedu.address.model.modelCourse.Course;
 public class AddCourseCommand extends AddCommand {
 
   public static final String COMMAND_WORD = "add-course";
-
-  public static final String ENTITY_NAME = Model.COURSE_ENTITY_NAME;
 
   public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a course to the address book. "
       + "Parameters: "
@@ -41,6 +41,8 @@ public class AddCourseCommand extends AddCommand {
 
   private final Course toAdd;
 
+  private Integer index;
+
   /**
    * Creates an AddCommand to add the specified {@code Assignment}
    */
@@ -49,8 +51,14 @@ public class AddCourseCommand extends AddCommand {
     toAdd = course;
   }
 
+  public AddCourseCommand(Course course, Integer index) {
+    requireAllNonNull(course, index);
+    this.toAdd = course;
+    this.index = index;
+  }
+
   @Override
-  protected void generateOppositeCommand() {
+  protected void generateOppositeCommand() throws CommandException {
     oppositeCommand = new DeleteCourseCommand(this.toAdd);
   }
 
@@ -62,7 +70,11 @@ public class AddCourseCommand extends AddCommand {
       throw new CommandException(MESSAGE_DUPLICATE_COURSE);
     }
 
-    model.add(toAdd);
+    if (index == null) {
+      model.add(toAdd);
+    } else {
+      model.addAtIndex(toAdd, index);
+    }
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 

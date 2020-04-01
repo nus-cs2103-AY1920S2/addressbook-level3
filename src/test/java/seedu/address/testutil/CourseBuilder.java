@@ -26,6 +26,7 @@ public class CourseBuilder {
     private Amount amount;
     private ID assignedTeacher;
     private Set<ID> assignedStudents;
+    private Set<ID> assignedAssignments;
     private Set<Tag> tags;
 
     public CourseBuilder() {
@@ -34,6 +35,7 @@ public class CourseBuilder {
         amount = new Amount(DEFAULT_AMOUNT);
         assignedTeacher = new ID(DEFAULT_ASSIGNEDTEACHER);
         assignedStudents = new HashSet<>();
+        assignedAssignments = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -46,6 +48,7 @@ public class CourseBuilder {
         amount = courseToCopy.getAmount();
         assignedTeacher = courseToCopy.getAssignedTeacherID();
         assignedStudents = courseToCopy.getAssignedStudentsID();
+        assignedAssignments = courseToCopy.getAssignedAssignmentsID();
         tags = new HashSet<>(courseToCopy.getTags());
     }
 
@@ -98,7 +101,7 @@ public class CourseBuilder {
     }
 
     public Course build() {
-        return new Course(name, id, amount, assignedTeacher, assignedStudents, tags);
+        return new Course(name, id, amount, assignedTeacher, assignedStudents, assignedAssignments, tags);
     }
 
 }
