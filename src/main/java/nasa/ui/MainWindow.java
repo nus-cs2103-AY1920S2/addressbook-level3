@@ -165,7 +165,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Handles undo.
      */
     @FXML
     public void handleUndo() {
@@ -176,6 +176,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles redo.
+     */
     @FXML
     public void handleRedo() {
         try {
