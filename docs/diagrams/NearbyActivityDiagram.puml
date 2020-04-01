@@ -1,0 +1,31 @@
+@startuml
+start
+:User inputs command;
+:Parse command;
+
+if () then ([command arguments is valid])
+    :Generate new nearby command;
+    :Execute nearby command;
+    if () then ([Flag given])
+        if () then ([Flag is Return Order Flag])
+        :Obtain all matching nearby orders
+        in return order list;
+        :Show all nearby orders
+        for return order list;
+        else ([Flag is Order Flag])
+        :Obtain all matching nearby orders
+        in order list;
+        :Show all nearby orders for
+        order list;
+        endif
+    else ([No flags given])
+        :Obtain all matching nearby orders
+        for all lists;
+        :Show all nearby orders for all lists;
+    endif
+else ([else])
+    :Parse exception generated;
+endif
+
+stop
+@enduml
