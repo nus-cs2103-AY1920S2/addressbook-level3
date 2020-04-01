@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenterSingleton;
@@ -91,12 +90,12 @@ public class MainApp extends Application {
     FinanceAddressBookStorage financeAddressBookStorage = new JsonFinanceAddressBookStorage(
         userPrefs.getFinanceAddressBookFilePath());
     AssignmentAddressBookStorage assignmentAddressBookStorage = new JsonAssignmentAddressBookStorage(
-            userPrefs.getAssignmentAddressBookFilePath());
+        userPrefs.getAssignmentAddressBookFilePath());
 
 
     storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
         studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage,
-            assignmentAddressBookStorage, userPrefsStorage);
+        assignmentAddressBookStorage, userPrefsStorage);
 
     initLogging(config);
 
@@ -220,14 +219,14 @@ public class MainApp extends Application {
         logger.info("Data file not found. Will be starting with a sample AssignmentAddressBook");
       }
       assignmentInitialData = assignmentAddressBookOptional
-              .orElseGet(SampleDataUtil::getSampleAssignmentAddressBook);
+          .orElseGet(SampleDataUtil::getSampleAssignmentAddressBook);
     } catch (DataConversionException e) {
       logger.warning(
-              "Data file not in the correct format. Will be starting with an empty AssignmentAddressBook");
+          "Data file not in the correct format. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     } catch (IOException e) {
       logger.warning(
-              "Problem while reading from the file. Will be starting with an empty AssignmentAddressBook");
+          "Problem while reading from the file. Will be starting with an empty AssignmentAddressBook");
       assignmentInitialData = new AssignmentAddressBook();
     }
     logger.info("Main app check:" + assignmentInitialData.getList().toString());
