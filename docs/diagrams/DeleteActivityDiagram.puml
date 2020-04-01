@@ -1,0 +1,25 @@
+@startuml
+start
+:User inputs command;
+:Parse command;
+
+if () then ([command arguments is valid])
+    :Generate new delete command;
+    :Execute delete command;
+    if () then ([Flag is order list])
+    :Obtain order to delete;
+    :Delete order;
+    else ([else])
+        if () then ([Flag is return order list])
+        :Obtain return order to delete;
+        :Delete return order;
+        else ([else])
+        :Command Exception generated;
+        endif
+    endif
+else ([else])
+    :Parse exception generated;
+endif
+
+stop
+@enduml
