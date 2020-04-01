@@ -139,10 +139,10 @@ public class MainApp extends Application {
     try {
       teacherAddressBookOptional = storage.readTeacherAddressBook();
       if (!teacherAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        logger.info("Data file not found. Will be starting with a new Teacher AddressBook");
       }
       teacherInitialData = teacherAddressBookOptional
-          .orElseGet(SampleDataUtil::getSampleTeacherAddressBook);
+              .orElseGet(TeacherAddressBook::new);
     } catch (DataConversionException e) {
       logger.warning(
           "Data file not in the correct format. Will be starting with an empty AddressBook");
@@ -158,17 +158,18 @@ public class MainApp extends Application {
     try {
       studentAddressBookOptional = storage.readStudentAddressBook();
       if (!studentAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        logger.info("Data file not found. Will be starting with a empty StudentAddressBook");
       }
       studentInitialData = studentAddressBookOptional
-          .orElseGet(SampleDataUtil::getSampleStudentAddressBook);
+              .orElseGet(StudentAddressBook::new);
+
     } catch (DataConversionException e) {
       logger.warning(
-          "Data file not in the correct format. Will be starting with an empty AddressBook");
+          "Data file not in the correct format. Will be starting with an empty StudentAddressBook");
       studentInitialData = new StudentAddressBook();
     } catch (IOException e) {
       logger.warning(
-          "Problem while reading from the file. Will be starting with an empty AddressBook");
+          "Problem while reading from the file. Will be starting with an empty StudentAddressBook");
       studentInitialData = new StudentAddressBook();
     }
 
@@ -177,17 +178,17 @@ public class MainApp extends Application {
     try {
       financeAddressBookOptional = storage.readFinanceAddressBook();
       if (!financeAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        logger.info("Data file not found. Will be starting with a empty FinanceAddressBook");
       }
       financeInitialData = financeAddressBookOptional
-          .orElseGet(SampleDataUtil::getSampleFinanceAddressBook);
+          .orElseGet(FinanceAddressBook::new);
     } catch (DataConversionException e) {
       logger.warning(
-          "Data file not in the correct format. Will be starting with an empty AddressBook");
+          "Data file not in the correct format. Will be starting with an empty FinanceAddressBook");
       financeInitialData = new FinanceAddressBook();
     } catch (IOException e) {
       logger.warning(
-          "Problem while reading from the file. Will be starting with an empty AddressBook");
+          "Problem while reading from the file. Will be starting with an empty FinanceAddressBook");
       financeInitialData = new FinanceAddressBook();
     }
 
@@ -196,31 +197,30 @@ public class MainApp extends Application {
     try {
       courseAddressBookOptional = storage.readCourseAddressBook();
       if (!courseAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        logger.info("Data file not found. Will be starting with a empty CourseAddressBook");
       }
       courseInitialData = courseAddressBookOptional
-          .orElseGet(SampleDataUtil::getSampleCourseAddressBook);
+          .orElseGet(CourseAddressBook::new);
     } catch (DataConversionException e) {
       logger.warning(
-          "Data file not in the correct format. Will be starting with an empty AddressBook");
+          "Data file not in the correct format. Will be starting with an empty CourseAddressBook");
       courseInitialData = new CourseAddressBook();
     } catch (IOException e) {
       logger.warning(
-          "Problem while reading from the file. Will be starting with an empty AddressBook");
+          "Problem while reading from the file. Will be starting with an empty CourseAddressBook");
       courseInitialData = new CourseAddressBook();
     }
 
     Optional<ReadOnlyAddressBookGeneric<Assignment>> assignmentAddressBookOptional;
     ReadOnlyAddressBookGeneric<Assignment> assignmentInitialData;
-
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();
 
       if (!assignmentAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a sample AssignmentAddressBook");
+        logger.info("Data file not found. Will be starting with a empty AssignmentAddressBook");
       }
       assignmentInitialData = assignmentAddressBookOptional
-              .orElseGet(SampleDataUtil::getSampleAssignmentAddressBook);
+              .orElseGet(AssignmentAddressBook::new);
     } catch (DataConversionException e) {
       logger.warning(
               "Data file not in the correct format. Will be starting with an empty AssignmentAddressBook");

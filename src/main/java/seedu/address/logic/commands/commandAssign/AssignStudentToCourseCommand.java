@@ -23,8 +23,11 @@ import seedu.address.model.tag.Tag;
 /** This class will be in charge of assigning stuff (e.g students, teacher, etc) to a course. */
 public class AssignStudentToCourseCommand extends AssignCommandBase {
 
-    public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
-    public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
+    public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID!";
+    public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID!";
+    public static final String MESSAGE_COURSE_ALREADY_CONTAINS_STUDENT = "Course already has that student assigned to it!";
+    public static final String MESSAGE_STUDENT_ALREADY_COURSE = "Student is assigned to the course already!";
+
     public static final String MESSAGE_SUCCESS = "Successfully assigned student %s (%s) to course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
@@ -51,23 +54,23 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         boolean courseExists = model.hasCourse(courseID);
         boolean studentExists = model.hasStudent(studentID);
 
-        Course assignedCourse = model.getCourse(courseID);
-        Student assigningStudent = model.getStudent(studentID);
-
-        boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
-        boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
-
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
-        } else if (assignedCourseContainsStudent) {
-            throw new CommandException("Course already has that student assigned to it!");
-        } else if (assigningStudentContainsCourse) {
-            throw new CommandException("Student is assigned to the course already");
         } else {
-            model.assignStudentToCourse(studentID, courseID);
+            Course assignedCourse = model.getCourse(courseID);
+            Student assigningStudent = model.getStudent(studentID);
 
+            boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
+            boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
+
+            if (assignedCourseContainsStudent) {
+                throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_STUDENT);
+            } else if (assigningStudentContainsCourse) {
+            throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
+            } else {
+            model.assignStudentToCourse(studentID, courseID);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     assigningStudent.getName(), studentID.value,

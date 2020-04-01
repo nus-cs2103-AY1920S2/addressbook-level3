@@ -363,6 +363,17 @@ public class ModelManager extends BaseManager implements Model {
     return assignmentAddressBook.get(assignmentID);
   }
 
+  @Override
+  public boolean hasTeacher(ID teacherID) {
+    return teacherAddressBook.has(teacherID);
+  }
+
+  @Override
+  public Teacher getTeacher(ID teacherID) {
+    return teacherAddressBook.get(teacherID);
+  }
+
+
   // =====================================================================================================
 
 
@@ -563,13 +574,9 @@ public class ModelManager extends BaseManager implements Model {
     updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
 
-    requireAllNonNull(foundCourse, foundCourse);
-    getAddressBook(foundCourse).set(foundCourse, foundCourse);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
 
-    requireAllNonNull(foundStudent, foundStudent);
-    getAddressBook(foundStudent).set(foundStudent, foundStudent);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
+    set(foundCourse, foundCourse);
+    set(foundStudent, foundStudent);
   }
 
   public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
@@ -579,14 +586,24 @@ public class ModelManager extends BaseManager implements Model {
     foundCourse.addAssignment(assignmentID);
     foundAssignment.addCourseID(courseID);
 
-    requireAllNonNull(foundCourse, foundCourse);
-    getAddressBook(foundCourse).set(foundCourse, foundCourse);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+    set(foundCourse, foundCourse);
+    set(foundAssignment, foundAssignment);
 
-    requireAllNonNull(foundAssignment, foundAssignment);
-    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+  }
 
+  public void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Teacher foundTeacher = getTeacher(teacherID);
+
+    foundCourse.addTeacher(teacherID);
+    foundTeacher.addCourse(courseID);
+
+    foundCourse.processAssignedTeacher(
+            (FilteredList<Teacher>) getFilteredTeacherList());
+    foundTeacher.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    set(foundCourse, foundCourse);
+    set(foundTeacher, foundTeacher);
   }
 
   // ========================== For Unassigning of X FROM Y =========================

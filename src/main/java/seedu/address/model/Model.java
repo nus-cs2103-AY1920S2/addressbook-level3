@@ -83,6 +83,11 @@ public interface Model {
 
     Assignment getAssignment(ID assignmentID);
 
+    boolean hasTeacher(ID teacherID);
+
+    Teacher getTeacher(ID teacherID);
+
+
 
     /**
      * Returns the AddressBook
@@ -312,9 +317,12 @@ public interface Model {
 
     void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
 
+    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
+
     // ======================== FOR UNASSIGN COMMANDS ============================== //
 
     void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
 
     void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
+
 }
