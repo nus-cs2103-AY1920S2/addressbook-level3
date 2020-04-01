@@ -6,6 +6,7 @@ import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.block.Block;
+import com.notably.model.block.exceptions.DuplicateBlockException;
 
 /**
  * Represent a command used to add a new block.
@@ -29,10 +30,10 @@ public class NewCommand extends Command {
      */
     public void execute(Model notablyModel) throws CommandException {
         requireNonNull(notablyModel);
-
-        if (notablyModel.hasPath(this.path)) {
-            throw new CommandException("Block with the same Title detected.");
+        try {
+            notablyModel.addBlockToCurrentPath(toAdd);
+        } catch (DuplicateBlockException ex) {
+            throw new CommandException(ex.getMessage());
         }
-        notablyModel.addBlockToCurrentPath(toAdd);
     }
 }

@@ -66,9 +66,7 @@ class JsonAdaptedBlockTreeItem {
         if (body == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Body.class.getSimpleName()));
         }
-        if (!Body.isValidBody(body)) {
-            throw new IllegalValueException(Body.MESSAGE_CONSTRAINTS);
-        }
+
         final Body modelBody = new Body(body);
 
         final Block modelBlock = new BlockImpl(modelTitle, modelBody);

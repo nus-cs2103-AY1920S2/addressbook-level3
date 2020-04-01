@@ -1,7 +1,7 @@
 package com.notably.logic.suggestion;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +77,17 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
+    public void suggest_inputLengthTooShort_suggestionsAndResponseTextCleared() {
+        model.setInput("");
+        assertTrue(model.getSuggestions().isEmpty());
+        assertTrue(model.responseTextProperty().getValue().isEmpty());
+
+        model.setInput("o");
+        assertTrue(model.getSuggestions().isEmpty());
+        assertTrue(model.responseTextProperty().getValue().isEmpty());
+    }
+
+    @Test
     public void suggest_uncorrectedCommand_returnErrorSuggestionCommand() {
         model.setInput("opensesame -t CS2103");
 
@@ -108,7 +119,7 @@ public class SuggestionEngineImplTest {
         }
 
         List<String> expectedInputs = new ArrayList<>();
-        expectedInputs.add("open " + PREFIX_TITLE + " " + toCs2103Week1Lecture.getStringRepresentation());
+        expectedInputs.add("oen -t " + toCs2103Week1Lecture.getStringRepresentation());
 
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
