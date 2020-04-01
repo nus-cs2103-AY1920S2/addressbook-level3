@@ -1,7 +1,28 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.commands.CommandTestUtil.*;
+import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_FOOD;
+import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_SHOPPING;
+import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_SHOPPING;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
@@ -13,7 +34,10 @@ import org.junit.jupiter.api.Test;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Category;
 import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
 
 public class EditCommandParserTest {
