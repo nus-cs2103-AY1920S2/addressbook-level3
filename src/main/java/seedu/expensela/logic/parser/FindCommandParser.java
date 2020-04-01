@@ -1,6 +1,7 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.expensela.commons.core.Messages.MESSAGE_WORD_NOT_FOUND;
 
 import java.util.Arrays;
 

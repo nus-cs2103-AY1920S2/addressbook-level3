@@ -3,6 +3,7 @@ package seedu.expensela.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class TransactionList implements Iterable<Transaction> {
             throw new DuplicateTransactionException();
         }
         internalList.add(toAdd);
+        FXCollections.sort(internalList);
     }
 
     /**
@@ -68,11 +70,13 @@ public class TransactionList implements Iterable<Transaction> {
         }
 
         internalList.set(index, editedTransaction);
+        FXCollections.sort(internalList);
     }
 
     public void setTransaction(TransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        FXCollections.sort(internalList);
     }
 
     /**
@@ -82,6 +86,7 @@ public class TransactionList implements Iterable<Transaction> {
     public void setTransaction(List<Transaction> transactions) {
         requireAllNonNull(transactions);
         internalList.setAll(transactions);
+        FXCollections.sort(internalList);
     }
 
     /**
@@ -93,6 +98,7 @@ public class TransactionList implements Iterable<Transaction> {
         if (!internalList.remove(toRemove)) {
             throw new TransactionNotFoundException();
         }
+        FXCollections.sort(internalList);
     }
 
     /**

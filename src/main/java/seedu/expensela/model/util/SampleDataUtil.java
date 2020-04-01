@@ -13,17 +13,18 @@ import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Remark;
 import seedu.expensela.model.transaction.Transaction;
 
+
 /**
  * Contains utility methods for populating {@code ExpenseLa} with sample data.
  */
 public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
-            new Transaction(new Name("Apple AirPods"), new Amount("188", true),
+            new Transaction(new Name("Apple AirPods"), new Amount("188", false),
                 new Date("2020-02-14"), new Remark("On discount for valentine's"), new Category("SHOPPING")),
-            new Transaction(new Name("Sushi"), new Amount("6", true),
+            new Transaction(new Name("Sushi"), new Amount("6", false),
                 new Date("2020-02-06"), new Remark("Snack after lunch"), new Category("FOOD")),
-            new Transaction(new Name("Dominoes Pizza"), new Amount("34", true),
+            new Transaction(new Name("Dominoes Pizza"), new Amount("34", false),
                 new Date("2020-02-02"), new Remark("Party with friends"), new Category("FOOD"))
         };
     }
