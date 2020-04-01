@@ -16,6 +16,7 @@ import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
+import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.model.history.HistoryManager;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -31,6 +32,7 @@ public class ModelManager implements Model {
     private final CouponStash couponStash;
     private final UserPrefs userPrefs;
     private final FilteredList<Coupon> filteredCoupons;
+    private final ObservableMonthView monthView;
     private final SortedList<Coupon> sortedCoupons;
     private HistoryManager history;
 
@@ -50,6 +52,7 @@ public class ModelManager implements Model {
         filteredCoupons = new FilteredList<>(sortedCoupons,
                 PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
+        monthView = new ObservableMonthView();
         history = new HistoryManager(this.couponStash.copy());
     }
 
@@ -195,6 +198,23 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredCoupons.setPredicate(predicate);
     }
+
+    //=========== MonthView of Calendar Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable MonthView of the Calendar.
+     */
+    @Override
+    public ObservableMonthView getMonthView() {
+        return monthView;
+    }
+
+    @Override
+    public void updateMonthView(String yearMonth) {
+        requireNonNull(monthView);
+        monthView.setValue(yearMonth);
+    }
+
 
     //=========== Undo/Redo functionality =============================================================
     @Override

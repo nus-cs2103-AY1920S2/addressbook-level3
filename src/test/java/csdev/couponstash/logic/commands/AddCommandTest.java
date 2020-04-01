@@ -22,6 +22,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.testutil.CouponBuilder;
 
 import javafx.collections.ObservableList;
@@ -160,6 +161,17 @@ public class AddCommandTest {
         public void updateFilteredCouponList(Predicate<? super Coupon> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableMonthView getMonthView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMonthView(String yearMonth) {
+            new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public void commitCouponStash(String command) {

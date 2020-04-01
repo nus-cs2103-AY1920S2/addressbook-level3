@@ -3,7 +3,9 @@ package csdev.couponstash.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * This class stores a common DateTimeFormatter to be
@@ -17,6 +19,12 @@ public class DateUtil {
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     public static final String MESSAGE_DATE_WRONG_FORMAT = "Date is in the"
             + " wrong format! Should be D-M-YYYY";
+
+    public static final DateTimeFormatter YEAR_MONTH_FORMATTER = DateTimeFormatter.ofPattern("M-yyyy");
+    public static final String MESSAGE_YEAR_MONTH_WRONG_FORMAT = "Year-Month is in the"
+            + " wrong format! Should be M-YYYY";
+
+    public static final String MONTH_YEAR_VALIDATION_REGEX = "\\d{1,2}-\\d{4}";
 
     //For Calendar
     public static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_CALENDAR = DateTimeFormatter
@@ -37,6 +45,30 @@ public class DateUtil {
     public static String getFormattedDateString(LocalDate date, DateTimeFormatter formatter) {
         requireNonNull(date);
         return date.format(formatter);
+    }
+
+    /**
+     * Returns a formatted YearMonth string based on the specified YearMonth.
+     *
+     * @param yearMonth The specified YearMonth.
+     * @return Formatted YearMonth string.
+     */
+    public static String getFormattedYearMonthString(YearMonth yearMonth, DateTimeFormatter formatter) {
+        requireNonNull(yearMonth);
+        return yearMonth.format(formatter);
+    }
+
+
+    /**
+     * Returns true if a given string is a valid YearMonth.
+     */
+    public static boolean isValidYearMonth (String test) {
+        try {
+            YearMonth.parse(test, YEAR_MONTH_FORMATTER);
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+        return test.matches(MONTH_YEAR_VALIDATION_REGEX);
     }
 
     /**

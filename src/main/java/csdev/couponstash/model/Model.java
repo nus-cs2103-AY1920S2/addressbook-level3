@@ -8,6 +8,7 @@ import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
+import csdev.couponstash.model.element.ObservableMonthView;
 import javafx.collections.ObservableList;
 
 /**
@@ -119,6 +120,20 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCouponList(Predicate<? super Coupon> predicate);
+
+
+    /**
+     * Returns an unmodifiable view of the MonthView
+     */
+    ObservableMonthView getMonthView();
+
+    /**
+     * Updates the MonthView with the given YearMonth
+     *
+     * @throws NullPointerException if {@code yearMonth} is null.
+     */
+    void updateMonthView(String yearMonth);
+
 
     /**
      * Saves current coupon stash state in its history.

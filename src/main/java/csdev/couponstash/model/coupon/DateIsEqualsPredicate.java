@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import csdev.couponstash.commons.util.DateUtil;
 
 /**
- * Tests that a {@code Coupon}'s {@code ExpiryDate} is before the specified date.
+ * Tests that a {@code Coupon}'s {@code ExpiryDate} is equals the specified date.
  */
-public class DateIsBeforePredicate implements Predicate<Coupon> {
+public class DateIsEqualsPredicate implements Predicate<Coupon> {
     private final String date;
 
-    public DateIsBeforePredicate(String date) {
+    public DateIsEqualsPredicate(String date) {
         this.date = date;
     }
 
@@ -23,15 +23,14 @@ public class DateIsBeforePredicate implements Predicate<Coupon> {
     public boolean test(Coupon coupon) {
         LocalDate ed = coupon.getExpiryDate().getDate();
         LocalDate givenDate = DateUtil.parseString(date);
-        LocalDate yesterday = LocalDate.now().minusDays(1);
-        return ed.isBefore(givenDate) && ed.isAfter(yesterday);
+        return ed.isEqual(givenDate);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DateIsBeforePredicate // instanceof handles nulls
-                && date.equals(((DateIsBeforePredicate) other).date)); // state check
+                || (other instanceof DateIsEqualsPredicate // instanceof handles nulls
+                && date.equals(((DateIsEqualsPredicate) other).date)); // state check
     }
 }
 
