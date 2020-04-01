@@ -27,7 +27,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
     private VBox suggestionsBox;
 
     @FXML
-    private Label suggestionsText;
+    private Label responseText;
 
     @FXML
     private ListView<SuggestionItem> suggestionsListPanel;
@@ -41,18 +41,18 @@ public class SuggestionsWindowView extends ViewPart<Region> {
 
     /**
      * Sets listeners to update the visibility of the {@code SuggestionsWindow}, and its components.
-     * @param suggestionsList
-     * @param responseText The info text to be displayed above the suggestions list, if any.
+     * @param suggestionsList The current list of suggestions from the model.
+     * @param responseTextProperty The info text to be displayed above the suggestions list, if any.
      */
     private void autoUpdateSuggestionsDisplay(ObservableList<SuggestionItem> suggestionsList,
-                                              Property<Optional<String>> responseText) {
-        responseText.addListener((observable, oldValue, newValue) -> {
-            Optional<String> response = responseText.getValue();
+                                              Property<Optional<String>> responseTextProperty) {
+        responseTextProperty.addListener((observable, oldValue, newValue) -> {
+            Optional<String> response = responseTextProperty.getValue();
             if (response.isPresent() && !response.equals("")) {
                 setSuggestionsTextRenderingStatus(true);
-                suggestionsText.setText(response.get());
+                responseText.setText(response.get());
             } else {
-                suggestionsText.setText("");
+                responseText.setText("");
                 setSuggestionsTextRenderingStatus(false);
             }
         });
@@ -79,8 +79,8 @@ public class SuggestionsWindowView extends ViewPart<Region> {
     }
 
     private void setSuggestionsTextRenderingStatus(boolean bool) {
-        suggestionsText.setManaged(bool);
-        suggestionsText.setVisible(bool);
+        responseText.setManaged(bool);
+        responseText.setVisible(bool);
     }
 
     /**
