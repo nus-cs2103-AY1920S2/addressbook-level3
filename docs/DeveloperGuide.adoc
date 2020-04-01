@@ -390,17 +390,16 @@ The list of criteria to be sorted are as follows:
 
 . Date added
 
-. Date due
-
 . Lexicographical order
 
 . Priority
 
 
-Refer to the user guide for the specific commands. Sorting of activities is facilitated by ModelManager#sortActivity.
+Refer to the user guide for the specific commands. Sorting of activities is facilitated by
+ModelManager#sortActivityList.
 
 ==== Implementation
-To sort activities, the command will use the keyword `sort` followed by the sort criteria.
+To sort activities, the command will use the keyword `sort` followed by the flag `/sm`, then the sort criteria.
 
 The following diagram shows how activities are sorted.
 
@@ -410,7 +409,7 @@ image::SortActivityDiagram.png[]
 
 Below is an example of a user sorting activities by priority and how the underlying system works.
 
-. The user enters the command `sort c/priority`
+. The user enters the command `sort sm/priority`
 
 . The LogicManager will create NasaBookParser to parse the user input.
 
