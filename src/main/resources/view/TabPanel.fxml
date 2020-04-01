@@ -37,7 +37,7 @@
             </Tab>
             <Tab text="Statistics">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <HBox fx:id="statisticsList" styleClass="transparent-pane" minWidth="340" prefWidth="500"
+                    <HBox fx:id="statisticsList" styleClass="pane-with-border" minWidth="340" prefWidth="500"
                           prefHeight="1000"
                           AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                           AnchorPane.bottomAnchor="0.0">

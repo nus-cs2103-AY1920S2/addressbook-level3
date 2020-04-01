@@ -12,7 +12,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 
@@ -27,13 +26,13 @@ public class StatisticsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(StatisticsPanel.class);
 
     @FXML
-    public PieChart pieChart;
+    private PieChart pieChart;
     @FXML
-    public BarChart<String, Integer> barChart;
+    private BarChart<String, Integer> barChart;
     @FXML
-    public CategoryAxis xAxis;
+    private CategoryAxis xAxis;
     @FXML
-    public NumberAxis yAxis;
+    private NumberAxis yAxis;
 
     public StatisticsPanel(ObservableList<Module> moduleList) {
         super(FXML);
@@ -54,7 +53,7 @@ public class StatisticsPanel extends UiPart<Region> {
 
         //Bar chart
 
-        XYChart.Series<String, Integer> barData= new XYChart.Series();
+        XYChart.Series<String, Integer> barData = new XYChart.Series();
         for (Module module : moduleList) {
             barData.getData().add(new XYChart.Data(module.getModuleCode().toString(),
                     module.getActivities().getActivityList().size()));
