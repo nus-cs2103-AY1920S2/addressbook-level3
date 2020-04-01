@@ -548,7 +548,7 @@ public class ModelManager extends BaseManager implements Model {
     filteredProgresses.setPredicate(predicate);
   }
 
-  // ========================== For Assigning of X to Y =========================
+  // ========================== For Assigning of X TO Y =========================
 
   public void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
     Course foundCourse = getCourse(courseID);
@@ -589,7 +589,27 @@ public class ModelManager extends BaseManager implements Model {
 
   }
 
-    @Override
+  // ========================== For Unassigning of X FROM Y =========================
+
+  public void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Assignment foundAssignment = getAssignment(assignmentID);
+
+    foundCourse.removeAssignment(assignmentID);
+    foundAssignment.removeCourseID(courseID);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundAssignment, foundAssignment);
+    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+
+  }
+
+
+  @Override
   public boolean equals(Object obj) {
     // short circuit if same object
     if (obj == this) {

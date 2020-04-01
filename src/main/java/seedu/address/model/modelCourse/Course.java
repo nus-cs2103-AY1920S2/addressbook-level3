@@ -107,6 +107,10 @@ public class Course extends ModelObject {
   public void addAssignments(Set<ID> assignmentIDs) {
     this.assignedAssignmentsID.addAll(assignmentIDs);
   }
+
+  public void assignTeacher(ID teacherid) {
+    this.assignedTeacherID = teacherid;
+  }
   // ================================== FOR ASSIGN COMMANDS =================================
   public boolean containsStudent(ID studentID) {
     if(assignedStudentsID.contains(studentID)) {
@@ -123,11 +127,12 @@ public class Course extends ModelObject {
       return false;
     }
   }
-  // ================================== FOR ASSIGN COMMANDS =================================
+  // ================================== FOR UNASSIGN COMMANDS =================================
 
-  public void assignTeacher(ID teacherid) {
-    this.assignedTeacherID = teacherid;
+  public void removeAssignment(ID assignmentID) {
+    this.assignedAssignmentsID.remove(assignmentID);
   }
+
 
   public Set<ID> getAssignedAssignmentsID() {
     return Collections.unmodifiableSet(assignedAssignmentsID);
