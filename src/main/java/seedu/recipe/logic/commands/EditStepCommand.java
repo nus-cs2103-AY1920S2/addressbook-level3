@@ -29,7 +29,7 @@ public class EditStepCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 2"
             + PREFIX_STEP + "Insert edited step here (edits step 2 of recipe 1)";
 
-    public static final String MESSAGE_ADD_STEPS_SUCCESS = "Successfully edited step %1$d in %2$s!";
+    public static final String MESSAGE_EDIT_STEPS_SUCCESS = "Successfully edited step %1$d in %2$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to edit a non-existent step";
 
     private final Index index;
@@ -72,7 +72,7 @@ public class EditStepCommand extends Command {
         model.commitRecipeBook();
 
         return new CommandResult(
-                String.format(MESSAGE_ADD_STEPS_SUCCESS, stepNumber + 1, recipeToEdit.getName().toString()));
+                String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1, recipeToEdit.getName().toString()));
     }
 
     /**

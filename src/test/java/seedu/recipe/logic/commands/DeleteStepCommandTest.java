@@ -35,7 +35,7 @@ public class DeleteStepCommandTest {
         Recipe recipeToDeleteSteps = model.getFilteredRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_SECOND_RECIPE, INDEX_SECOND_STEP);
 
-        String expectedMessageTemplate = "Successfully deleted step(s) from %1$s!";
+        String expectedMessageTemplate = DeleteStepCommand.MESSAGE_DELETE_STEPS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
@@ -81,7 +81,7 @@ public class DeleteStepCommandTest {
         Recipe recipeToDeleteSteps = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
         DeleteStepCommand deleteStepCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, INDEX_SECOND_STEP);
 
-        String expectedMessageTemplate = "Successfully deleted step(s) from %1$s!";
+        String expectedMessageTemplate = DeleteStepCommand.MESSAGE_DELETE_STEPS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());

@@ -38,13 +38,13 @@ public class AddStepCommandParserTest {
     }
 
     @Test
-    public void parse_insufficientArgs_throwsParseException() {
-        assertParseFailure(parser, "2",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStepCommand.MESSAGE_USAGE));
+    public void parse_invalidStep_throwsParseException() {
+        assertParseFailure(parser, "2 s/", Step.MESSAGE_CONSTRAINTS);
     }
 
     @Test
-    public void parse_invalidStep_throwsParseException() {
-        assertParseFailure(parser, "2 s/", Step.MESSAGE_CONSTRAINTS);
+    public void parse_insufficientArgs_throwsParseException() {
+        assertParseFailure(parser, "2",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStepCommand.MESSAGE_USAGE));
     }
 }

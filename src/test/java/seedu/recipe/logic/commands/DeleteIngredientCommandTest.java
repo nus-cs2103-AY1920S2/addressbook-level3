@@ -40,7 +40,7 @@ public class DeleteIngredientCommandTest {
         DeleteIngredientCommand deleteIngredientCommand = new DeleteIngredientCommand(
                 INDEX_SECOND_RECIPE, editRecipeDescriptor);
 
-        String expectedMessageTemplate = "Successfully deleted ingredient(s) from %1$s!";
+        String expectedMessageTemplate = DeleteIngredientCommand.MESSAGE_DELETE_INGREDIENTS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteIngredients.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
@@ -73,7 +73,7 @@ public class DeleteIngredientCommandTest {
         DeleteIngredientCommand deleteIngredientCommand = new DeleteIngredientCommand(
                 INDEX_FIRST_RECIPE, editRecipeDescriptor);
 
-        String expectedMessageTemplate = "Successfully deleted ingredient(s) from %1$s!";
+        String expectedMessageTemplate = DeleteIngredientCommand.MESSAGE_DELETE_INGREDIENTS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteIngredients.getName().toString());
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());

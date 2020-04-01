@@ -16,11 +16,13 @@ import java.util.TreeSet;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
+import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
@@ -45,18 +47,18 @@ public class EditIngredientCommand extends Command {
             + PREFIX_INGREDIENT_VEGE + "100g, Lettuce "
             + PREFIX_INGREDIENT_OTHER + "50g, Honeydew";
 
-    public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully edited ingredient(s) in %1$s!";
+    public static final String MESSAGE_EDIT_INGREDIENTS_SUCCESS = "Successfully edited ingredient(s) in %1$s!";
     public static final String MESSAGE_NO_SUCH_INGREDIENT = "%1$s is either not %2$s ingredient "
             + "or it does not exist in %3$s!";
 
     private final Index index;
-    private final EditCommand.EditRecipeDescriptor editRecipeDescriptor;
+    private final EditRecipeDescriptor editRecipeDescriptor;
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
      * @param editRecipeDescriptor details to edit the recipe with
      */
-    public EditIngredientCommand(Index index, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public EditIngredientCommand(Index index, EditRecipeDescriptor editRecipeDescriptor) {
         this.index = index;
         this.editRecipeDescriptor = editRecipeDescriptor;
     }
@@ -83,132 +85,162 @@ public class EditIngredientCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.commitRecipeBook();
 
-        return new CommandResult(String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
+        return new CommandResult(String.format(MESSAGE_EDIT_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
     }
 
     /**
      * Edits the quantity of the specified {@code Grain} ingredient(s) in the current list of grains.
-     * If the specified grain ingredient(s) do not exist in the current list, CommandException is thrown.
+     * If the specified grain ingredient(s) do not exist in the current list, or if no grain ingredient(s) were
+     * specified but "ig/" prefix was present, CommandException is thrown.
      */
-    public void updateGrainsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+    private void updateGrainsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
             throws CommandException {
-        if (editRecipeDescriptor.getGrains().isPresent()) {
-            Set<Grain> grainsToEdit = new TreeSet<>(editRecipeDescriptor.getGrains().get());
+        requireNonNull(recipeToEdit);
+        requireNonNull(editRecipeDescriptor);
+
+        Set<Grain> editedGrainSet;
+        Set<Grain> grainsToEdit = editRecipeDescriptor.getGrains().orElse(null);
+        if (grainsToEdit != null && !grainsToEdit.isEmpty()) { // Case: The suffix of "ig/" is not empty
             Set<Grain> currentGrainsList = new TreeSet<>(recipeToEdit.getGrains());
             for (Grain grain : grainsToEdit) {
-                if (currentGrainsList.contains(grain)) {
-                    currentGrainsList.remove(grain);
-                    currentGrainsList.add(grain);
-                } else {
-                    throw new CommandException(
-                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
-                                    grain, "a grain", recipeToEdit.getName().toString()));
+                if (!currentGrainsList.contains(grain)) {
+                    throw new CommandException(String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                            grain.getIngredientName(), "a grain", recipeToEdit.getName().toString()));
                 }
+                currentGrainsList.remove(grain);
+                currentGrainsList.add(grain);
             }
-            editRecipeDescriptor.setGrains(currentGrainsList);
-        } else {
-            editRecipeDescriptor.setGrains(recipeToEdit.getGrains());
+            editedGrainSet = currentGrainsList;
+        } else if (grainsToEdit != null) { // Case: The suffix of "ig/" is empty
+            throw new CommandException(Ingredient.MESSAGE_MISSING_FIELD);
+        } else { // Case: The user did not input the grains prefix, "ig/"
+            editedGrainSet = recipeToEdit.getGrains();
         }
+        editRecipeDescriptor.setGrains(editedGrainSet);
     }
 
     /**
      * Edits the quantity of the specified {@code Vegetable} ingredient(s) in the current list of vegetables.
-     * If the specified vegetable ingredient(s) do not exist in the current list, CommandException is thrown.
+     * If the specified vegetable ingredient(s) do not exist in the current list, or if no vegetable ingredient(s) were
+     * specified but "iv/" prefix was present, CommandException is thrown.
      */
-    public void updateVegetablesList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+    private void updateVegetablesList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
             throws CommandException {
-        if (editRecipeDescriptor.getVegetables().isPresent()) {
-            Set<Vegetable> vegetablesToEdit = new TreeSet<>(editRecipeDescriptor.getVegetables().get());
+        requireNonNull(recipeToEdit);
+        requireNonNull(editRecipeDescriptor);
+
+        Set<Vegetable> editedVegetableSet;
+        Set<Vegetable> vegetablesToDelete = editRecipeDescriptor.getVegetables().orElse(null);
+        if (vegetablesToDelete != null && !vegetablesToDelete.isEmpty()) { // Case: The suffix of "iv/" is not empty
             Set<Vegetable> currentVegetablesList = new TreeSet<>(recipeToEdit.getVegetables());
-            for (Vegetable vegetable : vegetablesToEdit) {
-                if (currentVegetablesList.contains(vegetable)) {
-                    currentVegetablesList.remove(vegetable);
-                    currentVegetablesList.add(vegetable);
-                } else {
-                    throw new CommandException(
-                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
-                                    vegetable, "a vegetable", recipeToEdit.getName().toString()));
+            for (Vegetable vegetable : vegetablesToDelete) {
+                if (!currentVegetablesList.contains(vegetable)) {
+                    throw new CommandException(String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                            vegetable.getIngredientName(), "a vegetable", recipeToEdit.getName().toString()));
                 }
+                currentVegetablesList.remove(vegetable);
+                currentVegetablesList.add(vegetable);
             }
-            editRecipeDescriptor.setVegetables(currentVegetablesList);
-        } else {
-            editRecipeDescriptor.setVegetables(recipeToEdit.getVegetables());
+            editedVegetableSet = currentVegetablesList;
+        } else if (vegetablesToDelete != null) { // Case: The suffix of "iv/" is empty
+            throw new CommandException(Ingredient.MESSAGE_MISSING_FIELD);
+        } else { // Case: The user did not input the vegetables prefix, "iv/"
+            editedVegetableSet = recipeToEdit.getVegetables();
         }
+        editRecipeDescriptor.setVegetables(editedVegetableSet);
     }
 
     /**
      * Edits the quantity of the specified {@code Protein} ingredient(s) in the current list of proteins.
-     * If the specified protein ingredient(s) do not exist in the current list, CommandException is thrown.
+     * If the specified protein ingredient(s) do not exist in the current list, or if no protein ingredient(s) were
+     * specified but "ip/" prefix was present, CommandException is thrown.
      */
-    public void updateProteinsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+    private void updateProteinsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
             throws CommandException {
-        if (editRecipeDescriptor.getProteins().isPresent()) {
-            Set<Protein> proteinsToEdit = new TreeSet<>(editRecipeDescriptor.getProteins().get());
+        requireNonNull(recipeToEdit);
+        requireNonNull(editRecipeDescriptor);
+
+        Set<Protein> editedProteinSet;
+        Set<Protein> proteinsToDelete = editRecipeDescriptor.getProteins().orElse(null);
+        if (proteinsToDelete != null && !proteinsToDelete.isEmpty()) { // Case: The suffix of "ip/" is not empty
             Set<Protein> currentProteinsList = new TreeSet<>(recipeToEdit.getProteins());
-            for (Protein protein : proteinsToEdit) {
-                if (currentProteinsList.contains(protein)) {
-                    currentProteinsList.remove(protein);
-                    currentProteinsList.add(protein);
-                } else {
-                    throw new CommandException(
-                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
-                                    protein, "a protein", recipeToEdit.getName().toString()));
+            for (Protein protein : proteinsToDelete) {
+                if (!currentProteinsList.contains(protein)) {
+                    throw new CommandException(String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                            protein.getIngredientName(), "a protein", recipeToEdit.getName().toString()));
                 }
+                currentProteinsList.remove(protein);
+                currentProteinsList.add(protein);
             }
-            editRecipeDescriptor.setProteins(currentProteinsList);
-        } else {
-            editRecipeDescriptor.setProteins(recipeToEdit.getProteins());
+            editedProteinSet = currentProteinsList;
+        } else if (proteinsToDelete != null) { // Case: The suffix of "ip/" is empty
+            throw new CommandException(Ingredient.MESSAGE_MISSING_FIELD);
+        } else { // Case: The user did not input the proteins prefix, "ip/"
+            editedProteinSet = recipeToEdit.getProteins();
         }
+        editRecipeDescriptor.setProteins(editedProteinSet);
     }
 
     /**
      * Edits the quantity of the specified {@code Fruit} ingredient(s) in the current list of fruits.
-     * If the specified fruit ingredient(s) do not exist in the current list, CommandException is thrown.
+     * If the specified fruit ingredient(s) do not exist in the current list, or if no fruit ingredient(s) were
+     * specified but "if/" prefix was present, CommandException is thrown.
      */
-    public void updateFruitsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+    private void updateFruitsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
             throws CommandException {
-        if (editRecipeDescriptor.getFruits().isPresent()) {
-            Set<Fruit> fruitsToEdit = new TreeSet<>(editRecipeDescriptor.getFruits().get());
+        requireNonNull(recipeToEdit);
+        requireNonNull(editRecipeDescriptor);
+
+        Set<Fruit> editedFruitSet;
+        Set<Fruit> fruitsToDelete = editRecipeDescriptor.getFruits().orElse(null);
+        if (fruitsToDelete != null && !fruitsToDelete.isEmpty()) { // Case: The suffix of "if/" is not empty
             Set<Fruit> currentFruitsList = new TreeSet<>(recipeToEdit.getFruits());
-            for (Fruit fruit : fruitsToEdit) {
-                if (currentFruitsList.contains(fruit)) {
-                    currentFruitsList.remove(fruit);
-                    currentFruitsList.add(fruit);
-                } else {
-                    throw new CommandException(
-                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
-                                    fruit, "a fruit", recipeToEdit.getName().toString()));
+            for (Fruit fruit : fruitsToDelete) {
+                if (!currentFruitsList.contains(fruit)) {
+                    throw new CommandException(String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                            fruit.getIngredientName(), "a fruit", recipeToEdit.getName().toString()));
                 }
+                currentFruitsList.remove(fruit);
+                currentFruitsList.add(fruit);
             }
-            editRecipeDescriptor.setFruits(currentFruitsList);
-        } else {
-            editRecipeDescriptor.setFruits(recipeToEdit.getFruits());
+            editedFruitSet = currentFruitsList;
+        } else if (fruitsToDelete != null) { // Case: The suffix of "if/" is empty
+            throw new CommandException(Ingredient.MESSAGE_MISSING_FIELD);
+        } else { // Case: The user did not input the fruits prefix, "if/"
+            editedFruitSet = recipeToEdit.getFruits();
         }
+        editRecipeDescriptor.setFruits(editedFruitSet);
     }
 
     /**
      * Edits the quantity of the specified {@code Other} ingredient(s) in the current list of other ingredients.
-     * If the specified other ingredient(s) do not exist in the current list, CommandException is thrown.
+     * If the specified others ingredient(s) do not exist in the current list, or if no others ingredient(s) were
+     * specified but "io/" prefix was present, CommandException is thrown.
      */
-    public void updateOthersList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor)
+    private void updateOthersList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
             throws CommandException {
-        if (editRecipeDescriptor.getOthers().isPresent()) {
-            Set<Other> othersToEdit = new TreeSet<>(editRecipeDescriptor.getOthers().get());
+        requireNonNull(recipeToEdit);
+        requireNonNull(editRecipeDescriptor);
+
+        Set<Other> editedOtherSet;
+        Set<Other> othersToDelete = editRecipeDescriptor.getOthers().orElse(null);
+        if (othersToDelete != null && !othersToDelete.isEmpty()) { // Case: The suffix of "io/" is not empty
             Set<Other> currentOthersList = new TreeSet<>(recipeToEdit.getOthers());
-            for (Other other : othersToEdit) {
-                if (currentOthersList.contains(other)) {
-                    currentOthersList.remove(other);
-                    currentOthersList.add(other);
-                } else {
-                    throw new CommandException(
-                            String.format(MESSAGE_NO_SUCH_INGREDIENT,
-                                    other, "an 'other'", recipeToEdit.getName().toString()));
+            for (Other other : othersToDelete) {
+                if (!currentOthersList.contains(other)) {
+                    throw new CommandException(String.format(MESSAGE_NO_SUCH_INGREDIENT,
+                            other.getIngredientName(), "an 'other'", recipeToEdit.getName().toString()));
                 }
+                currentOthersList.remove(other);
+                currentOthersList.add(other);
             }
-            editRecipeDescriptor.setOthers(currentOthersList);
-        } else {
-            editRecipeDescriptor.setOthers(recipeToEdit.getOthers());
+            editedOtherSet = currentOthersList;
+        } else if (othersToDelete != null) { // Case: The suffix of "io/" is empty
+            throw new CommandException(Ingredient.MESSAGE_MISSING_FIELD);
+        } else { // Case: The user did not input the others prefix, "io/"
+            editedOtherSet = recipeToEdit.getOthers();
         }
+        editRecipeDescriptor.setOthers(editedOtherSet);
     }
 
     @Override

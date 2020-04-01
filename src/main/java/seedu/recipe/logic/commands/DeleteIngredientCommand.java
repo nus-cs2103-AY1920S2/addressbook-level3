@@ -47,7 +47,7 @@ public class DeleteIngredientCommand extends Command {
             + PREFIX_INGREDIENT_VEGE + "Lettuce "
             + PREFIX_INGREDIENT_OTHER + "Honeydew";
 
-    public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully deleted ingredient(s) from %1$s!";
+    public static final String MESSAGE_DELETE_INGREDIENTS_SUCCESS = "Successfully deleted ingredient(s) from %1$s!";
     public static final String MESSAGE_DELETING_TOO_MANY_INGREDIENTS = "Attempting to delete all ingredients or "
             + "more ingredients than %1$s has. Ingredients list cannot be empty!";
     public static final String MESSAGE_NO_SUCH_INGREDIENT = "%1$s is either not %2$s ingredient "
@@ -93,7 +93,7 @@ public class DeleteIngredientCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.commitRecipeBook();
 
-        return new CommandResult(String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
+        return new CommandResult(String.format(MESSAGE_DELETE_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
     }
 
     /**
@@ -263,15 +263,15 @@ public class DeleteIngredientCommand extends Command {
         Set<Other> editedOtherSet;
         Set<Other> othersToDelete = editRecipeDescriptor.getOthers().orElse(null);
         if (othersToDelete != null && !othersToDelete.isEmpty()) { // Case: The suffix of "io/" is not empty
-            Set<Other> currentFruitsList = new TreeSet<>(recipeToEdit.getOthers());
+            Set<Other> currentOthersList = new TreeSet<>(recipeToEdit.getOthers());
             for (Other other : othersToDelete) {
-                if (!currentFruitsList.contains(other)) {
+                if (!currentOthersList.contains(other)) {
                     throw new CommandException(String.format(MESSAGE_NO_SUCH_INGREDIENT,
                             other, "an 'other'", recipeToEdit.getName().toString()));
                 }
-                currentFruitsList.remove(other);
+                currentOthersList.remove(other);
             }
-            editedOtherSet = currentFruitsList;
+            editedOtherSet = currentOthersList;
         } else if (othersToDelete != null) { // Case: The suffix of "io/" is empty
             editedOtherSet = new TreeSet<>();
         } else { // Case: The user did not input the others prefix, "io/"

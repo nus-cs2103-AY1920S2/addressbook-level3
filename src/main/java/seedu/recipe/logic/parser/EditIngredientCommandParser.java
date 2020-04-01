@@ -48,13 +48,7 @@ public class EditIngredientCommandParser implements Parser<EditIngredientCommand
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
                         PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT, PREFIX_INGREDIENT_OTHER);
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIngredientCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());;
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
 
