@@ -191,7 +191,7 @@ This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divi
 into three different views - the *Student View*, the *Session View* and the *Claims View*.
 
 === Student View
-Under the students tab, the Student View is used to show you the students that you're teaching. The students
+Under the student tab, the Student View is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The Student View has been divided into
 three sections.
 
