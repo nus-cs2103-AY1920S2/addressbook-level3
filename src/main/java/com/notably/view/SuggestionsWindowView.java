@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.notably.model.suggestion.SuggestionItem;
 
+import javafx.beans.Observable;
 import javafx.beans.property.Property;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -57,15 +58,14 @@ public class SuggestionsWindowView extends ViewPart<Region> {
             }
         });
 
-        suggestionsList.addListener((ListChangeListener<SuggestionItem>) (listener -> {
+        suggestionsList.addListener((Observable observable) -> {
             suggestionsListPanel.setPrefHeight(suggestionsList.size() * LIST_CELL_HEIGHT + 2);
             if (suggestionsList.size() == 0) {
                 setSuggestionsListRenderingStatus(false);
             } else {
                 setSuggestionsListRenderingStatus(true);
-
             }
-        }));
+        });
     }
 
     private void initializeSuggestionsList(ObservableList<SuggestionItem> suggestionsList) {
