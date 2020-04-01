@@ -2,6 +2,7 @@ package cookbuddy.ui;
 
 import java.util.logging.Logger;
 
+
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
@@ -42,5 +43,4 @@ public class RecipeListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
