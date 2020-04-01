@@ -378,10 +378,20 @@
 }
 
 #activityPane {
-    -fx-background-color: #C7CEEA;
+
     -fx-border-width: 0;
     -fx-background-radius: 15;
     -fx-padding: 10px;
+}
+
+.list-cell:odd #activityPane {
+    -fx-background-color: #C7CEEA;
+
+}
+
+.list-cell:even #activityPane {
+    -fx-background-color:  #B9D6F3;
+
 }
 
 #activityListView {
