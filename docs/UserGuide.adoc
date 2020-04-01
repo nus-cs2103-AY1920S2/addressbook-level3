@@ -67,8 +67,6 @@ Listed below are the notations used to define a relative path.
 * `..` (Move to parent note)
 * `exampleNote` (Move to child node titled "exampleNote")
 
-
-
 [NOTE]
 The title of a Note can take in alphanumeric variables and spaces.
 
