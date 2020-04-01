@@ -106,7 +106,7 @@ You can add a new recipe to *CookBuddy* using the `new` command.
 [NOTE]
 Parameters in *bold* indicate they are mandatory.
 
-Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] *p/PATH* [cal/CALORIES] [s/SERVING_SIZE]
+Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [p/PATH] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]`
 
 
@@ -115,14 +115,14 @@ Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ..
     * `n/` - *name*
     * `ing/` - *ingredients*
     * `ins/` - *instructions*
-	* `p`   - *path*
+	* `p/`   - path (absolute path of the image)
     * `cal/` - calories (in kcal)
     * `s/` - serving size (any number greater than 0)
     * `r/` - rating (scale of 0 to 5)
     * `d/` - difficulty (scale of 0 to 5)
     * `t/` - tags (separated by commas)
 
-Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt p/C:\Users\zain_\Downloads\friedrice.jpg` into *CookBuddy*, and a new recipe with the following attributes will be added:
+Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt` into *CookBuddy*, and a new recipe with the following attributes will be added:
 
     * Name: Fried Rice
     * Ingredients:
@@ -144,7 +144,7 @@ Example: You can type `delete 1` and *CookBuddy* will delete the recipe at index
 === Modifying a recipe — `modify`
 You can modify the attributes of an existing recipe in *CookBuddy* using the `modify` command.
 
-Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [cal/CALORIES] [s/SERVING_SIZE]
+Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [p/PATH] [cal/CALORIES] [s/SERVING_SIZE]
 [r/RATING] [t/TAG [, ...]]`
 
 ==== Modifying a recipe's ingredients
