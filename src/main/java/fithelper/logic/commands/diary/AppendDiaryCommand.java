@@ -97,7 +97,7 @@ public class AppendDiaryCommand extends Command {
      * Creates and returns a {@code Diary} with the details of {@code diaryToAppend}
      * appended with {@code appendDiaryDescriptor}.
      */
-    private static Diary createAppendedDiary(Diary prevDiary, String diaryId, 
+    private static Diary createAppendedDiary(Diary prevDiary, String diaryId,
                                              AppendDiaryDescriptor appendDiaryDescriptor) {
         assert diaryId != null;
         assert prevDiary.getDiaryDate().toString()

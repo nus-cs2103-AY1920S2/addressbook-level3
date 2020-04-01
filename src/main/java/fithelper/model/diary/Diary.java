@@ -2,8 +2,8 @@ package fithelper.model.diary;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.logging.Logger;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.diary.DeleteDiaryCommand;
