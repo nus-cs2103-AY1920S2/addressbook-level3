@@ -361,6 +361,16 @@ This is a passive feature. Relaunch the window to get the updated information.
 
 image::TopSellingProducts.png[align="center"]
 
+=== View the product sales and quantity histogram.
+
+Displays and updates the histogram of product sales and quantity. +
+
+[NOTE]
+This is a passive feature. Relaunch the histogram window to udpate the plot.
+`F3` key is the short cut for launch/relaunch the window.
+
+image::ViewInventory.png[align="center"]
+
 === Get the revenue made in a certain period : `revenue`
 
 Gets the revenue made in a selected period. +
@@ -434,7 +444,11 @@ Format: `predict`
 === Plotting sales: `plotsales`.
 
 Plot a graph with the sales of the selected product in the past week. +
-Format: `plotsales PRODUCT_INDEX`
+Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
+
+[NOTE]
+The start date and end date attributes are optional. If omitted, the system
+will plot the last 7 days by default.
 
 image::SalesPlot.png[align="center"]
 
