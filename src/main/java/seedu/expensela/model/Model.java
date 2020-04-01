@@ -95,8 +95,8 @@ public interface Model {
 
     Filter getFilter();
 
-    public void setFilter(Filter filter);
-  
+    void setFilter(Filter filter);
+
     /** Returns a view of toggle list or chart object */
     ToggleView getToggleView();
 

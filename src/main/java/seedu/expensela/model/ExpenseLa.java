@@ -2,10 +2,13 @@ package seedu.expensela.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.expensela.model.monthlydata.MonthlyData;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.TransactionList;
 
@@ -27,7 +30,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      *   among constructors.
      */
     {
-        filter = new Filter(null, "2020-02");
+        String date = LocalDate.now().toString().substring(0, 7);
+        filter = new Filter(null, new DateEqualsKeywordPredicate(Arrays.asList(date)));
         monthlyData = new MonthlyData(null, null, null, null);
         transactions = new TransactionList();
         toggleView = new ToggleView();
@@ -60,8 +64,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     }
 
     public void setFilter(Filter filter) {
-        this.filter.setFilterCategoryName(filter.getFilterCategoryName());
-        this.filter.setDateMonth(filter.getDateMonth());
+        this.filter.setFilterCategoryName(filter.getCategoryNamePredicate());
+        this.filter.setDateMonth(filter.getDateMonthPredicate());
     }
 
     /**
@@ -72,6 +76,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
 
         setTransactions(newData.getTransactionList());
         setMonthlyData(newData.getMonthlyData());
+        setFilter(newData.getFilter());
     }
 
     //// transaction-level operations

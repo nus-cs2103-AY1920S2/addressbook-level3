@@ -18,4 +18,6 @@ public interface ReadOnlyExpenseLa {
     MonthlyData getMonthlyData();
 
     ToggleView getToggleView();
+
+    Filter getFilter();
 }

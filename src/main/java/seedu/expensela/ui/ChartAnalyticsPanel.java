@@ -42,10 +42,10 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
      */
     private void graphByWeek(ObservableList<Transaction> transactionList) {
         xAxis.setLabel("Day");
-        xAxis.getCategories().addAll("Week 1", "Week 2", "Week 3", "Week 4");
+        xAxis.getCategories().addAll("Week 1", "Week 2", "Week 3", "Week 4", "Week 5");
         yAxis.setLabel("Spent");
 
-        double[][] spentByWeekAndDay = new double[4][7];
+        double[][] spentByWeekAndDay = new double[5][7];
 
         for (Transaction transaction : transactionList) {
             Amount amount = transaction.getAmount();
@@ -92,6 +92,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
         seriesWeek3.setName("Week 3");
         XYChart.Series<String, Number> seriesWeek4 = new XYChart.Series();
         seriesWeek4.setName("Week 4");
+        XYChart.Series<String, Number> seriesWeek5 = new XYChart.Series();
+        seriesWeek5.setName("Week 5");
 
         String[] dayOfWeek = {"MON", "TUES", "WED", "THURS", "FRI", "SAT", "SUN"};
         for (int i = 0; i < 7; i++) {
@@ -99,7 +101,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
             seriesWeek2.getData().add(new XYChart.Data(dayOfWeek[i], spentByWeekAndDay[1][i]));
             seriesWeek3.getData().add(new XYChart.Data(dayOfWeek[i], spentByWeekAndDay[2][i]));
             seriesWeek4.getData().add(new XYChart.Data(dayOfWeek[i], spentByWeekAndDay[3][i]));
+            seriesWeek5.getData().add(new XYChart.Data(dayOfWeek[i], spentByWeekAndDay[4][i]));
         }
-        stackedBarChart.getData().addAll(seriesWeek1, seriesWeek2, seriesWeek3, seriesWeek4);
+        stackedBarChart.getData().addAll(seriesWeek1, seriesWeek2, seriesWeek3, seriesWeek4, seriesWeek5);
     }
 }

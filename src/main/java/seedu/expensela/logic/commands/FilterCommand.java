@@ -22,7 +22,7 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions whose category/date is of "
             + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD\n"
-            + "Example: " + COMMAND_WORD + " GROCERIES";
+            + "Example: " + COMMAND_WORD + " c/GROCERIES m/2020-03";
 
     private final Predicate<Transaction> categoryPredicate;
     private final Predicate<Transaction> datePredicate;
@@ -35,8 +35,7 @@ public class FilterCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredTransactionList(categoryPredicate, datePredicate);
-        model.setFilter(new Filter(categoryPredicate.toString(), datePredicate.toString()));
+        model.setFilter(new Filter(categoryPredicate, datePredicate));
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
