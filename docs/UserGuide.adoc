@@ -66,10 +66,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`diet`* : enters the Diet Tracker component of EYLAH.
+* `diet` : enters the Diet Tracker component of EYLAH.
 * `help` : shows the list of commands you can execute at each page.
 * `split` : enters the Expense Splitter segment of EYLAH.
-* *`exit`* : exits the app
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -93,10 +93,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 | <<paid, paid>>
 |
 
+| <<donereceipt, donereceipt>>
+|
+
+| <<clearreceipt, clearreceipt>>
+|
+
 | <<help, help>>
 |
 
-| <<show, back>>
+| <<back, back>>
 |
 
 |===
@@ -104,10 +110,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `additem -i ITEM -p PRICE -n NAME`. `NAME`, `ITEM` and
-`PRICE` are parameters which can decided by the user `additem -i beer tower -p 19.90 -n charlotte`.
-* Items in square brackets are optional e.g `-n NAME [-r ROOM]` thus it can be used as `-n John Doe -r D411` or as `-n John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[-n NAME]...` can be used as `{nbsp}`
+* Words in `UPPER_CASE` are the parameters are compulsory and have to be supplied by the user,
+e.g: in `additem -i ITEM -p PRICE -n NAME`.
+`NAME`, `ITEM` and `PRICE` are parameters which can decided by the user ,
+e.g:`additem -i beer tower -p 19.90 -n charlotte`.
+* Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
+`paid 1 3.90`.
+* Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
 (i.e. 0 times), `-n charlotte`, `-n John Doe -n Daniel` etc.
 * Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
@@ -262,7 +271,7 @@ Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
 [[deleteitem]]
-==== Delete item  `deleteitem`
+==== Delete item `deleteitem`
 
 Delete the item(s) in a receipt:
 
@@ -290,7 +299,7 @@ Example: +
 [[listamount]]
 ==== List amounts owed `listamount`
 
-Display all the person(s) and the amount they owe.
+You can display all the person(s) and the amount they owe you.
 
 Format: +
 `listamount` +
@@ -318,15 +327,64 @@ Example: +
 
 [NOTE]
 ====
-* The person will automatically be removed from the list if the amount owed is $0. +
+* You will only be able to use this command after you have marked the receipt as done using the
+`donereceipt` command.
+* The person will automatically be removed from the list if the amount owed is $0.
 * Price can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
-* When a Person owes $0 he/she will be automatically deleted from PersonList.
 ====
+
+[[donereceipt]]
+==== Mark receipt as done `donereceipt`
+
+Use this command to mark the receipt as done when you have completed entering all the items.
+
+Format: +
+`donereceipt`
+
+Example: +
+`donereceipt`
+
+[NOTE]
+====
+* Use this command only after you are sure you do not have to make any other changes.
+* After you use this command, you will be unable to add any new items using the `additem` command
+or delete any items using the `deleteitem` command.
+* However, you are now able to use the `paid` command.
+====
+
+[[clearreceipt]]
+==== Clears the receipt `clearreceipt`
+
+Use this command when you want to clear the receipt and start a new receipt.
+
+Format: +
+`clearreceipt`
+
+Example: +
+`clearreceipt`
+
+[NOTE]
+====
+* After you use this command, you will be able to add new items by using the `additem` command
+and delete items using the `deleteitem` command.
+* However, you will be unable to use the `paid` command.
+====
+
+[[help]]
+==== Display the available commands `help`
+
+Use this command to view the available commands.
+
+Format: +
+`help`
+
+Example: +
+`help`
 
 [[back]]
 ==== Exiting split to go back to main menu `back`
 
-Exits `split` mode to go back to the main menu of the application.
+You can exits `split` mode to go back to the main menu of the application.
 
 Format: +
 `back`
@@ -382,7 +440,7 @@ or +
 `insert` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
 
 |<<deleteitem, *Delete Item*>>
-|`deleitem` `INDEX`
+|`deleteitem` `INDEX`
 |`deleteitem` `1` +
 `deleteitem` `2`
 
@@ -393,6 +451,14 @@ or +
 |<<listamount, *List Amount*>>
 |`listamount`
 |`listamount`
+
+|<<donereceipt, *Done Receipt*>>
+|`donereceipt`
+|`donereceipt`
+
+|<<clearreceipt, *Clear Receipt*>>
+|`clearreceipt`
+|`clearreceipt`
 
 |<<paid, *Paid*>>
 |`paid` `INDEX` `[AMOUNT]`
@@ -405,12 +471,6 @@ or +
 |<<exit, *Exit*>>
 |`exit`
 |`exit`
-
-|<<donereceipt, *Done Receipt*>>
-|`search`
-|`search` `-r` `tid/ac1e345x7s` +
-
-
 
 `search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
 

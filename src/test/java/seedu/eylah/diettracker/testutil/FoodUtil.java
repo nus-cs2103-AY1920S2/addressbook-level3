@@ -1,5 +1,6 @@
 package seedu.eylah.diettracker.testutil;
 
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -28,6 +29,7 @@ public class FoodUtil {
     public static String getFoodDetails(Food food) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + food.getName().name + " ");
+        sb.append(PREFIX_CALORIES + food.getCalories().toString() + " ");
         food.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -40,6 +42,8 @@ public class FoodUtil {
     public static String getEditFoodDescriptorDetails(EditFoodDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
+        descriptor.getCalories().ifPresent(
+            calories -> sb.append(PREFIX_CALORIES).append(calories.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
