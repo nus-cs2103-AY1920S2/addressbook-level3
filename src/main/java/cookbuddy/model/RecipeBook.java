@@ -1,12 +1,12 @@
 package cookbuddy.model;
 
-import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.UniqueRecipeList;
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.UniqueRecipeList;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the recipe-book level
