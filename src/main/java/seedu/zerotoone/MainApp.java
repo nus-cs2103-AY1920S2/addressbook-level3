@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.Config;
 import seedu.zerotoone.commons.core.LogsCenter;
