@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import cookbuddy.MainApp;
 import cookbuddy.commons.core.LogsCenter;
-import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.Logic;
 import cookbuddy.model.recipe.Recipe;
