@@ -17,7 +17,11 @@ import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.RedoCommand;
 import nasa.logic.commands.RepeatCommand;
+<<<<<<< HEAD
 import nasa.logic.commands.SortCommand;
+=======
+import nasa.logic.commands.StatisticsCommand;
+>>>>>>> 9c69b19a7394e5fc47b93670194cec01782bb5f3
 import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
@@ -96,8 +100,15 @@ public class NasaBookParser {
         case RepeatCommand.COMMAND_WORD:
             return new RepeatActivityCommandParser().parse(arguments);
 
+<<<<<<< HEAD
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+=======
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommandParser().parse(arguments);
+
+
+>>>>>>> 9c69b19a7394e5fc47b93670194cec01782bb5f3
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -8,6 +8,7 @@ import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;

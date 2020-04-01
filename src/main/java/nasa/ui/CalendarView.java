@@ -20,8 +20,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
 import javafx.scene.paint.Color;
+
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
@@ -106,7 +106,7 @@ public class CalendarView extends UiPart<Region> {
             day.setText(DayOfWeek.of(i).getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
             day.setTextFill(Color.WHITE);
             dayHeader.getChildren().add(day);
-            dayHeader.getStyleClass().add("calendar_grid");
+            dayHeader.getStyleClass().add("calendarGrid");
             calendarGrid.add(dayHeader, i - 1, 0);
         }
     }
@@ -133,7 +133,6 @@ public class CalendarView extends UiPart<Region> {
             VBox dateContent = new VBox();
             GridPane.setVgrow(dateContent, Priority.ALWAYS);
             dateContent.setId(Integer.toString(currentDate));
-            dateContent.getStyleClass().add("calendar_grid");
             if (i < nullDays) {
                 // not in current month, set to black color
                 dateContent.setStyle("-fx-background-color:black");
@@ -156,7 +155,6 @@ public class CalendarView extends UiPart<Region> {
                 VBox dateContent = new VBox();
                 GridPane.setVgrow(dateContent, Priority.ALWAYS);
                 dateContent.setId(Integer.toString(currentDate));
-                dateContent.getStyleClass().add("calendar_grid");
 
                 // check if current grid is still within the month
                 if (currentDate <= totalDaysInMonth) {
