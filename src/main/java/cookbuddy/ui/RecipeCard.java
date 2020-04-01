@@ -42,6 +42,8 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label fav;
     @FXML
+    private Label done;
+    @FXML
     private Label serving;
     @FXML
     private Label rating;
@@ -60,6 +62,7 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
         fav.setText(recipe.getFavStatus().toString());
+        done.setText("Attempted: " + recipe.getDoneStatus().toString());
         serving.setText(recipe.getServing().toString());
         rating.setText(recipe.getRating().toString());
         diff.setText("Difficulty: " + recipe.getDifficulty().toString());

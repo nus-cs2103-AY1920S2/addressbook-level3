@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="cardPane" alignment="CENTER_LEFT" minWidth="174.0" prefHeight="112.0" prefWidth="174.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="cardPane" alignment="CENTER_LEFT" minWidth="174.0" prefHeight="150.0" prefWidth="174.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <!--was originally minHeight = 105.0 -->
 <padding>
   <Insets bottom="5" left="15" right="5" top="5" />
@@ -27,6 +27,12 @@
       <Label fx:id="rating" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="\$rating" />
       <FlowPane fx:id="tags" stylesheets="@DarkTheme.css" />
       <Label fx:id="fav" styleClass="cell_icon_label" text="\$fav">
+         <stylesheets>
+            <URL value="@Extensions.css" />
+            <URL value="@DarkTheme.css" />
+         </stylesheets>
+      </Label>
+      <Label fx:id="done" styleClass="cell_small_label" text="\$done">
          <stylesheets>
             <URL value="@Extensions.css" />
             <URL value="@DarkTheme.css" />
