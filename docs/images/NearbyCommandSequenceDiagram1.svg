@@ -104,7 +104,7 @@ deactivate NearbyCommandUtil
 NearbyCommand -> NearbyCommand: showPostalSectors(model)
 activate NearbyCommand
 NearbyCommand -> Model : updateFilteredOrderList(orderPredicate)
-activate Model 
+activate Model
 Model - -> NearbyCommand
 deactivate Model
 NearbyCommand - -> NearbyCommand:
