@@ -5,10 +5,10 @@
       "time" : "50",
       "isFavourite" : true,
       "grains" : [ "0.5cup,  small pieces of broken spaghetti" ],
-      "vegetables" : [ "2.0tbsp,  chives (chopped)", "50.0g,  small onion (chopped)" ],
-      "proteins" : [ "2.5cup,  low-sodium chicken broth" ],
+      "vegetables" : [ ],
+      "proteins" : [ ],
       "fruits" : [ ],
-      "others" : [ "1.0cup,  hulled barley", "10.0g,  Salt & Pepper", "1.0tbsp,  unsalted butter" ],
+      "others" : [ ],
       "steps" : [ "Melt butter in saucepan over medium heat. Add onion and cook until soft and light golden brown.", "Add barley and stir until grains are coated in butter.", "Add broth and 0.5 tsp salt, bring to a boil.", "Reduce heat to medium low, cover, and simmer for 20mins.", "Uncover and quickly stir in spaghetti. Cover and continue to simmer, stirring occasionally.", "Once most liquid is absorbed and barley and spaghetti are tender, remove from hit and let sit.", "Season to taste with salt and pepper and sprinkle with chopped chives." ],
       "goals" : [ "Wholesome Wholemeal" ]
     },
