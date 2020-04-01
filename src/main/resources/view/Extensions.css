@@ -127,3 +127,14 @@
 .text-area .scroll-pane .content{
   -fx-background-color: transparent;
 }
+
+/* Styles for Summary Tab */
+#summary-tab {
+  -fx-background-color: #46998F;
+  -fx-background-radius: 10;
+  -fx-background-insets: 4 8 5 8;
+}
+
+#summary-tab #all-saveables {
+  -fx-background-color: #75be86;
+}

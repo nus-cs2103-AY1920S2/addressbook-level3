@@ -1,9 +1,8 @@
 package csdev.couponstash.ui;
 
-import java.time.LocalDate;
-
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +11,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * Savings summary of CouponStash.
@@ -20,6 +20,7 @@ public class SummaryTab extends UiPart<Region> {
     private static final String FXML = "SummaryTab.fxml";
 
     private static final String SAVED_TOTAL_PRE_MESSAGE = "You saved a total of ";
+    private static final String SAVEABLES_PRE_MESSAGE = "And these saveables too!";
 
     // Independent Ui parts residing in this Ui container
     private ObservableList<Coupon> allCoupons;
@@ -31,11 +32,15 @@ public class SummaryTab extends UiPart<Region> {
     @FXML
     private Label numericalAmount;
     @FXML
+    private Label saveablesText;
+    @FXML
     private BarChart<String, Number> savingsChart;
     @FXML
     private NumberAxis savingsAxis;
     @FXML
     private CategoryAxis daysAxis;
+    @FXML
+    private VBox allSaveables;
 
 
     public SummaryTab(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
@@ -43,14 +48,25 @@ public class SummaryTab extends UiPart<Region> {
         this.allCoupons = allCoupons;
         this.moneySymbol = moneySymbol;
         savedText.setText(SummaryTab.SAVED_TOTAL_PRE_MESSAGE);
+        saveablesText.setText(SummaryTab.SAVEABLES_PRE_MESSAGE);
         this.updateView();
     }
 
     public void updateView() {
         // set the graph
 
-
+        // set saveables
+        addToSaveables(allCoupons.get(0).getTotalSavings());
         // set the total amount
         this.numericalAmount.setText(this.moneySymbol.getString());
+    }
+
+    private void addToSaveables(PureMonetarySavings savingsSum) {
+        savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList.stream()
+                .forEach(sva -> {
+                    Label label = new Label(sva.getValue());
+                    System.out.println(label);
+                    allSaveables.getChildren().add(label);
+                }));
     }
 }

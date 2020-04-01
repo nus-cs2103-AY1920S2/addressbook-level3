@@ -8,17 +8,25 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.CategoryAxis?>
 
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-  <VBox style="-fx-background-color: #46998F; -fx-background-radius: 10; -fx-background-insets: 4 8 5 8;" minHeight="300">
-    <Label id="savedText" fx:id="savedText" />
-    <Label id="numericalAmount" fx:id="numericalAmount" />
-    <BarChart id="savingsChart" fx:id="savingsChart">
-      <xAxis>
-        <CategoryAxis id="daysAxis" fx:id="daysAxis" />
-      </xAxis>
-      <yAxis>
-        <NumberAxis id="savingsAxis" fx:id="savingsAxis" />
-      </yAxis>
-    </BarChart>
+  <VBox id="summary-tab" minHeight="300">
+    <Label id="saved-text" fx:id="savedText" />
+    <Label id="numerical-amount" fx:id="numericalAmount" />
+    <HBox>
+      <BarChart id="savings-chart" fx:id="savingsChart">
+        <xAxis>
+          <CategoryAxis id="days-axis" fx:id="daysAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis id="savings-axis" fx:id="savingsAxis" />
+        </yAxis>
+      </BarChart>
+      <VBox>
+        <Label id="saveables-text" fx:id="saveablesText" />
+        <VBox id="all-saveables"  fx:id="allSaveables" />
+      </VBox>
+    </HBox>
   </VBox>
 </StackPane>
