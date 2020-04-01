@@ -54,18 +54,22 @@ activate NearbyCommand
 NearbyCommand --> NearbyCommand: true
 deactivate NearbyCommand
 
+NearbyCommand -> NearbyCommand: getPostalSectorCommandResult(model)
+activate NearbyCommand
+
 NearbyCommand -> NearbyCommandUtil: isValidPostalSector(14)
 activate NearbyCommandUtil
 NearbyCommandUtil --> NearbyCommand: true
 deactivate NearbyCommandUtil
 
-NearbyCommand -> NearbyCommand: showPostalSectors(model, postalSector)
-
-NearbyCommand -> NearbyCommand: getPostalSectorPredicate()
+NearbyCommand -> NearbyCommand: showPostalSectors(model)
 activate NearbyCommand
-NearbyCommand --> NearbyCommand: orderPredicate
+NearbyCommand -> Model : updateFilteredOrderList(orderPredicate)
+activate Model
+Model --> NearbyCommand
+deactivate Model
+NearbyCommand --> NearbyCommand:
 deactivate NearbyCommand
-NearbyCommand -> Model: updateFilteredOrderList(orderPredicate)
 
 create CommandResult
 NearbyCommand -> CommandResult
@@ -75,10 +79,9 @@ CommandResult --> NearbyCommand: result
 deactivate CommandResult
 NearbyCommand --> NearbyCommand: result
 deactivate NearbyCommand
-
 NearbyCommand --> LogicManager : result
 deactivate NearbyCommand
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml
