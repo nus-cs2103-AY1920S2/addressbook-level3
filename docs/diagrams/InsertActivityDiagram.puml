@@ -1,0 +1,25 @@
+@startuml
+start
+:User enters Insert Command;
+:LogicManager parse command to OrderBookParser;
+:OrderBookParser parse command to InsertCommandParser;
+
+If () then ([Command has missing compulsory prefixes])
+    :Throws ParseException;
+
+    else ([Command is valid])
+        :Creates a new InsertCommand Object;
+        :LogicManager calls the execute method InsertCommand object;
+
+    If () then ([Order is duplicate])
+    :Throws CommandException;
+
+    else ([Order is unique])
+        :Adds Order to OrderBook;
+        :Returns CommandResult object to LogicManager;
+        :LogicManager uses the object to
+        prints result to user;
+        endif
+        endif
+stop
+@enduml

@@ -19,22 +19,32 @@ abstract class "{abstract}\nCommand" {
     + {abstract} execute(model : Model) : CommandResult
 }
 
+class Model <<Interface>> {
+    + setOrderBook(orderBook : ReadOnlyOrderBook) : void
+    + setReturnOrderBook(returnOrderBook : ReadOnlyReturnOrderBook) : void
+}
+
+ClearCommandParser ..> ClearCommand
+Model ..> ReadOnlyOrderBook
+Model ..> ReadOnlyReturnOrderBook
+
+class ReadOnlyOrderBook {
+    + getOrderList() : ObservableList<Order>
+}
+
+class ReadOnlyReturnOrderBook {
+    + getReturnOrderList() : ObservableList<ReturnOrder>
+}
+
 class ClearCommand {
     /' Fields '/
-    + {static} COMMAND_WORD : String
-    + {static} MESSAGE_USAGE : String
-    + {static} MESSAGE_SUCCESS_ORDER_BOOK : String
-    + {static} MESSAGE_SUCCESS_RETURN_BOOK : String
-    + {static} MESSAGE_SUCCESS_BOTH_BOOK : String
-    + {static} MESSAGE_ENQUIRY_BOTH_BOOK : String
-    + {static} MESSAGE_ENQUIRY_ORDER_BOOK : String
-    + {static} MESSAGE_ENQUIRY_RETURN_BOOK : String
     - flags : HashSet<String>
 
     /' Methods '/
     + execute(model : Model) : CommandResult
-    + equals(other : Object) : boolean
     - updateModel(model : Model) : CommandResult
 }
+
+ClearCommand ..> Model
 ClearCommand --up|> "{abstract}\nCommand"
 @enduml

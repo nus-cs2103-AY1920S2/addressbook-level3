@@ -54,12 +54,15 @@ activate DistrictInfo
 DistrictInfo --> NearbyCommand: true
 deactivate DistrictInfo
 
-NearbyCommand -> NearbyCommand: getAreaPredicate()
+NearbyCommand -> NearbyCommand : getAreaCommandResult(model)
 activate NearbyCommand
-NearbyCommand --> NearbyCommand: orderPredicate
+NearbyCommand -> NearbyCommand : showArea(model)
+activate NearbyCommand
+NearbyCommand -> Model++ : updateFilteredOrderList(orderPredicate)
+Model --> NearbyCommand
+deactivate Model
+NearbyCommand --> NearbyCommand
 deactivate NearbyCommand
-
-NearbyCommand -> Model: updateFilteredOrderList(orderPredicate)
 
 create CommandResult
 NearbyCommand -> CommandResult
@@ -67,10 +70,12 @@ activate CommandResult
 
 CommandResult --> NearbyCommand: result
 deactivate CommandResult
+NearbyCommand --> NearbyCommand: result
+deactivate NearbyCommand
 
 NearbyCommand --> LogicManager : result
 deactivate NearbyCommand
 
-[<--LogicManager
+[<--LogicManager: result
 deactivate LogicManager
 @enduml

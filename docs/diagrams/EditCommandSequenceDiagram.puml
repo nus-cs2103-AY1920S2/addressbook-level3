@@ -1,0 +1,92 @@
+@startuml
+/' Sequence Diagram for postal sector search '/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "epd:EditParcelDescriptor" as EditParcelDescriptor LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("edit -o 1 n/Alice")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("edit -o 1 n/Alice")
+activate OrderBookParser
+
+create EditCommandParser
+OrderBookParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> OrderBookParser
+deactivate EditCommandParser
+
+OrderBookParser -> EditCommandParser : parse("edit -o 1 n/Alice")
+activate EditCommandParser
+
+create EditParcelDescriptor
+EditCommandParser -> EditParcelDescriptor
+activate EditParcelDescriptor
+
+EditParcelDescriptor --> EditCommandParser
+deactivate
+
+EditCommandParser -> EditParcelDescriptor
+activate EditParcelDescriptor
+
+EditParcelDescriptor -[hidden]-> EditCommandParser
+EditParcelDescriptor -[hidden]-> EditCommandParser
+EditParcelDescriptor --> EditCommandParser : epd
+deactivate
+
+create EditCommand
+EditCommandParser -> EditCommand : epd
+activate EditCommand
+
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> OrderBookParser : e
+deactivate EditCommandParser
+EditCommandParser -[hidden]-> OrderBookParser
+destroy EditCommandParser
+
+OrderBookParser --> LogicManager : e
+deactivate OrderBookParser
+
+LogicManager -> EditCommand : execute(model)
+activate EditCommand
+
+alt Edit Order
+    EditCommand -> Model : updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS)
+    activate Model
+
+    Model --> EditCommand
+    deactivate Model
+else Edit Return Order
+    EditCommand -> Model : updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS)
+    activate Model
+
+    Model --> EditCommand
+    deactivate Model
+end
+
+create CommandResult
+EditCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditCommand
+deactivate CommandResult
+
+EditCommand --> LogicManager : result
+deactivate EditCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

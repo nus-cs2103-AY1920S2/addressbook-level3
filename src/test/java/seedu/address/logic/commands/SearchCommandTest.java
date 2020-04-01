@@ -4,11 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_ORDERS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalOrders.CARL;
 import static seedu.address.testutil.TypicalOrders.ELLE;
 import static seedu.address.testutil.TypicalOrders.FIONA;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.CARL_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.ELLE_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.FIONA_RETURN;
 import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import java.util.Arrays;
@@ -20,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -75,10 +80,41 @@ public class SearchCommandTest {
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredOrderList());
     }
 
+    @Test
+    public void execute_searchOnlyReturnOrder_returnCommandResultOfReturnOrder() {
+        String expectedMessage = String.format(MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW, 3);
+        ReturnOrderContainsKeywordsPredicate predicate = prepareReturnPredicate("Kurz Elle Kunz");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredReturnOrderList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL_RETURN, ELLE_RETURN, FIONA_RETURN), model.getFilteredReturnOrderList());
+    }
+
+    @Test
+    public void execute_searchBothReturnOrderAndOrder_returnCommandResultOfBothReturnOrderAndOrder() {
+        String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW + System.lineSeparator()
+            + MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW, 3, 3);
+        OrderContainsKeywordsPredicate orderPredicate = preparePredicate("Kurz Elle Kunz");
+        ReturnOrderContainsKeywordsPredicate returnPredicate = prepareReturnPredicate("Kurz Elle Kunz");
+        SearchCommand command = new SearchCommand(orderPredicate, returnPredicate);
+        expectedModel.updateFilteredReturnOrderList(returnPredicate);
+        expectedModel.updateFilteredOrderList(orderPredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL_RETURN, ELLE_RETURN, FIONA_RETURN), model.getFilteredReturnOrderList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredOrderList());
+    }
+
     /**
      * Parses {@code userInput} into a {@code OrderContainsKeywordsPredicate}.
      */
     private OrderContainsKeywordsPredicate preparePredicate(String userInput) {
         return new OrderContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code ReturnOrderContainsKeywordsPredicate}.
+     */
+    private ReturnOrderContainsKeywordsPredicate prepareReturnPredicate(String userInput) {
+        return new ReturnOrderContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

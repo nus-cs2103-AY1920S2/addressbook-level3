@@ -1,5 +1,6 @@
 package seedu.address.model.parcel;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -76,7 +77,7 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof OrderContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((OrderContainsKeywordsPredicate) other).keywords)
+                && new HashSet<>(keywords).equals(new HashSet<>(((OrderContainsKeywordsPredicate) other).keywords))
                 && argumentMultimap.equals(((OrderContainsKeywordsPredicate) other).argumentMultimap)
                 && isGeneralSearch == (((OrderContainsKeywordsPredicate) other).isGeneralSearch)); // state check
     }

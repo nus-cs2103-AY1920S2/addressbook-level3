@@ -1,0 +1,61 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+"{abstract}\nCommand" <|-- EditCommand
+Index "1" <-down- EditCommand : index
+EditCommand ..> Model
+EditCommand --* "1" EditParcelDescriptor : editParcelDescriptor
+EditCommandParser ..> EditParcelDescriptor : editParcelDescriptor
+EditCommandParser .right.> EditCommand
+EditCommandParser .-down-> Index
+
+abstract class "{abstract}\nCommand" {
+    {abstract} execute(Model model) : CommandResult
+}
+
+class EditCommand {
+    'Fields of SearchCommand
+    - flag : Flag
+
+    'Methods of SearchCommand
+    + execute(model : Model) : CommandResult
+    - createEditedOrder(orderToEdit : Order, editParcelDescriptor : EditParcelDescriptor) : Order
+    - createEditedReturnOrder(returnOrderToEdit : ReturnOrder, editParcelDescriptor : EditParcelDescriptor) : ReturnOrder
+    - isNotEditable(parcelToEdit : Parcel, editedParcel :Parcel , model : Model) : boolean
+    - generalSetParcel(parcelToEdit : Parcel, editedParcel :Parcel , model : Model) : CommandResult
+}
+
+class EditParcelDescriptor {
+    - tid : TransactionId
+    - name : Name
+    - phone : Phone
+    - email : Email
+    - address : Address
+    - timeStamp : TimeStamp
+    - warehouse : Warehouse
+    - cod : CashOnDelivery
+    - comment : Comment
+    - itemType : TypeOfItem
+    + isAnyFieldEdited() : boolean
+
+}
+
+class EditCommandParser {
+
+    + parse(args : String) : EditCommand
+}
+
+
+interface Model <<interface>> {
+    'Interface Methods
+    + getFilteredOrderList() : List<Order>
+    + getFilteredReturnOrderList() : List<ReturnOrder>
+}
+
+class Index {
+    + getZeroBased() : int
+}
+
+@enduml

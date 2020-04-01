@@ -37,10 +37,9 @@ activate storage STORAGE_COLOR
 storage -[STORAGE_COLOR]> storage : Save to file
 activate storage STORAGE_COLOR_T1
 deactivate storage
-end
-
 storage --[STORAGE_COLOR]> logic
 deactivate storage
+end
 
 logic --[LOGIC_COLOR]> ui
 deactivate logic
