@@ -10,6 +10,7 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 
 import seedu.recipe.logic.commands.DeleteIngredientCommand;
+import seedu.recipe.logic.commands.EditCommand;
 import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 
 /**
@@ -24,7 +25,7 @@ public class DeleteIngredientCommandParserTest {
     private DeleteIngredientCommandParser parser = new DeleteIngredientCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_validArgs_returnsDeleteIngredientCommand() {
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         editRecipeDescriptor.setOthers(new TreeSet<>());
         assertParseSuccess(parser, "2 io/",
@@ -33,7 +34,11 @@ public class DeleteIngredientCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a io/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteIngredientCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a io/", ParserUtil.MESSAGE_INVALID_INDEX);
+    }
+
+    @Test
+    public void parse_insufficientArgs_throwsParseException() {
+        assertParseFailure(parser, "2", EditCommand.MESSAGE_NOT_EDITED);
     }
 }

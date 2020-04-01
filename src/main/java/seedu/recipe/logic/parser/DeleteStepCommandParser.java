@@ -33,8 +33,6 @@ public class DeleteStepCommandParser implements Parser<DeleteStepCommand> {
             stepNumbers = Arrays.stream(ParserUtil.parseMultipleIndex(argsArray[1]))
                     .map(Index::getZeroBased)
                     .toArray(Integer[]::new);
-        } catch (ParseException pe) {
-            throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteStepCommand.MESSAGE_USAGE));
         }
