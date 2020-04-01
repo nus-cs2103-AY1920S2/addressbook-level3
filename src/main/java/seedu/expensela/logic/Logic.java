@@ -40,6 +40,8 @@ public interface Logic {
 
     Filter getFilter();
 
+    void setFilter(Filter filter);
+
     ToggleView getToggleView();
 
     /**
@@ -66,4 +68,5 @@ public interface Logic {
      * Set the total balance of the user
      */
     void setTotalBalance(Double totalBalance);
+
 }

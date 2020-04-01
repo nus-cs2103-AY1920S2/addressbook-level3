@@ -26,8 +26,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_CATEGORY);
 
-        if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_MONTH).isPresent())
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_MONTH).isPresent())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 

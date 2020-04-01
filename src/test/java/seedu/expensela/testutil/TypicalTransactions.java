@@ -16,10 +16,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.Filter;
 import seedu.expensela.model.monthlydata.Budget;
 import seedu.expensela.model.monthlydata.Expense;
 import seedu.expensela.model.monthlydata.Income;
 import seedu.expensela.model.monthlydata.MonthlyData;
+import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -111,6 +114,8 @@ public class TypicalTransactions {
         for (Transaction transaction : getTypicalTransactions()) {
             el.addTransaction(transaction);
         }
+        el.setFilter(new Filter(new CategoryEqualsKeywordPredicate(Arrays.asList("all")),
+                new DateEqualsKeywordPredicate(Arrays.asList("all"))));
         el.setMonthlyData(monthlyData);
         return el;
     }

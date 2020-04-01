@@ -18,10 +18,6 @@ import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 
-
-
-
-
 class FilterCommandTest {
 
     private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
@@ -61,8 +57,8 @@ class FilterCommandTest {
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 0);
-        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate(" ");
-        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate(" ");
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("@!");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("@!");
         FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
         expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

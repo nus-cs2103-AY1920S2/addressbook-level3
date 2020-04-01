@@ -40,6 +40,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         filter = this.expenseLa.getFilter();
+        System.out.println(filter);
+        updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
     public ModelManager() {
@@ -169,9 +171,13 @@ public class ModelManager implements Model {
      */
     @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate1, Predicate<Transaction> predicate2) {
-        //requireNonNull(predicate);
-
-        Predicate<Transaction> predicate = predicate1.and(predicate2);
+        requireNonNull(predicate1);
+        Predicate<Transaction> predicate;
+        if (predicate2 == null) {
+            predicate = predicate1;
+        } else {
+            predicate = predicate1.and(predicate2);
+        }
         unfilteredTransactions.setPredicate(predicate);
 
     }
@@ -225,6 +231,7 @@ public class ModelManager implements Model {
     @Override
     public void setFilter(Filter filter) {
         expenseLa.setFilter(filter);
+        updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
     @Override
