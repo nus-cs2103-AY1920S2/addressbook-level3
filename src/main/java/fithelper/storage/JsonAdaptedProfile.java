@@ -63,8 +63,8 @@ class JsonAdaptedProfile {
         address = source.getAddress().value;
         height = String.valueOf(source.getHeight().value);
         targetWeight = String.valueOf(source.getTargetWeight().value);
-        currentWeight = String.valueOf(source.getCurrentWeight().value);
-        currentBmi = String.valueOf(source.getCurrentBmi().value);
+        currentWeight = (source.getCurrentWeight() == null) ? "" : String.valueOf(source.getCurrentWeight().value);
+        currentBmi = (source.getCurrentBmi() == null) ? "" : String.valueOf(source.getCurrentBmi().value);
     }
 
     /**
@@ -169,7 +169,7 @@ class JsonAdaptedProfile {
      * @throws IllegalValueException Invalid value for currentWeight.
      */
     public WeightValue buildWeightValue() throws IllegalValueException {
-        if (currentWeight == null) {
+        if ("".equals(currentWeight)) {
             return null;
         }
         if (!WeightValue.isValidWeightValue(currentWeight)) {
@@ -185,7 +185,7 @@ class JsonAdaptedProfile {
      * @throws IllegalValueException Invalid value for currentBmi.
      */
     public Bmi buildBmi() throws IllegalValueException {
-        if (currentBmi == null) {
+        if ("".equals(currentBmi)) {
             return null;
         }
         if (!Bmi.isValidBmi(Double.parseDouble(currentBmi))) {
