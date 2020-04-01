@@ -51,10 +51,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * {@code diaries} must not contain duplicate diaries.
      */
     public void setDiaries(List<Diary> diaries) {
-        List<Diary> diaryList = new ArrayList<>();
-        for (Diary diary : diaries) {
-            diaryList.add(diary);
-        }
+        List<Diary> diaryList = new ArrayList<>(diaries);
         this.diaries.setDiaries(diaryList);
     }
 
@@ -169,7 +166,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * Clears the diary data of this {@code FitHelper}.
      */
     public void clearDiary() {
-        setDiaries(new ArrayList<Diary>());
+        setDiaries(new ArrayList<>());
     }
 
     //// diary-level operations
@@ -232,11 +229,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         if (hasEntry(entry)) {
             count--;
         }
-        if (count >= 2) {
-            hasTimeClashes = true;
-        } else {
-            hasTimeClashes = false;
-        }
+        hasTimeClashes = count >= 2;
         return hasTimeClashes;
     }
 
@@ -389,15 +382,15 @@ public class FitHelper implements ReadOnlyFitHelper {
      * Searches one of the tables and add all entries whose name contains the keywords into a set
      * add returns the set.
      *
-     * @param type
-     * @param keywords
+     * @param type type of entries to check (either f/food OR s/sports)
+     * @param words keywords to match
      * @return a set of {@code CalorieEntry} with matching keywords.
      */
-    public Set<CalorieEntry> addCalorieEntries(String type, String keywords) {
+    public Set<CalorieEntry> addCalorieEntries(String type, String words) {
         assert "f".equals(type) || "s".equals(type) : "check type can only be f(food) or s(sports)";
         Set<CalorieEntry> result = new HashSet<>();
         Set<? extends CalorieEntry> entries;
-        keywords = keywords.toLowerCase();
+        String keywords = words.toLowerCase();
         String[] keywordsByWord = keywords.split(" ");
         if ("f".equals(type)) {
             entries = foodCalorieTable.getEntries();
@@ -427,20 +420,21 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     private int searchEachWordCompleteMatch(String[] keywords, Set<CalorieEntry> result,
                                             Set<? extends CalorieEntry> entries, int count) {
+        int currentCount = count;
         for (CalorieEntry entry : entries) {
             String name = entry.getName();
-            if (count == 3) {
+            if (currentCount == 3) {
                 break;
             }
             for (String keyword : keywords) {
-                if (name.toLowerCase().equals(keyword)) {
+                if (name.equalsIgnoreCase(keyword)) {
                     result.add(entry);
-                    count++;
+                    currentCount++;
                     break;
                 }
             }
         }
-        return count;
+        return currentCount;
     }
 
     /**
@@ -455,17 +449,18 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     private int searchWholeWordPartialMatch(String keywords, Set<CalorieEntry> result,
                                             Set<? extends CalorieEntry> entries, int count) {
+        int currentCount = count;
         for (CalorieEntry entry : entries) {
             String name = entry.getName();
-            if (count == 3) {
+            if (currentCount == 3) {
                 break;
             }
             if (name.toLowerCase().contains(keywords)) {
                 result.add(entry);
-                count++;
+                currentCount++;
             }
         }
-        return count;
+        return currentCount;
     }
 
     /**
@@ -479,15 +474,16 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     private void searchEachWordPartialMatch(String[] keywords, Set<CalorieEntry> result,
                                             Set<? extends CalorieEntry> entries, int count) {
+        int currentCount = count;
         for (CalorieEntry entry : entries) {
             String name = entry.getName();
-            if (count == 3) {
+            if (currentCount == 3) {
                 break;
             }
             for (String keyword : keywords) {
                 if (name.toLowerCase().contains(keyword)) {
                     result.add(entry);
-                    count++;
+                    currentCount++;
                     break;
                 }
             }
