@@ -52,7 +52,12 @@ public class NewCommandParser implements CommandParser<Command> {
         }
 
         AbsolutePath path = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
-        Block block = new BlockImpl(new Title(title), new Body(body));
+        Block block;
+        try {
+            block = new BlockImpl(new Title(title), new Body(body));
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(ex.getMessage());
+        }
 
         List<Command> commands = new ArrayList<>();
         commands.add(new NewCommand(block, path));
