@@ -939,7 +939,7 @@ Use case resumes at step 1.
 
 1.  User requests to get a motivation quotes +
 `quote`
-2.  NASA will provide a pop-up quote.
+2.  NASA will provide a quote.
 +
 Use case ends.
 

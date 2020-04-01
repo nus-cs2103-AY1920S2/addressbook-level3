@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
+import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -7,6 +8,9 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Lesson extends Activity {
+    public static final String INVALID_LESSON =
+        "Lesson provided is invalid!";
+
     private int numOfDaysTillNextLesson = 7; // Frequency of lesson in number of days (eg. every 7 days) Default is 7.
     private Date startDate;
     private Date endDate;
@@ -19,6 +23,7 @@ public class Lesson extends Activity {
         requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkArgument(isValidLesson(this), INVALID_LESSON);
     }
 
     public Lesson(Name name, Note note, Date startDate, Date endDate) {
@@ -67,5 +72,29 @@ public class Lesson extends Activity {
      */
     public Lesson regenerate() {
         return this;
+    }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int startDateMonth = startDate.getDate().getMonth().getValue();
+        return month == startDateMonth;
+    }
+
+    /**
+     * Method to check if the lesson is valid.
+     * @param activity activity to be validated
+     * @return true if the lesson is valid else false
+     */
+    public static boolean isValidLesson(Activity activity) {
+        requireAllNonNull(activity);
+
+        if (activity instanceof Lesson) {
+            Lesson lesson = (Lesson) activity;
+            boolean hasNotExpired = Date.now().isBefore(lesson.getDateTo());
+            boolean isLogical = lesson.getDateFrom().isBefore(lesson.getDateTo());
+            return isLogical && hasNotExpired;
+        } else {
+            return false;
+        }
     }
 }

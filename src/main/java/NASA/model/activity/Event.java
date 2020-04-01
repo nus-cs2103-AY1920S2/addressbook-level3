@@ -1,6 +1,7 @@
 package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -8,6 +9,9 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event extends Activity {
+    public static final String INVALID_EVENT =
+        "Event provided is invalid!";
+
     private Date startDate;
     private Date endDate;
 
@@ -19,6 +23,7 @@ public class Event extends Activity {
         requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkArgument(isValidEvent(this), INVALID_EVENT);
     }
 
     public Event(Name name, Note note, Date startDate, Date endDate) {
@@ -84,5 +89,11 @@ public class Event extends Activity {
     //TODO: detailed implementation of event regeneration
     public Event regenerate() {
         return this;
+    }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int startDateMonth = startDate.getDate().getMonth().getValue();
+        return month == startDateMonth;
     }
 }
