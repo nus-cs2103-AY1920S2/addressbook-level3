@@ -173,6 +173,7 @@ public class MainWindow extends UiPart<Stage> {
             showProfilePage();
             break;
         case WEIGHT:
+            updateProfilePage();
             updateWeightPage();
             showWeightPage();
             break;
