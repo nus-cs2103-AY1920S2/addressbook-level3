@@ -28,7 +28,11 @@ import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
 import org.junit.jupiter.api.Test;
 
 import seedu.expensela.logic.commands.AddCommand;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Category;
+import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.TransactionBuilder;
 
 public class AddCommandParserTest {
