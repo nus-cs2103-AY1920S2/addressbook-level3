@@ -7,6 +7,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import nasa.commons.core.LogsCenter;
 import nasa.logic.Logic;
@@ -20,11 +21,14 @@ public class TabPanel extends UiPart<Region> {
 
     private ModuleListPanel moduleListPanel;
     private StatisticsPanel statisticsPanel;
+    private CalendarView calendarView;
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
     @FXML
     private StackPane statisticsPanelPlaceholder;
+    @FXML
+    private StackPane calendarPlaceholder;
     @FXML
     private HBox moduleList;
     @FXML
@@ -32,9 +36,11 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private HBox statisticsList;
 
-
     public TabPanel(Logic logic) {
         super(FXML);
+        calendarView = new CalendarView(logic.getFilteredModuleList());
+        calendarPlaceholder.getChildren().add(calendarView.getRoot());
+        calendarPlaceholder.getStyleClass().add("background");
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
         statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());

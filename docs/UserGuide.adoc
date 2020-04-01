@@ -20,10 +20,13 @@ By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
 Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
-assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work
-with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can
-type fast, NASA can keep track of your module activities faster than traditional GUI apps. Interested? Jump to the
-<<Quick Start>> to get started. Time to take off!
+assignments, lessons, exams and other miscellaneous activities.*
+
+*While NASA has a user-centric Graphical User Interface, it is optimized for users who prefer to work with the
+Command Line Interface (CLI).* If you can type fast, NASA can keep track of all your module activities faster than
+traditional GUI applications.
+
+Interested? Ready to blast off on an exciting student journey? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -39,9 +42,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all activities of each module
-* **`Madd`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
-* **`Tadd`**`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds an activity called IP Project with the following details into CS2103T module activity-list.
-* **`delete`**`m/CS2103T 1` : deletes the 1st activity shown in the module activity-list.
+* **`add`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
+* **`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds an activity called IP Project with the following details into CS2103T module activity-list.
+* **`delete`**`1 m/CS2103T` : deletes the 1st activity shown in the module activity-list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.

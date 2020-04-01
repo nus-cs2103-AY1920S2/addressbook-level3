@@ -133,7 +133,7 @@
 }
 
 .list-cell {
-    -fx-background-radius: 300;
+    -fx-background-radius: 15;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 5;
@@ -378,7 +378,6 @@
 }
 
 #activityPane {
-
     -fx-border-width: 0;
     -fx-background-radius: 15;
     -fx-padding: 10px;
@@ -468,4 +467,16 @@
     -fx-font-size: 11;
 }
 
+.calendarGrid .grid-pane {
+    -fx-border-color: green;
+    -fx-border-width: 2px;
+}
 
+.calendarGrid .label {
+    -fx-text-fill: white;
+}
+.grid-pane {
+
+-fx-background-fill: black, white ;
+-fx-background-insets: 0, 0 1 1 0 ;
+}

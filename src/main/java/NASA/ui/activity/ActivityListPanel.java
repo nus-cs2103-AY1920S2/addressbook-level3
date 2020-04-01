@@ -1,4 +1,4 @@
-package nasa.ui;
+package nasa.ui.activity;
 
 import java.util.logging.Logger;
 
@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
+import nasa.ui.UiPart;
 
 /**
  * Panel containing the list of modules.

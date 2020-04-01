@@ -85,4 +85,10 @@ public class Event extends Activity {
     public Event regenerate() {
         return this;
     }
+
+    @Override
+    public boolean occurInMonth(int month) {
+        int startDateMonth = startDate.getDate().getMonth().getValue();
+        return month == startDateMonth;
+    }
 }
