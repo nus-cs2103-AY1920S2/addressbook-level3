@@ -280,8 +280,18 @@ public class CreateCommandTest {
         }
 
         @Override
+        public void updateFilteredSessionList(Predicate<Session> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getSessionListFilePath() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteSession(int target) {
+
         }
 
         @Override

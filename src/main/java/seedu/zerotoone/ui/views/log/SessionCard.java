@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.zerotoone.commons.util.DateUtil;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.session.SessionSet;
 import seedu.zerotoone.ui.util.UiPart;
@@ -42,6 +43,8 @@ public class SessionCard extends UiPart<Region> {
         super(FXML);
         sessionId.setText(String.format("%d. ", displayedIndex));
         exerciseName.setText(session.getExerciseName().fullName);
+        startTime.setText(DateUtil.getPrettyDateTimeString(session.getStartTime()));
+        endTime.setText(DateUtil.getPrettyDateTimeString(session.getEndTime()));
 
         List<SessionSet> exerciseSetsList = session.getSets();
         for (int i = 0; i < exerciseSetsList.size(); i++) {

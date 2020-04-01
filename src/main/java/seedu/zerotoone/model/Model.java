@@ -24,6 +24,7 @@ import seedu.zerotoone.model.workout.WorkoutModel;
 public interface Model extends WorkoutModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
+    Predicate<Session> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
 
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
@@ -131,9 +132,12 @@ public interface Model extends WorkoutModel {
 
     ObservableList<Session> getFilteredSessionList();
 
+    void updateFilteredSessionList(Predicate<Session> predicate);
 
     Path getSessionListFilePath();
 
+
+    void deleteSession(int target);
 
     void setSessionListFilePath(Path sessionListFilePath);
 

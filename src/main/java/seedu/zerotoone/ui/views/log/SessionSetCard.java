@@ -34,7 +34,7 @@ public class SessionSetCard extends UiPart<Region> {
         this.setId.setText(String.format("Set %d. ", setId + 1));
         this.numReps.setText(numReps);
         this.weight.setText(String.format("%skg", weight));
-        this.isFinished.setText(isFinished ? "FINISHED" : "UNFINISHED");
+        this.isFinished.setText(isFinished ? " (Complete)" : " (Incomplete)");
     }
 
     @Override
