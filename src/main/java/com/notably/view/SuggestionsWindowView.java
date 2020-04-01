@@ -101,7 +101,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
                 setText("");
             } else {
                 Optional<String> displayProperty = getItem().getProperty("displayText");
-                String displayString = displayProperty.isPresent() ? displayProperty.get() : "";
+                String displayString = displayProperty.orElse("");
                 setText(displayString);
             }
         }
