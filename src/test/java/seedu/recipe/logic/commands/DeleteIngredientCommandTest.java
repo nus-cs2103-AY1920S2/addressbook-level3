@@ -9,6 +9,7 @@ import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import java.util.TreeSet;
 
@@ -26,11 +27,12 @@ import seedu.recipe.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteIngredientCommandTest}.
+ * {@code DeleteIngredientCommand}.
  */
 public class DeleteIngredientCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -43,7 +45,8 @@ public class DeleteIngredientCommandTest {
         String expectedMessageTemplate = DeleteIngredientCommand.MESSAGE_DELETE_INGREDIENTS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteIngredients.getName().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -76,7 +79,8 @@ public class DeleteIngredientCommandTest {
         String expectedMessageTemplate = DeleteIngredientCommand.MESSAGE_DELETE_INGREDIENTS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteIngredients.getName().toString());
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -105,11 +109,17 @@ public class DeleteIngredientCommandTest {
     public void equals() {
         EditRecipeDescriptor firstEditRecipeDescriptor = new EditRecipeDescriptor();
         EditRecipeDescriptor secondEditRecipeDescriptor = new EditRecipeDescriptor();
+        secondEditRecipeDescriptor.setGrains(new TreeSet<>());
 
+        // Base command for comparison
         DeleteIngredientCommand deleteIngredientFirstCommand = new DeleteIngredientCommand(
                 INDEX_SECOND_RECIPE, firstEditRecipeDescriptor);
+        // Different recipe, same EditRecipeDescriptor
         DeleteIngredientCommand deleteIngredientSecondCommand = new DeleteIngredientCommand(
-                INDEX_THIRD_RECIPE, secondEditRecipeDescriptor);
+                INDEX_THIRD_RECIPE, firstEditRecipeDescriptor);
+        // Same recipe, different EditRecipeDescriptor
+        DeleteIngredientCommand deleteIngredientThirdCommand = new DeleteIngredientCommand(
+                INDEX_SECOND_RECIPE, secondEditRecipeDescriptor);
 
         // same object -> returns true
         assertTrue(deleteIngredientFirstCommand.equals(deleteIngredientFirstCommand));
@@ -125,7 +135,10 @@ public class DeleteIngredientCommandTest {
         // null -> returns false
         assertFalse(deleteIngredientFirstCommand.equals(null));
 
-        // different recipe -> returns false
+        // different recipe, same EditRecipeDescriptor -> returns false
         assertFalse(deleteIngredientFirstCommand.equals(deleteIngredientSecondCommand));
+
+        // same recipe, different EditRecipeDescriptor -> returns false
+        assertFalse(deleteIngredientFirstCommand.equals(deleteIngredientThirdCommand));
     }
 }
