@@ -67,13 +67,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getRecipeBookFilePath() {
-        return userPrefs.getRecipeBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
     public void setRecipeBookFilePath(Path recipeBookFilePath) {
         requireNonNull(recipeBookFilePath);
-        userPrefs.setRecipeBookFilePath(recipeBookFilePath);
+        userPrefs.setDataFilePath(recipeBookFilePath);
     }
 
     //=========== RecipeBook ================================================================================

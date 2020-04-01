@@ -1,6 +1,7 @@
 package cookbuddy.ui;
 
 import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.Instruction;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class RecipeView extends UiPart<Region> {
     @FXML
     private ListView<Instruction> instructions;
 
+
     public RecipeView(Recipe recipe) {
         super(FXML);
         this.recipe = recipe;
@@ -34,6 +36,7 @@ public class RecipeView extends UiPart<Region> {
         this.name.setText(recipe.getName().name);
         this.ingredients.setItems(FXCollections.observableList(this.recipe.getIngredients().asList()));
         this.instructions.setItems(FXCollections.observableList(this.recipe.getInstructions().asList()));
+        this.recipeImage.setImage(Image.getWritableImage(this.recipe));
         this.ingredients.setStyle(".list-cell:empty {-fx-background-color: transparent;}");
     }
 

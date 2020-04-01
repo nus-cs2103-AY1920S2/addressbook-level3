@@ -12,8 +12,6 @@ import cookbuddy.model.recipe.Recipe;
 import cookbuddy.ui.UiManager;
 
 
-
-
 /**
  * Lists all recipes in the recipe book to the user.
  */
@@ -22,9 +20,9 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Views the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+        + ": Views the recipe identified by the index number used in the displayed recipe list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1";
 
 
     public static final String MESSAGE_VIEW_RECIPE_SUCCESS = "Viewing Recipe: %1$s";
@@ -52,7 +50,7 @@ public class ViewCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewCommand // instanceof handles nulls
-                && targetIndex.equals(((ViewCommand) other).targetIndex)); // state check
+            || (other instanceof ViewCommand // instanceof handles nulls
+            && targetIndex.equals(((ViewCommand) other).targetIndex)); // state check
     }
 }
