@@ -59,22 +59,4 @@ SetResult --- SetStatus
 
 WorkoutSession "1" *-- "many" ExerciseResult : contains
 ExerciseResult "1" *-- "many" SetResult : contains
-
-
-'Session
-'workoutStartTime: LocalDateTime
-'workoutEndTime: LocalDateTime
-'workout: ReadOnlyWorkout
-'workoutResult: WorkoutResult
-'
-'WorkoutResult
-'List<ExerciseResult> exerciseResults
-'
-'ExerciseResult
-'Enum exerciseStatus; // HAVENT_STARTED, IN_PROGRESS, COMPLETED
-'List<SetResults> setResults;
-'
-'SetResults
-'Enum setStatus; // HAVENT_STARTED, IN_PROGRESS, SKIPPED, COMPLETED
-'Timing: int in seconds?
 @enduml
