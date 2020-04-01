@@ -11,7 +11,7 @@ import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
 
 /**
- * Favourites a recipe identified using it's displayed index from the recipe book.
+ * Marks a recipe as done, identified using it's displayed index from the recipe book.
  */
 public class DoneCommand extends Command {
 
