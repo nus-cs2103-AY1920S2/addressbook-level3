@@ -33,12 +33,12 @@
             </Tab>
             <Tab text="Goals">
                 <content>
-                    <VBox fx:id="goalList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                    <VBox fx:id="cookedList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
                           VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets top="5" right="5" bottom="5" left="5"/>
                         </padding>
-                        <StackPane fx:id="goalsListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="cookedListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
                 </content>
             </Tab>

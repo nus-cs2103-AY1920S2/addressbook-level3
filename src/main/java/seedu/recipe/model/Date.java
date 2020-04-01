@@ -24,8 +24,8 @@ public class Date implements Comparable<Date> {
     public static final String VALIDATION_REGEX = "^[0-9-]+";
     public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");
     public static final DateTimeFormatter DATE_AND_MONTH = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-    public static final ZoneId zoneId = ZoneId.of("Asia/Singapore");
-    public static final Locale singaporeLocale = new Locale("en", "SGP");
+    public static final ZoneId ZONE_ID = ZoneId.of("Asia/Singapore");
+    public static final Locale SINGAPORE_LOCALE = new Locale("en", "SGP");
 
     private final LocalDate date;
 
@@ -65,14 +65,14 @@ public class Date implements Comparable<Date> {
      * Returns the Date of today, according to the input timezone.
      */
     public static Date today() {
-        return new Date(LocalDate.now(zoneId));
+        return new Date(LocalDate.now(ZONE_ID));
     }
 
     /**
      * Returns true if the date is older than today's date, according to the input timezone.
      */
     public boolean isFutureDate() {
-        Date yesterday = new Date(LocalDate.now(zoneId).minusDays(1));
+        Date yesterday = new Date(LocalDate.now(ZONE_ID).minusDays(1));
         return isAfter(yesterday);
     }
 
@@ -92,7 +92,7 @@ public class Date implements Comparable<Date> {
     }
 
     public String getMonthName() {
-        return date.getMonth().getDisplayName(TextStyle.FULL, singaporeLocale);
+        return date.getMonth().getDisplayName(TextStyle.FULL, SINGAPORE_LOCALE);
     }
 
     public String getDayOfWeek() {
@@ -100,7 +100,7 @@ public class Date implements Comparable<Date> {
     }
 
     public String getWeekOfMonth() {
-        WeekFields weekFields = WeekFields.of(singaporeLocale.getDefault());
+        WeekFields weekFields = WeekFields.of(SINGAPORE_LOCALE.getDefault());
         return "" + date.get(weekFields.weekOfMonth());
     }
 
