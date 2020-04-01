@@ -28,9 +28,9 @@
                 </AnchorPane>
             </Tab>
             <Tab text="Calendar">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <StackPane fx:id="calendarPlaceholder" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                   AnchorPane.rightAnchor="0.0" alignment="CENTER"/>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="pane-with-border">
+                        <StackPane fx:id="calendarPlaceholder" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="25.0"
+                                   AnchorPane.rightAnchor="25.0" alignment="CENTER"/>
                 </AnchorPane>
             </Tab>
             <Tab text="Statistics">

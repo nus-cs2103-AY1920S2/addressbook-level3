@@ -10,6 +10,26 @@
     -fx-opacity: 0.9;
 }
 
+
+.date-pane {
+    -fx-background-color: #C7CEEA;
+    -fx-border-width: 3px;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+}
+
+.date-header {
+    -fx-background-color:  #211463;
+    -fx-border-width: 3px;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+}
+
+.date-header .label {
+    -fx-font-family: Impact;
+}
+
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -141,7 +161,7 @@
 }
 
 .list-cell:filled {
-    -fx-background-color: #32174d;
+    -fx-background-color: #211463;
     -fx-border-width: 5px;
     -fx-border-color: black;
     -fx-border-radius: 15px;
@@ -459,6 +479,10 @@
     -fx-background-radius: 20;
 }
 
+.calendar-header {
+    -fx-alignment: center;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -482,6 +506,7 @@
     -fx-text-fill: white;
 }
 .grid-pane {
+
 
 -fx-background-fill: black, white ;
 -fx-background-insets: 0, 0 1 1 0 ;

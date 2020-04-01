@@ -14,6 +14,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -101,12 +102,14 @@ public class CalendarView extends UiPart<Region> {
     private void initializeCalendarHeader() {
         for (int i = 1; i <= 7; i++) {
             VBox dayHeader = new VBox();
+            dayHeader.setAlignment(Pos.CENTER);
             GridPane.setVgrow(dayHeader, Priority.NEVER);
             Label day = new Label();
             day.setText(DayOfWeek.of(i).getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
             day.setTextFill(Color.WHITE);
+            day.setAlignment(Pos.CENTER);
             dayHeader.getChildren().add(day);
-            dayHeader.getStyleClass().add("calendarGrid");
+            dayHeader.getStyleClass().add("date-header");
             calendarGrid.add(dayHeader, i - 1, 0);
         }
     }
@@ -134,15 +137,15 @@ public class CalendarView extends UiPart<Region> {
             GridPane.setVgrow(dateContent, Priority.ALWAYS);
             dateContent.setId(Integer.toString(currentDate));
             if (i < nullDays) {
-                // not in current month, set to black color
-                dateContent.setStyle("-fx-background-color:black");
+                // not in current month, set to white color
+                dateContent.getStyleClass().add("date-pane");
             } else {
                 // set to purple color plus add date number
-                dateContent.setStyle("-fx-background-color:#361350");
+                dateContent.getStyleClass().add("date-pane");
                 Label dateLabel = new Label();
                 dateLabel.setText(Integer.toString(currentDate));
-                dateLabel.setStyle("-fx-text-fill:#FFFFFF");
-                dateLabel.setPadding(new Insets(5));
+                dateLabel.setStyle("-fx-text-fill:black");
+                dateLabel.setPadding(new Insets(10));
                 dateContent.getChildren().add(dateLabel);
                 currentDate++;
             }
@@ -158,16 +161,16 @@ public class CalendarView extends UiPart<Region> {
 
                 // check if current grid is still within the month
                 if (currentDate <= totalDaysInMonth) {
-                    dateContent.setStyle("-fx-background-color:#361350");
+                    dateContent.getStyleClass().add("date-pane");
                     Label dateLabel = new Label();
                     dateLabel.setText(Integer.toString(currentDate));
-                    dateLabel.setStyle("-fx-text-fill:#FFFFFF");
-                    dateLabel.setPadding(new Insets(5));
+                    dateLabel.setStyle("-fx-text-fill: black");
+                    dateLabel.setPadding(new Insets(10));
                     dateContent.getChildren().add(dateLabel);
                     currentDate++;
                 } else {
-                    // create a black pane
-                    dateContent.setStyle("-fx-background-color:black");
+                    // create a white pane
+                    dateContent.getStyleClass().add("date-pane");
                 }
                 calendarGrid.add(dateContent, j, i);
             }
@@ -243,7 +246,7 @@ public class CalendarView extends UiPart<Region> {
             activityLabel.setStyle("-fx-background-color:#AFEEEE; -fx-background-radius: 5 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
-            activityLabel.setStyle("-fx-background-color:yellow; -fx-background-radius: 5 5 5 5");
+            activityLabel.setStyle("-fx-background-color: darkblue; -fx-background-radius: 5 5 5 5");
         } else {
             // color it green
             activityLabel.setStyle("-fx-background-color:green; -fx-background-radius: 5 5 5 5");
