@@ -5,6 +5,7 @@ import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.TaTracker;

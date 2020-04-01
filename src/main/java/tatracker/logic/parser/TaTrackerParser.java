@@ -7,18 +7,18 @@ import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import tatracker.logic.commands.ClearCommand;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.DeleteCommand;
-import tatracker.logic.commands.ExitCommand;
-import tatracker.logic.commands.GotoCommand;
-import tatracker.logic.commands.HelpCommand;
-import tatracker.logic.commands.ListCommand;
-import tatracker.logic.commands.statistic.ShowStatisticCommand;
+import tatracker.logic.commands.commons.ClearCommand;
+import tatracker.logic.commands.commons.ExitCommand;
+import tatracker.logic.commands.commons.HelpCommand;
+import tatracker.logic.commands.commons.ListCommand;
+import tatracker.logic.parser.commons.FindCommandParser;
+import tatracker.logic.parser.commons.GotoCommandParser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
+import tatracker.logic.parser.session.ClaimCommandParser;
 import tatracker.logic.parser.session.SessionCommandParser;
 import tatracker.logic.parser.sort.SortCommandParser;
 import tatracker.logic.parser.statistic.ShowStatisticCommandParser;
@@ -55,47 +55,50 @@ public class TaTrackerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case CommandWords.CLAIM:
-            return new ClaimCommandParser().parseCommand(arguments);
-
-        case CommandWords.STUDENT:
-            return new StudentCommandParser().parseCommand(arguments);
-
+        /* Student View */
         case CommandWords.MODULE:
             return new ModuleCommandParser().parseCommand(arguments);
 
         case CommandWords.GROUP:
             return new GroupCommandParser().parseCommand(arguments);
 
-        case CommandWords.SESSION:
-            return new SessionCommandParser().parseCommand(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case CommandWords.FIND:
-            return new FindCommandParser().parse(arguments);
-
-        case GotoCommand.COMMAND_WORD:
-            return new GotoCommandParser().parse(arguments);
-
-        case CommandWords.LIST:
-            return new ListCommand();
-
-        case CommandWords.CLEAR:
-            return new ClearCommand();
-
-        case CommandWords.EXIT:
-            return new ExitCommand();
-
-        case CommandWords.HELP:
-            return new HelpCommand();
+        case CommandWords.STUDENT:
+            return new StudentCommandParser().parseCommand(arguments);
 
         case CommandWords.SORT:
             return new SortCommandParser().parse(arguments);
 
-        case ShowStatisticCommand.COMMAND_WORD:
+        /* Session View */
+        case CommandWords.SESSION:
+            return new SessionCommandParser().parseCommand(arguments);
+
+        case CommandWords.LIST:
+            return new ListCommand();
+
+        /* TSS View */
+        case CommandWords.CLAIM:
+            return new ClaimCommandParser().parseCommand(arguments);
+
+        /* Storage Operations */
+        case CommandWords.CLEAR:
+            return new ClearCommand();
+
+        /* Navigation */
+        case CommandWords.GOTO:
+            return new GotoCommandParser().parse(arguments);
+
+        case CommandWords.REPORT:
             return new ShowStatisticCommandParser().parse(arguments);
+
+        case CommandWords.HELP:
+            return new HelpCommand();
+
+        case CommandWords.EXIT:
+            return new ExitCommand();
+
+        /* Others */
+        case CommandWords.FIND:
+            return new FindCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

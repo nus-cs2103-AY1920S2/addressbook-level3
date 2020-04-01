@@ -1,4 +1,4 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.session;
 
 import static tatracker.commons.core.Messages.MESSAGE_HELP;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.logic.parser.session.FilterClaimCommandParser;
 
 /**
  * Parses user input into commands that interact with Session model.
