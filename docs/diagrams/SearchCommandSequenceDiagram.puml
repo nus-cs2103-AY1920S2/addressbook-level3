@@ -5,10 +5,9 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
 participant ":SearchCommandParser" as SearchCommandParser LOGIC_COLOR
-participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
-participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "orderPred:OrderContainsKeywordsPredicate" as OrderContainsKeywordsPredicate LOGIC_COLOR
+participant "returnPred:ReturnOrderContiansKeywordsPredicate" as ReturnOrderContiansKeywordsPredicate LOGIC_COLOR
 participant "s:SearchCommand" as SearchCommand LOGIC_COLOR
-participant "order:OrderContainsKeywordsPredicate" as OrderContainsKeywordsPredicate LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -32,51 +31,60 @@ deactivate SearchCommandParser
 OrderBookParser -> SearchCommandParser : parse("Alice")
 activate SearchCommandParser
 
+create OrderContainsKeywordsPredicate
+SearchCommandParser -> OrderContainsKeywordsPredicate
+activate OrderContainsKeywordsPredicate
 
-SearchCommandParser -> ArgumentTokenizer++ : tokenize(args, PREFIX_TID, ...)
+OrderContainsKeywordsPredicate --> SearchCommandParser : orderPred
+deactivate OrderContainsKeywordsPredicate
 
-ArgumentTokenizer -> ArgumentTokenizer++ : extractArguments(argsString, prefixPositions)
-create ArgumentMultimap
-ArgumentTokenizer -> ArgumentMultimap++
-ArgumentMultimap --> ArgumentTokenizer-- : argMultimap
+create ReturnOrderContiansKeywordsPredicate
+SearchCommandParser -> ReturnOrderContiansKeywordsPredicate
+activate ReturnOrderContiansKeywordsPredicate
 
-ArgumentTokenizer --> ArgumentTokenizer-- : argMultimap
+ReturnOrderContiansKeywordsPredicate --> SearchCommandParser : returnPred
+deactivate ReturnOrderContiansKeywordsPredicate
 
-ArgumentTokenizer --> SearchCommandParser-- : argMultimap
+create SearchCommand
+SearchCommandParser -> SearchCommand
+activate SearchCommand
 
-SearchCommandParser -> SearchCommandParser++ : arePrefixesPresent(argMultimap, PREFIX_TID, ...)
+SearchCommand --> SearchCommandParser : s
+deactivate SearchCommand
 
-SearchCommandParser -> ArgumentMultimap++ : getValue(prefix)
+SearchCommandParser --> OrderBookParser : s
+deactivate SearchCommandParser
+SearchCommandParser -[hidden]-> OrderBookParser
+destroy SearchCommandParser
 
-ArgumentMultimap --> SearchCommandParser-- : Optional<String>
+OrderBookParser --> LogicManager : s
+deactivate OrderBookParser
 
-SearchCommandParser --> SearchCommandParser-- : true
+LogicManager -> SearchCommand : execute(model)
+activate SearchCommand
 
-alt preamble is not empty
-    create OrderContainsKeywordsPredicate
-    SearchCommandParser -> OrderContainsKeywordsPredicate++ : keywords
 
-    OrderContainsKeywordsPredicate --> SearchCommandParser-- : order
+SearchCommand -> Model : updateFilteredOrderList(orderPred)
+activate Model
 
-    create SearchCommand
-    SearchCommandParser -> SearchCommand++ : order
-    SearchCommand --> SearchCommandParser-- : s
-else preamble is empty
-    create OrderContainsKeywordsPredicate
-    SearchCommandParser -> OrderContainsKeywordsPredicate++ : (keywords, argMultimap)
+Model --> SearchCommand
+deactivate Model
+SearchCommand -> Model : updateFilteredReturnOrderList(returnPred)
+activate Model
 
-    OrderContainsKeywordsPredicate --> SearchCommandParser-- : order
+Model --> SearchCommand
+deactivate Model
 
-    create SearchCommand
-    SearchCommandParser -> SearchCommand++ : order
-    SearchCommand --> SearchCommandParser-- : s
-end
 
-    SearchCommandParser --> OrderBookParser-- : s
+create CommandResult
+SearchCommand -> CommandResult
+activate CommandResult
 
-OrderBookParser --> LogicManager-- : s
+CommandResult --> SearchCommand
+deactivate CommandResult
 
-ref over LogicManager,  Model : Execution of the Search Command Sequence Diagram
+SearchCommand --> LogicManager : result
+deactivate SearchCommand
 
 [<--LogicManager
 deactivate LogicManager
