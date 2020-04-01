@@ -1,5 +1,6 @@
 package nasa.model.module;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -127,6 +128,16 @@ public class Module {
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         filteredActivity.setPredicate(predicate);
     }
+
+    /**
+     * Sorts module's activity list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting the activities in the module activity list.
+     */
+    public void sortActivityList(SortMethod sortMethod) {
+        Comparator<Activity> comparator = sortMethod.getComparator();
+        this.activityList.getActivityList().sort(comparator);
+    }
+
     /**
      * Returns true if both modules of the same module code.
      * @param otherModule the module to be compared to

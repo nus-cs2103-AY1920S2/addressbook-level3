@@ -17,6 +17,7 @@ import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.RedoCommand;
 import nasa.logic.commands.RepeatCommand;
+import nasa.logic.commands.SortCommand;
 import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
@@ -52,6 +53,7 @@ public class NasaBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord.toLowerCase()) {
 
         case AddModuleCommand.COMMAND_WORD:
@@ -96,10 +98,11 @@ public class NasaBookParser {
         case RepeatCommand.COMMAND_WORD:
             return new RepeatActivityCommandParser().parse(arguments);
 
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
-
-
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

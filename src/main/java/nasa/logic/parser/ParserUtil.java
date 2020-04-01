@@ -11,6 +11,7 @@ import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.SortMethod;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -139,5 +140,21 @@ public class ParserUtil {
             throw new ParseException(ModuleName.MESSAGE_CONSTRAINTS);
         }
         return new ModuleName(moduleNameTrimmed);
+    }
+
+    /**
+     * Parses {@code String sortMethod} into a {@code SortMethod}
+     * Checks if String sortMethod is correct.
+     * @param sortMethod to be used to sort activity list
+     * @return SortMethod object
+     * @throws ParseException
+     */
+    public static SortMethod parseSortMethod(String sortMethod) throws ParseException {
+        requireNonNull(sortMethod);
+        String sortMethodTrimmed = sortMethod.trim();
+        if (!SortMethod.isValidSortMethod(sortMethodTrimmed)) {
+            throw new ParseException(SortMethod.MESSAGE_CONSTRAINTS);
+        }
+        return new SortMethod(sortMethodTrimmed);
     }
 }

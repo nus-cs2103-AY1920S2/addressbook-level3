@@ -66,31 +66,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a module activity-list: `Madd`
+=== Adding a module activity-list: `add`
 
 Adds a module activity-list into the NASA application +
-Format: `Madd m/MODULE_CODE n/MODULE_NAME`
+Format: `add m/MODULE_CODE n/MODULE_NAME`
 
 Examples:
 
-* `Madd m/CS2030 n/Programming Methodology II`
-* `Madd m/CS1231 n/Discrete Structures in Mathematics`
+* `add m/CS2030 n/Programming Methodology II`
+* `add m/CS1231 n/Discrete Structures in Mathematics`
 
-=== Adding a activity into a module activity-list: `Tadd`
+=== Adding a activity into a module activity-list: `TYPE_OF_ACTIVITY`
 Adds an activity into the specified module activity-list +
-Format: `Tadd TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE t/ACTIVITY [p/PRIORITY] [n/NOTES]`
+Format: `TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
 
 ** Type of activities include `deadline`, `events` and `lessons`.
 ** Deadline are meant for activities that need to be done within a certain time.
 ** Events means any related module activities that happen from a time and ends at another time.
 ** Lessons are tutorials/classes for the modules and will auto reappear every week.
-** Date format varies! For deadlines: `DD-MM-YYYY HH:MM`, for lessons and events: `DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM`.
+** Date format varies! For deadlines: `d/DD-MM-YYYY HH:MM`, for lessons and events: `sd/DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM ed/DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM` where sd/ is for start-time and ed/ is for end-time.
 ** Default priority is 1 (priority value is from 1 to 5, where 1 is highest priority and 5 is lowest).
 
 Examples:
 
-** `Tadd lesson m/CS1020 d/12-02-2020 12:00 - 12-02-2020 14:00 t/Tutorial`
-** `Tadd deadline m/CS1020 d/20-02-2020 23:59 t/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
+** `lesson m/CS1020 a/Tutorial sd/20-02-2020 23:00 ed/20-02-2020 23:59`
+** `deadline m/CS1020 d/20-02-2020 23:59 a/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
 
 === Listing all activities : `list`
 
@@ -103,7 +103,7 @@ Format: `list [m/MODULE_CODE....]`
 === Editing a activity : `edit`
 
 Edits an existing activity in the module's activity-list. +
-Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [a/ACTIVITY_NAME]`
 
 ****
 * Edits the activity at the specified `INDEX` in the specified `MODULE_CODE` activity-list. The index refers to the index number shown in the module activity-list. The index *must be a positive integer* 1, 2, 3, ...
@@ -157,13 +157,12 @@ Returns `tutorial 1` and `tutorial 2` and any other activities with name tutoria
 === Deleting a activity : `delete`
 
 Deletes the specified activity from module activity-list. +
-Format: `delete m/MODULE_CODE INDEX...`
+Format: `delete INDEX m/MODULE_CODE`
 
 ****
 * Deletes the activity at the specified `INDEX` in the specified `MODULE_CODE`.
 * The index refers to the index number shown in the activity-list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* User can input multiple indices to be deleted.
 ****
 
 Examples:
@@ -171,76 +170,20 @@ Examples:
 * `list` +
 `delete m/CS2030 2` +
 Deletes the 2nd activity in the CS2030 module activity-list.
-* `delete m/CS2030 2 3 4` +
-Deletes the the 2nd, 3rd and 4th activity from the CS2030 module activity-list.
 
 === Deleting a module: `Mdelete`
 Deletes a module along with its activity-list. +
-Format: `Mdelete m/MODULE_CODE...`
+Format: `Mdelete m/MODULE_CODE`
 
 ** Deletes the module with MODULE_CODE and also its activity-list
 ** MODULE_CODE must be an existing module
-** Can add multiple MODULE_CODE to be deleted.
 
 Examples:
 
-** `Mdelete m/CS2030 CS2040 CS1010` +
-Deletes the respective modules associated with the MODULE_CODES.
+** `Mdelete m/CS2030` +
+Deletes the respective CS2030 module.
 
-=== Adding checklist item to activity: `chadd` `[coming in v1.3]`
-Adds a checklist item into the specified module activity +
-Format: `chadd m/MODULE_CODE INDEX c/CHECKLIST_ITEM`
-
-** Adds checklist item `CHECKLIST_ITEM` to the activity in the module (MODULE_CODE) identified by activity number INDEX.
-** Can only add `CHECKLIST_ITEM` to an existing activity (ie. `INDEX` must exist in the module activity list).
-** Can only add to an existing module (ie. `MODULE_CODE` must exist).
-** A `CHECKLIST_ID` will be generated that is unique WITHIN each activity.
-
-Examples:
-
-** `chadd m/CS2101 12 c/Prepare script` +
-Adds checklist item "Prepare script" to activity with INDEX 12 in module CS2101. The checklist item default status is undone.
-
-=== Delete checklist item from activity: `chdel` `[coming in v1.3]`
-Deletes a checklist item from an existing activity. +
-Format: `chdel m/MODULE_CODE INDEX CHECKLIST_ID`
-
-** Deletes the checklist item identified by `CHECKLIST_ID` from the activity identified by `INDEX` in module `MODULE_CODE`.
-** Can only delete an existing checklist item from an existing activity (ie. `INDEX` and its respective `CHECKLIST_ID` must exist in the module activity list).
-** In addition, the MODULE_CODE must exist.
-
-Examples:
-
-** `chdel m/CS2030 12 1` +
-Deletes checklist item with checklist ID 1 from activity with INDEX 12 in the module (CS2030) list.
-
-=== Set checklist item in activity to done: `chdone` `[coming in v1.3]`
-Sets a checklist item in a activity in a specific module to done. +
-Format: `chdone m/MODULE_CODE INDEX CHECKLIST_ID`
-
-** Sets the checklist item identified by `CHECKLIST_ID` from the activity with INDEX in MODULE_CODE activity-list to done.
-** INDEX and CHECKLIST_ID must exist in the module activity-list.
-** MODULE_CODE must also exist in the application.
-
-Examples:
-
-** `chdone m/CS2030 10 1` +
-Sets the checklist item with checklist ID 1 from activity with INDEX 10 in CS2030 activity-list to done.
-
-=== Set checklist item in activity to undone: `chundone` `[coming in v1.3]`
-Sets a checklist item in a activity in a specific module to done. +
-Format: `chundone m/MODULE_CODE INDEX CHECKLIST_ID`
-
-** Sets the checklist item identified by `CHECKLIST_ID` from the activity with INDEX in MODULE_CODE activity-list to not done.
-** INDEX and CHECKLIST_ID must exist in the module activity-list.
-** MODULE_CODE must also exist in the application.
-
-Examples:
-
-** `chundone m/CS2030 10 1` +
-Sets the checklist item with checklist ID 1 from activity with INDEX 10 in CS2030 activity-list to not done.
-
-=== Creating shortcuts: `shortcut` `[coming in v1.3]`
+=== Creating shortcuts: `shortcut` `[coming in v2.0]`
 Creates a shortcut for specified activity. +
 Format: `shortcut s/SHORTCUT c/COMMAND`
 
@@ -254,7 +197,7 @@ Examples:
 ** `shortcut s/l c/list` +
 Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
-=== Generating statistics: `statistics` `[coming in v1.2]`
+=== Generating statistics: `statistics`
 Displays statistics of activities completed. +
 Format: `statistics [tp/TIME_PERIOD] [m/MODULE_CODE]`
 
@@ -293,7 +236,7 @@ Examples:
 ** `repeat m/CS3233 a/SEA Group Programming Assignment r/2` to regenerate twice weekly.
 ** `repeat m/CS3233 a/SEA Group Programming Assignment r/3` to regenerate monthly.
 
-=== Export to calendar `export` `[coming in v1.2]`
+=== Export to calendar `export` `[coming in v2.0]`
 Exports all module activity-lists onto a calendar (.ics format) for users. +
 Format: `export`
 
@@ -305,6 +248,35 @@ image::export_example.png[width="300", align="middle"]
 ** Activities are listed as calendar events as shown. Full design not confirmed, image courtesy of [https://www.knack.com/templates/event-calendar[knack]]
 
 // end::delete[]
+
+=== Sort activities `sort`
+Sorts all activities in their respective modules by a specified criteria and ascending/descending order. +
+Format: `sort sm/SORT_CRITERIA [ob/ORDER]`
+
+The list of sort criteria is given below: +
+Lexicographical order (non-case-sensitive): `name` +
+Date added: `date` +
+Priority: `priority`
+
+Order by:
+
+Ascending: `asc` +
+ Lexicographically biggest, latest added, highest priority at the top of the module activity list.
+
+Descending: `dsc` +
+ Lexicographically biggest, latest added, highest priority at the bottom of the module activity list.
+
+If order is not specified, ascending order is used
+
+Examples:
+
+** `sort sm/name ob/dsc` +
+Sorts by non-case-sensitive, lexicographical order of the activity's name, in descending order.
+
+** `sort sm/priority` +
+Sorts by non-case-sensitive, lexicographical order of the activity's name, in ascending order.
+
+
 === Clearing all entries : `clear`
 
 Clears all entries from the NASA application (including module activity-lists created). +
@@ -333,8 +305,21 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous NASA folder.
 
-=== Edit checklist item of activity
-To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.
+*Q*: How do I populate NASA with an activity (ie. Deadline, Event, Lesson) that occur regularly (eg. weekly)? +
+*A*: Use the automate command (see section ‘Automation’)
+
+*Q*: What are the differences between Deadline, Event and Lesson? +
+*A*: All three activities are labels to describe the type of activity in a module. There are no functional differences between the 3 activities.
+
+*Q*: How many modules can I add into NASA? +
+*A*: NASA is optimised to display up to 10 modules at once - More than enough modules that a university student will typically take in a semester. Should you exceed 10 modules, please delete existing modules before adding new modules.
+
+*Q*: How many activities can I add into each module? +
+*A*: There is no limit, so add away!
+
+*Q*: There is an unreported bug. What should I do? +
+*A*: Please contact us here! We will respond as soon as possible.
+
 
 == Command Summary
 .List of all commands
@@ -342,16 +327,14 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 |===
 |Command|Syntax
 
-| *MAdd* |`Madd m/MODULE_CODE n/MODULE_NAME`
-| *TAdd* |`Tadd TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE t/ACTIVITYNAME [p/PRIORITY] [n/NOTES]`
+| *MAdd* |`add m/MODULE_CODE n/MODULE_NAME`
+| *TAdd* |`TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
 | *Clear* | `clear`
-| *Delete* | `delete m/MODULE_CODE INDEX...`
-| *Edit* | `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+| *Delete* | `delete m/MODULE_CODE INDEX`
+| *Edit* | `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITY_NAME]`
 | *Find* | `find KEYWORD [MORE_KEYWORDS]`
 | *List* | `list [m/MODULE_CODE...]`
 | *Help* | `help`
 | *Export* | `export`
 | *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
 | *Statistics* | `statistics [tp/TIME_PERIOD]`
-| *Chadd* | `chadd ACTIVITY_ID CHECKLIST_ITEM`
-| *Chdel* | `chdel ACTIVITY_ID CHECKLIST_ID`
