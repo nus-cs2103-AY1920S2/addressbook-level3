@@ -9,6 +9,7 @@ import fithelper.ui.UiPart;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -48,6 +49,7 @@ public class DailyStatus extends UiPart<AnchorPane> {
         super(FXML);
         this.entries = entriesToSet;
         this.date = dateToSet;
+        this.stats = new CalorieCalculator(entries);
         fillInDetails();
     }
 
@@ -56,9 +58,13 @@ public class DailyStatus extends UiPart<AnchorPane> {
      */
     private void fillInDetails() {
         getGenerator();
-        foodCal.setText(String.valueOf(stats.getFoodCalorie()));
-        sportsCal.setText(String.valueOf(stats.getFoodCalorie()));
-        totalCal.setText(String.valueOf(stats.getFoodCalorie()));
+        dateTitle.setText(date.toLocalDate().toString());
+        foodCal.setText("Food: " + String.valueOf(stats.getFoodCalorie()));
+        sportsCal.setText("Sports: " + String.valueOf(stats.getSportsCalorie()));
+        totalCal.setText("Total: " + String.valueOf(stats.getTotalCalorie()));
+        foodCal.setFill(Color.RED);
+        sportsCal.setFill(Color.GREEN);
+        totalCal.setFill(Color.valueOf("#789cce"));
     }
 
     @Override

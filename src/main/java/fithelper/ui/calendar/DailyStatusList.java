@@ -1,4 +1,5 @@
 package fithelper.ui.calendar;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -16,27 +17,53 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * A section which displays upcoming tasks.
+ * Display list of entries by dates
  */
 public class DailyStatusList extends UiPart<AnchorPane> {
     private static final String FXML = "DailyStatusList.fxml";
-    private ObservableList<Entry> combined;
+
+    @FXML
+    private Label listTitle;
+
+    @FXML
+    private ListView<ObservableList<Entry>> daysListView;
+
     private LocalDateTime time;
+    private ObservableList<Entry> combined;
     private ObservableList<ObservableList<Entry>> entries;
 
-    @FXML
-    private Label dailyStatusTitle;
-
-    @FXML
-    private ListView<ObservableList<Entry>> dailyStatusList;
-
-
-    public DailyStatusList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime dateToSet) {
+    public DailyStatusList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime
+            dateToSet) {
         super(FXML);
         time = dateToSet;
-        dailyStatusTitle.setText("Daily Status in " + time.getMonth());
+        listTitle.setText(time.getMonth().toString());
         combined = FXCollections.observableArrayList();
-        initializeListView(foodList, sportList);
+        entries = FXCollections.observableArrayList();
+        initialiseEntries(foodList, sportList);
+    }
+
+    /**
+     * Initialises the entries for display
+     */
+    private void initialiseEntries(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
+        addFilteredEntries(sportList);
+        addFilteredEntries(foodList);
+        Map<LocalDate, ObservableList<Entry>> entriesByDate = EntriesUtil.getEntriesByDate(combined);
+        entries = EntriesUtil.setEntriesByDate(entriesByDate);
+        daysListView.setItems(entries);
+        daysListView.setCellFactory(listView -> new DailyStatusList.ListViewCell());
+    }
+
+    /**
+     * Add filtered entries to combined list
+     * @param list the list to be filterd, can be either food or sports type
+     */
+    public void addFilteredEntries(ObservableList<Entry> list) {
+        for (Entry entry : list) {
+            if (time.getMonth().equals((entry.getDateTime().getMonth()))) {
+                combined.add(entry);
+            }
+        }
     }
 
     /**
@@ -51,36 +78,9 @@ public class DailyStatusList extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DailyStatus(entries, entries.get(0).getDateTime()).getRoot());
-            }
-        }
-    }
-
-    /**
-     * Initializes the list view.
-     *
-     * @param foodList  an observable list of food entries
-     * @param sportList an observable list of sport entries
-     */
-    private void initializeListView(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
-        addFilteredEntries(sportList);
-        addFilteredEntries(foodList);
-        Map<LocalDate, ObservableList<Entry>> entriesByDate = EntriesUtil.getEntriesByDate(combined);
-        entries = EntriesUtil.setEntriesByDate(entriesByDate);
-        dailyStatusList.setItems(entries);
-        //dailyStatusList.setCellFactory(listView -> new DailyStatus(entries, LocalDateTime.now()));
-    }
-
-    /**
-     * Add filtered entries to combined list
-     * @param list the list to be filterd, can be either food or sports type
-     */
-    public void addFilteredEntries(ObservableList<Entry> list) {
-        for (Entry entry : list) {
-            if (time.getMonth().equals(entry.getDateTime().getMonth())) {
-                combined.add(entry);
+                LocalDateTime temp = entries.get(0).getDateTime();
+                setGraphic(new DailyStatus(entries, temp).getRoot());
             }
         }
     }
 }
-
