@@ -7,6 +7,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandAdd.AddCourseCommand;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
@@ -38,6 +40,29 @@ public class DeleteCourseCommand extends DeleteCommand {
     this.toDelete = toDelete;
   }
 
+  @Override
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
+    List<Course> lastShownList = model.getFilteredCourseList();
+
+    if (this.toDelete == null) {
+      if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
+      }
+      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
+    }
+
+    if (this.targetIndex == null) {
+      this.targetIndex = getIndex(lastShownList);
+    }
+
+  }
+
+  @Override
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new AddCourseCommand(toDelete, targetIndex.getZeroBased());
+  }
+
+  // TODO: Find way to abstract this
   public Index getIndex(List<Course> lastShownList) throws CommandException {
     for (int i = 0; i < lastShownList.size(); i++) {
       if (lastShownList.get(i).equals(this.toDelete)) {
@@ -48,21 +73,10 @@ public class DeleteCourseCommand extends DeleteCommand {
   }
 
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-    List<Course> lastShownList = model.getFilteredCourseList();
-
-    if (this.targetIndex == null) {
-      this.targetIndex = getIndex(lastShownList);
-    }
-
-    if (targetIndex.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
-    }
-
-    Course courseToDelete = lastShownList.get(targetIndex.getZeroBased());
-    model.delete(courseToDelete);
-    return new CommandResult(String.format(MESSAGE_DELETE_COURSE_SUCCESS, courseToDelete));
+    model.delete(this.toDelete);
+    return new CommandResult(String.format(MESSAGE_DELETE_COURSE_SUCCESS, this.toDelete));
   }
 
   @Override

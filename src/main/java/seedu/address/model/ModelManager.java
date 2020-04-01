@@ -12,8 +12,12 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
@@ -36,7 +40,7 @@ import seedu.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager extends BaseManager implements Model {
 
   private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -246,33 +250,42 @@ public class ModelManager implements Model {
       return Arrays.asList(
               this.staffAddressBook,
               PREDICATE_SHOW_ALL_STAFFS,
-              filteredStaffs);
+                      filteredStaffs,
+              Constants.ENTITY_TYPE.STAFF);
     } else if (obj instanceof Student) {
       return Arrays.asList(
               this.studentAddressBook,
               PREDICATE_SHOW_ALL_STUDENTS,
-              filteredStudents);
+              filteredStudents,
+              Constants.ENTITY_TYPE.STUDENT);
     } else if (obj instanceof Finance) {
       return Arrays.asList(
               this.financeAddressBook,
               PREDICATE_SHOW_ALL_FINANCES,
-              filteredFinances);
+              filteredFinances,
+              Constants.ENTITY_TYPE.FINANCE);
     } else if (obj instanceof Course) {
       return Arrays.asList(
               this.courseAddressBook,
               PREDICATE_SHOW_ALL_COURSES,
-              filteredCourses);
+              filteredCourses,
+              Constants.ENTITY_TYPE.COURSE);
     } else if (obj instanceof Assignment) {
       return Arrays.asList(
               this.assignmentAddressBook,
               PREDICATE_SHOW_ALL_ASSIGNMENTS,
-              filteredAssignments);
+              filteredAssignments,
+              Constants.ENTITY_TYPE.ASSIGNMENT);
     }
     throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
   private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
     return (AddressBookGeneric)getEntityFactory(obj).get(0);
+  }
+
+  private ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException {
+    return (ReadOnlyAddressBookGeneric)getEntityFactory(obj).get(0);
   }
 
   private Predicate getPredicateAll(ModelObject obj) throws CommandException {
@@ -296,8 +309,14 @@ public class ModelManager implements Model {
 
   }
 
+  private Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
+    return (Constants.ENTITY_TYPE)getEntityFactory(obj).get(3);
+  }
   // ======================================================================================================
 
+  private void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook, Constants.ENTITY_TYPE entityType) {
+    raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
+  }
 
   // =================================== CRUD METHODS =====================================================
   public boolean has(ModelObject obj) throws CommandException {
@@ -309,18 +328,28 @@ public class ModelManager implements Model {
   public void delete(ModelObject obj) throws CommandException {
     getAddressBook(obj).remove(obj);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
   }
 
   @Override
   public void add(ModelObject obj) throws CommandException {
     getAddressBook(obj).add(obj);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
+  }
+
+  @Override
+  public void addAtIndex(ModelObject obj, Integer index) throws CommandException {
+    getAddressBook(obj).addAtIndex(obj, index);
+    getFilterList(obj).setPredicate(getPredicateAll(obj));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
   }
 
   @Override
   public void set(ModelObject target, ModelObject editedTarget) throws CommandException {
     requireAllNonNull(target, editedTarget);
     getAddressBook(target).set(target, editedTarget);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(target), getEntityType(target));
   }
 
   // =========================== CRUD METHODS DONE VIA ID =====================================================
@@ -347,13 +376,14 @@ public class ModelManager implements Model {
 
   @Override
   public boolean hasAssignment(ID assignmentID) {
-    return false;
+    return assignmentAddressBook.has(assignmentID);
   }
 
   @Override
   public Assignment getAssignment(ID assignmentID) {
-    return null;
+    return assignmentAddressBook.get(assignmentID);
   }
+
   // =====================================================================================================
 
   ///
@@ -528,14 +558,46 @@ public class ModelManager implements Model {
 
   // ========================== For Assigning of X to Y =========================
 
-  public void assignStudentToCourse(ID studentID, ID courseID) {
-    // if student exists
-    // if course exists
-    // if student not already assigned to the course
-    // if course doesn't already have the student
+  public void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Student foundStudent = getStudent(studentID);
+
+    foundCourse.addStudent(studentID);
+    foundStudent.addCourse(courseID);
+    foundCourse.processAssignedStudents(
+            (FilteredList<Student>) getFilteredStudentList());
+    foundStudent.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundStudent, foundStudent);
+    getAddressBook(foundStudent).set(foundStudent, foundStudent);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
   }
 
-  @Override
+  public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Assignment foundAssignment = getAssignment(assignmentID);
+
+    foundCourse.addAssignment(assignmentID);
+    foundAssignment.addCourseID(courseID);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundAssignment, foundAssignment);
+    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+
+  }
+
+    @Override
   public boolean equals(Object obj) {
     // short circuit if same object
     if (obj == this) {
@@ -562,6 +624,5 @@ public class ModelManager implements Model {
         && filteredFinances.equals(other.filteredFinances)
         && filteredAssignments.equals(other.filteredAssignments)
         && filteredProgresses.equals(other.filteredProgresses);
-
   }
 }

@@ -4,7 +4,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.util.Constants.ENTITY_TYPE;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -20,11 +26,13 @@ import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
 import seedu.address.storage.storageStaff.StaffAddressBookStorage;
+import com.google.common.eventbus.Subscribe;
+
 
 /**
  * Manages storage of AddressBook data in local storage.
  */
-public class StorageManager implements Storage {
+public class StorageManager extends BaseManager implements Storage {
 
   private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
   private AddressBookStorage addressBookStorage;
@@ -35,7 +43,6 @@ public class StorageManager implements Storage {
   private AssignmentAddressBookStorage assignmentAddressBookStorage;
 
   private UserPrefsStorage userPrefsStorage;
-
 
   public StorageManager(AddressBookStorage addressBookStorage,
       StaffAddressBookStorage staffAddressBookStorage,
@@ -271,5 +278,25 @@ public class StorageManager implements Storage {
           throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
     assignmentAddressBookStorage.saveAssignmentAddressBook(assignmentAddressBook, filePath);
+  }
+
+  @Subscribe
+  public void handleDataStorageChangeEvent(DataStorageChangeEvent event) {
+    try {
+      if (event.entityType == ENTITY_TYPE.COURSE) {
+        saveCourseAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.STUDENT) {
+        saveStudentAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.STAFF) {
+        saveStaffAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.FINANCE) {
+        saveFinanceAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.ASSIGNMENT) {
+        saveAssignmentAddressBook(event.addressBook);
+      }
+    } catch (IOException e) {
+      // TODO: Fix this
+      logger.info("STORAGE SAVE PROBLEM");
+    }
   }
 }

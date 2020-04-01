@@ -261,6 +261,7 @@ public class Staff extends ModelObject {
     Staff otherStaff = (Staff) other;
     return otherStaff.getName().equals(getName())
         && otherStaff.getPhone().equals(getPhone())
+            && otherStaff.getId().equals(getId())
         && otherStaff.getEmail().equals(getEmail())
         && otherStaff.getSalary().equals(getSalary())
         && otherStaff.getAddress().equals(getAddress())

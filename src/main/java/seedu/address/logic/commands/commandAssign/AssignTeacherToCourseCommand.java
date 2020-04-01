@@ -78,6 +78,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         } else {
             ID courseid = ParserUtil.parseCourseid(courseidString);
             ID teacherid = ParserUtil.parseTeacherid(teacheridString);
+
             foundCourse.assignTeacher(teacherid);
             foundTeacher.addCourse(courseid);
 
@@ -85,9 +86,10 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
                 (FilteredList<Staff>) model.getFilteredStaffList());
             foundTeacher.processAssignedCourses(
                 (FilteredList<Course>) model.getFilteredCourseList());
-
-            model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-            model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+            // Just to direct flow from calling models directly to modelManager to make better use of callback
+            // A bit weird design for now
+            model.set(foundCourse, foundCourse);
+            model.set(foundTeacher, foundTeacher);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, teacherName, teacheridString, courseName, courseidString));
         }

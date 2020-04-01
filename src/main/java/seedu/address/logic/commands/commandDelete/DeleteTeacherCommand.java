@@ -31,8 +31,12 @@ public class DeleteTeacherCommand extends DeleteCommand {
     this.targetIndex = targetIndex;
   }
 
+  protected void generateOppositeCommand() throws CommandException {
+
+  }
+
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Staff> lastShownList = model.getFilteredStaffList();
 

@@ -1,26 +1,28 @@
 package seedu.address.commons.core;
 
 import com.google.common.eventbus.EventBus;
+import seedu.address.commons.events.BaseEvent;
+
 import java.util.logging.Logger;
-import seedu.address.commons.BaseEvent;
 
 
 /**
  * Manages the event dispatching of the app.
  */
-public class EventsCenter {
+public class EventsCenterSingleton {
 
-  private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
-  private static EventsCenter instance;
+  private static final Logger logger = LogsCenter.getLogger(EventsCenterSingleton.class);
+  private static EventsCenterSingleton instance;
   private final EventBus eventBus;
 
-  private EventsCenter() {
+  private EventsCenterSingleton() {
     eventBus = new EventBus();
   }
 
-  public static EventsCenter getInstance() {
+  // This logic is to make sure singleton design
+  public static EventsCenterSingleton getInstance() {
     if (instance == null) {
-      instance = new EventsCenter();
+      instance = new EventsCenterSingleton();
     }
     return instance;
   }
@@ -36,7 +38,7 @@ public class EventsCenter {
   /**
    * Posts an event to the event bus.
    */
-  public <E extends BaseEvent> EventsCenter post(E event) {
+  public EventsCenterSingleton post(BaseEvent event) {
     logger.info(
         "------[Event Posted] " + event.getClass().getCanonicalName() + ": " + event.toString());
     eventBus.post(event);

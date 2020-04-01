@@ -32,6 +32,8 @@ public class AssignmentCard extends UiPart<Region> {
   @FXML
   private Label assignmentID;
   @FXML
+  private Label assignedCourseID;
+  @FXML
   private Label assignmentName;
   @FXML
   private Label assignmentDeadline;
@@ -41,6 +43,11 @@ public class AssignmentCard extends UiPart<Region> {
     this.assignment = assignment;
     id.setText(displayedIndex + ". ");
     assignmentID.setText("Assignment ID: " + assignment.getId().toString());
+    if(assignment.isAssignedToCourse()) {
+      assignedCourseID.setText("Assigned To CourseID: " + assignment.getAssignedCourseID().toString());
+    } else {
+      assignedCourseID.setText("Assigned To CourseID: None");
+    }
     assignmentName.setText(assignment.getName().fullName);
     assignmentDeadline.setText("Deadline: " + assignment.getDeadline().toString());
   }

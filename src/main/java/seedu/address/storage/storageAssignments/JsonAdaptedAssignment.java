@@ -22,6 +22,7 @@ class JsonAdaptedAssignment {
   public static final String MISSING_FIELD_MESSAGE_FORMAT = "Assignment's %s field is missing!";
   private final String name;
   private final String assignmentID;
+  private final String courseID;
   private final String deadline;
   private final List<JsonAssignmentAdaptedTag> tagged = new ArrayList<>();
 
@@ -30,10 +31,11 @@ class JsonAdaptedAssignment {
    */
   @JsonCreator
   public JsonAdaptedAssignment(@JsonProperty("name") String name,
-      @JsonProperty("assignmentID") String assignmentID, @JsonProperty("deadline") String deadline,
+      @JsonProperty("assignmentID") String assignmentID, @JsonProperty("deadline") String deadline, @JsonProperty("courseID") String courseID,
       @JsonProperty("tagged") List<JsonAssignmentAdaptedTag> tagged) {
     this.name = name;
     this.assignmentID = assignmentID;
+    this.courseID = courseID;
     this.deadline = deadline;
     if (tagged != null) {
       this.tagged.addAll(tagged);
@@ -46,6 +48,11 @@ class JsonAdaptedAssignment {
   public JsonAdaptedAssignment(Assignment source) {
     name = source.getName().fullName;
     assignmentID = source.getId().value;
+    if(source.isAssignedToCourse()) {
+      courseID = source.getAssignedCourseID().value;
+    } else {
+      courseID = null;
+    }
     deadline = source.getDeadline().toString();
     tagged.addAll(source.getTags().stream()
         .map(JsonAssignmentAdaptedTag::new)
@@ -95,7 +102,13 @@ class JsonAdaptedAssignment {
 
     final Set<Tag> modelTags = new HashSet<>(AssignmentTags);
 
-    return new Assignment(modelName, modelId, modelDeadline, modelTags);
+    // if assignment is assigned to course already
+    if (courseID == null) {
+      return new Assignment(modelName, modelId, modelDeadline, modelTags);
+    } else {
+      final ID modelCourseID = new ID(courseID);
+      return new Assignment(modelName, modelId, modelCourseID,modelDeadline, modelTags);
+    }
   }
 
 }

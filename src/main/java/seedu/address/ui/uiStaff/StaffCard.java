@@ -52,10 +52,12 @@ public class StaffCard extends UiPart<Region> {
     super(FXML);
     this.staff = staff;
     id.setText(displayedIndex + ". ");
+    teacherID.setText(staff.getId().value);
     name.setText(staff.getName().fullName);
     phone.setText(staff.getPhone().value);
     address.setText(staff.getAddress().value);
     email.setText(staff.getEmail().value);
+
     salary.setText(staff.getSalary().value);
     staff.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))

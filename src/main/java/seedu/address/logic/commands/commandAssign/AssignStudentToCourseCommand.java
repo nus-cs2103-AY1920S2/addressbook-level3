@@ -25,7 +25,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
-    public static final String MESSAGE_SUCCESS = "Successfully added student %s(%s) to course %s(%s)";
+    public static final String MESSAGE_SUCCESS = "Successfully assigned student %s (%s) to course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
     private Set<Tag> ArrayList;
@@ -43,40 +43,35 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
-        // if student exists
-        // if course exists
-        // if student not already assigned to the course
-        // if course doesn't already have the student
 
+        // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
-        HashMap<String, ID> progressIDConstructor = new HashMap<>();
 
         boolean courseExists = model.hasCourse(courseID);
         boolean studentExists = model.hasStudent(studentID);
 
-        String courseName = "";
-        String studentName = "";
+        Course assignedCourse = model.getCourse(courseID);
+        Student assigningStudent = model.getStudent(studentID);
+
+        boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
+        boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+        } else if (assignedCourseContainsStudent) {
+            throw new CommandException("Course already has that student assigned to it!");
+        } else if (assigningStudentContainsCourse) {
+            throw new CommandException("Student is assigned to the course already");
         } else {
-            Course foundCourse = model.getCourse(courseID);
-            Student foundStudent = model.getStudent(studentID);
+            model.assignStudentToCourse(studentID, courseID);
 
-            foundCourse.addStudent(studentID);
-            foundStudent.addCourse(courseID);
-            foundCourse.processAssignedStudents(
-                (FilteredList<Student>) model.getFilteredStudentList());
-            foundStudent.processAssignedCourses(
-                (FilteredList<Course>) model.getFilteredCourseList());
-            model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-            model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentID.value, courseName, courseID.value));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    assigningStudent.getName(), studentID.value,
+                    assignedCourse.getName(), courseID.value));
         }
-
     }
 }

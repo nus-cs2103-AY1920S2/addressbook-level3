@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandAdd;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
@@ -8,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStudent.Student;
@@ -35,6 +37,8 @@ public class AddStudentCommand extends AddCommand {
 
   private final Student toAdd;
 
+  private Integer index;
+
   /**
    * Creates an AddCommand to add the specified {@code Student}
    */
@@ -43,8 +47,14 @@ public class AddStudentCommand extends AddCommand {
     toAdd = student;
   }
 
-  protected void generateOppositeCommand() {
+  public AddStudentCommand(Student student, Integer index) {
+    requireAllNonNull(student, index);
+    this.toAdd = student;
+    this.index = index;
+  }
 
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new DeleteStudentCommand(this.toAdd);
   }
 
   @Override
@@ -55,7 +65,11 @@ public class AddStudentCommand extends AddCommand {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
 
-    model.add(toAdd);
+    if (index == null) {
+      model.add(toAdd);
+    } else {
+      model.addAtIndex(toAdd, index);
+    }
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 

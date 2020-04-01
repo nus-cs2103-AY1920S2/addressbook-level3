@@ -23,6 +23,7 @@ public class Assignment extends ModelObject {
   private final String ENTITY_NAME = "assignment";
   private final Name name;
   private final ID id;
+  private ID assignedCourseID;
   private final Deadline deadline;
   private final Set<Tag> tags = new HashSet<>();
 
@@ -38,10 +39,19 @@ public class Assignment extends ModelObject {
     this.tags.addAll(tags);
   }
 
-  public Assignment(Name name, ID id, Deadline deadline, Set<Tag> tags) {
-    requireAllNonNull(name, id, deadline, tags);
+  public Assignment(Name name, ID assignmentId, Deadline deadline, Set<Tag> tags) {
+    requireAllNonNull(name, assignmentId, deadline, tags);
     this.name = name;
-    this.id = id;
+    this.id = assignmentId;
+    this.deadline = deadline;
+    this.tags.addAll(tags);
+  }
+
+  public Assignment(Name name, ID assignmentId, ID courseID, Deadline deadline, Set<Tag> tags) {
+    requireAllNonNull(name, assignmentId, deadline, tags);
+    this.name = name;
+    this.id = assignmentId;
+    this.assignedCourseID = courseID;
     this.deadline = deadline;
     this.tags.addAll(tags);
   }
@@ -58,6 +68,21 @@ public class Assignment extends ModelObject {
     return deadline;
   }
 
+  public void addCourseID(ID courseID) {
+    this.assignedCourseID = courseID;
+  }
+
+  public ID getAssignedCourseID() {
+    return this.assignedCourseID;
+  }
+
+  public boolean isAssignedToCourse() {
+    if (this.assignedCourseID == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if

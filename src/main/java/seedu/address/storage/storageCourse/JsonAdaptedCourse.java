@@ -28,6 +28,7 @@ class JsonAdaptedCourse {
   private final String amount;
   private final String assignedTeacher;
   private final List<JsonCourseAdaptedID> assignedStudentsID = new ArrayList<>();
+  private final List<JsonCourseAdaptedID> assignedAssignmentsID = new ArrayList<>();
   private final List<JsonCourseAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -39,14 +40,19 @@ class JsonAdaptedCourse {
       @JsonProperty("amount") String amount,
       @JsonProperty("assignedTeacher") String assignedTeacher,
       @JsonProperty("assignedStudentsID") List<JsonCourseAdaptedID> assignedStudentsID,
+      @JsonProperty("assignedAssignmentsID") List<JsonCourseAdaptedID> assignedAssignmentsID,
       @JsonProperty("tagged") List<JsonCourseAdaptedTag> tagged) {
     this.name = name;
     this.courseID = courseID;
     this.amount = amount;
 
     this.assignedTeacher = assignedTeacher;
+
     if (assignedStudentsID != null) {
       this.assignedStudentsID.addAll(assignedStudentsID);
+    }
+    if (assignedAssignmentsID != null) {
+      this.assignedAssignmentsID.addAll(assignedAssignmentsID);
     }
     if (tagged != null) {
       this.tagged.addAll(tagged);
@@ -64,7 +70,9 @@ class JsonAdaptedCourse {
     assignedStudentsID.addAll(source.getAssignedStudentsID().stream()
         .map(JsonCourseAdaptedID::new)
         .collect(Collectors.toList()));
-
+    assignedAssignmentsID.addAll(source.getAssignedAssignmentsID().stream()
+            .map(JsonCourseAdaptedID::new)
+            .collect(Collectors.toList()));
     tagged.addAll(source.getTags().stream()
         .map(JsonCourseAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -119,6 +127,13 @@ class JsonAdaptedCourse {
     }
     final Set<ID> modelAssignedStudentsID = new HashSet<>(CourseAssignedStudentsID);
 
+    final List<ID> CourseAssignedAssignmentsID = new ArrayList<>();
+    for (JsonCourseAdaptedID id : assignedAssignmentsID) {
+      CourseAssignedAssignmentsID.add(id.toModelType());
+    }
+    final Set<ID> modelAssignedAssignmentsID = new HashSet<>(CourseAssignedAssignmentsID);
+
+
     final List<Tag> CourseTags = new ArrayList<>();
     for (JsonCourseAdaptedTag tag : tagged) {
       CourseTags.add(tag.toModelType());
@@ -129,6 +144,7 @@ class JsonAdaptedCourse {
 
     courseReadFromFile.assignTeacher(modelAssignedTeacher);
     courseReadFromFile.addStudents(modelAssignedStudentsID);
+    courseReadFromFile.addAssignments(modelAssignedAssignmentsID);
 
     return courseReadFromFile;
   }

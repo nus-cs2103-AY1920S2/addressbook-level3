@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandAdd;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -12,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
 import java.util.Set;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
@@ -94,6 +96,8 @@ public class AddFinanceCommand extends AddCommand {
 
   private Finance toAdd;
 
+  private Integer index;
+
   /**
    * Creates an AddCommand to add the specified {@code Finance}
    */
@@ -102,8 +106,15 @@ public class AddFinanceCommand extends AddCommand {
     toAdd = finance;
   }
 
-  protected void generateOppositeCommand() {
+  public AddFinanceCommand(Finance finance, Integer index) {
+    requireAllNonNull(finance, index);
+    this.toAdd = finance;
+    this.index = index;
+  }
 
+
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new DeleteFinanceCommand(this.toAdd);
   }
 
   @Override
@@ -211,7 +222,11 @@ public class AddFinanceCommand extends AddCommand {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);
     }
 
-    model.add(toAdd);
+    if (index == null) {
+      model.add(toAdd);
+    } else {
+      model.addAtIndex(toAdd, index);
+    }
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
