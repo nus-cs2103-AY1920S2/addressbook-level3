@@ -31,9 +31,10 @@ class FilterCommandParserTest {
         FilterCommand expectedFilterCommand =
                 new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
                         new DateEqualsKeywordPredicate(Arrays.asList("2020-01")));
-        assertParseSuccess(parser, "FOOD", expectedFilterCommand);
+        assertParseSuccess(parser, " c/FOOD m/2020-01", expectedFilterCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFilterCommand);
+        assertParseSuccess(parser, " c/FOOD     m/2020-01", expectedFilterCommand);
     }
+
 }

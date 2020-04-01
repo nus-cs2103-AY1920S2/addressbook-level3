@@ -70,10 +70,11 @@ class FilterCommandTest {
     }
 
     private CategoryEqualsKeywordPredicate prepareCategoryPredicate(String userInput) {
-        return new CategoryEqualsKeywordPredicate(Arrays.asList(userInput.split("\\s+")));
+        return new CategoryEqualsKeywordPredicate(Arrays.asList(userInput));
     }
 
     private DateEqualsKeywordPredicate prepareDatePredicate(String userInput) {
-        return new DateEqualsKeywordPredicate(Arrays.asList(userInput.split("\\s+")));
+        return new DateEqualsKeywordPredicate(Arrays.asList(userInput));
     }
+
 }
