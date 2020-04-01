@@ -121,7 +121,7 @@ public class AbsolutePathCorrectionEngineTest {
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/b");
-  
+
         final AbsolutePath expectedCorrectedItem = toAnotherBlock;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
