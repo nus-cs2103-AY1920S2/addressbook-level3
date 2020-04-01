@@ -7,9 +7,9 @@ package tatracker.logic.commands;
 public final class CommandWords {
 
     /* List of command words for each model in TA-Tracker. */
-    public static final String STUDENT = "student";
     public static final String MODULE = "module";
     public static final String GROUP = "group";
+    public static final String STUDENT = "student";
     public static final String SESSION = "session";
     public static final String CLAIM = "claim";
 
@@ -22,16 +22,19 @@ public final class CommandWords {
     /* List of command words for the different sort types in TA-Tracker. */
     public static final String SORT = "sort";
     public static final String SORT_ALL = "all";
-    public static final String SORT_MODULE = "module";
     public static final String SORT_GROUP = "group";
+    public static final String SORT_MODULE = "module";
 
     /* List of command words for special actions in TA-Tracker. */
-    public static final String FIND = "find";
     public static final String CLEAR = "clear";
-    public static final String EXIT = "exit";
+    public static final String GOTO = "goto";
+    public static final String REPORT = "report";
     public static final String HELP = "help";
-    public static final String LIST = "list";
+    public static final String EXIT = "exit";
 
     /* Others */
+    public static final String LIST = "list";
     public static final String DONE_SESSION = "done";
+
+    public static final String FIND = "find";
 }

@@ -40,9 +40,6 @@ public class SessionCommandParser {
 
         switch (commandWord) {
 
-        case CommandWords.FILTER_MODEL:
-            return new FilterSessionCommandParser().parse(arguments);
-
         case CommandWords.ADD_MODEL:
             return new AddSessionCommandParser().parse(arguments);
 
@@ -51,6 +48,9 @@ public class SessionCommandParser {
 
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);
+
+        case CommandWords.FILTER_MODEL:
+            return new FilterSessionCommandParser().parse(arguments);
 
         case CommandWords.DONE_SESSION:
             return new DoneSessionCommandParser().parse(arguments);
