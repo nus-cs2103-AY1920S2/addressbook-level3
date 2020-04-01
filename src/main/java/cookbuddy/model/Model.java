@@ -1,11 +1,11 @@
 package cookbuddy.model;
 
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
