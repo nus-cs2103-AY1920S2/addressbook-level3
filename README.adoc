@@ -22,7 +22,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * This is a Java application intended for University Students as a convenient mean to keep track of module tasks.
