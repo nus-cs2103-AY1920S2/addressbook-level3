@@ -4,9 +4,21 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+
 <StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <VBox style="-fx-background-color: #46998F; -fx-background-radius: 10; -fx-background-insets: 4 8 5 8;" minHeight="300">
-    <Label id="savedText" fx:id="savedText"/>
-    <Label id="numericalAmount" fx:id="numericalAmount"/>
+    <Label id="savedText" fx:id="savedText" />
+    <Label id="numericalAmount" fx:id="numericalAmount" />
+    <BarChart id="savingsChart" fx:id="savingsChart">
+      <xAxis>
+        <CategoryAxis id="daysAxis" fx:id="daysAxis" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis id="savingsAxis" fx:id="savingsAxis" />
+      </yAxis>
+    </BarChart>
   </VBox>
 </StackPane>

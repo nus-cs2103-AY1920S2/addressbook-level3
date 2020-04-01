@@ -1,14 +1,17 @@
 package csdev.couponstash.ui;
 
+import java.time.LocalDate;
+
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
-import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-
 
 /**
  * Savings summary of CouponStash.
@@ -27,6 +30,13 @@ public class SummaryTab extends UiPart<Region> {
     private Label savedText;
     @FXML
     private Label numericalAmount;
+    @FXML
+    private BarChart<String, Number> savingsChart;
+    @FXML
+    private NumberAxis savingsAxis;
+    @FXML
+    private CategoryAxis daysAxis;
+
 
     public SummaryTab(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
         super(FXML);
