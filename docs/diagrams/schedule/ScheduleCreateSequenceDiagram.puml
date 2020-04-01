@@ -1,0 +1,87 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
+participant ":CreateCommandParser" as CreateCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":ScheduleParserUtil" as ScheduleParserUtil LOGIC_COLOR
+participant ":CreateCommand" as CreateCommand LOGIC_COLOR
+participant ":OneTimeSchedule" as OneTimeSchedule LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("schedule create 1 d/2020-04-01 14:00")
+activate LogicManager
+
+    LogicManager -> ScheduleCommandParser : parseCommand("schedule create 1 d/2020-04-01 14:00")
+    activate ScheduleCommandParser
+
+        create CreateCommandParser
+        ScheduleCommandParser -> CreateCommandParser
+        activate CreateCommandParser
+
+            CreateCommandParser -> ParserUtil : parseIndex("1")
+            activate ParserUtil
+            CreateCommandParser <-- ParserUtil
+            deactivate ParserUtil
+
+            CreateCommandParser -> ScheduleParserUtil : parseDateTime("2020-04-01 14:00")
+            activate ScheduleParserUtil
+            CreateCommandParser <-- ScheduleParserUtil
+            deactivate ScheduleParserUtil
+
+            create CreateCommand
+            CreateCommandParser -> CreateCommand
+            activate CreateCommand
+
+            CreateCommand --> CreateCommandParser : d
+            deactivate CreateCommand
+
+        CreateCommandParser --> ScheduleCommandParser : d
+        deactivate CreateCommandParser
+
+        'Hidden arrow to position the destroy marker below the end of the activation bar.
+        CreateCommandParser -[hidden]-> ScheduleCommandParser
+        destroy CreateCommandParser
+
+    ScheduleCommandParser --> LogicManager : d
+    deactivate ScheduleCommandParser
+
+
+LogicManager -> CreateCommand : execute()
+activate CreateCommand
+
+create OneTimeSchedule
+CreateCommand -> OneTimeSchedule
+activate OneTimeSchedule
+OneTimeSchedule --> CreateCommand : d
+deactivate OneTimeSchedule
+
+CreateCommand -> Model : hasSchedule(d)
+activate Model
+Model --> CreateCommand
+deactivate Model
+
+CreateCommand -> Model : addSchedule(d)
+activate Model
+Model --> CreateCommand
+deactivate Model
+
+create CommandResult
+CreateCommand -> CommandResult
+activate CommandResult
+CommandResult --> CreateCommand
+deactivate CommandResult
+
+CreateCommand --> LogicManager : result
+deactivate CreateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

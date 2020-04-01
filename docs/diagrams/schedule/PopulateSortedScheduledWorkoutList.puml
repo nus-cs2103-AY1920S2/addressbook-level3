@@ -1,0 +1,73 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":CreateCommand" as CreateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Scheduler" as Scheduler MODEL_COLOR
+participant ":ScheduleList" as ScheduleList MODEL_COLOR
+participant ":Schedule" as Schedule MODEL_COLOR
+participant ":ScheduledWorkoutList" as ScheduledWorkoutList MODEL_COLOR
+end box
+
+[-> CreateCommand : execute()
+activate CreateCommand
+
+CreateCommand -> Model : addSchedule(schedule)
+activate Model
+
+Model -> Scheduler : addSchedule(schedule)
+activate Scheduler
+
+'    add schedule
+    Scheduler -> ScheduleList : addSchedule(schedule)
+    activate ScheduleList
+    Scheduler <-- ScheduleList
+    deactivate ScheduleList
+
+
+'    get schedules
+    Scheduler -> Scheduler : populateSortedScheduledWorkoutList()
+    activate Scheduler
+
+    Scheduler -> ScheduleList : getScheduleList()
+    activate ScheduleList
+    Scheduler <-- ScheduleList : schedules
+    deactivate ScheduleList
+
+
+'    getScheduledWorkouts from schedules
+    loop schedule : schedules
+        Scheduler -> Schedule : getScheduledWorkouts()
+        activate Schedule
+        Scheduler <-- Schedule : scheduledWorkouts
+        deactivate Schedule
+    end
+
+'    setScheduledWorkouts
+    Scheduler -> ScheduledWorkoutList : setScheduledWorkouts(scheduledWorkouts)
+    activate ScheduledWorkoutList
+    Scheduler <-- ScheduledWorkoutList
+    deactivate ScheduledWorkoutList
+
+Model <-- Scheduler
+deactivate Scheduler
+deactivate Scheduler
+
+CreateCommand <-- Model
+deactivate Model
+
+create CommandResult
+CreateCommand -> CommandResult
+activate CommandResult
+CommandResult --> CreateCommand
+deactivate CommandResult
+
+[<--CreateCommand : result
+deactivate CreateCommand
+
+@enduml
