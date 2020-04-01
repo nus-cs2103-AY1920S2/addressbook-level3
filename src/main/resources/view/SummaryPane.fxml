@@ -10,8 +10,10 @@
 
 <StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="baseNode" >
   <VBox id="summary-tab" alignment="CENTER" minHeight="300" StackPane.alignment="CENTER">
-    <Label id="saved-text" fx:id="savedText" contentDisplay="CENTER" prefHeight="17.0" />
-    <Label id="numerical-amount" fx:id="numericalAmount" contentDisplay="CENTER" prefHeight="17.0" />
+    <Label id="saved-text" fx:id="savedText" styleClass="summary-bold-text" contentDisplay="CENTER"
+           prefHeight="17.0" />
+    <Label id="numerical-amount" fx:id="numericalAmount" styleClass="summary-bold-text"
+           contentDisplay="CENTER" minHeight="100.0" />
     <HBox alignment="CENTER" prefHeight="338.0" prefWidth="643.0">
       <BarChart id="savings-chart" fx:id="savingsChart" prefHeight="338.0" prefWidth="321.0">
         <xAxis>
@@ -21,9 +23,11 @@
           <NumberAxis id="savings-axis" fx:id="savingsAxis" />
         </yAxis>
       </BarChart>
-      <VBox id="saveables-box" alignment="CENTER" prefHeight="338.0" prefWidth="301.0">
+      <VBox id="saveables-box" styleClass="summary-bold-text" alignment="CENTER"
+            prefHeight="338.0" prefWidth="301.0">
         <Label id="saveables-text" fx:id="saveablesText" contentDisplay="CENTER" prefHeight="17.0" />
-        <VBox id="all-saveables" fx:id="allSaveables" alignment="CENTER" prefHeight="303.0" prefWidth="277.0" />
+        <VBox id="all-saveables" fx:id="allSaveables" alignment="CENTER"
+              prefHeight="303.0" prefWidth="277.0" />
       </VBox>
     </HBox>
   </VBox>

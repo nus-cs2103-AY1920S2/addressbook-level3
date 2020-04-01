@@ -5,6 +5,8 @@
   -fx-primary-green: #46998F;
   -fx-secondary-blue: #6C96BE;
   -fx-secondary-green: #1C8585;
+  -fx-tertiary-green: #75be86;
+  -fx-quartenary-green: #afd6a7;
   -fx-text: white;
   -fx-paneShadow: dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
 }
@@ -130,7 +132,7 @@
 
 /* Styles for Summary Tab */
 #summary-tab {
-  -fx-background-color: #46998F;
+  -fx-background-color: -fx-primary-green;
   -fx-background-radius: 10;
   -fx-background-insets: 4 8 5 8;
   -fx-text-alignment: center;
@@ -138,8 +140,43 @@
 }
 
 #summary-tab #all-saveables {
-  -fx-background-color: #75be86;
+  -fx-background-color: -fx-tertiary-green;
   -fx-background-radius: 10;
   -fx-effect: -fx-paneShadow;
   -fx-text-fill: white;
+}
+
+#summary-tab .summary-bold-text {
+  -fx-font-family: arial;
+  -fx-font-size: 25px;
+  -fx-font-weight: bold;
+}
+
+#summary-tab #savings-chart {
+  -fx-legend-visible: false;
+  -fx-horizontal-grid-lines-visible: false;
+  -fx-vertical-grid-lines-visible: false;
+}
+
+#summary-tab #savings-chart .bar-chart {
+  -fx-background-color: #000000;
+}
+
+
+#summary-tab #savings-chart .chart-bar {
+  -fx-bar-fill: -fx-quartenary-green;
+  -fx-background-radius: 5;
+  -fx-effect: -fx-paneShadow;
+}
+
+#summary-tab #savings-chart .chart-plot-background {
+  -fx-background-color: transparent;
+}
+
+#summary-tab #savings-chart #savings-axis {
+  -fx-opacity: 0;
+}
+
+#summary-tab #savings-chart #days-axis .axis-tick-mark {
+  -fx-stroke-width: 0;
 }

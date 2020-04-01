@@ -36,7 +36,7 @@ public class SummaryPane extends UiPart<Region> {
     // message to be shown before the list of saveables
     private static final String SAVEABLES_PRE_MESSAGE = "And these saveables too!";
     // controls font size of number amount
-    private static final int BASE_FONT_SIZE = 125;
+    private static final int BASE_FONT_SIZE = 625;
 
     // Independent Ui parts residing in this Ui container
     private ObservableList<Coupon> allCoupons;
@@ -80,6 +80,7 @@ public class SummaryPane extends UiPart<Region> {
         this.moneySymbol = moneySymbol;
         savedText.setText(SummaryPane.SAVED_TOTAL_PRE_MESSAGE);
         saveablesText.setText(SummaryPane.SAVEABLES_PRE_MESSAGE);
+        this.updateView();
     }
 
     /**
@@ -93,6 +94,7 @@ public class SummaryPane extends UiPart<Region> {
         this.savingsChart.getData().clear();
         // clear the bar graph labels when view is updated
         if (this.barGraphLabels != null) {
+            // assumes no other Text present besides graph labels!
             this.barGraphLabels.removeIf(element -> element instanceof Text);
         }
 
@@ -168,8 +170,13 @@ public class SummaryPane extends UiPart<Region> {
      * force the total amount shown to change.
      */
     private void updateTotalAmount() {
-        this.numericalAmount.setText(
-                this.shownMonetaryAmount.getStringWithMoneySymbol(this.moneySymbol.getString()));
+        String savingsNumber = this.shownMonetaryAmount
+                .getStringWithMoneySymbol(this.moneySymbol.getString());
+        this.numericalAmount.setText(savingsNumber);
+        // dynamically adjust font size of the number
+        this.numericalAmount.setStyle("-fx-font-size: "
+                + (SummaryPane.BASE_FONT_SIZE / savingsNumber.length())
+                + ";");
     }
 
     /**
