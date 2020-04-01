@@ -1,13 +1,22 @@
 package cookbuddy.model.recipe;
 
-import cookbuddy.model.recipe.attribute.*;
+import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Done;
+import cookbuddy.model.recipe.attribute.Fav;
+import cookbuddy.model.recipe.attribute.IngredientList;
+import cookbuddy.model.recipe.attribute.InstructionList;
+import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Rating;
+import cookbuddy.model.recipe.attribute.Serving;
+import cookbuddy.model.recipe.attribute.Tag;
 
 /**
  * Represents a Recipe in the recipe book. Guarantees: details are present and
