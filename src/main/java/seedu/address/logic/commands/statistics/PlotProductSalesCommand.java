@@ -2,6 +2,9 @@ package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.transaction.DateTime.populateDates;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +32,12 @@ public class PlotProductSalesCommand extends Command {
     public static final String COMMAND_WORD = "plotsales";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plot the sales of product to the screen\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_START_DATE + "START DATE "
+            + PREFIX_END_DATE + "END DATE \n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_START_DATE + "2020-03-20 10:00 "
+            + PREFIX_END_DATE + "2020-03-30 10:00";
 
     public static final String MESSAGE_SUCCESS = "Sales for product %1$s plotted.";
     public static final String TITLE = "Sales of %1$s between %2$s and %3$s";
