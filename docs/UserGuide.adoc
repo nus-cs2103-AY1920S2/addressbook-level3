@@ -158,10 +158,10 @@ Example: `delete -t Notably/CS2103`
 If your target path is a subtree, the whole subtree including the child would be deleted.
 
 .Demo for the delete command (before deletion)
-image::/demo/Delete1.png[width="790"]
+image::demo/Delete1.png[]
 
 .Demo for the delete command (after deletion)
-image::/demo/Delete2.png[width="790"]
+image::demo/Delete2.png[]
 
 [NOTE]
 You can achieve the same result by using a `AbsolutePath` instead. `delete -t /Workspace/Notably`
