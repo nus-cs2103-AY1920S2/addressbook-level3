@@ -130,37 +130,14 @@ public class Module {
         filteredActivity.setPredicate(predicate);
     }
 
-    public void sortActivityList(SortMethod sortMethod) {
-        Comparator<Activity> nameSorter = Comparator.comparing(l -> l.getName().toString(),
-                String.CASE_INSENSITIVE_ORDER.reversed());
-        Comparator<Activity> dateSorter = Comparator.comparing(l -> l.getDate().getDate(),
-                Comparator.reverseOrder());
-        Comparator<Activity> prioritySorter = Comparator.comparing(l -> l.getPriority().toString(),
-                Comparator.reverseOrder());
-        switch (sortMethod.getSortMethodString()) {
-            case "name":
-                System.out.println("Attempting to sort by name");
-                this.activityList.getActivityList().sort(nameSorter);
-                break;
-            case "date":
-                System.out.println("Attempting to sort by date");
-                this.activityList.getActivityList().sort(dateSorter);
-                break;
-            case "priority":
-                System.out.println("Attempting to sort by priority");
-                this.activityList.getActivityList().sort(prioritySorter);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + sortMethod);
-        }
-    }
     /**
-     * Returns an unmodifiable view of the list of {@code Activity} backed by the internal list of
-     * {@code UniqueActivityList}
+     * Sorts module's activity list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting the activities in the module activity list.
      */
-//    public ObservableList<Activity> getSortedActivityList() {
-//        return sortedActivities;
-//    }
+    public void sortActivityList(SortMethod sortMethod) {
+        Comparator<Activity> comparator = sortMethod.getComparator();
+        this.activityList.getActivityList().sort(comparator);
+    }
 
     /**
      * Returns true if both modules of the same module code.

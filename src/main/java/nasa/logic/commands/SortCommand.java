@@ -31,8 +31,6 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.sortActivityList(sortMethod);
-//        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-//        model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
