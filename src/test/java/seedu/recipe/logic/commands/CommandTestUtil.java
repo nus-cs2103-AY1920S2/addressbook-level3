@@ -13,6 +13,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.recipe.testutil.Assert.assertThrows;
+import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -132,6 +132,7 @@ public class DeleteIngredientCommand extends Command {
 
     /**
      * Removes the specified {@code Grain} ingredient(s) from the current list of grains.
+     * If no grain ingredient(s) were specified but "ig/" prefix was present, all grains will be removed.
      * If the specified grain ingredient(s) do not exist in the current list, CommandException is thrown.
      */
     private void updateGrainsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
@@ -161,6 +162,7 @@ public class DeleteIngredientCommand extends Command {
 
     /**
      * Removes the specified {@code Vegetable} ingredient(s) from the current list of vegetables.
+     * If no vegetable ingredient(s) were specified but "iv/" prefix was present, all ingredients will be removed.
      * If the specified vegetable ingredient(s) do not exist in the current list, CommandException is thrown.
      */
     private void updateVegetablesList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
@@ -190,6 +192,7 @@ public class DeleteIngredientCommand extends Command {
 
     /**
      * Removes the specified {@code Protein} ingredient(s) from the current list of proteins.
+     * If no protein ingredient(s) were specified but "ip/" prefix was present, all proteins will be removed.
      * If the specified protein ingredient(s) do not exist in the current list, CommandException is thrown.
      */
     private void updateProteinsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
@@ -219,6 +222,7 @@ public class DeleteIngredientCommand extends Command {
 
     /**
      * Removes the specified {@code Fruit} ingredient(s) from the current list of fruits.
+     * If no fruit ingredient(s) were specified but "if/" prefix was present, all fruits will be removed.
      * If the specified fruit ingredient(s) do not exist in the current list, CommandException is thrown.
      */
     private void updateFruitsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
@@ -248,6 +252,7 @@ public class DeleteIngredientCommand extends Command {
 
     /**
      * Removes the specified {@code Other} ingredient(s) from the current list of other ingredients.
+     * If no others ingredient(s) were specified but "io/" prefix was present, all others ingredients will be removed.
      * If the specified other ingredient(s) do not exist in the current list, CommandException is thrown.
      */
     private void updateOthersList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor)
