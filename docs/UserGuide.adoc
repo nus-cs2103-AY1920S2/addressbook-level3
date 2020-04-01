@@ -162,25 +162,33 @@ recipe to contain two instructions:
     * boil eggs
     * slice apples
 
-=== List Recipes — `list`
-Lists out all the recipes managed by *CookBuddy*.
+=== Listing recipes — `list`
+You can list all the existing recipes from *CookBuddy* using the `list` command.
 
-=== Find Recipes — `find`
-Find recipes with a particular parameter.
+Format: `list`
+
+=== Finding recipes — `find`
+You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
+
+Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]
 
 [NOTE]
 *CookBuddy* can find recipes from one parameter at a time.
 
-==== Find by name - `find [n/NAME [...]]`
-Example: `find n/sandwich`
-Finds recipes that contain the word `sandwich` in their name.
+==== Finding a recipe by name
+You can find a recipe by its name by appending `n/NAME [...]` to a `find` command.
 
-==== Find by ingredient - `find [ing/INGREDIENT [...]]`
-Example: `find ing/bread`
-Finds recipes that contain the word `bread` in their ingredients.
+Example: You can type `find n/sandwich` and *CookBuddy* will display recipes that contain the word `sandwich` in their name.
 
-=== Count Recipes — `count`
-Displays the total number of recipes stored in *CookBuddy*.
+==== Finding a recipe by ingredient
+You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
+
+Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
+
+=== Counting recipes — `count`
+You can count the total number of recipes stored in *CookBuddy* using the `count` command.
+
+Format: `count`
 
 //=== View a Recipe — `view RECIPE_INDEX (V1.3)`
 //Opens the recipe at `RECIPE_INDEX` to view.
@@ -201,7 +209,22 @@ Displays the total number of recipes stored in *CookBuddy*.
 // Useful for users who wish to experiment with recipes while keeping a copy of the original.
 
 === Deleting all recipes - `reset`
-Removes all recipes from *CookBuddy*.
+You can remove all recipes stored in *CookBuddy* using the `reset`command.
 
-=== Exiting the program - `exit`
-Exits *CookBuddy*.
+Format: `reset`
+
+=== Exiting *CookBuddy* - `exit`
+You can exit from *CookBuddy* using the `exit` command.
+
+Format: `exit`
+
+== FAQ
+
+The following section answers some questions you might have regarding *CookBuddy*.
+
+Q: How do I transfer my data to another Computer?
+A: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
+
+== Command Summary
+
+The following section gives a quick summary of all the commands you can use in CookBuddy.
