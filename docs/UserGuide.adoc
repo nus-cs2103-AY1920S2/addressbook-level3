@@ -6,6 +6,8 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: userguide.css
+:linkcss:
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -17,8 +19,14 @@ endif::[]
 By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
+Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
+assignments, lessons, exams and other miscellaneous activities.*
 
-Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can type fast, NASA can keep track of your module activities faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Time to take off!
+*While NASA has a user-centric Graphical User Interface, it is optimized for users who prefer to work with the
+Command Line Interface (CLI).* If you can type fast, NASA can keep track of all your module activities faster than
+traditional GUI applications.
+
+Interested? Ready to blast off on an exciting student journey? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -34,9 +42,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all activities of each module
-* **`Madd`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
-* **`Tadd`**`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds an activity called IP Project with the following details into CS2103T module activity-list.
-* **`delete`**`m/CS2103T 1` : deletes the 1st activity shown in the module activity-list.
+* **`add`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows activities to be added to that module.
+* **`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds an activity called IP Project with the following details into CS2103T module activity-list.
+* **`delete`**`1 m/CS2103T` : deletes the 1st activity shown in the module activity-list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -95,7 +103,7 @@ Format: `list [m/MODULE_CODE....]`
 === Editing a activity : `edit`
 
 Edits an existing activity in the module's activity-list. +
-Format: `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
 
 ****
 * Edits the activity at the specified `INDEX` in the specified `MODULE_CODE` activity-list. The index refers to the index number shown in the module activity-list. The index *must be a positive integer* 1, 2, 3, ...
@@ -105,18 +113,20 @@ Format: `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAM
 
 Examples:
 
-* `edit m/CS2103T 2 d/12-12-2020 23:59` +
+* `edit 2 m/CS2103T d/12-12-2020 23:59` +
 Edits the 2nd activity in CS2013T activity-list date to be `12-12-2020 23:59`.
-* `edit m/CS2030 3 n/Finish LAB level 3 with Generics p/2` +
+* `edit 3 m/CS2030 n/Finish LAB level 3 with Generics p/2` +
 Edits the notes and priority of the 3rd activity in CS2030 activity-list to `Finish LAB level 3 with Generics` and `2` respectively.
 
 === Editing a module: `Medit`
 
 Edits and existing module in the NASA application. +
-Format: `Medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]
+Format: `Medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
 
 ****
 * Edits an existing module in the application.
+* First `m/` is taken as the module code of the existing module to be edited.
+* To edit module code, EXACTLY two `m/` tag must be entered.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -292,6 +302,21 @@ Examples:
 
 ** `statistics tp/WEEK` +
 Displays activities completed over this week.
+
+=== Automating activity: `repeat`
+Allows user to repeat an activity from a module.
+Format: `repeat m/MODULE_CODE a/ACTIVITY_NAME r/INDEX`
+
+** `INDEX` can be in `1 for Weekly`, `2 twice Weekly`, `3 for Monthly`.
+**  By default `INDEX` will be `0` hence no automation will be done.
+**  The activity will be regenerated once user open the application.
+
+Examples:
+
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/0` to cancel.
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/1` to regenerate weekly.
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/2` to regenerate twice weekly.
+** `repeat m/CS3233 a/SEA Group Programming Assignment r/3` to regenerate monthly.
 
 === Export to calendar `export` `[coming in v1.2]`
 Exports all module activity-lists onto a calendar (.ics format) for users. +

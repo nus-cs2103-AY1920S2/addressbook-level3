@@ -1,0 +1,9 @@
+{
+  "modules": [ {
+    "name": "Valid Person",
+    "address": "4th street"
+  }, {
+    "name": "Person With Invalid Phone Field",
+    "address": "4th street"
+  } ]
+}
