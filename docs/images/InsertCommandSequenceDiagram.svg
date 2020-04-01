@@ -119,7 +119,7 @@ activate InsertCommand
 
 InsertCommand -> Model ++ : hasOrder(toAdd)
 
-Model - -> InsertCommand - - : 
+Model - -> InsertCommand - - :
 
 InsertCommand -> Model : addOrder(toAdd)
 
