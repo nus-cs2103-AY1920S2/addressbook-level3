@@ -1,8 +1,6 @@
 package csdev.couponstash.model;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -13,7 +11,6 @@ import java.util.logging.Logger;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
-import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.model.element.ObservableMonthView;

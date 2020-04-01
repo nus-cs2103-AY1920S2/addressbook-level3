@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
-import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.model.element.ObservableMonthView;

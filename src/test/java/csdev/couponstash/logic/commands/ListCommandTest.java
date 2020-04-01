@@ -2,7 +2,6 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.logic.commands.CommandTestUtil.showCouponAtIndex;
-import static csdev.couponstash.logic.parser.CliSyntax.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -79,7 +78,7 @@ public class ListCommandTest {
     @Test
     public void testEquals() {
         ListCommand listActive = new ListCommand();
-        ListCommand listArchived = new ListCommand(PREFIX_ARCHIVE);
+        ListCommand listArchived = new ListCommand(CliSyntax.PREFIX_ARCHIVE);
 
         // same object -> returns true
         assertTrue(listActive.equals(listActive));
