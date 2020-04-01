@@ -68,6 +68,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         } else {
             model.assignStudentToCourse(studentID, courseID);
 
+
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     assigningStudent.getName(), studentID.value,
                     assignedCourse.getName(), courseID.value));
