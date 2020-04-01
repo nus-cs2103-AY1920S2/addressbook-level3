@@ -8,6 +8,7 @@ import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.model.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -25,7 +26,7 @@ import jfxtras.styles.jmetro.Style;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    public static final JMetro jMetro = new JMetro(Style.LIGHT);
+    public static final JMetro JMETRO = new JMetro(Style.LIGHT);
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -67,8 +68,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-        jMetro.setAutomaticallyColorPanes(true);
-        jMetro.setScene(this.primaryStage.getScene());
+        JMETRO.setAutomaticallyColorPanes(true);
+        JMETRO.setScene(this.primaryStage.getScene());
 
         setAccelerators();
 
@@ -116,14 +117,19 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    public void defaultFill(Recipe recipe) {
         if (logic.getFilteredRecipeList().size() == 0) {
             recipeView = new RecipeView();
+        } else {
+            recipeView = new RecipeView(recipe);
         }
-        else {
-            recipeView = new RecipeView(logic.getFilteredRecipeList().get(0));
-        }
+        fillInfo();
+    }
 
+    /**
+     * fills in the ingredient/instruction fields
+     */
+    public void fillInfo() {
         this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
 
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
@@ -137,6 +143,18 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills in information for the recipe
+     */
+    public void fillInnerParts() {
+        if (logic.getFilteredRecipeList().size() == 0) {
+            recipeView = new RecipeView();
+            fillInfo();
+        } else {
+            defaultFill(logic.getFilteredRecipeList().get(0));
+        }
     }
 
     /**
