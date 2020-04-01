@@ -6,18 +6,23 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.commons.util.EntriesUtil;
 import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.model.entry.Entry;
 import fithelper.model.today.Today;
 import fithelper.ui.calendar.CalendarPanel;
+import fithelper.ui.calendar.DayCardWithStage;
+import fithelper.ui.calendar.ListPanel;
 import fithelper.ui.diary.DiaryPage;
 import fithelper.ui.home.DashBoard;
 import fithelper.ui.profile.ProfilePage;
 import fithelper.ui.today.TodayPage;
 import fithelper.ui.weight.WeightPage;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,6 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private WeightPage weightPage;
     private CalendarPanel calendarPanel;
     private HelpWindow helpWindow;
+    private ListPanel listPanel;
 
     @FXML
     private StackPane foodListPanelPlaceholder;
@@ -111,6 +117,8 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(diaryPage.getRoot());
         calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
             logic.getFilteredSportsEntryList(), logic.getVEvents());
+        listPanel = new ListPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        setAllPageAnchor(listPanel.getRoot());
         setAllPageAnchor(calendarPanel.getRoot());
         helpWindow = new HelpWindow();
         setAllPageAnchor(helpWindow.getRoot());
@@ -250,9 +258,23 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showCalendarPanel() {
         pagePane.getChildren().clear();
-        calendarPanel.updateScheduler();
-        calendarPanel.set(logic.getCalendarDate(), logic.getCalendarMode());
-        pagePane.getChildren().add(calendarPanel.getRoot());
+        if (logic.getCalendarShow() != null) {
+            logger.info("Showing day page about this date.");
+            ObservableList<Entry> entries = EntriesUtil.getEntries(logic.getFilteredFoodEntryList(),
+                    logic.getFilteredSportsEntryList(), logic.getCalendarShow().toLocalDate());
+            DayCardWithStage temp = new DayCardWithStage(entries, logic.getCalendarShow().toLocalDate());
+            temp.getRoot().show();
+            temp.getRoot().centerOnScreen();
+            logic.setCalendarShow();
+        }
+        if ("tb".equals(logic.getCalendarMode())) {
+            calendarPanel.updateScheduler();
+            calendarPanel.set(logic.getCalendarDate());
+            pagePane.getChildren().add(calendarPanel.getRoot());
+        } else {
+            listPanel.set(logic.getCalendarDate());
+            pagePane.getChildren().add(listPanel.getRoot());
+        }
         currentPage.setText("Calendar");
     }
 

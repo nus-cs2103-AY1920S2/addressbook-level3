@@ -18,7 +18,7 @@
         </StackPane>
         <StackPane id="listPanel" alignment="BOTTOM_CENTER">
             <children>
-                <ListView fx:id="daysListView" prefWidth="180.0">
+                <ListView fx:id="daysListView" prefWidth="140.0">
                     <StackPane.margin>
                         <Insets top="15.0" left="3.0"/>
                     </StackPane.margin>

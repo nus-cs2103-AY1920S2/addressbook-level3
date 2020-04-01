@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="140.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="innerPane" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+        <AnchorPane fx:id="innerPane" prefHeight="80.0" prefWidth="140.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
             <children>
                 <VBox prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="129.0" style="-fx-background-color: white; -fx-border-color: #789cce;">
                             <children>
-                                <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="160.0">
+                                <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="140.0">
                                     <children>
                                         <Text fx:id="dateTitle" style="-fx-font: 20" text="text" wrappingWidth="72.0" />
                                         <Text fx:id="foodCal" style="-fx-font: 20" text="text" wrappingWidth="72.0" />

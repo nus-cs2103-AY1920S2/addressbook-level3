@@ -5,11 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ListView?>
-<StackPane id="upcomingPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane id="upcomingPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <StackPane prefWidth="200.0">
+        <StackPane prefWidth="180.0">
             <children>
                 <Label fx:id="upcomingTitle" StackPane.alignment="TOP_LEFT" textFill="#789cce">
                     <StackPane.margin>
@@ -20,14 +19,11 @@
         </StackPane>
         <StackPane id="upcomingPanel" alignment="BOTTOM_CENTER">
             <children>
-                <ScrollPane id="upcomingScrollPane" fitToWidth="true" prefWidth="200.0">
+                <ListView fx:id="listView" prefWidth="180.0">
                     <StackPane.margin>
                         <Insets top="20.0" />
                     </StackPane.margin>
-                    <content>
-                        <ListView fx:id="listView" prefWidth="200.0"/>
-                    </content>
-                </ScrollPane>
+                </ListView>
             </children>
         </StackPane>
     </children>

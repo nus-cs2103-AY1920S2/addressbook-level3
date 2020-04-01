@@ -425,6 +425,21 @@ public class ModelManager implements Model {
         return calendarSettings.getMode();
     }
 
+    @Override
+    public void setCalendarShow(String show) {
+        if (show == null) {
+            calendarSettings.setShow(null);
+        } else {
+            Time time = new Time(show);
+            calendarSettings.setShow(time.getDateTime());
+        }
+    }
+
+    public LocalDateTime getCalendarShow() {
+        return calendarSettings.getShow();
+    }
+
+
     // Methods about user profile.
 
     @Override

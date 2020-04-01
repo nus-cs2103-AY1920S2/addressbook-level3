@@ -12,12 +12,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 /**
  * A section which displays upcoming tasks.
  */
-public class UpcomingList extends UiPart<AnchorPane> {
+public class UpcomingList extends UiPart<StackPane> {
     private static final String FXML = "UpcomingList.fxml";
     private ObservableList<Entry> combined;
     private LocalDateTime time;

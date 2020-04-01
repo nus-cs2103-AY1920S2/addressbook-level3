@@ -192,28 +192,126 @@ Deletes the 2nd sports entry in the `2020-03-02` daily file in the fitness log b
 
 === Keep a diary
 
-Users can keep a diary by type in the `diary` keyword and the content of the diary. If the `DATE` is null, the content will be appended to today's diary.
-Format: `diary (Optional)DATE CONTENT`
+The user can keep a diary in FitHelper, and command for adding/editing/deleting/searching/clearing diary logs.
+
+* `diary` switches to the `Diary Page` where all diary logs are displayed in chronological order
+
+==== Add a new diary
+
+* `addDiary d/DATE dc/DIARYCONTENT` +
+adds a new diary on the specified `DATE` with the specified `CONTENT` +
+
+If there is previously added diary on the specified `DATE`, calling `addDiary` will rewrite the content.
 
 Examples:
 
-* `diary 2020-03-02 I feel good about myself after running.` +
-Adds the comment `I feel good about myself after running.` to the diary on `2020-03-02`.
+* `addDiary d/2020-03-31 dc/Happy birthday Alice!`
+Adds a diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
 
-=== Reward
+==== Append new content to an existing diary
+* `appendDiary d/DATE dc/APPENDED CONTENT` +
+appends new content to the existing diary on the specified `DATE`. +
 
-Users get rewarding points after doing exercises or controlling their calorie intake to a certain amount.
-They can also be promoted to higher `fitness level` based on their rewading points.
+If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DIARY_NOT_FOUND`
+reminder.
 
-Format: `reward`
-The user's current 'fitness level` and total rewarding points will be displayed.
+Examples:
+
+* `appendDiary d/2020-03-31 dc/You are one year older now:)` (after `addDiary d/2020-03-31 dc/Happy birthday Alice!`)+
+This command appends the new diary content to the existing the diary log on the date `2020-03-31`.
+The new diary content after this command will be "Happy birthday Alice! You are one year older now:)".
+
+==== Edit a diary
+* `editDiary d/DATE dc/NEW DIARYCONTENT` +
+edits the diary on the specified `DATE` with the new `DIARYCONTENT`. +
+
+If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DIARY_NOT_FOUND`
+reminder.
+If the existing diary with the specified `DATE` has the same content as the specified content, this command will be discarded with a `DUPLICATE_DIARY`
+reminder.
+
+Examples:
+
+* `editDiary d/2020-03-31 dc/Happy birthday Alice!` +
+This command edits the content of the diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
+
+==== Delete a diary
+* `deleteDiary d/DATE` +
+deletes the diary on the specified `DATE`. +
+
+If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
+`DIARY_NOT_FOUND`.
+
+Examples:
+
+* `deleteDiary d/2020-03-31` +
+This command deletes the diary log on the date `2020-03-3`, if the diary on this date exists, and discards the command
+if no diary was added previously on this date.
+
+==== Find a diary
+* `findDiary [d/DATE] [k/ONE OR MORE KEYWORDS]` +
+finds diaries either on the specified `DATE` or contains the specified `KEYWORDS`. +
+
+If there is no diary under the specified `DATE`, this command will be discarded with the reminder of
+`DIARY_NOT_FOUND`.
+
+****
+* The field `DATE` has higher priority than `KEYWORDS` in the search.
+i.e. If the `DATE` field is non-empty, regardless of the presence and the content of the `KEYWORDS` field,
+the diary under that date will be displayed. If the specified `DATE` contains no previous diary logs,
+no diary will be listed.
+* If the field `DATE` is left empty, only the `KEYWORDS` field is considered in the search,
+similar to the case of `find` command for food/sport entries.
+* The search is case insensitive. e.g `apples` will match `Apples`
+* The order of the keywords does not matter. e.g. `Apple Pie` will match `Pie Apple`
+* Only the name is searched.
+* Only full words will be matched e.g. `Straw` will not match `Strawberries`
+* Entries matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple Banana` will return `Apple Pie`, `Banana Milkshake`
+****
+
+Examples:
+
+* `findDiary k/running` +
+Displays diaries with their content containing the keyword `running`, ignoring the letter capitalization.
+* `find d/2020-03-31 k/cake` +
+Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field.
+
+==== Clear the diary
+
+* `clearDiary`＋
+clears all diary logs in this FitHelper.
+[TIIP]
+The user can always revoke the clearing command by calling `undo`, which will be explained in a later section.
+
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== Clearing all data in FitHelper : `clear`
 
 Clears all entries from the fitness log book. +
 
 Format: `clear`
+
+=== Undo : `undo`
+
+`undo` revokes the last undoable command. +
+This command back-roll FitHelper to the previous status before the last undoable command was executed.
+
+Examples:
+
+* `undo` (after `addDiary d/2020-03-31 dc/I am happy.`) +
+This `undo` commands remove the added diary log from FitHelper.
+
+=== Redo : `redo`
+
+`redo` is the reverse of `undo`. +
+This command re-execute the last undoable command that has been undone.
+[WARNING]
+`redo` can only be executed after an `undo` has been previously performed.
+
+Examples:
+
+* `redo` (after `undo`-ing the previous `addDiary d/2020-03-31 dc/I am happy.`) +
+This `undo` commands adds the diary log back to FitHelper.
 
 === Exiting the program : `exit`
 
@@ -339,23 +437,25 @@ Today page serves to be a summary for the daily arrangements. +
 It shows the daily schedule for the user. Users can see the entries for the day, a recommended lunch place, and their performances. They can also see their diary for the day as well as the rewarding point. +
 Format: `today`
 
-* *Daily Schedule* +
-The list of food and sports for "today" is displayed, with the status and comments.
+* *Daily Plans* +
+The lists of food and sports for "today" are displayed.
 
-* *Recommended Dining Places* +
-Recommended dining places for lunch are displayed, based on their distances to the location of entries at noon. +
-By default, the recommended dining place are ones nearest to the user address.
+* *Plan Counter* +
+The counters keep track of the number of done/undone food/sports plans on Today.
 
-* *Daily Routine* +
-An line-dot graph of daily routine is displayed following the chronological order of the daily arrangements.
+* *Calorie Report* +
+Calorie report contains the data of daily calorie intake/consumption from done food/sports entries correspondingly.
+The food calorie pie chart displays the component of calorie intake, so the user can view which food entry contributes
+to how much calorie intake, so he/she can adjust the diet plan.
 
-* *Daily Performance* +
-User perfoamance for the current day can be seen from the today page, based on the ratio of done and undone entries and calorie consumption.
+* *Task Completion* +
+The user's daily task completion is shown in percentage.
 
-* *Diary Corner* +
-Daily diary log will be displayed if the user has types in comments for the day.
+* *FitHelper Feedback* +
+Based on the user's intake food calorie and sport task completion, FitHelper provides suggestions and reminders
+in the `FitHelper Feedback` area.
 
-==== Some Day Page
+==== [proposed] Some Day Page
 
 The `Today Page` for some day in the history can be displayed.
 Format: `today DATE`
@@ -368,7 +468,7 @@ Examples:
 * `today`
 * `today 2020-02-14`
 
-=== Weekly Report
+=== [proposed] Weekly Report
 
 A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week. +
 Format: `weekreport`
@@ -421,8 +521,19 @@ Examples:
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 * *List* : `list`
 * *Help* : `help`
+* *DashBoard* : `home`
+* *Reminders* : `reminder`
+* *Today* : `today`
+* *Diary* : `diary`
+* *Diary - add* : `addDiary d/DATE dc/DIARYCONTENT`
+* *Diary - edit* : `editDiary d/DATE dc/DIARYCONTENT`
+* *Diary - delete* : `deleteDiary d/DATE`
+* *Diary - find* : `findDiary [d/DATE] [dc/DIARYCONTENT]`
+* *Diary - clear* : `clearDiary`
 * *Calendar* : `calendar`
 * *Profile*: `profile`
 * *Update*: `update [-f] attr/ATTRIBUTE V/VALUE`
 * *Weight*: `weight`
 * *AddWeight* `addWeight v/VALUE [d/DATE]`
+* *Undo* : `undo`
+* *Redo* : `redo`
