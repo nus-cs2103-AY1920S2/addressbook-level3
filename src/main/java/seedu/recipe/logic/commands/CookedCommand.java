@@ -45,8 +45,7 @@ public class CookedCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
             Recipe recipeCooked = mostRecentList.get(targetIndex[i].getZeroBased());
-            Date date = new Date();
-            Record record = new Record(recipeCooked.getName(), date);
+            Record record = new Record(recipeCooked.getName(), new Date(), recipeCooked.getGoals());
             if (model.hasRecord(record)) {
                 throw new CommandException(MESSAGE_DUPLICATE_RECORD);
             }

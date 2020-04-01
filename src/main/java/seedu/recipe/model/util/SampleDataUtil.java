@@ -201,12 +201,12 @@ public class SampleDataUtil {
 
     public static Record[] getSampleRecords() {
         return new Record[] {
-            new Record(new Name("Caesar Salad"), new Date()),
-            new Record(new Name("Grilled Sandwich"), new Date()),
-            new Record(new Name("Boiled Chicken"), new Date()),
-            new Record(new Name("Chocolate Cake"), new Date()),
-            new Record(new Name("Omelet"), new Date()),
-            new Record(new Name("Tuna Bread"), new Date())
+            new Record(new Name("Caesar Salad"), new Date(), getGoalSet("Herbivores")),
+            new Record(new Name("Grilled Sandwich"), new Date(), getGoalSet("Wholesome Wholemeal")),
+            new Record(new Name("Boiled Chicken"), new Date(), getGoalSet("Bulk like the Hulk")),
+            new Record(new Name("Chocolate Cake"), new Date(), getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal")),
+            new Record(new Name("Omelet"), new Date(), getGoalSet()),
+            new Record(new Name("Tuna Bread"), new Date(), getGoalSet("Wholesome Wholemeal"))
         };
     }
 

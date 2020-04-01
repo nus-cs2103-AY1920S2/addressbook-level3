@@ -1,11 +1,18 @@
 package seedu.recipe.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 
 /**
@@ -17,14 +24,19 @@ class JsonAdaptedRecord {
 
     private final String name;
     private final String date;
+    private final List<JsonAdaptedGoal> goals = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRecord} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedRecord(@JsonProperty("name") String name, @JsonProperty("date") String date) {
+    public JsonAdaptedRecord(@JsonProperty("name") String name, @JsonProperty("date") String date,
+                             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.date = date;
+        if (goals != null) {
+            this.goals.addAll(goals);
+        }
     }
 
     /**
@@ -33,7 +45,9 @@ class JsonAdaptedRecord {
     public JsonAdaptedRecord(Record source) {
         name = source.getName().fullName;
         date = source.getDate().toStringForJson();
-
+        goals.addAll(source.getGoals().stream()
+                .map(JsonAdaptedGoal::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -51,8 +65,13 @@ class JsonAdaptedRecord {
         }
         final Name modelName = new Name(name);
         final Date modelDate = new Date(date);
+        final List<Goal> recordGoals = new ArrayList<>();
+        for (JsonAdaptedGoal goal : goals) {
+            recordGoals.add(goal.toModelType());
+        }
+        final Set<Goal> modelGoals = new HashSet<>(recordGoals);
 
-        return new Record(modelName, modelDate);
+        return new Record(modelName, modelDate, modelGoals);
     }
 
 }

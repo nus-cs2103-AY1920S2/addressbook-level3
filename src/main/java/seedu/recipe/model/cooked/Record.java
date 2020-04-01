@@ -2,10 +2,16 @@ package seedu.recipe.model.cooked;
 
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.recipe.model.Date;
+import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
+import seedu.recipe.storage.JsonAdaptedGoal;
 
 /**
  * Represents a Record in the cooked records book.
@@ -16,14 +22,16 @@ public class Record {
     // Identity fields
     private final Name name;
     private final Date date;
+    private final Set<Goal> goals = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Record(Name name, Date date) {
+    public Record(Name name, Date date, Set<Goal> goals) {
         requireAllNonNull(name);
         this.name = name;
         this.date = date;
+        this.goals.addAll(goals);
     }
 
     public Name getName() {
@@ -32,6 +40,14 @@ public class Record {
 
     public Date getDate() {
         return date;
+    }
+
+    /**
+     * Returns an immutable goal set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Goal> getGoals() {
+        return Collections.unmodifiableSet(goals);
     }
 
 
@@ -66,7 +82,9 @@ public class Record {
 
         Record otherRecord = (Record) other;
 
-        return otherRecord.getName().equals(getName()) && otherRecord.getDate().equals(getDate());
+        return otherRecord.getName().equals(getName())
+                && otherRecord.getDate().equals(getDate())
+                && otherRecord.getGoals().equals(getGoals());
     }
 
     @Override
@@ -80,7 +98,10 @@ public class Record {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append("\nDate: ")
-                .append(getDate());
+                .append(getDate())
+                .append("\nGoals: ");
+        getGoals().forEach(builder::append);
         return builder.toString();
     }
+
 }
