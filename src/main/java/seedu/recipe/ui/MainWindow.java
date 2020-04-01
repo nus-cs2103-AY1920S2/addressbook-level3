@@ -123,7 +123,6 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
         recipeListPanel = new RecipeListPanel(recipeList);
 
-        //using recipe list as stub for planning list, to be editted later todo
         ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
