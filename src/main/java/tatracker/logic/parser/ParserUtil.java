@@ -12,6 +12,7 @@ import tatracker.commons.core.index.Index;
 import tatracker.commons.util.DateTimeUtil;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
+import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.GroupType;
 import tatracker.model.session.SessionType;
@@ -214,6 +215,19 @@ public class ParserUtil {
         default:
             throw new ParseException(GroupType.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses and returns Group Type of group.
+     */
+    public static SortType parseSortType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+
+        if (!SortType.isValidSortType(trimmedType)) {
+            throw new ParseException(SortType.MESSAGE_CONSTRAINTS);
+        }
+        return SortType.getSortType(trimmedType);
     }
 
     /**

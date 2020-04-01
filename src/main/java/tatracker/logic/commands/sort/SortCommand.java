@@ -28,14 +28,10 @@ public class SortCommand extends Command {
     );
 
     public static final String MESSAGE_SUCCESS = "The modules have been sorted.";
-    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
-            + "by rating asc, by rating desc and matric.";
-    private static final int FIRST_MODULE_INDEX = 0;
-    private static final int FIRST_GROUP_INDEX = 0;
 
-    private final String type;
+    protected final SortType type;
 
-    public SortCommand(String type) {
+    public SortCommand(SortType type) {
         this.type = type;
     }
 
@@ -44,22 +40,20 @@ public class SortCommand extends Command {
         requireNonNull(model);
 
         switch(type) {
-        case "alphabetically":
-        case "alpha":
-        case "alphabetical":
+        case ALPHABETIC:
             model.sortModulesAlphabetically();
             break;
-        case "matric":
+        case MATRIC:
             model.sortModulesByMatricNumber();
             break;
-        case "rating asc":
+        case RATING_ASC:
             model.sortModulesByRatingAscending();
             break;
-        case "rating desc":
+        case RATING_DESC:
             model.sortModulesByRatingDescending();
             break;
         default:
-            throw new CommandException(MESSAGE_INVALID_SORT);
+            throw new CommandException(SortType.MESSAGE_CONSTRAINTS);
         }
 
         model.setDefaultStudentViewList();
