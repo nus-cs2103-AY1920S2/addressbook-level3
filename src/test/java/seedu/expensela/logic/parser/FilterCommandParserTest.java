@@ -32,9 +32,23 @@ class FilterCommandParserTest {
                 new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
                         new DateEqualsKeywordPredicate(Arrays.asList("2020-01")));
         assertParseSuccess(parser, " c/FOOD m/2020-01", expectedFilterCommand);
-
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " c/FOOD     m/2020-01", expectedFilterCommand);
     }
 
+    @Test
+    public void parse_validCatArgs_returnsFilterCommand() {
+        // no leading and trailing whitespaces
+        FilterCommand expectedFilterCommand =
+                new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
+                        new DateEqualsKeywordPredicate(Arrays.asList("all")));
+        assertParseSuccess(parser, " c/FOOD", expectedFilterCommand);
+    }
+
+    @Test
+    public void parse_validDateArgs_returnsFilterCommand() {
+        // no leading and trailing whitespaces
+        FilterCommand expectedFilterCommand =
+                new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList("all")),
+                        new DateEqualsKeywordPredicate(Arrays.asList("2020-01")));
+        assertParseSuccess(parser, " m/2020-01", expectedFilterCommand);
+    }
 }

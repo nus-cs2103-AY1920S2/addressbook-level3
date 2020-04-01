@@ -76,5 +76,4 @@ class FilterCommandTest {
     private DateEqualsKeywordPredicate prepareDatePredicate(String userInput) {
         return new DateEqualsKeywordPredicate(Arrays.asList(userInput));
     }
-
 }

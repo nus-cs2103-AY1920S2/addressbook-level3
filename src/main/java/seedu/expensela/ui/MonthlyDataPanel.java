@@ -109,6 +109,9 @@ public class MonthlyDataPanel extends UiPart<Region> {
         inner.setType(ArcType.ROUND);
         inner.setFill(overlay);
         int percentage = 100 - (int) (expense * 100 / budget);
+        if (percentage < 0) {
+            percentage = 0;
+        }
         String displayedPercentage = percentage + "%";
         circleLabel.setText(displayedPercentage);
     }

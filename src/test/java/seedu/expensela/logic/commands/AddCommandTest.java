@@ -171,6 +171,8 @@ public class AddCommandTest {
         @Override
         public void setFilter(Filter filter) {
 
+        }
+
         public ToggleView getToggleView() {
             throw new AssertionError("This method should not be called.");
         }

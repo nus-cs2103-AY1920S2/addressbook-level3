@@ -1,6 +1,5 @@
 package seedu.expensela.logic.commands;
 
-import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
@@ -34,12 +33,6 @@ public class AddCommandIntegrationTest {
 
         assertCommandSuccess(new AddCommand(validTransaction), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);
-    }
-
-    @Test
-    public void execute_duplicateTransaction_throwsCommandException() {
-        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(0);
-        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }

@@ -75,6 +75,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setFilter(Filter filter) {
+        model.setFilter(filter);
+    }
+
+    @Override
     public ToggleView getToggleView() {
         return model.getToggleView();
     }
