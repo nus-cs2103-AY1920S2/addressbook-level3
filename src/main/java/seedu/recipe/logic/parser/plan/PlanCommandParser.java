@@ -39,7 +39,11 @@ public class PlanCommandParser implements Parser<PlanCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
+
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        if (!date.isFutureDate()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE));
+        }
 
         return new PlanCommand(index, date);
     }

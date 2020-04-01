@@ -26,7 +26,7 @@ public class PlanCommand extends Command {
 
     public static final String COMMAND_WORD = "plan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans a recipe to be cooked on a certain date. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans a recipe to be cooked in the future. "
             + "Parameters: "
             + "RECIPE_INDEX "
             + PREFIX_DATE + "YYYY-MM-DD \n"
@@ -36,6 +36,7 @@ public class PlanCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "A plan on %1$s for the recipe at"
             + "%2$s already exists.";
+    public static final String MESSAGE_INVALID_DATE = "The latest date you can input is today's date.";
 
     public static final String MESSAGE_SUCCESS = "Recipe %1$s planned at %2$s";
 

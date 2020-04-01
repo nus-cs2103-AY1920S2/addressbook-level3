@@ -1,6 +1,6 @@
 {
   "recipes" : [ {
-    "name" : "Asian BBQ Chicken 2",
+    "name" : "Asian BBQ Chicken",
     "time" : "15",
     "isFavourite" : false,
     "grains" : [ ],
@@ -11,7 +11,7 @@
     "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "edited step 3", "hi" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
-    "name" : "Sweet and Sour Chicken 2",
+    "name" : "Sweet and Sour Chicken",
     "time" : "20",
     "isFavourite" : false,
     "grains" : [ ],
