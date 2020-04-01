@@ -66,31 +66,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a module activity-list: `Madd`
+=== Adding a module activity-list: `add`
 
 Adds a module activity-list into the NASA application +
-Format: `Madd m/MODULE_CODE n/MODULE_NAME`
+Format: `add m/MODULE_CODE n/MODULE_NAME`
 
 Examples:
 
-* `Madd m/CS2030 n/Programming Methodology II`
-* `Madd m/CS1231 n/Discrete Structures in Mathematics`
+* `add m/CS2030 n/Programming Methodology II`
+* `add m/CS1231 n/Discrete Structures in Mathematics`
 
-=== Adding a activity into a module activity-list: `Tadd`
+=== Adding a activity into a module activity-list: `TYPE_OF_ACTIVITY`
 Adds an activity into the specified module activity-list +
-Format: `Tadd TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE t/ACTIVITY [p/PRIORITY] [n/NOTES]`
+Format: `TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
 
 ** Type of activities include `deadline`, `events` and `lessons`.
 ** Deadline are meant for activities that need to be done within a certain time.
 ** Events means any related module activities that happen from a time and ends at another time.
 ** Lessons are tutorials/classes for the modules and will auto reappear every week.
-** Date format varies! For deadlines: `DD-MM-YYYY HH:MM`, for lessons and events: `DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM`.
+** Date format varies! For deadlines: `d/DD-MM-YYYY HH:MM`, for lessons and events: `sd/DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM ed/DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM` where sd/ is for start-time and ed/ is for end-time.
 ** Default priority is 1 (priority value is from 1 to 5, where 1 is highest priority and 5 is lowest).
 
 Examples:
 
-** `Tadd lesson m/CS1020 d/12-02-2020 12:00 - 12-02-2020 14:00 t/Tutorial`
-** `Tadd deadline m/CS1020 d/20-02-2020 23:59 t/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
+** `lesson m/CS1020 a/Tutorial sd/20-02-2020 23:00 ed/20-02-2020 23:59`
+** `deadline m/CS1020 d/20-02-2020 23:59 a/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
 
 === Listing all activities : `list`
 
@@ -103,7 +103,7 @@ Format: `list [m/MODULE_CODE....]`
 === Editing a activity : `edit`
 
 Edits an existing activity in the module's activity-list. +
-Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [a/ACTIVITY_NAME]`
 
 ****
 * Edits the activity at the specified `INDEX` in the specified `MODULE_CODE` activity-list. The index refers to the index number shown in the module activity-list. The index *must be a positive integer* 1, 2, 3, ...
@@ -157,13 +157,12 @@ Returns `tutorial 1` and `tutorial 2` and any other activities with name tutoria
 === Deleting a activity : `delete`
 
 Deletes the specified activity from module activity-list. +
-Format: `delete m/MODULE_CODE INDEX...`
+Format: `delete INDEX m/MODULE_CODE`
 
 ****
 * Deletes the activity at the specified `INDEX` in the specified `MODULE_CODE`.
 * The index refers to the index number shown in the activity-list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* User can input multiple indices to be deleted.
 ****
 
 Examples:
@@ -171,23 +170,20 @@ Examples:
 * `list` +
 `delete m/CS2030 2` +
 Deletes the 2nd activity in the CS2030 module activity-list.
-* `delete m/CS2030 2 3 4` +
-Deletes the the 2nd, 3rd and 4th activity from the CS2030 module activity-list.
 
 === Deleting a module: `Mdelete`
 Deletes a module along with its activity-list. +
-Format: `Mdelete m/MODULE_CODE...`
+Format: `Mdelete m/MODULE_CODE`
 
 ** Deletes the module with MODULE_CODE and also its activity-list
 ** MODULE_CODE must be an existing module
-** Can add multiple MODULE_CODE to be deleted.
 
 Examples:
 
-** `Mdelete m/CS2030 CS2040 CS1010` +
-Deletes the respective modules associated with the MODULE_CODES.
+** `Mdelete m/CS2030` +
+Deletes the respective CS2030 module.
 
-=== Creating shortcuts: `shortcut` `[coming in v1.3]`
+=== Creating shortcuts: `shortcut` `[coming in v2.0]`
 Creates a shortcut for specified activity. +
 Format: `shortcut s/SHORTCUT c/COMMAND`
 
@@ -201,7 +197,7 @@ Examples:
 ** `shortcut s/l c/list` +
 Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
-=== Generating statistics: `statistics` `[coming in v1.2]`
+=== Generating statistics: `statistics`
 Displays statistics of activities completed. +
 Format: `statistics [tp/TIME_PERIOD] [m/MODULE_CODE]`
 
@@ -264,7 +260,7 @@ Example :
 
 ** `redo` : "redo last action" else "no last action to redo"
 
-=== Export to calendar `export` `[coming in v1.2]`
+=== Export to calendar `export` `[coming in v2.0]`
 Exports all module activity-lists onto a calendar (.ics format) for users. +
 Format: `export`
 
@@ -277,7 +273,7 @@ image::export_example.png[width="300", align="middle"]
 
 // end::delete[]
 
-=== Sort activities `sort` `[coming in v1.3]`
+=== Sort activities `sort`
 Sorts all activities in their respective modules by a specified criteria and ascending/descending order. +
 Format: `sort sm/SORT_CRITERIA [ob/ORDER]`
 
@@ -367,23 +363,20 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 |===
 |Command|Syntax
 
-| *MAdd* |`Madd m/MODULE_CODE n/MODULE_NAME`
-| *TAdd* |`Tadd TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE t/ACTIVITYNAME [p/PRIORITY] [n/NOTES]`
+| *MAdd* |`add m/MODULE_CODE n/MODULE_NAME`
+| *TAdd* |`TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
 | *Clear* | `clear`
-| *Delete* | `delete m/MODULE_CODE INDEX...`
-| *Edit* | `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+| *Delete* | `delete m/MODULE_CODE INDEX`
+| *Edit* | `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITY_NAME]`
 | *Find* | `find KEYWORD [MORE_KEYWORDS]`
 | *List* | `list [m/MODULE_CODE...]`
 | *Help* | `help`
 | *Export* | `export`
 | *Shortcut* | `shortcut s/SHORTCUT c/COMMAND`
 | *Statistics* | `statistics [tp/TIME_PERIOD]`
-<<<<<<< HEAD
 | *Chadd* | `chadd ACTIVITY_ID CHECKLIST_ITEM`
 | *Chdel* | `chdel ACTIVITY_ID CHECKLIST_ID`
 | *Repeat* | `repeat m/MODULE_CODE a/ACTIVITYNAME r/INDEX`
 | *Quote* | `quote`
 | *Undo* | `undo`
 | *Redo* | `redo`
-=======
->>>>>>> 0199208a34a225dbdf0b021d9a30f209098633bf
