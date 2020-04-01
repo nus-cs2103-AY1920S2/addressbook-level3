@@ -208,11 +208,26 @@ Examples:
 * `addDiary d/2020-03-31 dc/Happy birthday Alice!`
 Adds a diary log on the date `2020-03-31` with the content `Happy birthday Alice!`.
 
+==== Append new content to an existing diary
+* `appendDiary d/DATE dc/APPENDED CONTENT` +
+appends new content to the existing diary on the specified `DATE`. +
+
+If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DIARY_NOT_FOUND`
+reminder.
+
+Examples:
+
+* `appendDiary d/2020-03-31 dc/You are one year older now:)` (after `addDiary d/2020-03-31 dc/Happy birthday Alice!`)+
+This command appends the new diary content to the existing the diary log on the date `2020-03-31`.
+The new diary content after this command will be "Happy birthday Alice! You are one year older now:)".
+
 ==== Edit a diary
 * `editDiary d/DATE dc/NEW DIARYCONTENT` +
 edits the diary on the specified `DATE` with the new `DIARYCONTENT`. +
 
-If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DUPLICATE_DIARY`
+If the specified `DATE` does not have previously added diary log, this command will be discarded with a `DIARY_NOT_FOUND`
+reminder.
+If the existing diary with the specified `DATE` has the same content as the specified content, this command will be discarded with a `DUPLICATE_DIARY`
 reminder.
 
 Examples:
