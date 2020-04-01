@@ -55,7 +55,7 @@ public class EntriesUtil {
      */
     public static ObservableList<Entry> getEntries(ObservableList<Entry>foodList,
                                                    ObservableList<Entry>sportsList, LocalDate date) {
-        ObservableList<Entry> temp = FXCollections.observableArrayList();;
+        ObservableList<Entry> temp = FXCollections.observableArrayList();
         for (Entry entry: foodList) {
             if (entry.getDate().equals(date)) {
                 temp.add(entry);

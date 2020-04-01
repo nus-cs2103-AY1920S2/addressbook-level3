@@ -22,10 +22,8 @@ public class ListPanel extends UiPart<AnchorPane> {
     private ObservableList<Entry> foodList;
     private ObservableList<Entry> sportList;
     private DaysCard daysPage;
-    private MonthView monthView;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private CalorieCalculatorByDateRange stats;
-    private DailyStatusList dailyStatusList;
 
 
     @FXML
@@ -52,14 +50,14 @@ public class ListPanel extends UiPart<AnchorPane> {
     // set date reference based on parameter date
     public void set(LocalDateTime date) {
         getGenerator(date);
-        monthView = new MonthView(date, stats, foodList, sportList);
+        MonthView monthView = new MonthView(date, stats, foodList, sportList);
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
         daysPagePlaceholder.getChildren().clear();
         daysPage = new DaysCard(foodList, sportList, date);
         daysPagePlaceholder.getChildren().add(daysPage.getRoot());
         dailyStatusListPlaceholder.getChildren().clear();
-        dailyStatusList = new DailyStatusList(foodList, sportList, date);
+        DailyStatusList dailyStatusList = new DailyStatusList(foodList, sportList, date);
         dailyStatusListPlaceholder.getChildren().add(dailyStatusList.getRoot());
     }
 
