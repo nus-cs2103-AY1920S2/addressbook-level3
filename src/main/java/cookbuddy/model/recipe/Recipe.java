@@ -131,6 +131,10 @@ public class Recipe {
         doneStatus.attempt();
     }
 
+    public void unAttemptRecipe() {
+        doneStatus.unAttempt();
+    }
+
     /**
      * Returns true if both recipes have the same identity and data fields. This
      * defines a stronger notion of equality between two recipes.
