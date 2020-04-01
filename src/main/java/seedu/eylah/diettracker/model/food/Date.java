@@ -67,7 +67,7 @@ public class Date {
 
         Date otherDate = (Date) other;
 
-        return value.equals(otherDate);
+        return value.equals(otherDate.getValue());
     }
 
     @Override
