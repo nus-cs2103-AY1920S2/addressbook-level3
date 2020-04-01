@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import fithelper.commons.core.LogsCenter;
+import fithelper.logic.commands.diary.DeleteDiaryCommand;
 import fithelper.model.diary.exceptions.DiaryNotFoundException;
 import fithelper.model.diary.exceptions.DuplicateDiaryException;
 import javafx.collections.FXCollections;
@@ -25,6 +28,8 @@ import javafx.collections.ObservableList;
  */
 public class UniqueDiaryList implements Iterable<Diary> {
 
+    private static final Logger logger = LogsCenter.getLogger(DeleteDiaryCommand.class);
+
     private final ObservableList<Diary> internalList = FXCollections.observableArrayList();
     private final ObservableList<Diary> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -40,7 +45,7 @@ public class UniqueDiaryList implements Iterable<Diary> {
     /**
      * Returns true if the list contains an equivalent diary as the given argument.
      */
-    public boolean containsDate(ObservableList<Diary> list, String toCheck) {
+    public boolean containsDate(String toCheck) {
         requireNonNull(toCheck);
         for (Diary diary: internalList) {
             if (diary.getDiaryDate().toString().equalsIgnoreCase(toCheck)) {
@@ -56,7 +61,7 @@ public class UniqueDiaryList implements Iterable<Diary> {
      */
     public void add(Diary toAdd) {
         requireNonNull(toAdd);
-        if (containsDate(this.internalList, toAdd.getDiaryDate().toString())) {
+        if (containsDate(toAdd.getDiaryDate().toString())) {
             int oldIndex = getIndex(internalList, toAdd.getDiaryDate().toString());
             internalList.set(oldIndex, toAdd);
         } else {
@@ -81,11 +86,13 @@ public class UniqueDiaryList implements Iterable<Diary> {
      * {@code target} must exist in the list.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the list.
      */
-    public void setDiary(String target, Diary editedDiary) {
+    public void setDiary(Diary target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
-        if (!containsDate(internalList, target)) {
-            add(editedDiary);
+
+        if (!target.isSameDiary(editedDiary) && contains(editedDiary)) {
+            throw new DuplicateDiaryException();
         }
+
         internalList.remove(target);
         internalList.add(editedDiary);
     }
@@ -113,6 +120,8 @@ public class UniqueDiaryList implements Iterable<Diary> {
      */
     public void remove(Diary toRemove) {
         requireNonNull(toRemove);
+        logger.info ("UniqueDiary List: " + toRemove.toString());
+        logger.info (internalList.toString());
         if (!internalList.remove(toRemove)) {
             throw new DiaryNotFoundException();
         }
@@ -121,7 +130,7 @@ public class UniqueDiaryList implements Iterable<Diary> {
     /**
      * Removes a diary whose date is in string representation of dateStr
      * @param dateStr string representation of diary date
-     */
+     *//*
     public void remove(String dateStr) {
         requireNonNull(dateStr);
         int oldIndex = 0;
@@ -134,7 +143,7 @@ public class UniqueDiaryList implements Iterable<Diary> {
         }
         Diary toRemove = internalList.get(oldIndex);
         internalList.remove(toRemove);
-    }
+    }*/
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
