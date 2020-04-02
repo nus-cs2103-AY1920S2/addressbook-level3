@@ -1,5 +1,6 @@
 package seedu.recipe.model.plan;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -14,12 +15,12 @@ import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
  * Stores the list of all recipes planned on a date.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class PlannedRecipe implements Comparable<PlannedRecipe> {
+public class PlannedDate implements Comparable<PlannedDate> {
 
     private List<Recipe> recipes;
     private Date date;
 
-    public PlannedRecipe(List<Recipe> recipes, Date date) {
+    public PlannedDate(List<Recipe> recipes, Date date) {
         this.recipes = recipes;
         this.date = date;
     }
@@ -40,29 +41,43 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
     }
 
     /**
-     * Adds the recipes in {@code plannedRecipe} to the recipes in this Planned Recipe object and returns a new
-     * Planned Recipe object.
+     * Concatenates all recipes planned on the same day and returns a new PlannedDate.
      */
-    public PlannedRecipe allPlannedRecipesOnOneDay(PlannedRecipe plannedRecipe) {
-        if (recipes.contains(plannedRecipe)) {
+    public PlannedDate addRecipes(PlannedDate plannedDate) {
+        if (recipes.contains(plannedDate)) {
             throw new DuplicateRecipeException();
         }
-        List<Recipe> newRecipes = plannedRecipe.getRecipes();
-        newRecipes.addAll(recipes);
-        return new PlannedRecipe(newRecipes, date);
+        List<Recipe> newRecipes = new ArrayList<>(recipes);
+        newRecipes.addAll(plannedDate.getRecipes());
+        return new PlannedDate(newRecipes, date);
     }
 
     /**
-     * Returns true if {@code plannedRecipe} is planned on the same day and all its recipes
-     * can be found in the current PlannedRecipe's list, or if duplicate recipes are found in {@code plannedRecipe}.
+     * Deletes {@code recipe} from the list and returns a new PlannedDate.
      */
-    public boolean hasSameRecipeInPlan(PlannedRecipe plannedRecipe) {
-        if (plannedRecipe.recipesAreUnique()) {
-            return date.equals(plannedRecipe.date) && recipes.containsAll(plannedRecipe.getRecipes());
+    public PlannedDate deleteRecipe(Recipe recipe) {
+        List<Recipe> newRecipes = new ArrayList<>(recipes);
+        newRecipes.remove(recipe);
+        return new PlannedDate(newRecipes, date);
+    }
+
+    /**
+     * Returns true if the size of recipes is 1.
+     */
+    public boolean isOneRecipe() {
+        return recipes.size() == 1;
+    }
+
+    /**
+     * Returns true if {@code plannedDate} is planned on the same day and all its recipes
+     * can be found in the current PlannedDate's list, or if duplicate recipes are found in {@code plannedDate}.
+     */
+    public boolean hasSameRecipeInPlan(PlannedDate plannedDate) {
+        if (plannedDate.recipesAreUnique()) {
+            return date.equals(plannedDate.date) && recipes.containsAll(plannedDate.getRecipes());
         }
         return true;
     }
-
 
     /**
      * Returns true if it is planned on {@code onDate}.
@@ -92,6 +107,10 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
         return date.isWithinRange(start, end);
     }
 
+    public boolean hasSameDate(PlannedDate other) {
+        return date.equals(other.date);
+    }
+
     public Date getDate() {
         return date;
     }
@@ -101,7 +120,7 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
     }
 
     @Override
-    public int compareTo(PlannedRecipe other) {
+    public int compareTo(PlannedDate other) {
         return date.compareTo(other.date);
     }
 
@@ -113,9 +132,9 @@ public class PlannedRecipe implements Comparable<PlannedRecipe> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PlannedRecipe // instanceof handles nulls
-                && date.equals(((PlannedRecipe) other).date) // state check
-                && recipes.equals(((PlannedRecipe) other).recipes));
+                || (other instanceof PlannedDate // instanceof handles nulls
+                && date.equals(((PlannedDate) other).date) // state check
+                && recipes.equals(((PlannedDate) other).recipes));
     }
 
 }

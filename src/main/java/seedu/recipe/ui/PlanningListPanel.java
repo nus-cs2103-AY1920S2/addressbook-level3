@@ -14,7 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.model.Date;
-import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.UniquePlannedList;
 
 /**
@@ -35,7 +35,7 @@ public class PlanningListPanel extends UiPart<Region> {
 
 
     @FXML
-    private ListView<PlannedRecipe> planningListView;
+    private ListView<PlannedDate> planningListView;
 
     @FXML
     private BorderPane borderPane;
@@ -46,7 +46,7 @@ public class PlanningListPanel extends UiPart<Region> {
     @FXML
     private Label dayHeader;
 
-    public PlanningListPanel(ObservableList<PlannedRecipe> plannedRecipes) {
+    public PlanningListPanel(ObservableList<PlannedDate> plannedDates) {
         super(FXML);
         Date today = Date.today();
         monthHeader.setText(today.getMonthName());
@@ -55,24 +55,24 @@ public class PlanningListPanel extends UiPart<Region> {
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         dayHeader.setStyle(weekStyleHeader);
 
-        planningListView.setItems(plannedRecipes);
+        planningListView.setItems(plannedDates);
         planningListView.setCellFactory(planningListView -> new PlanningListViewCell());
 
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code PlannedRecipe} using a {@code PlanningListCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code PlannedDate} using a {@code PlanningListCard}.
      */
-    class PlanningListViewCell extends ListCell<PlannedRecipe> {
+    class PlanningListViewCell extends ListCell<PlannedDate> {
         @Override
-        protected void updateItem(PlannedRecipe plannedRecipe, boolean empty) {
-            super.updateItem(plannedRecipe, empty);
-            if (empty || plannedRecipe == null) {
+        protected void updateItem(PlannedDate plannedDate, boolean empty) {
+            super.updateItem(plannedDate, empty);
+            if (empty || plannedDate == null) {
                 setGraphic(null);
                 setText(null);
             } else {
                 try {
-                    setGraphic(new PlanningListCard(plannedRecipe, getIndex() + 1).getRoot());
+                    setGraphic(new PlanningListCard(plannedDate, getIndex() + 1).getRoot());
                 } catch (IOException e) {
                     logger.warning("Failed to favourites icon : " + StringUtil.getDetails(e));
                 }

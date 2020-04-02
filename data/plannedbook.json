@@ -1,6 +1,45 @@
 {
   "plannedRecipes" : [ {
     "recipes" : [ {
+      "name" : "Asian BBQ Chicken 2",
+      "time" : "150",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "50.0g,  all vege ingredients" ],
+      "proteins" : [ "100.0g,  chicken breast" ],
+      "fruits" : [ ],
+      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
+      "steps" : [ "all step 1", "all step 2" ],
+      "goals" : [ "Bulk like the Hulk" ]
+    } ],
+    "date" : "2020-04-03"
+  }, {
+    "recipes" : [ {
+      "name" : "Asian BBQ Chicken 2",
+      "time" : "150",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "50.0g,  all vege ingredients" ],
+      "proteins" : [ "100.0g,  chicken breast" ],
+      "fruits" : [ ],
+      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
+      "steps" : [ "all step 1", "all step 2" ],
+      "goals" : [ "Bulk like the Hulk" ]
+    } ],
+    "date" : "2020-04-04"
+  }, {
+    "recipes" : [ {
+      "name" : "Sweet and Sour Chicken",
+      "time" : "20",
+      "isFavourite" : false,
+      "grains" : [ ],
+      "vegetables" : [ "1.0cup,  bell peppers", "1.0cup,  carrots (diced)", "1.0cup,  chinese cabbage (diced)", "10.0g,  garlic cloves", "10.0g,  ginger", "1.0cup,  onions (diced)" ],
+      "proteins" : [ "300.0g,  chicken", "50.0g,  egg" ],
+      "fruits" : [ "1.0cup,  pineapple (diced)", "1.0tbsp,  tomato juice" ],
+      "others" : [ "10.0g,  Coriander (optional)", "1.5tsp,  corn flour", "1.0tsp,  light soya sauce", "1.0tbsp,  vegetable oil" ],
+      "steps" : [ "Pound garlic and ginger into a paste. Marinade chicken in the paste, along with corn flour, soy sauce, and salt.", "In a wok, take some oil, saute the carrots, cabbage, onions, and bell peppers. Add tomato juice and bring to a slight boil.", "Fry the chicken and add to the wok along with some stock and set to simmer.", "Garnish with coriander and serve with rice." ],
+      "goals" : [ "Bulk like the Hulk" ]
+    }, {
       "name" : "Asian BBQ Chicken",
       "time" : "15",
       "isFavourite" : false,
@@ -13,5 +52,19 @@
       "goals" : [ "Bulk like the Hulk" ]
     } ],
     "date" : "2020-05-02"
+  }, {
+    "recipes" : [ {
+      "name" : "Asian BBQ Chicken 2",
+      "time" : "150",
+      "isFavourite" : true,
+      "grains" : [ ],
+      "vegetables" : [ "50.0g,  all vege ingredients" ],
+      "proteins" : [ "100.0g,  chicken breast" ],
+      "fruits" : [ ],
+      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
+      "steps" : [ "all step 1", "all step 2" ],
+      "goals" : [ "Bulk like the Hulk" ]
+    } ],
+    "date" : "2040-02-02"
   } ]
 }

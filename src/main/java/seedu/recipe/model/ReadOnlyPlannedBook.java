@@ -1,11 +1,8 @@
 package seedu.recipe.model;
 
-import java.util.List;
-import java.util.Map;
-
 import javafx.collections.ObservableList;
-import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 
 /**
  * Unmodifiable view of a schedule book
@@ -16,8 +13,8 @@ public interface ReadOnlyPlannedBook {
      * Returns an unmodifiable view of the planned recipes map.
      * This map will not contain duplicate recipes on the same day.
      */
-    ObservableList<PlannedRecipe> getPlannedList();
+    ObservableList<PlannedDate> getPlannedList();
 
-    Map<Recipe, List<PlannedRecipe>> getPlannedRecipeMap();
+    PlannedRecipeMap getPlannedMap();
 
 }

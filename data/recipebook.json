@@ -1,14 +1,14 @@
 {
   "recipes" : [ {
-    "name" : "Asian BBQ Chicken",
-    "time" : "15",
-    "isFavourite" : false,
+    "name" : "Asian BBQ Chicken 2",
+    "time" : "150",
+    "isFavourite" : true,
     "grains" : [ ],
-    "vegetables" : [ "1.0tbsp,  garlic & ginger (finely chopped)" ],
+    "vegetables" : [ "50.0g,  all vege ingredients" ],
     "proteins" : [ "100.0g,  chicken breast" ],
     "fruits" : [ ],
     "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
-    "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "edited step 3", "hi" ],
+    "steps" : [ "all step 1", "all step 2" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Sweet and Sour Chicken",

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -23,13 +23,13 @@ class JsonSerializablePlannedBook {
     public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "Planned recipes list contains duplicate"
             + "planned recipe(s).";
 
-    private final List<JsonAdaptedPlannedRecipe> plannedRecipes = new ArrayList<>();
+    private final List<JsonAdaptedPlannedDate> plannedRecipes = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializablePlannedBook} with the given recipes.
      */
     @JsonCreator
-    public JsonSerializablePlannedBook(@JsonProperty("plannedRecipes") List<JsonAdaptedPlannedRecipe> plannedRecipes) {
+    public JsonSerializablePlannedBook(@JsonProperty("plannedRecipes") List<JsonAdaptedPlannedDate> plannedRecipes) {
         this.plannedRecipes.addAll(plannedRecipes);
     }
 
@@ -39,7 +39,7 @@ class JsonSerializablePlannedBook {
      * @param source future changes to this will not affect the created {@code JsonSerializablePlannedBook}.
      */
     public JsonSerializablePlannedBook(ReadOnlyPlannedBook source) {
-        plannedRecipes.addAll(source.getPlannedList().stream().map(JsonAdaptedPlannedRecipe::new)
+        plannedRecipes.addAll(source.getPlannedList().stream().map(JsonAdaptedPlannedDate::new)
                 .collect(Collectors.toList()));
     }
 
@@ -50,13 +50,13 @@ class JsonSerializablePlannedBook {
      */
     public PlannedBook toModelType() throws IllegalValueException {
         PlannedBook plannedBook = new PlannedBook();
-        for (JsonAdaptedPlannedRecipe jsonAdaptedPlannedRecipe : plannedRecipes) {
-            PlannedRecipe plannedRecipe = jsonAdaptedPlannedRecipe.toModelType();
-            if (plannedBook.contains(plannedRecipe)) {
+        for (JsonAdaptedPlannedDate jsonAdaptedPlannedDate : plannedRecipes) {
+            PlannedDate plannedDate = jsonAdaptedPlannedDate.toModelType();
+            if (plannedBook.contains(plannedDate)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLANNED_RECIPE);
             }
-            List<Recipe> recipes = plannedRecipe.getRecipes();
-            plannedBook.addPlanForAllRecipes(recipes, plannedRecipe);
+            List<Recipe> recipes = plannedDate.getRecipes();
+            plannedBook.addAllRecipesToPlan(recipes, plannedDate);
         }
         return plannedBook;
     }
