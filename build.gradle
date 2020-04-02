@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'taTracker.jar'
+    archiveName = 'TaTracker.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
