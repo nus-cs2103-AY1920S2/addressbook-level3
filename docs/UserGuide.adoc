@@ -473,7 +473,6 @@ or +
 |`exit`
 |`exit`
 
-`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
 
 |<<help, *Help*>>
 |`help`
