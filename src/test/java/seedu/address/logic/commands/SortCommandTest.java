@@ -94,7 +94,7 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortByPriority_successful() throws Exception {
-        String[] prioritySort = {"priority"};
+        String[] prioritySort = {"priority", "name"};
 
         CommandResult commandResult = new SortCommand(prioritySort).execute(modelStub);
         TaskList stubList = new TaskList();
@@ -107,7 +107,7 @@ public class SortCommandTest {
         stubList.addTask(taskPriority1);
         tempModelStub.setTaskList(stubList);
         assertEquals(
-                String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
+                String.format(SortCommand.MESSAGE_SUCCESS, String.join(" ", prioritySort)),
                 commandResult.getFeedbackToUser());
         assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
