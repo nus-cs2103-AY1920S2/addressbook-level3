@@ -19,6 +19,7 @@ public class FindCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " pizza sushi bread";
+    public static final String MESSAGE_NOT_FOUND = Messages.MESSAGE_WORD_NOT_FOUND;
 
     private final NameContainsKeywordsPredicate predicate;
 
@@ -33,6 +34,7 @@ public class FindCommand extends Command {
         model.updateFilteredTransactionList(predicate, null);
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+
     }
 
     @Override

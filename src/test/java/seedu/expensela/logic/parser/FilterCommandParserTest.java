@@ -1,6 +1,6 @@
 package seedu.expensela.logic.parser;
 
-import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_FILTER;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -21,7 +21,7 @@ class FilterCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_FILTER,
                 FilterCommand.MESSAGE_USAGE));
     }
 

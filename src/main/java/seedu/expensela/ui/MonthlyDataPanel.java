@@ -74,21 +74,25 @@ public class MonthlyDataPanel extends UiPart<Region> {
      * @param expense
      */
     private void drawCircle(double budget, double expense) {
+        if (budget == 0 && expense == 0) {
+            budget = 1;
+            expense = 1;
+        }
         double angle = 360 - expense / budget * 360;
         double overlayAngle = 0;
         if (angle < 0) {
             angle = 0;
         }
         Paint fill;
-        Paint overlay = Color.web("#383838");
+        Paint overlay = Color.web("#619196");
         if (angle > 180) {
-            fill = Color.GREEN;
+            fill = Color.web("#BAFFC9");
         } else if (angle > 90) {
-            fill = Color.YELLOW;
+            fill = Color.web("FFFFBA");
         } else {
             overlayAngle = expense / budget * 360;
             angle = 100;
-            fill = Color.RED;
+            fill = Color.web("#FFB3BA");
         }
         outer.setRadiusX(55);
         outer.setRadiusY(55);

@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.Budget;
+import seedu.expensela.model.monthlydata.Expense;
+import seedu.expensela.model.monthlydata.Income;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
@@ -32,7 +35,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     {
         String date = LocalDate.now().toString().substring(0, 7);
         filter = new Filter(null, new DateEqualsKeywordPredicate(Arrays.asList(date)));
-        monthlyData = new MonthlyData(null, null, null, null);
+        monthlyData = new MonthlyData("1",
+                new Budget("0.00"), new Expense("0.00"), new Income("0.00"));
         transactions = new TransactionList();
         toggleView = new ToggleView();
     }

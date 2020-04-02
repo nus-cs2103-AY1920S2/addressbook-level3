@@ -2,8 +2,10 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
+import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Reset balance to 0 in expenseLa
@@ -15,13 +17,22 @@ public class ResetBalanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Total balance is now 0.";
+    public static final String MESSAGE_SUCCESS = "Total balance is now %.2f.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateTotalBalance(0.00);
-        return new CommandResult(MESSAGE_SUCCESS);
+        ObservableList<Transaction> transactionList = model.getExpenseLa().getTransactionList();
+        double balance = 0;
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).getAmount().positive) {
+                balance += transactionList.get(i).getAmount().transactionAmount;
+            } else {
+                balance -= transactionList.get(i).getAmount().transactionAmount;
+            }
+        }
+        model.updateTotalBalance(balance);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, balance));
     }
 
 }

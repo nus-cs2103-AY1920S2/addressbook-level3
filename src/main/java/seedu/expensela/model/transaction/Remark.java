@@ -12,7 +12,7 @@ public class Remark {
     public static final String VALIDATION_REGEX;
 
     static {
-        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}' ]*";
+        VALIDATION_REGEX = ".*";
     }
 
     public final String transactionRemark;

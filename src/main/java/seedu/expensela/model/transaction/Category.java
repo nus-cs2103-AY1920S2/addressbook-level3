@@ -10,17 +10,20 @@ import static seedu.expensela.commons.util.AppUtil.checkArgument;
 public class Category {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Category should include only Categories from CategoryEnum class";
+            "Valid categories are: FOOD,"
+                    + " SHOPPING,"
+                    + " TRANSPORT,"
+                    + " GROCERIES,"
+                    + " HEALTH,"
+                    + " RECREATION,"
+                    + " INCOME,"
+                    + " UTILITIES OR"
+                    + " MISC";
 
     /*
      * The first character of the category must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX;
-
-    static {
-        VALIDATION_REGEX = "[\\p{Alnum}]+";
-    }
 
     public final String transactionCategory;
 
@@ -32,14 +35,19 @@ public class Category {
     public Category(String category) {
         requireNonNull(category);
         checkArgument(isValidCategory(category), MESSAGE_CONSTRAINTS);
-        transactionCategory = category;
+        transactionCategory = category.toUpperCase();
     }
 
     /**
      * Returns true if a given string is a valid category.
      */
     public static boolean isValidCategory(String test) {
-        return test.matches(VALIDATION_REGEX);
+        for (CategoryEnum c : CategoryEnum.values()) {
+            if (c.name().equalsIgnoreCase(test)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
