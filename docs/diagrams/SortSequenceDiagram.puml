@@ -9,6 +9,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "sl:SortedList" as SortedList MODEL_COLOR
 end box
 
 [-> LogicManager : execute("sort priority, name")
@@ -26,15 +27,21 @@ activate SortCommand
     
 SortCommand -> Model : setComparator(field)
 activate Model
+create SortedList
+Model -> SortedList:s: new SortedList()
+activate SortedList
+SortedList -> Model
 
 loop [int 0..n]
-    Model -> Model:s: new SortedList()
-    Model -> Model:s.setComparator(field)
+    Model -> SortedList: setComparator(field)
+    SortedList -> Model
 end
 
-Model ->Model: new FilteredList(s)
-Model --> SortCommand
+Model -> Model: new FilteredList(sl)
+deactivate SortedList
+Model -> SortCommand
 deactivate Model
+
 
 create CommandResult
 SortCommand -> CommandResult
