@@ -33,6 +33,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     private static final long DEFAULT_HOURS = 0;
     private static final int DEFAULT_RATE = 40;
+    private static String currClaimFilter;
+    private static String currSessionFilter;
+    private static String currStudentFilter;
 
     private static Group currentlyShownGroup;
     private static Module currentlyShownModule;
@@ -58,6 +61,10 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownModule = null;
         currentlyShownModuleClaim = null;
 
+        currClaimFilter = "";
+        currSessionFilter = "";
+        currStudentFilter = "";
+
         rate = DEFAULT_RATE;
     }
 
@@ -82,6 +89,53 @@ public class TaTracker implements ReadOnlyTaTracker {
         setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
 
         this.rate = newData.getRate();
+    }
+
+    // ======== Filter Methods ================================================
+
+    /**
+     *Sets the currently used filter under Claim View.
+     */
+    public void setCurrClaimFilter(String module) {
+        requireNonNull(module);
+        currClaimFilter = module;
+    }
+
+    /**
+     * Get the currently used filter under Claim View.
+     */
+    public String getCurrClaimFilter() {
+        return currClaimFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionFilter(String params) {
+        requireNonNull(params);
+        currSessionFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionFilter() {
+        return currSessionFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Student View.
+     */
+    public void setCurrStudentFilter(String params) {
+        requireNonNull(params);
+        currStudentFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Student View.
+     */
+    public String getCurrStudentFilter() {
+        return currStudentFilter;
     }
 
     // ======== Session Methods ================================================

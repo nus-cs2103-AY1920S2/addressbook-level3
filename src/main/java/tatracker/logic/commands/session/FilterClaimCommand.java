@@ -45,6 +45,7 @@ public class FilterClaimCommand extends Command {
         if (!model.hasModule(module)) {
             throw new CommandException(String.format(MESSAGE_INVALID_MODULE_CODE));
         }
+        model.setCurrClaimFilter("Module: " + module);
         model.updateFilteredDoneSessionList(predicate, module);
         return new CommandResult(
                     String.format(MESSAGE_SUCCESS, module),
