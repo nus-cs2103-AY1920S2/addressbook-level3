@@ -152,5 +152,4 @@ public class ModelState {
     public void setCommandType(String command) {
         this.commandType = command;
     }
-    
 }
