@@ -95,8 +95,7 @@ public class BestCommand extends Command {
                           ObservableList<Interviewee> observableInterviewees,
                           Comparator<Interviewee> comparator, int size) {
         bestNInterviewees.clear();
-        FilteredList<Interviewee> filtered = new FilteredList<>(observableInterviewees,
-            x -> x.getTranscript().isPresent());
+        FilteredList<Interviewee> filtered = new FilteredList<>(observableInterviewees, Interviewee::isInterviewed);
         SortedList<Interviewee> sorted = new SortedList<>(filtered, comparator);
         int n = Math.min(size, sorted.size());
         for (int i = 0; i < n; i++) {
