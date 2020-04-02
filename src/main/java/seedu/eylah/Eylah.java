@@ -42,8 +42,6 @@ import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
 import seedu.eylah.expensesplitter.model.ReceiptBook;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.SplitterModelManager;
-import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
-import seedu.eylah.expensesplitter.model.util.SampleReceiptDataUtil;
 import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
 import seedu.eylah.expensesplitter.storage.JsonReceiptBookStorage;
 import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
@@ -255,9 +253,16 @@ public class Eylah {
                 if (receiptBookOptional.isEmpty()) {
                     logger.info("Data file not found. Will be starting with a sample ReceiptBook");
                 }
+
+                /*
                 initialPersonData = personAmountBookOptional
                         .orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
                 initialReceiptData = receiptBookOptional.orElseGet(SampleReceiptDataUtil::getSampleReceiptBook);
+
+                 */
+                initialPersonData = new PersonAmountBook();
+                initialReceiptData = new ReceiptBook();
+
             } catch (DataConversionException e) {
                 logger.warning("Data file not in the correct format. Will be starting with an empty "
                         + "PersonAmountBook and ReceiptBook");
