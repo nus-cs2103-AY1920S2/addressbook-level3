@@ -156,7 +156,7 @@ Format: `find KEYWORD_1 [KEYWORD_2] ... [KEYWORD_N]`
 
 Examples:
 
-* `find bottles school`
+* `find bottle school`
 
 
 === List of transactions : `list`
