@@ -434,15 +434,11 @@ public class ModelManager implements Model {
      */
     public int undoStackSize() { return undoStates.size(); }
 
-
-
     /**
      * Returns size of redo stack
      * @return size of redo stack
      */
     public int redoStackSize() { return redoStates.size(); }
-
-
 
     /**
      * Un-does the last operation that alters something, pops the top of the undo stack into the redo stack
