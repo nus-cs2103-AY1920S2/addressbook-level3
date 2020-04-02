@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -66,7 +65,10 @@ class NearbyCommandUtilTest {
     @ParameterizedTest
     @MethodSource("sameLocation")
     void sameGeneralLocation_validLocation_returnsList(String location, List<String> expectedPostalSectors) {
-        assertEquals(expectedPostalSectors, NearbyCommandUtil.sameGeneralLocation(location));
+        List<String> locations = NearbyCommandUtil.sameGeneralLocation(location);
+        for (String s : expectedPostalSectors) {
+            assertTrue(locations.contains(s));
+        }
     }
 
     @Test
@@ -102,88 +104,141 @@ class NearbyCommandUtilTest {
      */
     private static Stream<Arguments> sameLocation() {
         List<String> sector1 = new ArrayList<>(
-                Arrays.asList("S01", "S02", "S03", "S04", "S05", "S06"));
+                Arrays.asList("S01", "s01",
+                        "S02", "s02",
+                        "S03", "s03",
+                        "S04", "s04",
+                        "S05", "s05",
+                        "S06", "s06"));
 
         List<String> sector2 = new ArrayList<>(
-                Arrays.asList("S07", "S08"));
+                Arrays.asList("S07", "s07",
+                        "S08", "s08"));
 
         List<String> sector3 = new ArrayList<>(
-                Arrays.asList("S14", "S15", "S16"));
+                Arrays.asList("S14", "s14",
+                        "S15", "s15",
+                        "S16", "s16"));
 
         List<String> sector4 = new ArrayList<>(
-                Arrays.asList("S09", "S10"));
+                Arrays.asList("S09", "s09",
+                        "S10", "s10"));
 
         List<String> sector5 = new ArrayList<>(
-                Arrays.asList("S11", "S12", "S13"));
+                Arrays.asList("S11", "s11",
+                        "S12", "s12",
+                        "S13", "s13"));
 
         List<String> sector6 = new ArrayList<>(
-                Collections.singletonList("S17"));
+                Arrays.asList("S17", "s17"));
 
         List<String> sector7 = new ArrayList<>(
-                Arrays.asList("S18", "S19"));
+                Arrays.asList("S18", "s18",
+                        "S19", "s19"));
 
         List<String> sector8 = new ArrayList<>(
-                Arrays.asList("S20", "S21"));
+                Arrays.asList("S20", "s20",
+                        "S21", "s21"));
 
         List<String> sector9 = new ArrayList<>(
-                Arrays.asList("S22", "S23"));
+                Arrays.asList("S22", "s22",
+                        "S23", "s23"));
 
         List<String> sector10 = new ArrayList<>(
-                Arrays.asList("S24", "S25", "S26", "S27"));
+                Arrays.asList("S24", "s24",
+                        "S25", "s25",
+                        "S26", "s26",
+                        "S27", "s27"));
 
         List<String> sector11 = new ArrayList<>(
-                Arrays.asList("S28", "S29", "S30"));
+                Arrays.asList("S28", "s28",
+                        "S29", "s29",
+                        "S30", "s30"));
 
         List<String> sector12 = new ArrayList<>(
-                Arrays.asList("S31", "S32", "S33"));
+                Arrays.asList("S31", "s31",
+                        "S32", "s32",
+                        "S33", "s33"));
 
         List<String> sector13 = new ArrayList<>(
-                Arrays.asList("S34", "S35", "S36", "S37"));
+                Arrays.asList("S34", "s34",
+                        "S35", "s35",
+                        "S36", "s36",
+                        "S37", "s37"));
 
         List<String> sector14 = new ArrayList<>(
-                Arrays.asList("S38", "S39", "S40", "S41"));
+                Arrays.asList("S38", "s38",
+                        "S39", "s39",
+                        "S40", "s40",
+                        "S41", "s41"));
 
         List<String> sector15 = new ArrayList<>(
-                Arrays.asList("S42", "S43", "S44", "S45"));
+                Arrays.asList("S42", "s42",
+                        "S43", "s43",
+                        "S44", "s44",
+                        "S45", "s45"));
 
         List<String> sector16 = new ArrayList<>(
-                Arrays.asList("S46", "S47", "S48"));
+                Arrays.asList("S46", "s46",
+                        "S47", "s47",
+                        "S48", "s48"));
 
         List<String> sector17 = new ArrayList<>(
-                Arrays.asList("S49", "S50", "S81"));
+                Arrays.asList("S49", "s49",
+                        "S50", "s50",
+                        "S81", "s81"));
 
         List<String> sector18 = new ArrayList<>(
-                Arrays.asList("S51", "S52"));
+                Arrays.asList("S51", "s51",
+                        "S52", "s52"));
 
         List<String> sector19 = new ArrayList<>(
-                Arrays.asList("S53", "S54", "S55", "S82"));
+                Arrays.asList("S53", "s53",
+                        "S54", "s54",
+                        "S55", "s55",
+                        "S82", "s82"));
 
         List<String> sector20 = new ArrayList<>(
-                Arrays.asList("S56", "S57"));
+                Arrays.asList("S56", "s56",
+                        "S57", "s57"));
 
         List<String> sector21 = new ArrayList<>(
-                Arrays.asList("S58", "S59"));
+                Arrays.asList("S58", "s58",
+                        "S59", "s59"));
 
         List<String> sector22 = new ArrayList<>(
-                Arrays.asList("S60", "S61", "S62", "S63", "S64"));
+                Arrays.asList("S60", "s60",
+                        "S61", "s61",
+                        "S62", "s62",
+                        "S63", "s63",
+                        "S64", "s64"));
 
         List<String> sector23 = new ArrayList<>(
-                Arrays.asList("S65", "S66", "S67", "S68"));
+                Arrays.asList("S65", "s65",
+                        "S66", "s66",
+                        "S67", "s67",
+                        "S68", "s68"));
 
         List<String> sector24 = new ArrayList<>(
-                Arrays.asList("S69", "S70", "S71"));
+                Arrays.asList("S69", "s69",
+                        "S70", "s70",
+                        "S71", "s71"));
 
         List<String> sector25 = new ArrayList<>(
-                Arrays.asList("S72", "S73"));
+                Arrays.asList("S72", "s72",
+                        "S73", "s73"));
 
         List<String> sector26 = new ArrayList<>(
-                Arrays.asList("S77", "S78"));
+                Arrays.asList("S77", "s77",
+                        "S78", "s78"));
 
         List<String> sector27 = new ArrayList<>(
-                Arrays.asList("S75", "S76"));
+                Arrays.asList("S75", "s75",
+                        "S76", "s76"));
 
         List<String> sector28 = new ArrayList<>(
-                Arrays.asList("S79", "S80"));
+                Arrays.asList("S79", "s79",
+                        "S80", "s80"));
 
         return Stream.of(
                 Arguments.of(location1, sector1),
