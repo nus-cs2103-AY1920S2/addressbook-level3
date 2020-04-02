@@ -32,13 +32,15 @@ public class DateUtil {
 
     public static final String MONTH_YEAR_VALIDATION_REGEX = "\\d{1,2}-\\d{4}";
 
+    public static final String YEAR_VALIDATION_REGEX = "\\d{4}";
+
     // for Calendar (and SavedCommand)
     public static final DateTimeFormatter DAY_MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter
             .ofPattern("d LLLL yyyy");
     public static final DateTimeFormatter MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter.ofPattern("LLLL yyyy");
 
-    private static final int MINIMUM_YEAR = 2000;
-    private static final int MAXIMUM_YEAR = 2200;
+    public static final int MINIMUM_YEAR = 2000;
+    public static final int MAXIMUM_YEAR = 2200;
 
 
     /**
@@ -73,7 +75,7 @@ public class DateUtil {
      * @return True if the specified year is valid.
      */
     public static boolean isValidYear(int year) {
-        return year >= MINIMUM_YEAR && year <= MAXIMUM_YEAR;
+        return year >= MINIMUM_YEAR && year <= MAXIMUM_YEAR && String.valueOf(year).matches(YEAR_VALIDATION_REGEX);
     }
 
     /**

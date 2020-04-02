@@ -161,7 +161,7 @@ public class ParserUtil {
     public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
         requireNonNull(expiryDate);
         String trimmedDate = expiryDate.trim();
-        if (!ExpiryDate.isValidExpiryDate(trimmedDate)) {
+        if (!DateUtil.isValidDate(trimmedDate)) {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
         return new ExpiryDate(trimmedDate);
@@ -199,7 +199,7 @@ public class ParserUtil {
     public static StartDate parseStartDate(String startDate) throws ParseException {
         requireNonNull(startDate);
         String trimmedDate = startDate.trim();
-        if (!StartDate.isValidStartDate(trimmedDate)) {
+        if (!DateUtil.isValidDate(trimmedDate)) {
             throw new ParseException(StartDate.MESSAGE_CONSTRAINTS);
         }
         return new StartDate(trimmedDate);

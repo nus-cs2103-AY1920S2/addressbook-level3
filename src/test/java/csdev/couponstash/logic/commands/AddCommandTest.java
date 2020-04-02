@@ -22,6 +22,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.testutil.CouponBuilder;
 
@@ -47,6 +48,16 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_startDateIsAfterExpiryDate_throwsCommandException() {
+        Coupon validCoupon = new CouponBuilder().build();
+        Coupon invalidCoupon = new CouponBuilder().withExpiryDate("30-8-2020").withStartDate("31-12-2020").build();
+        AddCommand addCommand = new AddCommand(invalidCoupon);
+        ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
+
+        assertThrows(CommandException.class, StartDate.MESSAGE_CONSTRAINTS, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void execute_duplicateCoupon_throwsCommandException() {
         Coupon validCoupon = new CouponBuilder().build();
         AddCommand addCommand = new AddCommand(validCoupon);
@@ -54,6 +65,9 @@ public class AddCommandTest {
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_COUPON, () -> addCommand.execute(modelStub));
     }
+
+
+    //
 
     @Test
     public void equals() {

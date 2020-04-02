@@ -175,7 +175,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void pasrse_editUsageField_failure() {
+    public void parse_editUsageField_failure() {
         Index targetIndex = TypicalIndexes.INDEX_THIRD_COUPON;
         String userInput = targetIndex.getOneBased() + USAGE_DESC_AMY;
 
