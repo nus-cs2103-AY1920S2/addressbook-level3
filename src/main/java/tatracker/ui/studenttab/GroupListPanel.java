@@ -12,15 +12,16 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
+import tatracker.ui.Focusable;
 import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of groups.
  */
-public class GroupListPanel extends UiPart<Region> {
+public class GroupListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "GroupListPanel.fxml";
-    private static final String BACKGROUND_COLOUR = "#424d5f";
-    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BACKGROUND_COLOUR = "#5f4d42";
+    private static final String BORDER_COLOUR = "#917b3e";
     private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
@@ -32,6 +33,16 @@ public class GroupListPanel extends UiPart<Region> {
         super(FXML);
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
+    }
+
+    @Override
+    public void requestFocus() {
+        groupListView.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return groupListView.isFocused();
     }
 
     /**
