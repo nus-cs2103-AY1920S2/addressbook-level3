@@ -93,14 +93,14 @@ public class DietModelManager extends ModelManager implements DietModel {
     }
 
     @Override
-    public String listFoods(String mode) {
+    public void listFoods(String mode) {
         String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
         int count = 1;
         for (Food food: filteredFoods) {
             result += count + ". " + food.toString() + "\n";
             count++;
         }
-        return result;
+        System.out.println(result);
     }
 
     //=========== Filtered Food Book Accessors =============================================================
