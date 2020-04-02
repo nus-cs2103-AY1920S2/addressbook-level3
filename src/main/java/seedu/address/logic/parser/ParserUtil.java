@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.*;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -44,6 +44,9 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
+        if (name.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_NAME);
+        }
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -59,6 +62,9 @@ public class ParserUtil {
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
+        if (moduleCode.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_MODULE);
+        }
         if (!ModuleCode.isValidCode(moduleCode)) {
             throw new ParseException(MESSAGE_INVALID_MODULE);
         }
@@ -85,6 +91,9 @@ public class ParserUtil {
      */
     public static int parseSemester(String semester) throws ParseException {
         String trimmedSemester = semester.trim();
+        if (semester.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_SEMESTER);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedSemester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
@@ -129,6 +138,18 @@ public class ParserUtil {
     public static CourseName parseCourseName(String courseName) throws ParseException {
         requireNonNull(courseName);
         String trimmedSemester = courseName.trim();
-        return new CourseName(courseName);
+        if (trimmedSemester.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_COURSE);
+        }
+        return new CourseName(trimmedSemester);
+    }
+
+    public static String parseFocusArea(String focusArea) throws ParseException {
+        requireNonNull(focusArea);
+        String trimmedFocusArea = focusArea.trim();
+        if (trimmedFocusArea.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_COURSE_FOCUS_AREA);
+        }
+        return trimmedFocusArea;
     }
 }

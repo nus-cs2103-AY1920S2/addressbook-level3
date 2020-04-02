@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -82,6 +83,9 @@ public class AddCommand extends Command {
         requireNonNull(moduleManager);
 
 
+        if (!profileManager.hasOneProfile()) {
+            throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
+        }
         Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
         Module moduleToAdd = moduleManager.getModule(toAdd);

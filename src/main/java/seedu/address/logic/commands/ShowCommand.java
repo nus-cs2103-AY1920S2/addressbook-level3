@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
@@ -13,6 +15,7 @@ import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
+import seedu.address.model.exceptions.EmptyProfileListException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
@@ -51,9 +54,33 @@ public class ShowCommand extends Command {
      * @param itemParsed - Can be any object from this list: (Course,
      *               CourseFocusArea, Module, List of Modules in a semester)
      */
-    public ShowCommand(Object itemParsed) {
+    /*public ShowCommand(Object itemParsed) {
         requireNonNull(itemParsed);
         this.itemParsed = itemParsed;
+    }*/
+    public ShowCommand(int intSemester) {
+        requireNonNull(intSemester);
+        this.itemParsed = intSemester;
+    }
+
+    public ShowCommand(CourseName courseName) {
+        requireNonNull(courseName);
+        this.itemParsed = courseName;
+    }
+
+    public ShowCommand(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        this.itemParsed = moduleCode;
+    }
+
+    public ShowCommand(String focusArea) {
+        requireNonNull(focusArea);
+        this.itemParsed = focusArea;
+    }
+
+    public ShowCommand(Name name) {
+        requireNonNull(name);
+        this.itemParsed = name;
     }
 
     @Override
@@ -74,6 +101,9 @@ public class ShowCommand extends Command {
 
             } else if (itemParsed instanceof Integer) {
 
+                if (!profileManager.hasOneProfile()) {
+                    throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
+                }
                 message = MESSAGE_SUCCESS_MODULE_LIST;
                 Integer semester = (Integer) itemParsed;
                 toShow = profileManager.getFirstProfile().getModules(semester);
@@ -84,6 +114,9 @@ public class ShowCommand extends Command {
 
                 message = MESSAGE_SUCCESS_MODULE;
                 ModuleCode moduleCode = (ModuleCode) itemParsed;
+                if (!moduleManager.hasModule(moduleCode)) {
+                    throw new CommandException(MESSAGE_INVALID_MODULE);
+                }
                 toShow = moduleManager.getModule(moduleCode);
                 profileManager.setDisplayedView((Module) toShow);
 
