@@ -23,10 +23,12 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.PomCommand;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CompletorException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPet;
@@ -230,14 +232,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /** */
-    private String suggestCommand(String commandText) {
-        String suggestion = commandCompletor.getSuggestedCommand(commandText);
-        if (suggestion.equals(commandText)) {
-            resultDisplay.setFeedbackToUser(commandCompletor.getFailureMessage());
-        } else {
-            resultDisplay.setFeedbackToUser(commandCompletor.getSuccessMessage());
+    private String suggestCommand(String commandText) throws CompletorException {
+        try {
+            CompletorResult completorResult = commandCompletor.getSuggestedCommand(commandText);
+            resultDisplay.setFeedbackToUser(completorResult.getFeedbackToUser());
+            return completorResult.getSuggestion();
+        } catch (CompletorException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
         }
-        return suggestion;
     }
 
     public void setTabFocusTasks() {
