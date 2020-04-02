@@ -24,6 +24,11 @@ import seedu.address.model.restaurant.Restaurant;
  */
 public class ModelStub implements Model {
     @Override
+    public void clear() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
     }
@@ -104,6 +109,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
@@ -144,6 +154,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setScheduler(ReadOnlyScheduler scheduler) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Assignment> getAssignmentList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -180,6 +195,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
         throw new AssertionError("This method should not be called.");
     }
 
