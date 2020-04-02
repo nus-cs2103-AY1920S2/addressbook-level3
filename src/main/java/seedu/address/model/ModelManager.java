@@ -232,7 +232,7 @@ public class ModelManager implements Model {
     public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
         this.restaurantBook.resetData(restaurantBook);
     }
-    
+
     @Override
     public ReadOnlyRestaurantBook getRestaurantBook() {
         return restaurantBook;
