@@ -3,8 +3,10 @@ package seedu.recipe.ui;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -22,10 +24,23 @@ public class CookedListPanel extends UiPart<Region> {
     @FXML
     private ListView<Record> cookedListView;
 
+    @FXML
+    private PieChart pieChart;
+
     public CookedListPanel(ObservableList<Record> recordList) {
         super(FXML);
         cookedListView.setItems(recordList);
         cookedListView.setCellFactory(listView -> new RecordListViewCell());
+
+        //temporary Pie chart rendering (placeholder)
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Bulk Like the Hulk", 2),
+                        new PieChart.Data("Herbivores", 1),
+                        new PieChart.Data("Wholesome Wholemeal", 1));
+
+        pieChart.setTitle("My Healthy Plate");
+        pieChart.setData(pieChartData);
     }
 
     /**
