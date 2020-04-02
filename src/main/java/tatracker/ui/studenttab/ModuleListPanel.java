@@ -12,12 +12,13 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.module.Module;
+import tatracker.ui.Focusable;
 import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of modules.
  */
-public class ModuleListPanel extends UiPart<Region> {
+public class ModuleListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "ModuleListPanel.fxml";
     private static final String BACKGROUND_COLOUR = "#424d5f";
     private static final String BORDER_COLOUR = "#3e7b91";
@@ -32,6 +33,16 @@ public class ModuleListPanel extends UiPart<Region> {
         super(FXML);
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
+    }
+
+    @Override
+    public void requestFocus() {
+        moduleListView.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return moduleListView.isFocused();
     }
 
     /**
