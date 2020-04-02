@@ -41,7 +41,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validCoupon).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCoupon), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCoupon.getName()),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validCoupon), modelStub.couponsAdded);
     }
 

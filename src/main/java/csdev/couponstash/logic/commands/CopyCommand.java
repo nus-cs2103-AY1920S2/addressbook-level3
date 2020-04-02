@@ -33,11 +33,11 @@ public class CopyCommand extends IndexedCommand {
     public static final String COMMAND_WORD = "copy";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Copies the coupon identified by the index number used in the displayed coupon list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Copies the coupon identified by the index number used in the displayed coupon list.\n\n"
+            + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COPY_COUPON_SUCCESS = "Copied coupon: %1$s.\n"
+    public static final String MESSAGE_COPY_COUPON_SUCCESS = "Copied coupon: %1$s\n\n"
             + "Copied to your clipboard! Ctrl + v to paste this coupon!";
 
     private Coupon coupon;

@@ -139,17 +139,6 @@
     -fx-text-fill: #010504;
 }
 
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
-}
-
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 30%);

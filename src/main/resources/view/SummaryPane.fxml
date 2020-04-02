@@ -15,7 +15,7 @@
     <Label id="numerical-amount" fx:id="numericalAmount" styleClass="summary-bold-text"
            contentDisplay="CENTER" minHeight="100.0" />
     <HBox alignment="CENTER" prefHeight="338.0" prefWidth="643.0">
-      <BarChart id="savings-chart" fx:id="savingsChart" prefHeight="338.0" prefWidth="321.0">
+      <BarChart id="savings-chart" fx:id="savingsChart" prefHeight="338.0" prefWidth="321.0" style="-fx-padding: 10.0;">
         <xAxis>
           <CategoryAxis id="days-axis" fx:id="daysAxis" />
         </xAxis>

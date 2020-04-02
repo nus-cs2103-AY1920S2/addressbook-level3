@@ -19,8 +19,8 @@ public class ArchiveCommand extends IndexedCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Archives the coupon identified by "
             + "the index number used in the displayed coupon list. "
-            + "This removes the coupon from the active list, and place it into the program archives. "
-            + "Parameters: INDEX (must be a positive integer) "
+            + "This removes the coupon from the active list, and place it into the program archives.\n\n"
+            + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARCHIVE_COUPON_SUCCESS = "Archived Coupon: %1$s";

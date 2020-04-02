@@ -29,11 +29,11 @@ public class SavedCommand extends Command {
             + "all the savings accumulated in Coupons stored in the "
             + "Coupon Stash (if no date is provided), savings earned "
             + "on a particular date in D-M-YYYY format, or savings "
-            + "earned between two specified dates (inclusive).\n"
+            + "earned between two specified dates (inclusive).\n\n"
             + "Parameters: "
             + "[" + CliSyntax.PREFIX_DATE + "DATE] "
             + "[" + CliSyntax.PREFIX_START_DATE + "START_DATE "
-            + CliSyntax.PREFIX_EXPIRY_DATE + "END_DATE] "
+            + CliSyntax.PREFIX_EXPIRY_DATE + "END_DATE]\n\n"
             + "Example: " + COMMAND_WORD + " 17-6-2020 ";
     public static final String MESSAGE_FUTURE_DATE = "Savings cannot be"
             + " shown for future dates!";
@@ -43,7 +43,7 @@ public class SavedCommand extends Command {
             + " range of dates, both start date and end date must be provided!\n"
             + MESSAGE_USAGE;
     public static final String MESSAGE_UNEXPECTED_EXTRA_WORDS = "Did you mean to"
-            + " specify a date, or a range of dates?\n" + MESSAGE_USAGE;
+            + " specify a date, or a range of dates?\n\n" + MESSAGE_USAGE;
 
     private final LocalDate startDate;
     private final LocalDate endDate;

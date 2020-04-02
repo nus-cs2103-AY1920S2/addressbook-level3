@@ -1,8 +1,6 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.core.Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE;
-import static csdev.couponstash.commons.core.Messages.MESSAGE_COUPONS_LISTED_OVERVIEW;
 import static csdev.couponstash.commons.util.DateUtil.YEAR_MONTH_FORMATTER;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -100,8 +98,7 @@ public class ExpiringCommandTest {
     @Test
     public void execute_multipleCouponsFoundOnDate_success() {
         String inputDate = "30-8-2020";
-        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3)
-                + " " + String.format(MESSAGE_COUPONS_EXPIRING_ON_DATE, inputDate);
+        String expectedMessage = String.format(MESSAGE_COUPONS_EXPIRING_ON_DATE, 3, inputDate);
         DateIsEqualsPredicate predicate = prepareDatePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
         expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
@@ -128,8 +125,8 @@ public class ExpiringCommandTest {
     @Test
     public void execute_multipleCouponsFoundInMonth_success() {
         String inputDate = "8-2020";
-        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3)
-                + " " + String.format(MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH, inputDate);
+        String expectedMessage = String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH,
+                3, inputDate);
         DateIsInMonthYearPredicate predicate = prepareYearMonthPredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
 

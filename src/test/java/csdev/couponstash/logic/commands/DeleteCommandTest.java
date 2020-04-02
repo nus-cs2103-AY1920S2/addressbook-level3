@@ -30,7 +30,7 @@ public class DeleteCommandTest {
         Coupon couponToDelete = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_COUPON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete.getName());
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         expectedModel.deleteCoupon(couponToDelete, "");
@@ -53,7 +53,7 @@ public class DeleteCommandTest {
         Coupon couponToDelete = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_COUPON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete.getName());
 
         Model expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         expectedModel.deleteCoupon(couponToDelete, "");

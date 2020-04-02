@@ -96,7 +96,7 @@
         </HBox>
         <Label fx:id="archived" id="archivedLabel" prefWidth="100.0" rotate="-40.0"
                style="-fx-background-color: red; -fx-background-radius: 4; -fx-alignment: center; -fx-font-weight: bold;"
-               text="Archived" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="-5.0"
+               text="Archived" textAlignment="CENTER" AnchorPane.leftAnchor="-5.0"
                AnchorPane.topAnchor="35.0"/>
         <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true"
                    AnchorPane.rightAnchor="7.5" AnchorPane.topAnchor="55.0">

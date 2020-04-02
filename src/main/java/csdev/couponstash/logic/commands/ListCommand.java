@@ -20,14 +20,14 @@ public class ListCommand extends Command {
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Lists the coupons in CouponStash. "
                     + "You can view 3 types of lists: \n"
-                    + "1. List of active coupons (without archived coupons)\n"
+                    + "1. List of active coupons\n"
                     + "2. List of archived coupons\n"
-                    + "3. List of used coupons.\n"
-                    + "Parameters: The list you want to view.\n"
+                    + "3. List of used coupons.\n\n"
+                    + "Parameters: The type of list.\n\n"
                     + "Examples: \n"
-                    + COMMAND_WORD + "(list of active coupon)\n"
-                    + COMMAND_WORD + " " + PREFIX_ARCHIVE + " (list of archived coupons)\n"
-                    + COMMAND_WORD + " " + PREFIX_USAGE + " (list of used coupons)\n";
+                    + COMMAND_WORD + " (active coupon list)\n"
+                    + COMMAND_WORD + " " + PREFIX_ARCHIVE + " (archived coupons list)\n"
+                    + COMMAND_WORD + " " + PREFIX_USAGE + " (used coupons list)\n";
 
     private Prefix prefixToList;
 

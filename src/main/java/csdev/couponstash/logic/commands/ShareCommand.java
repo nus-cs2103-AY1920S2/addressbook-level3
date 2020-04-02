@@ -30,8 +30,8 @@ public class ShareCommand extends IndexedCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shares the coupon identified by the "
             + "index number with the world! Coupon will be rendered and saved as an image file "
-            + "for easy sharing.\n"
-            + "Parameters: INDEX (must be a positive integer) \n"
+            + "for easy sharing.\n\n"
+            + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SHARE_COUPON_SUCCESS = "Coupon successfully saved to: %s";

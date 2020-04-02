@@ -13,11 +13,11 @@ import csdev.couponstash.model.Model;
 public class SetPrefCommand extends Command {
     public static final String COMMAND_WORD = "setpref";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets the user preferences for Coupon Stash\n"
+            + ": Sets the user preferences for Coupon Stash\n\n"
             + "Parameters: " + PREFIX_MONEY_SYMBOL + " A new symbol for currency type"
             + " used in Coupon Stash.";
     public static final String MESSAGE_MISSING_VALUES = COMMAND_WORD
-            + " requires at least one value to be set!";
+            + " requires at least one value to be set!\n\n";
 
     private static final String MESSAGE_SUCCESS = "Money symbol changed from %s to ";
 
