@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
-import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandDictionary;
 
 /**
