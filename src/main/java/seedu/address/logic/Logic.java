@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -78,6 +79,12 @@ public interface Logic {
    */
   Path getTeacherAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredTeacherList(Predicate<Teacher> predicate);
   ///
 
   /**
@@ -97,6 +104,12 @@ public interface Logic {
    */
   Path getStudentAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredStudentList(Predicate<Student> predicate);
   ///
 
   /**
@@ -116,6 +129,12 @@ public interface Logic {
    */
   Path getFinanceAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate);
   ///
 
   /**
@@ -135,6 +154,12 @@ public interface Logic {
    */
   Path getCourseAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredCourseList(Predicate<Course> predicate);
   //TODO
   /**
    * Returns the AssignmentAddressBook.
@@ -154,6 +179,13 @@ public interface Logic {
   Path getAssignmentAddressBookFilePath();
 
   /**
+   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate);
+
+  /**
    * Returns the user prefs' GUI settings.
    */
   GuiSettings getGuiSettings();
@@ -162,4 +194,26 @@ public interface Logic {
    * Set the user prefs' GUI settings.
    */
   void setGuiSettings(GuiSettings guiSettings);
+
+  // ========================== Getters for Predicates =========================
+
+  public Predicate<Student> getDataStudentPredicate();
+
+  public Predicate<Teacher> getDataTeacherPredicate();
+
+  public Predicate<Finance> getDataFinancePredicate();
+
+  public Predicate<Course> getDataCoursePredicate();
+
+  public Predicate<Assignment> getDataAssignmentPredicate();
+
+  public Predicate<Student> getExtraStudentPredicate();
+
+  public Predicate<Teacher> getExtraTeacherPredicate();
+
+  public Predicate<Finance> getExtraFinancePredicate();
+
+  public Predicate<Course> getExtraCoursePredicate();
+
+  public Predicate<Assignment> getExtraAssignmentPredicate();
 }

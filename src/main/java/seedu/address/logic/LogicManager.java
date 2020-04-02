@@ -1,28 +1,15 @@
 package seedu.address.logic;
 
-import java.io.IOException;
+import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
-import java.util.function.Supplier;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandAdd.AddCourseCommand;
-import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
-import seedu.address.logic.commands.commandAdd.AddStudentCommand;
-import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
-import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
-import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
-import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
-import seedu.address.logic.commands.commandClear.*;
-import seedu.address.logic.commands.commandDelete.*;
-import seedu.address.logic.commands.commandEdit.EditCourseCommand;
-import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
-import seedu.address.logic.commands.commandEdit.EditStudentCommand;
-import seedu.address.logic.commands.commandEdit.EditTeacherCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -114,6 +101,11 @@ public class LogicManager implements Logic {
     return model.getTeacherAddressBookFilePath();
   }
 
+  @Override
+  public void updateObservedDataFilteredTeacherList(Predicate<Teacher> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredTeacherList(predicate);
+  }
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Student> getStudentAddressBook() {
@@ -130,6 +122,11 @@ public class LogicManager implements Logic {
     return model.getStudentAddressBookFilePath();
   }
 
+  @Override
+  public void updateObservedDataFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredStudentList(predicate);
+  }
 
   ///
   @Override
@@ -145,6 +142,12 @@ public class LogicManager implements Logic {
   @Override
   public Path getCourseAddressBookFilePath() {
     return model.getCourseAddressBookFilePath();
+  }
+
+  @Override
+  public void updateObservedDataFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredCourseList(predicate);
   }
 
   ///
@@ -164,6 +167,13 @@ public class LogicManager implements Logic {
   }
 
   @Override
+  public void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredFinanceList(predicate);
+  }
+
+  ///
+  @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
     return model.getAssignmentAddressBook();
   }
@@ -178,6 +188,12 @@ public class LogicManager implements Logic {
     return model.getAssignmentAddressBookFilePath();
   }
 
+  @Override
+  public void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredAssignmentList(predicate);
+  }
+
 
   @Override
   public GuiSettings getGuiSettings() {
@@ -188,4 +204,47 @@ public class LogicManager implements Logic {
   public void setGuiSettings(GuiSettings guiSettings) {
     model.setGuiSettings(guiSettings);
   }
+
+  // ========================== Getters for Predicates =========================
+
+  public Predicate<Student> getDataStudentPredicate() {
+    return model.getDataStudentPredicate();
+  }
+
+  public Predicate<Teacher> getDataTeacherPredicate() {
+    return model.getDataTeacherPredicate();
+  }
+
+  public Predicate<Finance> getDataFinancePredicate() {
+    return model.getDataFinancePredicate();
+  }
+
+  public Predicate<Course> getDataCoursePredicate() {
+    return model.getDataCoursePredicate();
+  }
+
+  public Predicate<Assignment> getDataAssignmentPredicate() {
+    return model.getDataAssignmentPredicate();
+  }
+
+  public Predicate<Student> getExtraStudentPredicate() {
+    return model.getExtraStudentPredicate();
+  }
+
+  public Predicate<Teacher> getExtraTeacherPredicate() {
+    return model.getExtraTeacherPredicate();
+  }
+
+  public Predicate<Finance> getExtraFinancePredicate() {
+    return model.getExtraFinancePredicate();
+  }
+
+  public Predicate<Course> getExtraCoursePredicate() {
+    return model.getExtraCoursePredicate();
+  }
+
+  public Predicate<Assignment> getExtraAssignmentPredicate() {
+    return model.getExtraAssignmentPredicate();
+  }
+
 }

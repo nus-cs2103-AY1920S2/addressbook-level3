@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,7 +13,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -61,7 +58,17 @@ public class ModelManager extends BaseManager implements Model {
   private final FilteredList<Assignment> filteredAssignments;
   private final FilteredList<Progress> filteredProgresses;
 
+  private Predicate<Student> dataStudentPredicate = PREDICATE_SHOW_ALL_STUDENTS;
+  private Predicate<Teacher> dataTeacherPredicate = PREDICATE_SHOW_ALL_TEACHERS;
+  private Predicate<Finance> dataFinancePredicate = PREDICATE_SHOW_ALL_FINANCES;
+  private Predicate<Course> dataCoursePredicate = PREDICATE_SHOW_ALL_COURSES;
+  private Predicate<Assignment>  dataAssignmentPredicate = PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
+  private Predicate<Student> extraStudentPredicate = PREDICATE_HIDE_ALL_STUDENTS;
+  private Predicate<Teacher> extraTeacherPredicate = PREDICATE_HIDE_ALL_TEACHERS;
+  private Predicate<Finance> extraFinancePredicate = PREDICATE_HIDE_ALL_FINANCES;
+  private Predicate<Course> extraCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
+  private Predicate<Assignment>  extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
    */
@@ -474,6 +481,26 @@ public class ModelManager extends BaseManager implements Model {
   public void updateFilteredTeacherList(Predicate<Teacher> predicate) {
     requireNonNull(predicate);
     filteredTeachers.setPredicate(predicate);
+    dataTeacherPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredTeacherList(Predicate<Teacher> predicate) {
+    requireNonNull(predicate);
+    filteredTeachers.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredTeacherList(Predicate<Teacher> predicate) {
+    requireNonNull(predicate);
+    filteredTeachers.setPredicate(predicate);
+    extraTeacherPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredTeacherList(Predicate<Teacher> predicate) {
+    requireNonNull(predicate);
+    filteredTeachers.setPredicate(predicate);
   }
 
   /**
@@ -487,6 +514,26 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public void updateFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    filteredStudents.setPredicate(predicate);
+    dataStudentPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    filteredStudents.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    filteredStudents.setPredicate(predicate);
+    extraStudentPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredStudentList(Predicate<Student> predicate) {
     requireNonNull(predicate);
     filteredStudents.setPredicate(predicate);
   }
@@ -504,6 +551,26 @@ public class ModelManager extends BaseManager implements Model {
   public void updateFilteredFinanceList(Predicate<Finance> predicate) {
     requireNonNull(predicate);
     filteredFinances.setPredicate(predicate);
+    dataFinancePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    filteredFinances.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    filteredFinances.setPredicate(predicate);
+    extraFinancePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    filteredFinances.setPredicate(predicate);
   }
 
   /**
@@ -517,6 +584,26 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public void updateFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+    dataCoursePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+    extraCoursePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredCourseList(Predicate<Course> predicate) {
     requireNonNull(predicate);
     filteredCourses.setPredicate(predicate);
   }
@@ -534,7 +621,28 @@ public class ModelManager extends BaseManager implements Model {
   public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
     requireNonNull(predicate);
     filteredAssignments.setPredicate(predicate);
+    dataAssignmentPredicate = predicate;
   }
+
+  @Override
+  public void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+    extraAssignmentPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+  }
+
 
   /**
    * Returns an unmodifiable view of the filtered finance list
@@ -626,5 +734,47 @@ public class ModelManager extends BaseManager implements Model {
             && filteredProgresses.equals(other.filteredProgresses);
 
 
+  }
+
+  // ========================== Getters for Predicates =========================
+
+  public Predicate<Student> getDataStudentPredicate() {
+    return dataStudentPredicate;
+  }
+
+  public Predicate<Teacher> getDataTeacherPredicate() {
+    return dataTeacherPredicate;
+  }
+
+  public Predicate<Finance> getDataFinancePredicate() {
+    return dataFinancePredicate;
+  }
+
+  public Predicate<Course> getDataCoursePredicate() {
+    return dataCoursePredicate;
+  }
+
+  public Predicate<Assignment> getDataAssignmentPredicate() {
+    return dataAssignmentPredicate;
+  }
+
+  public Predicate<Student> getExtraStudentPredicate() {
+    return extraStudentPredicate;
+  }
+
+  public Predicate<Teacher> getExtraTeacherPredicate() {
+    return extraTeacherPredicate;
+  }
+
+  public Predicate<Finance> getExtraFinancePredicate() {
+    return extraFinancePredicate;
+  }
+
+  public Predicate<Course> getExtraCoursePredicate() {
+    return extraCoursePredicate;
+  }
+
+  public Predicate<Assignment> getExtraAssignmentPredicate() {
+    return extraAssignmentPredicate;
   }
 }

@@ -6,43 +6,59 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CalculateEarningsFinanceCommand;
 import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.commandAdd.*;
+import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
+import seedu.address.logic.commands.commandAdd.AddCourseCommand;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
+import seedu.address.logic.commands.commandAdd.AddStudentCommand;
+import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.commands.commandClear.*;
+import seedu.address.logic.commands.commandClear.ClearAssignmentCommand;
+import seedu.address.logic.commands.commandClear.ClearCourseCommand;
+import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
+import seedu.address.logic.commands.commandClear.ClearStudentCommand;
+import seedu.address.logic.commands.commandClear.ClearTeacherCommand;
+import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
-import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.commandEdit.EditCourseCommand;
 import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
 import seedu.address.logic.commands.commandEdit.EditStudentCommand;
 import seedu.address.logic.commands.commandEdit.EditTeacherCommand;
-import seedu.address.logic.commands.commandFind.FindCommand;
 import seedu.address.logic.commands.commandFind.FindCourseCommand;
 import seedu.address.logic.commands.commandFind.FindFinanceCommand;
 import seedu.address.logic.commands.commandFind.FindStudentCommand;
 import seedu.address.logic.commands.commandFind.FindTeacherCommand;
-import seedu.address.logic.commands.commandList.*;
+import seedu.address.logic.commands.commandList.ListAssignmentCommand;
+import seedu.address.logic.commands.commandList.ListCourseCommand;
+import seedu.address.logic.commands.commandList.ListFinanceCommand;
+import seedu.address.logic.commands.commandList.ListStudentCommand;
+import seedu.address.logic.commands.commandList.ListTeacherCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.parserAdd.*;
-import seedu.address.logic.parser.parserDelete.*;
-import seedu.address.logic.parser.parserEdit.EditCommandParser;
+import seedu.address.logic.parser.parserAdd.AddAssignmentCommandParser;
+import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
+import seedu.address.logic.parser.parserAdd.AddFinanceCommandParser;
+import seedu.address.logic.parser.parserAdd.AddStudentCommandParser;
+import seedu.address.logic.parser.parserAdd.AddTeacherCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteAssignmentCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteStudentCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteTeacherCommandParser;
 import seedu.address.logic.parser.parserEdit.EditCourseCommandParser;
 import seedu.address.logic.parser.parserEdit.EditFinanceCommandParser;
 import seedu.address.logic.parser.parserEdit.EditStudentCommandParser;
 import seedu.address.logic.parser.parserEdit.EditTeacherCommandParser;
-import seedu.address.logic.parser.parserFind.FindCommandParser;
 import seedu.address.logic.parser.parserFind.FindCourseCommandParser;
 import seedu.address.logic.parser.parserFind.FindFinanceCommandParser;
 import seedu.address.logic.parser.parserFind.FindStudentCommandParser;
@@ -180,6 +196,9 @@ public class AddressBookParser {
       case EditCourseCommand.COMMAND_WORD:
         return new EditCourseCommandParser().parse(arguments);
 
+      case SelectCommand.COMMAND_WORD:
+        return new SelectCommandParser().parse(arguments);
+
       case ExitCommand.COMMAND_WORD:
         return new ExitCommand();
 
@@ -191,6 +210,7 @@ public class AddressBookParser {
 
       case RedoCommand.COMMAND_WORD:
         return new RedoCommand();
+
 
       default:
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -8,8 +8,17 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.AssignedTeacher;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Deadline;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.FinanceType;
+import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -140,6 +149,21 @@ public class ParserUtil {
     return new ID(teacherid);
   }
 
+  /**
+   * Parses a {@code String financeid} into a {@code Financeid}. Leading and trailing whitespaces will be
+   * trimmed.
+   *
+   * @throws ParseException if the given {@code financeid} is invalid.
+   */
+  public static ID parseFinanceid(String financeid) throws ParseException {
+    requireNonNull(financeid);
+    String timmedFinanceid = financeid.trim();
+    if (!ID.isValidId(timmedFinanceid)) {
+      throw new ParseException(ID.MESSAGE_CONSTRAINTS);
+    }
+    return new ID(timmedFinanceid);
+  }
+
 
   /**
    * Parses a {@code String amount} into a {@code Amount}. Leading and trailing whitespaces will be
@@ -259,6 +283,17 @@ public class ParserUtil {
       throw new ParseException(Date.MESSAGE_CONSTRAINTS);
     }
     return new Date(trimmedDate);
+  }
+
+  /**
+   * Parses a {@code String} into a {@code string}. Leading and trailing whitespaces will be
+   * trimmed.
+   *
+   * @throws ParseException if the given {@code string} is invalid.
+   */
+  public static String parseString(String string) throws ParseException {
+    requireNonNull(string);
+    return string.trim();
   }
 
   /**

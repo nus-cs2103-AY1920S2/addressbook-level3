@@ -15,6 +15,7 @@ public class CliSyntax {
   public static final Prefix PREFIX_COURSE = new Prefix("co/");
   public static final Prefix PREFIX_COURSEID = new Prefix("cid/");
   public static final Prefix PREFIX_ASSIGNMENTID = new Prefix("aid/");
+  public static final Prefix PREFIX_FINANCEID = new Prefix("fid/");
   public static final Prefix PREFIX_DEADLINE = new Prefix("dl/");
   public static final Prefix PREFIX_PAYMENTPLAN = new Prefix("pp/");
   public static final Prefix PREFIX_AMOUNT = new Prefix("a/");

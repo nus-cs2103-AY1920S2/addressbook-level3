@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -31,6 +30,13 @@ public interface Model {
     Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
     Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+
+    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
+    Predicate<Teacher> PREDICATE_HIDE_ALL_TEACHERS = unused -> false;
+    Predicate<Student> PREDICATE_HIDE_ALL_STUDENTS = unused -> false;
+    Predicate<Finance> PREDICATE_HIDE_ALL_FINANCES = unused -> false;
+    Predicate<Course> PREDICATE_HIDE_ALL_COURSES = unused -> false;
+    Predicate<Assignment> PREDICATE_HIDE_ALL_ASSIGNMENTS = unused -> false;
 
     String COURSE_ENTITY_NAME = "course";
 
@@ -131,12 +137,34 @@ public interface Model {
      */
     ObservableList<Teacher> getFilteredTeacherList();
 
+
     /**
      * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTeacherList(Predicate<Teacher> predicate);
+
+    /**
+     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedDataFilteredTeacherList(Predicate<Teacher> predicate);
+
+    /**
+     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExtraFilteredTeacherList(Predicate<Teacher> predicate);
+
+    /**
+     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedExtraFilteredTeacherList(Predicate<Teacher> predicate);
 
     ///
 
@@ -172,6 +200,27 @@ public interface Model {
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
 
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedDataFilteredStudentList(Predicate<Student> predicate);
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExtraFilteredStudentList(Predicate<Student> predicate);
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedExtraFilteredStudentList(Predicate<Student> predicate);
+
     ///
 
     /**
@@ -205,6 +254,27 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCourseList(Predicate<Course> predicate);
+
+    /**
+     * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedDataFilteredCourseList(Predicate<Course> predicate);
+
+    /**
+     * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExtraFilteredCourseList(Predicate<Course> predicate);
+
+    /**
+     * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedExtraFilteredCourseList(Predicate<Course> predicate);
 
     ///
 
@@ -240,6 +310,27 @@ public interface Model {
      */
     void updateFilteredFinanceList(Predicate<Finance> predicate);
 
+    /**
+     * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate);
+
+    /**
+     * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExtraFilteredFinanceList(Predicate<Finance> predicate);
+
+    /**
+     * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedExtraFilteredFinanceList(Predicate<Finance> predicate);
+
     ///
 
     /**
@@ -273,6 +364,27 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExtraFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateObservedExtraFilteredAssignmentList(Predicate<Assignment> predicate);
 
     // ====================================================================== //
     // There is no CRUD operations for Progress objects for now
@@ -314,5 +426,27 @@ public interface Model {
     void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
 
     void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
+
+    // ========================== Getters for Predicates =========================
+
+    public Predicate<Student> getDataStudentPredicate();
+
+    public Predicate<Teacher> getDataTeacherPredicate();
+
+    public Predicate<Finance> getDataFinancePredicate();
+
+    public Predicate<Course> getDataCoursePredicate();
+
+    public Predicate<Assignment> getDataAssignmentPredicate();
+
+    public Predicate<Student> getExtraStudentPredicate();
+
+    public Predicate<Teacher> getExtraTeacherPredicate();
+
+    public Predicate<Finance> getExtraFinancePredicate();
+
+    public Predicate<Course> getExtraCoursePredicate();
+
+    public Predicate<Assignment> getExtraAssignmentPredicate();
 
 }

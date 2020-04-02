@@ -47,7 +47,8 @@ public class MainWindow extends UiPart<Stage> {
   private ResultDisplay resultDisplay;
   private HelpWindow helpWindow;
 
-  private FadeTransition ftListPanel;
+  private FadeTransition ftListPanelLeft;
+  private FadeTransition ftListPanelRight;
 
   @FXML
   private StackPane commandBoxPlaceholder;
@@ -158,9 +159,8 @@ public class MainWindow extends UiPart<Stage> {
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
 
-    CourseListPanel courseListPanel2 = new CourseListPanel(logic.getFilteredCourseList());
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-    extraListPanelPlaceholder.getChildren().add(courseListPanel2.getRoot());
+    extraListPanelPlaceholder.getChildren().add(courseListPanel.getRoot());
     SummaryPanel summaryPanel = new SummaryPanel();
     //summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
@@ -171,7 +171,8 @@ public class MainWindow extends UiPart<Stage> {
 
     logic.setSummaryPanel(summaryPanel);
 
-    ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
+    ftListPanelLeft = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
+    ftListPanelRight = getFadeTransition(Duration.millis(150), extraListPanelPlaceholder);
   }
 
   /**
@@ -203,7 +204,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToStudent() {
-    switchList(studentListPanel.getRoot());
+    logic.updateObservedDataFilteredStudentList(logic.getDataStudentPredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    switchList(studentListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   /**
@@ -211,7 +214,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToTeacher() {
-    switchList(teacherListPanel.getRoot());
+    logic.updateObservedDataFilteredTeacherList(logic.getDataTeacherPredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    switchList(teacherListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   /**
@@ -219,7 +224,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToCourse() {
-    switchList(courseListPanel.getRoot());
+    logic.updateObservedDataFilteredCourseList(logic.getDataCoursePredicate());
+    logic.updateObservedDataFilteredStudentList(logic.getExtraStudentPredicate());
+    switchList(courseListPanel.getRoot(), studentListPanel.getRoot());
   }
 
   /**
@@ -227,7 +234,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToFinance() {
-    switchList(financeListPanel.getRoot());
+    logic.updateObservedDataFilteredFinanceList(logic.getDataFinancePredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   /**
@@ -235,7 +244,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToAssignment() {
-    switchList(assignmentListPanel.getRoot());
+    logic.updateObservedDataFilteredAssignmentList(logic.getDataAssignmentPredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   void show() {
@@ -267,10 +278,14 @@ public class MainWindow extends UiPart<Stage> {
   /**
    * Switch the list panel to the given region
    */
-  private void switchList(Region region) {
+  private void switchList(Region leftRegion, Region rightRegion) {
     dataListPanelPlaceholder.getChildren().clear();
-    dataListPanelPlaceholder.getChildren().add(region);
-    ftListPanel.play();
+    dataListPanelPlaceholder.getChildren().add(leftRegion);
+
+    extraListPanelPlaceholder.getChildren().clear();
+    extraListPanelPlaceholder.getChildren().add(rightRegion);
+    ftListPanelLeft.play();
+    ftListPanelRight.play();
   }
 
 
