@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -65,7 +66,7 @@ class OpenCommandParserTest {
     }
 
     @Test
-    void parse_absolutePathArgument_openCommand() throws ParseException {
+    void parse_absolutePathArgument_openCommand() throws ParseException, CommandException {
         final OpenCommand openCommand = openCommandParser.parse(" -t /another/block").get(0);
 
         openCommand.execute(model);
@@ -74,7 +75,7 @@ class OpenCommandParserTest {
     }
 
     @Test
-    void parse_relativePathArgument_openCommand() throws ParseException {
+    void parse_relativePathArgument_openCommand() throws ParseException, CommandException {
         final OpenCommand openCommand = openCommandParser.parse(" -t block").get(0);
 
         // Current directory /another

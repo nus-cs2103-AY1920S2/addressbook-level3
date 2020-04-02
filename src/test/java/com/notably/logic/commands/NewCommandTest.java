@@ -1,11 +1,13 @@
 package com.notably.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
@@ -41,14 +43,13 @@ class NewCommandTest {
 
         assertTrue(model.hasPath(expectedPath));
     }
-    //Todo: Uncomment after merging parser exception handliing.
-    //@Test
-    //void execute_invalidInputDuplicateTitle_throwsDuplicateBlockException() {
-    //    final Block filler = (new BlockImpl(new Title("CS2103")));
-    //    final Block duplicateBlock = (new BlockImpl(new Title("CS2103")));
-    //
-    //    model.addBlockToCurrentPath(filler);
-    //
-    //    assertThrows(DuplicateBlockException.class, () -> model.addBlockToCurrentPath(duplicateBlock));
-    //}
+
+    @Test
+    void execute_invalidInputDuplicateTitle_throwsDuplicateBlockException() {
+        final Block filler = (new BlockImpl(new Title("CS2103")));
+        final Block duplicateBlock = (new BlockImpl(new Title("CS2103")));
+        model.addBlockToCurrentPath(filler);
+
+        assertThrows(CommandException.class, () -> model.addBlockToCurrentPath(duplicateBlock));
+    }
 }

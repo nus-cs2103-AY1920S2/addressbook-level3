@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
@@ -14,7 +15,6 @@ import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.Title;
-import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
@@ -38,7 +38,7 @@ class DeleteCommandTest {
         toDeletePath = AbsolutePath.fromString("/CS2103");
     }
     @Test
-    void execute_deleteAPath_blockNoLongerExist() {
+    void execute_deleteAPath_blockNoLongerExist() throws CommandException {
         final DeleteCommand deleteCommand = new DeleteCommand(toDeletePath);
 
         deleteCommand.execute(model);
@@ -52,7 +52,7 @@ class DeleteCommandTest {
         final AbsolutePath rootPath = AbsolutePath.fromString("/");
         final DeleteCommand deleteCommand = new DeleteCommand(rootPath);
 
-        assertThrows(CannotModifyRootException.class, () -> deleteCommand.execute(model));
+        assertThrows(CommandException.class, () -> deleteCommand.execute(model));
 
     }
 

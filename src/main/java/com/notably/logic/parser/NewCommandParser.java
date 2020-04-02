@@ -39,7 +39,7 @@ public class NewCommandParser implements CommandParser {
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format("Invalid Command"));
+            throw new ParseException("Invalid Command");
         }
 
 

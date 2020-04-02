@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
@@ -38,7 +39,7 @@ class EditCommandTest {
         model.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS2103"));
     }
     @Test
-    void execute_editCommand_blockWithUpdatedBody() {
+    void execute_editCommand_blockWithUpdatedBody() throws CommandException {
         final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
 
         final String expectedBody = "Expected Body";
