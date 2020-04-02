@@ -138,8 +138,8 @@ public abstract class Activity implements Regenerable<Activity> {
 
     /**
      * Returns true if both activities of the same name, note and date.
-     * @param otherActivity
-     * @return
+     * @param otherActivity Activity
+     * @return boolean
      */
     public boolean isSameActivity(Activity otherActivity) {
         if (otherActivity == this) {
@@ -189,6 +189,13 @@ public abstract class Activity implements Regenerable<Activity> {
      */
     public void setDone() {
         status = Status.DONE;
+    }
+
+    /**
+     * Sets the task to undone.
+     */
+    public void setUndone() {
+        status = Status.ONGOING;
     }
 
     /**

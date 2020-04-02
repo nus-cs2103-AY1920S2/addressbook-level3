@@ -1,15 +1,18 @@
 package nasa.ui.activity;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.ui.UiPart;
-
 
 /**
  * An UI component that displays information of a {@code Module}.
@@ -39,6 +42,12 @@ public class DeadlineCard extends UiPart<Region> {
     private Label status;
     @FXML
     private Label priority;
+    @FXML
+    private Group type;
+    @FXML
+    private Label labelForCircle;
+    @FXML
+    private Circle circle;
 
     public DeadlineCard(Deadline activity, int displayedIndex) {
         super(FXML);

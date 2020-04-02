@@ -21,7 +21,6 @@ public class DeleteActivityCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteActivityCommand() {
         assertParseSuccess(parser, "1" + MODULE_CODE_DESC_CS1231, new DeleteActivityCommand(Index.fromOneBased(1),
-
                 moduleCode));
     }
 
