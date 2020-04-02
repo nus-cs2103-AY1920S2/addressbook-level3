@@ -45,20 +45,20 @@ class NearbyCommandTest {
         invalidPostalSector = "4000";
         invalidArea = "La La Land";
         ordersInJurong = order -> {
-            String[] postalSectors = new String[]{"S60", "S61", "S62", "S63", "S64"};
+            String[] postalSectors = new String[]{"S60", "s60", "S61", "s61", "S62", "s62", "S63", "s63", "S64", "s64"};
             String orderAddress = order.getAddress().toString();
             return Arrays.stream(postalSectors)
                     .anyMatch(orderAddress::contains);
         };
         returnOrdersInJurong = returnOrder -> {
-            String[] postalSectors = new String[]{"S60", "S61", "S62", "S63", "S64"};
+            String[] postalSectors = new String[]{"S60", "s60", "S61", "s61", "S62", "s62", "S63", "s63", "S64", "s64"};
             String returnOrderAddress = returnOrder.getAddress().toString();
             return Arrays.stream(postalSectors)
                     .anyMatch(returnOrderAddress::contains);
         };
 
         List<String> areaRegex = new ArrayList<>(Arrays.asList(
-                ".*S16\\d{4}.*", ".*S17\\d{4}.*", ".*S18\\d{4}.*"));
+                ".*S16\\d{4}.*", ".*s16\\d{4}.*", ".*S17\\d{4}.*", ".*s17\\d{4}.*", ".*S18\\d{4}.*", ".*s18\\d{4}.*"));
         eastArea = order -> {
             String orderAddress = order.getAddress().toString();
             return areaRegex.stream()

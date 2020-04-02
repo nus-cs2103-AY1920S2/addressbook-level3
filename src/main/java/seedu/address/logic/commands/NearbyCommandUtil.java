@@ -56,9 +56,10 @@ public class NearbyCommandUtil {
         for (Map.Entry<Integer, String> entry : postalSectorInfo.entrySet()) {
             if (location.equals(entry.getValue())) {
                 Integer sector = entry.getKey();
-                String sectorStr = "S" + ((sector < 10) ? ("0" + sector)
+                String sectorStr = "%s" + ((sector < 10) ? ("0" + sector)
                         : sector);
-                output.add(sectorStr);
+                output.add(String.format(sectorStr, "S"));
+                output.add(String.format(sectorStr, "s"));
             }
         }
         return output;
