@@ -145,70 +145,47 @@ Format: `clear-s`
 === Buying goods from supplier: `buy`
 
 Buys a particular goods from the supplier. +
-Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE`
+Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY`
 
 [TIP]
 If the goods does not exist in the inventory, this will also create an entry for the goods.
 
 Example:
 
-* `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03` +
+* `buy n/Dave g/apple q/4` +
 Buys 4 apples from a certain supplier named Dave with the above transaction and expiry dates.
 
 === Selling goods: `sell`
 
 Sells a particular goods from the inventory.. +
-Format: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE`
+Format: `sell g/GOOD_NAME q/QUANTITY`
 
 Example:
 
-* `sell g/apple q/4 d/2030-01-05` +
+* `sell g/apple q/4` +
 Sells 4 apples at the above date.
-
-=== Listing all goods: `list-i`
-
-Lists all goods in the inventory. +
-Format: `list-i`
-
-=== Listing all expiring goods: `list-e`
-
-Lists all expiring goods batches in the inventory. +
-Format: `list-e`
-
-=== Listing all transaction-history: `list-t`
-
-Displays all the transactions (buy and sell orders) in the past, in reverse chronological order. +
-Format: `list-t`
 
 === Sourcing suppliers for a particular goods: `source`
 
 Displays all the suppliers selling the specified goods, sorted in increasing price. +
 Format: `source g/GOOD_NAME`
 
-=== Listing goods in low in quantity: `list-l`
+=== Setting minimum quantity for goods: `warn`
 
-Displays all items that have fallen below their respective minimum quantity thresholds in the inventory. +
-Format: `list-l`
+Sets the minimum quantity threshold for a certain good.
 
-=== Clearing all transaction history: `clear-t`
+When the quantity of the good is below the threshold, the quantity of the good will be mark with red color background
+and rank higher up in the inventory list.
 
-Clears all the transaction entries from the inventory manager. +
-Format: `clear-t`
+Format: `warn INDEX q/MIN_QUANTITY`
 
-=== Editing a buy order: `edit-bo`
+Example:
 
-Edits an existing buy order in the transaction history. +
-Format: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTION_DATE] [x/EXPIRY_DATE]`
+* `warn 1 q/100` +
+This sets the minimum quantity threshold for good at index 1 with an quantity of 100.
 
-=== Editing a sell order: `edit-so`
-
-Edits an existing sell order in the transaction history. +
-Format: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
-
-=== Setting minimum quantity for goods: `set`
-
-Sets the minimum quantity threshold for a certain goods. All goods with quantity below this threshold will appear in the list of goods in shortage. +
-Format: `set g/GOOD_NAME q/MIN_QUANTITY`
+[NOTE]
+When a new good is added into the inventory, its minimum quantity threshold is set at 0.
 
 === Undoing a recently executed command: `undo`
 
