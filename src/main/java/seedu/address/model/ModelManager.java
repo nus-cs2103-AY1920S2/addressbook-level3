@@ -173,6 +173,9 @@ public class ModelManager implements Model {
 
     @Override
     public void endInterview() {
+        Transcript transcript = getCurrentTranscript();
+        currentInterviewee.setTranscript(null);
+        currentInterviewee.setTranscript(transcript);
         setCurrentInterviewee(null);
         setAppPhase(AppPhase.NORMAL);
     }

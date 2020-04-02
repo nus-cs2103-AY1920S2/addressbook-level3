@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +10,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.hirelah.Interviewee;
 
 /**
@@ -51,17 +47,17 @@ public class IntervieweeListPanel extends UiPart<Region> {
         //        }
         //    }
         //});
-        cardListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Interviewee>() {
-            @Override
-            public void changed(
-                    ObservableValue<? extends Interviewee> observable, Interviewee oldValue, Interviewee newValue) {
-                try {
-                        commandExecutor.execute("open " + newValue.getFullName());
-                    } catch (CommandException | IllegalValueException e) {
-                        e.printStackTrace();
-                    }
-            }
-        });
+        //cardListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Interviewee>() {
+        //    @Override
+        //    public void changed(
+        //            ObservableValue<? extends Interviewee> observable, Interviewee oldValue, Interviewee newValue) {
+        //        try {
+        //                commandExecutor.execute("open " + newValue.getFullName());
+        //            } catch (CommandException | IllegalValueException e) {
+        //                e.printStackTrace();
+        //            }
+        //    }
+        //});
 
     }
 
