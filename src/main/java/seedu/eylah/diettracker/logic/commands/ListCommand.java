@@ -3,6 +3,7 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.diettracker.model.DietModel.PREDICATE_SHOW_ALL_FOODS;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
@@ -22,10 +23,10 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all food in the book. Use tags to list "
             + "different things."
-            + "Parameters: [-f] [-d] [-t [numDays]] [-e [tag]]";
+            + "Parameters: [-a] / [-d][numDays] / [-t [tag]]";
     public static final String MESSAGE_SUCCESS = "All foods over period based on input tag has been listed.\n";
 
-    private String mode = "-d";
+    private String mode = "";
     private int numDays;
     private Tag tag;
 
@@ -62,14 +63,20 @@ public class ListCommand extends Command {
         requireNonNull(model);
         String listString;
 
-        if (mode.equals("-t")) {
+        if (mode.equals("")) {
+            LocalDate today = LocalDate.now();
+            Predicate<Food> todayPredicate = food -> food.getDate().getLocalDateValue().equals(today);
+            model.updateFilteredFoodList(todayPredicate);
+            model.listFoods(mode);
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else if (mode.equals("-d")) {
             // date till which to obtain food logged
-            Date limit = new Date(LocalDateTime.now().minusDays((long) numDays));
+            Date limit = new Date(LocalDateTime.now().minusDays(numDays));
             Predicate<Food> datePredicate = food -> food.getDate().isAfter(limit);
             model.updateFilteredFoodList(datePredicate);
             model.listFoods(mode);
             return new CommandResult(MESSAGE_SUCCESS);
-        } else if (mode.equals("-e")) {
+        } else if (mode.equals("-t")) {
             Predicate<Food> tagPredicate = food -> food.getTags().contains(this.tag);
             model.updateFilteredFoodList(tagPredicate);
             model.listFoods(mode);

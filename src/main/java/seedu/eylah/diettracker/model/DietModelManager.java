@@ -94,13 +94,22 @@ public class DietModelManager extends ModelManager implements DietModel {
 
     @Override
     public void listFoods(String mode) {
-        String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
+        StringBuilder result = new StringBuilder();
+        if (mode == null || mode.equals("")) {
+            result.append("These are all food that you have consumed for today!\n\n");
+        } else if (mode.equals("-d")) {
+            result.append("These are the food consumed for the given number of days!\n\n");
+        } else if (mode.equals("-t")) {
+            result.append("These are all the food consumed of the given tag!\n\n");
+        } else { // "-a"
+            result.append("These are all food you have ever consumed!\n\n");
+        }
         int count = 1;
         for (Food food: filteredFoods) {
-            result += count + ". " + food.toString() + "\n";
+            result.append(count + ". " + food.toString() + "\n");
             count++;
         }
-        System.out.println(result);
+        System.out.println(result.toString());
     }
 
     //=========== Filtered Food Book Accessors =============================================================
