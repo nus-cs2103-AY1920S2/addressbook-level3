@@ -20,7 +20,6 @@ import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
 import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
-import nasa.model.module.UniqueModuleList;
 import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
