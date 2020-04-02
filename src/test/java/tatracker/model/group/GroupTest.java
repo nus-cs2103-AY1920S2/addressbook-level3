@@ -2,25 +2,15 @@ package tatracker.model.group;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS;
 import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS_COPY;
-import static tatracker.testutil.group.TypicalGroups.ONE_STUDENT;
 import static tatracker.testutil.group.TypicalGroups.NO_STUDENTS;
-import static tatracker.testutil.student.TypicalStudents.BOB;
+import static tatracker.testutil.group.TypicalGroups.ONE_STUDENT;
 
 import org.junit.jupiter.api.Test;
 
 import tatracker.model.student.Matric;
-import tatracker.testutil.group.GroupBuilder;
 import tatracker.testutil.student.TypicalStudents;
 
 public class GroupTest {

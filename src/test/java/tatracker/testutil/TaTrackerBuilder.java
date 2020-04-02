@@ -29,6 +29,9 @@ public class TaTrackerBuilder {
         return this;
     }
 
+    /**
+     * Adds a new module to the ta tracker.
+     */
     public TaTrackerBuilder withModule(Module module) {
         taTracker.addModule(module);
         return this;

@@ -22,7 +22,6 @@ import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
 import tatracker.model.student.Student;
-import tatracker.testutil.student.StudentBuilder;
 
 /**
  * A utility class containing a list of {@code Student} objects to be used in tests.

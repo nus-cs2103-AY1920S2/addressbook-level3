@@ -3,13 +3,11 @@ package tatracker.model.group;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS;
+import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS_COPY;
 import static tatracker.testutil.group.TypicalGroups.NO_STUDENTS;
 import static tatracker.testutil.group.TypicalGroups.ONE_STUDENT;
-import static tatracker.testutil.student.TypicalStudents.ALICE;
-import static tatracker.testutil.student.TypicalStudents.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,11 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.model.student.Student;
-import tatracker.model.student.UniqueStudentList;
-import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
-import tatracker.testutil.student.StudentBuilder;
 
 public class UniqueGroupListTest {
 
@@ -38,145 +32,133 @@ public class UniqueGroupListTest {
     }
 
     @Test
-    public void contains_studentInList_returnsTrue() {
-        uniqueStudentList.add(ALICE);
-        assertTrue(uniqueStudentList.contains(ALICE));
+    public void contains_groupInList_returnsTrue() {
+        uniqueGroupList.add(MANY_STUDENTS);
+        assertTrue(uniqueGroupList.contains(MANY_STUDENTS));
     }
 
     @Test
-    public void contains_studentWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueStudentList.add(ALICE);
-        Student editedAlice = new StudentBuilder(ALICE)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(uniqueStudentList.contains(editedAlice));
+    public void contains_groupWithSameIdentityFieldsInList_returnsTrue() {
+        uniqueGroupList.add(MANY_STUDENTS);
+        assertTrue(uniqueGroupList.contains(MANY_STUDENTS_COPY));
     }
 
     @Test
     public void add_nullStudent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueStudentList.add(null));
+        assertThrows(NullPointerException.class, () -> uniqueGroupList.add(null));
     }
 
     @Test
-    public void add_duplicateStudent_throwsDuplicateStudentException() {
-        uniqueStudentList.add(ALICE);
-        assertThrows(DuplicateStudentException.class, () ->
-                uniqueStudentList.add(ALICE));
+    public void add_duplicateGroup_throwsDuplicateStudentException() {
+        uniqueGroupList.add(NO_STUDENTS);
+        assertThrows(DuplicateGroupException.class, () ->
+                uniqueGroupList.add(NO_STUDENTS));
     }
 
     @Test
-    public void setStudent_nullTargetStudent_throwsNullPointerException() {
+    public void setGroup_nullTargetGroup_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueStudentList.setStudent(null, ALICE));
+                uniqueGroupList.setGroup(null, MANY_STUDENTS));
     }
 
     @Test
-    public void setStudent_nullEditedStudent_throwsNullPointerException() {
+    public void setGroup_nullEditedGroup_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueStudentList.setStudent(ALICE, null));
+                uniqueGroupList.setGroup(MANY_STUDENTS, null));
     }
 
     @Test
-    public void setStudent_targetStudentNotInList_throwsStudentNotFoundException() {
-        assertThrows(StudentNotFoundException.class, () ->
-                uniqueStudentList.setStudent(ALICE, ALICE));
+    public void setGroup_targetGroupNotInList_throwsGroupNotFoundException() {
+        assertThrows(GroupNotFoundException.class, () ->
+                uniqueGroupList.setGroup(ONE_STUDENT, ONE_STUDENT));
     }
 
     @Test
-    public void setStudent_editedStudentIsSameStudent_success() {
-        uniqueStudentList.add(ALICE);
-        uniqueStudentList.setStudent(ALICE, ALICE);
-        UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(ALICE);
-        assertEquals(expectedUniqueStudentList, uniqueStudentList);
+    public void setGroup_editedGroupIsSameGroup_success() {
+        uniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.setGroup(MANY_STUDENTS, MANY_STUDENTS);
+        UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
+        expectedUniqueGroupList.add(MANY_STUDENTS);
+        assertEquals(expectedUniqueGroupList, uniqueGroupList);
     }
 
     @Test
-    public void setStudent_editedStudentHasSameIdentity_success() {
-        uniqueStudentList.add(ALICE);
-        Student editedAlice = new StudentBuilder(ALICE)
-                .withTags(VALID_TAG_HUSBAND).build();
-        uniqueStudentList.setStudent(ALICE, editedAlice);
-        UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(editedAlice);
-        assertEquals(expectedUniqueStudentList, uniqueStudentList);
+    public void setGroup_editedGroupHasSameIdentity_success() {
+        uniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.setGroup(MANY_STUDENTS, MANY_STUDENTS_COPY);
+        UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
+        expectedUniqueGroupList.add(MANY_STUDENTS_COPY);
+        assertEquals(expectedUniqueGroupList, uniqueGroupList);
     }
 
     @Test
-    public void setStudent_editedStudentHasDifferentIdentity_success() {
-        uniqueStudentList.add(ALICE);
-        uniqueStudentList.setStudent(ALICE, BOB);
-        UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(BOB);
-        assertEquals(expectedUniqueStudentList, uniqueStudentList);
+    public void setGroup_editedGroupHasDifferentIdentity_success() {
+        uniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.setGroup(MANY_STUDENTS, ONE_STUDENT);
+        UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
+        expectedUniqueGroupList.add(ONE_STUDENT);
+        assertEquals(expectedUniqueGroupList, uniqueGroupList);
     }
 
     @Test
-    public void setStudent_editedStudentHasNonUniqueIdentity_throwsDuplicateStudentException() {
-        uniqueStudentList.add(ALICE);
-        uniqueStudentList.add(BOB);
-        assertThrows(DuplicateStudentException.class, () ->
-                uniqueStudentList.setStudent(ALICE, BOB));
+    public void remove_nullGroup_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueGroupList.remove(null));
     }
 
     @Test
-    public void remove_nullStudent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueStudentList.remove(null));
+    public void remove_groupDoesNotExist_throwsGroupNotFoundException() {
+        assertThrows(GroupNotFoundException.class, () -> uniqueGroupList.remove(NO_STUDENTS));
     }
 
     @Test
-    public void remove_studentDoesNotExist_throwsStudentNotFoundException() {
-        assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.remove(ALICE));
+    public void remove_existingGroup_removesGroup() {
+        uniqueGroupList.add(NO_STUDENTS);
+        uniqueGroupList.remove(NO_STUDENTS);
+        UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
+        assertEquals(expectedUniqueGroupList, uniqueGroupList);
     }
 
     @Test
-    public void remove_existingStudent_removesStudent() {
-        uniqueStudentList.add(ALICE);
-        uniqueStudentList.remove(ALICE);
-        UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        assertEquals(expectedUniqueStudentList, uniqueStudentList);
+    public void setGroups_nullUniqueGroupList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueGroupList.setGroups((UniqueGroupList) null));
     }
 
     @Test
-    public void setStudents_nullUniqueStudentList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueStudentList.setStudents((UniqueStudentList) null));
+    public void setGroups_uniqueGroupList_replacesOwnListWithProvidedUniqueGroupList() {
+        uniqueGroupList.add(NO_STUDENTS);
+        UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
+        expectedUniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.setGroups(expectedUniqueGroupList);
+        assertEquals(expectedUniqueGroupList, uniqueGroupList);
     }
 
     @Test
-    public void setStudents_uniqueStudentList_replacesOwnListWithProvidedUniqueStudentList() {
-        uniqueStudentList.add(ALICE);
-        UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(BOB);
-        uniqueStudentList.setStudents(expectedUniqueStudentList);
-        assertEquals(expectedUniqueStudentList, uniqueStudentList);
-    }
-
-    @Test
-    public void setStudents_nullList_throwsNullPointerException() {
+    public void setGroups_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueStudentList.setStudents((List<Student>) null));
+                uniqueGroupList.setGroups((List<Group>) null));
     }
 
     @Test
-    public void setStudents_list_replacesOwnListWithProvidedList() {
-        uniqueStudentList.add(ALICE);
-        List<Student> studentList = Collections.singletonList(BOB);
-        uniqueStudentList.setStudents(studentList);
-        UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(BOB);
-        assertEquals(expectedUniqueStudentList, uniqueStudentList);
+    public void setGroups_list_replacesOwnListWithProvidedList() {
+        uniqueGroupList.add(NO_STUDENTS);
+        List<Group> groupList = Collections.singletonList(MANY_STUDENTS);
+        uniqueGroupList.setGroups(groupList);
+        UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
+        expectedUniqueGroupList.add(MANY_STUDENTS);
+        assertEquals(expectedUniqueGroupList, uniqueGroupList);
     }
 
     @Test
-    public void setStudents_listWithDuplicateStudents_throwsDuplicateStudentException() {
-        List<Student> listWithDuplicateStudents = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateStudentException.class, () ->
-                uniqueStudentList.setStudents(listWithDuplicateStudents));
+    public void setGroups_listWithDuplicateGroups_throwsDuplicateStudentException() {
+        List<Group> listWithDuplicateGroups = Arrays.asList(NO_STUDENTS, NO_STUDENTS);
+        assertThrows(DuplicateGroupException.class, () ->
+                uniqueGroupList.setGroups(listWithDuplicateGroups));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueStudentList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                uniqueGroupList.asUnmodifiableObservableList().remove(0));
     }
 
 }

@@ -5,6 +5,9 @@ import tatracker.model.group.GroupType;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
+/**
+ * Used to build a group for testing purposes.
+ */
 public class GroupBuilder {
 
     public static final String DEFAULT_MODULE_CODE = "CS2103T";
