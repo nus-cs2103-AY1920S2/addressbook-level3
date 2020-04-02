@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tatracker.model.TaTracker;
 import tatracker.model.module.Module;
 import tatracker.testutil.group.TypicalGroups;
 
@@ -46,20 +45,6 @@ public class TypicalModules {
             .build();
 
     private TypicalModules() {} // prevents instantiation
-
-    /**
-     * Returns an {@code TaTracker} with all the typical students.
-     */
-    public static TaTracker getTypicalTaTracker() {
-
-        TaTracker tat = new TaTracker();
-
-        for (Module module : getTypicalModules()) {
-            tat.addModule(module);
-        }
-
-        return tat;
-    }
 
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(CS2103T, CS3243, ONE_GROUP_NO_STUDENTS, ONE_GROUP_WITH_STUDENTS));

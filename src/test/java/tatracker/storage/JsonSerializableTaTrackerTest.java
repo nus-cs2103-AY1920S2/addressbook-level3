@@ -2,7 +2,7 @@ package tatracker.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +25,7 @@ public class JsonSerializableTaTrackerTest {
         JsonSerializableTaTracker dataFromFile = JsonUtil.readJsonFile(TYPICAL_STUDENTS_FILE,
                 JsonSerializableTaTracker.class).get();
         TaTracker taTrackerFromFile = dataFromFile.toModelType();
-        TaTracker typicalStudentsTaTracker = getTypicalTaTracker();
+        TaTracker typicalStudentsTaTracker = getTypicalTaTrackerWithStudents();
         assertEquals(taTrackerFromFile, typicalStudentsTaTracker);
     }
 

@@ -2,7 +2,7 @@ package tatracker.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import java.nio.file.Path;
 
@@ -54,7 +54,7 @@ public class StorageManagerTest {
          * {@link JsonTaTrackerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonTaTrackerStorageTest} class.
          */
-        TaTracker original = getTypicalTaTracker();
+        TaTracker original = getTypicalTaTrackerWithStudents();
         storageManager.saveTaTracker(original);
         ReadOnlyTaTracker retrieved = storageManager.readTaTracker().get();
         assertEquals(original, new TaTracker(retrieved));

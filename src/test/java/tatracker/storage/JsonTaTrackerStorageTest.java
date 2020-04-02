@@ -3,9 +3,9 @@ package tatracker.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 import static tatracker.testutil.student.TypicalStudents.CS2030;
 import static tatracker.testutil.student.TypicalStudents.CS3243;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -66,7 +66,7 @@ public class JsonTaTrackerStorageTest {
     @Test
     public void readAndSaveTaTracker_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempTaTracker.json");
-        TaTracker original = getTypicalTaTracker();
+        TaTracker original = getTypicalTaTrackerWithStudents();
         JsonTaTrackerStorage jsonTaTrackerStorage = new JsonTaTrackerStorage(filePath);
 
         // Save in new file and read back

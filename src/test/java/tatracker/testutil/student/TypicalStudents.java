@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tatracker.model.TaTracker;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
@@ -108,24 +107,6 @@ public class TypicalStudents {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalStudents() {} // prevents instantiation
-
-    /**
-     * Returns an {@code TaTracker} with all the typical students.
-     */
-    public static TaTracker getTypicalTaTracker() {
-        Module typicalCS3243 = new Module("CS3243", "Introduction to AI");
-        Group typicalG06 = new Group("G06", GroupType.LAB);
-
-        typicalCS3243.addGroup(typicalG06);
-
-        for (Student student : getTypicalStudents()) {
-            typicalG06.addStudent(student);
-        }
-
-        TaTracker tat = new TaTracker();
-        tat.addModule(typicalCS3243);
-        return tat;
-    }
 
     public static List<Student> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));

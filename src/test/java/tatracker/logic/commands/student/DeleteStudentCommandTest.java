@@ -12,7 +12,7 @@ package tatracker.logic.commands.student;
 // import tatracker.commons.core.index.Index;
 // import tatracker.model.student.Student;
 
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
@@ -25,7 +25,7 @@ import tatracker.model.UserPrefs;
  */
 public class DeleteStudentCommandTest {
 
-    private Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
     // @Test
     // public void execute_validIndexUnfilteredList_success() {

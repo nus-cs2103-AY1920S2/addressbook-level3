@@ -2,7 +2,7 @@ package tatracker.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +19,8 @@ import tatracker.model.student.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
     @Test
     public void equals() {

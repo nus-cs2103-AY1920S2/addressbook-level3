@@ -4,7 +4,7 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.assertAddStudentCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class AddStudentCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+        model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
         testModule = new Module(VALID_MODULE_CS2030);
         testGroup = new Group(VALID_GROUP_T04);
@@ -44,7 +44,7 @@ public class AddStudentCommandIntegrationTest {
 
         // TODO: Fix Immutability of modules list when using copy constructor [ModelManager]
 
-        Model expectedModel = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
         Module expectedModule = new Module(VALID_MODULE_CS2030);
         Group expectedGroup = new Group(VALID_GROUP_T04);

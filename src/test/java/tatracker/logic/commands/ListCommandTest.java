@@ -1,7 +1,7 @@
 package tatracker.logic.commands;
 
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+        model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
     }
 

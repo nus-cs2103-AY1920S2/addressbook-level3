@@ -41,8 +41,8 @@ public class AddModuleCommandTest {
         AddModuleCommand addModuleCommand = new AddModuleCommand(validModule);
         ModelStub modelStub = new ModelStub.ModelStubWithModule(validModule);
 
-        assertThrows(CommandException.class, AddModuleCommand.MESSAGE_DUPLICATE_MODULE,
-                () -> addModuleCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () ->
+                addModuleCommand.execute(modelStub));
     }
 
     @Test

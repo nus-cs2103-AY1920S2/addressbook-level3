@@ -1,7 +1,7 @@
 package tatracker.logic.commands;
 
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +23,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyTaTracker_success() {
-        Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+        Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
         expectedModel.setTaTracker(new TaTracker());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
