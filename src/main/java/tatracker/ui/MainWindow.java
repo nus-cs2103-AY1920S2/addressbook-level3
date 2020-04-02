@@ -35,6 +35,8 @@ import tatracker.ui.studenttab.StudentListPanel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -194,9 +196,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
-
-    private static final String BORDER_COLOUR = "#3e7b91";
-    private static final String BORDER_WIDTH = "1";
 
     /**
      * Switched to user specified tab.
