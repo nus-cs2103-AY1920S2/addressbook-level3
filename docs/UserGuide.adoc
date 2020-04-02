@@ -18,7 +18,9 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-Welcome to MODdy! MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
+Welcome to MODdy!
+
+MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
 It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 This user guide aims to give you a clearer understanding on how to use MODdy as well as a summary of its features.
 
@@ -32,7 +34,7 @@ This user guide presents to you the following features of MODdy:
 . View help
 . New user profile
 . Add module & task
-. Edit profile & module
+. Edit profile, module & task
 . Show profile, semester, course, focus area & module
 . Delete task, module & profile
 . Return to homepage
@@ -57,7 +59,6 @@ TIP: This symbol indicates examples or tips provided by us
 .  Double-click the file to start the app. The GUI, as shown in the figure below, should appear in a few seconds.
 +
 .Homepage of MODdy
-[caption="Figure 1: "]
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -92,7 +93,6 @@ This command opens up a help window, providing you a link, as shown in the figur
 Format: `help`
 
 .Help window of MODdy
-[caption="Figure 2: "]
 image::Help.png[width="790"]
 
 
@@ -111,7 +111,6 @@ Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 ****
 
 .New profile created is displayed in the Profile Panel
-[caption="Figure 3: "]
 image::New.png[width="790"]
 
 TIP: `new n/John c/Computer Science cs/4` +
@@ -140,7 +139,6 @@ Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 ****
 
 .CS2105 is added as a module under the 3rd semester
-[caption="Figure 4: "]
 image::AddModule.png[width="790"]
 
 
@@ -148,8 +146,8 @@ TIP: `add m/CS2105 y/3 g/A+` +
 Adds CS2105 to the list of modules under the 3rd semester (Year 2 Semester 1) with the resulting grade, A+
 
 
-==== Add a task with a deadline to a module in MODdy +
-Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK [d/DEADLINE]` +
+==== Add a task with a deadline to an existing module in MODdy +
+Format: `add m/MODULE t/TASK [d/DEADLINE]` +
 
 ****
 * The module must already exist in MODdy before a task can be added
@@ -159,10 +157,9 @@ Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK [d/DEADLINE]` +
 ****
 
 .Task added is displayed in the Deadline Panel
-[caption="Figure 5: "]
 image::AddTask.png[width="790"]
 
-TIP: `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
+TIP: `add m/CS2105 t/Assignment d/2020-03-31 23:59` +
 Adds a task named "Assignment" with the deadline "31 March 2020 23:59" to the already-existing module CS2105
 
 NOTE: Dates are highlighted according to the number of days remaining (shown in Figure 5). +
@@ -171,13 +168,12 @@ Orange: 6 - 10 days +
 Green: ≥ 11 days
 
 
-
 [[Edit]]
 === Editing: `edit`
 
 This command edits your profile or a module in MODdy. +
 
-There are *two* ways you can use the `edit` command: +
+There are *three* ways you can use the `edit` command: +
 
 ==== Edit your profile +
 Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
@@ -188,42 +184,51 @@ Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
 ****
 
 .Profile Panel is updated with new details
-[caption="Figure 6: "]
 image::EditProfile.png[width="790"]
 
 
 TIP: `edit n/Brad c/Information Security s/Software Engineering` +
 Edits your profile name to "Brad", your course to "Information Security", and your specialisation to "Software Engineering" from what they were previously
 
-==== Edit a module previously added in MODdy +
+==== Edit a module's details in MODdy +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited
-* Feature to edit tasks and deadlines will be coming in later versions
 ****
 
-.Module detail is edited
-[caption="Figure 7: "]
+.Module detail of CS2103 edited
 image::EditModule.png[width="790"]
 
 TIP: `edit m/CS2103 g/A+` +
 Edits your grade of the module CS2103 to A+
 
+==== Edit a task's description or deadline +
+Format: `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]`
 
+****
+* Fields in brackets [] are optional, but at least one of these fields should be present to be edited
+* `nt/NEW_TASK` represents the new description of the existing task
+* `d/DEADLINE` represents to new deadline of the existing task
+****
+
+.Deadline is edited
+image::EditDeadline.png[width="790"]
+
+TIP: `edit m/CS2105 t/Assignment nt/Project` +
+Edits "Assignment" under CS2105 to "Project"
 
 [[Show]]
 === Showing: `show`
 
 This command displays the details of your parameter. +
 
-There are *four* ways you can use the `show` command:
+There are *five* ways you can use the `show` command:
 
 ==== Show your profile +
 Format: `show n/NAME`
 
 .Entire profile is shown in the Main Panel
-[caption="Figure 8: "]
 image::ShowProfile.png[width="790"]
 
 NOTE: All the modules under every semester, grades of completed modules, as well as your current Cumulative Average Point (CAP) will be displayed
@@ -233,7 +238,6 @@ NOTE: All the modules under every semester, grades of completed modules, as well
 Format: `show y/SEMESTER_INDEX`
 
 .Modules added to 4th semester shown in Main Panel
-[caption="Figure 9: "]
 image::ShowSemester.png[width="790"]
 
 TIP: `show y/4` +
@@ -244,7 +248,6 @@ Shows all the modules added to the 4th semester (Year 2 Semester 2)
 Format: `show c/COURSE_NAME`
 
 .Course requirement and focus areas of Information Systems shown in the Main Panel
-[caption="Figure 10: "]
 image::ShowCourse.png[width="790"]
 
 NOTE: All required modules as well as modules under focus areas of the course will be displayed
@@ -253,7 +256,6 @@ NOTE: All required modules as well as modules under focus areas of the course wi
 Format: `show f/FOCUS_AREA`
 
 .Modules under Electronic Commerce, which is a focus area of Information Systems, shown in the Main Panel
-[caption="Figure 11: "]
 image::ShowFocusArea.png[width="790"]
 
 TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/COURSE`>> command
@@ -262,7 +264,6 @@ TIP: You can retrieve the list of focus areas under a course using the <<showCou
 Format: `show m/MODULE_CODE`
 
 .Details of CS3230 shown in the Main Panel
-[caption="Figure 12: "]
 image::ShowModule.png[width="790"]
 
 NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered will be displayed
@@ -287,7 +288,6 @@ There are *three* ways you can use the `delete` command:
 Format: `delete m/MODULE_CODE t/TASK`
 
 ."Project Submission" for CS2103 deleted from the Deadline Panel
-[caption="Figure 13: "]
 image::DeleteTask.png[width="790"]
 
 NOTE: The specified task and its deadline will be deleted from the specified module
@@ -299,7 +299,6 @@ Deletes the task "Assignment" from the module CS2103 in your profile
 Format: `delete m/MODULE_CODE`
 
 .CS2107 and its tasks deleted from MODdy
-[caption="Figure 14: "]
 image::DeleteModule.png[width="790"]
 
 NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from MODdy
@@ -309,7 +308,6 @@ NOTE: The specified module, including all tasks and deadlines of that module, wi
 Format: `delete n/NAME`
 
 .Entire profile deleted from MODdy
-[caption="Figure 15: "]
 image::DeleteProfile.png[width="790"]
 
 NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from MODdy
@@ -325,7 +323,6 @@ This command returns you to MODdy's Homepage, as shown in the figure below.
 Format: `home`
 
 .Homepage of MODdy shown in Main Panel
-[caption="Figure 16: "]
 image::Home.png[width="790"]
 
 [[Clear]]
@@ -336,7 +333,6 @@ This command clears all entries from MODdy including your profile and its data, 
 Format: `clear`
 
 .All entries from MODdy cleared
-[caption="Figure 17: "]
 image::Clear.png[width="790"]
 
 
@@ -370,7 +366,11 @@ e.g. `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59`
 * <<Edit, *Edit*>> : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
 e.g. `edit n/Brad c/Information Security s/Software Engineering` +
 or `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]` +
-e.g. `edit m/CS2103 g/A+`
+e.g. `edit m/CS2103 g/A+` +
+or `edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]` +
+e.g. `edit m/CS2105 t/Assignment nt/Project`
+
+
 
 * <<Show, *Show*>> : `show [y/SEMESTER_INDEX] [c/COURSE_NAME] [f/FOCUS_AREA] [m/MODULE_CODE]` +
 e.g. `show y/4`, `show c/information systems`, `show f/electronic commerce`, `show m/CS3230`

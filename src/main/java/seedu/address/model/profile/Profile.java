@@ -107,6 +107,17 @@ public class Profile {
         return semModHashMap.get(semester);
     }
 
+    public List<ModuleCode> getAllModuleCodesBefore(int semester) {
+        List<ModuleCode> moduleCodes = new ArrayList<>();
+        for (int sem: semModHashMap.keySet()) {
+            if (sem < semester) {
+                moduleCodes.addAll(semModHashMap.get(sem).getModuleCodes());
+            }
+            //moduleCodes.addAll(moduleList.getModuleCodes());
+        }
+        return moduleCodes;
+    }
+
     public HashMap<Integer, ModuleList> getAllModules() {
         return semModHashMap;
     }

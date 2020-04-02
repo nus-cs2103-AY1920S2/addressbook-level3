@@ -16,7 +16,7 @@ endif::[]
 
 * This is a desktop Module Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * In the current version, this application targets *students studying in the School of Computing* in National University of Singapore (NUS).
-* It is an one-stop application for all your academic needs, allowing students to be well-planned and organised throughout their degree progression.
+* It is an one-stop application for all your academic needs, allowing you to be well-planned and organised throughout your degree progression.
 
 == Site Map
 
@@ -27,7 +27,7 @@ endif::[]
 
 == Acknowledgements
 
-* This project is an adaptation and modification of AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org/[SE-Education]
+* This application is an adaptation and modification of AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org/[SE-Education]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]

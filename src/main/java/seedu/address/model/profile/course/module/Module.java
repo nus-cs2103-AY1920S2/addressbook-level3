@@ -15,9 +15,11 @@ public class Module {
     private final ModuleCode moduleCode;
     private final Title title;
     private final Prereqs prereqs;
+    private final Preclusions preclusions;
     private final ModularCredits modularCredits;
     private final Description description;
     private final SemesterData semesterData;
+    private final PrereqTreeNode prereqTreeNode;
 
     private Personal personal;
     private int tag; //for colour changing in Deadline panel
@@ -25,15 +27,18 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(ModuleCode moduleCode, Title title, Prereqs prereqs,
-                  ModularCredits modularCredits, Description description, SemesterData semesterData) {
+    public Module(ModuleCode moduleCode, Title title, Prereqs prereqs, Preclusions preclusions,
+                  ModularCredits modularCredits, Description description, SemesterData semesterData,
+                  PrereqTreeNode prereqTreeNode) {
         // requireAllNonNull() // to be implemented
         this.moduleCode = moduleCode;
         this.title = title;
         this.prereqs = prereqs;
+        this.preclusions = preclusions;
         this.modularCredits = modularCredits;
         this.description = description;
         this.semesterData = semesterData;
+        this.prereqTreeNode = prereqTreeNode;
 
         this.personal = new Personal();
     }
@@ -58,6 +63,10 @@ public class Module {
         return prereqs;
     }
 
+    public Preclusions getPreclusions() {
+        return preclusions;
+    }
+
     public ModularCredits getModularCredits() {
         return modularCredits;
     }
@@ -68,6 +77,10 @@ public class Module {
 
     public SemesterData getSemesterData() {
         return semesterData;
+    }
+
+    public PrereqTreeNode getPrereqTreeNode() {
+        return prereqTreeNode;
     }
 
     public String getStatus() {
@@ -109,6 +122,8 @@ public class Module {
         builder.append(getTitle());
         builder.append("\n Prerequisite: ");
         builder.append(getPrereqs());
+        builder.append("\n Preclusions: ");
+        builder.append(getPreclusions());
         builder.append("\n Modular Credits (MCs): ");
         builder.append(getModularCredits());
         builder.append("\n Description: ");

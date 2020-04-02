@@ -10,6 +10,7 @@ import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.exceptions.DuplicatePersonException;
 
 /**
  * Creates a new profile.
@@ -29,6 +30,8 @@ public class NewCommand extends Command {
             + PREFIX_CURRENT_SEMESTER + "4";
 
     public static final String MESSAGE_SUCCESS = "New profile created: %1$s";
+    public static final String MESSAGE_DUPLICATE_PROFILE = "Error: Profile with name %1$s exists. "
+            + "To add a new profile, delete the current profile.";
 
     private final Profile toAdd;
 
@@ -44,7 +47,11 @@ public class NewCommand extends Command {
         requireNonNull(courseManager);
         requireNonNull(moduleManager);
 
-        profileManager.addPerson(toAdd);
+        try {
+            profileManager.addPerson(toAdd);
+        } catch (DuplicatePersonException e) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PROFILE, toAdd.getName()));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false);
     }
 

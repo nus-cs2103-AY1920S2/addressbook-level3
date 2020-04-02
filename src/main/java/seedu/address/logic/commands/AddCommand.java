@@ -95,14 +95,6 @@ public class AddCommand extends Command {
             }
         }
 
-        // Check if grade is being added to future semester, reject if so
-        int currentUserSemester = profile.getCurrentSemester();
-        if (addGrade != null) {
-            if (addSemester > currentUserSemester || semesterOfModule > currentUserSemester) {
-                throw new CommandException("You cannot add a grade to future semesters!");
-            }
-        }
-
         Personal personal;
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
@@ -116,6 +108,12 @@ public class AddCommand extends Command {
         } else { // Module does not exist
             if (addSemester == 0) {
                 throw new CommandException("Error: Please specify semester.");
+            }
+            if (moduleToAdd.getPrereqTreeNode() != null
+                    && !moduleToAdd.getPrereqTreeNode()
+                    .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
+                throw new CommandException("Prerequisites of " + toAdd + " have not been fulfilled before semester "
+                        + addSemester + "\nPrerequisites: " + moduleToAdd.getPrereqs());
             }
             // Create Personal object
             personal = new Personal();
