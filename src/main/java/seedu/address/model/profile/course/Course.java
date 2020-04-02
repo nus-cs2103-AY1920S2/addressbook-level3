@@ -63,7 +63,7 @@ public class Course {
     public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
         requireNonNull(focusAreaName);
         for (CourseFocusArea courseFocusArea : focusAreas) {
-            if (courseFocusArea.getFocusAreaName().equals(focusAreaName)) {
+            if (courseFocusArea.getFocusAreaName().trim().toUpperCase().equals(focusAreaName.trim().toUpperCase())) {
                 return courseFocusArea;
             }
         }

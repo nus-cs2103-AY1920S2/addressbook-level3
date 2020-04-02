@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
@@ -95,6 +96,9 @@ public class DeleteCommand extends Command {
                 throw new CommandException("Profile with name " + deleteName + " does not exist!");
             }
         } else if (deleteModuleCode != null) {
+            if (!profileManager.hasOneProfile()) {
+                throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
+            }
             Profile profile = profileManager.getFirstProfile(); // To edit when dealing with multiple profiles
             if (!profile.hasModule(deleteModuleCode)) {
                 throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));

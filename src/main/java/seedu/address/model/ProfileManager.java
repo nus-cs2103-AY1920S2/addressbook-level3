@@ -143,6 +143,10 @@ public class ProfileManager implements Model {
         return profileList.getProfileWithName(name);
     }
 
+    public boolean hasOneProfile() {
+        return profileList.getProfileList().size() == 1;
+    }
+
     /**
      * To be used in the case of only one profile. Does not take into account the name of the user.
      * Consider temporarily storing the name of the current user in memory (when dealing with multiple profiles.

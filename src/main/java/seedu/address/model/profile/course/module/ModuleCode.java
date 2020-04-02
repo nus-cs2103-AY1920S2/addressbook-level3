@@ -8,7 +8,7 @@ package seedu.address.model.profile.course.module;
 public class ModuleCode {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Module codes should have 1-3 capital letters at the front, 0-5 capital letters at the back "
+            "Module codes should have 2-4 capital letters at the front, 0-5 capital letters at the back "
             + "and exactly 4 digits in between";
 
     public static final String VALIDATION_REGEXES = "[A-Z]{2,4}[\\d]{4}[A-Z]{0,5}$";

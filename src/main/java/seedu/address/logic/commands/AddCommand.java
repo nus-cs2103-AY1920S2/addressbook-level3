@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -43,8 +44,12 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_ADD_SUCCESS = "New Personal Object added: %1$s";
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
+    public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: Deadlines must be added to modules taken in "
+            + "the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
             + "please specify date or add a deadline";
+    public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
+            + "%1$s before semester %2$s\nPrerequisites: %3$s";
 
     private final ModuleCode toAdd;
     private int addSemester;
@@ -78,6 +83,9 @@ public class AddCommand extends Command {
         requireNonNull(moduleManager);
 
 
+        if (!profileManager.hasOneProfile()) {
+            throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
+        }
         Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
         Module moduleToAdd = moduleManager.getModule(toAdd);
@@ -99,9 +107,6 @@ public class AddCommand extends Command {
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
             if (addGrade == null && addTask == null && addDeadlineString == null) {
-                /*throw new CommandException(String.format("Error: Module already exists as "
-                        + module.getPersonal().getStatus() + ", "
-                        + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));*/
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
                         moduleToAdd.getPersonal().getStatus()));
             }
@@ -109,21 +114,21 @@ public class AddCommand extends Command {
             if (addSemester == 0) {
                 throw new CommandException("Error: Please specify semester.");
             }
-            if (moduleToAdd.getPrereqTreeNode() != null
-                    && !moduleToAdd.getPrereqTreeNode()
-                    .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
-                throw new CommandException("Prerequisites of " + toAdd + " have not been fulfilled before semester "
-                        + addSemester + "\nPrerequisites: " + moduleToAdd.getPrereqs());
-            }
             // Create Personal object
             personal = new Personal();
 
         }
 
+        int currentSemester = profile.getCurrentSemester();
+
         if (addGrade != null) {
             personal.setGrade(addGrade);
         }
         if (addTask != null) {
+            // Check if the deadline is added to a module in the current semester
+            if (addSemester != currentSemester) {
+                throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
             Deadline deadline;
             String moduleCode = toAdd.toString();
             if (addDeadlineString != null) {
@@ -143,7 +148,7 @@ public class AddCommand extends Command {
 
         }
 
-        int currentSemester = profile.getCurrentSemester();
+        // Set the status of the module
         if (addSemester < currentSemester) {
             personal.setStatus("completed");
         } else if (addSemester == currentSemester) {
@@ -157,7 +162,13 @@ public class AddCommand extends Command {
         String messageShown;
         if (!hasModule) {
             profile.addModule(addSemester, moduleToAdd);
-            messageShown = MESSAGE_ADD_SUCCESS;
+            // Check if prerequisites of the module have been fulfilled
+            if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
+                    .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
+                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, toAdd, addSemester, moduleToAdd.getPrereqs());
+            } else {
+                messageShown = MESSAGE_ADD_SUCCESS;
+            }
             profileManager.setDisplayedView(profile);
             profile.updateCap();
             return new CommandResult(String.format(messageShown, toAdd), true);

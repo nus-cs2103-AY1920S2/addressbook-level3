@@ -31,35 +31,27 @@ public class ShowCommandParser implements Parser<ShowCommand> {
                         PREFIX_MODULE, PREFIX_FOCUS_AREA, PREFIX_NAME);
 
         if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-            String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
-            if (!ParserUtil.isInteger(semester)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
-            }
-            Integer intSemester = Integer.parseInt(semester);
+            int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
             return new ShowCommand(intSemester); // returns int
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
-            String name = argMultimap.getValue(PREFIX_COURSE_NAME).get();
-            CourseName courseName = new CourseName(name);
+            CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
             return new ShowCommand(courseName); // returns CourseName
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            String name = argMultimap.getValue(PREFIX_MODULE).get().toUpperCase();
-            ModuleCode moduleCode = new ModuleCode(name);
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get().toUpperCase());
             return new ShowCommand(moduleCode); // returns ModuleCode
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
-            String focusArea = argMultimap.getValue(PREFIX_FOCUS_AREA).get();
+            String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get());
             return new ShowCommand(focusArea); // returns String
         }
 
-        Name name;
         if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-            String strName = argMultimap.getValue(PREFIX_NAME).get();
-            name = ParserUtil.parseName(strName);
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             return new ShowCommand(name);
         }
 
