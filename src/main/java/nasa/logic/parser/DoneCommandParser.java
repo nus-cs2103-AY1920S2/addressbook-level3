@@ -9,8 +9,16 @@ import nasa.logic.commands.DoneCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates a DoneCommand object.
+ */
 public class DoneCommandParser implements Parser<DoneCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DoneCommand
+     * and returns a DoneCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public DoneCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =

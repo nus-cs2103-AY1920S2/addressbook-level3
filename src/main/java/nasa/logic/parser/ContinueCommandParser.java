@@ -9,8 +9,16 @@ import nasa.logic.commands.ContinueCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates a ContinueCommand object.
+ */
 public class ContinueCommandParser implements Parser<ContinueCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the ContinueCommand
+     * and returns a ContinueCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public ContinueCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =

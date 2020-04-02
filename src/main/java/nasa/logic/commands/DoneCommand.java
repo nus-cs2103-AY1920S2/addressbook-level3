@@ -10,6 +10,9 @@ import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Sets an activity to done.
+ */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
@@ -52,7 +55,7 @@ public class DoneCommand extends Command {
 
             // check if activity already done
             Activity activity = module.getActivityByIndex(index);
-            if(activity.isDone()) {
+            if (activity.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_DONE);
             } else {
                 activity.setDone();
@@ -66,6 +69,6 @@ public class DoneCommand extends Command {
         return other == this // short circuit if same object
             || (other instanceof DoneCommand // instanceof handles nulls
             && index.equals(((DoneCommand) other).index)
-        && moduleCode.equals(moduleCode)); // state check
+            && moduleCode.equals(moduleCode)); // state check
     }
 }

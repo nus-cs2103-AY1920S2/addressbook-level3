@@ -10,6 +10,9 @@ import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Sets an activity to undone.
+ */
 public class ContinueCommand extends Command {
     public static final String COMMAND_WORD = "continue";
 
@@ -49,7 +52,7 @@ public class ContinueCommand extends Command {
 
             // check if activity already done
             Activity activity = module.getActivityByIndex(index);
-            if(!activity.isDone()) {
+            if (!activity.isDone()) {
                 throw new CommandException(MESSAGE_ACTIVITY_ALREADY_UNDONE);
             } else {
                 activity.setUndone();
