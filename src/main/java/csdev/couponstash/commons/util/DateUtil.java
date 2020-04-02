@@ -32,7 +32,7 @@ public class DateUtil {
 
     public static final String MONTH_YEAR_VALIDATION_REGEX = "\\d{1,2}-\\d{4}";
 
-    //For Calendar
+    // for Calendar (and SavedCommand)
     public static final DateTimeFormatter DAY_MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter
             .ofPattern("d LLLL yyyy");
     public static final DateTimeFormatter MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter.ofPattern("LLLL yyyy");
