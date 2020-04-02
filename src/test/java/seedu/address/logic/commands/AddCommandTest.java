@@ -14,14 +14,15 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
-import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -120,6 +121,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void sortList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTaskList(ReadOnlyTaskList newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -170,6 +176,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateMoodWhenDone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void incrementExp() {
             throw new AssertionError("This method should not be called.");
         }
@@ -195,12 +206,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setPetManager(PetManager PetManager) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPomodoroTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyStatistics getStatistics() {
+        public Statistics getStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateDataDatesStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -67,6 +67,8 @@ public interface Model {
     void updateFilteredTaskList(Predicate<Task> predicate);
 
     void setComparator(Comparator<Task>[] compare);
+    
+    void sortList();
 
     ReadOnlyPet getPet();
 
@@ -81,6 +83,8 @@ public interface Model {
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);
+
+    // void setPomodoroTime(String time);
 
     void setPomodoroManager(PomodoroManager pomodoroManager);
 

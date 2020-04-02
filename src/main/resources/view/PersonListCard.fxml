@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -9,27 +10,23 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.CheckBox?>
 
-
-<HBox fx:id="cardPane" 
-    xmlns="http://javafx.com/javafx/8" 
-    xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
+<HBox fx:id="cardPane" alignment="TOP_CENTER" maxHeight="110.0" maxWidth="800.0" minHeight="110.0" minWidth="800.0" mouseTransparent="true" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane alignment="TOP_CENTER" mouseTransparent="true" prefHeight="73.0" prefWidth="715.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="20"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="20" />
         </columnConstraints>
-        <HBox>
+        <HBox alignment="TOP_CENTER" fillHeight="false" prefWidth="717.0">
             <GridPane.margin>
-                <Insets bottom="20.0"/>
+                <Insets bottom="25.0" />
             </GridPane.margin>
-            <GridPane HBox.hgrow="ALWAYS">
+            <GridPane alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                 <columnConstraints>
-                    <ColumnConstraints minWidth="20" maxWidth="40"/>
+                    <ColumnConstraints maxWidth="40" minWidth="20" />
                     <ColumnConstraints hgrow="SOMETIMES" />
                 </columnConstraints>
                 <VBox alignment="CENTER" GridPane.columnIndex="0">
-                    <Label fx:id="id" alignment="TOP_LEFT" styleClass="cell_big_label">
+                    <Label fx:id="id" alignment="TOP_LEFT" styleClass="cell_big_label" textFill="#453fe9">
                         <minWidth>
                             <!-- Ensures that the label text is never truncated -->
                             <Region fx:constant="USE_PREF_SIZE" />
@@ -42,33 +39,69 @@
                             <padding>
                                 <Insets left="15" right="5" />
                             </padding>
-                            <CheckBox fx:id="done" styleClass="checkbox"/>
+                            <CheckBox fx:id="done" styleClass="checkbox" />
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" maxWidth="300">
+                        <VBox alignment="CENTER_LEFT" maxWidth="542.0" prefHeight="90.0" prefWidth="542.0">
                             <padding>
-                                <Insets left="15" right="5" />
+                                <Insets bottom="20.0" left="15.0" right="5.0" top="20.0" />
                             </padding>
-                            <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
-                            <FlowPane fx:id="tags" />
-                            <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true" />
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                                  <Label fx:id="name" prefHeight="33.0" prefWidth="376.0" styleClass="cell_big_label" text="\$first" HBox.hgrow="ALWAYS" />
+                                  <FlowPane fx:id="tags" alignment="CENTER_LEFT" prefHeight="5.0">
+                              <opaqueInsets>
+                                 <Insets left="10.0" />
+                              </opaqueInsets>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </FlowPane>
+                        </children>
+                     </HBox>
+                            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                         </VBox>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <VBox alignment="CENTER" minWidth="180">
                             <Label id="reminder" fx:id="reminder" minWidth="30" styleClass="reminder" />
                         </VBox>
                         <VBox>
                             <padding>
-                                <Insets top="10" right="10" />
+                                <Insets right="10" top="10" />
                             </padding>
-                            <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
+                            <Label fx:id="priority" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="233.0" styleClass="cell_small_label" text="\$priority" textAlignment="RIGHT" />
                         </VBox>
                     </HBox>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
                 </VBox>
+            <rowConstraints>
+               <RowConstraints />
+            </rowConstraints>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
             </GridPane>
         </HBox>
         <rowConstraints>
             <RowConstraints />
         </rowConstraints>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <HBox.margin>
+         <Insets />
+      </HBox.margin>
 
     </GridPane>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 
 </HBox>

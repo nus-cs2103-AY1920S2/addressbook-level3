@@ -28,7 +28,7 @@ public class ModelManager implements Model {
     private final Pet pet;
     private final UserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
-    private Comparator<Task>[] comparators;
+    private Comparator<Task>[] comparators = new Comparator[0];
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
@@ -49,7 +49,7 @@ public class ModelManager implements Model {
         this.pet = new Pet(pet); // initialize a pet as a model
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
-        logger.info(String.format("Initializing with DayDataList: %s", this.statistics.toString()));
+        logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
@@ -122,14 +122,15 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         taskList.addTask(task);
+        this.sortList();
         updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-
         taskList.setTask(target, editedTask);
+        this.sortList();
     }
 
     // =========== Filtered Task List Accessors
@@ -155,11 +156,14 @@ public class ModelManager implements Model {
     public void setComparator(Comparator<Task>[] comparators) {
         requireNonNull(comparators);
         this.comparators = comparators;
-        SortedList<Task> sortedFilteredTasks = new SortedList<>(filteredTasks);
+        this.sortList();
+    }
+
+    @Override
+    public void sortList() {
         for (int i = comparators.length - 1; i >= 0; i--) {
-            sortedFilteredTasks.setComparator(comparators[i]);
+            this.taskList.sort(comparators[i]);
         }
-        this.filteredTasks = new FilteredList<Task>(sortedFilteredTasks);
     }
 
     @Override
@@ -178,8 +182,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return taskList.equals(other.taskList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks)
-                && comparators.equals(other.comparators);
+                && filteredTasks.equals(other.filteredTasks);
     }
 
     // ============================ Pet Manager

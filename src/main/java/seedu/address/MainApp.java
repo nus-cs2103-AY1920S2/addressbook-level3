@@ -47,7 +47,7 @@ import seedu.address.ui.UiManager;
 /** Runs the application. */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -117,7 +117,7 @@ public class MainApp extends Application {
         ReadOnlyTaskList initialData;
         ReadOnlyPet initialPet;
         ReadOnlyPomodoro initialPomodoro;
-        ReadOnlyStatistics initialDayDataList;
+        ReadOnlyStatistics statistics;
 
         try {
             taskListOptional = storage.readTaskList();
@@ -172,19 +172,18 @@ public class MainApp extends Application {
             if (!statisticsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Statistics");
             }
-            initialDayDataList = statisticsOptional.orElse(new Statistics());
+            statistics = statisticsOptional.orElse(new Statistics());
         } catch (DataConversionException e) {
             logger.warning(
                     "Data file not in the correct format. Will be starting with an empty Statistics");
-            initialDayDataList = new Statistics();
+            statistics = new Statistics();
         } catch (IOException e) {
             logger.warning(
                     "Problem while reading from the file. Will be starting with an empty Statistics");
-            initialDayDataList = new Statistics();
+            statistics = new Statistics();
         }
 
-        return new ModelManager(
-                initialData, initialPet, initialPomodoro, initialDayDataList, userPrefs);
+        return new ModelManager(initialData, initialPet, initialPomodoro, statistics, userPrefs);
     }
 
     private void initLogging(Config config) {

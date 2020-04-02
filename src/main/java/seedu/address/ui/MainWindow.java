@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -22,13 +23,21 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.PomCommand;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CompletorException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyPet;
+import seedu.address.model.dayData.CustomQueue;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Reminder;
+
+import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
+import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -53,6 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
     private StatisticsDisplay statisticsDisplay;
+    private SettingsDisplay settingsDisplay;
 
     private CommandBox commandBox;
 
@@ -71,6 +81,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML private StackPane pomodoroPlaceholder;
 
     @FXML private StackPane statisticsPlaceholder;
+
+    @FXML private StackPane settingsPlaceholder;
 
     @FXML private TabPane tabPanePlaceholder;
 
@@ -95,6 +107,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public StatisticsDisplay getStatisticsDisplay() {
+        return statisticsDisplay;
     }
 
     private void setAccelerators() {
@@ -165,6 +181,9 @@ public class MainWindow extends UiPart<Stage> {
         statisticsDisplay = new StatisticsDisplay();
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
 
+        settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro());
+        settingsPlaceholder.getChildren().add(settingsDisplay.getRoot());
+
         // tabPanePlaceholder.getSelectionModel().select(1);
 
     }
@@ -177,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.setResizable(false);
     }
 
     /** Opens the help window or focuses on it if it's already opened. */
@@ -212,14 +232,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /** */
-    private String suggestCommand(String commandText) {
-        String suggestion = commandCompletor.getSuggestedCommand(commandText);
-        if (suggestion.equals(commandText)) {
-            resultDisplay.setFeedbackToUser(commandCompletor.getFailureMessage());
-        } else {
-            resultDisplay.setFeedbackToUser(commandCompletor.getSuccessMessage());
+    private String suggestCommand(String commandText) throws CompletorException {
+        try {
+            CompletorResult completorResult = commandCompletor.getSuggestedCommand(commandText);
+            resultDisplay.setFeedbackToUser(completorResult.getFeedbackToUser());
+            return completorResult.getSuggestion();
+        } catch (CompletorException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
         }
-        return suggestion;
     }
 
     public void setTabFocusTasks() {
@@ -239,6 +260,11 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // Swap to tasks tab
+            tabPanePlaceholder
+                    .getSelectionModel()
+                    .select(TASKS_TAB_INDEX);
+
             // Switch tabs related results
             try {
                 SwitchTabCommandResult switchTabCommandResult =
@@ -246,6 +272,10 @@ public class MainWindow extends UiPart<Stage> {
                 tabPanePlaceholder
                         .getSelectionModel()
                         .select(switchTabCommandResult.getTabToSwitchIndex());
+                if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
+                    ObservableList<DayData> customQueue = logic.getCustomQueue();
+                    statisticsDisplay.updateGraphs(customQueue);
+                }
             } catch (ClassCastException ce) {
             }
 
@@ -277,8 +307,6 @@ public class MainWindow extends UiPart<Stage> {
             }
             petManager.updatePetDisplay();
             // update because sorting returns a new list
-
-            this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
 
             // * Old implementation for sort
             // personListPanel = new TaskListPanel(logic.getFilteredTaskList());

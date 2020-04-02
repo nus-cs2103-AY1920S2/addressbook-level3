@@ -10,5 +10,5 @@ public interface ReadOnlyStatistics {
      *
      * @return
      */
-    ObservableList<DayData> getDayDataList();
+    ObservableList<DayData> getCustomQueue();
 }

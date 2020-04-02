@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.model.task.Done.DONE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
@@ -39,7 +38,7 @@ public class DoneCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Task taskToDone = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Task doneTask = new TaskBuilder(taskToDone).withDone(DONE).build();
+        Task doneTask = new TaskBuilder(taskToDone).withDone().build();
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
 
@@ -72,7 +71,7 @@ public class DoneCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Task taskToDone = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Task doneTask = new TaskBuilder(taskToDone).withDone(DONE).build();
+        Task doneTask = new TaskBuilder(taskToDone).withDone().build();
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
 

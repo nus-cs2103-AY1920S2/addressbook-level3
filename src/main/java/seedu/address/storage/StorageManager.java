@@ -135,7 +135,7 @@ public class StorageManager implements Storage {
     @Override
     public Optional<ReadOnlyStatistics> readStatistics()
             throws DataConversionException, IOException {
-        return statisticsStorage.readStatistics();
+        return statisticsStorage.readStatistics(statisticsStorage.getStatisticsFilePath());
     }
 
     @Override

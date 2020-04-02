@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.dayData.CustomQueue;
@@ -23,6 +24,14 @@ public class Statistics implements ReadOnlyStatistics {
         }
     }
 
+    public Statistics(LocalDate localDate) {
+        customQueue = new CustomQueue();
+        try {
+            customQueue.init(localDate);
+        } catch (InvalidTableException e) {
+        }
+    }
+
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
     public Statistics(ReadOnlyStatistics toBeCopied) {
         this();
@@ -30,11 +39,6 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     //// list overwrite operations
-
-    /** Clears list */
-    public void clearList() {
-        this.customQueue.clear();
-    }
 
     /** Replaces the contents of the list with {@code dayDataList}. */
     public void setDayDatas(List<DayData> dayDataList) {
@@ -48,20 +52,23 @@ public class Statistics implements ReadOnlyStatistics {
     /** Resets the existing data of this {@code Statistics} with {@code newData}. */
     public void resetData(ReadOnlyStatistics newData) {
         requireNonNull(newData);
-        setDayDatas(newData.getDayDataList());
+        setDayDatas(newData.getCustomQueue());
     }
 
-    //// dayData-level operations
-
-    // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH SIR
+    //// customQueue operations
 
     /** reinitialises dayDataList to current day while retaining stored data. */
     public void updateDataDates() {
         try {
             customQueue.updateDataDatesCustom();
-        } catch (InvalidTableException e) {
+        } catch (InvalidTableException e) { }
+    }
 
-        }
+    /** reinitialises dayDataList to current day while retaining stored data. */
+    public void updateDataDates(LocalDate localDate) {
+        try {
+            customQueue.updateDataDatesCustom(localDate);
+        } catch (InvalidTableException e) { }
     }
 
     /**
@@ -69,10 +76,10 @@ public class Statistics implements ReadOnlyStatistics {
      *
      * @param dayData
      */
-    public void updatesDayData(DayData dayData) throws DayDataNotFoundException {
+    public void updatesDayData(DayData dayData) {
         try {
             customQueue.updatesDayDataCustom(dayData);
-        } catch (DayDataNotFoundException | InvalidTableException e) {
+        } catch (DayDataNotFoundException e) {
         }
     }
 
@@ -81,7 +88,7 @@ public class Statistics implements ReadOnlyStatistics {
      *
      * @param date
      */
-    public DayData getDayDataFromDate(Date date) throws DayDataNotFoundException {
+    public DayData getDayDataFromDate(Date date) {
         try {
             return customQueue.getDayDataFromDateCustom(date);
         } catch (DayDataNotFoundException e) {
@@ -89,28 +96,24 @@ public class Statistics implements ReadOnlyStatistics {
         }
     }
 
-    // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH end
-
-    /** Returns true if a dayData with the same identity as {@code dayData} exists in the list. */
-    public boolean hasDayData(DayData dayData) {
-        requireNonNull(dayData);
-        return customQueue.contains(dayData);
+    // util method
+    /** Clears list */
+    public void clearList() {
+        this.customQueue.clear();
     }
 
-    /** Adds a dayData to the list. The person must not already exist in the address book. */
+    public void pop() {
+        this.customQueue.pop();
+    }
+
+    /** Adds a dayData to the end of the internallist. */
     public void addDayData(DayData dayData) {
         customQueue.add(dayData);
     }
 
-    //// util methods
-    public void pop() {
-        customQueue.pop();
-    }
-
     @Override
     public String toString() {
-        return customQueue.asUnmodifiableObservableList().size() + " dayDatas";
-        // TODO: refine later
+        return "Statistics: " + customQueue.toString();
     }
 
     @Override
@@ -121,7 +124,7 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     @Override
-    public ObservableList<DayData> getDayDataList() {
+    public ObservableList<DayData> getCustomQueue() {
         return customQueue.asUnmodifiableObservableList();
     }
 }

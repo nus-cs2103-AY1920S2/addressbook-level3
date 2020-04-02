@@ -15,6 +15,8 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 
+// TODO stub: arthur please put in valid reminder here to replace final nulls.
+
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PRIORITY = "+651234";
@@ -38,7 +40,12 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedTask person =
                 new JsonAdaptedTask(
-                        INVALID_NAME, VALID_PRIORITY, VALID_DESCRIPTION, VALID_DONE, VALID_TAGS);
+                        INVALID_NAME,
+                        VALID_PRIORITY,
+                        VALID_DESCRIPTION,
+                        VALID_DONE,
+                        VALID_TAGS,
+                        null);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -47,7 +54,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedTask task =
                 new JsonAdaptedTask(
-                        null, VALID_PRIORITY, VALID_DESCRIPTION, VALID_DONE, VALID_TAGS);
+                        null, VALID_PRIORITY, VALID_DESCRIPTION, VALID_DONE, VALID_TAGS, null);
         String expectedMessage =
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
@@ -57,7 +64,12 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidPriority_throwsIllegalValueException() {
         JsonAdaptedTask task =
                 new JsonAdaptedTask(
-                        VALID_NAME, INVALID_PRIORITY, VALID_DESCRIPTION, VALID_DONE, VALID_TAGS);
+                        VALID_NAME,
+                        INVALID_PRIORITY,
+                        VALID_DESCRIPTION,
+                        VALID_DONE,
+                        VALID_TAGS,
+                        null);
         String expectedMessage = Priority.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
@@ -65,7 +77,8 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullPriority_throwsIllegalValueException() {
         JsonAdaptedTask task =
-                new JsonAdaptedTask(VALID_NAME, null, VALID_DESCRIPTION, VALID_DONE, VALID_TAGS);
+                new JsonAdaptedTask(
+                        VALID_NAME, null, VALID_DESCRIPTION, VALID_DONE, VALID_TAGS, null);
         String expectedMessage =
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
@@ -74,7 +87,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         JsonAdaptedTask task =
-                new JsonAdaptedTask(VALID_NAME, VALID_PRIORITY, null, VALID_DONE, VALID_TAGS);
+                new JsonAdaptedTask(VALID_NAME, VALID_PRIORITY, null, VALID_DONE, VALID_TAGS, null);
         String expectedMessage =
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
@@ -86,7 +99,12 @@ public class JsonAdaptedPersonTest {
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedTask task =
                 new JsonAdaptedTask(
-                        VALID_NAME, VALID_PRIORITY, VALID_DESCRIPTION, VALID_DONE, invalidTags);
+                        VALID_NAME,
+                        VALID_PRIORITY,
+                        VALID_DESCRIPTION,
+                        VALID_DONE,
+                        invalidTags,
+                        null);
         assertThrows(IllegalValueException.class, task::toModelType);
     }
 }

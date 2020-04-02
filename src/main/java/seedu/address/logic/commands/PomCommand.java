@@ -79,7 +79,7 @@ public class PomCommand extends Command {
 
         model.getPomodoroManager().startTrackTask(taskToPom);
 
-        if (taskToPom.getDone().isDone) {
+        if (taskToPom.getDone().getIsDone()){
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_TO_BE_DONED);
         }
 

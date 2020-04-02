@@ -2,6 +2,7 @@ package seedu.address.model.dayData;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.storage.JsonAdaptedDayDataTest.INVALID_DATE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,7 @@ public class DateTest {
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
-        String invalidDate = "hi";
-        assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate));
+        assertThrows(IllegalArgumentException.class, () -> new Date(INVALID_DATE));
     }
 
     @Test

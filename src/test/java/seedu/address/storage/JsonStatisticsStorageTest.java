@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_POM_DURATION_DATA;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDayDatas.dayNew;
-import static seedu.address.testutil.TypicalDayDatas.dayNew2;
+import static seedu.address.testutil.TypicalDayDatas.DAY0;
 import static seedu.address.testutil.TypicalDayDatas.getTypicalStatistics;
 
 import java.io.IOException;
@@ -15,6 +15,8 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.Statistics;
+import seedu.address.model.dayData.DayData;
+import seedu.address.testutil.DayDataBuilder;
 
 public class JsonStatisticsStorageTest {
     private static final Path TEST_DATA_FOLDER =
@@ -70,15 +72,16 @@ public class JsonStatisticsStorageTest {
         assertEquals(original, new Statistics(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.pop(); // Statistics table constraints
-        original.addDayData(dayNew); // Statistics table constraints
+        DayData newDay0 = new DayDataBuilder(DAY0)
+                .withPomDurationData(VALID_POM_DURATION_DATA)
+                .build();
+
+        original.updatesDayData(newDay0);
         jsonStatisticsStorage.saveStatistics(original, filePath);
         readBack = jsonStatisticsStorage.readStatistics(filePath).get();
         assertEquals(original, new Statistics(readBack));
 
         // Save and read without specifying file path
-        original.pop(); // Statistics table constraints
-        original.addDayData(dayNew2); // Statistics table constraints
         jsonStatisticsStorage.saveStatistics(original); // file path not specified
         readBack = jsonStatisticsStorage.readStatistics().get(); // file path not specified
         assertEquals(original, new Statistics(readBack));

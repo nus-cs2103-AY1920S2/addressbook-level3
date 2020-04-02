@@ -8,44 +8,43 @@ import seedu.address.model.dayData.DayData;
 
 /** A utility class containing a list of {@code Task} objects to be used in tests. */
 public class TypicalDayDatas {
-
-    public static final DayData day0 =
+    public static final DayData DAY0 =
             new DayDataBuilder()
                     .withDate("2020-03-17")
                     .withPomDurationData("10")
                     .withTasksDoneData("2")
                     .build();
-    public static final DayData day1 =
+    public static final DayData DAY1 =
             new DayDataBuilder()
                     .withDate("2020-03-18")
                     .withPomDurationData("0")
                     .withTasksDoneData("0")
                     .build();
-    public static final DayData day2 =
+    public static final DayData DAY2 =
             new DayDataBuilder()
                     .withDate("2020-03-19")
                     .withPomDurationData("40")
                     .withTasksDoneData("7")
                     .build();
-    public static final DayData day3 =
+    public static final DayData DAY3 =
             new DayDataBuilder()
                     .withDate("2020-03-20")
                     .withPomDurationData("30")
                     .withTasksDoneData("4")
                     .build();
-    public static final DayData day4 =
+    public static final DayData DAY4 =
             new DayDataBuilder()
                     .withDate("2020-03-21")
                     .withPomDurationData("70")
                     .withTasksDoneData("1")
                     .build();
-    public static final DayData day5 =
+    public static final DayData DAY5 =
             new DayDataBuilder()
                     .withDate("2020-03-22")
                     .withPomDurationData("100")
                     .withTasksDoneData("3")
                     .build();
-    public static final DayData day6 =
+    public static final DayData DAY6 =
             new DayDataBuilder()
                     .withDate("2020-03-23")
                     .withPomDurationData("90")
@@ -53,14 +52,14 @@ public class TypicalDayDatas {
                     .build();
 
     // Manually added
-    public static final DayData dayNew =
+    public static final DayData DAYNEW =
             new DayDataBuilder()
                     .withDate("2020-03-24")
                     .withPomDurationData("40")
                     .withTasksDoneData("20")
                     .build();
 
-    public static final DayData dayNew2 =
+    public static final DayData DAYNEW2 =
             new DayDataBuilder()
                     .withDate("2020-03-25")
                     .withPomDurationData("400")
@@ -82,6 +81,6 @@ public class TypicalDayDatas {
     }
 
     public static List<DayData> getTypicalDayDatas() {
-        return new ArrayList<>(Arrays.asList(day0, day1, day2, day3, day4, day5, day6));
+        return new ArrayList<>(Arrays.asList(DAY0, DAY1, DAY2, DAY3, DAY4, DAY5, DAY6));
     }
 }

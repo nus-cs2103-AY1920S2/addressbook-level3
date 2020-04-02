@@ -1,80 +1,132 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.dayData.CustomQueue;
+import seedu.address.model.dayData.DayData;
 
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
 
     private static final String FXML = "StatisticsDisplay.fxml";
-    private static final String DEFAULT_BAR_CHART_TITLE = "Sample graph title";
-    private static final Path DEFAULT_PROGRESS_BAR_DAILY__PLACEHOLDER =
-            Paths.get("images", "statistics", "progressBarDaily0%.png");
-    private static final String DEFAULT_PROGRESS_DAILY = "0 mins / 100 mins (DEFAULT)";
-    private static final String DEFAULT_MEDALS = "Placeholder";
+    private static final String DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER =
+            "/images/pet/ProgressBar0%.png";
+    private static final String DEFAULT_PROGRESS_DAILY = "NaN mins";
+    private static final String DEFAULT_PROGRESS_TARGET = "100 mins";
 
-    private static final String POMODORO_RUNTIME_Y_AXIS = "Total Pomodoro Runtime";
-    private static final String X_AXIS = "Day";
+    private final String PROGRESS_UNITS = " mins";
 
-    public String barChartTitleText; // mutable
-    public int[][] data; //
-    public Path progressBarDailyFilepath;
+    public String progressBarDailyFilepathString;
     public String progressDailyText;
-    public String medalsText;
+    public String progressTargetText; // TODO @Fyonn will set
 
     @FXML private VBox statisticsPane;
-    @FXML private Label barChartTitle;
-    @FXML private BarChart<String, Integer> barChart;
+    @FXML private BarChart<String, Integer> barChartPomDurationData;
+    @FXML private BarChart<String, Integer> barChartTasksDoneData;
 
     @FXML private Label progressDaily;
     @FXML private ImageView progressBarDaily;
-    @FXML private Label medals;
+    @FXML private Label progressTarget;
 
     public StatisticsDisplay() {
         super(FXML);
-        this.barChartTitleText = DEFAULT_BAR_CHART_TITLE;
-        this.data = null; // TODO *******************
-        this.progressBarDailyFilepath = DEFAULT_PROGRESS_BAR_DAILY__PLACEHOLDER;
+        this.progressBarDailyFilepathString = DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER;
+
         this.progressDailyText = DEFAULT_PROGRESS_DAILY;
-        this.medalsText = DEFAULT_MEDALS;
+        this.progressTargetText = DEFAULT_PROGRESS_TARGET;
 
         progressDaily.setText(progressDailyText);
-        Image progressBarDailyImage = new Image(String.valueOf(progressBarDailyFilepath));
+        Image progressBarDailyImage = new Image(DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER);
         progressBarDaily.setImage(progressBarDailyImage);
-        medals.setText(medalsText);
-
-        barChartTitle.setText(barChartTitleText);
-
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel(X_AXIS);
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel(POMODORO_RUNTIME_Y_AXIS);
-
-        XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<>();
-        dataSeries1.setName("You");
-
-        // TODO remove ********************
-        dataSeries1.getData().add(new XYChart.Data<>("Day 1", 20));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 2", 40));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 3", 60));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 4", 40));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 5", 20));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 6", 40));
-        dataSeries1.getData().add(new XYChart.Data<>("Day 7", 80));
-
-        barChart.getData().add(dataSeries1);
+        progressTarget.setText(progressTargetText);
     }
 
+    public void updateGraphs(ObservableList<DayData> customQueue) {
+        DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
+        int currProgress = latestDayData.getPomDurationData().value;
+        progressDaily.setText(currProgress + PROGRESS_UNITS);
+
+        int expBarPerc = currProgress / 10;
+        if (expBarPerc >= 10) {
+            expBarPerc = 10;
+        }
+
+        switch (expBarPerc) {
+            case 0:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar0%.png";
+                break;
+            case 1:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar10%.png";
+                break;
+            case 2:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar20%.png";
+                break;
+            case 3:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar30%.png";
+                break;
+            case 4:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar40%.png";
+                break;
+            case 5:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar50%.png";
+                break;
+            case 6:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar60%.png";
+                break;
+            case 7:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar70%.png";
+                break;
+            case 8:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar80%.png";
+                break;
+            case 9:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar90%.png";
+                break;
+            case 10:
+                this.progressBarDailyFilepathString = "/images/pet/ProgressBar100%.png";
+                break;
+        }
+
+        Image progressBarDailyImage = new Image(progressBarDailyFilepathString);
+        progressBarDaily.setImage(progressBarDailyImage);
+
+        XYChart.Series<String, Integer> dataSeriesPomDurationData = new XYChart.Series<>();
+        XYChart.Series<String, Integer> dataSeriesTasksDoneData = new XYChart.Series<>();
+
+        for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
+            String dateString = customQueue.get(i).getDate().toPrint();
+
+            int pomDurationDataInt = customQueue.get(i).getPomDurationData().value;
+            dataSeriesPomDurationData
+                    .getData()
+                    .add(new XYChart.Data<>(dateString, pomDurationDataInt));
+
+            int tasksDoneDataInt = customQueue.get(i).getTasksDoneData().value;
+            dataSeriesTasksDoneData.getData().add(new XYChart.Data<>(dateString, tasksDoneDataInt));
+        }
+        
+        barChartPomDurationData.getData().clear();
+        barChartTasksDoneData.getData().clear();
+
+        barChartPomDurationData.getData().add(dataSeriesPomDurationData);
+        barChartTasksDoneData.getData().add(dataSeriesTasksDoneData);
+
+        dataSeriesPomDurationData.getChart().getXAxis().setAnimated(false);
+        dataSeriesTasksDoneData.getChart().getXAxis().setAnimated(false);
+        dataSeriesPomDurationData.getChart().setAnimated(false);
+        dataSeriesTasksDoneData.getChart().setAnimated(false);
+
+    }
+    /*
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -90,5 +142,5 @@ public class StatisticsDisplay extends UiPart<Region> {
         // state check
         StatisticsDisplay card = (StatisticsDisplay) other;
         return barChartTitle.getText().equals(card.barChartTitle.getText());
-    }
+    } */
 }

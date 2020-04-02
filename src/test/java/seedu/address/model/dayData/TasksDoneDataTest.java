@@ -2,6 +2,7 @@ package seedu.address.model.dayData;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.storage.JsonAdaptedDayDataTest.INVALID_TASKS_DONE_DATA;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,7 @@ public class TasksDoneDataTest {
 
     @Test
     public void constructor_invalidTasksDoneData_throwsIllegalArgumentException() {
-        String invalidTasksDoneData = "hi";
-        assertThrows(IllegalArgumentException.class, () -> new TasksDoneData(invalidTasksDoneData));
+        assertThrows(IllegalArgumentException.class, () -> new TasksDoneData(INVALID_TASKS_DONE_DATA));
     }
 
     @Test
