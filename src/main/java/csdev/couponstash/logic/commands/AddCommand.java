@@ -13,6 +13,7 @@ import static java.util.Objects.requireNonNull;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 
 /**
@@ -62,7 +63,12 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
+        if (!toAdd.getExpiryDate().isAfterOrEqual(toAdd.getStartDate())) {
+            throw new CommandException(StartDate.MESSAGE_CONSTRAINTS);
+        }
+
         model.addCoupon(toAdd, commandText);
+
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -85,6 +85,14 @@ public class EditCommand extends IndexedCommand {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
+        if (!couponToEdit.getExpiryDate().isAfterOrEqual(editedCoupon.getStartDate())) {
+            throw new CommandException(StartDate.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!editedCoupon.getExpiryDate().isAfterOrEqual(couponToEdit.getStartDate())) {
+            throw new CommandException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+
         Integer currentUsage = Integer.parseInt(couponToEdit.getUsage().value);
         Integer editedLimit = Integer.parseInt(editedCoupon.getLimit().value);
         if (currentUsage > editedLimit) {

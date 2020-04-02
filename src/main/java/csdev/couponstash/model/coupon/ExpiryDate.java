@@ -4,18 +4,17 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import csdev.couponstash.commons.util.DateUtil;
 
 /**
  * Represents a Coupon's expiry date in the CouponStash.
- * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link DateUtil#isValidDate(String)}
  */
 public class ExpiryDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry Dates should be a date in the D-M-YYYY format.";
+            "Expiry Dates should be a date before the start date (in the D-M-YYYY format).";
     public final LocalDate date;
     public final String value;
 
@@ -26,21 +25,26 @@ public class ExpiryDate {
      */
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
-        checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
+        checkArgument(DateUtil.isValidDate(expiryDate), MESSAGE_CONSTRAINTS);
         value = expiryDate;
         date = DateUtil.parseStringToDate(value);
     }
 
     /**
-     * Returns true if a given string is a valid expiry date.
+     * Returns true if the {@StartDate} is after or equals to the {@ExpiryDate}.
+     * @param sd The StartDate
+     * @return True if date is after or equals to the expiry date
      */
-    public static boolean isValidExpiryDate(String test) {
-        try {
-            DateUtil.parseStringToDate(test);
-        } catch (DateTimeParseException ex) {
-            return false;
-        }
-        return test.matches(DateUtil.DATE_VALIDATION_REGEX);
+    public boolean isAfterOrEqual(StartDate sd) {
+        return date.isAfter(sd.getDate()) || date.isEqual(sd.getDate());
+    }
+
+    /**
+     * Returns true if the {@ExpiryDate} is after today.
+     * @return True if date is after today.
+     */
+    public boolean hasExpired() {
+        return date.isAfter(LocalDate.now());
     }
 
     /**

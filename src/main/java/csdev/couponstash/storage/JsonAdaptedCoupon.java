@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
@@ -131,7 +132,7 @@ class JsonAdaptedCoupon {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExpiryDate.class.getSimpleName()));
         }
-        if (!ExpiryDate.isValidExpiryDate(expiryDate)) {
+        if (!DateUtil.isValidDate(expiryDate)) {
             throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
@@ -140,7 +141,7 @@ class JsonAdaptedCoupon {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StartDate.class.getSimpleName()));
         }
-        if (!StartDate.isValidStartDate(startDate)) {
+        if (!DateUtil.isValidDate(startDate)) {
             throw new IllegalValueException(StartDate.MESSAGE_CONSTRAINTS);
         }
         final StartDate modelStartDate = new StartDate(startDate);
