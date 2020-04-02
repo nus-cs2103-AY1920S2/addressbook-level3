@@ -2,12 +2,13 @@ package tatracker.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -42,6 +43,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -142,11 +145,21 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     @Override
     public long getTotalHours() {
-        return doneSessions.asUnmodifiableObservableList()
-                .stream()
-                .map(Session::getDurationToNearestHour)
-                .reduce(Duration.ZERO, Duration::plus)
-                .toHours();
+        long totalHours = 0;
+        for (int i = 0; i < doneSessions.size(); i += 1) {
+            if (currentlyShownModuleClaim != null) {
+                if (doneSessions.get(i).getModuleCode().equals(currentlyShownModuleClaim.getIdentifier())) {
+                    logger.info("reached: has claim filter" + currentlyShownModuleClaim.toString());
+                    totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                    logger.info(String.valueOf(totalHours));
+                }
+            } else {
+                logger.info("reached: no claim filter");
+                totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                logger.info(String.valueOf(totalHours));
+            }
+        }
+        return totalHours;
     }
 
     @Override
