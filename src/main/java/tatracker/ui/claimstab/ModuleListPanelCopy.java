@@ -12,13 +12,14 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.module.Module;
+import tatracker.ui.Focusable;
 import tatracker.ui.UiPart;
 import tatracker.ui.studenttab.ModuleCard;
 
 /**
  * Panel containing the list of modules.
  */
-public class ModuleListPanelCopy extends UiPart<Region> {
+public class ModuleListPanelCopy extends UiPart<Region> implements Focusable {
     private static final String FXML = "ModuleListPanelCopy.fxml";
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
@@ -33,6 +34,16 @@ public class ModuleListPanelCopy extends UiPart<Region> {
         super(FXML);
         moduleListViewCopy.setItems(moduleListCopy);
         moduleListViewCopy.setCellFactory(listView -> new ModuleListViewCellCopy());
+    }
+
+    @Override
+    public void requestFocus() {
+        moduleListViewCopy.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return moduleListViewCopy.isFocused();
     }
 
     /**
@@ -56,12 +67,15 @@ public class ModuleListPanelCopy extends UiPart<Region> {
             if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
                 if (module.equals(getCurrentlyShownModuleClaim())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");
+                } else {
+                    setStyle("");
                 }
             }
         }

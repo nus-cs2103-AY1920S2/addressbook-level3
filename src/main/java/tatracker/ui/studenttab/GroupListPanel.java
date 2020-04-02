@@ -12,12 +12,13 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
+import tatracker.ui.Focusable;
 import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of groups.
  */
-public class GroupListPanel extends UiPart<Region> {
+public class GroupListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "GroupListPanel.fxml";
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
@@ -32,6 +33,16 @@ public class GroupListPanel extends UiPart<Region> {
         super(FXML);
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
+    }
+
+    @Override
+    public void requestFocus() {
+        groupListView.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return groupListView.isFocused();
     }
 
     /**
@@ -55,12 +66,15 @@ public class GroupListPanel extends UiPart<Region> {
             if (empty || group == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
                 if (group.equals(getCurrentlyShownGroup())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");
+                } else {
+                    setStyle("");
                 }
             }
         }

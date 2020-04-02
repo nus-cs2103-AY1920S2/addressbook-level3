@@ -10,12 +10,13 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.session.Session;
+import tatracker.ui.Focusable;
 import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of sessions.
  */
-public class SessionListPanel extends UiPart<Region> {
+public class SessionListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "SessionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(SessionListPanel.class);
 
@@ -26,6 +27,16 @@ public class SessionListPanel extends UiPart<Region> {
         super(FXML);
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
+    }
+
+    @Override
+    public void requestFocus() {
+        sessionListView.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return sessionListView.isFocused();
     }
 
     /**

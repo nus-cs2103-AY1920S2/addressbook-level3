@@ -10,12 +10,13 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.student.Student;
+import tatracker.ui.Focusable;
 import tatracker.ui.UiPart;
 
 /**
  * Panel containing the list of students.
  */
-public class StudentListPanel extends UiPart<Region> {
+public class StudentListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "StudentListPanel.fxml";
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
@@ -32,6 +33,16 @@ public class StudentListPanel extends UiPart<Region> {
         studentListView.setCellFactory(listView -> new StudentListViewCell());
     }
 
+    @Override
+    public void requestFocus() {
+        studentListView.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return studentListView.isFocused();
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Student} using a {@code StudentCard}.
      */
@@ -43,6 +54,7 @@ public class StudentListPanel extends UiPart<Region> {
             if (empty || student == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
                 setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "

@@ -85,6 +85,7 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList();
                 throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
             } else {
+                model.updateFilteredGroupList(moduleCode);
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
