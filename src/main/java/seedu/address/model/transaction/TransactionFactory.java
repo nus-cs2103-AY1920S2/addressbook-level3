@@ -1,8 +1,11 @@
 package seedu.address.model.transaction;
 
+import java.util.List;
 import java.util.UUID;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
@@ -36,8 +39,18 @@ public class TransactionFactory {
      * @param model the model manager.
      * @return created transaction.
      */
-    public Transaction createTransaction(Model model) {
+    public Transaction createTransaction(Model model) throws CommandException {
         Money updatedMoney;
+
+        List<Customer> customerList = model.getFilteredCustomerList();
+        List<Product> productList = model.getFilteredProductList();
+
+        if (customerIndex.getZeroBased() >= customerList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        if (productIndex.getZeroBased() >= productList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        }
 
         Customer customer = model.getFilteredCustomerList().get(customerIndex.getZeroBased());
         Product product = model.getFilteredProductList().get(productIndex.getZeroBased());

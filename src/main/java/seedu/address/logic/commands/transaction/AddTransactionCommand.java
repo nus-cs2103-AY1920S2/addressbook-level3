@@ -35,8 +35,8 @@ public class AddTransactionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the application. \n"
             + "Parameters: "
-            + PREFIX_CUSTOMER + "CUSTOMER "
-            + PREFIX_PRODUCT + "PRODUCT "
+            + PREFIX_CUSTOMER + "CUSTOMER_ID "
+            + PREFIX_PRODUCT + "PRODUCT_ID "
             + PREFIX_QUANTITY + "QUANTITY "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_MONEY + "MONEY] "

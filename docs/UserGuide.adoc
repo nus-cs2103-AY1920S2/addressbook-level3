@@ -338,11 +338,11 @@ Format: `undot INDEX`
 Examples:
 
 * `listt` +
-`deletet 2` +
-Deletes the 2nd transaction in the displayed list.
+`undot 2` +
+Undo the 2nd transaction in the displayed list.
 * `findt dt/2020-01-03 16:00` +
-`deletet 1` +
-Deletes the 1st transaction in the results of the find command.
+`undot 1` +
+Undo the 1st transaction in the results of the find command.
 
 === Clearing all transactions : `cleart`
 
@@ -407,7 +407,7 @@ Returns the profit from Jan 1 2020 to Dec 31 2020
 
 === Setting the low-inventory threshold : `lowlimit`
 
-Sets the notification threshold & updates the bar indicator of the product. +
+Sets the notification threshold for individual product & updates the bar indicator of the product. +
 Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 
 ****
@@ -456,7 +456,7 @@ image::SalesPlot.png[align="center"]
 
 === Exiting from the program : `exit`
 
-Exit from the program. +
+Exit from the program, closes all opened windows. +
 Format: `exit`
 
 === Saving the data
@@ -531,9 +531,9 @@ e.g. `listt`
 e.g. `editt 1 p/101 c/123`
 * *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
 e.g. `findt c/bob dt/2020-02-07`
-* *Deleting a transaction* : `deletet INDEX` +
+* *Undo a transaction* : `undot INDEX` +
 e.g. `findt 2020-01-03` +
-`deletet 1`
+`undot 1`
 * *Clearing all transactions* : `cleart`
 * *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE`
 * *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE`
