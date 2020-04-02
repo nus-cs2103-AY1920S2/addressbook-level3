@@ -188,8 +188,6 @@ Examples:
 * `delete [x/sports] 2020-03-02 [index/2]`
 Deletes the 2nd sports entry in the `2020-03-02` daily file in the fitness log book.
 
-=== Sort the entries
-
 === Keep a diary
 
 The user can keep a diary in FitHelper, and command for adding/editing/deleting/searching/clearing diary logs.
@@ -280,7 +278,7 @@ Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field
 
 * `clearDiary`＋
 clears all diary logs in this FitHelper.
-[TIIP]
+[TIP]
 The user can always revoke the clearing command by calling `undo`, which will be explained in a later section.
 
 
@@ -295,6 +293,11 @@ Format: `clear`
 
 `undo` revokes the last undoable command. +
 This command back-roll FitHelper to the previous status before the last undoable command was executed.
+[NOTE]
+Undoable commands include: `add`, `edit`, `delete`, `clear`, `addDiary`, `appendDiary`, `editDiary`, `deleteDiary`, `clearDiary`.
+Other commands are not affected by `undo` command. The same applies for `redo`.
+[NOTE]
+After executing `undo` or `redo`, FitHelper switches to `Home Page` (`DashBoard`).
 
 Examples:
 
@@ -437,25 +440,29 @@ Today page serves to be a summary for the daily arrangements. +
 It shows the daily schedule for the user. Users can see the entries for the day, a recommended lunch place, and their performances. They can also see their diary for the day as well as the rewarding point. +
 Format: `today`
 
-* *Daily Plans* +
-The lists of food and sports for "today" are displayed.
+* *Daily Food/Sports Entries* +
+The lists of food and sports entries on "today" are displayed in two list view, with indices in chronological order specific for today.
 
 * *Plan Counter* +
-The counters keep track of the number of done/undone food/sports plans on Today.
+The 4 counters keep track of the number of done/undone food/sports plans on today.
 
 * *Calorie Report* +
 Calorie report contains the data of daily calorie intake/consumption from done food/sports entries correspondingly.
-The food calorie pie chart displays the component of calorie intake, so the user can view which food entry contributes
-to how much calorie intake, so he/she can adjust the diet plan.
+The food calorie pie chart consists of all food entries on today, regardless of the status. The labels are the corresponding indices
+of the food entries in `Today's Food` list.
+From the pie chart, the user can view the component of calorie intake of each food entry, so he/she can adjust the diet plan.
+[WARNING]
+In cases where some food entries contribute to the great majority of the total food intake, the pie chart only displays labels for
+food entries that contain relatively high calorie values.
 
 * *Task Completion* +
-The user's daily task completion is shown in percentage.
+The user's daily task completion is shown in percentage (round to integer).
 
 * *FitHelper Feedback* +
 Based on the user's intake food calorie and sport task completion, FitHelper provides suggestions and reminders
 in the `FitHelper Feedback` area.
 
-==== [proposed] Some Day Page
+==== [proposed][comes in v1.4] Some Day Page
 
 The `Today Page` for some day in the history can be displayed.
 Format: `today DATE`
@@ -468,7 +475,7 @@ Examples:
 * `today`
 * `today 2020-02-14`
 
-=== [proposed] Weekly Report
+=== [proposed][comes in v1.4] Weekly Report
 
 A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week. +
 Format: `weekreport`
