@@ -1,31 +1,30 @@
 @startuml
 start
 
-:Starting EYLAH;
+:Enter Expense Splitter;
 
-if () then ([itemToAdd])
+if () then ([receiptNotDone])
 
-    if () then ([previousReceiptNotDone])
+    if () then ([itemToAdd])
     : @Rake: Visit AddItemActivityDiagram;
     : DoneReceipt;
 
-    else ([previousReceiptDone])
-    : Clear Receipt
-    @Rake: Visit AddItemActivityDiagram;
+    else ([receiptDone])
     : Done Receipt;
     endif
 
-     if () then([usePaidCommand])
-        : Paid Command;
-     else ()
-     endif
 
-
-    else ([usingPaidCommand])
-    : Paid Command;
-
+else ([receiptDone])
 
 endif
+
+
+: Paid Command;
+
+: Clear Receipt;
+
+
+
 
 stop
 @enduml
