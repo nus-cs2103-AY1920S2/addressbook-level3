@@ -247,6 +247,8 @@ Splitting the items' cost with friends. All you have to do is add the item,
 price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
+We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
+
 [[additem]]
 ==== Adding an item: `additem`
 
@@ -305,7 +307,11 @@ Example: +
 [[paid]]
 ==== Paying money: `paid`
 
-Subtracts the paid amount from the person
+In this section, you will learn more about the `paid` command, how to use it and the possible usage scenarios of the
+`paid` command.
+
+Summary: `paid` subtracts the amount paid by a Person.
+
 
 Format: +
 `paid INDEX [AMOUNT]` +
@@ -476,7 +482,7 @@ or +
 |===
 
 
-
+[[AppendixA]]
 == Appendix A: Simple activity diagram to aid user with using Expense Splitter
 image::ExpenseSplitterActivityDiagramV2.png[width="790"]
 
