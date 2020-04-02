@@ -111,7 +111,7 @@ e.g:`additem -i beer tower -p 19.90 -n charlotte`.
 * Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
 `paid 1 3.90`.
 * Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
-(i.e. 0 times), `-n charlotte`, `-n John Doe -n Daniel` etc.
+(i.e. 0 times), `-n Charlotte`, `-n John Doe -n Daniel` etc.
 * Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
 
@@ -428,7 +428,7 @@ e.g. `back`
 |Command |Format |Example
 
 |<<additem, *Add Item*>>
-|`additem` `-i ITEMNAME `-p ITEMPRICE` `-n PERSON` `[-n PERSON]`
+|`additem` `-i ITEMNAME` `-p ITEMPRICE` `-n PERSON` `[-n PERSON]...`
 |`insert` `-i pasta` `-p 32` `-n John` +
 or +
 `insert` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
@@ -472,13 +472,7 @@ or +
 |`help`
 |`help`
 
-|<<show, *Show*>>
-|`show`
-|`show`
-
-|<<import, *Import*>>
-|`import` `FILE_NAME`
-|`import` `orders.csv`
+|===
 
 |<<list, *List*>>
 |`list` `[DONE_STATUS]`
@@ -486,13 +480,11 @@ or +
 `list` `done` +
 `list` `undone`
 
-|<<return, **>>
-|`return`
-|`return`
 
 
 
-|===
+
+
 
 
 
