@@ -19,7 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.FinanceType;
 import seedu.address.model.person.ID;
@@ -193,8 +193,8 @@ public class AddFinanceCommand extends AddCommand {
         }
       }
 
-      for (Teacher teacher : model.getFilteredTeacherList()){
-        if (teacher.getID().toString().equals(teacherid.toString())) {
+      for (Staff teacher : model.getFilteredStaffList()){
+        if (teacher.getId().toString().equals(teacherid.toString())) {
           teacherName = teacher.getName().toString();
           foundTeacher = true;
           break;

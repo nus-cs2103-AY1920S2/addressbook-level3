@@ -1,15 +1,15 @@
 package seedu.address.logic.commands.commandDelete;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a teacher identified using it's displayed index from the address book.
@@ -38,13 +38,13 @@ public class DeleteTeacherCommand extends DeleteCommand {
   @Override
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-    List<Teacher> lastShownList = model.getFilteredTeacherList();
+    List<Staff> lastShownList = model.getFilteredStaffList();
 
     if (targetIndex.getZeroBased() >= lastShownList.size()) {
       throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
     }
 
-    Teacher teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
+    Staff teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
     model.delete(teacherToDelete);
     return new CommandResult(String.format(MESSAGE_DELETE_TEACHER_SUCCESS, teacherToDelete));
   }

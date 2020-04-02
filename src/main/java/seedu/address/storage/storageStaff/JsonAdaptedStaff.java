@@ -1,4 +1,4 @@
-package seedu.address.storage.storageTeacher;
+package seedu.address.storage.storageStaff;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -22,31 +21,34 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Person}.
  */
-class JsonAdaptedTeacher {
+class JsonAdaptedStaff {
 
-  public static final String MISSING_FIELD_MESSAGE_FORMAT = "Teacher's %s field is missing!";
+  public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
 
   private final String name;
-  private final String teacherID;
+  private final String level;
+  private final String id;
   private final String phone;
   private final String email;
   private final String salary;
   private final String address;
-  private final List<JsonTeacherAdaptedID> assignedCoursesID = new ArrayList<>();
-  private final List<JsonTeacherAdaptedTag> tagged = new ArrayList<>();
+
+  private final List<JsonStaffAdaptedID> assignedCoursesID = new ArrayList<>();
+  private final List<JsonStaffAdaptedTag> tagged = new ArrayList<>();
 
   /**
    * Constructs a {@code JsonAdaptedPerson} with the given person details.
    */
   @JsonCreator
-  public JsonAdaptedTeacher(@JsonProperty("name") String name, @JsonProperty("teacherID") String teacherID,
-      @JsonProperty("phone") String phone,
-      @JsonProperty("email") String email, @JsonProperty("salary") String salary,
-      @JsonProperty("address") String address,
-      @JsonProperty("assignedCoursesID") List<JsonTeacherAdaptedID> assignedCoursesID,
-      @JsonProperty("tagged") List<JsonTeacherAdaptedTag> tagged) {
+  public JsonAdaptedStaff(@JsonProperty("name") String name, @JsonProperty("id") String id,
+                          @JsonProperty("level") String level,
+                          @JsonProperty("phone") String phone,
+                          @JsonProperty("email") String email, @JsonProperty("salary") String salary,
+                          @JsonProperty("address") String address,
+                          @JsonProperty("tagged") List<JsonStaffAdaptedTag> tagged) {
     this.name = name;
-    this.teacherID = teacherID;
+    this.level = level;
+    this.id = id;
     this.phone = phone;
     this.email = email;
     this.salary = salary;
@@ -60,30 +62,43 @@ class JsonAdaptedTeacher {
   }
 
   /**
-   * Converts a given {@code Teacher} into this class for Jackson use.
+   * Converts a given {@code Staff} into this class for Jackson use.
    */
-  public JsonAdaptedTeacher(Teacher source) {
+  public JsonAdaptedStaff(Staff source) {
     name = source.getName().fullName;
-    teacherID = source.getID().value;
+    level = source.getLevel().toString();
+    id= source.getId().value;
     phone = source.getPhone().value;
     email = source.getEmail().value;
     salary = source.getSalary().value;
     address = source.getAddress().value;
     assignedCoursesID.addAll(source.getAssignedCoursesID().stream()
-        .map(JsonTeacherAdaptedID::new)
+        .map(JsonStaffAdaptedID::new)
         .collect(Collectors.toList()));
     tagged.addAll(source.getTags().stream()
-        .map(JsonTeacherAdaptedTag::new)
+        .map(JsonStaffAdaptedTag::new)
         .collect(Collectors.toList()));
   }
 
   /**
-   * Converts this Jackson-friendly adapted teacher object into the model's {@code Teacher} object.
+   * Converts this Jackson-friendly adapted staff object into the model's {@code Staff} object.
    *
    * @throws IllegalValueException if there were any data constraints violated in the adapted
-   *                               teacher.
+   *                               staff.
    */
-  public Teacher toModelType() throws IllegalValueException {
+  public Staff toModelType() throws IllegalValueException {
+    final List<Tag> staffTags = new ArrayList<>();
+    for (JsonStaffAdaptedTag tag : tagged) {
+      staffTags.add(tag.toModelType());
+    }
+    final Set<Tag> modelTags = new HashSet<>(staffTags);
+
+    final List<ID> TeacherAssignedCoursesID = new ArrayList<>();
+    for (JsonStaffAdaptedID id : assignedCoursesID) {
+        TeacherAssignedCoursesID.add(id.toModelType());
+    }
+    final Set<ID> modelAssignedCoursesID = new HashSet<>(TeacherAssignedCoursesID);
+
     if (name == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -93,10 +108,22 @@ class JsonAdaptedTeacher {
     }
     final Name modelName = new Name(name);
 
-    if (!ID.isValidId(teacherID)) {
+    if (level == null) {
+      throw new IllegalValueException("Missing level field, unidentified Staff");
+    }
+    /*
+    if (!level.equals("TEACHER") || !level.equals("ADMIN")) {
+      throw new IllegalValueException("Wrong level field for staff, level should be saved as 0 or 1");
+    }
+     */
+    Staff.Level modelLevel = Staff.Level.TEACHER;
+    if (level.equals("ADMIN")) {
+      modelLevel = Staff.Level.ADMIN;
+    }
+    if (!ID.isValidId(id)) {
       throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
     }
-    final ID modelID = new ID(teacherID);
+    final ID modelID = new ID(id);
 
     if (phone == null) {
       throw new IllegalValueException(
@@ -129,20 +156,6 @@ class JsonAdaptedTeacher {
       throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
     }
     final Address modelAddress = new Address(address);
-
-    final List<ID> TeacherAssignedCoursesID = new ArrayList<>();
-    for (JsonTeacherAdaptedID id : assignedCoursesID) {
-      TeacherAssignedCoursesID.add(id.toModelType());
-    }
-    final Set<ID> modelAssignedCoursesID = new HashSet<>(TeacherAssignedCoursesID);
-
-    final List<Tag> courseTags = new ArrayList<>();
-    for (JsonTeacherAdaptedTag tag : tagged) {
-      courseTags.add(tag.toModelType());
-    }
-
-    final Set<Tag> modelTags = new HashSet<>(courseTags);
-    return new Teacher(modelName, modelID, modelPhone, modelEmail, modelSalary, modelAddress, modelAssignedCoursesID, modelTags);
+    return new Staff(modelName, modelID, modelLevel, modelPhone, modelEmail, modelSalary, modelAddress,modelAssignedCoursesID, modelTags);
   }
-
 }

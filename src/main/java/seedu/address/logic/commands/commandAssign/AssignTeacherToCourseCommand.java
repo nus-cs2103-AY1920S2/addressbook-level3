@@ -11,11 +11,11 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import java.util.Set;
 import seedu.address.model.person.ID;
@@ -51,7 +51,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         boolean courseExists = false;
         boolean teacherExists = false;
         Course foundCourse = null;
-        Teacher foundTeacher = null;
+        Staff foundTeacher = null;
 
         for (Course course : model.getFilteredCourseList()) {
             if (course.getId().value.equals(courseidString)) {
@@ -62,8 +62,8 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
             }
         }
 
-        for (Teacher teacher : model.getFilteredTeacherList()) {
-            if (teacher.getID().value.equals(teacheridString)) {
+        for (Staff teacher : model.getFilteredStaffList()) {
+            if (teacher.getId().value.equals(teacheridString)) {
                 teacherName = teacher.getName().toString();
                 teacherExists = true;
                 foundTeacher = teacher;
@@ -83,10 +83,9 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
             foundTeacher.addCourse(courseid);
 
             foundCourse.processAssignedTeacher(
-                (FilteredList<Teacher>) model.getFilteredTeacherList());
+                (FilteredList<Staff>) model.getFilteredStaffList());
             foundTeacher.processAssignedCourses(
                 (FilteredList<Course>) model.getFilteredCourseList());
-
             // Just to direct flow from calling models directly to modelManager to make better use of callback
             // A bit weird design for now
             model.set(foundCourse, foundCourse);

@@ -5,7 +5,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.ID;
 
 import java.util.Random;
@@ -20,8 +20,8 @@ public class UuidManager {
             return new AddressBookGeneric<Course>().containsID(id);
         } else if (object instanceof Student) {
             return new AddressBookGeneric<Student>().containsID(id);
-        } else if (object instanceof Teacher) {
-            return new AddressBookGeneric<Teacher>().containsID(id);
+        } else if (object instanceof Staff) {
+            return new AddressBookGeneric<Staff>().containsID(id);
         }
         return new AddressBookGeneric<ModelObject>().containsID(id);
     }

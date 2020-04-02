@@ -4,7 +4,7 @@ public class Constants {
     public enum ENTITY_TYPE {
         COURSE,
         STUDENT,
-        TEACHER,
+        STAFF,
         FINANCE,
         ASSIGNMENT,
     }

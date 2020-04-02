@@ -13,8 +13,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -151,11 +151,11 @@ public class Course extends ModelObject {
   /**
    * Converts internal list of assigned teacher ID into the name with the ID
    */
-  public void processAssignedTeacher(FilteredList<Teacher> filteredTeachers){
+  public void processAssignedTeacher(FilteredList<Staff> filteredTeachers){
     this.assignedTeacherWithName = "None";
-    for (Teacher teacher : filteredTeachers) {
-      if (teacher.getID().toString().equals(this.assignedTeacherID.toString())) {
-        this.assignedTeacherWithName = teacher.getName().toString() + "(" + teacher.getID().toString() + ")";
+    for (Staff teacher : filteredTeachers) {
+      if (teacher.getId().toString().equals(this.assignedTeacherID.toString())) {
+        this.assignedTeacherWithName = teacher.getName().toString() + "(" + teacher.getId().toString() + ")";
       }
     }
   }

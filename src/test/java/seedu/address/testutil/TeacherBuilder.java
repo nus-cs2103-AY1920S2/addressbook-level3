@@ -1,11 +1,9 @@
 package seedu.address.testutil;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.util.HashSet;
 import java.util.Set;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -20,7 +18,8 @@ import seedu.address.model.util.SampleDataUtil;
 public class TeacherBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_ID = "21";
+    public static final String DEFAULT_LEVEL = "TEACHER";
+    public static final String DEFAULT_ID = "120";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_SALARY = "1000";
@@ -28,6 +27,7 @@ public class TeacherBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
+    private Staff.Level level;
     private ID id;
     private Phone phone;
     private Email email;
@@ -39,6 +39,11 @@ public class TeacherBuilder {
     public TeacherBuilder() {
         name = new Name(DEFAULT_NAME);
         id = new ID(DEFAULT_ID);
+        if (DEFAULT_LEVEL.equals("TEACHER")) {
+            level = Staff.Level.TEACHER;
+        } else {
+            level = Staff.Level.ADMIN;
+        }
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         salary = new Salary(DEFAULT_SALARY);
@@ -50,9 +55,9 @@ public class TeacherBuilder {
     /**
      * Initializes the TeacherBuilder with the data of {@code teacherToCopy}.
      */
-    public TeacherBuilder(Teacher teacherToCopy) {
+    public TeacherBuilder(Staff teacherToCopy) {
         name = teacherToCopy.getName();
-        id = teacherToCopy.getID();
+        level = teacherToCopy.getLevel();
         phone = teacherToCopy.getPhone();
         email = teacherToCopy.getEmail();
         salary = teacherToCopy.getSalary();
@@ -70,10 +75,14 @@ public class TeacherBuilder {
     }
 
     /**
-     * Sets the {@code ID} of the {@code Teacher} that we are building.
+     * Sets the {@code Level} of the {@code Staff} that we are building.
      */
-    public TeacherBuilder withID(String id) {
-        this.id = new ID(id);
+    public TeacherBuilder withLevel(String level) {
+        if (level.equals("TEACHER")) {
+            this.level = Staff.Level.TEACHER;
+        } else if (level.equals("ADMIN")) {
+            this.level = Staff.Level.ADMIN;
+        }
         return this;
     }
 
@@ -125,8 +134,8 @@ public class TeacherBuilder {
         return this;
     }
 
-    public Teacher build() {
-        return new Teacher(name, id, phone, email, salary, address, assignedCourses, tags);
+    public Staff build() {
+        return new Staff(name, id, level, phone, email, salary, address, tags);
     }
 
 }

@@ -11,9 +11,9 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelProgress.Progress;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 
@@ -22,15 +22,15 @@ import seedu.address.model.person.Person;
  */
 public interface Model {
 
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Teacher> PREDICATE_SHOW_ALL_TEACHERS = unused -> true;
-    Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
-    Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
-    Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
-    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+  /**
+   * {@code Predicate} that always evaluate to true
+   */
+  Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+  Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+  Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
+  Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
+  Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
+  Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
     String COURSE_ENTITY_NAME = "course";
 
@@ -89,194 +89,199 @@ public interface Model {
 
     /**
      * Returns the AddressBook
-     */
-    ReadOnlyAddressBook getAddressBook();
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8262acbefef917ecffa19da46254798e19c1a6f9
+  */
+  ReadOnlyAddressBook getAddressBook();
 
-    /**
-     * Returns an unmodifiable view of the filtered person list
-     */
-    ObservableList<Person> getFilteredPersonList();
+  /**
+   * Returns an unmodifiable view of the filtered person list
+   */
+  ObservableList<Person> getFilteredPersonList();
 
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+  /**
+   * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredPersonList(Predicate<Person> predicate);
 
-    ///
+  ///
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getTeacherAddressBookFilePath();
+  /**
+   * Returns the user prefs' address book file path.
+   */
+  Path getStaffAddressBookFilePath();
 
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setTeacherAddressBookFilePath(Path teacherAddressBookFilePath);
+  /*
+  /**
+   * Sets the user prefs' address book file path.
+   */
+  void setStaffAddressBookFilePath(Path staffAddressBookFilePath);
 
-    /**
-     * Returns the teacherAddressBook
-     */
-    ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook();
 
-    /**
-     * Replaces teacher address book data with the data in {@code teacerAddressBook}.
-     */
-    void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook);
+  /**
+   * Returns the staffAddressBook
+   */
+  ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook();
 
-    /**
-     * Returns an unmodifiable view of the filtered teacher list
-     */
-    ObservableList<Teacher> getFilteredTeacherList();
+  /**
+   * Replaces staff address book data with the data in {@code staffAddressBook}.
+   */
+  void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook);
 
-    /**
-     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredTeacherList(Predicate<Teacher> predicate);
+  /**
+   * Returns an unmodifiable view of the filtered staff list
+   */
+  ObservableList<Staff> getFilteredStaffList();
 
-    ///
+  /**
+   * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredStaffList(Predicate<Staff> predicate);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getStudentAddressBookFilePath();
+  ///
 
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setStudentAddressBookFilePath(Path studentAddressBookFilePath);
+  /**
+   * Returns the user prefs' address book file path.
+   */
+  Path getStudentAddressBookFilePath();
 
-    /**
-     * Returns the studentAddressBook
-     */
-    ReadOnlyAddressBookGeneric<Student> getStudentAddressBook();
+  /**
+   * Sets the user prefs' address book file path.
+   */
+  void setStudentAddressBookFilePath(Path studentAddressBookFilePath);
 
-    /**
-     * Replaces student address book data with the data in {@code teacherAddressBook}.
-     */
-    void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook);
+  /**
+   * Returns the studentAddressBook
+   */
+  ReadOnlyAddressBookGeneric<Student> getStudentAddressBook();
 
-    /**
-     * Returns an unmodifiable view of the filtered student list
-     */
-    ObservableList<Student> getFilteredStudentList();
+  /**
+   * Replaces student address book data with the data in {@code studentAddressBook}.
+   */
+  void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook);
 
-    /**
-     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredStudentList(Predicate<Student> predicate);
+  /**
+   * Returns an unmodifiable view of the filtered student list
+   */
+  ObservableList<Student> getFilteredStudentList();
 
-    ///
+  /**
+   * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredStudentList(Predicate<Student> predicate);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getCourseAddressBookFilePath();
+  ///
 
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setCourseAddressBookFilePath(Path courseAddressBookFilePath);
+  /**
+   * Returns the user prefs' address book file path.
+   */
+  Path getCourseAddressBookFilePath();
 
-    /**
-     * Returns the courseAddressBook
-     */
-    ReadOnlyAddressBookGeneric<Course> getCourseAddressBook();
+  /**
+   * Sets the user prefs' address book file path.
+   */
+  void setCourseAddressBookFilePath(Path courseAddressBookFilePath);
 
-    /**
-     * Replaces course address book data with the data in {@code teacerAddressBook}.
-     */
-    void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook);
+  /**
+   * Returns the courseAddressBook
+   */
+ ReadOnlyAddressBookGeneric<Course> getCourseAddressBook();
 
-    /**
-     * Returns an unmodifiable view of the filtered course list
-     */
-    ObservableList<Course> getFilteredCourseList();
+  /**
+   * Replaces course address book data with the data in {@code courseAddressBook}.
+   */
+  void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook);
 
-    /**
-     * Updates the filter of the filtered course list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredCourseList(Predicate<Course> predicate);
+  /**
+   * Returns an unmodifiable view of the filtered course list
+   */
+  ObservableList<Course> getFilteredCourseList();
 
-    ///
+  /**
+   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredCourseList(Predicate<Course> predicate);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getFinanceAddressBookFilePath();
+  ///
 
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setFinanceAddressBookFilePath(Path financeAddressBookFilePath);
+  /**
+   * Returns the user prefs' address book file path.
+   */
+  Path getFinanceAddressBookFilePath();
 
-    /**
-     * Returns the financeAddressBook
-     */
-    ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook();
+  /**
+   * Sets the user prefs' address book file path.
+   */
+  void setFinanceAddressBookFilePath(Path financeAddressBookFilePath);
 
-    /**
-     * Replaces finance address book data with the data in {@code teacerAddressBook}.
-     */
-    void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook);
+  /**
+   * Returns the financeAddressBook
+   */
+  ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook();
 
-    /**
-     * Returns an unmodifiable view of the filtered finance list
-     */
-    ObservableList<Finance> getFilteredFinanceList();
+  /**
+   * Replaces finance address book data with the data in {@code financeAddressBook}.
+   */
+  void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook);
 
-    /**
-     * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredFinanceList(Predicate<Finance> predicate);
+  /**
+   * Returns an unmodifiable view of the filtered finance list
+   */
+  ObservableList<Finance> getFilteredFinanceList();
 
-    ///
+  /**
+   * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredFinanceList(Predicate<Finance> predicate);
 
-    /**
-     * Returns the user prefs' assignment address book file path.
-     */
-    Path getAssignmentAddressBookFilePath();
+  ///
 
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath);
+  /**
+   * Returns the user prefs' assignment address book file path.
+   */
+  Path getAssignmentAddressBookFilePath();
 
-    /**
-     * Returns the assignmentAddressBook
-     */
-    ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook();
+  /**
+   * Sets the user prefs' address book file path.
+   */
+  void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath);
 
-    /**
-     * Replaces assignment address book data with the data in {@code teacerAddressBook}.
-     */
-    void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook);
+  /**
+   * Returns the assignmentAddressBook
+   */
+  ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook();
 
-    /**
-     * Returns an unmodifiable view of the filtered finance list
-     */
-    ObservableList<Assignment> getFilteredAssignmentList();
+  /**
+   * Replaces assignment address book data with the data in {@code assignmentAddressBook}.
+   */
+  void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook);
 
-    /**
-     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+  /**
+   * Returns an unmodifiable view of the filtered finance list
+   */
+  ObservableList<Assignment> getFilteredAssignmentList();
 
-    // ====================================================================== //
-    // There is no CRUD operations for Progress objects for now
+  /**
+   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
+  // ====================================================================== //
+  // There is no CRUD operations for Progress objects for now
     /**
      * Returns the user prefs' assignment address book file path.
      */

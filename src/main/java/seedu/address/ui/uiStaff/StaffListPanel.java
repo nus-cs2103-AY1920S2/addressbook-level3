@@ -1,4 +1,4 @@
-package seedu.address.ui.uiTeacher;
+package seedu.address.ui.uiStaff;
 
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
@@ -7,21 +7,21 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the list of teachers.
  */
-public class TeacherListPanel extends UiPart<Region> {
+public class StaffListPanel extends UiPart<Region> {
 
   private static final String FXML = "TeacherListPanel.fxml";
-  private final Logger logger = LogsCenter.getLogger(TeacherListPanel.class);
+  private final Logger logger = LogsCenter.getLogger(StaffListPanel.class);
 
   @FXML
-  private ListView<Teacher> teacherListView;
+  private ListView<Staff> teacherListView;
 
-  public TeacherListPanel(ObservableList<Teacher> teacherList) {
+  public StaffListPanel(ObservableList<Staff> teacherList) {
     super(FXML);
     teacherListView.setItems(teacherList);
     teacherListView.setCellFactory(listView -> new TeacherListViewCell());
@@ -31,17 +31,17 @@ public class TeacherListPanel extends UiPart<Region> {
    * Custom {@code ListCell} that displays the graphics of a {@code Teacher} using a {@code
    * TeacherCard}.
    */
-  class TeacherListViewCell extends ListCell<Teacher> {
+  class TeacherListViewCell extends ListCell<Staff> {
 
     @Override
-    protected void updateItem(Teacher teacher, boolean empty) {
-      super.updateItem(teacher, empty);
+    protected void updateItem(Staff staff, boolean empty) {
+      super.updateItem(staff, empty);
 
-      if (empty || teacher == null) {
+      if (empty || staff == null) {
         setGraphic(null);
         setText(null);
       } else {
-        setGraphic(new TeacherCard(teacher, getIndex() + 1).getRoot());
+        setGraphic(new StaffCard(staff, getIndex() + 1).getRoot());
       }
     }
   }

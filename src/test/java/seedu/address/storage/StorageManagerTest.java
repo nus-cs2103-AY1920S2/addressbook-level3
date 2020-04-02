@@ -18,7 +18,7 @@ import seedu.address.storage.storageAssignments.JsonAssignmentAddressBookStorage
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
-import seedu.address.storage.storageTeacher.JsonTeacherAddressBookStorage;
+import seedu.address.storage.storageStaff.JsonStaffAddressBookStorage;
 
 public class StorageManagerTest {
 
@@ -30,8 +30,8 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
-        JsonTeacherAddressBookStorage teacherAddressBookStorage =
-            new JsonTeacherAddressBookStorage(getTempFilePath("tab"));
+        JsonStaffAddressBookStorage teacherAddressBookStorage =
+            new JsonStaffAddressBookStorage(getTempFilePath("tab"));
         JsonStudentAddressBookStorage studentAddressBookStorage =
             new JsonStudentAddressBookStorage(getTempFilePath("sab"));
         JsonFinanceAddressBookStorage financeAddressBookStorage =
