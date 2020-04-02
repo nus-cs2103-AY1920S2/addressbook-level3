@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -17,12 +18,14 @@ public class StudentListPanel extends UiPart<Region> {
 
   private static final String FXML = "StudentListPanel.fxml";
   private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
+  private CommandBox commandBox;
 
   @FXML
   private ListView<Student> studentListView;
 
-  public StudentListPanel(ObservableList<Student> studentList) {
+  public StudentListPanel(ObservableList<Student> studentList, CommandBox commandBox) {
     super(FXML);
+    this.commandBox = commandBox;
     studentListView.setItems(studentList);
     studentListView.setCellFactory(listView -> new StudentListViewCell());
   }
@@ -41,7 +44,7 @@ public class StudentListPanel extends UiPart<Region> {
         setGraphic(null);
         setText(null);
       } else {
-        setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
+        setGraphic(new StudentCard(student, commandBox,getIndex() + 1).getRoot());
       }
     }
   }

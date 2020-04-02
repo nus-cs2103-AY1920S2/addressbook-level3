@@ -54,7 +54,7 @@ public class AddFinanceCommandParser extends AddCommandParser {
 
     //If finance type is misc, then Name, Date, Amount must be provided
     //Else if finance type is CourseStudent, then Date, CourseID, StudentID must be provided
-    //Else if finance type is CourseTeacher, then Date, CourseID, TeacherID must be provided
+    //Else if finance type is CourseStaff, then Date, CourseID, StaffID must be provided
     if (!arePrefixesPresent(argMultimap, PREFIX_FINANCETYPE)) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_FINANCETYPE + AddFinanceCommand.MESSAGE_USAGE));
@@ -71,7 +71,7 @@ public class AddFinanceCommandParser extends AddCommandParser {
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
     ID emptyCourseid = new ID("");
     ID emptyStudentid = new ID("");
-    ID emptyTeacherid = new ID("");
+    ID emptyStaffid = new ID("");
 
     switch (financeType.toString()) {
       case "m": {
@@ -89,7 +89,7 @@ public class AddFinanceCommandParser extends AddCommandParser {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Finance finance = new Finance(name, financeType, date, amount, emptyCourseid,
-            emptyStudentid, emptyTeacherid, tagList);
+            emptyStudentid, emptyStaffid, tagList);
         return new AddFinanceCommand(finance);
       }
       case "cs": {
@@ -111,7 +111,7 @@ public class AddFinanceCommandParser extends AddCommandParser {
         Name name = new Name("None");
         Amount amount = new Amount("999");
         Finance finance = new Finance(name, financeType, date, amount, courseid, studentid,
-            emptyTeacherid, tagList);
+            emptyStaffid, tagList);
         return new AddFinanceCommand(finance);
       }
       case "ct": {
@@ -128,12 +128,12 @@ public class AddFinanceCommandParser extends AddCommandParser {
 
         ID courseid = ParserUtil
             .parseCourseid(argMultimap.getValue(PREFIX_COURSEID).get());
-        ID teacherid = ParserUtil
-            .parseTeacherid(argMultimap.getValue(PREFIX_TEACHERID).get());
+        ID staffid = ParserUtil
+            .parseStaffid(argMultimap.getValue(PREFIX_TEACHERID).get());
         Name name = new Name("None");
         Amount amount = new Amount("999");
         Finance finance = new Finance(name, financeType, date, amount, courseid, emptyStudentid,
-            teacherid, tagList);
+            staffid, tagList);
         return new AddFinanceCommand(finance);
       }
       default:

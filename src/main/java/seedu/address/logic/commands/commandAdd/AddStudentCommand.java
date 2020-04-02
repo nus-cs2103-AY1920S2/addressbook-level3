@@ -2,12 +2,9 @@ package seedu.address.logic.commands.commandAdd;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,11 +21,9 @@ public class AddStudentCommand extends AddCommand {
   public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the address book. "
       + "Parameters: "
       + PREFIX_NAME + "NAME "
-      + PREFIX_STUDENTID + "ID "
       + "[" + PREFIX_TAG + "TAG]...\n"
       + "Example: " + COMMAND_WORD + " "
       + PREFIX_NAME + "John AppleSeed "
-      + PREFIX_STUDENTID + "1 "
       + PREFIX_TAG + "Old "
       + PREFIX_TAG + "Lazy";
 

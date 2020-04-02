@@ -11,7 +11,7 @@ import seedu.address.model.Model;
  */
 public class ListTeacherCommand extends ListCommand {
 
-  public static final String COMMAND_WORD = "list-teachers";
+  public static final String COMMAND_WORD = "list-teacher";
 
   public static final String MESSAGE_SUCCESS = "Listed all teachers";
 

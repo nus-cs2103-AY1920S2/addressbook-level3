@@ -4,24 +4,91 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox id="summaryPanel" styleClass="summary-panel" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../images/teacherIcon.png" />
-      </image>
-   </ImageView>
-   <Pane prefHeight="200.0" prefWidth="200.0" styleClass="summary-pane">
+<VBox id="summary-panel" prefHeight="500.0" prefWidth="466.0"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="totalStudents1" prefHeight="59.0" prefWidth="445.0" text="Welcome to Code Camp X!">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="totalStudents11" prefHeight="60.0" prefWidth="445.0" text="Here are the statistics for your camp:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <HBox prefHeight="80.0" prefWidth="200.0">
       <children>
-         <Label fx:id="totalStudents" layoutX="5.0" text="Total Students: " />
-         <Label fx:id="totalTeachers" layoutX="5.0" layoutY="34.0" text="Total Teachers: " />
-         <Label fx:id="totalCourses" layoutX="5.0" layoutY="68.0" text="Total Courses: " />
-         <Label fx:id="totalFinances" layoutX="5.0" layoutY="102.0" text="Total Finances: " />
-         <Label fx:id="totalAssignments" layoutX="5.0" layoutY="131.0" text="Total Assigments: " />
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@ourImages/student.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="totalStudents" prefHeight="115.0" prefWidth="347.0" text="Total Students: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
       </children>
-   </Pane>
+   </HBox>
+   <HBox prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@ourImages/specs.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="totalStaffs" prefHeight="116.0" prefWidth="342.0" text="Total Staffs: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </children>
+   </HBox>
+   <HBox prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@ourImages/book.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="totalCourses" prefHeight="115.0" prefWidth="340.0" text="Total Courses: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </children>
+   </HBox>
+   <HBox prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@ourImages/finance.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="totalFinances" prefHeight="115.0" prefWidth="332.0" text="Total Finances: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </children>
+   </HBox>
+   <HBox prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@ourImages/assignment.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="totalAssignments" prefHeight="80.0" prefWidth="340.0" text="Total Assigments: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </children>
+   </HBox>
 
    <padding>
       <Insets left="10" />

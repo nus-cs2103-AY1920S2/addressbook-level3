@@ -155,23 +155,66 @@ saving is required.
 Exits the program. +
 Format: `exit`
 
-==== Assigning a Student to a Course : `assign`
+==== Undo an undoable command : `undo`
+
+Format: `undo`
+
+==== Redo a redoable command : `redo`
+
+Format: `redo`
+
+==== Assigning/Unassigning a Student to a Course : `assign` or 'unassign' respectively
 
 Adds the Student ID to the Course ID specified. +
-Format: `add cid/COURSEID sid/STUDENTID` +
+Format: `assign cid/COURSEID sid/STUDENTID` +
 Example: `assign cid/829 sid/33`
 
-==== Assigning a Student to a Course : `assign`
+Removes the Student ID from the Course ID specified. +
+Format: `unassign cid/COURSEID sid/STUDENTID` +
+Example: `unassign cid/829 sid/33`
+
+==== Assigning/Unassigning a Teacher to a Course : `assign` or 'unassign' respectively
 
 Adds the Teacher ID to the Course ID specified. +
-Format: `add tid/TEACHERID sid/STUDENTID` +
+Format: `assign cid/COURSEID tid/TEACHERID` +
 Example: `assign cid/829 tid/21`
 
+Removes the Teacher ID from the Course ID specified. +
+Format: `unassign cid/COURSEID tid/TEACHERID` +
+Example: `unassign cid/829 tid/21`
+
+==== Assigning/Unassigning an Assignment to a Course : `assign` or 'unassign' respectively
+
+Adds the Assignment ID to the Course ID specified. +
+Format: `assign cid/COURSEID aid/ASSIGNMENTID` +
+Example: `assign cid/829 aid/21`
+
+Removes the Assignment ID from the Course ID specified. +
+Format: `unassign cid/COURSEID aid/ASSIGNMENTID` +
+Example: `unassign cid/829 aid/21`
+
+=== Switch quickly to Summary Tab : 'm' or 'summary'
+Switches to summary tab
+
+=== Switch quickly to Student Tab : 's' or 'student'
+Switches to student tab
+
+=== Switch quickly to Staff Tab : 't' or 'staff'
+Switches to staff tab
+
+=== Switch quickly to Course Tab : 'c' or 'course'
+Switches to course tab
+
+=== Switch quickly to Finance Tab : 'f' or 'finance'
+Switches to finance tab
+
+=== Switch quickly to Assignment Tab : 'a' or 'assignment'
+Switches to assignment tab
 // tag::studentmanagement[]
 
 === Student
 .Student label. The assigned courses display the course names with the course ID beside
-image::studentCourses.png[width="500"]
+image::studentTab.png[width="1000"]
 ==== Add a student: `add-student`
 
 Add a new student to the list of student +
@@ -250,7 +293,7 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 
 === Teacher
 .Teacher label. The assigned courses display the course names with the course ID beside
-image::teacherCourses.png[width="500"]
+image::teacherTab.png[width="1000"]
 ==== Add a teacher: `add-teacher`
 
 Add a new teacher to the list of teacher +
@@ -329,7 +372,7 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 
 === Course
 .Course label. The assigned teachers/students display the teacher/student names with the teacher/student ID beside
-image::courseTeachersStudents.png[width="500"]
+image::courseTab.png[width="1000"]
 ==== Add a course: `add-course`
 
 Add a new course to the list of course +
@@ -409,7 +452,7 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 
 === Finance
 .Finance labels. Index 1 is Finance Type 1, Index 2 is Finance Type 2, and Index 3 is Finance Type 3
-image::financeTypes.png[width="500"]
+image::financeTab.png[width="1000"]
 ==== Add a finance: `add-finance`
 
 Add a new finance to the list of finance
@@ -509,6 +552,11 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 ====
 // end::financemanagement[]
 
+// tag::assignmentmanagement[]
+=== Assignment
+.Assignment labels.
+image::assignmentTab.png[width="1000"]
+// end::assignmentmanagement[]
 // tag::v2.0[]
 === Upcoming Features
 [[Register-Improvement]]
@@ -566,26 +614,44 @@ contains the data of your previous *CodeCampX* folder.
 |=======================================================================
 |COMMAND |FORMAT |EXAMPLE
 |*Help* |`help` |`help`
-|*Assign Student to a Course* | `add cid/COURSEID sid/STUDENTID`  |`assign cid/829 sid/33`
-|*Assign Teacher to a Course* | `add tid/TEACHERID sid/STUDENTID`  | `assign cid/829 tid/21`
+|*Undo an undoable command(CURD)* |`undo` |`undo`
+|*Redo a redoable command(CURD)* |`redo` |`redo`
+|||
+|*Switch to Summary Tab* | `m` or `summary`  | `m` or `summary`
+|*Switch to Student Tab* | `s` or `student`  | `s` or `student`
+|*Switch to Staff Tab* | `t` or `staff`  | `t` or `staff`
+|*Switch to Course Tab* | `c` or `course`  | `c` or `course`
+|*Switch to Finance Tab* | `f` or `finance`  | `f` or `finance`
+|*Switch to Assignment Tab* | `a` or `assignment`  | `a` or `assignment`
+|||
+|*Assign Student to a Course* | `assign cid/COURSEID sid/STUDENTID`  |`assign cid/829 sid/33`
+|*Assign Teacher to a Course* | `assign cid/COURSEID tid/TEACHERID`  | `assign cid/829 tid/21`
+|*Assign Assignment to a Course* | `assign cid/COURSEID aid/ASSIGNMENTID`  | `assign cid/829 aid/21`
+|*Unassign Student from a Course* | `unassign cid/COURSEID sid/STUDENTID`  |`unassign cid/829 sid/33`
+|*Unassign Teacher from a Course* | `unassign cid/COURSEID tid/TEACHERID`  | `unassign cid/829 tid/21`
+|*Unassign Assignment from a Course* | `unassign cid/COURSEID aid/ASSIGNMENTID`  | `unassign cid/829 aid/21`
+|||
 |*Add Student* |`add-student n/NAME [t/TAG]…` | `add-student n/Jon Snow t/Hardworking`
 |*Delete Student* | `delete-student INDEX` | `delete-student 1`
 |*Find Student* | `find-student KEYWORD [MORE_KEYWORDS]...` | `find-student Lannister Targaryen Stark`
 |*List Student* | `list-student` | `list-student`
 | *Edit Student* | `edit-student INDEX [n/NAME] [t/TAG]…` | `edit-student 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
 | *Clear Student* | `clear-student` | `clear-student`
+|||
 |*Add Teacher* |`add-teacher n/NAME [t/TAG]…` |`add-teacher n/Jon Snow t/Hardworking`
 |*Delete Teacher* | `delete-teacher INDEX` | `delete-teacher 1`
 |*Find Teacher* | `find-teacher KEYWORD [MORE_KEYWORDS]...` | `find-teacher Lannister Targaryen Stark`
 |*List Teacher* | `list-teacher` | `list-teacher`
 | *Edit Teacher* | `edit-teacher INDEX [n/NAME] [t/TAG]…` | `edit-teacher 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
 | *Clear Teacher* | `clear-teacher` | `clear-teacher`
+|||
 |*Add Course* |`add-course n/NAME a/AMOUNT [t/TAG]…` | `add-course n/Cozmo Programming a/2000 t/Fun t/Robot`
 |*Delete Course* | `delete-course INDEX` | `delete-course 1`
 |*Find Course* | `find-course KEYWORD [MORE_KEYWORDS]...` | `find-course Java Python C`
 |*List Course* | `list-course` | `list-course`
 | *Edit Course* | `edit-course INDEX [n/NAME] [a/AMOUNT] [t/TAG]…` | `edit-course 1 n/Java Programming a/2000`
 | *Clear Course* | `clear-course` | `clear-course`
+|||
 |*Add Finance Type 1 (ft/m)* |`add-finance ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...` |`add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly`
 |*Add Finance Type 2 (ft/cs)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...` |`add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late`
 |*Add Finance Type 3 (ft/ct)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID tid/TEACHERID [t/TAG]...` |`add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early`

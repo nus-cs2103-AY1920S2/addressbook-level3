@@ -17,13 +17,14 @@ public class CommandBox extends UiPart<Region> {
   private static final String FXML = "CommandBox.fxml";
 
   private final CommandExecutor commandExecutor;
-
+  private final MainWindow mainWindow;
   @FXML
   private TextField commandTextField;
 
-  public CommandBox(CommandExecutor commandExecutor) {
+  public CommandBox(CommandExecutor commandExecutor, MainWindow mainWindow) {
     super(FXML);
     this.commandExecutor = commandExecutor;
+    this.mainWindow = mainWindow;
     // calls #setStyleToDefault() whenever there is a change to the text of the command box.
     commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
   }
@@ -38,6 +39,19 @@ public class CommandBox extends UiPart<Region> {
       commandTextField.setText("");
     } catch (CommandException | ParseException e) {
       setStyleToIndicateCommandFailure();
+    }
+  }
+
+  /**
+   * Handles custom command from user clicks. Only runs the select command if in the proper view
+   */
+  public void runCommand(String commandText, String currentView) {
+    if (currentView.equals(mainWindow.getCurrentView())) {
+      try {
+        commandExecutor.execute(commandText);
+      } catch (CommandException | ParseException e) {
+        setStyleToIndicateCommandFailure();
+      }
     }
   }
 

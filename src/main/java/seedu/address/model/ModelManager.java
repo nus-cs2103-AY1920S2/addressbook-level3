@@ -25,14 +25,15 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.StaffAddressBook;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -58,30 +59,43 @@ public class ModelManager extends BaseManager implements Model {
   private final FilteredList<Assignment> filteredAssignments;
   private final FilteredList<Progress> filteredProgresses;
 
+  private Predicate<Student> dataStudentPredicate = PREDICATE_SHOW_ALL_STUDENTS;
+  private Predicate<Staff> dataStaffPredicate = PREDICATE_SHOW_ALL_STAFFS;
+  private Predicate<Finance> dataFinancePredicate = PREDICATE_SHOW_ALL_FINANCES;
+  private Predicate<Course> dataCoursePredicate = PREDICATE_SHOW_ALL_COURSES;
+  private Predicate<Assignment> dataAssignmentPredicate = PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
+  private Predicate<Student> extraStudentPredicate = PREDICATE_HIDE_ALL_STUDENTS;
+  private Predicate<Staff> extraStaffPredicate = PREDICATE_HIDE_ALL_STAFFS;
+  private Predicate<Finance> extraFinancePredicate = PREDICATE_HIDE_ALL_FINANCES;
+  private Predicate<Course> extraStudentCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
+  private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
+  private Predicate<Assignment> extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
+  private MainWindow mainWindow;
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
    */
   public ModelManager(ReadOnlyAddressBook addressBook,
-                      ReadOnlyAddressBookGeneric<Staff> staffAddressBook, ReadOnlyAddressBookGeneric<Student> studentAddressBook,
-                      ReadOnlyAddressBookGeneric<Finance> financeAddressBook, ReadOnlyAddressBookGeneric<Course> courseAddressBook,
-                      ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook, ReadOnlyAddressBookGeneric<Progress> progressAssignmentBook,
-                      ReadOnlyUserPrefs userPrefs) {
+      ReadOnlyAddressBookGeneric<Staff> staffAddressBook,
+      ReadOnlyAddressBookGeneric<Student> studentAddressBook,
+      ReadOnlyAddressBookGeneric<Finance> financeAddressBook,
+      ReadOnlyAddressBookGeneric<Course> courseAddressBook,
+      ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook,
+      ReadOnlyAddressBookGeneric<Progress> progressAssignmentBook,
+      ReadOnlyUserPrefs userPrefs) {
     super();
 
     requireAllNonNull(staffAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
-            assignmentAddressBook, progressAssignmentBook, userPrefs);
+        assignmentAddressBook, progressAssignmentBook, userPrefs);
 
     logger.info("Model Manager check:" + assignmentAddressBook.toString());
 
-
     logger.info("Model Manager check:" + assignmentAddressBook.toString());
-
 
     logger.fine("Initializing with address book: " + studentAddressBook
-            + "Initializing with staff address book: " + staffAddressBook
-            + "Initializing with address address book: " + assignmentAddressBook
-            + " and user prefs " + userPrefs);
+        + "Initializing with staff address book: " + staffAddressBook
+        + "Initializing with address address book: " + assignmentAddressBook
+        + " and user prefs " + userPrefs);
 
     this.addressBook = new AddressBook(addressBook);
     this.staffAddressBook = new StaffAddressBook(staffAddressBook);
@@ -102,15 +116,15 @@ public class ModelManager extends BaseManager implements Model {
 
     for (Course course : filteredCourses) {
       course.processAssignedStudents(filteredStudents);
-      course.processAssignedTeacher(filteredStaffs);
+      course.processAssignedStaff(filteredStaffs);
     }
 
     for (Student student : filteredStudents) {
       student.processAssignedCourses(filteredCourses);
     }
 
-    for (Staff teacher : filteredStaffs) {
-      teacher.processAssignedCourses(filteredCourses);
+    for (Staff staff : filteredStaffs) {
+      staff.processAssignedCourses(filteredCourses);
     }
 
 
@@ -118,11 +132,18 @@ public class ModelManager extends BaseManager implements Model {
 
   public ModelManager() {
     this(new AddressBook(), new StaffAddressBook(), new StudentAddressBook(),
-            new FinanceAddressBook(), new CourseAddressBook(),
-            new AssignmentAddressBook(), new ProgressAddressBook(),
-            new UserPrefs());
+        new FinanceAddressBook(), new CourseAddressBook(),
+        new AssignmentAddressBook(), new ProgressAddressBook(),
+        new UserPrefs());
   }
 
+  public MainWindow getMainWindow(){
+    return this.mainWindow;
+  }
+
+  public void setMainWindow(MainWindow mainWindow){
+    this.mainWindow = mainWindow;
+  }
   //=========== UserPrefs ==================================================================================
 
   @Override
@@ -245,48 +266,50 @@ public class ModelManager extends BaseManager implements Model {
   private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
     if (obj instanceof Staff) {
       return Arrays.asList(
-              this.staffAddressBook,
-              PREDICATE_SHOW_ALL_STAFFS,
-                      filteredStaffs,
-              Constants.ENTITY_TYPE.STAFF);
+          this.staffAddressBook,
+          PREDICATE_SHOW_ALL_STAFFS,
+          filteredStaffs,
+          Constants.ENTITY_TYPE.STAFF);
     } else if (obj instanceof Student) {
       return Arrays.asList(
-              this.studentAddressBook,
-              PREDICATE_SHOW_ALL_STUDENTS,
-              filteredStudents,
-              Constants.ENTITY_TYPE.STUDENT);
+          this.studentAddressBook,
+          PREDICATE_SHOW_ALL_STUDENTS,
+          filteredStudents,
+          Constants.ENTITY_TYPE.STUDENT);
     } else if (obj instanceof Finance) {
       return Arrays.asList(
-              this.financeAddressBook,
-              PREDICATE_SHOW_ALL_FINANCES,
-              filteredFinances,
-              Constants.ENTITY_TYPE.FINANCE);
+          this.financeAddressBook,
+          PREDICATE_SHOW_ALL_FINANCES,
+          filteredFinances,
+          Constants.ENTITY_TYPE.FINANCE);
     } else if (obj instanceof Course) {
       return Arrays.asList(
-              this.courseAddressBook,
-              PREDICATE_SHOW_ALL_COURSES,
-              filteredCourses,
-              Constants.ENTITY_TYPE.COURSE);
+          this.courseAddressBook,
+          PREDICATE_SHOW_ALL_COURSES,
+          filteredCourses,
+          Constants.ENTITY_TYPE.COURSE);
     } else if (obj instanceof Assignment) {
       return Arrays.asList(
-              this.assignmentAddressBook,
-              PREDICATE_SHOW_ALL_ASSIGNMENTS,
-              filteredAssignments,
-              Constants.ENTITY_TYPE.ASSIGNMENT);
+          this.assignmentAddressBook,
+          PREDICATE_SHOW_ALL_ASSIGNMENTS,
+          filteredAssignments,
+          Constants.ENTITY_TYPE.ASSIGNMENT);
     }
-    throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
+    throw new CommandException(
+        "This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
   private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
-    return (AddressBookGeneric)getEntityFactory(obj).get(0);
+    return (AddressBookGeneric) getEntityFactory(obj).get(0);
   }
 
-  private ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException {
-    return (ReadOnlyAddressBookGeneric)getEntityFactory(obj).get(0);
+  private ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj)
+      throws CommandException {
+    return (ReadOnlyAddressBookGeneric) getEntityFactory(obj).get(0);
   }
 
   private Predicate getPredicateAll(ModelObject obj) throws CommandException {
-    return (Predicate)getEntityFactory(obj).get(1);
+    return (Predicate) getEntityFactory(obj).get(1);
   }
 
   @Override
@@ -300,18 +323,18 @@ public class ModelManager extends BaseManager implements Model {
   }
 
 
-
   private FilteredList getFilterList(ModelObject obj) throws CommandException {
-    return (FilteredList)getEntityFactory(obj).get(2);
+    return (FilteredList) getEntityFactory(obj).get(2);
 
   }
 
   private Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
-    return (Constants.ENTITY_TYPE)getEntityFactory(obj).get(3);
+    return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
   }
   // ======================================================================================================
 
-  private void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook, Constants.ENTITY_TYPE entityType) {
+  private void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
+      Constants.ENTITY_TYPE entityType) {
     raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
   }
 
@@ -382,15 +405,14 @@ public class ModelManager extends BaseManager implements Model {
   }
 
   @Override
-  public boolean hasTeacher(ID teacherID) {
-    return staffAddressBook.has(teacherID);
+  public boolean hasStaff(ID staffID) {
+    return staffAddressBook.has(staffID);
   }
 
   @Override
-  public Staff getTeacher(ID teacherID) {
-    return staffAddressBook.get(teacherID);
+  public Staff getStaff(ID staffID) {
+    return staffAddressBook.get(staffID);
   }
-
 
   // =====================================================================================================
 
@@ -437,13 +459,9 @@ public class ModelManager extends BaseManager implements Model {
   }
 
   @Override
-  public void setAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
+  public void setAssignmentAddressBook(
+      ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
     this.assignmentAddressBook.resetData(assignmentAddressBook);
-  }
-
-  @Override
-  public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
-    this.progressAddressBook.resetData(progressAddressBook);
   }
 
   @Override
@@ -451,6 +469,10 @@ public class ModelManager extends BaseManager implements Model {
     return progressAddressBook;
   }
 
+  @Override
+  public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
+    this.progressAddressBook.resetData(progressAddressBook);
+  }
 
   //=========== Filtered List Accessors =============================================================
 
@@ -470,8 +492,8 @@ public class ModelManager extends BaseManager implements Model {
   }
 
   /**
-   * Returns an unmodifiable view of the list of {@code Staff} backed by the internal list of
-   * {@code versionedStaffAddressBook}
+   * Returns an unmodifiable view of the list of {@code Staff} backed by the internal list of {@code
+   * versionedStaffAddressBook}
    */
   @Override
   public ObservableList<Staff> getFilteredStaffList() {
@@ -481,6 +503,27 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void updateFilteredStaffList(Predicate<Staff> predicate) {
     requireNonNull(predicate);
+    filteredStaffs.setPredicate(predicate);
+    dataStaffPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredStaffList(Predicate<Staff> predicate) {
+    requireNonNull(predicate);
+    filteredStaffs.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredStaffList(Predicate<Staff> predicate) {
+    requireNonNull(predicate);
+    filteredStaffs.setPredicate(predicate);
+    extraStaffPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredStaffList(Predicate<Staff> predicate) {
+    requireNonNull(predicate);
+    filteredStaffs.setPredicate(predicate);
     filteredStaffs.setPredicate(predicate);
   }
 
@@ -495,6 +538,26 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public void updateFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    filteredStudents.setPredicate(predicate);
+    dataStudentPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    filteredStudents.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    filteredStudents.setPredicate(predicate);
+    extraStudentPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredStudentList(Predicate<Student> predicate) {
     requireNonNull(predicate);
     filteredStudents.setPredicate(predicate);
   }
@@ -512,6 +575,26 @@ public class ModelManager extends BaseManager implements Model {
   public void updateFilteredFinanceList(Predicate<Finance> predicate) {
     requireNonNull(predicate);
     filteredFinances.setPredicate(predicate);
+    dataFinancePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    filteredFinances.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    filteredFinances.setPredicate(predicate);
+    extraFinancePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    filteredFinances.setPredicate(predicate);
   }
 
   /**
@@ -525,6 +608,33 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public void updateFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+    dataCoursePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedDataFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredStudentCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+    extraStudentCoursePredicate = predicate;
+  }
+
+  @Override
+  public void updateExtraFilteredStaffCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+    extraStaffCoursePredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredCourseList(Predicate<Course> predicate) {
     requireNonNull(predicate);
     filteredCourses.setPredicate(predicate);
   }
@@ -542,7 +652,28 @@ public class ModelManager extends BaseManager implements Model {
   public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
     requireNonNull(predicate);
     filteredAssignments.setPredicate(predicate);
+    dataAssignmentPredicate = predicate;
   }
+
+  @Override
+  public void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+  }
+
+  @Override
+  public void updateExtraFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+    extraAssignmentPredicate = predicate;
+  }
+
+  @Override
+  public void updateObservedExtraFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+  }
+
 
   /**
    * Returns an unmodifiable view of the filtered finance list
@@ -573,12 +704,11 @@ public class ModelManager extends BaseManager implements Model {
     foundCourse.addStudent(studentID);
     foundStudent.addCourse(courseID);
     foundCourse.processAssignedStudents(
-            (FilteredList<Student>) getFilteredStudentList());
+        (FilteredList<Student>) getFilteredStudentList());
     foundStudent.processAssignedCourses(
-            (FilteredList<Course>) getFilteredCourseList());
+        (FilteredList<Course>) getFilteredCourseList());
     updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-
 
     set(foundCourse, foundCourse);
     set(foundStudent, foundStudent);
@@ -596,17 +726,17 @@ public class ModelManager extends BaseManager implements Model {
 
   }
 
-  public void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException {
+  public void assignTeacherToCourse(ID staffID, ID courseID) throws CommandException {
     Course foundCourse = getCourse(courseID);
-    Staff foundTeacher = getTeacher(teacherID);
+    Staff foundTeacher = getStaff(staffID);
 
-    foundCourse.addTeacher(teacherID);
+    foundCourse.addStaff(staffID);
     foundTeacher.addCourse(courseID);
 
-    foundCourse.processAssignedTeacher(
-            (FilteredList<Staff>) getFilteredStaffList());
+    foundCourse.processAssignedStaff(
+        (FilteredList<Staff>) getFilteredStaffList());
     foundTeacher.processAssignedCourses(
-            (FilteredList<Course>) getFilteredCourseList());
+        (FilteredList<Course>) getFilteredCourseList());
     set(foundCourse, foundCourse);
     set(foundTeacher, foundTeacher);
   }
@@ -626,7 +756,8 @@ public class ModelManager extends BaseManager implements Model {
 
     requireAllNonNull(foundAssignment, foundAssignment);
     getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment),
+        getEntityType(foundAssignment));
 
   }
 
@@ -637,9 +768,9 @@ public class ModelManager extends BaseManager implements Model {
     foundCourse.removeStudent(studentID);
     foundStudent.removeCourse(courseID);
     foundCourse.processAssignedStudents(
-            (FilteredList<Student>) getFilteredStudentList());
+        (FilteredList<Student>) getFilteredStudentList());
     foundStudent.processAssignedCourses(
-            (FilteredList<Course>) getFilteredCourseList());
+        (FilteredList<Course>) getFilteredCourseList());
     updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
 
@@ -651,7 +782,6 @@ public class ModelManager extends BaseManager implements Model {
     getAddressBook(foundStudent).set(foundStudent, foundStudent);
     postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
   }
-
 
 
   @Override
@@ -681,5 +811,51 @@ public class ModelManager extends BaseManager implements Model {
         && filteredFinances.equals(other.filteredFinances)
         && filteredAssignments.equals(other.filteredAssignments)
         && filteredProgresses.equals(other.filteredProgresses);
+  }
+
+  // ========================== Getters for Predicates =========================
+
+  public Predicate<Student> getDataStudentPredicate() {
+    return dataStudentPredicate;
+  }
+
+  public Predicate<Staff> getDataStaffPredicate() {
+    return dataStaffPredicate;
+  }
+
+  public Predicate<Finance> getDataFinancePredicate() {
+    return dataFinancePredicate;
+  }
+
+  public Predicate<Course> getDataCoursePredicate() {
+    return dataCoursePredicate;
+  }
+
+  public Predicate<Assignment> getDataAssignmentPredicate() {
+    return dataAssignmentPredicate;
+  }
+
+  public Predicate<Student> getExtraStudentPredicate() {
+    return extraStudentPredicate;
+  }
+
+  public Predicate<Staff> getExtraStaffPredicate() {
+    return extraStaffPredicate;
+  }
+
+  public Predicate<Finance> getExtraFinancePredicate() {
+    return extraFinancePredicate;
+  }
+
+  public Predicate<Course> getExtraStudentCoursePredicate() {
+    return extraStudentCoursePredicate;
+  }
+
+  public Predicate<Course> getExtraStaffCoursePredicate() {
+    return extraStaffCoursePredicate;
+  }
+
+  public Predicate<Assignment> getExtraAssignmentPredicate() {
+    return extraAssignmentPredicate;
   }
 }

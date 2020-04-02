@@ -3,9 +3,16 @@
     -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
 
-.list-cell:empty {
-    /* Empty cells will not have alternating colours */
-    -fx-background-color: derive(#00b2ca, 20%);
+.list-cell:empty:even{
+    -fx-pref-height: 100px;
+    -fx-background-color: derive(#424d5f, 20%);
+    -fx-border-color: grey;
+}
+
+.list-cell:empty:odd{
+    -fx-pref-height: 100px;
+    -fx-background-color: derive(#424d5f, 20%);
+    -fx-border-color: grey;
 }
 
 .tag-selector {

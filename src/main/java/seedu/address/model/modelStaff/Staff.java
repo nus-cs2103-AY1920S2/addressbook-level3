@@ -2,17 +2,23 @@ package seedu.address.model.modelStaff;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,6 +49,18 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
+  public Staff(Name name, ID id, Level level, Set<Tag> tags){
+    requireAllNonNull(name, id, level, tags);
+    this.name = name;
+    this.id = id;
+    this.phone = new Phone("Unknown");
+    this.email = new Email("Unknown");
+    this.level = level;
+    this.salary = new Salary("0");
+    this.address = new Address("Unknown");
+    this.tags.addAll(tags);
+  }
+
   public Staff(Name name, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) throws ParseException {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
@@ -111,6 +129,18 @@ public class Staff extends ModelObject {
   }
 
   /**
+   * Get List of String of the ID
+   * @return Array of String
+   */
+  public List<String> getAssignedCoursesIDString() {
+    List<String> IDList = new ArrayList<>();
+    for (ID id : assignedCoursesID) {
+      IDList.add(id.toString());
+    }
+    return IDList;
+  }
+
+  /**
    * Assign a course ID to a staff (the staff must be a teacher)
    * @param courseID
    */
@@ -141,7 +171,8 @@ public class Staff extends ModelObject {
           if (count == assignedCoursesID.size()) {
             comma = "";
           }
-          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
+          s.append(courseid).append(comma);
+          //s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
         }
       }
       count++;

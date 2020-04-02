@@ -1,5 +1,13 @@
 package seedu.address.model.modelCourse;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -11,13 +19,6 @@ import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Course in the address book. Guarantees: details are present and not null, field
@@ -31,10 +32,10 @@ public class Course extends ModelObject {
   private final ID id;
   private final Set<Tag> tags = new HashSet<>();
   private Amount amount;
-  private ID assignedTeacherID;
+  private ID assignedStaffID;
   private Set<ID> assignedStudentsID = new HashSet<>();
   private Set<ID> assignedAssignmentsID = new HashSet<>();
-  private String assignedTeacherWithName;
+  private String assignedStaffWithName;
   private String assignedStudentsWithNames;
   /**
    * Every field must be present and not null.
@@ -45,6 +46,8 @@ public class Course extends ModelObject {
     this.id = UuidManager.assignNewUUID(this);
     this.amount = amount;
     this.tags.addAll(tags);
+    this.assignedStaffWithName = "None";
+    this.assignedStudentsWithNames = "None";
   }
 
   /**
@@ -57,20 +60,20 @@ public class Course extends ModelObject {
     this.id = id;
     this.amount = amount;
     this.tags.addAll(tags);
-    this.assignedTeacherWithName = "None";
+    this.assignedStaffWithName = "None";
     this.assignedStudentsWithNames = "None";
   }
 
-  public Course(Name name, ID id, Amount amount, ID assignedTeacherID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
+  public Course(Name name, ID id, Amount amount, ID assignedStaffID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
     this.id = id;
     this.amount = amount;
-    this.assignedTeacherID = assignedTeacherID;
+    this.assignedStaffID = assignedStaffID;
     this.assignedStudentsID.addAll(assignedStudentsID);
     this.assignedAssignmentsID.addAll(assignedAssignmentsID);
     this.tags.addAll(tags);
-    this.assignedTeacherWithName = "None";
+    this.assignedStaffWithName = "None";
     this.assignedStudentsWithNames = "None";
   }
 
@@ -87,8 +90,8 @@ public class Course extends ModelObject {
     return amount;
   }
 
-  public ID getAssignedTeacherID() {
-    return assignedTeacherID;
+  public ID getAssignedStaffID() {
+    return assignedStaffID;
   }
 
   public void addStudent(ID studentID) {
@@ -107,8 +110,8 @@ public class Course extends ModelObject {
     this.assignedAssignmentsID.addAll(assignmentIDs);
   }
 
-  public void addTeacher(ID teacherID) throws CommandException {
-    this.assignedTeacherID = teacherID;
+  public void addStaff(ID staffID) throws CommandException {
+    this.assignedStaffID = staffID;
   }
   // ================================== FOR ASSIGN COMMANDS =================================
   public boolean containsStudent(ID studentID) {
@@ -127,152 +130,169 @@ public class Course extends ModelObject {
     }
   }
 
-  public boolean containsTeacher(ID teacherID) {
-    if(assignedTeacherID.equals(teacherID)) {
-      return true;
-    } else {
-      return false;
-    }
+  public void assignStaff(ID staffid) {
+    this.assignedStaffID = staffid;
   }
 
-  // ================================== FOR UNASSIGN COMMANDS =================================
-
-  public void removeAssignment(ID assignmentID) {
-    this.assignedAssignmentsID.remove(assignmentID);
-  }
-
-  public void removeStudent(ID studentID) {
-    this.assignedStudentsID.remove(studentID);
-  }
-
-  public void removeTeacher() {
-    this.assignedTeacherID = null;
-  }
-
-
-  public Set<ID> getAssignedAssignmentsID() {
-    return Collections.unmodifiableSet(assignedAssignmentsID);
-  }
-
-  /**
-   * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
-   * modification is attempted.
-   */
-  public Set<ID> getAssignedStudentsID() {
-    return Collections.unmodifiableSet(assignedStudentsID);
-  }
-
-  public String getAssignedStudentsWithNames(){
-    return this.assignedStudentsWithNames;
-  }
-
-  public String getAssignedTeacherWithName(){
-    return this.assignedTeacherWithName;
-  }
-  /**
-   * Converts internal list of assigned teacher ID into the name with the ID
-   */
-  public void processAssignedTeacher(FilteredList<Staff> filteredTeachers){
-    this.assignedTeacherWithName = "None";
-    for (Staff teacher : filteredTeachers) {
-      if (teacher.getId().toString().equals(this.assignedTeacherID.toString())) {
-        this.assignedTeacherWithName = teacher.getName().toString() + "(" + teacher.getId().toString() + ")";
+    public boolean containsStaff(ID staffID) {
+      if(assignedStaffID.equals(staffID)) {
+        return true;
+      } else {
+        return false;
       }
     }
-  }
 
-  /**
-   * Converts internal list of assigned student IDs into the name with the IDs
-   */
-  public void processAssignedStudents(FilteredList<Student> filteredStudents){
-    StringBuilder s = new StringBuilder();
-    int count = 1;
-    for (ID studentid : assignedStudentsID) {
-      for (Student student : filteredStudents) {
-        if (studentid.toString().equals(student.getId().toString())) {
-          String comma = ", ";
-          if (count == assignedStudentsID.size()) {
-            comma = "";
-          }
-          s.append(student.getName()).append("(").append(studentid).append(")").append(comma);
+    // ================================== FOR UNASSIGN COMMANDS =================================
+
+    public void removeAssignment(ID assignmentID) {
+      this.assignedAssignmentsID.remove(assignmentID);
+    }
+
+    public void removeStudent(ID studentID) {
+      this.assignedStudentsID.remove(studentID);
+    }
+
+    public void removeStaff() {
+      this.assignedStaffID = null;
+    }
+
+
+    public Set<ID> getAssignedAssignmentsID() {
+      return Collections.unmodifiableSet(assignedAssignmentsID);
+    }
+
+    /**
+     * Get List of String of the ID
+     * @return Array of String
+     */
+    public List<String> getAssignedStudentsIDString() {
+      List<String> IDList = new ArrayList<>();
+      for (ID id : assignedStudentsID) {
+        IDList.add(id.toString());
+      }
+      return IDList;
+    }
+
+    /**
+     * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
+     * modification is attempted.
+     */
+    public Set<ID> getAssignedStudentsID() {
+      return Collections.unmodifiableSet(assignedStudentsID);
+    }
+
+    public String getAssignedStudentsWithNames(){
+      return this.assignedStudentsWithNames;
+    }
+
+    public String getAssignedStaffWithName(){
+      return this.assignedStaffWithName;
+    }
+    /**
+     * Converts internal list of assigned staff ID into the name with the ID
+     */
+    public void processAssignedStaff(FilteredList<Staff> filteredStaffs){
+      this.assignedStaffWithName = "None";
+      for (Staff staff : filteredStaffs) {
+        if (staff.getId().toString().equals(this.assignedStaffID.toString())) {
+          this.assignedStaffWithName = staff.getName().toString() + "(" + staff.getId().toString() + ")";
         }
       }
-      count++;
     }
 
-    if (s.toString().equals("")) {
-      this.assignedStudentsWithNames = "None";
-    } else {
-      this.assignedStudentsWithNames = "[" + s.toString() + "]";
-    }
-  }
-  /**
-   * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
-   * modification is attempted.
-   */
-  public Set<Tag> getTags() {
-    return Collections.unmodifiableSet(tags);
-  }
+    /**
+     * Converts internal list of assigned student IDs into the name with the IDs
+     */
+    public void processAssignedStudents(FilteredList<Student> filteredStudents){
+      StringBuilder s = new StringBuilder();
+      int count = 1;
+      for (ID studentid : assignedStudentsID) {
+        for (Student student : filteredStudents) {
+          if (studentid.toString().equals(student.getId().toString())) {
+            String comma = ", ";
+            if (count == assignedStudentsID.size()) {
+              comma = "";
+            }
+            s.append(studentid).append(comma);
+            //s.append(student.getName()).append("(").append(studentid).append(")").append(comma);
+          }
+        }
+        count++;
+      }
 
-  /**
-   * Returns true if both courses of the same name have at least one other identity field that is
-   * the same. This defines a weaker notion of equality between two courses.
-   */
-  public boolean weakEquals(ModelObject otherCourse) {
-    if (otherCourse == this) {
-      return true;
+      if (s.toString().equals("")) {
+        this.assignedStudentsWithNames = "None";
+      } else {
+        this.assignedStudentsWithNames = "[" + s.toString() + "]";
+      }
+    }
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
+     * modification is attempted.
+     */
+    public Set<Tag> getTags() {
+      return Collections.unmodifiableSet(tags);
     }
 
-    if (otherCourse instanceof Course == false) {
-      return false;
-    }
-    Course otherCourseCast = (Course) otherCourse;
-    return otherCourseCast != null
+    /**
+     * Returns true if both courses of the same name have at least one other identity field that is
+     * the same. This defines a weaker notion of equality between two courses.
+     */
+    public boolean weakEquals(ModelObject otherCourse) {
+      if (otherCourse == this) {
+        return true;
+      }
+
+      if (otherCourse instanceof Course == false) {
+        return false;
+      }
+      Course otherCourseCast = (Course) otherCourse;
+      return otherCourseCast != null
 //        && otherCourse.getName().equals(getName())
-            && otherCourseCast.getId().equals(getId());
-  }
-
-  /**
-   * Returns true if both courses have the same identity and data fields. This defines a stronger
-   * notion of equality between two courses.
-   */
-  @Override
-  public boolean equals(Object other) {
-    if (other == this) {
-      return true;
+          && otherCourseCast.getId().equals(getId());
     }
 
-    if (!(other instanceof Course)) {
-      return false;
+    /**
+     * Returns true if both courses have the same identity and data fields. This defines a stronger
+     * notion of equality between two courses.
+     */
+    @Override
+    public boolean equals(Object other) {
+      if (other == this) {
+        return true;
+      }
+
+      if (!(other instanceof Course)) {
+        return false;
+      }
+
+      Course otherCourse = (Course) other;
+      return otherCourse.getId().equals(getId());
     }
 
-    Course otherCourse = (Course) other;
-    return otherCourse.getId().equals(getId());
+    @Override
+    public int hashCode() {
+      // use this method for custom fields hashing instead of implementing your own
+      return Objects.hash(name, id, amount, tags);
+    }
+
+    @Override
+    public String toString() {
+      final StringBuilder builder = new StringBuilder();
+      builder.append(getName())
+          .append(" ID: ")
+          .append(getId())
+          .append(" Amount: ")
+          .append(getAmount())
+          .append(" AssignedStaff: ")
+          .append(getAssignedStaffID())
+          .append(" Assigned Students: ");
+      getAssignedStudentsID().forEach(builder::append);
+
+      builder
+          .append(" Tags: ");
+      getTags().forEach(builder::append);
+      return builder.toString();
+    }
+
   }
-
-  @Override
-  public int hashCode() {
-    // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, id, amount, tags);
-  }
-
-  @Override
-  public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append(getName())
-        .append(" ID: ")
-        .append(getId())
-        .append(" Amount: ")
-        .append(getAmount())
-        .append(" AssignedTeacher: ")
-        .append(getAssignedTeacherID())
-        .append(" Assigned Students: ");
-    getAssignedStudentsID().forEach(builder::append);
-
-    builder
-        .append(" Tags: ");
-    getTags().forEach(builder::append);
-    return builder.toString();
-  }
-
-}

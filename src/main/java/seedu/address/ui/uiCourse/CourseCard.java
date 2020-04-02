@@ -2,7 +2,6 @@ package seedu.address.ui.uiCourse;
 
 import java.util.Comparator;
 import java.util.Set;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -10,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.ID;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -35,11 +35,11 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private Label name;
   @FXML
-  private Label teacherID;
+  private Label id;
   @FXML
   private Label courseID;
   @FXML
-  private Label assignedTeacher;
+  private Label assignedStaff;
   @FXML
   private Label assignedStudents;
   @FXML
@@ -49,28 +49,32 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private FlowPane tags;
 
-  public CourseCard(Course course, int displayedIndex) {
+  private CommandBox commandBox;
+
+  public CourseCard(Course course, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.course = course;
+    this.commandBox = commandBox;
     name.setText(course.getName().fullName);
-    teacherID.setText(course.getId().value);
+    id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
-    StringBuilder assignmentsStrings = new StringBuilder();
+
     Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
-    for(ID x : assignmentIDS) {
-      assignmentsStrings.append(x.toString() + "-");
+    String assignmentsStrings = "None";
+    if (assignmentIDS.size() > 0) {
+      assignmentsStrings = assignmentIDS.toString();
     }
-    assignedAssignments.setText(assignmentsStrings.toString());
+    assignedAssignments.setText(assignmentsStrings);
+
     course.getAssignedAssignmentsID();
     amount.setText(course.getAmount().value);
-    assignedTeacher.setText(course.getAssignedTeacherWithName());
+    assignedStaff.setText(course.getAssignedStaffWithName());
     assignedStudents.setText(course.getAssignedStudentsWithNames());
 
     course.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
-
 
   @Override
   public boolean equals(Object other) {
@@ -89,5 +93,12 @@ public class CourseCard extends UiPart<Region> {
     return courseID.getText().equals(card.courseID.getText())
         && amount.getText().equals(card.amount.getText())
         && course.equals(card.course);
+  }
+
+  @FXML
+  private void selectCourse(){
+    String selectedCourseID = courseID.getText();
+    String commandText = "select cid/" + selectedCourseID;
+    commandBox.runCommand(commandText, "COURSE");
   }
 }
