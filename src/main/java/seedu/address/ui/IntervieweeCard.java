@@ -73,6 +73,13 @@ public class IntervieweeCard extends UiPart<Region> {
                 }
             }
         });
+        this.getRoot().setOnMouseClicked(event -> {
+            try {
+                commandExecutor.execute("open " + this.interviewee);
+            } catch (CommandException | IllegalValueException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public IntervieweeCard(Interviewee interviewee, CommandExecutor commandExecutor, double score) {
@@ -81,9 +88,6 @@ public class IntervieweeCard extends UiPart<Region> {
         this.score.setText("Score:     " + score);
     }
 
-    private void handleOpen() {
-
-    }
 
     @Override
     public boolean equals(Object other) {
