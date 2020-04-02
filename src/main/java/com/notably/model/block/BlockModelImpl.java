@@ -34,6 +34,7 @@ public class BlockModelImpl implements BlockModel {
     public void resetData(BlockModel newData) {
         Objects.requireNonNull(newData);
         setBlockTree(newData.getBlockTree());
+        setCurrentlyOpenBlock(newData.getCurrentlyOpenPath());
     }
 
     @Override

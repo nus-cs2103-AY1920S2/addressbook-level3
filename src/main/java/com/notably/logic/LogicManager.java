@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
         }
 
         try {
-            storage.saveBlockTree(model.getBlockTree());
+            storage.saveBlockModel(model);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

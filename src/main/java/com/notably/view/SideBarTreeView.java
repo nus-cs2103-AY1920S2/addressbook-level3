@@ -25,7 +25,7 @@ public class SideBarTreeView extends ViewPart<Region> {
 
     public SideBarTreeView(BlockTree blockTree, Property<AbsolutePath> currentlyOpenPathProperty) {
         super(FXML);
-        this.currentlyOpenedNote = blockTree.getRootBlock();
+        this.currentlyOpenedNote = blockTree.get(currentlyOpenPathProperty.getValue());
         autoUpdateTree(blockTree, currentlyOpenPathProperty);
         initializeTree();
     }

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import com.notably.commons.exceptions.DataConversionException;
-import com.notably.model.block.BlockTree;
+import com.notably.model.block.BlockModel;
 import com.notably.model.userpref.ReadOnlyUserPrefModel;
 import com.notably.model.userpref.UserPrefModel;
 
@@ -14,19 +14,19 @@ import com.notably.model.userpref.UserPrefModel;
  */
 public interface Storage extends BlockStorage, UserPrefsStorage {
     @Override
-    Path getBlockTreeFilePath();
+    Path getBlockDataFilePath();
 
     @Override
-    Optional<BlockTree> readBlockTree() throws DataConversionException, IOException;
+    Optional<BlockModel> readBlockModel() throws DataConversionException, IOException;
 
     @Override
-    Optional<BlockTree> readBlockTree(Path filePath) throws DataConversionException, IOException;
+    Optional<BlockModel> readBlockModel(Path filePath) throws DataConversionException, IOException;
 
     @Override
-    void saveBlockTree(BlockTree blockTree) throws IOException;
+    void saveBlockModel(BlockModel blockModel) throws IOException;
 
     @Override
-    void saveBlockTree(BlockTree blockTree, Path filePath) throws IOException;
+    void saveBlockModel(BlockModel blockModel, Path filePath) throws IOException;
 
     @Override
     Optional<UserPrefModel> readUserPrefs() throws DataConversionException, IOException;
