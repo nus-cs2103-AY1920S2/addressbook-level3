@@ -4,11 +4,11 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 image:https://travis-ci.com/AY1920S2-CS2103T-W17-2/main.svg?branch=master["Build Status", link="https://travis-ci.com/AY1920S2-CS2103T-W17-2/main"]
 
 ifdef::env-github[]
-image::docs/images/UI.png[]
+image::docs/images/Ui.png[]
 endif::[]
 
 ifndef::env-github[]
-image::images/UI.png[]
+image::images/Ui.png[]
 endif::[]
 
 Are you an NUS student who gets easily frustrated with your unstructured notes?
