@@ -331,11 +331,33 @@ Interview with Jane Doe started
 
 image::Screenshots/Interview.png[]
 
+*Command*
+
+....
+resume <interviewee>
+....
+
+*Example*
+
+....
+> resume Jane Doe
+....
+
+_Action:_ Opens the resume of Jane Doe. It is not necessary to only open Jane Doe's resume during the interview.
+You can also open other interviewees' resume!
+
+_Output:_
+
+....
+Opening resume..
+....
+
 ==== Record Remarks
 
 After starting the interview, HireLah! allows you to easily take notes within the app itself.
-Anything you type in the Command Box will be recorded as interview remarks, which are timestamped,
-allowing you to easily navigate your interview remarks after the interview is over.
+Anything you type in the Command Box (except sentences starting with resume),
+will be recorded as interview remarks, which are timestamped, allowing you to easily navigate your interview remarks
+after the interview is over.
 
 *Command*
 
@@ -771,7 +793,7 @@ e.g. `edit question 1 -q What do you hope to accomplish in 5 years?`
 * Delete a question: `delete question <question number>` +
 e.g. `delete question 1`
 * List questions: `list question`
-* Upload resume: `upload <interviewee> [-p <path>]
+* Upload resume: `upload <interviewee> [-p <path>]`
 * Open resume: `resume <interviewee>`
 
 *Interviewing Phase*

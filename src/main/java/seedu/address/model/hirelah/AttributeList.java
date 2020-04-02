@@ -66,7 +66,7 @@ public class AttributeList implements Iterable<Attribute> {
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
     public Attribute find(String attributePrefix) throws IllegalValueException {
-        Attribute toFind = new Attribute(attributePrefix); // not inserted, need not validate
+        Attribute toFind = Attribute.of(attributePrefix); // not inserted, need not validate
         if (attributes.contains(toFind)) {
             return toFind;
         }
@@ -94,7 +94,7 @@ public class AttributeList implements Iterable<Attribute> {
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
     public Attribute edit(String attributePrefix, String updatedAttribute) throws IllegalValueException {
-        Attribute newAttribute = new Attribute(updatedAttribute);
+        Attribute newAttribute = Attribute.of(updatedAttribute);
 
         if (isDuplicate(newAttribute)) {
             throw new IllegalValueException(ALREADY_EXISTS);

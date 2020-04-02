@@ -85,7 +85,7 @@ public class MetricList {
      * @throws IllegalValueException If there is a formatting error in the command.
      */
 
-    public void edit(String metricPrefix, String updatedName, AttributeList attributes,
+    public String edit(String metricPrefix, String updatedName, AttributeList attributes,
                      List<String> attributePrefixes, List<Double> weightages) throws IllegalValueException {
         Metric metric = find(metricPrefix);
         Metric updatedMetric = metric.setName(updatedName.equals("") ? metric.getName() : updatedName);
@@ -101,6 +101,7 @@ public class MetricList {
 
         int index = metrics.indexOf(metric);
         metrics.set(index, updatedMetric);
+        return metric.getName();
     }
 
     /**

@@ -49,9 +49,9 @@ public class EditMetricCommand extends Command {
         AttributeList attributes = model.getAttributeList();
 
         try {
-            metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
+            String name = metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
             return new ToggleCommandResult(
-                    String.format(MESSAGE_EDIT_METRIC_SUCCESS, this.toEdit), ToggleView.METRIC);
+                    String.format(MESSAGE_EDIT_METRIC_SUCCESS, name), ToggleView.METRIC);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }
