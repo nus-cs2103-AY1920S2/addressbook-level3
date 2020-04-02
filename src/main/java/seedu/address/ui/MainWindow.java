@@ -28,6 +28,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.PomCommand;
 import seedu.address.logic.commands.PomCommandResult;
+import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.CompletorException;
@@ -252,7 +253,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void setTabFocusTasks() {
-        tabPanePlaceholder.getSelectionModel().select(0);
+        tabPanePlaceholder.getSelectionModel().select(SwitchTabCommand.TASKS_TAB_INDEX);
     }
 
     /**
