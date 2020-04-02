@@ -144,6 +144,18 @@ public class ModelManager implements Model {
     public String getCurrSessionFilter() {
         return taTracker.getCurrSessionFilter();
     }
+
+    @Override
+    public void setCurrStudentFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrStudentFilter(params);
+    }
+
+    @Override
+    public String getCurrStudentFilter() {
+        return taTracker.getCurrStudentFilter();
+    }
+
     // ======== Session Methods ================================================
 
     @Override

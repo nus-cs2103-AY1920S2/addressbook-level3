@@ -85,6 +85,8 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList();
                 throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
             } else {
+                String result = buildParams(groupCode, moduleCode);
+                model.setCurrStudentFilter(result);
                 model.updateFilteredGroupList(moduleCode);
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
@@ -109,10 +111,22 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList();
                 throw new CommandException(MESSAGE_INVALID_STUDENTS);
             } else {
+                model.setCurrStudentFilter("Module Code: " + moduleCode);
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode), Action.FILTER_STUDENT);
+    }
+
+    /**
+     *Creates a string consisting of all the params inputted by users.
+     */
+    public String buildParams(String group, String module) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Module Code: ").append(module).append("\n");
+        builder.append("Group Code: ").append(group).append("\n");
+        String result = builder.toString();
+        return result;
     }
 
     @Override

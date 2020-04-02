@@ -35,6 +35,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static final int DEFAULT_RATE = 40;
     private static String currClaimFilter;
     private static String currSessionFilter;
+    private static String currStudentFilter;
 
     private static Group currentlyShownGroup;
     private static Module currentlyShownModule;
@@ -62,6 +63,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         currClaimFilter = "";
         currSessionFilter = "";
+        currStudentFilter = "";
 
         rate = DEFAULT_RATE;
     }
@@ -119,6 +121,21 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public String getCurrSessionFilter() {
         return currSessionFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Student View.
+     */
+    public void setCurrStudentFilter(String params) {
+        requireNonNull(params);
+        currStudentFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Student View.
+     */
+    public String getCurrStudentFilter() {
+        return currStudentFilter;
     }
 
     // ======== Session Methods ================================================

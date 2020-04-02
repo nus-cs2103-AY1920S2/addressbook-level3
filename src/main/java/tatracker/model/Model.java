@@ -99,6 +99,16 @@ public interface Model {
      */
     String getCurrSessionFilter();
 
+    /**
+     *Sets the currently used filter under Student View.
+     */
+    void setCurrStudentFilter(String params);
+
+    /**
+     * Get the currently used filter under Student View.
+     */
+    String getCurrStudentFilter();
+
     // ======== Session Methods ================================================
 
     /**
