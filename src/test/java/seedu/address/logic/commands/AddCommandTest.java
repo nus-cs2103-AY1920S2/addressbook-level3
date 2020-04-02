@@ -161,22 +161,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public PetManager getPetManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPetName(String name) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void incrementPomExp() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateMoodWhenDone() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void incrementExp() {
             throw new AssertionError("This method should not be called.");
         }
 

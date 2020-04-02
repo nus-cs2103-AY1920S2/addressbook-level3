@@ -45,7 +45,6 @@ public class PetManager {
     }
 
     public void setPet(Pet pet) {
-        System.out.println("OOOO" + pet);
         this.pet = pet;
         this.lastDoneTaskTime = LocalDateTime.parse(pet.getLastDoneTaskTime());
         // use this for ACTUAL

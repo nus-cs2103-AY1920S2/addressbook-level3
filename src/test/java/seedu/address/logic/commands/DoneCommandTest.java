@@ -53,8 +53,6 @@ public class DoneCommandTest {
                         new Pomodoro(),
                         new Statistics(),
                         new UserPrefs());
-        PetManager petManager = new PetManager();
-        expectedModel.setPetManager(petManager);
 
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
@@ -89,9 +87,6 @@ public class DoneCommandTest {
                         new Pomodoro(),
                         new Statistics(),
                         new UserPrefs());
-
-        PetManager petManager = new PetManager();
-        expectedModel.setPetManager(petManager);
         
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
