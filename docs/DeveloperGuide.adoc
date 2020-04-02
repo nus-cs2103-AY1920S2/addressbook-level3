@@ -279,10 +279,10 @@ both of which inheriting from `Predicate<Transaction>` to filter the `Transactio
 `FilterCommand` is instantiated by `FilterCommandParser` 's `parse(String args)` method, which parses the arguments supplied in the user
 command to return a `FilterCommand` object.
 
-The below sequence diagram depicts the execution of the `Filter`:
-<SEQUENCE DIAGRAM >
+The below sequence diagram depicts the execution of the filter feature:
+<FilterSequenceDiagram>
 
-The below scenario shows a typical usage of the `Filter` feature:
+The below scenario shows a typical usage of the filter feature:
 
 Step 1: User executes the command filter c/FOOD m/2020-02 to bring up transactions in the category "FOOD" for the month
 of February 2020.
