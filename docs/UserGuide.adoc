@@ -606,6 +606,10 @@ After interviewing all the candidates, you can find the top n candidates
 based on either a particular attribute, the average of all the
 attributes. You also can use a metric for scoring.
 
+[TIP]
+In case there are ties in terms of the score, e.g. if we would like to retrieve the best 5 interviewees,
+but the score between the fifth and the sixth interviewees, both interviewees will be shown.
+
 *Command*
 
 ....
@@ -624,7 +628,7 @@ best 3 -a leadership
 
 _Action_: Firstly, HireLah! will show top 1 interviewees in overall score.
 Then, it will show the top 2 interviewees based on their leadership score. Finally, it will
-show the top 3 interviewes based on the extremeDictatorship metric.
+show the top 3 interviewees based on the extremeDictatorship metric.
 
 _Output_:
 
