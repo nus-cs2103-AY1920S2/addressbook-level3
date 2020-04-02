@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -31,10 +31,10 @@ public class Course extends ModelObject {
   private final ID id;
   private final Set<Tag> tags = new HashSet<>();
   private Amount amount;
-  private ID assignedTeacherID;
+  private ID assignedStaffID;
   private Set<ID> assignedStudentsID = new HashSet<>();
   private Set<ID> assignedAssignmentsID = new HashSet<>();
-  private String assignedTeacherWithName;
+  private String assignedStaffWithName;
   private String assignedStudentsWithNames;
   /**
    * Every field must be present and not null.
@@ -45,7 +45,7 @@ public class Course extends ModelObject {
     this.id = UuidManager.assignNewUUID(this);
     this.amount = amount;
     this.tags.addAll(tags);
-    this.assignedTeacherWithName = "None";
+    this.assignedStaffWithName = "None";
     this.assignedStudentsWithNames = "None";
   }
 
@@ -59,20 +59,20 @@ public class Course extends ModelObject {
     this.id = id;
     this.amount = amount;
     this.tags.addAll(tags);
-    this.assignedTeacherWithName = "None";
+    this.assignedStaffWithName = "None";
     this.assignedStudentsWithNames = "None";
   }
 
-  public Course(Name name, ID id, Amount amount, ID assignedTeacherID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
+  public Course(Name name, ID id, Amount amount, ID assignedStaffID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
     this.id = id;
     this.amount = amount;
-    this.assignedTeacherID = assignedTeacherID;
+    this.assignedStaffID = assignedStaffID;
     this.assignedStudentsID.addAll(assignedStudentsID);
     this.assignedAssignmentsID.addAll(assignedAssignmentsID);
     this.tags.addAll(tags);
-    this.assignedTeacherWithName = "None";
+    this.assignedStaffWithName = "None";
     this.assignedStudentsWithNames = "None";
   }
 
@@ -89,8 +89,8 @@ public class Course extends ModelObject {
     return amount;
   }
 
-  public ID getAssignedTeacherID() {
-    return assignedTeacherID;
+  public ID getAssignedStaffID() {
+    return assignedStaffID;
   }
 
   public void addStudent(ID studentID) {
@@ -126,8 +126,8 @@ public class Course extends ModelObject {
   }
   // ================================== FOR ASSIGN COMMANDS =================================
 
-  public void assignTeacher(ID teacherid) {
-    this.assignedTeacherID = teacherid;
+  public void assignStaff(ID staffid) {
+    this.assignedStaffID = staffid;
   }
 
   public Set<ID> getAssignedAssignmentsID() {
@@ -158,17 +158,17 @@ public class Course extends ModelObject {
     return this.assignedStudentsWithNames;
   }
 
-  public String getAssignedTeacherWithName(){
-    return this.assignedTeacherWithName;
+  public String getAssignedStaffWithName(){
+    return this.assignedStaffWithName;
   }
   /**
-   * Converts internal list of assigned teacher ID into the name with the ID
+   * Converts internal list of assigned staff ID into the name with the ID
    */
-  public void processAssignedTeacher(FilteredList<Teacher> filteredTeachers){
-    this.assignedTeacherWithName = "None";
-    for (Teacher teacher : filteredTeachers) {
-      if (teacher.getID().toString().equals(this.assignedTeacherID.toString())) {
-        this.assignedTeacherWithName = teacher.getName().toString() + "(" + teacher.getID().toString() + ")";
+  public void processAssignedStaff(FilteredList<Staff> filteredStaffs){
+    this.assignedStaffWithName = "None";
+    for (Staff staff : filteredStaffs) {
+      if (staff.getId().toString().equals(this.assignedStaffID.toString())) {
+        this.assignedStaffWithName = staff.getName().toString() + "(" + staff.getId().toString() + ")";
       }
     }
   }
@@ -256,8 +256,8 @@ public class Course extends ModelObject {
         .append(getId())
         .append(" Amount: ")
         .append(getAmount())
-        .append(" AssignedTeacher: ")
-        .append(getAssignedTeacherID())
+        .append(" AssignedStaff: ")
+        .append(getAssignedStaffID())
         .append(" Assigned Students: ");
     getAssignedStudentsID().forEach(builder::append);
 

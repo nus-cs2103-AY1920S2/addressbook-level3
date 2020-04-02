@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,7 +22,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ID;
@@ -77,40 +78,41 @@ public class EditTeacherCommand extends Command {
    * Creates and returns a {@code Teacher} with the details of {@code teacherToEdit} edited with
    * {@code editTeacherDescriptor}.
    */
-  private static Teacher createEditedTeacher(Teacher teacherToEdit,
+  private static Staff createEditedTeacher(Staff teacherToEdit,
       EditTeacherDescriptor editTeacherDescriptor) {
     assert teacherToEdit != null;
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
-    ID updatedID = editTeacherDescriptor.getID().orElse(teacherToEdit.getID());
+    Level updatedLevel = editTeacherDescriptor.getLevel().orElse(teacherToEdit.getLevel());
+    ID updatedID = editTeacherDescriptor.getID().orElse(teacherToEdit.getId());
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
     Email updatedEmail = editTeacherDescriptor.getEmail().orElse(teacherToEdit.getEmail());
     Salary updatedSalary = editTeacherDescriptor.getSalary().orElse(teacherToEdit.getSalary());
     Address updatedAddress = editTeacherDescriptor.getAddress().orElse(teacherToEdit.getAddress());
     Set<Tag> updatedTags = editTeacherDescriptor.getTags().orElse(teacherToEdit.getTags());
 
-    return new Teacher(updatedName, updatedID, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
+    return new Staff(updatedName, updatedID, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
         updatedTags);
   }
 
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
-    List<Teacher> lastShownList = model.getFilteredTeacherList();
+    List<Staff> lastShownList = model.getFilteredStaffList();
 
     if (index.getZeroBased() >= lastShownList.size()) {
       throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
     }
 
-    Teacher teacherToEdit = lastShownList.get(index.getZeroBased());
-    Teacher editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
+    Staff teacherToEdit = lastShownList.get(index.getZeroBased());
+    Staff editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
 
     if (!teacherToEdit.weakEquals(editedTeacher) && model.has(editedTeacher)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
     model.set(teacherToEdit, editedTeacher);
-    model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
+    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
     return new CommandResult(String.format(MESSAGE_EDIT_TEACHER_SUCCESS, editedTeacher));
   }
 
@@ -139,6 +141,7 @@ public class EditTeacherCommand extends Command {
   public static class EditTeacherDescriptor {
 
     private Name name;
+    private Level level;
     private ID teacherID;
     private Phone phone;
     private Email email;
@@ -154,6 +157,7 @@ public class EditTeacherCommand extends Command {
      */
     public EditTeacherDescriptor(EditTeacherDescriptor toCopy) {
       setName(toCopy.name);
+      setLevel(toCopy.level);
       setID(toCopy.teacherID);
       setPhone(toCopy.phone);
       setEmail(toCopy.email);
@@ -171,6 +175,14 @@ public class EditTeacherCommand extends Command {
 
     public Optional<Name> getName() {
       return Optional.ofNullable(name);
+    }
+
+    public Optional<Level> getLevel() {
+      return Optional.ofNullable(level);
+    }
+
+    public void setLevel(Level level) {
+      this.level = level;
     }
 
     public void setName(Name name) {

@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 
 /**
  * Adds a teacher to the address book.
@@ -40,12 +40,12 @@ public class AddTeacherCommand extends AddCommand {
   public static final String MESSAGE_SUCCESS = "New teacher added: %1$s";
   public static final String MESSAGE_DUPLICATE_TEACHER = "This teacher already exists in the address book";
 
-  private final Teacher toAdd;
+  private final Staff toAdd;
 
   /**
    * Creates an AddCommand to add the specified {@code Teacher}
    */
-  public AddTeacherCommand(Teacher teacher) {
+  public AddTeacherCommand(Staff teacher) {
     requireNonNull(teacher);
     toAdd = teacher;
   }
@@ -57,7 +57,6 @@ public class AddTeacherCommand extends AddCommand {
   @Override
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-
     if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }

@@ -12,8 +12,8 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
 import seedu.address.ui.SummaryPanel;
 
@@ -63,32 +63,32 @@ public interface Logic {
   ///
 
   /**
-   * Returns the TeacherAddressBook.
+   * Returns the StaffAddressBook.
    *
-   * @see seedu.address.model.Model#getTeacherAddressBook()
+   * @see seedu.address.model.Model#getStaffAddressBook()
    */
-  ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook();
+  ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook();
 
   /**
-   * Returns an unmodifiable view of the filtered list of teachers
+   * Returns an unmodifiable view of the filtered list of staffs
    */
-  ObservableList<Teacher> getFilteredTeacherList();
+  ObservableList<Staff> getFilteredStaffList();
 
   /**
-   * Returns the user prefs' teacher address book file path.
+   * Returns the user prefs' staff address book file path.
    */
-  Path getTeacherAddressBookFilePath();
+  Path getStaffAddressBookFilePath();
 
   /**
-   * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+   * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
    *
    * @throws NullPointerException if {@code predicate} is null.
    */
-  void updateObservedDataFilteredTeacherList(Predicate<Teacher> predicate);
+  void updateObservedDataFilteredStaffList(Predicate<Staff> predicate);
   ///
 
   /**
-   * Returns the StudentddressBook.
+   * Returns the StudentAddressBook.
    *
    * @see seedu.address.model.Model#getStudentAddressBook()
    */
@@ -100,7 +100,7 @@ public interface Logic {
   ObservableList<Student> getFilteredStudentList();
 
   /**
-   * Returns the user prefs' teacher address book file path.
+   * Returns the user prefs' student address book file path.
    */
   Path getStudentAddressBookFilePath();
 
@@ -125,7 +125,7 @@ public interface Logic {
   ObservableList<Finance> getFilteredFinanceList();
 
   /**
-   * Returns the user prefs' teacher address book file path.
+   * Returns the user prefs' staff address book file path.
    */
   Path getFinanceAddressBookFilePath();
 
@@ -199,7 +199,7 @@ public interface Logic {
 
   public Predicate<Student> getDataStudentPredicate();
 
-  public Predicate<Teacher> getDataTeacherPredicate();
+  public Predicate<Staff> getDataStaffPredicate();
 
   public Predicate<Finance> getDataFinancePredicate();
 
@@ -209,7 +209,7 @@ public interface Logic {
 
   public Predicate<Student> getExtraStudentPredicate();
 
-  public Predicate<Teacher> getExtraTeacherPredicate();
+  public Predicate<Staff> getExtraStaffPredicate();
 
   public Predicate<Finance> getExtraFinancePredicate();
 

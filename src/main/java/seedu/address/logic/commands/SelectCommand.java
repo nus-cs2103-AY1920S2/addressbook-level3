@@ -12,8 +12,8 @@ import seedu.address.model.modelCourse.CourseIDContainsKeywordsPredicate;
 import seedu.address.model.modelFinance.FinanceIDContainsKeywordsPredicate;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentIDContainsKeywordsPredicate;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherIDContainsKeywordsPredicate;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.StaffIDContainsKeywordsPredicate;
 import seedu.address.model.person.ID;
 
 /**
@@ -35,7 +35,7 @@ public class SelectCommand extends Command {
   private final String type;
 
   private StudentIDContainsKeywordsPredicate studentIDContainsKeywordsPredicate = null;
-  private TeacherIDContainsKeywordsPredicate teacherIDContainsKeywordsPredicate = null;
+  private StaffIDContainsKeywordsPredicate staffIDContainsKeywordsPredicate = null;
   private FinanceIDContainsKeywordsPredicate financeIDContainsKeywordsPredicate = null;
   private CourseIDContainsKeywordsPredicate courseIDContainsKeywordsPredicate = null;
   private AssignmentIDContainsKeywordsPredicate assignmentIDContainsKeywordsPredicate = null;
@@ -49,7 +49,7 @@ public class SelectCommand extends Command {
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
     //String[] keywords;
-    //new TeacherIDContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+    //new StaffIDContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     switch (type) {
       case "STUDENT":
         Student selectedStudent = model.getStudent(id);
@@ -60,9 +60,9 @@ public class SelectCommand extends Command {
                 model.getFilteredCourseList().size()));
 
       case "TEACHER":
-        Teacher selectedTeacher = model.getTeacher(id);
-        List<String> coursesIDTeacher = selectedTeacher.getAssignedCoursesIDString();
-        model.updateExtraFilteredCourseList(new CourseIDContainsKeywordsPredicate(coursesIDTeacher));
+        Staff selectedStaff = model.getStaff(id);
+        List<String> coursesIDStaff = selectedStaff.getAssignedCoursesIDString();
+        model.updateExtraFilteredCourseList(new CourseIDContainsKeywordsPredicate(coursesIDStaff));
         return new CommandResult(
             String.format(Messages.MESSAGE_COURSES_SELECTED_OVERVIEW,
                 model.getFilteredCourseList().size()));
@@ -91,7 +91,7 @@ public class SelectCommand extends Command {
     return other == this // short circuit if same object
         || (other instanceof SelectCommand // instanceof handles nulls
         && studentIDContainsKeywordsPredicate.equals(((SelectCommand) other).studentIDContainsKeywordsPredicate)
-        && teacherIDContainsKeywordsPredicate.equals(((SelectCommand) other).teacherIDContainsKeywordsPredicate)
+        && staffIDContainsKeywordsPredicate.equals(((SelectCommand) other).staffIDContainsKeywordsPredicate)
         && financeIDContainsKeywordsPredicate.equals(((SelectCommand) other).financeIDContainsKeywordsPredicate)
         && courseIDContainsKeywordsPredicate.equals(((SelectCommand) other).courseIDContainsKeywordsPredicate)
         && assignmentIDContainsKeywordsPredicate.equals(((SelectCommand) other).assignmentIDContainsKeywordsPredicate)); // state check

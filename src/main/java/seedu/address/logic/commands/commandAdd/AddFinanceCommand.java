@@ -19,7 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.FinanceType;
 import seedu.address.model.person.ID;
@@ -31,7 +31,7 @@ import seedu.address.model.person.Name;
 public class AddFinanceCommand extends AddCommand {
   //If finance type is misc, then Name, Date, Amount must be provided
   //Else if finance type is CourseStudent, then Date, CourseID, StudentID must be provided
-  //Else if finance type is CourseTeacher, then Date, CourseID, TeacherID must be provided
+  //Else if finance type is CourseStaff, then Date, CourseID, StaffID must be provided
 
   public static final String COMMAND_WORD = "add-finance";
 
@@ -41,7 +41,7 @@ public class AddFinanceCommand extends AddCommand {
   public static final String MESSAGE_AMOUNT = "Amount " + PREFIX_AMOUNT + " was missing.\n";
   public static final String MESSAGE_COURSEID = "CourseID " + PREFIX_COURSEID + " was missing.\n";
   public static final String MESSAGE_STUDENTID = "StudentID " + PREFIX_STUDENTID + " was missing.\n";
-  public static final String MESSAGE_TEACHERID = "TeacherID " + PREFIX_TEACHERID + " was missing.\n";
+  public static final String MESSAGE_TEACHERID = "StaffID " + PREFIX_TEACHERID + " was missing.\n";
 
   public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a finance to the address book. "
       + "\nType 1: Adding miscellaneous transactions(Specify ft/ as m "
@@ -71,7 +71,7 @@ public class AddFinanceCommand extends AddCommand {
       + PREFIX_COURSEID + "829 "
       + PREFIX_STUDENTID + "33 "
       + PREFIX_TAG + "Late "
-      + "\nType 3: A teacher is paid for teaching a course(Specify ft/ as ct "
+      + "\nType 3: A staff is paid for teaching a course(Specify ft/ as ct "
       + "Parameters: "
       + PREFIX_FINANCETYPE + "FINANCETYPE "
       + PREFIX_DATE + "DATE "
@@ -90,9 +90,9 @@ public class AddFinanceCommand extends AddCommand {
   public static final String MESSAGE_DUPLICATE_FINANCE = "This finance already exists in the address book";
   public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
   public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
-  public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such teacher that with ID";
+  public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such staff that with ID";
   public static final String MESSAGE_INVALID_COURSESTUDENT = "The specified course does not contain a student with that ID";
-  public static final String MESSAGE_INVALID_COURSETEACHER = "The specified course does not contain a teacher with that ID";
+  public static final String MESSAGE_INVALID_COURSETEACHER = "The specified course does not contain a staff with that ID";
 
   private Finance toAdd;
 
@@ -172,50 +172,50 @@ public class AddFinanceCommand extends AddCommand {
       , courseName, courseid.toString()));
 
       toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getTeacherID(), toAdd.getTags());
+          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
     } else if (financeType.toString().equals("ct")) {
       ID courseid = toAdd.getCourseID();
-      ID teacherid = toAdd.getTeacherID();
+      ID staffid = toAdd.getStaffID();
       Amount amount = new Amount("999");
       String courseName = "";
-      String teacherName = "";
-      String assignedTeacher = "";
+      String staffName = "";
+      String assignedStaff = "";
       boolean foundCourse = false;
-      boolean foundTeacher = false;
+      boolean foundStaff = false;
 
       for (Course course : model.getFilteredCourseList()){
         if (course.getId().toString().equals(courseid.toString())) {
           courseName = course.getName().toString();
           amount = new Amount("-" + course.getAmount().toString());
-          assignedTeacher = course.getAssignedTeacherID().toString();
+          assignedStaff = course.getAssignedStaffID().toString();
           foundCourse = true;
           break;
         }
       }
 
-      for (Teacher teacher : model.getFilteredTeacherList()){
-        if (teacher.getID().toString().equals(teacherid.toString())) {
-          teacherName = teacher.getName().toString();
-          foundTeacher = true;
+      for (Staff staff : model.getFilteredStaffList()){
+        if (staff.getId().toString().equals(staffid.toString())) {
+          staffName = staff.getName().toString();
+          foundStaff = true;
           break;
         }
       }
 
       if (!foundCourse) {
         throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-      } else if (!foundTeacher) {
+      } else if (!foundStaff) {
         throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
       }
 
-      if (!assignedTeacher.equals(teacherid.toString())) {
+      if (!assignedStaff.equals(staffid.toString())) {
         throw new CommandException(MESSAGE_INVALID_COURSETEACHER);
       }
 
-      Name name = new Name(String.format("Teacher %s %s has been paid for teaching Course %s %s", teacherName, teacherid.toString()
+      Name name = new Name(String.format("Staff %s %s has been paid for teaching Course %s %s", staffName, staffid.toString()
           , courseName, courseid.toString()));
 
       toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getTeacherID(), toAdd.getTags());
+          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
     }
 
     if (model.has(toAdd)) {

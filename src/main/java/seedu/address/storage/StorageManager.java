@@ -18,12 +18,13 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
-import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
+import seedu.address.storage.storageStaff.StaffAddressBookStorage;
+import com.google.common.eventbus.Subscribe;
 
 
 /**
@@ -33,7 +34,7 @@ public class StorageManager extends BaseManager implements Storage {
 
   private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
   private AddressBookStorage addressBookStorage;
-  private TeacherAddressBookStorage teacherAddressBookStorage;
+  private StaffAddressBookStorage staffAddressBookStorage;
   private StudentAddressBookStorage studentAddressBookStorage;
   private FinanceAddressBookStorage financeAddressBookStorage;
   private CourseAddressBookStorage courseAddressBookStorage;
@@ -42,7 +43,7 @@ public class StorageManager extends BaseManager implements Storage {
   private UserPrefsStorage userPrefsStorage;
 
   public StorageManager(AddressBookStorage addressBookStorage,
-      TeacherAddressBookStorage teacherAddressBookStorage,
+      StaffAddressBookStorage staffAddressBookStorage,
       StudentAddressBookStorage studentAddressBookStorage,
       FinanceAddressBookStorage financeAddressBookStorage,
       CourseAddressBookStorage courseAddressBookStorage,
@@ -51,7 +52,7 @@ public class StorageManager extends BaseManager implements Storage {
 
     super();
     this.addressBookStorage = addressBookStorage;
-    this.teacherAddressBookStorage = teacherAddressBookStorage;
+    this.staffAddressBookStorage = staffAddressBookStorage;
     this.studentAddressBookStorage = studentAddressBookStorage;
     this.financeAddressBookStorage = financeAddressBookStorage;
     this.courseAddressBookStorage = courseAddressBookStorage;
@@ -110,35 +111,35 @@ public class StorageManager extends BaseManager implements Storage {
   // ================ TeacherAddressBook methods ==============================
 
   @Override
-  public Path getTeacherAddressBookFilePath() {
-    return teacherAddressBookStorage.getTeacherAddressBookFilePath();
+  public Path getStaffAddressBookFilePath() {
+    return staffAddressBookStorage.getStaffAddressBookFilePath();
   }
 
   @Override
-  public Optional<ReadOnlyAddressBookGeneric<Teacher>> readTeacherAddressBook()
+  public Optional<ReadOnlyAddressBookGeneric<Staff>> readStaffAddressBook()
       throws DataConversionException, IOException {
-    return readTeacherAddressBook(teacherAddressBookStorage.getTeacherAddressBookFilePath());
+    return readStaffAddressBook(staffAddressBookStorage.getStaffAddressBookFilePath());
   }
 
   @Override
-  public Optional<ReadOnlyAddressBookGeneric<Teacher>> readTeacherAddressBook(Path filePath)
+  public Optional<ReadOnlyAddressBookGeneric<Staff>> readStaffAddressBook(Path filePath)
       throws DataConversionException, IOException {
     logger.fine("Attempting to read data from file: " + filePath);
-    return teacherAddressBookStorage.readTeacherAddressBook(filePath);
+    return staffAddressBookStorage.readStaffAddressBook(filePath);
   }
 
   @Override
-  public void saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook)
+  public void saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> teacherAddressBook)
       throws IOException {
-    saveTeacherAddressBook(teacherAddressBook,
-        teacherAddressBookStorage.getTeacherAddressBookFilePath());
+    this.saveStaffAddressBook(teacherAddressBook,
+        staffAddressBookStorage.getStaffAddressBookFilePath());
   }
 
   @Override
-  public void saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook, Path filePath)
+  public void saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook, Path filePath)
       throws IOException {
     logger.fine("Attempting to write to data file: " + filePath);
-    teacherAddressBookStorage.saveTeacherAddressBook(teacherAddressBook, filePath);
+    staffAddressBookStorage.saveStaffAddressBook(staffAddressBook, filePath);
   }
 
   // ================ StudentAddressBook methods ==============================
@@ -286,8 +287,8 @@ public class StorageManager extends BaseManager implements Storage {
       } else if (event.entityType == ENTITY_TYPE.STUDENT) {
         System.out.println("student");
         saveStudentAddressBook(event.addressBook);
-      } else if (event.entityType == ENTITY_TYPE.TEACHER) {
-        saveTeacherAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.STAFF) {
+        saveStaffAddressBook(event.addressBook);
       } else if (event.entityType == ENTITY_TYPE.FINANCE) {
         saveFinanceAddressBook(event.addressBook);
       } else if (event.entityType == ENTITY_TYPE.ASSIGNMENT) {

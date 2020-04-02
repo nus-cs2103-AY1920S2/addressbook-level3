@@ -97,6 +97,7 @@ public class Student extends ModelObject {
   public String getAssignedCoursesWithNames(){
     return this.assignedCoursesWithNames;
   }
+
   /**
    * Converts internal list of assigned student IDs into the name with the IDs
    */

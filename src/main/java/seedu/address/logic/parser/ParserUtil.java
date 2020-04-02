@@ -8,17 +8,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.AssignedTeacher;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Deadline;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.FinanceType;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -135,18 +125,18 @@ public class ParserUtil {
   }
 
   /**
-   * Parses a {@code String teacherid} into a {@code Teacherid}. Leading and trailing whitespaces will be
+   * Parses a {@code String staffid} into a {@code Staffid}. Leading and trailing whitespaces will be
    * trimmed.
    *
-   * @throws ParseException if the given {@code teacherid} is invalid.
+   * @throws ParseException if the given {@code staffid} is invalid.
    */
-  public static ID parseTeacherid(String teacherid) throws ParseException {
-    requireNonNull(teacherid);
-    String trimmedTeacherid = teacherid.trim();
-    if (!ID.isValidId(teacherid)) {
+  public static ID parseStaffid(String staffid) throws ParseException {
+    requireNonNull(staffid);
+    String trimmedStaffid = staffid.trim();
+    if (!ID.isValidId(staffid)) {
       throw new ParseException(ID.MESSAGE_CONSTRAINTS);
     }
-    return new ID(teacherid);
+    return new ID(staffid);
   }
 
   /**
@@ -181,18 +171,18 @@ public class ParserUtil {
   }
 
   /**
-   * Parses a {@code String assignedTeacher} into a {@code AssignedTeacher}. Leading and trailing whitespaces will be
+   * Parses a {@code String assignedStaff} into a {@code AssignedStaff}. Leading and trailing whitespaces will be
    * trimmed.
    *
-   * @throws ParseException if the given {@code assignedTeacher} is invalid.
+   * @throws ParseException if the given {@code assignedStaff} is invalid.
    */
-  public static AssignedTeacher parseAssignedTeacher(String assignedTeacher) throws ParseException {
-    requireNonNull(assignedTeacher);
-    String trimmedAssignedTeacher = assignedTeacher.trim();
-    if (!AssignedTeacher.isValidAssignedTeacher(assignedTeacher)) {
-      throw new ParseException(AssignedTeacher.MESSAGE_CONSTRAINTS);
+  public static AssignedStaff parseAssignedStaff(String assignedStaff) throws ParseException {
+    requireNonNull(assignedStaff);
+    String trimmedAssignedStaff = assignedStaff.trim();
+    if (!AssignedStaff.isValidAssignedStaff(assignedStaff)) {
+      throw new ParseException(AssignedStaff.MESSAGE_CONSTRAINTS);
     }
-    return new AssignedTeacher(assignedTeacher);
+    return new AssignedStaff(assignedStaff);
   }
 
   /**

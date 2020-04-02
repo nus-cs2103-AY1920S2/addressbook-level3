@@ -1,4 +1,4 @@
-package seedu.address.storage.storageTeacher;
+package seedu.address.storage.storageStaff;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,49 +12,49 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 
 /**
  * A class to access TeacherAddressBook data stored as a json file on the hard disk.
  */
-public class JsonTeacherAddressBookStorage implements TeacherAddressBookStorage {
+public class JsonStaffAddressBookStorage implements StaffAddressBookStorage {
 
-  private static final Logger logger = LogsCenter.getLogger(JsonTeacherAddressBookStorage.class);
+  private static final Logger logger = LogsCenter.getLogger(JsonStaffAddressBookStorage.class);
 
   private Path filePath;
 
-  public JsonTeacherAddressBookStorage(Path filePath) {
+  public JsonStaffAddressBookStorage(Path filePath) {
     this.filePath = filePath;
   }
 
-  public Path getTeacherAddressBookFilePath() {
+  public Path getStaffAddressBookFilePath() {
     return filePath;
   }
 
   @Override
-  public Optional<ReadOnlyAddressBookGeneric<Teacher>> readTeacherAddressBook()
+  public Optional<ReadOnlyAddressBookGeneric<Staff>> readStaffAddressBook()
       throws DataConversionException {
-    return readTeacherAddressBook(filePath);
+    return readStaffAddressBook(filePath);
   }
 
   /**
-   * Similar to {@link #readTeacherAddressBook()}.
+   * Similar to {@link #readStaffAddressBook()}.
    *
    * @param filePath location of the data. Cannot be null.
    * @throws DataConversionException if the file is not in the correct format.
    */
-  public Optional<ReadOnlyAddressBookGeneric<Teacher>> readTeacherAddressBook(Path filePath)
+  public Optional<ReadOnlyAddressBookGeneric<Staff>> readStaffAddressBook(Path filePath)
       throws DataConversionException {
     requireNonNull(filePath);
 
-    Optional<JsonTeacherSerializableAddressBook> jsonTeacherAddressBook = JsonUtil.readJsonFile(
-        filePath, JsonTeacherSerializableAddressBook.class);
-    if (!jsonTeacherAddressBook.isPresent()) {
+    Optional<JsonStaffSerializableAddressBook> jsonStaffAddressBook = JsonUtil.readJsonFile(
+        filePath, JsonStaffSerializableAddressBook.class);
+    if (!jsonStaffAddressBook.isPresent()) {
       return Optional.empty();
     }
 
     try {
-      return Optional.of(jsonTeacherAddressBook.get().toModelType());
+      return Optional.of(jsonStaffAddressBook.get().toModelType());
     } catch (IllegalValueException ive) {
       logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
       throw new DataConversionException(ive);
@@ -62,23 +62,23 @@ public class JsonTeacherAddressBookStorage implements TeacherAddressBookStorage 
   }
 
   @Override
-  public void saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook)
+  public void saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook)
       throws IOException {
-    saveTeacherAddressBook(teacherAddressBook, filePath);
+    saveStaffAddressBook(staffAddressBook, filePath);
   }
 
   /**
-   * Similar to {@link #saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher>)}.
+   * Similar to {@link #saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff>)}.
    *
    * @param filePath location of the data. Cannot be null.
    */
-  public void saveTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook, Path filePath)
+  public void saveStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook, Path filePath)
       throws IOException {
-    requireNonNull(teacherAddressBook);
+    requireNonNull(staffAddressBook);
     requireNonNull(filePath);
 
     FileUtil.createIfMissing(filePath);
-    JsonUtil.saveJsonFile(new JsonTeacherSerializableAddressBook(teacherAddressBook), filePath);
+    JsonUtil.saveJsonFile(new JsonStaffSerializableAddressBook(staffAddressBook), filePath);
   }
 
 }

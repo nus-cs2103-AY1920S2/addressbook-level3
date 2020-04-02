@@ -4,6 +4,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-  <Label text=" Teachers"/>
-  <ListView VBox.vgrow="ALWAYS" fx:id="teacherListView"/>
+  <Label text=" Staffs"/>
+  <ListView VBox.vgrow="ALWAYS" fx:id="staffListView"/>
 </VBox>

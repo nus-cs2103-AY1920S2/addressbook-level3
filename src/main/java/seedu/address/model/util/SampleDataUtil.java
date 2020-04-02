@@ -3,6 +3,8 @@ package seedu.address.model.util;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
@@ -12,10 +14,10 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
@@ -44,25 +46,23 @@ public class SampleDataUtil {
     return sampleAb;
   }
 
-  public static Teacher[] getSampleTeachers() {
-    return new Teacher[]{
-        new Teacher(new Name("Bob Ross"), new ID("21"), new Phone("88283902"), new Email("bob.ross@gmail.com"),
+  public static Staff[] getSampleTeachers() {
+    return new Staff[]{
+        new Staff(new Name("Bob Ross"), new ID("182"), Staff.Level.TEACHER ,new Phone("88283902"), new Email("bob.ross@gmail.com"),
             new Salary("9000"),
             new Address("Serangoon"),
-            getIDSet("182"),
             getTagSet("Friendly", "LovesArt")),
-        new Teacher(new Name("Martin Henz"), new ID("31"), new Phone("98765432"), new Email("henz@gmail.com"),
+        new Staff(new Name("Martin Henz"), new ID("250"), Staff.Level.TEACHER, new Phone("98765432"), new Email("henz@gmail.com"),
             new Salary("100"),
             new Address("311, Clementi Ave 2, #02-25"),
-            getIDSet("829"),
             getTagSet("WishfulThinking", "Experienced")),
     };
   }
 
-  public static ReadOnlyAddressBookGeneric<Teacher> getSampleTeacherAddressBook() {
-    TeacherAddressBook sampleAb = new TeacherAddressBook();
-    for (Teacher sampleTeacher : getSampleTeachers()) {
-      sampleAb.add(sampleTeacher);
+  public static ReadOnlyAddressBookGeneric<Staff> getSampleStaffAddressBook() {
+    StaffAddressBook sampleAb = new StaffAddressBook();
+    for (Staff sampleStaff : getSampleTeachers()) {
+      sampleAb.add(sampleStaff);
     }
     return sampleAb;
   }

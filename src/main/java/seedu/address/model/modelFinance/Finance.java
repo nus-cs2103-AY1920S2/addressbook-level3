@@ -29,7 +29,7 @@ public class Finance extends ModelObject {
   private final Amount amount;
   private ID courseid;
   private ID studentid;
-  private ID teacherid;
+  private ID staffid;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
@@ -44,18 +44,18 @@ public class Finance extends ModelObject {
     this.tags.addAll(tags);
     this.courseid = new ID();
     this.studentid = new ID();
-    this.teacherid = new ID();
+    this.staffid = new ID();
   }
 
   /**
    * Every field must be present and not null.
    */
-  public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID teacherid, Set<Tag> tags) {
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags) {
     this(name, financeType, date, amount, tags);
-    requireAllNonNull(courseid, studentid, teacherid);
+    requireAllNonNull(courseid, studentid, staffid);
     this.courseid = courseid;
     this.studentid = studentid;
-    this.teacherid = teacherid;
+    this.staffid = staffid;
   }
 
   public Name getName() {
@@ -82,8 +82,8 @@ public class Finance extends ModelObject {
     return studentid;
   }
 
-  public ID getTeacherID() {
-    return teacherid;
+  public ID getStaffID() {
+    return staffid;
   }
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
@@ -142,7 +142,7 @@ public class Finance extends ModelObject {
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, financeType, date, amount, courseid, studentid, teacherid, tags);
+    return Objects.hash(name, financeType, date, amount, courseid, studentid, staffid, tags);
   }
 
   @Override
@@ -159,8 +159,8 @@ public class Finance extends ModelObject {
 //        .append(getCourseID())
 //        .append("StudentID: ")
 //        .append(getStudentID())
-//        .append("TeacherID: ")
-//        .append(getTeacherID())
+//        .append("StaffID: ")
+//        .append(getStaffID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

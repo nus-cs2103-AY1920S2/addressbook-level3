@@ -1,15 +1,9 @@
-package seedu.address.model.modelTeacher;
+package seedu.address.model.modelStaff;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
-import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.model.modelGeneric.UniqueList;
-import seedu.address.model.person.exceptions.DuplicateTeacherException;
-import seedu.address.model.person.exceptions.TeacherNotFoundException;
 
 /**
  * A list of teachers that enforces uniqueness between its elements and does not allow nulls. A
@@ -22,5 +16,5 @@ import seedu.address.model.person.exceptions.TeacherNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public class UniqueTeacherList extends UniqueList<Teacher> {
+public class UniqueStaffList extends UniqueList<Staff> {
 }

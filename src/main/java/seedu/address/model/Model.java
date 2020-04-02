@@ -10,9 +10,9 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelProgress.Progress;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 
@@ -21,18 +21,18 @@ import seedu.address.model.person.Person;
  */
 public interface Model {
 
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Teacher> PREDICATE_SHOW_ALL_TEACHERS = unused -> true;
-    Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
-    Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
-    Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
-    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+  /**
+   * {@code Predicate} that always evaluate to true
+   */
+  Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+  Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+  Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
+  Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
+  Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
+  Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
     Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
-    Predicate<Teacher> PREDICATE_HIDE_ALL_TEACHERS = unused -> false;
+    Predicate<Staff> PREDICATE_HIDE_ALL_STAFFS = unused -> false;
     Predicate<Student> PREDICATE_HIDE_ALL_STUDENTS = unused -> false;
     Predicate<Finance> PREDICATE_HIDE_ALL_FINANCES = unused -> false;
     Predicate<Course> PREDICATE_HIDE_ALL_COURSES = unused -> false;
@@ -92,7 +92,7 @@ public interface Model {
 
     Assignment getAssignment(ID assignmentID);
 
-    Teacher getTeacher(ID teacherID);
+    Staff getStaff(ID staffID);
     /**
      * Returns the AddressBook
      */
@@ -115,56 +115,56 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getTeacherAddressBookFilePath();
+    Path getStaffAddressBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setTeacherAddressBookFilePath(Path teacherAddressBookFilePath);
+    void setStaffAddressBookFilePath(Path staffAddressBookFilePath);
 
     /**
-     * Returns the teacherAddressBook
+     * Returns the staffAddressBook
      */
-    ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook();
+    ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook();
 
     /**
-     * Replaces teacher address book data with the data in {@code teacerAddressBook}.
+     * Replaces staff address book data with the data in {@code teacerAddressBook}.
      */
-    void setTeacherAddressBook(ReadOnlyAddressBookGeneric<Teacher> teacherAddressBook);
+    void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook);
 
     /**
-     * Returns an unmodifiable view of the filtered teacher list
+     * Returns an unmodifiable view of the filtered staff list
      */
-    ObservableList<Teacher> getFilteredTeacherList();
+    ObservableList<Staff> getFilteredStaffList();
 
 
     /**
-     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredTeacherList(Predicate<Teacher> predicate);
+    void updateFilteredStaffList(Predicate<Staff> predicate);
 
     /**
-     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateObservedDataFilteredTeacherList(Predicate<Teacher> predicate);
+    void updateObservedDataFilteredStaffList(Predicate<Staff> predicate);
 
     /**
-     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateExtraFilteredTeacherList(Predicate<Teacher> predicate);
+    void updateExtraFilteredStaffList(Predicate<Staff> predicate);
 
     /**
-     * Updates the filter of the filtered teacher list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateObservedExtraFilteredTeacherList(Predicate<Teacher> predicate);
+    void updateObservedExtraFilteredStaffList(Predicate<Staff> predicate);
 
     ///
 
@@ -184,7 +184,7 @@ public interface Model {
     ReadOnlyAddressBookGeneric<Student> getStudentAddressBook();
 
     /**
-     * Replaces student address book data with the data in {@code teacherAddressBook}.
+     * Replaces student address book data with the data in {@code staffAddressBook}.
      */
     void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook);
 
@@ -388,7 +388,6 @@ public interface Model {
 
     // ====================================================================== //
     // There is no CRUD operations for Progress objects for now
-
     /**
      * Returns the user prefs' assignment address book file path.
      */
@@ -431,7 +430,7 @@ public interface Model {
 
     public Predicate<Student> getDataStudentPredicate();
 
-    public Predicate<Teacher> getDataTeacherPredicate();
+    public Predicate<Staff> getDataStaffPredicate();
 
     public Predicate<Finance> getDataFinancePredicate();
 
@@ -441,7 +440,7 @@ public interface Model {
 
     public Predicate<Student> getExtraStudentPredicate();
 
-    public Predicate<Teacher> getExtraTeacherPredicate();
+    public Predicate<Staff> getExtraStaffPredicate();
 
     public Predicate<Finance> getExtraFinancePredicate();
 
