@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -190,7 +193,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Order> getFilteredOrderList() {
-        return filteredOrders;
+        Comparator<Order> sortByTimestamp = (Order first, Order second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        };
+        return filteredOrders.sorted(sortByTimestamp);
     }
 
     @Override
@@ -207,7 +215,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
-        return filteredReturnOrders;
+        Comparator<ReturnOrder> sortByTimestamp = (ReturnOrder first, ReturnOrder second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        };
+        return filteredReturnOrders.sorted(sortByTimestamp);
     }
 
     @Override
