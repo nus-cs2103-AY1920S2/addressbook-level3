@@ -1,18 +1,5 @@
 package tatracker.testutil.module;
 
-import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
