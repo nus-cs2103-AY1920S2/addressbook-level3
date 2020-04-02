@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
   private CourseListPanel courseListPanel;
   private FinanceListPanel financeListPanel;
   private AssignmentListPanel assignmentListPanel;
+  private SummaryPanel summaryPanel;
 
   private ResultDisplay resultDisplay;
   private HelpWindow helpWindow;
@@ -168,10 +169,10 @@ public class MainWindow extends UiPart<Stage> {
     courseListPanel = new CourseListPanel(logic.getFilteredCourseList(), commandBox);
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList(), commandBox);
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
+    summaryPanel = new SummaryPanel();
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(courseListPanel.getRoot());
-    SummaryPanel summaryPanel = new SummaryPanel();
     //summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
     summaryPanel.updateTotalStaffs(logic.getFilteredStaffList().size());
@@ -275,6 +276,17 @@ public class MainWindow extends UiPart<Stage> {
     extraListPanelPlaceholder.setMaxSize(0.0,0.0);
     currentView = "ASSIGNMENT";
     switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
+  }
+
+  /**
+   * Switch to the Summary view.
+   */
+  @FXML
+  private void handleSwitchToSummary() {
+    //Disable extra List
+    extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    currentView = "SUMMARY";
+    switchList(summaryPanel.getRoot(), courseListPanel.getRoot());
   }
 
   void show() {

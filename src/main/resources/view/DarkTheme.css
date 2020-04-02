@@ -370,6 +370,7 @@
     -fx-padding: 8 1 8 1;
 }
 
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -428,3 +429,4 @@
 #commandPane {
     -fx-background-color: derive(#BACFD6, 20%);
 }
+
