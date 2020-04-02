@@ -52,6 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *s/* entry status
 * *r/* entry remark
 * *i/* entry index
+* *k/* keyword (in `find`)
 * *d/* date in format yyyy-MM-dd
 * *m/* mode
 * *dc/* diary content
@@ -59,9 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *attr/* profile attribute name
 * *v/* profile attribute value
 * *-f* force change
-* *by/* sorting criterion
-* *o/* sorting order
-* *k/* keywords for searching/checking
+
 
 [[Features]]
 == Features
@@ -81,26 +80,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Asks the application to go to Help page, which displays a condensed list of available
-functions with correct format of input. A link to the User Guide
-is also provided after the list. The user can also go to the Help page by
-clicking the **Help** button on the left hand side of the application.
-Note that once the user types `help` or click the **Help** button,
-the url of the User Guide is copied to the clipboard, so the user
-can directly access the Guide by pasting the url into the browser.
+Asks the application to display a condensed list of available
+functions with correct format of input. A link to the full
+User Guide is also provided after the list.
 
 Format: `help`
 
 === Adding an entry: `add`
 
-Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
-and possibly Today Page (if its date is today) immediately after the command is executed.
+Adds an entry to the fitness log book.
 Maximum two entries can have time clashes. If a duration of an entry is not specified, default duration is set to 1 hour. +
-
-Note that due to space constraint, entry card in DashBoard and Today page will only display
-first 14 characters of its name and first 21 characters of its location. The entry icon in
-Calendar Page are even more constrained.
-
 Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMARK]...`
 
 Examples:
@@ -162,8 +151,7 @@ Format: `edit x/TYPE i/INDEX s/Undone`
 === Locating entries by name: `find`
 
 Finds entries whose names contain any of the given keywords. +
-
-Format: `find [x/TYPE] k/ONE_OR_MOR_ KEYWORDS`
+Format: `find x/TYPE k/ONE OR MOREKEYWORDS`
 
 ****
 * The search is case insensitive. e.g `apples` will match `Apples`
@@ -196,6 +184,8 @@ Examples:
 
 * `delete x/sports index/2`
 Deletes the 2nd sports entry in the sports list from dashboard.
+
+=== Sort the entries
 
 === Keep a diary
 
@@ -432,7 +422,7 @@ Examples:
 * `addWeight v/50.0 d/2020-02-01`
 * `addWeight v/52.30`
 
-=== Calendar View
+=== Calendar View `calendar`
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
 
 *For list mode*:
@@ -441,7 +431,7 @@ Calendar view will display all the food and sports entries for each day of the r
 The lists of entries for food and sports are display by their given dates in the referenced month. Completed entries will be strikethrough. Calorie value is also shown for each date.
 
 * *Calendar of the month* +
-On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`. The leftward and rightward arrow from the title bar can switch the calendar to previous or next month, with matching CLI command `calendar d/next month` and `calendar d/prevous month`.
+On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`. The leftward and rightward arrow from the title bar can switch the calendar to previous or next month, with matching CLI command `calendar d/DATE`.
 
 * *Daily tasks completion status* +
 On the bottom right corner, completion status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.
@@ -534,55 +524,17 @@ Examples:
 * `weekreport`
 * `weekreport 2020-02-14`
 
-=== Sort food/sports entry list
+=== Sort food consumption or exercise record
 
-Sorts food or sports entry list, or both of them, based on starting time or
-calorie value of the entry, in either ascending or descending order.
-The user must specify the sorting criterion `cal/c OR time/t`.
-If the user does not specify type of entry list, both lists will be sorted.
-And if the user does not specify the sorting order `a OR d`,
-the default order is descending (i.e. entry that starts later
-or entry with higher calorie value comes first).
+Sorts the records of food consumption or exercise workout based on time of record or calorie,
+in either ascending or descending order.
 
-format: `sort [x/TYPE] by/SORT_BY [o/ORDER]`
+format: `sortX -c/-t -a/-d`
 
 Examples:
 
-* `sort x/f by/time o/a` (sort food entry list in ascending order of recording time, i.e. the older entry comes first)
-* `sort by/c` (sort both food and sports entry list in descending order of calorie value
-i.e. entry with higher calorie intake/consumption comes first)
-
-=== Check calorie intake/consumption of common food/sports
-
-Searches through the pre-set database for calorie intake/consumption information
-about food/sports whose name match/contain keywords specified by the user.
-Note that due to space constraint, at most 3 matching results will be shown
-at the left-bottom corner of the application. Each result contains the name of
-the food/sports and its calorie intake/consumption information: for food, it will be
-in cal per serving (weight per serving in g will also be listed); for spots, it will
-be in cal per hour. The searching works as follows:
-
-* Retrieve calorie data of food/sports based on check type specified by the user.
-* First, check if there are food/sports whose name **equals** one of the keywords.
-If so, add them to the result list. Stop checking when 3 matching results are found or
-when all food/sports are checked.
-* Secondly, if fewer than 3 food/sports are added so far, check if there are food/sports
-whose name **contains** the keywords as a whole. If so, add them to the result list.
-Stop checking when 3 matching results are found so far or when all food/sports are checked.
-* Lastly, if still fewer than 3 food/sports are added so far, check if there are food/sports
-whose name **contains** the keywords as a whole. If so, add them to the result list.
-Stop checking when 3 matching results are found so far or when all food/sports are checked.
-* If no matching result is found after all the steps, feedback user search failure.
-Otherwise, show feedback user matching results.
-
-
-format: `check x/TYPE k/ONE_OR_MOR_ KEYWORDS`
-
-Examples:
-
-* `check x/food k/apple` (searches for calorie intake of food
-whose name match/contain keyword "apple")
-
+* `sortf -t -a` (sort records of food consumption in ascending order of recording time, i.e. the oldest record comes first)
+* `sorts -c -d` (sort records of exercise workout in descending order of calorie burned during the workout)
 
 == FAQ
 
