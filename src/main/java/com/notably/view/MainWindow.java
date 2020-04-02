@@ -145,6 +145,12 @@ public class MainWindow extends ViewPart<Stage> {
         }
     }
 
+    /**
+     * Creates and returns the HelpWindow component. In the process, sets a listener to ensure
+     * that the Help Window is opened when activated.
+     * @param model
+     * @return The HelpWindow component.
+     */
     private HelpWindow initializeHelpWindow(Model model) {
         model.helpOpenProperty().addListener((Observable observable) -> {
             if (model.isHelpOpen()) {
