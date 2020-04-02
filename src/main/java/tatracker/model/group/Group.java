@@ -136,6 +136,13 @@ public class Group {
     }
 
     /**
+     * Returns the student at index i.
+     */
+    public Student get(int i) {
+        return students.get(i);
+    }
+
+    /**
      * Adds a student to the list of enrolled students.
      */
     public void addStudent(Student student) {

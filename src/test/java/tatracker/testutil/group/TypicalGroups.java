@@ -25,7 +25,7 @@ public class TypicalGroups {
                 .build();
 
         public static final Group MANY_STUDENTS = new GroupBuilder().withIdentifier("G05")
-                .withGroupType(GroupType.LAB)
+                .withGroupType(GroupType.OTHER)
                 .withStudent(TypicalStudents.ALICE)
                 .withStudent(TypicalStudents.BENSON)
                 .withStudent(TypicalStudents.ELLE)
