@@ -5,11 +5,9 @@ import static seedu.eylah.diettracker.logic.parser.ParserUtil.MESSAGE_INVALID_IN
 import static seedu.eylah.expensesplitter.testutil.Assert.assertThrows;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.eylah.commons.logic.parser.exception.ParseException;
-import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.testutil.Assert;
