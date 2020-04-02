@@ -47,6 +47,7 @@ public class StatisticsPanel extends UiPart<Region> {
                 setStatistics(moduleList);
             }
         });
+        updateStatistics(moduleList);
     }
 
 
