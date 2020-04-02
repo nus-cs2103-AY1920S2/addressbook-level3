@@ -242,7 +242,7 @@ public class SummaryPane extends UiPart<Region> {
             List<XYChart.Data<String, Number>> dataList) {
 
         XYChart.Data<String, Number> data = new XYChart.Data<String, Number>(
-                DateUtil.formatDate(ld),
+                DateUtil.formatDateToString(ld),
                 pms.getMonetaryAmountAsDouble()
         );
         dataList.add(data);
