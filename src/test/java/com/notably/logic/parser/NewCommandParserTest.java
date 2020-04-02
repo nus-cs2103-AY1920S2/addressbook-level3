@@ -75,7 +75,7 @@ class NewCommandParserTest {
             command.execute(model);
         }
 
-        assertEquals(expectedPath ,model.currentlyOpenPathProperty().getValue());
+        assertEquals(expectedPath , model.currentlyOpenPathProperty().getValue());
     }
 
     @Test
