@@ -1504,19 +1504,31 @@ Refers to the display field showing the results of an executed command
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+*https://www.pinglockergroup.com/en/parcel-management-software[PingLocker]*
 
 Pros:
 
-* ...
-* ...
+*  You can take a picture of the parcel and it is automatically added to the application for tracking.
+* You can also receive weekly statistics on your delivery tasks and time saved.
+* The application interface looks good and easy to navigate.
 
 Cons:
 
-* ...
-* ...
+* Required to scan the parcels one by one, which can be slow and tedious.
+* There does not seem to be a feature to keep track of parcels in a particular area/region.
+
+*https://sg.pickupp.io/en/delivery-agents[Pickupp]*
+
+Pros:
+
+* You can take a picture of the parcel barcode to add to the application for tracking.
+* There is language support for chinese language (in addition to english)
+
+Cons:
+
+* There are no statistics available.
+* Required to scan the parcels one by one, which can be slow and tedious.
+
 
 [appendix]
 == Instructions for Manual Testing
