@@ -75,7 +75,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'fitHelper v1.2.1.jar'
+    archiveName = 'fitHelper v1.2.2.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
