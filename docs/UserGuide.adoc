@@ -115,7 +115,7 @@ Examples:
 * `(ab)delete 2` +
 Deletes the 2nd person in the address book.
 
-==== [Coming Soon] Editing a person : `(ab)edit`
+==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
 Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [o/ORGANIZATION] [b/BIRTHDAY]`
@@ -274,7 +274,7 @@ Examples:
 * `(rt)addnote 5 r/chicken chop a/truffle fries b/risotto` +
 Adds a notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
-==== Search: `(rt)search`
+==== [Coming Soon] Search: `(rt)search`
 
 Search for restaurants based on a number of criteria. +
 Format: `(rt)search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`

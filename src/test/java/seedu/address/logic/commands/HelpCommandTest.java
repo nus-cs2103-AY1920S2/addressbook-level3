@@ -15,7 +15,7 @@ public class HelpCommandTest {
     public void execute_helpChooseCommand_success() {
         int index = 5;
         CommandResult expectedCommandResult = new CommandResult(HelpCommand.LIST_OF_COMMANDS.get(index - 1) + "\n"
-                + "Type help to return to the list of commands.", true, false, false,
+                + "Type \"help\" to return to the list of commands.", true, false, false,
                 false, false, false, false, false);
         assertCommandSuccess(new HelpCommand(index), model, expectedCommandResult, expectedModel);
     }

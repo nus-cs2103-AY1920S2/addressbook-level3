@@ -52,7 +52,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      */
     public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
-
         setRestaurants(newData.getRestaurantsList());
     }
 
