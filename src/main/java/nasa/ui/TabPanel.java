@@ -44,8 +44,7 @@ public class TabPanel extends UiPart<Region> {
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
         statisticsPanel = new StatisticsPanel(logic.getFilteredModuleList());
         statisticsPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
-        tabPane.widthProperty().addListener((observable, oldValue, newValue) ->
-        {
+        tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPane.setTabMinWidth(tabPane.getWidth() / 4);
             tabPane.setTabMaxWidth(tabPane.getWidth() / 4);
         });

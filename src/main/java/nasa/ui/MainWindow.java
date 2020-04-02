@@ -223,7 +223,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if(commandResult.isStatistics()) {
+            if (commandResult.isStatistics()) {
                 tabPanel.getStatistics();
             }
 

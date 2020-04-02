@@ -46,7 +46,7 @@ public class ActivityListPanel extends UiPart<Region> {
                 setStyle("-fx-background-color: #47D0E0;");
             } else if (activity instanceof Lesson) {
                 setStyle("-fx-background-color: #aee4ff;");
-            } else if (activity instanceof Event){
+            } else if (activity instanceof Event) {
                 setStyle("-fx-background-color: #C1BDF1;");
             }
             prefWidthProperty().bind(activityListView.widthProperty().subtract(10));
@@ -59,10 +59,10 @@ public class ActivityListPanel extends UiPart<Region> {
                     setGraphic(new DeadlineCard((Deadline) activity, getIndex() + 1).getRoot());
                 } else if (activity instanceof Event) {
                     setGraphic(new EventCard((Event) activity, getIndex() + 1).getRoot());
-                } else if (activity instanceof Lesson)
+                } else if (activity instanceof Lesson) {
                     setGraphic(new LessonCard((Lesson) activity, getIndex() + 1).getRoot());
                 }
             }
         }
-
+    }
 }

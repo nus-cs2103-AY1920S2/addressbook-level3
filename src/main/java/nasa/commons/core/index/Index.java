@@ -47,7 +47,7 @@ public class Index {
 
     @Override
     public String toString() {
-        return Integer.toString(this.zeroBasedIndex +  1);
+        return Integer.toString(this.zeroBasedIndex + 1);
     }
 
     @Override

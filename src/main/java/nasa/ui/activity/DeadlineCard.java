@@ -5,7 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Activity;
