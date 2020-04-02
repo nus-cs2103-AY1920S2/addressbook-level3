@@ -66,12 +66,15 @@ public class GroupListPanel extends UiPart<Region> implements Focusable {
             if (empty || group == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new GroupCard(group, getIndex() + 1).getRoot());
                 if (group.equals(getCurrentlyShownGroup())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");
+                } else {
+                    setStyle("");
                 }
             }
         }
