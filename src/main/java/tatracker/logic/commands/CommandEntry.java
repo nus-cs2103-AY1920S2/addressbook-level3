@@ -78,6 +78,10 @@ public enum CommandEntry {
         this.details = details;
     }
 
+    public CommandDetails getCommandDetails() {
+        return details;
+    }
+
     public String getFullCommandWord() {
         return details.getFullCommandWord();
     }
