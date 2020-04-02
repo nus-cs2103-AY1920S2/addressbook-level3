@@ -3,11 +3,11 @@
     "name" : "Quick Carrot Daikon Stir-fry",
     "time" : "25",
     "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ "60.0g,  carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  garlic clove (smashed and chopped)", "20.0g,  ginger (julienned sliced)", "30.0g,  scallions" ],
+    "grains" : [ "30.0g,  grain" ],
+    "vegetables" : [ "30.0g,  carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  garlic clove (smashed and chopped)", "20.0g,  ginger (julienned sliced)", "30.0g,  scallions" ],
     "proteins" : [ ],
     "fruits" : [ ],
-    "others" : [ "1.5tbsp,  oyster sauce", "0.5tsp,  salt", "0.5tsp,  sesame oil", "1.0tbsp,  shaoxing wine", "3.0tbsp,  vegetable oil", "0.25cup,  water", "0.25tsp,  white pepper" ],
+    "others" : [ "50.0g,  other", "50.0g,  others", "1.5tbsp,  oyster sauce", "0.5tsp,  salt", "0.5tsp,  sesame oil", "1.0tbsp,  shaoxing wine", "3.0tbsp,  vegetable oil", "0.25cup,  water", "0.25tsp,  white pepper" ],
     "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
     "goals" : [ "Herbivore" ]
   }, {
@@ -120,5 +120,16 @@
     "others" : [ ],
     "steps" : [ "Boil chicken", "While chicken is cooking, add sesame oil and crushed ginger into rice and cook it", "When chicken is done, dip it into iced water", "Serve while rice is hot" ],
     "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "testest",
+    "time" : "15",
+    "isFavourite" : false,
+    "grains" : [ "50.0g,  grain" ],
+    "vegetables" : [ "30.0g,  vege" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ ]
   } ]
 }

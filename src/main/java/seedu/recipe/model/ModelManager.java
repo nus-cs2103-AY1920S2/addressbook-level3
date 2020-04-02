@@ -140,6 +140,7 @@ public class ModelManager implements Model {
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
         recipeBook.setRecipe(target, editedRecipe);
+        plannedBook.setRecipe(target, editedRecipe);
     }
 
     @Override

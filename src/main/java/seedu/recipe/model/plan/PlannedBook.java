@@ -91,10 +91,8 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     public void deleteAllRecipePlans(Recipe recipe) {
         List<PlannedDate> plans = new ArrayList<>(recipeMap.getPlans(recipe));
         recipeMap.deleteAllPlannedRecipes(recipe);
-        System.out.println("plansa are: " + plans); // todo remove
         for (PlannedDate plan: plans) {
             if (plan.isOneRecipe()) {
-                System.out.println("size here is " + plannedDates.size());
                 plannedDates.remove(plan); // delete planned date if it consisted of that one recipe only
             } else {
                 plannedDates.remove(plan);
@@ -125,9 +123,11 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Sets {@code target} to {@code editedRecipe} in the list and map.
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
-        List<PlannedDate> plans = recipeMap.getPlans(target);
+        List<PlannedDate> plans = new ArrayList<>(recipeMap.getPlans(target));
         for (PlannedDate plan: plans) {
-            plan.setRecipe(target, editedRecipe);
+            plannedDates.remove(plan);
+            PlannedDate newPlan = plan.setRecipe(target, editedRecipe);
+            plannedDates.add(newPlan);
         }
         recipeMap.setRecipe(target, editedRecipe);
     }

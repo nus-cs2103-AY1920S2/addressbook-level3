@@ -33,11 +33,14 @@ public class PlannedDate implements Comparable<PlannedDate> {
     }
 
     /**
-     * Replaces the {@code target} Recipe with the {@code newRecipe} recipe in the planned recipe's list of recipes.
+     * Replaces the {@code target} Recipe with the {@code newRecipe} recipe in the planned recipe's list of recipes
+     * and returns a new PlannedDate.
      */
-    public void setRecipe(Recipe target, Recipe newRecipe) {
-        int index = recipes.indexOf(target);
-        recipes.set(index, newRecipe);
+    public PlannedDate setRecipe(Recipe target, Recipe newRecipe) {
+        List<Recipe> newRecipes = new ArrayList<>(recipes);
+        int index = newRecipes.indexOf(target);
+        newRecipes.set(index, newRecipe);
+        return new PlannedDate(newRecipes, date);
     }
 
     /**
