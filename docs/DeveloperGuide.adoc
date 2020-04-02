@@ -490,18 +490,141 @@ for the storage of history that is retrived in chronological order of execution.
 
 
 === Coupon Reminder
+To ensure users are aware of expiring coupons and maximise their saving,
+Coupon Stash reminds the user through a pop-up box, upon launching the application.
 
-==== Current Implementation
+To achieve this feature, the following methods in `RemindDate` class of a coupon,
+`RemindCommand` and `RemindWindow` are used,
 
-The coupon reminder provides a visual alert through a pop-up box, upon launching the application, whenever there are coupon(s) that
-are set to be reminded on a certain date.
+* `RemindDate#setRemindDate()` - To set a specific remind date of a coupon. By
+default, every coupons's remind date are set to 3 days before the expiry date.
+* `RemindCommand#checkReminder()` - To evaluate all coupons' remind date against
+system's current date.
+* `RemindWindow#displayRemind()`- To display the pop up box with coupons that needs
+to be reminded
 
-This reminder feature is facilitated by the Remind attribute of a coupon. The followings methods in the  RemindCommand Class,
-'Model' interface, "ui" interface facilitates this feature:
-
-* RemindCommand#ShowRemind - Will execute checking of all coupons and alert the user when
+image::RemindClassDiagram.png[]
 
 
+To make sense of how coupon reminder function, let's dive into the specifics of RemindDate
+class, RemindCommand class and RemindWindow class.
+
+==== Class structure of RemindDate field
+
+It is mandatory that each Coupon has a `RemindDate` object, that
+represent a date to be reminded. `RemindDate` class is heavily reliant of
+the expiry date of the coupon.
+
+Images are provided below to help understand the above said connectivity and
+to identify which are valid input remind date.
+
+
+[cols="2"]
+|=========================================
+|Object Diagram | Comments
+a|
+image:R1OD.png[] | Valid
+a|
+image:R2OD.png[] | Valid; remind date can be d-m-yyyy
+a|
+image:R3OD.png[] | Invalid; remind date cannot be dd-mm-yy
+a|
+image:R4OD.png[] | Invalid; remind date cannot be before
+system date
+a|
+image:R5OD.png[] | Invalid; remind date cannot be after
+expiry date
+a|
+image:R6OD.png[] | Valid; remind date can be today's date
+a|
+image:R7OD.png[] | Valid; remind date will become null
+after the coupon is reminded
+a|
+
+|=========================================
+
+Given below are two ways of a coupon's remind date are be derived from.
+
+**Default remind date**
+
+Whenever a new coupon without specifying a remind date is added,
+the default reminder will be set on 3 days before its expiry date.
+
+**Pre-determined remind date**
+
+Whenever the user has a specific remind date for a coupon, he/she can either
+
+* add a new coupon, specifying the remind date
+
+* use the remind command to set the remind field of an existing coupon
+
+
+==== Implementation of RemindCommand
+Depending of user's preference, there are two ways to use the remind command to
+set a coupon's remind date. The user can choose to input a specific remind date or
+input X amount of days before the expiry date.
+
+The following activity diagram depicts what happens when the user runs a `remind` command.
+
+image::RemindActivityDiagram.png[]
+
+==== Implementation of reminder pop up
+
+After establishing the remind dates for all the coupons,
+the next step is ensure that there will be a reminder pop
+up (if necessary) upon opening the application.
+
+The following steps describe how to reminder pop up works,
+
+Step 1. The user launches Coupon Stash. The `start` method
+in `MainApp` class will kick start the program
+by setting up the stage, along with the saved data.
+
+Step 2. The `checkReminder()` method is invoked to exhaust
+all the coupons in the coupon stash to check if there is
+any coupon's `remindDate` that matches the `system's date`.
+
+Step 3. In this example, we will assume that there are
+coupons that needs to be reminded and will call `RemindWindow#displayWindow`
+method with a concatenated string of coupons information.
+Coupon information, such as coupon's name and its
+expiry date, are retrieved by using  `toString` method
+of coupon's `Name` class and `ExpiryDate` class.
+
+Step 4. A new `stage`, along with new `label` with buttons
+and coupon information, will be
+built onto the scene that resembles a pop up window. This pop
+up would require the user to response before resuming the use of
+the application by clicking "OK"
+
+Step 5. The coupon's `remindDate` will set to `null` through the setter method
+of `Remind` class.
+
+
+image::RemindSequenceDiagram.png[]
+
+==== Design consideration
+
+*Aspect: The implementation of remind date for every
+coupon to facilitate coupon reminder*
+
+* *Alternative 1 (current state):* Coupon contains an
+ `Remind` field
+
+** Pros: Code Implementation is easier and requires lower maintenance
+
+** Cons: Inefficient to access all coupon-objects to
+get the remind dates for crosschecking with sys date
+
+* *Alternative 2 :* To store a list of coupons based
+on their remind dates, in ascending order
+(Queue-data structure) in a separate data file
+
+** Pros: Avoid going through the entire coupon stash.
+Efficient.
+
+** Cons: Harder to maintain two data files.
+Very prone to error.
 === Savings per use and total amount saved
 
 To allow users to keep track of how much they have saved

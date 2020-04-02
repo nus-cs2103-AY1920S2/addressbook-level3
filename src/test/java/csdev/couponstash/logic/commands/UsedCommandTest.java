@@ -2,6 +2,7 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandFailure;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static csdev.couponstash.logic.commands.CommandTestUtil.showArchivedCoupon;
 import static csdev.couponstash.logic.commands.CommandTestUtil.showCouponAtIndex;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -155,6 +156,15 @@ class UsedCommandTest {
         UsedCommand usedCommand = new UsedCommand(outOfBoundIndex);
 
         assertCommandFailure(usedCommand, model, Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_archivedCoupon_throwsCommandException() {
+        showArchivedCoupon(model);
+        UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
+
+        assertCommandFailure(usedCommand, model,
+                String.format(UsedCommand.MESSAGE_ARCHIVED_COUPON, 1));
     }
 
     @Test
