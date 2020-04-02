@@ -17,10 +17,10 @@ import csdev.couponstash.model.coupon.Coupon;
 public class UnarchiveCommand extends IndexedCommand {
     public static final String COMMAND_WORD = "unarchive";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Unarchive the coupon identified by the "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unarchive the coupon identified by the "
             + "index number used in the displayed coupon list. "
-            + "This removes the coupon frmo the archives, and place it back into the active coupon list. "
-            + "Parameters: INDEX (must be a postive integer) "
+            + "This removes the coupon frmo the archives, and place it back into the active coupon list.\n"
+            + "Parameters: INDEX (must be a postive integer)\n"
             + "Example: " + COMMAND_WORD + " ";
 
     public static final String MESSAGE_UNARCHIVE_COUPON_SUCCESS = "Unarchived Coupon: %1s";

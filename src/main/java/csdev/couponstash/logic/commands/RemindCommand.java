@@ -39,14 +39,14 @@ public class RemindCommand extends IndexedCommand {
     private static String messageSuccess = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": set a reminder of a coupon, identified by the index number "
+            + ": Set a reminder of a coupon, identified by the index number "
             + "used in coupon listing. "
             + "Existing reminder will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_REMIND + " [Date] or [String]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Examples:\n" + COMMAND_WORD + " 1 "
             + PREFIX_REMIND + " 25-12-2020"
-            + "\n" + "Example: " + COMMAND_WORD + " 2 "
+            + "\n" + COMMAND_WORD + " 2 "
             + PREFIX_REMIND + " 2 days";
 
     private static final String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
