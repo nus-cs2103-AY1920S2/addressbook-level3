@@ -116,7 +116,7 @@ public class CommandCompletor {
             case PomCommand.COMMAND_WORD:
                 ArgumentMultimap pomArgMap = ArgumentTokenizer.tokenize(input, PREFIX_TIMER);
                 boolean hasTimer = ParserUtil.arePrefixesPresent(pomArgMap, PREFIX_TIMER);
-                if (!hasTimer) {
+                if (!hasTimer && trimmedInputWords.length > 2) {
                     trimmedInputWords[2] =
                             addPrefix(CliSyntax.PREFIX_TIMER.toString(), trimmedInputWords[2]);
                     prefixesAdded += CliSyntax.PREFIX_TIMER.toString();
