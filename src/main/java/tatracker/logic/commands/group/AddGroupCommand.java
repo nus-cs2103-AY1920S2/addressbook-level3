@@ -66,10 +66,7 @@ public class AddGroupCommand extends Command {
 
         actualModule.addGroup(toAdd);
         model.updateFilteredGroupList(actualModule.getIdentifier());
-
-        if (model.getFilteredGroupList().isEmpty()) {
-            model.setFilteredStudentList();
-        }
+        model.updateFilteredStudentList(toAdd.getIdentifier(), actualModule.getIdentifier());
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
     }
