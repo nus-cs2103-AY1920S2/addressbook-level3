@@ -154,11 +154,18 @@ If you no longer need a note, or accidentally create a wrong one, don't worry. Y
 Format: `delete [-t] TITLE` +
 Example: `delete -t Notably/CS2103`
 
-.Demo for the `delete` command
-image:demo/Delete1.png[]
+[IMPORTANT]
+Please keep in mind that deleting a note that contains other notes will cause the whole group of notes to be deleted. You can refer to the demo below for an illustration.
 
-.Demo for the `delete` command (after deletion)
-image:demo/Delete2.png[]
+.Demo for the delete command
+image::demo/Delete1.png[]
+
+.Demo for the delete command (after deletion)
+image::demo/Delete2.png[]
+
+[NOTE]
+You can achieve the same result as above by using an `AbsolutePath` instead by executing `delete -t /Workspace/Notably`.
+
 
 === Save the data
 
