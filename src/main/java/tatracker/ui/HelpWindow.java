@@ -48,15 +48,12 @@ public class HelpWindow extends UiPart<Stage> {
         }
         helpMessage.setText(HELP_MESSAGE + "\n\n" + CommandDictionary.getHelpMessage());
 
-        root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>
-                () {
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
-                if(t.getCode()== KeyCode.ESCAPE)
-                {
+                if(t.getCode()== KeyCode.ESCAPE) {
                     System.out.println("click on escape");
-                    Stage sb = (Stage)helpMessage.getScene().getWindow();//use any one object
-                    sb.close();
+                    root.close();
                 }
             }
         });
