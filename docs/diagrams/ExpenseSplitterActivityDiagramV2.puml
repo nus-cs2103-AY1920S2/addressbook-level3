@@ -2,7 +2,7 @@
 start
 
 if () then ([itemToAdd])
-    : New Receipt
+    : Clear Receipt
     @Rake: Visit AddItemActivityDiagram;
     : Done Receipt;
     else ([usingPaidCommand])

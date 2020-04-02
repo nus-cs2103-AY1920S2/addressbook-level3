@@ -248,9 +248,9 @@ price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
 [[additem]]
-==== Add item `additem`
+==== Adding an item: `additem`
 
-Add item and the person(s) involved in the splitting for that item.
+Adds an Item and the Person(s) involved in the splitting for that item.
 
 Format: +
 `additem -i ITEMNAME -p PRICE -n NAME` +
@@ -264,8 +264,9 @@ Example: +
 Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
+
 [[deleteitem]]
-==== Delete item `deleteitem`
+==== Deleting an item: `deleteitem`
 
 Delete the item(s) in a receipt:
 
@@ -279,7 +280,7 @@ Example: +
 `deleteitem 3`
 
 [[listreceipt]]
-==== List the current receipt `listreceipt`
+==== Listing the current receipt: `listreceipt`
 
 Display the current receipt which shows all the items and its
 respective price and person(s) involved in splitting the cost of that item
@@ -291,7 +292,7 @@ Example: +
 `listreceipt`
 
 [[listamount]]
-==== List amounts owed `listamount`
+==== Listing amounts owed by each person: `listamount`
 
 You can display all the person(s) and the amount they owe you.
 
@@ -302,7 +303,7 @@ Example: +
 `listamount`
 
 [[paid]]
-==== Paid money `paid`
+==== Paying money: `paid`
 
 Subtracts the paid amount from the person
 
@@ -316,7 +317,7 @@ Example: +
 [TIP]
 ====
 * Use `listamount` command to find the index of the person who paid you.
-* Leaving the amount empty is equivalent to paying the full amount.
+* Leaving the amount empty is equivalent to paying the full amount. As seen in `paid 2` above.
 ====
 
 [NOTE]
@@ -340,7 +341,7 @@ Example: +
 
 [NOTE]
 ====
-* Use this command only after you are sure you do not have to make any other changes.
+* Use this command only after all Items have been correctly added to the Receipt.
 * After you use this command, you will be unable to add any new items using the `additem` command
 or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
