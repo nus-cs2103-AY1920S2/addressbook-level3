@@ -24,7 +24,7 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 The image shown below highlights the different sections of Notably's user interface:
 
 .Notably GUI quickguide
-image::introToNotably.png[width="900"]
+image::IntroToNotably.png[width="900"]
 
 === Symbols used in this guide
 [NOTE]
@@ -34,15 +34,12 @@ Denotes something that may be helpful if you are having any difficulties.
 [WARNING]
 Denotes a warning for something critical.
 
-== Quick Start [Work in progress]
+== Getting started
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `notably.jar`
 .  Copy the file to the folder you want to use as the home folder for your notes.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::View.png[width="790"]
-+
+.  Double-click the file to start the app. The Application should start in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 

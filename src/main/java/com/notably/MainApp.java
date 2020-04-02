@@ -17,8 +17,6 @@ import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockModelImpl;
-import com.notably.model.block.BlockTree;
-import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.userpref.ReadOnlyUserPrefModel;
@@ -44,7 +42,7 @@ import javafx.stage.Stage;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -69,10 +67,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        BlockModel blockModel = new BlockModelImpl();
-        SuggestionModel suggestionModel = new SuggestionModelImpl();
-        ViewStateModel viewStateModel = new ViewStateModelImpl();
-        model = initModelManager(storage, blockModel, suggestionModel, viewStateModel, userPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -84,24 +79,27 @@ public class MainApp extends Application {
      * The data from the sample block data will be used instead if {@code storage}'s block data is not found,
      * or an empty {@code BlockTree} will be used instead if errors occur when reading {@code storage}'s block data.
      */
-    private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel,
-        ViewStateModel viewStateModel, ReadOnlyUserPrefModel userPrefs) {
-        Optional<BlockTree> blockTreeOptional;
-        BlockTree initialData;
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefModel userPrefs) {
+        BlockModel blockModel = new BlockModelImpl();
+        SuggestionModel suggestionModel = new SuggestionModelImpl();
+        ViewStateModel viewStateModel = new ViewStateModelImpl();
+
+        Optional<BlockModel> blockModelOptional;
+        BlockModel initialData;
         try {
-            blockTreeOptional = storage.readBlockTree();
-            if (!blockTreeOptional.isPresent()) {
+            blockModelOptional = storage.readBlockModel();
+            if (!blockModelOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BlockTree");
             }
-            initialData = blockTreeOptional.orElseGet(SampleDataUtil::getSampleBlockTree);
+            initialData = blockModelOptional.orElseGet(SampleDataUtil::getSampleBlockModel);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty BlockTree");
-            initialData = new BlockTreeImpl();
+            initialData = new BlockModelImpl();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty BlockTree");
-            initialData = new BlockTreeImpl();
+            initialData = new BlockModelImpl();
         }
-        blockModel.setBlockTree(initialData);
+        blockModel.resetData(initialData);
         return new ModelManager(blockModel, suggestionModel, viewStateModel , userPrefs);
     }
 
