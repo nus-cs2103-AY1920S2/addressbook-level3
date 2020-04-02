@@ -30,13 +30,13 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     private static final long DEFAULT_HOURS = 0;
     private static final int DEFAULT_RATE = 40;
+    private static String currClaimFilter;
 
     private static Group currentlyShownGroup;
     private static Module currentlyShownModule;
     private static Module currentlyShownModuleClaim;
 
     private int rate;
-    private static String currClaimFilter;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
