@@ -2,7 +2,6 @@ package tatracker.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
