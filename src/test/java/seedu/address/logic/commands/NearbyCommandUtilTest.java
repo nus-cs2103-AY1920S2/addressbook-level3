@@ -62,6 +62,9 @@ class NearbyCommandUtilTest {
         assertEquals(expectedLocation, value.get());
     }
 
+    /**
+     * Test for sameGeneralLocation function.
+     */
     @ParameterizedTest
     @MethodSource("sameLocation")
     void sameGeneralLocation_validLocation_returnsList(String location, List<String> expectedPostalSectors) {
