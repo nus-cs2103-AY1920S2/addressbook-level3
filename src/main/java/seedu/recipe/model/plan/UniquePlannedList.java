@@ -53,8 +53,9 @@ public class UniquePlannedList {
         } else {
             PlannedDate sameDate = optionalSameDate.get();
             internalList.remove(sameDate);
-            sameDate.addRecipes(plannedDate);
+            sameDate = sameDate.addRecipes(plannedDate);
             internalList.add(sameDate);
+            System.out.println("reached, internal list: " + internalList.size());
         }
     }
 
@@ -63,6 +64,7 @@ public class UniquePlannedList {
      */
     public void remove(PlannedDate plannedDate) {
         requireNonNull(plannedDate);
+        System.out.println("removing + " + plannedDate); //todo remove
         if (!internalList.remove(plannedDate)) {
             throw new PlannedRecipeNotFoundException();
         }
@@ -92,8 +94,6 @@ public class UniquePlannedList {
         return copyOfInternal.stream().filter(plan -> plan.hasSameDate(otherPlannedDate)).findFirst();
     }
 
-
-
     /**
      * Returns true if {@code plannedDates} contains only unique planned dates.
      */
@@ -108,7 +108,8 @@ public class UniquePlannedList {
                 }
             }
         }
-        if (!plannedDates.get(plannedDates.size() - 1).recipesAreUnique()) {
+        int lastItem = plannedDates.size() - 1;
+        if (lastItem > 0 && !plannedDates.get(plannedDates.size() - 1).recipesAreUnique()) {
             return false; // checks if the recipes in the last plannedDate is unique
         }
         return true;
@@ -134,4 +135,7 @@ public class UniquePlannedList {
                 && internalList.equals(((UniquePlannedList) other).internalList));
     }
 
+    public String size() {
+        return internalList.size() + "";
+    }
 }

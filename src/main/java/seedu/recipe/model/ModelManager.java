@@ -116,6 +116,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteRecipe(Recipe target) {
         recipeBook.removeRecipe(target);
+        plannedBook.deleteAllRecipePlans(target);
     }
 
     @Override

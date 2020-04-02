@@ -1,34 +1,6 @@
 {
   "plannedRecipes" : [ {
     "recipes" : [ {
-      "name" : "Asian BBQ Chicken 2",
-      "time" : "150",
-      "isFavourite" : false,
-      "grains" : [ ],
-      "vegetables" : [ "50.0g,  all vege ingredients" ],
-      "proteins" : [ "100.0g,  chicken breast" ],
-      "fruits" : [ ],
-      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
-      "steps" : [ "all step 1", "all step 2" ],
-      "goals" : [ "Bulk like the Hulk" ]
-    } ],
-    "date" : "2020-04-03"
-  }, {
-    "recipes" : [ {
-      "name" : "Asian BBQ Chicken 2",
-      "time" : "150",
-      "isFavourite" : false,
-      "grains" : [ ],
-      "vegetables" : [ "50.0g,  all vege ingredients" ],
-      "proteins" : [ "100.0g,  chicken breast" ],
-      "fruits" : [ ],
-      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
-      "steps" : [ "all step 1", "all step 2" ],
-      "goals" : [ "Bulk like the Hulk" ]
-    } ],
-    "date" : "2020-04-04"
-  }, {
-    "recipes" : [ {
       "name" : "Sweet and Sour Chicken",
       "time" : "20",
       "isFavourite" : false,
@@ -40,31 +12,31 @@
       "steps" : [ "Pound garlic and ginger into a paste. Marinade chicken in the paste, along with corn flour, soy sauce, and salt.", "In a wok, take some oil, saute the carrots, cabbage, onions, and bell peppers. Add tomato juice and bring to a slight boil.", "Fry the chicken and add to the wok along with some stock and set to simmer.", "Garnish with coriander and serve with rice." ],
       "goals" : [ "Bulk like the Hulk" ]
     }, {
-      "name" : "Asian BBQ Chicken",
-      "time" : "15",
+      "name" : "Quick Carrot Daikon Stir-fry",
+      "time" : "25",
       "isFavourite" : false,
       "grains" : [ ],
-      "vegetables" : [ "1.0tbsp,  garlic & ginger (finely chopped)" ],
-      "proteins" : [ "100.0g,  chicken breast" ],
+      "vegetables" : [ "60.0g,  carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  garlic clove (smashed and chopped)", "20.0g,  ginger (julienned sliced)", "30.0g,  scallions" ],
+      "proteins" : [ ],
       "fruits" : [ ],
-      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
-      "steps" : [ "In a bowl, mix all the ingredients to create marinade. Mix the chicken with the marinade.", "Pan sear the chicken from both sides.", "edited step 3", "hi" ],
-      "goals" : [ "Bulk like the Hulk" ]
+      "others" : [ "1.5tbsp,  oyster sauce", "0.5tsp,  salt", "0.5tsp,  sesame oil", "1.0tbsp,  shaoxing wine", "3.0tbsp,  vegetable oil", "0.25cup,  water", "0.25tsp,  white pepper" ],
+      "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
+      "goals" : [ "Herbivore" ]
     } ],
-    "date" : "2020-05-02"
+    "date" : "2020-04-03"
   }, {
     "recipes" : [ {
-      "name" : "Asian BBQ Chicken 2",
-      "time" : "150",
-      "isFavourite" : true,
-      "grains" : [ ],
-      "vegetables" : [ "50.0g,  all vege ingredients" ],
-      "proteins" : [ "100.0g,  chicken breast" ],
+      "name" : "Bacon, Spinach Caramelized Onion Pasta",
+      "time" : "25",
+      "isFavourite" : false,
+      "grains" : [ "170.0g,  whole wheat penne pasta" ],
+      "vegetables" : [ "1.5cup,  large yellow onion diced", "1.0cup,  spinach" ],
+      "proteins" : [ "120.0g,  chopped bacon" ],
       "fruits" : [ ],
-      "others" : [ "2.0tbsp,  char siew sauce", "1.0tsp,  honey", "1.0tsp,  rice vinegar", "1.0tsp,  Salt & pepper", "0.5tsp,  sesame oil", "50.0g,  sugarspiceeverythingnice" ],
-      "steps" : [ "all step 1", "all step 2" ],
-      "goals" : [ "Bulk like the Hulk" ]
+      "others" : [ "1.0tbsp,  brown sugar", "2.0tbsp,  butter", "1.0tbsp,  garlic powder", "0.5cup,  Parmesan cheese sprinkles", "1.0tbsp,  pepper", "1.0tbsp,  salt" ],
+      "steps" : [ "In a large skillet, add your bacon and cook for 1-2 mins until bacon is halfway done", "In that same pan, and some butter, sugar, spices, and onion; sautee until the onion becomes tender, and bacon starts to crisp up.", "Boil pasta in salted water until al dente", "Once the pasta is done, drain it loosely, but leave a tiny amount of water and add it to the skillet with the bacon, and onion mixture.", "Mix in the spinach and stir until tender", "Sprinkle with Parmesan before serving." ],
+      "goals" : [ "Wholesome Wholemeal" ]
     } ],
-    "date" : "2040-02-02"
+    "date" : "2020-05-04"
   } ]
 }

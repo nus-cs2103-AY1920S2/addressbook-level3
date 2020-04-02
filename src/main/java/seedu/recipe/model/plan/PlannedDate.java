@@ -137,4 +137,9 @@ public class PlannedDate implements Comparable<PlannedDate> {
                 && recipes.equals(((PlannedDate) other).recipes));
     }
 
+    @Override
+    public String toString() {
+        return date.toString() + "\n" + recipes.toString();
+    }
+
 }

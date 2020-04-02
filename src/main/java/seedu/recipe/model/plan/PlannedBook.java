@@ -2,6 +2,7 @@ package seedu.recipe.model.plan;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -88,11 +89,19 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Deletes {@code recipe} from all planned dates in the planned recipes list and map.
      */
     public void deleteAllRecipePlans(Recipe recipe) {
-        List<PlannedDate> plans = recipeMap.getPlans(recipe);
-        for (PlannedDate plan: plans) {
-            plannedDates.remove(plan);
-        }
+        List<PlannedDate> plans = new ArrayList<>(recipeMap.getPlans(recipe));
         recipeMap.deleteAllPlannedRecipes(recipe);
+        System.out.println("plansa are: " + plans); // todo remove
+        for (PlannedDate plan: plans) {
+            if (plan.isOneRecipe()) {
+                System.out.println("size here is " + plannedDates.size());
+                plannedDates.remove(plan); // delete planned date if it consisted of that one recipe only
+            } else {
+                plannedDates.remove(plan);
+                PlannedDate newPlannedDate = plan.deleteRecipe(recipe);
+                plannedDates.add(newPlannedDate);
+            }
+        }
     }
 
     /**
@@ -105,7 +114,9 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         if (plannedDate.isOneRecipe()) { // if one recipe is left, remove plannedDate
             plannedDates.remove(plannedDate);
         } else {
-            plannedDate.deleteRecipe(recipe);
+            plannedDates.remove(plannedDate);
+            plannedDate = plannedDate.deleteRecipe(recipe);
+            plannedDates.add(plannedDate);
         }
         recipeMap.deleteOnePlannedRecipe(recipe, plannedDate);
     }
