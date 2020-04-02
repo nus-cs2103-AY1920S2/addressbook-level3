@@ -34,6 +34,8 @@ public class ActivityCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label dateline;
+    @FXML
     private Label date;
     @FXML
     private Label note;
@@ -59,8 +61,10 @@ public class ActivityCard extends UiPart<Region> {
         status.setText(activity.getStatus().toString());
         priority.setText(activity.getPriority().toString());
         if (activity instanceof Deadline) {
+            Deadline deadline = (Deadline) activity;
             labelForCircle.setText("D");
-            int urgent = ((Deadline) activity).percentage();
+            dateline.setText(deadline.getDueDate().toString());
+            int urgent = deadline.percentage();
             if (urgent < 50) {
                 circle.setFill(Color.GREEN);
             } else if (urgent < 80) {
@@ -70,8 +74,10 @@ public class ActivityCard extends UiPart<Region> {
             }
         } else if (activity instanceof Event) {
             labelForCircle.setText("E");
+            dateline.setVisible(false);
         } else {
             labelForCircle.setText("L");
+            dateline.setVisible(false);
         }
     }
 

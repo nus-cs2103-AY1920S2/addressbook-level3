@@ -16,6 +16,11 @@
       <Label fx:id = "labelForCircle" layoutX="-5.0" layoutY="-8.0" text="\$code"/>
    </Group>
    <Label fx:id="name" styleClass="activity_big_label" text="\$code" wrapText="true"/>
+   <Label fx:id="dateline" styleClass="highlight_label" text="\$code" wrapText="true">
+      <minWidth>
+         <Region fx:constant="USE_PREF_SIZE"/>
+      </minWidth>
+   </Label>
    <Label fx:id="note" styleClass="activity_small_label" text="\$code" wrapText="true">
       <minWidth>
          <Region fx:constant="USE_PREF_SIZE"/>
