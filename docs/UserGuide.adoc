@@ -95,7 +95,8 @@ Format: `help`
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
 and possibly Today Page (if its date is today) immediately after the command is executed.
 Note that due to space constraint, entry card in DashBoard and Today page will only display
-first 14 characters of its name, first 21 characters of its location.
+first 14 characters of its name and first 21 characters of its location. The entry icon in
+Calendar Page are even more constrained.
 
 Format: `addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False dr/DURATION r/REMARK...`
 
