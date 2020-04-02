@@ -73,7 +73,7 @@ public interface Model {
     PetManager getPetManager();
 
     void setPetName(String name);
-    
+
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);

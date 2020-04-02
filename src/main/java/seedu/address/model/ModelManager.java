@@ -201,7 +201,6 @@ public class ModelManager implements Model {
         this.pet.setName(name);
     }
 
-
     @Override
     public void setPetManager(PetManager petManager) {
         this.petManager = petManager;

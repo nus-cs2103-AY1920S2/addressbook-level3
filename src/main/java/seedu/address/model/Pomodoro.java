@@ -3,7 +3,8 @@ package seedu.address.model;
 import seedu.address.model.task.Task;
 
 public class Pomodoro implements ReadOnlyPomodoro {
-    private static final String DEFAULT_TIME = "25.0";
+    // private static final String DEFAULT_TIME = "25.0";
+    private static final String DEFAULT_TIME = "1.0";
     public static final String TIME_REGEX = "\\d+.?\\d*";
 
     public String defaultTime;

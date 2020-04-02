@@ -13,7 +13,8 @@ import seedu.address.model.task.Task;
 
 public class PomCommand extends Command {
 
-    public static final int DEFAULT_TIMER = 25;
+    // public static final int DEFAULT_TIMER = 25;
+    public static final int DEFAULT_TIMER = 1;
 
     public static final String COMMAND_WORD = "pom";
 
@@ -79,7 +80,7 @@ public class PomCommand extends Command {
 
         model.getPomodoroManager().startTrackTask(taskToPom);
 
-        if (taskToPom.getDone().getIsDone()){
+        if (taskToPom.getDone().getIsDone()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_TO_BE_DONED);
         }
 

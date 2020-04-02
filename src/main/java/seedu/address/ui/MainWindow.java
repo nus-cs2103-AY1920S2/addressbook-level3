@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
+import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
+
+import java.nio.file.Path;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,8 +19,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -31,13 +33,8 @@ import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyPet;
-import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Reminder;
-
-import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
-import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -261,9 +258,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             // Swap to tasks tab
-            tabPanePlaceholder
-                    .getSelectionModel()
-                    .select(TASKS_TAB_INDEX);
+            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
 
             // Switch tabs related results
             try {

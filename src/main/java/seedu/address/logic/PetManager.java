@@ -27,8 +27,6 @@ public class PetManager {
     private LocalDateTime timeForHangry;
     private Timer timer;
     private TimerTask timerTask;
-    // private Timer secondTimer;
-    // private Timer thirdTimer;
     private boolean hasStarted;
 
     public PetManager() {
@@ -70,22 +68,6 @@ public class PetManager {
                 Date timeForMoodChange =
                         Date.from(timeForHangry.atZone(ZoneId.systemDefault()).toInstant());
                 timer.schedule(timerTask, timeForMoodChange);
-
-                // System.out.print("THIS IS FIRST COUNTDOWN??!!!");
-                // secondTimer = new Timer();
-                // TimerTask task = new TimerTask() {
-                // public void run() {
-                // Duration duration = Duration.between(LocalDateTime.now(), timeForHangry);
-                // System.out.println("DURATION LOG IN: " + duration);
-                // if (duration.isNegative()) {
-                // cancel();
-                // }
-                // }
-                // };
-                // Date date =
-                // Date.from(lastDoneTaskTime.atZone(ZoneId.systemDefault()).toInstant());
-                // secondTimer.scheduleAtFixedRate(task, date, 10000);
-
             }
         }
     }
@@ -96,6 +78,7 @@ public class PetManager {
 
     public void incrementExp() {
         this.pet.incrementExp();
+        updateDisplayElements();
     }
 
     public void updateMoodWhenDone() {
@@ -123,28 +106,11 @@ public class PetManager {
         timer.schedule(timerTask, timeForMoodChange);
         changeToHappy();
         updateDisplayElements();
-
-        // System.out.print("SCEHDULE TIMERTASK....... THIS IS FINAL COUNTDOWN??!!!");
-        // thirdTimer = new Timer();
-        // TimerTask task = new TimerTask() {
-        // public void run() {
-        // Duration duration = Duration.between(LocalDateTime.now(), timeForHangry);
-        // System.out.println("DURATION: " + duration);
-        // if (duration.isNegative()) {
-        // cancel();
-        // }
-        // }
-        // };
-        // Date date =
-        // Date.from(lastDoneTaskTime.atZone(ZoneId.systemDefault()).toInstant());
-        // thirdTimer.scheduleAtFixedRate(task, date, 10000);
     }
 
     public void handleExit() {
         hasStarted = false;
         timer.cancel();
-        // secondTimer.cancel();
-        // thirdTimer.cancel();
     }
 
     void changeToHangry() {
@@ -234,7 +200,6 @@ public class PetManager {
         }
     }
 
-
     public String getPetName() {
         return pet.getName();
     }
@@ -248,7 +213,7 @@ public class PetManager {
     }
 
     public Path getExpBarImage() {
-        return  expBarImage;
+        return expBarImage;
     }
 
     public Path getPetImage() {
