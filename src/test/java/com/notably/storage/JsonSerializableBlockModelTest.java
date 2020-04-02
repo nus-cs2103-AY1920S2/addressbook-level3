@@ -21,7 +21,8 @@ public class JsonSerializableBlockModelTest {
     private static final Path DUPLICATE_BLOCK_FILE = TEST_DATA_FOLDER.resolve("duplicateBlockData.json");
     private static final Path MISSING_PATH_BLOCK_FILE = TEST_DATA_FOLDER.resolve("missingPathBlockData.json");
     private static final Path PATH_DOESNT_EXIST_BLOCK_FILE = TEST_DATA_FOLDER.resolve("pathDoesntExistBlockData.json");
-    private static final Path BLANK_DATA_INVALID_PATH_BLOCK_FILE = TEST_DATA_FOLDER.resolve("blankDataInvalidPathBlockData.json");
+    private static final Path BLANK_DATA_INVALID_PATH_BLOCK_FILE = TEST_DATA_FOLDER.resolve(
+        "blankDataInvalidPathBlockData.json");
 
     @Test
     public void toModelType_typicalBlocksFile_success() throws Exception {
