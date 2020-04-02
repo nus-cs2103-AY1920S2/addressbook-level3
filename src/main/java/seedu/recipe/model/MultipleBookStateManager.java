@@ -30,7 +30,6 @@ public class MultipleBookStateManager extends RecipeBook {
         this.recipeBookStatePointer = 0;
         this.plannedBookStatePointer = 0;
         this.cookedRecordBookStatePointer = 0;
-        System.out.println("At beginning stack size: " + stackToUndo.size());
     }
 
     /**
@@ -40,7 +39,6 @@ public class MultipleBookStateManager extends RecipeBook {
     public boolean canUndo(int numberOfUndo) {
         assert numberOfUndo >= 0;
         if (numberOfUndo > 0) {
-            System.out.println("undo stack size: " + stackToUndo.size());
             return numberOfUndo <= stackToUndo.size();
         } else {
             return !stackToUndo.empty();

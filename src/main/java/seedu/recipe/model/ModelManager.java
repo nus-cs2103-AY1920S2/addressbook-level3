@@ -153,7 +153,6 @@ public class ModelManager implements Model {
 
     @Override
     public void commitBook(CommandType commandType) {
-        System.out.println("commitbook called by: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         switch (commandType) {
         case MAIN_LONE:
             states.commitRecipeBook(new RecipeBook(recipeBook), commandType);
