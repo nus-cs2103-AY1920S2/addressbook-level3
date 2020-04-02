@@ -23,7 +23,7 @@ import tatracker.ui.CommandBoxParser.CommandMatch;
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
-public class CommandBox extends UiPart<Region> {
+public class CommandBox extends UiPart<Region> implements Focusable {
     public static final String ERROR_STYLE_CLASS = "error";
     public static final String VALID_STYLE_CLASS = "valid";
 
@@ -54,6 +54,16 @@ public class CommandBox extends UiPart<Region> {
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((property, oldInput, newInput) -> highlightInput(newInput));
+    }
+
+    @Override
+    public void requestFocus() {
+        commandTextField.requestFocus();
+    }
+
+    @Override
+    public boolean isFocused() {
+        return commandTextField.isFocused();
     }
 
     /**
