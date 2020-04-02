@@ -52,7 +52,7 @@ public class HelpWindow extends UiPart<Stage> {
             @Override
             public void handle(KeyEvent t) {
                 if (t.getCode() == KeyCode.ESCAPE) {
-                    System.out.println("click on escape");
+                    logger.info("click on escape");
                     root.close();
                 }
             }
