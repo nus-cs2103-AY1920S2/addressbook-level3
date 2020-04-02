@@ -1,6 +1,7 @@
 package nasa.model.quote;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,9 +34,9 @@ public class Quote {
     public static void readFile() {
         try {
             Path relative = Paths.get(Objects.requireNonNull(Quote.class.getClassLoader()
-                    .getResource("text/quotes.txt")).getPath());
+                    .getResource("text/quotes.txt")).toURI());
             lines.addAll(Files.readAllLines(relative));
-        } catch (IOException error) {
+        } catch (IOException | URISyntaxException error) {
             Logger logger = LogsCenter.getLogger(LogsCenter.class);
             logger.info(error.getMessage());
         }

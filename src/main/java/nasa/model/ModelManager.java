@@ -54,7 +54,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new NasaBook(), new HistoryBook<UniqueModuleList>(), new UserPrefs());
+        this(new NasaBook(), new HistoryBook<>(), new UserPrefs());
     }
 
     public HistoryManager<UniqueModuleList> getHistoryManager() {

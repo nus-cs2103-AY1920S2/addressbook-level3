@@ -25,7 +25,7 @@ import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
+    private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<>(),
             new UserPrefs());
 
     @Test
