@@ -1,6 +1,7 @@
 package seedu.recipe.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.recipe.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class DateTest {
         assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
 
         // invalid date
-        assertFalse(Date.isValidDate(""));  // empty string
+        assertFalse(Date.isValidDate("")); // empty string
         assertFalse(Date.isValidDate(" ")); // only spaces
         assertFalse(Date.isValidDate("!")); // only non-numeric or - character
         assertFalse(Date.isValidDate("20200202")); // not in yyyy-mm-dd format
@@ -69,5 +70,4 @@ class DateTest {
         assertFalse(recentDate.isWithinRange(pastDate, pastDate));
         assertFalse(recentDate.isWithinRange(futureDate, futureDate));
     }
-
 }

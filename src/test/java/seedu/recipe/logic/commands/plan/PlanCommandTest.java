@@ -1,14 +1,11 @@
 package seedu.recipe.logic.commands.plan;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.recipe.testutil.Assert.assertThrows;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
 import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.Test;
-import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.AddCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
