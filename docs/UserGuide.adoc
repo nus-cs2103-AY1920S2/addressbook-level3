@@ -33,6 +33,9 @@ If you can type fast, EYLAH can solve your problems in halls by tracking your di
 and splitting the cost after each outing or late-night party session with a few pokes of your keyboard. Interested?
 Jump to <<Getting Started>> to get started. Enjoy!
 
+image::Ui.png[width="790"]
+
+
 === How to use?
 Below is some special syntax used throughout the documentation:
 
@@ -44,31 +47,22 @@ Below is some special syntax used throughout the documentation:
 * This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
 to use the application to improve their lives on campus.
 
-== Features Summary
-
-. *Diet Tracker* tracks your diet easily.
-
-. *Expense Splitter* solves your hassle of splitting bills with a large group.
-
-.. Add and Delete Item(s) to split.
-.. Lists the amount each Person(s) owes you.
-
 == Getting Started
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `eylah.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your EYLAH application.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for EYLAH.
+.  Navigate to the folder in terminal and to run the jar file type `java -jar eylah.jar`.
 +
-image::Ui.png[width="790"]
+
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* `diet` : enters the Diet Tracker component of EYLAH.
+* `1` : enters the Diet Tracker component of EYLAH.
 * `help` : shows the list of commands you can execute at each page.
-* `split` : enters the Expense Splitter segment of EYLAH.
+* `2` : enters the Expense Splitter component of EYLAH.
 * `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -117,7 +111,7 @@ e.g:`additem -i beer tower -p 19.90 -n charlotte`.
 * Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
 `paid 1 3.90`.
 * Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
-(i.e. 0 times), `-n charlotte`, `-n John Doe -n Daniel` etc.
+(i.e. 0 times), `-n Charlotte`, `-n John Doe -n Daniel` etc.
 * Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
 
@@ -163,14 +157,14 @@ Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
 
 ==== List items `list`
-List all the items in your current diet tracker. Show different data based on flags.
+List food in your current diet tracker. Show different data based on flags.
 
-* List all food and data in tabular format (-f)
-* Food consumed for the day (-d)
-* Track calories over past number of days (-t)
-* List items filtered by a specific tag (-e)
+* Food consumed for the day (NO FLAG)
+* All food ever consumed (-a)
+* Food consumed for the past number of days (-d)
+* All food with the given tag (-t)
 
-NOTE: Default value of list is food consumed for the day. Default number of days for track calories is past week
+NOTE: Default value of list is food consumed for the day.
 
 Format: `list [-f] [-d] [-t [numDays]] [-e [tagName]] ` +
 Example: `list -t 3`
@@ -253,10 +247,12 @@ Splitting the items' cost with friends. All you have to do is add the item,
 price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
-[[additem]]
-==== Add item `additem`
+We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
 
-Add item and the person(s) involved in the splitting for that item.
+[[additem]]
+==== Adding an item: `additem`
+
+Adds an Item and the Person(s) involved in the splitting for that item.
 
 Format: +
 `additem -i ITEMNAME -p PRICE -n NAME` +
@@ -270,8 +266,9 @@ Example: +
 Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
+
 [[deleteitem]]
-==== Delete item `deleteitem`
+==== Deleting an item: `deleteitem`
 
 Delete the item(s) in a receipt:
 
@@ -285,7 +282,7 @@ Example: +
 `deleteitem 3`
 
 [[listreceipt]]
-==== List the current receipt `listreceipt`
+==== Listing the current receipt: `listreceipt`
 
 Display the current receipt which shows all the items and its
 respective price and person(s) involved in splitting the cost of that item
@@ -297,7 +294,7 @@ Example: +
 `listreceipt`
 
 [[listamount]]
-==== List amounts owed `listamount`
+==== Listing amounts owed by each person: `listamount`
 
 You can display all the person(s) and the amount they owe you.
 
@@ -308,9 +305,13 @@ Example: +
 `listamount`
 
 [[paid]]
-==== Paid money `paid`
+==== Paying money: `paid`
 
-Subtracts the paid amount from the person
+In this section, you will learn more about the `paid` command, how to use it and the possible usage scenarios of the
+`paid` command.
+
+Summary: `paid` subtracts the amount paid by a Person.
+
 
 Format: +
 `paid INDEX [AMOUNT]` +
@@ -322,7 +323,7 @@ Example: +
 [TIP]
 ====
 * Use `listamount` command to find the index of the person who paid you.
-* Leaving the amount empty is equivalent to paying the full amount.
+* Leaving the amount empty is equivalent to paying the full amount. As seen in `paid 2` above.
 ====
 
 [NOTE]
@@ -346,7 +347,7 @@ Example: +
 
 [NOTE]
 ====
-* Use this command only after you are sure you do not have to make any other changes.
+* Use this command only after all Items have been correctly added to the Receipt.
 * After you use this command, you will be unable to add any new items using the `additem` command
 or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
@@ -434,7 +435,7 @@ e.g. `back`
 |Command |Format |Example
 
 |<<additem, *Add Item*>>
-|`additem` `-i ITEMNAME `-p ITEMPRICE` `-n PERSON` `[-n PERSON]`
+|`additem` `-i ITEMNAME` `-p ITEMPRICE` `-n PERSON` `[-n PERSON]...`
 |`insert` `-i pasta` `-p 32` `-n John` +
 or +
 `insert` `-i pasta` `-p 32` `-n John` `-n Carl` `-n Jasmine`
@@ -472,38 +473,21 @@ or +
 |`exit`
 |`exit`
 
-`search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
 
 |<<help, *Help*>>
 |`help`
 |`help`
 
-|<<show, *Show*>>
-|`show`
-|`show`
-
-|<<import, *Import*>>
-|`import` `FILE_NAME`
-|`import` `orders.csv`
-
-|<<list, *List*>>
-|`list` `[DONE_STATUS]`
-|`list` +
-`list` `done` +
-`list` `undone`
-
-|<<return, **>>
-|`return`
-|`return`
-
-
-
 |===
 
 
-
-
+[[AppendixA]]
 == Appendix A: Simple activity diagram to aid user with using Expense Splitter
+image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+
+
+*Add Item Activity Diagram*  +
+
 image::ExpenseSplitterActivityDiagram.png[width="790"]
 
 The fully blackened circle at the top represents the start point while the circle

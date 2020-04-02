@@ -1,13 +1,30 @@
 @startuml
 start
 
-if () then ([itemToAdd])
-    : New Receipt
-    @Inserts Rake for AddItem;
+:Enter Expense Splitter;
+
+if () then ([receiptNotDone])
+
+    if () then ([itemToAdd])
+    : @Rake: Visit AddItemActivityDiagram;
+    : DoneReceipt;
+
+    else ([receiptDone])
     : Done Receipt;
-    else ([amountPaid])
-    : Paid ;
+    endif
+
+
+else ([receiptDone])
+
 endif
+
+
+: Paid Command;
+
+: Clear Receipt;
+
+
+
 
 stop
 @enduml
