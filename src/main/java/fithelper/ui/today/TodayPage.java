@@ -89,7 +89,7 @@ public class TodayPage extends UiPart<AnchorPane> {
         initializeFoodListView(foodList);
         initializeSportListView(sportList);
 
-        initializeFoodCaloriePirChart(foodList);
+        initializeFoodCaloriePieChart(foodList);
 
         initializeFoodListener(foodList);
         initializeSportListener(sportList);
@@ -117,7 +117,7 @@ public class TodayPage extends UiPart<AnchorPane> {
      * Initializes the food calorie pie chart.
      * @param foodList an observable list of sports entries
      */
-    private void initializeFoodCaloriePirChart(ObservableList<Entry> foodList) {
+    private void initializeFoodCaloriePieChart(ObservableList<Entry> foodList) {
         ArrayList<PieChart.Data> pieChartDataList = getPieChartDataArrayList(foodList);
 
         ObservableList<PieChart.Data> pieChartData =
@@ -132,18 +132,44 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param foodList an observable list of sports entries
      */
     private ArrayList<PieChart.Data> getPieChartDataArrayList(ObservableList<Entry> foodList) {
+        ArrayList<String> names = getFoodNameList(foodList);
+        ArrayList<Integer> calories = getFoodCalorieList(foodList);
         ArrayList<PieChart.Data> pieChartDataList = new ArrayList<>();
 
-        for (int i = 0; i < foodList.size(); i++) {
-            Entry foodEntry = foodList.get(i);
-            if (foodEntry.isDone()) {
-                String foodName = foodEntry.getName().value;
-                int foodCalorie = (int) foodEntry.getCalorie().value;
-                pieChartDataList.add(new PieChart.Data(foodName, foodCalorie));
-            }
+        for (int i = 0; i < names.size(); i++) {
+            //String foodName = names.get(i);
+            int foodCalorie = calories.get(i);
+            pieChartDataList.add(new PieChart.Data(String.valueOf(i + 1), foodCalorie));
         }
 
         return pieChartDataList;
+    }
+
+    /**
+     * Generates the list of done food names;
+     * @param foodList
+     * @return
+     */
+    private ArrayList<String> getFoodNameList(ObservableList<Entry> foodList) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Entry entry: foodList) {
+            names.add(entry.getName().toString());
+        }
+
+        return names;
+    }
+
+    /**
+     * Generates the list of done food calories;
+     * @param foodList
+     * @return
+     */
+    private ArrayList<Integer> getFoodCalorieList(ObservableList<Entry> foodList) {
+        ArrayList<Integer> calories = new ArrayList<>();
+        for (Entry entry: foodList) {
+            calories.add((int) entry.getCalorie().value);
+        }
+        return calories;
     }
 
     /**
@@ -151,9 +177,10 @@ public class TodayPage extends UiPart<AnchorPane> {
      */
     private void setFoodCaloriePieChartProperty() {
         foodCaloriePieChart.setClockwise(true);
-        foodCaloriePieChart.setLabelLineLength(10);
-        foodCaloriePieChart.setBorder(null);
-
+        foodCaloriePieChart.setLabelLineLength(20);
+        foodCaloriePieChart.setLabelsVisible(true);
+        foodCaloriePieChart.setLegendVisible(false);
+        foodCaloriePieChart.setStartAngle(180);
     }
 
     /**
@@ -247,7 +274,7 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param foodList an observable list of food entries
      */
     private void updateFoodCaloriePieChart(ObservableList<Entry> foodList) {
-        initializeFoodCaloriePirChart(foodList);
+        initializeFoodCaloriePieChart(foodList);
     }
 
     /**

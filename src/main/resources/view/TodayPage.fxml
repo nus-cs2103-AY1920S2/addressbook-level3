@@ -34,15 +34,15 @@
                   <ListView fx:id="foodListView" editable="true" prefHeight="277.0" prefWidth="220.0" style="-fx-background-color: white;" />
                   <ListView fx:id="sportListView" prefHeight="277.0" prefWidth="220.0" style="-fx-background-color: white;" />
                   <Separator orientation="VERTICAL" prefHeight="359.0" prefWidth="0.0" />
-                  <AnchorPane prefHeight="277.0" prefWidth="260.0">
+                  <AnchorPane prefHeight="359.0" prefWidth="234.0">
                      <children>
                         <VBox prefHeight="277.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label fx:id="calorieGain" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Calorie-Intake" textFill="#ef827d" wrapText="true" />
                               <Label fx:id="calorieGain1" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Food Calorie Distribution :" textFill="#ef827d" wrapText="true" />
-                              <AnchorPane prefHeight="114.0" prefWidth="259.0">
+                              <AnchorPane prefHeight="205.0" prefWidth="250.0">
                                  <children>
-                                    <PieChart fx:id="foodCaloriePieChart" labelLineLength="10.0" legendVisible="false" prefHeight="100.0" prefWidth="260.0" />
+                                    <PieChart fx:id="foodCaloriePieChart" animated="false" legendVisible="false" pickOnBounds="false" prefHeight="205.0" prefWidth="260.0" titleSide="RIGHT" />
                                  </children>
                               </AnchorPane>
                               <Label fx:id="calorieConsume" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Calorie-Consumption" textFill="#ef827d" wrapText="true" />

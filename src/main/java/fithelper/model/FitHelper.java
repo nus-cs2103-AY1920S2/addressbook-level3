@@ -357,7 +357,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * Returns an unmodifiable view of the food entry list.
      * This list will not contain any duplicate entries.
      */
-    public ObservableList<Entry> getTodayFoodList(String dateStr) {
+    public ObservableList<Entry> getTodayFoodList() {
         return todayFoodEntries.asUnmodifiableObservableList();
     }
 
@@ -365,7 +365,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * Returns an unmodifiable view of the sports entry list.
      * This list will not contain any duplicate entries.
      */
-    public ObservableList<Entry> getTodaySportsList(String dateStr) {
+    public ObservableList<Entry> getTodaySportsList() {
         return todaySportsEntries.asUnmodifiableObservableList();
     }
 
