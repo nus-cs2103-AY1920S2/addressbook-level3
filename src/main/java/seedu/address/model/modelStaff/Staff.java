@@ -94,6 +94,14 @@ public class Staff extends ModelObject {
     return id;
   }
 
+  public boolean containsCourse(ID courseID) {
+    if (assignedCoursesID.contains(courseID)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.

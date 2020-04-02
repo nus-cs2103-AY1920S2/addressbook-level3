@@ -62,7 +62,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
             model.assignTeacherToCourse(teacherID, courseID);
 
             Course foundCourse = model.getCourse(courseID);
-            Teacher foundTeacher = model.getTeacher(teacherID);
+            Staff foundTeacher = model.getTeacher(teacherID);
 
             boolean assignedCourseContainsTeacher = foundCourse.containsTeacher(teacherID);
             boolean assigningStudentContainsCourse = foundTeacher.containsCourse(courseID);

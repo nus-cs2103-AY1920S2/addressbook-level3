@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -88,17 +87,13 @@ public interface Model {
 
     boolean hasTeacher(ID teacherID);
 
-    Teacher getTeacher(ID teacherID);
+    Staff getTeacher(ID teacherID);
 
 
 
     /**
      * Returns the AddressBook
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8262acbefef917ecffa19da46254798e19c1a6f9
-  */
+\  */
   ReadOnlyAddressBook getAddressBook();
 
   /**

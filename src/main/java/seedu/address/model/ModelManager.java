@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,7 +13,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -386,12 +383,12 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public boolean hasTeacher(ID teacherID) {
-    return teacherAddressBook.has(teacherID);
+    return staffAddressBook.has(teacherID);
   }
 
   @Override
-  public Teacher getTeacher(ID teacherID) {
-    return teacherAddressBook.get(teacherID);
+  public Staff getTeacher(ID teacherID) {
+    return staffAddressBook.get(teacherID);
   }
 
 
@@ -601,13 +598,13 @@ public class ModelManager extends BaseManager implements Model {
 
   public void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException {
     Course foundCourse = getCourse(courseID);
-    Teacher foundTeacher = getTeacher(teacherID);
+    Staff foundTeacher = getTeacher(teacherID);
 
     foundCourse.addTeacher(teacherID);
     foundTeacher.addCourse(courseID);
 
     foundCourse.processAssignedTeacher(
-            (FilteredList<Teacher>) getFilteredTeacherList());
+            (FilteredList<Staff>) getFilteredStaffList());
     foundTeacher.processAssignedCourses(
             (FilteredList<Course>) getFilteredCourseList());
     set(foundCourse, foundCourse);
