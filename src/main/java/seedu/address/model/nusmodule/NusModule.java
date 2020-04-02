@@ -3,6 +3,8 @@ package seedu.address.model.nusmodule;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.searcher.Module;
+
 
 /**
  * Represents a module in NUS.
@@ -13,14 +15,16 @@ public class NusModule {
     private boolean isTaking;
     private Optional<Grade> grade;
     private List<ModuleTask> tasks;
+    private final Module moduleInfo;
 
     public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking,
-                     Optional<Grade> grade, List<ModuleTask> tasks) {
+                     Optional<Grade> grade, List<ModuleTask> tasks, Module moduleInfo) {
         this.moduleCode = moduleCode;
         this.modularCredit = modularCredit;
         this.isTaking = isTaking;
         this.grade = grade;
         this.tasks = tasks;
+        this.moduleInfo = moduleInfo;
     }
 
     public void addTask(ModuleTask task) {
@@ -41,6 +45,10 @@ public class NusModule {
 
     public ModuleCode getModuleCode() {
         return this.moduleCode;
+    }
+
+    public Module getModuleInfo() {
+        return this.moduleInfo;
     }
 
     @Override
