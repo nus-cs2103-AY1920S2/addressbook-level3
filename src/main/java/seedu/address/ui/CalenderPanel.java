@@ -24,8 +24,8 @@ import seedu.address.commons.core.LogsCenter;
  * CalenderPanel that holds the month
  */
 public class CalenderPanel extends UiPart<Region> {
-    private static int year = 2020;
-    private static int currentMonth = Calendar.MONTH + 1;
+    private static int year;
+    private static int monthNow;
     private static ArrayList<CalenderDate> calenderDatesArrayList = new ArrayList<>();
     private static final String FXML = "Calender.fxml";
     private final Logger logger = LogsCenter.getLogger(CalenderPanel.class);
@@ -70,7 +70,11 @@ public class CalenderPanel extends UiPart<Region> {
         todayMonth = currentMonth;
         todayYear = currentYear;
 
+
+
         int currentMonthInt = Integer.parseInt(currentMonth);
+        monthNow = currentMonthInt;
+        year = Integer.parseInt(todayYear);
         String currentMonthAndYear = monthsArray[currentMonthInt - 1] + " " + currentYear;
         month.setText(currentMonthAndYear);
         todayDate.setText("Today: " + date + " " + currentMonthAndYear);
@@ -125,7 +129,7 @@ public class CalenderPanel extends UiPart<Region> {
     }
 
     public static int getCurrentMonth() {
-        return currentMonth;
+        return monthNow;
     }
 
     private void setDatesArray() {

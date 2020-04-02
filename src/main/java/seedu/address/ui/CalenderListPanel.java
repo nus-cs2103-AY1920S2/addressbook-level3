@@ -37,8 +37,6 @@ public class CalenderListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
 
-                setCircleNotVisible();
-                System.out.println("here");
             } else {
                 setGraphic(new CalenderDeadline(deadline, getIndex() + 1).getRoot());
                 System.out.println("Else");
@@ -47,15 +45,16 @@ public class CalenderListPanel extends UiPart<Region> {
                 String day = date[0];
                 int month = Integer.parseInt(date[1]);
 
-                setCircleNotVisible();
-
                 /** problem with setting circle to not visible
                  *  is that this else runs random number of time, so you dont know how many count to --
                  */
+                System.out.println(CalenderPanel.getYear());
+                System.out.println(CalenderPanel.getCurrentMonth());
                 if (CalenderPanel.getYear() == year
                         && CalenderPanel.getCurrentMonth() == month) {
                     CalenderDate calenderDate = CalenderPanel.getCalenderDatesArrayList()
                             .get(Integer.parseInt(day) - 1);
+
                     calenderDate.setCircleVisible();
                     calenderDate.increaseCount();
                 }
