@@ -83,9 +83,9 @@ public class CouponCard extends UiPart<Region> {
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("T&C: " + coupon.getCondition().value);
         // set savings pane
-        SavingsPane savingsPane = new SavingsPane();
-        savingsPane.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
-        savings.getChildren().add(savingsPane.getRoot());
+        SavingsBox savingsBox = new SavingsBox();
+        savingsBox.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
+        savings.getChildren().add(savingsBox.getRoot());
         archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
     }
 

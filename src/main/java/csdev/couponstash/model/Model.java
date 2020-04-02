@@ -131,6 +131,11 @@ public interface Model {
     ObservableList<Coupon> getFilteredCouponList();
 
     /**
+     * Returns an unmodifiable view of all the coupons present
+     */
+    ObservableList<Coupon> getAllCouponList();
+
+    /**
      * Updates the filter of the filtered coupon list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.

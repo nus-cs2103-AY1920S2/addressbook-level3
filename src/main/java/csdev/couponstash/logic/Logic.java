@@ -41,8 +41,12 @@ public interface Logic {
      */
     ObservableList<Coupon> getFilteredCouponList();
 
-    ObservableMonthView getMonthView();
 
+    /** Returns an unmodifiable view of every single coupon */
+    ObservableList<Coupon> getAllCouponList();
+
+    /** Returns an unmodifiable view of the MonthView */
+    ObservableMonthView getMonthView();
 
     /**
      * Returns the user prefs' CouponStash file path.
