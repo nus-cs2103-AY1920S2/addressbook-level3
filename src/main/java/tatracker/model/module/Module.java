@@ -84,7 +84,15 @@ public class Module {
     }
 
     /**
-     * Returns the session list.
+     * Returns the unique sessions list.
+     */
+    public UniqueSessionList getUniqueSessionList() {
+        return doneSessions;
+    }
+
+
+    /**
+     * * Returns the session list.
      */
     public ObservableList<Session> getSessionList() {
         return doneSessions.asUnmodifiableObservableList();
