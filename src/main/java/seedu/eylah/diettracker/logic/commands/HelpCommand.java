@@ -10,10 +10,47 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows Diet Tracker usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String DIVIDER = "--------------------------------\n";
+
+    public static final String SHOWING_HELP_MESSAGE = "Welcome to Diet Tracker! The following commands are "
+            + "available:\n"
+            + DIVIDER
+            + "1. add - Use this to add a food item to your Tracker.\n"
+            + "   USAGE: add -n NAME -c CALORIES\n"
+            + "   EXAMPLE: add -n Mushroom Aglio -c 360\n"
+            + DIVIDER
+            + "2. delete - Use this to delete a food item at the specified index in your list.\n"
+            + "   USAGE: delete INDEX\n "
+            + "   EXAMPLE: delete 1\n"
+            + DIVIDER
+            + "3. edit - Use this to edit a food item at the specified index in your list.\n"
+            + "   USAGE: edit -i INDEX [-n NAME] [-c CALORIES]\n"
+            + "   EXAMPLE: edit -i 1 -n Prawn Aglio -c 520\n"
+            + DIVIDER
+            + "4. list - Use this to list the food for a given period of time specified by the tags.\n"
+            + "   USAGE: list [-f] [-d] [-t [NUMDAYS]]\n"
+            + "   EXAMPLE: list -f\n"
+            + DIVIDER
+            + "5. mode - Use this to change the mode (GAIN, MAINTAIN, LOSS) of the Diet Tracker.\n"
+            + "   USAGE: mode [-g] [-l] [-m]\n"
+            + "   EXAMPLE: mode -g\n"
+            + DIVIDER
+            + "6. height - Use this to add your personal height to the Tracker.\n"
+            + "   USAGE: height HEIGHT\n"
+            + "   EXAMPLE: height 170.2\n"
+            + DIVIDER
+            + "7. weight - Use this to add your personal weight to the Tracker.\n"
+            + "   USAGE: weight WEIGHT\n"
+            + "   EXAMPLE: weight 65.7\n"
+            + DIVIDER
+            + "8. bmi - Use this to calculate your bmi.\n"
+            + "   USAGE: bmi [-h HEIGHT] [-w WEIGHT]\n"
+            + "   EXAMPLE: bmi -h 170.2 -w 65.7\n"
+            + DIVIDER
+            + "We hope you enjoy your usage of Eylah Diet Tracker!";
 
     @Override
     public CommandResult execute(DietModel model) {
