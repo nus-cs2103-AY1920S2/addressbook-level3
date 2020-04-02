@@ -44,7 +44,7 @@ public class SelectCommand extends Command {
     this.financeIDContainsKeywordsPredicate = financeIDContainsKeywordsPredicate;
   }
 
-  public SelectCommand(CourseIDContainsKeywordsPredicate courseIDContainsKeywordsPredicateredicate) {
+  public SelectCommand(CourseIDContainsKeywordsPredicate courseIDContainsKeywordsPredicate) {
     this.courseIDContainsKeywordsPredicate = courseIDContainsKeywordsPredicate;
   }
 
