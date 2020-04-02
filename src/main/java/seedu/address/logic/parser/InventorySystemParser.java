@@ -23,13 +23,13 @@ import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
 import seedu.address.logic.commands.product.LowLimitCommand;
-import seedu.address.logic.commands.statistics.PlotProductSalesCommand;
+import seedu.address.logic.commands.product.PlotProductSalesCommand;
 import seedu.address.logic.commands.statistics.PredictCommand;
 import seedu.address.logic.commands.statistics.ProfitCommand;
 import seedu.address.logic.commands.statistics.RevenueCommand;
 import seedu.address.logic.commands.transaction.AddTransactionCommand;
 import seedu.address.logic.commands.transaction.ClearTransactionCommand;
-import seedu.address.logic.commands.transaction.DeleteTransactionCommand;
+import seedu.address.logic.commands.transaction.UndoTransactionCommand;
 import seedu.address.logic.commands.transaction.EditTransactionCommand;
 import seedu.address.logic.commands.transaction.FindTransactionCommand;
 import seedu.address.logic.commands.transaction.ListTransactionCommand;
@@ -136,7 +136,7 @@ public class InventorySystemParser {
         case ListTransactionCommand.COMMAND_WORD:
             return new ListTransactionCommand();
 
-        case DeleteTransactionCommand.COMMAND_WORD:
+        case UndoTransactionCommand.COMMAND_WORD:
             return new DeleteTransactionCommandParser().parse(arguments);
 
         case ClearTransactionCommand.COMMAND_WORD:
