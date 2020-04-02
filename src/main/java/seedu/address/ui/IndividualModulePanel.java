@@ -35,6 +35,15 @@ public class IndividualModulePanel extends UiPart<Region> {
 
     public IndividualModulePanel(Module module) {
         super(FXML);
+        if (module.getPrereqs().prereqs == null) {
+            preReqs.setVisible(false);
+            preReqs.setManaged(false);
+        }
+        if (module.getPreclusions().preclusions == null) {
+            preclusions.setVisible(false);
+            preclusions.setManaged(false);
+        }
+
         moduleCode.setText(module.getModuleCode().toString());
         moduleTitle.setText(module.getTitle().toString().toUpperCase());
         preReqs.setText("Prerequisite: \n" + module.getPrereqs().prereqs);
