@@ -17,10 +17,11 @@ import tatracker.ui.UiPart;
  */
 public class StudentListPanel extends UiPart<Region> {
     private static final String FXML = "StudentListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
     private static final String BORDER_WIDTH = "1";
+    
+    private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
     private ListView<Student> studentListView;
