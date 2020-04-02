@@ -6,7 +6,7 @@ import nasa.model.Model;
  * Command to handle redo previous action.
  */
 public class RedoCommand extends Command {
-    public static final String COMMAND_WORD = "Redo";
+    public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": reset data by a single step.\n"
             + "Example: " + COMMAND_WORD;
