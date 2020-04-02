@@ -1,6 +1,7 @@
 {
   "_comment": "Ta-Tracker save file which contains the same Student values as in TypicalStudents#getTypicalTaTracker()",
   "sessions" : [ ],
+  "doneSessions" : [ ],
   "modules" : [ {
     "id" : "CS3243",
     "name" : "Introduction to AI",
