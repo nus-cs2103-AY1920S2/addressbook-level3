@@ -92,7 +92,7 @@ public interface Model {
 
     Assignment getAssignment(ID assignmentID);
 
-
+    Teacher getTeacher(ID teacherID);
     /**
      * Returns the AddressBook
      */

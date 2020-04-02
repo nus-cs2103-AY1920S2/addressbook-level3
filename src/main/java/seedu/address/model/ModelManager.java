@@ -378,6 +378,11 @@ public class ModelManager extends BaseManager implements Model {
     return assignmentAddressBook.get(assignmentID);
   }
 
+  @Override
+  public Teacher getTeacher(ID teacherID) {
+    return teacherAddressBook.get(teacherID);
+  }
+  
   // =====================================================================================================
 
 

@@ -1,9 +1,13 @@
 package seedu.address.model.modelTeacher;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Address;
@@ -30,10 +34,10 @@ public class Teacher extends Person {
    */
 
   public Teacher(Name name, Phone phone, Email email, Salary salary, Address address,
-      Set<Tag> tags) {
+      Set<Tag> tags) throws ParseException {
     super(name, phone, email, address, tags);
     this.assignedCoursesWithNames = "None";
-    this.id = new ID("");
+    this.id = UuidManager.assignNewUUID(this);
     this.salary = salary;
     this.tags.addAll(tags);
   }
@@ -70,6 +74,18 @@ public class Teacher extends Person {
    */
   public Set<ID> getAssignedCoursesID() {
     return Collections.unmodifiableSet(assignedCoursesID);
+  }
+
+  /**
+   * Get List of String of the ID
+   * @return Array of String
+   */
+  public List<String> getAssignedCoursesIDString() {
+    List<String> IDList = new ArrayList<>();
+    for (ID id : assignedCoursesID) {
+      IDList.add(id.toString());
+    }
+    return IDList;
   }
 
   public String getAssignedCoursesWithNames(){
