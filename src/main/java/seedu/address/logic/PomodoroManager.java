@@ -266,8 +266,6 @@ public class PomodoroManager {
                         new Done("Y"),
                         updatedTags);
         model.setTask(taskToEdit, editedTask);
-        // Update pet exp
-        model.incrementExp();
         // Update stats
         model.updateDataDatesStatistics();
         LocalDateTime now = LocalDateTime.now();
