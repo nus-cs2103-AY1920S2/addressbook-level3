@@ -287,6 +287,8 @@ image::DiarySequenceDiagram.png[]
 . The `Ui` gets the `date` from `LogicManager` and updates the Ui to display the module.
 The following sequence diagram shows how the update operation works to change calendar page in model:
 image:CalendarSequenceDiagram.png[]
+Structure of calendar command:
+image:CalendarClassDiagram.png[]
 // end::calendar[]
 
 === Logging
