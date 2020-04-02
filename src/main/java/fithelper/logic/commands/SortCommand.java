@@ -67,11 +67,12 @@ public class SortCommand extends Command {
      * @return edited feedback
      */
     private String editFeedbackBasedOnSortOrder(String feedback) {
+        String copy = feedback;
         if (isAscendingSort) {
-            feedback += " in ascending order (i.e. earlier entry OR entry with lower calorie value first)";
+            copy += " in ascending order (i.e. earlier entry OR entry with lower calorie value first)";
         } else {
-            feedback += " in descending order (i.e. later entry OR entry with higher calorie value first)";
+            copy += " in descending order (i.e. later entry OR entry with higher calorie value first)";
         }
-        return feedback;
+        return copy;
     }
 }
