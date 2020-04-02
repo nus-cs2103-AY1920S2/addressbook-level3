@@ -22,18 +22,18 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a coupon to CouponStash. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a coupon to CouponStash.\n\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PROMO_CODE + "PROMO CODE "
-            + PREFIX_EXPIRY_DATE + "EXPIRY DATE "
+            + PREFIX_PROMO_CODE + "PROMO_CODE "
+            + PREFIX_EXPIRY_DATE + "EXPIRY_DATE "
             + PREFIX_SAVINGS + "SAVINGS "
-            + "[" + PREFIX_START_DATE + "START DATE]"
-            + "[" + PREFIX_SAVINGS + "SAVINGS]..."
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_START_DATE + "START_DATE] "
+            + "[" + PREFIX_SAVINGS + "SAVINGS]... "
+            + "[" + PREFIX_TAG + "TAG]...\n\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "The Deck Chicken Rice "
-            + PREFIX_PROMO_CODE + "98765432 "
+            + PREFIX_PROMO_CODE + "JIFANFTW "
             + PREFIX_EXPIRY_DATE + "30-08-2020 "
             + PREFIX_SAVINGS + "50" + PercentageAmount.PERCENT_SUFFIX + " "
             + PREFIX_START_DATE + "1-8-2020 "
@@ -64,7 +64,7 @@ public class AddCommand extends Command {
 
         model.addCoupon(toAdd, commandText);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override

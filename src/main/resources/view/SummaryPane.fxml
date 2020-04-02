@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="baseNode" >
+  <VBox id="summary-tab" alignment="CENTER" minHeight="300" StackPane.alignment="CENTER">
+    <Label id="saved-text" fx:id="savedText" styleClass="summary-bold-text" contentDisplay="CENTER"
+           prefHeight="17.0" />
+    <Label id="numerical-amount" fx:id="numericalAmount" styleClass="summary-bold-text"
+           contentDisplay="CENTER" minHeight="100.0" />
+    <HBox alignment="CENTER" prefHeight="338.0" prefWidth="643.0">
+      <BarChart id="savings-chart" fx:id="savingsChart" prefHeight="338.0" prefWidth="321.0" style="-fx-padding: 10.0;">
+        <xAxis>
+          <CategoryAxis id="days-axis" fx:id="daysAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis id="savings-axis" fx:id="savingsAxis" />
+        </yAxis>
+      </BarChart>
+      <VBox id="saveables-box" alignment="CENTER" prefHeight="338.0" prefWidth="301.0">
+        <Label id="saveables-text" styleClass="saveable-label" fx:id="saveablesText"
+               contentDisplay="CENTER" prefHeight="17.0" />
+        <VBox id="all-saveables" fx:id="allSaveables" alignment="CENTER"
+              prefHeight="303.0" prefWidth="277.0" />
+      </VBox>
+    </HBox>
+  </VBox>
+</StackPane>

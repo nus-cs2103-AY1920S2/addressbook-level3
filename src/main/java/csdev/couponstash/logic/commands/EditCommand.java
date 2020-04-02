@@ -30,21 +30,21 @@ import csdev.couponstash.model.tag.Tag;
 /**
  * Edits the details of an existing coupon in the CouponStash.
  */
-public class EditCommand extends Command {
+public class EditCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the coupon identified "
             + "by the index number used in the displayed coupon list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PROMO_CODE + "PROMO_CODE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
-            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
-            + "[" + CliSyntax.PREFIX_START_DATE + "1-08-2020] "
-            + "[" + CliSyntax.PREFIX_LIMIT + "5 "
-            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
+            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
+            + "[" + CliSyntax.PREFIX_START_DATE + "START_DATE] "
+            + "[" + CliSyntax.PREFIX_LIMIT + "LIMIT "
+            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PROMO_CODE + "ILOVESTASH";
 
@@ -55,7 +55,6 @@ public class EditCommand extends Command {
             + "due to changes in the concrete savings.";
     public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
             + "the current usage (%d) of the coupon.";
-    private final Index index;
     private final EditCouponDescriptor editCouponDescriptor;
 
     /**
@@ -63,10 +62,10 @@ public class EditCommand extends Command {
      * @param editCouponDescriptor details to edit the coupon with
      */
     public EditCommand(Index index, EditCouponDescriptor editCouponDescriptor) {
-        requireNonNull(index);
+        super(index);
+
         requireNonNull(editCouponDescriptor);
 
-        this.index = index;
         this.editCouponDescriptor = new EditCouponDescriptor(editCouponDescriptor);
     }
 
@@ -75,11 +74,11 @@ public class EditCommand extends Command {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
 
-        Coupon couponToEdit = lastShownList.get(index.getZeroBased());
+        Coupon couponToEdit = lastShownList.get(targetIndex.getZeroBased());
         Coupon editedCoupon = createEditedCoupon(couponToEdit, editCouponDescriptor);
 
         if (!couponToEdit.isSameCoupon(editedCoupon) && model.hasCoupon(editedCoupon)) {
@@ -94,7 +93,7 @@ public class EditCommand extends Command {
 
         model.setCoupon(couponToEdit, editedCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
+        return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName()));
     }
 
     /**
@@ -112,7 +111,9 @@ public class EditCommand extends Command {
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
-        Archived archived = new Archived(String.valueOf(Usage.isUsageAtLimit(couponToEdit.getUsage(), updatedLimit)));
+        Archived archived = editCouponDescriptor.getUsage().isPresent() || editCouponDescriptor.getLimit().isPresent()
+                ? new Archived(String.valueOf(Usage.isUsageAtLimit(couponToEdit.getUsage(), updatedLimit)))
+                : couponToEdit.getArchived();
         RemindDate remindDate = editCouponDescriptor.getExpiryDate().isPresent()
                 ? new RemindDate(updatedExpiryDate)
                 : editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
@@ -124,7 +125,6 @@ public class EditCommand extends Command {
                 // avoid changing the total savings and dates mappings
                 couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
-
                 remindDate,
                 updatedCondition,
                 // avoid changing the archival state
@@ -145,7 +145,7 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
+        return targetIndex.equals(e.targetIndex)
                 && editCouponDescriptor.equals(e.editCouponDescriptor);
     }
 

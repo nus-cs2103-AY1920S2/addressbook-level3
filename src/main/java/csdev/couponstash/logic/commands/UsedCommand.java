@@ -10,6 +10,7 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Usage;
@@ -20,15 +21,15 @@ import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 /**
  * Increases the usage of a coupon.
  */
-public class UsedCommand extends Command {
+public class UsedCommand extends IndexedCommand {
     public static final String COMMAND_WORD = "used";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Increases the usage of the coupon "
             + "identified by the index number used in the displayed coupon list. "
-            + "This increases the value of its usage by one.\n"
+            + "This increases the value of its usage by one.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[%s" + "(Original amount of purchase)]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[%s" + "(Original amount of purchase)]\n\n"
+            + "Example: " + COMMAND_WORD + " 1\n\n"
             + "Example with Savings: " + COMMAND_WORD + " 1 " + "%s100";
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";
@@ -37,15 +38,16 @@ public class UsedCommand extends Command {
     public static final String MESSAGE_MISSING_ORIGINAL_AMOUNT = "Coupon has percentage savings "
             + "that requires the input of the original amount of purchase.\n"
             + "Example: " + COMMAND_WORD + " 1 $100";
+    public static final String MESSAGE_ARCHIVED_COUPON = "Coupon has been archived!\n"
+            + "To use the coupon again, type the command `unarchive %s` first.";
 
-    private final Index targetIndex;
     private final MonetaryAmount originalAmount;
 
     /**
      * Creates a UsedCommand to increase the usage of the specified {@code Coupon}.
      */
     public UsedCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
         this.originalAmount = new MonetaryAmount(0.0);
     }
 
@@ -54,7 +56,10 @@ public class UsedCommand extends Command {
      * and also keep track of the amount saved by the usage of this coupon.
      */
     public UsedCommand(Index targetIndex, MonetaryAmount originalAmount) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
+
+        requireNonNull(originalAmount);
+
         this.originalAmount = originalAmount;
     }
 
@@ -70,7 +75,12 @@ public class UsedCommand extends Command {
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
         Usage currentUsage = couponToBeUsed.getUsage();
         Limit limit = couponToBeUsed.getLimit();
+        Archived archived = couponToBeUsed.getArchived();
         boolean hasPercentageSavings = couponToBeUsed.getSavingsForEachUse().hasPercentageAmount();
+
+        if (Boolean.parseBoolean(archived.value)) {
+            throw new CommandException(String.format(MESSAGE_ARCHIVED_COUPON, targetIndex.getOneBased()));
+        }
 
         if (Usage.isUsageAtLimit(currentUsage, limit)) {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));

@@ -7,10 +7,10 @@ start
 
 if () then ([command commits CouponStash])
     :Purge redunant states;
-    :Save CouponStash to;
-    :couponStashStateList;
-    :Save command text to;
-    :commandTextHistory;
+    :Save CouponStash to\n\
+couponStashStateList;
+    :Save command text to\n\
+commandTextHistory;
 else ([else])
 endif
 stop

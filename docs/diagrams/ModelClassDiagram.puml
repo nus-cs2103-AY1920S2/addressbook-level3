@@ -61,11 +61,11 @@ Coupon *--> "1" Name
 Coupon *--> "1" PromoCode
 Coupon *--> "1" EndDate
 Coupon *--> "1" StartDate
-Coupon *--> "1" Savings
+Coupon *--> "1" Savings : savings per use
 Coupon *--> "1" Usage
 Coupon *--> "1" Limit
 Coupon *--> "1" RemindDate
-Coupon *--> "1" DateSavingsSumMap
+Coupon *--> "1" DateSavingsSumMap : total savings
 Coupon *-up-> "*" Tag
 
 Savings *--> "0..1" PercentageAmount
@@ -74,7 +74,7 @@ Savings *--> "*" Saveable
 PureMonetarySavings -up-|> Savings
 PureMonetarySavings *-right-> "0..1" MonetaryAmount
 PureMonetarySavings *-down-> "*" Saveable
-DateSavingsSumMap ..> PureMonetarySavings : "maps to"
+DateSavingsSumMap ..> PureMonetarySavings : "maps dates to"
 
 HistoryManager *--> "*" CouponStash
 
@@ -88,7 +88,8 @@ Name -[hidden]up-> PromoCode
 StartDate -[hidden]up-> EndDate
 Usage -[hidden]up-> Limit
 PromoCode -[hidden]down-> RemindDate
-PercentageAmount -[hidden]right-> MonetaryAmount
+PercentageAmount -[hidden]left-> MonetaryAmount
+PercentageAmount -[hidden]left-> Saveable
 HistoryManager -[hidden]left-> ReadOnlyCouponStash
 CouponStash -[hidden]right-> Tag
 

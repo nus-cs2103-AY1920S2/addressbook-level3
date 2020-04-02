@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
- * The ui for the Calendar and ResultDisplay that is displayed at the right of the application.
+ * Combined Calendar and ResultDisplay displayed at the right.
  */
 public class CalendarResultDisplayPane extends UiPart<Region> {
     private static final String FXML = "CalendarResultDisplayPane.fxml";

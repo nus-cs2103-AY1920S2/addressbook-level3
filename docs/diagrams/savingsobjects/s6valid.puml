@@ -1,0 +1,36 @@
+@startuml
+!include savingsStyle.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+
+class Savings as "__s6:Savings__" \
+SAVINGS_COLOUR
+class MonetaryAmount as "__monetaryAmount:MonetaryAmount__" \
+MONEY_COLOUR {
+    monetaryAmount: 1
+}
+class Saveable1 as "__saveable1:Saveable__" \
+SAVEABLE_COLOUR {
+    savedItem: "Lucky Draw Entry"
+    count: 1
+}
+class Saveable2 as "__saveable2:Saveable__" \
+SAVEABLE_COLOUR {
+    savedItem: "Notebook"
+    count: 1
+}
+class Saveable3 as "__saveable3:Saveable__" \
+SAVEABLE_COLOUR {
+    savedItem: "Keychain"
+    count: 1
+}
+
+Savings -up-> MonetaryAmount
+Savings -up-> Saveable1
+Savings --> Saveable2
+Savings --> Saveable3
+
+Saveable2 -right[hidden]- Saveable3
+
+@enduml

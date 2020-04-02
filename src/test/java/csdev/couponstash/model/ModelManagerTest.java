@@ -101,10 +101,12 @@ public class ModelManagerTest {
     public void getFilteredPersonList_archiveExpiredCoupons_returnsTrue() {
         CouponStash couponStash = new CouponStash(TypicalCoupons.getTypicalCouponStash());
         FilteredList<Coupon> filteredCouponList = couponStash.getCouponList()
-                .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now()));
+                .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now()))
+                .filtered(coupon -> !Boolean.parseBoolean(coupon.getArchived().value));
+
         modelManager = new ModelManager(couponStash, new UserPrefs());
 
-        assertTrue(filteredCouponList.equals(modelManager.getFilteredCouponList()));
+        assertEquals(filteredCouponList, modelManager.getFilteredCouponList());
     }
 
     @Test

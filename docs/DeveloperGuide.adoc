@@ -104,7 +104,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/csdev/couponstash/logic/Logic.java[`Logic.java`]
 
-. `Logic` uses the `AddressBookParser` class to parse the user command.
+. `Logic` uses the `CouponStashParser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (e.g. adding a coupon).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -128,13 +128,13 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Coupon Stash data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+As a more OOP model, we can store a `Tag` list in `Coupon Stash`, which `Person` can reference.
+This would allow `Coupon Stash` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
@@ -150,7 +150,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Coupon Stash data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -500,6 +500,220 @@ This reminder feature is facilitated by the Remind attribute of a coupon. The fo
 
 * RemindCommand#ShowRemind - Will execute checking of all coupons and alert the user when
 
+
+=== Savings per use and total amount saved
+
+To allow users to keep track of how much they have saved
+(after all, the whole point of coupons is to offer
+certain tangible benefits, encouraging purchases
+by customers), Coupon Stash automatically tracks the
+user's savings as they use their coupons that are
+handled in the application.
+
+To achieve this, Coupons have to store two different
+fields: +
+1. Amount of savings each use of a coupon provides +
+2. Total amount of savings accumulated
+from using a certain coupon
+
+==== Class structure of Savings
+
+Just for reference, the image below shows the class diagram
+for the Savings class. It is compulsory for each Coupon to
+contain an Savings object, that represents what the user
+would gain from 1 use of that Coupon.
+
+image::SavingsClassDiagram.png[]
+
+A Savings object can hold a PercentageAmount, MonetaryAmount or
+Saveables, which represents discounts like "$5 off", "10% off"
+and "free door gift" respectively.
+
+The table below shows which are valid Savings objects, and
+which are not.
+
+[cols="2"]
+|=========================================
+|Object Diagram | Comments
+a|
+image:s1valid.png[] | Valid
+a|
+image:s2valid.png[] | Valid
+a|
+image:s3valid.png[] | Valid
+a|
+image:s4invalid.png[] | Invalid: Savings must have at
+least one field
+a|
+image:s5valid.png[] | Valid: Savings can have both a
+percentage amount and saveables
+a|
+image:s6valid.png[] | Valid: Savings can hold more
+than one Saveable
+a|
+image:s7invalid.png[] | Invalid: Savings cannot have both a
+MonetaryAmount and PercentageAmount
+|=========================================
+
+As can be seen from the table, Savings cannot be completely
+empty, and Savings cannot have both a MonetaryAmount and
+PercentageAmount (it does not make much sense to have
+a voucher that says "10% and $5 off").
+
+==== PureMonetarySavings and DateSavingsSumMap
+
+In order to calculate the total amount saved, Coupons also
+store information about how much the user saves, and storage
+is done at the moment the user uses the coupon. This
+information is stored in the form of PureMonetarySavings,
+which is a subclass of Savings that never holds
+PercentageAmounts. The class diagram below illustrates this.
+
+image:PureMonetarySavingsClassDiagram.png[]
+
+The reason why PercentageAmounts are not allowed in
+accumulated savings is because a percentage
+discount is a relative value that depends on the
+original price of the product, and cannot be easily
+added up in a way that allows users to accurately
+measure how much they have saved from their coupons.
+
+[[dssm]]
+PureMonetarySavings are stored in
+a DateSavingsSumMap, which is a hash table that
+links the current date (LocalDate) to the savings
+earned (PureMonetarySavings) on that date.
+Each Coupon holds a DateSavingsSumMap. The
+next image shows the class diagram of the
+DateSavingsSumMap.
+
+image::DateSavingsSumMapClassDiagram.png[]
+
+
+The following section describes
+the processes that follow whenever a user marks a Coupon
+as "used" with the `used` command.
+
+==== Implementation of used command
+
+When the user enters a used command, the actions taken by Coupon
+Stash change depending on whether the Coupon's Savings stores
+a MonetaryAmount of PercentageAmount. The following activity
+diagram shows what happens when the user runs a used command.
+
+image::UsedCommandActivityDiagram.png[]
+
+In terms of the implementation, the next two images
+shows the sequence diagram that models the successful
+execution of a used command within the actual
+program components.
+
+More specifically, the used command executed is
+`used 1 $100`, and the state of the system is such that
+a Coupon with PercentageAmount in its Savings (no
+MonetaryAmount) and with Usage not at its Limit
+is located at index 1. Also, the money symbol
+set in the user preferences would be $, which
+makes this command a valid one that will execute
+successfully.
+
+image::UsedCommandSeqDiagram.png[]
+
+The money symbol set in the user preferences is
+retrieved by CouponStashParser, which passes it
+to UsedCommandParser that will use this symbol
+to parse the used command.
+
+Also, within UsedCommand, the execute() method
+will cause the creation of a new Coupon with the
+correct recorded number of uses and amount of
+savings earned. The next sequence diagram shows
+how the execute() method interacts with other
+components to produce the new total savings
+value for the new Coupon.
+
+image::UsedExecutionSeqDiagram.png[]
+
+In the end, the total savings value of the Coupon
+is updated. This total savings is represented by
+a <<DeveloperGuide.adoc#dssm, DateSavingsSumMap>>.
+
+==== Implementation of saved command
+
+Now that we have seen how the used command works,
+we can look at how the saved command works. While
+`used` stores the amount of savings that the user
+has earned on a particular day, `saved` retrieves
+the amount of savings earned as recorded by Coupon
+Stash, given a particular time period.
+
+The saved command works similarly to the used command,
+where a SavedCommandParser will be created by Logic
+to split up the raw String into its arguments,
+creating a SavedCommand. Let's look at how a SavedCommand
+would be executed.
+
+image::SavedExecutionSeqDiagram.png[]
+
+Hence the SavedCommand loops through all Coupons to add
+up the savings earned from a particular time period,
+or from all dates if no time period is specified.
+
+==== Design considerations
+
+Based on the User Stories, there is a desire for tracking
+how much one has saved by using Coupon Stash, as well
+as for viewing total savings easily. Below are
+some alternative implementations of savings tracking
+and viewing that were considered by the developers,
+but were rejected in favour of the current
+implementation.
+
+Alternatives:
+
+* Restrict each Savings to a concrete monetary value
+
+This would make the implementation of Savings much
+simpler, as there would not be a need for separate
+classes like PercentageAmount, MonetaryAmount and
+Saveables. However, this might burden the user with
+calculating how much they would save in terms of
+dollars and cents, when many coupons and discounts
+come in the form of certain percentage reductions
+of the original price, as well as free gifts of
+benefits that cannot be translatable to a concrete
+monetary amount.
+
+Hence, it was decided to rely on a few different
+representations of Savings that can be earned from
+using a Coupon, as well as a Savings class that
+could refer to any of these representations, or
+even a logical combination of these representations.
+
+* Each Coupon stores a MonetaryAmount, PercentageAmount
+and Saveables directly
+
+This would eliminate the need for the intermediary
+Savings class and reduce complication in the program
+code slightly. But, it would be difficult to ensure
+that at least one such field exists in the Coupon,
+or guarantee that the Coupon would have one such field.
+
+The Coupon class would have to hold the logic for
+determining whether it had a valid combination of
+MonetaryAmount, PercentageAmount and Saveables,
+which does violate Single Responsibility Principle
+as the Coupon class now has another reason to change
+(if we would want to allow both MonetaryAmount and
+PercentageAmount on a Coupon for instance).
+
+Hence the Savings class was decided to handle this
+responsibility, as well as abstract away the
+implementation details of the multiple possible
+values and combinations of these values. This allows
+the Coupon to think in terms of an entire Savings
+object, rather than handle multiple different scenarios
+depending on which fields it has.
 
 == Documentation
 

@@ -6,12 +6,12 @@
 
 <fx:root resizable="false" title="Calendar" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal"
          xmlns:fx="http://javafx.com/fxml/1">
-    <scene>
-        <Scene>
-            <VBox spacing="20" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8"
-                  xmlns:fx="http://javafx.com/fxml/1">
-                <StackPane fx:id="calendarPanePlaceholder"/>
-            </VBox>
-        </Scene>
-    </scene>
+  <scene>
+    <Scene>
+      <VBox spacing="20" style="-fx-background-color: #6C96BE" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+        <StackPane fx:id="calendarPanePlaceholder"/>
+      </VBox>
+    </Scene>
+  </scene>
 </fx:root>
