@@ -57,7 +57,7 @@ public class DeleteGroupCommand extends Command {
 
         model.updateFilteredGroupList(targetModule);
 
-        if(model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.setFilteredStudentList(targetModule, FIRST_GROUP_INDEX);
