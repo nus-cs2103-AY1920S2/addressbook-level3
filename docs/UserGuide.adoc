@@ -115,7 +115,7 @@ Examples:
 * `(ab)delete 2` +
 Deletes the 2nd person in the address book.
 
-==== Editing a person : `(ab)edit`
+==== [Coming Soon] Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
 Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [o/ORGANIZATION] [b/BIRTHDAY]`
@@ -134,7 +134,7 @@ Changes the 37th person’s address to 2 Cactus Road, S903281.
 * `(ab)edit 2 n/Elysia Tan o/Comp Club` +
 Changes the second person’s name to Elysia Tan, and organization to Comp Club.
 
-==== Adding tags to a person : `(ab)addtag`
+==== [Coming Soon] Adding tags to a person : `(ab)addtag`
 
 Allows you to add additional tags to your contacts. +
 Format: `(ab)addtag INDEX [t/TAG]`
@@ -151,7 +151,7 @@ Examples:
 * `(ab)addtag 37 t/noob`
 Adds the tag “noob” to the person at index 37
 
-==== Removing tags from a person : `(ab)rmtag`
+==== [Coming Soon] Removing tags from a person : `(ab)rmtag`
 
 Allows you to remove tags from your contacts. +
 Format: `(ab)rmtag INDEX t/[TAG]`
@@ -264,7 +264,7 @@ Adds a new restaurant called rubbish at bedok with 2 dollar signs price point an
 Deletes a restaurant from the list +
 Format: `(rt)delete INDEX`
 
-==== Add notes to a restaurant: `(rt)notes`
+==== Add notes to a restaurant: `(rt)addnote`
 
 Adds a new note to a restaurant +
 Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [a/GOOD_FOOD] [b/BAD_FOOD]`
@@ -312,7 +312,7 @@ Examples:
 * `(st)add t/CS2103 post lecture quiz d/2020-02-11 23:59 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
 
-==== Delete assignment: `(st)delete`
+==== [Coming Soon] Delete assignment: `(st)delete`
 
 Deletes an assignment. +
 Format: `(st)delete INDEX`
@@ -339,7 +339,7 @@ Format: `(st)done INDEX`
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see above).
 ****
 
-==== Visualise the intensity of your upcoming schedule: `(st)schedule visual`
+==== Visualise the intensity of your upcoming schedule: `(st)schedule`
 
 Looks through the list of current uncompleted assignments to calculate the estimated work hours per day to complete all assignments by their deadlines +
 Format: `(st)schedule n/NUM_DAYS`

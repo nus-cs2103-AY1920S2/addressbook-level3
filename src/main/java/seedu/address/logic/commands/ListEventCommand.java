@@ -16,8 +16,7 @@ public class ListEventCommand extends Command {
             + "Naggy Joel is keeping track for you "
             + "sorted by the chronological order based on event date. "
             + "Naggy Joel can only sort events one way.";
-    public static final String MESSAGE_USAGE = "NAG NAG NAG! That's not the way to use this feature. \n"
-            + COMMAND_WORD + ": " + COMMAND_FUNCTION;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION;
 
     public static final String MESSAGE_SUCCESS = "Here are all your events. "
         + "Stop going out so much now, got coronavirus you know!";

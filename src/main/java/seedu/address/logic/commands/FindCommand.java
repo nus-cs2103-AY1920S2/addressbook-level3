@@ -39,9 +39,6 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // check for emptiness. possible options are 000, 001, 010, 011, 100, 101, 110, 111
-        // organization, word, and tag in this specific order.
-        // we don't do anything for 000
         if (groupPredicate.size() == 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(tagPredicate); // 001
         } else if (groupPredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
@@ -62,7 +59,6 @@ public class FindCommand extends Command {
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
-    // I don't know how to handle this now that I have split it into 3 predicates
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
