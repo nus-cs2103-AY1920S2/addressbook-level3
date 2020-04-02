@@ -59,7 +59,7 @@ public class CookedCommand extends Command {
             }
         }
         sb.append("!");
-        model.commitRecipeBook();
+        // model.commitRecipeBook(); TODO: Update to the newer commit Recipe Book
         return new CommandResult(sb.toString(), false, goalsTab, false);
     }
 
