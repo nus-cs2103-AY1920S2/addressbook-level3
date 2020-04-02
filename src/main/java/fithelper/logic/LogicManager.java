@@ -124,13 +124,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Entry> getFilteredTodayFoodEntryList(String dateStr) {
-        return model.getFilteredTodayFoodEntryList(dateStr);
+    public ObservableList<Entry> getFilteredTodayFoodEntryList() {
+        return model.getFilteredTodayFoodEntryList();
     }
 
     @Override
-    public ObservableList<Entry> getFilteredTodaySportsEntryList(String dateStr) {
-        return model.getFilteredTodaySportsEntryList(dateStr);
+    public ObservableList<Entry> getFilteredTodaySportsEntryList() {
+        return model.getFilteredTodaySportsEntryList();
     }
 
     @Override
