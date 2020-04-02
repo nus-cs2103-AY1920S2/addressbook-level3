@@ -67,13 +67,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getRecipeBookFilePath() {
-        return userPrefs.getRecipeBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
     public void setRecipeBookFilePath(Path recipeBookFilePath) {
         requireNonNull(recipeBookFilePath);
-        userPrefs.setRecipeBookFilePath(recipeBookFilePath);
+        userPrefs.setDataFilePath(recipeBookFilePath);
     }
 
     //=========== RecipeBook ================================================================================
@@ -95,14 +95,30 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void attemptRecipe(Recipe recipe) {
+        recipeBook.attempt(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
+    public void unAttemptRecipe(Recipe recipe) {
+        recipeBook.unAttempt(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
     public void favRecipe(Recipe recipe) {
         recipeBook.fav(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
     public void unFavRecipe(Recipe recipe) {
         recipeBook.unFav(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 

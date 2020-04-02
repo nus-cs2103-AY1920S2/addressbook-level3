@@ -9,27 +9,24 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.ui.UiManager;
-
 
 /**
- * Lists all recipes in the recipe book to the user.
+ * Marks a recipe as done, identified using it's displayed index from the recipe book.
  */
-public class ViewCommand extends Command {
+public class DoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "view";
+    public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Views the recipe identified by the index number used in the displayed recipe list.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+            + ": Marks the recipe identified by the index number used in the displayed recipe list as done.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-
-    public static final String MESSAGE_VIEW_RECIPE_SUCCESS = "Viewing Recipe: %1$s";
+    public static final String MESSAGE_DONE_RECIPE_SUCCESS = "Completed Recipe: %1$s";
 
     private final Index targetIndex;
 
-    public ViewCommand(Index targetIndex) {
+    public DoneCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -42,15 +39,15 @@ public class ViewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        Recipe recipeToView = lastShownList.get(targetIndex.getZeroBased());
-        UiManager.changeRecipe(recipeToView);
-        return new CommandResult(String.format(MESSAGE_VIEW_RECIPE_SUCCESS, recipeToView.getName()));
+        Recipe recipeToDo = lastShownList.get(targetIndex.getZeroBased());
+        model.attemptRecipe(recipeToDo);
+        return new CommandResult(String.format(MESSAGE_DONE_RECIPE_SUCCESS, recipeToDo.getName()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof ViewCommand // instanceof handles nulls
-            && targetIndex.equals(((ViewCommand) other).targetIndex)); // state check
+                || (other instanceof DoneCommand // instanceof handles nulls
+                && targetIndex.equals(((DoneCommand) other).targetIndex)); // state check
     }
 }

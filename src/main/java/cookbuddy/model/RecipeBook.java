@@ -92,6 +92,24 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         recipe.unFavRecipe();
     }
 
+    /**
+     * Attempts the recipe, marking it as done.
+     * @param recipe the recipe to be marked as done.
+     */
+    public void attempt(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.attemptRecipe();
+    }
+
+    /**
+     * Un-Marks the recipe as attempted, marking it as not done.
+     * @param recipe the recipe to be un-marked.
+     */
+    public void unAttempt(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.unAttemptRecipe();
+    }
+
 
     /**
      * Adds a recipe to the recipe book.
@@ -108,6 +126,13 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
+        if (target.getFavStatus().toString().equals("\u2665")) {
+            editedRecipe.favRecipe();
+        }
+
+        if (target.getDoneStatus().toString().equals("Yes")) {
+            editedRecipe.attemptRecipe();
+        }
 
         recipes.setRecipe(target, editedRecipe);
     }

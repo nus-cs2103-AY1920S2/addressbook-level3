@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import cookbuddy.logic.commands.Command;
 import cookbuddy.logic.commands.CountCommand;
 import cookbuddy.logic.commands.DeleteCommand;
+import cookbuddy.logic.commands.DoneCommand;
 import cookbuddy.logic.commands.ExitCommand;
 import cookbuddy.logic.commands.FavCommand;
 import cookbuddy.logic.commands.FindCommand;
@@ -18,6 +19,7 @@ import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.logic.commands.ResetCommand;
 import cookbuddy.logic.commands.UnFavCommand;
+import cookbuddy.logic.commands.UndoCommand;
 import cookbuddy.logic.commands.ViewCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
 
@@ -56,6 +58,12 @@ public class RecipeBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
 
         case FavCommand.COMMAND_WORD:
             return new FavCommandParser().parse(arguments);
