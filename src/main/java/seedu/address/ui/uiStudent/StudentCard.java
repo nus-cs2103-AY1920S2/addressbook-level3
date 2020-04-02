@@ -78,6 +78,6 @@ public class StudentCard extends UiPart<Region> {
   private void selectStudent(){
     String selectedStudentID = studentID.getText();
     String commandText = "select sid/" + selectedStudentID;
-    commandBox.runCommand(commandText);
+    commandBox.runCommand(commandText, "STUDENT");
   }
 }

@@ -90,6 +90,6 @@ public class StaffCard extends UiPart<Region> {
   private void selectStaff(){
     String selectedStaffID = staffID.getText();
     String commandText = "select tid/" + selectedStaffID;
-    commandBox.runCommand(commandText);
+    commandBox.runCommand(commandText, "STAFF");
   }
 }

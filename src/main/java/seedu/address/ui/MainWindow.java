@@ -89,6 +89,8 @@ public class MainWindow extends UiPart<Stage> {
   private double originalExtraPanelWidth;
   private double originalExtraPanelHeight;
 
+  private String currentView;
+
   public MainWindow(Stage primaryStage, Logic logic) {
     super(FXML, primaryStage);
 
@@ -102,6 +104,11 @@ public class MainWindow extends UiPart<Stage> {
     setAccelerators();
 
     helpWindow = new HelpWindow();
+    currentView = "STUDENT";
+  }
+
+  public String getCurrentView(){
+    return currentView;
   }
 
   public Stage getPrimaryStage() {
@@ -153,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
     StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
     statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-    CommandBox commandBox = new CommandBox(this::executeCommand);
+    CommandBox commandBox = new CommandBox(this::executeCommand, this);
     commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
     studentListPanel = new StudentListPanel(logic.getFilteredStudentList(), commandBox);
@@ -214,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
-
+    currentView = "STUDENT";
     switchList(studentListPanel.getRoot(), courseListPanel.getRoot());
   }
 
@@ -227,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
-
+    currentView = "STAFF";
     switchList(staffListPanel.getRoot(), courseListPanel.getRoot());
   }
 
@@ -240,7 +247,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredStudentList(logic.getExtraStudentPredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
-
+    currentView = "COURSE";
     switchList(courseListPanel.getRoot(), studentListPanel.getRoot());
   }
 
@@ -253,7 +260,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     //Disable extra List
     extraListPanelPlaceholder.setMaxSize(0.0,0.0);
-
+    currentView = "FINANCE";
     switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
   }
 
@@ -266,6 +273,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     //Disable extra List
     extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    currentView = "ASSIGNMENT";
     switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
   }
 

@@ -99,6 +99,6 @@ public class CourseCard extends UiPart<Region> {
   private void selectCourse(){
     String selectedCourseID = courseID.getText();
     String commandText = "select cid/" + selectedCourseID;
-    commandBox.runCommand(commandText);
+    commandBox.runCommand(commandText, "COURSE");
   }
 }
