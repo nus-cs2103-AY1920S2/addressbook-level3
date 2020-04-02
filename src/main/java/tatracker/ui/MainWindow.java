@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -43,15 +44,22 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private CommandBox commandBox;
+
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
     private GroupListPanel groupListPanel;
     private ModuleListPanel moduleListPanel;
+
     private ModuleListPanelCopy moduleListPanelCopy;
+    private Focusable currentStudentViewList;
+
     private SessionListPanel sessionListPanel;
     private ClaimsListPanel claimsListPanel;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
     private StatisticWindow statisticWindow;
 
     @FXML
@@ -169,6 +177,8 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanelCopy = new ModuleListPanelCopy(logic.getFilteredModuleList());
         moduleListPanelPlaceholderCopy.getChildren().add(moduleListPanelCopy.getRoot());
 
+        currentStudentViewList = studentListPanel;
+
         sessionListPanel = new SessionListPanel(logic.getFilteredSessionList());
         sessionListPanelPlaceholder.getChildren().add(sessionListPanel.getRoot());
 
@@ -181,8 +191,12 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaTrackerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay);
+        commandBox = new CommandBox(this::executeCommand, resultDisplay);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleFocusOnCommandBox);
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleFocusOnView);
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleSwitchingStudentViewLists);
     }
 
     /**
@@ -252,6 +266,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    private boolean isSelectedTab(Tab tab) {
+        return tab.equals(tabPane.getSelectionModel().getSelectedItem());
+    }
+
     /**
      * Closes the application.
      */
@@ -266,6 +284,100 @@ public class MainWindow extends UiPart<Stage> {
         if (statisticWindow != null) {
             statisticWindow.hide();
         }
+    }
+
+    /**
+     * Alternates the focus on the command box.
+     */
+    private void handleFocusOnCommandBox(KeyEvent event) {
+        if (!KeyCode.ESCAPE.equals(event.getCode())) {
+            return;
+        }
+        if (commandBox.isFocused()) {
+            commandBoxPlaceholder.requestFocus();
+            logger.info("Focus on view");
+        } else {
+            commandBox.requestFocus();
+            logger.info("Focus on text");
+        }
+    }
+
+    /**
+     * Alternates the focus on the current tab view.
+     */
+    private void handleFocusOnView(KeyEvent event) {
+        if (!KeyCode.ESCAPE.equals(event.getCode()) || commandBox.isFocused()) {
+            return;
+        }
+        if (isSelectedTab(studentListTab)) {
+            currentStudentViewList.requestFocus();
+        } else if (isSelectedTab(sessionListTab)) {
+            sessionListPanel.requestFocus();
+        } else if (isSelectedTab(claimsListTab)) {
+            moduleListPanelCopy.requestFocus();
+        } else {
+            assert false;
+            logger.warning("Tab does not exist");
+        }
+    }
+
+    /**
+     * Alternates the focus on the module, group, and student list in the StudentView.
+     */
+    private void handleSwitchingStudentViewLists(KeyEvent event) {
+        if (!isSelectedTab(studentListTab)) {
+            return;
+        }
+        switch (event.getCode()) {
+        case LEFT:
+            handleLeftKeyReleased();
+            break;
+        case RIGHT:
+            handleRightKeyReleased();
+            break;
+        default:
+            logger.fine("Not switching lists");
+        }
+    }
+
+    /**
+     * Sets the focus on the list view to the left of the currently active list view.
+     * This can only be used in the Student View since it has multiple lists.
+     */
+    private void handleLeftKeyReleased() {
+        if (currentStudentViewList == studentListPanel) {
+            logger.info("LEFT: Showing groups");
+            currentStudentViewList = groupListPanel;
+
+        } else if (currentStudentViewList == groupListPanel) {
+            logger.info("LEFT: Showing modules");
+            currentStudentViewList = moduleListPanel;
+
+        } else {
+            assert currentStudentViewList == moduleListPanel;
+            logger.fine("Nothing to the left of module list panel");
+        }
+        currentStudentViewList.requestFocus();
+    }
+
+    /**
+     * Sets the focus on the list view to the right of the currently active list view.
+     * This can only be used in the Student View since it has multiple lists.
+     */
+    private void handleRightKeyReleased() {
+        if (currentStudentViewList == moduleListPanel) {
+            logger.info("RIGHT: Showing groups");
+            currentStudentViewList = groupListPanel;
+
+        } else if (currentStudentViewList == groupListPanel) {
+            logger.info("RIGHT: Showing students");
+            currentStudentViewList = studentListPanel;
+
+        } else {
+            assert currentStudentViewList == studentListPanel;
+            logger.fine("Nothing to the right of student list panel");
+        }
+        currentStudentViewList.requestFocus();
     }
 
     /**
