@@ -9,16 +9,17 @@ TransactionHistory *-right-> "1" UniqueTransactionList
 
 UniqueTransactionList o-right-> Transaction
 
-Transaction *-right->Id
-Transaction o-->Good
-Transaction o-->Quantity
+Transaction *-right->TransactionId
+Transaction *-->Good
+Transaction *-->Quantity
 
 SellTransaction -up-|> Transaction
 BuyTransaction -up-|> Transaction
 
 SellTransaction -[hidden]left- BuyTransaction
 
-BuyTransaction o--> Supplier
-SellTransaction o--> Price
+BuyTransaction *--> Supplier
+BuyTransaction *--> Price
+SellTransaction *--> Price
 
 @enduml

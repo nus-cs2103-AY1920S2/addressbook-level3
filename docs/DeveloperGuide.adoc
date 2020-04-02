@@ -123,14 +123,38 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the 3 sets of data: `AddressBook`, `Inventory` and `TransactionHistory`.
-* these 3 sets of data hava close interaction between each other through various commands input.
+* these 3 sets of data stores `Supplier`, `Good` and `Transaction` respectively.
+* have close interaction between each other through various commands input.
 * exposes 3 sets of  unmodifiable list: `ObservableList<Supplier>`, `ObservableList<Good>` and `ObservableList<Transaction>` that can be 'observed' as 3 separate panels on the UI. e.g. the UI can be bound to this list so that the UI automatically updates when any of the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Offer` list in `Address Book`, which `Supplier` can reference. This would allow `Address Book` to only require one `Offer` object per unique `Offer`, instead of each `Supplier` needing their own `Offer` object. An example of how such a model may look like is given below. +
- +
+The `Supplier`,
+
+* stores details of supplier: `Name`, `Phone`, `Address`, `Email` and `Offer`.
+* can have no `Offer` or multiple `Offer`.
+
 image:SupplierModelClassDiagram.png[]
+
+The `Offer`,
+
+* compose of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
+
+image:OfferModelClassDiagram.png[]
+
+The `Good`,
+
+* stores details of good: `GoodName`, `Quantity` and `ThresholdQuantity`.
+
+image:GoodModelClassDiagram.png[]
+
+The `Transaction`,
+
+* stores details of transaction: `TransactionId`, `Good` and `Quantity`.
+* differentiate by two types: `SellTransaction` and `BuyTransaction`.
+* `SellTransaction` stores additional detail: `Price` which is selling price of the good.
+* `BuyTransaction` stores additional details: `Price` and `Supplier`, which are the buying price of the good and the seller of the good respectively.
+
+image:TransactionModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
