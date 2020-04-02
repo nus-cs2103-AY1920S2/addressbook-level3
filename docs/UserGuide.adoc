@@ -422,7 +422,7 @@ Examples:
 * `addWeight v/50.0 d/2020-02-01`
 * `addWeight v/52.30`
 
-=== Calendar View
+=== Calendar View: `calendar`
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
 
 *For list mode*:
@@ -431,7 +431,7 @@ Calendar view will display all the food and sports entries for each day of the r
 The lists of entries for food and sports are display by their given dates in the referenced month. Completed entries will be strikethrough. Calorie value is also shown for each date.
 
 * *Calendar of the month* +
-On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`. The leftward and rightward arrow from the title bar can switch the calendar to previous or next month, with matching CLI command `calendar d/next month` and `calendar d/prevous month`.
+On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`. The leftward and rightward arrow from the title bar can switch the calendar to previous or next month, with matching CLI command `calendar d/DATE`.
 
 * *Daily tasks completion status* +
 On the bottom right corner, completion status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.

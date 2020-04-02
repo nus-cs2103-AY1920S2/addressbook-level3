@@ -1,7 +1,7 @@
 package fithelper.logic.commands.diary;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARY_CONTENT;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
@@ -30,10 +30,10 @@ public class EditDiaryCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + PREFIX_DATE + "DATE "
-            + PREFIX_DIARYCONTENT + "DIARY CONTENT \n"
+            + PREFIX_DIARY_CONTENT + "DIARY CONTENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2020-03-31"
-            + PREFIX_DIARYCONTENT + "Today is my birthday. I ate a huge birthday cake, but I also went to the gym with"
+            + PREFIX_DIARY_CONTENT + "Today is my birthday. I ate a huge birthday cake, but I also went to the gym with"
             + " my friends. Everything was just perfect. In my twenty, I'm gonna turn heat up.";
 
     public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";

@@ -15,11 +15,11 @@ public class CliSyntaxUtil {
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_KEYWORD = new Prefix("k/");
-    public static final Prefix PREFIX_SORT_BY = new Prefix("s/");
+    public static final Prefix PREFIX_SORT_BY = new Prefix("by/");
     public static final Prefix PREFIX_SORT_ORDER = new Prefix("o/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_MODE = new Prefix("m/");
-    public static final Prefix PREFIX_DIARYCONTENT = new Prefix("dc/");
+    public static final Prefix PREFIX_DIARY_CONTENT = new Prefix("dc/");
     public static final Prefix PREFIX_DURATION = new Prefix("dr/");
     public static final Prefix PREFIX_SHOW = new Prefix("sh/");
 
