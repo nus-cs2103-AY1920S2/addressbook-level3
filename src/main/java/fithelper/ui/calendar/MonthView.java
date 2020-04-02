@@ -74,6 +74,12 @@ public class MonthView extends UiPart<AnchorPane> {
             Button previousMonth = new Button("<<");
             previousMonth.setOnAction(e -> previousMonth());
             Button nextMonth = new Button(">>");
+            previousMonth.setStyle("-fx-border-color:white");
+            nextMonth.setStyle("-fx-border-color:white");
+            nextMonth.setStyle("-fx-background-color:white");
+            previousMonth.setStyle("-fx-background-color:white");
+            nextMonth.setTextFill(Color.web("#789cce"));
+            previousMonth.setTextFill(Color.web("#789cce"));
             nextMonth.setOnAction(e -> nextMonth());
             populateCalendar(currentYearMonth, stats);
             HBox titleBar = new HBox(previousMonth, monthYearTitle, nextMonth);
