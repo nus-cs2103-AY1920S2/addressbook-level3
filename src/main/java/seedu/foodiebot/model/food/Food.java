@@ -16,7 +16,13 @@ import seedu.foodiebot.model.tag.Tag;
  * are validated, immutable.
  */
 public class Food {
-    public static final String[] FOOD = new String[]{"Combo Set", "Ayam Penyet", "Cai fan", "Fried Fish"};
+    public static final String[] FOOD = new String[]{
+            "Roasted Chicken Rice", "Fish Bee Hoon", "Roti Prata Set,", "Beef Rice Set",
+            "Mala", "Fried Meatball Noodle", "Cai Fan Set", "Popcorn Chicken with Veg Set",
+            "Combo Set", "Fried Rice", "Xiao Long Bao", "Assorted Claypot Chicken with Rice",
+            "Cai Fan", "Roti Prata", "Katsudon Rice Set", "Beef Rendang", "Mini Hot Pot Noodle",
+            "Chicken Rice Set", "Fried Kway Teow", "Laksa Yong Tau Foo", "Vegetarian Set",
+            "Fried Fish", "Carbonara", "Assorted Salads", "Ayam Penyet"};
     public static final String IMAGE_FOLDER = "/images/canteen/";
     public static final String MESSAGE_CONSTRAINTS = "Food name should be from " + Arrays.toString(FOOD);
     public static final String INVALID_FOOD_INDEX = "Please provide a valid food index";

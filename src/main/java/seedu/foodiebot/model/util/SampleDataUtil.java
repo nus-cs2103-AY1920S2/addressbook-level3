@@ -248,7 +248,7 @@ public class SampleDataUtil {
                         "Mini Hot Pot Noodle.png", 6, "The Deck",
                         "Noodle", getTagSet("asian", "cheap", "noodles")),
                             new Food("Chicken Rice Set", 4, "Rice, Chicken, Vegetable and Soup", "Chicken Rice Set.png",
-                        7, "The Deck","Roasted Delights", getTagSet("asian", "cheap")),
+                        7, "The Deck", "Roasted Delights", getTagSet("asian", "cheap")),
                             new Food("Fried Kway Teow", 4, "Fried Kway Teow with fried delights", "Fried Kway Teow.png",
                         8, "The Deck", "Snacks and Fried Kway Teow", getTagSet("asian", "cheap")),
                             new Food("Laksa Yong Tau Foo", 4, "Spicy and Delicious", "Laksa Yong Tau Foo.png",
