@@ -1,8 +1,9 @@
 package com.notably.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
@@ -24,8 +25,8 @@ class EditCommandTest {
     private static Model model;
     private static AbsolutePath currentPath;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         // Set up model
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
@@ -36,7 +37,7 @@ class EditCommandTest {
         Block currentBlock = (new BlockImpl(new Title("CS2103")));
         model.addBlockToCurrentPath(currentBlock);
         currentPath = AbsolutePath.fromString("/CS2103");
-        model.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS2103"));
+        model.setCurrentlyOpenBlock(currentPath);
     }
     @Test
     void execute_editCommand_blockWithUpdatedBody() throws CommandException {
@@ -49,14 +50,13 @@ class EditCommandTest {
         assertEquals(expectedBody, model.getBlockTree().get(currentPath).getBlock().getBody().getText());
 
     }
-    //Todo: uncomment after merging ParserException handling.
-    //@Test
-    //void execute_editCommandInRoot_throwsCannotModifyRootException() throws CannotModifyRootException {
-    //    final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
-    //
-    //    model.setCurrentlyOpenBlock(AbsolutePath.fromString("/"));
-    //    editCommand.execute(model);
-    //
-    //    assertThrows(CannotModifyRootException.class, () -> editCommand.execute(model));
-    //}
+
+    @Test
+    void execute_editCommandInRoot_throwsCannotModifyRootException() throws CommandException {
+        final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
+
+        model.setCurrentlyOpenBlock(AbsolutePath.fromString("/"));
+
+        assertThrows(CommandException.class, () -> editCommand.execute(model));
+    }
 }

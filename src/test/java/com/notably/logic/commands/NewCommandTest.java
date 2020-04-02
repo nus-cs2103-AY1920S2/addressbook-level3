@@ -3,7 +3,7 @@ package com.notably.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
@@ -23,8 +23,8 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 class NewCommandTest {
     private static Model model;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         // Set up model
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
@@ -36,7 +36,6 @@ class NewCommandTest {
     void execute_validInput_updatedDatastructure() {
         final Block currentBlock = (new BlockImpl(new Title("CS2103")));
 
-
         final AbsolutePath expectedPath = AbsolutePath.fromString("/CS2103");
 
         model.addBlockToCurrentPath(currentBlock);
@@ -45,11 +44,15 @@ class NewCommandTest {
     }
 
     @Test
-    void execute_invalidInputDuplicateTitle_throwsDuplicateBlockException() {
-        final Block filler = (new BlockImpl(new Title("CS2103")));
-        final Block duplicateBlock = (new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(filler);
+    void execute_invalidInputDuplicateTitle_throwsDuplicateBlockException() throws CommandException {
+        final Block filler = new BlockImpl(new Title("CS2104"));
+        final Block duplicateBlock = new BlockImpl(new Title("CS2104"));
+        final AbsolutePath toPath = AbsolutePath.fromString("/");
+        final NewCommand newCommandFiller = new NewCommand(filler, toPath);
+        final NewCommand newCommandDuplicate = new NewCommand(duplicateBlock, toPath);
 
-        assertThrows(CommandException.class, () -> model.addBlockToCurrentPath(duplicateBlock));
+        newCommandFiller.execute(model);
+
+        assertThrows(CommandException.class, () -> newCommandDuplicate.execute(model));
     }
 }

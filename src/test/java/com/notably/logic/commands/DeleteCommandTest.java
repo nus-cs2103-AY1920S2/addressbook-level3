@@ -3,7 +3,7 @@ package com.notably.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
@@ -24,8 +24,8 @@ class DeleteCommandTest {
     private static Model model;
     private static AbsolutePath toDeletePath;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         // Set up model
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
@@ -53,7 +53,6 @@ class DeleteCommandTest {
         final DeleteCommand deleteCommand = new DeleteCommand(rootPath);
 
         assertThrows(CommandException.class, () -> deleteCommand.execute(model));
-
     }
 
 }

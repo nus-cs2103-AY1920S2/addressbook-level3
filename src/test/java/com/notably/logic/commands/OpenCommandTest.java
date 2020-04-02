@@ -3,7 +3,7 @@ package com.notably.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
@@ -23,8 +23,8 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 class OpenCommandTest {
     private static Model model;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         // Set up model
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
