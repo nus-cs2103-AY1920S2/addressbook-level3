@@ -41,7 +41,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArrayList<String> wordKeywords = new ArrayList<>();
         ArrayList<String> tagKeywords = new ArrayList<>();
 
-        // finally, this portion is CORRECT
         for (int i = 0; i < nameKeywords.length; i++) {
             if (nameKeywords[i].contains("-g/")) {
                 nameKeywords[i] = nameKeywords[i].substring(3);
@@ -87,21 +86,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
-        // debugging purposes
-        /*
-        logger.info("The groupname Keywords are: " + groupnameKeywords.size());
-        for (int i = 0; i < groupnameKeywords.size(); i++) {
-            logger.info(groupnameKeywords.get(i));
-        }
-        logger.info("The word keywords are: " + wordKeywords.size());
-        for (int i = 0; i < wordKeywords.size(); i++) {
-            logger.info(wordKeywords.get(i));
-        }
-        logger.info("The tag keywords are: " + tagKeywords.size());
-        for (int i = 0; i < tagKeywords.size(); i++) {
-            logger.info(tagKeywords.get(i));
-        }
-        */
 
         String[] groupnameKeywordsArray = new String[groupnameKeywords.size()];
         for (int i = 0; i < groupnameKeywords.size(); i++) {
@@ -122,8 +106,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 new NameContainsKeywordsPredicate(Arrays.asList(wordKeywordsArray));
         TagsContainsKeywordsPredicate tagPredicate = new TagsContainsKeywordsPredicate(Arrays.asList(tagKeywordsArray));
 
-        //return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-        // must be passed in this order: groupname, word, tag predicates
+
         return new FindCommand(groupnamePredicate, wordPredicate, tagPredicate);
     }
 
