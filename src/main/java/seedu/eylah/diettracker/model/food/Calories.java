@@ -36,6 +36,10 @@ public class Calories {
         return test >= LONG_ZERO;
     }
 
+    public Calories add(Calories other) {
+        return new Calories(this.getValue() + other.getValue());
+    }
+
     @Override
     public String toString() {
         return String.valueOf(value);
