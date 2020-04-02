@@ -144,7 +144,7 @@ Examples:
 
 === Analysis of transactions : `toggle`
 
-Toggle between list view of transactions and analytics view with bar graph and pie chart to show expense trend
+Toggles between list view of transactions and analytics view with bar graph and pie chart to show expense trend
 
 
 === Find transaction by name : `find`
