@@ -61,7 +61,7 @@ public class SortMethod {
         Lexicographically biggest, latest added, highest priority at the top of the module activity list.
          */
         Comparator<Activity> nameSorter = Comparator.comparing(l -> l.getName().toString(),
-                String.CASE_INSENSITIVE_ORDER.reversed());
+                String.CASE_INSENSITIVE_ORDER);
         Comparator<Activity> dateSorter = Comparator.comparing(l -> l.getDate().getDate(),
                 Comparator.reverseOrder());
         Comparator<Activity> prioritySorter = Comparator.comparing(l -> l.getPriority().toString(),
@@ -69,13 +69,10 @@ public class SortMethod {
 
         switch (method) {
         case "name":
-            System.out.println("Attempting to sort by name");
             return nameSorter;
         case "date":
-            System.out.println("Attempting to sort by date");
             return dateSorter;
         case "priority":
-            System.out.println("Attempting to sort by priority");
             return prioritySorter;
         default:
             throw new IllegalStateException("Unexpected value: " + getSortMethodString());
