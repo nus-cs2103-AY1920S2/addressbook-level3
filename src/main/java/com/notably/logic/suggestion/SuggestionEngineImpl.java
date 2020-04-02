@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.commands.suggestion.EditSuggestionCommand;
 import com.notably.logic.commands.suggestion.ErrorSuggestionCommand;
 import com.notably.logic.commands.suggestion.ExitSuggestionCommand;
@@ -14,6 +15,7 @@ import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
 import com.notably.model.Model;
 
@@ -39,10 +41,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
 
     @Override
     public void suggest(String userInput) {
-        if (userInput.length() < 2) {
-            model.clearSuggestions();
-            model.clearResponseText();
-        } else {
+        if (userInput.length() >= 2) {
             SuggestionCommand suggestionCommand = parseCommand(userInput);
             suggestionCommand.execute(model);
         }
@@ -78,10 +77,14 @@ public class SuggestionEngineImpl implements SuggestionEngine {
                 return new ErrorSuggestionCommand(e.getMessage());
             }
 
-        /*case DeleteSuggestionCommand.COMMAND_WORD:
-            return new DeleteSuggestionCommandParser(model).parse(arguments);
+        case DeleteSuggestionCommand.COMMAND_WORD:
+            try {
+                return new DeleteSuggestionCommandParser(model).parse(arguments);
+            } catch (ParseException e) {
+                return new ErrorSuggestionCommand(e.getMessage());
+            }
 
-        case SearchSuggestionCommand.COMMAND_WORD:
+        /*case SearchSuggestionCommand.COMMAND_WORD:
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
         case NewSuggestionCommand.COMMAND_WORD:
@@ -102,8 +105,14 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         }
     }
 
+    /**
+     * Generates new suggestions whenever the command input line changes.
+     * @param inputProperty The user's input.
+     */
     private void autoUpdateInput(StringProperty inputProperty) {
         inputProperty.addListener((observable, oldValue, newValue) -> {
+            model.clearSuggestions();
+            model.clearResponseText();
             suggest(newValue);
         });
     }
