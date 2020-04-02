@@ -161,4 +161,32 @@ public class UniqueGroupListTest {
                 uniqueGroupList.asUnmodifiableObservableList().remove(0));
     }
 
+    @Test
+    public void size() {
+        uniqueGroupList.add(NO_STUDENTS);
+        uniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.add(ONE_STUDENT);
+        assertEquals(3, uniqueGroupList.size());
+    }
+
+    @Test
+    public void get() {
+        uniqueGroupList.add(NO_STUDENTS);
+        uniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.add(ONE_STUDENT);
+        assertEquals(uniqueGroupList.get(0), NO_STUDENTS);
+        assertEquals(uniqueGroupList.get(1), MANY_STUDENTS);
+        assertEquals(uniqueGroupList.get(2), ONE_STUDENT);
+    }
+
+    @Test
+    public void getUsingGroupId() {
+        uniqueGroupList.add(NO_STUDENTS);
+        uniqueGroupList.add(MANY_STUDENTS);
+        uniqueGroupList.add(ONE_STUDENT);
+        assertEquals(uniqueGroupList.get("G04"), NO_STUDENTS);
+        assertEquals(uniqueGroupList.get("G05"), MANY_STUDENTS);
+        assertEquals(uniqueGroupList.get("G03"), ONE_STUDENT);
+    }
+
 }
