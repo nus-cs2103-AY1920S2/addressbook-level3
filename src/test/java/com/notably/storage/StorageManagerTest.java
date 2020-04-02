@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.notably.commons.GuiSettings;
-import com.notably.model.block.BlockTree;
+import com.notably.model.block.BlockModel;
 import com.notably.model.userpref.UserPrefModel;
 import com.notably.model.userpref.UserPrefModelImpl;
-import com.notably.testutil.TypicalBlockTree;
+import com.notably.testutil.TypicalBlockModel;
 
 public class StorageManagerTest {
 
@@ -52,16 +52,17 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonBlockStorage} class.
-         * More extensive testing of BlockTree saving/reading is done in {@link JsonBlockStorageTest} class.
+         * More extensive testing of BlockModel saving/reading is done in {@link JsonBlockStorageTest} class.
          */
-        BlockTree original = TypicalBlockTree.getTypicalBlockTree();
-        storageManager.saveBlockTree(original);
-        BlockTree retrieved = storageManager.readBlockTree().get();
-        assertEquals(original, retrieved);
+        BlockModel original = TypicalBlockModel.getTypicalBlockModel();
+        storageManager.saveBlockModel(original);
+        BlockModel retrieved = storageManager.readBlockModel().get();
+        assertEquals(original.getBlockTree(), retrieved.getBlockTree());
+        assertEquals(original.getCurrentlyOpenPath(), retrieved.getCurrentlyOpenPath());
     }
 
     @Test
-    public void getBlockTreeFilePath() {
-        assertNotNull(storageManager.getBlockTreeFilePath());
+    public void getBlockModelFilePath() {
+        assertNotNull(storageManager.getBlockDataFilePath());
     }
 }

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import com.notably.commons.LogsCenter;
 import com.notably.commons.exceptions.DataConversionException;
-import com.notably.model.block.BlockTree;
+import com.notably.model.block.BlockModel;
 import com.notably.model.userpref.ReadOnlyUserPrefModel;
 import com.notably.model.userpref.UserPrefModel;
 
@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ Block methods ==============================
 
     @Override
-    public Path getBlockTreeFilePath() {
-        return blockStorage.getBlockTreeFilePath();
+    public Path getBlockDataFilePath() {
+        return blockStorage.getBlockDataFilePath();
     }
 
     @Override
-    public Optional<BlockTree> readBlockTree() throws DataConversionException, IOException {
-        return readBlockTree(blockStorage.getBlockTreeFilePath());
+    public Optional<BlockModel> readBlockModel() throws DataConversionException, IOException {
+        return readBlockModel(blockStorage.getBlockDataFilePath());
     }
 
     @Override
-    public Optional<BlockTree> readBlockTree(Path filePath) throws DataConversionException, IOException {
+    public Optional<BlockModel> readBlockModel(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return blockStorage.readBlockTree(filePath);
+        return blockStorage.readBlockModel(filePath);
     }
 
     @Override
-    public void saveBlockTree(BlockTree blockTree) throws IOException {
-        saveBlockTree(blockTree, blockStorage.getBlockTreeFilePath());
+    public void saveBlockModel(BlockModel blockModel) throws IOException {
+        saveBlockModel(blockModel, blockStorage.getBlockDataFilePath());
     }
 
     @Override
-    public void saveBlockTree(BlockTree blockTree, Path filePath) throws IOException {
+    public void saveBlockModel(BlockModel blockModel, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        blockStorage.saveBlockTree(blockTree, filePath);
+        blockStorage.saveBlockModel(blockModel, filePath);
     }
 
 }

@@ -88,7 +88,7 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_uncorrectedCommand_returnErrorSuggestionCommand() {
+    public void suggest_uncorrectedCommand_returnsErrorSuggestionCommand() {
         model.setInput("opensesame -t CS2103");
 
         // Expected result
@@ -97,7 +97,95 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_correctedOpenCommandValidArgs_returnOpenSuggestionCommand() {
+    public void suggest_correctDeleteCommandValidArgs_returnsDeleteSuggestionCommand() {
+        model.setInput("delete -t Lecture");
+
+        // Test response text
+        String expectedResponseText = "Delete a note";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+
+        // Expected result
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add("delete -t " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+
+    }
+
+    @Test
+    public void suggest_correctDeleteCommandInvalidArgs_returnsErrorSuggestionCommand() {
+        model.setInput("delete CS2222");
+
+        // Expected result
+        String expectedResponseText = "Invalid path";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedDeleteCommandValidArgs_returnsDeleteSuggestionCommand() {
+        model.setInput("dele -t Lecture");
+
+        // Test response text
+        String expectedResponseText = "Delete a note";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+
+        // Expected result
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+        SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
+                null);
+        expectedSuggestions.add(cs2103Week1Lecture);
+
+        List<SuggestionItem> suggestions = model.getSuggestions();
+
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
+
+        List<String> expectedInputs = new ArrayList<>();
+        expectedInputs.add("dele -t " + toCs2103Week1Lecture.getStringRepresentation());
+
+        for (int i = 0; i < expectedInputs.size(); i++) {
+            SuggestionItem suggestionItem = suggestions.get(i);
+            String expectedInput = expectedInputs.get(i);
+            suggestionItem.getAction().run();
+            String input = model.getInput();
+            assertEquals(expectedInput, input);
+        }
+
+    }
+
+    @Test
+    public void suggest_correctedDeleteCommandInvalidArgs_returnsErrorSuggestionCommand() {
+        model.setInput("dele -t CS2222");
+
+        // Expected result
+        String expectedResponseText = "Invalid path";
+        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedOpenCommandValidArgs_returnsOpenSuggestionCommand() {
         model.setInput("oen -t Lecture");
 
         // Test response text
@@ -132,7 +220,7 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_correctedOpenCommandInvalidArgs_returnErrorSuggestionCommand() {
+    public void suggest_correctedOpenCommandInvalidArgs_returnsErrorSuggestionCommand() {
         model.setInput("opn -t CS2222");
 
         // Expected result
@@ -141,7 +229,7 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_correctedNewCommand_returnNewSuggestionCommand() {
+    public void suggest_correctedNewCommand_returnsNewSuggestionCommand() {
         model.setInput("nw -t NewNote");
 
         // Expected result
@@ -150,16 +238,16 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_correctedEditCommand_returnEditSuggestionCommand() {
+    public void suggest_correctedEditCommand_returnsEditSuggestionCommand() {
         model.setInput("edt -t NewNote -b lorem ipsum");
 
         // Expected result
-        String expectedResponseText = "Edit a currently open note";
+        String expectedResponseText = "Edit this note";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
     @Test
-    public void suggest_correctedHelpCommand_returnHelpSuggestionCommand() {
+    public void suggest_correctedHelpCommand_returnsHelpSuggestionCommand() {
         model.setInput("hAlp");
 
         // Expected result
@@ -168,11 +256,11 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_correctedExitCommand_returnExitSuggestionCommand() {
+    public void suggest_correctedExitCommand_returnsExitSuggestionCommand() {
         model.setInput("ex");
 
         // Expected result
-        String expectedResponseText = "Exit Notably app";
+        String expectedResponseText = "Exit the application";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 }
