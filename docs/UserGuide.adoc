@@ -24,7 +24,7 @@ Notably is for those who *prefer to use a desktop app for managing notes*. More 
 The image shown below highlights the different sections of Notably's user interface:
 
 .Notably GUI quickguide
-image::introToNotably.png[width="900"]
+image::IntroToNotably.png[width="900"]
 
 === Symbols used in this guide
 [NOTE]
