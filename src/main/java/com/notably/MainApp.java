@@ -67,10 +67,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        BlockModel blockModel = new BlockModelImpl();
-        SuggestionModel suggestionModel = new SuggestionModelImpl();
-        ViewStateModel viewStateModel = new ViewStateModelImpl();
-        model = initModelManager(storage, blockModel, suggestionModel, viewStateModel, userPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -82,8 +79,11 @@ public class MainApp extends Application {
      * The data from the sample block data will be used instead if {@code storage}'s block data is not found,
      * or an empty {@code BlockTree} will be used instead if errors occur when reading {@code storage}'s block data.
      */
-    private Model initModelManager(Storage storage, BlockModel blockModel, SuggestionModel suggestionModel,
-        ViewStateModel viewStateModel, ReadOnlyUserPrefModel userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefModel userPrefs) {
+        BlockModel blockModel = new BlockModelImpl();
+        SuggestionModel suggestionModel = new SuggestionModelImpl();
+        ViewStateModel viewStateModel = new ViewStateModelImpl();
+
         Optional<BlockModel> blockModelOptional;
         BlockModel initialData;
         try {
