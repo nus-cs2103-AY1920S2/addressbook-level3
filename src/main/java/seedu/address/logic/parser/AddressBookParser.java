@@ -44,7 +44,12 @@ import seedu.address.logic.commands.commandList.ListCourseCommand;
 import seedu.address.logic.commands.commandList.ListFinanceCommand;
 import seedu.address.logic.commands.commandList.ListStudentCommand;
 import seedu.address.logic.commands.commandList.ListTeacherCommand;
-import seedu.address.logic.commands.commandList.*;
+import seedu.address.logic.commands.commandSwitch.SwitchAssignmentCommand;
+import seedu.address.logic.commands.commandSwitch.SwitchCourseCommand;
+import seedu.address.logic.commands.commandSwitch.SwitchFinanceCommand;
+import seedu.address.logic.commands.commandSwitch.SwitchStaffCommand;
+import seedu.address.logic.commands.commandSwitch.SwitchStudentCommand;
+import seedu.address.logic.commands.commandSwitch.SwitchSummaryCommand;
 import seedu.address.logic.commands.commandUnassign.UnassignCommandBase;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.parserAdd.AddAssignmentCommandParser;
@@ -216,6 +221,42 @@ public class AddressBookParser {
       case RedoCommand.COMMAND_WORD:
         return new RedoCommand();
 
+        //Switch operations
+      case SwitchStudentCommand.COMMAND_WORD:
+        return new SwitchStudentCommand();
+
+      case SwitchStudentCommand.COMMAND_WORD_ALT:
+        return new SwitchStudentCommand();
+
+      case SwitchStaffCommand.COMMAND_WORD:
+        return new SwitchStaffCommand();
+
+      case SwitchStaffCommand.COMMAND_WORD_ALT:
+        return new SwitchStaffCommand();
+
+      case SwitchCourseCommand.COMMAND_WORD:
+        return new SwitchCourseCommand();
+
+      case SwitchCourseCommand.COMMAND_WORD_ALT:
+        return new SwitchCourseCommand();
+
+      case SwitchFinanceCommand.COMMAND_WORD:
+        return new SwitchFinanceCommand();
+
+      case SwitchFinanceCommand.COMMAND_WORD_ALT:
+        return new SwitchFinanceCommand();
+
+      case SwitchAssignmentCommand.COMMAND_WORD:
+        return new SwitchAssignmentCommand();
+
+      case SwitchAssignmentCommand.COMMAND_WORD_ALT:
+        return new SwitchAssignmentCommand();
+
+      case SwitchSummaryCommand.COMMAND_WORD:
+        return new SwitchSummaryCommand();
+
+      case SwitchSummaryCommand.COMMAND_WORD_ALT:
+        return new SwitchSummaryCommand();
 
       default:
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -98,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
     // Set dependencies
     this.primaryStage = primaryStage;
     this.logic = logic;
+    logic.setMainWindow(this);
 
     // Configure the UI
     setWindowDefaultSize(logic.getGuiSettings());
@@ -211,6 +212,48 @@ public class MainWindow extends UiPart<Stage> {
     } else {
       helpWindow.focus();
     }
+  }
+
+  /**
+   * Called from switch student command
+   */
+  public void callSwitchToStudent(){
+    handleSwitchToStudent();
+  }
+
+  /**
+   * Called from switch staff command
+   */
+  public void callSwitchToStaff(){
+    handleSwitchToStaff();
+  }
+
+  /**
+   * Called from switch course command
+   */
+  public void callSwitchToCourse(){
+    handleSwitchToCourse();
+  }
+
+  /**
+   * Called from switch finance command
+   */
+  public void callSwitchToFinance(){
+    handleSwitchToFinance();
+  }
+
+  /**
+   * Called from switch assignment command
+   */
+  public void callSwitchToAssignment(){
+    handleSwitchToAssignment();
+  }
+
+  /**
+   * Called from switch summary command
+   */
+  public void callSwitchToSummary(){
+    handleSwitchToSummary();
   }
 
   /**

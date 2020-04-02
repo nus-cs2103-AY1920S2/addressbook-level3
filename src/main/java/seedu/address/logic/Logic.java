@@ -15,6 +15,7 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
 
 /**
@@ -32,6 +33,8 @@ public interface Logic {
    */
   CommandResult execute(String commandText) throws CommandException, ParseException;
   ///
+
+  public void setMainWindow(MainWindow mainWindow);
 
   /**
    * Sets the summary panel of logic

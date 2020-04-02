@@ -15,6 +15,7 @@ import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 
 /**
  * The API of the Model component.
@@ -39,6 +40,10 @@ public interface Model {
     Predicate<Assignment> PREDICATE_HIDE_ALL_ASSIGNMENTS = unused -> false;
 
     String COURSE_ENTITY_NAME = "course";
+
+    public MainWindow getMainWindow();
+
+    public void setMainWindow(MainWindow mainWindow);
 
     /**
      * Returns the user prefs.

@@ -23,6 +23,7 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
 
 /**
@@ -64,6 +65,10 @@ public class LogicManager implements Logic {
     summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
 
     return commandResult;
+  }
+
+  public void setMainWindow(MainWindow mainWindow){
+    model.setMainWindow(mainWindow);
   }
 
   public void setSummaryPanel(SummaryPanel summaryPanel){

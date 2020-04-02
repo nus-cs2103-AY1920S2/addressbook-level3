@@ -33,6 +33,7 @@ import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -70,7 +71,7 @@ public class ModelManager extends BaseManager implements Model {
   private Predicate<Course> extraStudentCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Assignment> extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
-
+  private MainWindow mainWindow;
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
    */
@@ -136,6 +137,13 @@ public class ModelManager extends BaseManager implements Model {
         new UserPrefs());
   }
 
+  public MainWindow getMainWindow(){
+    return this.mainWindow;
+  }
+
+  public void setMainWindow(MainWindow mainWindow){
+    this.mainWindow = mainWindow;
+  }
   //=========== UserPrefs ==================================================================================
 
   @Override
