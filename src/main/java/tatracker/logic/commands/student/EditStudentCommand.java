@@ -40,7 +40,7 @@ public class EditStudentCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.EDIT_MODEL,
-            "Edits the student at the displayed list index.",
+            "Edits the student with the given matric number inside the given module group.",
             List.of(MATRIC, MODULE, GROUP),
             List.of(NAME, PHONE, EMAIL, RATING, TAG),
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG

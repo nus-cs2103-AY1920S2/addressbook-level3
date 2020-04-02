@@ -25,7 +25,7 @@ public class FilterSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
-            "Filters all the sessions.",
+            "Filters all the sessions inside TA-Tracker.",
             List.of(),
             List.of(DATE, MODULE, SESSION_TYPE),
             DATE, MODULE, SESSION_TYPE

@@ -23,7 +23,7 @@ public class EditModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.EDIT_MODEL,
-            "Edits the module identified by the module code.",
+            "Edits the module with the given module code.",
             List.of(MODULE, MODULE_NEW_NAME),
             List.of(),
             MODULE, MODULE_NEW_NAME

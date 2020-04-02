@@ -26,7 +26,7 @@ public class DoneSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.DONE_SESSION,
-            "Marks a session as done in TA-Tracker.",
+            "Marks the session at the shown list index as done.",
             List.of(INDEX),
             List.of(),
             INDEX

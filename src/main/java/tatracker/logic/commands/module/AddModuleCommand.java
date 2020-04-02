@@ -23,7 +23,7 @@ public class AddModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.ADD_MODEL,
-            "Adds a module to the TA-Tracker.",
+            "Adds a module into TA-Tracker.",
             List.of(MODULE, MODULE_NAME),
             List.of(),
             MODULE, MODULE_NAME

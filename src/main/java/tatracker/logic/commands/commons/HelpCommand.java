@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             "help",
-            "Shows program usage instructions.",
+            "Shows the help window.",
             List.of(),
             List.of()
     );

@@ -22,7 +22,7 @@ public class DeleteModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.DELETE_MODEL,
-            "Deletes the module identified by the module code.",
+            "Deletes the module with the given module code.",
             List.of(MODULE),
             List.of(),
             MODULE
