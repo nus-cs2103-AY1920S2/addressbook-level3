@@ -2,11 +2,14 @@ package tatracker.ui;
 
 import java.util.logging.Logger;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import tatracker.commons.core.GuiSettings;
@@ -37,12 +40,26 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root, GuiSettings guiSettings) {
         super(FXML, root);
+
         root.setHeight(guiSettings.getWindowHeight());
         if (guiSettings.getWindowCoordinates() != null) {
             root.setX(guiSettings.getWindowCoordinates().getX());
             root.setY(guiSettings.getWindowCoordinates().getY());
         }
         helpMessage.setText(HELP_MESSAGE + "\n\n" + CommandDictionary.getHelpMessage());
+
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>
+                () {
+            @Override
+            public void handle(KeyEvent t) {
+                if(t.getCode()== KeyCode.ESCAPE)
+                {
+                    System.out.println("click on escape");
+                    Stage sb = (Stage)helpMessage.getScene().getWindow();//use any one object
+                    sb.close();
+                }
+            }
+        });
     }
 
     /**
