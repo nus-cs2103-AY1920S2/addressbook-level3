@@ -233,7 +233,7 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Returns true if a entry has time clashes with at least two other entries{@code entry}.
+     * Returns true if a entry has time clashes with at least one other entries{@code entry}.
      */
     public boolean hasTimeClashes(Entry entry, Entry editedEntry) {
         requireNonNull(entry);
