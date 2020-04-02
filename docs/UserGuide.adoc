@@ -89,7 +89,7 @@ Format: `help`
 === Adding an entry: `add`
 
 Adds an entry to the fitness log book.
-Maximum two entries can have time clashes. If a duration of an entry is not specified, default duration is set to 1 hour. +
+Maximum one entry can have time clashes. If a duration of an entry is not specified, default duration is set to 1 hour. +
 Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMARK]...`
 
 Examples:
