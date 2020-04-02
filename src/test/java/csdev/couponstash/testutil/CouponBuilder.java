@@ -35,7 +35,7 @@ public class CouponBuilder {
                     LocalDate.of(2020, 2, 2),
                     new PureMonetarySavings(new MonetaryAmount(97.5)));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
-    public static final String DEFAULT_START_DATE = DateUtil.formatDate(LocalDate.now());
+    public static final String DEFAULT_START_DATE = DateUtil.formatDateToString(LocalDate.now());
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
@@ -166,7 +166,7 @@ public class CouponBuilder {
      * date if it is an empty argument.
      */
     public CouponBuilder withStartDate() {
-        this.startDate = new StartDate(DateUtil.formatDate(LocalDate.now()));
+        this.startDate = new StartDate(DateUtil.formatDateToString(LocalDate.now()));
         return this;
     }
 

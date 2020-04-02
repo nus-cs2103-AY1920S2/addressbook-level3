@@ -1,8 +1,6 @@
 package csdev.couponstash.model;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -13,9 +11,9 @@ import java.util.logging.Logger;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
-import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
+import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.model.history.HistoryManager;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -31,6 +29,7 @@ public class ModelManager implements Model {
     private final CouponStash couponStash;
     private final UserPrefs userPrefs;
     private final FilteredList<Coupon> filteredCoupons;
+    private final ObservableMonthView monthView;
     private final SortedList<Coupon> sortedCoupons;
     private HistoryManager history;
 
@@ -50,6 +49,7 @@ public class ModelManager implements Model {
         filteredCoupons = new FilteredList<>(sortedCoupons,
                 PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
+        monthView = new ObservableMonthView();
         history = new HistoryManager(this.couponStash.copy());
     }
 
@@ -157,25 +157,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortCoupons(Prefix prefixToSortBy, String commandText) {
-        requireNonNull(prefixToSortBy);
-
-        Comparator<Coupon> cmp = null;
-
-        if (prefixToSortBy.equals(PREFIX_NAME)) {
-            cmp = (x, y) -> x
-                    .toString()
-                    .toLowerCase()
-                    .compareTo(y.toString().toLowerCase());
-        } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
-            cmp = (x, y) -> x
-                    .getExpiryDate()
-                    .getDate()
-                    .compareTo(
-                            y.getExpiryDate().getDate()
-                    );
-        }
-
+    public void sortCoupons(Comparator<Coupon> cmp) {
+        requireNonNull(cmp);
         sortedCoupons.setComparator(cmp);
     }
 
@@ -206,6 +189,23 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredCoupons.setPredicate(predicate);
     }
+
+    //=========== MonthView of Calendar Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable MonthView of the Calendar.
+     */
+    @Override
+    public ObservableMonthView getMonthView() {
+        return monthView;
+    }
+
+    @Override
+    public void updateMonthView(String yearMonth) {
+        requireNonNull(monthView);
+        monthView.setValue(yearMonth);
+    }
+
 
     //=========== Undo/Redo functionality =============================================================
     @Override

@@ -1,19 +1,25 @@
 package csdev.couponstash.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
-import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
+import csdev.couponstash.model.element.ObservableMonthView;
 import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+    /**
+     * {@code Predicate} to show all coupons
+     */
+    Predicate<Coupon> PREDICATE_SHOW_ALL_COUPONS = coupon -> true;
+
     /**
      * {@code Predicate} to filter active coupons only
      */
@@ -31,6 +37,17 @@ public interface Model {
      */
     Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = coupon ->
             Integer.parseInt(coupon.getUsage().toString()) > 0;
+
+    /**
+     * {@code Comparator} to sort non-archived coupons at the top
+     */
+    Comparator<Coupon> COMPARATOR_NON_ARCHVIED_FIRST = (c1, c2) -> {
+        String first = c1.getArchived().toString();
+        String second = c2.getArchived().toString();
+        int result = first.compareTo(second);
+        return first.compareTo(second);
+    };
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -125,6 +142,20 @@ public interface Model {
      */
     void updateFilteredCouponList(Predicate<? super Coupon> predicate);
 
+
+    /**
+     * Returns an unmodifiable view of the MonthView
+     */
+    ObservableMonthView getMonthView();
+
+    /**
+     * Updates the MonthView with the given YearMonth
+     *
+     * @throws NullPointerException if {@code yearMonth} is null.
+     */
+    void updateMonthView(String yearMonth);
+
+
     /**
      * Saves current coupon stash state in its history.
      *
@@ -164,7 +195,7 @@ public interface Model {
      * Sorts coupons in the coupon stash according to the field specified
      * by the prefix.
      */
-    void sortCoupons(Prefix prefixToSortBy, String commandText);
+    void sortCoupons(Comparator<Coupon> cmp);
 
     /**
      * Sets the money symbol in the user prefs to a new value.

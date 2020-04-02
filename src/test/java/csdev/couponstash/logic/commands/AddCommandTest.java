@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,12 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
-import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.testutil.CouponBuilder;
 
 import javafx.collections.ObservableList;
@@ -167,6 +168,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableMonthView getMonthView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMonthView(String yearMonth) {
+            new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void commitCouponStash(String command) {
             throw new AssertionError("This method should not be called.");
         }
@@ -192,7 +204,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortCoupons(Prefix prefixToSortBy, String commandText) {
+        public void sortCoupons(Comparator<Coupon> cmp) {
             throw new AssertionError("This method should not be called.");
         }
 

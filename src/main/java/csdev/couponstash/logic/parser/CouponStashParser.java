@@ -18,6 +18,7 @@ import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.ExitCommand;
 import csdev.couponstash.logic.commands.ExpiringCommand;
 import csdev.couponstash.logic.commands.FindCommand;
+import csdev.couponstash.logic.commands.GoToCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
@@ -88,6 +89,9 @@ public class CouponStashParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser(this.moneySymbol.getString()).parse(arguments);
+
+        case GoToCommand.COMMAND_WORD:
+            return new GoToCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

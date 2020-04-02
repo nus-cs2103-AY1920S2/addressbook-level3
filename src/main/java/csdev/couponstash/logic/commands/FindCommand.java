@@ -28,7 +28,12 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
+        // Put non-archived at the top first
+        model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         model.updateFilteredCouponList(predicate);
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, model.getFilteredCouponList().size()));
     }

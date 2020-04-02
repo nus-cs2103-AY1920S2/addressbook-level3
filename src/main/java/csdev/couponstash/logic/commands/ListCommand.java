@@ -4,6 +4,9 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static java.util.Objects.requireNonNull;
 
+import java.time.YearMonth;
+
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
 
@@ -18,7 +21,7 @@ public class ListCommand extends Command {
             COMMAND_WORD + ": Lists the coupons in CouponStash. "
                     + "You can view 3 types of lists: \n"
                     + "1. List of active coupons (without archived coupons)\n"
-                    + "2. List of archived coupons\n "
+                    + "2. List of archived coupons\n"
                     + "3. List of used coupons.\n"
                     + "Parameters: The list you want to view.\n"
                     + "Examples: \n"
@@ -40,6 +43,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
+        model.updateMonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
         String view = "";
         if (prefixToList.toString().isEmpty()) {
             model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
