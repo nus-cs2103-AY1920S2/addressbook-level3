@@ -268,6 +268,23 @@ time model manager is going to modify transaction list in expenseLa, it is going
 It will then update monthlyData by calling the `MonthlyData#setExpense()`, `MonthlyData#setIncome`, and
 `UserPref#setTotalBalance` depending on whether it is money in or money out.
 
+=== Chart Analytics
+
+The *toggle* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
+his expenditure.
+
+==== Implementation
+
+*Toggle* mechanism utilizes `Logic` operations with the `ToggleCommand` class in place of `Command`. The following
+methods are concrete implementations for the *toggle* operation:
+
+* `ToggleCommand#execute()` - Switches `ToggleView` in `Model` to view list of transactions or view analytics, and
+returns a `CommandResult` (<<Design-Logic, Step 4 of Logic>>).
+* `ToggleView#switchIsViewList()` - Switches the boolean value `isViewList` in `ToggleView` to the negation of it's
+current value.
+- This `ToggleView` is wrapped in `ExpenseLa` and its `switchIsViewList()` is called through
+`ExpenseLa#switchToggleView()`.
+- `ExpenseLa#switchToggleView()` is exposed in the `Model` interface as `Model#switchToggleView()`.
 
 === Logging
 
