@@ -402,8 +402,8 @@ You can use this command to delete a group from the TA-Tracker.
 
 When a group is deleted from the TA-Tracker, all students in the group are also deleted.
 
-When a group is deleted, the *Student View* will go back to its default
-setting. You will automatically be switched to the student
+When a group is deleted, the *Student View* will show the details of the first group
+of the module the group was deleted from. You will automatically be switched to the student
 tab as well, if you were currently on a different tab.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
