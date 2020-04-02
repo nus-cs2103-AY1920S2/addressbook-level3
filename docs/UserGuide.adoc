@@ -53,6 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `-t TITLE -b BODY`, `-b BODY -t TITLE` is also acceptable.
 ====
 
+[#paths]
 ====
 *Paths*
 
@@ -87,6 +88,25 @@ Paths are used by the `open` and `delete` command
 [WARNING]
 We cannot open or delete the parent of the root note because it does not exist. e.g `Delete /../` will result in an error.
 ====
+
+[[Markdown]]
+====
+*Markdown*
+
+* Notably supports basic GitHub Flavored Markdown (GFM) in the `BODY` content of a note
+* Currently supported syntax of GitHub Flavored Markdown in Notably consists of:
+** https://github.github.com/gfm/#atx-heading[ATX headings]
+** https://github.github.com/gfm/#paragraph[Paragraphs]
+** https://github.github.com/gfm/#list[Lists] and https://github.github.com/gfm/#list-items[List items]
+** https://github.github.com/gfm/#emphasis-and-strong-emphasis[Emphasis and strong emphasis (Simplified)]
+** https://github.github.com/gfm/#strikethrough-extension-[Strikethrough]
+* Specifications for GFM are specified https://github.github.com/gfm/[here]
+
+[NOTE]
+The term `Markdown` as used in this document will be a shorthand for GitHub Flavored Markdown. However, it is worth noting that by definition, they are not the same.
+
+====
+
 === View help : `help`
 
 If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter]. Notably will show you a list of the commands it has and what they do. +
@@ -94,7 +114,7 @@ If you can't remember the commands or you are unsure about what a particular com
 Format: `help`
 
 .Demo for the `help` command
-image:demo/Help.png[]
+image::demo/Help.png[]
 
 === Exit the program: `exit`
 
@@ -103,11 +123,11 @@ If you're done with taking notes, use `exit` to close Notably straight from the 
 Format: `exit`
 
 .Demo for the `exit` command
-image:demo/Exit.png[]
+image::demo/Exit.png[]
 
 === Create a new note: `new`
 
-If you want to add a new note to the current working directory, use the `new` command and specify the `TITLE` of the note. +
+If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
 
 Format: `new -t TITLE [-b BODY] [-o]`
 
@@ -126,82 +146,146 @@ Format: `new -t TITLE [-b BODY] [-o]`
 
 [TIP]
 ====
-* The `BODY` can even contain MarkDown formatted content. For more information, click here.
+* The `BODY` can even contain MarkDown formatted content. For more information on Markdown in Notably, click <<Markdown, here>>.
 * Use the optional `-o` flag to immediately open the note after creating it.
 ====
 
-==== How to create a new note
-Example: `new -t Notably -b Lorem ipsum dolor sit amer`
+==== Example: Creating new notes
+. Let's first create a note (with a `TITLE` and `BODY`), and open it immediately after. <<New1, (Step 1)>> Type this command: +
 
-.Demo for the `new` command (with all parameters)
-image:demo/New1.png[]
+    new -t Notably -b The quick brown fox jumps over the lazy dog -o`
 
-.Demo for the `new` command (with only title parameter)
-image:demo/New2.png[]
 
-.Demo for the `new` command (after new note creations)
-image:demo/New3.png[]
+. Now the currently open note is `Notably`. Let's add create a note to the currently opened note, <<New2, (Step 2)>> with a `TITLE` only as follows: +
+
+    new -t CS2103T
+
+. The new note `CS2103T` has been created succeessfully! <<New3, (Step 3)>> +
+
+[NOTE]
+====
+Observe that the note `CS2103T` was not opened immediately
+====
+[[New1]]
+.Step 1 - Demo for the `new` command (with all parameters and `open` flag)
+image::demo/New1.png[Demo]
+[[New2]]
+.Step 2 - Demo for the `new` command (with only title parameter)
+image::demo/New2.png[]
+[[New3]]
+.Step 3 - Demo for the `new` command (after creating both notes)
+image::demo/New3.png[]
 
 === Open an existing note: `open`
 
-You can open an existing note by specifynig its title. A slash `/` character can be used to denote a filesystem-like hierarchy. +
-Format: `open [-t] TITLE` +
-Example: `open -t Notably/CS2103`
+You can open an existing note by specifying its title (and optionally with its absolute or relative <<paths, path>>). +
 
-.Demo for the `open` command (with suggestions)
-image:demo/Open.png[]
+Format: `open [-t] [PATH/TO/]TITLE` +
+
+[TIP]
+====
+* If you want to save some keypresses, omit the optional `-t` flag. It still works fine!
+====
+
+==== Example: Opening a note
+. Let's open the note `Notably` that exists in the currently opened note `Workspace` <<Open, (Step 1)>> with the command: +
+
+    open -t Notably
+
+[NOTE]
+====
+* Notably gives you some useful suggestions on other paths that are similar or related to your input!
+====
+[[Open]]
+.Step 1 - Demo for the `open` command (with suggestions)
+image::demo/Open.png[]
 
 === Edit an existing note: `edit`
 
-Edits body paragraph of the current note. This command replaces the current content of a note with the newly specified body. +
+If you want to change the `BODY` content of a note, use the `edit` command. This command *replaces* the existing `BODY` content of the currently open note, with the new `BODY` content. +
+
 Format: `edit -b BODY`
-Example: `edit -b This is the new body paragraph`
+
+[WARNING]
+====
+* You are not allowed to `edit` the root note, i.e the currently opened path is ``"/"``
+====
+
+==== Example: Editing the currently opened note
+. Let's replace the `BODY` content of the currently opened note `Workspace`, with "This is the new paragraph". This can be done with the command: +
+
+    edit -b This is the new paragraph
 
 .Demo for the `edit` command
-image:demo/Edit1.png[]
+image::demo/Edit1.png[]
 
 .Demo for the `edit` command (after edit)
-image:demo/Edit2.png[]
+image::demo/Edit2.png[]
 
 === Find a note based on certain keywords: `search`
 
-Searches all the notes saved in Notably for the keyword. +
-Format: `search [-s] KEYWORD` +
-Example: `search -s CS2103`
+If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
+Format: `search [-s] KEYWORD`
+
+[NOTE]
+====
+* `search` looks through *all* the notes that you have
+* Partial matches work as well!
+* Matches are case insensitive, meaning it will find the word no matter if it is in uppercase or lowercase or even mixed-case
+====
+
+==== Example: Searching for the keyword "Computer science"
+. Let's look through all the notes that we have saved, for the keyword "Computer science" +
+
+    search -s Computer science
 
 .Demo for the `search` command
-image:demo/Search.png[]
+image::demo/Search.png[]
 
 === Delete a note: `delete`
 
-If you no longer need a note, or accidentally create a wrong one, don't worry. You can always delete your note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
-Format: `delete [-t] TITLE` +
-Example: `delete -t Notably/CS2103`
+If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
 
+Format: `delete [-t] [PATH/TO/]NOTE`
+
+[WARNING]
+====
+* Deleting a note will also delete its child notes. Be very careful!
+====
+
+==== Example: Deleting an existing note
+. Let's delete the `Notably` note using this command:
+
+    delete -t Notably
+
+[NOTE]
+====
+* `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are child notes of `Notably`
+====
 .Demo for the `delete` command
-image:demo/Delete1.png[]
+image::demo/Delete1.png[]
 
 .Demo for the `delete` command (after deletion)
-image:demo/Delete2.png[]
+image::demo/Delete2.png[]
 
 === Save the data
 
 Notes data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+There is no need for you to save manually.
 
 === Auto suggestions
 
-Suggestions will be provided as commands are being filled in. For clarity, see the mockups below.
+As you type, Notably will provide you suggestions. You can then press kbd:[Tab] to select the first suggestion.
 
 .Demo for the suggestions feature
-image:demo/Suggestions.png[]
+image::demo/Suggestions.png[]
 
 === Auto correct
 
-Mistypes, as long as they are not too far away from available commands, will be accepted. This will give the user a more fluid typing experience.
+Even if you mistype, Notably tries its best to correct the typo automatically, as long as the mistyped input command is not too far away from Notably's available commands. This provides you with a more fluid typing experience.
 
 .Demo for the auto-correction feature
-image:demo/Correction.png[]
+image::demo/Correction.png[]
 
 == FAQ
 
