@@ -185,6 +185,8 @@
 
 #summary-tab #savings-chart #days-axis {
   -fx-border-radius: 0;
+  -fx-tick-label-fill: white;
+  -fx-font-family: arial;
 }
 
 #summary-tab #savings-chart #days-axis .axis-tick-mark {

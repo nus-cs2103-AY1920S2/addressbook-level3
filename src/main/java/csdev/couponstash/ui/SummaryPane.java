@@ -2,7 +2,10 @@ package csdev.couponstash.ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.commons.util.DateUtil;
@@ -156,7 +159,9 @@ public class SummaryPane extends UiPart<Region> {
     }
 
     /**
-     * Gets a chart series for use in the bar graph.
+     * Gets a chart series for use in the bar graph. The map
+     * given will be automatically sorted and entries grouped
+     * by week instead of by day.
      *
      * @param mapOfAllCoupons The DateSavingsSumMap representing
      *                        savings earned on each date from
@@ -166,8 +171,37 @@ public class SummaryPane extends UiPart<Region> {
     private XYChart.Series<String, Number> getSeries(DateSavingsSumMap mapOfAllCoupons) {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         List<XYChart.Data<String, Number>> listOfData = new ArrayList<XYChart.Data<String, Number>>();
-        mapOfAllCoupons.forEach((date, savings) -> this.addMapEntryToList(date, savings, listOfData));
-        series.setData(FXCollections.observableList(listOfData));
+        List<Map.Entry<LocalDate, PureMonetarySavings>> entryList = mapOfAllCoupons.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .collect(Collectors.toList());
+        DateSavingsSumMap mapByWeek = new DateSavingsSumMap();
+        int numberOfDates = entryList.size();
+        // ensure more than zero dates present
+        if (numberOfDates > 0) {
+            LocalDate earliestDate = entryList.get(0).getKey();
+            LocalDate latestDate = entryList.get(numberOfDates - 1).getKey();
+
+            LocalDate earliestWeek = SummaryPane.getPreviousMonday(earliestDate);
+            LocalDate latestWeek = SummaryPane.getPreviousMonday(latestDate);
+
+            for (LocalDate ld = earliestWeek;
+                 ld.isBefore(latestWeek) || ld.isEqual(latestWeek);
+                 ld = ld.plusWeeks(1)) {
+                // initialise all weeks with 0 savings
+                mapByWeek.add(ld, new PureMonetarySavings());
+            }
+
+            // populate the week map with savings
+            for (Map.Entry<LocalDate, PureMonetarySavings> e : entryList) {
+                LocalDate mondayOfWeek = SummaryPane.getPreviousMonday(e.getKey());
+                mapByWeek.add(mondayOfWeek, e.getValue());
+            }
+
+            mapByWeek.entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey())
+                    .forEach(entry -> this.addMapEntryToList(entry.getKey(), entry.getValue(), listOfData));
+            series.setData(FXCollections.observableList(listOfData));
+        }
         return series;
     }
 
@@ -257,5 +291,40 @@ public class SummaryPane extends UiPart<Region> {
      */
     private static String formatMoneyAmount(Number amount) {
         return String.format("%.2f", amount.doubleValue());
+    }
+
+    /**
+     * Given a LocalDate, returns another LocalDate that
+     * represents the Monday which immediately precedes
+     * the given LocalDate. If the LocalDate is already
+     * a Monday, return the same LocalDate.
+     *
+     * @param ld The LocalDate to be used.
+     * @return Returns a LocalDate for the previous Monday.
+     */
+    private static LocalDate getPreviousMonday(LocalDate ld) {
+        switch (ld.getDayOfWeek()) {
+
+        case SUNDAY:
+            return ld.minusDays(6);
+
+        case SATURDAY:
+            return ld.minusDays(5);
+
+        case FRIDAY:
+            return ld.minusDays(4);
+
+        case THURSDAY:
+            return ld.minusDays(3);
+
+        case WEDNESDAY:
+            return ld.minusDays(2);
+
+        case TUESDAY:
+            return ld.minusDays(1);
+
+        default:
+            return ld;
+        }
     }
 }
