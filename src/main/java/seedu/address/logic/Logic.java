@@ -213,7 +213,9 @@ public interface Logic {
 
   public Predicate<Finance> getExtraFinancePredicate();
 
-  public Predicate<Course> getExtraCoursePredicate();
+  public Predicate<Course> getExtraStudentCoursePredicate();
+
+  public Predicate<Course> getExtraStaffCoursePredicate();
 
   public Predicate<Assignment> getExtraAssignmentPredicate();
 }

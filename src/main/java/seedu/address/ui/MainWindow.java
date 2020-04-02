@@ -205,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
   @FXML
   private void handleSwitchToStudent() {
     logic.updateObservedDataFilteredStudentList(logic.getDataStudentPredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     switchList(studentListPanel.getRoot(), courseListPanel.getRoot());
   }
 
@@ -215,7 +215,7 @@ public class MainWindow extends UiPart<Stage> {
   @FXML
   private void handleSwitchToStaff() {
     logic.updateObservedDataFilteredStaffList(logic.getDataStaffPredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     switchList(staffListPanel.getRoot(), courseListPanel.getRoot());
   }
 
@@ -235,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
   @FXML
   private void handleSwitchToFinance() {
     logic.updateObservedDataFilteredFinanceList(logic.getDataFinancePredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
   }
 
@@ -245,7 +245,7 @@ public class MainWindow extends UiPart<Stage> {
   @FXML
   private void handleSwitchToAssignment() {
     logic.updateObservedDataFilteredAssignmentList(logic.getDataAssignmentPredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraCoursePredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
   }
 

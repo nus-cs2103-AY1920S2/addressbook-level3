@@ -30,6 +30,9 @@ public class SelectCommand extends Command {
           + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
           + "Example: " + COMMAND_WORD + " alice bob charlie";
   public static final String MESSAGE_INVALID = "Invalid select arguments";
+  public static final String MESSAGE_INVALID_STUDENTID = "There is no such student with that ID";
+  public static final String MESSAGE_INVALID_STAFFID = "There is no such staff with that ID";
+  public static final String MESSAGE_INVALID_COURSEID = "There is no such course with that ID";
 
   private final ID id;
   private final String type;
@@ -48,21 +51,26 @@ public class SelectCommand extends Command {
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
-    //String[] keywords;
-    //new StaffIDContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+
     switch (type) {
       case "STUDENT":
+        if (!model.hasStudent(id)){
+          throw new CommandException(MESSAGE_INVALID_STUDENTID);
+        }
         Student selectedStudent = model.getStudent(id);
         List<String> coursesIDStudent = selectedStudent.getAssignedCoursesIDString();
-        model.updateExtraFilteredCourseList(new CourseIDContainsKeywordsPredicate(coursesIDStudent));
+        model.updateExtraFilteredStudentCourseList(new CourseIDContainsKeywordsPredicate(coursesIDStudent));
         return new CommandResult(
             String.format(Messages.MESSAGE_COURSES_SELECTED_OVERVIEW,
                 model.getFilteredCourseList().size()));
 
-      case "TEACHER":
+      case "STAFF":
+        if (!model.hasStaff(id)){
+          throw new CommandException(MESSAGE_INVALID_STAFFID);
+        }
         Staff selectedStaff = model.getStaff(id);
         List<String> coursesIDStaff = selectedStaff.getAssignedCoursesIDString();
-        model.updateExtraFilteredCourseList(new CourseIDContainsKeywordsPredicate(coursesIDStaff));
+        model.updateExtraFilteredStaffCourseList(new CourseIDContainsKeywordsPredicate(coursesIDStaff));
         return new CommandResult(
             String.format(Messages.MESSAGE_COURSES_SELECTED_OVERVIEW,
                 model.getFilteredCourseList().size()));
@@ -71,6 +79,9 @@ public class SelectCommand extends Command {
         throw new CommandException(MESSAGE_INVALID);
 
       case "COURSE":
+        if (!model.hasCourse(id)){
+          throw new CommandException(MESSAGE_INVALID_COURSEID);
+        }
         Course selectedCourse = model.getCourse(id);
         List<String> studentsID = selectedCourse.getAssignedStudentsIDString();
         model.updateExtraFilteredStudentList(new StudentIDContainsKeywordsPredicate(studentsID));

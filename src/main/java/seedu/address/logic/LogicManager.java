@@ -239,8 +239,12 @@ public class LogicManager implements Logic {
     return model.getExtraFinancePredicate();
   }
 
-  public Predicate<Course> getExtraCoursePredicate() {
-    return model.getExtraCoursePredicate();
+  public Predicate<Course> getExtraStudentCoursePredicate() {
+    return model.getExtraStudentCoursePredicate();
+  }
+
+  public Predicate<Course> getExtraStaffCoursePredicate() {
+    return model.getExtraStaffCoursePredicate();
   }
 
   public Predicate<Assignment> getExtraAssignmentPredicate() {

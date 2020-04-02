@@ -67,7 +67,8 @@ public class ModelManager extends BaseManager implements Model {
   private Predicate<Student> extraStudentPredicate = PREDICATE_HIDE_ALL_STUDENTS;
   private Predicate<Staff> extraStaffPredicate = PREDICATE_HIDE_ALL_STAFFS;
   private Predicate<Finance> extraFinancePredicate = PREDICATE_HIDE_ALL_FINANCES;
-  private Predicate<Course> extraCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
+  private Predicate<Course> extraStudentCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
+  private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Assignment>  extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -392,6 +393,11 @@ public class ModelManager extends BaseManager implements Model {
   }
 
   @Override
+  public boolean hasStaff(ID staffID) {
+    return staffAddressBook.has(staffID);
+  }
+
+  @Override
   public Staff getStaff(ID staffID) {
     return staffAddressBook.get(staffID);
   }
@@ -602,10 +608,17 @@ public class ModelManager extends BaseManager implements Model {
   }
 
   @Override
-  public void updateExtraFilteredCourseList(Predicate<Course> predicate) {
+  public void updateExtraFilteredStudentCourseList(Predicate<Course> predicate) {
     requireNonNull(predicate);
     filteredCourses.setPredicate(predicate);
-    extraCoursePredicate = predicate;
+    extraStudentCoursePredicate = predicate;
+  }
+
+  @Override
+  public void updateExtraFilteredStaffCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    filteredCourses.setPredicate(predicate);
+    extraStaffCoursePredicate = predicate;
   }
 
   @Override
@@ -774,8 +787,12 @@ public class ModelManager extends BaseManager implements Model {
     return extraFinancePredicate;
   }
 
-  public Predicate<Course> getExtraCoursePredicate() {
-    return extraCoursePredicate;
+  public Predicate<Course> getExtraStudentCoursePredicate() {
+    return extraStudentCoursePredicate;
+  }
+
+  public Predicate<Course> getExtraStaffCoursePredicate() {
+    return extraStaffCoursePredicate;
   }
 
   public Predicate<Assignment> getExtraAssignmentPredicate() {

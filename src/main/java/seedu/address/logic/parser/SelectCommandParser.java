@@ -46,7 +46,7 @@ public class SelectCommandParser implements Parser<SelectCommand> {
         throw new ParseException(
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
       }
-      return new SelectCommand("TEACHER",
+      return new SelectCommand("STAFF",
           new ID(nameKeywords[0]));
     } else if (argMultimap.getValue(PREFIX_COURSEID).isPresent()) {
       String[] nameKeywords = ParserUtil.parseString(argMultimap.getValue(PREFIX_COURSEID).get())

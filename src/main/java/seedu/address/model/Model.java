@@ -92,6 +92,8 @@ public interface Model {
 
     Assignment getAssignment(ID assignmentID);
 
+    boolean hasStaff(ID staffID);
+
     Staff getStaff(ID staffID);
     /**
      * Returns the AddressBook
@@ -267,7 +269,14 @@ public interface Model {
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateExtraFilteredCourseList(Predicate<Course> predicate);
+    void updateExtraFilteredStudentCourseList(Predicate<Course> predicate);
+
+  /**
+   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateExtraFilteredStaffCourseList(Predicate<Course> predicate);
 
     /**
      * Updates the filter of the filtered course list to filter by the given {@code predicate}.
@@ -444,7 +453,9 @@ public interface Model {
 
     public Predicate<Finance> getExtraFinancePredicate();
 
-    public Predicate<Course> getExtraCoursePredicate();
+    public Predicate<Course> getExtraStudentCoursePredicate();
+
+  public Predicate<Course> getExtraStaffCoursePredicate();
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
