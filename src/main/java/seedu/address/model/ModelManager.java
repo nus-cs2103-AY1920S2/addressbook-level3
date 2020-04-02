@@ -435,11 +435,13 @@ public class ModelManager implements Model {
     public int undoStackSize() { return undoStates.size(); }
 
 
+
     /**
      * Returns size of redo stack
      * @return size of redo stack
      */
     public int redoStackSize() { return redoStates.size(); }
+
 
 
     /**
