@@ -1,7 +1,7 @@
 package tatracker.logic.commands;
 
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.Test;
 

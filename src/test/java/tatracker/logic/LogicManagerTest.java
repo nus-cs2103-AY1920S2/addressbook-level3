@@ -12,7 +12,7 @@ import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.AMY;
+import static tatracker.testutil.student.TypicalStudents.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -36,7 +36,7 @@ import tatracker.model.student.Student;
 import tatracker.storage.JsonTaTrackerStorage;
 import tatracker.storage.JsonUserPrefsStorage;
 import tatracker.storage.StorageManager;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

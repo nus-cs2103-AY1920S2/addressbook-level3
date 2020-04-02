@@ -43,6 +43,15 @@ public class Group {
     }
 
     /**
+     * Constructor to be used in testing.
+     */
+    public Group(String identifier, GroupType groupType, UniqueStudentList students) {
+        this.identifier = identifier;
+        this.groupType = groupType;
+        this.students = students;
+    }
+
+    /**
      * Sorts students alphabetically.
      */
     public void sortStudentsAlphabetically() {
@@ -75,6 +84,13 @@ public class Group {
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Returns the list of students in the group.
+     */
+    public UniqueStudentList getUniqueStudentList() {
+        return students;
     }
 
     /**

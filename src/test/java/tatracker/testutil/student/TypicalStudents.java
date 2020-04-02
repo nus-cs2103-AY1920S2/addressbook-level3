@@ -1,4 +1,4 @@
-package tatracker.testutil;
+package tatracker.testutil.student;
 
 import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -22,6 +22,7 @@ import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
 import tatracker.model.student.Student;
+import tatracker.testutil.student.StudentBuilder;
 
 /**
  * A utility class containing a list of {@code Student} objects to be used in tests.

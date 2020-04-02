@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.BOB;
+import static tatracker.testutil.student.TypicalStudents.ALICE;
+import static tatracker.testutil.student.TypicalStudents.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class UniqueStudentListTest {
 

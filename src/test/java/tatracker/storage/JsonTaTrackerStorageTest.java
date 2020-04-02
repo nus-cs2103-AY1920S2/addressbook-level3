@@ -3,9 +3,9 @@ package tatracker.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.CS2030;
-import static tatracker.testutil.TypicalStudents.CS3243;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.student.TypicalStudents.CS2030;
+import static tatracker.testutil.student.TypicalStudents.CS3243;
+import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;

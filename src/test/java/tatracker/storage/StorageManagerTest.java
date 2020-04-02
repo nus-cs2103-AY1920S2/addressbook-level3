@@ -2,7 +2,7 @@ package tatracker.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
 
 import java.nio.file.Path;
 

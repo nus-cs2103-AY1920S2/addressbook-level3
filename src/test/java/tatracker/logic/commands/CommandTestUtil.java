@@ -22,7 +22,7 @@ import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
 import tatracker.model.student.Student;
-import tatracker.testutil.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

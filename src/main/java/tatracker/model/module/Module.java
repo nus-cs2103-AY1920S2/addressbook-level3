@@ -42,6 +42,16 @@ public class Module {
     }
 
     /**
+     * Constructor for use in testing.
+     */
+    public Module(String identifier, String name, UniqueGroupList groups, UniqueSessionList sessions) {
+        this.identifier = identifier;
+        this.name = name;
+        this.groups = groups;
+        this.doneSessions = sessions;
+    }
+
+    /**
      * Returns the module identifier.
      */
     public String getIdentifier() {

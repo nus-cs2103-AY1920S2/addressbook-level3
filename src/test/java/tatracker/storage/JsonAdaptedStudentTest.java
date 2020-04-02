@@ -3,7 +3,7 @@ package tatracker.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tatracker.storage.JsonAdaptedStudent.MISSING_FIELD_MESSAGE_FORMAT;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.BENSON;
+import static tatracker.testutil.student.TypicalStudents.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;

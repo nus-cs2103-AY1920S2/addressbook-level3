@@ -41,7 +41,7 @@ import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
 import tatracker.model.tag.Tag;
-import tatracker.testutil.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
 public class EditStudentCommandParserTest {
 

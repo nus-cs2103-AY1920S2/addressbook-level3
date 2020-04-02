@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.BENSON;
+import static tatracker.testutil.student.TypicalStudents.ALICE;
+import static tatracker.testutil.student.TypicalStudents.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

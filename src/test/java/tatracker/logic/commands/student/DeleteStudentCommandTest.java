@@ -12,7 +12,7 @@ package tatracker.logic.commands.student;
 // import tatracker.commons.core.index.Index;
 // import tatracker.model.student.Student;
 
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.student.TypicalStudents.getTypicalTaTracker;
 
 import tatracker.model.Model;
 import tatracker.model.ModelManager;

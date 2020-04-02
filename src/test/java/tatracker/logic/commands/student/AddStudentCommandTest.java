@@ -10,7 +10,7 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubWithStudent;
 import tatracker.model.student.Student;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class AddStudentCommandTest {
 

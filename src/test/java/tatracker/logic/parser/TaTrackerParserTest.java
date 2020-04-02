@@ -25,8 +25,8 @@ import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
-import tatracker.testutil.EditStudentDescriptorBuilder;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.StudentBuilder;
 import tatracker.testutil.StudentUtil;
 
 public class TaTrackerParserTest {

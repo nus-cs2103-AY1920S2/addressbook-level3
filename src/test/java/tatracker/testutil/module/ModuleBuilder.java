@@ -1,4 +1,4 @@
-package tatracker.testutil;
+package tatracker.testutil.module;
 
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
@@ -66,5 +66,9 @@ public class ModuleBuilder {
     public ModuleBuilder withDoneSession(Session session) {
         doneSessions.add(session);
         return this;
+    }
+
+    public Module build() {
+        return new Module(identifier, name, groups, doneSessions);
     }
 }
