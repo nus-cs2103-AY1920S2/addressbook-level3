@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="summary-panel" prefHeight="710.0" prefWidth="466.0"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="summary-panel" prefHeight="500.0" prefWidth="466.0"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="totalStudents1" prefHeight="59.0" prefWidth="445.0" text="Welcome to Code Camp X!">
       <font>
          <Font size="24.0" />
@@ -16,12 +16,12 @@
    </Label>
    <Label fx:id="totalStudents11" prefHeight="60.0" prefWidth="445.0" text="Here are the statistics for your camp:">
       <font>
-         <Font size="20.0" />
+         <Font size="18.0" />
       </font>
    </Label>
-   <HBox prefHeight="100.0" prefWidth="200.0">
+   <HBox prefHeight="80.0" prefWidth="200.0">
       <children>
-         <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@ourImages/student.png" />
             </image>
@@ -33,9 +33,9 @@
          </Label>
       </children>
    </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
+   <HBox prefHeight="80.0" prefWidth="200.0">
       <children>
-         <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@ourImages/specs.png" />
             </image>
@@ -47,9 +47,9 @@
          </Label>
       </children>
    </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
+   <HBox prefHeight="80.0" prefWidth="200.0">
       <children>
-         <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@ourImages/book.png" />
             </image>
@@ -61,9 +61,9 @@
          </Label>
       </children>
    </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
+   <HBox prefHeight="80.0" prefWidth="200.0">
       <children>
-         <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@ourImages/finance.png" />
             </image>
@@ -75,14 +75,14 @@
          </Label>
       </children>
    </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
+   <HBox prefHeight="80.0" prefWidth="200.0">
       <children>
-         <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@ourImages/assignment.png" />
             </image>
          </ImageView>
-         <Label fx:id="totalAssignments" prefHeight="113.0" prefWidth="340.0" text="Total Assigments: ">
+         <Label fx:id="totalAssignments" prefHeight="80.0" prefWidth="340.0" text="Total Assigments: ">
             <font>
                <Font size="24.0" />
             </font>
