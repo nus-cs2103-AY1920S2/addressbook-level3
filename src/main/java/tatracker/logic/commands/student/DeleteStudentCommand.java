@@ -82,7 +82,8 @@ public class DeleteStudentCommand extends Command {
 
         model.deleteStudent(studentToDelete, targetGroup, targetModule);
 
-        model.setDefaultStudentViewList();
+        model.updateFilteredGroupList(targetModule);
+        model.updateFilteredStudentList(targetGroup, targetModule);
 
         return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete), Action.GOTO_STUDENT);
     }
