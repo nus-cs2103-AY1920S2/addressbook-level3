@@ -97,6 +97,9 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
+        studentListTab.setStyle("-fx-border-color: " + BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
+
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -192,12 +195,23 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
+
     /**
      * Switched to user specified tab.
      */
     @FXML
-    public void handleGoto(Tab tabToSwicthTo) {
-        tabPane.getSelectionModel().select(tabToSwicthTo);
+    public void handleGoto(Tab tabToSwitchTo) {
+        tabPane.getSelectionModel().select(tabToSwitchTo);
+        studentListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        sessionListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        claimsListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        tabToSwitchTo.setStyle("-fx-border-color: " + BORDER_COLOUR + "; "
+                            + "-fx-border-width: " + BORDER_WIDTH + ";");
     }
 
     /**
