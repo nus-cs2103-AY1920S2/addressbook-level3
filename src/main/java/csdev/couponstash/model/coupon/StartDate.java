@@ -16,7 +16,6 @@ public class StartDate {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Start Dates should be a date in the D-M-YYYY format.";
-    public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public final LocalDate date;
     public final String value;
 
@@ -29,7 +28,7 @@ public class StartDate {
         requireNonNull(startDate);
         checkArgument(isValidStartDate(startDate), MESSAGE_CONSTRAINTS);
         value = startDate;
-        date = getDate();
+        date = DateUtil.parseStringToDate(value);
     }
 
     /**
@@ -37,11 +36,11 @@ public class StartDate {
      */
     public static boolean isValidStartDate(String test) {
         try {
-            DateUtil.parseString(test);
+            DateUtil.parseStringToDate(test);
         } catch (DateTimeParseException ex) {
             return false;
         }
-        return (test.matches(VALIDATION_REGEX));
+        return (test.matches(DateUtil.DATE_VALIDATION_REGEX));
     }
 
     /**
@@ -49,7 +48,7 @@ public class StartDate {
      * @return Start Date as a {@LocalDate}
      */
     public LocalDate getDate() {
-        return DateUtil.parseString(value);
+        return this.date;
     }
 
     @Override

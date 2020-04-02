@@ -34,6 +34,7 @@ public class UsedCommandParser implements Parser<UsedCommand> {
      * and returns a UsedCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public UsedCommand parse(String args) throws ParseException {
         requireNonNull(args);
         Prefix moneySymbolPrefix = new Prefix(moneySymbol);

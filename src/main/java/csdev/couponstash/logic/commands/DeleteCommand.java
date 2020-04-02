@@ -13,21 +13,19 @@ import csdev.couponstash.model.coupon.Coupon;
 /**
  * Deletes a coupon identified using it's displayed index from the CouponStash.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the coupon identified by the index number used in the displayed coupon list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Deletes the coupon identified by the index number used in the displayed coupon list.\n\n"
+            + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_COUPON_SUCCESS = "Deleted Coupon: %1$s";
 
-    private final Index targetIndex;
-
     public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        super(targetIndex);
     }
 
     @Override
@@ -41,7 +39,7 @@ public class DeleteCommand extends Command {
 
         Coupon couponToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteCoupon(couponToDelete, commandText);
-        return new CommandResult(String.format(MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete.getName()));
     }
 
     @Override

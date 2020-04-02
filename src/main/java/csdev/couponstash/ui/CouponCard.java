@@ -8,13 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * An UI component that displays information of a {@code Coupon}.
  */
 public class CouponCard extends UiPart<Region> {
 
-    private static final String FXML = "CouponListCard.fxml";
+    private static final String FXML = "CouponCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,7 +38,7 @@ public class CouponCard extends UiPart<Region> {
     @FXML
     private Label promoCode;
     @FXML
-    private Label savings;
+    private VBox savings;
     @FXML
     private Label expiryDate;
     @FXML
@@ -52,6 +53,8 @@ public class CouponCard extends UiPart<Region> {
     private Label remindDate;
     @FXML
     private Label condition;
+    @FXML
+    private Label archived;
 
     /**
      * Constructor for a new CouponCard to be shown
@@ -68,22 +71,33 @@ public class CouponCard extends UiPart<Region> {
     public CouponCard(Coupon coupon, int displayedIndex, String moneySymbol) {
         super(FXML);
         this.coupon = coupon;
-        id.setText(displayedIndex + "");
-        idDup.setText(displayedIndex + ""); // duplicate is needed for UI purposes
+        setId(id, displayedIndex);
+        setId(idDup, displayedIndex); // duplicate is needed for UI purposes
         name.setText(coupon.getName().fullName);
         promoCode.setText("Promo Code: " + coupon.getPromoCode());
-        savings.setText(coupon.getSavingsForEachUse().getStringWithMoneySymbol(moneySymbol));
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
-        coupon.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        coupon.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tagsDup.getChildren().add(new Label(tag.tagName)));
+        setTags(coupon, tags);
+        setTags(coupon, tagsDup);
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("T&C: " + coupon.getCondition().value);
+        // set savings pane
+        SavingsBox savingsBox = new SavingsBox();
+        savingsBox.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
+        savings.getChildren().add(savingsBox.getRoot());
+        archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
+    }
+
+    public void setTags(Coupon coupon, FlowPane tagFlowPane) {
+        coupon.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .limit(5)
+                .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
+    }
+
+    public void setId(Label idLabel, int index) {
+        idLabel.setText(index + "");
     }
 
     @Override

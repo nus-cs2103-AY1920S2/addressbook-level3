@@ -1,11 +1,20 @@
+* {
+    -fx-primary-blue: #19568E;
+    -fx-primary-green: #46998F;
+    -fx-secondary-blue: #6C96BE;
+    -fx-secondary-green: #1C8585;
+    -fx-text: white;
+    -fx-paneShadow: dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
+}
+
 .root {
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
 }
 
 .background {
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
     /*-fx-background-color: derive(#1d1d1d, 20%);*/
-    background-color: #19568E; /* Used in the default.html file */
+    background-color: -fx-primary-blue; /* Used in the default.html file */
 }
 
 .label {
@@ -90,11 +99,11 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
 }
 
 .list-cell {
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
 }
 
 /*.list-cell:filled:even {*/
@@ -130,17 +139,6 @@
     -fx-text-fill: #010504;
 }
 
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
-}
-
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 30%);
@@ -160,7 +158,10 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    /*-fx-background-color: derive(#1d1d1d, 20%);*/
+    -fx-background-color: -fx-primary-blue;
+        -fx-border-color: -fx-secondary-blue;
+
 }
 
 .menu-bar .label {
@@ -185,7 +186,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: Segoe UI, Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -249,17 +250,17 @@
 }
 
 .scroll-bar {
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
     visibility: hidden;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
     visibility: hidden;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: #19568E;
+    -fx-background-color: -fx-primary-blue;
     -fx-padding: 0;
 }
 
@@ -269,56 +270,5 @@
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
     -fx-padding: 0;
-    -fx-background-color: #19568E;
-}
-
-#couponName {
-    -fx-fill: white;
-    -fx-font-size: 26;
-}
-
-#couponFields {
-    -fx-fill: white;
-    -fx-font-size: 14;
-}
-
-#couponPane {
-    -fx-effect:  dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
-}
-
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
-#commandTextField {
-    -fx-background-color: #1C8585;
-    -fx-background-radius: 7;
-    -fx-font-family: "Arial";
-    -fx-font-size: 11pt;
-    -fx-text-fill: white;
-    -fx-prompt-text-fill: #EAF1E9;
-    -fx-effect:  dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
-}
-
-#filterField, #couponWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
-#resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
-}
-
-#tags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
-#tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #DF6D54;
-    -fx-padding: 1 8 1 8;
-    -fx-background-radius: 20;
-    -fx-font-size: 11;
+    -fx-background-color: -fx-primary-blue;
 }

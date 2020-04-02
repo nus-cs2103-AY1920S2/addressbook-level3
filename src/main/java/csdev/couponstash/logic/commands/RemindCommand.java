@@ -1,15 +1,16 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Set;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Archived;
@@ -33,26 +34,23 @@ import csdev.couponstash.ui.RemindWindow;
  * for a coupon. Upon the date of the reminder, Coupon Stash will
  * notify the user in a form of a pop when Coupon Stash is launched.
  */
-public class RemindCommand extends Command {
+public class RemindCommand extends IndexedCommand {
 
     public static final String COMMAND_WORD = "remind";
     private static String messageSuccess = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": set a reminder of a coupon, identified by the index number "
+            + ": Set a reminder of a coupon, identified by the index number "
             + "used in coupon listing. "
-            + "Existing reminder will be overwritten by the input.\n"
+            + "Existing reminder will be overwritten by the input.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_REMIND + " [Date] or [String]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REMIND + " 25-12-2020"
-            + "\n" + "Example: " + COMMAND_WORD + " 2 "
-            + PREFIX_REMIND + " 2 days";
+            + "Examples:\n"
+            + COMMAND_WORD + " 1 " + PREFIX_REMIND + " 25-12-2020\n\n"
+            + COMMAND_WORD + " 2 " + PREFIX_REMIND + " 2 days before";
 
     private static final String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    private final Index index;
     private LocalDate remindDate;
     private String input;
 
@@ -61,9 +59,9 @@ public class RemindCommand extends Command {
      * @param input details to remind the coupon on
      */
     public RemindCommand(Index index, String input) {
-        requireAllNonNull(index, input);
+        super(index);
+        requireNonNull(input);
 
-        this.index = index;
         this.input = input;
         this.remindDate = LocalDate.now();
     }
@@ -86,11 +84,11 @@ public class RemindCommand extends Command {
         Coupon remindCoupon;
 
         // index is out of range
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
 
-        Coupon couponToBeRemind = lastShownList.get(index.getZeroBased());
+        Coupon couponToBeRemind = lastShownList.get(targetIndex.getZeroBased());
 
         // if "days before scenario", straightaway calculate the remindDate;
         if (input.contains("days before")) {
@@ -110,7 +108,12 @@ public class RemindCommand extends Command {
                     + remindCoupon.getExpiryDate().value + ")";
         } else {
 
-            LocalDate tempDate = LocalDate.parse(input, DATE_FORMATTER);
+            LocalDate tempDate;
+            try {
+                tempDate = LocalDate.parse(input, DateUtil.DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new CommandException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
+            }
 
             //check if input's date is not after the coupon's expiry date
             if (tempDate.isAfter(couponToBeRemind.getExpiryDate().date)) {
@@ -151,7 +154,7 @@ public class RemindCommand extends Command {
 
         // state check
         RemindCommand e = (RemindCommand) other;
-        return index.equals(e.index)
+        return targetIndex.equals(e.targetIndex)
                 && input.equals(e.input);
     }
 

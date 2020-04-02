@@ -14,25 +14,25 @@ public class Archived {
 
     public static final String VALIDATION_REGEX = "^(true|false)$";
 
-    public final String state;
+    public final String value;
 
 
     /**
      * Constructs a false {@code state} of archival.
      */
     public Archived() {
-        this.state = "false";
+        this.value = "false";
     }
 
     /**
      * Constructs a {@code state} of {@code Archived}.
      *
-     * @param state A valid state of archival.
+     * @param value A valid state of archival.
      */
-    public Archived(String state) {
-        requireNonNull(state);
-        checkArgument(isValidState(state), MESSAGE_CONSTRAINTS);
-        this.state = state;
+    public Archived(String value) {
+        requireNonNull(value);
+        checkArgument(isValidState(value), MESSAGE_CONSTRAINTS);
+        this.value = value;
     }
 
     /**
@@ -44,18 +44,18 @@ public class Archived {
 
     @Override
     public String toString() {
-        return state;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Archived
-                && state.equals(((Archived) other).state));
+                && value.equals(((Archived) other).value));
     }
 
     @Override
     public int hashCode() {
-        return state.hashCode();
+        return value.hashCode();
     }
 }

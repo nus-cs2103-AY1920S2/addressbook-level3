@@ -1,15 +1,202 @@
+/* CouponCard styles have been moved to CouponCard.css */
+
+* {
+  -fx-primary-blue: #19568E;
+  -fx-primary-green: #46998F;
+  -fx-secondary-blue: #6C96BE;
+  -fx-secondary-green: #1C8585;
+  -fx-tertiary-green: #75be86;
+  -fx-quartenary-green: #afd6a7;
+  -fx-text: white;
+  -fx-paneShadow: dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
+}
 
 .error {
-    -fx-background-color: #EE3434 !important; /* The error class should always override the default background-color style */
+  -fx-background-color: #EE3434 !important; /* The error class should always override the default background-color style */
 }
 
 .tag-selector {
-    -fx-border-width: 1;
-    -fx-border-color: white;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
+  -fx-border-width: 1;
+  -fx-border-color: white;
+  -fx-border-radius: 3;
+  -fx-background-radius: 3;
 }
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+/* For Calendar */
+#calendarPanePlaceholder {
+  -fx-effect: -fx-paneShadow;
+  -fx-padding: 0 0 10 0
+}
+#calendarPane {
+  -fx-background-color: -fx-secondary-blue;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  -fx-padding: 0px 10px 10px;
+}
+
+/* For tabs */
+.tab {
+  -fx-background-color: -fx-secondary-blue;
+  -fx-background-radius: 2;
+  -fx-background-insets: 0 3 0 0;
+  -fx-pref-width: 120;
+  -fx-pref-height: 20;
+}
+
+.tab .tab-label {
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-alignment: CENTER;
+  -fx-font-size: 10px;
+  -fx-font-family: Segoe Ui;
+}
+
+.tab-header-background {
+    -fx-background-color: -fx-primary-blue;
+}
+
+.tab:selected {
+  -fx-background-color: -fx-primary-blue;
+  -fx-border-width: 0 0 5 0;
+  -fx-border-color: white;
+  -fx-background-insets: 0 3 0 0;
+  -fx-background-radius: 2;
+  -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label{
+  -fx-font-size: 12px;
+}
+
+.tab:focused {
+    -fx-focus-color: transparent;
+}
+
+.tab-pane *.tab-header-background {
+  -fx-background-color: transparent;
+}
+
+.tab-pane:left *.tab-header-area {
+  -fx-background-insets: 0, 0, 0, 10;
+  -fx-padding: 0;
+}
+
+.tab:selected .focus-indicator {
+  -fx-focus-color: transparent;
+  -fx-border-color: transparent;
+}
+
+/* CouponCard styles moved to CouponCard.css */
+
+/* For CommandBox */
+#commandTypeLabel {
+  -fx-font-size: 11px;
+  -fx-text-fill: #F70D1A;
+}
+
+#commandTextField {
+  -fx-background-color: #1C8585;
+  -fx-background-radius: 7;
+  -fx-font-family: "Segoe Ui";
+  -fx-font-size: 11pt;
+  -fx-text-fill: white;
+  -fx-prompt-text-fill: #EAF1E9;
+  -fx-effect: -fx-paneShadow;
+}
+
+#filterField, #couponWebpage {
+  -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+/* For TextArea component of ResultDisplay */
+.result-display {
+  -fx-background-color: -fx-secondary-blue;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  -fx-effect: -fx-paneShadow;
+  -fx-alignment: center;
+  -fx-padding: 20px;
+
+}
+
+.result-display .label {
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+}
+
+.text-area .scroll-pane {
+  -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+  -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content {
+  -fx-background-color: transparent;
+}
+
+/* Styles for Summary Tab */
+#summary-tab {
+  -fx-background-color: -fx-primary-green;
+  -fx-background-radius: 10;
+  -fx-background-insets: 4 8 5 8;
+  -fx-text-alignment: center;
+  -fx-effect: -fx-paneShadow;
+}
+
+#summary-tab #all-saveables {
+  -fx-background-color: -fx-tertiary-green;
+  -fx-background-radius: 10;
+  -fx-effect: -fx-paneShadow;
+}
+
+#summary-tab .saveable-label {
+  -fx-font-family: arial;
+  -fx-text-fill: white;
+}
+
+#summary-tab .summary-bold-text {
+  -fx-font-family: arial;
+  -fx-font-size: 25px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+#summary-tab #savings-chart {
+  -fx-legend-visible: false;
+  -fx-horizontal-grid-lines-visible: false;
+  -fx-vertical-grid-lines-visible: false;
+  -fx-horizontal-zero-line-visible: false;
+}
+
+#summary-tab #savings-chart .bar-chart {
+  -fx-background-color: #000000;
+}
+
+
+#summary-tab #savings-chart .chart-bar {
+  -fx-bar-fill: -fx-quartenary-green;
+  -fx-background-radius: 5;
+  -fx-effect: -fx-paneShadow;
+}
+
+#summary-tab #savings-chart .chart-plot-background {
+  -fx-background-color: transparent;
+}
+
+#summary-tab #savings-chart #savings-axis {
+  -fx-opacity: 0;
+}
+
+#summary-tab #savings-chart #days-axis {
+  -fx-border-radius: 0;
+  -fx-tick-label-fill: white;
+  -fx-font-family: arial;
+}
+
+#summary-tab #savings-chart #days-axis .axis-tick-mark {
+  -fx-stroke-width: 0;
 }

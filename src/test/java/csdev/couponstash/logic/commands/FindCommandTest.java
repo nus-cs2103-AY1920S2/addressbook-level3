@@ -1,7 +1,7 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.core.Messages.MESSAGE_COUPONS_LISTED_OVERVIEW;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static csdev.couponstash.logic.commands.FindCommand.MESSAGE_COUPONS_FOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -53,9 +53,11 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noCouponFound() {
-        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_COUPONS_FOUND, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredCouponList());
@@ -63,13 +65,18 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleCouponsFound() {
-        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_COUPONS_FOUND, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
+
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalCoupons.CARL, TypicalCoupons.ELLE, TypicalCoupons.FIONA),
-                model.getFilteredCouponList());
+        assertEquals(
+                Arrays.asList(TypicalCoupons.CARL, TypicalCoupons.FIONA, TypicalCoupons.ELLE),
+                model.getFilteredCouponList()
+        );
     }
 
     /**

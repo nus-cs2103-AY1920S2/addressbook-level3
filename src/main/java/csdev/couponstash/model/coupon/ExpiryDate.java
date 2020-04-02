@@ -16,7 +16,6 @@ public class ExpiryDate {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Expiry Dates should be a date in the D-M-YYYY format.";
-    public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public final LocalDate date;
     public final String value;
 
@@ -29,7 +28,7 @@ public class ExpiryDate {
         requireNonNull(expiryDate);
         checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
         value = expiryDate;
-        date = getDate();
+        date = DateUtil.parseStringToDate(value);
     }
 
     /**
@@ -37,11 +36,11 @@ public class ExpiryDate {
      */
     public static boolean isValidExpiryDate(String test) {
         try {
-            DateUtil.parseString(test);
+            DateUtil.parseStringToDate(test);
         } catch (DateTimeParseException ex) {
             return false;
         }
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(DateUtil.DATE_VALIDATION_REGEX);
     }
 
     /**
@@ -49,8 +48,9 @@ public class ExpiryDate {
      * @return Expiry Date as a LocalDate
      */
     public LocalDate getDate() {
-        return DateUtil.parseString(value);
+        return this.date;
     }
+
 
     @Override
     public String toString() {

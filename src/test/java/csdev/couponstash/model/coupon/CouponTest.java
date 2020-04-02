@@ -19,6 +19,30 @@ public class CouponTest {
     }
 
     @Test
+    public void increaseUsageByOne_anyCoupon_returnsTrue() {
+        Coupon coupon = new CouponBuilder().build();
+        Usage currentUsage = coupon.getUsage();
+        Coupon usedCoupon = coupon.increaseUsageByOne();
+        Usage newUsage = usedCoupon.getUsage();
+        int difference = Integer.parseInt(newUsage.value) - Integer.parseInt(currentUsage.value);
+        assertTrue(difference == 1);
+    }
+
+    @Test
+    public void setArchivalState_true_returnsTrue() {
+        Coupon coupon = new CouponBuilder().build();
+        boolean stateOfArchival = Boolean.valueOf(coupon.archive().getArchived().value);
+        assertTrue(stateOfArchival);
+    }
+
+    @Test
+    public void setArchivalState_false_returnsTrue() {
+        Coupon coupon = new CouponBuilder().build();
+        boolean stateOfArchival = Boolean.valueOf(coupon.unarchive().getArchived().value);
+        assertFalse(stateOfArchival);
+    }
+
+    @Test
     public void isSameCoupon() {
         // same object -> returns true
         assertTrue(TypicalCoupons.ALICE.isSameCoupon(TypicalCoupons.ALICE));

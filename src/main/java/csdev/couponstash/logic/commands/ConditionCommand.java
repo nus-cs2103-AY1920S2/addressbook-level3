@@ -34,7 +34,7 @@ public class ConditionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the Terms & Condition of the identified coupon "
             + "by the index number used in the coupon listing."
-            + "Exising Terms & Condition will be overwritten by the input.\n"
+            + "Existing Terms & Condition will be overwritten by the input.\n\n"
             + "Parameters: INDEX (must be a positive integer)"
             + PREFIX_CONDITION + " [T&C]\n"
             + "Example: " + COMMAND_WORD + " 2 "

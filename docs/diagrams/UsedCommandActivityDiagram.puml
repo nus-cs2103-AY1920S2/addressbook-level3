@@ -1,0 +1,23 @@
+@startuml
+
+start
+repeat
+    repeat :User enters used command;
+
+    backward :Invalid command message shown;
+    repeat while () ->[else]
+    ->[valid index provided];
+    :Stash checks if the Coupon specified
+    has a percentage amount;
+backward :Missing original amount \
+message shown;
+repeat while () ->[has percentage amount \
+but original amount not specified]
+->[else];
+:Coupon savings calculated
+and saved;
+:Coupon usage increased
+by one;
+stop
+
+@enduml
