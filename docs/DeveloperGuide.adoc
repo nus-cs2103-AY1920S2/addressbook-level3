@@ -1438,35 +1438,35 @@ Refers to the display field showing the results of an executed command
 
 |tid/
 |Transaction ID
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |n/
 |Customer Name
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |a/
 |Address
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |p/
 |Phone Number
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |e/
 |Email
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
+|<<import, Import>>, <<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
 
 |dts/
 |Delivery Date And Time
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |rts/
 |Return Date and Time
-|<<return, Return>>, <<search, Search>>
+|<<import, Import>>, <<return, Return>>, <<search, Search>>
 
 |w/
 |Warehouse Location
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |cod/
 |Cash On Delivery
@@ -1474,11 +1474,11 @@ Refers to the display field showing the results of an executed command
 
 |c/
 |Comments by Customer
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |type/
 |Type of Item
-|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+|<<edit, Edit>>, <<import, Import>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 |===
 
 [[command_flags]]
@@ -1489,6 +1489,14 @@ Refers to the display field showing the results of an executed command
 |-f
 |Force clear, no user confirmation will be requested
 |<<clear, Clear>>
+
+|-o
+|Order flag, Operation on order list
+|<<clear, Clear>>, <<delete, Delete>>, <<delivered, Delivered>>, <<edit, Edit>>, <<nearby, Nearby>>, <<search, Search>>
+
+|-r
+|Return Order flag, Operation on return order list
+|<<clear, Clear>>, <<delete, Delete>>, <<delivered, Delivered>>, <<edit, Edit>>, <<nearby, Nearby>>, <<search, Search>>
 |===
 
 [appendix]
