@@ -402,12 +402,12 @@ to construct workouts was better.
 ==== Implementation
 The following sequence diagram shows how the `schedule create` operation works:
 
-image::ScheduleCreateSequenceDiagram.png[]
+image::schedule/ScheduleCreateSequenceDiagram.png[]
 
 
 The following sequence diagram shows how the `scheduledWorkout` are populated to user view:
 
-image::PopulateSortedScheduledWorkoutList.png[]
+image::schedule/PopulateSortedScheduledWorkoutList.png[]
 
 ==== Design Considerations
 
