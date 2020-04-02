@@ -1,6 +1,5 @@
 package fithelper.model.util;
 
-import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.FitHelper;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
@@ -10,20 +9,15 @@ import fithelper.model.WeightRecords;
 import fithelper.model.diary.Content;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
-import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Duration;
-import fithelper.model.entry.Entry;
-import fithelper.model.entry.Location;
-import fithelper.model.entry.Name;
-import fithelper.model.entry.Remark;
-import fithelper.model.entry.Time;
-import fithelper.model.entry.Type;
+import fithelper.model.entry.*;
 import fithelper.model.profile.Address;
 import fithelper.model.profile.Age;
 import fithelper.model.profile.Gender;
 import fithelper.model.profile.Height;
 import fithelper.model.profile.Profile;
 import fithelper.model.profile.TargetWeight;
+
+import java.time.LocalDate;
 
 /**
  * Contains utility methods for populating {@code FitHelper} with sample data.
@@ -37,20 +31,20 @@ public class SampleDataUtil {
      */
     public static Entry[] getSampleEntries() {
         return new Entry[]{
-            new Entry(new Type("food"), new Name("Noodles"), new Time("2020-04-02 15:30"),
-                    new Location("Utown canteen"), new Calorie("300"), new Remark("Too expensive"),
+            new Entry(new Type("food"), new Name("Noodles"), new Time(new DiaryDate().toString() + " 15:30"),
+                    new Location("Utown canteen"), new Calorie("300"), new Status("Done"), new Remark("Too expensive"),
                     new Duration("1")),
-            new Entry(new Type("food"), new Name("Mala"), new Time("2020-04-02 15:30"),
-                        new Location("Utown canteen"), new Calorie("150.5"), new Remark("Too expensive")),
+            new Entry(new Type("food"), new Name("Mala"), new Time(new DiaryDate().toString() + " 17:30"),
+                        new Location("Utown canteen"), new Calorie("150.5"), new Status("Done"), new Remark("Too expensive")),
             new Entry(new Type("food"), new Name("Apple juice"), new Time("2020-03-01 11:30"),
                     new Location("Utown 711"), new Calorie("79")),
             new Entry(new Type("food"), new Name("Lemon juice"), new Time("2020-03-01 11:30"),
                         new Location("Utown 711"), new Calorie("79"), new Duration("1")),
             new Entry(new Type("sports"), new Name("Running"), new Time("2020-04-02 10:00"),
                     new Location("Utown gym"), new Calorie("300")),
-            new Entry(new Type("sports"), new Name("Running"), new Time("2020-04-02 10:00"),
-                        new Location("Track"), new Calorie("300"), new Duration("1")),
-            new Entry(new Type("s"), new Name("Swimming"), new Time("2020-03-01 20:20"),
+            new Entry(new Type("sports"), new Name("Running"), new Time(new DiaryDate().toString() + " 10:00"),
+                        new Location("Track"), new Calorie("300"), new Status("Done"), new Duration("1")),
+            new Entry(new Type("s"), new Name("Swimming"), new Time(new DiaryDate().toString() + " 20:20"),
                     new Location("Sports Center"), new Calorie("450.5"), new Remark("Very tired.")),
             new Entry(new Type("s"), new Name("Jogging"), new Time("2020-03-01 20:20"),
                         new Location("Track"), new Calorie("450.5"), new Remark("Very tired."), new Duration("1")),

@@ -14,7 +14,6 @@ import fithelper.commons.core.Version;
 import fithelper.commons.exceptions.DataConversionException;
 import fithelper.logic.Logic;
 import fithelper.logic.LogicManager;
-import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
 import fithelper.model.ReadOnlyFitHelper;
