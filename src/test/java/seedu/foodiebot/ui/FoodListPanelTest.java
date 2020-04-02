@@ -48,8 +48,8 @@ class FoodListPanelTest {
 
     @Test
     void init(FxRobot robot) {
-        FxAssert.verifyThat(listView, ListViewMatchers.hasListCell(
-                COMBO_SET));
+        FxAssert.verifyThat(listView, ListViewMatchers.hasItems(
+                25));
         FxAssert.verifyThat(listView, ListViewMatchers.hasItems(
                 SampleDataUtil.getSampleFoods().length));
     }
