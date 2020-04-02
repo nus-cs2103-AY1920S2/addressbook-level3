@@ -29,9 +29,11 @@ public class CookedCommand extends Command {
 
     private final Index[] targetIndex;
     private final Tab goalsTab = Tab.GOALS;
+    private final CommandType commandType;
 
     public CookedCommand(Index[] targetIndex) {
         this.targetIndex = targetIndex;
+        this.commandType = CommandType.GOALS;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class CookedCommand extends Command {
             }
         }
         sb.append("!");
-        // model.commitRecipeBook(); TODO: Update to the newer commit Recipe Book
+        model.commitBook(commandType);
         return new CommandResult(sb.toString(), false, goalsTab, false);
     }
 
