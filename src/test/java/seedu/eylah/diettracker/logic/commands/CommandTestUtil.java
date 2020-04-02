@@ -93,6 +93,14 @@ public class CommandTestUtil {
         System.out.println(expectedCommandResult);
         try {
             CommandResult result = command.execute(actualModel);
+            System.out.println("Expected Feedback: " + expectedCommandResult.getFeedbackToUser());
+            System.out.println("Actual Feedback: " + result.getFeedbackToUser());
+            System.out.println("Expected Food Book: " + expectedModel.getFoodBook());
+            System.out.println("Actual Food Book: " + actualModel.getFoodBook());
+            System.out.println("Expected filtered list: " + expectedModel.getFilteredFoodList());
+            System.out.println("Actual filtered list: " + actualModel.getFilteredFoodList());
+            System.out.println("Are command results equals? " + expectedCommandResult.equals(result));
+            System.out.println("Are models equals? " + expectedModel.equals(actualModel));
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {

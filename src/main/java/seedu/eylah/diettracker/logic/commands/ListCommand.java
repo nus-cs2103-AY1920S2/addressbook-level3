@@ -67,17 +67,17 @@ public class ListCommand extends Command {
             Date limit = new Date(LocalDateTime.now().minusDays((long) numDays));
             Predicate<Food> datePredicate = food -> food.getDate().isAfter(limit);
             model.updateFilteredFoodList(datePredicate);
-            String listDays = model.listFoods(mode);
-            return new CommandResult(String.format(listDays));
+            model.listFoods(mode);
+            return new CommandResult(MESSAGE_SUCCESS);
         } else if (mode.equals("-e")) {
             Predicate<Food> tagPredicate = food -> food.getTags().contains(this.tag);
             model.updateFilteredFoodList(tagPredicate);
-            String listTag = model.listFoods(mode);
-            return new CommandResult(listTag);
+            model.listFoods(mode);
+            return new CommandResult(MESSAGE_SUCCESS);
         } else {
             model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOODS);
-            String listAll = model.listFoods(mode);
-            return new CommandResult(listAll);
+            model.listFoods(mode);
+            return new CommandResult(MESSAGE_SUCCESS);
         }
     }
 

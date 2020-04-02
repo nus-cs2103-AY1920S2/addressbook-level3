@@ -83,7 +83,7 @@ public interface DietModel extends Model {
 
     /** Returns the String format of the foods based on the mode input.
      */
-    String listFoods(String mode);
+    void listFoods(String mode);
 
 
     /**
