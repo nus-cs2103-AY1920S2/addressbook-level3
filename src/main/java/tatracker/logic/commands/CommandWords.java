@@ -11,7 +11,7 @@ public final class CommandWords {
     public static final String GROUP = "group";
     public static final String STUDENT = "student";
     public static final String SESSION = "session";
-    public static final String CLAIM = "claim";
+    public static final String CLAIM = "claims";
 
     /* List of command words for commands that are common between TA-Tracker models. */
     public static final String ADD_MODEL = "add";

@@ -20,10 +20,11 @@ public class Statistic {
 
     public static final String ALL_MODULES_STRING = "ALL MODULES";
 
+    public final int[] numHoursPerCategory = new int [SessionType.NUM_SESSION_TYPES];
+    public final int[] studentRatingBinValues = new int[Rating.RANGE];
+    public final RatedStudent[] worstStudents = new RatedStudent[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
+
     public final String targetModuleCode;
-    public final int[] numHoursPerCategory;
-    public final int[] studentRatingBinValues;
-    public final RatedStudent[] worstStudents;
 
     public Statistic(ReadOnlyTaTracker taTracker, String targetModuleCode) {
 
@@ -41,22 +42,20 @@ public class Statistic {
             this.targetModuleCode = ALL_MODULES_STRING;
         }
 
-        this.numHoursPerCategory = new int[SessionType.NUM_SESSION_TYPES];
-        for (int i = 0; i < SessionType.NUM_SESSION_TYPES; ++i) {
+        for (int i = 0; i < numHoursPerCategory.length; ++i) {
             this.numHoursPerCategory[i] = fList.getSessionsOfType(SessionType.getSessionTypeById(i))
                     .getTotalDuration().toHoursPart();
         }
 
-        this.studentRatingBinValues = new int[Rating.getRatingRange()];
-        for (int i = Rating.MIN_RATING; i < Rating.MIN_RATING + Rating.getRatingRange(); ++i) {
-            this.studentRatingBinValues[i - Rating.MIN_RATING] = sList.getStudentsOfRating(new Rating(i)).size();
+        for (int i = 0; i < studentRatingBinValues.length; ++i) {
+            this.studentRatingBinValues[i] = sList.getStudentsOfRating(new Rating(Rating.MIN_RATING + i)).size();
         }
 
         // Setup worst students
         List<Student> students = new ArrayList<>(taTracker.getCompleteStudentList());
         students.sort(Comparator.comparingInt((Student a) -> a.getRating().value));
-        worstStudents = new RatedStudent[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
-        for (int i = 0; i < StatisticWindow.NUM_STUDENTS_TO_DISPLAY; ++i) {
+
+        for (int i = 0; i < worstStudents.length; ++i) {
             if (i < students.size()) {
                 worstStudents[i] = new RatedStudent(students.get(i));
             } else {

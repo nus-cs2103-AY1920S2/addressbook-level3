@@ -45,6 +45,8 @@ public class DeleteModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
+        model.setDefaultStudentViewList();
+
         Module moduleToDelete = model.getModule(module);
         model.deleteModule(moduleToDelete);
 

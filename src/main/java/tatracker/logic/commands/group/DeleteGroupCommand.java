@@ -31,6 +31,7 @@ public class DeleteGroupCommand extends Command {
     public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted Group: %1$s";
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    private static final int FIRST_GROUP_INDEX = 0;
 
     private final String group;
     private final String targetModule;
@@ -54,7 +55,13 @@ public class DeleteGroupCommand extends Command {
 
         model.deleteGroup(group, targetModule);
 
-        model.setDefaultStudentViewList();
+        model.updateFilteredGroupList(targetModule);
+
+        if (model.getFilteredGroupList().isEmpty()) {
+            model.setFilteredStudentList();
+        } else {
+            model.setFilteredStudentList(targetModule, FIRST_GROUP_INDEX);
+        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, group), Action.GOTO_STUDENT);
     }

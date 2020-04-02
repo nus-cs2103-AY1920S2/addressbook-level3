@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="TA-Tracker App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">  <icons>
     <Image url="@/images/icon.png" />
@@ -63,11 +64,21 @@
                   </items>
                 </SplitPane>
               </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/student_icon.png" />
+                </ImageView>
+              </graphic>
             </Tab>
             <Tab fx:id="sessionListTab" text="Session">
               <content>
                 <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/session_icon.png" />
+                </ImageView>
+              </graphic>
             </Tab>
             <Tab fx:id="claimsListTab" text="Claims">
                <content>
@@ -78,6 +89,11 @@
                    </items>
                  </SplitPane>
                </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/claims_icon.png" />
+                </ImageView>
+              </graphic>
             </Tab>
           </tabs>
         </TabPane>

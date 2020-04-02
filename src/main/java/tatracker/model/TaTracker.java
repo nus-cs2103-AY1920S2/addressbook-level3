@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -28,17 +30,22 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
+    private static final long DEFAULT_HOURS = 0;
+    private static final int DEFAULT_RATE = 40;
+
     private static Group currentlyShownGroup;
     private static Module currentlyShownModule;
     private static Module currentlyShownModuleClaim;
-    private static long totalHours;
-    private static int rate;
+
+    private int rate;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -49,8 +56,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownGroup = null;
         currentlyShownModule = null;
         currentlyShownModuleClaim = null;
-        totalHours = 0;
-        rate = 40;
+
+        rate = DEFAULT_RATE;
     }
 
     /**
@@ -72,6 +79,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         setModules(newData.getModuleList());
         setCurrentlyShownGroups(newData.getCurrentlyShownGroupList());
         setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
+
+        this.rate = newData.getRate();
     }
 
     // ======== Session Methods ================================================
@@ -133,11 +142,39 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public void addDoneSession(Session s) {
         doneSessions.add(s);
-        totalHours += Math.ceil(s.getDuration().toHours());
     }
 
-    public static long getTotalEarnings() {
-        return rate * totalHours;
+    @Override
+    public long getTotalHours() {
+        long totalHours = 0;
+        for (int i = 0; i < doneSessions.size(); i += 1) {
+            if (currentlyShownModuleClaim != null) {
+                if (doneSessions.get(i).getModuleCode().equals(currentlyShownModuleClaim.getIdentifier())) {
+                    logger.info("reached: has claim filter" + currentlyShownModuleClaim.toString());
+                    totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                    logger.info(String.valueOf(totalHours));
+                }
+            } else {
+                logger.info("reached: no claim filter");
+                totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                logger.info(String.valueOf(totalHours));
+            }
+        }
+        return totalHours;
+    }
+
+    @Override
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    @Override
+    public long getTotalEarnings() {
+        return rate * getTotalHours();
     }
 
     /**
@@ -155,18 +192,16 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     @Override
     public ObservableList<Student> getCompleteStudentList() {
-        UniqueStudentList hack = new UniqueStudentList();
+        UniqueStudentList completeStudentList = new UniqueStudentList();
+
         List<Student> allStudents = new ArrayList<>();
-        for (Module m : modules) {
-            for (Group g : m.getGroupList()) {
-                for (Student s : g.getStudentList()) {
-                    allStudents.add(s);
-                }
+        for (Module module : modules) {
+            for (Group group : module.getGroupList()) {
+                allStudents.addAll(group.getStudentList());
             }
         }
-
-        hack.setStudents(allStudents);
-        return hack.asUnmodifiableObservableList();
+        completeStudentList.setStudents(allStudents);
+        return completeStudentList.asUnmodifiableObservableList();
     }
 
     public void setCurrentlyShownModuleClaim(String moduleCode) {
@@ -219,7 +254,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
-        for (Session session : sessions) {
+        UniqueSessionList copiedSessions = new UniqueSessionList();
+        copiedSessions.setSessions(sessions);
+
+        for (Session session : copiedSessions) {
             if (session.getModuleCode().equals(module.getIdentifier())) {
                 sessions.remove(session);
             }
@@ -363,6 +401,9 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code groups} must not contain duplicate groups.
      */
     public void setCurrentlyShownGroups(List<Group> groups) {
+        if (groups.isEmpty()) {
+            this.currentlyShownGroup = null;
+        }
         this.currentlyShownGroups.setGroups(groups);
     }
 
