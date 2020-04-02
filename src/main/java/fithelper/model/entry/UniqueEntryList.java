@@ -3,9 +3,11 @@ package fithelper.model.entry;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.exceptions.DuplicateEntryException;
 import fithelper.model.entry.exceptions.EntryNotFoundException;
 import javafx.collections.FXCollections;
@@ -140,5 +142,44 @@ public class UniqueEntryList implements Iterable<Entry> {
             }
         }
         return true;
+    }
+
+    /**
+     * Sorts all the entries in the list by a criterion (calorie value or time) in ascending order.
+     *
+     * @param sortBy sort criterion
+     * @throws IllegalValueException if sort type specified is not valid
+     */
+    public void sortAscending(SortBy sortBy) throws IllegalValueException {
+        Comparator<Entry> newComparator;
+        switch (sortBy.getValue()) {
+        case "calorie":
+            newComparator = (e1, e2) -> {
+                int firstCompare = Double.compare(e1.getCalorieValue(), e2.getCalorieValue());
+                if (firstCompare != 0) {
+                    return firstCompare;
+                } else {
+                    return e1.getDateTime().compareTo(e2.getDateTime());
+                }
+            };
+            break;
+        case "time":
+            newComparator = Comparator.comparing(Entry::getDateTime);
+            break;
+        default:
+            throw new IllegalValueException("Unknown sort-by type");
+        }
+        FXCollections.sort(internalList, newComparator);
+    }
+
+    /**
+     * Sorts all the entries in the list by a criterion (calorie value or time) in descending order.
+     *
+     * @param sortBy sort criterion
+     * @throws IllegalValueException if sort type specified is not valid
+     */
+    public void sortDescending(SortBy sortBy) throws IllegalValueException {
+        sortAscending(sortBy);
+        FXCollections.reverse(internalList);
     }
 }

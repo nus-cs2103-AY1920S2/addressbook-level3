@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.calorietable.FoodCalorieTable;
 import fithelper.model.calorietable.SportsCalorieTable;
@@ -14,6 +15,7 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.SortBy;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
@@ -487,6 +489,36 @@ public class FitHelper implements ReadOnlyFitHelper {
                     break;
                 }
             }
+        }
+    }
+
+    /**
+     * Sorts food entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
+    public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        if (isAscendingSort) {
+            foodEntries.sortAscending(sortBy);
+        } else {
+            foodEntries.sortDescending(sortBy);
+        }
+    }
+
+    /**
+     * Sorts sports entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
+    public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        if (isAscendingSort) {
+            sportsEntries.sortAscending(sortBy);
+        } else {
+            sportsEntries.sortDescending(sortBy);
         }
     }
 }

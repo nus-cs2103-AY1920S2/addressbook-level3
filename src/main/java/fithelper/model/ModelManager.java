@@ -17,6 +17,7 @@ import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.SortBy;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
@@ -129,6 +130,7 @@ public class ModelManager implements Model {
 
     /**
      * Creates a predicate in showing entries of a specific date.
+     *
      * @param dateStr
      * @return
      */
@@ -521,5 +523,40 @@ public class ModelManager implements Model {
             }
             return last;
         }
+    }
+
+    /**
+     * Sorts food entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
+    public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        fitHelper.sortFilteredFoodEntryList(sortBy, isAscendingSort);
+    }
+
+    /**
+     * Sorts sports entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
+    public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        fitHelper.sortFilteredSportsEntryList(sortBy, isAscendingSort);
+    }
+
+    /**
+     * Sorts both food and sports entry list by a given criterion (calorie value or time)
+     * in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
+    public void sortFilteredEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        fitHelper.sortFilteredFoodEntryList(sortBy, isAscendingSort);
+        fitHelper.sortFilteredSportsEntryList(sortBy, isAscendingSort);
     }
 }

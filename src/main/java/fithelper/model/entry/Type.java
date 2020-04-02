@@ -11,7 +11,7 @@ public class Type {
 
     public static final String MESSAGE_CONSTRAINTS = "Type can only be food/f or sports/s.";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs an {@code Type}.

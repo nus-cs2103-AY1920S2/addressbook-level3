@@ -10,6 +10,7 @@ import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.SortBy;
 import fithelper.model.profile.Profile;
 import fithelper.model.today.Today;
 import fithelper.model.weight.Weight;
@@ -255,5 +256,10 @@ public interface Model {
 
     LocalDate getLastWeightDate();
 
+    void sortFilteredEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException;
+
+    void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException;
+
+    void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException;
 }
 

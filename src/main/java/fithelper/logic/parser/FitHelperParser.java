@@ -23,6 +23,7 @@ import fithelper.logic.commands.ProfileCommand;
 import fithelper.logic.commands.RedoCommand;
 import fithelper.logic.commands.ReminderCommand;
 import fithelper.logic.commands.ReportCommand;
+import fithelper.logic.commands.SortCommand;
 import fithelper.logic.commands.TodayCommand;
 import fithelper.logic.commands.UndoCommand;
 import fithelper.logic.commands.UpdateCommand;
@@ -112,6 +113,9 @@ public class FitHelperParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD_1:
             // fall through

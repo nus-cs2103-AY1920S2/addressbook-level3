@@ -57,7 +57,7 @@ class JsonAdaptedEntry {
      * Converts a given {@code Entry} into this class for Jackson use.
      */
     public JsonAdaptedEntry(Entry source) {
-        type = source.getType().value;
+        type = source.getType().getValue();
         name = source.getName().value;
         time = source.getTime().value;
         location = source.getLocation().value;

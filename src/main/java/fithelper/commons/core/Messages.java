@@ -12,5 +12,7 @@ public class Messages {
     public static final String MESSAGE_FOOD_LISTED_OVERVIEW = "%1$d food listed!";
     public static final String MESSAGE_SPORTS_LISTED_OVERVIEW = "%1$d sports listed!";
     public static final String MESSAGE_DIARY_LISTED_OVERVIEW = "%1$d diary listed!";
-
+    public static final String MESSAGE_FOOD_ENTRY_LIST_SORTED = "Food entry list is sorted";
+    public static final String MESSAGE_SPORTS_ENTRY_LIST_SORTED = "Sports entry list is sorted";
+    public static final String MESSAGE_BOTH_ENTRY_LIST_SORTED = "Both food and sports entry lists are sorted";
 }
