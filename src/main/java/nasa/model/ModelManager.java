@@ -329,11 +329,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Module getModule(ModuleCode moduleCode) {
-        return nasaBook.getModule(moduleCode);
-    }
-
-    @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
@@ -400,9 +395,9 @@ public class ModelManager implements Model {
                 && filteredModules.equals(other.filteredModules);
     }
 
-//    @Override
-//    public Module getModule(ModuleCode moduleCode) {
-//        UniqueModuleList uniqueModuleList = nasaBook.getUniqueModuleList();
-//        return uniqueModuleList.getModule(moduleCode);
-//    }
+    @Override
+    public Module getModule(ModuleCode moduleCode) {
+        UniqueModuleList uniqueModuleList = nasaBook.getUniqueModuleList();
+        return uniqueModuleList.getModule(moduleCode);
+    }
 }

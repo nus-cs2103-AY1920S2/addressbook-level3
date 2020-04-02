@@ -237,11 +237,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Module getModule(ModuleCode target) {
-            return null;
-        }
-
-        @Override
         public void addActivity(Module target, Activity activity) {
 
         }
@@ -518,11 +513,5 @@ public class AddCommandTest {
         public void sortActivityList(SortMethod sortMethod) {
 
         }
-
-        @Override
-        public Module getModule(ModuleCode moduleCode) {
-            return new Module(new ModuleCode("CS1231"), new ModuleName("Test"));
-        }
     }
-
 }
