@@ -34,6 +34,11 @@ public class TypicalGroups {
                 .withStudent(TypicalStudents.DANIEL)
                 .build();
 
+        public static final Group MANY_STUDENTS_COPY = new GroupBuilder().withIdentifier("G05")
+                .withGroupType(GroupType.TUTORIAL)
+                .withStudent(TypicalStudents.DANIEL)
+                .build();
+
         private TypicalGroups() {} //Prevents instantiation
 
         /**
