@@ -63,7 +63,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, "The food list based on the input flag '-d' is as follows:\n", model);
+        assertCommandSuccess(listCommand, "All foods over period based on input tag has been listed.\n", model);
     }
 
     @Test

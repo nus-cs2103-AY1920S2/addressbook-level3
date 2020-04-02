@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 
 import seedu.eylah.commons.logic.command.CommandResult;
+import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.FoodBook;
@@ -44,14 +45,14 @@ public class AddCommandTest {
         assertEquals(Arrays.asList(validFood), modelStub.foodsAdded);
     }
 
-    //@Test
-    //public void execute_duplicateFood_throwsCommandException() {
-    //    Food validFood = new FoodBuilder().build();
-    //    AddCommand addCommand = new AddCommand(validFood);
-    //    ModelStub modelStub = new ModelStubWithFood(validFood);
-    //
-    //    assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_FOOD, () -> addCommand.execute(modelStub));
-    //}
+    @Test
+    public void execute_duplicateFood_throwsCommandException() {
+        Food validFood = new FoodBuilder().build();
+        AddCommand addCommand = new AddCommand(validFood);
+        ModelStub modelStub = new ModelStubWithFood(validFood);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_FOOD, () -> addCommand.execute(modelStub));
+    }
 
     @Test
     public void equals() {
@@ -132,7 +133,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String listFoods(String mode) {
+        public void listFoods(String mode) {
             throw new AssertionError("This method should not be called");
         }
 
