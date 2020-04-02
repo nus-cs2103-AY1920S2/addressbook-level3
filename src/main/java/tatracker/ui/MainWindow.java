@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -40,6 +41,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+
+    private CommandBox commandBox;
 
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
@@ -176,8 +179,11 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaTrackerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay);
+        commandBox = new CommandBox(this::executeCommand, resultDisplay);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleFocusOnCommandBox);
+
     }
 
     /**
@@ -252,6 +258,22 @@ public class MainWindow extends UiPart<Stage> {
 
         if (statisticWindow != null) {
             statisticWindow.hide();
+        }
+    }
+
+    /**
+     * Alternates the focus on the command box.
+     */
+    private void handleFocusOnCommandBox(KeyEvent event) {
+        if (!KeyCode.ESCAPE.equals(event.getCode())) {
+            return;
+        }
+        if (commandBox.isFocused()) {
+            commandBoxPlaceholder.requestFocus();
+            logger.info("Focus on view");
+        } else {
+            commandBox.requestFocus();
+            logger.info("Focus on text");
         }
     }
 
