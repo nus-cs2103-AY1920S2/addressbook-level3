@@ -163,7 +163,7 @@ Format: `undo`
 
 Format: `redo`
 
-==== Assigning/Unassigning a Student to a Course : `assign` or 'unassign' respectively
+==== Assigning/Unassigning a Student to a Course : `assign` or `unassign` respectively
 
 Adds the Student ID to the Course ID specified. +
 Format: `assign cid/COURSEID sid/STUDENTID` +
@@ -173,7 +173,7 @@ Removes the Student ID from the Course ID specified. +
 Format: `unassign cid/COURSEID sid/STUDENTID` +
 Example: `unassign cid/829 sid/33`
 
-==== Assigning/Unassigning a Teacher to a Course : `assign` or 'unassign' respectively
+==== Assigning/Unassigning a Teacher to a Course : `assign` or `unassign` respectively
 
 Adds the Teacher ID to the Course ID specified. +
 Format: `assign cid/COURSEID tid/TEACHERID` +
@@ -193,22 +193,22 @@ Removes the Assignment ID from the Course ID specified. +
 Format: `unassign cid/COURSEID aid/ASSIGNMENTID` +
 Example: `unassign cid/829 aid/21`
 
-=== Switch quickly to Summary Tab : 'm' or 'summary'
+=== Switch quickly to Summary Tab : `m` or `summary`
 Switches to summary tab
 
-=== Switch quickly to Student Tab : 's' or 'student'
+=== Switch quickly to Student Tab : `s` or `student`
 Switches to student tab
 
-=== Switch quickly to Staff Tab : 't' or 'staff'
+=== Switch quickly to Staff Tab : `t` or `staff`
 Switches to staff tab
 
-=== Switch quickly to Course Tab : 'c' or 'course'
+=== Switch quickly to Course Tab : `c` or `course`
 Switches to course tab
 
-=== Switch quickly to Finance Tab : 'f' or 'finance'
+=== Switch quickly to Finance Tab : `f` or `finance`
 Switches to finance tab
 
-=== Switch quickly to Assignment Tab : 'a' or 'assignment'
+=== Switch quickly to Assignment Tab : `a` or `assignment`
 Switches to assignment tab
 // tag::studentmanagement[]
 
@@ -491,7 +491,7 @@ Example:
 
 * `delete-finance 1`
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
+* Deletes the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -556,6 +556,62 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 === Assignment
 .Assignment labels.
 image::assignmentTab.png[width="1000"]
+
+==== Add an assignment: `add-assignment`
+Add a new assignment to the list of all assignments +
+Format: `add assignment n/NAME dl/DEADLINE [t/TAG]…` +
+Example:
+* `add course n/Cozmo Programming a/2000 t/Fun t/Robot`
+
+[NOTE]
+====
+`DEADLINE` must be in `YYYY - MM - DD` or `YYY - MM - DD` format else an error will be thrown.
+====
+
+==== Delete an assignment: `delete-assignment`
+Format: `delete-assignment INDEX` +
+Example:
+
+* `delete-assignment 1`
+****
+* Deletes the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+==== Edit an assignment: `edit-assignment`
+Format: `edit-assignment INDEX [n/NAME dl/DEADLINE t/TAGS]` +
+Example:
+
+* `edit-assignment 1 n/Edit Python Assignment 1`
+****
+* Edits the assignment at the specified `INDEX`. The index refers to the index number shown in the displayed course list
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
+* You can remove all the assignment's tags by typing `t/` without specifying any tags after it
+****
+
+==== Locating items by name: `find-assignment`
+
+Finds assignments whose names contain any of the given keywords. +
+Format: `find-assignment KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `java` will match `Java`
+* The order of the keywords does not matter. e.g. `Java Assignment` will match `Assignment Java`
+* Only the name is searched
+* Only full words will be matched e.g. `Java` will not match `Javascript`
+* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Java Assignment` will return
+`Java Course`, `Java Code` and `Python Assignment`
+****
+
+Examples:
+
+* `find-assignment java` +
+Returns `java` and `Java Assignment`
+
+
 // end::assignmentmanagement[]
 // tag::v2.0[]
 === Upcoming Features
