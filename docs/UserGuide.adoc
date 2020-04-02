@@ -374,12 +374,14 @@ you saved since a certain date, as well as certain items that you might have sav
 Examples:
 
 * `saved d/1-3-2020` +
-A message will be displayed: You have saved $6.50 as well as earned 2x Brattby Bag.
+A message will be displayed: You have saved $6.50 as well as earned 2x Brattby Bag
+on 1 March 2020.
 
 
 * `saved sd/1-5-2019 e/20-3-2020` +
 A message will be displayed: You have saved $117.15 as well as earned
-5x Brattby Bag, 7x Water Bottle, 12x Free Coffee, 1x Plush Toy.
+5x Brattby Bag, 7x Water Bottle, 12x Free Coffee, 1x Plush Toy
+between 1 May 2019 and 20 March 2020.
 
 
 === Archiving a coupon: `archive`

@@ -3,6 +3,7 @@ package csdev.couponstash.logic.commands;
 import java.time.LocalDate;
 import java.util.List;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
@@ -96,9 +97,7 @@ public class SavedCommand extends Command {
     @Override
     public CommandResult execute(Model model, String commandText) throws CommandException {
         ObservableList<Coupon> couponsList = model.getCouponStash().getCouponList();
-        StringBuilder moneySaved = new StringBuilder("You have saved ");
-        // add the custom money symbol to the String
-        moneySaved.append(model.getStashSettings().getMoneySymbol());
+        StringBuilder moneySaved = new StringBuilder();
         PureMonetarySavings pms = new PureMonetarySavings();
         if (!this.hasDate) {
             // add up all the Savings to get total Savings
@@ -106,6 +105,7 @@ public class SavedCommand extends Command {
                 PureMonetarySavings toBeAdded = c.getTotalSavings();
                 pms = pms.add(toBeAdded);
             }
+            moneySaved.append("In total, you have saved ");
         } else {
             // sum up over the range of dates
             LocalDate today = LocalDate.now();
@@ -126,7 +126,14 @@ public class SavedCommand extends Command {
                     }
                 }
             }
+            moneySaved.append("You saved ");
         }
+        // add the custom money symbol to the String
+        moneySaved.append(model.getStashSettings().getMoneySymbol());
+
+        // to be appended at the end of the final message, based on
+        // which duration was specified by the command
+        String durationString = getDurationString();
 
         // get monetary amount
         moneySaved.append(String.format("%.2f", pms.getMonetaryAmountAsDouble()));
@@ -139,9 +146,41 @@ public class SavedCommand extends Command {
                 moneySaved.append(sv.toString()).append(", ");
             }
             return new CommandResult(
-                    moneySaved.substring(0, moneySaved.length() - 2) + ".", false, false);
+                    moneySaved.substring(0, moneySaved.length() - 2) + durationString + ".",
+                    false, false);
         } else {
-            return new CommandResult(moneySaved.append(".").toString(), false, false);
+            return new CommandResult(moneySaved.append(durationString).append(".").toString(),
+                    false, false);
         }
+    }
+
+    /**
+     * Based on the start date and end date of this
+     * SavedCommand, create a String that describes the
+     * range of dates (for use in command message).
+     *
+     * @return Returns a String describing the range of
+     *         dates used in this SavedCommand.
+     */
+    private String getDurationString() {
+        if (this.startDate == null || this.endDate == null) {
+            return "";
+        } else if (this.startDate.equals(this.endDate)) {
+            return " on " + SavedCommand.formatDate(this.startDate);
+        } else {
+            return " between " + SavedCommand.formatDate(this.startDate)
+                    + " and " + SavedCommand.formatDate(this.endDate);
+        }
+    }
+
+    /**
+     * Uses the formatter for the calendar (with full month
+     * name) to format LocalDates in the SavedCommand message.
+     *
+     * @param ld The LocalDate to be formatted.
+     * @return String holding the formatted date.
+     */
+    private static String formatDate(LocalDate ld) {
+        return ld.format(DateUtil.DAY_MONTH_YEAR_FORMATTER_FOR_CALENDAR);
     }
 }
