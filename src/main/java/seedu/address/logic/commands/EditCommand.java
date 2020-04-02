@@ -108,12 +108,13 @@ public class EditCommand extends Command {
             throw new CommandException("Error: There is no existing profile.");
         }
 
-        HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
-        if (hashMap.isEmpty()) { // No modules have been added to any semester at all
-            throw new CommandException("No module data has been added to any semesters");
-        }
 
         if (editModule) {
+
+            HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
+            if (hashMap.isEmpty()) { // No modules have been added to any semester at all
+                throw new CommandException("No module data has been added to any semesters");
+            }
 
             // Checks if module has been added to any semesters before
             Module module = moduleManager.getModule(moduleCode);
