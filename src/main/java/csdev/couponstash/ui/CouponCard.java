@@ -92,6 +92,7 @@ public class CouponCard extends UiPart<Region> {
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
+                .limit(5)
                 .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
     }
 

@@ -10,6 +10,7 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Usage;
@@ -37,6 +38,8 @@ public class UsedCommand extends IndexedCommand {
     public static final String MESSAGE_MISSING_ORIGINAL_AMOUNT = "Coupon has percentage savings "
             + "that requires the input of the original amount of purchase.\n"
             + "Example: " + COMMAND_WORD + " 1 $100";
+    public static final String MESSAGE_ARCHIVED_COUPON = "Coupon has been archived!\n"
+            + "To use the coupon again, type the command `unarchive %s` first.";
 
     private final MonetaryAmount originalAmount;
 
@@ -72,7 +75,12 @@ public class UsedCommand extends IndexedCommand {
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
         Usage currentUsage = couponToBeUsed.getUsage();
         Limit limit = couponToBeUsed.getLimit();
+        Archived archived = couponToBeUsed.getArchived();
         boolean hasPercentageSavings = couponToBeUsed.getSavingsForEachUse().hasPercentageAmount();
+
+        if (Boolean.parseBoolean(archived.value)) {
+            throw new CommandException(String.format(MESSAGE_ARCHIVED_COUPON, targetIndex.getOneBased()));
+        }
 
         if (Usage.isUsageAtLimit(currentUsage, limit)) {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));
