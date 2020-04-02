@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(#00b2ca, 20%);
-    background-color: #00b2ca; /* Used in the default.html file */
+    -fx-background-color: derive(grey, 20%);
+    background-color: grey; /* Used in the default.html file */
 }
 
 .label {
@@ -40,9 +40,9 @@
 }
 
 .table-view {
-    -fx-base: #00b2ca;
-    -fx-control-inner-background: #00b2ca;
-    -fx-background-color: #00b2ca;
+    -fx-base: grey;
+    -fx-control-inner-background: grey;
+    -fx-background-color: grey;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -77,20 +77,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#00b2ca, 20%);
+    -fx-background-color: derive(grey, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#00b2ca, 20%);
+    -fx-background-color: derive(grey, 20%);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#00b2ca, 20%);
+    -fx-background-color: derive(#424d5f, 20%);
 }
 
 .list-cell {
@@ -134,7 +134,6 @@
 
 }
 
-
 .list-cell:filled:even #cardPaneFinance {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #73AB84, #99D19C);
 
@@ -170,7 +169,7 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#00b2ca, 20%);
+     -fx-background-color: derive(grey, 20%);
 }
 
 .pane-with-border {
@@ -198,13 +197,13 @@
 }
 
 .right-pane {
-     -fx-background-color: derive(#00b2ca, 20%);
-     -fx-border-color: derive(#00b2ca, 70%);
+     -fx-background-color: derive(grey, 20%);
+     -fx-border-color: derive(grey, 70%);
      -fx-border-top-width: 5px;
 }
 
 .card-pane {
-     -fx-background-color: #00b2ca;
+     -fx-background-color: grey;
 }
 
 .status-bar {
@@ -372,7 +371,7 @@
 #commandTextField {
     -fx-background-color: white;
     -fx-background-insets: 0;
-    -fx-border-color: #00b2ca;
+    -fx-border-color: greylist;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";

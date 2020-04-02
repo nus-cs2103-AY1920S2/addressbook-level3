@@ -99,7 +99,7 @@
           <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
         </padding>
          <children>
-                  <StackPane fx:id="dataListPanelPlaceholder" prefHeight="254.0" prefWidth="1032.0">
+                  <StackPane fx:id="dataListPanelPlaceholder" prefHeight="1554.0" prefWidth="1032.0">
                <effect>
                   <DropShadow color="#222222" height="29.9" radius="16.6725" spread="0.13" width="38.79" />
                </effect>
