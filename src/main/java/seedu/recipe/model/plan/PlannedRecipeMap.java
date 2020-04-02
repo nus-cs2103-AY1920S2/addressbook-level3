@@ -82,7 +82,11 @@ public class PlannedRecipeMap {
      * Returns a new list of planned dates at the {@code recipe} key.
      */
     public List<PlannedDate> getPlans(Recipe recipe) {
-        return new ArrayList<>(internalMap.get(recipe));
+        if (contains(recipe)) {
+            return new ArrayList<>(internalMap.get(recipe));
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     /**
