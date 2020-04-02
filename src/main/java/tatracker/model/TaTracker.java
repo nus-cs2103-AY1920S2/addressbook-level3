@@ -253,7 +253,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
-        for (Session session : sessions) {
+        UniqueSessionList copiedSessions = new UniqueSessionList();
+        copiedSessions.setSessions(sessions);
+
+        for (Session session : copiedSessions) {
             if (session.getModuleCode().equals(module.getIdentifier())) {
                 sessions.remove(session);
             }
