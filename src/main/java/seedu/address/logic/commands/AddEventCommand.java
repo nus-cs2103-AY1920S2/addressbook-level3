@@ -31,6 +31,8 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event has already been recorded. "
             + "Stop going out so much, now got coronavirus! >:(";
+    public static final String MESSAGE_CLASHING_EVENT = "This event clashes with "
+            + "some of your other events. You can't be in 2 places at once!";
 
     private final Event toAdd;
 
@@ -48,6 +50,9 @@ public class AddEventCommand extends Command {
 
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
+        if (model.hasClashingEvent(toAdd)) {
+            throw new CommandException(MESSAGE_CLASHING_EVENT);
         }
 
         model.addEvent(toAdd);

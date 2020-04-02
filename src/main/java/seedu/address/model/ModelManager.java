@@ -198,6 +198,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClashingEvent(Event event) {
+        requireNonNull(event);
+        return eventSchedule.hasClashingEvent(event);
+    }
+
+    @Override
     public ReadOnlyEventSchedule getEventSchedule() {
         return eventSchedule;
     }

@@ -203,6 +203,11 @@ public interface Model {
      */
     boolean hasEvent(Event toAdd);
 
+    /**
+     * Returns true if there is a clashing event (same timing and same date).
+     */
+    boolean hasClashingEvent(Event event);
+
     /** Sorts the event schedule by the filter */
     void sortEvent(Comparator<Event> comparator);
 
