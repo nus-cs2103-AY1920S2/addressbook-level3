@@ -167,7 +167,7 @@ public class TodayPage extends UiPart<AnchorPane> {
     private ArrayList<Integer> getFoodCalorieList(ObservableList<Entry> foodList) {
         ArrayList<Integer> calories = new ArrayList<>();
         for (Entry entry: foodList) {
-            calories.add((int)entry.getCalorie().value);
+            calories.add((int) entry.getCalorie().value);
         }
         return calories;
     }
