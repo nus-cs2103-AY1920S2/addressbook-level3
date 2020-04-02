@@ -90,6 +90,10 @@ public class MetricList {
         Metric metric = find(metricPrefix);
         Metric updatedMetric = metric.setName(updatedName.equals("") ? metric.getName() : updatedName);
 
+        if (!updatedName.equals("") && isDuplicate(updatedMetric)) {
+            throw new IllegalValueException(ALREADY_EXISTS_MESSAGE);
+        }
+
         for (int i = 0; i < attributePrefixes.size(); i++) {
             Attribute attribute = attributes.find(attributePrefixes.get(i));
             updatedMetric.setValueToAttribute(attribute, weightages.get(i));
@@ -191,6 +195,6 @@ public class MetricList {
     }
 
     private boolean isDuplicate(Metric metric) {
-        return metrics.contains(metric);
+        return metrics.stream().anyMatch(x -> x.getName().equals(metric.getName()));
     }
 }

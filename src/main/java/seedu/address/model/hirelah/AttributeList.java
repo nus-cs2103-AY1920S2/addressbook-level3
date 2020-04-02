@@ -26,6 +26,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * @author AY1920S2-W15-2
  */
 public class AttributeList implements Iterable<Attribute> {
+    private static final String ALREADY_EXISTS = "This attribute is already exists!";
     private static final String DUPLICATE_MESSAGE = "There are multiple attributes with the same prefix.";
     private static final String NOT_FOUND_MESSAGE = "No attributes with the entered name or prefix.";
 
@@ -51,7 +52,7 @@ public class AttributeList implements Iterable<Attribute> {
     public void add(String attributeName) throws IllegalValueException {
         Attribute attribute = Attribute.of(attributeName);
         if (isDuplicate(attribute)) {
-            throw new IllegalValueException("This attribute is already exists!");
+            throw new IllegalValueException(ALREADY_EXISTS);
         }
 
         attributes.add(attribute);
@@ -93,6 +94,11 @@ public class AttributeList implements Iterable<Attribute> {
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
     public Attribute edit(String attributePrefix, String updatedAttribute) throws IllegalValueException {
+        Attribute newAttribute = new Attribute(updatedAttribute);
+
+        if (isDuplicate(newAttribute)) {
+            throw new IllegalValueException(ALREADY_EXISTS);
+        }
         Attribute currentAttribute = find(attributePrefix);
         int index = attributes.indexOf(currentAttribute);
         attributes.set(index, new Attribute(updatedAttribute));
