@@ -37,8 +37,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all logs
-* **`adds`**`n/running t/Wednesday 6 pm l/utown gym c/500kcal es/False` : adds an entry named `swimming` to the dashboard page.
-* **`delete`**`3` : deletes the 3rd entry shown in the current list
+* **`add`**`x/s n/running t/Wednesday 18:00 l/utown gym c/500` : adds an entry named `swimming` to the dashboard page.
+* **`delete`**`i/3 x/f` : deletes the 3rd entry from food entry list shown in the dashboard
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -52,6 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *s/* entry status
 * *r/* entry remark
 * *i/* entry index
+* *k/* keyword (in `find`)
 * *d/* date in format yyyy-MM-dd
 * *m/* mode
 * *dc/* diary content
@@ -59,9 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *attr/* profile attribute name
 * *v/* profile attribute value
 * *-f* force change
-* *by/* sorting criterion
-* *o/* sorting order
-* *k/* keywords for searching/checking
+
 
 [[Features]]
 == Features
@@ -72,52 +71,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/running`.
 * Items in square brackets are optional e.g `n/NAME [r/REMARK]` can be used as `n/swimming r/energy consuming but fun` or as `n/running`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME t/Wednesday 6 pm`, `t/Wednesday 6 pm n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME t/Wednesday 18:00`, `t/Wednesday 18:00 n/NAME` is also acceptable.
 * `x/` in this document refers to type of entries: food/sport, it can also be write in short form: f/s.
-* The field `TIME` can entered with natural language, e.g. `t/tomorrow 3pm`
+* The field `TIME` can entered with natural language for the date, the time needs to be in the format of hh:MM, e.g. `t/tomorrow 03:00`
 * The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
+* The field `DURATION` should be a postive double number, representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
 ====
 
 === Viewing help : `help`
 
-Asks the application to go to Help page, which displays a condensed list of available
-functions with correct format of input. A link to the User Guide
-is also provided after the list. The user can also go to the Help page by
-clicking the **Help** button on the left hand side of the application.
-Note that once the user types `help` or click the **Help** button,
-the url of the User Guide is copied to the clipboard, so the user
-can directly access the Guide by pasting the url into the browser.
+Asks the application to display a condensed list of available
+functions with correct format of input. A link to the full
+User Guide is also provided after the list.
 
 Format: `help`
 
 === Adding an entry: `add`
 
-Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
-and possibly Today Page (if its date is today) immediately after the command is executed.
-Note that due to space constraint, entry card in DashBoard and Today page will only display
-first 14 characters of its name and first 21 characters of its location. The entry icon in
-Calendar Page are even more constrained.
-
-Format: `addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False dr/DURATION r/REMARK...`
-
-[TIP]
-An entry in the log book can have any number of remarks (including 0)
+Adds an entry to the fitness log book.
+Maximum two entries can have time clashes. If a duration of an entry is not specified, default duration is set to 1 hour. +
+Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMARK]...`
 
 Examples:
 
-* `adds n/running t/Wednesday 6 pm l/utown gym c/500kcal es/True r/relly fun`
-* `addf n/chicken rice t/Sunday 11 am l/Super Snacks c/460kcal es/False r/cheap and yummy`
+* `add x/s n/running t/Wednesday 18:00 l/utown gym c/500 r/relly fun`
+* `add x/f n/chicken rice t/Sunday 11:00 l/Super Snacks c/200 r/cheap and yummy`
 
 === Listing all entries : `list`
 
 Shows a list of all entries in the fitness log book. +
-Format: `list[X]`
-
-If `X` is omitted, a list of mixed entries will be displayed.
+Format: `list`
 
 Examples:
 
-* `lists`
+* `list`
 
 === View Reminder : `reminder (optional)DATE`
 
@@ -134,10 +121,10 @@ Examples:
 === Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
-Format: `edit DATE [i/INDEX] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK] [dr/DURATION]...`
+Format: `edit x/TYPE i/INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK] [dr/DURATION]...`
 
 ****
-* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding faily entry list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding entry list from the dashboard. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing remarks, the existing remarks of the entry will be removed i.e adding of remarks is not cumulative.
@@ -146,25 +133,25 @@ Format: `edit DATE [i/INDEX] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMAR
 
 Examples:
 
-* `edit 2020-03-02 i/1 t/Friday 4pm l/PGP gym` +
+* `edit x/s i/1 t/Friday 16:00 l/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
-* `edit 2020-04-18 i/2 n/Fries r/` +
-Edits the name of the 2nd entry to be `Fries` and clears all existing remarks.
+* `edit x/f i/2 n/Fries r/` +
+Edits the name of the 2nd entry from food entry list to be `Fries` and clears all existing remarks.
 
 ==== Mark an entry as done
 
 Users can mark an entry as done, either a meal or sports, where the calories intake and consumption will be taken in to consideration.
-Format: `edit DATE [i/INDEX] es/TRUE`
+Format: `edit x/TYPE i/INDEX s/Done`
 
 ==== Mark an entry as undone
 
-Similar to the previous command, marking an entry as undone edits the `es/` field and modify it as `False`.
-Format: `edit DATE [i/INDEX] es/False`
+Similar to the previous command, marking an entry as undone edits the `s/` field and modify it as `Undone`.
+Format: `edit x/TYPE i/INDEX s/Undone`
 
 === Locating entries by name: `find`
 
 Finds entries whose names contain any of the given keywords. +
-Format: `find [x/TYPE] k/ONE_OR_MOR_ KEYWORDS`
+Format: `find x/TYPE k/ONE OR MOREKEYWORDS`
 
 ****
 * The search is case insensitive. e.g `apples` will match `Apples`
@@ -176,16 +163,16 @@ Format: `find [x/TYPE] k/ONE_OR_MOR_ KEYWORDS`
 
 Examples:
 
-* `find running` +
+* `find x/s k/running` +
 Returns `running` and `slow running`
-* `find x/food Juice Apple` +
+* `find x/food k/Juice Apple` +
 Returns any entry having names `Juice`,  or `Apple`
 
 // remark::delete[]
 === Deleting an entry : `delete`
 
 Deletes the specified entry from the fitness log book. +
-Format: `delete [x/type] [i/INDEX]`
+Format: `delete x/TYPE i/INDEX`
 
 ****
 * Deletes the entry at the specified `INDEX`.
@@ -195,8 +182,10 @@ Format: `delete [x/type] [i/INDEX]`
 
 Examples:
 
-* `delete [x/sports] 2020-03-02 [index/2]`
-Deletes the 2nd sports entry in the `2020-03-02` daily file in the fitness log book.
+* `delete x/sports index/2`
+Deletes the 2nd sports entry in the sports list from dashboard.
+
+=== Sort the entries
 
 === Keep a diary
 
@@ -433,11 +422,43 @@ Examples:
 * `addWeight v/50.0 d/2020-02-01`
 * `addWeight v/52.30`
 
-=== Calendar View
-Calendar view will display all the exercises and meals for each day of the current month. For past dates, signs of different colors will be highlighted to show whether the calories intake exceeds or is below the target. +
-For female users, the monthly period will be highlighted +
-Format for entering data: `periodstart d/yyyy-mm-dd periodend d/yyyy-mm-dd` +
-Format for entering calendar view: `calendar`
+=== Calendar View: `calendar`
+Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
+
+*For list mode*:
+
+* *Monthly View* +
+The lists of entries for food and sports are display by their given dates in the referenced month. Completed entries will be strikethrough. Calorie value is also shown for each date.
+
+* *Calendar of the month* +
+On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`. The leftward and rightward arrow from the title bar can switch the calendar to previous or next month, with matching CLI command `calendar d/DATE`.
+
+* *Daily tasks completion status* +
+On the bottom right corner, completion status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.
+
+
+*For timetable mode:* +
+
+
+* *Weekly View* +
+The entries of food and sports of the given time period are displayed. Food entries will be in pink, sports entries will be in blue, and entries completed will be in grey regardless of their type. Maximum two entries can have time clashes. Entries with long names or locations will not be displayed fully. Only when mouse is over the entry, the details will be shown. Entries upon clicking will have console errors, caused by disabling certain functionalies from third party libraries.
+
+* *Calendar of the month* +
+Same as above.
+
+* *Upcoming list* +
+It displays all entries after the current date and time and within the referenced month. So if the referenced month is in the past, no entries will be shown. +
+
+Format for entering calendar view: `calendar` +
+Format for switching to timetable mode: `calendar m/tb` +
+Format for switching to list mode: `calendar m/ls` +
+Format for changing the referenced date: `calendar d/DATE` +
+Format for showing entries of a particular date: `calendar sh/DATE`
+
+Examples:
+
+* `calendar m/ls d/tmr`
+* `calendar sh/05-01`
 
 === Today Page
 
@@ -503,55 +524,17 @@ Examples:
 * `weekreport`
 * `weekreport 2020-02-14`
 
-=== Sort food/sports entry list
+=== Sort food consumption or exercise record
 
-Sorts food or sports entry list, or both of them, based on starting time or
-calorie value of the entry, in either ascending or descending order.
-The user must specify the sorting criterion `cal/c OR time/t`.
-If the user does not specify type of entry list, both lists will be sorted.
-And if the user does not specify the sorting order `a OR d`,
-the default order is descending (i.e. entry that starts later
-or entry with higher calorie value comes first).
+Sorts the records of food consumption or exercise workout based on time of record or calorie,
+in either ascending or descending order.
 
-format: `sort [x/TYPE] by/SORT_BY [o/ORDER]`
+format: `sortX -c/-t -a/-d`
 
 Examples:
 
-* `sort x/f by/time o/a` (sort food entry list in ascending order of recording time, i.e. the older entry comes first)
-* `sort by/c` (sort both food and sports entry list in descending order of calorie value
-i.e. entry with higher calorie intake/consumption comes first)
-
-=== Check calorie intake/consumption of common food/sports
-
-Searches through the pre-set database for calorie intake/consumption information
-about food/sports whose name match/contain keywords specified by the user.
-Note that due to space constraint, at most 3 matching results will be shown
-at the left-bottom corner of the application. Each result contains the name of
-the food/sports and its calorie intake/consumption information: for food, it will be
-in cal per serving (weight per serving in g will also be listed); for spots, it will
-be in cal per hour. The searching works as follows:
-
-* Retrieve calorie data of food/sports based on check type specified by the user.
-* First, check if there are food/sports whose name **equals** one of the keywords.
-If so, add them to the result list. Stop checking when 3 matching results are found or
-when all food/sports are checked.
-* Secondly, if fewer than 3 food/sports are added so far, check if there are food/sports
-whose name **contains** the keywords as a whole. If so, add them to the result list.
-Stop checking when 3 matching results are found so far or when all food/sports are checked.
-* Lastly, if still fewer than 3 food/sports are added so far, check if there are food/sports
-whose name **contains** the keywords as a whole. If so, add them to the result list.
-Stop checking when 3 matching results are found so far or when all food/sports are checked.
-* If no matching result is found after all the steps, feedback user search failure.
-Otherwise, show feedback user matching results.
-
-
-format: `check x/TYPE k/ONE_OR_MOR_ KEYWORDS`
-
-Examples:
-
-* `check x/food k/apple` (searches for calorie intake of food
-whose name match/contain keyword "apple")
-
+* `sortf -t -a` (sort records of food consumption in ascending order of recording time, i.e. the oldest record comes first)
+* `sorts -c -d` (sort records of exercise workout in descending order of calorie burned during the workout)
 
 == FAQ
 
@@ -576,7 +559,10 @@ whose name match/contain keyword "apple")
 * *Diary - delete* : `deleteDiary d/DATE`
 * *Diary - find* : `findDiary [d/DATE] [dc/DIARYCONTENT]`
 * *Diary - clear* : `clearDiary`
-* *Calendar* : `calendar`
+* *Calendar - display from a referenced date* : `calendar d/DATE`
+* *Calendar - change to list mode* : `calendar m/ls [d/DATE]`
+* *Calendar - change to timetable mode* : `calendnar m/tb [d/DATE]`
+* *Calendar - display entries from a particular date* : `calendar sh/DATE`
 * *Profile*: `profile`
 * *Update*: `update [-f] attr/ATTRIBUTE V/VALUE`
 * *Weight*: `weight`
