@@ -3,15 +3,13 @@ package nasa.ui.activity;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
 import nasa.ui.UiPart;
 
 /**
@@ -31,7 +29,7 @@ public class DeadlineCard extends UiPart<Region> {
 
     public final Activity activity;
     @FXML
-    private VBox deadlinePane;
+    private GridPane deadlinePane;
     @FXML
     private Label name;
     @FXML
@@ -56,7 +54,7 @@ public class DeadlineCard extends UiPart<Region> {
         date.setText("Due by: " + activity.getDueDate().toString());
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
-        priority.setText(activity.getPriority().toString());
+        priority.setText("Priority: " + activity.getPriority().toString());
     }
 
     @Override

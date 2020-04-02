@@ -2,11 +2,11 @@ package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import nasa.model.activity.Activity;
-import nasa.model.activity.Deadline;
 import nasa.model.activity.Lesson;
 import nasa.ui.UiPart;
 
@@ -28,13 +28,11 @@ public class LessonCard extends UiPart<Region> {
 
     public final Activity activity;
     @FXML
-    private VBox lessonPane;
+    private GridPane lessonPane;
     @FXML
     private Label name;
     @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
+    private Label date;
     @FXML
     private Label note;
     @FXML
@@ -48,11 +46,10 @@ public class LessonCard extends UiPart<Region> {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());
-        startDate.setText("From " + activity.getDateFrom().toString());
-        endDate.setText("To   " + activity.getDateTo().toString());
+        date.setText("From " + activity.getDateFrom().toString() + "To  " + activity.getDateTo().toString());
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
-        priority.setText(activity.getPriority().toString());
+        priority.setText("Priority: " + activity.getPriority().toString());
     }
 
     @Override
