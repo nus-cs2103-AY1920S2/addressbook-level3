@@ -23,7 +23,7 @@ public class ExpiringCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all coupons whose expiry date is "
             + "the specified expiry date (in D-M-YYYY format) or in the specified Month Year (in M-YYYY format) "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters:\n"
+            + "Parameters: "
             + CliSyntax.PREFIX_EXPIRY_DATE + "EXPIRY_DATE or "
             + CliSyntax.PREFIX_MONTH_YEAR + "MONTH_YEAR"
             + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_EXPIRY_DATE + "31-12-2020 or " + COMMAND_WORD + " "

@@ -264,7 +264,7 @@ Deletes the 1st coupon in the results of the find command.
 
 // end::delete[]
 
-=== Listing all coupons: `list`
+=== Listing coupons: `list`
 
 Shows a list of coupons in the coupon stash. +
 
@@ -294,65 +294,6 @@ Shows a list of all *archived* coupons
 
 * `list u/` +
 Shows a list of all *used* coupons (but not fully used)
-
-=== Locating coupons by name: `find`
-
-Find coupon(s) whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]...`
-
-****
-* The search is case insensitive. e.g mALa will match Mala
-* The order of the keywords does not matter. e.g. Rice Chicken will match Chicken Rice
-* Only full words will be matched e.g. Chicken will not match Chickens
-* Coupons matching at least one keyword will be returned (i.e. OR search).
-e.g. Chicken Rice will return Duck Rice, Chicken Chop
-****
-
-[TIP]
-For easy finding of coupons, include the store or brand
-name in your coupon name!
-
-Examples:
-
-* `find ken` +
-Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
-
-=== Sorting coupons: `sort`
-
-Sorts the coupons in CouponStash. It is possible to sort by coupon name or expiry date.
-The order will persist throughout the runtime of the program. The command will sort any coupons currently on screen.
-For example, sorting after finding will sort all the found coupons. (including archived ones, which will appear at the bottom)
-
-Format: `sort PREFIX`
-
-* The `PREFIX` can be either `n/` or `e/`.
-* Using `n/` would mean sorting by name, while `e/` would mean sorting by expiry date.
-
-Examples:
-
-* `sort n/` +
-Sorts the coupon stash by name in ascending order.
-* `sort e/` +
-Sorts the coupon stash by expiry date from earliest to latest.
-
-
-=== Listing all expiring coupons: `expiring`
-
-Shows a list of all your coupons expiring on a date or during a Month-Year.
-
-Format: `expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR`
-
-* Lists all coupons that are expiring on the specified EXPIRY_DATE or during the specified MONTH_YEAR
-* The date or MonthYear must be in Coupon Stash date format
-
-Examples:
-
-* `expiring e/11-9-2020` +
-Shows you all the coupons that will expire on 11 September 2020.
-
-* `expiring my/9-2020` +
-Shows you all the coupons that will expire during September 2020.
 
 === Adding a reminder: `remind`
 
@@ -402,8 +343,6 @@ stating the maximum number of usages for first coupon.
 Uses the first coupon in the coupon stash, which also has a percentage savings.
 The total savings of the coupon will be calculated, and can be seen with the command `saved`.
 
-
-
 === Viewing savings: `saved`
 
 Shows you how much you have saved by using coupons in Coupon Stash.
@@ -446,7 +385,17 @@ between 1 May 2019 and 20 March 2020.
 
 
 === Archiving a coupon: `archive`
-Archives a coupon when you want to keep a record of it, without cluttering your current stash of coupons.
+Archives a coupon when you want to keep a record of it, without cluttering your
+current stash of coupons.
+
+[NOTE]
+To view archived coupons, the user can run the <<Listing coupons: `list`, `list /a`>> command to list all
+archived coupons. Alternatively, the <<Locating coupons by name: `find`, `find`>> command explained below will
+search all archived coupons, thus displaying archives that match the supplied
+keywords below unarchived coupons. Finally, the <<Listing all expiring coupons: `expiring`, `expiring`>> command will also
+include all archived coupons that are expiring in its results.
+Read the section on <<Locating coupons by name: `find`, `find`>> and <<Listing all expiring coupons: `expiring`, `expiring`>>
+respectively to find out more.
 
 Format: `archive INDEX`
 
@@ -463,8 +412,89 @@ Examples:
 Archives the first coupon in the coupon stash.
 
 [NOTE]
-Coupon Stash will automatically archive your coupons once their usage limit has reach, or when they have expired, to keep your stash more organized!
-Find your archives easily with the `find` command.
+Coupon Stash will automatically archive your coupons once their usage limit has been reached,
+or when they have expired, to keep your stash more organized!
+
+=== Locating coupons by name: `find`
+
+Find coupon(s) whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g mALa will match Mala
+* The order of the keywords does not matter. e.g. Rice Chicken will match Chicken Rice
+* Only full words will be matched e.g. Chicken will not match Chickens
+* Coupons matching at least one keyword will be returned (i.e. OR search).
+e.g. Chicken Rice will return Duck Rice, Chicken Chop
+****
+
+[TIP]
+For easy finding of coupons, include the store or brand
+name in your coupon name!
+
+Examples:
+
+* `find ken` +
+Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
+
+[NOTE]
+The <<Locating coupons by name: `find`, `find`>> command searches the
+<<Archiving a coupon: `archive`, `archive`>> for matches too. Coupons that are found
+in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
+non-archived matches.
+// Insert GIF/image
+
+=== Listing all expiring coupons: `expiring`
+
+Shows a list of all your coupons expiring on a date or during a Month-Year.
+
+Format: `expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR`
+
+****
+* Lists all coupons that are expiring on the specified EXPIRY_DATE or during the specified MONTH_YEAR
+* The date or MonthYear must be in Coupon Stash date format
+****
+
+Examples:
+
+* `expiring e/11-9-2020` +
+Shows you all the coupons that will expire on 11 September 2020.
+
+* `expiring my/9-2020` +
+Shows you all the coupons that will expire during September 2020.
+
+[NOTE]
+The <<Listing all expiring coupons: `expiring`, `expiring`>> command will include coupons in the
+<<Archiving a coupon: `archive`, `archive`>> in its results too. Coupons that are expiring
+in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
+non-archived matches.
+// Insert GIF/image
+
+=== Sorting coupons: `sort`
+
+Sorts the coupons in CouponStash in ascending order. It is possible to sort by coupon name or expiry date.
+
+[NOTE]
+The sorting order will persist throughout the runtime of the program.
+The command will sort any coupons currently on screen, including ones in the <<Archiving a coupon: `archive`, `archive`>>, if
+they are present on screen. Coupons in the <<Archiving a coupon: `archive`, `archive`>> will always appear **below** coupons not
+in the archive.
+// Put GIF here
+
+Format: `sort PREFIX`
+
+****
+* The `PREFIX` can be either `n/` or `e/`.
+* Using `n/` would mean sorting by name, while `e/` would mean sorting by expiry date.
+****
+
+Examples:
+
+* `sort n/` +
+Sorts the coupon stash by name in ascending order.
+* `sort e/` +
+Sorts the coupon stash by expiry date from earliest to latest.
 
 === Exporting a coupon: `export`
 Exports a coupon as an <<Adding a coupon: `add`, `add`>> command to your clipboard so that you can easily share it with your friends/ family!
@@ -476,8 +506,9 @@ Format: `export INDEX`
 * The index refers to the index number shown in the displayed coupon
 list.
 * The index *must be a positive integer* 1, 2, 3, …​
-* The <<Adding a coupon: `add`, add command>> of the coupon will be copied to your clipboard. Simply ctrl + v to paste it!
+* The <<Adding a coupon: `add`, `add`>> command of the coupon will be copied to your clipboard. Simply ctrl + v to paste it!
 ****
+// Put GIF
 
 [NOTE]
 ====
@@ -503,23 +534,30 @@ Exports the 2nd coupon in the coupon stash to an `add` command and copies it to 
 Exports the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
 
 === Sharing a coupon: `share`
-//to be updated
+Shares a coupon as a `.png` image file. Now you can post your coupons on Instagram!
+
 Format: `share INDEX`
+
+[NOTE]
+Image generated looks exactly like how a coupon shows up in the user interface.
+Below is a sample of how a shared coupon image looks like:
+
+image::example_shared_coupon.png[]
 
 
 === Undo the previous command: `undo`
-Undo previous operation.
+Undo previous operation. Only operations that change the coupons in the coupon stash can be undone.
 
 Format: `undo`
 ====
-Only works on the following commands: (i.e. commands that change the coupons in the coupon stash) +
+Undo only works on the following commands: (i.e. commands that change the coupons in the coupon stash) +
 
-* `add`
-* `edit`
-* `delete`
-* `remind`
-* `archive`
-* `clear`
+* <<Adding a coupon: `add`, `add`>>
+* <<Editing a coupon: `edit`, `edit`>>
+* <<Deleting a coupon: `delete`, `delete`>>
+* <<Adding a reminder: `remind`, `remind`>>
+* <<Archiving a coupon: `archive`, `archive`>>
+* <<Clearing all entries: `clear`, `clear`>>
 
 Note that changes to user preferences cannot be undone.
 ====
@@ -536,7 +574,8 @@ Undo the `remind` command. Reminder is removed.
 Revert the edit that was performed.
 
 === Redoing the undone command: `redo`
-Redo the previously undone command. +
+Redo the previously undone command.
+
 Format: `redo`
 
 Examples:

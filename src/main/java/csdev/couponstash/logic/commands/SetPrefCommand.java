@@ -14,8 +14,8 @@ public class SetPrefCommand extends Command {
     public static final String COMMAND_WORD = "setpref";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets the user preferences for Coupon Stash\n"
-            + "Parameters: " + PREFIX_MONEY_SYMBOL + " A new symbol for currency type"
-            + " used in Coupon Stash.";
+            + "Parameters: " + PREFIX_MONEY_SYMBOL + " NEW_MONEY_SYMBOL\n"
+            + "Example: setpref " + PREFIX_MONEY_SYMBOL + " RM";
     public static final String MESSAGE_MISSING_VALUES = COMMAND_WORD
             + " requires at least one value to be set!";
 
