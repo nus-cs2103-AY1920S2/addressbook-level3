@@ -3,6 +3,8 @@ package com.notably.model.util;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockImpl;
+import com.notably.model.block.BlockModel;
+import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.block.Body;
@@ -37,13 +39,16 @@ public class SampleDataUtil {
     private static Block deleteMe = new BlockImpl(new Title("DeleteMe"),
         new Body("Please... Put me out of my misery... Delete me!!!!"));
 
-    public static BlockTree getSampleBlockTree() {
+    public static BlockModel getSampleBlockModel() {
+        BlockModel sampleBm = new BlockModelImpl();
         BlockTree sampleBt = new BlockTreeImpl();
         sampleBt.add(AbsolutePath.TO_ROOT_PATH, welcome);
         sampleBt.add(AbsolutePath.fromString("/Welcome"), step1);
         sampleBt.add(AbsolutePath.fromString("/Welcome/"), step2);
         sampleBt.add(AbsolutePath.fromString("/Welcome/"), step3);
         sampleBt.add(AbsolutePath.fromString("/Welcome/Step 3"), deleteMe);
-        return sampleBt;
+        sampleBm.setBlockTree(sampleBt);
+        sampleBm.setCurrentlyOpenBlock(AbsolutePath.fromString("/Welcome"));
+        return sampleBm;
     }
 }

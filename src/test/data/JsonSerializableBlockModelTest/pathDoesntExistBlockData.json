@@ -1,0 +1,38 @@
+{
+  "root": [
+    {
+      "title": "Y2S2",
+      "body": "",
+      "children": [
+        {
+          "title": "CS2103T",
+          "body": "Software Engineering",
+          "children": [
+            {
+              "title": "Lecture Notes",
+              "body": "",
+              "children": []
+            },
+            {
+              "title": "Tutorials",
+              "body": "",
+              "children": [
+                {
+                  "title": "Tutorial 1",
+                  "body": "Q1: True, Q2: False",
+                  "children": []
+                },
+                {
+                  "title": "Tutorial 2",
+                  "body": "Q1: False, Q2: False",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lastOpenedPath": "/Y2S2/CS2103T/Tutorials/Tutorial 4"
+}

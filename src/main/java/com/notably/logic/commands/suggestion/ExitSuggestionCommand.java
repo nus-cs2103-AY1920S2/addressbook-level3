@@ -9,7 +9,7 @@ import com.notably.model.Model;
  */
 public class ExitSuggestionCommand implements SuggestionCommand {
     public static final String COMMAND_WORD = "exit";
-    private static final String RESPONSE_MESSAGE = "Exit Notably app";
+    private static final String RESPONSE_MESSAGE = "Exit the application";
 
     @Override
     public void execute(Model model) {
