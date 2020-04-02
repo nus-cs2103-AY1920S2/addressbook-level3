@@ -52,6 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+
+
 ====
 *Command Format*
 

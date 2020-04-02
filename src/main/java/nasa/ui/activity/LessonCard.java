@@ -6,15 +6,17 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Lesson;
 import nasa.ui.UiPart;
 
 
 /**
  * An UI component that displays information of a {@code Module}.
  */
-public class ActivityCard extends UiPart<Region> {
+public class LessonCard extends UiPart<Region> {
 
-    private static final String FXML = "ActivityListCard.fxml";
+    private static final String FXML = "LessonCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -26,11 +28,13 @@ public class ActivityCard extends UiPart<Region> {
 
     public final Activity activity;
     @FXML
-    private VBox cardPane;
+    private VBox lessonPane;
     @FXML
     private Label name;
     @FXML
-    private Label date;
+    private Label startDate;
+    @FXML
+    private Label endDate;
     @FXML
     private Label note;
     @FXML
@@ -40,11 +44,12 @@ public class ActivityCard extends UiPart<Region> {
 
 
 
-    public ActivityCard(Activity activity, int displayedIndex) {
+    public LessonCard(Lesson activity, int displayedIndex) {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());
-        date.setText(activity.getDate().toString());
+        startDate.setText("From " + activity.getDateFrom().toString());
+        endDate.setText("To   " + activity.getDateTo().toString());
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
         priority.setText(activity.getPriority().toString());
@@ -58,12 +63,12 @@ public class ActivityCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ActivityCard)) {
+        if (!(other instanceof LessonCard)) {
             return false;
         }
 
         // state check
-        ActivityCard card = (ActivityCard) other;
+        LessonCard card = (LessonCard) other;
         return name.getText().equals(card.name.getText());
     }
 }
