@@ -35,7 +35,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list-s`* : lists all suppliers
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 gp/apple 4.50` : adds a supplier named `John Doe` selling apples at 4.50 each to the InventoryManager.
-* **`delete-s`**`3` : deletes the 3rd supplier shown in the current list
+* **`delete-s 3`** : deletes the 3rd supplier shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -148,26 +148,71 @@ Format: `clear-s`
 
 === Buying goods from supplier: `buy`
 
-Buys a particular goods from the supplier. +
-Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY`
+Buys a batch of goods from a supplier in the contact list who stocks that product. The inventory manager cannot buy products in the following cases:
 
-[TIP]
-If the goods does not exist in the inventory, this will also create an entry for the goods.
+. The supplier has not been entered in the supplier list
+. The supplier has not been registered to the good, as indicated by the "offers" section of each supplier
+
+Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY`
 
 Example:
 
-* `buy n/Dave g/apple q/4` +
-Buys 4 apples from a certain supplier named Dave with the above transaction and expiry dates.
+* `buy n/Cold Storage g/Apple q/4` +
+Buys 4 apples from Supplier named Cold Storage.
+
+[TIP]
+If the good does not exist in the inventory, a new entry for that good will be created.
+
+[CAUTION]
+Name of supplier and good name is case sensitive.
+
+[CAUTION]
+The maximum quantity of any good in the inventory is 999,999. Users are not allowed to buy quantities of goods that would cause that limit to be exceeded.
+
+[NOTE]
+As of v1.3, the buy command does not yet interact with the transaction history.
 
 === Selling goods: `sell`
 
-Sells a particular goods from the inventory.. +
-Format: `sell g/GOOD_NAME q/QUANTITY`
+Sells a particular goods from the inventory.
+
+The inventory manager cannot sell products in the following cases:
+
+. The good being sold does not exist in the inventory
+. The quantity being sold is larger than the amount existing in the inventory
+
+Format: `sell g/GOOD_NAME q/QUANTITY p/PRICE`
 
 Example:
 
-* `sell g/apple q/4` +
-Sells 4 apples at the above date.
+* `sell g/Apple q/4 p/3.5` +
+Sells 4 apples at $3.50 each.
+
+[TIP]
+The selling price can be specified to the nearest cent, or 2 decimal places maximum.
+
+[TIP]
+When the quantity in inventory reaches 0, the name of the good is not deleted for future reference or restocking.
+This entry can be deleted using the `delete-g` command.
+
+[CAUTION]
+Name of supplier and good name is case sensitive.
+
+[NOTE]
+As of v1.3, the sell command does not yet interact with the transaction history.
+The selling price will be used to perform profit calculations in v1.4.
+
+=== Delete good entry in inventory: `delete-g`
+Deletes an entry for a good in the inventory.
+The good to be deleted is at the displayed index shown in the middle inventory panel.
+All of the good's quantity will be removed in the process.
+
+Format: `delete-g INDEX`
+
+Example:
+* `delete-g 3`
+The good entry at displayed index 3 will be removed, provided there is an entry at index 3.
+
 
 === Sourcing suppliers for a particular goods: `source`
 
@@ -180,6 +225,8 @@ Sets the minimum quantity threshold for a certain good.
 
 When the quantity of the good is below the threshold, the quantity of the good will be mark with red color background
 and rank higher up in the inventory list.
+
+All goods under their threshold quantity will be shown before all goods above their threshold quantity.
 
 Format: `warn INDEX q/MIN_QUANTITY`
 
