@@ -45,6 +45,7 @@ public class CommandCompletor {
         this.commands.add(SortCommand.COMMAND_WORD);
         this.commands.add(SwitchTabCommand.STATS_COMMAND_WORD);
         this.commands.add(SwitchTabCommand.TASKS_COMMAND_WORD);
+        this.commands.add(SwitchTabCommand.SETTINGS_COMMAND_WORD);
     }
 
     /**
