@@ -25,7 +25,9 @@
             </VBox>
         </top>
         <center>
-            <PieChart fx:id="graphView" />
+            <VBox spacing = "5">
+                <PieChart id="pieChart" fx:id="pieChart" layoutX="10" layoutY="110" />
+            </VBox>
         </center>
     </BorderPane>
 </HBox>

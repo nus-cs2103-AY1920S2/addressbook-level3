@@ -2,8 +2,13 @@ package seedu.recipe.model.cooked;
 
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import seedu.recipe.model.Date;
+import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 
 /**
@@ -14,17 +19,33 @@ public class Record {
 
     // Identity fields
     private final Name name;
+    private final Date date;
+    private final Set<Goal> goals = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Record(Name name) {
+    public Record(Name name, Date date, Set<Goal> goals) {
         requireAllNonNull(name);
         this.name = name;
+        this.date = date;
+        this.goals.addAll(goals);
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Returns an immutable goal set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Goal> getGoals() {
+        return Collections.unmodifiableSet(goals);
     }
 
 
@@ -39,7 +60,8 @@ public class Record {
         }
 
         return otherRecord != null
-                && otherRecord.getName().equals(getName());
+                && otherRecord.getName().equals(getName())
+                && otherRecord.getDate().equals(getDate());
     }
 
     /**
@@ -58,19 +80,26 @@ public class Record {
 
         Record otherRecord = (Record) other;
 
-        return otherRecord.getName().equals(getName());
+        return otherRecord.getName().equals(getName())
+                && otherRecord.getDate().equals(getDate())
+                && otherRecord.getGoals().equals(getGoals());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);
+        return Objects.hash(name, date);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
+        builder.append(getName())
+                .append("\nDate: ")
+                .append(getDate())
+                .append("\nGoals: ");
+        getGoals().forEach(builder::append);
         return builder.toString();
     }
+
 }

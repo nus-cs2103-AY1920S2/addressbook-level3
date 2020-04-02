@@ -44,6 +44,10 @@ public class Date implements Comparable<Date> {
         this.date = date;
     }
 
+    public Date() {
+        this.date = LocalDate.now();
+    }
+
     /**
      * Returns true if a given string is a valid date
      */

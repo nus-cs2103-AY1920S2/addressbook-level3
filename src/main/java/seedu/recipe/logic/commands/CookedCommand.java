@@ -1,16 +1,18 @@
 package seedu.recipe.logic.commands;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Adds cooked recipes identified by index into cookedRecordsBook.
@@ -26,6 +28,7 @@ public class CookedCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RECORD = "This recipe has already been added!";
 
     private final Index[] targetIndex;
+    private final Tab goalsTab = Tab.GOALS;
 
     public CookedCommand(Index[] targetIndex) {
         this.targetIndex = targetIndex;
@@ -42,8 +45,7 @@ public class CookedCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
             Recipe recipeCooked = mostRecentList.get(targetIndex[i].getZeroBased());
-            Date now = new Date();
-            Record record = new Record(recipeCooked.getName());
+            Record record = new Record(recipeCooked.getName(), new Date(), recipeCooked.getGoals());
             if (model.hasRecord(record)) {
                 throw new CommandException(MESSAGE_DUPLICATE_RECORD);
             }
@@ -57,7 +59,8 @@ public class CookedCommand extends Command {
             }
         }
         sb.append("!");
-        return new CommandResult(sb.toString());
+        model.commitRecipeBook();
+        return new CommandResult(sb.toString(), false, goalsTab, false);
     }
 
     @Override

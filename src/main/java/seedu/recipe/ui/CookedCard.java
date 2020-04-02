@@ -1,9 +1,11 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.recipe.model.cooked.Record;
@@ -33,7 +35,11 @@ public class CookedCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label date;
+    @FXML
     private Label id;
+    @FXML
+    private FlowPane goals;
 
     public CookedCard(Record record, int displayedIndex) throws IOException {
         super(FXML);
@@ -41,6 +47,12 @@ public class CookedCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(record.getName().fullName);
         name.setWrapText(true);
+        date.setText("Cooked on " + record.getDate().toString());
+        date.setWrapText(true);
+
+        record.getGoals().stream()
+                .sorted(Comparator.comparing(goal -> goal.goalName))
+                .forEach(goal -> goals.getChildren().add(new Label(goal.goalName)));
     }
 
     @Override
