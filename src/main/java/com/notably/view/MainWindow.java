@@ -1,5 +1,7 @@
 package com.notably.view;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import com.notably.commons.GuiSettings;
@@ -10,6 +12,7 @@ import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.view.blockcontent.BlockContent;
 
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -71,7 +74,7 @@ public class MainWindow extends ViewPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        helpWindow = initializeHelpWindow(model);
     }
 
     public Stage getPrimaryStage() {
@@ -140,6 +143,18 @@ public class MainWindow extends ViewPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    private HelpWindow initializeHelpWindow(Model model) {
+        model.helpOpenProperty().addListener((Observable observable) -> {
+            if (model.isHelpOpen()) {
+                handleHelp();
+            }
+            model.setHelpOpen(false);
+        });
+        HelpWindow helpWindow = new HelpWindow();
+        requireNonNull(helpWindow);
+        return helpWindow;
     }
 
     /**
