@@ -400,4 +400,9 @@ public class ModelManager implements Model {
                 && filteredModules.equals(other.filteredModules);
     }
 
+//    @Override
+//    public Module getModule(ModuleCode moduleCode) {
+//        UniqueModuleList uniqueModuleList = nasaBook.getUniqueModuleList();
+//        return uniqueModuleList.getModule(moduleCode);
+//    }
 }
