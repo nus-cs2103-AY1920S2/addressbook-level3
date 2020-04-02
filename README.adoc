@@ -13,7 +13,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* iTrackPro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers.
+* iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers.
 * It is also able to provide an analysis of the entire business to help the owner manage the shop.
 * This is a desktop Java Application. It has a GUI (Graphic User interface).
 
