@@ -9,8 +9,8 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 
-import tatracker.logic.Logic;
 import tatracker.commons.core.LogsCenter;
+import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandDictionary;
 
 /**
