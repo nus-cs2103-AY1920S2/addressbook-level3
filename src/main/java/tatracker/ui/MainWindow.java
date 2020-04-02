@@ -111,7 +111,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow(logic);
+        helpWindow = new HelpWindow(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
@@ -243,7 +243,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         // Create a new statistic window
-        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic);
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic.getGuiSettings());
         statisticWindow.show();
         statisticWindow.focus();
     }

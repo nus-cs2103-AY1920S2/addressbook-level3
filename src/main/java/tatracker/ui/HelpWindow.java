@@ -9,6 +9,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 
+import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandDictionary;
@@ -35,21 +36,22 @@ public class HelpWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpWindow(Stage root, Logic logic) {
+    public HelpWindow(Stage root, GuiSettings guiSettings) {
         super(FXML, root);
-        root.setHeight(logic.getGuiSettings().getWindowHeight());
-        if (logic.getGuiSettings().getWindowCoordinates() != null) {
-            root.setX(logic.getGuiSettings().getWindowCoordinates().getX());
-            root.setY(logic.getGuiSettings().getWindowCoordinates().getY());
+        root.setHeight(guiSettings.getWindowHeight());
+        if (guiSettings.getWindowCoordinates() != null) {
+            root.setX(guiSettings.getWindowCoordinates().getX());
+            root.setY(guiSettings.getWindowCoordinates().getY());
         }
         helpMessage.setText(HELP_MESSAGE + "\n\n" + CommandDictionary.getHelpMessage());
     }
 
     /**
      * Creates a new HelpWindow.
+     * @param guiSettings
      */
-    public HelpWindow(Logic logic) {
-        this(new Stage(), logic);
+    public HelpWindow(GuiSettings guiSettings) {
+        this(new Stage(), guiSettings);
     }
 
     /**

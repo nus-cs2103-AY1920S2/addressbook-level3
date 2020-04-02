@@ -10,6 +10,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.model.session.SessionType;
@@ -75,13 +76,13 @@ public class StatisticWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticWindow(Stage root, Statistic stats, Logic logic) {
+    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
         super(FXML, root);
 
-        root.setHeight(logic.getGuiSettings().getWindowHeight());
-        if (logic.getGuiSettings().getWindowCoordinates() != null) {
-            root.setX(logic.getGuiSettings().getWindowCoordinates().getX());
-            root.setY(logic.getGuiSettings().getWindowCoordinates().getY());
+        root.setHeight(guiSettings.getWindowHeight());
+        if (guiSettings.getWindowCoordinates() != null) {
+            root.setX(guiSettings.getWindowCoordinates().getX());
+            root.setY(guiSettings.getWindowCoordinates().getY());
         }
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -125,8 +126,8 @@ public class StatisticWindow extends UiPart<Stage> {
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticWindow(Statistic stats, Logic logic) {
-        this(new Stage(), stats, logic);
+    public StatisticWindow(Statistic stats, GuiSettings guiSettings) {
+        this(new Stage(), stats, guiSettings);
     }
 
     /**
