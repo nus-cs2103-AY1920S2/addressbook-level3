@@ -58,6 +58,12 @@ public class ParserUtil {
         return new Type(trimmedType);
     }
 
+    /**
+     * Parses a {@code String} representing sorting criterion into a {@code SortBy} and returns it.
+     *
+     * @param sortBy sort criterion
+     * @throws ParseException if the given {@code SortBy} is invalid.
+     */
     public static SortBy parseSortBy(String sortBy) throws ParseException {
         requireNonNull(sortBy);
         String trimmed = sortBy.trim();
@@ -304,6 +310,13 @@ public class ParserUtil {
         return new WeightValue(trimmedWeightValue);
     }
 
+    /**
+     * Parses a {@code String} representing the sort order into a boolean indicating
+     * if the order is ascending (otherwise is descending).
+     *
+     * @param order sort order (ascending or descending)
+     * @throws ParseException if input order is invalid
+     */
     public static boolean parseSortOrder(String order) throws ParseException {
         requireNonNull (order);
         if ("a".equals(order)) {

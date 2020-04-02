@@ -60,6 +60,12 @@ public class SortCommand extends Command {
         return new CommandResult(feedback, HOME, false);
     }
 
+    /**
+     * Appends information to feedback to user based on sorting order.
+     *
+     * @param feedback feedback to user
+     * @return edited feedback
+     */
     private String editFeedbackBasedOnSortOrder(String feedback) {
         if (isAscendingSort) {
             feedback += " in ascending order (i.e. earlier entry OR entry with lower calorie value first)";

@@ -492,6 +492,13 @@ public class FitHelper implements ReadOnlyFitHelper {
         }
     }
 
+    /**
+     * Sorts food entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
     public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         if (isAscendingSort) {
             foodEntries.sortAscending(sortBy);
@@ -500,6 +507,13 @@ public class FitHelper implements ReadOnlyFitHelper {
         }
     }
 
+    /**
+     * Sorts sports entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
     public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         if (isAscendingSort) {
             sportsEntries.sortAscending(sortBy);

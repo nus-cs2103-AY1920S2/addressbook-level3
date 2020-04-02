@@ -144,6 +144,12 @@ public class UniqueEntryList implements Iterable<Entry> {
         return true;
     }
 
+    /**
+     * Sorts all the entries in the list by a criterion (calorie value or time) in ascending order.
+     *
+     * @param sortBy sort criterion
+     * @throws IllegalValueException if sort type specified is not valid
+     */
     public void sortAscending(SortBy sortBy) throws IllegalValueException {
         Comparator<Entry> newComparator;
         switch (sortBy.getValue()) {
@@ -163,9 +169,15 @@ public class UniqueEntryList implements Iterable<Entry> {
         default:
             throw new IllegalValueException("Unknown sort-by type");
         }
-        FXCollections.sort(internalList,newComparator);
+        FXCollections.sort(internalList, newComparator);
     }
 
+    /**
+     * Sorts all the entries in the list by a criterion (calorie value or time) in descending order.
+     *
+     * @param sortBy sort criterion
+     * @throws IllegalValueException if sort type specified is not valid
+     */
     public void sortDescending(SortBy sortBy) throws IllegalValueException {
         sortAscending(sortBy);
         FXCollections.reverse(internalList);

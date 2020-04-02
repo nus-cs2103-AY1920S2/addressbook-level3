@@ -525,14 +525,36 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Sorts food entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
     public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         fitHelper.sortFilteredFoodEntryList(sortBy, isAscendingSort);
     }
 
+    /**
+     * Sorts sports entry list by a given criterion (calorie value or time) in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
     public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         fitHelper.sortFilteredSportsEntryList(sortBy, isAscendingSort);
     }
 
+    /**
+     * Sorts both food and sports entry list by a given criterion (calorie value or time)
+     * in either ascending or descending order.
+     *
+     * @param sortBy sort criterion
+     * @param isAscendingSort boolean indicating whether sorting in ascending order (otherwise in descending order)
+     * @throws IllegalValueException if given {@code sortBy} is invalid
+     */
     public void sortFilteredEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         fitHelper.sortFilteredFoodEntryList(sortBy, isAscendingSort);
         fitHelper.sortFilteredSportsEntryList(sortBy, isAscendingSort);

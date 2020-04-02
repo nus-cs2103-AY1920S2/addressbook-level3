@@ -1,7 +1,9 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntaxUtil.*;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORT_BY;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORT_ORDER;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;
