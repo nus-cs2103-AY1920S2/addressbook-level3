@@ -2,40 +2,79 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPaneStudent" xmlns="http://javafx.com/javafx/8"
-  fx:id="cardPane">
+<?import javafx.scene.shape.Line?>
+
+<HBox id="cardPaneStudent" fx:id="cardPane" prefHeight="105.0" prefWidth="223.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
-    <VBox GridPane.columnIndex="0" alignment="CENTER_LEFT" minHeight="105">
-      <FlowPane fx:id="tags"/>
+    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label styleClass="cell_big_label" fx:id="id">
+            <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@ourImages/student.png" />
+               </image>
+            </ImageView>
+        <Label fx:id="id" styleClass="cell_big_label" text="\$id">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE"/>
+            <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label styleClass="cell_big_label" text="\$first" fx:id="name"/>
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+            <padding>
+               <Insets left="15.0" />
+            </padding>
+            <opaqueInsets>
+               <Insets top="5.0" />
+            </opaqueInsets>
+      </HBox>
+         <Line endX="999.0" startX="-100.0" stroke="#ffffff41">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+         </Line>
+      <FlowPane fx:id="tags">
+            <padding>
+               <Insets left="15.0" top="5.0" />
+            </padding>
+         </FlowPane>
+      <HBox>
+        <Label styleClass="cell_small_label" text="Student ID: " />
+        <Label fx:id="studentID" styleClass="cell_small_label" text="\$studentID" />
+            <padding>
+               <Insets left="15.0" />
+            </padding>
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="Student ID: "/>
-        <Label styleClass="cell_small_label" text="\$studentID" fx:id="studentID"/>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Courses: "/>
-        <Label styleClass="cell_small_label" text="\$assignedCourses" fx:id="assignedCourses"/>
+        <Label styleClass="cell_small_label" text="Assigned Courses: " />
+        <Label fx:id="assignedCourses" styleClass="cell_small_label" text="\$assignedCourses" />
+            <padding>
+               <Insets left="15.0" />
+            </padding>
+            <opaqueInsets>
+               <Insets bottom="5.0" />
+            </opaqueInsets>
       </HBox>
       <padding>
-        <Insets bottom="5" left="15" right="5" top="5"/>
+        <Insets bottom="5.0" top="5.0" />
       </padding>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
     </VBox>
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>
