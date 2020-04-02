@@ -30,10 +30,10 @@ import seedu.address.model.util.Quantity;
 public class PlotProductSalesCommand extends Command {
     public static final String COMMAND_WORD = "plotsales";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plot the sales of product to the screen\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plots the sales of product to the screen\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_START_DATE + "START DATE "
-            + PREFIX_END_DATE + "END DATE \n"
+            + "[" + PREFIX_START_DATE + "START DATE] "
+            + "[" + PREFIX_END_DATE + "END DATE] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START_DATE + "2020-03-20 10:00 "
             + PREFIX_END_DATE + "2020-03-30 10:00";
