@@ -52,12 +52,11 @@ public class AddModuleCommand extends Command {
         }
 
         model.addModule(toAdd);
+
         model.updateFilteredGroupList(toAdd.getIdentifier());
-        if (model.getFilteredGroupList().isEmpty()) {
-            model.setFilteredStudentList();
-        } else {
-            model.setFilteredStudentList(toAdd.getIdentifier(), FIRST_GROUP_INDEX);
-        }
+
+        model.setFilteredStudentList();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
     }
 

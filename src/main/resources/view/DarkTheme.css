@@ -38,6 +38,8 @@
 .tab-pane {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-padding: 0 0 0 1;
+    -fx-tab-min-height: 3em;
+    -fx-tab-max-height: 3em;
 }
 
 .tab-pane .tab-header-area {
@@ -57,7 +59,7 @@
 }
 
 .tab-pane .tab-header-area .tab .tab-label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;

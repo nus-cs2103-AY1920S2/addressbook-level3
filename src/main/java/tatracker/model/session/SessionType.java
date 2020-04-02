@@ -52,7 +52,7 @@ public enum SessionType {
         String name = name();
         if (name.length() > 0) {
             // Capitalise first letter
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         }
         return name;
     }

@@ -36,6 +36,8 @@ import tatracker.ui.studenttab.StudentListPanel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String BORDER_COLOUR = "#917b3e";
+    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -105,6 +107,9 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
+        studentListTab.setStyle("-fx-border-color: " + BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
+
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -114,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        helpWindow = new HelpWindow(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
@@ -177,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
         sessionListPanel = new SessionListPanel(logic.getFilteredSessionList());
         sessionListPanelPlaceholder.getChildren().add(sessionListPanel.getRoot());
 
-        claimsListPanel = new ClaimsListPanel(logic.getFilteredDoneSessionList());
+        claimsListPanel = new ClaimsListPanel(logic.getFilteredDoneSessionList(), logic.getTaTracker());
         claimsListPanelPlaceholder.getChildren().add(claimsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -210,8 +215,16 @@ public class MainWindow extends UiPart<Stage> {
      * Switched to user specified tab.
      */
     @FXML
-    public void handleGoto(Tab tabToSwicthTo) {
-        tabPane.getSelectionModel().select(tabToSwicthTo);
+    public void handleGoto(Tab tabToSwitchTo) {
+        tabPane.getSelectionModel().select(tabToSwitchTo);
+        studentListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        sessionListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        claimsListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        tabToSwitchTo.setStyle("-fx-border-color: " + BORDER_COLOUR + "; "
+                            + "-fx-border-width: " + BORDER_WIDTH + ";");
     }
 
     /**
@@ -244,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         // Create a new statistic window
-        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode));
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic.getGuiSettings());
         statisticWindow.show();
         statisticWindow.focus();
     }
@@ -409,6 +422,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case GOTO_CLAIMS:
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 handleGoto(claimsListTab);
                 break;
 
@@ -417,6 +431,8 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case GOTO_STUDENT:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
                 break;
 
