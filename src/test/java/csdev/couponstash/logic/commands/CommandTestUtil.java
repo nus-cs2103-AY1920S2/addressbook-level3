@@ -190,4 +190,18 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredCouponList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show the archived coupon,
+     * ensuring that there is at least one archived coupon in the updated filtered list.
+     */
+    public static void showArchivedCoupon(Model model) {
+        Coupon coupon = model.getFilteredCouponList().get(0);
+        Coupon archivedCoupon = coupon.archive();
+        model.setCoupon(coupon, archivedCoupon, "");
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ARCHIVED_COUPONS);
+
+        assertTrue(Boolean.parseBoolean(model.getFilteredCouponList().get(0).getArchived().value));
+        assertTrue(model.getFilteredCouponList().size() >= 1);
+    }
+
 }
