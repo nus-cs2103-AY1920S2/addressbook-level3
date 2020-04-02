@@ -30,9 +30,9 @@ public class HelpCommand extends Command {
             + "   USAGE: edit -i INDEX [-n NAME] [-c CALORIES]\n"
             + "   EXAMPLE: edit -i 1 -n Prawn Aglio -c 520\n"
             + DIVIDER
-            + "4. list - Use this to list the food for a given period of time specified by the tags.\n"
-            + "   USAGE: list [-f] [-d] [-t [NUMDAYS]]\n"
-            + "   EXAMPLE: list -f\n"
+            + "4. list - Use this to list the food for a given period of time or food of a certain tag.\n"
+            + "   USAGE: list [-a] [-d NUMDAYS] [-t TAG]\n"
+            + "   EXAMPLE: list -a\n"
             + DIVIDER
             + "5. mode - Use this to change the mode (GAIN, MAINTAIN, LOSS) of the Diet Tracker.\n"
             + "   USAGE: mode [-g] [-l] [-m]\n"
