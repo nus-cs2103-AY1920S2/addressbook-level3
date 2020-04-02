@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "The Deck Chicken Rice "
-            + PREFIX_PROMO_CODE + "98765432 "
+            + PREFIX_PROMO_CODE + "JIFANFTW "
             + PREFIX_EXPIRY_DATE + "30-08-2020 "
             + PREFIX_SAVINGS + "50" + PercentageAmount.PERCENT_SUFFIX + " "
             + PREFIX_START_DATE + "1-8-2020 "
