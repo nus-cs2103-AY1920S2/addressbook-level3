@@ -802,10 +802,9 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to repeat all task under CS2103T every tuesday. +
-`repeat CS2103t /d 2`
+1.  User requests to repeat a task under CS2103T every week. +
+`repeat m/CS2103T a/task d/1`
 2.  NASA will provide a acknowledgement messages
-3.  NASA will display all modules that has the tasks "homework".
 +
 Use case ends.
 
@@ -813,7 +812,7 @@ Use case ends.
 
 [none]
 * 1a. Nothing to repeat.
-* 1b. Prompt user to add tasks to modules.
+* 1b. Prompt user no such modules.
 +
 Use case ends.
 
