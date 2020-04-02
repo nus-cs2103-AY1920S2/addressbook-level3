@@ -300,26 +300,6 @@ Examples:
 * `find ken` +
 Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
 
-=== Sorting coupons: `sort`
-
-Sorts the coupons in CouponStash. It is possible to sort by coupon name or expiry date.
-The order will persist throughout the runtime of the program. The command will sort any coupons currently on screen.
-For example, sorting after finding will sort all the found coupons. (including archived ones, which will appear at the bottom)
-
-Format: `sort PARAMETER`
-
-* The `PARAMETER` can be either `n/` or `/e`.
-* Using `n/` would mean sorting by name, while `e/` would mean sorting by expiry date.
-
-Examples:
-
-* `sort n/` +
-Sorts the coupon stash by name in ascending order.
-* `sort e/` +
-Sorts the coupon stash by expiry date from earliest to latest.
-
-
-
 === Listing all expiring coupons: `expiring`
 
 Shows a list of all your expiring coupons before a date.
@@ -444,6 +424,25 @@ Archives the first coupon in the coupon stash.
 [NOTE]
 Coupon Stash will automatically archive your coupons once their usage limit has reach, or when they have expired, to keep your stash more organized!
 Find your archives easily with the `find` command.
+
+=== Sorting coupons: `sort`
+
+Sorts the coupons in CouponStash. It is possible to sort by coupon name or expiry date.
+The order will persist throughout the runtime of the program.
+The command will sort any coupons currently on screen, including archived ones, if
+they are present on screen.
+
+Format: `sort PARAMETER`
+
+* The `PARAMETER` can be either `n/` or `/e`.
+* Using `n/` would mean sorting by name, while `e/` would mean sorting by expiry date.
+
+Examples:
+
+* `sort n/` +
+Sorts the coupon stash by name in ascending order.
+* `sort e/` +
+Sorts the coupon stash by expiry date from earliest to latest.
 
 === Export a coupon: `export`
 Exports a coupon as an <<Adding a coupon: `add`, `add`>> command to your clipboard so that you can easily share it with your friends/ family!
