@@ -120,7 +120,23 @@ public class AbsolutePathCorrectionEngineTest {
         final int distanceThreshold = 1;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/b");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/bl");
+
+        final AbsolutePath expectedCorrectedItem = toAnotherBlock;
+        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
+        final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
+                expectedCorrectionStatus, expectedCorrectedItem);
+
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
+        assertEquals(expectedCorrectionResult, correctionResult);
+    }
+
+    @Test
+    public void correct_forwardMatchingDifferingCases() {
+        final int distanceThreshold = 1;
+        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
+                model, distanceThreshold, true);
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/BL");
 
         final AbsolutePath expectedCorrectedItem = toAnotherBlock;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
