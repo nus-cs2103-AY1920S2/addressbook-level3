@@ -22,16 +22,28 @@ public class MainTabPanel extends UiPart<Region> {
     @FXML
     private StackPane planningListPanelPlaceholder;
 
+    @FXML
+    private StackPane cookedListPanelPlaceholder;
+
+    @FXML
+    private StackPane achievementsListPanelPlaceholder;
+
 
     @FXML
     private TabPane mainTabPanel;
 
-    public MainTabPanel(RecipeListPanel recipeListPanel, PlanningListPanel planningListPanel) {
+    //TODO: change last argument's RecipeListPanel to AchievementsListPanel once class is created
+    public MainTabPanel(RecipeListPanel recipeListPanel, PlanningListPanel planningListPanel,
+                        CookedListPanel cookedListPanel, RecipeListPanel achievementsListPanel) {
         super(FXML);
 
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
         planningListPanelPlaceholder.getChildren().add(planningListPanel.getRoot());
+
+        cookedListPanelPlaceholder.getChildren().add(cookedListPanel.getRoot());
+
+        achievementsListPanelPlaceholder.getChildren().add(achievementsListPanel.getRoot());
 
     }
 
@@ -41,5 +53,13 @@ public class MainTabPanel extends UiPart<Region> {
 
     protected void switchToPlanningTab() {
         this.mainTabPanel.getSelectionModel().select(1);
+    }
+
+    protected void switchToGoalsTab() {
+        this.mainTabPanel.getSelectionModel().select(2);
+    }
+
+    protected void switchToAchievementsTab() {
+        this.mainTabPanel.getSelectionModel().select(3);
     }
 }

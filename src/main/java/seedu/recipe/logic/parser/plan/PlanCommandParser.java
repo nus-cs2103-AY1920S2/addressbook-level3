@@ -1,4 +1,4 @@
-package seedu.recipe.logic.parser;
+package seedu.recipe.logic.parser.plan;
 
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
@@ -6,9 +6,14 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 import java.util.stream.Stream;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.PlanCommand;
+import seedu.recipe.logic.commands.plan.PlanCommand;
+import seedu.recipe.logic.parser.ArgumentMultimap;
+import seedu.recipe.logic.parser.ArgumentTokenizer;
+import seedu.recipe.logic.parser.Parser;
+import seedu.recipe.logic.parser.ParserUtil;
+import seedu.recipe.logic.parser.Prefix;
 import seedu.recipe.logic.parser.exceptions.ParseException;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.Date;
 
 /**
  * Parses input arguments and creates a new PlanCommand object
@@ -16,13 +21,12 @@ import seedu.recipe.model.plan.PlannedDate;
 public class PlanCommandParser implements Parser<PlanCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the PlanCommand
+     * Parses the given {@code args} of arguments in the context of the PlanCommand
      * and returns an PlanCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public PlanCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
         Index index;
 
@@ -35,7 +39,11 @@ public class PlanCommandParser implements Parser<PlanCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
-        PlannedDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        if (!date.isFutureDate()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE));
+        }
 
         return new PlanCommand(index, date);
     }

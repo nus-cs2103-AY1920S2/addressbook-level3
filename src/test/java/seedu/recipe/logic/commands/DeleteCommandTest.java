@@ -8,6 +8,7 @@ import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,8 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -35,7 +37,9 @@ public class DeleteCommandTest {
         String expectedMessageTemplate = "Deleted %1$s from recipe book!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
+
         expectedModel.deleteRecipe(recipeToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -59,7 +63,9 @@ public class DeleteCommandTest {
         String expectedMessageTemplate = "Deleted %1$s from recipe book!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
+
         expectedModel.deleteRecipe(recipeToDelete);
         showNoRecipe(expectedModel);
 

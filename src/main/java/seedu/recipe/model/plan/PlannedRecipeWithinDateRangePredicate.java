@@ -2,15 +2,18 @@ package seedu.recipe.model.plan;
 
 import java.util.function.Predicate;
 
+import seedu.recipe.model.Date;
+
 /**
- * Tests that a {@code PlannedRecipe}'s {@code PlannedDate} falls within the specified PlannedDate range.
+ * Tests that a PlannedRecipe's PlannedDate falls within the specified Date range.
+ * The start and end dates are non-inclusive.
  */
 public class PlannedRecipeWithinDateRangePredicate implements Predicate<PlannedRecipe> {
 
-    private PlannedDate start;
-    private PlannedDate end;
+    private Date start;
+    private Date end;
 
-    public PlannedRecipeWithinDateRangePredicate(PlannedDate start, PlannedDate end) {
+    public PlannedRecipeWithinDateRangePredicate(Date start, Date end) {
         this.start = start;
         this.end = end;
     }

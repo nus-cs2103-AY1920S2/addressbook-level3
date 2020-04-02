@@ -11,6 +11,7 @@ import seedu.recipe.logic.commands.AddIngredientCommand;
 import seedu.recipe.logic.commands.AddStepCommand;
 import seedu.recipe.logic.commands.ClearCommand;
 import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CookedCommand;
 import seedu.recipe.logic.commands.DeleteCommand;
 import seedu.recipe.logic.commands.DeleteIngredientCommand;
 import seedu.recipe.logic.commands.DeleteStepCommand;
@@ -24,12 +25,16 @@ import seedu.recipe.logic.commands.FindCommand;
 import seedu.recipe.logic.commands.HelpCommand;
 import seedu.recipe.logic.commands.ListCommand;
 import seedu.recipe.logic.commands.ListGoalsCommand;
-import seedu.recipe.logic.commands.PlanCommand;
 import seedu.recipe.logic.commands.RedoCommand;
 import seedu.recipe.logic.commands.SwitchCommand;
 import seedu.recipe.logic.commands.UndoCommand;
 import seedu.recipe.logic.commands.UnfavouriteCommand;
+import seedu.recipe.logic.commands.plan.ClearPlanCommand;
+import seedu.recipe.logic.commands.plan.DeletePlanCommand;
+import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.logic.parser.plan.DeletePlanCommandParser;
+import seedu.recipe.logic.parser.plan.PlanCommandParser;
 
 /**
  * Parses user input.
@@ -85,6 +90,9 @@ public class RecipeBookParser {
         case ListGoalsCommand.COMMAND_WORD:
             return new ListGoalsCommand();
 
+        case CookedCommand.COMMAND_WORD:
+            return new CookedCommandParser().parse(arguments);
+
         case FavouriteCommand.COMMAND_WORD:
             return new FavouriteCommandParser().parse(arguments);
 
@@ -120,6 +128,12 @@ public class RecipeBookParser {
 
         case PlanCommand.COMMAND_WORD:
             return new PlanCommandParser().parse(arguments);
+
+        case DeletePlanCommand.COMMAND_WORD:
+            return new DeletePlanCommandParser().parse(arguments);
+
+        case ClearPlanCommand.COMMAND_WORD:
+            return new ClearPlanCommand();
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);

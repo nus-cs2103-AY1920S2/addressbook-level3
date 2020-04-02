@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.chart.PieChart?>
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <BorderPane fx:id="borderPane">
+        <top>
+            <VBox spacing = "5">
+                <Label fx:id="cooked" text="Cooked Meals" styleClass="cell_big_label"/>
+            </VBox>
+        </top>
+        <center>
+            <ListView fx:id="cookedListView" />
+        </center>
+    </BorderPane>
+    <BorderPane fx:id="borderPane2">
+        <top>
+            <VBox spacing = "5">
+                <Label fx:id="graph" text="Goals" styleClass="cell_big_label"/>
+            </VBox>
+        </top>
+        <center>
+            <VBox spacing = "5">
+                <PieChart id="pieChart" fx:id="pieChart" layoutX="10" layoutY="110" />
+            </VBox>
+        </center>
+    </BorderPane>
+</HBox>

@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.util.StringUtil;
+import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.UniquePlannedList;
 
@@ -43,22 +44,24 @@ public class PlanningListPanel extends UiPart<Region> {
     private Label monthHeader;
 
     @FXML
-    private Label weekHeader;
+    private Label dayHeader;
 
     public PlanningListPanel(ObservableList<PlannedRecipe> plannedRecipes) {
         super(FXML);
-        monthHeader.setText("Placeholder for Month");
+        Date today = Date.today();
+        monthHeader.setText(today.getMonthName());
         monthHeader.setStyle(monthStyleHeader);
-        weekHeader.setText("Placeholder for week of Month");
-        weekHeader.setStyle(weekStyleHeader);
+
+        dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
+        dayHeader.setStyle(weekStyleHeader);
 
         planningListView.setItems(plannedRecipes);
-        planningListView.setCellFactory(listView -> new PlanningListViewCell());
+        planningListView.setCellFactory(planningListView -> new PlanningListViewCell());
 
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code PlannedRecipe} using a {@code PlanningListCard}.
      */
     class PlanningListViewCell extends ListCell<PlannedRecipe> {
         @Override

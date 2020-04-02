@@ -14,8 +14,10 @@ import seedu.recipe.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path recipeBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path recipeBookFilePath = Paths.get("data" , "recipebook.json");
+    private Path cookedRecordFilePath = Paths.get("data" , "cookedrecords.json");
     private Path plannedBookFilePath = Paths.get("data", "plannedbook.json");
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -97,4 +99,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return sb.toString();
     }
 
+    public Path getCookedRecordFilePath() {
+        return cookedRecordFilePath;
+    }
 }

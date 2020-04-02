@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.exceptions.DataConversionException;
+import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
@@ -20,14 +21,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private RecipeBookStorage recipeBookStorage;
+    private CookedRecordBookStorage cookedRecordStorage;
     private UserPrefsStorage userPrefsStorage;
     private PlannedBookStorage plannedBookStorage;
 
-
-    public StorageManager(RecipeBookStorage recipeBookStorage, PlannedBookStorage plannedBookStorage,
-                          UserPrefsStorage userPrefsStorage) {
+    public StorageManager(RecipeBookStorage recipeBookStorage, CookedRecordBookStorage cookedRecordStorage,
+                          PlannedBookStorage plannedBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.recipeBookStorage = recipeBookStorage;
+        this.cookedRecordStorage = cookedRecordStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.plannedBookStorage = plannedBookStorage;
     }
@@ -77,6 +79,37 @@ public class StorageManager implements Storage {
     public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to recipe book data file: " + filePath);
         recipeBookStorage.saveRecipeBook(recipeBook, filePath);
+    }
+
+
+    // ================ CookedRecordBook methods ==============================
+
+    @Override
+    public Path getCookedRecordBookFilePath() {
+        return cookedRecordStorage.getCookedRecordBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook() throws DataConversionException, IOException {
+        return readCookedRecordBook(cookedRecordStorage.getCookedRecordBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyCookedRecordBook> readCookedRecordBook(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return cookedRecordStorage.readCookedRecordBook(filePath);
+    }
+
+    @Override
+    public void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) throws IOException {
+        saveCookedRecordBook(cookedRecordBook, cookedRecordStorage.getCookedRecordBookFilePath());
+    }
+
+    @Override
+    public void saveCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        cookedRecordStorage.saveCookedRecordBook(cookedRecordBook, filePath);
     }
 
     // ================ PlannedBook methods ==============================

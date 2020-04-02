@@ -21,6 +21,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public StatusBarFooter(Path saveLocation) {
         super(FXML);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        //saveLocationStatus.setText("recipebook");
     }
 
 }

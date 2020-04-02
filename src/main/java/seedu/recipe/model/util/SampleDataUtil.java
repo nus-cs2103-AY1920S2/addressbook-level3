@@ -6,8 +6,12 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import seedu.recipe.model.Date;
+import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.cooked.CookedRecordBook;
+import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Recipe;
@@ -193,6 +197,25 @@ public class SampleDataUtil {
      */
     public static Set<Grain> emptyGrainSet() {
         return new TreeSet<Grain>();
+    }
+
+    public static Record[] getSampleRecords() {
+        return new Record[] {
+            new Record(new Name("Caesar Salad"), new Date(), getGoalSet("Herbivores")),
+            new Record(new Name("Grilled Sandwich"), new Date(), getGoalSet("Wholesome Wholemeal")),
+            new Record(new Name("Boiled Chicken"), new Date(), getGoalSet("Bulk like the Hulk")),
+            new Record(new Name("Chocolate Cake"), new Date(), getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal")),
+            new Record(new Name("Omelet"), new Date(), getGoalSet()),
+            new Record(new Name("Tuna Bread"), new Date(), getGoalSet("Wholesome Wholemeal"))
+        };
+    }
+
+    public static ReadOnlyCookedRecordBook getSampleRecordBook() {
+        CookedRecordBook sampleAb = new CookedRecordBook();
+        for (Record sampleRecord : getSampleRecords()) {
+            sampleAb.addRecord(sampleRecord);
+        }
+        return sampleAb;
     }
 
 }
