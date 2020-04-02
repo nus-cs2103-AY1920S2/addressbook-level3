@@ -80,7 +80,7 @@ public class SampleDataUtil {
      * @return An array of sample diaries.
      */
     public static Diary[] getSampleDiaries() {
-        return new Diary[] { new Diary(new DiaryDate(), new Content("Today is a sunny day. I went to the gym.")),};
+        return new Diary[] { new Diary(new DiaryDate(), new Content("Today is a sunny day. I went to the gym.")), };
     }
 
     /**
