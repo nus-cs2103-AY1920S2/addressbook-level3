@@ -39,7 +39,7 @@ JsonStatisticsStorage ..> JsonSerializableDayDataList
 JsonSerializableDayDataList ..> JsonAdaptedDayData
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonTaskListStorage .left.|> TaskListStorage
+JsonTaskListStorage .up.|> TaskListStorage
 JsonTaskListStorage .down.> JsonSerializableTaskList
 JsonSerializableTaskList ..> JsonAdaptedTask
 JsonAdaptedTask ..> JsonAdaptedTag
