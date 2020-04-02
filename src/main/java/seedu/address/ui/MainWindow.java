@@ -222,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
     currentView = "STUDENT";
     switchList(studentListPanel.getRoot(), courseListPanel.getRoot());
   }
@@ -235,6 +236,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
     currentView = "STAFF";
     switchList(staffListPanel.getRoot(), courseListPanel.getRoot());
   }
@@ -248,6 +250,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredStudentList(logic.getExtraStudentPredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
     currentView = "COURSE";
     switchList(courseListPanel.getRoot(), studentListPanel.getRoot());
   }
@@ -261,6 +264,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     //Disable extra List
     extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    extraListPanelPlaceholder.setVisible(false);
     currentView = "FINANCE";
     switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
   }
@@ -274,6 +278,7 @@ public class MainWindow extends UiPart<Stage> {
     logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     //Disable extra List
     extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    extraListPanelPlaceholder.setVisible(false);
     currentView = "ASSIGNMENT";
     switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
   }
@@ -285,6 +290,7 @@ public class MainWindow extends UiPart<Stage> {
   private void handleSwitchToSummary() {
     //Disable extra List
     extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    extraListPanelPlaceholder.setVisible(false);
     currentView = "SUMMARY";
     switchList(summaryPanel.getRoot(), courseListPanel.getRoot());
   }
