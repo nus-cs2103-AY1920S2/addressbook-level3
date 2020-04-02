@@ -76,6 +76,11 @@ public class Assignment extends ModelObject {
     return this.assignedCourseID;
   }
 
+  public void removeCourseID(ID courseID) {
+    this.assignedCourseID = null;
+  }
+
+
   public boolean isAssignedToCourse() {
     if (this.assignedCourseID == null) {
       return false;

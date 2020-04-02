@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandAssign;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 
 import javafx.collections.transformation.FilteredList;
@@ -25,6 +26,9 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
     public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such teacher that with ID";
+    public static final String MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER = "Course already has that teacher assigned to it!";
+    public static final String MESSAGE_TEACHER_ALREADY_TEACHES_COURSE = "Teacher is assigned to the course already!";
+
 
     public static final String MESSAGE_SUCCESS = "Successfully assigned teacher %s(%s) to course %s(%s)";
 
@@ -43,55 +47,36 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
 
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
-        String courseidString = this.assignDescriptor.getAssignID(PREFIX_COURSEID).value;
-        String teacheridString = this.assignDescriptor.getAssignID(PREFIX_TEACHERID).value;
-        String courseName = "";
-        String teacherName = "";
 
-        boolean courseExists = false;
-        boolean teacherExists = false;
-        Course foundCourse = null;
-        Staff foundTeacher = null;
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID teacherID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
-        for (Course course : model.getFilteredCourseList()) {
-            if (course.getId().value.equals(courseidString)) {
-                courseName = course.getName().toString();
-                courseExists = true;
-                foundCourse = course;
-                break;
-            }
-        }
-
-        for (Staff teacher : model.getFilteredStaffList()) {
-            if (teacher.getId().value.equals(teacheridString)) {
-                teacherName = teacher.getName().toString();
-                teacherExists = true;
-                foundTeacher = teacher;
-                break;
-            }
-        }
+        boolean courseExists = model.hasCourse(courseID);
+        boolean teacherExists = model.hasTeacher(teacherID);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!teacherExists) {
             throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
         } else {
-            ID courseid = ParserUtil.parseCourseid(courseidString);
-            ID teacherid = ParserUtil.parseTeacherid(teacheridString);
+            model.assignTeacherToCourse(teacherID, courseID);
 
-            foundCourse.assignTeacher(teacherid);
-            foundTeacher.addCourse(courseid);
+            Course foundCourse = model.getCourse(courseID);
+            Staff foundTeacher = model.getTeacher(teacherID);
 
-            foundCourse.processAssignedTeacher(
-                (FilteredList<Staff>) model.getFilteredStaffList());
-            foundTeacher.processAssignedCourses(
-                (FilteredList<Course>) model.getFilteredCourseList());
-            // Just to direct flow from calling models directly to modelManager to make better use of callback
-            // A bit weird design for now
-            model.set(foundCourse, foundCourse);
-            model.set(foundTeacher, foundTeacher);
+            boolean assignedCourseContainsTeacher = foundCourse.containsTeacher(teacherID);
+            boolean assigningStudentContainsCourse = foundTeacher.containsCourse(courseID);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, teacherName, teacheridString, courseName, courseidString));
+            if(assignedCourseContainsTeacher) {
+                throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER);
+            } else if (assigningStudentContainsCourse) {
+                throw new CommandException(MESSAGE_TEACHER_ALREADY_TEACHES_COURSE);
+            } else {
+                model.assignTeacherToCourse(teacherID, courseID);
+                return new CommandResult(String.format(MESSAGE_SUCCESS,
+                        foundTeacher.getName().toString(), teacherID.value,
+                        foundCourse.getName().toString(), courseID.value));
+            }
         }
     }
 }

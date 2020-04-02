@@ -1,15 +1,7 @@
 package seedu.address.model.modelCourse;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.UuidManager;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
@@ -19,6 +11,13 @@ import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Course in the address book. Guarantees: details are present and not null, field
@@ -107,6 +106,10 @@ public class Course extends ModelObject {
   public void addAssignments(Set<ID> assignmentIDs) {
     this.assignedAssignmentsID.addAll(assignmentIDs);
   }
+
+  public void addTeacher(ID teacherID) throws CommandException {
+    this.assignedTeacherID = teacherID;
+  }
   // ================================== FOR ASSIGN COMMANDS =================================
   public boolean containsStudent(ID studentID) {
     if(assignedStudentsID.contains(studentID)) {
@@ -123,11 +126,29 @@ public class Course extends ModelObject {
       return false;
     }
   }
-  // ================================== FOR ASSIGN COMMANDS =================================
 
-  public void assignTeacher(ID teacherid) {
-    this.assignedTeacherID = teacherid;
+  public boolean containsTeacher(ID teacherID) {
+    if(assignedTeacherID.equals(teacherID)) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  // ================================== FOR UNASSIGN COMMANDS =================================
+
+  public void removeAssignment(ID assignmentID) {
+    this.assignedAssignmentsID.remove(assignmentID);
+  }
+
+  public void removeStudent(ID studentID) {
+    this.assignedStudentsID.remove(studentID);
+  }
+
+  public void removeTeacher() {
+    this.assignedTeacherID = null;
+  }
+
 
   public Set<ID> getAssignedAssignmentsID() {
     return Collections.unmodifiableSet(assignedAssignmentsID);

@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -86,14 +85,15 @@ public interface Model {
 
     Assignment getAssignment(ID assignmentID);
 
+    boolean hasTeacher(ID teacherID);
+
+    Staff getTeacher(ID teacherID);
+
+
 
     /**
      * Returns the AddressBook
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8262acbefef917ecffa19da46254798e19c1a6f9
-  */
+\  */
   ReadOnlyAddressBook getAddressBook();
 
   /**
@@ -319,5 +319,13 @@ public interface Model {
     void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
 
     void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
+
+    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
+
+    // ======================== FOR UNASSIGN COMMANDS ============================== //
+
+    void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
+
+    void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
 
 }

@@ -1,22 +1,25 @@
-package seedu.address.logic.commands.commandAssign;
+package seedu.address.logic.commands.commandUnassign;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandAssign.AssignCommandBase;
+import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
 
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 
 /** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
-public class AssignAssignmentToCourseCommand extends AssignCommandBase {
+public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such Course that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
@@ -25,7 +28,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
     private final AssignDescriptor assignDescriptor;
     private Set<Tag> ArrayList;
 
-    public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor) {
+    public UnassignAssignmentFromCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
 
         this.assignDescriptor = assignDescriptor;
@@ -57,12 +60,12 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(AssignmentID);
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
-            if(assignedCourseContainsAssignment) {
-                throw new CommandException("This course already has the assignment assigned to it!");
-            } else if(assigningAssignmentContainsCourse) {
-                throw new CommandException("The assignment has already been assigned already!");
+            if(!assignedCourseContainsAssignment) {
+                throw new CommandException("This course doesn't have the assignment assigned to it! :(");
+            } else if(!assigningAssignmentContainsCourse) {
+                throw new CommandException("The assignment isn't assigned to this course! :(");
             } else {
-                model.assignAssignmentToCourse(AssignmentID, courseID);
+                model.unassignAssignmentFromCourse(AssignmentID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,

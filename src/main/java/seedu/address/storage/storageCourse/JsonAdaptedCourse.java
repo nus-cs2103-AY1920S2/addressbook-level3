@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.AssignedTeacher;
@@ -84,7 +85,7 @@ class JsonAdaptedCourse {
    * @throws IllegalValueException if there were any data constraints violated in the adapted
    *                               Assignment.
    */
-  public Course toModelType() throws IllegalValueException {
+  public Course toModelType() throws IllegalValueException, CommandException {
     if (name == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -142,7 +143,7 @@ class JsonAdaptedCourse {
 
     Course courseReadFromFile = new Course(modelName, modelId, modelAmount, modelTags);
 
-    courseReadFromFile.assignTeacher(modelAssignedTeacher);
+    courseReadFromFile.addTeacher(modelAssignedTeacher);
     courseReadFromFile.addStudents(modelAssignedStudentsID);
     courseReadFromFile.addAssignments(modelAssignedAssignmentsID);
 

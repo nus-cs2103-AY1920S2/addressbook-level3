@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,7 +13,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -384,6 +381,17 @@ public class ModelManager extends BaseManager implements Model {
     return assignmentAddressBook.get(assignmentID);
   }
 
+  @Override
+  public boolean hasTeacher(ID teacherID) {
+    return staffAddressBook.has(teacherID);
+  }
+
+  @Override
+  public Staff getTeacher(ID teacherID) {
+    return staffAddressBook.get(teacherID);
+  }
+
+
   // =====================================================================================================
 
   ///
@@ -556,7 +564,7 @@ public class ModelManager extends BaseManager implements Model {
     filteredProgresses.setPredicate(predicate);
   }
 
-  // ========================== For Assigning of X to Y =========================
+  // ========================== For Assigning of X TO Y =========================
 
   public void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
     Course foundCourse = getCourse(courseID);
@@ -564,6 +572,70 @@ public class ModelManager extends BaseManager implements Model {
 
     foundCourse.addStudent(studentID);
     foundStudent.addCourse(courseID);
+    foundCourse.processAssignedStudents(
+            (FilteredList<Student>) getFilteredStudentList());
+    foundStudent.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
+
+    set(foundCourse, foundCourse);
+    set(foundStudent, foundStudent);
+  }
+
+  public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Assignment foundAssignment = getAssignment(assignmentID);
+
+    foundCourse.addAssignment(assignmentID);
+    foundAssignment.addCourseID(courseID);
+
+    set(foundCourse, foundCourse);
+    set(foundAssignment, foundAssignment);
+
+  }
+
+  public void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Staff foundTeacher = getTeacher(teacherID);
+
+    foundCourse.addTeacher(teacherID);
+    foundTeacher.addCourse(courseID);
+
+    foundCourse.processAssignedTeacher(
+            (FilteredList<Staff>) getFilteredStaffList());
+    foundTeacher.processAssignedCourses(
+            (FilteredList<Course>) getFilteredCourseList());
+    set(foundCourse, foundCourse);
+    set(foundTeacher, foundTeacher);
+  }
+
+  // ========================== For Unassigning of X FROM Y =========================
+
+  public void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Assignment foundAssignment = getAssignment(assignmentID);
+
+    foundCourse.removeAssignment(assignmentID);
+    foundAssignment.removeCourseID(courseID);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundAssignment, foundAssignment);
+    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
+
+  }
+
+  public void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Student foundStudent = getStudent(studentID);
+
+    foundCourse.removeStudent(studentID);
+    foundStudent.removeCourse(courseID);
     foundCourse.processAssignedStudents(
             (FilteredList<Student>) getFilteredStudentList());
     foundStudent.processAssignedCourses(
@@ -580,24 +652,9 @@ public class ModelManager extends BaseManager implements Model {
     postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
   }
 
-  public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Assignment foundAssignment = getAssignment(assignmentID);
 
-    foundCourse.addAssignment(assignmentID);
-    foundAssignment.addCourseID(courseID);
 
-    requireAllNonNull(foundCourse, foundCourse);
-    getAddressBook(foundCourse).set(foundCourse, foundCourse);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
-
-    requireAllNonNull(foundAssignment, foundAssignment);
-    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment), getEntityType(foundAssignment));
-
-  }
-
-    @Override
+  @Override
   public boolean equals(Object obj) {
     // short circuit if same object
     if (obj == this) {

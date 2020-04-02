@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 
@@ -56,7 +57,7 @@ public class JsonCourseAddressBookStorage implements CourseAddressBookStorage {
 
     try {
       return Optional.of(jsonCourseAddressBook.get().toModelType());
-    } catch (IllegalValueException ive) {
+    } catch (IllegalValueException | CommandException ive) {
       logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
       throw new DataConversionException(ive);
     }
