@@ -113,11 +113,19 @@
 }
 
 /* For TextArea component of ResultDisplay */
-.text-area {
+.result-display {
   -fx-background-color: -fx-secondary-blue;
   -fx-background-radius: 10px;
   -fx-border-radius: 10px;
   -fx-effect: -fx-paneShadow;
+  -fx-alignment: center;
+  -fx-padding: 20px;
+
+}
+
+.result-display .label {
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
 }
 
 .text-area .scroll-pane {
@@ -126,7 +134,7 @@
 .text-area .scroll-pane .viewport{
   -fx-background-color: transparent;
 }
-.text-area .scroll-pane .content{
+.text-area .scroll-pane .content {
   -fx-background-color: transparent;
 }
 

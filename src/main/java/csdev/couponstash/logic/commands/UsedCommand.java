@@ -26,10 +26,10 @@ public class UsedCommand extends IndexedCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Increases the usage of the coupon "
             + "identified by the index number used in the displayed coupon list. "
-            + "This increases the value of its usage by one.\n"
+            + "This increases the value of its usage by one.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[%s" + "(Original amount of purchase)]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[%s" + "(Original amount of purchase)]\n\n"
+            + "Example: " + COMMAND_WORD + " 1\n\n"
             + "Example with Savings: " + COMMAND_WORD + " 1 " + "%s100";
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";

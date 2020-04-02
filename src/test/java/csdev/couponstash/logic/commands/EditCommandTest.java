@@ -41,7 +41,7 @@ public class EditCommandTest {
         EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(editedCoupon).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
 
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(comparedCoupon, editedCoupon, "");
@@ -63,7 +63,7 @@ public class EditCommandTest {
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastCoupon, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
 
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(lastCoupon, editedCoupon, "");
@@ -77,7 +77,7 @@ public class EditCommandTest {
                 new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, new EditCommand.EditCouponDescriptor());
         Coupon editedCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
 
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
 
@@ -94,7 +94,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
                 new EditCouponDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
 
@@ -112,7 +112,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
                 new EditCouponDescriptorBuilder().withLimit(couponInFilteredList.getUsage().value)
                         .build());
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
 

@@ -2,7 +2,6 @@ package csdev.couponstash.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 
@@ -15,9 +14,10 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all coupons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\n"
+            + "Example: " + COMMAND_WORD + " auntie ikeaa";
+    public static final String MESSAGE_COUPONS_FOUND = "%s coupon(s) found!";
 
     private final NameContainsKeywordsPredicate predicate;
 
@@ -35,7 +35,7 @@ public class FindCommand extends Command {
         model.updateFilteredCouponList(predicate);
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, model.getFilteredCouponList().size()));
+                String.format(MESSAGE_COUPONS_FOUND, model.getFilteredCouponList().size()));
     }
 
     @Override

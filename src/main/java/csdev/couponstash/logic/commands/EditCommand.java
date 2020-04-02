@@ -36,15 +36,15 @@ public class EditCommand extends IndexedCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the coupon identified "
             + "by the index number used in the displayed coupon list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PROMO_CODE + "PROMO_CODE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
-            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
-            + "[" + CliSyntax.PREFIX_START_DATE + "1-08-2020] "
-            + "[" + CliSyntax.PREFIX_LIMIT + "5 "
-            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
+            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
+            + "[" + CliSyntax.PREFIX_START_DATE + "START_DATE] "
+            + "[" + CliSyntax.PREFIX_LIMIT + "LIMIT "
+            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PROMO_CODE + "ILOVESTASH";
 
@@ -101,7 +101,7 @@ public class EditCommand extends IndexedCommand {
 
         model.setCoupon(couponToEdit, editedCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
+        return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName()));
     }
 
     /**

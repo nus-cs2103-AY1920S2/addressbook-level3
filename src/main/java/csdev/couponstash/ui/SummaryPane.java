@@ -281,7 +281,7 @@ public class SummaryPane extends UiPart<Region> {
         node.boundsInParentProperty().addListener((obv, oldBounds, newBounds) -> {
             dataLabel.setLayoutX(Math.round(newBounds.getMinX() + newBounds.getWidth() / 2
                     - dataLabel.prefWidth(-1) / 2));
-            dataLabel.setLayoutY(newBounds.getMinY() - 1);
+            dataLabel.setLayoutY((newBounds.getMinY() - 1));
         });
     }
 
