@@ -1,7 +1,12 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NAME;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -133,7 +138,7 @@ public class ParserUtil {
      * Parses a {@code String courseName} into a {@code CourseName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code courseName} is invalid.
      */
     public static CourseName parseCourseName(String courseName) throws ParseException {
         requireNonNull(courseName);
@@ -144,6 +149,12 @@ public class ParserUtil {
         return new CourseName(trimmedSemester);
     }
 
+    /**
+     * Parses a {@code String focusArea}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code focusArea} is invalid.
+     */
     public static String parseFocusArea(String focusArea) throws ParseException {
         requireNonNull(focusArea);
         String trimmedFocusArea = focusArea.trim();

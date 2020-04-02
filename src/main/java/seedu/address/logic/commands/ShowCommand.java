@@ -15,7 +15,6 @@ import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
-import seedu.address.model.exceptions.EmptyProfileListException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
