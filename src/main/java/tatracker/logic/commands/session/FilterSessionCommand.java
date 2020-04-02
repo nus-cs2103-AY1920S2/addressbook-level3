@@ -5,6 +5,7 @@ import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
@@ -14,6 +15,7 @@ import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.session.SessionPredicate;
+import tatracker.model.session.SessionType;
 
 /**
  * Filters sessions based on user's inputs.
@@ -43,11 +45,22 @@ public class FilterSessionCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredSessionList(predicate);
-        String keywords = predicate.getKeywords();
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, keywords),
-                Action.FILTER_SESSION);
+        String returnMsg = "";
+
+        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("");
+        String date = predicate.getDate().map(LocalDate::toString).orElse("");
+        String moduleCode = predicate.getModuleCode().orElse("");
+
+        if (!model.hasModule(moduleCode)) {
+            returnMsg += "\n" + String.format(MESSAGE_INVALID_MODULE_CODE);
+            model.updateFilteredSessionList(predicate);
+            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, sessionType + " " + date);
+        } else {
+            model.updateFilteredSessionList(predicate);
+            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
+        }
+
+        return new CommandResult(returnMsg, Action.FILTER_SESSION);
     }
 
     @Override

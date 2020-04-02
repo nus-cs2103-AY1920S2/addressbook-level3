@@ -9,6 +9,7 @@ import tatracker.commons.core.GuiSettings;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 
@@ -272,12 +273,22 @@ public interface Model {
     boolean hasStudent(Student student);
 
     /**
-     * Returns true if a given student with the same identity as {@code student}
+     * Returns true if a given student with the given {@code matric}
      * exists in a module group that is in TaTracker.
-     * @param targetGroup group to check if {@code student} is enrolled in.
-     * @param targetModule module that contains {@code group}.
+     * @param targetGroup id of group to check if {@code student} is enrolled in.
+     * @param targetModule id of module that contains {@code group}.
      */
-    boolean hasStudent(Student student, String targetGroup, String targetModule);
+    boolean hasStudent(Matric matric, String targetGroup, String targetModule);
+
+    /**
+     * Returns the student with the given {@code matric} in the TA-Tracker.
+     * This student will be inside the group with the given {@code groupCode},
+     * which in turn is inside the module with the given {@code moduleCode}/
+     * @param matric of the student
+     * @param groupCode group to check if {@code student} is enrolled in.
+     * @param moduleCode module that contains {@code group}.
+     */
+    Student getStudent(Matric matric, String groupCode, String moduleCode);
 
     /**
      * Adds the given student.
@@ -322,7 +333,7 @@ public interface Model {
      * @param targetGroup group with the student to edit, which must exist in the TaTracker module.
      * @param targetModule module with the student to edit, which must exist in the TaTracker.
      */
-    void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule);
+    void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule);
 
     /**
      * Sets the student list to be of group of index groupIndex in the module of index moduleIndex.

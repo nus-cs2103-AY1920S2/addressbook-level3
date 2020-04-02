@@ -16,6 +16,7 @@ import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 /**
@@ -272,9 +273,6 @@ public class ModelManager implements Model {
         return taTracker.hasGroup(groupCode, moduleCode);
     }
 
-
-    //=========== Filtered Student List Accessors =============================================================
-
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
@@ -322,9 +320,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasStudent(Student student, String targetGroup, String targetModule) {
-        requireNonNull(student);
-        return taTracker.hasStudent(student, targetGroup, targetModule);
+    public boolean hasStudent(Matric matric, String targetGroup, String targetModule) {
+        requireNonNull(matric);
+        return taTracker.hasStudent(matric, targetGroup, targetModule);
+    }
+
+    @Override
+    public Student getStudent(Matric matric, String groupCode, String moduleCode) {
+        return taTracker.getStudent(matric, groupCode, moduleCode);
     }
 
     @Override
@@ -356,7 +359,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
+    public void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule) {
         requireAllNonNull(target, editedStudent);
         taTracker.setStudent(target, editedStudent, targetGroup, targetModule);
     }

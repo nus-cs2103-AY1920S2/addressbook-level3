@@ -58,7 +58,6 @@ public class StudentUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(EMAIL).append(email.value).append(" "));
         descriptor.getRating().ifPresent(rating -> sb.append(RATING).append(rating.value).append(" "));
-        descriptor.getMatric().ifPresent(matric -> sb.append(MATRIC).append(matric.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
