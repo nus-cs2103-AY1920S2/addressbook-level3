@@ -13,14 +13,14 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Recipe book and planned recipes have been cleared!";
-
+    private final CommandType commandType = CommandType.MAIN;
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setRecipeBook(new RecipeBook());
         model.setPlannedBook(new PlannedBook());
-        model.commitRecipeBook();
+        model.commitBook(commandType);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

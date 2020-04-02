@@ -23,7 +23,6 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -165,17 +164,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitRecipeBook() {
+        public void commitBook(CommandType commandType) {
             // throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoRecipeBook(int numberOfUndo) {
+        public void undoBook(int numberOfUndo, Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoRecipeBook(int numberOfRedo) {
+        public void redoBook(int numberOfRedo, Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -195,7 +194,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPlannedBook(PlannedBook plannedBook) {
+        public void setPlannedBook(ReadOnlyPlannedBook plannedBook) {
             throw new AssertionError("This method should not be called.");
         }
 

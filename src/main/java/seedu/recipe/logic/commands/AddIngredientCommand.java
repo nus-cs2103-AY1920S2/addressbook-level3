@@ -50,6 +50,7 @@ public class AddIngredientCommand extends Command {
 
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
+    private final CommandType commandType;
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
@@ -58,6 +59,7 @@ public class AddIngredientCommand extends Command {
     public AddIngredientCommand(Index index, EditRecipeDescriptor editRecipeDescriptor) {
         this.index = index;
         this.editRecipeDescriptor = editRecipeDescriptor;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class AddIngredientCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.setRecipeInPlans(recipeToEdit, editedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
 
         return new CommandResult(String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
     }

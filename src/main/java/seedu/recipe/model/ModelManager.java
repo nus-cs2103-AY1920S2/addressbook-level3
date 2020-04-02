@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
+import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedBook;
@@ -29,7 +30,7 @@ public class ModelManager implements Model {
     private final PlannedBook plannedBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
-    private final VersionedRecipeBook states;
+    private final MultipleBookStateManager states;
     private final CookedRecordBook cookedRecordBook;
     private final FilteredList<Record> filteredRecords;
     private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
@@ -49,9 +50,9 @@ public class ModelManager implements Model {
         this.plannedBook = new PlannedBook(plannedBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
-        this.states = new VersionedRecipeBook(recipeBook);
         this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
         this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
+        this.states = new MultipleBookStateManager(recipeBook, plannedBook, cookedRecordBook);
         filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
     }
 
@@ -151,25 +152,41 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitRecipeBook() {
-        states.commit(new RecipeBook(recipeBook));
+    public void commitBook(CommandType commandType) {
+        switch (commandType) {
+        case MAIN_LONE:
+            states.commitRecipeBook(new RecipeBook(recipeBook), commandType);
+            break;
+        case MAIN:
+            states.commitRecipeAndPlannedBook(new RecipeBook(recipeBook), new PlannedBook(plannedBook), commandType);
+            break;
+        case PLAN:
+            states.commitPlannedBook(new PlannedBook(plannedBook), commandType);
+            break;
+        case GOALS:
+            // Need to develop methods for deleting records before this can be implemented
+            break;
+        default:
+            // This block will never be reached
+            break;
+        }
     }
 
     @Override
-    public void undoRecipeBook(int numberOfUndo) {
-        setRecipeBook(states.undo(numberOfUndo));
+    public void undoBook(int numberOfUndo, Model model) {
+        states.undo(numberOfUndo, model);
     }
 
     @Override
-    public void redoRecipeBook(int numberOfRedo) {
-        setRecipeBook(states.redo(numberOfRedo));
+    public void redoBook(int numberOfRedo, Model model) {
+        states.redo(numberOfRedo, model);
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
-     * {@code versionedRecipeBook}
+     * {@code multipleBookManager}
      */
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
@@ -190,7 +207,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPlannedBook(PlannedBook plannedBook) {
+    public void setPlannedBook(ReadOnlyPlannedBook plannedBook) {
         this.plannedBook.resetData(plannedBook);
     }
 
