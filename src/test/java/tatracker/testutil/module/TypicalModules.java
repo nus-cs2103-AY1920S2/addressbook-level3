@@ -20,6 +20,10 @@ public class TypicalModules {
             .withGroup(TypicalGroups.ONE_STUDENT)
             .build();
 
+    public static final Module CS2103T_COPY = new ModuleBuilder().withIdentifier("CS2103T")
+            .withName("I am a copy")
+            .build();
+
     public static final Module CS3243 = new ModuleBuilder().withIdentifier("CS3243")
             .withName("Introduction to Artificial Intelligence")
             .withGroup(TypicalGroups.MANY_STUDENTS)

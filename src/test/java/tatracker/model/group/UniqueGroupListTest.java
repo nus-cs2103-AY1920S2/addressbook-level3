@@ -49,7 +49,7 @@ public class UniqueGroupListTest {
     }
 
     @Test
-    public void add_duplicateGroup_throwsDuplicateStudentException() {
+    public void add_duplicateGroup_throwsDuplicateGroupException() {
         uniqueGroupList.add(NO_STUDENTS);
         assertThrows(DuplicateGroupException.class, () ->
                 uniqueGroupList.add(NO_STUDENTS));
@@ -149,7 +149,7 @@ public class UniqueGroupListTest {
     }
 
     @Test
-    public void setGroups_listWithDuplicateGroups_throwsDuplicateStudentException() {
+    public void setGroups_listWithDuplicateGroups_throwsDuplicateGroupException() {
         List<Group> listWithDuplicateGroups = Arrays.asList(NO_STUDENTS, NO_STUDENTS);
         assertThrows(DuplicateGroupException.class, () ->
                 uniqueGroupList.setGroups(listWithDuplicateGroups));
