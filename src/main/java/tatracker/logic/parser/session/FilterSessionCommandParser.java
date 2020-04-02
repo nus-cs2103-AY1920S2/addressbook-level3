@@ -49,7 +49,8 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         if (!predicate.isAnyFieldEdited()) {
-            throw new ParseException(FilterSessionCommand.DETAILS.getUsage()); // TODO: Change this message
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                        FilterSessionCommand.DETAILS.getUsage()));
         }
 
         return new FilterSessionCommand(predicate);

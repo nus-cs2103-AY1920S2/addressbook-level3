@@ -43,7 +43,7 @@ public class SessionPredicate implements Predicate<Session> {
     }
 
     public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toUpperCase();
     }
 
     public Optional<String> getModuleCode() {
@@ -60,12 +60,12 @@ public class SessionPredicate implements Predicate<Session> {
 
     @Override
     public boolean test(Session session) {
-        boolean matchDate = getDate().isEmpty() || session.getDate().equals(date);
-        boolean matchModuleCode = getModuleCode().isEmpty() || session.getModuleCode().equals(moduleCode);
-        boolean matchSessionType = getSessionType().isEmpty() || session.getSessionType().equals(sessionType);
 
-        return matchDate && matchModuleCode && matchSessionType;
+        return session.getDate().equals(date)
+                || session.getModuleCode().equals(moduleCode)
+                || session.getSessionType().equals(sessionType);
     }
+
 
     @Override
     public boolean equals(Object other) {

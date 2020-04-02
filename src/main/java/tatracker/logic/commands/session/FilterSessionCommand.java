@@ -43,10 +43,21 @@ public class FilterSessionCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredSessionList(predicate);
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, "FIXED"), // TODO: Change this message.
-                Action.FILTER_SESSION);
+        String returnMsg = "";
+
+        String sessionType = predicate.getSessionType().isPresent() ? predicate.getSessionType().get().toString() : "";
+        String date = predicate.getDate().isPresent() ? predicate.getDate().get().toString() : "";
+        String moduleCode = predicate.getModuleCode().isPresent() ? predicate.getModuleCode().get() : "";
+
+        if (!model.hasModule(moduleCode)) {
+            returnMsg += "\n" + String.format(MESSAGE_INVALID_MODULE_CODE);
+            model.updateFilteredSessionList(predicate);
+            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, sessionType + " " + date);
+        } else {
+            model.updateFilteredSessionList(predicate);
+            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
+        }
+        return new CommandResult( returnMsg, Action.FILTER_SESSION);
     }
 
     @Override
