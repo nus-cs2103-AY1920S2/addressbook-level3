@@ -51,7 +51,7 @@ public class HelpWindow extends UiPart<Stage> {
         root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
-                if(t.getCode()== KeyCode.ESCAPE) {
+                if (t.getCode() == KeyCode.ESCAPE) {
                     System.out.println("click on escape");
                     root.close();
                 }
