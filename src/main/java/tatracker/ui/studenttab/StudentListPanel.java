@@ -17,6 +17,10 @@ import tatracker.ui.UiPart;
  */
 public class StudentListPanel extends UiPart<Region> {
     private static final String FXML = "StudentListPanel.fxml";
+    private static final String BACKGROUND_COLOUR = "#5f4d42";
+    private static final String BORDER_COLOUR = "#917b3e";
+    private static final String BORDER_WIDTH = "1";
+
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
@@ -41,6 +45,9 @@ public class StudentListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
+                setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+                        + "-fx-border-color: " + BORDER_COLOUR + "; "
+                        + "-fx-border-width: " + BORDER_WIDTH + ";");
             }
         }
     }

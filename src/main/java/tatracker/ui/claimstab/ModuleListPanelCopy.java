@@ -20,8 +20,8 @@ import tatracker.ui.studenttab.ModuleCard;
  */
 public class ModuleListPanelCopy extends UiPart<Region> {
     private static final String FXML = "ModuleListPanelCopy.fxml";
-    private static final String BACKGROUND_COLOUR = "#424d5f";
-    private static final String BORDER_COLOUR = "#3e7b91";
+    private static final String BACKGROUND_COLOUR = "#5f4d42";
+    private static final String BORDER_COLOUR = "#917b3e";
     private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(ModuleListPanelCopy.class);
