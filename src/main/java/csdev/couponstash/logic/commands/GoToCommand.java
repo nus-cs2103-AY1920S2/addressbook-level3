@@ -2,6 +2,7 @@ package csdev.couponstash.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 
 
@@ -13,8 +14,9 @@ public class GoToCommand extends Command {
     public static final String COMMAND_WORD = "goto";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the specified Month Year on the Calendar. \n"
-            + "Parameters: Month Year in M-YYYY format\n"
-            + "Example: " + COMMAND_WORD + " 8-2020";
+            + "Parameters: \n"
+            + CliSyntax.PREFIX_MONTH_YEAR + "Month Year"
+            + "Example: " + COMMAND_WORD + CliSyntax.PREFIX_MONTH_YEAR + " 12-2020";
 
     public static final String MESSAGE_SUCCESS = "Showing Calendar on %s";
 
