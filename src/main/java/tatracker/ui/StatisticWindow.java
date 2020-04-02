@@ -79,7 +79,6 @@ public class StatisticWindow extends UiPart<Stage> {
         super(FXML, root);
 
         root.setHeight(logic.getGuiSettings().getWindowHeight());
-        root.setWidth(logic.getGuiSettings().getWindowWidth());
         if (logic.getGuiSettings().getWindowCoordinates() != null) {
             root.setX(logic.getGuiSettings().getWindowCoordinates().getX());
             root.setY(logic.getGuiSettings().getWindowCoordinates().getY());
