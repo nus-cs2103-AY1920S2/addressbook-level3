@@ -19,8 +19,6 @@ import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 import tatracker.model.student.Student;
 
 /**
@@ -45,13 +43,13 @@ public class AddStudentCommand extends Command {
 
     private final Student toAdd;
 
-    private final Group targetGroup;
-    private final Module targetModule;
+    private final String targetGroup;
+    private final String targetModule;
 
     /**
      * Creates an AddStudentCommand to add the specified {@code Student}
      */
-    public AddStudentCommand(Student student, Group group, Module module) {
+    public AddStudentCommand(Student student, String group, String module) {
         requireNonNull(student);
         requireNonNull(group);
         requireNonNull(module);
@@ -65,13 +63,13 @@ public class AddStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule.getIdentifier()));
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule));
         }
 
         if (!model.hasGroup(targetGroup, targetModule)) {
             throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT,
-                            targetModule.getIdentifier(),
-                            targetGroup.getIdentifier()));
+                            targetModule,
+                            targetGroup));
         }
 
         if (model.hasStudent(toAdd, targetGroup, targetModule)) {
@@ -80,8 +78,8 @@ public class AddStudentCommand extends Command {
 
         model.addStudent(toAdd, targetGroup, targetModule);
 
-        model.updateFilteredGroupList(targetModule.getIdentifier());
-        model.updateFilteredStudentList(targetGroup.getIdentifier(), targetModule.getIdentifier());
+        model.updateFilteredGroupList(targetModule);
+        model.updateFilteredStudentList(targetGroup, targetModule);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, targetModule, targetGroup), Action.GOTO_STUDENT);
     }

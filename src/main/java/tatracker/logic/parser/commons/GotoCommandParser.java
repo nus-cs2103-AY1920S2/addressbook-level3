@@ -1,10 +1,15 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.commons;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.stream.Stream;
 
-import tatracker.logic.commands.GotoCommand;
+import tatracker.logic.commands.commons.GotoCommand;
+import tatracker.logic.commands.commons.GotoCommand.Tab;
+import tatracker.logic.parser.ArgumentMultimap;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 
 
@@ -13,23 +18,18 @@ import tatracker.logic.parser.exceptions.ParseException;
  */
 public class GotoCommandParser implements Parser<GotoCommand> {
 
-
-
     /**
      * Parses the given {@code String} of arguments in the context of the GotoCommand
      * and returns a GotoCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public GotoCommand parse(String args) throws ParseException {
-
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-
-        if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE));
+        try {
+            Tab tabName = ParserUtil.parseTabName(args);
+            return new GotoCommand(tabName);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.DETAILS.getUsage()));
         }
-
-        String tabName = ParserUtil.parseTabName(argMultimap.getPreamble());
-        return new GotoCommand(tabName);
     }
 
     /**

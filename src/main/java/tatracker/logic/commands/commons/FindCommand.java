@@ -1,4 +1,4 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.KEYWORD;
@@ -7,7 +7,11 @@ import static tatracker.logic.parser.Prefixes.MORE_KEYWORDS;
 import java.util.List;
 
 import tatracker.commons.core.Messages;
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 

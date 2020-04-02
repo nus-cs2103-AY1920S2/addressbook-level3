@@ -1,10 +1,13 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.model.Model.PREDICATE_SHOW_ALL_SESSIONS;
 
 import java.util.List;
 
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.model.Model;
 

@@ -14,8 +14,6 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 import tatracker.model.student.Matric;
 
 /**
@@ -43,10 +41,7 @@ public class DeleteStudentCommandParser implements Parser<DeleteStudentCommand> 
         String groupCode = argMultimap.getValue(GROUP).get();
         String moduleCode = argMultimap.getValue(MODULE).get();
 
-        Group group = new Group(groupCode);
-        Module module = new Module(moduleCode);
-
-        return new DeleteStudentCommand(matric, group, module);
+        return new DeleteStudentCommand(matric, groupCode, moduleCode);
     }
 
     /**

@@ -8,7 +8,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.commands.FindCommand;
+import tatracker.logic.commands.commons.FindCommand;
+import tatracker.logic.parser.commons.FindCommandParser;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {

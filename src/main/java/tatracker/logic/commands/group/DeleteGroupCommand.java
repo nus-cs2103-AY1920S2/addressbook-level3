@@ -13,8 +13,6 @@ import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 
 /**
  * Deletes a group identified using it's group code.
@@ -34,12 +32,12 @@ public class DeleteGroupCommand extends Command {
     public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
 
-    private final Group group;
-    private final Module targetModule;
+    private final String group;
+    private final String targetModule;
 
-    public DeleteGroupCommand(Group group, Module module) {
-        this.group = group;
-        this.targetModule = module;
+    public DeleteGroupCommand(String groupCode, String moduleCode) {
+        this.group = groupCode;
+        this.targetModule = moduleCode;
     }
 
     @Override
@@ -50,18 +48,15 @@ public class DeleteGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Module actualModule = model.getModule(targetModule.getIdentifier());
-
-        if (!actualModule.hasGroup(group)) {
+        if (!model.hasGroup(group, targetModule)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
-        Group deletedGroup = actualModule.getGroup(group.getIdentifier());
-        actualModule.deleteGroup(deletedGroup);
+        model.deleteGroup(group, targetModule);
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, deletedGroup), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, group), Action.GOTO_STUDENT);
     }
 
     @Override

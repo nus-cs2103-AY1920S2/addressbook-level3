@@ -5,28 +5,29 @@ start
 
 :ArgumentMultimap is created;
 
-:The sort type is extracted from
-            the multimap;
+:The sort command word is extracted from
+                        the multimap;
 
-if() then ([something with\n prefix module is\n present])
-    :The module code is extracted
-            from the multimap;
+if() then ([The sort command word is 'all'])
+    :The sort type is extracted;
+    :A SortCommand object with
+    the given sort type as a
+     parameter is returned;
 
-if() then ([somthing with\n prefix group is\n present])
-    :The group code is extracted;
-    :SortGroupCommand with the parameters as
-    the group code and module code and type
-                            is returned;
+else if() then ([The sort command word is 'module'])
+    :The sort type and module code are extracted;
+    : A SortModuleCommand object
+     with the given module code
+     and sort type is returned;
 
-else ([else])
-    :SortModuleCommand with the parameters
-    as module code and type is returned;
+else if() then ([The sort command word is 'group'])
+    :The sort type, module code
+     and group code are extracted;
+    : A SortGroupCommand object
+     with the given group code,
+     module code and sort type
+                is returned;
 
-endif
-
-else ([else])
-    :SortCommand with the parameter type
-    is returned;
 
 endif
 

@@ -35,10 +35,10 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         }
 
         // No need to parse trimmed strings
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
         String name = argMultimap.getValue(NAME).get();
 
-        Module module = new Module(moduleCode.toUpperCase(), name);
+        Module module = new Module(moduleCode, name);
 
         return new AddModuleCommand(module);
     }

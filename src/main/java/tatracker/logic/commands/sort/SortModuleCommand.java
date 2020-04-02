@@ -30,48 +30,40 @@ public class SortModuleCommand extends SortCommand {
 
     public static final String MESSAGE_SUCCESS = "Module %s has been sorted.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    public static final String MESSAGE_INVALID_SORT = "The only sort types are alphabetical,"
-        + "by rating asc, by rating desc and matric.";
     public static final int FIRST_GROUP_INDEX = 0;
 
     private final String moduleCode;
-    private final String type;
 
-    public SortModuleCommand(String moduleCode, String type) {
+    public SortModuleCommand(SortType type, String moduleCode) {
         super(type);
         this.moduleCode = moduleCode;
-        this.type = type.toLowerCase();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode, "");
-
-        if (!model.hasModule(module)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        module = model.getModule(module.getIdentifier());
+        Module module = model.getModule(moduleCode);
 
         switch(type) {
-        case "alphabetically":
-        case "alpha":
-        case "alphabetical":
-            module.sortGroupsAlphabetically();
+        case ALPHABETIC:
+            model.sortModulesAlphabetically();
             break;
-        case "matric":
-            module.sortGroupsByMatricNumber();
+        case MATRIC:
+            model.sortModulesByMatricNumber();
             break;
-        case "rating asc":
-            module.sortGroupsByRatingAscending();
+        case RATING_ASC:
+            model.sortModulesByRatingAscending();
             break;
-        case "rating desc":
-            module.sortGroupsByRatingDescending();
+        case RATING_DESC:
+            model.sortModulesByRatingDescending();
             break;
         default:
-            throw new CommandException(MESSAGE_INVALID_SORT);
+            throw new CommandException(SortType.MESSAGE_CONSTRAINTS);
         }
 
         if (model.getFilteredModuleList().isEmpty()) {

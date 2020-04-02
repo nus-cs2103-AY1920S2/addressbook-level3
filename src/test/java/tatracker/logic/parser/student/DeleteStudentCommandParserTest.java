@@ -42,7 +42,7 @@ public class DeleteStudentCommandParserTest {
                 .append(GROUP_DESC_T04);
 
         assertParseSuccess(parser, command.toString(),
-                new DeleteStudentCommand(matric, group, module));
+                new DeleteStudentCommand(matric, group.getIdentifier(), module.getIdentifier()));
     }
 
     @Test

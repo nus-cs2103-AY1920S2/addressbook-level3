@@ -9,16 +9,14 @@ import org.junit.jupiter.api.Test;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubWithStudent;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 import tatracker.model.student.Student;
 import tatracker.testutil.StudentBuilder;
 
 public class AddStudentCommandTest {
 
     private Student testStudent = new StudentBuilder().build();
-    private Group testGroup = new Group("W17-4");
-    private Module testModule = new Module("CS2103T");
+    private String testGroup = "W17-4";
+    private String testModule = "CS2103T";
 
     @Test
     public void constructor_nullStudent_throwsNullPointerException() {

@@ -50,7 +50,7 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            argsList.add((ParserUtil.parseValue(argMultimap.getValue(MODULE).get())));
+            argsList.add((ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase())));
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
