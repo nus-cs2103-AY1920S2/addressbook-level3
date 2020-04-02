@@ -7,6 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -40,9 +41,12 @@ public class StudentCard extends UiPart<Region> {
   @FXML
   private FlowPane tags;
 
-  public StudentCard(Student student, int displayedIndex) {
+  private CommandBox commandBox;
+
+  public StudentCard(Student student, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.student = student;
+    this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
@@ -68,5 +72,12 @@ public class StudentCard extends UiPart<Region> {
     StudentCard card = (StudentCard) other;
     return studentID.getText().equals(card.studentID.getText())
         && student.equals(card.student);
+  }
+
+  @FXML
+  private void selectStudent(){
+    String selectedStudentID = studentID.getText();
+    String commandText = "select sid/" + selectedStudentID;
+    commandBox.runCommand(commandText);
   }
 }

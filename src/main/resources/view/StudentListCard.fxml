@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox id="cardPaneStudent" fx:id="cardPane" prefHeight="105.0" prefWidth="223.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneStudent" fx:id="cardPane" onMousePressed="#selectStudent" prefHeight="105.0" prefWidth="223.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT" spacing="5">

@@ -7,6 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -42,9 +43,12 @@ public class FinanceCard extends UiPart<Region> {
   @FXML
   private FlowPane tags;
 
-  public FinanceCard(Finance finance, int displayedIndex) {
+  private CommandBox commandBox;
+
+  public FinanceCard(Finance finance, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.finance = finance;
+    this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     name.setText(finance.getName().fullName);
     financeType.setText(finance.getFinanceType().toString());

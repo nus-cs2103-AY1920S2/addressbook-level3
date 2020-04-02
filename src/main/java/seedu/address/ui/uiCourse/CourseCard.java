@@ -2,7 +2,6 @@ package seedu.address.ui.uiCourse;
 
 import java.util.Comparator;
 import java.util.Set;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -10,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.ID;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -49,9 +49,12 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private FlowPane tags;
 
-  public CourseCard(Course course, int displayedIndex) {
+  private CommandBox commandBox;
+
+  public CourseCard(Course course, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.course = course;
+    this.commandBox = commandBox;
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
@@ -73,7 +76,6 @@ public class CourseCard extends UiPart<Region> {
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
-
   @Override
   public boolean equals(Object other) {
     // short circuit if same object
@@ -91,5 +93,12 @@ public class CourseCard extends UiPart<Region> {
     return courseID.getText().equals(card.courseID.getText())
         && amount.getText().equals(card.amount.getText())
         && course.equals(card.course);
+  }
+
+  @FXML
+  private void selectCourse(){
+    String selectedCourseID = courseID.getText();
+    String commandText = "select cid/" + selectedCourseID;
+    commandBox.runCommand(commandText);
   }
 }

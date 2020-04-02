@@ -153,11 +153,11 @@ public class MainWindow extends UiPart<Stage> {
     CommandBox commandBox = new CommandBox(this::executeCommand);
     commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-    studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-    staffListPanel = new StaffListPanel(logic.getFilteredStaffList());
-    courseListPanel = new CourseListPanel(logic.getFilteredCourseList());
-    financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
-    assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+    studentListPanel = new StudentListPanel(logic.getFilteredStudentList(), commandBox);
+    staffListPanel = new StaffListPanel(logic.getFilteredStaffList(), commandBox);
+    courseListPanel = new CourseListPanel(logic.getFilteredCourseList(), commandBox);
+    financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList(), commandBox);
+    assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(courseListPanel.getRoot());
@@ -315,4 +315,5 @@ public class MainWindow extends UiPart<Stage> {
       throw e;
     }
   }
+
 }

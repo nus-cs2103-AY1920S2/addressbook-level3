@@ -7,6 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -48,9 +49,12 @@ public class StaffCard extends UiPart<Region> {
   @FXML
   private FlowPane tags;
 
-  public StaffCard(Staff staff, int displayedIndex) {
+  private CommandBox commandBox;
+
+  public StaffCard(Staff staff, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.staff = staff;
+    this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     staffID.setText(staff.getId().value);
     name.setText(staff.getName().fullName);
@@ -80,5 +84,12 @@ public class StaffCard extends UiPart<Region> {
     StaffCard card = (StaffCard) other;
     return id.getText().equals(card.id.getText())
         && staff.equals(card.staff);
+  }
+
+  @FXML
+  private void selectStaff(){
+    String selectedStaffID = staffID.getText();
+    String commandText = "select tid/" + selectedStaffID;
+    commandBox.runCommand(commandText);
   }
 }

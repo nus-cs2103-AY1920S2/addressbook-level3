@@ -143,14 +143,26 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #75AA68, #73CE91);
 }
 
-.list-cell:filled:selected {
+.list-cell:filled:selected #cardPaneCourse{
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
+.list-cell:filled:selected #cardPaneStudent{
+    -fx-background-color: #424d5f;
 }
+
+.list-cell:filled:selected #cardPaneStaff{
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #cardPaneAssignment{
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #cardPaneFinance{
+    -fx-background-color: #424d5f;
+}
+
 
 .list-cell .label {
     -fx-text-fill: white;

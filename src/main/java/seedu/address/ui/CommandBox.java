@@ -42,6 +42,17 @@ public class CommandBox extends UiPart<Region> {
   }
 
   /**
+   * Handles custom command from user clicks
+   */
+  public void runCommand(String commandText) {
+    try {
+      commandExecutor.execute(commandText);
+    } catch (CommandException | ParseException e) {
+      setStyleToIndicateCommandFailure();
+    }
+  }
+
+  /**
    * Sets the command box style to use the default style.
    */
   private void setStyleToDefault() {
