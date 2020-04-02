@@ -10,6 +10,7 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
+import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.DoneSessionPredicate;
 
@@ -29,7 +30,7 @@ public class FilterClaimCommand extends Command {
     );
 
     public static final String MESSAGE_SUCCESS = "Filtered claim List: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no sessions with the given module code.";
+    public static final String MESSAGE_INVALID_MODULE_CODE = "Module Code does not exists.";
 
     private final DoneSessionPredicate predicate;
 
@@ -38,14 +39,18 @@ public class FilterClaimCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String module = predicate.getModuleCode();
+        if (!model.hasModule(module)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_CODE));
+        }
         model.setCurrClaimFilter("Module: " + module);
         model.updateFilteredDoneSessionList(predicate, module);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, module),
-                Action.FILTER_CLAIMS);
+                    String.format(MESSAGE_SUCCESS, module),
+                    Action.FILTER_CLAIMS);
+
     }
 
     @Override
