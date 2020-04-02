@@ -45,6 +45,18 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
+  public Staff(Name name, ID id, Level level, Set<Tag> tags){
+    requireAllNonNull(name, id, level, tags);
+    this.name = name;
+    this.id = id;
+    this.phone = new Phone("Unknown");
+    this.email = new Email("Unknown");
+    this.level = level;
+    this.salary = new Salary("0");
+    this.address = new Address("Unknown");
+    this.tags.addAll(tags);
+  }
+
   public Staff(Name name, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) throws ParseException {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;

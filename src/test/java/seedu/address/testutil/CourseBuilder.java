@@ -44,7 +44,7 @@ public class CourseBuilder {
         name = courseToCopy.getName();
         id = courseToCopy.getId();
         amount = courseToCopy.getAmount();
-        assignedTeacher = courseToCopy.getAssignedTeacherID();
+        assignedTeacher = courseToCopy.getAssignedStaffID();
         assignedStudents = courseToCopy.getAssignedStudentsID();
         assignedAssignments = courseToCopy.getAssignedAssignmentsID();
         tags = new HashSet<>(courseToCopy.getTags());
