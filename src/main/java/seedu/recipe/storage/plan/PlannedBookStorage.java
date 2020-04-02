@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.recipe.commons.exceptions.DataConversionException;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.model.ReadOnlyPlannedBook;
 
 /**
  * Represents a storage for {@link seedu.recipe.model.plan.PlannedBook}.

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**

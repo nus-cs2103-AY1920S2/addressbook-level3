@@ -12,7 +12,7 @@ import seedu.recipe.commons.exceptions.DataConversionException;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.commons.util.FileUtil;
 import seedu.recipe.commons.util.JsonUtil;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.model.ReadOnlyPlannedBook;
 
 /**
  * A class to access PlannedBook data stored as a json file on the hard disk.

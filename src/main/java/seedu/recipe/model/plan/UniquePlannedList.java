@@ -24,8 +24,6 @@ public class UniquePlannedList {
     private ObservableList<PlannedRecipe> unmodifiableObservableList = FXCollections
             .unmodifiableObservableList(observableList);
 
-    // todo: check duplicate if it is, throw exception.
-
     /**
      * Replaces the contents of this map with {@code plannedRecipes}.
      * {@code plannedRecipes} must not contain duplicate recipes on the same date.

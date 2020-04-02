@@ -24,7 +24,7 @@ import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.util.SampleDataUtil;
 import seedu.recipe.storage.CookedRecordBookStorage;
 import seedu.recipe.storage.JsonCookedRecordBookStorage;

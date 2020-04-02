@@ -9,7 +9,6 @@ import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -173,7 +172,7 @@ public interface Model {
     /**
      * Updates the filtered planned list to be filtered using the {@code predicate}. //todo: throw exception
      */
-    void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
+    void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) throws NullPointerException;
 
     //updateAndFillPlannedList //todo: implement for weekly view
 

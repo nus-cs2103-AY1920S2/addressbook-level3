@@ -1,9 +1,10 @@
-package seedu.recipe.model.plan;
+package seedu.recipe.model;
 
 import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
