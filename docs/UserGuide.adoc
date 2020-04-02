@@ -274,6 +274,26 @@ Examples:
 * `(rt)addnote 5 r/chicken chop a/truffle fries b/risotto` +
 Adds a notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
+==== Change visited status of restaurant: `(rt)visited`
+
+Updates visited status of restaurant to visited +
+Format: `(rt)visited INDEX`
+
+Examples:
+
+* `(rt)visited 3` +
+Updated visited status of restaurant at index 3 to visited.
+
+==== List all restaurants: `(rt)list`
+
+Lists all restaurants +
+Format: `(rt)list`
+
+Examples:
+
+* `(rt)list` +
+Lists all restaurants.
+
 ==== [Coming Soon] Search: `(rt)search`
 
 Search for restaurants based on a number of criteria. +
