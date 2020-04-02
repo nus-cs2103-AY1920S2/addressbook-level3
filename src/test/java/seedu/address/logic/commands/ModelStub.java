@@ -199,6 +199,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasClashingEvent(Event toAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void sortEvent(Comparator<Event> comparator) {
         throw new AssertionError("This method should not be called.");
     }
