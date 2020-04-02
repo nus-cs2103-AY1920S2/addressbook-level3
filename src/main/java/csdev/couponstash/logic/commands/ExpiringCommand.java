@@ -22,10 +22,10 @@ public class ExpiringCommand extends Command {
     public static final String COMMAND_WORD = "expiring";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all coupons whose expiry date is "
             + "the specified expiry date (in D-M-YYYY format) or in the specified Month Year (in M-YYYY format) "
-            + "and displays them as a list with index numbers.\n"
+            + "and displays them as a list with index numbers.\n\n"
             + "Parameters: "
             + CliSyntax.PREFIX_EXPIRY_DATE + "EXPIRY_DATE or "
-            + CliSyntax.PREFIX_MONTH_YEAR + "MONTH_YEAR"
+            + CliSyntax.PREFIX_MONTH_YEAR + "MONTH_YEAR\n\n"
             + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_EXPIRY_DATE + "31-12-2020 or " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_MONTH_YEAR + "12-2020";
 
@@ -61,16 +61,14 @@ public class ExpiringCommand extends Command {
         if (filteredListSize > 0) {
             if (DateUtil.isValidDate(date)) {
                 model.updateMonthView(DateUtil.formatDateStringToYearMonthString(date));
-                return new CommandResult(
-                        String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, filteredListSize)
-                                + " " + String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE, date));
+                return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE,
+                        filteredListSize, date));
             } else {
                 model.updateMonthView(date);
-                return new CommandResult(
-                        String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, filteredListSize)
-                                + " " + String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH, date));
+                return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH,
+                        filteredListSize, date));
             }
-        } else { //Empty list
+        } else { // Empty list
             model.updateMonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
             return new CommandResult(String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, date));
         }

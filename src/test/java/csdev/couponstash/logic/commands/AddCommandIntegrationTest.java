@@ -33,7 +33,7 @@ public class AddCommandIntegrationTest {
         expectedModel.addCoupon(validCoupon, "");
 
         assertCommandSuccess(new AddCommand(validCoupon), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validCoupon), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS, validCoupon.getName()), expectedModel);
     }
 
     @Test

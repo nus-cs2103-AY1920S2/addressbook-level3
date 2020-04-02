@@ -19,18 +19,15 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the coupons in CouponStash. "
-            + "It is possible to sort by coupon name or expiry date. "
-            + "The order will persist throughout the runtime of the program. "
-            + "The command will sort any coupons currently on screen, including archived ones, if "
-            + "they are present on screen.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the on screen coupons in CouponStash "
+            + "by coupon name or expiry date. For example, sorting after finding "
+            + "will sort all the found coupons, including archived ones if the are present on screen. "
+            + "The order will persist throughout the runtime of the program.\n\n"
             + "Parameters: "
-            + "The field you want to sort by, either "
-            + PREFIX_NAME + " or " + PREFIX_EXPIRY_DATE + "\n"
-            + "Examples:\n" + COMMAND_WORD + " "
-            + PREFIX_NAME + " (sort by name)\n"
-            + COMMAND_WORD + " "
-            + PREFIX_EXPIRY_DATE + " (sort by expiry date)\n";
+            + PREFIX_NAME + " or " + PREFIX_EXPIRY_DATE + "\n\n"
+            + "Examples:\n"
+            + COMMAND_WORD + " " + PREFIX_NAME + " (sort by name)"
+            + COMMAND_WORD + " " + PREFIX_EXPIRY_DATE + " (sort by expiry date)";
 
     public static final String MESSAGE_SUCCESS = "Successfully sorted by %s";
 
