@@ -76,6 +76,18 @@ public interface Model {
      */
     void setDefaultStudentViewList();
 
+    // ======== Filter Methods ================================================
+
+    /**
+     *Sets the currently used filter under Claim View.
+     */
+    void setCurrClaimFilter(String module);
+
+    /**
+     * Get the currently used filter under Claim View.
+     */
+    String getCurrClaimFilter();
+
     // ======== Session Methods ================================================
 
     /**

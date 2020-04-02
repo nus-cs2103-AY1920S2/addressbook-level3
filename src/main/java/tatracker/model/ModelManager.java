@@ -121,6 +121,18 @@ public class ModelManager implements Model {
         }
     }
 
+    // ======== Filter Methods ==============================================
+    @Override
+    public void setCurrClaimFilter(String module) {
+        requireAllNonNull(module);
+        taTracker.setCurrClaimFilter(module);
+    }
+
+    @Override
+    public String getCurrClaimFilter() {
+        return taTracker.getCurrClaimFilter();
+    }
+
     // ======== Session Methods ================================================
 
     @Override

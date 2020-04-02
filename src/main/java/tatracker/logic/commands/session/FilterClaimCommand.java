@@ -41,6 +41,7 @@ public class FilterClaimCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String module = predicate.getModuleCode();
+        model.setCurrClaimFilter("Module: " + module);
         model.updateFilteredDoneSessionList(predicate, module);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, module),

@@ -32,12 +32,14 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static Module currentlyShownModuleClaim;
     private static long totalHours;
     private static int rate;
+    private static String currClaimFilter;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
+
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -50,6 +52,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownModuleClaim = null;
         totalHours = 0;
         rate = 40;
+        currClaimFilter = "";
     }
 
     /**
@@ -71,6 +74,23 @@ public class TaTracker implements ReadOnlyTaTracker {
         setModules(newData.getModuleList());
         setCurrentlyShownGroups(newData.getCurrentlyShownGroupList());
         setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
+    }
+
+    // ======== Filter Methods ================================================
+
+    /**
+     *Sets the currently used filter under Claim View.
+     */
+    public void setCurrClaimFilter(String module) {
+        requireNonNull(module);
+        currClaimFilter = module;
+    }
+
+    /**
+     * Get the currently used filter under Claim View.
+     */
+    public String getCurrClaimFilter() {
+        return currClaimFilter;
     }
 
     // ======== Session Methods ================================================
