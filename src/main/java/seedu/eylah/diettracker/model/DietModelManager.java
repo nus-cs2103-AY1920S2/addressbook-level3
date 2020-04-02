@@ -13,6 +13,7 @@ import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.model.ModelManager;
 import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.commons.model.UserPrefs;
+import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Self;
@@ -94,21 +95,39 @@ public class DietModelManager extends ModelManager implements DietModel {
 
     @Override
     public void listFoods(String mode) {
+        Calories calorieCount = new Calories(0);
         StringBuilder result = new StringBuilder();
-        if (mode == null || mode.equals("")) {
-            result.append("These are all food that you have consumed for today!\n\n");
-        } else if (mode.equals("-d")) {
-            result.append("These are the food consumed for the given number of days!\n\n");
-        } else if (mode.equals("-t")) {
-            result.append("These are all the food consumed of the given tag!\n\n");
-        } else { // "-a"
-            result.append("These are all food you have ever consumed!\n\n");
+
+        if (filteredFoods.isEmpty()) {
+            if (mode == null || mode.equals("")) {
+                result.append("List is empty for today! Add a -a flag to access your entire diet history.\n");
+            } else if (mode.equals("-t")) {
+                result.append("List is empty for the given tag!\n");
+            } else if (mode.equals("-d")) {
+                result.append("List is empty for the given time period!\n");
+            } else {
+                result.append("You have no food in your entire diet history!\n");
+            }
+        } else {
+            if (mode == null || mode.equals("")) {
+                result.append("These are all food that you have consumed for today!\n\n");
+            } else if (mode.equals("-d")) {
+                result.append("These are the food consumed for the given number of days!\n\n");
+            } else if (mode.equals("-t")) {
+                result.append("These are all the food consumed of the given tag!\n\n");
+            } else { // "-a"
+                result.append("These are all food you have ever consumed!\n\n");
+            }
         }
+
         int count = 1;
         for (Food food: filteredFoods) {
+            calorieCount = calorieCount.add(food.getCalories());
             result.append(count + ". " + food.toString() + "\n");
             count++;
         }
+        result.append("\nTotal Calorie Intake : " + calorieCount + "\n");
+
         System.out.println(result.toString());
     }
 
