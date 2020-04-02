@@ -130,7 +130,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Offer` list in `Address Book`, which `Supplier` can reference. This would allow `Address Book` to only require one `Offer` object per unique `Offer`, instead of each `Supplier` needing their own `Offer` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:SupplierModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component

@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+ModelManager -->"1" Transaction : filtered list
+TransactionHistory *-right-> "1" UniqueTransactionList
+
+UniqueTransactionList o-right-> Transaction
+
+Transaction *-right->Id
+Transaction o-->Good
+Transaction o-->Quantity
+
+SellTransaction -up-|> Transaction
+BuyTransaction -up-|> Transaction
+
+SellTransaction -[hidden]left- BuyTransaction
+
+BuyTransaction o--> Supplier
+SellTransaction o--> Price
+
+@enduml
