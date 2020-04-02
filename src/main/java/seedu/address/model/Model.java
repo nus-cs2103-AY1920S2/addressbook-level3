@@ -70,14 +70,10 @@ public interface Model {
 
     ReadOnlyPet getPet();
 
+    PetManager getPetManager();
+
     void setPetName(String name);
-
-    void incrementExp();
-
-    void incrementPomExp();
-
-    void updateMoodWhenDone();
-
+    
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);

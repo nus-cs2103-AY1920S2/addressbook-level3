@@ -157,9 +157,10 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        petManager.updateMoodWhenLogIn();
         petDisplay = new PetDisplay();
         petManager.setMainWindow(this);
+        petManager.updateMoodWhenLogIn();
+        petManager.updateDisplayElements();
         updatePetDisplay();
         petPlaceholder.getChildren().add(petDisplay.getRoot());
 
@@ -346,7 +347,6 @@ public class MainWindow extends UiPart<Stage> {
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
-                    // logic.incrementPomExp();
                     return commandResult;
                     // Continue to next prompt from break-timer
                 } else if (commandText.toLowerCase().equals("n")) {
@@ -358,7 +358,6 @@ public class MainWindow extends UiPart<Stage> {
                                     false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.checkBreakActions();
-                    // logic.incrementPomExp();
                     return commandResult;
                 } else {
                     throw new ParseException(

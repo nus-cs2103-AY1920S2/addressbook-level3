@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -76,8 +77,10 @@ public class DoneCommand extends Command {
                 updateStatisticsRegularDone(model);
             }
             // increment Pet EXP after completing a task
-            model.incrementExp();
-            model.updateMoodWhenDone();
+
+            PetManager petManager = model.getPetManager();
+            petManager.incrementExp();
+            petManager.updateMoodWhenDone();
         }
 
         // The last task to show is the pommed task

@@ -38,10 +38,10 @@ public class PetManager {
                     public void run() {
                         changeToHangry();
                         updateDisplayElements();
+                        mainWindow.updatePetDisplay();
                     }
                 };
         this.hasStarted = false;
-        updateDisplayElements();
     }
 
     public void setPet(Pet pet) {
@@ -91,12 +91,28 @@ public class PetManager {
         }
     }
 
-    public void updateMoodWhenTaskDone() {
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
+    }
+
+    public void incrementExp() {
+        this.pet.incrementExp();
+    }
+
+    public void updateMoodWhenDone() {
         if (hasStarted) {
             // secondTimer.cancel();
             timer.cancel();
-            timer = new Timer();
         }
+        timer = new Timer();
+        this.timerTask =
+                new TimerTask() {
+                    public void run() {
+                        changeToHangry();
+                        updateDisplayElements();
+                        mainWindow.updatePetDisplay();
+                    }
+                };
         lastDoneTaskTime = LocalDateTime.now();
         pet.setLastDoneTaskTime(lastDoneTaskTime.toString());
         // For ACTUAL
@@ -142,7 +158,6 @@ public class PetManager {
 
     public void updateDisplayElements() {
 
-        System.out.println(this.pet);
         int exp = Integer.parseInt(pet.getExp());
         int expBarInt = exp % 100;
         expBarText = String.format("%d XP / 100 XP", expBarInt);
@@ -218,9 +233,6 @@ public class PetManager {
                 expBarImage = Paths.get("images", "pet", "ProgressBar0%.png");
                 break;
         }
-
-        
-        mainWindow.updatePetDisplay();
     }
 
 

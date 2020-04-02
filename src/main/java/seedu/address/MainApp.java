@@ -91,9 +91,9 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         pomodoro = new PomodoroManager();
-
-        petManager = new PetManager();
-
+        
+        PetManager petManager = new PetManager();
+        
         model.setPomodoroManager(pomodoro);
 
         model.setPetManager(petManager);

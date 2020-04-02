@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.PetManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Pet;
@@ -52,6 +53,9 @@ public class DoneCommandTest {
                         new Pomodoro(),
                         new Statistics(),
                         new UserPrefs());
+        PetManager petManager = new PetManager();
+        expectedModel.setPetManager(petManager);
+
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
 
@@ -85,6 +89,10 @@ public class DoneCommandTest {
                         new Pomodoro(),
                         new Statistics(),
                         new UserPrefs());
+
+        PetManager petManager = new PetManager();
+        expectedModel.setPetManager(petManager);
+        
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
 

@@ -143,7 +143,11 @@ public class PomodoroManager {
                 event -> {
                     this.setPromptState(PROMPT_STATE.CHECK_DONE);
                     resultDisplay.setFeedbackToUser(CHECK_DONE_MESSAGE);
-                    model.incrementPomExp();
+                    
+                    PetManager petManager = model.getPetManager();
+                    petManager.incrementPomExp();
+                    mainWindow.updatePetDisplay();
+                    
                     mainWindow.setPomCommandExecutor();
                     mainWindow.setTabFocusTasks();
                     model.setPomodoroTask(null);

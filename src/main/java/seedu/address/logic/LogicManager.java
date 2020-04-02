@@ -95,11 +95,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void incrementPomExp() {
-        model.incrementPomExp();
-    }
-
-    @Override
     public ObservableList<DayData> getCustomQueue() {
         return model.getStatistics().getCustomQueue();
     }
