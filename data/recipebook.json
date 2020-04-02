@@ -123,7 +123,7 @@
   }, {
     "name" : "testest",
     "time" : "15",
-    "isFavourite" : false,
+    "isFavourite" : true,
     "grains" : [ "50.0g,  grain", "30.0g,  rice" ],
     "vegetables" : [ ],
     "proteins" : [ ],

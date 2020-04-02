@@ -122,12 +122,13 @@ public class ModelManager implements Model {
     @Override
     public void favouriteRecipe(Recipe target) {
         recipeBook.favouriteRecipe(target);
-        //plannedBook.favouriteRecipe(target);
+        plannedBook.favouriteRecipe(target);
     }
 
     @Override
     public void unfavouriteRecipe(Recipe target) {
         recipeBook.unfavouriteRecipe(target);
+        plannedBook.unfavouriteRecipe(target);
     }
 
     @Override
