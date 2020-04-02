@@ -42,7 +42,6 @@ public class CookedListPanel extends UiPart<Region> {
         pieChart.setData(pieChartData);
     }
 
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordCard}.
      */
