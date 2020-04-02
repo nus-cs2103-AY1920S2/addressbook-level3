@@ -135,7 +135,12 @@ public class SummaryPane extends UiPart<Region> {
     private void addToSaveables(PureMonetarySavings savingsSum) {
         savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList
                 .forEach(sva -> {
-                    Label label = new Label(sva.getValue());
+                    Label label = new Label();
+                    if (sva.getCount() == 1) {
+                        label.setText(sva.getValue());
+                    } else {
+                        label.setText(sva.toString());
+                    }
                     // ensure that label has correct styles
                     label.getStyleClass().add(SummaryPane.SAVEABLE_LABEL_CLASS);
                     allSaveables.getChildren().add(label);
