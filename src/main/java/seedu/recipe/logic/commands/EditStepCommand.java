@@ -37,6 +37,7 @@ public class EditStepCommand extends Command {
     private final Index index;
     private final int stepNumber;
     private final Step editedStep;
+    private final CommandType commandType;
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
@@ -47,6 +48,7 @@ public class EditStepCommand extends Command {
         this.index = index;
         this.stepNumber = stepNumber;
         this.editedStep = editedStep;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class EditStepCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.setRecipeInPlans(recipeToEdit, editedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
 
         return new CommandResult(
                 String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1, recipeToEdit.getName().toString()));

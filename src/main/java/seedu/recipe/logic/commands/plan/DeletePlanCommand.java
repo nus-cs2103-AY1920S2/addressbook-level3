@@ -10,6 +10,7 @@ import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
+import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
@@ -37,6 +38,7 @@ public class DeletePlanCommand extends Command {
     private final Index plannedIndex;
     private final Date atDate;
     private final Tab planTab = Tab.PLANNING;
+    private final CommandType commandType;
 
     /**
      * Creates an DeletePlanCommand to delete the specified planned recipe on {@code date} at {@code index}.
@@ -45,7 +47,8 @@ public class DeletePlanCommand extends Command {
         requireNonNull(plannedIndex);
         requireNonNull(date);
         this.plannedIndex = plannedIndex;
-        atDate = date;
+        this.commandType = CommandType.PLAN;
+        this.atDate = date;
     }
 
     @Override
@@ -68,7 +71,7 @@ public class DeletePlanCommand extends Command {
         Recipe recipeToDelete = recipesAtPlannedDate.get(plannedIndex.getZeroBased());
         model.deleteRecipeFromOnePlan(recipeToDelete, plannedRecipeToEdit);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToDelete, plannedIndex.getOneBased()),
                 false, planTab, false);

@@ -46,6 +46,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";
 
     private final Recipe toAdd;
+    private final CommandType commandType;
 
     /**
      * Creates an AddCommand to add the specified {@code Recipe}
@@ -53,6 +54,7 @@ public class AddCommand extends Command {
     public AddCommand(Recipe recipe) {
         requireNonNull(recipe);
         this.toAdd = recipe;
+        this.commandType = CommandType.MAIN_LONE;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class AddCommand extends Command {
         }
 
         model.addRecipe(toAdd);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

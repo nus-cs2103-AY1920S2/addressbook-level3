@@ -25,9 +25,11 @@ public class FavouriteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Index[] targetIndex;
+    private final CommandType commandType;
 
     public FavouriteCommand(Index[] targetIndex) {
         this.targetIndex = targetIndex;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class FavouriteCommand extends Command {
         sb.append(" to favourites!");
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
         return new CommandResult(sb.toString());
     }
 
