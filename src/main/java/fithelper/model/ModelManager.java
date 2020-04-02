@@ -17,6 +17,7 @@ import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.SortBy;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
@@ -535,5 +536,18 @@ public class ModelManager implements Model {
             }
             return last;
         }
+    }
+
+    public void sortFilteredFoodEntryList(SortBy sortBy) {
+
+    }
+
+    public void sortFilteredSportEntryList(SortBy sortBy) {
+
+    }
+
+    public void sortFilteredEntryList(SortBy sortBy) {
+        sortFilteredFoodEntryList(sortBy);
+        sortFilteredSportEntryList(sortBy);
     }
 }

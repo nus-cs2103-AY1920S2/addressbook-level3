@@ -15,8 +15,8 @@ import fithelper.model.entry.Type;
  */
 public class CheckCommand extends Command {
     public static final String COMMAND_WORD = "check";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": search for calorie intake/consumption "
-            + "of a food/sports from pre-defined dataset.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for calorie intake/consumption "
+            + "of common food/sports from pre-set database using keywords.\n"
             + "Parameters: " + PREFIX_TYPE + "TYPE" + PREFIX_KEYWORD + "KEYWORD";
 
     private static final String MESSAGE_SUCCESS = "Matching reference data:\n";

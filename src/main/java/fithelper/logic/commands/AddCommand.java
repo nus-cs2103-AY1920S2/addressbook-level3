@@ -31,15 +31,15 @@ public class AddCommand extends Command {
             + PREFIX_TIME + "TIME "
             + PREFIX_LOCATION + "LOCATION "
             + PREFIX_CALORIE + "CALORIE "
-            + "[" + PREFIX_DURATION + "DURATION "
+            + "[" + PREFIX_DURATION + "DURATION] "
             + "[" + PREFIX_REMARK + "REMARK]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "food"
-            + PREFIX_NAME + "noodles"
-            + PREFIX_TIME + "2020-03-01 15:30"
-            + PREFIX_LOCATION + "Utown canteen"
-            + PREFIX_CALORIE + "100.5"
-            + PREFIX_REMARK + "too expensive"
+            + PREFIX_TYPE + "food "
+            + PREFIX_NAME + "noodles "
+            + PREFIX_TIME + "2020-03-01 15:30 "
+            + PREFIX_LOCATION + "Utown canteen "
+            + PREFIX_CALORIE + "100 "
+            + PREFIX_REMARK + "too expensive "
             + PREFIX_DURATION + "1";
 
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";

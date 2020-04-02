@@ -20,9 +20,9 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all entries whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: "
-            + PREFIX_TYPE + "TYPE (optional) "
-            + PREFIX_KEYWORD + "[keyword list]"
+            + "Parameters: ["
+            + PREFIX_TYPE + "TYPE] "
+            + PREFIX_KEYWORD + "[keyword list]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "sports "
             + PREFIX_KEYWORD + "noodles ";
@@ -51,7 +51,7 @@ public class FindCommand extends Command {
                     + " "
                     + String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW, model.getFilteredSportsEntryList().size());
         } else {
-            if (this.findType.value.equalsIgnoreCase("food")) {
+            if (this.findType.getValue().equalsIgnoreCase("food")) {
                 model.updateFilteredFoodEntryList(predicate);
                 model.updateFilteredSportEntryList(vaguePredicate);
                 feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW,

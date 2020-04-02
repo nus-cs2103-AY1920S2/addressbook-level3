@@ -12,6 +12,7 @@ import fithelper.model.entry.Duration;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Remark;
+import fithelper.model.entry.SortBy;
 import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
@@ -55,6 +56,15 @@ public class ParserUtil {
             throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
         return new Type(trimmedType);
+    }
+
+    public static SortBy parseSortBy(String sortBy) throws ParseException {
+        requireNonNull(sortBy);
+        String trimmed = sortBy.trim();
+        if (!SortBy.isValidCategory(trimmed)) {
+            throw new ParseException(SortBy.MESSAGE_CONSTRAINTS);
+        }
+        return new SortBy(trimmed);
     }
 
     /**
@@ -293,5 +303,4 @@ public class ParserUtil {
         }
         return new WeightValue(trimmedWeightValue);
     }
-
 }
