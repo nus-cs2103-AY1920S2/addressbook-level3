@@ -33,7 +33,7 @@ public class SavedCommand extends Command {
             + "Parameters: "
             + "[" + CliSyntax.PREFIX_DATE + "DATE] "
             + "[" + CliSyntax.PREFIX_START_DATE + "START_DATE "
-            + CliSyntax.PREFIX_EXPIRY_DATE + "END_DATE] "
+            + CliSyntax.PREFIX_EXPIRY_DATE + "END_DATE]\n"
             + "Example: " + COMMAND_WORD + " 17-6-2020 ";
     public static final String MESSAGE_FUTURE_DATE = "Savings cannot be"
             + " shown for future dates!";

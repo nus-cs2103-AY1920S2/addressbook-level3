@@ -12,6 +12,9 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "CouponStash has been cleared!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Clears all entries from the coupon stash.\n"
+            + "Example: " + COMMAND_WORD;
 
 
     @Override

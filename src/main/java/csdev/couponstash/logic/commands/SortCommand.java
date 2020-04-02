@@ -23,11 +23,11 @@ public class SortCommand extends Command {
             + "It is possible to sort by coupon name or expiry date. "
             + "The order will persist throughout the runtime of the program. "
             + "The command will sort any coupons currently on screen, including archived ones, if "
-            + "they are present on screen. \n"
+            + "they are present on screen.\n"
             + "Parameters: "
             + "The field you want to sort by, either "
             + PREFIX_NAME + " or " + PREFIX_EXPIRY_DATE + "\n"
-            + "Examples: \n" + COMMAND_WORD + " "
+            + "Examples:\n" + COMMAND_WORD + " "
             + PREFIX_NAME + " (sort by name)\n"
             + COMMAND_WORD + " "
             + PREFIX_EXPIRY_DATE + " (sort by expiry date)\n";
