@@ -1,10 +1,16 @@
 @startuml
-(*)  -> "check input"
-If "input is verbose" then
---> [Yes] "turn on verbosity"
---> "run command"
-else
---> "run command"
-Endif
--->(*)
+start
+
+:User executes filter command;
+:FilterCommandParsers parses arguments;
+
+
+if () then ([Syntax error])
+    :Show Usage Message;
+else ([Correct input])
+    :Create new FilterCommand object;
+    :Show filtered list of transactions;
+endif
+
+stop
 @enduml
