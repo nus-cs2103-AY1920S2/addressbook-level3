@@ -65,7 +65,7 @@ public class ActivityCard extends UiPart<Region> {
             labelForCircle.setText("D");
             dateline.setText(deadline.getDueDate().toString());
             int urgent = deadline.getDifferenceInDate();
-            if (urgent > 5 ) {
+            if (urgent > 5) {
                 circle.setFill(Color.GREEN);
             } else if (urgent > 3) {
                 circle.setFill(Color.YELLOW);
