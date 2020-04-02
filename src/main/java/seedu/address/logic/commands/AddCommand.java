@@ -161,6 +161,7 @@ public class AddCommand extends Command {
             profile.addModule(addSemester, moduleToAdd);
             messageShown = MESSAGE_ADD_SUCCESS;
             profileManager.setDisplayedView(profile);
+            profile.updateCap();
             return new CommandResult(String.format(messageShown, toAdd), true);
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;

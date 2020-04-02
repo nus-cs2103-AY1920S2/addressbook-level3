@@ -6,6 +6,7 @@ import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
+import seedu.address.model.profile.Profile;
 
 /**
  * Clears the address book.
@@ -25,6 +26,7 @@ public class ClearCommand extends Command {
 
         profileManager.setProfileList(new ProfileList());
         profileManager.clearDeadlineList();
-        return new CommandResult(MESSAGE_SUCCESS, false);
+        profileManager.setDisplayedView((Profile) null);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 }
