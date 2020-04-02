@@ -122,8 +122,7 @@ public class HelpCommand extends Command {
         }
 
         if (type < 0) {
-            return new CommandResult(MESSAGE, true, false, false, false,
-                    false, false, false, false);
+            throw new CommandException(MESSAGE_INVALID_INDEX);
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"
