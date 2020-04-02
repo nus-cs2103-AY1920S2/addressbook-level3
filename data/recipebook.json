@@ -124,12 +124,12 @@
     "name" : "testest",
     "time" : "15",
     "isFavourite" : false,
-    "grains" : [ "50.0g,  grain" ],
-    "vegetables" : [ "30.0g,  vege" ],
+    "grains" : [ "50.0g,  grain", "30.0g,  rice" ],
+    "vegetables" : [ ],
     "proteins" : [ ],
-    "fruits" : [ ],
+    "fruits" : [ "50.0g,  fruit" ],
     "others" : [ ],
-    "steps" : [ ],
+    "steps" : [ "step 1", "edited step 2" ],
     "goals" : [ ]
   } ]
 }

@@ -123,13 +123,17 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Sets {@code target} to {@code editedRecipe} in the list and map.
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
-        List<PlannedDate> plans = new ArrayList<>(recipeMap.getPlans(target));
-        for (PlannedDate plan: plans) {
-            plannedDates.remove(plan);
-            PlannedDate newPlan = plan.setRecipe(target, editedRecipe);
-            plannedDates.add(newPlan);
+        if (recipeMap.contains(target)) {
+            List<PlannedDate> oldPlans = new ArrayList<>(recipeMap.getPlans(target));
+            List<PlannedDate> newPlans = new ArrayList<>();
+            for (PlannedDate plan : oldPlans) {
+                plannedDates.remove(plan);
+                PlannedDate newPlan = plan.setRecipe(target, editedRecipe);
+                newPlans.add(newPlan);
+                plannedDates.add(newPlan);
+            }
+            recipeMap.setRecipe(target, editedRecipe, newPlans);
         }
-        recipeMap.setRecipe(target, editedRecipe);
     }
 
 

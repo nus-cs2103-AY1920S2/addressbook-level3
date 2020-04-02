@@ -86,13 +86,12 @@ public class PlannedRecipeMap {
     }
 
     /**
-     * Changes the values at {@code target} key to the {@code editedRecipe} key.
+     * Removes the values at {@code target} key and places the updated values at the {@code editedRecipe} key.
      */
-    public void setRecipe(Recipe target, Recipe editedRecipe) {
+    public void setRecipe(Recipe target, Recipe editedRecipe, List<PlannedDate> newPlans) {
         if (internalMap.containsKey(target)) {
-            List<PlannedDate> plans = internalMap.get(target);
             internalMap.remove(target);
-            internalMap.put(editedRecipe, plans);
+            internalMap.put(editedRecipe, newPlans);
         }
     }
 
