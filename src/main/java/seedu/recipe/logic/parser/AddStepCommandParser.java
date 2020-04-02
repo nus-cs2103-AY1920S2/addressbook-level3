@@ -31,12 +31,7 @@ public class AddStepCommandParser implements Parser<AddStepCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STEP);
         List<Step> newSteps = parseStepsForAddStep(argMultimap.getAllValues(PREFIX_STEP));
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
-        }
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         return new AddStepCommand(index, newSteps);
     }

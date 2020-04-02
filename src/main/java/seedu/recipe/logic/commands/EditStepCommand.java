@@ -11,6 +11,7 @@ import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
@@ -30,7 +31,7 @@ public class EditStepCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 2"
             + PREFIX_STEP + "Insert edited step here (edits step 2 of recipe 1)";
 
-    public static final String MESSAGE_ADD_STEPS_SUCCESS = "Successfully edited step %1$d in %2$s!";
+    public static final String MESSAGE_EDIT_STEPS_SUCCESS = "Successfully edited step %1$d in %2$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to edit a non-existent step";
 
     private final Index index;
@@ -57,7 +58,7 @@ public class EditStepCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        EditCommand.EditRecipeDescriptor editRecipeDescriptor = new EditCommand.EditRecipeDescriptor();
+        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
 
         List<Step> updatedStepsList = new ArrayList<>(recipeToEdit.getSteps());
@@ -75,13 +76,13 @@ public class EditStepCommand extends Command {
         model.commitRecipeBook();
 
         return new CommandResult(
-                String.format(MESSAGE_ADD_STEPS_SUCCESS, stepNumber + 1, recipeToEdit.getName().toString()));
+                String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1, recipeToEdit.getName().toString()));
     }
 
     /**
      * Checks if the step number that the user wishes to edit exists within the steps list.
      */
-    public boolean canEditStep(List<Step> updatedStepsList, int stepIndex) {
+    private boolean canEditStep(List<Step> updatedStepsList, int stepIndex) {
         return stepIndex <= updatedStepsList.size() - 1;
     }
 

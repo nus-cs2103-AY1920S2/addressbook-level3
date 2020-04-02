@@ -3,7 +3,6 @@ package seedu.recipe.model.recipe.ingredient;
 /**
  * Represents the standardized units that will be used in the recipe book.
  */
-
 public enum Unit {
     MILLILITER("ml"),
     GRAM("g"),
