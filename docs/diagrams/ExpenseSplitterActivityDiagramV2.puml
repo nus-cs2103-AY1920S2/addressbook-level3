@@ -3,9 +3,9 @@ start
 
 if () then ([itemToAdd])
     : New Receipt
-    @Inserts Rake for AddItem;
+    @Rake: Visit AddItemActivityDiagram;
     : Done Receipt;
-    else ([amountPaid])
+    else ([usingPaidCommand])
     : Paid ;
 endif
 

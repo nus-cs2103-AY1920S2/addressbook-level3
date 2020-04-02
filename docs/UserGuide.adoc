@@ -474,22 +474,14 @@ or +
 
 |===
 
-|<<list, *List*>>
-|`list` `[DONE_STATUS]`
-|`list` +
-`list` `done` +
-`list` `undone`
-
-
-
-
-
-
-
-
 
 
 == Appendix A: Simple activity diagram to aid user with using Expense Splitter
+image::ExpenseSplitterActivityDiagramV2.png[width="790"]
+
+
+*Add Item Activity Diagram*  +
+
 image::ExpenseSplitterActivityDiagram.png[width="790"]
 
 The fully blackened circle at the top represents the start point while the circle
