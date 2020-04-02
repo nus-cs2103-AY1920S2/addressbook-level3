@@ -20,8 +20,6 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -56,8 +54,8 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         Matric matric = ParserUtil.parseMatric(argMultimap.getValue(MATRIC).get());
 
-        Module module = new Module(argMultimap.getValue(MODULE).get());
-        Group group = new Group(argMultimap.getValue(GROUP).get());
+        String module = argMultimap.getValue(MODULE).get().toUpperCase();
+        String group = argMultimap.getValue(GROUP).get().toUpperCase();
 
         Name name = ParserUtil.parseName(argMultimap.getValue(NAME).get());
 

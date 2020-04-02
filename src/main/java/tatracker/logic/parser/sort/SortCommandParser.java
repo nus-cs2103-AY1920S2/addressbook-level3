@@ -51,8 +51,8 @@ public class SortCommandParser implements Parser<SortCommand> {
         boolean hasGroup = argMultimap.getValue(GROUP).isPresent();
 
         SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
-        String moduleCode = argMultimap.getValue(MODULE).map(String::trim).orElse("");
-        String groupCode = argMultimap.getValue(GROUP).map(String::trim).orElse("");
+        String moduleCode = argMultimap.getValue(MODULE).map(String::trim).orElse("").toUpperCase();
+        String groupCode = argMultimap.getValue(GROUP).map(String::trim).orElse("").toUpperCase();
 
         switch (commandWord) {
 

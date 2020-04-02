@@ -11,7 +11,6 @@ import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new DeleteModuleCommand object
@@ -33,11 +32,9 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
                     DeleteModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
-        Module module = new Module(moduleCode);
-
-        return new DeleteModuleCommand(module);
+        return new DeleteModuleCommand(moduleCode);
     }
 
     /**

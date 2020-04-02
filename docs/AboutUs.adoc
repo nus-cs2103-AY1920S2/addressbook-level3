@@ -24,7 +24,7 @@ image::aakanksha-rai.png[width="150", align="left"]
 {empty}[https://github.com/aakanksha-rai[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: PlantUML Expert, Deliverables and deadlines
+Responsibilities: In charge of Student View, PlantUML Expert, Deliverables and deadlines
 
 '''
 

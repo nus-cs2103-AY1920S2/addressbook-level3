@@ -43,13 +43,11 @@ public class SortModuleCommand extends SortCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode, "");
-
-        if (!model.hasModule(module)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        module = model.getModule(module.getIdentifier());
+        Module module = model.getModule(moduleCode);
 
         switch(type) {
         case ALPHABETIC:

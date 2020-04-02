@@ -81,7 +81,8 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            editSessionDescriptor.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(MODULE).get()));
+            editSessionDescriptor.setModuleCode(ParserUtil
+                    .parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {

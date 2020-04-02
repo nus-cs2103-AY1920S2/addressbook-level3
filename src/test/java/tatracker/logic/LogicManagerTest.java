@@ -112,7 +112,7 @@ public class LogicManagerTest {
 
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();
 
-        expectedModel.addStudent(expectedStudent, expectedGroup, expectedModule);
+        expectedModel.addStudent(expectedStudent, expectedGroup.getIdentifier(), expectedModule.getIdentifier());
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

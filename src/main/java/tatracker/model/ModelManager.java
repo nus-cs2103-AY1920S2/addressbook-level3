@@ -192,9 +192,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return taTracker.hasModule(module);
+    public boolean hasModule(String moduleCode) {
+        requireNonNull(moduleCode);
+        return taTracker.hasModule(moduleCode);
     }
 
     @Override
@@ -255,9 +255,9 @@ public class ModelManager implements Model {
     // ======== Group Methods ==================================================
 
     @Override
-    public boolean hasGroup(Group group, Module targetModule) {
-        requireNonNull(group);
-        return taTracker.hasGroup(group, targetModule);
+    public boolean hasGroup(String groupCode, String moduleCode) {
+        requireNonNull(groupCode, moduleCode);
+        return taTracker.hasGroup(groupCode, moduleCode);
     }
 
 
@@ -270,9 +270,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteGroup(Group target, Module targetModule) {
+    public void deleteGroup(String target, String targetModule) {
         requireNonNull(target);
-        taTracker.removeGroup(target, targetModule);
+        taTracker.removeGroup(new Group(target), new Module(targetModule));
     }
 
     @Override
@@ -310,7 +310,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasStudent(Student student, Group targetGroup, Module targetModule) {
+    public boolean hasStudent(Student student, String targetGroup, String targetModule) {
         requireNonNull(student);
         return taTracker.hasStudent(student, targetGroup, targetModule);
     }
@@ -321,7 +321,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addStudent(Student student, Group targetGroup, Module targetModule) {
+    public void addStudent(Student student, String targetGroup, String targetModule) {
         requireNonNull(student);
         taTracker.addStudent(student, targetGroup, targetModule);
     }
@@ -332,7 +332,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteStudent(Student target, Group targetGroup, Module targetModule) {
+    public void deleteStudent(Student target, String targetGroup, String targetModule) {
         requireNonNull(target);
         taTracker.deleteStudent(target, targetGroup, targetModule);
     }

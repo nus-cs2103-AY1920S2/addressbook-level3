@@ -13,7 +13,6 @@ import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new EditModuleCommand object
@@ -35,13 +34,11 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
                     EditModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = argMultimap.getValue(MODULE).get();
-
-        Module module = new Module(moduleCode);
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
         String newName = ParserUtil.parseValue(argMultimap.getValue(NAME).get());
 
-        return new EditModuleCommand(module, newName);
+        return new EditModuleCommand(moduleCode, newName);
     }
 
     /**

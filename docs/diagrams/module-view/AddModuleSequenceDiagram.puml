@@ -69,8 +69,11 @@ deactivate TaTrackerParser
 LogicManager -> AddModuleCommand : execute()
 activate AddModuleCommand
 
-AddModuleCommand -> Model : addModule(m)
+AddModuleCommand -> Model : hasModule("CS2103")
 activate Model
+Model --> AddModuleCommand
+
+AddModuleCommand -> Model : addModule(m)
 Model --> AddModuleCommand
 deactivate Model
 

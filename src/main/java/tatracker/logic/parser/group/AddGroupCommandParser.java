@@ -16,7 +16,6 @@ import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new AddGroupCommand object
@@ -38,14 +37,13 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
                     AddGroupCommand.DETAILS.getUsage()));
         }
 
-        String groupCode = argMultimap.getValue(GROUP).get();
-        String moduleCode = argMultimap.getValue(MODULE).get();
+        String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
         GroupType groupType = ParserUtil.parseGroupType(argMultimap.getValue(TYPE).get());
 
-        Group group = new Group(groupCode.toUpperCase(), groupType);
-        Module module = new Module(moduleCode.toUpperCase());
+        Group group = new Group(groupCode, groupType);
 
-        return new AddGroupCommand(group, module);
+        return new AddGroupCommand(group, moduleCode);
     }
 
     /**
