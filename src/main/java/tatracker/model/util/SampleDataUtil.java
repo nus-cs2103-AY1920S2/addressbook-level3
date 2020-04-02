@@ -1,5 +1,6 @@
 package tatracker.model.util;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -10,6 +11,8 @@ import tatracker.model.TaTracker;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
+import tatracker.model.session.Session;
+import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -79,10 +82,68 @@ public class SampleDataUtil {
         };
     }
 
+    public static String[] getSampleGroupsString() {
+        return new String[]{
+            "G06",
+            "G01",
+            "G02",
+            "G03",
+        };
+    }
+
+
     public static Module[] getSampleModules() {
         return new Module[]{
             new Module("CS3243", "Introduction to AI"),
             new Module("CS2103T", "Software Engineering"),
+        };
+    }
+
+
+    public static String[] getSampleModulesString() {
+        return new String[]{
+            "CS3243",
+            "CS2103T",
+        };
+    }
+
+    public static Session[] getSampleSessions() {
+        return new Session[]{
+            new Session(LocalDateTime.of(2020, 04, 30, 13, 00),
+                        LocalDateTime.of(2020, 04, 30, 14, 30),
+                        SessionType.CONSULTATION, 1,
+                        "CS2103T",
+                        "with Alice and Bob"),
+            new Session(LocalDateTime.of(2020, 04, 10, 10, 00),
+                        LocalDateTime.of(2020, 04, 10, 11, 00),
+                        SessionType.LAB, 2,
+                        "CS3243",
+                        "prepare notes"),
+            new Session(LocalDateTime.of(2020, 06, 26, 14, 00),
+                        LocalDateTime.of(2020, 06, 26, 15, 00),
+                        SessionType.TUTORIAL, 1,
+                        "CS2103T",
+                        "check work"),
+            new Session(LocalDateTime.of(2020, 04, 29, 9, 30),
+                        LocalDateTime.of(2020, 04, 29, 11, 00),
+                        SessionType.GRADING, 0,
+                        "CS2103T",
+                        "grade group 1 first"),
+            new Session(LocalDateTime.of(2020, 05, 26, 14, 00),
+                        LocalDateTime.of(2020, 05, 26, 17, 00),
+                        SessionType.GRADING, 0,
+                        "CS3243",
+                        "clarifications for Bob's question"),
+            new Session(LocalDateTime.of(2020, 03, 26, 14, 00),
+                        LocalDateTime.of(2020, 03, 26, 17, 00),
+                        SessionType.CONSULTATION, 0,
+                        "CS3243",
+                        "clarifications for Alice's question"),
+            new Session(LocalDateTime.of(2020, 03, 21, 9, 30),
+                        LocalDateTime.of(2020, 03, 21, 11, 00),
+                        SessionType.GRADING, 0,
+                        "CS2103T",
+                        "grade group 1 first"),
         };
     }
 
@@ -94,7 +155,6 @@ public class SampleDataUtil {
     public static Student[] module1Group1Students() {
         ArrayList<Student> sList = new ArrayList<>();
         for (int i = 5; i < getSampleStudents().length; i++) {
-            System.out.println(getSampleStudents()[i]);
             sList.add(getSampleStudents()[i]);
         }
         Student[] s = sList.toArray(new Student[sList.size()]);
@@ -219,24 +279,30 @@ public class SampleDataUtil {
         sampleAb.addGroup(getSampleGroups()[0], getSampleModules()[0]);
         for (int i = 0; i < module1Group1Students().length; i++) {
             sampleAb.addStudent(module1Group1Students()[i],
-                    getSampleGroups()[0].toString(), getSampleModules()[0].toString());
+                    getSampleGroupsString()[0], getSampleModulesString()[0]);
         }
         sampleAb.addGroup(getSampleGroups()[1], getSampleModules()[0]);
         for (int i = 0; i < module1Group2Students().length; i++) {
             sampleAb.addStudent(module1Group2Students()[i],
-                    getSampleGroups()[1].toString(), getSampleModules()[0].toString());
+                    getSampleGroupsString()[1], getSampleModulesString()[0]);
         }
 
         sampleAb.addModule(getSampleModules()[1]);
         sampleAb.addGroup(getSampleGroups()[3], getSampleModules()[1]);
         for (int i = 0; i < module2Group2Students().length; i++) {
             sampleAb.addStudent(module2Group2Students()[i],
-                    getSampleGroups()[3].toString(), getSampleModules()[1].toString());
+                    getSampleGroupsString()[3], getSampleModulesString()[1]);
         }
         sampleAb.addGroup(getSampleGroups()[2], getSampleModules()[1]);
         for (int i = 0; i < module2Group1Students().length; i++) {
             sampleAb.addStudent(module2Group1Students()[i],
-                    getSampleGroups()[2].toString(), getSampleModules()[1].toString());
+                    getSampleGroupsString()[2], getSampleModulesString()[1]);
+        }
+        for (int i = 0; i < 5; i++) {
+            sampleAb.addSession(getSampleSessions()[i]);
+        }
+        for (int i = 5; i < getSampleSessions().length; i++) {
+            sampleAb.addDoneSession(getSampleSessions()[i]);
         }
         return sampleAb;
     }
