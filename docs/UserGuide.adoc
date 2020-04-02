@@ -282,7 +282,8 @@ Format: `listt`
 
 === Editing a transaction : `editt`
 
-Edits a transaction in the system. +
+Edits a transaction in the system. It allows the user to edit wrong transction
+ with correct information. +
 Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]`
 
 ****
@@ -325,7 +326,7 @@ Returns all transactions that Bob made on the 7th February 2020 4pm.
 === Undo a transaction : `undot`
 
 Undo the specified transaction from the system. It allows the user to remove a transaction in case he/she keyed inaccurate
-information. + 
+information. +
 Format: `undot INDEX`
 
 ****
