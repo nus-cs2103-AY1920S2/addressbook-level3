@@ -25,15 +25,19 @@ end ref
 LogicManager -> SortCommand : execute()
 activate SortCommand
     
-SortCommand -> Model : setComparator(field)
+SortCommand -> Model : setComparator(Comparator[])
 activate Model
 
+Model -> Model: sortTaskList()
+activate Model
 loop [int 0..n]
-    Model -> TaskList: setComparator(field)
+    Model -> TaskList: sort(Comparator)
     activate TaskList
     TaskList -> Model
     deactivate TaskList
 end
+deactivate Model
+Model <- Model
 
 Model -> SortCommand
 deactivate Model
