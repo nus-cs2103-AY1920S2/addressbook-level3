@@ -1,0 +1,33 @@
+@startuml
+start
+:User inputs command;
+:Parse command;
+
+if () then ([command arguments is valid])
+    :Generate new Edit command;
+    :Parse input;
+    if () then ([valid user input])
+        :Execute Edit command;
+        if () then ([Flag is order list])
+        :Obtain order to edit;
+        :Edit the order of given index;
+        else ([else])
+            if () then ([Flag is return order list])
+            :Obtain return order to edit;
+            :Edit the return order of given index;
+            else ([else])
+            :Display warning message
+            for no flags given;
+            endif
+        endif
+    else ([else])
+        :Display wrong
+        format warning message;
+    endif
+else ([else])
+    : Display unknown
+    command message;
+endif
+
+stop
+@enduml
