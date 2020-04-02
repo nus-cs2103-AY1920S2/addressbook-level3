@@ -18,10 +18,6 @@ import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 
-
-
-
-
 class FilterCommandTest {
 
     private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
