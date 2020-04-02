@@ -513,7 +513,7 @@
 }
 
 .highlight_label {
-    -fx-background-color: grey;
+    -fx-background-color: white;
     -fx-text-fill: black;
     -fx-font-size: 11;
     -fx-border-radius: 4;

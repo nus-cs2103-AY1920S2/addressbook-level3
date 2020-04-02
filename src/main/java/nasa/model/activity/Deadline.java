@@ -67,14 +67,8 @@ public class Deadline extends Activity {
         return dueDate.getDifference(getDate());
     }
 
-    /**
-     * Calculate the percentage towards the dateline.
-     * @return int
-     */
-    public int percentage() {
-        int currentDifference = Date.now().getDifference(getDate());
-        double result = 100 * ((double) currentDifference / getDifferenceInDay());
-        return currentDifference == 0 ? 0 : (int) result;
+    public int getDifferenceInDate() {
+        return dueDate.getDifference(Date.now());
     }
 
     /**
