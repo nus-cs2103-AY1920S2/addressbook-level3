@@ -41,7 +41,8 @@ public class SampleDataUtil {
                     new Location("Utown canteen"), new Calorie("300"), new Status("Done"), new Remark("Too expensive"),
                     new Duration("1")),
             new Entry(new Type("food"), new Name("Mala"), new Time(new DiaryDate().toString() + " 17:30"),
-                    new Location("Utown canteen"), new Calorie("150.5"), new Status("Done"), new Remark("Too expensive")),
+                    new Location("Utown canteen"), new Calorie("150.5"), new Status("Done"),
+                    new Remark("Too expensive")),
             new Entry(new Type("food"), new Name("Apple juice"), new Time("2020-03-01 11:30"),
                     new Location("Utown 711"), new Calorie("79")),
             new Entry(new Type("food"), new Name("Lemon juice"), new Time("2020-03-01 11:30"),
@@ -79,9 +80,7 @@ public class SampleDataUtil {
      * @return An array of sample diaries.
      */
     public static Diary[] getSampleDiaries() {
-        return new Diary[]{
-                new Diary(new DiaryDate(), new Content("Today is a sunny day. I went to the gym.")),
-        };
+        return new Diary[] { new Diary(new DiaryDate(), new Content("Today is a sunny day. I went to the gym.")),};
     }
 
     /**
@@ -89,7 +88,7 @@ public class SampleDataUtil {
      *
      * @return A FitHelper only with the sample entries.
      */
-    public static ReadOnlyFitHelper getSampleFitHelper(){
+    public static ReadOnlyFitHelper getSampleFitHelper() {
         FitHelper sampleFitHelper = new FitHelper();
         for (Entry sampleEntry : getSampleEntries()) {
             sampleFitHelper.addEntry(sampleEntry);
