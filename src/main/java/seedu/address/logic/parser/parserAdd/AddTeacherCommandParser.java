@@ -19,7 +19,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.Email;
@@ -62,8 +62,6 @@ public class AddTeacherCommandParser extends AddCommandParser {
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID id = ParserUtil.parseID(argMultimap.getValue(PREFIX_TEACHERID).get());
-
     Phone phone = new Phone("Unknown");
     Email email = new Email("Unknown");
     Salary salary = new Salary("0");
@@ -83,16 +81,8 @@ public class AddTeacherCommandParser extends AddCommandParser {
     AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    /*
-    Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-    Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-    Salary salary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_SALARY).get());
-    Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-    */
-
-    Teacher teacher = new Teacher(name, id, phone, email, salary, address, tagList);
+    Staff teacher = new Staff(name, Staff.Level.TEACHER, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);
   }
-
 }

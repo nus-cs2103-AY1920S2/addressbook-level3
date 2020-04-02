@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ID;
 
 /**
@@ -62,6 +63,14 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
             throw toAdd.getDuplicateException();
         }
         internalList.add(toAdd);
+    }
+
+    public void addAtIndex(K toAdd, Integer idx) {
+        requireAllNonNull(toAdd, idx);
+        if (contains(toAdd)) {
+            throw toAdd.getDuplicateException();
+        }
+        internalList.add(idx, toAdd);
     }
 
     /**

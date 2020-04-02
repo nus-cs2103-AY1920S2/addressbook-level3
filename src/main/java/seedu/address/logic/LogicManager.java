@@ -17,8 +17,8 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.ui.SummaryPanel;
@@ -56,7 +56,7 @@ public class LogicManager implements Logic {
 
     // Updates summary panel
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());
-    summaryPanel.updateTotalTeachers(getFilteredTeacherList().size());
+    summaryPanel.updateTotalTeachers(getFilteredStaffList().size());
     summaryPanel.updateTotalCourses(getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
     summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
@@ -85,18 +85,18 @@ public class LogicManager implements Logic {
 
   ///
   @Override
-  public ReadOnlyAddressBookGeneric<Teacher> getTeacherAddressBook() {
-    return model.getTeacherAddressBook();
+  public ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook() {
+    return model.getStaffAddressBook();
   }
 
   @Override
-  public ObservableList<Teacher> getFilteredTeacherList() {
-    return model.getFilteredTeacherList();
+  public ObservableList<Staff> getFilteredStaffList() {
+    return model.getFilteredStaffList();
   }
 
   @Override
-  public Path getTeacherAddressBookFilePath() {
-    return model.getTeacherAddressBookFilePath();
+  public Path getStaffAddressBookFilePath() {
+    return model.getStaffAddressBookFilePath();
   }
 
   ///

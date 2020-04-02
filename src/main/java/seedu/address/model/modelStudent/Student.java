@@ -11,7 +11,6 @@ import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -85,6 +84,7 @@ public class Student extends ModelObject {
   public String getAssignedCoursesWithNames(){
     return this.assignedCoursesWithNames;
   }
+
   /**
    * Converts internal list of assigned student IDs into the name with the IDs
    */

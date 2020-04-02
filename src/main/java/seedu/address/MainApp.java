@@ -32,8 +32,8 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -49,8 +49,8 @@ import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
-import seedu.address.storage.storageTeacher.JsonTeacherAddressBookStorage;
-import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
+import seedu.address.storage.storageStaff.JsonStaffAddressBookStorage;
+import seedu.address.storage.storageStaff.StaffAddressBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -82,8 +82,8 @@ public class MainApp extends Application {
     UserPrefs userPrefs = initPrefs(userPrefsStorage);
     AddressBookStorage addressBookStorage = new JsonAddressBookStorage(
         userPrefs.getAddressBookFilePath());
-    TeacherAddressBookStorage teacherAddressBookStorage = new JsonTeacherAddressBookStorage(
-        userPrefs.getTeacherAddressBookFilePath());
+    StaffAddressBookStorage staffAddressBookStorage = new JsonStaffAddressBookStorage(
+        userPrefs.getStaffAddressBookFilePath());
     StudentAddressBookStorage studentAddressBookStorage = new JsonStudentAddressBookStorage(
         userPrefs.getStudentAddressBookFilePath());
     CourseAddressBookStorage courseAddressBookStorage = new JsonCourseAddressBookStorage(
@@ -94,7 +94,7 @@ public class MainApp extends Application {
             userPrefs.getAssignmentAddressBookFilePath());
 
 
-    storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
+    storage = new StorageManager(addressBookStorage, staffAddressBookStorage,
         studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage,
             assignmentAddressBookStorage, userPrefsStorage);
 
@@ -134,23 +134,23 @@ public class MainApp extends Application {
       initialData = new AddressBook();
     }
 
-    Optional<ReadOnlyAddressBookGeneric<Teacher>> teacherAddressBookOptional;
-    ReadOnlyAddressBookGeneric<Teacher> teacherInitialData;
+    Optional<ReadOnlyAddressBookGeneric<Staff>> staffAddressBookOptional;
+    ReadOnlyAddressBookGeneric<Staff> staffInitialData;
     try {
-      teacherAddressBookOptional = storage.readTeacherAddressBook();
-      if (!teacherAddressBookOptional.isPresent()) {
-        logger.info("Data file not found. Will be starting with a new Teacher AddressBook");
+      staffAddressBookOptional = storage.readStaffAddressBook();
+      if (!staffAddressBookOptional.isPresent()) {
+        logger.info("Data file not found. Will be starting with a sample AddressBook");
       }
-      teacherInitialData = teacherAddressBookOptional
-              .orElseGet(TeacherAddressBook::new);
+      staffInitialData = staffAddressBookOptional
+          .orElseGet();
     } catch (DataConversionException e) {
       logger.warning(
           "Data file not in the correct format. Will be starting with an empty AddressBook");
-      teacherInitialData = new TeacherAddressBook();
+      staffInitialData = new StaffAddressBook();
     } catch (IOException e) {
       logger.warning(
           "Problem while reading from the file. Will be starting with an empty AddressBook");
-      teacherInitialData = new TeacherAddressBook();
+      staffInitialData = new StaffAddressBook();
     }
 
     Optional<ReadOnlyAddressBookGeneric<Student>> studentAddressBookOptional;
@@ -213,6 +213,7 @@ public class MainApp extends Application {
 
     Optional<ReadOnlyAddressBookGeneric<Assignment>> assignmentAddressBookOptional;
     ReadOnlyAddressBookGeneric<Assignment> assignmentInitialData;
+
     try {
       assignmentAddressBookOptional = storage.readAssignmentAddressBook();
 
@@ -232,10 +233,11 @@ public class MainApp extends Application {
     }
     logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
-    return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
+    return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
         courseInitialData, assignmentInitialData, new ProgressAddressBook(), userPrefs);
+
   /*
-    return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
+    return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
             courseInitialData, userPrefs);
   */
   }

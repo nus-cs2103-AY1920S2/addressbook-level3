@@ -14,7 +14,7 @@ public abstract class UndoableCommand extends Command {
     /**
      * If require this preprocessing step should override this method.
      */
-    protected void preprocessUndoableCommand() throws CommandException {}
+    protected void preprocessUndoableCommand(Model model) throws CommandException {}
 
     protected final void undo(Model model) {
         requireNonNull(model);
@@ -25,7 +25,7 @@ public abstract class UndoableCommand extends Command {
         }
     }
 
-    protected abstract void generateOppositeCommand();
+    protected abstract void generateOppositeCommand() throws CommandException;
 
     protected final void redo(Model model) {
         requireNonNull(model);
@@ -38,7 +38,7 @@ public abstract class UndoableCommand extends Command {
 
     @Override
     public final CommandResult execute(Model model) throws CommandException {
-        preprocessUndoableCommand();
+        preprocessUndoableCommand(model);
         generateOppositeCommand();
         return executeUndoableCommand(model);
     }

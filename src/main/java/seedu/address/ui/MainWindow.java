@@ -22,7 +22,7 @@ import seedu.address.ui.uiAssignments.AssignmentListPanel;
 import seedu.address.ui.uiCourse.CourseListPanel;
 import seedu.address.ui.uiFinance.FinanceListPanel;
 import seedu.address.ui.uiStudent.StudentListPanel;
-import seedu.address.ui.uiTeacher.TeacherListPanel;
+import seedu.address.ui.uiStaff.StaffListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -39,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
   // Independent Ui parts residing in this Ui container
   private StudentListPanel studentListPanel;
-  private TeacherListPanel teacherListPanel;
+  private StaffListPanel staffListPanel;
   private CourseListPanel courseListPanel;
   private FinanceListPanel financeListPanel;
   private AssignmentListPanel assignmentListPanel;
@@ -150,7 +150,7 @@ public class MainWindow extends UiPart<Stage> {
     commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
     studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-    teacherListPanel = new TeacherListPanel(logic.getFilteredTeacherList());
+    staffListPanel = new StaffListPanel(logic.getFilteredStaffList());
     courseListPanel = new CourseListPanel(logic.getFilteredCourseList());
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
@@ -159,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
     SummaryPanel summaryPanel = new SummaryPanel();
     summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
-    summaryPanel.updateTotalTeachers(logic.getFilteredTeacherList().size());
+    summaryPanel.updateTotalTeachers(logic.getFilteredStaffList().size());
     summaryPanel.updateTotalCourses(logic.getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(logic.getFilteredFinanceList().size());
     summaryPanel.updateTotalAssignments(logic.getFilteredAssignmentList().size());
@@ -206,7 +206,7 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToTeacher() {
-    switchList(teacherListPanel.getRoot());
+    switchList(staffListPanel.getRoot());
   }
 
   /**

@@ -12,9 +12,11 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelStaff.Staff;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import java.util.Set;
 import seedu.address.model.person.ID;
@@ -28,7 +30,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
     public static final String MESSAGE_TEACHER_ALREADY_TEACHES_COURSE = "Teacher is assigned to the course already!";
 
 
-    public static final String MESSAGE_SUCCESS = "Successfully assigned teacher %s (%s) to course %s (%s)";
+    public static final String MESSAGE_SUCCESS = "Successfully assigned teacher %s(%s) to course %s(%s)";
 
     private final AssignDescriptor assignDescriptor;
 
