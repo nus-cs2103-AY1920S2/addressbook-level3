@@ -2,7 +2,7 @@ package fithelper.logic.parser.diary;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARY_CONTENT;
 
 import java.util.stream.Stream;
 
@@ -29,14 +29,14 @@ public class EditDiaryCommandParser implements Parser<EditDiaryCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditDiaryCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_DIARYCONTENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_DIARY_CONTENT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_DIARYCONTENT)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_DIARY_CONTENT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDiaryCommand.MESSAGE_USAGE));
         }
 
         DiaryDate diaryDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_DIARYCONTENT).get());
+        Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_DIARY_CONTENT).get());
         EditDiaryCommand.EditDiaryDescriptor editDiaryDescriptor = new EditDiaryCommand.EditDiaryDescriptor();
         editDiaryDescriptor.setDiaryDate(diaryDate);
         editDiaryDescriptor.setContent(content);

@@ -48,12 +48,16 @@ CheckCommand -> ModelManager : searchTable(checkType, keyword)
 activate ModelManager
 ModelManager -> FitHelper : addCalorieEntry(type, keyword)
 activate FitHelper
-FitHelper -> CalorieTable : getEntries()
+FitHelper -> CalorieTable : getEntries(type)
 activate CalorieTable
 FitHelper <-- CalorieTable : entries
 deactivate
 
-loop Until 3 matching entries are added OR all entries are checked
+FitHelper -> FitHelper : searchEachWordCompleteMatch(keywords)
+opt fewer than 3 entries are added so far
+FitHelper -> FitHelper : searchWholeWordPartialMatch(keyword)
+end
+opt fewer than 3 entries are added so far
 FitHelper -> FitHelper : checkAndAddEntryToList(entry)
 end
 
