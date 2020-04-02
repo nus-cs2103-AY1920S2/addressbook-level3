@@ -459,4 +459,12 @@ public interface Model {
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
+    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
+
+    // ======================== FOR UNASSIGN COMMANDS ============================== //
+
+    void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
+
+    void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
+
 }

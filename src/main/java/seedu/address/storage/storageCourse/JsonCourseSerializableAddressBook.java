@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
@@ -46,7 +47,7 @@ class JsonCourseSerializableAddressBook {
    *
    * @throws IllegalValueException if there were any data constraints violated.
    */
-  public CourseAddressBook toModelType() throws IllegalValueException {
+  public CourseAddressBook toModelType() throws IllegalValueException, CommandException {
     CourseAddressBook courseAddressBook = new CourseAddressBook();
     for (JsonAdaptedCourse jsonAdaptedCourse : courses) {
       Course course = jsonAdaptedCourse.toModelType();

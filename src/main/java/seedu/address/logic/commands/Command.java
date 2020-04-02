@@ -10,6 +10,7 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
   UndoRedoStack undoRedoStack;
+
   /**
    * Executes the command and returns the result message.
    *

@@ -74,6 +74,8 @@ public class Student extends ModelObject {
     }
   }
 
+
+
   /**
    * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
@@ -135,6 +137,11 @@ public class Student extends ModelObject {
   public void addCourse(ID courseid) {
     this.assignedCoursesID.add(courseid);
   }
+
+  public void removeCourse(ID courseid) {
+    this.assignedCoursesID.remove(courseid);
+  }
+
 
   public void addCourses(Set<ID> courseid) {
     this.assignedCoursesID.addAll(courseid);
