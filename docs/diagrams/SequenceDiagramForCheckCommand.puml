@@ -54,11 +54,20 @@ FitHelper <-- CalorieTable : entries
 deactivate
 
 FitHelper -> FitHelper : searchEachWordCompleteMatch(keywords)
-opt fewer than 3 entries are added so far
+activate FitHelper
+FitHelper --> FitHelper : count
+deactivate
+opt fewer than 3 entries are added so far, i.e. count < 3
 FitHelper -> FitHelper : searchWholeWordPartialMatch(keyword)
+activate FitHelper
+FitHelper --> FitHelper : count
+deactivate
 end
-opt fewer than 3 entries are added so far
+opt fewer than 3 entries are added so far, i.e. count < 3
 FitHelper -> FitHelper : checkAndAddEntryToList(entry)
+activate FitHelper
+FitHelper --> FitHelper :
+deactivate
 end
 
 FitHelper --> ModelManager : List<CalorieEntry>
