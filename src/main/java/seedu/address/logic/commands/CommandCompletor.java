@@ -39,6 +39,8 @@ public class CommandCompletor {
         this.commands.add(PomCommand.COMMAND_WORD);
         this.commands.add(FindCommand.COMMAND_WORD);
         this.commands.add(ClearCommand.COMMAND_WORD);
+        this.commands.add(ListCommand.COMMAND_WORD);
+        this.commands.add(HelpCommand.COMMAND_WORD);
         this.commands.add(ExitCommand.COMMAND_WORD);
         this.commands.add(SortCommand.COMMAND_WORD);
         this.commands.add(SwitchTabCommand.STATS_COMMAND_WORD);
@@ -58,24 +60,30 @@ public class CommandCompletor {
      */
     public CompletorResult getSuggestedCommand(String input) throws CompletorException {
         String[] trimmedInputWords = input.split("\\s+");
-
-        if (trimmedInputWords.length <= 0) {
-            throw new CompletorException(COMPLETE_FAILURE_COMMAND);
-        }
-
-        Optional<String> suggestedCommand =
-                getCompletedWord(trimmedInputWords[0], this.commands.toArray(new String[0]));
-        if (suggestedCommand.isPresent()) {
-            trimmedInputWords[0] = suggestedCommand.get();
-        } else {
-            throw new CompletorException(
-                    String.format(COMMAND_UNFOUND_FAILURE, trimmedInputWords[0]));
-        }
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(input, TASK_PREFIXES);
         boolean hasReminder = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_REMINDER);
         boolean hasPriority = ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRIORITY);
-        String prefixesAdded = "", feedbackToUser = COMPLETE_FAILURE_COMMAND;
+        String prefixesAdded = "", feedbackToUser = UNCHANGED_SUCCESS;
+        
+        if (trimmedInputWords.length <= 0) {
+            throw new CompletorException(COMPLETE_FAILURE_COMMAND);
+        }
+        
+        Optional<String> suggestedCommand =
+        getCompletedWord(trimmedInputWords[0], this.commands.toArray(new String[0]));
+        
+        if (suggestedCommand.isPresent()) {
+            if (trimmedInputWords[0].equals(suggestedCommand.get())) {
+                feedbackToUser = UNCHANGED_SUCCESS;
+            } else {
+                feedbackToUser = COMPLETE_SUCCESS;
+            }
+            trimmedInputWords[0] = suggestedCommand.get();
+        } else {
+            throw new CompletorException(
+                String.format(COMMAND_UNFOUND_FAILURE, trimmedInputWords[0]));
+        }
+            
         String newCommand = String.join(" ", trimmedInputWords);
 
         switch (trimmedInputWords[0]) {
@@ -100,6 +108,7 @@ public class CommandCompletor {
                     }
                 }
                 newCommand = String.join(" ", trimmedInputWords);
+                prefixesAdded = prefixesAdded.length() == 0 ? "nil" : prefixesAdded;
                 feedbackToUser = String.format(COMPLETE_PREFIX_SUCCESS, prefixesAdded);
                 break;
 
@@ -139,9 +148,6 @@ public class CommandCompletor {
                 }
                 newCommand = String.join(" ", trimmedInputWords);
                 break;
-
-            default:
-                feedbackToUser = UNCHANGED_SUCCESS;
         }
         return new CompletorResult(newCommand + " ", feedbackToUser);
     }

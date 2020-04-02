@@ -29,10 +29,15 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor, CommandSuggestor commandSuggestor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        Timer scheduler = new Timer();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField
                 .textProperty()
-                .addListener((unused1, unused2, unused3) -> setStyleToDefault());
+                .addListener((unused1, unused2, unused3) -> {
+                    setStyleToDefault();
+                    scheduler.purge();
+                    // scheduler = new Timer();
+                });
 
         commandTextField.setOnKeyPressed(
                 new EventHandler<KeyEvent>() {
@@ -42,17 +47,16 @@ public class CommandBox extends UiPart<Region> {
                                 && !event.isShiftDown()
                                 && !event.isControlDown()) {
                             event.consume();
-                            TimerTask tempTask = getDelayedDefaultStyleTimer();
 
                             try {
                                 String suggestion =
                                         commandSuggestor.suggestCommand(commandTextField.getText());
                                 commandTextField.setText(suggestion);
                                 setStyleToIndicateCompletorSuccess();
-                                new Timer().schedule( tempTask, 1000 );
+                                scheduler.schedule( getUnsetStyleTimer(SUCCESS_STYLE_CLASS), 1000 );
                             } catch (CompletorException e) {
                                 setStyleToIndicateCompletorFailure();
-                                new Timer().schedule( tempTask, 1000 );
+                                scheduler.schedule( getUnsetStyleTimer(WARNING_STYLE_CLASS), 1000 );
                             }
                             // event.consume doesn't seem to work, the below is thus a workaround
                             commandTextField.requestFocus();
@@ -74,11 +78,21 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    private TimerTask getDelayedDefaultStyleTimer() {
+    private TimerTask getUnsetStyleTimer(String style) {
         return new TimerTask() {
             @Override
             public void run() {
-                setStyleToDefault();
+                switch (style) {
+                    case ERROR_STYLE_CLASS:
+                    commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+                    break;
+                    case WARNING_STYLE_CLASS:
+                    commandTextField.getStyleClass().remove(WARNING_STYLE_CLASS);
+                    break;
+                    case SUCCESS_STYLE_CLASS:
+                    commandTextField.getStyleClass().remove(SUCCESS_STYLE_CLASS);
+                    break;
+                }
             }
         };
     }
