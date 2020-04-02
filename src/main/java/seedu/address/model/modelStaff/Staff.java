@@ -8,13 +8,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -167,7 +171,8 @@ public class Staff extends ModelObject {
           if (count == assignedCoursesID.size()) {
             comma = "";
           }
-          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
+          s.append(courseid).append(comma);
+          //s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
         }
       }
       count++;

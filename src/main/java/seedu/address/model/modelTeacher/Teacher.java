@@ -1,6 +1,7 @@
 package seedu.address.model.modelTeacher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -95,26 +96,28 @@ public class Teacher extends Person {
    * Converts internal list of assigned student IDs into the name with the IDs
    */
   public void processAssignedCourses(FilteredList<Course> filteredCourses){
-    StringBuilder s = new StringBuilder();
-    int count = 1;
-    for (ID courseid : assignedCoursesID) {
-      for (Course course : filteredCourses) {
-        if (courseid.toString().equals(course.getId().toString())) {
-          String comma = ", ";
-          if (count == assignedCoursesID.size()) {
-            comma = "";
-          }
-          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
-        }
-      }
-      count++;
-    }
-
-    if (s.toString().equals("")) {
-      this.assignedCoursesWithNames = "None";
-    } else {
-      this.assignedCoursesWithNames = "[" + s.toString() + "]";
-    }
+    this.assignedCoursesWithNames = Arrays.toString(filteredCourses.toArray());
+    //Should we still show the names?
+//    StringBuilder s = new StringBuilder();
+//    int count = 1;
+//    for (ID courseid : assignedCoursesID) {
+//      for (Course course : filteredCourses) {
+//        if (courseid.toString().equals(course.getId().toString())) {
+//          String comma = ", ";
+//          if (count == assignedCoursesID.size()) {
+//            comma = "";
+//          }
+//          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
+//        }
+//      }
+//      count++;
+//    }
+//
+//    if (s.toString().equals("")) {
+//      this.assignedCoursesWithNames = "None";
+//    } else {
+//      this.assignedCoursesWithNames = "[" + s.toString() + "]";
+//    }
   }
 
   /**

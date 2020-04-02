@@ -1,14 +1,13 @@
 package seedu.address.model.modelCourse;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.UuidManager;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,13 +19,6 @@ import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Course in the address book. Guarantees: details are present and not null, field
@@ -221,7 +213,8 @@ public class Course extends ModelObject {
             if (count == assignedStudentsID.size()) {
               comma = "";
             }
-            s.append(student.getName()).append("(").append(studentid).append(")").append(comma);
+            s.append(studentid).append(comma);
+            //s.append(student.getName()).append("(").append(studentid).append(")").append(comma);
           }
         }
         count++;

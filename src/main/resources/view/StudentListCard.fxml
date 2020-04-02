@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox id="cardPaneStudent" fx:id="cardPane" onMousePressed="#selectStudent" prefHeight="105.0" prefWidth="223.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneStudent" fx:id="cardPane" onMousePressed="#selectStudent" prefHeight="133.0" prefWidth="223.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT" spacing="5">
@@ -54,8 +54,8 @@
             </padding>
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Courses: " />
-        <Label fx:id="assignedCourses" styleClass="cell_small_label" text="\$assignedCourses" />
+        <Label styleClass="cell_small_label" text="Assigned Courses: " textOverrun="WORD_ELLIPSIS" />
+        <Label fx:id="assignedCourses" maxWidth="600.0" prefWidth="600.0" styleClass="cell_small_label" text="\$assignedCourses" wrapText="true" />
             <padding>
                <Insets left="15.0" />
             </padding>
