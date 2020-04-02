@@ -381,6 +381,7 @@ a filtered list of active coupons. This filtering is facilitated by the predicat
 .Sequence diagram representation of archiving expired coupons
 image::ArchiveExpiredSequenceDiagram.png[]
 
+
 **Archiving of Exhausted Coupons**
 
 Coupons that have exhausted its usages will be automatically archived by the application. The following steps describe how
@@ -947,23 +948,6 @@ Use case ends.
 . **source code** - a set of instructions, written in a programming language that determine the final application’s internal and external behaviour.
 . **Stash** - a group of something valuable that the user would like to keep securely, ideally using our `_Coupon Stash_` application.
 . **UI (User Interface)** - a catch-all term referring to how a computer system and a coupon interacts, usually referring to specific elements displayed on the computer screen that the user may interact with such as buttons or text boxes, as well as areas where the computer application displays certain outputs to the user.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
