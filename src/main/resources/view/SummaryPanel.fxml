@@ -16,7 +16,7 @@
    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="summary-pane">
       <children>
          <Label fx:id="totalStudents" layoutX="5.0" text="Total Students: " />
-         <Label fx:id="totalTeachers" layoutX="5.0" layoutY="34.0" text="Total Teachers: " />
+         <Label fx:id="totalStaffs" layoutX="5.0" layoutY="34.0" text="Total Staffs: " />
          <Label fx:id="totalCourses" layoutX="5.0" layoutY="68.0" text="Total Courses: " />
          <Label fx:id="totalFinances" layoutX="5.0" layoutY="102.0" text="Total Finances: " />
          <Label fx:id="totalAssignments" layoutX="5.0" layoutY="131.0" text="Total Assigments: " />

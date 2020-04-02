@@ -116,11 +116,11 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FFB586, #F7D79A);
 }
 
-.list-cell:filled:even #cardPaneTeacher {
+.list-cell:filled:even #cardPaneStaff {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #31AFD8, #427CBF);
 }
 
-.list-cell:filled:odd #cardPaneTeacher {
+.list-cell:filled:odd #cardPaneStaff {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #358DD6, #4262BC);
 
 }
