@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FitBiz - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-F11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F11-2`   Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ClientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a client).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -123,11 +123,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Client` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Client` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -153,94 +153,49 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Command History
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+This feature allows users to save their previously entered commands and to retrieve them using the "up" and "down" arrow keys, similar to what most modern CLIs offer.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+This command history mechanism is facilitated by the model `CommandHistory`, and the storage code in `CommandHistoryStorage`. The behaviour of this feature mimics most modern CLIs, namely:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* The empty string, `""`, will not be stored in the history
+* Commands that are similar to the most recently stored command in the history will not be stored (ie. duplicate commands will not be stored)
+* All other user input, be it valid or invalid commands, will be stored
+* There is a maximum size of the stored history (100 in this case, for performance reasons discussed in the later section)
+* Pressing the "up" arrow key will browse backwards towards the least recently entered commands
+* Pressing the "down" arrow key will browse forwards towards the most recently entered commands
+* The caret position must be at the end of the command when browsing the history
+* Persistent storage of the command history is supported (ie. a user can quit the app and come back to the same history as his previous usage of the app)
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Since all entered user inputs should be stored, be it valid or invalid commands, and since detection of the "up" and "down" arrow keys must occur in the `CommandBox` class found in the UI, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will call `CommandHistory#add`, `CommandHistory#getNextCommand`, and `CommandHistory#getPrevCommand`. A simplified class diagram of the classes involved in this feature is given below:
 
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::CommandHistoryClassDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+In designing this feature, we had to decide on the underlying data structure to store the command history. Currently, each line of command is stored in an `ArrayList<String>`. The alternative is to store the commands in a `LinkedList<String>`.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+[options='header']
+|====================
+| Data Structure | Pros and Cons
+| Array list |
+*Pros*: Much easier to manipulate using indices
 
-===== Aspect: Data structure to support the undo/redo commands
+*Cons*: Slower performance when list has the maximum number of commands stored and has to shift all indices back by 1 when removing the oldest command
+| Linked list |
+*Pros*: Fast removal of the oldest command
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+*Cons*: Harder to implement as pointers have to be manipulated
+|====================
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+In the interest of saving developement time and better code readability, we decided to use an array list to store the commands. Since we have capped the maximum size of history to be 100, we found out through testing that this causes no observable nor significant lag when the list reaches the maximum capacity and has to reassign all 100 indices.
 
-_{Explain here how the data encryption feature will be implemented}_
+Moreover, the implementation of `CommandHistoryStorage#saveCommandHistory` will rewrite the whole data file in storage (as opposed to appending the file with the newly entered command). This decision was made to protect the integrity of the storage file, making sure that it always has the exact same data as what is stored in the `CommandHistory` model. As such, this rewriting of the file during maximum capacity of the history will be the bigger bottleneck in term of performance, as opposed to the reassignment of indices.
 
-// end::dataencryption[]
+As such, the choice of 100 as the maximum size of the command history is thus chosen. This number must be small enough to not cause the app to lag when the whole history is being written to storage, as well as be big enough to satisfy the user. Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
 
 === Logging
 
@@ -256,6 +211,47 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Storage of Clients and Exercises
+
+This section explains the implementation and design considerations for storage of clients and exercises.
+
+==== Implementation
+
+We have decided to store the exercises done by the client together with the same client in one JSON file. Each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
+
+image::ClientExerciseStorageClassDiagram.png[]
+
+==== Design Considerations
+
+While implementing the storage for clients and exercises, we had multiple choices. We decided to save the exercises together with the client who did them. All the clients will then be stored in one JSON file.
+
+[options='header']
+|====================
+| Considerations | Pros and Cons
+| Store exercises with client and all clients in one JSON file |
+*Pros*: Much easier to link the exercises to the client during reading and storing
+
+*Cons*: Might have one large JSON file and potentially exceed the size limit of a JSON file
+| Store all exercises into a separate JSON file |
+*Pros*: Keep exercise data separate from client data
+
+*Cons*: Hard to link the exercises to the client during reading and storing
+
+| Store exercises with client but one JSON for each client |
+*Pros*: Low chances of exceeding the size limit of a JSON file
+
+*Cons*: Might have too many JSON files for each client +
+Tough to identify which JSON file is for which client
+|====================
+
+We decided to use the first approach of storing the exercises with the client and all clients in one JSON file. There are multiple reasons for our choice as mentioned below.
+
+We want to keep the implementation reading and storing of data simple. The first approach is  the most simple. When reading the data, it will remove the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow.
+
+Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality to the user.
+
+Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients as he have to cater time for each of them. Even though each client might have many exercises, the information of each exercise is relatively small.
 
 [[Implementation-Configuration]]
 === Configuration
@@ -279,33 +275,54 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of gym clients and their information (clients' details and exercises)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* wants to book facilities easily [v2.0]
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Keep track of your gym training schedule and clients' exercises faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="22%,<30%,<35%,<50%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |coach for fitness competitors |record the cliental bests of my clients |monitor their progress
+|`* * *` |coach for fitness competitors |record the exercise type and intensity my clients have done for the day |know if they are on track for their competitions
+|`* * *` |coach for fitness competitors|record the date and time of my clients’ training sessions and keep track of which day they work out|
+|`* * *` |coach with many fitness competitors |view my overall schedule for the day/week|
+|`* * *` |coach that communicates with my clients |display visualisations(graphs/charts) |convey the client's training progress better
+|`* * *` |coach |add new profiles to the app to keep track of new clients|
+|`* * *` |coach |list all my clients|
+|`* * *` |coach |edit a client’s details |change and update an existing client’s details
+|`* * *` |coach |delete my client|
+|`* * *` |coach |search my client by typing their name |find my client’s information easily
+|`* * *` |coach |add, edit and delete new exercises that are not found in the application|
+|`* * *`| coach |look for user help |get help on how to use the features
+|`* *` |coach with many clients |be reminded of my daily schedule at the start of the day |track my appointments
+|`* *` |forgetful coach with many clients |look at my records on clients |know what exercises they are weak in or require more assistance
+|`* *` |coach with a tight schedule |display my open slots |plan for training more effectively
+|`* *` |coach with many clients |set clientalised goals for my clients |plan a workout routine that is achievable
+|`* *` |coach with many different clients |easily export the data of a client (to a CSV file) |backup and store that data in another format
+|`* *` |coach |track my clients by using a tag |easily view the clients I want to
+|`*` |coach with clients all over SG |find the nearest gym based on where my client stays|
+|`*` |coach with a tight schedule |view a summary page to present to me just the important data, configurable by me|
+|`*` |coach |track my total earnings from all my clients|
+|`*` |coach that likes to vary my clients’ training |choose from a list of different exercises with the same purposes|
+|`*` |coach for fitness competitors |view incoming competitions of my clients |be reminded to focus on them more
+|`*` |coach who wants to visually track the progress of my clients |store photos to monitor the changes in my client’s physique|
+|`*` |coach |check if the gym I am going to is closed|
+|`*` |coach |use the timer in the application |seamlessly execute the time interval of the workout planned
+|`*` |coach |book the facilities required by the workout|
+|`*` |coach |see upcoming competitions or meet |plan for my clients to attend them
+|`*` |coach for fitness competitors |record the food intake of my clients |know if they are following my diet plan for them
+|`*` |coach |monitor my clients caloric intake |know he is meeting his dietary requirements
+|`*` |coach |manage the payment fee/payment day of the clients |charge them accordingly
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +330,93 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FitBiz` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case 1: Add client
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a client
+2.  FitBiz requests for details(eg. name)
+3.  User enters the details
+4.  FitBiz adds client to database
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a.  The input format is invalid.
++
+[none]
+** 3a1.  FitBiz shows an error message
+** 3a2.  User enters the new details.
++
+Steps 3a1 to 3a2 are repeated until the data entered is correct.
+Use case resumes from step 4
+
+[discrete]
+=== Use case 2: View client
+
+*MSS*
+
+1.  User requests to view all the available information of client
+2.  FitBiz shows a list of clients
+3.  User requests to view a specific client in the list
+4.  FitBiz shows all available information of the client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The list is empty.
++
+Use case ends.
+
+* 3a.  The given name is invalid.
++
+[none]
+** 3a1. FitBiz shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 3: Edit client
+
+*MSS*
+
+1.  User requests to edit a client's cliental details
+2.  FitBiz shows a list of clients
+3.  User requests to edit a specific client in the list and inputs the attributes and values
+4.  FitBiz edits client's details
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The list is empty.
++
+Use case ends.
+
+* 3a.  The input format is invalid.
++
+[none]
+** 3a1. FitBiz shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 4: Delete client
+
+*MSS*
+
+1.  User requests to delete a client
+2.  FitBiz shows a list of clients
+3.  User requests to delete a specific client in the list
+4.  FitBiz deletes the client
 +
 Use case ends.
 
@@ -334,10 +427,194 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given format is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. FitBiz shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 5: List clients
+
+*MSS*
+
+1.  User requests to list all existing clients
+2.  FitBiz lists all existing clients
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The input format is invalid.
++
+[none]
+** 2a1.  FitBiz shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case 6: Add exercise
+
+*MSS*
+
+1.  User requests to add an exercise to a client
+2.  FitBiz shows a list of clients
+3.  User requests to add exercise to a specific client in the list
+4.  FitBiz add exercise to the client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The list is empty.
++
+Use case ends.
+
+* 3a.  The given name is invalid.
++
+[none]
+** 3a1. FitBiz shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 7: Start timer
+
+*MSS*
+
+1.  User requests to start a timer
+2.  FitBiz starts a timer for the specified duration
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The input format is invalid.
++
+[none]
+** 2a1.  FitBiz shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case 8: Filter clients
+
+*MSS*
+
+1.  User requests to filter clients based on an attribute
+2.  FitBiz filters clients based on specified attribute
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The input format is invalid.
++
+[none]
+** 2a1.  FitBiz shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case 9: View cliental best
+
+*MSS*
+
+1.  User requests to view a client's cliental best
+2.  FitBiz lists all clients
+3.  User requests to view the cliental best of a specific client on the list
+3.  FitBiz displays the cliental best
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The list is empty.
++
+Use case ends.
+
+* 3a.  The input format is invalid.
++
+[none]
+** 3a1. FitBiz shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 10: View schedule
+
+*MSS*
+
+1.  User requests to view schedule for the day or the time specified
+2.  FitBiz shows the schedule
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The input format is invalid.
++
+[none]
+** 2a1.  FitBiz shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case 11: Export data
+
+*MSS*
+
+1.  User requests to export a client's training record to a CSV file
+2.  FitBiz shows a list of clients
+3.  User requests to export a specific client's training record in the list
+4.  FitBiz exports the client's training records
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The list is empty.
++
+Use case ends.
+
+* 3a.  The given name is invalid.
++
+[none]
+** 3a1. FitBiz shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case 12: View visualisations
+
+*MSS*
+
+1.  User requests to view graph visualisations of a client's progress
+2.  FitBiz shows a list of clients
+3.  User requests to view the training graph of a specific client in the list
+4.  Fitbiz shows the training graph of the client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.  The list is empty.
++
+Use case ends.
+
+* 3a.  The given name is invalid.
++
+[none]
+** 3a1. FitBiz shows an error message.
 +
 Use case resumes at step 2.
 
@@ -347,8 +624,15 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 clients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work without the need for Internet in the program.
+.  Should work reliably.
+.  Should be able to store data in a human-readable format.
+.  Should be for a single user.
+.  Should not use DBMS to store data.
+.  Should not exceed 100Mb in file size.
+
 
 _{More to be added}_
 
@@ -359,7 +643,13 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
+
+[[exercise]] Exercise::
+A workout activity done by a client that is to be recorded.
+
+[[cliental-best]] Cliental Best::
+The best/highest weight that the client has reached for an exercise.
 
 [appendix]
 == Product Survey
@@ -402,15 +692,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a client
 
-. Deleting a person while all persons are listed
+. Deleting a client while all clients are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

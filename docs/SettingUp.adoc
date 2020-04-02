@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= FitBiz Level 3 - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -72,7 +72,7 @@ Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingT
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
 [NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your cliental fork.
 
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
