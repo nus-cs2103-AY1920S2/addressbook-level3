@@ -48,13 +48,12 @@ public class TabsPanel extends UiPart<Region> {
     public TabsPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
-        tabPane.getSelectionModel().selectedItemProperty().addListener(
-                (ov, oldTab, newTab) -> {
+        tabPane.getSelectionModel().selectedItemProperty()
+                .addListener((ov, oldTab, newTab) -> {
                     if (newTab == summaryTab) {
                         summaryPane.updateView();
                     }
-                }
-        );
+                });
     }
 
     /**

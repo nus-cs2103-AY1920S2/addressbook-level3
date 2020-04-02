@@ -2,7 +2,6 @@ package csdev.couponstash.ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,7 +68,7 @@ public class SummaryPane extends UiPart<Region> {
     private VBox allSaveables;
 
     // JavaFX location where bar graph labels are put
-    ObservableList<Node> barGraphLabels = null;
+    private ObservableList<Node> barGraphLabels = null;
 
     // Total amount to show in the summary tab
     private MonetaryAmount shownMonetaryAmount = new MonetaryAmount(0.0);
