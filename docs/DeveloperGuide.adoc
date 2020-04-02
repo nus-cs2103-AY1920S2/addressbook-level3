@@ -123,12 +123,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the fitHelper data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `FitHelper`, which `Person` can reference. This would allow `FitHelper` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -143,7 +143,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the FitHelper data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -160,60 +160,49 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 FitHelper's entries have a `Time` attribute including a `Date` and a specific `Time` in the format of `yyyy-mm-dd HH:mm`.
-This feature allows the user to view entries with the `Date` of today, i.e. shows only entries in today.
-It fetches the `filteredFoodEntryList` and `FilteredSportsEntryList` stored in FitHelper storage.
+Today feature allows the user to view entries with the `Date` of today, i.e. shows only entries in today.
+It fetches the `todayFoodEntries` and `todaySportsEntries` stored in FitHelper storage. Because the display of these two lists
+have the same logic, they are illustrated as `todayEntries` in this section, as a whole.
 
-The today mechanism is facilitated by
-https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
-which wraps a ObservableList and
-filters using the provided Predicate.
-A `FilteredList<Entry> filteredEntries` is stored in the `ModelManager`.
-In `FitHelper`, there is an
-`ObservableList<Entry> entries` which contains all entries, regardless of its `Type` and `Date`. `filteredEntries`
-in the ModelManager is initialized with this ObservableList.
+* In `FitHelper`, the `UniqueEntryList<Entry> todayEntries` contains all entries on today.
+The list is updated whenever changes are made to the general UniqueEntryList<Entry> entries which contains entries of all dates.
 
-Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
+* A `FilteredList<Entry> filteredTodayEntries` is stored in the `ModelManager`. `filteredTodayEntries`
+in the ModelManager is initialized with this `UniqueEntryList<Entry>` by converting it to an `ObservableList<Entry>`.
 
-* `Model#updateFilteredEntryList(Predicate<Entry> predicate)` -- Sets the value of the property Predicate in the `filteredEntries`.
+* `Today Page` takes in `todayEntries` as a parameter when it is initialized. The list is always displayed on the GUI page as a ListView.
 
-** Predicates are declared statically in the `Model` interface, namely
-`PREDICATE_SHOW_ALL_ENTRIES`, `PREDICATE_SHOW_UNDONE_ENTRIES`, and `PREDICATE_SHOW_TODAY_ENTRIES`.
-In particular `PREDICATE_SHOW_TODAY_ENTRIES` is as follows
-```java
-    Predicate<Entry> PREDICATE_SHOW_TODAY_ENTRIES = entry ->
-            entry.getTime().getDateStr().equals(new Today().getTodayDateStr());
-```
+* When the `today` command is executed, FitHelper switches to `Today Page` where the entries on today can be seen.
 
-** The `TodayCommand` will call this method to change the visibility of entries with different status by passing in the corresponding predicate.
+* Other features implemented in `Today Page`, like `daily calorie calculation`, `daily task completion`, and `dialy performance assessment`,
+all depend on the data carried by the passed in list.
 
-An example usage scenario and how the today mechanism behaves at each step is shown below.
+An example usage scenario and how the `today` mechanism behaves at each step is shown below.
 
 **Step 1.** The user launches the application for the first time.
-`UniqueEntryList` will be initialized with a list of default entries in FitHelper.
-This list contains a few entries with various dates.
+`UniqueEntryList` will be initialized with a list of default entries in FitHelper, which contains a few entries with various dates.
+`UniqueTodayEntryList` will be initialized concurrently by filtering out entries on today.
 
-**Step 2.** The user inputs `today` to list all today entries. `UI` passes the input to `Logic`.
-Logic then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
+**Step 2.** `MainWindow` fetches `ObservableList<Entry> todayEntries`.
+`Today Page` is initialized in `MainWindow` with the `ObservableList<Entry> todayEntries` passed from the model.
 
-**Step 3.** Logic passes the user input to `FitHelperParser`. `FitHelperParser` identifies that this is a `TodayCommand`
+**Step 3.** The user inputs `today` to view all today entries. `UI` passes the input to `Logic`.
+
+**Step 4.** Logic passes the user input to `FitHelperParser`. `FitHelperParser` identifies that this is a `TodayCommand`
 through the word "today".
-It then creates a
-`TodayCommandParser` to parse the it into a `TodayCommand` and return.
+It then creates a `TodayCommandParser` to parse the it into a `TodayCommand` and return.
 
-**Step 4.** `Logic` finally gets the `TodayCommand` and execute it.
-The execution firstly calls
-`Model#updateFilteredEntryList(Predicate<Entry> predicate)` to update the Predicate in
-`filteredEntries` in `Model`.
-This execution then returns a `CommandResult` to `UI`, containing the response to the user.
+**Step 5.** `Logic` gets the `TodayCommand` and execute it.
+This execution then returns a `CommandResult` to `UI`, containing the success message and a specified displayed page of `Today Page`.
 
 **Step 5.** `UI` displays the response in the `CommandResult`.
-In addition, UI will change to display today entries after model updates `filteredEntries`, since `UI` is constantly listening for the change in `Model`.
+`UI` also switches FitHelper to `Today Page`, where the continuously updated
+`todayEntryList` is displayed, since `UI` is constantly listening for the change in `Model`.
 
 The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
 
 .Sequence Diagram for Today Feature
-image::TodaySequenceDiagram.png[]
-
+image::InitiateTodayPageSequenceDiagram.png[]
 
 // tag::diary[]
 === Diary Feature
@@ -273,6 +262,69 @@ The Sequence Diagram below shows how the components interact with each other for
 
 .Sequence Diagram for Diary Feature
 image::DiarySequenceDiagram.png[]
+
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by `VersionedFitHelper`.
+It extends `FitHelper` with an undo/redo history, stored internally as an `fitHelperStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedFitHelper#commit()` -- Saves the current FitHelper state in its history.
+* `VersionedFitHelper#undo()` -- Restores the previous FitHelper state from its history.
+* `VersionedFitHelper#redo()` -- Restores a previously undone FitHelper state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedFitHelper` will be initialized with the initial FitHelper state, and the `currentStatePointer` pointing to that single FitHelper state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete x/f i/5` command to delete the 5th food entry in the FitHelper. The `delete` command calls `Model#commit()`, causing the modified state of the FitHelper after the `delete x/f i/5` command executes to be saved in the `fitHelperStateList`, and the `currentStatePointer` is shifted to the newly inserted FitHelper state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add x/f n/apple ...` to add a new food entry. The `add` command also calls `Model#commit()`, causing another modified FitHelper state to be saved into the `fitHelperStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commit()`, so the FitHelper state will not be saved into the `fitHelperStateList`.
+
+Step 4. The user now decides that adding the food entry was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous FitHelper state, and restores the FitHelper to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial FitHelper state, then there are no previous FitHelper states to restore. The `undo` command uses `Model#canundo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the FitHelper to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `fitHelperStateList.size() - 1`, pointing to the latest FitHelper state, then there are no undone FitHelper states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the FitHelper, such as `list`, will usually not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `fitHelperStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commit()`. Since the `currentStatePointer` is not pointing at the end of the `fitHelperStateList`, all FitHelper states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+// end::undoredo[]
 
 // tag::calendar[]
 === Calendar

@@ -109,8 +109,8 @@ public class MainWindow extends UiPart<Stage> {
         dashBoard = new DashBoard(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList(),
                 logic.getFilteredReminderEntryList());
         setAllPageAnchor(dashBoard.getRoot());
-        todayPage = new TodayPage(logic.getFilteredTodayFoodEntryList(new Today().getTodayDateStr()),
-                logic.getFilteredTodaySportsEntryList(new Today().getTodayDateStr()));
+        todayPage = new TodayPage(logic.getFilteredTodayFoodEntryList(),
+                logic.getFilteredTodaySportsEntryList());
         logger.info(new Today().getTodayDateStr());
         setAllPageAnchor(todayPage.getRoot());
         diaryPage = new DiaryPage(logic.getFilteredDiaryList());

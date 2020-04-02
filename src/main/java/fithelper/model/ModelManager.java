@@ -63,8 +63,8 @@ public class ModelManager implements Model {
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
-        filteredTodayFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
-        filteredTodaySportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
+        filteredTodayFoodEntries = new FilteredList<>(this.fitHelper.getTodayFoodList());
+        filteredTodaySportsEntries = new FilteredList<>(this.fitHelper.getTodaySportsList());
         vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
 
         logger.fine("Initializing with UserProfile: " + userProfile);
@@ -269,8 +269,8 @@ public class ModelManager implements Model {
      * {@code versionedFitHelper}
      */
     @Override
-    public ObservableList<Entry> getFilteredTodayFoodEntryList(String dateStr) {
-        return this.fitHelper.getTodayFoodList(dateStr);
+    public ObservableList<Entry> getFilteredTodayFoodEntryList() {
+        return filteredTodayFoodEntries;
     }
 
     /**
@@ -278,8 +278,8 @@ public class ModelManager implements Model {
      * {@code versionedFitHelper}
      */
     @Override
-    public ObservableList<Entry> getFilteredTodaySportsEntryList(String dateStr) {
-        return this.fitHelper.getTodaySportsList(dateStr);
+    public ObservableList<Entry> getFilteredTodaySportsEntryList() {
+        return filteredTodaySportsEntries;
     }
 
     public ObservableList<Entry> getTodayEntries(String todayDate, FilteredList<Entry> entries) {
