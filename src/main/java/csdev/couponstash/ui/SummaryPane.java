@@ -35,6 +35,11 @@ public class SummaryPane extends UiPart<Region> {
     private static final String SAVED_TOTAL_PRE_MESSAGE = "You saved a total of ";
     // message to be shown before the list of saveables
     private static final String SAVEABLES_PRE_MESSAGE = "And these saveables too!";
+    // CSS style class for saveable labels
+    private static final String SAVEABLE_LABEL_CLASS = "saveable-label";
+    // CSS style class for manual bar chart labels
+    private static final String BAR_CHART_LABEL_STYLE =
+            "-fx-font: 11px arial;\n-fx-fill: white;";
     // controls font size of number amount
     private static final int BASE_FONT_SIZE = 625;
 
@@ -129,6 +134,8 @@ public class SummaryPane extends UiPart<Region> {
         savingsSum.getSaveables().ifPresent(saveablesList -> saveablesList
                 .forEach(sva -> {
                     Label label = new Label(sva.getValue());
+                    // ensure that label has correct styles
+                    label.getStyleClass().add(SummaryPane.SAVEABLE_LABEL_CLASS);
                     allSaveables.getChildren().add(label);
                 }));
     }
@@ -202,6 +209,7 @@ public class SummaryPane extends UiPart<Region> {
         );
         dataList.add(data);
         Text dataLabel = new Text(SummaryPane.formatMoneyAmount(pms.getMonetaryAmountAsDouble()));
+        dataLabel.setStyle(SummaryPane.BAR_CHART_LABEL_STYLE);
         data.nodeProperty().addListener((obv, oldNode, newNode) -> {
             if (newNode != null) {
                 addListenersForLabel(newNode, dataLabel);
@@ -235,7 +243,7 @@ public class SummaryPane extends UiPart<Region> {
         node.boundsInParentProperty().addListener((obv, oldBounds, newBounds) -> {
             dataLabel.setLayoutX(Math.round(newBounds.getMinX() + newBounds.getWidth() / 2
                     - dataLabel.prefWidth(-1) / 2));
-            dataLabel.setLayoutY(newBounds.getMinY());
+            dataLabel.setLayoutY(newBounds.getMinY() - 1);
         });
     }
 

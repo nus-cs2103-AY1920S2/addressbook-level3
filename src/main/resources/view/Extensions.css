@@ -143,6 +143,10 @@
   -fx-background-color: -fx-tertiary-green;
   -fx-background-radius: 10;
   -fx-effect: -fx-paneShadow;
+}
+
+#summary-tab .saveable-label {
+  -fx-font-family: arial;
   -fx-text-fill: white;
 }
 
@@ -150,12 +154,14 @@
   -fx-font-family: arial;
   -fx-font-size: 25px;
   -fx-font-weight: bold;
+  -fx-text-fill: white;
 }
 
 #summary-tab #savings-chart {
   -fx-legend-visible: false;
   -fx-horizontal-grid-lines-visible: false;
   -fx-vertical-grid-lines-visible: false;
+  -fx-horizontal-zero-line-visible: false;
 }
 
 #summary-tab #savings-chart .bar-chart {
@@ -175,6 +181,10 @@
 
 #summary-tab #savings-chart #savings-axis {
   -fx-opacity: 0;
+}
+
+#summary-tab #savings-chart #days-axis {
+  -fx-border-radius: 0;
 }
 
 #summary-tab #savings-chart #days-axis .axis-tick-mark {

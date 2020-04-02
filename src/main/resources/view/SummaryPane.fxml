@@ -23,9 +23,9 @@
           <NumberAxis id="savings-axis" fx:id="savingsAxis" />
         </yAxis>
       </BarChart>
-      <VBox id="saveables-box" styleClass="summary-bold-text" alignment="CENTER"
-            prefHeight="338.0" prefWidth="301.0">
-        <Label id="saveables-text" fx:id="saveablesText" contentDisplay="CENTER" prefHeight="17.0" />
+      <VBox id="saveables-box" alignment="CENTER" prefHeight="338.0" prefWidth="301.0">
+        <Label id="saveables-text" styleClass="saveable-label" fx:id="saveablesText"
+               contentDisplay="CENTER" prefHeight="17.0" />
         <VBox id="all-saveables" fx:id="allSaveables" alignment="CENTER"
               prefHeight="303.0" prefWidth="277.0" />
       </VBox>
