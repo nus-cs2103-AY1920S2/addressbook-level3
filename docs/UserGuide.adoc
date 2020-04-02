@@ -130,8 +130,8 @@ Allows users to decide which dieting mode they want, based on the following mode
 * Gain Weight (-g)
 * Maintain (-m)
 
-Format: `diet mode [-m] [-l] [-g]` +
-Example: `diet mode -m`
+Format: `mode [-m] [-l] [-g]` +
+Example: `mode -m`
 
 ==== Store Height `height`
 Allows user to input their height.
@@ -153,21 +153,32 @@ NOTE: Weight in kilograms (kg)
 ==== Add food `add`
 Adds food to the list.
 
+****
+* Adds food item with the given name, calories and tags.
+* Name and Calories are compulsory.
+* Tags are optional.
+****
+
 Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
 
 ==== List items `list`
-List food in your current diet tracker. Show different data based on flags.
+List food in your current diet tracker along with the total calorie count.
+Watch your diet intake for different time frames and food of different categories.
 
+Displays different data based on the below flags:
+
+****
 * Food consumed for the day (NO FLAG)
 * All food ever consumed (-a)
 * Food consumed for the past number of days (-d)
 * All food with the given tag (-t)
+****
 
 NOTE: Default value of list is food consumed for the day.
 
-Format: `list [-f] [-d] [-t [numDays]] [-e [tagName]] ` +
-Example: `list -t 3`
+Format: `list [-a] [-d NUMDAYS] [-t TAGNAME]` +
+Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
 
 ==== Delete Food Item `delete`
 
@@ -206,15 +217,6 @@ Example:
 
 * `edit 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
-
-==== Calculate Daily Calories `calc`
-
-Calculates and lists the following: +
-
-* Total Calorie Intake for the day.
-* Calories left based on your preferred dieting mode.
-
-Format: `calc`
 
 ==== Calculate Body Mass Index (BMI) `bmi`
 
@@ -410,6 +412,90 @@ If you would like to know more about a specific command, you can view more infor
 
 === For Diet Tracker
 
+* *Add Food* `add` +
+e.g `add -n salad -c 235 -t healthy`
+
+* *Delete Food* `delete` +
+e.g `delete 3`
+
+* *Edit Food* `edit` +
+e.g `edit 2 -n chips -c 230`
+
+* *List Food* `list [-a] [-d numDays] [-t tagName]` +
+e.g `list`
+
+* *Set Mode* `mode MODE` +
+e.g. `back`
+
+* *Set Height* : `height HEIGHT` +
+e.g. `height 169`
+
+* *Set Weight* `weight WEIGHT` +
+e.g. `weight 56`
+
+* *Calculate BMI* `bmi` +
+e.g. `bmi -h 172 -w 65.5`
+
+* *Back* `back` +
+e.g. `back`
+
+|===
+|Command |Format |Example
+
+|<<add, *Add Food*>>
+|`add -f FOODNAME -c CALORIES -t TAGS`
+|`insert -f salad -c 235` +
+`insert -f fries -c 195 -t fastfood`
+
+|<<delete, *Delete Food*>>
+|`delete INDEX`
+|`delete 1` +
+`delete 2`
+
+|<<edit, *Edit Food*>>
+|`edit INDEX [-n NAME] [-c CALORIES]`
+|`edit 1 -n carbonara -c 543` +
+`edit 2 -n chips -c 230`
+
+|<<list, *List Food*>>
+|`list [-a] [-d NUMDAYS] [-t TAGNAME]`
+|`list` +
+`list -a` +
+`list -d 6` +
+`list-t healthy`
+
+|<<mode, *Set Mode*>>
+|`mode MODE`
+|`mode -l` +
+`mode -g` +
+`mode -h`
+
+|<<height, *Set Height*>>
+|`height HEIGHT`
+|`delete 1` +
+`delete 2`
+
+|<<weight, *Set Weight*>>
+|`weight WEIGHT`
+|`delete 1` +
+`delete 2`
+
+|<<bmi, *Calculate BMI*>>
+|`bmi [-h HEIGHT] [-w WEIGHT]`
+|`bmi` +
+`bmi -h 172 -w 65.5`
+
+
+|<<exit, *Exit*>>
+|`exit`
+|`exit`
+
+
+|<<help, *Help*>>
+|`help`
+|`help`
+
+|===
 
 === For Expense Splitter
 
