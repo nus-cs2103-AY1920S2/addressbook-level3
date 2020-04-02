@@ -111,7 +111,9 @@ public class EditCommand extends IndexedCommand {
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
-        Archived archived = new Archived(String.valueOf(Usage.isUsageAtLimit(couponToEdit.getUsage(), updatedLimit)));
+        Archived archived = editCouponDescriptor.getUsage().isPresent() || editCouponDescriptor.getLimit().isPresent()
+                ? new Archived(String.valueOf(Usage.isUsageAtLimit(couponToEdit.getUsage(), updatedLimit)))
+                : couponToEdit.getArchived();
         RemindDate remindDate = editCouponDescriptor.getExpiryDate().isPresent()
                 ? new RemindDate(updatedExpiryDate)
                 : editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
@@ -123,7 +125,6 @@ public class EditCommand extends IndexedCommand {
                 // avoid changing the total savings and dates mappings
                 couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
-
                 remindDate,
                 updatedCondition,
                 // avoid changing the archival state
