@@ -1,7 +1,6 @@
 package cookbuddy.model.recipe.attribute;
 
 import static cookbuddy.commons.util.AppUtil.checkArgument;
-import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 
@@ -17,7 +16,6 @@ public class Time {
     public static final String MESSAGE_CONSTRAINTS_SEC = "Secs should be <= 60";
 
 
-    
 
     public final int hour;
     public final int min;
@@ -62,16 +60,25 @@ public class Time {
     @Override
     public String toString() {
         String toReturn = "";
-        if(isNull(hour) || isNull(min) || isNull(sec)) {
+        if((hour + min + sec) == 0) {
             toReturn += "-";
         } else {
+            if(hour < 10) {
+                toReturn += "0";
+            }
             toReturn += String.valueOf(hour);
             toReturn += ":";
+            if(min < 10) {
+                toReturn += "0";
+            }
             toReturn += String.valueOf(min);
             toReturn += ":";
+            if(sec < 10) {
+                toReturn += "0";
+            }
             toReturn += String.valueOf(sec);
         }
-        return toReturn
+        return toReturn;
     }
 
     @Override
