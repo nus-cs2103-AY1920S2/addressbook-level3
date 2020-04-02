@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
@@ -13,6 +12,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+
+<?import java.net.URL?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <fx:root minHeight="910" minWidth="1000" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -36,43 +37,43 @@
            </MenuBar>
          </top>
          <left>
-           <VBox fx:id="buttonBar" minWidth="150.0" prefHeight="271.0" prefWidth="152.0" spacing="5" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+           <VBox fx:id="buttonBar" minWidth="150.0" prefHeight="400.0" prefWidth="152.0" spacing="5" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
              <children>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="45.0" prefWidth="145.0" text="Students      ">
+               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="150.0" prefWidth="145.0" text="Students      ">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ourImages/student.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStaff" prefHeight="45.0" prefWidth="145.0" text="Staffs      ">
+               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStaff" prefHeight="150.0" prefWidth="145.0" text="Staffs      ">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ourImages/specs.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="45.0" prefWidth="145.0" text="Courses       ">
+               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="150.0" prefWidth="145.0" text="Courses       ">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ourImages/book.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance" prefHeight="45.0" prefWidth="145.0" text="Finances      ">
+               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance" prefHeight="150.0" prefWidth="145.0" text="Finances      ">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ourImages/finance.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToAssignment" prefHeight="45.0" prefWidth="145.0" text="Assignments">
+               <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToAssignment" prefHeight="150.0" prefWidth="145.0" text="Assignments">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ourImages/assignment.png" />
                      </image>
@@ -94,7 +95,7 @@
             </VBox>
    </bottom>
    <center>
-      <HBox spacing="25" prefHeight="1000.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="1000.0" prefWidth="1000.0" spacing="25" BorderPane.alignment="CENTER">
         <padding>
           <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
         </padding>
@@ -113,10 +114,10 @@
       </HBox>
    </center>
       </BorderPane>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-    </Scene>
+<stylesheets>
+<URL value="@DarkTheme.css" />
+<URL value="@Extensions.css" />
+</stylesheets>
+  </Scene>
   </scene>
-</fx:root>
+  </fx:root>
