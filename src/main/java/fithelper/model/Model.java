@@ -96,6 +96,7 @@ public interface Model {
      * Returns true if at least two Entries have time clashes as {@code entry} exists in the FitHelper.
      */
     boolean hasTimeClashes(Entry entry);
+    boolean hasTimeClashes(Entry entry, Entry editedEntry);
 
     /**
      * Deletes the given diary.

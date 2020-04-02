@@ -164,6 +164,12 @@ public class ModelManager implements Model {
         return fitHelper.hasTimeClashes(entry);
     }
 
+    @Override
+    public boolean hasTimeClashes(Entry entry, Entry editedEntry) {
+        requireNonNull(entry);
+        return fitHelper.hasTimeClashes(entry, editedEntry);
+    }
+
     /**
      * Deletes the given diary.
      * The diary must exist in the log book.
