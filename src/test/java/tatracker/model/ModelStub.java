@@ -76,6 +76,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setCurrSessionFilter(String params) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getCurrSessionFilter() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasSession(Session session) {
         throw new AssertionError("This method should not be called.");
     }

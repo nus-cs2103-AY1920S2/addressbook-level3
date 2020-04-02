@@ -89,6 +89,16 @@ public interface Model {
      */
     String getCurrClaimFilter();
 
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    void setCurrSessionFilter(String params);
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    String getCurrSessionFilter();
+
     // ======== Session Methods ================================================
 
     /**

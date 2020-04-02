@@ -56,11 +56,26 @@ public class FilterSessionCommand extends Command {
             model.updateFilteredSessionList(predicate);
             returnMsg += "\n" + String.format(MESSAGE_SUCCESS, sessionType + " " + date);
         } else {
+
+            String result = buildParams(date, moduleCode, sessionType);
+            model.setCurrSessionFilter(result);
             model.updateFilteredSessionList(predicate);
             returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
         }
 
         return new CommandResult(returnMsg, Action.FILTER_SESSION);
+    }
+
+    /**
+     *Creates a string consisting of all the params inputted by users.
+     */
+    public String buildParams(String date, String module, String sessionType) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Date: ").append(date).append("\n");
+        builder.append("Module Code: ").append(module).append("\n");
+        builder.append("Session Type: ").append(sessionType).append("\n");
+        String result = builder.toString();
+        return result;
     }
 
     @Override
