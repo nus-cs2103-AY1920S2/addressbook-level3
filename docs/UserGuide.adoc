@@ -250,7 +250,7 @@ Format: `delete [-t] [PATH/TO/]NOTE`
 
 [WARNING]
 ====
-* Deleting a note will also delete its child notes. Be very careful!
+* Deleting a note will also delete its child notes. Be very careful! You can refer to the example below for an illustration
 ====
 
 ==== Example: Deleting an existing note
@@ -261,6 +261,7 @@ Format: `delete [-t] [PATH/TO/]NOTE`
 [NOTE]
 ====
 * `Another Note`, `CS2103` and `ST2334` are immediately deleted as well since they are child notes of `Notably`
+* The above example uses `RelativePath`. You can achieve the same result as above by using an `AbsolutePath` instead by executing `delete -t /Workspace/Notably`.
 ====
 .Demo for the `delete` command
 image::demo/Delete1.png[]
