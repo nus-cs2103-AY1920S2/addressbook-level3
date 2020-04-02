@@ -35,7 +35,7 @@ public class ViewCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredPlannedList(predicate);
-        model.commitRecipeBook();
+        // model.commitBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 

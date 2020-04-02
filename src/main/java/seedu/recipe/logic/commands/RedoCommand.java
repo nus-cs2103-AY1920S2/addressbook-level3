@@ -33,7 +33,7 @@ public class RedoCommand extends Command {
         if (!model.canRedo(numberOfRedo)) {
             throw new CommandException(MESSAGE_CANNOT_REDO);
         }
-        model.redoRecipeBook(numberOfRedo);
+        model.redoBook(numberOfRedo, model);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         if (numberOfRedo > 0) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfRedo));

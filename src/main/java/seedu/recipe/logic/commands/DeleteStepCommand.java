@@ -33,6 +33,7 @@ public class DeleteStepCommand extends Command {
 
     private final Index index;
     private final Integer[] stepNumbers;
+    private final CommandType commandType;
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
@@ -41,6 +42,7 @@ public class DeleteStepCommand extends Command {
     public DeleteStepCommand(Index index, Integer[] stepNumbers) {
         this.index = index;
         this.stepNumbers = stepNumbers;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class DeleteStepCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.setRecipeInPlans(recipeToEdit, editedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
 
         return new CommandResult(String.format(MESSAGE_DELETE_STEPS_SUCCESS, recipeToEdit.getName().toString()));
     }

@@ -8,6 +8,7 @@ import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,12 @@ import seedu.recipe.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code AddStepCommandTest}.
+ * {@code AddStepCommand}.
  */
 public class AddStepCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
     private final Step firstNewStep = new Step("New step 1");
     private final Step secondNewStep = new Step("New step 2");
 
@@ -46,7 +48,8 @@ public class AddStepCommandTest {
         String expectedMessageTemplate = "Successfully added step(s) to %1$s!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToAddSteps.getName().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -83,7 +86,8 @@ public class AddStepCommandTest {
         String expectedMessageTemplate = "Successfully added step(s) to %1$s!";
         String expectedMessage = String.format(expectedMessageTemplate, recipeToAddSteps.getName().toString());
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -117,15 +121,22 @@ public class AddStepCommandTest {
         stepsToAdd.add(firstNewStep);
         stepsToAdd.add(secondNewStep);
 
+        List<Step> differentStepsToAdd = new ArrayList<>();
+        differentStepsToAdd.add(firstNewStep);
+
+        // Base command for comparison
         AddStepCommand addStepFirstCommand = new AddStepCommand(INDEX_FIRST_RECIPE, stepsToAdd);
+        // Different recipe, same list of steps
         AddStepCommand addStepSecondCommand = new AddStepCommand(INDEX_SECOND_RECIPE, stepsToAdd);
+        // Same recipe, different list of steps
+        AddStepCommand addStepThirdCommand = new AddStepCommand(INDEX_FIRST_RECIPE, differentStepsToAdd);
 
         // same object -> returns true
         assertTrue(addStepFirstCommand.equals(addStepFirstCommand));
 
         // same values -> returns true
-        AddStepCommand addStepSecondCommandCopy = new AddStepCommand(INDEX_FIRST_RECIPE, stepsToAdd);
-        assertTrue(addStepFirstCommand.equals(addStepSecondCommandCopy));
+        AddStepCommand addStepFirstCommandCopy = new AddStepCommand(INDEX_FIRST_RECIPE, stepsToAdd);
+        assertTrue(addStepFirstCommand.equals(addStepFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(addStepFirstCommand.equals(1));
@@ -133,7 +144,10 @@ public class AddStepCommandTest {
         // null -> returns false
         assertFalse(addStepFirstCommand.equals(null));
 
-        // different recipe -> returns false
+        // different recipe, same list of steps -> returns false
         assertFalse(addStepFirstCommand.equals(addStepSecondCommand));
+
+        // same recipe, different list of steps -> returns false
+        assertFalse(addStepFirstCommand.equals(addStepThirdCommand));
     }
 }

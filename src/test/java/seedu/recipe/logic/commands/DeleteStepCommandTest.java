@@ -8,6 +8,7 @@ import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +23,14 @@ import seedu.recipe.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteStepCommandTest}.
+ * {@code DeleteStepCommand}.
  */
 public class DeleteStepCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
     private final Integer[] indexSecondStep = new Integer[] {1}; // Steps are zero-indexed by design
+    private final Integer[] indexFirstStep = new Integer[] {0};
     private final Integer[] indexOutOfBoundsStep = new Integer[] {Integer.MAX_VALUE};
 
     @Test
@@ -38,7 +41,8 @@ public class DeleteStepCommandTest {
         String expectedMessageTemplate = DeleteStepCommand.MESSAGE_DELETE_STEPS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -84,7 +88,8 @@ public class DeleteStepCommandTest {
         String expectedMessageTemplate = DeleteStepCommand.MESSAGE_DELETE_STEPS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -134,8 +139,12 @@ public class DeleteStepCommandTest {
 
     @Test
     public void equals() {
+        // Base command for comparison
         DeleteStepCommand deleteStepFirstCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexSecondStep);
+        // Different recipe, same step index
         DeleteStepCommand deleteStepSecondCommand = new DeleteStepCommand(INDEX_SECOND_RECIPE, indexSecondStep);
+        // Same recipe, different step index
+        DeleteStepCommand deleteStepThirdCommand = new DeleteStepCommand(INDEX_FIRST_RECIPE, indexFirstStep);
 
         // same object -> returns true
         assertTrue(deleteStepFirstCommand.equals(deleteStepFirstCommand));
@@ -150,7 +159,10 @@ public class DeleteStepCommandTest {
         // null -> returns false
         assertFalse(deleteStepFirstCommand.equals(null));
 
-        // different recipe -> returns false
+        // different recipe, same step index -> returns false
         assertFalse(deleteStepFirstCommand.equals(deleteStepSecondCommand));
+
+        // same recipe, different step index -> returns false
+        assertFalse(deleteStepFirstCommand.equals(deleteStepThirdCommand));
     }
 }

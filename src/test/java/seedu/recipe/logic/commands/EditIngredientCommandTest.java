@@ -9,6 +9,7 @@ import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -30,12 +31,14 @@ import seedu.recipe.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code EditIngredientCommandTest}.
+ * {@code EditIngredientCommand}.
  */
 public class EditIngredientCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
     private final Other otherWithNewQuantity = new Other("Cheese", RecipeBuilder.DEFAULT_QUANTITY);
+    private final Grain grainWithNewQuantity = new Grain("Bread", RecipeBuilder.DEFAULT_QUANTITY);
 
     @Test
     public void execute_validIndexAndIngredientFieldUnfilteredList_success() {
@@ -52,7 +55,8 @@ public class EditIngredientCommandTest {
         String expectedMessageTemplate = EditIngredientCommand.MESSAGE_EDIT_INGREDIENTS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToEditIngredients.getName().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -108,7 +112,8 @@ public class EditIngredientCommandTest {
         String expectedMessageTemplate = EditIngredientCommand.MESSAGE_EDIT_INGREDIENTS_SUCCESS;
         String expectedMessage = String.format(expectedMessageTemplate, recipeToEditIngredients.getName().toString());
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -155,27 +160,25 @@ public class EditIngredientCommandTest {
 
     @Test
     public void equals() {
-        // Create first EditRecipeDescriptors with a changed "other" ingredient
+        // Create first EditRecipeDescriptor
         Set<Other> editedOther = new TreeSet<>();
         editedOther.add(otherWithNewQuantity);
         EditRecipeDescriptor firstEditRecipeDescriptor = new EditRecipeDescriptor();
         firstEditRecipeDescriptor.setOthers(editedOther);
 
-        // Create two EditIngredientCommands with the same EditRecipeDescriptors but different target recipes
-        EditIngredientCommand editIngredientFirstCommand = new EditIngredientCommand(
-                INDEX_SECOND_RECIPE, firstEditRecipeDescriptor);
-        EditIngredientCommand editIngredientSecondCommand = new EditIngredientCommand(
-                INDEX_THIRD_RECIPE, firstEditRecipeDescriptor);
-
-        // Create second EditRecipeDescriptor with a changed grain ingredient
-        Grain grainWithNewQuantity = new Grain("Bread", RecipeBuilder.DEFAULT_QUANTITY);
+        // Create different EditRecipeDescriptor
         Set<Grain> editedGrain = new TreeSet<>();
         editedGrain.add(grainWithNewQuantity);
         EditRecipeDescriptor secondEditRecipeDescriptor = new EditRecipeDescriptor();
         secondEditRecipeDescriptor.setGrains(editedGrain);
 
-        // Create a third EditIngredientCommand with the new and different EditRecipeDescriptor,
-        // but with the same target recipe as editIngredientFirstCommand
+        // Base command for comparison
+        EditIngredientCommand editIngredientFirstCommand = new EditIngredientCommand(
+                INDEX_SECOND_RECIPE, firstEditRecipeDescriptor);
+        // Different recipe, same EditRecipeDescriptor
+        EditIngredientCommand editIngredientSecondCommand = new EditIngredientCommand(
+                INDEX_THIRD_RECIPE, firstEditRecipeDescriptor);
+        // Same recipe, different EditRecipeDescriptor
         EditIngredientCommand editIngredientThirdCommand = new EditIngredientCommand(
                 INDEX_SECOND_RECIPE, secondEditRecipeDescriptor);
 
@@ -193,10 +196,10 @@ public class EditIngredientCommandTest {
         // null -> returns false
         assertFalse(editIngredientFirstCommand.equals(null));
 
-        // different recipe -> returns false
+        // different recipe, same EditRecipeDescriptor -> returns false
         assertFalse(editIngredientFirstCommand.equals(editIngredientSecondCommand));
 
-        // different EditRecipeDescriptor -> returns false
+        // same recipe, different EditRecipeDescriptor -> returns false
         assertFalse(editIngredientFirstCommand.equals(editIngredientThirdCommand));
     }
 }

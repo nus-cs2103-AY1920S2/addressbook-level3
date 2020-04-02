@@ -8,6 +8,7 @@ import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,14 +24,17 @@ import seedu.recipe.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code EditStepCommandTest}.
+ * {@code EditStepCommand}.
  */
 public class EditStepCommandTest {
 
-    private Model model = new ModelManager(getTypicalRecipeBook(), new PlannedBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
+            getTypicalRecordBook(), new PlannedBook());
     private final int indexFirstStep = 0; // Steps are zero-indexed by design
+    private final int indexSecondStep = 1;
     private final int indexOutOfBoundsStep = Integer.MAX_VALUE;
     private final Step editedStep = new Step("Edited step");
+    private final Step differentStep = new Step("Different step");
 
     @Test
     public void execute_validRecipeAndStepIndexAndStepFieldUnfilteredList_success() {
@@ -41,7 +45,8 @@ public class EditStepCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate,
                 indexFirstStep + 1, recipeToEditSteps.getName().toString());
 
-        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -88,7 +93,8 @@ public class EditStepCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate,
                 indexFirstStep + 1, recipeToEditSteps.getName().toString());
 
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new PlannedBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
+                model.getRecordBook(), new PlannedBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -138,13 +144,14 @@ public class EditStepCommandTest {
 
     @Test
     public void equals() {
+        // Base command for comparison
         EditStepCommand editStepFirstCommand = new EditStepCommand(INDEX_FIRST_RECIPE, indexFirstStep, editedStep);
+        // Different recipe, same step index, same step
         EditStepCommand editStepSecondCommand = new EditStepCommand(INDEX_SECOND_RECIPE, indexFirstStep, editedStep);
-
-        Step differentStep = new Step("Different step");
-        assert !differentStep.equals(editedStep);
-        EditStepCommand editStepFirstCommandDifferentStep = new EditStepCommand(
-                INDEX_FIRST_RECIPE, indexFirstStep, differentStep);
+        // Same recipe, same step index, different step
+        EditStepCommand editStepThirdCommand = new EditStepCommand(INDEX_FIRST_RECIPE, indexFirstStep, differentStep);
+        // Same recipe, different step index, same step
+        EditStepCommand editStepFourthCommand = new EditStepCommand(INDEX_FIRST_RECIPE, indexSecondStep, editedStep);
 
         // same object -> returns true
         assertTrue(editStepFirstCommand.equals(editStepFirstCommand));
@@ -160,10 +167,13 @@ public class EditStepCommandTest {
         // null -> returns false
         assertFalse(editStepFirstCommand.equals(null));
 
-        // different recipe -> returns false
+        // different recipe, same step index, same step -> returns false
         assertFalse(editStepFirstCommand.equals(editStepSecondCommand));
 
-        // different step -> returns false
-        assertFalse(editStepFirstCommand.equals(editStepFirstCommandDifferentStep));
+        // same recipe, same step index, different step -> returns false
+        assertFalse(editStepFirstCommand.equals(editStepThirdCommand));
+
+        // same recipe, different step index, same step -> returns false
+        assertFalse(editStepFirstCommand.equals(editStepFourthCommand));
     }
 }

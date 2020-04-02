@@ -24,9 +24,11 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Index[] targetIndex;
+    private final CommandType commandType;
 
     public DeleteCommand(Index[] targetIndex) {
         this.targetIndex = targetIndex;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class DeleteCommand extends Command {
         }
         sb.append(" from recipe book!");
 
-        model.commitRecipeBook();
+        model.commitBook(commandType);
         return new CommandResult(sb.toString());
     }
 
