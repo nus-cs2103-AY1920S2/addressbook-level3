@@ -61,8 +61,6 @@ public class Pet implements ReadOnlyPet {
         int expInteger = Integer.parseInt(this.exp);
         int levelInteger = (int) Math.ceil(expInteger / 99.0);
         this.level = Integer.toString(levelInteger);
-
-        System.out.println(this);
     }
 
     public void changeHangry() {

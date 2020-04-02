@@ -270,11 +270,6 @@ public class PomodoroManager {
         // Update stats
         model.updateDataDatesStatistics();
 
-        // update Mood when done
-        PetManager petManager = model.getPetManager();
-        petManager.updateMoodWhenDone();
-        mainWindow.updatePetDisplay();
-
         LocalDateTime now = LocalDateTime.now();
         Date dateOnDone = new Date(now.format(Date.dateFormatter));
         Statistics stats = model.getStatistics();

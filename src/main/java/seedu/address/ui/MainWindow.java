@@ -4,6 +4,12 @@ import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
 import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -27,6 +33,7 @@ import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DoneCommandResult;
 import seedu.address.logic.commands.PomCommand;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.SwitchTabCommandResult;
@@ -43,6 +50,9 @@ import seedu.address.model.task.Reminder;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+
+    public final String HANGRY_MOOD_STRING = "HANGRY";
+    public final String HAPPY_MOOD_STRING = "HAPPY";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -62,6 +72,10 @@ public class MainWindow extends UiPart<Stage> {
     private SettingsDisplay settingsDisplay;
 
     private CommandBox commandBox;
+
+    private Timer timer;
+    private TimerTask timerTask;
+    private boolean hasStarted; 
 
     @FXML private StackPane commandBoxPlaceholder;
 
@@ -100,6 +114,19 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        //set-up timer
+        this.timer = new Timer();
+        this.timerTask =
+        new TimerTask() {
+            public void run() {
+                petManager.changeToHangry();
+                petManager.updateDisplayElements();
+                updatePetDisplay();
+                timer.cancel();
+            }
+        };
+        this.hasStarted = false;
     }
 
     public Stage getPrimaryStage() {
@@ -155,9 +182,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         petDisplay = new PetDisplay();
-        petManager.setMainWindow(this);
-        petManager.updateMoodWhenLogIn();
-        petManager.updateDisplayElements();
+        updateMoodWhenLogIn();
         updatePetDisplay();
         petPlaceholder.getChildren().add(petDisplay.getRoot());
 
@@ -256,6 +281,17 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            
+            //Done Command related results
+            try {
+                DoneCommandResult doneCommandResult = (DoneCommandResult) commandResult;
+                //// increment Pet EXP after completing a task
+                petManager.incrementExp();
+                updateMoodWhenDoneTask();
+                updatePetDisplay();
+            } catch (ClassCastException ce) {
+
+            }
 
             // Swap to tasks tab
             tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
@@ -297,7 +333,8 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExit()) {
-                petManager.handleExit();
+                timer.cancel();
+                timer.purge();
                 handleExit();
             }
             updatePetDisplay();
@@ -334,8 +371,9 @@ public class MainWindow extends UiPart<Stage> {
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
-                updatePetDisplay();
                 if (commandText.toLowerCase().equals("y")) {
+                    updateMoodWhenDoneTask();
+                    updatePetDisplay();
                     CommandResult commandResult =
                             new CommandResult(
                                     "Good job! " + pomodoro.CHECK_TAKE_BREAK_MESSAGE, false, false);
@@ -343,7 +381,9 @@ public class MainWindow extends UiPart<Stage> {
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
                     return commandResult;
-                    // Continue to next prompt from break-timer
+                    // Continue to next prompt from break-time
+
+
                 } else if (commandText.toLowerCase().equals("n")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -452,6 +492,49 @@ public class MainWindow extends UiPart<Stage> {
         petDisplay.setExpBarText(expBarInt);
         petDisplay.setExpBarImage(expBarImage);
         petDisplay.setPetImage(petImage);
+    }
+
+    public void updateMoodWhenLogIn() {
+        LocalDateTime now = LocalDateTime.now();
+        if (petManager.getMood().equals(HAPPY_MOOD_STRING)) {
+            LocalDateTime timeForHangry = petManager.getTimeForHangry();
+            java.time.Duration duration = java.time.Duration.between(now, timeForHangry);
+            if (duration.isNegative()) {
+                petManager.changeToHangry();
+                petManager.updateDisplayElements();
+                hasStarted = false;
+            } else {
+                hasStarted = true;
+                Date timeForMoodChange =
+                        Date.from(timeForHangry.atZone(ZoneId.systemDefault()).toInstant());
+                timer.schedule(timerTask, timeForMoodChange);
+            }
+        }
+        petManager.updateDisplayElements();
+    }
+
+    public void updateMoodWhenDoneTask() {
+        petManager.changeToHappy();
+        petManager.updateLastDoneTaskWhenDone();
+        //reschedule timer
+        if (hasStarted) {
+            timer.cancel();
+        }
+        timer = new Timer();
+        this.timerTask =
+                new TimerTask() {
+                    public void run() {
+                        petManager.changeToHangry();
+                        petManager.updateDisplayElements();
+                        updatePetDisplay();
+                        timer.cancel();
+                    }
+                };
+        Date timeForMoodChange = 
+                Date.from(petManager.getTimeForHangry()
+                        .atZone(ZoneId.systemDefault()).toInstant());
+        timer.schedule(timerTask, timeForMoodChange);
+        petManager.updateDisplayElements();
     }
 
     @FXML

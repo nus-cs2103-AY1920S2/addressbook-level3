@@ -2,14 +2,8 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import seedu.address.model.Pet;
-import seedu.address.ui.MainWindow;
 
 public class PetManager {
 
@@ -17,7 +11,6 @@ public class PetManager {
     public final String HAPPY_MOOD_STRING = "HAPPY";
 
     private Pet pet;
-    private MainWindow mainWindow;
     private Path petImage;
     private Path expBarImage;
     private String expBarText;
@@ -25,21 +18,8 @@ public class PetManager {
 
     private LocalDateTime lastDoneTaskTime;
     private LocalDateTime timeForHangry;
-    private Timer timer;
-    private TimerTask timerTask;
-    private boolean hasStarted;
 
     public PetManager() {
-        this.timer = new Timer();
-        this.timerTask =
-                new TimerTask() {
-                    public void run() {
-                        changeToHangry();
-                        updateDisplayElements();
-                        mainWindow.updatePetDisplay();
-                    }
-                };
-        this.hasStarted = false;
     }
 
     public void setPet(Pet pet) {
@@ -49,28 +29,7 @@ public class PetManager {
         // this.timeForHangry = lastDoneTaskTime.plusHours(24);
         // use this for TESTING
         this.timeForHangry = lastDoneTaskTime.plusMinutes(1);
-    }
-
-    public void setMainWindow(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-    }
-
-    public void updateMoodWhenLogIn() {
-        LocalDateTime now = LocalDateTime.now();
-        if (pet.getMood().equals(HAPPY_MOOD_STRING)) {
-            Duration duration = Duration.between(now, timeForHangry);
-            if (duration.isNegative()) {
-                changeToHangry();
-                updateDisplayElements();
-                hasStarted = false;
-            } else {
-                hasStarted = true;
-                Date timeForMoodChange =
-                        Date.from(timeForHangry.atZone(ZoneId.systemDefault()).toInstant());
-                timer.schedule(timerTask, timeForMoodChange);
-            }
-        }
-    }
+    } 
 
     public void incrementPomExp() {
         this.pet.incrementPomExp();
@@ -81,43 +40,20 @@ public class PetManager {
         updateDisplayElements();
     }
 
-    public void updateMoodWhenDone() {
-        if (hasStarted) {
-            // secondTimer.cancel();
-            timer.cancel();
-        }
-        timer = new Timer();
-        this.timerTask =
-                new TimerTask() {
-                    public void run() {
-                        changeToHangry();
-                        updateDisplayElements();
-                        mainWindow.updatePetDisplay();
-                    }
-                };
+    public void updateLastDoneTaskWhenDone() {
         lastDoneTaskTime = LocalDateTime.now();
         pet.setLastDoneTaskTime(lastDoneTaskTime.toString());
         // For ACTUAL
         // timeForHangry = lastDoneTaskTime.plusHours(24);
         // For TESTING
         timeForHangry = lastDoneTaskTime.plusMinutes(1);
-        Date timeForMoodChange =
-                Date.from(timeForHangry.atZone(ZoneId.systemDefault()).toInstant());
-        timer.schedule(timerTask, timeForMoodChange);
-        changeToHappy();
-        updateDisplayElements();
     }
 
-    public void handleExit() {
-        hasStarted = false;
-        timer.cancel();
-    }
-
-    void changeToHangry() {
+    public void changeToHangry() {
         pet.changeHangry();
     }
 
-    void changeToHappy() {
+    public void changeToHappy() {
         pet.changeHappy();
     }
 
@@ -218,5 +154,13 @@ public class PetManager {
 
     public Path getPetImage() {
         return petImage;
+    }
+
+    public String getMood() {
+        return pet.getMood();
+    }
+
+    public LocalDateTime getTimeForHangry() {
+        return timeForHangry;
     }
 }

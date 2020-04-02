@@ -13,8 +13,7 @@ import seedu.address.model.task.Task;
 
 public class PomCommand extends Command {
 
-    // public static final int DEFAULT_TIMER = 25;
-    public static final int DEFAULT_TIMER = 1;
+    public static final int DEFAULT_TIMER = 25;
 
     public static final String COMMAND_WORD = "pom";
 
