@@ -1,12 +1,16 @@
 package com.notably.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.commands.Command;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -27,7 +31,6 @@ class NewCommandParserTest {
     private static AbsolutePath toAnotherBlock;
     private static Model model;
     private static NewCommandParser newCommandParser;
-    private static NotablyParser parser;
 
     @BeforeEach
     public void setUp() {
@@ -51,8 +54,6 @@ class NewCommandParserTest {
         model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
         model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
         model.addBlockToCurrentPath(new BlockImpl(new Title("toAnother")));
-
-        parser = new NotablyParser(model);
     }
 
     @Test
@@ -63,6 +64,18 @@ class NewCommandParserTest {
     @Test
     void parse_emptyTitleArgument_throwParseException() throws ParseException {
         assertThrows(ParseException.class, () -> newCommandParser.parse("-t"));
+    }
+
+    @Test
+    void parse_jumpToCreatedBlock_openCommand() throws ParseException, CommandException {
+        final List<Command> commandList = newCommandParser.parse(" -t Knapsack -o");
+        final AbsolutePath expectedPath = AbsolutePath.fromString("/another/Knapsack");
+
+        for (Command command : commandList) {
+            command.execute(model);
+        }
+
+        assertEquals(expectedPath ,model.currentlyOpenPathProperty().getValue());
     }
 
     @Test
