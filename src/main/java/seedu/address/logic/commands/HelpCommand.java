@@ -47,8 +47,10 @@ public class HelpCommand extends Command {
             + "21. " + UndoCommand.COMMAND_WORD + ": " + UndoCommand.COMMAND_FUNCTION + "\n"
             + "22. " + RedoCommand.COMMAND_WORD + ": " + RedoCommand.COMMAND_FUNCTION + "\n"
             + "23. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "24. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "24. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1 + "\n"
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
+            + "25. " + AddEventCommand.COMMAND_WORD + ": " + AddEventCommand.COMMAND_FUNCTION + "\n"
+            + "26. " + ListEventCommand.COMMAND_WORD + ": " + ListEventCommand.COMMAND_FUNCTION + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
             + "Example: For (ab)delete - " + COMMAND_WORD + " h/ 3";
@@ -97,6 +99,8 @@ public class HelpCommand extends Command {
         commands.add("22. " + RedoCommand.MESSAGE_USAGE + "\n");
         commands.add("23. " + ExitCommand.MESSAGE_USAGE + "\n");
         commands.add("24. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("25. " + AddEventCommand.MESSAGE_USAGE + "\n");
+        commands.add("26. " + ListEventCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }

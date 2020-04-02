@@ -16,8 +16,7 @@ import seedu.address.model.event.Event;
 public class AddEventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String COMMAND_FUNCTION = "Adds an event to your schedule. ";
-    public static final String MESSAGE_USAGE = "NAG NAG NAG! That's not the way to use this feature.\n"
-            + COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: "
             + PREFIX_EVENTTITLE + "EVENT TITLE "
             + PREFIX_EVENTDATE + "EVENT DATE "
@@ -25,8 +24,8 @@ public class AddEventCommand extends Command {
             + PREFIX_PLACE + "LOCATION "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EVENTTITLE + "Facebook job interview "
-            + PREFIX_EVENTDATE + "04-18 10:00 "
-            + PREFIX_DURATION + "3 30 " // hours & minutes, separated by a space
+            + PREFIX_EVENTDATE + "2020-04-18 10:00 "
+            + PREFIX_DURATION + "3 " // hours
             + PREFIX_PLACE + "Facebook APAC HQ";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
