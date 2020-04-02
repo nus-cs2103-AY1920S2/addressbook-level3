@@ -52,6 +52,10 @@ public class ExpiringCommand extends Command {
     @Override
     public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
+        // Put non-archived at the top first
+        model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         model.updateFilteredCouponList(predicate);
         int filteredListSize = model.getFilteredCouponList().size();
         if (filteredListSize > 0) {

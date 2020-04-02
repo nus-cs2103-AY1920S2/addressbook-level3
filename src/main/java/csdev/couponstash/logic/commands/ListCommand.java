@@ -21,7 +21,7 @@ public class ListCommand extends Command {
             COMMAND_WORD + ": Lists the coupons in CouponStash. "
                     + "You can view 3 types of lists: \n"
                     + "1. List of active coupons (without archived coupons)\n"
-                    + "2. List of archived coupons\n "
+                    + "2. List of archived coupons\n"
                     + "3. List of used coupons.\n"
                     + "Parameters: The list you want to view.\n"
                     + "Examples: \n"

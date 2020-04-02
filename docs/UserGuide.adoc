@@ -320,7 +320,9 @@ Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
 
 === Sorting coupons: `sort`
 
-Sorts the coupons in the coupon stash in ascending order. It is possible to sort by coupon name or expiry date.
+Sorts the coupons in CouponStash. It is possible to sort by coupon name or expiry date.
+The order will persist throughout the runtime of the program. The command will sort any coupons currently on screen.
+For example, sorting after finding will sort all the found coupons. (including archived ones, which will appear at the bottom)
 
 Format: `sort PREFIX`
 
