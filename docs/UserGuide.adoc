@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= InventoryManager  - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -78,27 +78,29 @@ Format: `list-s`
 === Editing a supplier : `edit-s`
 
 Edits an existing supplier in the inventory manager. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...`
+Format: `edit-s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...`
 
 ****
 * Edits the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* If the entered good-price pair is not in the existing supplier's list, the entered good price pair will be stored in the supplier's list as a new good price pair.
 * When editing good-price pairs, the existing good-price pairs of the person will be removed i.e adding of good-price pairs is not cumulative.
-* You can remove all the person's good-price pairs by typing `gp/` without specifying any offers after it.
+[TIP]
+You can add any number of good-price pairs to the existing suppliers at one time.
 ****
 
 Examples:
 
 * `edit-s 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st supplier to be `91234567` and `johndoe@example.com` respectively.
-* `edit-s 2 n/Betsy Crower gp/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing good-price pairs.
+* `edit-s 2 gp/apple 5 gp/banana 10` +
+The existing second supplier only has apple priced at 1 dollar. Hence, this command will edit the price of apple to 5 dollar and add the good price pair of banana into the supplier's good list.
 
-=== Locating suppliers by name: `find`
+=== Locating suppliers by name: `find-s`
 
 Finds suppliers whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find-s KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -110,19 +112,21 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `find-s John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `find-s Betsy Tim John` +
 Returns any supplier having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
 === Deleting a supplier : `delete-s`
 
 Deletes the specified supplier from the address book. +
-Format: `delete-s INDEX`
+Format: `delete-s INDEX [g/GOOD NAME]`
 
 ****
-* Deletes the supplier at the specified `INDEX`.
+* The optional field [g/GOOD NAME] can be empty.
+* If the optional field is empty, the command will delete the supplier at the specified `INDEX`.
+* If the optional field is not empty, the command will delete the good listed in the supplier's  list for supplier with the specified `INDEX`.
 * The index refers to the index number shown in the displayed supplier list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -132,9 +136,9 @@ Examples:
 * `list-s` +
 `delete-s 2` +
 Deletes the 2nd supplier in the inventory manager.
-* `find Betsy` +
-`delete-s 1` +
-Deletes the 1st supplier in the results of the `find` command.
+* `find-s Betsy` +
+`delete-s 1 g/banana` +
+Deletes the good price pair of good 'banana' in the good list of the first supplier who appeared in the suppliers' list after filtering with the name "Betsy".
 
 // end::delete[]
 === Clearing all supplier entries : `clear-s`
@@ -237,12 +241,12 @@ For security concerns, all data will be encrypted by default.
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
 * *List supplier* : `list-s`
 * *Clear suppliers* : `clear-s`
-* *Delete supplier* : `delete-s INDEX` +
-e.g. `delete-s 3`
+* *Delete supplier* : `delete-s INDEX [g/GOOD NAME]` +
+e.g. `delete-s 3 g/apple`
 * *Edit supplier* : `edit-s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...` +
-e.g. `edit-s 2 n/James Lee e/jameslee@example.com`
-* *Find supplier* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
+* *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-s James Jake`
 * *List goods*: `list-i`
 * *List supplier for a goods*: `source`
 * *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
