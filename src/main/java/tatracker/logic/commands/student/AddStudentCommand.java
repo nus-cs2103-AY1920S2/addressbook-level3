@@ -72,7 +72,7 @@ public class AddStudentCommand extends Command {
                             targetGroup));
         }
 
-        if (model.hasStudent(toAdd, targetGroup, targetModule)) {
+        if (model.hasStudent(toAdd.getMatric(), targetGroup, targetModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 

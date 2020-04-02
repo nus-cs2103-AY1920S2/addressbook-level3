@@ -3,6 +3,7 @@ package tatracker.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import tatracker.model.module.UniqueModuleList;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.session.UniqueSessionList;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
@@ -193,13 +195,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     public ObservableList<Student> getCompleteStudentList() {
         UniqueStudentList completeStudentList = new UniqueStudentList();
 
-        List<Student> allStudents = new ArrayList<>();
+        // TODO: Fix this before PE, when the master student list is not stored per module group.
+        // There should be a master list of students managed by TaTracker
+
+        HashSet<Student> allStudents = new HashSet<>();
         for (Module module : modules) {
             for (Group group : module.getGroupList()) {
                 allStudents.addAll(group.getStudentList());
             }
         }
-        completeStudentList.setStudents(allStudents);
+        completeStudentList.setStudents(new ArrayList<>(allStudents));
         return completeStudentList.asUnmodifiableObservableList();
     }
 
@@ -253,7 +258,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
-        for (Session session : sessions) {
+        UniqueSessionList copiedSessions = new UniqueSessionList();
+        copiedSessions.setSessions(sessions);
+
+        for (Session session : copiedSessions) {
             if (session.getModuleCode().equals(module.getIdentifier())) {
                 sessions.remove(session);
             }
@@ -455,11 +463,31 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Returns true if a given student with the same identity as {@code student}
+     * exists in a module group that is in TaTracker.
+     * @param targetGroup id of group to check if {@code student} is enrolled in.
+     * @param targetModule id of module that contains {@code group}.
+     */
+    public boolean hasStudent(Matric matric, String targetGroup, String targetModule) {
+        requireNonNull(matric);
+
+        if (!hasGroup(targetGroup, targetModule)) {
+            return false;
+        }
+        return modules.getModule(targetModule).hasStudent(matric, targetGroup);
+    }
+
+    /**
      * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return currentlyShownStudents.contains(student);
+    }
+
+    public Student getStudent(Matric matric, String groupCode, String moduleCode) {
+        requireNonNull(matric);
+        return modules.getModule(moduleCode).getStudent(matric, groupCode);
     }
 
     /**
@@ -526,18 +554,16 @@ public class TaTracker implements ReadOnlyTaTracker {
      * @param targetGroup group with the student to edit, which must exist in the TaTracker module.
      * @param targetModule module with the student to edit, which must exist in the TaTracker.
      */
-    public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
-        if (!hasModule(targetModule.getIdentifier())) {
+    public void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule) {
+        if (!hasModule(targetModule)) {
             throw new ModuleNotFoundException();
         }
 
-        if (!hasGroup(targetGroup.getIdentifier(), targetModule.getIdentifier())) {
+        if (!hasGroup(targetGroup, targetModule)) {
             throw new GroupNotFoundException();
         }
 
-        Module module = getModule(targetModule.getIdentifier());
-        Group group = module.getGroup(targetGroup.getIdentifier());
-        group.setStudent(target, editedStudent);
+        modules.getModule(targetModule).setStudent(target, editedStudent, targetGroup);
     }
 
     /**
