@@ -1,5 +1,6 @@
 package seedu.address.model.nusmodule;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -11,12 +12,19 @@ public class NusModule {
     public final int modularCredit;
     private boolean isTaking;
     private Optional<Grade> grade;
+    private List<ModuleTask> tasks;
 
-    public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking, Optional<Grade> grade) {
+    public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking,
+                     Optional<Grade> grade, List<ModuleTask> tasks) {
         this.moduleCode = moduleCode;
         this.modularCredit = modularCredit;
         this.isTaking = isTaking;
         this.grade = grade;
+        this.tasks = tasks;
+    }
+
+    public void addTask(ModuleTask task) {
+        tasks.add(task);
     }
 
     public double getGradePoint() {

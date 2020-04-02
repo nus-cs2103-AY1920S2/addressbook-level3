@@ -65,6 +65,15 @@ public class ModuleBook {
         }
     }
 
+    public void addModuleTask(ModuleTask moduleTask) {
+        requireNonNull(moduleTask);
+        for (NusModule module: modules) {
+            if (module.getModuleCode().equals(moduleTask.getModuleRelated())) {
+                module.addTask(moduleTask);
+            }
+        }
+    }
+
     /**
      * Returns true if a module with the same module code as {@code NusModule} exists in the address book.
      */

@@ -4,10 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.modulecommand.AddModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
@@ -42,7 +44,8 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
             Grade grade = ParserUtil.parseGrade(argMultimap1.getValue(PREFIX_GRADE).get());
 
-            NusModule module = new NusModule(moduleCode, moduleCredit, false, Optional.of(grade));
+            NusModule module = new NusModule(moduleCode, moduleCredit,
+                    false, Optional.of(grade), new ArrayList<>());
 
             return new AddModuleCommand(module);
 
@@ -54,7 +57,8 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
             Module moduleInfo = Search.findModule(moduleCode.toString());
             int moduleCredit = moduleInfo.getCredits();
 
-            NusModule module = new NusModule(moduleCode, moduleCredit, true, Optional.empty());
+            NusModule module = new NusModule(moduleCode, moduleCredit,
+                    true, Optional.empty(), new ArrayList<>());
 
             return new AddModuleCommand(module);
 

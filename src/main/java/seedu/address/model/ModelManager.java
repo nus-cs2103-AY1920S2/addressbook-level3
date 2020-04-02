@@ -17,6 +17,7 @@ import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.todolist.Task;
@@ -201,6 +202,11 @@ public class ModelManager implements Model {
     public void updateModulesListTaken(Predicate<NusModule> predicate) {
         requireNonNull(predicate);
         moduleListTaken.setPredicate(predicate);
+    }
+
+    @Override
+    public void addModuleTask(ModuleTask moduleTask) {
+        moduleBook.addModuleTask(moduleTask);
     }
 
     //=========== Filtered Person List Accessors =============================================================

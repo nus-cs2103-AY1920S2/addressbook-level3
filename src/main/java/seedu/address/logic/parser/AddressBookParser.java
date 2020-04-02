@@ -8,24 +8,25 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddDeadlineCommand;
-import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.modulecommand.AddModuleCommand;
 import seedu.address.logic.commands.AddToDoCommand;
-import seedu.address.logic.commands.CapCommand;
+import seedu.address.logic.commands.modulecommand.CapCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteDeadlineCommand;
-import seedu.address.logic.commands.DeleteModuleCommand;
+import seedu.address.logic.commands.modulecommand.DeleteModuleCommand;
 import seedu.address.logic.commands.DiaryAddCommand;
 import seedu.address.logic.commands.DiaryLogCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.GradeCommand;
+import seedu.address.logic.commands.modulecommand.GradeCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NotesCommand;
 import seedu.address.logic.commands.SearchCommand;
+import seedu.address.logic.commands.modulecommand.ModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -110,6 +111,9 @@ public class AddressBookParser {
 
         case DeleteDeadlineCommand.COMMAND_WORD:
             return new DeleteDeadlineCommandParser().parse(arguments);
+
+        case ModuleTaskCommand.COMMAND_WORD:
+            return new ModuleTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

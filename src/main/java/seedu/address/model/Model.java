@@ -9,6 +9,7 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.todolist.Task;
@@ -140,6 +141,8 @@ public interface Model {
     void gradeModule(ModuleCode moduleCode, Grade grade);
 
     double getCap();
+
+    void addModuleTask(ModuleTask moduleTask);
 
     ObservableList<NusModule> getModulesListTaken();
 

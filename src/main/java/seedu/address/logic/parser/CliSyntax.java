@@ -21,6 +21,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_CAT = new Prefix("cat/");
     public static final Prefix PREFIX_TASK_OPERATION = new Prefix("op/");
     public static final Prefix PREFIX_TASK_INDEX = new Prefix("index/");
+    public static final Prefix PREFIX_MODULETASK_TIMING = new Prefix("date/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("pri/");
 
 
 
