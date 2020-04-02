@@ -17,6 +17,9 @@ public class Rating {
     public static final int MIN_RATING = 1;
     public static final int MAX_RATING = 5;
 
+    /* The range of rating values. */
+    public static final int RANGE = MAX_RATING - MIN_RATING + 1;
+
     private static final int DEFAULT_VALUE = 3;
 
     public final int value;
@@ -54,14 +57,6 @@ public class Rating {
         }
         int parsedRating = Integer.parseUnsignedInt(test);
         return isValidRating(parsedRating);
-    }
-
-    /**
-     * Returns the range of rating values.
-     * @return the range of rating values.
-     */
-    public static int getRatingRange() {
-        return MAX_RATING - MIN_RATING + 1;
     }
 
     @Override

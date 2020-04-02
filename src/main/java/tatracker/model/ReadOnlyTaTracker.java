@@ -47,4 +47,19 @@ public interface ReadOnlyTaTracker {
      * This list will contain ALL students in TA-Tracker.
      */
     ObservableList<Student> getCompleteStudentList();
+
+    /**
+     * Returns the number of hours spent teaching.
+     */
+    long getTotalHours();
+
+    /**
+     * Returns the rate per hour of teaching.
+     */
+    int getRate();
+
+    /**
+     * Returns the total amount earned by teaching.
+     */
+    long getTotalEarnings();
 }
