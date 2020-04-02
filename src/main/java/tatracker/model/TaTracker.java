@@ -2,6 +2,7 @@ package tatracker.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,8 +144,9 @@ public class TaTracker implements ReadOnlyTaTracker {
     public long getTotalHours() {
         return doneSessions.asUnmodifiableObservableList()
                 .stream()
-                .map(s -> (long) Math.ceil(s.getDuration().toHours()))
-                .reduce(DEFAULT_HOURS, Long::sum);
+                .map(Session::getDurationToNearestHour)
+                .reduce(Duration.ZERO, Duration::plus)
+                .toHours();
     }
 
     @Override

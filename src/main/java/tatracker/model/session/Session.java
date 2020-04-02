@@ -168,10 +168,18 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Returns the duration of the session.
+     * Returns the duration of the session to the nearest hour.
      */
-    public Duration getDuration() {
-        return Duration.between(this.startDateTime, this.endDateTime);
+    public Duration getDurationToNearestHour() {
+        Duration duration = Duration.between(this.startDateTime, this.endDateTime);
+
+        long hours = duration.toHours();
+        int minutesPart = duration.toMinutesPart();
+
+        if (minutesPart > 0) {
+            hours += 1;
+        }
+        return Duration.ofHours(hours);
     }
 
     @Override
