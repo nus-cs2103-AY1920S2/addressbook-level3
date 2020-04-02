@@ -122,12 +122,13 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Supplier>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the 3 sets of data: `AddressBook`, `Inventory` and `TransactionHistory`.
+* these 3 sets of data hava close interaction between each other through various commands input.
+* exposes 3 sets of  unmodifiable list: `ObservableList<Supplier>`, `ObservableList<Good>` and `ObservableList<Transaction>` that can be 'observed' as 3 separate panels on the UI. e.g. the UI can be bound to this list so that the UI automatically updates when any of the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Supplier` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Supplier` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Offer` list in `Address Book`, which `Supplier` can reference. This would allow `Address Book` to only require one `Offer` object per unique `Offer`, instead of each `Supplier` needing their own `Offer` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -142,7 +143,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save 3 sets of data: `AddressBook`, `Inventory` and `TransactionHistory` in json format, save them in separate json file and read the data back.
 
 [[Design-Commons]]
 === Common classes
@@ -265,7 +266,7 @@ The data in the json file will be read by bit and encrypted to unreadable format
 If the command cannot be executed successfully in `LogicManager#execute()`, then exception will be thrown before `FileCryptoUtil#encryption()`,
  and the encryption will not be activated.
 
-** *Decryption*:
+** *Decryption* :
 
 When the user launches the application. `FileCryptoUtil#decryption()` will be called before the reading Json file into `StorageManager`.
 A cipher will be initiated based on same SecretKey, algorithm and transformation used in the encryption of the data.
