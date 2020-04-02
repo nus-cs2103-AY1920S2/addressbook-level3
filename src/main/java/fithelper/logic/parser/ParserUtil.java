@@ -303,4 +303,15 @@ public class ParserUtil {
         }
         return new WeightValue(trimmedWeightValue);
     }
+
+    public static boolean parseSortOrder(String order) throws ParseException {
+        requireNonNull (order);
+        if ("a".equals(order)) {
+            return true;
+        } else if ("d".equals(order)) {
+            return false;
+        } else {
+            throw new ParseException("Sort order can only be ascending (a) or descending (d)");
+        }
+    }
 }

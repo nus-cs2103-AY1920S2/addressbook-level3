@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.calorietable.FoodCalorieTable;
 import fithelper.model.calorietable.SportsCalorieTable;
@@ -491,7 +492,19 @@ public class FitHelper implements ReadOnlyFitHelper {
         }
     }
 
-    public void sortFilteredFoodEntryList(SortBy sortBy) {
-        foodEntries.sort(sortBy);
+    public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        if (isAscendingSort) {
+            foodEntries.sortAscending(sortBy);
+        } else {
+            foodEntries.sortDescending(sortBy);
+        }
+    }
+
+    public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        if (isAscendingSort) {
+            sportsEntries.sortAscending(sortBy);
+        } else {
+            sportsEntries.sortDescending(sortBy);
+        }
     }
 }

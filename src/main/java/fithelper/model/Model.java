@@ -256,10 +256,10 @@ public interface Model {
 
     LocalDate getLastWeightDate();
 
-    void sortFilteredEntryList(SortBy sortBy) throws IllegalValueException;
+    void sortFilteredEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException;
 
-    void sortFilteredFoodEntryList(SortBy sortBy) throws IllegalValueException;
+    void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException;
 
-    void sortFilteredSportEntryList(SortBy sortBy);
+    void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException;
 }
 

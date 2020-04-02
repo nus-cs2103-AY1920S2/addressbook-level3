@@ -525,16 +525,16 @@ public class ModelManager implements Model {
         }
     }
 
-    public void sortFilteredFoodEntryList(SortBy sortBy) {
-        fitHelper.sortFilteredFoodEntryList(sortBy);
+    public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        fitHelper.sortFilteredFoodEntryList(sortBy, isAscendingSort);
     }
 
-    public void sortFilteredSportEntryList(SortBy sortBy) {
-
+    public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        fitHelper.sortFilteredSportsEntryList(sortBy, isAscendingSort);
     }
 
-    public void sortFilteredEntryList(SortBy sortBy) {
-        fitHelper.sortFilteredFoodEntryList(sortBy);
-        sortFilteredSportEntryList(sortBy);
+    public void sortFilteredEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
+        fitHelper.sortFilteredFoodEntryList(sortBy, isAscendingSort);
+        fitHelper.sortFilteredSportsEntryList(sortBy, isAscendingSort);
     }
 }

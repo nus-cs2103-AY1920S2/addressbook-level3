@@ -7,11 +7,11 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.exceptions.DuplicateEntryException;
 import fithelper.model.entry.exceptions.EntryNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * A list of entries that enforces uniqueness between its elements and does not allow nulls.
@@ -144,21 +144,30 @@ public class UniqueEntryList implements Iterable<Entry> {
         return true;
     }
 
-    public void sort(SortBy sortBy) {
-        SortedList<Entry> internalListCopy = new SortedList<>(internalList);
+    public void sortAscending(SortBy sortBy) throws IllegalValueException {
         Comparator<Entry> newComparator;
         switch (sortBy.getValue()) {
         case "calorie":
-            newComparator = Comparator.comparingDouble(e -> e.getCalorie().getValue());
+            newComparator = (e1, e2) -> {
+                int firstCompare = Double.compare(e1.getCalorieValue(), e2.getCalorieValue());
+                if (firstCompare != 0) {
+                    return firstCompare;
+                } else {
+                    return e1.getDateTime().compareTo(e2.getDateTime());
+                }
+            };
             break;
         case "time":
             newComparator = Comparator.comparing(Entry::getDateTime);
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + sortBy.getValue());
+            throw new IllegalValueException("Unknown sort-by type");
         }
-        internalListCopy.setComparator(newComparator);
-        internalList.clear();
-        internalList.addAll(internalListCopy);
+        FXCollections.sort(internalList,newComparator);
+    }
+
+    public void sortDescending(SortBy sortBy) throws IllegalValueException {
+        sortAscending(sortBy);
+        FXCollections.reverse(internalList);
     }
 }

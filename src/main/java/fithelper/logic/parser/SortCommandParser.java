@@ -1,8 +1,7 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SORTBY;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static fithelper.logic.parser.CliSyntaxUtil.*;
 import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;
@@ -25,16 +24,20 @@ public class SortCommandParser {
      */
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_SORTBY);
-        if (!arePrefixesPresent(argMultimap, PREFIX_SORTBY)) {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_SORT_BY, PREFIX_SORT_ORDER);
+        if (!arePrefixesPresent(argMultimap, PREFIX_SORT_BY)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-        SortBy sortBy = ParserUtil.parseSortBy(argMultimap.getValue(PREFIX_SORTBY).get());
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
-            return new SortCommand(null, sortBy);
+        SortBy sortBy = ParserUtil.parseSortBy(argMultimap.getValue(PREFIX_SORT_BY).get());
+        Type findType = null;
+        if (arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
+            findType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        }
+        if (!arePrefixesPresent(argMultimap, PREFIX_SORT_ORDER)) {
+            return new SortCommand(findType, sortBy, false);
         } else {
-            Type findType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-            return new SortCommand(findType, sortBy);
+            boolean isAscendingSort = ParserUtil.parseSortOrder(argMultimap.getValue(PREFIX_SORT_ORDER).get());
+            return new SortCommand(findType, sortBy, isAscendingSort);
         }
     }
 
