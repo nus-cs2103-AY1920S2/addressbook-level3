@@ -109,6 +109,14 @@ public class Schedule {
     }
 
     /**
+     * Get type of schedule.
+     * @return int
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
      * Get next running date.
      * @return Date
      */
