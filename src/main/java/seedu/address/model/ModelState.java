@@ -103,27 +103,40 @@ public class ModelState {
 
     public AddressBook getAddressBook() { return this.addressBook; }
 
+
     public RestaurantBook getRestaurantBook() { return this.restaurantBook; }
+
 
     public Scheduler getScheduler() { return this.scheduler; }
 
+
     public EventSchedule getEventSchedule() { return this.eventSchedule; }
+
 
     public UserPrefs getUserPrefs() { return this.userPrefs; }
 
+
     public FilteredList<Person> getFilteredPersons() { return this.filteredPersons; }
+
 
     public FilteredList<Person> getFilteredPersonsResult() { return this.filteredPersonsResult; }
 
+
     public FilteredList<Restaurant> getFilteredRestaurants() { return this.filteredRestaurants; }
+
 
     public FilteredList<Assignment> getFilteredAssignments() { return this.filteredAssignments; }
 
+
     public FilteredList<Event> getFilteredEvents() { return this.filteredEvents; }
+
 
     public FilteredList<Person> getBdayList() { return this.bdayList; }
 
+
     public String getCommandType() { return this.commandType; }
 
+
     public void setCommandType(String command) { this.commandType = command; }
+    
 }
