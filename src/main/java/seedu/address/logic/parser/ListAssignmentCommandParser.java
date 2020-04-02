@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_FILTERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_LIST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS_LIST;
 
 import java.util.stream.Stream;
@@ -34,7 +33,7 @@ public class ListAssignmentCommandParser implements Parser<ListAssignmentCommand
         } else if (argMultimap.getValue(PREFIX_DEADLINE_LIST).isPresent()) {
             DeadlineComparator deadlineComparator = new DeadlineComparator();
             return new ListAssignmentCommand(deadlineComparator);
-        } else if (argMultimap.getValue(PREFIX_ESTHOURS).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_ESTHOURS_LIST).isPresent()) {
             WorkloadComparator workloadComparator = new WorkloadComparator();
             return new ListAssignmentCommand(workloadComparator);
         } else {

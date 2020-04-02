@@ -69,6 +69,10 @@ public class EventSchedule implements ReadOnlyEventSchedule {
         events.sort(comparator);
     }
 
+    public boolean hasClashingEvent(Event event) {
+        return events.hasClashingEvent(event);
+    }
+
     /**
      * Removes {@code key} from this {@code EventSchedule}
      * {@code key} must exist in the EventSchedule.

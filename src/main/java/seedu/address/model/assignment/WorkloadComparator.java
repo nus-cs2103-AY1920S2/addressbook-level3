@@ -8,20 +8,24 @@ import java.util.Comparator;
 public class WorkloadComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {
-        int workload1 = Integer.parseInt(a1.getWorkload().estHours);
-        int workload2 = Integer.parseInt(a2.getWorkload().estHours);
-        if (workload1 == workload2) {
-            if (a1.getDeadline().getDateTime().isEqual(a2.getDeadline().getDateTime())) {
-                return 0;
-            } else if (a1.getDeadline().getDateTime().isAfter(a2.getDeadline().getDateTime())) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } else if (workload1 > workload2) {
+        if (a1.getStatus().status.equals("Completed") && a2.getStatus().status.equals("Not completed")) {
             return 1;
-        } else {
+        } else if (a2.getStatus().status.equals("Completed") && a1.getStatus().status.equals("Not completed")) {
             return -1;
+        } else {
+            if (Integer.parseInt(a1.getWorkload().estHours) == Integer.parseInt(a2.getWorkload().estHours)) {
+                if (a1.getDeadline().getDateTime().isEqual(a2.getDeadline().getDateTime())) {
+                    return 0;
+                } else if (a1.getDeadline().getDateTime().isAfter(a2.getDeadline().getDateTime())) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            } else if (Integer.parseInt(a1.getWorkload().estHours) > Integer.parseInt(a2.getWorkload().estHours)) {
+                return -1;
+            } else {
+                return 1;
+            }
         }
     }
 }

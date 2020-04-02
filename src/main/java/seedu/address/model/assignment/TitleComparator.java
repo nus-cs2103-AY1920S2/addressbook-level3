@@ -8,6 +8,12 @@ import java.util.Comparator;
 public class TitleComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {
-        return a1.getTitle().title.compareTo(a2.getTitle().title);
+        if (a1.getStatus().status.equals("Completed") && a2.getStatus().status.equals("Not completed")) {
+            return 1;
+        } else if (a2.getStatus().status.equals("Completed") && a1.getStatus().status.equals("Not completed")) {
+            return -1;
+        } else {
+            return a1.getTitle().title.compareTo(a2.getTitle().title);
+        }
     }
 }
