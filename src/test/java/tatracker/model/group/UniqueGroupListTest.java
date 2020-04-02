@@ -15,8 +15,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.model.student.exceptions.StudentNotFoundException;
-
 public class UniqueGroupListTest {
 
     private final UniqueGroupList uniqueGroupList = new UniqueGroupList();

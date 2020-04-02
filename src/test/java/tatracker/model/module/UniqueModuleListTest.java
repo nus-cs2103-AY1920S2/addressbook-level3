@@ -4,27 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS;
 import static tatracker.testutil.module.TypicalModules.CS2103T;
 import static tatracker.testutil.module.TypicalModules.CS2103T_COPY;
 import static tatracker.testutil.module.TypicalModules.CS3243;
 import static tatracker.testutil.module.TypicalModules.NO_GROUPS;
-import static tatracker.testutil.module.TypicalModules.ONE_GROUP_NO_STUDENTS;
-import static tatracker.testutil.module.TypicalModules.ONE_GROUP_WITH_STUDENTS;
-import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS_COPY;
-import static tatracker.testutil.group.TypicalGroups.NO_STUDENTS;
-import static tatracker.testutil.group.TypicalGroups.ONE_STUDENT;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import tatracker.model.group.DuplicateGroupException;
-import tatracker.model.group.Group;
-import tatracker.model.group.GroupNotFoundException;
-import tatracker.model.student.exceptions.StudentNotFoundException;
 
 public class UniqueModuleListTest {
 
