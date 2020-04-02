@@ -1,12 +1,9 @@
 package nasa.logic.parser;
 
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-
 import java.util.stream.Stream;
 
 import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates an Statistics object.
