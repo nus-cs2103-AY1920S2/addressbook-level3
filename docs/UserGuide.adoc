@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
+TEMP PLSSS REAL UPDATED UG HERE: https://docs.google.com/document/d/1I60enPj3FDsfB5Z92C-Q6713hL_Hhvetfa0gf1etOuw/edit?usp=sharing
+
 By: `AY1920S2-CS2103T-W16-1`      Since: `Jan 2020`      Licence: `NUS`
 
 == Introduction
