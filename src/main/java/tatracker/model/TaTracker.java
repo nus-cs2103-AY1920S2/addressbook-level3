@@ -2,12 +2,14 @@ package tatracker.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -44,6 +46,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -163,11 +166,21 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     @Override
     public long getTotalHours() {
-        return doneSessions.asUnmodifiableObservableList()
-                .stream()
-                .map(Session::getDurationToNearestHour)
-                .reduce(Duration.ZERO, Duration::plus)
-                .toHours();
+        long totalHours = 0;
+        for (int i = 0; i < doneSessions.size(); i += 1) {
+            if (currentlyShownModuleClaim != null) {
+                if (doneSessions.get(i).getModuleCode().equals(currentlyShownModuleClaim.getIdentifier())) {
+                    logger.info("reached: has claim filter" + currentlyShownModuleClaim.toString());
+                    totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                    logger.info(String.valueOf(totalHours));
+                }
+            } else {
+                logger.info("reached: no claim filter");
+                totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                logger.info(String.valueOf(totalHours));
+            }
+        }
+        return totalHours;
     }
 
     @Override
@@ -201,13 +214,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     public ObservableList<Student> getCompleteStudentList() {
         UniqueStudentList completeStudentList = new UniqueStudentList();
 
-        List<Student> allStudents = new ArrayList<>();
+        // TODO: Fix this before PE, when the master student list is not stored per module group.
+        // There should be a master list of students managed by TaTracker
+
+        HashSet<Student> allStudents = new HashSet<>();
         for (Module module : modules) {
             for (Group group : module.getGroupList()) {
                 allStudents.addAll(group.getStudentList());
             }
         }
-        completeStudentList.setStudents(allStudents);
+        completeStudentList.setStudents(new ArrayList<>(allStudents));
         return completeStudentList.asUnmodifiableObservableList();
     }
 
@@ -261,7 +277,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
-        for (Session session : sessions) {
+        UniqueSessionList copiedSessions = new UniqueSessionList();
+        copiedSessions.setSessions(sessions);
+
+        for (Session session : copiedSessions) {
             if (session.getModuleCode().equals(module.getIdentifier())) {
                 sessions.remove(session);
             }
@@ -405,6 +424,9 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code groups} must not contain duplicate groups.
      */
     public void setCurrentlyShownGroups(List<Group> groups) {
+        if (groups.isEmpty()) {
+            this.currentlyShownGroup = null;
+        }
         this.currentlyShownGroups.setGroups(groups);
     }
 
