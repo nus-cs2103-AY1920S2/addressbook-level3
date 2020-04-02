@@ -10,7 +10,6 @@ import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.canteen.Stall;
-import seedu.foodiebot.model.favorites.FavoriteFood;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.tag.Tag;
 
@@ -210,7 +209,7 @@ public class SampleDataUtil {
 
     public static Food[] getSampleFoods() {
         return new Food[] { new Food("Roasted Chicken Rice", 4, "Roasted Meat and Chicken Rice",
-                         "Roasted Chicken Rice.png", 1, "Nus Flavors",
+                        "Roasted Chicken Rice.png", 1, "Nus Flavors",
                         "Duck and Chicken Rice", getTagSet("asian", "cheap", "rice")),
                             new Food("Fish Bee Hoon", 4, "Been Hoon with Fish", "Fish Bee Hoon.png",
                         2, "Nus Flavors", "Five Grains Bee Hoon", getTagSet("asian", "cheap", "noodle")),
@@ -232,24 +231,24 @@ public class SampleDataUtil {
                         9, "Nus Flavors", "Western", getTagSet("western", "expensive")),
                             new Food("Fried Rice", 4, "Local Fried Rice", "Fried Rice.png",
                         10, "Nus Flavors", "Wok Fried", getTagSet("asian", "expensive", "rice")),
-                            new Food("Xiao Long Bao", 5, "6 pieces", "Xiao Long Bao.png",
+                            new Food("Xiao Long Bao", 5, "7 pieces", "Xiao Long Bao.png",
                         11, "Nus Flavors", "Xiao Long Bao", getTagSet("asian", "expensive")),
-                            new Food("Cai Fan", 3, "1 Meat, 2 Veg", "Cai Fan.png",
+                            new Food("Cai Fan", 3, "1 Meat, 2 Veg", "Cai Fan Set.png",
                         1, "The Deck", "Chinese Cooked Food", getTagSet("expensive")),
                             new Food("Assorted Claypot Chicken with Rice", 4, "Black sauce chicken wtih rice",
-                        "Assorted Claypot Chieck with Rice", 2, "The Deck",
+                        "Assorted Claypot Chicken with Rice.png", 2, "The Deck",
                         "Claypot Seafood Soup", getTagSet("asian", "cheap", "rice")),
                             new Food("Roti Prata", 3, "2 pieces and curry", "Roti Prata.png",
                         3, "The Deck", "Indian", getTagSet("indian", "spicy", "cheap")),
-                            new Food("Katsudon Rice Set", 5, "Chicken Cutlet with rice", "Katsudon Rice Set",
+                            new Food("Katsudon Rice Set", 5, "Chicken Cutlet with rice", "Katsudon Rice Set.png",
                         4, "The Deck", "Japanese", getTagSet("japanese", "expensive", "rice")),
                             new Food("Beef Rendang", 5, "Nasi Goodness", "Beef Rendang.png",
                         5, "The Deck", "Muslim", getTagSet("asian", "expensive", "spicy")),
                             new Food("Mini Hot Pot Noodle", 4, "Minced Meat Noodle with Soup",
                         "Mini Hot Pot Noodle.png", 6, "The Deck",
                         "Noodle", getTagSet("asian", "cheap", "noodles")),
-                            new Food("Chicken Rice Set", 4, "Rice, Chicken, Vegetable and Soup", "Chicken Rice Set",
-                        7, "The Deck", "Roasted Delights", getTagSet("asian", "cheap")),
+                            new Food("Chicken Rice Set", 4, "Rice, Chicken, Vegetable and Soup", "Chicken Rice Set.png",
+                        7, "The Deck","Roasted Delights", getTagSet("asian", "cheap")),
                             new Food("Fried Kway Teow", 4, "Fried Kway Teow with fried delights", "Fried Kway Teow.png",
                         8, "The Deck", "Snacks and Fried Kway Teow", getTagSet("asian", "cheap")),
                             new Food("Laksa Yong Tau Foo", 4, "Spicy and Delicious", "Laksa Yong Tau Foo.png",
@@ -258,9 +257,9 @@ public class SampleDataUtil {
                         10, "The Deck", "Vegetarian", getTagSet("asian", "cheap", "vegetarian")),
                             new Food("Fried Fish", 5, "Fried Fish and chips", "Fried Fish.png",
                         11, "The Deck", "Western", getTagSet("western", "expensive")),
-                            new Food("Carbonara", 6, "Pasta with Cream Sauce", "Carbonara",
+                            new Food("Carbonara", 6, "Pasta with Cream Sauce", "Carbonara.png",
                         12, "The Deck", "Pasta Express", getTagSet("western", "expensive")),
-                            new Food("Assorted Salads", 6, "Variety of salads", "Assorted Salads",
+                            new Food("Assorted Salads", 6, "Variety of salads", "Assorted Salads.png",
                         13, "The Deck", "Salad Express", getTagSet("vegetarian", "expensive")),
                             new Food("Ayam Penyet", 5, "Ayam Penyet", "Ayam Penyet.png",
                         14, "The Deck", "Uncle Penyet", getTagSet("asian", "western", "expensive")),
@@ -268,28 +267,14 @@ public class SampleDataUtil {
     }
 
 
-    private static FavoriteFood[] getSampleFavoriteFood() {
-        return new FavoriteFood[]{new FavoriteFood("Combo Set", 6, "1 Meat, 1 Pasta, 2 Sides", "Combo Set.png",
-                1, "Nus Flavors", "Western", getTagSet("1")),
-            new FavoriteFood("Cai Fan", 3, "1 Meat, 2 Veg", "Cai Fan.png",
-                1, "The Deck", "Chinese Cooked Food", getTagSet("expensive")),
-            new FavoriteFood("Ayam Penyet", 5, "Ayam Penyet", "Ayam Penyet.png",
-                15, "The Deck", "Uncle Penyet", getTagSet("asian", "western", "expensive")),
-            new FavoriteFood("Fried Fish", 5, "Fried Fish and chips", "Fried Fish.png",
-                11, "The Deck", "Western", getTagSet("western", "expensive")),
-        };
-    }
-
     public static ReadOnlyFoodieBot getSampleFoodieBot() {
         FoodieBot sampleFb = new FoodieBot();
         for (Canteen sampleCanteen : getSampleCanteens()) {
             sampleFb.addCanteen(sampleCanteen);
         }
-
         for (Stall sampleStall : getSampleStalls()) {
             sampleFb.addStall(sampleStall);
         }
-
         for (Food sampleFood : getSampleFoods()) {
             sampleFb.addFood(sampleFood);
         }
