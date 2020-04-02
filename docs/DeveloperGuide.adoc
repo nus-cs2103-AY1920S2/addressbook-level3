@@ -248,25 +248,60 @@ There are many different ways to implement how a transaction is added into `Expe
 ** Cons: Incurs significant overhead and duplicated codes since it is likely that both `**Expense**` and `**Income**` will
 have very similar methods.
 
-
+//tag::setbudget[]
 === Setting budgets
+We allow the user to maintain a `**Budget**` for the current month. This section details how `**ExpenseLa**` handles
+requests made by the user who is trying to set a budget for the current month. `**Budget**` is contained inside
+`**MonthlyData**` object along with `**Expense**` and `**Income**` and application only has 1 `**MonthlyData**` object for the current month. object looks like:
 
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-// tag::updateMonthlyData[]
-=== Monthly Data Update
-
-Monthly data should be updated everytime transaction list is modified
+image::set-budget/BudgetClassDiagram.png[]
 
 ==== Implementation
+Whenever the user attempts to set a new `**Budget**`, `**ExpenseLa**` will create a new MonthlyData object with the given amount.
+The application will then call `ModelManager#setMonthlyData(MonthlyData toSet)`. During the creation of the new MonthlyData, the
+Budget class will internally check if the budget amount is valid.
 
-Every add/delete transaction is handled by model manager that will call add/delete transaction in ExpenseLa. So every
-time model manager is going to modify transaction list in expenseLa, it is going to call
-`ModelManager#updateMonthlyData()`. This method takes in amount and boolean on whether it is money in or money out.
-It will then update monthlyData by calling the `MonthlyData#setExpense()`, `MonthlyData#setIncome`, and
-`UserPref#setTotalBalance` depending on whether it is money in or money out.
+We will demonstrate what happens at the back-end whenever the user sets a budget:
+
+Case 1. The user wishes to set their budget for as $1500. They execute the command: **budget b/1500**.
+The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
+
+* `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+
+NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+
+Since the user input is valid, the `**Budget**` is successfully created and inserted into a newly created `**MonthlyData**`.
+
+Case 2. The user made a typo when setting their budget. They execute the command **budget b/150o**.
+The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
+
+* `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+
+`**Budget**` class then is attempted to be created with the parsed budget amount in the constructor. Internally
+Budget will do a validity check using Regex and throw a `**ParseExection**` since amount is not valid.
+
+The sequence diagram below depicts what was just elaborated:
+
+.Sequence diagram showing how a `**Budget**` is set
+image::add-budget/BudgetSequenceDiagram.png[]
+
+==== Design considerations
+We have considered various ways as to how `**Budget**` should be stored in `**ExpensLa**`. In this section, we will explain the
+rationale on our course of actions.
+
+===== Aspect: Make `**Budget**` a part of a bigger class called `**MonthlyData**`
+* **Alternative 1 (current choice):** `**Budget**` is a part of `**MonthlyData**` and any `**Budget**` operations is through `**MonthlyData**`
+** Pros: Easier to handle `**Budget**` together with other `**MonthlyData**` objects and all data inside is synchronised as it is
+handled by a single object.
+** Cons: Overhead when modifying `**Budget**` as to maintain immutability, a new `**MonthlyData**` object has to be created.
+* Alternative 2: `**Budget**` should be an independent class with a direct reference in `**ExpenseLa**`.
+** Pros: More freedom and efficiency in doing modifications on `**Budget**`
+** Cons: Need to maintain more references for all different objects.
+
+Again, we went with alternative 1 because it is easier to view `**Budget**` along with the other `**MonthlyData**` components
+as a collective. And easier to just handle 1 reference in ExpenseLa.
+// end::setbudget[]
+
 
 === Chart Analytics
 
