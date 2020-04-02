@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(grey, 20%);
+    -fx-background-color: derive(#BACFD6, 20%);
     background-color: grey; /* Used in the default.html file */
 }
 
@@ -185,7 +185,7 @@
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d4e89, 20%);
+     -fx-background-color: derive(black, 20%);
      -fx-border-color: derive(#1d4e89, 10%);
      -fx-border-top-width: 1px;
 }
@@ -414,4 +414,17 @@
 
 #buttonBar {
      -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #3916FC, #A17CFF);
+}
+
+#mainPane {
+    -fx-background-color: derive(#BACFD6, 20%);
+}
+
+#menuBar {
+    -fx-background-color: derive(#678BA1, 20%);
+}
+
+
+#commandPane {
+    -fx-background-color: derive(#BACFD6, 20%);
 }

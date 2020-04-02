@@ -16,15 +16,15 @@
 <?import java.net.URL?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root minHeight="910" minWidth="1000" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="910" minWidth="1000" onCloseRequest="#handleExit" title="Code Camp X" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/CCXLogo.png" />
   </icons>
   <scene>
     <Scene>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
          <top>
-           <MenuBar fx:id="menuBar" VBox.vgrow="ALWAYS">
+           <MenuBar id="menuBar" fx:id="menuBar" VBox.vgrow="ALWAYS">
              <Menu mnemonicParsing="false" text="File">
                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
              </Menu>
@@ -95,7 +95,7 @@
             </VBox>
    </bottom>
    <center>
-      <HBox prefHeight="1000.0" prefWidth="1000.0" spacing="25" BorderPane.alignment="CENTER">
+      <HBox id="mainPane" prefHeight="1000.0" prefWidth="1000.0" spacing="25" BorderPane.alignment="CENTER">
         <padding>
           <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
         </padding>
