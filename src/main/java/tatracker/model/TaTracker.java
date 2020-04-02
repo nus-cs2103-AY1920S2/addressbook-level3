@@ -142,11 +142,21 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     @Override
     public long getTotalHours() {
-        return doneSessions.asUnmodifiableObservableList()
-                .stream()
-                .map(Session::getDurationToNearestHour)
-                .reduce(Duration.ZERO, Duration::plus)
-                .toHours();
+        long totalHours = 0;
+        for (int i = 0; i < doneSessions.size(); i += 1) {
+            if (currentlyShownModuleClaim != null) {
+                if (doneSessions.get(i).getModuleCode().equals(currentlyShownModuleClaim.getIdentifier())) {
+                    System.out.println("reached: has claim filter" + currentlyShownModuleClaim.toString());
+                    totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                    System.out.println(totalHours);
+                }
+            } else {
+                System.out.println("reached: no claim filter");
+                totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                System.out.println(totalHours);
+            }
+        }
+        return totalHours;
     }
 
     @Override

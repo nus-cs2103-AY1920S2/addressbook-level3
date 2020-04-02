@@ -296,6 +296,7 @@ public class MainWindow extends UiPart<Stage> {
 
             case FILTER_CLAIMS:
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                claimsListPanel.updateLabel();
                 handleGoto(claimsListTab);
                 break;
 
