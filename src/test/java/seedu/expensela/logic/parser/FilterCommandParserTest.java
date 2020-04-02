@@ -12,6 +12,10 @@ import seedu.expensela.logic.commands.FilterCommand;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 
+
+
+
+
 class FilterCommandParserTest {
     private FilterCommandParser parser = new FilterCommandParser();
 
@@ -47,4 +51,5 @@ class FilterCommandParserTest {
                         new DateEqualsKeywordPredicate(Arrays.asList("2020-01")));
         assertParseSuccess(parser, " m/2020-01", expectedFilterCommand);
     }
+
 }

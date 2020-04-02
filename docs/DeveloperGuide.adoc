@@ -302,6 +302,56 @@ Again, we went with alternative 1 because it is easier to view `**Budget**` alon
 as a collective. And easier to just handle 1 reference in ExpenseLa.
 // end::setbudget[]
 
+=== Filtering Transactions
+
+The `Filter` command allows the user to bring up a list of `Transaction`, and filter it by either category, month,
+or both at the same time. This is implemented by using a predicate for category and another predicate for month,
+both of which inheriting from `Predicate<Transaction>` to filter the `Transaction`.
+
+==== Implementation
+
+`FilterCommand` is instantiated by `FilterCommandParser` 's `parse(String args)` method, which parses the arguments supplied in the user
+command to return a `FilterCommand` object.
+
+The below sequence diagram depicts the execution of the filter feature:
+image:filter/FilterSequenceDiagram.png[]
+
+The below scenario shows a typical usage of the filter feature:
+
+Step 1: User executes the command filter c/FOOD m/2020-02 to bring up transactions in the category "FOOD" for the month
+of February 2020.
+
+Step 2: The `FilterCommandParser` will parse the arguments using the method `parse(String args)`.
+
+Step 3: Since user input is correct and the arguments are parsed, a new `FilterCommand` object is created by the
+`FilterCommandParser`.
+
+Step 4: The `FilterCommand` object will use a `Predicate` based on the specified category, month, or both, to filter
+the list of transactions.
+
+Step 5: The list of filtered transactions is brought up. The filter category and month UI will also update accordingly
+to show the category and month that the transactions are filtered by.
+
+The below activity diagram gives an overview of the command execution:
+image:filter/FilterActivityDiagram.png[]
+
+==== Design Considerations
+
+Aspect: Using `Predicate` to improve extendability of the `Filter` feature in the future.
+
+* The filter feature supports increasing the number of filter types - on top of the current category and month filters.
+* This is enabled by using a different `Predicate` for each filter type.
+* A composed `Predicate` would then be obtained by calling `Predicate` 's `and(Predicate other)` method.
+* This composed `Predicate` is then applied to filter the list of `Transaction`.
+
+==== Proposed Extension
+
+We plan to enhance the filter feature to support other arguments in the command to filter by different types such as
+price range or date range. This allows the user to have greater flexibility and have a better understanding of his/her
+expenses.
+
+The design consideration mentioned earlier hence facilitates this proposed extension, reducing the difficulty of such a
+future implementation.
 
 === Chart Analytics
 
