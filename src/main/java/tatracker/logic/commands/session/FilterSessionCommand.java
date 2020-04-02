@@ -59,8 +59,8 @@ public class FilterSessionCommand extends Command {
             model.updateFilteredSessionList(predicate);
             returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
         }
-        
-        return new CommandResult( returnMsg, Action.FILTER_SESSION);
+
+        return new CommandResult(returnMsg, Action.FILTER_SESSION);
     }
 
     @Override
