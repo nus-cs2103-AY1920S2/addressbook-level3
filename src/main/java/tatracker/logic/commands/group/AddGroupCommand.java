@@ -65,6 +65,7 @@ public class AddGroupCommand extends Command {
         }
 
         actualModule.addGroup(toAdd);
+
         model.updateFilteredGroupList(actualModule.getIdentifier());
         model.updateFilteredStudentList(toAdd.getIdentifier(), actualModule.getIdentifier());
 

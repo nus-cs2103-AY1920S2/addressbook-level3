@@ -362,6 +362,9 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code groups} must not contain duplicate groups.
      */
     public void setCurrentlyShownGroups(List<Group> groups) {
+        if (groups.isEmpty()) {
+            this.currentlyShownGroup = null;
+        }
         this.currentlyShownGroups.setGroups(groups);
     }
 
