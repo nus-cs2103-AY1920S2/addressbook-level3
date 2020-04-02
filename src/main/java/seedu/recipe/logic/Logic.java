@@ -57,6 +57,12 @@ public interface Logic {
     ObservableList<Record> getFilteredRecordList();
 
     /**
+     * Returns an unmodifiable view of goals tally
+     * @return list
+     */
+    ObservableList<Integer> getFilteredGoalsTally();
+
+    /**
      * Returns an unmodifiable view of the scheduled recipes.
      */
     ObservableList<PlannedRecipe> getFilteredPlannedList();

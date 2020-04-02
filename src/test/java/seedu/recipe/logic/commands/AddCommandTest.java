@@ -230,6 +230,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Integer> getFilteredGoalsTally() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<PlannedRecipe> getFilteredPlannedList() {
             throw new AssertionError("This method should not be called.");
         }

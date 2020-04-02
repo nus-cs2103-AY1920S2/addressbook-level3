@@ -136,7 +136,8 @@ public class MainWindow extends UiPart<Stage> {
         planningListPanel = new PlanningListPanel(plannedList);
 
         ObservableList<Record> cookedList = logic.getFilteredRecordList();
-        cookedListPanel = new CookedListPanel(cookedList);
+        ObservableList<Integer> goalCountList = logic.getFilteredGoalsTally();
+        cookedListPanel = new CookedListPanel(cookedList, goalCountList);
 
         //using recipe list as stub for chievements, to be edited later todo
         ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
