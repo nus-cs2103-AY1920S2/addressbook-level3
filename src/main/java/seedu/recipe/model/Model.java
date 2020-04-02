@@ -8,8 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -20,7 +19,7 @@ public interface Model {
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<PlannedRecipe> PREDICATE_SHOW_ALL_PLANNED_RECIPES = unused -> true;
+    Predicate<PlannedDate> PREDICATE_SHOW_ALL_PLANNED_RECIPES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -141,24 +140,24 @@ public interface Model {
     void setPlannedBook(ReadOnlyPlannedBook plannedBook);
 
     /**
-     * Adds the {@code plannedRecipe} that plans for {@code recipe}.
+     * Adds the {@code plannedDate} that plans for {@code recipe}.
      */
-    void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe);
+    void addOnePlan(Recipe recipe, PlannedDate plannedDate);
 
     /**
-     * Adds the {@code plannedRecipe} that plans for all {@code recipes}.
+     * Adds the {@code plannedDate} that plans for all {@code recipes}.
      */
-    void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe);
+    void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate);
 
     /**
      * Deletes the {@code recipe} plan.
      */
-    void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe);
+    void deleteOnePlan(Recipe recipe, PlannedDate plannedDate);
 
     /**
      * Deletes all plans for {@code recipe}.
      */
-    void deleteAllPlansFor(Recipe recipe);
+    void deleteAllRecipePlans(Recipe recipe);
 
     /**
      * Updates the recipe in the planned recipes from {@code target} to {@code editedRecipe}.
@@ -168,12 +167,12 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the planned recipes.
      */
-    ObservableList<PlannedRecipe> getFilteredPlannedList();
+    ObservableList<PlannedDate> getFilteredPlannedList();
 
     /**
      * Updates the filtered planned list to be filtered using the {@code predicate}. //todo: throw exception
      */
-    void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate);
+    void updateFilteredPlannedList(Predicate<PlannedDate> predicate) throws NullPointerException;
 
     //updateAndFillPlannedList //todo: implement for weekly view
 

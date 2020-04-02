@@ -16,7 +16,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.DuplicatePlannedRecipeException;
-import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -69,10 +69,10 @@ public class PlanCommand extends Command {
         List<Recipe> recipesToPlan = new ArrayList<>();
         recipesToPlan.add(recipeToPlan);
 
-        PlannedRecipe plannedRecipe = new PlannedRecipe(recipesToPlan, atDate);
+        PlannedDate plannedDate = new PlannedDate(recipesToPlan, atDate);
 
         try {
-            model.addPlanForOneRecipe(recipeToPlan, plannedRecipe);
+            model.addOnePlan(recipeToPlan, plannedDate);
         } catch (DuplicatePlannedRecipeException dp) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PLANNED_RECIPE, atDate.toString(),
                     index.getOneBased()));

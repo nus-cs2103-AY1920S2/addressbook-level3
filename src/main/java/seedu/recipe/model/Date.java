@@ -52,7 +52,7 @@ public class Date implements Comparable<Date> {
      * Returns true if a given string is a valid date
      */
     public static boolean isValidDate(String test) {
-        if (!test.matches(VALIDATION_REGEX)) {
+        if (test.isBlank() || !test.matches(VALIDATION_REGEX)) {
             return false;
         }
         try {
@@ -75,7 +75,7 @@ public class Date implements Comparable<Date> {
     /**
      * Returns true if the date is older than today's date, according to the input timezone.
      */
-    public boolean isFutureDate() {
+    public boolean isDateInFuture() {
         Date yesterday = new Date(LocalDate.now(ZONE_ID).minusDays(1));
         return isAfter(yesterday);
     }
@@ -85,7 +85,10 @@ public class Date implements Comparable<Date> {
      * The start and end dates are non-inclusive.
      */
     public boolean isWithinRange(Date start, Date end) {
-        return date.isAfter(start.date) && date.isBefore(end.date);
+        if (!start.isAfter(end)) {
+            return date.isAfter(start.date) && date.isBefore(end.date);
+        }
+        return false;
     }
 
     /**

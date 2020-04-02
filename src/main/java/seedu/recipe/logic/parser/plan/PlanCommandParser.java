@@ -41,7 +41,7 @@ public class PlanCommandParser implements Parser<PlanCommand> {
         }
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        if (!date.isFutureDate()) {
+        if (!date.isDateInFuture()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE));
         }
 

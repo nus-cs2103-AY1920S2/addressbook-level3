@@ -14,7 +14,7 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
-import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipeOnDatePredicate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -56,20 +56,20 @@ public class DeletePlanCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredPlannedList(new PlannedRecipeOnDatePredicate(atDate));
-        List<PlannedRecipe> plannedListAtDate = model.getFilteredPlannedList();
+        List<PlannedDate> plannedListAtDate = model.getFilteredPlannedList();
 
         if (plannedListAtDate.size() != 1) {
             throw new CommandException(Messages.MESSAGE_INVALID_PLANNED_DATE);
         }
 
-        PlannedRecipe plannedRecipeToEdit = plannedListAtDate.get(0);
-        List<Recipe> recipesAtPlannedDate = plannedRecipeToEdit.getRecipes();
+        PlannedDate plannedDateToEdit = plannedListAtDate.get(0);
+        List<Recipe> recipesAtPlannedDate = plannedDateToEdit.getRecipes();
         if (plannedIndex.getOneBased() > recipesAtPlannedDate.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PLANNED_RECIPE_DISPLAYED_INDEX);
         }
 
         Recipe recipeToDelete = recipesAtPlannedDate.get(plannedIndex.getZeroBased());
-        model.deleteRecipeFromOnePlan(recipeToDelete, plannedRecipeToEdit);
+        model.deleteOnePlan(recipeToDelete, plannedDateToEdit);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
 
