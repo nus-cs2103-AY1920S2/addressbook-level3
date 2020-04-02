@@ -1,9 +1,10 @@
 package tatracker.model.session;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.function.Predicate;
 
-import tatracker.commons.util.StringUtil;
+import tatracker.commons.util.CollectionUtil;
 
 
 /**
@@ -11,36 +12,72 @@ import tatracker.commons.util.StringUtil;
  */
 public class SessionPredicate implements Predicate<Session> {
 
-    private final List<String> keywords;
+    private LocalDate date;
+    private String moduleCode;
+    private SessionType sessionType;
 
-    public SessionPredicate(List<String> keywords) {
-        this.keywords = keywords;
+    public SessionPredicate() {}
+
+    /**
+     * Copy constructor.
+     */
+    public SessionPredicate(SessionPredicate toCopy) {
+        setDate(toCopy.date);
+        setModuleCode(toCopy.moduleCode);
+        setSessionType(toCopy.sessionType);
     }
 
-    public String getKeywords() {
-        String s = "";
-        for (int i = 0; i < keywords.size(); i++) {
-            s += keywords.get(i) + " ";
-        }
-        return s;
+    /**
+     * Returns true if at least one field is specified.
+     */
+    public boolean isAnyFieldEdited() {
+        return CollectionUtil.isAnyNonNull(date, moduleCode, sessionType);
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Optional<LocalDate> getDate() {
+        return Optional.ofNullable(date);
+    }
+
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+
+    public Optional<String> getModuleCode() {
+        return Optional.ofNullable(moduleCode);
+    }
+
+    public void setSessionType(SessionType sessionType) {
+        this.sessionType = sessionType;
+    }
+
+    public Optional<SessionType> getSessionType() {
+        return Optional.ofNullable(sessionType);
     }
 
     @Override
     public boolean test(Session session) {
+        boolean matchDate = getDate().isEmpty() || session.getDate().equals(date);
+        boolean matchModuleCode = getModuleCode().isEmpty() || session.getModuleCode().equals(moduleCode);
+        boolean matchSessionType = getSessionType().isEmpty() || session.getSessionType().equals(sessionType);
 
-        return (keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(keyword, session.getDate().toString()))
-                || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(keyword, session.getModuleCode()))
-                || keywords.stream()
-               .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(keyword, session.getSessionType().toString())));
+        return matchDate && matchModuleCode && matchSessionType;
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof tatracker.model.session.SessionPredicate // instanceof handles nulls
-                && keywords.equals(((tatracker.model.session.SessionPredicate) other).keywords)); // state check
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof SessionPredicate)) {
+            return false;
+        }
+        SessionPredicate otherPredicate = (SessionPredicate) other;
+        return date.equals(otherPredicate.date)
+                && moduleCode.equals(otherPredicate.moduleCode)
+                && sessionType.equals(otherPredicate.sessionType);
     }
-
 }

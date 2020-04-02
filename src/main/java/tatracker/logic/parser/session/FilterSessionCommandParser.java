@@ -5,16 +5,11 @@ import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-
 import tatracker.logic.commands.session.FilterSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.SessionPredicate;
 
@@ -34,39 +29,30 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, DATE,
                 MODULE, SESSION_TYPE);
 
-        if ((!arePrefixesPresent(argMultimap, DATE)
-                && !arePrefixesPresent(argMultimap, MODULE)
-                && !arePrefixesPresent(argMultimap, SESSION_TYPE))
-                || !argMultimap.getPreamble().isEmpty()) {
-
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             FilterSessionCommand.DETAILS.getUsage()));
         }
 
-        List<String> argsList = new ArrayList<>();
+        SessionPredicate predicate = new SessionPredicate();
 
         if (argMultimap.getValue(DATE).isPresent()) {
-            argsList.add(ParserUtil.parseDate(argMultimap.getValue(DATE).get()).toString());
+            predicate.setDate(ParserUtil.parseDate(argMultimap.getValue(DATE).get()));
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            argsList.add((ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase())));
+            predicate.setModuleCode(argMultimap.getValue(MODULE).map(String::trim).get());
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
-            argsList.add((
-                    ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()).toString()));
+            predicate.setSessionType(ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()));
         }
 
-        return new FilterSessionCommand(new SessionPredicate(argsList));
-    }
+        if (!predicate.isAnyFieldEdited()) {
+            throw new ParseException(FilterSessionCommand.DETAILS.getUsage()); // TODO: Change this message
+        }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return new FilterSessionCommand(predicate);
     }
 }
 

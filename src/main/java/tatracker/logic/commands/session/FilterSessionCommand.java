@@ -44,9 +44,8 @@ public class FilterSessionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredSessionList(predicate);
-        String keywords = predicate.getKeywords();
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, keywords),
+                String.format(MESSAGE_SUCCESS, "FIXED"), // TODO: Change this message.
                 Action.FILTER_SESSION);
     }
 
