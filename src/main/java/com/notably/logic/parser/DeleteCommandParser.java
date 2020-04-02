@@ -22,7 +22,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
 
     public DeleteCommandParser(Model notablyModel) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD, false);
     }
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand

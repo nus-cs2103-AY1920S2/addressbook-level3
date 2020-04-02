@@ -36,7 +36,7 @@ public class EditSuggestionCommandTest {
         editSuggestionCommand.execute(model);
 
         // Expected result
-        String expectedResponseText = "Edit a currently open note";
+        String expectedResponseText = "Edit this note";
 
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
