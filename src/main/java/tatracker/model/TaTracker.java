@@ -3,6 +3,7 @@ package tatracker.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -194,13 +195,16 @@ public class TaTracker implements ReadOnlyTaTracker {
     public ObservableList<Student> getCompleteStudentList() {
         UniqueStudentList completeStudentList = new UniqueStudentList();
 
-        List<Student> allStudents = new ArrayList<>();
+        // TODO: Fix this before PE, when the master student list is not stored per module group.
+        // There should be a master list of students managed by TaTracker
+
+        HashSet<Student> allStudents = new HashSet<>();
         for (Module module : modules) {
             for (Group group : module.getGroupList()) {
                 allStudents.addAll(group.getStudentList());
             }
         }
-        completeStudentList.setStudents(allStudents);
+        completeStudentList.setStudents(new ArrayList<>(allStudents));
         return completeStudentList.asUnmodifiableObservableList();
     }
 
