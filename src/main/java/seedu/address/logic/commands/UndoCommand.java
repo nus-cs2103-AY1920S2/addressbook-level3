@@ -36,6 +36,9 @@ public class UndoCommand extends Command {
 
         if (commandType.equals("ADDRESS")) {
             return new CommandResult(String.format(MESSAGE_SUCCESS));
+        } else if (commandType.equals("BIRTHDAY")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, false,
+                    false, false, true, false, false);
         } else if (commandType.equals("ASSIGNMENTS")) {
             return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, false,
                     true, false, false, false, false);

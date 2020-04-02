@@ -66,6 +66,15 @@ public class ModelManager implements Model {
         update();
     }
 
+    @Override
+    public void clear() {
+        createNewState("BIRTHDAY");
+        setAddressBook(new AddressBook());
+        setRestaurantBook(new RestaurantBook());
+        setScheduler(new Scheduler());
+        setEventSchedule(new EventSchedule());
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -105,7 +114,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        createNewState("ADDRESS");
         this.addressBook.resetData(addressBook);
     }
 
@@ -141,6 +149,12 @@ public class ModelManager implements Model {
     }
 
     //========== Schoolwork Tracker ==========================================================================
+
+    @Override
+    public void setScheduler(ReadOnlyScheduler scheduler) {
+        this.scheduler.resetData(scheduler);
+    }
+
     @Override
     public void addAssignment(Assignment assignment) {
         createNewState("ASSIGNMENTS");
@@ -180,6 +194,11 @@ public class ModelManager implements Model {
     //=========== Event Schedule ================================================================================
 
     @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
+        this.eventSchedule.resetData(eventSchedule);
+    }
+
+    @Override
     public void addEvent(Event event) {
         eventSchedule.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
@@ -209,6 +228,11 @@ public class ModelManager implements Model {
 
     //=========== RestaurantBook ================================================================================
 
+    @Override
+    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
+        this.restaurantBook.resetData(restaurantBook);
+    }
+    
     @Override
     public ReadOnlyRestaurantBook getRestaurantBook() {
         return restaurantBook;
