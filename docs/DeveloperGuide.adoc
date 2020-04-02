@@ -548,6 +548,8 @@ method to update the list in the `model`. +
 
 Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
 
+
+[[edit]]
 === Edit Feature
 
 In this section, the <<what-is-edit,functionality>> of the `edit` feature, the expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the `EditCommand` class
