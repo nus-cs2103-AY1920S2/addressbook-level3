@@ -25,4 +25,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_CANTEEN_NAME = "Invalid canteen name!";
     public static final String MESSAGE_INVALID_FAVORITE_NAME_SPECIFIED = "Please specify the number in the menu "
         + "of the food stall";
+    public static final String MESSAGE_NO_FOOD_WITH_TAG = "There is no food with the tag : ";
 }

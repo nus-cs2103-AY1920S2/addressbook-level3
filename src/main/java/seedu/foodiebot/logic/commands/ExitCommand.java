@@ -32,7 +32,7 @@ public class ExitCommand extends Command {
 
         case ParserContext.STALL_CONTEXT:
             if (ParserContext.getPreviousContext().equals(ParserContext.RANDOMIZE_CONTEXT)) {
-                ParserContext.setCurrentContext(ParserContext.RANDOMIZE_CONTEXT);
+                ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
             } else {
                 ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
                 ParserContext.setStallContext(null);
