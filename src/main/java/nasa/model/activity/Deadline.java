@@ -64,7 +64,7 @@ public class Deadline extends Activity {
      * @return int
      */
     public int getDifferenceInDay() {
-        return (int) getDate().getDifference(dueDate)[0];
+        return dueDate.getDifference(getDate());
     }
 
     /**
@@ -72,16 +72,20 @@ public class Deadline extends Activity {
      * @return int
      */
     public int percentage() {
-        double currentDifference = (double) Date.now().getDifference(getDate())[0] * -1;
-        return (int) (100 * (currentDifference / getDifferenceInDay()));
+        int currentDifference = Date.now().getDifference(getDate());
+        double result = 100 * ((double) currentDifference / getDifferenceInDay());
+        return currentDifference == 0 ? 0 : (int) result;
     }
 
     /**
-     * Get days remaining for the task.
+     * Calculate the percentage base on comparison.
+     * @param toCompare Date
      * @return int
      */
-    public int getDaysRemaining() {
-        return (int) this.dueDate.getDifference(Date.now())[0];
+    public int percentage(Date toCompare) {
+        int difference = toCompare.getDifference(getDate());
+        double result = 100 * ((double) difference / getDifferenceInDay());
+        return difference == 0 ? 0 : (int) result;
     }
 
     @Override
@@ -97,8 +101,10 @@ public class Deadline extends Activity {
 
     @Override
     public Deadline regenerate() {
-        if (super.getSchedule().update()) {
+        super.getSchedule().update();
+        if (Date.now().isAfter(dueDate)) {
             setDueDate(getSchedule().getDate().addDaysToCurrDate(getDifferenceInDay()));
+            super.setDate(super.getSchedule().getDate());
             setStatus(Status.ONGOING);
         }
         return this;

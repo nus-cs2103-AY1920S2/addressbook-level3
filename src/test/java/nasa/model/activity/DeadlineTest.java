@@ -39,7 +39,9 @@ class DeadlineTest {
     void percentage() {
         Deadline subject = (Deadline) DEADLINE;
         subject.setDate(new Date("20-03-2020 00:00"));
-        subject.setDueDate(Date.now().addDaysToCurrDate(20));
-        assertTrue(subject.percentage() > 50);
+        subject.setDueDate(new Date("30-03-2020 03:00"));
+        Date currentDate = new Date("26-03-2020 03:00");
+
+        assertTrue(subject.percentage(currentDate) > 50);
     }
 }
