@@ -66,12 +66,15 @@ public class ModuleListPanel extends UiPart<Region> implements Focusable {
             if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
                 if (module.equals(getCurrentlyShownModule())) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "
                             + "-fx-border-width: " + BORDER_WIDTH + ";");
+                } else {
+                    setStyle("");
                 }
             }
         }

@@ -54,6 +54,7 @@ public class StudentListPanel extends UiPart<Region> implements Focusable {
             if (empty || student == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
                 setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
