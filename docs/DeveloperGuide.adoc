@@ -253,7 +253,7 @@ image::SortSequenceDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/SortCommand.java[`SortCommand.java`]
 
 ==== Implementation
-The tasklist has no default sorting set on it. It will only be sorted in the order defined through the sort command like so `sort {field1}, {field2}, ...`. To implement this, we've created a new class `SortedUniqueTaskList` which extends `UniqueTaskList`. This extended class accepts Comparators and sorts the internal task list as according to the comparator while maintaining the immutability of the items in the tasklist.
+The tasklist has no default sorting set on it. It will only be sorted when the sort command is used like so `sort {field1}, {field2}, ...`. To implement this, we've augmented the UniqueTaskList and TaskList with a setComparator. This allows us to set several comparators on the taskList to perform multi level sorting while maintaing the ObservableList which JavaFX can then use to update the UI.
 
 === AutoComplete
 

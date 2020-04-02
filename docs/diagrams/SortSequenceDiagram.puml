@@ -9,7 +9,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant "sl:SortedList" as SortedList MODEL_COLOR
+participant "tl:TaskList" as TaskList MODEL_COLOR
 end box
 
 [-> LogicManager : execute("sort priority, name")
@@ -17,7 +17,7 @@ activate LogicManager
 
 ref over LogicManager
     Similar to DeleteCommand's way 
-    of generating a {certain}Command
+    of generating {action}Command
 end ref
 
 
@@ -27,18 +27,14 @@ activate SortCommand
     
 SortCommand -> Model : setComparator(field)
 activate Model
-create SortedList
-Model -> SortedList:s: new SortedList()
-activate SortedList
-SortedList -> Model
 
 loop [int 0..n]
-    Model -> SortedList: setComparator(field)
-    SortedList -> Model
+    Model -> TaskList: setComparator(field)
+    activate TaskList
+    TaskList -> Model
+    deactivate TaskList
 end
 
-Model -> Model: new FilteredList(sl)
-deactivate SortedList
 Model -> SortCommand
 deactivate Model
 
