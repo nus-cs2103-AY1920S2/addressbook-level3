@@ -19,12 +19,6 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public StatisticsCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
-
-        if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-        }
         return new StatisticsCommand();
     }
 

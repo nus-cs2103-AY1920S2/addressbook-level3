@@ -51,6 +51,10 @@ public class TabPanel extends UiPart<Region> {
         });
     }
 
+    public void getStatistics() {
+        tabPane.getSelectionModel().select(2);
+    }
+
     /**
      * Switches to the subsequent tab or the first tab if current tab is the last tab.
      */
