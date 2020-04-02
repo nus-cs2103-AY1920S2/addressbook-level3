@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
+import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipe;
 import seedu.recipe.model.plan.ReadOnlyPlannedBook;
 import seedu.recipe.model.recipe.Recipe;
@@ -111,17 +111,17 @@ public interface Model {
     /**
      * Stores the new state of the RecipeBook when the RecipeBook undergoes a state change.
      */
-    void commitRecipeBook();
+    void commitBook(CommandType commandType);
 
     /**
      * Reverts the RecipeBook back by {@code numberOfUndo} states.
      */
-    void undoRecipeBook(int numberOfUndo);
+    void undoBook(int numberOfUndo, Model model);
 
     /**
      * Fast forwards the RecipeBook by {@code numberOfRedo} states.
      */
-    void redoRecipeBook(int numberOfRedo);
+    void redoBook(int numberOfRedo, Model model);
 
     /** Returns the PlannedBook */
     ReadOnlyPlannedBook getPlannedBook();
@@ -138,7 +138,7 @@ public interface Model {
     /**
      * Replaces the data in the planned book with data from {@code plannedBook}.
      */
-    void setPlannedBook(PlannedBook plannedBook);
+    void setPlannedBook(ReadOnlyPlannedBook plannedBook);
 
     /**
      * Adds the {@code plannedRecipe} that plans for {@code recipe}.

@@ -32,7 +32,7 @@ public class UndoCommand extends Command {
         if (!model.canUndo(numberOfUndo)) {
             throw new CommandException(MESSAGE_CANNOT_UNDO);
         }
-        model.undoRecipeBook(numberOfUndo);
+        model.undoBook(numberOfUndo, model);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         if (numberOfUndo > 0) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfUndo));

@@ -16,6 +16,7 @@ import java.util.TreeSet;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
@@ -48,15 +49,17 @@ public class AddIngredientCommand extends Command {
     public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully added ingredient(s) to %1$s!";
 
     private final Index index;
-    private final EditCommand.EditRecipeDescriptor editRecipeDescriptor;
+    private final EditRecipeDescriptor editRecipeDescriptor;
+    private final CommandType commandType;
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
      * @param editRecipeDescriptor details to edit the recipe with
      */
-    public AddIngredientCommand(Index index, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    public AddIngredientCommand(Index index, EditRecipeDescriptor editRecipeDescriptor) {
         this.index = index;
         this.editRecipeDescriptor = editRecipeDescriptor;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -81,7 +84,7 @@ public class AddIngredientCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.setRecipeInPlans(recipeToEdit, editedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
 
         return new CommandResult(String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
     }
@@ -89,7 +92,7 @@ public class AddIngredientCommand extends Command {
     /**
      * Adds the original list of {@code Grain} ingredients to the {@code editRecipeDescriptor}.
      */
-    public void updateGrainsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    private void updateGrainsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getGrains().isPresent()) {
             Set<Grain> updatedGrainsList = new TreeSet<>(editRecipeDescriptor.getGrains().get());
             updatedGrainsList.addAll(recipeToEdit.getGrains());
@@ -102,7 +105,7 @@ public class AddIngredientCommand extends Command {
     /**
      * Adds the original list of {@code Vegetable} ingredients to the {@code editRecipeDescriptor}.
      */
-    public void updateVegetablesList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    private void updateVegetablesList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getVegetables().isPresent()) {
             Set<Vegetable> updatedVegetablesList = new TreeSet<>(editRecipeDescriptor.getVegetables().get());
             updatedVegetablesList.addAll(recipeToEdit.getVegetables());
@@ -115,7 +118,7 @@ public class AddIngredientCommand extends Command {
     /**
      * Adds the original list of {@code Protein} ingredients to the {@code editRecipeDescriptor}.
      */
-    public void updateProteinsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    private void updateProteinsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getProteins().isPresent()) {
             Set<Protein> updatedProteinsList = new TreeSet<>(editRecipeDescriptor.getProteins().get());
             updatedProteinsList.addAll(recipeToEdit.getProteins());
@@ -128,7 +131,7 @@ public class AddIngredientCommand extends Command {
     /**
      * Adds the original list of {@code Fruit} ingredients to the {@code editRecipeDescriptor}.
      */
-    public void updateFruitsList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    private void updateFruitsList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getFruits().isPresent()) {
             Set<Fruit> updatedFruitsList = new TreeSet<>(editRecipeDescriptor.getFruits().get());
             updatedFruitsList.addAll(recipeToEdit.getFruits());
@@ -141,7 +144,7 @@ public class AddIngredientCommand extends Command {
     /**
      * Adds the original list of {@code Other} ingredients to the {@code editRecipeDescriptor}.
      */
-    public void updateOthersList(Recipe recipeToEdit, EditCommand.EditRecipeDescriptor editRecipeDescriptor) {
+    private void updateOthersList(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         if (editRecipeDescriptor.getOthers().isPresent()) {
             Set<Other> updatedOthersList = new TreeSet<>(editRecipeDescriptor.getOthers().get());
             updatedOthersList.addAll(recipeToEdit.getOthers());

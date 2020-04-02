@@ -28,11 +28,12 @@ public class DeleteStepCommand extends Command {
             + "Parameters: [INDEX of recipe] [Step numbers]\n"
             + "Example: " + COMMAND_WORD + " 1 3 5 (deletes steps 3 and 5 of recipe 1)";
 
-    public static final String MESSAGE_ADD_STEPS_SUCCESS = "Successfully deleted step(s) from %1$s!";
+    public static final String MESSAGE_DELETE_STEPS_SUCCESS = "Successfully deleted step(s) from %1$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to delete a non-existent step";
 
     private final Index index;
     private final Integer[] stepNumbers;
+    private final CommandType commandType;
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
@@ -41,6 +42,7 @@ public class DeleteStepCommand extends Command {
     public DeleteStepCommand(Index index, Integer[] stepNumbers) {
         this.index = index;
         this.stepNumbers = stepNumbers;
+        this.commandType = CommandType.MAIN;
     }
 
     @Override
@@ -70,9 +72,9 @@ public class DeleteStepCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.setRecipeInPlans(recipeToEdit, editedRecipe);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitRecipeBook();
+        model.commitBook(commandType);
 
-        return new CommandResult(String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString()));
+        return new CommandResult(String.format(MESSAGE_DELETE_STEPS_SUCCESS, recipeToEdit.getName().toString()));
     }
 
     @Override
