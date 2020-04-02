@@ -790,8 +790,6 @@ e.g. `:Agility 10`
 
 * Open an interviewee report: `open <interviewee>` +
 e.g. `open Jane Doe`
-* Close an interviewee report: `close <interviewee>` +
-e.g. `close Jane Doe`
 * Navigate to answer of interviewee: `q<question number>` +
 e.g. `goto q4`
 * Navigate to a time of interviewee: `at <time>` +
