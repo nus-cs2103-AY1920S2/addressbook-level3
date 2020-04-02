@@ -3,11 +3,13 @@ package tatracker.model.student;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
 
@@ -17,7 +19,7 @@ import tatracker.model.student.exceptions.StudentNotFoundException;
  * updating of students uses Student#isSameStudent(Student) for equality so as to ensure that the student being added or
  * updated is unique in terms of identity in the UniqueStudentList. However, the removal of a student uses
  * Student#equals(Object) so as to ensure that the student with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Student#isSameStudent(Student)
@@ -27,6 +29,34 @@ public class UniqueStudentList implements Iterable<Student> {
     private final ObservableList<Student> internalList = FXCollections.observableArrayList();
     private final ObservableList<Student> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private Comparator<Student> alphabetically = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getName().toString()).compareTo(other.getName().toString());
+        }
+    };
+    private Comparator<Student> ratingAscending = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getRating().toString()).compareTo(other.getRating().toString());
+        }
+    };
+    private Comparator<Student> ratingDescending = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (-1) * (student.getRating().toString()).compareTo(other.getRating().toString());
+        }
+    };
+    private Comparator<Student> matric = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getMatric().toString()).compareTo(other.getMatric().toString());
+        }
+    };
+
+    public int size() {
+        return internalList.size();
+    }
 
     /**
      * Returns true if the list contains an equivalent student as the given argument.
@@ -36,12 +66,22 @@ public class UniqueStudentList implements Iterable<Student> {
         return internalList.stream().anyMatch(toCheck::isSameStudent);
     }
 
-    public int size() {
-        return internalList.size();
-    }
-
     public Student get(int n) {
         return internalList.get(n);
+    }
+
+    /**
+     * Returns the student in this list with the given student
+     * matriculation number (the student id).
+     * Returns null if no such student exists.
+     */
+    public Student get(Matric studentId) {
+        for (Student student : internalList) {
+            if (student.getMatric().equals(studentId)) {
+                return student;
+            }
+        }
+        return null; // Did not find a student with the given student id
     }
 
     /**
@@ -54,6 +94,17 @@ public class UniqueStudentList implements Iterable<Student> {
             throw new DuplicateStudentException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent student from the list.
+     * The student must exist in the list.
+     */
+    public void remove(Student toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new StudentNotFoundException();
+        }
     }
 
     /**
@@ -76,17 +127,6 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.set(index, editedStudent);
     }
 
-    /**
-     * Removes the equivalent student from the list.
-     * The student must exist in the list.
-     */
-    public void remove(Student toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new StudentNotFoundException();
-        }
-    }
-
     public void setStudents(UniqueStudentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -105,6 +145,45 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.setAll(students);
     }
 
+
+    /**
+     * Returns all students of a particular rating
+     *
+     * @param rating The target rating of students to return
+     */
+    public List<Student> getStudentsOfRating(Rating rating) {
+        return internalList.filtered(s -> s.getRating().equals(rating));
+    }
+
+    /**
+     * Sorts the students alphabetically.
+     */
+    public void sortAlphabetically() {
+        FXCollections.sort(internalList, alphabetically);
+    }
+
+    /**
+     * Sorts the students by rating in ascending order.
+     */
+    public void sortByRatingAscending() {
+        FXCollections.sort(internalList, ratingAscending);
+    }
+
+    /**
+     * Sorts the students by matric number.
+     */
+    public void sortByMatric() {
+        FXCollections.sort(internalList, matric);
+    }
+
+    /**
+     * Sorts the students by rating in descending order.
+     */
+    public void sortByRatingDescending() {
+        FXCollections.sort(internalList, ratingDescending);
+    }
+
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -121,7 +200,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueStudentList // instanceof handles nulls
-                        && internalList.equals(((UniqueStudentList) other).internalList));
+                && internalList.equals(((UniqueStudentList) other).internalList));
     }
 
     @Override

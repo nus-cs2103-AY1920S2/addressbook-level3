@@ -4,20 +4,23 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import tatracker.commons.core.index.Index;
+import tatracker.commons.util.DateTimeUtil;
 import tatracker.commons.util.StringUtil;
+import tatracker.logic.commands.commons.GotoCommand.Tab;
+import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.group.Group.GroupType;
+import tatracker.model.group.GroupType;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.tag.Tag;
 
 /**
@@ -26,9 +29,7 @@ import tatracker.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
-    private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
-    private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
+    public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -63,7 +64,6 @@ public class ParserUtil {
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @param phone
      * @throws ParseException if the given {@code phone} is invalid.
      */
     public static Phone parsePhone(String phone) throws ParseException {
@@ -79,7 +79,6 @@ public class ParserUtil {
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @param email
      * @throws ParseException if the given {@code email} is invalid.
      */
     public static Email parseEmail(String email) throws ParseException {
@@ -150,11 +149,11 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        try {
-            return LocalDate.parse(trimmedDate);
-        } catch (DateTimeParseException dtpe) {
-            throw new ParseException(MESSAGE_INVALID_DATE);
+
+        if (!DateTimeUtil.isDate(trimmedDate)) {
+            throw new ParseException(DateTimeUtil.CONSTRAINTS_DATE);
         }
+        return LocalDate.parse(trimmedDate);
     }
 
     /**
@@ -165,20 +164,20 @@ public class ParserUtil {
     public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        try {
-            return LocalTime.parse(trimmedTime);
-        } catch (DateTimeParseException dtpe) {
-            throw new ParseException(MESSAGE_INVALID_TIME);
+
+        if (!DateTimeUtil.isTime(trimmedTime)) {
+            throw new ParseException(DateTimeUtil.CONSTRAINTS_TIME);
         }
+        return LocalTime.parse(trimmedTime);
     }
 
     /**
      * Parses a {@code String sessionType} into a {@code SessionType}
      */
-    public static SessionType parseSessionType(String sessionType) {
+    public static SessionType parseSessionType(String sessionType) throws ParseException {
         requireNonNull(sessionType);
         String trimmedType = sessionType.trim();
-        assert (trimmedType.equals(trimmedType.toLowerCase()));
+
         switch (trimmedType) {
         case "tutorial":
             return SessionType.TUTORIAL;
@@ -190,22 +189,103 @@ public class ParserUtil {
             return SessionType.GRADING;
         case "preparation":
             return SessionType.PREPARATION;
-        default:
+        case "other":
             return SessionType.OTHER;
+        default:
+            throw new ParseException(SessionType.MESSAGE_CONSTRAINTS);
         }
     }
 
     /**
      * Parses and returns Group Type of group.
      */
-    public static GroupType parseGroupType(String type) {
+    public static GroupType parseGroupType(String type) throws ParseException {
         requireNonNull(type);
         String trimmedType = type.trim();
-        switch(trimmedType.toLowerCase()) {
+
+        switch (trimmedType) {
+        case "tutorial":
+            return GroupType.TUTORIAL;
         case "lab":
             return GroupType.LAB;
+        case "recitation":
+            return GroupType.RECITATION;
+        case "other":
+            return GroupType.OTHER;
         default:
-            return GroupType.TUTORIAL;
+            throw new ParseException(GroupType.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses and returns Group Type of group.
+     */
+    public static SortType parseSortType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+
+        if (!SortType.isValidSortType(trimmedType)) {
+            throw new ParseException(SortType.MESSAGE_CONSTRAINTS);
+        }
+        return SortType.getSortType(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}
+     */
+    public static Rating parseRating(String rating) throws ParseException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+
+        int parsedRating = Integer.parseUnsignedInt(trimmedRating);
+        return new Rating(parsedRating);
+    }
+
+    /**
+     * Parses a {@code String integer} into an integer primitive.
+     * This is different from the standard Java version as it does not
+     * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
+     */
+    public static int parseUnsignedInteger(String integer) throws ParseException {
+        requireNonNull(integer);
+        String trimmedInteger = integer.trim();
+
+        if (!StringUtil.isUnsignedInteger(trimmedInteger)) {
+            throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
+        }
+
+        return Integer.parseUnsignedInt(integer);
+    }
+
+    /**
+     * Parses a {@code String numWeeks} into a number of weeks.
+     */
+    public static int parseNumWeeks(String numWeeks) throws ParseException {
+        try {
+            return parseUnsignedInteger(numWeeks);
+        } catch (ParseException pe) {
+            throw new ParseException("Recurring weeks must be an unsigned number");
+        }
+    }
+
+    /**
+     * Parses and returns the tab na`me specified by the user in the goto command
+     *
+     * @param tabName user input
+     * @return the tab specified by the user
+     * @throws ParseException invalid tab name
+     */
+    public static Tab parseTabName(String tabName) throws ParseException {
+        requireNonNull(tabName);
+        String trimmedType = tabName.trim();
+
+        if (!Tab.isValidTab(trimmedType)) {
+            throw new ParseException(Tab.MESSAGE_CONSTRAINTS);
+        }
+        return Tab.getTab(trimmedType);
     }
 }

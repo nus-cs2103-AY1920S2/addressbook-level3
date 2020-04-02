@@ -1,6 +1,6 @@
 package tatracker.logic.parser.module;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
-import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -21,7 +20,6 @@ public class ModuleCommandParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final String UNIMPLEMENTED_CODE_FORMAT = "%s not yet implemented!";
 
     /**
      * Parses user input into command for execution.
@@ -33,13 +31,12 @@ public class ModuleCommandParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND);
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case CommandWords.ADD_MODEL:
             return new AddModuleCommandParser().parse(arguments);
 
@@ -47,8 +44,7 @@ public class ModuleCommandParser {
             return new DeleteModuleCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
-            // return new EditGroupCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
+            return new EditModuleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

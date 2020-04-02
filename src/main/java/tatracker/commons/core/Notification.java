@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
  * A class that handles the displaying of System Notifications.
  */
 public class Notification {
-    public static final String APPICON_PATH = "images/address_book_32.png";
+    public static final String APPICON_PATH = "images/icon.png";
     private static Notification singleton;
     private final TrayIcon trayIcon;
 

@@ -1,9 +1,9 @@
 package tatracker.logic.parser.group;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.TYPE;
 
 import java.util.stream.Stream;
 
@@ -15,7 +15,7 @@ import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
-import tatracker.model.group.Group.GroupType;
+import tatracker.model.group.GroupType;
 
 /**
  * Parses input arguments and creates a new AddGroupCommand object
@@ -29,16 +29,17 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
      */
     public AddGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                         ArgumentTokenizer.tokenize(args, PREFIX_GROUP, PREFIX_MODULE, PREFIX_TYPE);
+                         ArgumentTokenizer.tokenize(args, GROUP, MODULE, TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_GROUP, PREFIX_MODULE, PREFIX_TYPE)
+        if (!arePrefixesPresent(argMultimap, GROUP, MODULE, TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddGroupCommand.DETAILS.getUsage()));
         }
 
-        String groupCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_GROUP).get());
-        String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
-        GroupType groupType = ParserUtil.parseGroupType(argMultimap.getValue(PREFIX_TYPE).get());
+        String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
+        GroupType groupType = ParserUtil.parseGroupType(argMultimap.getValue(TYPE).get());
 
         Group group = new Group(groupCode, groupType);
 

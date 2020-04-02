@@ -1,16 +1,22 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.List;
 
-import tatracker.commons.core.Messages;
-import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 /**
@@ -18,39 +24,83 @@ import tatracker.model.student.Student;
  */
 public class DeleteStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.DELETE_MODEL;
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the student identified by the index number used in the displayed student list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.DELETE_MODEL,
+            "Deletes the student with the given matric number from the given module group.",
+            List.of(MATRIC, MODULE, GROUP),
+            List.of(),
+            MATRIC, MODULE, GROUP
+    );
 
     public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
+    public static final String MESSAGE_INVALID_MODULE_FORMAT =
+            "There is no module with the given module code: %s";
+    public static final String MESSAGE_INVALID_GROUP_FORMAT =
+            "There is no group in the module (%s) with the given group code: %s";
+    public static final String MESSAGE_INVALID_STUDENT_FORMAT =
+            "There is no student in the (%s) group (%s) with the given matric number: %s";
 
-    private final Index targetIndex;
+    private final Matric toDelete;
+    private final String targetGroup;
+    private final String targetModule;
 
-    public DeleteStudentCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteStudentCommand(Matric matric, String group, String module) {
+        requireNonNull(matric);
+        requireNonNull(group);
+        requireNonNull(module);
+        this.toDelete = matric;
+        this.targetGroup = group;
+        this.targetModule = module;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Student> lastShownList = model.getFilteredStudentList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        if (!model.hasModule(targetModule)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule));
         }
 
-        Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteStudent(studentToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
+        if (!model.hasGroup(targetGroup, targetModule)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT,
+                    targetModule,
+                    targetGroup));
+        }
+
+        Module actualModule = model.getModule(targetModule);
+        Group actualGroup = actualModule.getGroup(targetGroup);
+
+        Student studentToDelete = actualGroup.getStudent(toDelete);
+
+        if (studentToDelete == null) {
+            throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT,
+                    targetModule,
+                    targetGroup,
+                    toDelete));
+        }
+
+        model.deleteStudent(studentToDelete, targetGroup, targetModule);
+
+        model.updateFilteredGroupList(targetModule);
+        model.updateFilteredStudentList(targetGroup, targetModule);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete), Action.GOTO_STUDENT);
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteStudentCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteStudentCommand) other).targetIndex)); // state check
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+
+        if (!(other instanceof DeleteStudentCommand)) {
+            return false; // instanceof handles nulls
+        }
+
+        DeleteStudentCommand otherCommand = (DeleteStudentCommand) other;
+        return toDelete.equals(otherCommand.toDelete)
+                && targetGroup.equals(otherCommand.targetGroup)
+                && targetModule.equals(otherCommand.targetModule);
     }
 }

@@ -1,14 +1,28 @@
 {
-  "students": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "matric": "A0178716J",
-    "tagged": [ "friends" ]
-  }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "matric": "A0178716J"
+  "sessions" : [ ],
+  "doneSessions" : [ ],
+  "modules" : [ {
+    "id" : "CS3243",
+    "name" : "Introduction to AI",
+    "sessions" : [ ],
+    "groups" : [ {
+      "id" : "G06",
+      "type" : "LAB",
+      "students" : [ {
+        "name" : "Alice Pauline",
+        "phone" : "94351253",
+        "email" : "alice@example.com",
+        "matric" : "A0193235J",
+        "rating" : 1,
+        "tagged" : [ "friends" ]
+      }, {
+        "name" : "Alice Pauline",
+        "phone" : "94351253",
+        "email" : "alice@example.com",
+        "matric" : "A0193235J",
+        "rating" : 1,
+        "tagged" : [ "friends" ]
+      } ]
+    } ]
   } ]
 }

@@ -5,17 +5,29 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.Logic;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.statistic.StatisticCommandResult;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.statistic.Statistic;
+import tatracker.ui.claimstab.ClaimsListPanel;
+import tatracker.ui.claimstab.ModuleListPanelCopy;
+import tatracker.ui.sessiontab.SessionListPanel;
+import tatracker.ui.studenttab.GroupListPanel;
+import tatracker.ui.studenttab.ModuleListPanel;
+import tatracker.ui.studenttab.StudentListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,17 +36,31 @@ import tatracker.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String BORDER_COLOUR = "#917b3e";
+    private static final String BORDER_WIDTH = "1";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
+    private CommandBox commandBox;
+
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
+    private GroupListPanel groupListPanel;
+    private ModuleListPanel moduleListPanel;
+
+    private ModuleListPanelCopy moduleListPanelCopy;
+    private Focusable currentStudentViewList;
+
     private SessionListPanel sessionListPanel;
+    private ClaimsListPanel claimsListPanel;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private StatisticWindow statisticWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,10 +69,34 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab studentListTab;
+
+    @FXML
+    private Tab sessionListTab;
+
+    @FXML
+    private Tab claimsListTab;
+
+    @FXML
     private StackPane studentListPanelPlaceholder;
 
     @FXML
+    private StackPane groupListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholderCopy;
+
+    @FXML
     private StackPane sessionListPanelPlaceholder;
+
+    @FXML
+    private StackPane claimsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -57,6 +107,9 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
+        studentListTab.setStyle("-fx-border-color: " + BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
+
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -66,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        helpWindow = new HelpWindow(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
@@ -79,6 +132,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -114,8 +168,22 @@ public class MainWindow extends UiPart<Stage> {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
+
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        moduleListPanelCopy = new ModuleListPanelCopy(logic.getFilteredModuleList());
+        moduleListPanelPlaceholderCopy.getChildren().add(moduleListPanelCopy.getRoot());
+
+        currentStudentViewList = studentListPanel;
+
         sessionListPanel = new SessionListPanel(logic.getFilteredSessionList());
         sessionListPanelPlaceholder.getChildren().add(sessionListPanel.getRoot());
+
+        claimsListPanel = new ClaimsListPanel(logic.getFilteredDoneSessionList(), logic.getTaTracker());
+        claimsListPanelPlaceholder.getChildren().add(claimsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -123,8 +191,12 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaTrackerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand, resultDisplay);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleFocusOnCommandBox);
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleFocusOnView);
+        getRoot().addEventFilter(KeyEvent.KEY_RELEASED, this::handleSwitchingStudentViewLists);
     }
 
     /**
@@ -140,6 +212,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switched to user specified tab.
+     */
+    @FXML
+    public void handleGoto(Tab tabToSwitchTo) {
+        tabPane.getSelectionModel().select(tabToSwitchTo);
+        studentListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        sessionListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        claimsListTab.setStyle("-fx-border-color: " + "black" + "; "
+                                + "-fx-border-width: " + "0" + ";");
+        tabToSwitchTo.setStyle("-fx-border-color: " + BORDER_COLOUR + "; "
+                            + "-fx-border-width: " + BORDER_WIDTH + ";");
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -151,8 +239,35 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the statistic window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStatistic() {
+        handleStatistic(null);
+    }
+
+    /**
+     * Opens the statistic window for the input module.
+     * @param moduleCode the module code for which the stats will be for
+     */
+    public void handleStatistic(String moduleCode) {
+        if (statisticWindow != null && statisticWindow.isShowing()) {
+            statisticWindow.hide();
+        }
+
+        // Create a new statistic window
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic.getGuiSettings());
+        statisticWindow.show();
+        statisticWindow.focus();
+    }
+
     void show() {
         primaryStage.show();
+    }
+
+    private boolean isSelectedTab(Tab tab) {
+        return tab.equals(tabPane.getSelectionModel().getSelectedItem());
     }
 
     /**
@@ -165,14 +280,104 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+
+        if (statisticWindow != null) {
+            statisticWindow.hide();
+        }
     }
 
-    public StudentListPanel getStudentListPanel() {
-        return studentListPanel;
+    /**
+     * Alternates the focus on the command box.
+     */
+    private void handleFocusOnCommandBox(KeyEvent event) {
+        if (!KeyCode.ESCAPE.equals(event.getCode())) {
+            return;
+        }
+        if (commandBox.isFocused()) {
+            commandBoxPlaceholder.requestFocus();
+            logger.info("Focus on view");
+        } else {
+            commandBox.requestFocus();
+            logger.info("Focus on text");
+        }
     }
 
-    public SessionListPanel getSessionListPanel() {
-        return sessionListPanel;
+    /**
+     * Alternates the focus on the current tab view.
+     */
+    private void handleFocusOnView(KeyEvent event) {
+        if (!KeyCode.ESCAPE.equals(event.getCode()) || commandBox.isFocused()) {
+            return;
+        }
+        if (isSelectedTab(studentListTab)) {
+            currentStudentViewList.requestFocus();
+        } else if (isSelectedTab(sessionListTab)) {
+            sessionListPanel.requestFocus();
+        } else if (isSelectedTab(claimsListTab)) {
+            moduleListPanelCopy.requestFocus();
+        } else {
+            assert false;
+            logger.warning("Tab does not exist");
+        }
+    }
+
+    /**
+     * Alternates the focus on the module, group, and student list in the StudentView.
+     */
+    private void handleSwitchingStudentViewLists(KeyEvent event) {
+        if (!isSelectedTab(studentListTab)) {
+            return;
+        }
+        switch (event.getCode()) {
+        case LEFT:
+            handleLeftKeyReleased();
+            break;
+        case RIGHT:
+            handleRightKeyReleased();
+            break;
+        default:
+            logger.fine("Not switching lists");
+        }
+    }
+
+    /**
+     * Sets the focus on the list view to the left of the currently active list view.
+     * This can only be used in the Student View since it has multiple lists.
+     */
+    private void handleLeftKeyReleased() {
+        if (currentStudentViewList == studentListPanel) {
+            logger.info("LEFT: Showing groups");
+            currentStudentViewList = groupListPanel;
+
+        } else if (currentStudentViewList == groupListPanel) {
+            logger.info("LEFT: Showing modules");
+            currentStudentViewList = moduleListPanel;
+
+        } else {
+            assert currentStudentViewList == moduleListPanel;
+            logger.fine("Nothing to the left of module list panel");
+        }
+        currentStudentViewList.requestFocus();
+    }
+
+    /**
+     * Sets the focus on the list view to the right of the currently active list view.
+     * This can only be used in the Student View since it has multiple lists.
+     */
+    private void handleRightKeyReleased() {
+        if (currentStudentViewList == moduleListPanel) {
+            logger.info("RIGHT: Showing groups");
+            currentStudentViewList = groupListPanel;
+
+        } else if (currentStudentViewList == groupListPanel) {
+            logger.info("RIGHT: Showing students");
+            currentStudentViewList = studentListPanel;
+
+        } else {
+            assert currentStudentViewList == studentListPanel;
+            logger.fine("Nothing to the right of student list panel");
+        }
+        currentStudentViewList.requestFocus();
     }
 
     /**
@@ -186,15 +391,61 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            if (commandResult instanceof StatisticCommandResult) {
+                StatisticCommandResult scr = (StatisticCommandResult) commandResult;
+                handleStatistic(scr.targetModuleCode);
             }
 
-            if (commandResult.isExit()) {
+            switch (commandResult.getNextAction()) {
+            case DONE:
+                claimsListPanel.updateLabel();
+                handleGoto(claimsListTab);
+                break;
+
+            case EXIT:
                 handleExit();
-            }
+                break;
 
+            case FILTER_CLAIMS:
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                claimsListPanel.updateLabel();
+                handleGoto(claimsListTab);
+                break;
+
+            case FILTER_SESSION:
+                handleGoto(sessionListTab);
+                break;
+
+            case FILTER_STUDENT:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
+                handleGoto(studentListTab);
+                break;
+
+            case GOTO_CLAIMS:
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                handleGoto(claimsListTab);
+                break;
+
+            case GOTO_SESSION:
+                handleGoto(sessionListTab);
+                break;
+
+            case GOTO_STUDENT:
+                moduleListPanel.updateCells(logic.getFilteredModuleList());
+                groupListPanel.updateCells(logic.getFilteredGroupList());
+                handleGoto(studentListTab);
+                break;
+
+            case HELP:
+                handleHelp();
+                break;
+
+            default:
+                break;
+            }
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

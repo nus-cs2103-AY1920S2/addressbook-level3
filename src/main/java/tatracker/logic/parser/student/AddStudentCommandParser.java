@@ -1,11 +1,14 @@
 package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -21,8 +24,10 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
+
 
 /**
  * Parses input arguments and creates a new AddStudentCommand object
@@ -36,30 +41,48 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
      */
     public AddStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MATRIC, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, MATRIC, MODULE, GROUP,
+                        NAME, PHONE, EMAIL, RATING, TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MATRIC)
+        if (!arePrefixesPresent(argMultimap, MATRIC, MODULE, GROUP, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddStudentCommand.DETAILS.getUsage()));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Email email = new Email("");
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        // ==== Identity fields ====
 
+        Matric matric = ParserUtil.parseMatric(argMultimap.getValue(MATRIC).get());
+
+        String module = argMultimap.getValue(MODULE).get().toUpperCase();
+        String group = argMultimap.getValue(GROUP).get().toUpperCase();
+
+        Name name = ParserUtil.parseName(argMultimap.getValue(NAME).get());
+
+        // ==== Optional fields ====
+
+        Phone phone = new Phone();
+        if (argMultimap.getValue(PHONE).isPresent()) {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PHONE).get());
         }
-        Phone phone = new Phone("");
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
 
+        Email email = new Email();
+        if (argMultimap.getValue(EMAIL).isPresent()) {
+            email = ParserUtil.parseEmail(argMultimap.getValue(EMAIL).get());
         }
-        Matric matric = ParserUtil.parseMatric(argMultimap.getValue(PREFIX_MATRIC).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Student student = new Student(name, phone, email, matric, tagList);
+        Rating rating = new Rating();
+        if (argMultimap.getValue(RATING).isPresent()) {
+            rating = ParserUtil.parseRating(argMultimap.getValue(RATING).get());
+        }
 
-        return new AddStudentCommand(student);
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(TAG));
+
+        // ==== Build Student  ====
+
+        Student student = new Student(matric, name, phone, email, rating, tagList);
+
+        return new AddStudentCommand(student, group, module);
     }
 
     /**

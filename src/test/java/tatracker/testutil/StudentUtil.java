@@ -1,15 +1,20 @@
 package tatracker.testutil;
 
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 
 import java.util.Set;
 
 import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -18,11 +23,16 @@ import tatracker.model.tag.Tag;
  */
 public class StudentUtil {
 
+    private static final Group TEST_GROUP = new Group("W17-4");
+    private static final Module TEST_MODULE = new Module("CS2103T");
+
     /**
      * Returns an add command string for adding the {@code student}.
      */
     public static String getAddCommand(Student student) {
-        return AddStudentCommand.COMMAND_WORD + " " + getStudentDetails(student);
+        return AddStudentCommand.DETAILS.getFullCommandWord() + " " + getStudentDetails(student) + " "
+                + GROUP + " " + TEST_GROUP.getIdentifier() + " "
+                + MODULE + " " + TEST_MODULE.getIdentifier();
     }
 
     /**
@@ -30,13 +40,12 @@ public class StudentUtil {
      */
     public static String getStudentDetails(Student student) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + student.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + student.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + student.getEmail().value + " ");
-        sb.append(PREFIX_MATRIC + student.getMatric().value + " ");
-        student.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        sb.append(NAME + student.getName().fullName + " ");
+        sb.append(PHONE + student.getPhone().value + " ");
+        sb.append(EMAIL + student.getEmail().value + " ");
+        sb.append(MATRIC + student.getMatric().value + " ");
+        sb.append(RATING + String.valueOf(student.getRating().value) + " ");
+        student.getTags().forEach(s -> sb.append(TAG + s.tagName + " "));
         return sb.toString();
     }
 
@@ -45,16 +54,17 @@ public class StudentUtil {
      */
     public static String getEditStudentDescriptorDetails(EditStudentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getMatric().ifPresent(matric -> sb.append(PREFIX_MATRIC).append(matric.value).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(NAME).append(name.fullName).append(" "));
+        descriptor.getPhone().ifPresent(phone -> sb.append(PHONE).append(phone.value).append(" "));
+        descriptor.getEmail().ifPresent(email -> sb.append(EMAIL).append(email.value).append(" "));
+        descriptor.getRating().ifPresent(rating -> sb.append(RATING).append(rating.value).append(" "));
+        descriptor.getMatric().ifPresent(matric -> sb.append(MATRIC).append(matric.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(TAG).append(s.tagName).append(" "));
             }
         }
         return sb.toString();

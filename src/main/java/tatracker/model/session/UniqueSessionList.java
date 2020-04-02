@@ -3,6 +3,8 @@ package tatracker.model.session;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -101,7 +103,6 @@ public class UniqueSessionList implements Iterable<Session> {
      * The session must exist in the list.
      */
     public void remove(int n) {
-        requireNonNull(n);
         if (n < 0 || n > internalList.size()) {
             throw new SessionNotFoundException();
         }
@@ -131,7 +132,40 @@ public class UniqueSessionList implements Iterable<Session> {
      * Returns the session list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Session> asUnmodifiableObservableList() {
+
+        FXCollections.sort(internalList, Comparator.comparing(Session::getDate)
+                                                    .thenComparing(Session::getStartDateTime)
+                                                    .thenComparing(Session::getEndDateTime));
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns all sessions of type {@code type}.
+     * @param type The type of session to return.
+     */
+    public UniqueSessionList getSessionsOfType(SessionType type) {
+        UniqueSessionList filteredList = new UniqueSessionList();
+        filteredList.setSessions(internalList.filtered(s -> s.getSessionType() == type));
+        return filteredList;
+    }
+
+    /**
+     * Returns all sessions of module code {@code code}.
+     * @param code The module code of session to return.
+     */
+    public UniqueSessionList getSessionsOfModuleCode(String code) {
+        UniqueSessionList filteredList = new UniqueSessionList();
+        filteredList.setSessions(internalList.filtered(s -> s.getModuleCode().equals(code)));
+        return filteredList;
+    }
+
+    /**
+     * @return the total duration of all sessions in this session list.
+     */
+    public Duration getTotalDuration() {
+        return internalList.stream()
+                .map(Session::getDurationToNearestHour)
+                .reduce(Duration.ZERO, Duration::plus);
     }
 
     @Override

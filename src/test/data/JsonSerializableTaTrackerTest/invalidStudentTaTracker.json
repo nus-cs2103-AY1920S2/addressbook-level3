@@ -1,8 +1,47 @@
 {
-  "students": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "matric" : "A0194023J"
+  "sessions" : [ {
+    "type" : "OTHER",
+    "description" : "Default Session",
+    "moduleId" : "",
+    "isDone" : false,
+    "isRecurring" : false,
+    "startDateTime" : "2020-03-28T20:51:20.482832",
+    "endDateTime" : "2020-03-28T20:51:20.482853"
+  } ],
+  "doneSessions" : [ ],
+  "modules" : [ {
+    "id" : "CS3243",
+    "name" : "Introduction to AI",
+    "sessions" : [ ],
+    "groups" : [ {
+      "id" : "G06",
+      "type" : "LAB",
+      "students" : [ {
+        "matric" : "A0181234G",
+        "name" : "John Doe",
+        "phone" : "98765432",
+        "email" : "johnd@example.com",
+        "rating" : 3,
+        "tagged" : [ "owesMoney", "friends" ]
+      }, {
+        "matric" : "@0123456J",
+        "name" : "Potato",
+        "phone" : "",
+        "email" : "",
+        "rating" : 3,
+        "tagged" : [ ]
+      }, {
+        "matric" : "A0181235G",
+        "name" : "John Doe",
+        "phone" : "98765432",
+        "email" : "johnd@example.com",
+        "rating" : 3,
+        "tagged" : [ "owesMoney", "friends" ]
+      } ]
+    }, {
+      "id" : "G05",
+      "type" : "LAB",
+      "students" : [ ]
+    } ]
   } ]
 }
