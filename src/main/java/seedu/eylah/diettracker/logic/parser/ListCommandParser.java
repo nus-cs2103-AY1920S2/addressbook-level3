@@ -3,8 +3,7 @@ package seedu.eylah.diettracker.logic.parser;
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_DAYS;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_LIST_TAG;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_SINGLE;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
@@ -24,32 +23,28 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SINGLE, PREFIX_DAYS, PREFIX_LIST_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_DAYS, PREFIX_TAG);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
 
-        String mode = "-d";
+        String mode = "";
         if (arePrefixesPresent(argMultimap, PREFIX_ALL)) {
-            mode = "-f";
-        } else if (arePrefixesPresent(argMultimap, PREFIX_SINGLE)) {
-            mode = "-d";
+            mode = "-a";
         } else if (arePrefixesPresent(argMultimap, PREFIX_DAYS)) {
+            mode = "-d";
+        } else if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
             mode = "-t";
-        } else if (arePrefixesPresent(argMultimap, PREFIX_LIST_TAG)) {
-            mode = "-e";
-        } else {
-
         }
 
-        if (mode.equals("-t")) {
+        if (mode.equals("-d")) {
             int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAYS).get());
             return new ListCommand(mode, numDays);
-        } else if (mode.equals("-e")) {
-            Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_LIST_TAG).get());
+        } else if (mode.equals("-t")) {
+            Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
             return new ListCommand(mode, tag);
-        } else {
+        } else { // "" and "-a"
             return new ListCommand(mode);
         }
     }

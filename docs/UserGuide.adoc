@@ -157,14 +157,14 @@ Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
 
 ==== List items `list`
-List all the items in your current diet tracker. Show different data based on flags.
+List food in your current diet tracker. Show different data based on flags.
 
-* List all food and data in tabular format (-f)
-* Food consumed for the day (-d)
-* Track calories over past number of days (-t)
-* List items filtered by a specific tag (-e)
+* Food consumed for the day (NO FLAG)
+* All food ever consumed (-a)
+* Food consumed for the past number of days (-d)
+* All food with the given tag (-t)
 
-NOTE: Default value of list is food consumed for the day. Default number of days for track calories is past week
+NOTE: Default value of list is food consumed for the day.
 
 Format: `list [-f] [-d] [-t [numDays]] [-e [tagName]] ` +
 Example: `list -t 3`

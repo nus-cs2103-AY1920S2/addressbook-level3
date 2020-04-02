@@ -1,5 +1,6 @@
 package seedu.eylah.diettracker.model.food;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -48,6 +49,10 @@ public class Date {
 
     public boolean isAfter(Date other) {
         return value.isAfter(other.getValue());
+    }
+
+    public LocalDate getLocalDateValue () {
+        return value.toLocalDate();
     }
 
     @Override
