@@ -13,7 +13,7 @@
             <StackPane fx:id="couponListPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
           </content>
         </Tab>
-        <Tab fx:id="savedTab" text="Saved">
+        <Tab fx:id="summaryTab" text="Summary">
           <content>
             <StackPane fx:id="savedPanePlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"
                        style="-fx-background-insets: 4 8 5 8;"/>

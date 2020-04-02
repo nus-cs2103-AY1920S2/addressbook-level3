@@ -1,5 +1,6 @@
 package csdev.couponstash.ui;
 
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.control.SingleSelectionModel;
@@ -16,7 +17,7 @@ public class TabsPanel extends UiPart<Region> {
 
     // Independent Ui parts residing in this Ui container
     private CouponListPanel couponListPanel;
-    private SavedPane savedPane;
+    private SummaryPane summaryPane;
     private HelpPane helpPane;
     private Logic logic;
 
@@ -24,7 +25,7 @@ public class TabsPanel extends UiPart<Region> {
     private Tab couponTab;
 
     @FXML
-    private Tab savedTab;
+    private Tab summaryTab;
 
     @FXML
     private Tab helpTab;
@@ -47,18 +48,26 @@ public class TabsPanel extends UiPart<Region> {
     public TabsPanel(Logic logic) {
         super(FXML);
         this.logic = logic;
+        tabPane.getSelectionModel().selectedItemProperty()
+                .addListener((ov, oldTab, newTab) -> {
+                    if (newTab == summaryTab) {
+                        summaryPane.updateView();
+                    }
+                });
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
+        MoneySymbol currentMoneySymbol = logic.getStashSettings().getMoneySymbol();
+
         couponListPanel = new CouponListPanel(
-                logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
+                logic.getFilteredCouponList(), currentMoneySymbol);
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        savedPane = new SavedPane(logic);
-        savedPanePlaceholder.getChildren().add(savedPane.getRoot());
+        summaryPane = new SummaryPane(logic.getAllCouponList(), currentMoneySymbol);
+        savedPanePlaceholder.getChildren().add(summaryPane.getRoot());
 
         helpPane = new HelpPane(logic);
         helpPanePlaceholder.getChildren().add(helpPane.getRoot());
@@ -70,7 +79,7 @@ public class TabsPanel extends UiPart<Region> {
     public CsTab selectedTab() {
         if (couponTab.isSelected()) {
             return CsTab.COUPONS;
-        } else if (savedTab.isSelected()) {
+        } else if (summaryTab.isSelected()) {
             return CsTab.SAVED;
         } else {
             return CsTab.HELP;
@@ -89,7 +98,7 @@ public class TabsPanel extends UiPart<Region> {
             break;
 
         case SAVED:
-            selectionModel.select(savedTab);
+            selectionModel.select(summaryTab);
             break;
 
         case HELP:

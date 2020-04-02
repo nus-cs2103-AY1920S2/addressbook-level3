@@ -173,6 +173,17 @@ public class ModelManager implements Model {
         return filteredCoupons;
     }
 
+    /**
+     * Returns every single Coupon present in Coupon Stash.
+     *
+     * @return An ObservableList (unmodifiable view) of all Coupons
+     *         in the Coupon Stash, whether displayed or not
+     */
+    @Override
+    public ObservableList<Coupon> getAllCouponList() {
+        return couponStash.getCouponList();
+    }
+
     @Override
     public void updateFilteredCouponList(Predicate<? super Coupon> predicate) {
         requireNonNull(predicate);
