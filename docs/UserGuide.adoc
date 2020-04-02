@@ -422,7 +422,7 @@ Examples:
 * `addWeight v/50.0 d/2020-02-01`
 * `addWeight v/52.30`
 
-=== Calendar View `calendar`
+=== Calendar View: `calendar`
 Calendar view will display all the food and sports entries for each day of the referenced week/month. The referenced date is default set to be the current date, but can be changed to a user given date. Calendar can be switched between two modes, list mode or timetable mode, with default set to be in timetable mode. +
 
 *For list mode*:
