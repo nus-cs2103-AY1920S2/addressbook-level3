@@ -6,6 +6,7 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.Model;
 import fithelper.model.entry.SortBy;
 import fithelper.model.entry.Type;
@@ -31,7 +32,7 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws IllegalValueException {
         requireNonNull(model);
         String feedback = "";
         if (this.sortType == null) {

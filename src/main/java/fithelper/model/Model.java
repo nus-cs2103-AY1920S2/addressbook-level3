@@ -263,9 +263,9 @@ public interface Model {
 
     LocalDate getLastWeightDate();
 
-    void sortFilteredEntryList(SortBy sortBy);
+    void sortFilteredEntryList(SortBy sortBy) throws IllegalValueException;
 
-    void sortFilteredFoodEntryList(SortBy sortBy);
+    void sortFilteredFoodEntryList(SortBy sortBy) throws IllegalValueException;
 
     void sortFilteredSportEntryList(SortBy sortBy);
 }

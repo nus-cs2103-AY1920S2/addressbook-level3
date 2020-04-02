@@ -130,6 +130,7 @@ public class ModelManager implements Model {
 
     /**
      * Creates a predicate in showing entries of a specific date.
+     *
      * @param dateStr
      * @return
      */
@@ -539,7 +540,7 @@ public class ModelManager implements Model {
     }
 
     public void sortFilteredFoodEntryList(SortBy sortBy) {
-
+        fitHelper.sortFilteredFoodEntryList(sortBy);
     }
 
     public void sortFilteredSportEntryList(SortBy sortBy) {
@@ -547,7 +548,7 @@ public class ModelManager implements Model {
     }
 
     public void sortFilteredEntryList(SortBy sortBy) {
-        sortFilteredFoodEntryList(sortBy);
+        fitHelper.sortFilteredFoodEntryList(sortBy);
         sortFilteredSportEntryList(sortBy);
     }
 }

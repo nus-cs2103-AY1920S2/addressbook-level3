@@ -14,6 +14,7 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.SortBy;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
@@ -488,5 +489,9 @@ public class FitHelper implements ReadOnlyFitHelper {
                 }
             }
         }
+    }
+
+    public void sortFilteredFoodEntryList(SortBy sortBy) {
+        foodEntries.sort(sortBy);
     }
 }

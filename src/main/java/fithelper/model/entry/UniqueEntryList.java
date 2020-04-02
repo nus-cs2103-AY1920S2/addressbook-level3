@@ -3,6 +3,7 @@ package fithelper.model.entry;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import fithelper.model.entry.exceptions.DuplicateEntryException;
 import fithelper.model.entry.exceptions.EntryNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * A list of entries that enforces uniqueness between its elements and does not allow nulls.
@@ -140,5 +142,23 @@ public class UniqueEntryList implements Iterable<Entry> {
             }
         }
         return true;
+    }
+
+    public void sort(SortBy sortBy) {
+        SortedList<Entry> internalListCopy = new SortedList<>(internalList);
+        Comparator<Entry> newComparator;
+        switch (sortBy.getValue()) {
+        case "calorie":
+            newComparator = Comparator.comparingDouble(e -> e.getCalorie().getValue());
+            break;
+        case "time":
+            newComparator = Comparator.comparing(Entry::getDateTime);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + sortBy.getValue());
+        }
+        internalListCopy.setComparator(newComparator);
+        internalList.clear();
+        internalList.addAll(internalListCopy);
     }
 }
