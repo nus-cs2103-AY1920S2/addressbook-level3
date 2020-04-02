@@ -51,4 +51,5 @@ class FilterCommandParserTest {
                         new DateEqualsKeywordPredicate(Arrays.asList("2020-01")));
         assertParseSuccess(parser, " m/2020-01", expectedFilterCommand);
     }
+
 }
