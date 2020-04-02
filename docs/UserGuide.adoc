@@ -155,7 +155,7 @@ Format: `delete [-t] TITLE` +
 Example: `delete -t Notably/CS2103`
 
 [IMPORTANT]
-If your target path is a subtree, the whole subtree including the child would be deleted.
+Please keep in mind that deleting a note that contains other notes will cause the whole group of notes to be deleted. You can refer to the demo below for an illustration.
 
 .Demo for the delete command
 image::demo/Delete1.png[]
@@ -164,7 +164,7 @@ image::demo/Delete1.png[]
 image::demo/Delete2.png[]
 
 [NOTE]
-You can achieve the same result by using a `AbsolutePath` instead. `delete -t /Workspace/Notably`
+You can achieve the same result as above by using an `AbsolutePath` instead by executing `delete -t /Workspace/Notably`.
 
 
 === Save the data
