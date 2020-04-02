@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.statistics;
+package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;

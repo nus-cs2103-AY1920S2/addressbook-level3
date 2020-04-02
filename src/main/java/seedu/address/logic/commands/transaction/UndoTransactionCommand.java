@@ -22,9 +22,9 @@ import seedu.address.model.util.Quantity;
 /**
  * Deletes a transaction identified using it's displayed index from the transaction list.
  */
-public class DeleteTransactionCommand extends Command {
+public class UndoTransactionCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletet";
+    public static final String COMMAND_WORD = "undot";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
@@ -35,7 +35,7 @@ public class DeleteTransactionCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteTransactionCommand(Index targetIndex) {
+    public UndoTransactionCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -88,8 +88,8 @@ public class DeleteTransactionCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteTransactionCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTransactionCommand) other).targetIndex)); // state check
+                || (other instanceof UndoTransactionCommand // instanceof handles nulls
+                && targetIndex.equals(((UndoTransactionCommand) other).targetIndex)); // state check
     }
 }
 
