@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 
 import java.util.Collections;
@@ -41,12 +41,12 @@ public class EditSupplierCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_CONTACT + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_OFFER + "GOOD_PRICE_PAIR]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_CONTACT + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
@@ -56,6 +56,8 @@ public class EditSupplierCommand extends Command {
     private static Set<Offer> supplierToEditOffer = null;
     private final Index index;
     private final EditSupplierDescriptor editSupplierDescriptor;
+
+    //public static Set<Offer> supplierToEditOffer;
 
     /**
      * @param index of the supplier in the filtered supplier list to edit
@@ -216,6 +218,10 @@ public class EditSupplierCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code offers} is null.
          */
+        //public Optional<Set<Offer>> getOffers() {
+        //    return (offers != null) ? Optional.of(Collections.unmodifiableSet(offers)) : Optional.empty();
+        //}
+
         public Optional<Set<Offer>> getOffers() {
             return (offers != null) ? Optional.of(Collections.unmodifiableSet(mergeOfferSets(supplierToEditOffer,
                     offers))) : Optional.empty();
