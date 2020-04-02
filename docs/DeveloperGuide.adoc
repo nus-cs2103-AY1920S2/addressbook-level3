@@ -305,10 +305,85 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Update User Profile
+=== Add Weight Records
 
-The following sequence diagram shows how the update operation works to change user profile in model:
-image:UpdateSequenceDiagram.png[]
+FitHelper allows the user to track with their weight change easily by allowing user to add their current weight and previous weight.
+
+==== Sample
+An example usage scenario and how the `addWeight` command behaves at each step is shown below.
+
+**Step 1.**
+
+* The user launches the application for the first time.
+* `UniqueWeightList` in Model contains no default weights before the user adds any.
+* `weightrecords.json` in local Storage contains no weight records as well.
+
+**Step 2.**
+
+* The user inputs `addWeight` command word, followed by `v/WEIGHT_VALUE` and an optional `d/DATE`.
+* `UI` passes the input to `Logic`.
+* `Logic` then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
+
+**Step 3.**
+
+* `Logic` passes the user input to `FitHelperParser`.
+* `FitHelperParser` identifies that this is a `AddWeightCommand` through the command word "addWeight".
+* It then creates a `AddWeightCommandParser` to parse the input into a `AddWeightCommand` and return back.
+
+**Step 4.**
+
+* `Logic` gets the `AddWeightCommand` and execute it.
+* The execution firstly check is the new weight date is after today's date and if there is already a existing weight in the UniqueList.
+* Both of these two cases will throw corresponding `CommandException`.
+* Then the execution add the new `Weight` into model.
+* Finally, it returns a `CommandResult` to `UI`, containing the response to the user and the displayPage, which equals to `WEIGHT` page.
+
+**Step 5.**
+
+* `UI` displays the response in the `CommandResult`.
+* In addition, UI will change to display Weight Page after updating Profile Page and Weight Page.
+
+==== Implementation
+
+===== Storage
+
+A weight is stored with three attributes in the `weightrecords.json` database:
+
+* `date` : the date of the weight record in format of `yyyy-MM-dd`, if no date is provided by the user, the *default value* is the date of today
+* `weightValue` : a double value with two decimal places.
+* `bmi` : the BMI value is also a double value with two decimal places.
+It is auto-computed and stored, using the formula : `BMI = Weight Value(kg) / Height(m)^2`.
+The Height value gets from user profile in `userprofile.json` database.
+
+===== Model
+
+* A single weight is represented as model `Weight` with the attributes of `Date`, `WeightValue`, and `Bmi`. +
+
+* In `ModelManager`, all weights are represented by `WeightRecords weightRecords`.
+** The `WeightRecords` class implements `ReadOnlyWeightRecords` interface, and therefore can return an *unmodifiable* version of a *unique* list of weights.
+** The `WeightRecords` wraps a `UniqueWeightList` which allows adding and iterating. *Unique* here refers to the constraint that no two weight with the same date can exist in the list/database.
+
+* In `ModelManager`, a `FilteredList<Weight> filteredWeight` object is used to store and update a filtered version of all weights.
+** The
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
+wraps a `ObservableList` and filters using a provided `Predicate`. +
+
+===== UI
+When user input `addWeight` command to `UI`, the input is passed to `Logic` part as a `String`.
+
+After `addWeight` command is executed, a `CommandResult` with `DisplayPage` equals `WEIGHT` will be passed back to `MainWindow` in `UI` part. Then:
+
+* Firstly, it will call `updateProfilePage()`, since if the newly added weight has the lasted date, Current Weight and Current BMI in uer profile will need to be updated.
+* Secondly, it will call `updateWeightPage()`, since if a new weight is added successfully, new points should be added on to Weight Line Chart and BMI Line Chart.
+The text content of top notification will also be updated if the gap between Current Weight and Target Weight is changed.
+* Lastly, it will call `showWeightPage()`. This allows the Main Window auto-switch to Weight Page after each `addWeight` command by user.
+
+===== Logic
+
+The Sequence Diagram below shows how the components interact with each other for the mentioned scenario in sample.
+
+.Sequence Diagram for Add Weight Feature
+image:AddWeightSequenceDiagram.png[]
 
 === Check calorie intake/consumption of some common food/sports
 
@@ -383,8 +458,7 @@ Refer to the guide <<DevOps#, here>>.
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%,30%,30%,30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
@@ -587,11 +661,11 @@ Windows, Linux, Unix, OS-X
 |edit
 
 |d/
-|Date in format of *date hh:mm*
-|calendar
+|Date in format of *yyyy-MM-dd*
+|calendar, addWeight
 
 |dr/
-|Duration in format of *yyyy-mm-dd yyyy-mm-dd*
+|Duration in format of *yyyy-MM-dd yyyy-MM-dd*
 |add, edit
 
 |dc/
@@ -608,7 +682,7 @@ Windows, Linux, Unix, OS-X
 
 |v/
 |Attribute Value in user profile
-|update
+|update, addWeight
 
 |===
 
@@ -641,7 +715,7 @@ Windows, Linux, Unix, OS-X
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name* : FitHelper
 
 Author: ...
 
@@ -669,34 +743,51 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the welcome page of FitHelper. On the left hand side, the user can see a list of page name. Users are able to click on the button or using corresponding command to direct to that page.
+.. The window size is fixed.
 
-. Saving window preferences
+. Shutdown
+.. Users are able to shutdown the application using CLI with following commands:
+- `exit`
+- `quit`
+- `bye`
+.. Users can also choose to shutdown the application by clicking on X button on the right top side if the window.
+.. User data will be auto-saved if user choose to shutdown the application. Three local data file in json format can be find:
+- `fithelper.json` : containg data related to entries and diaries.
+- `userprofile.json` : containing data related to user profile.
+- `weightrecords.json` : containing data related to all weight records.
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+=== Adding A New Weight Record
 
-_{ more test cases ... }_
+. Add *first weight record* while there is no previous weight record in the database.
 
-=== Deleting a person
+.. Prerequisites: None. Users are able to use `addWeight` command at any page.
+.. Test case: `addWeight v/50.0` +
+   Expected:
+- A new `Weight` is added into `weightrecords` database, with `WeightValue` equals 50.0, `Date` with default value(today's date) and `BMI` calculated by `Height`.
+- The window is automatically directed to weight page. A new point is shown on both Weight Line Graph and BMI Line Graph. The top notification is also updated.
+- In profile page, Current Weight and Current BMI change from "Not Available Now" to the newest value.
+.. Test case: `addWeight v/49.0 d/2050-01-01` +
+   Expected: No new weight record is added since the date is after current date. An error message is shown in the command result box.
 
-. Deleting a person while all persons are listed
+. Add new weight record when there is already *some previous weight records existing* in the database.
+.. Prerequisites: None. Users are able to use `addWeight` command at any page.
+.. Test case: `addWeight v/48.0` +
+   Expected: No new weight record is added since there is existing weight record with the same date (by default is today's date) in the data base. An error message is shown in the command result box.
+.. Test case : `addWeight v/47.0 d/2020-03-01` +
+   Expected:
+- A new `Weight` is added into `weightrecords` database, with `WeightValue` equals 47.0, `Date` with 2020-03-01 and `BMI` calculated by `Height`.
+- The window is automatically directed to weight page. A new point is shown on both Weight Line Graph and BMI Line Graph, and form a new trend line with previous data points. The top notification is also updated.
+- In profile page, Current Weight and Current BMI remain the same, since the newly added weight record is not the most recent record in the database.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. If the application is launched and shut down at least once, there will be three local database in json format.
+.. Delete `fithelper.json`, and launch FitHelper again. All user manipulation on entries and diaries will be cleared. `Dashboard`, `Today`, `Calendar` and `Diary` Page will restart with sample data.
+.. Delete `userprofile.json`, and launch FitHelper again. All user manipulation on user profile will be clear. `Profile` page will restart with sample user data.
+.. Delete `weightrecords.json`, and launch FitHelper again. All user manipulation on weight records will be clear. `Profile` page will show Current Weight and Current BMI as "Not Available Now", and `Weight` Page will have no data point on the trend line graph.
 
-_{ more test cases ... }_

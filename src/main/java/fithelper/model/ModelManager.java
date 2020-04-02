@@ -489,22 +489,8 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Replaces the given weight {@code target} with {@code editedWeight}.
-     * {@code target} must exist in the weight Records.
-     * The date of {@code editedWeight} must not be the same as another existing weight in the weight records.
-     *
-     * @param target
-     * @param editedWeight
-     */
-    @Override
-    public void setWeight(Weight target, Weight editedWeight) {
-        requireAllNonNull(target, editedWeight);
-        weightRecords.setWeight(target, editedWeight);
-    }
-
-    /**
      * Returns an unmodifiable view of the weight list of {@code Weight} backed by the internal list of
-     * {@code versionedWeightRecords}
+     * {@code WeightRecords}
      */
     @Override
     public ObservableList<Weight> getFilteredWeightList() {

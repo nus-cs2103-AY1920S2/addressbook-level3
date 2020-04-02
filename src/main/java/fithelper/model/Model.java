@@ -245,13 +245,6 @@ public interface Model {
      */
     void addWeight(Weight weight);
 
-    /**
-     * Replaces the given weight {@code target} with {@code editedWeight}.
-     * {@code target} must exist in the log book.
-     * The weight date of {@code editedWeight} must not be the same as another existing entry in the log book.
-     */
-    void setWeight(Weight target, Weight editedWeight);
-
     /** Returns an unmodifiable view of the filtered weight list */
     ObservableList<Weight> getFilteredWeightList();
 
