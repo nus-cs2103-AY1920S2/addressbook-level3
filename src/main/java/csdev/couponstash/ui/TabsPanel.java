@@ -69,7 +69,7 @@ public class TabsPanel extends UiPart<Region> {
         summaryPane = new SummaryPane(logic.getAllCouponList(), currentMoneySymbol);
         savedPanePlaceholder.getChildren().add(summaryPane.getRoot());
 
-        helpPane = new HelpPane(logic);
+        helpPane = new HelpPane();
         helpPanePlaceholder.getChildren().add(helpPane.getRoot());
     }
 

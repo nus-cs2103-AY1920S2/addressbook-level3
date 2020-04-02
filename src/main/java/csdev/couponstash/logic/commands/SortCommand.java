@@ -20,8 +20,8 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the on screen coupons in CouponStash "
-            + "by coupon name or expiry date. For example, sorting after finding"
-            + "will sort all the found coupons. (including archived ones, which will appear at the bottom)."
+            + "by coupon name or expiry date. For example, sorting after finding "
+            + "will sort all the found coupons, including archived ones if the are present on screen. "
             + "The order will persist throughout the runtime of the program.\n\n"
             + "Parameters: "
             + PREFIX_NAME + " or " + PREFIX_EXPIRY_DATE + "\n\n"

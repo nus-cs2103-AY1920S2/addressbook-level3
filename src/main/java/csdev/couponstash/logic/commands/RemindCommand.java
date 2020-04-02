@@ -4,12 +4,13 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Set;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Archived;
@@ -39,18 +40,16 @@ public class RemindCommand extends IndexedCommand {
     private static String messageSuccess = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": set a reminder of a coupon, identified by the index number "
+            + ": Set a reminder of a coupon, identified by the index number "
             + "used in coupon listing. "
             + "Existing reminder will be overwritten by the input.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_REMIND + " [Date] or [String]\n\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REMIND + " 25-12-2020"
-            + "\n" + "Example: " + COMMAND_WORD + " 2 "
-            + PREFIX_REMIND + " 2 days";
+            + PREFIX_REMIND + " [Date] or [String]\n"
+            + "Examples:\n"
+            + COMMAND_WORD + " 1 " + PREFIX_REMIND + " 25-12-2020\n\n"
+            + COMMAND_WORD + " 2 " + PREFIX_REMIND + " 2 days before";
 
     private static final String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private LocalDate remindDate;
     private String input;
@@ -109,7 +108,12 @@ public class RemindCommand extends IndexedCommand {
                     + remindCoupon.getExpiryDate().value + ")";
         } else {
 
-            LocalDate tempDate = LocalDate.parse(input, DATE_FORMATTER);
+            LocalDate tempDate;
+            try {
+                tempDate = LocalDate.parse(input, DateUtil.DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new CommandException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
+            }
 
             //check if input's date is not after the coupon's expiry date
             if (tempDate.isAfter(couponToBeRemind.getExpiryDate().date)) {
