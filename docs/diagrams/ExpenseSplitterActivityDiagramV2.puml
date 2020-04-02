@@ -1,12 +1,30 @@
 @startuml
 start
 
+:Starting EYLAH;
+
 if () then ([itemToAdd])
+
+    if () then ([previousReceiptNotDone])
+    : @Rake: Visit AddItemActivityDiagram;
+    : DoneReceipt;
+
+    else ([previousReceiptDone])
     : Clear Receipt
     @Rake: Visit AddItemActivityDiagram;
     : Done Receipt;
+    endif
+
+     if () then([usePaidCommand])
+        : Paid Command;
+     else ()
+     endif
+
+
     else ([usingPaidCommand])
-    : Paid ;
+    : Paid Command;
+
+
 endif
 
 stop
