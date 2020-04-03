@@ -44,6 +44,10 @@ public class RandomCommand extends Command {
         List<Recipe> lastShownList = model.getFilteredRecipeList();
         maxVal = (int) model.count();
 
+        if(maxVal == 0) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_RECIPE_BOOK);
+        }
+
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
