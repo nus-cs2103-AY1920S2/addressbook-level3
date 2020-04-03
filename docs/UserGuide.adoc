@@ -233,16 +233,24 @@ what claims to submit for each of the modules that you teach.
 
 [[Usage]]
 == Usage
-You can interact with TA-Tracker using the following commands.
+You can interact with TA-Tracker using `CLI` commands!
 
 [NOTE]
 ====
 As you type a command:
 
-* *valid inputs* will be highlighted in green
-* *invalid inputs* will be highlighted in red
+* *valid inputs* will be highlighted in `green`
+* *invalid inputs* will be highlighted in `red`
 
-Furthermore, you will see the help information for the command that you are typing out.
+By *default* the font colour is `white`. You will see this colour when you use whitespaces between words in your input.
+====
+
+[NOTE]
+====
+You will also see some helpful information when you are typing out a command:
+
+* *The command usage* will be appear when you `_first type the command word_`, and after `_every two whitespaces_`.
+* *The first invalid prefix* of your commands will be indicated.
 ====
 
 === Navigation
