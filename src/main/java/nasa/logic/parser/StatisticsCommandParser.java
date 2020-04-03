@@ -1,9 +1,14 @@
 package nasa.logic.parser;
 
+import static nasa.logic.parser.CliSyntax.PREFIX_TIME;
+
 import java.util.stream.Stream;
 
 import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.Lesson;
 
 /**
  * Parses input arguments and creates an Statistics object.
@@ -16,7 +21,23 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public StatisticsCommand parse(String args) throws ParseException {
-        return new StatisticsCommand();
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TIME);
+
+        if (arePrefixesPresent(argMultimap, PREFIX_TIME)) {
+            String activityPredicate = ParserUtil.parseStatistics(argMultimap.getValue(PREFIX_TIME).get());
+            switch (activityPredicate) {
+            case "deadline":
+                return new StatisticsCommand(activity -> activity instanceof Deadline);
+            case "event":
+                return new StatisticsCommand(activity -> activity instanceof Event);
+            case "lesson":
+                return new StatisticsCommand(activity -> activity instanceof Lesson);
+            default:
+                return new StatisticsCommand(null);
+            }
+        }
+        return new StatisticsCommand(null);
     }
 
     /**

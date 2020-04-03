@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -13,7 +14,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
@@ -45,6 +45,7 @@ public class StatisticsPanel extends UiPart<Region> {
             @Override
             public void onChanged(Change<? extends Module> c) {
                 setStatistics(moduleList);
+                updateStatistics(moduleList);
             }
         });
         updateStatistics(moduleList);
@@ -61,6 +62,7 @@ public class StatisticsPanel extends UiPart<Region> {
             activityObservableList.addListener(new ListChangeListener<Activity>() {
                 @Override
                 public void onChanged(Change<? extends Activity> c) {
+                    pieChart.getData().clear();
                     setStatistics(moduleObservableList);
                 }
             });
@@ -76,11 +78,16 @@ public class StatisticsPanel extends UiPart<Region> {
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(pieData);
         pieChart.setData(chartData);
-        pieChart.getData().forEach(data -> {
-            String percentage = String.format("%.2f%%", (data.getPieValue() / 100));
-            Tooltip toolTip = new Tooltip(percentage);
-            Tooltip.install(data.getNode(), toolTip);
-        });
+        chartData.forEach(data ->
+                data.nameProperty().bind(data.pieValueProperty().getValue() > 1
+                        ? Bindings.concat(
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " activities"
+                        )
+                        : Bindings.concat(
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " activity"
+                        )
+                )
+        );
 
         //Bar chart
         XYChart.Series<String, Integer> barData = new XYChart.Series();
@@ -90,10 +97,5 @@ public class StatisticsPanel extends UiPart<Region> {
         }
         barChart.setData(FXCollections.observableArrayList(barData));
 
-    }
-
-    private void resetStatistics() {
-        pieChart.getData().clear();
-        barChart.getData().clear();
     }
 }
