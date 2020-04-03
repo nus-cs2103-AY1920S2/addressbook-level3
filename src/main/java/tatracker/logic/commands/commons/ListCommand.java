@@ -18,7 +18,7 @@ public class ListCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             "list",
-            "Listed all students",
+            "Lists all sessions inside TA-Tracker",
             List.of(),
             List.of()
     );

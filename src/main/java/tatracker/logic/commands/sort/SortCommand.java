@@ -21,7 +21,7 @@ public class SortCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_ALL,
-            "Sorts students in all module groups in the TA-Tracker.",
+            "Sorts all students in all modules and groups inside TA-Tracker.",
             List.of(SORT_TYPE),
             List.of(),
             SORT_TYPE

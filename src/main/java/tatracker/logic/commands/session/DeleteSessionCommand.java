@@ -24,7 +24,7 @@ public class DeleteSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.DELETE_MODEL,
-            "Deletes the session identified by its index.",
+            "Deletes the session at the shown list index.",
             List.of(INDEX),
             List.of(),
             INDEX

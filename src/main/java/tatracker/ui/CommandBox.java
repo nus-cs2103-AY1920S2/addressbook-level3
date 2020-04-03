@@ -1,5 +1,6 @@
 package tatracker.ui;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -149,29 +150,38 @@ public class CommandBox extends UiPart<Region> implements Focusable {
             return;
         }
 
-        ArgumentMatch result = CommandBoxParser.parseArguments(arguments);
+        List<ArgumentMatch> matches = CommandBoxParser.parseArguments(arguments);
+        logger.info(matches.toString());
 
-        boolean needsIndex = dictionary.hasIndex() && !result.hasValidIndex();
-        if (needsIndex) {
-            logger.info("======== [ Needs Index ]");
+        assert matches.size() > 0; // always have preamble
+
+        if (!dictionary.hasPreamble()) {
+            logger.info("======== [ No need preamble ] ");
+
+            String preamble = matches.remove(0).value; // remove preamble
+            if (!preamble.isBlank()) {
+                handleNoPrefix();
+                return;
+            }
         }
 
-        boolean hasRequiredPrefix = dictionary.hasPrefix(result.lastPrefix);
+        for (ArgumentMatch match : matches) {
+            if (!dictionary.hasPrefix(match.prefix)) {
+                logger.info("======== [ No prefix ] ");
+                handleNoPrefix();
+                return;
+            }
 
-        if (needsIndex || !hasRequiredPrefix) {
-            logger.info("======== [ No prefix ] ");
-            handleNoPrefix();
-            return;
-        }
+            PrefixEntry prefixEntry = dictionary.getPrefixEntry(match.prefix);
+            logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), match.value));
 
-        PrefixEntry prefixEntry = dictionary.getPrefixEntry(result.lastPrefix);
-
-        logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), result.lastValue));
-
-        if (prefixEntry.isValidValue(result.lastValue)) {
+            if (!prefixEntry.isValidValue(match.value.trim())) {
+                logger.info("======== [ Invalid ] ");
+                handleInvalidPrefix(prefixEntry);
+                return;
+            }
+            logger.info("======== [ Valid ] ");
             handleRequiredPrefix(prefixEntry);
-        } else {
-            handleInvalidPrefix(prefixEntry);
         }
     }
 

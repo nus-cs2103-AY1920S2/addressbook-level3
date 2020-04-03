@@ -22,7 +22,7 @@ public class DeleteGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.DELETE_MODEL,
-            "Deletes the group identified by the group code.",
+            "Deletes the group with the given group code.",
             List.of(MODULE, GROUP),
             List.of(),
             MODULE, GROUP

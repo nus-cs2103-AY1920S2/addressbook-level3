@@ -25,10 +25,10 @@ public class FilterSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
-            "Filters all the sessions.",
+            "Filters all the sessions inside TA-Tracker.",
             List.of(),
-            List.of(DATE, MODULE, SESSION_TYPE),
-            DATE, MODULE, SESSION_TYPE
+            List.of(MODULE, DATE, SESSION_TYPE),
+            MODULE, DATE, SESSION_TYPE
     );
 
     public static final String MESSAGE_SUCCESS = "Filtered Session List: %1$s";

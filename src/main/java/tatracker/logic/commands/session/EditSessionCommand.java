@@ -37,10 +37,10 @@ public class EditSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.EDIT_MODEL,
-            "Edits a session in the TA-Tracker.",
+            "Edits a session at the shown list index.",
             List.of(INDEX),
-            List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
-            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
+            List.of(MODULE, START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
+            MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
 
     public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
