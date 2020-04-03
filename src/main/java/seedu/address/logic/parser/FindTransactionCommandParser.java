@@ -5,10 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.Arrays;
+
 import seedu.address.logic.commands.FindTransactionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.good.GoodName;
-import seedu.address.model.supplier.Name;
 import seedu.address.model.transaction.TransactionContainKeywordsPredicate;
 
 /**
@@ -57,24 +57,25 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         }
 
         // name stores the name of supplier
-        Name supplierName = null;
+        String[] supplierNameKeywords = new String[0];
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            supplierName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            supplierNameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
         }
 
         // good name stores the name of the good
-        GoodName goodName = null;
+        String[] goodNameKeywords = new String[0];
         if (argMultimap.getValue(PREFIX_GOOD_NAME).isPresent()) {
-            goodName = ParserUtil.parseGoodName(argMultimap.getValue(PREFIX_GOOD_NAME).get());
+            goodNameKeywords = argMultimap.getValue(PREFIX_GOOD_NAME).get().split("\\s+");
         }
 
         // at least one field must be provided
-        if (typeOfTransaction == null && supplierName == null && goodName == null) {
+        if (typeOfTransaction == null && supplierNameKeywords.length == 0 && goodNameKeywords.length == 0) {
             throw new ParseException(FindTransactionCommand.MESSAGE_NOT_FIELD_PROVIDED);
         }
 
         return new FindTransactionCommand(
-                new TransactionContainKeywordsPredicate(typeOfTransaction, supplierName, goodName));
+                new TransactionContainKeywordsPredicate(typeOfTransaction,
+                        Arrays.asList(supplierNameKeywords), Arrays.asList(goodNameKeywords)));
     }
 
 }

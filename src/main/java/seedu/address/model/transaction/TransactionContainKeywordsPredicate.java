@@ -1,11 +1,10 @@
 package seedu.address.model.transaction;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.FindTransactionCommandParser.TransactionType;
-import seedu.address.model.good.GoodName;
-import seedu.address.model.supplier.Name;
 
 /**
  * Tests that a {@code Transaction} matches any of the conditions given.
@@ -13,13 +12,14 @@ import seedu.address.model.supplier.Name;
 public class TransactionContainKeywordsPredicate implements Predicate<Transaction> {
 
     private TransactionType transactionType;
-    private Name supplierName;
-    private GoodName goodName;
+    private List<String> supplierNameKeywords;
+    private List<String> goodNameKeywords;
 
-    public TransactionContainKeywordsPredicate(TransactionType transactionType, Name supplierName, GoodName goodName) {
+    public TransactionContainKeywordsPredicate(TransactionType transactionType,
+                                               List<String> supplierNameKeywords, List<String> goodNameKeywords) {
         this.transactionType = transactionType;
-        this.supplierName = supplierName;
-        this.goodName = goodName;
+        this.supplierNameKeywords = supplierNameKeywords;
+        this.goodNameKeywords = goodNameKeywords;
     }
 
 
@@ -56,7 +56,7 @@ public class TransactionContainKeywordsPredicate implements Predicate<Transactio
      */
     private boolean testSupplierName(Transaction transaction) {
         // supplier name is unspecified
-        if (supplierName == null) {
+        if (supplierNameKeywords.size() == 0) {
             return true;
         }
         // transaction type is invalid, since sellTransaction does not have a supplier
@@ -65,8 +65,9 @@ public class TransactionContainKeywordsPredicate implements Predicate<Transactio
         }
         // valid transaction type with partial matching supplier name
         BuyTransaction buyTransaction = (BuyTransaction) transaction;
-        return StringUtil.containsWordIgnoreCase(buyTransaction.getSupplier().getName().fullName,
-                supplierName.fullName);
+        return supplierNameKeywords.stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
+                                buyTransaction.getSupplier().getName().fullName, keyword));
     }
 
     /**
@@ -78,12 +79,13 @@ public class TransactionContainKeywordsPredicate implements Predicate<Transactio
      */
     private boolean testGoodName(Transaction transaction) {
         // goodName is unspecified
-        if (goodName == null) {
+        if (goodNameKeywords.size() == 0) {
             return true;
         }
         // goodName partial matches
-        return StringUtil.containsWordIgnoreCase(transaction.getGood().getGoodName().fullGoodName,
-                goodName.fullGoodName);
+        return goodNameKeywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
+                        transaction.getGood().getGoodName().fullGoodName, keyword));
     }
 
     @Override
@@ -91,8 +93,8 @@ public class TransactionContainKeywordsPredicate implements Predicate<Transactio
         return other == this // short circuit if same object
                 || (other instanceof TransactionContainKeywordsPredicate // instanceof handles nulls
                 && transactionType.equals(((TransactionContainKeywordsPredicate) other).transactionType))
-                && supplierName.equals(((TransactionContainKeywordsPredicate) other).supplierName)
-                && goodName.equals(((TransactionContainKeywordsPredicate) other).goodName); // state check
+                && supplierNameKeywords.equals(((TransactionContainKeywordsPredicate) other).supplierNameKeywords)
+                && goodNameKeywords.equals(((TransactionContainKeywordsPredicate) other).goodNameKeywords);
     }
 
 }
