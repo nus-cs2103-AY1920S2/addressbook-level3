@@ -74,9 +74,6 @@ public class RecipeBookParser {
             return new UnFavCommandParser().parse(arguments);
 
         case ResetCommand.COMMAND_WORD:
-            if (arguments != null) {
-                throw new ParseException("The reset command does not take in any arguments!");
-            }
             return new ResetCommand();
 
         case ViewCommand.COMMAND_WORD:
@@ -95,7 +92,7 @@ public class RecipeBookParser {
             return new TimeCommandParser().parse(arguments);
 
         case CountCommand.COMMAND_WORD:
-            if (arguments != null) {
+            if (!arguments.equals("")) {
                 throw new ParseException("The count command does not take in any arguments!");
             }
             return new CountCommand();
