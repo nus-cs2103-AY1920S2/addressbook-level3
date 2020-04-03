@@ -21,10 +21,10 @@ public class Transaction {
     private final UUID productId;
     private final UUID customerId;
     private final DateTime dateTime;
-    private final Quantity quantity;
 
     // Data fields
     private final Money money;
+    private final Quantity quantity;
     private final Description description;
 
 
@@ -85,8 +85,7 @@ public class Transaction {
 
         return otherTransaction.getCustomerId().equals(getCustomerId())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime())
-                && otherTransaction.getQuantity().equals(getQuantity());
+                && otherTransaction.getDateTime().equals(getDateTime());
     }
 
     @Override
@@ -103,8 +102,7 @@ public class Transaction {
 
         return otherTransaction.getCustomerId().equals(getCustomerId())
                 && otherTransaction.getProductId().equals(getProductId())
-                && otherTransaction.getDateTime().equals(getDateTime())
-                && otherTransaction.getQuantity().equals(getQuantity());
+                && otherTransaction.getDateTime().equals(getDateTime());
     }
 
     @Override

@@ -66,7 +66,7 @@ public class EditTransactionCommand extends Command {
     private final EditTransactionDescriptor editTransactionDescriptor;
 
     /**
-     * @param index of the transaction in the filtered transaction list to edit
+     * @param index                     of the transaction in the filtered transaction list to edit
      * @param editTransactionDescriptor details to edit the transaction with
      */
     public EditTransactionCommand(Index index, EditTransactionDescriptor editTransactionDescriptor) {
@@ -114,18 +114,10 @@ public class EditTransactionCommand extends Command {
      */
     private void updateProduct(Model model, Transaction transactionToEdit, Transaction editedTransaction)
             throws CommandException {
-        EditProductDescriptor editOriginalProductDescriptor = new EditProductDescriptor();
         EditProductDescriptor editUpdatedProductDescriptor = new EditProductDescriptor();
+
         Product originalProductToEdit = model.findProductById(transactionToEdit.getProductId());
-        Quantity originalProductOldQuantity = originalProductToEdit.getQuantity();
-        Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
-        editOriginalProductDescriptor.setQuantity(originalProductNewQuantity);
-
-        Money originalProductOldSales = originalProductToEdit.getMoney();
-        Money originalProductNewSales = originalProductOldSales.minus(transactionToEdit.getMoney());
-        editOriginalProductDescriptor.setSales(originalProductNewSales);
-
-        Product editedOriginalProduct = createEditedProduct(originalProductToEdit, editOriginalProductDescriptor);
+        Product editedOriginalProduct = createEditedOriginalProduct(originalProductToEdit, transactionToEdit);
 
         if (!originalProductToEdit.isSameProduct(editedOriginalProduct) && model.hasProduct(editedOriginalProduct)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
@@ -134,6 +126,7 @@ public class EditTransactionCommand extends Command {
         model.setProduct(originalProductToEdit, editedOriginalProduct);
 
         Product updatedProductToEdit = model.findProductById(editedTransaction.getProductId());
+
         Quantity updatedProductOldQuantity = updatedProductToEdit.getQuantity();
         Money updatedProductOldSales = updatedProductToEdit.getMoney();
 
@@ -156,6 +149,27 @@ public class EditTransactionCommand extends Command {
 
         model.setProduct(updatedProductToEdit, editedUpdatedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+    }
+
+    /**
+     * Create the edited product from the original product in the transaction.
+     * @param originalProductToEdit
+     * @param transactionToEdit
+     * @return edited product
+     */
+    private Product createEditedOriginalProduct(Product originalProductToEdit,
+                                                Transaction transactionToEdit) {
+        EditProductDescriptor editOriginalProductDescriptor = new EditProductDescriptor();
+
+        Quantity originalProductOldQuantity = originalProductToEdit.getQuantity();
+        Quantity originalProductNewQuantity = originalProductOldQuantity.plus(transactionToEdit.getQuantity());
+        editOriginalProductDescriptor.setQuantity(originalProductNewQuantity);
+
+        Money originalProductOldSales = originalProductToEdit.getMoney();
+        Money originalProductNewSales = originalProductOldSales.minus(transactionToEdit.getMoney());
+        editOriginalProductDescriptor.setSales(originalProductNewSales);
+
+        return createEditedProduct(originalProductToEdit, editOriginalProductDescriptor);
     }
 
     /**
@@ -186,40 +200,11 @@ public class EditTransactionCommand extends Command {
                                                        Model model) throws CommandException {
         assert transactionToEdit != null;
 
-        List<Customer> lastShownCustomerList = model.getFilteredCustomerList();
-        List<Product> lastShownProductList = model.getFilteredProductList();
+        Customer updatedCustomer = getCustomer(editTransactionDescriptor, model, transactionToEdit);
+        UUID updatedCustomerId = updatedCustomer.getId();
 
-        Customer updatedCustomer;
-        UUID updatedCustomerId;
-        if (editTransactionDescriptor.getCustomerIndex().isPresent()) {
-            Index updatedCustomerIndex = editTransactionDescriptor.getCustomerIndex().get();
-
-            if (updatedCustomerIndex.getZeroBased() >= lastShownCustomerList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            updatedCustomer = model.getFilteredCustomerList().get(updatedCustomerIndex.getZeroBased());
-            updatedCustomerId = updatedCustomer.getId();
-        } else {
-            updatedCustomer = transactionToEdit.getCustomer();
-            updatedCustomerId = transactionToEdit.getCustomerId();
-        }
-
-        Product updatedProduct;
-        UUID updatedProductId;
-        if (editTransactionDescriptor.getProductIndex().isPresent()) {
-            Index updatedProductIndex = editTransactionDescriptor.getProductIndex().get();
-
-            if (updatedProductIndex.getZeroBased() >= lastShownProductList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
-            }
-
-            updatedProduct = model.getFilteredProductList().get(updatedProductIndex.getZeroBased());
-            updatedProductId = model.getFilteredProductList().get(updatedProductIndex.getZeroBased()).getId();
-        } else {
-            updatedProduct = transactionToEdit.getProduct();
-            updatedProductId = transactionToEdit.getProductId();
-        }
+        Product updatedProduct = getProduct(editTransactionDescriptor, model, transactionToEdit);
+        UUID updatedProductId = updatedProduct.getId();
 
         DateTime updatedDateTime = editTransactionDescriptor.getDateTime().orElse(transactionToEdit.getDateTime());
         Quantity updatedQuantity = editTransactionDescriptor.getQuantity().orElse(transactionToEdit.getQuantity());
@@ -229,6 +214,58 @@ public class EditTransactionCommand extends Command {
 
         return new Transaction(updatedCustomer, updatedProduct, updatedCustomerId, updatedProductId,
                 updatedDateTime, updatedQuantity, updatedMoney, updatedDescription);
+    }
+
+    /**
+     * Returns associated customer for edited transaction.
+     * @param editTransactionDescriptor
+     * @param model
+     * @param transactionToEdit
+     * @return associated customer
+     * @throws CommandException
+     */
+    private static Customer getCustomer(EditTransactionDescriptor editTransactionDescriptor,
+                                 Model model,
+                                 Transaction transactionToEdit) throws CommandException {
+        List<Customer> lastShownCustomerList = model.getFilteredCustomerList();
+
+        if (editTransactionDescriptor.getCustomerIndex().isPresent()) {
+            Index updatedCustomerIndex = editTransactionDescriptor.getCustomerIndex().get();
+
+            if (updatedCustomerIndex.getZeroBased() >= lastShownCustomerList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            return model.getFilteredCustomerList().get(updatedCustomerIndex.getZeroBased());
+        } else {
+            return transactionToEdit.getCustomer();
+        }
+    }
+
+    /**
+     * Returns associated product for edited transaction.
+     * @param editTransactionDescriptor
+     * @param model
+     * @param transactionToEdit
+     * @return associated product
+     * @throws CommandException
+     */
+    private static Product getProduct(EditTransactionDescriptor editTransactionDescriptor,
+                                        Model model,
+                                        Transaction transactionToEdit) throws CommandException {
+        List<Product> lastShownProductList = model.getFilteredProductList();
+
+        if (editTransactionDescriptor.getProductIndex().isPresent()) {
+            Index updatedProductIndex = editTransactionDescriptor.getProductIndex().get();
+
+            if (updatedProductIndex.getZeroBased() >= lastShownProductList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+            }
+
+            return model.getFilteredProductList().get(updatedProductIndex.getZeroBased());
+        } else {
+            return transactionToEdit.getProduct();
+        }
     }
 
     @Override

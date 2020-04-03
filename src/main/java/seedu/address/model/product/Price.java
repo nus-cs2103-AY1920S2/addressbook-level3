@@ -18,6 +18,7 @@ public class Price {
     public static final String VALIDATION_REGEX = "\\d+";
 
     public static final int MAX_VALUE = 1000000;
+    public static final int MIN_VALUE = 1;
 
     public final String value;
 
@@ -29,7 +30,8 @@ public class Price {
     public Price(String price) {
         requireNonNull(price);
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
-        value = price;
+        // remove leading zeroes
+        value = price.replaceFirst("^0+(?!$)", "");
     }
 
     /**
@@ -39,7 +41,7 @@ public class Price {
         if (test.matches(VALIDATION_REGEX)) {
             try {
                 int value = Integer.parseInt(test);
-                return value <= MAX_VALUE;
+                return value <= MAX_VALUE && value >= MIN_VALUE;
             } catch (NumberFormatException e) {
                 return false;
             }

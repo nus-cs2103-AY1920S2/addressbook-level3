@@ -102,6 +102,7 @@ public class EditProductCommand extends Command {
      */
     private boolean modelHasDuplicateProduct(Model model, Product editedProduct) {
         List<Product> products = model.getInventorySystem().getProductList();
+
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             if (product.getId() != editedProduct.getId()) {
@@ -110,6 +111,7 @@ public class EditProductCommand extends Command {
                 }
             }
         }
+
         return false;
     }
 

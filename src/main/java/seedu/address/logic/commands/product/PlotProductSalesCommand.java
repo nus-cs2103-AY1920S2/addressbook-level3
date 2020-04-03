@@ -74,8 +74,12 @@ public class PlotProductSalesCommand extends Command {
                 String.format(MESSAGE_SUCCESS, productToPlot.getDescription()),
                 dataSeries,
                 String.format(TITLE,
-                        productToPlot.getDescription(), startDateTime.toDateString(), endDateTime.toDateString()),
-                false, true, false);
+                        productToPlot.getDescription(),
+                        startDateTime.toDateString(),
+                        endDateTime.toDateString()),
+                false,
+                true,
+                false);
     }
 
     /**

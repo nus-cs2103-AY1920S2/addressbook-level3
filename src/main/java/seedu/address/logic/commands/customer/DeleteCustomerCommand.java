@@ -49,6 +49,7 @@ public class DeleteCustomerCommand extends Command {
 
         // remove transactions with deleted customer
         updateTransactionList(model, customerToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, customerToDelete));
     }
 

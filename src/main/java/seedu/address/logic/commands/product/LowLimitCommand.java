@@ -67,9 +67,11 @@ public class LowLimitCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_THRESHOLD_AMOUNT);
         }
 
+        // update product list
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
+        // show notification if quantity < threshold
         if (editedProduct.getQuantity().value <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();
             window.show(editedProduct.getDescription(), editedProduct.getQuantity());

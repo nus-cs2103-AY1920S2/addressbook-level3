@@ -263,7 +263,7 @@ Adds a specified transaction to the system. +
 Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]` +
 
 [NOTE]
-Duplicate transactions (with the same customer, product, datetime, quantity) are not allowed.
+Duplicate transactions (with the same customer, product, datetime) are not allowed.
 
 [TIP]
 The date time field [dt/] is optional, and will be recorded as current local machine time if left empty. +

@@ -72,6 +72,8 @@ public class EditCustomerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // create edited customer
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -85,10 +87,12 @@ public class EditCustomerCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        updateTransactionList(model, editedCustomer);
-
+        // update customer list
         model.setPerson(customerToEdit, editedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // update transactions with customer info
+        updateTransactionList(model, editedCustomer);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer));
     }
