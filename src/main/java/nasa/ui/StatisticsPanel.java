@@ -36,19 +36,22 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
 
-    public StatisticsPanel(ObservableList<Module> moduleList) {
+
+
+    public StatisticsPanel(ObservableList<Module> moduleObservableList) {
         super(FXML);
 
-        setStatistics(moduleList);
+        loadStatistics(moduleObservableList);
 
-        moduleList.addListener(new ListChangeListener<Module>() {
+        moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
-                setStatistics(moduleList);
-                updateStatistics(moduleList);
+                resetStatistics();
+                loadStatistics(moduleObservableList);
+                updateStatistics(moduleObservableList);
             }
         });
-        updateStatistics(moduleList);
+        updateStatistics(moduleObservableList);
     }
 
 
@@ -62,18 +65,24 @@ public class StatisticsPanel extends UiPart<Region> {
             activityObservableList.addListener(new ListChangeListener<Activity>() {
                 @Override
                 public void onChanged(Change<? extends Activity> c) {
-                    pieChart.getData().clear();
-                    setStatistics(moduleObservableList);
+                    resetStatistics();
+                    loadStatistics(moduleObservableList);
                 }
             });
         }
     }
 
-    private void setStatistics(ObservableList<Module> moduleList) {
+    /**
+     * Set statistics.
+     * @param moduleList
+     */
+
+    private void loadStatistics(ObservableList<Module> moduleList) {
+
         List<PieChart.Data> pieData = new ArrayList<>();
         for (Module module : moduleList) {
             pieData.add(new PieChart.Data(module.getModuleCode().toString(),
-                    module.getActivities().getActivityList().size()));
+                    module.getFilteredActivityList().size()));
         }
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(pieData);
@@ -97,5 +106,10 @@ public class StatisticsPanel extends UiPart<Region> {
         }
         barChart.setData(FXCollections.observableArrayList(barData));
 
+    }
+
+    private void resetStatistics() {
+        pieChart.getData().clear();
+        barChart.getData().clear();
     }
 }
