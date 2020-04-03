@@ -214,12 +214,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
-        Comparator<ReturnOrder> sortByTimestamp = (ReturnOrder first, ReturnOrder second) -> {
-            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
-            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
-            return firstDateTime.compareTo(secondDateTime);
-        };
-        return filteredReturnOrders.sorted(sortByTimestamp);
+        return filteredReturnOrders;
     }
 
     @Override
