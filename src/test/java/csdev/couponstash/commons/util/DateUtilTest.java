@@ -131,4 +131,8 @@ public class DateUtilTest {
         assertThrows(DateTimeParseException.class, () -> DateUtil.parseStringToDate(ymString));
     }
 
+    @Test
+    public void equals() {
+
+    }
 }
