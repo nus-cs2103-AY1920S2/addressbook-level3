@@ -137,7 +137,7 @@ You can view a given recipe on *CookBuddy* using the `view` command.
 
 Format: `view INDEX`
 
-Example: `view 2` displays the recipe at index 2 on the main page.
+Example: You can type `view 2` and *CookBuddy* will display the recipe at index 2 on the main page.
 
 
 === Deleting a recipe — `delete`
