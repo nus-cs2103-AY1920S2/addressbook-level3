@@ -496,7 +496,7 @@ In this section, you will learn how to use the Show Command.
 
 Here is how you can show the statistics of your orders: +
 
-*Step 1* : Type : `show` +g
+*Step 1* : Type : `show` +
 
 *Step 2* : Press `Enter` on your keyboard to see the magic!
 
@@ -579,7 +579,7 @@ but `tid/TRANSACTION_IDn/CUSTOMER_NAME` will be an invalid command input.
 * `CASH_ON_DELIVERY` must start with a dollar sign followed by the value.
 * To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
 in 24 hour format.
-* The value for `DELIVERY_DATE_&_TIME` must be after today. For example, if the date and time now is 2020-04-03 1200,
+* The value for `DELIVERY_DATE_&_TIME` must be a time in the future. For example, if the date and time now is 2020-04-03 1200,
 you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_&_TIME`.
 * `TYPE_OF_ITEM` must be alphanumeric (No numbers or special characters allowed).
 * `CUSTOMER_NAME` mut be alphanumeric(No numbers or special characters allowed).
@@ -599,7 +599,7 @@ There are two different scenarios on how to insert the orders :
 | You should be able to see that the order with transaction id 'A094844' will be inserted into the list of delivery orders.
 
 | Insert the order with all the order attributes including the non-compulsory ones
-| `insert` `tid/C1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/90010019` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
+| `insert` `tid/C1023456789` `n/Amos Cheong` `a/Blk 571 Hougang st 51 #02-02 S530571` `e/amoscheong@example.com` `p/90010019` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 | You should see that the order with transaction id 'C1023456789' is inserted into the list of delivery orders.
 
 |===
