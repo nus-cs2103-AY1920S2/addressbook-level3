@@ -27,8 +27,8 @@ public class RandomCommand extends Command {
 
     public static final String MESSAGE_VIEW_RECIPE_SUCCESS = "Viewing Recipe: %1$s";
 
-    private final Index targetIndex;
     private static int maxVal = 1;
+    private final Index targetIndex;
 
     public RandomCommand() {
         double randomVal = random();
