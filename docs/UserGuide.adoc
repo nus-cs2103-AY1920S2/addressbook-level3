@@ -552,7 +552,7 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 ====
 Examples:
 
-* `student delete m/A0123456J g/G03 m/CS2103`
+* `student delete id/A0123456J g/G03 m/CS2103`
 +
 Deletes the student with the matriculation number `A0123456J` from group `G03` of
 the module `CS2103`.
