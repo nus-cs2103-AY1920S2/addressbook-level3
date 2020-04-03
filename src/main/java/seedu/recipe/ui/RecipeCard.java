@@ -1,9 +1,6 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -75,8 +72,9 @@ public class RecipeCard extends UiPart<Region> {
         name.setWrapText(true);
 
         if (recipe.isFavourite()) {
-            Path favouriteIconPath = Paths.get("src", "main", "resources", "images", "favourite.png");
-            favourite.setImage(new Image(Files.newInputStream(favouriteIconPath)));
+            String favouriteIcon = "/images/favourite.png";
+            // Path favouriteIconPath = Paths.get("src", "main", "resources", "images", "favourite.png");
+            favourite.setImage(new Image(favouriteIcon));
         }
 
         recipe.getGoals().stream()
