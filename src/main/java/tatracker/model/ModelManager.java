@@ -212,10 +212,10 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
-        if (!predicate.equals(PREDICATE_SHOW_ALL_SESSIONS)) {
+        //if (!predicate.equals(PREDICATE_SHOW_ALL_SESSIONS)) {
             taTracker.setCurrentlyShownModuleClaim(moduleCode);
             System.out.println("filtered: " + moduleCode);
-        }
+        //}
         filteredDoneSessions.setPredicate(predicate);
     }
 
