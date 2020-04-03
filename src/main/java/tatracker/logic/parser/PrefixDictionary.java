@@ -95,10 +95,14 @@ public class PrefixDictionary {
     }
 
     /**
-     * Returns true if the dictionary requires an index.
+     * Returns true if the dictionary requires a preamble.
      */
-    public boolean hasIndex() {
-        return dictionary.containsValue(PrefixEntry.INDEX);
+    public boolean hasPreamble() {
+        return dictionary.containsValue(PrefixEntry.INDEX)
+                || dictionary.containsValue(PrefixEntry.KEYWORD)
+                || dictionary.containsValue(PrefixEntry.MORE_KEYWORDS)
+                || dictionary.containsValue(PrefixEntry.TAB_NAME)
+                || dictionary.containsValue(PrefixEntry.MODULE_ID);
     }
 
     /**

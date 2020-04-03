@@ -2,13 +2,14 @@ package tatracker.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tatracker.commons.core.LogsCenter;
-import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.CommandDictionary;
 
 /**
@@ -18,11 +19,7 @@ public class CommandBoxParser {
     private static final Pattern COMMAND_FORMAT = Pattern.compile(
             "\\s*(?<word1>\\S+)(?<args1>\\s*(?<word2>$|\\S+)(?<args2>.*))");
 
-    private static final Pattern LAST_PREFIX = Pattern.compile(
-            ".*\\s+(?<prefix>\\S+/)(?<value>.*)(?<trailingSpaces>\\s*)");
-
-    private static final Pattern FIRST_INDEX = Pattern.compile(
-            "\\s*(?<index>.*)($|\\s+\\S+/.*)");
+    private static final Pattern PREFIX = Pattern.compile("(?<prefix>\\S+/)");
 
     private static final Logger logger = LogsCenter.getLogger(CommandBoxParser.class);
 
@@ -62,34 +59,29 @@ public class CommandBoxParser {
     /**
      * Returns a pair containing the last prefix and the value associated with it from the given input.
      */
-    public static ArgumentMatch parseArguments(String arguments) {
-        Matcher indexMatcher = FIRST_INDEX.matcher(arguments);
-        Matcher prefixMatcher = LAST_PREFIX.matcher(arguments);
+    public static List<ArgumentMatch> parseArguments(String arguments) {
+        Matcher prefixer = PREFIX.matcher(arguments);
 
-        boolean hasIndex = indexMatcher.matches();
-        boolean hasPrefix = prefixMatcher.matches();
+        int start = 0;
 
-        if (!hasIndex && !hasPrefix) {
-            logger.info("============ [ No prefixes ]");
-            return new ArgumentMatch(arguments.trim());
+        String prefix = ""; // None
+
+        List<ArgumentMatch> matchedArguments = new ArrayList<>();
+
+        while (prefixer.find()) {
+            int end = prefixer.start();
+
+            if (end > start) {
+                String value = arguments.substring(start, end);
+                matchedArguments.add(new ArgumentMatch(prefix, value));
+
+                prefix = prefixer.group("prefix");
+            }
+
+            start = prefixer.end();
         }
-
-        String index = "";
-        String prefix = "";
-        String value = arguments;
-
-        if (hasIndex) {
-            logger.info("============ [ Matched index ]");
-            index = indexMatcher.group("index");
-        }
-
-        if (hasPrefix) {
-            logger.info("============ [ Matched prefixes ]");
-            prefix = prefixMatcher.group("prefix");
-            value = prefixMatcher.group("value");
-        }
-
-        return new ArgumentMatch(index, prefix, value);
+        matchedArguments.add(new ArgumentMatch(prefix, arguments.substring(start)));
+        return matchedArguments;
     }
 
     /**
@@ -134,22 +126,12 @@ public class CommandBoxParser {
      * Wraps the result of an argument matching from a {@code Matcher}.
      */
     public static class ArgumentMatch {
-        public final String index;
-        public final String lastPrefix;
-        public final String lastValue;
+        public final String prefix;
+        public final String value;
 
-        public ArgumentMatch(String arguments) {
-            this("", "", arguments);
-        }
-
-        public ArgumentMatch(String index, String lastPrefix, String lastValue) {
-            this.index = index;
-            this.lastPrefix = lastPrefix;
-            this.lastValue = lastValue;
-        }
-
-        public boolean hasValidIndex() {
-            return StringUtil.isNonZeroUnsignedInteger(index);
+        public ArgumentMatch(String prefix, String value) {
+            this.prefix = prefix;
+            this.value = value;
         }
     }
 }
