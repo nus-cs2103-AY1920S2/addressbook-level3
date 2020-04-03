@@ -170,22 +170,21 @@ Removes the tag “noob” from the person at index 37
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
 Store additional information about contacts using the Note Taker +
-Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
+Format: `(ab)addnote INDEX i/INFO`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* There should be at least one i/INFO
+* There should be only one i/INFO added each time.
 ****
 
 ==== Edit additional information about contacts: `(ab)editnote`
 
 Edit additional information about contacts using the Note Taker +
-Format: `(ab)editnote INDEX [-l/LINE_NUMBER] i/INFO`
+Format: `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If [-l] is not specified, all information will be replaced by the new one in INFO
-* [-l] Line number of information to be replaced
+* [l/] Line number of information to be replaced
 ****
 
 ==== Delete additional information about contacts: `(ab)deletenote`

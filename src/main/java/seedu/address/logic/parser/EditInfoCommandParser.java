@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
@@ -33,6 +34,9 @@ public class EditInfoCommandParser implements Parser<EditInfoCommand> {
                     EditInfoCommand.MESSAGE_USAGE), ive);
         }
 
+        if (!argMultimap.getValue(PREFIX_LINE_NUMBER).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER, EditInfoCommand.MESSAGE_USAGE));
+        }
         int line = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER).get(0));
         String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
 
