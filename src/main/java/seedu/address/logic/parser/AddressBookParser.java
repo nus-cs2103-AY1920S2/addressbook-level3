@@ -31,14 +31,8 @@ import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
-import seedu.address.logic.commands.commandEdit.EditCourseCommand;
-import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
-import seedu.address.logic.commands.commandEdit.EditStudentCommand;
-import seedu.address.logic.commands.commandEdit.EditTeacherCommand;
-import seedu.address.logic.commands.commandFind.FindCourseCommand;
-import seedu.address.logic.commands.commandFind.FindFinanceCommand;
-import seedu.address.logic.commands.commandFind.FindStudentCommand;
-import seedu.address.logic.commands.commandFind.FindTeacherCommand;
+import seedu.address.logic.commands.commandEdit.*;
+import seedu.address.logic.commands.commandFind.*;
 import seedu.address.logic.commands.commandList.ListAssignmentCommand;
 import seedu.address.logic.commands.commandList.ListCourseCommand;
 import seedu.address.logic.commands.commandList.ListFinanceCommand;
@@ -62,14 +56,8 @@ import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteStudentCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteTeacherCommandParser;
-import seedu.address.logic.parser.parserEdit.EditCourseCommandParser;
-import seedu.address.logic.parser.parserEdit.EditFinanceCommandParser;
-import seedu.address.logic.parser.parserEdit.EditStudentCommandParser;
-import seedu.address.logic.parser.parserEdit.EditTeacherCommandParser;
-import seedu.address.logic.parser.parserFind.FindCourseCommandParser;
-import seedu.address.logic.parser.parserFind.FindFinanceCommandParser;
-import seedu.address.logic.parser.parserFind.FindStudentCommandParser;
-import seedu.address.logic.parser.parserFind.FindTeacherCommandParser;
+import seedu.address.logic.parser.parserEdit.*;
+import seedu.address.logic.parser.parserFind.*;
 
 /**
  * Parses user input.
@@ -154,7 +142,11 @@ public class AddressBookParser {
       case FindCourseCommand.COMMAND_WORD:
         return new FindCourseCommandParser().parse(arguments);
 
-        // Finance Specific Operations
+      case FindAssignmentCommand.COMMAND_WORD:
+        return new FindAssignmentCommandParser().parse(arguments);
+
+
+      // Finance Specific Operations
       case CalculateExpensesFinanceCommand.COMMAND_WORD:
         return new CalculateExpensesFinanceCommand();
 
@@ -205,6 +197,9 @@ public class AddressBookParser {
 
       case EditCourseCommand.COMMAND_WORD:
         return new EditCourseCommandParser().parse(arguments);
+
+      case EditAssignmentCommand.COMMAND_WORD:
+        return new EditAssignmentCommandParser().parse(arguments);
 
       case SelectCommand.COMMAND_WORD:
         return new SelectCommandParser().parse(arguments);
