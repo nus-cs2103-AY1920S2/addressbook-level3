@@ -2,8 +2,10 @@ package cookbuddy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,6 +24,7 @@ import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
@@ -147,7 +150,12 @@ public class ParserUtil {
      */
     public static Rating parseRating(String ratingString) throws ParseException {
         requireNonNull(ratingString);
-        int rating = Integer.parseInt(ratingString.trim());
+        int rating;
+        try {
+            rating = Integer.parseInt(ratingString.trim());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Input provided is not a valid integer!");
+        }
         if (!Rating.isValidRating(rating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
@@ -184,15 +192,57 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String timeString} into a {@code Time}
+     * @param timeString the string to be parsed
+     * @return the Time of the recipe
+     * @throws ParseException if the given {@timeString} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Time parseTime(String timeString) throws ParseException {
+        int hour;
+        int min = 0;
+        int sec = 0;
+        requireNonNull(timeString);
+        String trimmedTime = timeString.trim();
+        String[] timeArray = trimmedTime.split(":");
+        hour = Integer.parseInt(timeArray[0]);
+        if (timeArray.length > 1) {
+            min = Integer.parseInt(timeArray[1]);
+            if (timeArray.length > 2) {
+                sec = Integer.parseInt(timeArray[2]);
+            }
         }
+        if (!Time.isValidHour(hour)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_HOUR);
+        }
+
+        if (!Time.isValidMin(min)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_MIN);
+        }
+
+        if (!Time.isValidSec(sec)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_SEC);
+        }
+
+        return new Time(hour, min, sec);
+
+    }
+
+    /**
+     * Parses {@code Optional<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Optional<String> tags) throws ParseException {
+        final Set<Tag> tagSet = new HashSet<>();
+        if (tags.isPresent() && !tags.get().equals("")) {
+            String tagsString = tags.get();
+            List<String> tagList = Arrays.asList(tagsString.split(",")).stream().map(String::trim).collect(
+                    Collectors.toList());
+            for (String tagName : tagList) {
+                tagSet.add(parseTag(tagName));
+            }
+        }
+
         return tagSet;
     }
 }

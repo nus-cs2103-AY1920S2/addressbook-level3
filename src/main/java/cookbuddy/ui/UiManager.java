@@ -20,6 +20,7 @@ public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
+    private static Recipe viewedRecipe = null;
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/recipe_book_32.png";
 
@@ -44,6 +45,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            viewedRecipe = logic.getFilteredRecipeList().get(0);
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -51,8 +53,25 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * changes the displayed recipe
+     * @param e the new recipe to be displayed.
+     */
     public static void changeRecipe(Recipe e) {
         mainWindow.defaultFill(e);
+        viewedRecipe = e;
+    }
+
+    /**
+     *
+     * @return the recipe that is being displayed.
+     */
+    public static Recipe getViewedRecipe() {
+        return viewedRecipe;
+    }
+
+    public static void removeRecipe() {
+        mainWindow.fillInnerParts();
     }
 
     private Image getImage(String imagePath) {

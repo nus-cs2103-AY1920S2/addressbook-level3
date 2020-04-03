@@ -39,6 +39,7 @@ class JsonAdaptedRecipe {
     private final int difficulty;
     private final String fav;
     private final String done;
+    private final String time;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -55,6 +56,7 @@ class JsonAdaptedRecipe {
                              @JsonProperty("difficulty") int difficulty,
                              @JsonProperty("fav") String fav,
                              @JsonProperty("done") String done,
+                             @JsonProperty("time") String time,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
@@ -65,6 +67,7 @@ class JsonAdaptedRecipe {
         this.rating = rating;
         this.fav = fav;
         this.done = done;
+        this.time = time;
         this.difficulty = difficulty;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -85,6 +88,7 @@ class JsonAdaptedRecipe {
         difficulty = source.getDifficulty().difficulty;
         fav = source.getFavStatus().toString();
         done = source.getDoneStatus().toString();
+        time = source.getPrepTime().toString();
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -153,6 +157,10 @@ class JsonAdaptedRecipe {
 
         if (done.equals("Yes")) {
             toReturn.attemptRecipe();
+        }
+
+        if (!time.equals("-")) {
+            toReturn.setTime(ParserUtil.parseTime(time));
         }
 
         return toReturn;

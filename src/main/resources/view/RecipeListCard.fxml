@@ -38,6 +38,12 @@
             <URL value="@DarkTheme.css" />
          </stylesheets>
       </Label>
+      <Label fx:id="timing" styleClass="cell_small_label" text="\$timing">
+         <stylesheets>
+            <URL value="@Extensions.css" />
+            <URL value="@DarkTheme.css" />
+         </stylesheets>
+      </Label>
       <Label fx:id="serving" styleClass="cell_big_label" text="\$serving">
          <stylesheets>
             <URL value="@Extensions.css" />

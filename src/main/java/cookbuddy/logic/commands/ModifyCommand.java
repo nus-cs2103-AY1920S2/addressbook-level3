@@ -33,6 +33,7 @@ import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.ui.UiManager;
 
 /**
  * Edits the details of an existing recipe in the recipe book.
@@ -42,6 +43,7 @@ public class ModifyCommand extends Command {
     public static final String COMMAND_WORD = "modify";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the recipe identified "
+
         + "by the index number used in the displayed recipe list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
@@ -95,6 +97,9 @@ public class ModifyCommand extends Command {
 
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        if (UiManager.getViewedRecipe() == recipeToEdit) {
+            UiManager.changeRecipe(editedRecipe);
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
     }
 
@@ -243,14 +248,13 @@ public class ModifyCommand extends Command {
                 : Optional.empty();
         }
 
+
         public void setDifficulty(Difficulty difficulty) {
             this.difficulty = difficulty;
         }
 
         public Optional<Difficulty> getDifficulty() {
-            return (difficulty != null)
-                ? Optional.of(difficulty)
-                : Optional.empty();
+            return (difficulty != null) ? Optional.of(difficulty) : Optional.empty();
         }
 
         /**
