@@ -41,7 +41,8 @@ public class ListTransactionCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showTransactionAtIndex(model, INDEX_FIRST_SUPPLIER);
-        assertCommandSuccess(new ListTransactionCommand(), model, ListTransactionCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListTransactionCommand(), model,
+                ListTransactionCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
