@@ -66,11 +66,7 @@ dependencies {
 }
 
 shadowJar {
-<<<<<<< HEAD
-    archiveName = 'recipeBook.jar'
-=======
     archiveName = 'CookBuddy.jar'
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
 
     destinationDir = file("${buildDir}/jar/")
 }
