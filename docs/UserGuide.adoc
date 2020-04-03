@@ -170,11 +170,11 @@ Removes the tag “noob” from the person at index 37
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
 Store additional information about contacts using the Note Taker +
-Format: `(ab)addnote INDEX i/INFO`
+Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* There should be only one i/INFO added each time.
+* There should be at least one i/INFO specified.
 ****
 
 ==== Edit additional information about contacts: `(ab)editnote`

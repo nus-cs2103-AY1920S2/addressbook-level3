@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Guarantees: immutable; is always valid
  */
 public class Remark {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Remarks should not be empty.";
     public final String value;
 
     public Remark(@JsonProperty("remark")String remark) {
@@ -21,6 +23,13 @@ public class Remark {
      */
     public String toString() {
         return '[' + value + ']';
+    }
+
+    /**
+     * Returns true if a given string is a valid remark.
+     */
+    public static boolean isValidRemark(String test) {
+        return !test.isEmpty();
     }
 
     @Override

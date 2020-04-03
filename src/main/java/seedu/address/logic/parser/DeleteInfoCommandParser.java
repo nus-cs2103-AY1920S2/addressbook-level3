@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.commands.DeleteInfoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -29,7 +28,7 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddInfoCommand.MESSAGE_USAGE), ive);
+                    DeleteInfoCommand.MESSAGE_USAGE), ive);
         }
         int line = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER).get(0));
         return new DeleteInfoCommand(index, line);

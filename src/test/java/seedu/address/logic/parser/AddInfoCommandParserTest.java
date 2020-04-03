@@ -6,12 +6,13 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.model.person.Remark;
-
 
 public class AddInfoCommandParserTest {
     private AddInfoCommandParser parser = new AddInfoCommandParser();
@@ -21,13 +22,10 @@ public class AddInfoCommandParserTest {
     public void parse_indexSpecified_success() {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
+        ArrayList<Remark> remarks = new ArrayList<>();
+        remarks.add(new Remark(nonEmptyRemark));
         String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK + nonEmptyRemark;
-        AddInfoCommand expectedCommand = new AddInfoCommand(INDEX_FIRST_PERSON, new Remark(nonEmptyRemark));
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // no remark
-        userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK;
-        expectedCommand = new AddInfoCommand(INDEX_FIRST_PERSON, new Remark(""));
+        AddInfoCommand expectedCommand = new AddInfoCommand(INDEX_FIRST_PERSON, remarks);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

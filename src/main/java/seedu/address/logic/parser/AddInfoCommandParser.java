@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddInfoCommand;
@@ -32,9 +34,13 @@ public class AddInfoCommandParser implements Parser<AddInfoCommand> {
                     AddInfoCommand.MESSAGE_USAGE), ive);
         }
 
-        String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
+        if (!argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInfoCommand.MESSAGE_USAGE));
+        }
 
-        return new AddInfoCommand(index, new Remark(remark));
+        ArrayList<Remark> remark = ParserUtil.parseRemarks(argMultimap.getAllValues(PREFIX_REMARK));
+
+        return new AddInfoCommand(index, remark);
     }
 
 }
