@@ -42,6 +42,7 @@ public class ModifyCommand extends Command {
     public static final String COMMAND_WORD = "modify";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the recipe identified "
+
         + "by the index number used in the displayed recipe list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
@@ -243,14 +244,13 @@ public class ModifyCommand extends Command {
                 : Optional.empty();
         }
 
+
         public void setDifficulty(Difficulty difficulty) {
             this.difficulty = difficulty;
         }
 
         public Optional<Difficulty> getDifficulty() {
-            return (difficulty != null)
-                ? Optional.of(difficulty)
-                : Optional.empty();
+            return (difficulty != null) ? Optional.of(difficulty) : Optional.empty();
         }
 
         /**

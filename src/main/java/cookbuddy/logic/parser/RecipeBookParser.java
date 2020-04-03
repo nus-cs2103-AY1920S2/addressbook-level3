@@ -17,6 +17,7 @@ import cookbuddy.logic.commands.HelpCommand;
 import cookbuddy.logic.commands.ListCommand;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.NewCommand;
+import cookbuddy.logic.commands.RandomCommand;
 import cookbuddy.logic.commands.ResetCommand;
 import cookbuddy.logic.commands.UnFavCommand;
 import cookbuddy.logic.commands.UndoCommand;
@@ -82,6 +83,9 @@ public class RecipeBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case RandomCommand.COMMAND_WORD:
+            return new RandomCommand();
 
         case CountCommand.COMMAND_WORD:
             return new CountCommand();
