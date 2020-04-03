@@ -8,6 +8,7 @@ import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.model.recipe.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,12 +17,17 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    public static final JMetro JMETRO = new JMetro(Style.LIGHT);
+
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -31,9 +37,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private RecipeListPanel personListPanel;
+    private RecipeListPanel recipeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private RecipeView recipeView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +49,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane recipeListPanelPlaceholder;
+
+    @FXML
+    private StackPane recipeViewPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -60,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        JMETRO.setAutomaticallyColorPanes(true);
+        JMETRO.setScene(this.primaryStage.getScene());
+
         setAccelerators();
 
         helpWindow = new HelpWindow();
@@ -75,6 +88,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -106,9 +120,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        personListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    public void defaultFill(Recipe recipe) {
+        if (logic.getFilteredRecipeList().size() == 0) {
+            recipeView = new RecipeView();
+        } else {
+            recipeView = new RecipeView(recipe);
+        }
+        fillInfo();
+    }
+
+
+    /**
+     * fills in the ingredient/instruction fields
+     */
+    public void fillInfo() {
+        this.recipeViewPanelPlaceholder.getChildren().add(recipeView.getRoot());
+
+        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -118,6 +147,18 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills in information for the recipe
+     */
+    public void fillInnerParts() {
+        if (logic.getFilteredRecipeList().size() == 0) {
+            recipeView = new RecipeView();
+            fillInfo();
+        } else {
+            defaultFill(logic.getFilteredRecipeList().get(0));
+        }
     }
 
     /**
@@ -154,14 +195,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
     public RecipeListPanel getPersonListPanel() {
-        return personListPanel;
+        return recipeListPanel;
     }
 
     /**

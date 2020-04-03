@@ -1,7 +1,7 @@
 # **CookBuddy Recipe Manager**
 :site-section: UserGuide
 :toc:
-:toc-title:
+:toc-title: Table Of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -17,85 +17,186 @@ endif::[]
 By: `AY1920S2-CS2103T-W12-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
-**CookBuddy** is for users who prefer a desktop application for managing recipes. More importantly, CookBuddy is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CookBuddy can get your recipe management tasks done faster than traditional GUI apps. Interested? Proceed to [Quick Start](#quick-start) to get started. Enjoy!
+
+This user guide provides documentation on CookBuddy such as a quick start guide and an overview of its features.
+
+*CookBuddy* is for users who prefer a desktop application for managing recipes.
+More importantly, *CookBuddy* is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+If you are a fast typist, *CookBuddy* can manage your recipes faster than applications that use a GUI.
+Interested?
+Proceed to <<Quick Start>> to get started!
+
+=== Product Information
+
+Talk about problems with existing method of storing recipes.
+Introduce CookBuddy and why it is better.
+
+=== How to navigate this User Guide
+
+Throughout this guide, you may come across a few symbols.
+They are used to draw your attention to important or note-worthy information.
+
+Here are the symbols used in this User Guide:
+
+[NOTE]
+This block displays additional *notes* that contains extra information that you should take note of.
+
+[TIP]
+This block displays *tips* that you may find useful.
 
 == Quick Start
-1. Ensure you have Java 11 or later installed on your machine.
-    - If not, download the latest Java Runtime Environment [here](https://www.java.com/en/download/).
 
-2. Download the latest CookBuddy.jar.
+The following steps will walk you through getting *CookBuddy* installed on your computer.
 
-3. Copy the file to the folder you want to use as the home folder for your CookBuddy program.
+. Ensure you have Java 11 or later installed on your computer.
+    - If not, download and install the latest Java Runtime Environment from https://www.java.com/en/download/[here].
 
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Download the latest CookBuddy.jar from https://github.com/AY1920S2-CS2103T-W12-4/main/releases[here].
 
-5. Type the command in the command box and press Enter to execute it.
-   e.g. typing help and pressing Enter will open the help window.
+. Copy the executable to the folder you want to use as the home folder for *CookBuddy*.
 
-6. Some example commands you can try:
+. Double-click the executable to start *CookBuddy*. CookBuddy's GUI should appear in a few seconds.
++
+image::Ui.png[width="800"]
++
+. Type your command in the command box and press kbd:[Enter] to execute it.
+   e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
-   *    list : lists all recipes
+. Some example commands you can try:
 
-   *    new recipe n/Chicken Rice ing/<Chicken, 1; ...> ins/<Mix Chicken with Rice>:
-    adds a recipe named Chicken Rice to the CookBuddy program.
+   * `list` : lists all the recipes in the recipe book
 
-   *    delete 3 : deletes the 3rd recipe shown in the current list
+   * `new recipe n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate`:
+    adds a recipe named "Ham Sandwich" to *CookBuddy*.
 
-   *    exit : exits the app
+   * `delete 3` : deletes the 3rd recipe shown in the current list
 
-7. Refer to Section 3, [Features](#3.Features) for details of each command.
+   * `exit` : quits *CookBuddy*
+
+. Refer to <<Features>> for details of each command.
 
 ==  Features
-COMMAND FORMAT:
 
-* Words in angle brackets indicate that they are mandatory. `<index>` means that `index` is mandatory.
-* Words in square brackets indicate that they are optional. `[tags/TAG]` means the `tags` parameter is optional.
+The following sub-sections describes the features you can use in *CookBuddy*.
 
-===  Help — `help (V1.4)`
-Lists out all the commands accepted by CookBuddy
-If the command name is specified, it will specify how to use that command.
+.COMMAND FORMAT
+****
+* Words in `UPPER_CASE` are values of the parameters to be supplied by the user.
+    ** In `find n/RECIPE_NAME`, `RECIPE_NAME` refers to the value of the `n/` parameter supplied to the `find` command.
 
-=== Create a Recipe — `new`
-Adds a new recipe to the CookBuddy program.
+* Words in square brackets indicate that they are optional. `[t/TAG]` means the `t/` parameter is optional.
+****
 
-Format: `new n/[name] ing/[ingredient, quantity; ...] ins/[instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
+===  Help — `help` (V1.4)
+You can list all the commands recognised by *CookBuddy* by typing `help` into the command box and pressing kbd:[Enter].
 
-Example: `new n/Fried Rice ing/<White rice, 1 cup; salt, 1gram> ins/<Fry the rice; add salt>`
-Current options are:
-    `n` - name
-    `ing` - ingredients
-    `ins` - instructions
-    `cal` - calories
-    `s` - serving size
-    `r` - rating (scale of 0 to 5)
-    `tags` - tags
+If you also specify a command, *CookBuddy* will show how to use that specific command.
 
-=== Delete a Recipe — `delete`
-Deletes a recipe from the CookBuddy program.
+Format: `help [COMMAND]`
 
-Format: `delete <index>`
+Example 1: You can type `help` and *CookBuddy* will display the commands that it recognises.
 
-=== Modify a Recipe — `modify`
-Modifies attributes of a recipe.
+Example 2: You can type `help delete` and *CookBuddy* will display how to use the `delete` command.
 
-Format: `modify <index> [ing/ingredient, quantity; ...] [ins/instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
 
-Example: `modify 1 ing/3. eggs, 2`
-Replaces the ingredient at index 3 with 2 eggs.
+=== Adding a recipe — `new`
+You can add a new recipe to *CookBuddy* using the `new` command.
 
-Example: `modify 2 ins/<boil eggs; slice apples>`
-Replaces the instructions in the recipe from 'boil eggs' to 'slice apples'
+[NOTE]
+Parameters in *bold* indicate they are mandatory.
 
-=== List Recipes — `list`
-Lists out all the recipes with their respective indexes in the CookBuddy program.
+Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [cal/CALORIES] [s/SERVING_SIZE]
+[r/RATING] [t/TAG [, ...]]`
 
-=== View a Recipe — `view <recipe> (V1.3)`
-Opens a recipe to view.
 
-=== Tagging Recipes — `tag <index> <tag_type> <tag> (V1.3)`
-Tags the recipe at the specified index with the tag of tag_type.
+*CookBuddy* accepts the following parameters:
 
-Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1.
+    * `n/` - *name*
+    * `ing/` - *ingredients*
+    * `ins/` - *instructions*
+    * `cal/` - calories (in kcal)
+    * `s/` - serving size (any number greater than 0)
+    * `r/` - rating (scale of 0 to 5)
+    * `d/` - difficulty (scale of 0 to 5)
+    * `t/` - tags (separated by commas)
+
+Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt` into *CookBuddy*, and a new recipe with the following attributes will be added:
+
+    * Name: Fried Rice
+    * Ingredients:
+        ** 1 cup of white rice
+        ** 1 gram of salt
+    * Instructions:
+        . Fry the rice
+        . Add salt
+
+
+=== Deleting a recipe — `delete`
+You can delete an existing recipe from *CookBuddy* using the `delete` command.
+
+Format: `delete INDEX`
+
+Example: You can type `delete 1` and *CookBuddy* will delete the recipe at index 1.
+
+
+=== Modifying a recipe — `modify`
+You can modify the attributes of an existing recipe in *CookBuddy* using the `modify` command.
+
+Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [cal/CALORIES] [s/SERVING_SIZE]
+[r/RATING] [t/TAG [, ...]]`
+
+==== Modifying a recipe's ingredients
+You can modify a recipe's ingredients by appending `ing/INGREDIENT, QUANTITY [; ...]` to a `modify` command.
+
+Example: You can type `modify 1 ing/ham, 2 slices` and *CookBuddy* will modify the ingredients of the 1st recipe in
+the list to contain only 2 slices of ham.
+
+
+==== Modifying a recipe's instructions
+You can modify a recipe's instructions by appending `ins/INSTRUCTION [; ...]` to a `modify` command.
+
+Example: You can type `modify 2 ins/boil eggs; slice apples` and *CookBuddy* will modify the instructions in the 2nd
+recipe to contain two instructions:
+
+    * boil eggs
+    * slice apples
+
+=== Listing recipes — `list`
+You can list all the existing recipes from *CookBuddy* using the `list` command.
+
+Format: `list`
+
+=== Finding recipes — `find`
+You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
+
+Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]
+
+[NOTE]
+*CookBuddy* can find recipes from one parameter at a time.
+
+==== Finding a recipe by name
+You can find a recipe by its name by appending `n/NAME [...]` to a `find` command.
+
+Example: You can type `find n/sandwich` and *CookBuddy* will display recipes that contain the word `sandwich` in their name.
+
+==== Finding a recipe by ingredient
+You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
+
+Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
+
+=== Counting recipes — `count`
+You can count the total number of recipes stored in *CookBuddy* using the `count` command.
+
+Format: `count`
+
+//=== View a Recipe — `view RECIPE_INDEX (V1.3)`
+//Opens the recipe at `RECIPE_INDEX` to view.
+//
+//=== Tag a Recipe — `tag <index> <tag_type> <tag> (V1.3)`
+//Tags a recipe at the specified index with the tag of tag_type.
+//
+//Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1.
 
 // ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
 // Tags a recipe (and the ingredient, if specified) as containing `allergen`.
@@ -107,18 +208,23 @@ Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the re
 // Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
 // Useful for users who wish to experiment with recipes while keeping a copy of the original.
 
-=== Search (V1.3)
+=== Deleting all recipes - `reset`
+You can remove all recipes stored in *CookBuddy* using the `reset`command.
 
-==== Search keyword — `search keyword <keyword>`
-Search for recipes that contain `keyword` in their name
+Format: `reset`
 
-==== Search tag — `search tag <tag type> <tag name>`
-Search for recipes that are contain the tag `tag name` from the tag `tag type`
+=== Exiting *CookBuddy* - `exit`
+You can exit from *CookBuddy* using the `exit` command.
 
-Example: `search tag meal dinner` would return all the recipes which have been tagged under the dinner meal tag.
+Format: `exit`
 
-=== Clearing all entries - `reset`
-Clears all entries from the *CookBuddy* application.
+== FAQ
 
-=== Exiting the program - `exit`
-Exits the program.
+The following section answers some questions you might have regarding *CookBuddy*.
+
+Q: How do I transfer my data to another Computer?
+A: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
+
+== Command Summary
+
+The following section gives a quick summary of all the commands you can use in CookBuddy.

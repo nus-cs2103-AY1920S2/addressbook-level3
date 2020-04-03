@@ -68,6 +68,50 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     }
 
     /**
+     * Returns the total number of recipes in the recipe book.
+     */
+    public long count() {
+        return recipes.count();
+    }
+
+    /**
+     * favourites a recipe from the recipe book.
+     * @param recipe the recipe to be favourited.
+     */
+    public void fav(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.favRecipe();
+    }
+
+    /**
+     * Un-favourites a recipe from the recipe book.
+     * @param recipe the recipe to be un-favourited.
+     */
+    public void unFav(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.unFavRecipe();
+    }
+
+    /**
+     * Attempts the recipe, marking it as done.
+     * @param recipe the recipe to be marked as done.
+     */
+    public void attempt(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.attemptRecipe();
+    }
+
+    /**
+     * Un-Marks the recipe as attempted, marking it as not done.
+     * @param recipe the recipe to be un-marked.
+     */
+    public void unAttempt(Recipe recipe) {
+        requireNonNull(recipe);
+        recipe.unAttemptRecipe();
+    }
+
+
+    /**
      * Adds a recipe to the recipe book.
      * The recipe must not already exist in the recipe book.
      */
@@ -82,6 +126,13 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
+        if (target.getFavStatus().toString().equals("\u2665")) {
+            editedRecipe.favRecipe();
+        }
+
+        if (target.getDoneStatus().toString().equals("Yes")) {
+            editedRecipe.attemptRecipe();
+        }
 
         recipes.setRecipe(target, editedRecipe);
     }

@@ -1,6 +1,8 @@
 package cookbuddy.logic.commands;
 
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_IMAGEFILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
@@ -51,6 +53,8 @@ import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
@@ -67,6 +71,7 @@ public class ModifyCommand extends Command {
     public static final String COMMAND_WORD = "modify";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the recipe identified "
+<<<<<<< HEAD
             + "by the index number used in the displayed recipe list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -81,6 +86,23 @@ public class ModifyCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
             + PREFIX_INSTRUCTIONS + "put egg on toast;put bread on egg";
+=======
+        + "by the index number used in the displayed recipe list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
+        + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
+        + "[" + PREFIX_IMAGEFILEPATH + "PATH] "
+        + "[" + PREFIX_CALORIE + "CALORIES] "
+        + "[" + PREFIX_SERVING + "SERVING] "
+        + "[" + PREFIX_RATING + "RATING] "
+        + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
+        + "[" + PREFIX_TAG + "TAG]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
+        + PREFIX_INSTRUCTIONS + "put egg on toast;put bread on egg";
+>>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -90,7 +112,7 @@ public class ModifyCommand extends Command {
     private final EditRecipeDescriptor editRecipeDescriptor;
 
     /**
-     * @param index of the recipe in the filtered recipe list to edit
+     * @param index                of the recipe in the filtered recipe list to edit
      * @param editRecipeDescriptor details to edit the recipe with
      */
     public ModifyCommand(Index index, EditRecipeDescriptor editRecipeDescriptor) {
@@ -132,15 +154,21 @@ public class ModifyCommand extends Command {
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         IngredientList updatedIngredients = editRecipeDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
         InstructionList updatedInstructions =
-                editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
+            editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
+        Image updatedImage = editRecipeDescriptor.getImageFilePath().orElse(recipeToEdit.getImageFilePath());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
+<<<<<<< HEAD
         Difficulty updatedDifficulty = peDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
+=======
+        Difficulty updatedDifficulty = editRecipeDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
+>>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
-        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
-                updatedRating, updatedTags);
+        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedImage, updatedCalorie,
+            updatedServing,
+            updatedRating, updatedDifficulty, updatedTags);
     }
 
     @Override
@@ -158,7 +186,7 @@ public class ModifyCommand extends Command {
         // state check
         ModifyCommand e = (ModifyCommand) other;
         return index.equals(e.index)
-               && editRecipeDescriptor.equals(e.editRecipeDescriptor);
+            && editRecipeDescriptor.equals(e.editRecipeDescriptor);
     }
 
     /**
@@ -169,6 +197,7 @@ public class ModifyCommand extends Command {
         private Name name;
         private IngredientList ingredients;
         private InstructionList instructions;
+        private Image imageFilePath;
         private Calorie calorie;
         private Serving serving;
         private Rating rating;
@@ -186,6 +215,7 @@ public class ModifyCommand extends Command {
             setName(toCopy.name);
             setIngredients(toCopy.ingredients);
             setInstructions(toCopy.instructions);
+            setImageFilePath(toCopy.imageFilePath);
             setCalorie(toCopy.calorie);
             setServing(toCopy.serving);
             setRating(toCopy.rating);
@@ -197,7 +227,8 @@ public class ModifyCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, serving, rating, tags);
+            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, imageFilePath, calorie, serving, rating,
+                difficulty, tags);
         }
 
         public void setName(Name name) {
@@ -224,12 +255,22 @@ public class ModifyCommand extends Command {
             this.instructions = instructions;
         }
 
+        public Optional<Image> getImageFilePath() {
+            return Optional.ofNullable(imageFilePath);
+        }
+
+        public void setImageFilePath(Image imageFilePath) {
+            this.imageFilePath = imageFilePath;
+        }
+
         public void setCalorie(Calorie calorie) {
             this.calorie = calorie;
         }
 
         public Optional<Calorie> getCalorie() {
-            return (calorie != null) ? Optional.of(calorie) : Optional.empty();
+            return (calorie != null)
+                ? Optional.of(calorie)
+                : Optional.empty();
         }
 
         public void setServing(Serving serving) {
@@ -237,7 +278,9 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Serving> getServing() {
-            return (serving != null) ? Optional.of(serving) : Optional.empty();
+            return (serving != null)
+                ? Optional.of(serving)
+                : Optional.empty();
         }
 
         public void setRating(Rating rating) {
@@ -245,7 +288,19 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Rating> getRating() {
-            return (rating != null) ? Optional.of(rating) : Optional.empty();
+            return (rating != null)
+                ? Optional.of(rating)
+                : Optional.empty();
+        }
+
+        public void setDifficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
+        }
+
+        public Optional<Difficulty> getDifficulty() {
+            return (difficulty != null)
+                ? Optional.of(difficulty)
+                : Optional.empty();
         }
 
         public void setDifficulty(Difficulty difficulty) {
@@ -261,7 +316,9 @@ public class ModifyCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            this.tags = (tags != null)
+                ? new HashSet<>(tags)
+                : null;
         }
 
         /**
@@ -270,7 +327,9 @@ public class ModifyCommand extends Command {
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return (tags != null)
+                ? Optional.of(Collections.unmodifiableSet(tags))
+                : Optional.empty();
         }
 
         @Override
@@ -289,6 +348,7 @@ public class ModifyCommand extends Command {
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
 
             return getName().equals(e.getName())
+<<<<<<< HEAD
                     && getIngredients().equals(e.getIngredients())
                     && getInstructions().equals(e.getInstructions())
                     && getCalorie().equals(e.getCalorie())
@@ -296,6 +356,16 @@ public class ModifyCommand extends Command {
                     && getRating().equals(e.getRating())
                     && getDifficulty().equals(e.getDifficulty())
                     && getTags().equals(e.getTags());
+=======
+                && getIngredients().equals(e.getIngredients())
+                && getInstructions().equals(e.getInstructions())
+                && getImageFilePath().equals(e.getImageFilePath())
+                && getCalorie().equals(e.getCalorie())
+                && getServing().equals(e.getServing())
+                && getRating().equals(e.getRating())
+                && getDifficulty().equals(e.getDifficulty())
+                && getTags().equals(e.getTags());
+>>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
         }
     }
 }

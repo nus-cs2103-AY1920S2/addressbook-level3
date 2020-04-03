@@ -1,67 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="167.0" GridPane.columnIndex="0">
-        <!--was originally minHeight = 105.0 -->
-      <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
-      <HBox alignment="CENTER_LEFT" prefWidth="142.0" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-      </HBox>
-         <Label fx:id="rating" styleClass="cell_small_label" text="\$rating" />
-      <FlowPane fx:id="tags" />
-      <Label fx:id="ingredients" styleClass="cell_small_label" text="\$ingredients" />
-      <Label fx:id="instructions" styleClass="cell_small_label" text="\$instructions" />
-         <Label fx:id="calorie" styleClass="cell_small_label" text="\$calorie" />
-         <Label fx:id="serving" styleClass="cell_small_label" text="\$serving" />
-    </VBox>
-      <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1">
-         <padding>
-            <Insets bottom="5" left="15" right="5" top="5" />
-         </padding>
+<VBox fx:id="cardPane" alignment="CENTER_LEFT" minWidth="174.0" prefHeight="150.0" prefWidth="174.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <!--was originally minHeight = 105.0 -->
+<padding>
+  <Insets bottom="5" left="15" right="5" top="5" />
+</padding>
+   <children>
+      <HBox fx:id="title" alignment="CENTER_LEFT" spacing="5.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefWidth="142.0" spacing="5">
-               <children>
-                  <Label fx:id="id1" styleClass="cell_big_label">
-                     <minWidth>
-                        <Region fx:constant="USE_PREF_SIZE" />
-                     </minWidth>
-                  </Label>
-                  <Label fx:id="name1" styleClass="cell_big_label" text="\$first" />
-               </children>
-            </HBox>
-            <Label fx:id="rating1" styleClass="cell_small_label" text="\$rating" />
-            <FlowPane fx:id="tags1" />
-            <Label fx:id="ingredients1" styleClass="cell_small_label" text="\$ingredients" />
-            <Label fx:id="instructions1" styleClass="cell_small_label" text="\$instructions" />
-            <Label fx:id="calorie1" styleClass="cell_small_label" text="\$calorie" />
-            <Label fx:id="serving1" styleClass="cell_small_label" text="\$serving" />
+            <Label fx:id="id" styleClass="cell_big_label" stylesheets="@DarkTheme.css">
+               <minWidth>
+                  <Region fx:constant="USE_PREF_SIZE" />
+               </minWidth>
+            </Label>
+            <Label fx:id="name" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="\$first" />
          </children>
-      </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-  </GridPane>
-</HBox>
+      </HBox>
+      <Label fx:id="rating" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="\$rating" />
+      <FlowPane fx:id="tags" stylesheets="@DarkTheme.css" />
+      <Label fx:id="fav" styleClass="cell_icon_label" text="\$fav">
+         <stylesheets>
+            <URL value="@Extensions.css" />
+            <URL value="@DarkTheme.css" />
+         </stylesheets>
+      </Label>
+      <Label fx:id="done" styleClass="cell_small_label" text="\$done">
+         <stylesheets>
+            <URL value="@Extensions.css" />
+            <URL value="@DarkTheme.css" />
+         </stylesheets>
+      </Label>
+      <Label fx:id="serving" styleClass="cell_big_label" text="\$serving">
+         <stylesheets>
+            <URL value="@Extensions.css" />
+            <URL value="@DarkTheme.css" />
+         </stylesheets>
+      </Label>
+      <Label fx:id="diff" styleClass="cell_small_label" text="\$diff">
+         <stylesheets>
+            <URL value="@Extensions.css" />
+            <URL value="@DarkTheme.css" />
+         </stylesheets>
+      </Label>
+   </children>
+</VBox>

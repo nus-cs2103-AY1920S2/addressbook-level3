@@ -17,4 +17,7 @@ Recipe o-up-> "*" Tag
 Recipe *--> Name
 Recipe *--> IngredientList
 Recipe *--> InstructionList
+Recipe *--> Calorie
+Recipe *--> Serving
+Recipe *--> Rating
 @enduml

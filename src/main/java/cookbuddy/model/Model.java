@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+    /** {@code Predicate} that always evaluates to false */
+    Predicate<Recipe> PREDICATE_SHOW_NO_RECIPES = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -56,6 +58,36 @@ public interface Model {
      * Returns true if a recipe with the same identity as {@code recipe} exists in the recipe book.
      */
     boolean hasRecipe(Recipe recipe);
+
+    /**
+     * Returns the total number of recipes in the recipe book.
+     */
+    long count();
+
+
+    /**
+     * Marks a recipe as attempted/done
+     * @param recipe the recipe to be marked.
+     */
+    void attemptRecipe(Recipe recipe);
+
+    /**
+     * Un-Makrs a recipe as attempted/done
+     * @param recipe the recipe to be un-marked.
+     */
+    void unAttemptRecipe(Recipe recipe);
+
+    /**
+     *
+     * Favourites the recipe
+     */
+    void favRecipe(Recipe recipe);
+
+    /**
+     * Un-Favourites the recipe
+     *
+     */
+    void unFavRecipe(Recipe recipe);
 
     /**
      * Deletes the given recipe.

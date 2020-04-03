@@ -182,7 +182,8 @@ Step 2. The user executes `delete 5` command to delete the 5th recipe in the rec
 
 image::UndoRedoState1.svg[]
 
-Step 3. The user executes `add n/David ...` to add a new recipe. The `add` command also calls `Model#commitRecipeBook()`, causing another modified Recipe book state to be saved into the `RecipeBookStateList`.
+Step 3. The user executes `new n/Chicken Rice ...` to add a new recipe. The `new` command also calls
+`Model#commitRecipeBook()`, causing another modified Recipe book state to be saved into the `RecipeBookStateList`.
 
 image::UndoRedoState2.svg[]
 
@@ -241,9 +242,9 @@ image::CommitActivityDiagram.svg[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+// === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+// _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 

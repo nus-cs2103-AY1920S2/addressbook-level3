@@ -61,10 +61,16 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    implementation group: 'org.jfxtras', name: 'jmetro', version: '11.6.9'
 }
 
 shadowJar {
+<<<<<<< HEAD
     archiveName = 'recipeBook.jar'
+=======
+    archiveName = 'CookBuddy.jar'
+>>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
 
     destinationDir = file("${buildDir}/jar/")
 }

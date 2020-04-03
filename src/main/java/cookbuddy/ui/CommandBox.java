@@ -45,7 +45,7 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+        commandTextField.setStyle("-fx-font-family: Consolas, 'Menlo', 'Hack', 'Liberation Mono', 'monospace'");
     }
 
     /**
