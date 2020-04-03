@@ -162,6 +162,52 @@ recipe to contain two instructions:
     * boil eggs
     * slice apples
 
+
+=== Favouriting a recipe — `fav`
+You can favourite an existing recipe from *CookBuddy* using the `fav` command.
+
+Format: `fav INDEX`
+
+Example: You can type `fav 1` and *CookBuddy* will favourite the recipe at index 1.
+[NOTE]
+A favourited recipe is indicated by a red filled heart
+
+
+=== Un-Favouriting a recipe — `unfav`
+You can un-favourite an existing recipe from *CookBuddy* using the `fav` command.
+
+Format: `unfav INDEX`
+
+Example: You can type `unfav 1` and *CookBuddy* will un-favourite the recipe at index 1.
+[NOTE]
+Recipes are not favourited by default.
+This command is only useful if you wish to un-favourite recipe that is already favourited.
+A non-favourited recipe is indicated by a heart with a read outline and no fill.
+
+
+=== Marking a recipe as done — `done`
+You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that it has
+been attempted.
+
+Format: `done INDEX`
+
+Example: You can type `done 1` and *CookBuddy* will mark the recipe at index 1 as being done, indicating that it has
+been attempted.
+
+
+=== Un-Marking a recipe as done — `undo`
+You can un-mark an existing recipe from *CookBuddy* as being done, using the`undo` command. This indicates that the
+recipe has not been attempted.
+
+Format: `undo INDEX`
+
+Example: You can type `undo 1` and *CookBuddy* will un-mark the recipe at index 1 as done, indicating that it has not
+been attempted.
+[NOTE]
+Recipes are marked as not attempted by default.
+This command is only useful if you wish to un-mark recipe that is already marked as done.
+
+
 === Listing recipes — `list`
 You can list all the existing recipes from *CookBuddy* using the `list` command.
 
@@ -170,7 +216,7 @@ Format: `list`
 === Finding recipes — `find`
 You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
 
-Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]
+Format: `find [n/NAME [...]] [ing/INGREDIENT [...]]`
 
 [NOTE]
 *CookBuddy* can find recipes from one parameter at a time.
