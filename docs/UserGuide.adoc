@@ -190,6 +190,17 @@ These missing parameters will be stated in a later section of the guide. |
 This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
 into three different views - the *Student View*, the *Session View* and the *Claims View*.
 
+When you enter a new command, you will be automatically switched to the relevant view
+so that you can instantly see the command results. The tab will also be highlighted in
+orange.
+
+[NOTE]
+====
+* The tab that you were switched to when you enter commands will remain highlighted even if
+you click on other tabs. That way, it is easier for you to remember where you last
+made changes to TA-Tracker.
+====
+
 === Student View
 Under the `student` tab, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
@@ -541,7 +552,7 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 ====
 Examples:
 
-* `student delete m/A0123456J g/G03 m/CS2103`
+* `student delete id/A0123456J g/G03 m/CS2103`
 +
 Deletes the student with the matriculation number `A0123456J` from group `G03` of
 the module `CS2103`.
