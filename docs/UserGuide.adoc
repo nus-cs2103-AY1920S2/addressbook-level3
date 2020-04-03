@@ -116,9 +116,9 @@ Format: `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ..
     * `ing/` - *ingredients*
     * `ins/` - *instructions*
     * `cal/` - calories (in kcal)
-    * `s/` - serving size (any number greater than 0)
-    * `r/` - rating (scale of 0 to 5)
-    * `d/` - difficulty (scale of 0 to 5)
+    * `s/` - serving size (any integer greater than 0)
+    * `r/` - rating (any integer between 0-5, inclusive)
+    * `d/` - difficulty (any integer between 0-5, inclusive)
     * `t/` - tags (separated by commas)
 
 Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram ins/Fry the rice; add salt` into *CookBuddy*, and a new recipe with the following attributes will be added:
