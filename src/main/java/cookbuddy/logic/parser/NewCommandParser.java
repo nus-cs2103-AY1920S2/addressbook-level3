@@ -68,7 +68,7 @@ public class NewCommandParser implements Parser<NewCommand> {
         Serving serving = ParserUtil.parseServing(argMultimap.getValue(PREFIX_SERVING).orElse("1"));
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).orElse("0"));
         Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).orElse("0"));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getValue(PREFIX_TAG));
 
         Recipe recipe = new Recipe(name, ingredients, instructions, url, calorie, serving, rating, difficulty, tagList);
 
