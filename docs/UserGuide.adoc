@@ -16,365 +16,913 @@ endif::[]
 
 By: `Team W16-2`      Since: `Feb 2020`      Licence: `NUS`
 
-== Introduction
-ZeroToOne is a one-stop application for managing your exercise regimes. Transform yourself from a ‘0’ to ‘1’ in no time!
+== About This Document
 
-ZeroToOne has 4 major features for you that we think you will find useful.
+Welcome to the ZeroToOne User Guide!
 
-Firstly, add any custom weight training exercises you want and create a workout. Popular exercises and workouts come by default!
+We have read and tried to follow numerous badly written user guides. They are often poorly organised, and extremely painful to read. At ZeroToOne, we seek to make your user experience a seamless and pleasurable one. This is why we created this foolproof, step-by-step guide to help you kickstart your ZeroToOne journey.
 
-Next, plan your workouts in the schedule and get timely reminders so you never miss a workout again.
+To help you better understand this document, here is a list of notations that we will be using:
 
-Now that it is time for a workout ongoingSession, get started with the ongoingSession feature in the home tab, which serves as a follow-along guide that helps you time your rest and remembers which exercises are next up for you.
+.ZeroToOne Notation
+[options="header"]
+|======
+|Notation |Description
 
-Our logging feature automatically tracks your ongoingSession when you are done and provides in-depth details of your progress.
+|`exercise delete EXERCISE_ID`
+| A grey highlight alongside a monospace font indicates that this is a command that can be entered into the command line and executed by the application.
 
-Ready to start? Let's go!
+|`w/<workout_name>`
+| A word surrounded by arrow brackets denotes a user fillable field in the parameter
 
-== Quick Start
+|`[d/<datetime>]`
+| A parameter surrounded by square brackets indicates that it is an optional parameter
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `zerotoone.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your ZeroToOne.
-.  Double-click the file to start the app. The program should start in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+| `{e/<exercise_name> \| w/<workout_name> \| d/<datetime>}`
+| A set of parameters surrounded by curly brackets indicates that at least one of the parameters have to be filled up
 
-* *`list`* : lists all workouts in the app
-* *`session`* : shows a log of past workouts
-* *`start <workout_id>`* : starts a new workout
-* *`stop`* : stops the workout
-* *`exit`* : exits the app
+| `EXERCISE_ID`
+| Uppercase parameters indicate that it is an index from a list in ZeroToOne
+|======
 
-.  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+== Introducing ZeroToOne
 
-====
-*Command Format*
+ZeroToOne is a one-stop application to manage your fitness regimes. Using ZeroToOne, you can:
 
-* Words in `<arrow brackets>` are the parameters to be supplied by the user e.g. in `start <workout_id>`, `workout_id` is a parameter which can be used as `start 1`.
-* Items in square brackets are optional e.g `start <workout_id> [interval]` can be used as `start 2 100` or as `start 2`.
-* Parameters must be in the specified order.
+* Customise your favourite workout programmes
+* Start a workout session which guides you through your workout routines
+* Schedule your workout sessions and receive timely reminders
+* Track your fitness progress
+* and much more!
 
-*Flags*
+Are you ready to transform yourself from a plump ‘0’ shape to a healthier ‘1’ shape? Kickstart your ZeroToOne journey today by following the steps listed below!
 
-All user-fillable fields must be prefixed with a flag when the user inputs the command. This allows ZeroToOne to accept parameters in any order.
-Reserved flags are a set of special symbols that are reserved for use by the program only. Please avoid using them in your input to this application.
+== Getting Started
 
-They are listed as follows:
+Before you can start using ZeroToOne, you will need to ensure that Java 11 is installed on your computer. If not, please follow the instructions on this website to install Java 11 on your computer.
 
-* e/ - exercise name
-* w/ - workout name
-* s/ - number of sets
-* r/ - number of reps
-* m/ - weights (in kilograms)
-* d/ - datetime
-* f/ - frequency of schedule
-* p/ - file path
+To start your ZeroToOne journey, you will have to:
 
-====
-=== General Commands
-====
+. Create an empty folder in your computer.
+. Download the latest stable version of ZeroToOne from https://github.com/AY1920S2-CS2103T-W16-2/main/releases/latest[our GitHub page] into the folder that you created.
+. Double-click the executable file to start the application.
 
-* Start a ongoingSession : `start`
+.ZeroToOne Main Page
+image::UgMainPage.png[]
 
-Format: `start <EXERCISE_ID>`
+At this stage, you should have successfully started ZeroToOne and will be able see the main page as described in Figure 1. If the application did not start, please refer to <<Troubleshooting>> for more information to resolve the issue. Otherwise, the next step is to begin your ZeroToOne journey, by customising your favourite workout programmes!
 
-* Stop a ongoingSession : `stop`
+== User Interface Basics
 
-//Format: `start <EXERCISE_ID>`
+Before we delve into the commands that you can use, let us first explain the components of the User Interface, and how we can navigate through them.
 
-* Complete a set : `done`
+.Components of the User Interface
+image::UgUiComponents.png[]
 
-//Format: `start <EXERCISE_ID>`
+=== Navigation Tabs
+The navigation tabs allow you to easily access different parts of our application. Simply click on each tab to bring you to your desired feature! The coloured underline indicates which tab is currently activated and hence which feature you are currently accessing.
 
-* Skip a set : `skip`
+=== Result Display
+This is where the results of your executed command will be displayed. The display will change according to the feature that you are currently using.
 
-//Format: `start <EXERCISE_ID>`
+=== Feedback Display
+Whenever you enter a command into the Command Box, the application will output a feedback message to you through this display!
 
-* Get help : `help`
+=== Command Box
+You type all of your commands in here. To execute the command, simply press the "Enter" button on your keyboard.
 
-//Format: `help`
+== Using ZeroToOne
 
-//Shows a list of all available commands in ZeroToOne.
+At this point, you should have sufficient knowledge to start using ZeroToOne. In this section, we will describe in-depth the features that ZeroToOne has, and how you can interact with them.
 
-* Exit the program: `exit`
+=== Overview
+For ZeroToOne commands, every user-fillable parameter is identified by a flag prefix. This allows ZeroToOne to accept parameters in any order. However, to correctly parse your command, we have reserved these flags as special symbols that are to be used only by the program. Please avoid using them in your commands. The reserved flags are listed as follows:
 
-//Closes the program.
-====
+* `e/` - exercise name
+* `w/` - workout name
+* `s/` - number of sets
+* `r/` - number of reps
+* `m/` - weights (in kilograms)
+* `d/` - datetime
+* `f/` - frequency of schedule
+* `p/` - file path
 
-=== Exercise Commands
+=== Getting Help
+Can’t remember the commands off the top of your head? Fret not. ZeroToOne provides you with a convenient way to view a list of all available commands that you can try. Simply enter the following command into the command box:
 
-====
+```
+help
+```
 
-* Command title: `code`
+.Help Window
+image::UgHelp.png[]
 
-Format: `code e/<PARAM>`
+A pop-up window will appear, showing you a list of all available commands that you can try.
 
-====
 
-=== Workout Commands
+=== Closing ZeroToOne (In Progress)
+After you have finished using the application, you can exit the application by simply entering the following command into the command box:
 
-====
+`exit`
 
-* Command title: `code`
+The application will close gracefully, and all data in the current usage session will be saved in the data directory. If the command is executed successfully, you should see the following message before the application closes:
 
-Format: `code e/<PARAM>`
+```
+Thank you for using ZeroToOne! Your data has been saved successfully. Hope to see you soon for your next workout!
+```
 
-====
+=== Starting A Workout Session
 
-=== Schedule Commands
+Are you ready to start working out now? To begin a new workout session, simply enter the following command into the command box:
 
-====
+```
+start WORKOUT_ID
+```
 
-* Command title: `code`
+```
+Example use:
+start 1
+```
 
-Format: `code e/<PARAM>`
+.Started Workout
+image::UgStartWorkout.png[]
 
-====
-=== Log Commands
+The User Interface will automatically switch to the “General” tab. ZeroToOne will start displaying every exercise set in your workout, guiding you through set by set in your workout.
 
-====
+```
+NOTE:
+* This command assumes that you have already created a workout in the application. If you have not, refer to the section on "Managing your workouts" to create a new workout.
+* WORKOUT_ID cannot be null and should be a value from the command `workout list`
+```
 
-* Command title: `code`
+=== Completing An Exercise Set
+Completed your exercise set? To mark the current exercise set as completed and move on to the next set, simply enter this command into the command box:
 
-Format: `code e/<PARAM>`
+```
+done
+```
 
-====
+.Done Set
+image::UgDoneSet.png[]
 
-=== Saving the data
+The background color of the completed set will turn green in a few seconds, indicating that the set is successfully completed. ZeroToOne will then progress your workout forward, by starting on the next set. If you are already on your last set, ZeroToOne will automatically stop the workout session after this command is executed.
 
-ZeroToOne data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Skipping An Exercise Set
+Unable to complete your current exercise set? No worries, it happens to everyone. To skip the current exercise set, simply enter this command into the command box:
 
-== FAQ
+```
+skip
+```
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ZeroToOne folder.
+.Skipped Set
+image::UgSkippedSet.png[]
 
-*Q*: I do not see the GUI. +
-*A*: Ensure that you have Java 11 installed on your computer. You can check your current Java version by opening up a Command Prompt or Terminal, and entering java -version. Do install Java 11 if it is not installed. If installing Java 11  does not work, then try installing JavaFX 11 Dependencies on your computer.
+The background color of the completed set will turn red for a few seconds, indicating that the set is incomplete. ZeroToOne will then progress your workout forward, by starting on the next set. If you are already on your last set, ZeroToOne will automatically stop the workout session after this command is executed.
 
-== Command Summary
+=== Stopping A Workout Session
+Need to stop the workout session prematurely? Simply enter this command into the command box:
 
-* List: list
-* Log: log
-* Start: start <workout>
-* Stop: stop <workout>
-* Pause: pause
-* Exit: exit
+```
+stop
+```
 
+ZeroToOne will stop the workout that is currently in progress, and will stop tracking the progress of this workout. The user interface will automatically return to the main screen. Any incomplete sets will be logged by ZeroToOne. If stopping a workout session is successful, you should see the following in the feedback display:
 
----
----
----
-Last person delete below
 
----
----
----
+```
+Stopped session: Bench Press at 1 Apr 2020, 10:32:10 AM
+```
 
-=== Workout Commands
+=== Managing Your Exercises
+The commands in this section allows you to manage your customised exercises in ZeroToOne. These exercises will eventually be the building blocks of a workout.
 
-==== Create a workout plan: `create`
+==== Creating a new exercise
+To create a new exercise in ZeroToOne, simply enter this command into the command box:
 
-Creates a new workout plan.
+```
+exercise create e/<exercise_name>
+```
 
-Format: `create <workout>`
+```
+Example use:
+exercise create e/Bench Press
+```
 
-[TIP]
-The workout field must be a string
+.Created Exercise
+image::UgCreatedExercise.png[]
 
-Examples:
+The newly created exercise will be automatically added to the bottom of the exercise list. This exercise will not contain any sets at this point.
 
-* `create MorningWorkout`
-* `create NightWorkout`
 
-==== Delete a workout plan : `delete`
+```
+NOTE:
+<exercise_name> has to be a String, consisting of only Alphanumeric characters
+```
 
-Deletes the specified workout and its associated exercises.
+==== Adding a set to an exercise
+After you have created a new exercise in ZeroToOne, the next step is to add a set to the exercise! To add a set, simply enter this command:
 
-Format: `delete <workout>`
+```
+exercise set add EXERCISE_ID r/<num_of_reps> m/<weight>
+```
 
-Examples:
+```
+Example use:
+exercise set add 2 r/2 m/30
+```
 
-* `delete MorningWorkout`
+.Added Exercise Set
+image::UgAddedExerciseSet.png[]
 
-[TIP]
-The workout name is case-sensitive.
+The exercise set will be automatically appended to the current list of sets in the exercise. The user interface will be updated to show the edited exercise.
 
-==== List exercises in workout plan : `list <workout>`
+```
+NOTE:
+* This command assumes that you have already created an exercise under EXERCISE_ID. If you have not created the exercise, refer to the section on “Creating a new exercise” first.
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+* <num_of_reps> should be a positive integer
+* <weight> should be a positive integer between 1 and 1000
+```
 
-Shows a list of all existing exercises in the workout plan
+==== Editing a set in an exercise
+Changed your mind on the details of an exercise set? No worries, you can edit the information in an exercise set by simply entering this command:
 
-Format: `list <workout>`
+```
+exercise set edit EXERCISE_ID SET_ID r/<num_of_reps> m/<weight>
+```
 
-Examples:
+```
+Example use:
+exercise set edit 1 1 r/20 m/30
+```
 
-* `list MorningWorkout` +
-Returns `"BENCH_PRESS, OVERHEAD_PRESS"`
+The exercise set will be automatically updated in the exercise list. If so, the following message will be displayed in the feedback display:
 
-==== Export a workout plan: `export`
+```
+Edited exercise set: Deadlift
+```
 
-Exports a specified workout plan in a .txt format and saves it to the user’s computer.
+```
+NOTE:
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+* SET_ID refers to the index of the set in the exercise
+* <num_of_reps> has to be a positive integer
+* <weight> has to be a positive integer between 1 and 1000
+```
 
-Format: `export <workout>`
+==== Deleting a set in an exercise
+Want to delete an exercise set from the exercise? You can do so by simply entering this command:
 
-Examples:
+```
+exercise set delete EXERCISE_ID SET_ID
+```
 
-* `export NightWorkout`
+```
+Example use:
+exercise set delete 1 2
+```
 
-==== Import a workout plan: `export`
+The exercise set will be removed from the exercise, and the view will automatically update to show that the exercise no longer contains that set. If this is successful, the following message will be displayed in the feedback display:
 
-Imports a workout plan in .txt format from the user’s computer into the application.
+```
+Deleted Exercise Set: Deadlift
+```
 
-Format: `import <file_path> <workout>`
+```
+NOTE:
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+* SET_ID refers to the index of the set in the exercise
+```
 
-Examples:
+==== Listing all exercises
 
-* `import ./src/MyFriendsWorkout.txt MyFriendsWorkout`
+To show a list of exercises that you have created in ZeroToOne, simply enter this command into the command box:
 
-=== Exercise Commands
+```
+exercise list
+```
 
-==== Add an exercise to workout
+.Exercise List
+image::UgExerciseList.png[]
 
-Format: `add <workout> <exercise> <repetitions> <interval>`
+The User Interface will automatically switch to the “Exercise” tab, and the result display will automatically update with the list of exercises (Figure 6).
 
-Examples:
+==== Finding an exercise by name
 
-* `add Push BENCH_PRESS_60KG 5 180`
-* `add Push OVERHEAD_PRESS_20KG 20 120`
+To find and view the information of a particular exercise that you have previously created, you can simply enter this command:
 
-[TIP]
-The workout name is case-sensitive. +
-`repetitions` and `interval` must be positive integers. +
-`interval` is in seconds.
+```
+exercise find e/<exercise_name>
+```
 
-==== Edit an exercise in a workout
+```
+Example use:
+exercise find e/Bench Press
+```
 
-Edits the details of an exercise in a particular workout, such as the number of repetitions or interval.
+The Result Display will automatically update to only show exercises that match the search keyword.
 
-Format: `edit <workout> <exercise> <new_repetitions> <new_interval>`
+.Find Exercise
+image::UgFindExercise.png[]
 
-Examples:
+```
+NOTE:
+* <exercise_name> has to be a String, consisting of only Alphanumeric characters
+* <exercise_name> can be a partial substring of the full exercise name
+* <exercise_name> is not case-sensitive
+```
 
-* `edit Push BENCH_PRESS_60KG 6 200`
-* `edit Push OVERHEAD_PRESS_20KG 25 140`
+==== Changing an exercise’s name
 
-[TIP]
-The workout name is case-sensitive. +
-`new_repetitions` and `new_interval` must be positive integers. +
-`new_interval` is in seconds.
+Made a mistake while creating the exercise’s name? You can change the exercise name by simply running this command in the command box:
 
-==== Delete an exercise from a workout plan
-Deletes an exercise from a specified workout plan.
+```
+exercise edit EXERCISE_ID e/<exercise_name>
+```
 
-Format: `delete <workout> <exercise>`
+```
+Example use:
+exercise edit 1 e/Squat
+```
 
-Examples:
+The exercise in ZeroToOne will be automatically updated to show its new name. If this is successful, the following message will be displayed in the feedback display:
 
-* `delete Push BENCH_PRESS_60KG`
-* `delete Push OVERHEAD_PRESS_20KG`
+```
+Edited exercise: Squat
+```
 
-[TIP]
-The workout name is case-sensitive.
+```
+NOTE:
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+* <exercise_name> has to be a String, consisting of only Alphanumeric characters
+```
 
-=== Scheduling Workouts
-==== Schedule a single workout ongoingSession
-Schedules a single workout ongoingSession on a specified date and time.
+==== Deleting an exercise (In Progress)
 
-Format:
+Want to remove an exercise from ZeroToOne? You can do so by entering this command into the command box:
 
-`schedule single <workout> <date>`
+```
+exercise delete EXERCISE_ID
+```
 
-Examples:
+```
+Example use:
+exercise delete 1
+```
 
-* `schedule single Push 2020-03-14T0800`
-* `schedule single Pull 2020-03-05T2200`
+The exercise will be removed from ZeroToOne. At the same time, all current workouts that contain this exercise will also have this exercise removed. If this is successful, the following message will be displayed in the feedback display:
 
-[TIP]
-date must be in the format {yyyy}-{mm}-{dd}T{2359}.
+```
+Deleted Exercise: Deadlift
+```
 
-==== Schedule a recurring workout ongoingSession
-Schedules a recurring workout ongoingSession from specified date and time, with a frequency of the recurrence.
+```
+NOTE:
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+```
 
-Format:
+=== Managing Your Workouts
 
-`schedule recurring  <workout> <date>`
+After creating and modifying your exercises however you desire, it’s time to use those exercises to create workouts! In this section, we will walk you through how to manage all your workouts.
 
-Examples:
 
-* `schedule recurring Push 2020-03-14T0800`
-* `schedule recurring Pull 2020-03-05T2200`
+==== Creating a new workout
 
-==== Delete a workout ongoingSession
-Deletes a specified single workout ongoingSession from the user’s schedule for the specified date.
+To create a new workout, simply type the following command:
 
-Format:
+```
+workout create w/<workout_name>
+```
 
-`schedule single delete <workout> <date>`
+```
+Example use:
+workout create w/Abs Workout
+```
 
-Examples:
+.Creating A Workout
+image::UgCreateWorkout.png[]
 
-* `schedule single delete Push 2020-03-14T0800`
-* `schedule single delete Pull 2020-03-05T2200`
+The feedback display will let you know if the creation of your workout was successful. The application view will also update to display your new workout!
 
-==== Delete a recurring workout ongoingSession
-Deletes a recurring workout ongoingSession, clearing all of the future recurring sessions from the user’s whole schedule.
+==== Adding an exercise to a workout
 
-Format:
+After creating your workout, the next step is to add an exercise to it! To do so, simply enter the following command:
 
-`schedule recurring delete <workout>`
+```
+workout exercise add WORKOUT_ID EXERCISE_ID
+```
 
-Examples:
+```
+Example use:
+workout exercise add 1 3
+```
 
-* `schedule recurring delete Push`
-* `schedule recurring delete Pull`
+If this is successful, the following message will be displayed in the feedback display:
 
-==== List your schedule
-Displays a list of the user’s schedule, sorted in chronological order.
+```
+Added exercise to workout: Bench Press
+```
 
-Format: `schedule list`
+```
+NOTE:
+* WORKOUT_ID refers to the index of the workout in `workout list`
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+```
 
-=== Logging Workouts
+==== Changing an exercise in a workout (In Progress)
 
-==== Show log of workouts
-Displays an indexed log of the user’s past workouts, sorted in chronological order.
+If you add the wrong exercise to a workout by mistake, or want to change a particular exercise to a different one, no worries! You can run this command:
 
-Format: `session`
+```
+workout exercise edit WORKOUT_ID EXERCISE_ID NEW_EXERCISE_ID
+```
 
-==== Delete log of past workout
-Deletes the log information at the specified log_index.
-The index refers to the index number displayed on the log list.
+```
+Example use:
+workout exercise edit 1 2 3
+```
 
-Format: `log delete <log_index>`
+This command allows you to edit an exercise in a workout, by replacing the exercise corresponding to `EXERCISE_ID` with the exercise corresponding to `NEW_EXERCISE_ID`. ZeroToOne will automatically update the exercise in the workout on your result display.  If this is successful, the following message will be displayed in the feedback display:
 
-[TIP]
-The index must be a positive integer i.e. 1, 2, 3…
+```
+Edited exercise in workout: Overhead Press
+```
 
+```
+NOTE:
+* WORKOUT_ID refers to the index of the workout in `workout list`
+* EXERCISE_ID refers to the index of the exercise in `workout find w/<workout_name>`
+* NEW_EXERCISE_ID refers to the index of the exercise in `exercise list`
+```
 
-==== Find a past workout
-Finds a past workout by date or keyword. Query types: DATE, EXERCISE, WORKOUT, SCHEDULE.
+==== Deleting an exercise in a workout
 
-Format: `log find <query_type> <params>`
+If editing an exercise does not work for your purposes, you can also choose to simply delete any exercise from a workout. You may type the following command:
 
-Examples:
+```
+workout exercise delete WORKOUT_ID EXERCISE_ID
+```
 
-* `log find DATE 2020-02-18T1600`
-* `log find EXERCISE BENCH_PRESS_60KG`
+```
+Example use:
+workout exercise delete 1 3
+```
 
-[TIP]
-The search is case-sensitive for the params.
-Only full words will be matched.
+ZeroToOne will delete the set with the specified set ID, from the exercise with the specified exercise ID. If this is successful, the following message will be displayed in the feedback display:
 
-==== Show a graphical progress chart
-Displays a line graph of the past workouts progress.
+```
+Deleted workout exercise: Strength Training Workout set:
+```
 
-Format: `chart`
+```
+NOTE:
+* WORKOUT_ID refers to the index of the workout in `workout list`
+* EXERCISE_ID refers to the index of the exercise in `exercise list`
+```
 
+==== Listing all workouts
+
+Now that we have covered how to manage individual workouts, how about viewing all your workouts in one place? Simply type the following command:
+
+```
+workout list
+```
+
+.Workout List
+image::UgWorkoutList.png[]
+
+ZeroToOne will show you a list of all the workouts you have created! From this list, you can see the names of all your workouts, as well as their corresponding workout IDs.
+
+==== Finding a workout by name (In Progress)
+
+You may find that you need to know a workout’s ID for some commands, or that you need to retrieve the details of a specific workout. Fret not! Simply type the following command:
+
+```
+workout find w/<workout_name>
+```
+
+```
+Example use:
+workout find w/Strength Training
+```
+
+.Find Workout
+image::UgFindWorkout.png[]
+
+ZeroToOne will return a list of all the workouts whose name matches the workout name you have typed into the command. From this command, you can find out the workout ID number of the workout you are looking for, as well as see the details of each exercise in the workout.
+
+```
+NOTE:
+* <workout_name> is not case sensitive
+* <workout_name> can be a partial substring of the actual workout name
+```
+
+==== Changing a workout’s name
+
+If you ever want to change the name of a workout, simply type this command:
+
+```
+workout edit WORKOUT_ID w/<new_workout_name>
+```
+
+```
+Example use:
+workout edit 1 w/Arms Training
+```
+
+ZeroToOne will update its display to show you the new workout name.  If this is successful, the following message will be displayed in the feedback display:
+
+```
+Edited workout: Arms Training
+```
+
+```
+NOTE:
+* WORKOUT_ID refers to the index of the workout in `workout list`
+```
+
+==== Deleting a workout
+
+To delete a workout from ZeroToOne, simply type this command:
+
+```
+workout delete WORKOUT_ID
+```
+
+```
+Example use:
+workout delete 1
+```
+
+ZeroToOne will update its display to show you the updated list of workouts. If this is successful, the following message will be displayed in the feedback display:
+
+```
+Deleted Workout: Arms Training
+```
+
+```
+NOTE:
+* WORKOUT_ID refers to the index of the workout in `workout list`
+```
+
+==== Exporting a workout plan to a file (Proposed)
+
+Do you enjoy sharing your fitness journey with your friends? Well, this feature allows you to share your workouts with your friends, so you can help each other out in the journey to become fit!
+
+```
+workout export WORKOUT_ID p/<file_path>
+```
+
+```
+Example use:
+workout export 1 p/data/myWorkout.txt
+```
+
+If this is successful, the following message will be displayed in the feedback display:
+
+```
+Successfully exported workout 1 to /data/myWorkout.txt!
+```
+
+==== Importing a workout plan from a file (Proposed)
+
+ZeroToOne will import a workout from a plain text file stored in the specified file_path in your computer. This feature allows you to get workouts from your friends, so you can help each other out in the journey to become fit.
+
+```
+workout import p/<file_path>
+```
+
+```
+Example use:
+workout import p/data/myFriendsWorkout.txt
+```
+
+If this is successful, the following message will be displayed in the feedback display:
+
+```
+Successfully imported /data/myFriendsWorkout.txt into ZeroToOne!
+```
+
+=== Managing Your Scheduled Sessions
+
+You are now an expert in managing your workouts, and can start a workout any time! However, wouldn’t you like to have the ability to schedule your workout sessions? In this section, we will guide you to learn how ZeroToOne can help you in this aspect!
+
+==== Scheduling a new workout session
+
+To schedule a new workout session, simply type in this command:
+
+```
+schedule create WORKOUT_ID d/<datetime>
+```
+
+```
+Example use:
+schedule create 1 d/2020-02-06 18:00
+```
+
+.Scheduling a workout session
+image::UgScheduleSession.png[]
+
+```
+NOTE:
+WORKOUT_ID refers to the index of the workout in `workout list`
+<datetime> must follow the format {yyyy}-{mm}-{dd} {HH:mm}
+```
+
+==== Listing all future scheduled sessions
+
+To view all of your future schedule sessions, type the following command:
+
+```
+schedule list
+```
+
+.Calendar display of schedule
+image::UgCalendarSchedule.png[]
+
+ZeroToOne displays an intuitive calendar view, showing your upcoming schedule! From this graphical view, you can see what workout sessions are coming up, as well as their corresponding schedule IDs.
+
+==== Changing a scheduled session to another date
+
+If you need to shift your scheduled session to another date, try the following command:
+
+```
+schedule edit SCHEDULED_WORKOUT_ID d/<datetime>
+```
+
+```
+Example use:
+schedule edit 1 d/2020-02-08T1800
+```
+
+If this is successful, the following message will be displayed in the feedback display:
+
+```
+Edited schedule: Strength Workout on 2020-02-08 18:00
+```
+
+```
+NOTE:
+* SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
+* <datetime> must follow the format {yyyy}-{mm}-{dd} {HH:mm}
+```
+
+==== Deleting a scheduled session
+
+Want to delete a scheduled session? You can do so by typing the following command:
+
+```
+schedule delete SCHEDULED_WORKOUT_ID
+```
+
+```
+Example use:
+schedule delete 1
+```
+
+This deletes an existing scheduled workout session with the corresponding scheduled workout ID. If this is successful, the following message will be displayed in the feedback display:
+
+```
+Deleted scheduled workout: Strength Training
+```
+
+```
+NOTE:
+* SCHEDULED_WORKOUT_ID refers to the index of the scheduled workout in `schedule list`
+```
+
+==== Scheduling a recurring workout session (Proposed)
+
+Sometimes you will want to schedule a workout session that repeats over time, with a certain frequency. No problem! Simply type the following command:
+
+```
+schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
+```
+
+```
+Example use:
+schedule recurring create WORKOUT_ID d/2020-03-26T1000 f/MONTHLY
+```
+
+For example, if you want to have the workout Arms Workout on a monthly basis, starting from the 26th of March 2020 at 10am, you can type `schedule recurring create WORKOUT_ID d/2020-03-26T1000 f/MONTHLY`.  If this is successful, the following message will be displayed in the feedback display:
+
+```
+New recurring schedule added: Strength Workout on 2020-02-06 18:00 Monthly
+```
+
+```
+NOTE:
+* WORKOUT_ID refers to the index of the workout in `workout list`
+* <datetime> must follow the format {yyyy}-{mm}-{dd} {HH:mm}
+* <frequency> must be one of the following: DAILY, WEEKLY, MONTHLY
+```
+
+=== Managing Your Session Logs (In Progress)
+You have successfully gone through the whole process of managing your workouts and scheduling them, good job! To take it one step further, ZeroToOne also allows you to log your past completed workout sessions. Read on to learn how!
+
+==== Viewing your logs
+To view a list of all your logged past workout sessions, simply type the following command:
+
+```
+log list
+```
+
+.List of logged workout sessions
+image::UgLogList.png[]
+
+ZeroToOne will display a list of all the logged workout sessions you have carried out. Here, you can see all the logged sessions as well as their corresponding log ID number.
+
+==== Filtering your logs
+
+We understand that viewing too many logs at once can be confusing at times, so finding a particular log can be difficult. In order to filter your logs by a search query, simply type the following command:
+
+```
+log find {st/<datetime> | et/<datetime> | e/<exercise_name>}
+```
+
+[.example-use]
+--
+Example uses:
+log find et/2020-04-27 10:10
+log find st/2020-04-27 10:10
+log find e/Deadlift
+--
+
+ZeroToOne will return a list of all the logged sessions whose name matches either the datetime, the exercise_name, or the workout_name you have typed into the command. From this command, you can find out the log ID number of the logged session you are looking for, as well as see the details of the logged session. If this is successful, the following message will be displayed in the feedback display:
+
+```
+Listed 1 logged workout session(s)!
+```
+
+==== Deleting a logged session
+
+Want to delete a logged workout session? Simply type in the following command:
+
+```
+log delete LOG_ID
+```
+
+```
+Example use:
+log delete 1
+```
+
+The view will automatically update with the updated list of logged sessions. If this is successful, the following message will be displayed in the feedback display:
+
+```
+Successfully deleted: Arms Workout at 2020-02-04 10:00!
+```
+
+```
+NOTE:
+* LOG_ID refers to the index of the logged past workout session in `log list`
+```
+
+==== Displaying progress in a graphical view (Proposed)
+
+To view your progress in a graphical view, simply type the following command:
+
+```
+log display
+```
+
+```
+Example use:
+exercise set add 1 r/2 m/30
+```
+
+.Graphical view of logs
+image::UgGraphicalLogs.png[]
+
+ZeroToOne will display a graphical line chart that depicts your overall progress. This means you can quickly see at a glance how successful you have been in completing your sessions. This can help motivate you to work harder to improve, or continue maintaining your progress.
+
+== Troubleshooting
+
+. How do I transfer my data to another computer?
+.. Install the app on the other computer.
+.. Copy the `/data` folder from the old computer to the new computer and place it in the folder you are running the app from.
+
+. I am unable to view the GUI.
+.. Ensure that you have Java 11 installed on your computer.
+.. You can check your current Java version by opening up a Command Prompt or Terminal, and entering `java -version`.
+.. Do install Java 11 if it is not installed. If installing Java 11 does not work, then try installing JavaFX 11 Dependencies on your computer.
+
+. I cannot double-click on the application!
+.. Ensure that you have Java 11 installed on your computer.
+.. Open up a Command Prompt or Terminal
+.. Navigate to the directory that ZeroToOne is stored in
+.. Run `java -jar <zerotoone_filename>.jar`
+
+
+== Command List
+*GLOBAL FLAGS*
+```
+e/ - exercise name
+w/ - workout name
+s/ - number of sets
+r/ - number of reps
+m/ - weights
+d/ - datetime
+f/ - frequency
+p/ - file path
+```
+
+*General: <command> <arguments>*
+```
+start WORKOUT_ID
+stop
+done
+skip
+help
+exit
+```
+
+*Exercise: exercise <command> <arguments>*
+```
+exercise create e/<exercise_name>
+exercise set add EXERCISE_ID r/<num_reps> m/<weight>
+exercise set delete EXERCISE_ID SET_ID
+exercise set edit EXERCISE_ID SET_ID r/<num_reps> m/<weight>
+exercise find e/<exercise_name>
+exercise list
+exercise edit EXERCISE_ID e/<exercise_name>
+exercise delete EXERCISE_ID
+```
+
+*Workout: workout <command> <arguments>*
+```
+workout create w/<workout_name>
+workout exercise add WORKOUT_ID EXERCISE_ID
+workout exercise edit WORKOUT_ID EXERCISE_ID NEW_EXERCISE_ID
+workout exercise delete WORKOUT_ID EXERCISE_ID
+workout find w/<workout_name>
+workout delete WORKOUT_ID
+workout list
+workout edit WORKOUT_ID w/<workout_name>
+workout export WORKOUT_ID p/<file_path>
+workout import p/<file_path>
+```
+
+*Schedule: schedule <command> <arguments>*
+```
+schedule create WORKOUT_ID d/<datetime>
+schedule edit SCHEDULED_WORKOUT_ID d/<datetime>
+schedule delete SCHEDULED_WORKOUT_ID
+schedule list
+schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
+```
+
+*Log: log <command> <arguments>*
+```
+log list
+log delete LOG_ID
+log find [st/<datetime>] [et/<datetime>] [e/<exercise_name>] [w/<workout_name>]
+log display
+```
+
+== Glossary
+*CLI*
+
+Stands for Command Line Interface, which processes commands to a computer program in the form of lines of text.
+
+*Exercise*
+
+A single type of exercise, for example push ups or crunches.
+
+*Gradle*
+
+A build automation tool...
+
+*GUI*
+
+Stands for Graphical User Interface, which is a form of user interface that allows
+users to interact with electronic devices through graphical means, not textual means.
+
+*Instance*
+
+A specific instantiation of an object.
+
+*Java*
+
+A programming language...
+
+*Mainstream OS*
+
+Windows, Linux, Unix, OS-X
+
+*Schedule*
+
+A workout that has been planned to be carried out on a specific date or dates.
+
+*Session*
+
+An instance of a workout, whereby the workout is a template for a session.
+
+*Set*
+
+An exercise set that consists of the number of repetitions and its weight.
+
+*Workout*
+
+A list of exercises to be done together, in a certain order.
