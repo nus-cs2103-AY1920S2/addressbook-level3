@@ -20,7 +20,7 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
      * defines the type of transaction
      */
     public enum TransactionType {
-        BUY_TRANSACTION, SELL_TRANSACTION
+        BUY_TRANSACTION, SELL_TRANSACTION, EMPTY
     }
 
     /**
@@ -40,7 +40,7 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
                 PREFIX_GOOD_NAME);
 
         // preamble stores the type of transaction
-        TransactionType typeOfTransaction = null;
+        TransactionType typeOfTransaction = TransactionType.EMPTY;
         String preamble = argMultimap.getPreamble();
         switch (preamble.trim()) {
         case "":
@@ -69,7 +69,8 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         }
 
         // at least one field must be provided
-        if (typeOfTransaction == null && supplierNameKeywords.length == 0 && goodNameKeywords.length == 0) {
+        if (typeOfTransaction.equals(TransactionType.EMPTY)
+                && supplierNameKeywords.length == 0 && goodNameKeywords.length == 0) {
             throw new ParseException(FindTransactionCommand.MESSAGE_NOT_FIELD_PROVIDED);
         }
 

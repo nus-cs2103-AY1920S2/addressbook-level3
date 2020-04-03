@@ -1,5 +1,7 @@
 package seedu.address.model.transaction;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,11 +19,11 @@ public class TransactionContainKeywordsPredicate implements Predicate<Transactio
 
     public TransactionContainKeywordsPredicate(TransactionType transactionType,
                                                List<String> supplierNameKeywords, List<String> goodNameKeywords) {
+        requireAllNonNull(transactionType, supplierNameKeywords, goodNameKeywords);
         this.transactionType = transactionType;
         this.supplierNameKeywords = supplierNameKeywords;
         this.goodNameKeywords = goodNameKeywords;
     }
-
 
     // fulfill all 3 tests
     @Override
@@ -39,7 +41,7 @@ public class TransactionContainKeywordsPredicate implements Predicate<Transactio
      */
     private boolean testTransactionType(Transaction transaction) {
         // transactionType unspecified
-        if (transactionType == null) {
+        if (transactionType.equals(TransactionType.EMPTY)) {
             return true;
         }
         // type of transaction matches the transactionType
