@@ -1621,8 +1621,8 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The second index phone number is changed to 9952 1654
 .. Test case: `edit` `1` `a/Blk 123 Pasir Ris street 51 #12-23 S510123` +
    Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
-.. Test case: `edit` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S521731` +
-   Expected: The first index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S521731
+.. Test case: `edit` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S609601` +
+   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S609601
 .. Test case: `edit` `1` `ts/09/08/2020` +
    Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020
 .. Test case: `edit` `1` `ts/02/02/2020` (Assuming this date has passed) +
