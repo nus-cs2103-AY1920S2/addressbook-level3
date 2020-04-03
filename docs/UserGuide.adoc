@@ -126,6 +126,8 @@ HYBB uses the following tags to make sense of user input:
 
 === Legend
 From sections 6 to 11, the following notations may be used.
+
+[cols="1a,1"]
 |===
 |Notation |Meaning
 
@@ -133,13 +135,13 @@ From sections 6 to 11, the following notations may be used.
 |< > |Optional field. e.g. `n/NAME <g/GOAL>` can be used as `n/Spicy Chicken g/Bulk like the Hulk` or as `n/Spicy Chicken`
 |[ < > ] |At least one of the optional fields is necessary
 |… | One or more of this same field can be added. e.g. `<g/GOAL>...` can be used as `{nbsp}` (i.e. 0 times), `g/Bulk like the Hulk`, `g/Wholesome Wholemeals`, `g/Herbivore` etc.
-|image::Tip.png| Tip
+|image::Tip.png[] | Tip
 |===
 
 
 [TIP]
 Parameters can be in any order e.g. if the command specifies `n/NAME t/TIME`, `t/TIME n/NAME` is also acceptable. +
-Commands are case-insensitive, but tags are case-sensitive.
+Also, commands are case-insensitive, but tags are case-sensitive.
 
 [[Features]]
 == Basic Commands
@@ -197,6 +199,9 @@ Format: `delete [recipe index] <recipe index>...`
 Example: `delete 1 3 4` +
 Deletes recipe 1, 3, and 4 from the recipe book.
 
+[TIP]
+You can delete multiple recipes at the same time (at least one recipe must be deleted).
+
 === Favourite a recipe: `favourite`
 Favourites the recipe(s) that you have specified. +
 Format: `favourite [recipe index] <recipe index>...`
@@ -205,7 +210,7 @@ Example: `favourite 1 3 4` +
 Favourites recipes 1, 3, and 4.
 
 [TIP]
-You can favourite multiple recipes at a time (at least one recipe must be favourited).
+You can favourite multiple recipes at the same time (at least one recipe must be favourited).
 
 === Unfavourite a recipe: `unfavourite`
 Unfavourites the recipe(s) that you have specified. +
@@ -215,7 +220,7 @@ Example: `unfavourite 1 3 4` +
 Unfavourites recipes 1, 3, and 4.
 
 [TIP]
-You can unfavourite multiple recipes at a time (at least one recipe must be unfavourited).
+You can unfavourite multiple recipes at the same time (at least one recipe must be unfavourited).
 
 === Clear the recipe book : `clear`
 Clears the recipe book. After entering this command, the recipe book will be empty and all planned recipes
@@ -353,11 +358,11 @@ View all the plans for the week. +
 Format: `viewWeek`
 
 == Goal Feature
-=== Add a custom goal to track: `addGoal`
+=== Add a custom goal to track: `addGoal` [Coming in v1.4]
 Adds a goal chosen by user from the given goals to start tracking progress. +
 Format: `addGoal [g/goal]`
 
-=== Remove goal: `removeGoal`
+=== Remove goal: `removeGoal` [Coming in v1.4]
 Removes a goal that the user had selected. This goal will no longer be tracked. +
 Format: `removeGoal [g/goal]`
 
@@ -367,9 +372,12 @@ Format: `listGoals`
 
 === Track cooked meals: `cooked`
 Tracks all cooked meals and added to the progress of their respective goals. +
-Format: `cooked [n/name] [g/goal]`
+Format: `cooked [recipe index] <recipe index>...`
 
-=== Show graph of goals: `chart`
+[TIP]
+You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
+
+=== Show graph of goals: `chart` [Coming in v1.4]
 Shows weekly progress of respective goal through graph. +
 Format: `chart [g/goal]`
 
