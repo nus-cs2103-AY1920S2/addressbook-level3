@@ -20,8 +20,8 @@ public class TimeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Provides a time to the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer), TIME (hh:MM)\n"
-            + "Example: " + COMMAND_WORD + " 1" + " 00:59 ";
+            + "Parameters: INDEX (must be a positive integer), TIME (hh:MM:ss) *minutes and seconds are optional*\n"
+            + "Example: " + COMMAND_WORD + " 1" + " 00:59:00 ";
 
     public static final String MESSAGE_TIME_RECIPE_SUCCESS = "Time for Recipe: %1$s %2$s";
 

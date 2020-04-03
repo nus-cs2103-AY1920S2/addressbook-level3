@@ -25,7 +25,7 @@ public class TimeCommandParser implements Parser<TimeCommand> {
             return new TimeCommand(index, time);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getLocalizedMessage(), TimeCommand.MESSAGE_USAGE));
         }
     }
 
