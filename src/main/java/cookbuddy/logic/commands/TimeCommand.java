@@ -20,10 +20,10 @@ public class TimeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Provides a time to the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer), TIME (must be a positive integer, in minutes)\n"
-            + "Example: " + COMMAND_WORD + " 1" + " 60 ";
+            + "Parameters: INDEX (must be a positive integer), TIME (hh:MM)\n"
+            + "Example: " + COMMAND_WORD + " 1" + "00:59 ";
 
-    public static final String MESSAGE_FAV_RECIPE_SUCCESS = "Time for Recipe: %1$s %s min";
+    public static final String MESSAGE_FAV_RECIPE_SUCCESS = "Time for Recipe: %1$s %2$s";
 
     private final Index targetIndex;
     private final Time prepTime;
@@ -44,7 +44,7 @@ public class TimeCommand extends Command {
 
         Recipe recipeToSet = lastShownList.get(targetIndex.getZeroBased());
         model.setTime(recipeToSet, prepTime);
-        return new CommandResult(String.format(MESSAGE_FAV_RECIPE_SUCCESS, recipeToSet.getName()));
+        return new CommandResult(String.format(MESSAGE_FAV_RECIPE_SUCCESS, recipeToSet.getName(), recipeToSet.getPrepTime()));
     }
 
     @Override

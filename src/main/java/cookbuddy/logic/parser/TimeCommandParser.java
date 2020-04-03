@@ -19,10 +19,9 @@ public class TimeCommandParser implements Parser<TimeCommand> {
      */
     public TimeCommand parse(String args) throws ParseException {
         try {
-            String[] argz = args.substring(1).split(" ");
-            Index index = ParserUtil.parseIndex(argz[0]);
-           // String[] argz = args.split(" ");
-            Time time = ParserUtil.parseTime(argz[1]);
+            String[] splitArgs = args.substring(1).split(" ");
+            Index index = ParserUtil.parseIndex(splitArgs[0]);
+            Time time = ParserUtil.parseTime(splitArgs[1]);
             return new TimeCommand(index, time);
         } catch (ParseException pe) {
             throw new ParseException(

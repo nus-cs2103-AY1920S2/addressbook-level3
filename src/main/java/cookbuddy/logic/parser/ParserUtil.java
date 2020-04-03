@@ -187,11 +187,19 @@ public class ParserUtil {
 
 
     public static Time parseTime(String timeString) throws ParseException {
+        int hour;
+        int min = 0;
+        int sec = 0;
         requireNonNull(timeString);
         String trimmedTime = timeString.trim();
         String[] timeArray = trimmedTime.split(":");
-        int hour = Integer.valueOf(timeArray[0]);
-        int min = Integer.valueOf(timeArray[1]);
+        hour = Integer.parseInt(timeArray[0]);
+        if(timeArray.length > 1) {
+            min = Integer.parseInt(timeArray[1]);
+            if (timeArray.length > 2) {
+                sec = Integer.parseInt(timeArray[2]);
+            }
+        }
         if (!Time.isValidHour(hour)) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS_HOUR);
         }
@@ -200,7 +208,11 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS_MIN);
         }
 
-        return new Time(hour, min, 0);
+        if(!Time.isValidSec(sec)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_SEC);
+        }
+
+        return new Time(hour, min, sec);
 
     }
 

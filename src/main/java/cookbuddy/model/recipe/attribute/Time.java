@@ -11,9 +11,9 @@ import static java.util.Objects.requireNonNull;
  */
 public class Time {
 
-    public static final String MESSAGE_CONSTRAINTS_HOUR = "Hours should be < 20";
-    public static final String MESSAGE_CONSTRAINTS_MIN = "Mins should be <= 60";
-    public static final String MESSAGE_CONSTRAINTS_SEC = "Secs should be <= 60";
+    public static final String MESSAGE_CONSTRAINTS_HOUR = "The recipe should be between 0 and 72 hours long, inclusive";
+    public static final String MESSAGE_CONSTRAINTS_MIN = "Mins should be < 60";
+    public static final String MESSAGE_CONSTRAINTS_SEC = "Secs should be < 60";
 
 
 
@@ -45,15 +45,15 @@ public class Time {
      */
 
     public static boolean isValidHour(int test) {
-        return (test >= 0);
+        return (test >= 0 && test <= 72);
     }
 
     public static boolean isValidMin(int test) {
-        return (test < 60);
+        return (test >= 0 && test < 60);
     }
 
     public static boolean isValidSec(int test) {
-        return (test < 60);
+        return (test >= 0  && test < 60);
     }
 
     public void setTime(Time preptime) {
@@ -77,28 +77,24 @@ public class Time {
     @Override
     public String toString() {
         String toReturn = "";
-        if(hour > 23) {
-            toReturn += ("Long!");
+        if ((hour + min + sec) == 0) {
+            toReturn += "-";
         } else {
-            if ((hour + min + sec) == 0) {
-                toReturn += "-";
-            } else {
-                if (hour < 10) {
-                    toReturn += "0";
-                }
-                toReturn += String.valueOf(hour);
-                toReturn += ":";
-                if (min < 10) {
-                    toReturn += "0";
-                }
-                toReturn += String.valueOf(min);
-                toReturn += ":";
-                if (sec < 10) {
-                    toReturn += "0";
-                }
-                toReturn += String.valueOf(sec);
+            if (hour < 10) {
+                toReturn += "0";
             }
-        }
+            toReturn += String.valueOf(hour);
+            toReturn += ":";
+            if (min < 10) {
+                toReturn += "0";
+            }
+            toReturn += String.valueOf(min);
+            toReturn += ":";
+            if (sec < 10) {
+                toReturn += "0";
+            }
+            toReturn += String.valueOf(sec);
+            }
         return toReturn;
     }
 
