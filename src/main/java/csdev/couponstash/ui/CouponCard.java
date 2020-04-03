@@ -3,6 +3,7 @@ package csdev.couponstash.ui;
 import java.util.Comparator;
 
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.tag.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -79,7 +80,7 @@ public class CouponCard extends UiPart<Region> {
         startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
         setTags(coupon, tags);
-        setTags(coupon, tagsDup);
+        setTags(coupon, tagsDup); // duplicate is needed for UI purposes
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("T&C: " + coupon.getCondition().value);
         // set savings pane
@@ -90,10 +91,28 @@ public class CouponCard extends UiPart<Region> {
     }
 
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {
-        coupon.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .limit(5)
-                .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
+        Object[] tagsArr = coupon.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName.length()))
+                .toArray();
+
+        int maxTotalLength = 55;
+        boolean isSkiped = false;
+
+        for (Object tag : tagsArr) {
+            Tag currentTag = ((Tag) tag);
+            int currentTagNameLength = currentTag.tagName.length();
+            if (currentTagNameLength < maxTotalLength) {
+                tagFlowPane.getChildren().add(new Label(currentTag.tagName));
+                maxTotalLength -= currentTagNameLength;
+            } else {
+                isSkiped = true;
+            }
+        }
+
+        // add ellipses to indicate more off screen tags
+        if (isSkiped) {
+            tagFlowPane.getChildren().add(new Label("and more..."));
+        }
     }
 
     public void setId(Label idLabel, int index) {
