@@ -43,9 +43,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`(ab)list`* : lists all contacts
+* **`(ab)add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`(ab)delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -174,30 +174,28 @@ Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* There should be at least one i/INFO
+* There should be at least one i/INFO specified.
 ****
 
 ==== Edit additional information about contacts: `(ab)editnote`
 
 Edit additional information about contacts using the Note Taker +
-Format: `(ab)editnote INDEX [-l/LINE_NUMBER] i/INFO`
+Format: `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If [-l] is not specified, all information will be replaced by the new one in INFO
-* [-l] Line number of information to be replaced
+* l/LINE_NUMBER Line number of information to be replaced
 ****
 
 ==== Delete additional information about contacts: `(ab)deletenote`
 
 Delete additional information about contacts using the Note Taker +
-Format: `(ab)deletenote INDEX [-l/LINE_NUMBER]`
+Format: `(ab)deletenote INDEX l/LINE_NUMBER`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
 * If none of the optional switches are specified, all information will be deleted
-* [-l] Line number of information to be deleted
-* [-k] Delete all lines that contain this keyword
+* l/LINE_NUMBER Line number of information to be deleted
 ****
 
 ==== Finding a specific contact/a specific set of contacts: `(ab)find`

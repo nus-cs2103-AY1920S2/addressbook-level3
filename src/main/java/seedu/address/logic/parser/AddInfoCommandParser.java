@@ -4,11 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.person.Remark;
 
 /**
@@ -20,7 +21,7 @@ public class AddInfoCommandParser implements Parser<AddInfoCommand> {
      * and returns a {@code RemarkCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddInfoCommand parse(String args, Model model) throws ParseException {
+    public AddInfoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_REMARK);
@@ -33,9 +34,13 @@ public class AddInfoCommandParser implements Parser<AddInfoCommand> {
                     AddInfoCommand.MESSAGE_USAGE), ive);
         }
 
-        String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
+        if (!argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInfoCommand.MESSAGE_USAGE));
+        }
 
-        return new AddInfoCommand(index, new Remark(remark));
+        ArrayList<Remark> remark = ParserUtil.parseRemarks(argMultimap.getAllValues(PREFIX_REMARK));
+
+        return new AddInfoCommand(index, remark);
     }
 
 }

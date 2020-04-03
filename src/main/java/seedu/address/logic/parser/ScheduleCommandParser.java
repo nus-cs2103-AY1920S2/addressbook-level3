@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 
 /**
  * Parsers input for the new schedule command.
@@ -20,7 +19,7 @@ public class ScheduleCommandParser {
      * and returns a ScheduleCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ScheduleCommand parse(String args, Model model) throws ParseException {
+    public ScheduleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NUM_DAYS);
 
