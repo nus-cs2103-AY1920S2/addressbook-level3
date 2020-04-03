@@ -11,7 +11,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import tatracker.commons.exceptions.IllegalValueException;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.TaTracker;
-import tatracker.model.student.Student;
+import tatracker.model.module.Module;
+import tatracker.model.session.Session;
 
 /**
  * An Immutable TaTracker that is serializable to JSON format.
@@ -19,16 +20,23 @@ import tatracker.model.student.Student;
 @JsonRootName(value = "tatracker")
 class JsonSerializableTaTracker {
 
-    public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
+    public static final String MESSAGE_DUPLICATE_SESSIONS = "Session list contains duplicate session(s).";
+    public static final String MESSAGE_DUPLICATE_MODULES = "Module list contains duplicate module(s).";
 
-    private final List<JsonAdaptedStudent> students = new ArrayList<>();
+    private final List<JsonAdaptedSession> sessions = new ArrayList<>();
+    private final List<JsonAdaptedSession> doneSessions = new ArrayList<>();
+    private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableTaTracker} with the given students.
+     * Constructs a {@code JsonSerializableTaTracker} with the given lists.
      */
     @JsonCreator
-    public JsonSerializableTaTracker(@JsonProperty("students") List<JsonAdaptedStudent> students) {
-        this.students.addAll(students);
+    public JsonSerializableTaTracker(@JsonProperty("sessions") List<JsonAdaptedSession> sessions,
+                                     @JsonProperty("doneSessions") List<JsonAdaptedSession> doneSessions,
+                                     @JsonProperty("modules") List<JsonAdaptedModule> modules) {
+        this.sessions.addAll(sessions);
+        this.doneSessions.addAll(doneSessions);
+        this.modules.addAll(modules);
     }
 
     /**
@@ -37,7 +45,20 @@ class JsonSerializableTaTracker {
      * @param source future changes to this will not affect the created {@code JsonSerializableTaTracker}.
      */
     public JsonSerializableTaTracker(ReadOnlyTaTracker source) {
-        students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
+        sessions.addAll(source.getSessionList()
+                .stream()
+                .map(JsonAdaptedSession::new)
+                .collect(Collectors.toList()));
+
+        doneSessions.addAll(source.getDoneSessionList()
+                .stream()
+                .map(JsonAdaptedSession::new)
+                .collect(Collectors.toList()));
+
+        modules.addAll(source.getModuleList()
+                .stream()
+                .map(JsonAdaptedModule::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -46,15 +67,42 @@ class JsonSerializableTaTracker {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public TaTracker toModelType() throws IllegalValueException {
-        TaTracker taTracker = new TaTracker();
-        for (JsonAdaptedStudent jsonAdaptedStudent : students) {
-            Student student = jsonAdaptedStudent.toModelType();
-            if (taTracker.hasStudent(student)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
+        // ==== Sessions ====
+        final List<Session> modelSessions = new ArrayList<>();
+        for (JsonAdaptedSession jsonAdaptedSession : sessions) {
+            Session session = jsonAdaptedSession.toModelType();
+            if (modelSessions.contains(session)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSIONS);
             }
-            taTracker.addStudent(student);
+            modelSessions.add(session);
         }
+
+        // ==== Done Sessions ====
+        final List<Session> modelDoneSessions = new ArrayList<>();
+        for (JsonAdaptedSession jsonAdaptedSession : doneSessions) {
+            Session session = jsonAdaptedSession.toModelType();
+            if (modelDoneSessions.contains(session)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSIONS);
+            }
+            modelDoneSessions.add(session);
+        }
+
+        // ==== Modules ====
+        final List<Module> modelModules = new ArrayList<>();
+        for (JsonAdaptedModule jsonAdaptedModule : modules) {
+            Module module = jsonAdaptedModule.toModelType();
+            if (modelModules.contains(module)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULES);
+            }
+            modelModules.add(module);
+        }
+
+        // ==== Build ====
+        TaTracker taTracker = new TaTracker();
+        modelSessions.forEach(taTracker::addSession);
+        modelDoneSessions.forEach(taTracker::addDoneSession);
+        modelModules.forEach(taTracker::addModule);
+
         return taTracker;
     }
-
 }

@@ -2,13 +2,23 @@ package tatracker.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
+import tatracker.logic.commands.CommandDetails;
+import tatracker.logic.commands.CommandDictionary;
 
 /**
  * Controller for a help page
@@ -16,32 +26,61 @@ import tatracker.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
+
+    private static final ObservableList<CommandDetails> COMMAND_DETAILS = FXCollections
+            .observableArrayList(CommandDictionary.getCommandDetails());
+
+    private HelpListPanel helpListPanel;
+
+    @FXML
+    private StackPane helpListPanelPlaceholder;
 
     @FXML
     private Button copyButton;
 
     @FXML
-    private Label helpMessage;
+    private Label website;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpWindow(Stage root) {
+    public HelpWindow(Stage root, GuiSettings guiSettings) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+
+        if (guiSettings.getWindowCoordinates() != null) {
+            root.setX(guiSettings.getWindowCoordinates().getX());
+            root.setY(guiSettings.getWindowCoordinates().getY());
+        }
+        website.setText(USERGUIDE_URL);
+
+        helpListPanel = new HelpListPanel(COMMAND_DETAILS);
+        helpListPanelPlaceholder.getChildren().add(helpListPanel.getRoot());
+
+        getRoot().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                logger.info("escaped");
+
+                if (t.getCode() == KeyCode.ESCAPE) {
+                    getRoot().show();
+                    logger.info("click on escape");
+                    root.close();
+                }
+            }
+        });
     }
 
     /**
      * Creates a new HelpWindow.
+     * @param guiSettings for resizing the window.
      */
-    public HelpWindow() {
-        this(new Stage());
+    public HelpWindow(GuiSettings guiSettings) {
+        this(new Stage(), guiSettings);
     }
 
     /**

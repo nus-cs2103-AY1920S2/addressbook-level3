@@ -1,7 +1,7 @@
 package tatracker.logic.parser.module;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
+import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.stream.Stream;
 
@@ -9,10 +9,8 @@ import tatracker.logic.commands.module.DeleteModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.module.Module;
 
 /**
  * Parses input arguments and creates a new DeleteModuleCommand object
@@ -26,18 +24,17 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
      */
     public DeleteModuleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, MODULE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
+        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
 
-        Module module = new Module(moduleCode, null);
-
-        return new DeleteModuleCommand(module);
+        return new DeleteModuleCommand(moduleCode);
     }
 
     /**

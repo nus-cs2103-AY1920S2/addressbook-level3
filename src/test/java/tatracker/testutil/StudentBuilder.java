@@ -7,6 +7,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 import tatracker.model.util.SampleDataUtil;
@@ -20,11 +21,13 @@ public class StudentBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_MATRIC = "A0123456B";
+    public static final int DEFAULT_RATING = 1;
 
     private Name name;
     private Phone phone;
     private Email email;
     private Matric matric;
+    private Rating rating;
     private Set<Tag> tags;
 
     public StudentBuilder() {
@@ -32,6 +35,7 @@ public class StudentBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         matric = new Matric(DEFAULT_MATRIC);
+        rating = new Rating(DEFAULT_RATING);
         tags = new HashSet<>();
     }
 
@@ -43,6 +47,7 @@ public class StudentBuilder {
         phone = studentToCopy.getPhone();
         email = studentToCopy.getEmail();
         matric = studentToCopy.getMatric();
+        rating = studentToCopy.getRating();
         tags = new HashSet<>(studentToCopy.getTags());
     }
 
@@ -87,8 +92,16 @@ public class StudentBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Rating} of the {@code Student} that we are building.
+     */
+    public StudentBuilder withRating(int rating) {
+        this.rating = new Rating(rating);
+        return this;
+    }
+
     public Student build() {
-        return new Student(name, phone, email, matric, tags);
+        return new Student(matric, name, phone, email, rating, tags);
     }
 
 }

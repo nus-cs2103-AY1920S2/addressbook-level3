@@ -1,12 +1,14 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
-import static tatracker.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,11 +16,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import tatracker.commons.core.Messages;
-import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
@@ -26,6 +28,7 @@ import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -34,60 +37,77 @@ import tatracker.model.tag.Tag;
  */
 public class EditStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.EDIT_MODEL;
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.STUDENT,
+            CommandWords.EDIT_MODEL,
+            "Edits the student with the given matric number inside the given module group.",
+            List.of(MATRIC, MODULE, GROUP),
+            List.of(NAME, PHONE, EMAIL, RATING, TAG),
+            MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
+    );
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
-            + "by the index number used in the displayed student list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_MATRIC + "MATRIC] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
-            + PREFIX_MATRIC + "A0181234J";
-
-    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
+    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %s\nIn Module: %s\nIn Group: %s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker.";
+    public static final String MESSAGE_INVALID_MODULE_FORMAT = "There is no module with the given module code: %s";
+    public static final String MESSAGE_INVALID_GROUP_FORMAT = "There is no group in the module %s"
+            + " with the given group code: %s";
+    public static final String MESSAGE_INVALID_STUDENT_FORMAT = "There is no student with the given matric number: %s"
+            + " inside the module group %s [%s].";
 
-    private final Index index;
+
+    private final Matric matric;
+    private final String moduleCode;
+    private final String groupCode;
+
     private final EditStudentDescriptor editStudentDescriptor;
 
     /**
-     * @param index of the student in the filtered student list to edit
+     * Creates an EditStudentCommand to edit the specified {@code Student} in the given module group.
+     * @param matric id of the student in the filtered student list to edit
+     * @param moduleCode of the module containing the student.
+     * @param groupCode of the group containing the student.
      * @param editStudentDescriptor details to edit the student with
      */
-    public EditStudentCommand(Index index, EditStudentDescriptor editStudentDescriptor) {
-        requireNonNull(index);
+    public EditStudentCommand(Matric matric, String moduleCode, String groupCode,
+                              EditStudentDescriptor editStudentDescriptor) {
+        requireNonNull(matric);
+        requireNonNull(moduleCode);
+        requireNonNull(groupCode);
         requireNonNull(editStudentDescriptor);
 
-        this.index = index;
+        this.matric = matric;
+        this.moduleCode = moduleCode;
+        this.groupCode = groupCode;
+
         this.editStudentDescriptor = new EditStudentDescriptor(editStudentDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Student> lastShownList = model.getFilteredStudentList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        if (!model.hasModule(moduleCode)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, moduleCode));
         }
 
-        Student studentToEdit = lastShownList.get(index.getZeroBased());
+        if (!model.hasGroup(groupCode, moduleCode)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT, moduleCode, groupCode));
+        }
+
+        if (!model.hasStudent(matric, groupCode, moduleCode)) {
+            throw new CommandException(MESSAGE_INVALID_STUDENT_FORMAT);
+        }
+
+        Student studentToEdit = model.getStudent(matric, groupCode, moduleCode);
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
-        if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
-        }
+        model.setStudent(studentToEdit, editedStudent, groupCode, moduleCode);
+        String feedback = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent, groupCode, moduleCode);
 
-        model.setStudent(studentToEdit, editedStudent);
-        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
+        model.updateFilteredGroupList(moduleCode);
+        model.updateFilteredStudentList(groupCode, moduleCode);
+
+        return new CommandResult(feedback, Action.GOTO_STUDENT);
     }
 
     /**
@@ -97,13 +117,15 @@ public class EditStudentCommand extends Command {
     private static Student createEditedStudent(Student studentToEdit, EditStudentDescriptor editStudentDescriptor) {
         assert studentToEdit != null;
 
+        Matric sameMatric = studentToEdit.getMatric();
+
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
         Phone updatedPhone = editStudentDescriptor.getPhone().orElse(studentToEdit.getPhone());
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
-        Matric updatedMatric = editStudentDescriptor.getMatric().orElse(studentToEdit.getMatric());
+        Rating updatedRating = editStudentDescriptor.getRating().orElse(studentToEdit.getRating());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedName, updatedPhone, updatedEmail, updatedMatric, updatedTags);
+        return new Student(sameMatric, updatedName, updatedPhone, updatedEmail, updatedRating, updatedTags);
     }
 
     @Override
@@ -119,9 +141,11 @@ public class EditStudentCommand extends Command {
         }
 
         // state check
-        EditStudentCommand e = (EditStudentCommand) other;
-        return index.equals(e.index)
-                && editStudentDescriptor.equals(e.editStudentDescriptor);
+        EditStudentCommand otherCommand = (EditStudentCommand) other;
+        return matric.equals(otherCommand.matric)
+                && groupCode.equals(otherCommand.groupCode)
+                && moduleCode.equals(otherCommand.moduleCode)
+                && editStudentDescriptor.equals(otherCommand.editStudentDescriptor);
     }
 
     /**
@@ -132,7 +156,7 @@ public class EditStudentCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Matric matric;
+        private Rating rating;
         private Set<Tag> tags;
 
         public EditStudentDescriptor() {}
@@ -145,7 +169,7 @@ public class EditStudentCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setMatric(toCopy.matric);
+            setRating(toCopy.rating);
             setTags(toCopy.tags);
         }
 
@@ -153,7 +177,7 @@ public class EditStudentCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, matric, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, rating, tags);
         }
 
         public void setName(Name name) {
@@ -180,12 +204,12 @@ public class EditStudentCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setMatric(Matric matric) {
-            this.matric = matric;
+        public void setRating(Rating rating) {
+            this.rating = rating;
         }
 
-        public Optional<Matric> getMatric() {
-            return Optional.ofNullable(matric);
+        public Optional<Rating> getRating() {
+            return Optional.ofNullable(rating);
         }
 
         /**
@@ -223,8 +247,9 @@ public class EditStudentCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getMatric().equals(e.getMatric())
+                    && getRating().equals(e.getRating())
                     && getTags().equals(e.getTags());
         }
     }
 }
+

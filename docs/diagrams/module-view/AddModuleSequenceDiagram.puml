@@ -7,7 +7,7 @@ participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
 participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
 participant ":AddModuleCommandParser" as AddModuleCommandParser LOGIC_COLOR
 participant "a:AddModuleCommand" as AddModuleCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -15,10 +15,10 @@ participant "m:Module" as Module MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("module add \nm/CS2103 n/Software Engineering")
+[-> LogicManager : execute("module \nadd m/CS2103 \nn/Software Engineering")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("module add \nm/CS2103 n/Software Engineering")
+LogicManager -> TaTrackerParser : parseCommand("module \nadd m/CS2103 \nn/Software Engineering")
 activate TaTrackerParser
 
 create ModuleCommandParser
@@ -69,13 +69,16 @@ deactivate TaTrackerParser
 LogicManager -> AddModuleCommand : execute()
 activate AddModuleCommand
 
-AddModuleCommand -> Model : addModule(m)
+AddModuleCommand -> Model : hasModule("CS2103")
 activate Model
+Model --> AddModuleCommand
+
+AddModuleCommand -> Model : addModule(m)
 Model --> AddModuleCommand
 deactivate Model
 
 create CommandResult
-AddModuleCommand -> CommandResult : CommandResult(SuccessMessage)
+AddModuleCommand -> CommandResult : CommandResult()
 activate CommandResult
 CommandResult --> AddModuleCommand
 deactivate CommandResult

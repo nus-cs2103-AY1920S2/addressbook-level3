@@ -1,13 +1,13 @@
 package tatracker.logic.parser.session;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NOTES;
+import static tatracker.logic.parser.Prefixes.RECUR;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,47 +41,48 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddSessionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
-                PREFIX_DATE, PREFIX_RECUR, PREFIX_MOD_CODE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, START_TIME, END_TIME,
+                DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddSessionCommand.DETAILS.getUsage()));
         }
 
         LocalDate date = LocalDate.now();
         Session sessionToAdd = new Session();
 
-        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        if (argMultimap.getValue(DATE).isPresent()) {
+            date = ParserUtil.parseDate(argMultimap.getValue(DATE).get());
         }
 
-        if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
-            LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        if (argMultimap.getValue(START_TIME).isPresent()) {
+            LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
             sessionToAdd.setStartDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
         }
 
-        if (argMultimap.getValue(PREFIX_ENDTIME).isPresent()) {
-            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
+        if (argMultimap.getValue(END_TIME).isPresent()) {
+            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
             sessionToAdd.setEndDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     endTime.getHour(), endTime.getMinute(), endTime.getSecond()));
         }
 
-        if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            sessionToAdd.setRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
+        if (argMultimap.getValue(RECUR).isPresent()) {
+            sessionToAdd.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_MOD_CODE).isPresent()) {
-            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MOD_CODE).get()));
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_TYPE).isPresent()) {
+        if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
             sessionToAdd.setType(
-                    ParserUtil.parseSessionType(argMultimap.getValue(PREFIX_SESSION_TYPE).get()));
+                    ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_NOTES).isPresent()) {
-            sessionToAdd.setDescription(ParserUtil.parseValue(argMultimap.getValue(PREFIX_NOTES).get()));
+        if (argMultimap.getValue(NOTES).isPresent()) {
+            sessionToAdd.setDescription(ParserUtil.parseValue(argMultimap.getValue(NOTES).get()));
         }
 
         return new AddSessionCommand(sessionToAdd);

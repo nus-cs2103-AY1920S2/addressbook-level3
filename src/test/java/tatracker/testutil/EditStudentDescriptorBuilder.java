@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
+import tatracker.model.student.Rating;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -35,7 +35,7 @@ public class EditStudentDescriptorBuilder {
         descriptor.setName(student.getName());
         descriptor.setPhone(student.getPhone());
         descriptor.setEmail(student.getEmail());
-        descriptor.setMatric(student.getMatric());
+        descriptor.setRating(student.getRating());
         descriptor.setTags(student.getTags());
     }
 
@@ -64,10 +64,10 @@ public class EditStudentDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Matric} of the {@code EditStudentDescriptor} that we are building.
+     * Sets the {@code Email} of the {@code EditStudentDescriptor} that we are building.
      */
-    public EditStudentDescriptorBuilder withMatric(String matric) {
-        descriptor.setMatric(new Matric(matric));
+    public EditStudentDescriptorBuilder withRating(int rating) {
+        descriptor.setRating(new Rating(rating));
         return this;
     }
 

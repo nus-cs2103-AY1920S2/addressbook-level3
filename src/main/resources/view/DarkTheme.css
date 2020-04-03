@@ -3,6 +3,12 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.background-2 {
+    -fx-background-color: derive(#2a2a2a, 20%);
+    -fx-background-radius: 5px;
+    background-color: #2a2a2a; /* Used in the default.html file */
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -32,6 +38,8 @@
 .tab-pane {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-padding: 0 0 0 1;
+    -fx-tab-min-height: 3em;
+    -fx-tab-max-height: 3em;
 }
 
 .tab-pane .tab-header-area {
@@ -51,7 +59,7 @@
 }
 
 .tab-pane .tab-header-area .tab .tab-label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
@@ -103,6 +111,10 @@
     -fx-border-radius: 1;
     -fx-border-width: 1;
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.label {
+    -fx-text-fill: white;
 }
 
 .list-view {
@@ -367,4 +379,63 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.commandWord {
+    -fx-text-fill: white;
+    -fx-background-color: #917b3e;
+    -fx-padding: 3 5 3 5;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 18;
+}
+
+.label-new {
+    -fx-font-size: 14;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #aaa;
+    -fx-opacity: 1;
+}
+
+.label-title {
+    -fx-font-size: 16;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ccc;
+    -fx-opacity: 1;
+}
+
+.label-h1 {
+    -fx-font-size: 28px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #aaa;
+    -fx-opacity: 1;
+}
+
+.default-color0.chart-bar { -fx-bar-fill: #FFC58C; }
+
+.default-color0.chart-pie { -fx-pie-color: #FFADCA; }
+.default-color1.chart-pie { -fx-pie-color: #BA72E8; }
+.default-color2.chart-pie { -fx-pie-color: #8999FF; }
+.default-color3.chart-pie { -fx-pie-color: #72D7E8; }
+.default-color4.chart-pie { -fx-pie-color: #7DFFAF; }
+.default-color5.chart-pie { -fx-pie-color: #cccccc; }
+
+.chart-title {
+    -fx-font-size: 16;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ccc;
+    -fx-opacity: 1;
+}
+
+.axis-label {
+    -fx-text-fill: #aaa;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: #aaa;
+    -fx-fill: #aaa;
+}
+
+.chart-pie-label { /*this is what you need for labels*/
+    -fx-fill: #aaa;
 }

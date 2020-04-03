@@ -1,46 +1,64 @@
 {
   "_comment": "Ta-Tracker save file which contains the same Student values as in TypicalStudents#getTypicalTaTracker()",
-  "students" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "matric" : "A0193235J",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "matric" : "A0188621K",
-    "tagged" : [ "owesMoney", "friends" ]
-  }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "matric" : "A0190706L",
-    "tagged" : [ ]
-  }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "matric" : "A0192154M",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "matric" : "A0190546N",
-    "tagged" : [ ]
-  }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "matric" : "A0196074P",
-    "tagged" : [ ]
-  }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "matric" : "A0190289Q",
-    "tagged" : [ ]
+  "sessions" : [ ],
+  "doneSessions" : [ ],
+  "modules" : [ {
+    "id" : "CS3243",
+    "name" : "Introduction to AI",
+    "sessions" : [ ],
+    "groups" : [ {
+      "id" : "G06",
+      "type" : "LAB",
+      "students" : [ {
+        "name" : "Alice Pauline",
+        "phone" : "94351253",
+        "email" : "alice@example.com",
+        "matric" : "A0193235J",
+        "rating" : 1,
+        "tagged" : [ "friends" ]
+      }, {
+        "name" : "Benson Meier",
+        "phone" : "98765432",
+        "email" : "johnd@example.com",
+        "matric" : "A0188621K",
+        "rating" : 2,
+        "tagged" : [ "owesMoney", "friends" ]
+      }, {
+        "name" : "Carl Kurz",
+        "phone" : "95352563",
+        "email" : "heinz@example.com",
+        "matric" : "A0190706L",
+        "rating" : 3,
+        "tagged" : [ ]
+      }, {
+        "name" : "Daniel Meier",
+        "phone" : "87652533",
+        "email" : "cornelia@example.com",
+        "matric" : "A0192154M",
+        "rating" : 4,
+        "tagged" : [ "friends" ]
+      }, {
+        "name" : "Elle Meyer",
+        "phone" : "9482224",
+        "email" : "werner@example.com",
+        "matric" : "A0190546N",
+        "rating" : 5,
+        "tagged" : [ ]
+      }, {
+        "name" : "Fiona Kunz",
+        "phone" : "9482427",
+        "email" : "lydia@example.com",
+        "matric" : "A0196074P",
+        "rating" : 1,
+        "tagged" : [ ]
+      }, {
+        "name" : "George Best",
+        "phone" : "9482442",
+        "email" : "anna@example.com",
+        "matric" : "A0190289Q",
+        "rating" : 2,
+        "tagged" : [ ]
+      } ]
+    } ]
   } ]
 }

@@ -1,15 +1,14 @@
 package tatracker.logic.commands.session;
 
-// import static java.util.Objects.requireNonNull;
-
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
-import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
-import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static tatracker.logic.parser.Prefixes.DATE;
+import static tatracker.logic.parser.Prefixes.END_TIME;
+import static tatracker.logic.parser.Prefixes.INDEX;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NOTES;
+import static tatracker.logic.parser.Prefixes.RECUR;
+import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
+import static tatracker.logic.parser.Prefixes.START_TIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,33 +19,29 @@ import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 
+
 /**
  * Edits the details of an existing session in TAT.
  */
 public class EditSessionCommand extends Command {
 
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, CommandWords.EDIT_MODEL);
-
-    /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_STARTTIME + "START] "
-            + "[" + PREFIX_ENDTIME + "END] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
-            + "[" + PREFIX_NOTES + "NOTES] "
-            + "Example: " + COMMAND_WORD + " 2 "
-            + PREFIX_DATE + "20-02-2020 ";
+    public static final CommandDetails DETAILS = new CommandDetails(
+            CommandWords.SESSION,
+            CommandWords.EDIT_MODEL,
+            "Edits a session at the shown list index.",
+            List.of(INDEX),
+            List.of(MODULE, START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
+            MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
+    );
 
     public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -91,7 +86,7 @@ public class EditSessionCommand extends Command {
         model.setSession(sessionToEdit, editedSession);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedSession));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedSession), Action.GOTO_SESSION);
     }
 
     /**
@@ -104,7 +99,7 @@ public class EditSessionCommand extends Command {
 
         LocalDateTime startTime = editSessionDescriptor.getStartTime().orElse(sessionToEdit.getStartDateTime());
         LocalDateTime endTime = editSessionDescriptor.getEndTime().orElse(sessionToEdit.getEndDateTime());
-        boolean isRecurring = editSessionDescriptor.getIsRecurring();
+        int isRecurring = editSessionDescriptor.getRecurring();
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
         SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
@@ -149,8 +144,8 @@ public class EditSessionCommand extends Command {
         private LocalDateTime newStartTime;
         private LocalDateTime newEndTime;
         private boolean isDateChanged;
-        private boolean isRecurring;
-        private String moduleCode;
+        private int isRecurring;
+        private String newModuleCode;
         private SessionType newSessionType;
         private String newDescription;
 
@@ -161,11 +156,11 @@ public class EditSessionCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditSessionDescriptor(EditSessionCommand.EditSessionDescriptor toCopy) {
+        public EditSessionDescriptor(EditSessionDescriptor toCopy) {
             setStartTime(toCopy.newStartTime);
             setEndTime(toCopy.newEndTime);
-            setIsRecurring(toCopy.isRecurring);
-            setModuleCode(toCopy.moduleCode);
+            setRecurring(toCopy.isRecurring);
+            setModuleCode(toCopy.newModuleCode);
             setSessionType(toCopy.newSessionType);
             setDescription(toCopy.newDescription);
             this.isDateChanged = toCopy.isDateChanged;
@@ -175,7 +170,8 @@ public class EditSessionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(newStartTime, newEndTime, newSessionType, newDescription);
+            return isDateChanged || CollectionUtil.isAnyNonNull(newStartTime, newEndTime,
+                    newModuleCode, newDescription, newSessionType, isRecurring);
         }
 
         public void setStartTime(LocalDateTime startTime) {
@@ -194,11 +190,11 @@ public class EditSessionCommand extends Command {
             return Optional.ofNullable(newEndTime);
         }
 
-        public void setIsRecurring(boolean isRecurring) {
+        public void setRecurring(int isRecurring) {
             this.isRecurring = isRecurring;
         }
 
-        public boolean getIsRecurring() {
+        public int getRecurring() {
             return this.isRecurring;
         }
 
@@ -211,11 +207,11 @@ public class EditSessionCommand extends Command {
         }
 
         public void setModuleCode(String moduleCode) {
-            this.moduleCode = moduleCode;
+            this.newModuleCode = moduleCode;
         }
 
         public Optional<String> getModuleCode() {
-            return Optional.ofNullable(moduleCode);
+            return Optional.ofNullable(newModuleCode);
         }
 
         public void setSessionType(SessionType sessionType) {

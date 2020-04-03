@@ -2,21 +2,21 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
+<?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="TA-Tracker App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
+         title="TA-Tracker App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">  <icons>
+    <Image url="@/images/icon.png" />
   </icons>
   <scene>
     <Scene>
@@ -33,6 +33,11 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+               <Menu mnemonicParsing="false" text="Statistics">
+                  <items>
+                     <MenuItem fx:id="helpMenuItem1" mnemonicParsing="false" onAction="#handleStatistic" text="Statistics" />
+                  </items>
+               </Menu>
         </MenuBar>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
@@ -47,22 +52,48 @@
           </padding>
         </StackPane>
 
-        <TabPane prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
           <tabs>
-            <Tab fx:id="studentListTab" text="Students">
+            <Tab fx:id="studentListTab" text="Student">
               <content>
-                <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                <SplitPane dividerPositions="0.2, 0.4">
+                  <items>
+                    <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  </items>
+                </SplitPane>
               </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/student_icon.png" />
+                </ImageView>
+              </graphic>
             </Tab>
-            <Tab fx:id="sessionListTab" text="Sessions">
+            <Tab fx:id="sessionListTab" text="Session">
               <content>
                 <StackPane fx:id="sessionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/session_icon.png" />
+                </ImageView>
+              </graphic>
             </Tab>
-            <Tab fx:id="tssListTab" text="TSS Claims">
+            <Tab fx:id="claimsListTab" text="Claims">
                <content>
-                  <StackPane fx:id="studentListPanelPlaceholder1" VBox.vgrow="ALWAYS" />
+                 <SplitPane dividerPositions="0.2">
+                   <items>
+                     <StackPane fx:id="moduleListPanelPlaceholderCopy" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="claimsListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   </items>
+                 </SplitPane>
                </content>
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../images/claims_icon.png" />
+                </ImageView>
+              </graphic>
             </Tab>
           </tabs>
         </TabPane>

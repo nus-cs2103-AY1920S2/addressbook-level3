@@ -4,6 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
 participant ":DeleteStudentCommandParser" as DeleteStudentCommandParser LOGIC_COLOR
 participant "d:DeleteStudentCommand" as DeleteStudentCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -13,20 +14,30 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("student \ndelete A0181234G")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("delete 1")
+LogicManager -> TaTrackerParser : parseCommand("student \ndelete A0181234G")
 activate TaTrackerParser
 
+create StudentCommandParser
+TaTrackerParser -> StudentCommandParser: StudentCommandParser()
+activate StudentCommandParser
+
+StudentCommandParser --> TaTrackerParser
+deactivate StudentCommandParser
+
+TaTrackerParser -> StudentCommandParser : parse("delete \nA0181234G")
+activate StudentCommandParser
+
 create DeleteStudentCommandParser
-TaTrackerParser -> DeleteStudentCommandParser
+StudentCommandParser -> DeleteStudentCommandParser
 activate DeleteStudentCommandParser
 
-DeleteStudentCommandParser --> TaTrackerParser
+DeleteStudentCommandParser --> StudentCommandParser
 deactivate DeleteStudentCommandParser
 
-TaTrackerParser -> DeleteStudentCommandParser : parse("1")
+StudentCommandParser -> DeleteStudentCommandParser : parse("A0181234G")
 activate DeleteStudentCommandParser
 
 create DeleteStudentCommand
@@ -36,11 +47,19 @@ activate DeleteStudentCommand
 DeleteStudentCommand --> DeleteStudentCommandParser : d
 deactivate DeleteStudentCommand
 
-DeleteStudentCommandParser --> TaTrackerParser : d
+DeleteStudentCommandParser --> StudentCommandParser : d
 deactivate DeleteStudentCommandParser
+
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteStudentCommandParser -[hidden]-> TaTrackerParser
+DeleteStudentCommandParser -[hidden]-> StudentCommandParser
 destroy DeleteStudentCommandParser
+
+StudentCommandParser --> TaTrackerParser : d
+deactivate StudentCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+StudentCommandParser -[hidden]-> TaTrackerParser
+destroy StudentCommandParser
 
 TaTrackerParser --> LogicManager : d
 deactivate TaTrackerParser
@@ -48,7 +67,7 @@ deactivate TaTrackerParser
 LogicManager -> DeleteStudentCommand : execute()
 activate DeleteStudentCommand
 
-DeleteStudentCommand -> Model : deleteStudent(1)
+DeleteStudentCommand -> Model : deleteStudent(A0181234G)
 activate Model
 
 Model --> DeleteStudentCommand

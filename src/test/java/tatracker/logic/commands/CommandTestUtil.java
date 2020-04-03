@@ -2,23 +2,25 @@ package tatracker.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
-import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static tatracker.logic.parser.Prefixes.EMAIL;
+import static tatracker.logic.parser.Prefixes.GROUP;
+import static tatracker.logic.parser.Prefixes.MATRIC;
+import static tatracker.logic.parser.Prefixes.MODULE;
+import static tatracker.logic.parser.Prefixes.NAME;
+import static tatracker.logic.parser.Prefixes.PHONE;
+import static tatracker.logic.parser.Prefixes.RATING;
+import static tatracker.logic.parser.Prefixes.TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
-import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
 import tatracker.testutil.EditStudentDescriptorBuilder;
 
@@ -35,25 +37,40 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_MATRIC_AMY = "A0123456J";
     public static final String VALID_MATRIC_BOB = "A0987654K";
+    public static final int VALID_RATING_AMY = 5;
+    public static final int VALID_RATING_BOB = 2;
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String MATRIC_DESC_AMY = " " + PREFIX_MATRIC + VALID_MATRIC_AMY;
-    public static final String MATRIC_DESC_BOB = " " + PREFIX_MATRIC + VALID_MATRIC_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String VALID_MODULE_CS2030 = "CS2030";
+    public static final String VALID_MODULE_CS2040 = "CS2040";
+    public static final String VALID_GROUP_T04 = "T04";
+    public static final String VALID_GROUP_L08 = "L08";
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_MATRIC_DESC = " " + PREFIX_MATRIC + "!0123456&"; // '&' not allow in matrics
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String NAME_DESC_AMY = " " + NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + NAME + VALID_NAME_BOB;
+    public static final String PHONE_DESC_AMY = " " + PHONE + VALID_PHONE_AMY;
+    public static final String PHONE_DESC_BOB = " " + PHONE + VALID_PHONE_BOB;
+    public static final String EMAIL_DESC_AMY = " " + EMAIL + VALID_EMAIL_AMY;
+    public static final String EMAIL_DESC_BOB = " " + EMAIL + VALID_EMAIL_BOB;
+    public static final String MATRIC_DESC_AMY = " " + MATRIC + VALID_MATRIC_AMY;
+    public static final String MATRIC_DESC_BOB = " " + MATRIC + VALID_MATRIC_BOB;
+    public static final String RATING_DESC_AMY = " " + RATING + VALID_MATRIC_AMY;
+    public static final String RATING_DESC_BOB = " " + RATING + VALID_MATRIC_BOB;
+    public static final String TAG_DESC_FRIEND = " " + TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_HUSBAND = " " + TAG + VALID_TAG_HUSBAND;
+
+    public static final String MODULE_DESC_CS2030 = " " + MODULE + VALID_MODULE_CS2030;
+    public static final String MODULE_DESC_CS2040 = " " + MODULE + VALID_MODULE_CS2040;
+    public static final String GROUP_DESC_T04 = " " + GROUP + VALID_GROUP_T04;
+    public static final String GROUP_DESC_L08 = " " + GROUP + VALID_GROUP_L08;
+
+    public static final String INVALID_NAME_DESC = " " + NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_PHONE_DESC = " " + PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_EMAIL_DESC = " " + EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_MATRIC_DESC = " " + MATRIC + "!0123456&"; // '&' not allow in matrics
+    public static final String INVALID_RATING_DESC = " " + RATING + "!0123456&"; // rating
+    public static final String INVALID_TAG_DESC = " " + TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -65,12 +82,10 @@ public class CommandTestUtil {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
-                .withMatric(VALID_MATRIC_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
-                .withMatric(VALID_MATRIC_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
@@ -96,7 +111,17 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.NONE);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertAddStudentCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -125,7 +150,7 @@ public class CommandTestUtil {
 
         Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
         final String[] splitName = student.getName().fullName.split("\\s+");
-        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        //model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
     }

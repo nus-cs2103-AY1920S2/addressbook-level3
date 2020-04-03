@@ -10,17 +10,18 @@ import java.time.format.DateTimeFormatter;
  * A session is any claimable duty that has a start and end time.
  * Guarantees: Date, Start Time and End Time are not null.
  */
-public class Session {
+public class Session implements Comparable<Session> {
 
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private boolean isRecurring;
     private String moduleCode;
     private SessionType type;
     private String description;
+    private int recurring;
+    private boolean isDone;
 
     /**
      * Default Constructor for Session.
@@ -29,17 +30,18 @@ public class Session {
     public Session() {
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = LocalDateTime.now();
-        this.isRecurring = false;
+        this.recurring = 0;
         this.moduleCode = "";
         this.type = SessionType.OTHER;
         this.description = "Default Session";
+        this.isDone = false;
     }
 
     /**
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
      */
-    public Session(LocalDateTime start, LocalDateTime end, SessionType type, boolean isRecurring, String moduleCode,
+    public Session(LocalDateTime start, LocalDateTime end, SessionType type, int recurring, String moduleCode,
                    String description) throws IllegalArgumentException {
 
         if (start.compareTo(end) > 0) {
@@ -48,10 +50,11 @@ public class Session {
 
         this.startDateTime = start;
         this.endDateTime = end;
-        this.isRecurring = isRecurring;
+        this.recurring = recurring;
         this.moduleCode = moduleCode;
         this.type = type;
         this.description = description;
+        this.isDone = false;
     }
 
     /**
@@ -62,9 +65,6 @@ public class Session {
         return false;
     }
 
-    /**
-     * Returns the date when the session will take place.
-     */
     public LocalDate getDate() {
         return this.startDateTime.toLocalDate();
     }
@@ -98,17 +98,31 @@ public class Session {
     }
 
     /**
-     * Returns true if session will recur every week; false otherwise.
+     * Returns a value that states how long a session will occur. weekly basis.
      */
-    public boolean getIsRecurring() {
-        return this.isRecurring;
+    public int getRecurring() {
+        return this.recurring;
     }
 
     /**
-     * Sets whether the session is a recurring session.
+     * Returns true if session is already completed; false otherwise.
      */
-    public void setRecurring(boolean recurring) {
-        isRecurring = recurring;
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Marks the session as done.
+     */
+    public void done() {
+        this.isDone = true;
+    }
+
+    /**
+     * Sets whether the session's recurring value.
+     */
+    public void setRecurring(int recurring) {
+        this.recurring = recurring;
     }
 
     /**
@@ -154,10 +168,18 @@ public class Session {
     }
 
     /**
-     * Returns the duration of the session.
+     * Returns the duration of the session to the nearest hour.
      */
-    public Duration getSessionDuration() {
-        return Duration.between(this.startDateTime, this.endDateTime);
+    public Duration getDurationToNearestHour() {
+        Duration duration = Duration.between(this.startDateTime, this.endDateTime);
+
+        long hours = duration.toHours();
+        int minutesPart = duration.toMinutesPart();
+
+        if (minutesPart > 0) {
+            hours += 1;
+        }
+        return Duration.ofHours(hours);
     }
 
     @Override
@@ -168,7 +190,7 @@ public class Session {
                 .append(" End: ").append(endDateTime.format(FORMAT_DATE_TIME))
                 .append(" Module Code: ").append(moduleCode)
                 .append(" Description: ").append(description)
-                .append(" Recurs: ").append(isRecurring);
+                .append(" Recurs: ").append(recurring);
         return builder.toString();
     }
 
@@ -187,5 +209,13 @@ public class Session {
 
         Session otherSession = (Session) other;
         return isSameSession(otherSession);
+    }
+
+    /**
+     * Compare Sessions based on the session that will occur first.
+     */
+    @Override
+    public int compareTo(Session other) {
+        return getDate().compareTo(other.getDate());
     }
 }

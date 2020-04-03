@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes AddSession Command with -r flag;
+
+:Creates an Session and a RescheduleSession;
+
+if () then ([given Session endDateTime is over])
+    :Updates the current Session to the next Session;
+
+else ([else])
+endif
+
+:Shows user the added Session;
+
+stop
+@enduml
+

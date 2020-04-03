@@ -27,7 +27,16 @@ public class Email {
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
+    private static final String DEFAULT_VALUE = "";
+
     public final String value;
+
+    /**
+     * Constructs an empty {@code Email}.
+     */
+    public Email() {
+        this(DEFAULT_VALUE);
+    }
 
     /**
      * Constructs an {@code Email}.
@@ -44,7 +53,7 @@ public class Email {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.isEmpty() || test.matches(VALIDATION_REGEX);
     }
 
     @Override

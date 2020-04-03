@@ -3,11 +3,14 @@ package tatracker.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+
 import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.ReadOnlyTaTracker;
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 
@@ -31,9 +34,6 @@ public interface Logic {
      */
     ReadOnlyTaTracker getTaTracker();
 
-    /** Returns an unmodifiable view of the filtered list of students */
-    ObservableList<Student> getFilteredStudentList();
-
     /**
      * Returns the user prefs' ta-tracker file path.
      */
@@ -49,5 +49,18 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns an unmodifiable view of the filtered list of sessions. */
     ObservableList<Session> getFilteredSessionList();
+
+    /** Returns an unmodifiable view of the filtered list of done sessions. */
+    ObservableList<Session> getFilteredDoneSessionList();
+
+    /** Returns an unmodifiable view of the filtered list of module. */
+    ObservableList<Module> getFilteredModuleList();
+
+    /** Returns an unmodifiable view of the filtered list of module groups. */
+    ObservableList<Group> getFilteredGroupList();
+
+    /** Returns an unmodifiable view of the filtered list of students. */
+    ObservableList<Student> getFilteredStudentList();
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import tatracker.model.tag.Tag;
 
+
 /**
  * Represents a Student in the Ta-Tracker.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -16,24 +17,33 @@ import tatracker.model.tag.Tag;
 public class Student {
 
     // Identity fields
+    private final Matric matric;
     private final Name name;
+
+    // Optional fields
     private final Phone phone;
     private final Email email;
-    private final Matric matric;
-
-    // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Rating rating;
+    private final Set<Tag> tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Matric matric, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, matric, tags);
+    public Student(Matric matric, Name name, Phone phone, Email email, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(matric, name, phone, email, rating, tags);
+        this.matric = matric;
         this.name = name;
+
         this.phone = phone;
         this.email = email;
-        this.matric = matric;
+        this.rating = rating;
+
+        this.tags = new HashSet<>();
         this.tags.addAll(tags);
+    }
+
+    public Matric getMatric() {
+        return matric;
     }
 
     public Name getName() {
@@ -48,8 +58,8 @@ public class Student {
         return email;
     }
 
-    public Matric getMatric() {
-        return matric;
+    public Rating getRating() {
+        return rating;
     }
 
     /**
@@ -68,11 +78,7 @@ public class Student {
         if (otherStudent == this) {
             return true;
         }
-
-        return otherStudent != null
-                && otherStudent.getName().equals(getName())
-                && (otherStudent.getPhone().equals(getPhone()) || otherStudent.getEmail().equals(getEmail()))
-                && otherStudent.getMatric().equals(getMatric());
+        return otherStudent != null && otherStudent.getMatric().equals(getMatric());
     }
 
     /**
@@ -94,28 +100,36 @@ public class Student {
                 && otherStudent.getPhone().equals(getPhone())
                 && otherStudent.getEmail().equals(getEmail())
                 && otherStudent.getMatric().equals(getMatric())
+                && otherStudent.getRating().equals(getRating())
                 && otherStudent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, matric, tags);
+        return Objects.hash(name, phone, email, matric, rating, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        // Append identity fields
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Matric: ")
-                .append(getMatric())
-                .append(" Tags: ");
+                .append(getMatric());
+
+        // Append optional fields
+        builder.append(" Rating: ")
+                .append(getRating());
+
+        // Append Tags
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
+
         return builder.toString();
     }
-
 }
