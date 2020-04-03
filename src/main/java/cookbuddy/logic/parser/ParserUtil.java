@@ -2,8 +2,10 @@ package cookbuddy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -223,14 +225,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Optional<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
+    public static Set<Tag> parseTags(Optional<String> tags) throws ParseException {
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+        if (tags.isPresent() && !tags.get().equals("")) {
+            String tagsString = tags.get();
+            List<String> tagList = Arrays.asList(tagsString.split(",")).stream().map(String::trim).collect(
+                    Collectors.toList());
+            for (String tagName : tagList) {
+                tagSet.add(parseTag(tagName));
+            }
         }
+
         return tagSet;
     }
 }
