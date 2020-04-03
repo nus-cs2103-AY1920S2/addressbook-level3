@@ -199,6 +199,9 @@ Format: `delete [recipe index] <recipe index>...`
 Example: `delete 1 3 4` +
 Deletes recipe 1, 3, and 4 from the recipe book.
 
+[TIP]
+You can delete multiple recipes at the same time (at least one recipe must be deleted).
+
 === Favourite a recipe: `favourite`
 Favourites the recipe(s) that you have specified. +
 Format: `favourite [recipe index] <recipe index>...`
@@ -207,7 +210,7 @@ Example: `favourite 1 3 4` +
 Favourites recipes 1, 3, and 4.
 
 [TIP]
-You can favourite multiple recipes at a time (at least one recipe must be favourited).
+You can favourite multiple recipes at the same time (at least one recipe must be favourited).
 
 === Unfavourite a recipe: `unfavourite`
 Unfavourites the recipe(s) that you have specified. +
@@ -217,7 +220,7 @@ Example: `unfavourite 1 3 4` +
 Unfavourites recipes 1, 3, and 4.
 
 [TIP]
-You can unfavourite multiple recipes at a time (at least one recipe must be unfavourited).
+You can unfavourite multiple recipes at the same time (at least one recipe must be unfavourited).
 
 === Clear the recipe book : `clear`
 Clears the recipe book. After entering this command, the recipe book will be empty and all planned recipes
@@ -355,11 +358,11 @@ View all the plans for the week. +
 Format: `viewWeek`
 
 == Goal Feature
-=== Add a custom goal to track: `addGoal`
+=== Add a custom goal to track: `addGoal` [Coming in v1.4]
 Adds a goal chosen by user from the given goals to start tracking progress. +
 Format: `addGoal [g/goal]`
 
-=== Remove goal: `removeGoal`
+=== Remove goal: `removeGoal` [Coming in v1.4]
 Removes a goal that the user had selected. This goal will no longer be tracked. +
 Format: `removeGoal [g/goal]`
 
@@ -369,9 +372,12 @@ Format: `listGoals`
 
 === Track cooked meals: `cooked`
 Tracks all cooked meals and added to the progress of their respective goals. +
-Format: `cooked [n/name] [g/goal]`
+Format: `cooked [recipe index] <recipe index>...`
 
-=== Show graph of goals: `chart`
+[TIP]
+You can mark multiple recipes as cooked at the same time (at least one recipe must be marked).
+
+=== Show graph of goals: `chart` [Coming in v1.4]
 Shows weekly progress of respective goal through graph. +
 Format: `chart [g/goal]`
 
