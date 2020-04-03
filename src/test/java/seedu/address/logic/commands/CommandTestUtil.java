@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFER;
+import static seedu.address.logic.parser.FindTransactionCommandParser.TransactionType.BUY_TRANSACTION;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.FindTransactionCommandParser;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
@@ -24,6 +26,7 @@ import seedu.address.model.good.GoodNameContainsKeywordsPredicate;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.supplier.SupplierNameContainsKeywordsPredicate;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.TransactionContainKeywordsPredicate;
 import seedu.address.testutil.EditSupplierDescriptorBuilder;
 
 /**
@@ -173,6 +176,21 @@ public class CommandTestUtil {
         model.updateFilteredGoodList(new GoodNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredGoodList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
+     * {@code model}'s transaction history.
+     */
+    public static void showTransactionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
+
+        Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
+        final String[] splitName = transaction.getGood().getGoodName().fullGoodName.split("\\s+");
+        model.updateFilteredTransactionList(new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
+                Arrays.asList(new String[0]), Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredTransactionList().size());
     }
 
 }
