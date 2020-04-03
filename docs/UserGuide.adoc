@@ -496,7 +496,7 @@ In this section, you will learn how to use the Show Command.
 
 Here is how you can show the statistics of your orders: +
 
-*Step 1* : Type : `show` +
+*Step 1* : Type : `show` +g
 
 *Step 2* : Press `Enter` on your keyboard to see the magic!
 
@@ -567,15 +567,25 @@ Here is the syntax of the *Insert* Command : +
 * The prefixes `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` are compulsory.
 * The prefixes `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` are optional.
 * Any compulsory prefixes that is absent will result in the App displaying an error message.
+* There should be a spacing in between every prefixes. For example, `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` is allowed
+but `tid/TRANSACTION_IDn/CUSTOMER_NAME` will be an invalid command input.
 ====
 
 [WARNING]
 ====
-* The Email provided must be a valid email address.
-* Cash On Delivery must start with a dollar sign followed by the value.
+* `TRANSACTION_ID` must be alphanumeric (No numbers or special characters allowed).
+* `ADDRESS` must have a postal code.
+* `EMAIL` should be a valid email address.
+* `CASH_ON_DELIVERY` must start with a dollar sign followed by the value.
 * To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
 in 24 hour format.
-* Type of Item must be alphanumeric (No numbers or special characters allowed).
+* The value for `DELIVERY_DATE_&_TIME` must be after today. For example, if the date and time now is 2020-04-03 1200,
+you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_&_TIME`.
+* `TYPE_OF_ITEM` must be alphanumeric (No numbers or special characters allowed).
+* `CUSTOMER_NAME` mut be alphanumeric(No numbers or special characters allowed).
+* `PHONE_NUMBER` should not have a spacing in between. `n/90011009` is allowed, +
+but `n/9001 1009` is not allowed.
+* Only numbers are allowed in `PHONE_NUMBER`.
 ====
 
 There are two different scenarios on how to insert the orders :
@@ -589,7 +599,7 @@ There are two different scenarios on how to insert the orders :
 | You should be able to see that the order with transaction id 'A094844' will be inserted into the list of delivery orders.
 
 | Insert the order with all the order attributes including the non-compulsory ones
-| `insert` `tid/C1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/9001 0019` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
+| `insert` `tid/C1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/90010019` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 | You should see that the order with transaction id 'C1023456789' is inserted into the list of delivery orders.
 
 |===
