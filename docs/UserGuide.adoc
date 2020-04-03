@@ -111,7 +111,7 @@ The term `Markdown` as used in this document will be a shorthand for GitHub Flav
 
 If you can't remember the commands or you are unsure about what a particular command does, type `help` and hit kbd:[Enter]. Notably will show you a list of the commands it has and what they do. +
 
-Format: `help`
+*Format:* `help`
 
 .Demo for the `help` command
 image::demo/Help.png[]
@@ -120,7 +120,7 @@ image::demo/Help.png[]
 
 If you're done with taking notes, use `exit` to close Notably straight from the command line. +
 
-Format: `exit`
+*Format:* `exit`
 
 .Demo for the `exit` command
 image::demo/Exit.png[]
@@ -129,7 +129,7 @@ image::demo/Exit.png[]
 
 If you want to add a new note to the current working directory (currently opened note), use the `new` command and specify the `TITLE` of the note. +
 
-Format: `new -t TITLE [-b BODY] [-o]`
+*Format:* `new -t TITLE [-b BODY] [-o]`
 
 [IMPORTANT]
 ====
@@ -180,7 +180,7 @@ image::demo/New3.png[]
 
 You can open an existing note by specifying its title (and optionally with its absolute or relative <<paths, path>>). +
 
-Format: `open [-t] [PATH/TO/]TITLE` +
+*Format:* `open [-t] [PATH/TO/]TITLE` +
 
 [TIP]
 ====
@@ -204,7 +204,7 @@ image::demo/Open.png[]
 
 If you want to change the `BODY` content of a note, use the `edit` command. This command *replaces* the existing `BODY` content of the currently open note, with the new `BODY` content. +
 
-Format: `edit -b BODY`
+*Format:* `edit -b BODY`
 
 [WARNING]
 ====
@@ -225,7 +225,7 @@ image::demo/Edit2.png[]
 === Find a note based on certain keywords: `search`
 
 If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
-Format: `search [-s] KEYWORD`
+*Format:* `search [-s] KEYWORD`
 
 [NOTE]
 ====
@@ -246,7 +246,7 @@ image::demo/Search.png[]
 
 If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
 
-Format: `delete [-t] [PATH/TO/]NOTE`
+*Format:* `delete [-t] [PATH/TO/]NOTE`
 
 [WARNING]
 ====
