@@ -226,7 +226,7 @@ image::demo/Edit2.png[]
 
 If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
 
-*Format:* `delete [-t] [PATH/TO/]NOTE`
+*Format:* `delete [-t] [PATH/TO/]TITLE`
 
 [WARNING]
 ====
@@ -298,11 +298,8 @@ image::demo/Search.png[]
 * *View help*: `help`
 * *Exit the program*: `exit`
 * *Create a new note*: `new -t TITLE [-b BODY] [-o]`
-* *Open an existing note*: `open [-t] TITLE`
+* *Open an existing note*: `open [-t] [PATH/TO/]TITLE`
 * *Edit an existing note*: `edit -b BODY`
-* *Delete a note*: `delete [-t] TITLE`
-* *Go back to the parent note*: `open ../`
-* *Navigate to a specific directory*: `open [-t] TITLE`
-* *Autofill*: kbd:[Tab]
+* *Delete a note*: `delete [-t] [PATH/TO/]TITLE`
 * *(Coming in v2.0) Find a note based on certain keywords*: `search [-s] KEYWORD`
 
