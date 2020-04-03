@@ -12,5 +12,6 @@ class DateTimeTest {
         assertTrue(DateTime.isValidDateTime("2015-08-12 12:24"));
 
         assertFalse(DateTime.isValidDateTime("2020-02-02 2200"));
+        assertFalse(DateTime.isValidDateTime("2020-02-31 12:00"));
     }
 }
