@@ -5,5 +5,14 @@ package seedu.address.model;
  */
 public interface Version<T> extends Versionable {
     public T getCurrentState();
+
+    @Override
+    void commit();
+
+    @Override
+    void undo() throws StateNotFoundException;
+
+    @Override
+    void redo() throws StateNotFoundException;
 }
 
