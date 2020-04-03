@@ -102,7 +102,7 @@ public class StatisticsPanel extends UiPart<Region> {
         XYChart.Series<String, Integer> barData = new XYChart.Series();
         for (Module module : moduleList) {
             barData.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getActivities().getActivityList().size()));
+                    module.getFilteredActivityList().size()));
         }
         barChart.setData(FXCollections.observableArrayList(barData));
 
