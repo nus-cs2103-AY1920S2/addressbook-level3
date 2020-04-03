@@ -19,6 +19,6 @@ StorageManager o--> NasaBookStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonNasaBookStorage .left.|> NasaBookStorage
 JsonNasaBookStorage .down.> JsonSerializableNasaBookStorage
-JsonSerializableNasaBookStorage .right.> JsonSerializableModule
+JsonSerializableNasaBookStorage .right.> JsonAdaptedModule
 JsonAdaptedModule .right.> JsonAdaptedActivity
 @enduml
