@@ -55,7 +55,7 @@ through streaks and images of healthy food that they uploaded.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
+.  Ensure you have `Java 11` or above installed in your Computer.
 .  Download the latest `healthybaby.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your HealthyBaby application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -68,7 +68,8 @@ e.g. Entering *`help`* will open the help window.
 .  Some example commands you can try:
 
 * **`list`** : lists all recipes
-* **`delete`**`3` : deletes the 3rd recipe shown in the current list
+* **`delete 3`** : deletes the 3rd recipe shown in the current list
+* **`undo`** : undoes the previous action
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -86,9 +87,9 @@ HYBB supports the following goals.
 |===
 |Goal |Description
 
-|Wholesome Wholemeals |
-|Bulk like the Hulk |
-|Herbivore |
+|Wholesome Wholemeals | Recipes that contain wholemeals or wholegrains
+|Bulk like the Hulk | Recipes that contain lots of proteins
+|Herbivore | Recipes that only contain non-animal foodstuff
 |===
 
 === Ingredients
@@ -129,16 +130,15 @@ From sections 6 to 11, the following notations may be used.
 |Notation |Meaning
 
 |[ ] |Necessary field
-|< > |Optional field. e.g. `n/NAME [g/GOAL]` can be used as `n/Spicy Chicken g/Bulk like the Hulk` or as `n/Spicy Chicken`
+|< > |Optional field. e.g. `n/NAME <g/GOAL>` can be used as `n/Spicy Chicken g/Bulk like the Hulk` or as `n/Spicy Chicken`
 |[ < > ] |At least one of the optional fields is necessary
-|… |One or more of this same field can be added. e.g. `[g/GOAL]...` can be used as `{nbsp}` (i.e. 0 times), `g/Bulk like the Hulk`, `g/Wholesome wholemeals' g/Herbivore` etc.
+|… | One or more of this same field can be added. e.g. `<g/GOAL>...` can be used as `{nbsp}` (i.e. 0 times), `g/Bulk like the Hulk`, `g/Wholesome Wholemeals`, `g/Herbivore` etc.
 |image::Tip.png| Tip
 |===
 
 
 [TIP]
-Parameters can be in any order e.g. if the command specifies `n/NAME i/INGREDIENT`,
-`i/INGREDIENT n/NAME` is also acceptable. +
+Parameters can be in any order e.g. if the command specifies `n/NAME t/TIME`, `t/TIME n/NAME` is also acceptable. +
 Commands are case-insensitive, but tags are case-sensitive.
 
 [[Features]]
@@ -293,6 +293,9 @@ Deletes steps 2, 3, and 5 of recipe 3.
 You can delete multiple steps at a time (at least one step must be deleted).
 
 == Filter Command
+[TIP]
+You can combine the input of the next few subsections to filter the recipes by multiple criteria!
+
 === Filter by ingredients
 Finds recipes that contains the specified ingredients. +
 Format: `filter <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...`
@@ -313,7 +316,7 @@ Example 1: `filter t/15` +
 Searches for recipes that have 15 minutes or less of preparation time.
 
 Example 2: `filter t/20-30` +
-Searches  for recipes that have 20 to 30 minutes of preparation time.
+Searches for recipes that have 20 to 30 minutes (inclusive) of preparation time.
 
 == Planning Command
 === Plan a recipe: `plan`
