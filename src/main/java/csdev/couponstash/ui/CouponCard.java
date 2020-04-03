@@ -1,6 +1,7 @@
 package csdev.couponstash.ui;
 
 import java.util.Comparator;
+import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.tag.Tag;
@@ -90,12 +91,23 @@ public class CouponCard extends UiPart<Region> {
         archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
     }
 
+    /**
+     * A maximum of 5 tags will be displayed, while the total length
+     * of all on screen tags will be at most 44 characters.
+     * These numbers are chosen to achieve the best fit for the UI.
+     * An 'and more...' tag will be created and displayed when either
+     * of the two aforementioned numbers are exceeded.
+     */
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {
-        Object[] tagsArr = coupon.getTags().stream()
+        Set<Tag> couponTags = coupon.getTags();
+        final int maxTags = 5;
+
+        Object[] tagsArr = couponTags.stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName.length()))
+                .limit(maxTags)
                 .toArray();
 
-        int maxTotalLength = 55;
+        int maxTotalLength = 44;
         boolean isSkiped = false;
 
         for (Object tag : tagsArr) {
@@ -109,8 +121,11 @@ public class CouponCard extends UiPart<Region> {
             }
         }
 
-        // add ellipses to indicate more off screen tags
-        if (isSkiped) {
+        // add ellipses to indicate existence of more off screen tags
+        int initialNumberOfTags = couponTags.size();
+        boolean isNumberOfTagsAboveLimit = initialNumberOfTags > maxTags;
+
+        if (isSkiped || isNumberOfTagsAboveLimit) {
             tagFlowPane.getChildren().add(new Label("and more..."));
         }
     }
