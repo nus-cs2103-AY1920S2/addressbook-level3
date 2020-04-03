@@ -42,22 +42,27 @@ public class PlotProductSalesCommandParser implements Parser<PlotProductSalesCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlotProductSalesCommand.MESSAGE_USAGE), pe);
         }
 
-        DateTime startDateTime;
-        if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
-            startDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATE).get());
-        } else {
-            startDateTime = DEFAULT_START_DATE;
-        }
-
-        DateTime endDateTime;
-        if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            endDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATE).get());
-        } else {
-            endDateTime = new DateTime(startDateTime.value.plusDays(DEFAULT_LENGTH));
-        }
+        DateTime startDateTime = getStartDateTime(argMultimap);
+        DateTime endDateTime = getEndDateTime(argMultimap, startDateTime);
 
         return new PlotProductSalesCommand(index, startDateTime, endDateTime);
     }
 
+    private DateTime getStartDateTime(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
+            return ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATE).get());
+        } else {
+            return DEFAULT_START_DATE;
+        }
+    }
+
+    private DateTime getEndDateTime(ArgumentMultimap argMultimap, DateTime startDateTime)
+            throws ParseException {
+        if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
+            return ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATE).get());
+        } else {
+            return new DateTime(startDateTime.value.plusDays(DEFAULT_LENGTH));
+        }
+    }
 }
 
