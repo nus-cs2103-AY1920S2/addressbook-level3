@@ -80,6 +80,7 @@ Navigate around NASA using the following keyboard shortcuts.
 
 
 
+====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `Madd m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `Madd m/CS1231`.
