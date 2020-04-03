@@ -45,6 +45,7 @@ public class CommandCompletor {
         this.commands.add(SortCommand.COMMAND_WORD);
         this.commands.add(SwitchTabCommand.STATS_COMMAND_WORD);
         this.commands.add(SwitchTabCommand.TASKS_COMMAND_WORD);
+        this.commands.add(SwitchTabCommand.SETTINGS_COMMAND_WORD);
     }
 
     /**
@@ -115,8 +116,8 @@ public class CommandCompletor {
             case DoneCommand.COMMAND_WORD:
             case DeleteCommand.COMMAND_WORD:
                 // Converts indexes that are not comma separated into comma separated
-                String[] commaSeparatedWords = input.split("\\s*,\\s*|\\s+");
-                String[] indexes = getCommandArguments(commaSeparatedWords);
+                String[] commaSeparatedIndices = input.split("\\s*,\\s*|\\s+");
+                String[] indexes = getCommandArguments(commaSeparatedIndices);
                 String commaJoinedIndexes = String.join(", ", indexes);
                 newCommand = String.format("%s %s", trimmedInputWords[0], commaJoinedIndexes);
                 feedbackToUser = String.format(COMPLETE_SUCCESS);
@@ -135,21 +136,27 @@ public class CommandCompletor {
                 break;
 
             case "sort":
-                for (int i = 1; i < trimmedInputWords.length; i++) {
-                    String currWord = trimmedInputWords[i];
+                String[] commaSeparatedFields = input.split("\\s*,\\s*|\\s+");
+                for (int i = 1; i < commaSeparatedFields.length; i++) {
+                    String currWord = commaSeparatedFields[i];
                     Optional<String> completedWord =
                             getCompletedWord(currWord, SortCommand.ALLOWED_SORT_FIELDS);
                     if (completedWord.isPresent()) {
-                        trimmedInputWords[i] = completedWord.get();
+                        commaSeparatedFields[i] = completedWord.get();
                         feedbackToUser = COMPLETE_SUCCESS;
                     } else {
-                        trimmedInputWords[i] = "";
+                        commaSeparatedFields[i] = "";
                     }
                 }
-                newCommand = String.join(" ", trimmedInputWords);
+                newCommand = getCommaJoinedCommand(commaSeparatedFields);
                 break;
         }
         return new CompletorResult(newCommand + " ", feedbackToUser);
+    }
+
+    private String getCommaJoinedCommand(String[] words) {
+        String commaArguments = String.join(", ", getCommandArguments(words));
+        return String.format("%s %s", words[0], commaArguments);
     }
 
     /** Returns complete command if given partial command */

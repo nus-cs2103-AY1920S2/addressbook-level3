@@ -38,23 +38,32 @@ public class SortCommand extends Command {
         for (String field : fields) {
             switch (field) {
                 case "priority":
-                    temp.add(getPriorityComparator());
+                temp.add(getPriorityComparator());
+                break;
                 case "date":
-                    temp.add(getReminderComparator());
+                temp.add(getReminderComparator());
+                break;
                 case "name":
-                    temp.add(getNameComparator());
+                temp.add(getNameComparator());
+                break;
                 case "done":
-                    temp.add(getDoneComparator());
+                temp.add(getDoneComparator());
+                break;
                 case "r-priority":
-                    temp.add(getPriorityComparator().reversed());
+                temp.add(getPriorityComparator().reversed());
+                break;
                 case "r-date":
-                    temp.add(getReminderComparator().reversed());
+                temp.add(getReminderComparator().reversed());
+                break;
                 case "r-name":
-                    temp.add(getNameComparator().reversed());
+                temp.add(getNameComparator().reversed());
+                break;
                 case "r-done":
-                    temp.add(getDoneComparator().reversed());
+                temp.add(getDoneComparator().reversed());
+                break;
             }
         }
+
         model.setComparator(temp.toArray(new Comparator[0]));
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join(" ", fields)));
     }

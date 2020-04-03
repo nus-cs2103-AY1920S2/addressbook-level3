@@ -157,11 +157,12 @@ public class ModelManager implements Model {
         requireNonNull(comparators);
         this.comparators = comparators;
         this.sortList();
+        System.out.println(this.comparators.length);
     }
 
     @Override
     public void sortList() {
-        for (int i = comparators.length - 1; i >= 0; i--) {
+        for (int i = this.comparators.length - 1; i >= 0; i--) {
             this.taskList.sort(comparators[i]);
         }
     }
