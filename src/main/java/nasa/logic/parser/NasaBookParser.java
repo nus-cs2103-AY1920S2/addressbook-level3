@@ -9,12 +9,17 @@ import java.util.regex.Pattern;
 import nasa.logic.commands.AddModuleCommand;
 import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
+import nasa.logic.commands.ContinueCommand;
 import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.commands.DeleteModuleCommand;
+import nasa.logic.commands.DoneCommand;
+import nasa.logic.commands.EditActivityCommand;
+import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
+import nasa.logic.commands.QuoteCommand;
 import nasa.logic.commands.RedoCommand;
 import nasa.logic.commands.RepeatCommand;
 import nasa.logic.commands.SortCommand;
@@ -74,6 +79,12 @@ public class NasaBookParser {
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
 
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommandParser().parse(arguments);
+
+        case ContinueCommand.COMMAND_WORD:
+            return new ContinueCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -82,6 +93,12 @@ public class NasaBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case EditActivityCommand.COMMAND_WORD:
+            return new EditActivityCommandParser().parse(arguments);
+
+        case EditModuleCommand.COMMAND_WORD:
+            return new EditModuleCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -98,6 +115,8 @@ public class NasaBookParser {
         case RepeatCommand.COMMAND_WORD:
             return new RepeatActivityCommandParser().parse(arguments);
 
+        case QuoteCommand.COMMAND_WORD:
+            return new QuoteCommand();
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
