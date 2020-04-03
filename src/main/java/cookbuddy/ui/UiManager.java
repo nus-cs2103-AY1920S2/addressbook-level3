@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
-    public static Recipe viewedRecipe = null;
 
+    private static Recipe viewedRecipe = null;
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/recipe_book_32.png";
 
@@ -53,9 +53,21 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * changes the displayed recipe
+     * @param e the new recipe to be displayed.
+     */
     public static void changeRecipe(Recipe e) {
         mainWindow.defaultFill(e);
         viewedRecipe = e;
+    }
+
+    /**
+     *
+     * @return the recipe that is being displayed.
+     */
+    public static Recipe getViewedRecipe() {
+        return viewedRecipe;
     }
 
     public static void removeRecipe() {
@@ -68,10 +80,6 @@ public class UiManager implements Ui {
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
-    }
-
-    public static Recipe getViewedRecipe() {
-        return viewedRecipe;
     }
 
     /**
