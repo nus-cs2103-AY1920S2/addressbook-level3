@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.attribute.Time;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -125,6 +126,13 @@ public class ModelManager implements Model {
     @Override
     public long count() {
         return recipeBook.count();
+    }
+
+    @Override
+    public void setTime(Recipe recipe, Time time) {
+        recipe.setTime(time);
+        updateFilteredRecipeList(PREDICATE_SHOW_NO_RECIPES);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override

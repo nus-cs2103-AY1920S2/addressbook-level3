@@ -22,6 +22,7 @@ import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
@@ -182,6 +183,25 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+
+    public static Time parseTime(String timeString) throws ParseException {
+        requireNonNull(timeString);
+        String trimmedTime = timeString.trim();
+        String[] timeArray = trimmedTime.split(":");
+        int hour = Integer.valueOf(timeArray[0]);
+        int min = Integer.valueOf(timeArray[1]);
+        if (!Time.isValidHour(hour)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_HOUR);
+        }
+
+        if (!Time.isValidMin(min)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_MIN);
+        }
+
+        return new Time(hour, min, 0);
+
     }
 
     /**

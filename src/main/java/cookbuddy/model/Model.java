@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.attribute.Time;
 import javafx.collections.ObservableList;
 
 /**
@@ -88,6 +89,13 @@ public interface Model {
      *
      */
     void unFavRecipe(Recipe recipe);
+
+    /**
+     * Sets a time to the recipe
+     * @param recipe the recipe to be set
+     * @param time the prep time of the recipe.
+     */
+    void setTime(Recipe recipe, Time time);
 
     /**
      * Deletes the given recipe.
