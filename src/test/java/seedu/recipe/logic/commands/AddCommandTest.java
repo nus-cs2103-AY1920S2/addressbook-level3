@@ -19,12 +19,12 @@ import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
+import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
@@ -199,22 +199,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
+        public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
+        public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe) {
+        public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteAllPlansFor(Recipe recipe) {
+        public void deleteAllRecipePlans(Recipe recipe) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,7 +229,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<PlannedRecipe> getFilteredPlannedList() {
+        public ObservableList<PlannedDate> getFilteredPlannedList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -244,7 +244,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
+        public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

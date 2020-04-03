@@ -18,7 +18,7 @@ import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.cooked.Record;
-import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -132,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
         recipeListPanel = new RecipeListPanel(recipeList);
 
-        ObservableList<PlannedRecipe> plannedList = logic.getFilteredPlannedList();
+        ObservableList<PlannedDate> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
         ObservableList<Record> cookedList = logic.getFilteredRecordList();

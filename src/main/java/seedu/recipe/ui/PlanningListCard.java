@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.recipe.model.Date;
-import seedu.recipe.model.plan.PlannedRecipe;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -19,7 +19,7 @@ public class PlanningListCard extends UiPart<Region> {
 
     private static final String FXML = "PlanningListCard.fxml";
 
-    public final PlannedRecipe plannedRecipeObject;
+    public final PlannedDate plannedDateObject;
     public final Date plannedDate;
     public final List<Recipe> recipes;
 
@@ -34,13 +34,13 @@ public class PlanningListCard extends UiPart<Region> {
     @FXML
     private VBox recipesBox;
 
-    public PlanningListCard(PlannedRecipe plannedRecipe, int displayedIndex) throws IOException {
+    public PlanningListCard(PlannedDate plannedDate, int displayedIndex) throws IOException {
         super(FXML);
-        this.plannedRecipeObject = plannedRecipe;
-        this.plannedDate = plannedRecipe.getDate();
-        date.setText(plannedDate.toString());
+        this.plannedDateObject = plannedDate;
+        this.plannedDate = plannedDate.getDate();
+        date.setText(this.plannedDate.toString());
 
-        this.recipes = plannedRecipe.getRecipes();
+        this.recipes = plannedDate.getRecipes();
 
         for (int i = 0; i < recipes.size(); i++) {
             Recipe recipe = recipes.get(i);
