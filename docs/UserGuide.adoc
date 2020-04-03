@@ -132,6 +132,14 @@ Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram i
         . Add salt
 
 
+=== View a Recipe — `view`
+You can view a given recipe on *CookBuddy* using the `view` command.
+
+Format: `view INDEX`
+
+Example: You can type `view 2` and *CookBuddy* will display the recipe at index 2 on the main page.
+
+
 === Deleting a recipe — `delete`
 You can delete an existing recipe from *CookBuddy* using the `delete` command.
 
@@ -236,8 +244,6 @@ You can count the total number of recipes stored in *CookBuddy* using the `count
 
 Format: `count`
 
-//=== View a Recipe — `view RECIPE_INDEX (V1.3)`
-//Opens the recipe at `RECIPE_INDEX` to view.
 //
 //=== Tag a Recipe — `tag <index> <tag_type> <tag> (V1.3)`
 //Tags a recipe at the specified index with the tag of tag_type.
