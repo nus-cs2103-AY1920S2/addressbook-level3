@@ -3,6 +3,7 @@ package seedu.address.model.parcel.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import seedu.address.model.parcel.parcelattributes.TransactionId;
  * unique in terms of identity in the UniqueOrderList. However, the removal of an order uses Order#equals
  * (Order) so
  * as to ensure that the order with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Order#isSameParcel(Order)
@@ -51,6 +52,7 @@ public class UniqueOrderList implements Iterable<Order> {
             throw new DuplicateOrderException();
         }
         internalList.add(toAdd);
+        sortByTimestamp();
     }
 
     /**
@@ -71,6 +73,7 @@ public class UniqueOrderList implements Iterable<Order> {
         }
 
         internalList.set(index, editedOrder);
+        sortByTimestamp();
     }
 
     /**
@@ -87,6 +90,7 @@ public class UniqueOrderList implements Iterable<Order> {
     public void setOrders(UniqueOrderList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        sortByTimestamp();
     }
 
     /**
@@ -100,6 +104,7 @@ public class UniqueOrderList implements Iterable<Order> {
         }
 
         internalList.setAll(orders);
+        sortByTimestamp();
     }
 
     /**
@@ -126,6 +131,15 @@ public class UniqueOrderList implements Iterable<Order> {
         return internalUnmodifiableList;
     }
 
+    public Order get(TransactionId transactionId) {
+        for (Order order : internalList) {
+            if (order.getTid().equals(transactionId)) {
+                return order;
+            }
+        }
+        return null;
+    }
+
     @Override
     public Iterator<Order> iterator() {
         return internalList.iterator();
@@ -135,12 +149,23 @@ public class UniqueOrderList implements Iterable<Order> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueOrderList // instanceof handles nulls
-                        && internalList.equals(((UniqueOrderList) other).internalList));
+                && internalList.equals(((UniqueOrderList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * The orders in the {@code internalList} will be sorted by timestamp.
+     */
+    private void sortByTimestamp() {
+        internalList.sort((Order first, Order second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        });
     }
 
     /**
@@ -155,14 +180,5 @@ public class UniqueOrderList implements Iterable<Order> {
             }
         }
         return true;
-    }
-
-    public Order get(TransactionId transactionId) {
-        for (Order order : internalList) {
-            if (order.getTid().equals(transactionId)) {
-                return order;
-            }
-        }
-        return null;
     }
 }
