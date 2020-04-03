@@ -87,28 +87,28 @@ public class DeleteSuggestionCommandParserTest {
     public void parse_uncorrectedAbsolutePathWithPrefix_throwsParseException() {
         String title = "/RandomBlock";
         assertParseFailure(deleteSuggestionCommandParser, " -t" + title,
-            "Cannot delete \"" + title + "\" Invalid path.");
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test
     public void parse_uncorrectedAbsolutePathWithoutPrefix_throwsParseException() {
         String title = "/RandomBlock";
         assertParseFailure(deleteSuggestionCommandParser, title,
-            "Cannot delete \"" + title + "\" Invalid path.");
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test
     public void parse_uncorrectedRelativePathWithPrefix_throwsParseException() {
         String title = "randomBlock";
         assertParseFailure(deleteSuggestionCommandParser, " -t" + title,
-            "Cannot delete \"" + title + "\" Invalid path.");
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test
     public void parse_uncorrectedRelativePathWithoutPrefix_throwsParseException() {
         String title = "randomBlock";
         assertParseFailure(deleteSuggestionCommandParser, title,
-            "Cannot delete \"" + title + "\" Invalid path.");
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test

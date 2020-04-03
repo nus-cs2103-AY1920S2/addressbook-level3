@@ -137,7 +137,7 @@ public class SuggestionEngineImplTest {
         model.setInput("delete " + title);
 
         // Expected result
-        String expectedResponseText = "Cannot delete \"" + title + "\" Invalid path.";
+        String expectedResponseText = "Cannot delete \"" + title + "\". Invalid path.";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -182,7 +182,7 @@ public class SuggestionEngineImplTest {
         model.setInput("dele -t " + title);
 
         // Expected result
-        String expectedResponseText = "Cannot delete \"" + title + "\" Invalid path.";
+        String expectedResponseText = "Cannot delete \"" + title + "\". Invalid path.";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -227,7 +227,7 @@ public class SuggestionEngineImplTest {
         model.setInput("opn -t " + title);
 
         // Expected result
-        String expectedResponseText = "Cannot open \"" + title + "\" Invalid path.";
+        String expectedResponseText = "Cannot open \"" + title + "\". Invalid path.";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 

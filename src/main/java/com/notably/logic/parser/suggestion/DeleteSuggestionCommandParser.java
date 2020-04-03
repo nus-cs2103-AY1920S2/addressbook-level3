@@ -50,12 +50,12 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
-            throw new ParseException("Cannot delete \"" + title + "\" Invalid path.");
+            throw new ParseException("Cannot delete \"" + title + "\". Invalid path.");
         }
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 
         return correctedPath
                 .map((AbsolutePath path) -> new DeleteSuggestionCommand(path, title))
-                .orElseThrow(() -> new ParseException("Cannot delete \"" + title + "\" Invalid path."));
+                .orElseThrow(() -> new ParseException("Cannot delete \"" + title + "\". Invalid path."));
     }
 }
