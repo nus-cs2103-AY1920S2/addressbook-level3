@@ -186,6 +186,12 @@ public class ParserUtil {
     }
 
 
+    /**
+     * Parses a {@code String timeString} into a {@code Time}
+     * @param timeString the string to be parsed
+     * @return the Time of the recipe
+     * @throws ParseException if the given {@timeString} is invalid.
+     */
     public static Time parseTime(String timeString) throws ParseException {
         int hour;
         int min = 0;
@@ -194,7 +200,7 @@ public class ParserUtil {
         String trimmedTime = timeString.trim();
         String[] timeArray = trimmedTime.split(":");
         hour = Integer.parseInt(timeArray[0]);
-        if(timeArray.length > 1) {
+        if (timeArray.length > 1) {
             min = Integer.parseInt(timeArray[1]);
             if (timeArray.length > 2) {
                 sec = Integer.parseInt(timeArray[2]);
@@ -208,7 +214,7 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS_MIN);
         }
 
-        if(!Time.isValidSec(sec)) {
+        if (!Time.isValidSec(sec)) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS_SEC);
         }
 

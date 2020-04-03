@@ -17,9 +17,9 @@ public class Time {
 
 
 
-    public static int hour;
-    public static int min;
-    public static int sec;
+    private static int hour;
+    private static int min;
+    private static int sec;
 
     /**
      * Constructs a {@code Time}.
@@ -53,7 +53,7 @@ public class Time {
     }
 
     public static boolean isValidSec(int test) {
-        return (test >= 0  && test < 60);
+        return (test >= 0 && test < 60);
     }
 
     public void setTime(Time preptime) {
@@ -94,7 +94,7 @@ public class Time {
                 toReturn += "0";
             }
             toReturn += String.valueOf(sec);
-            }
+        }
         return toReturn;
     }
 

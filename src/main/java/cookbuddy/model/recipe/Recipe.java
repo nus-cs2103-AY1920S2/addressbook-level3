@@ -37,7 +37,7 @@ public class Recipe {
     private final Difficulty difficulty;
     private final Fav favStatus = new Fav(false);
     private final Done doneStatus = new Done(false);
-    private final Time prepTime = new Time(0,0,0);
+    private final Time prepTime = new Time(0, 0, 0);
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
