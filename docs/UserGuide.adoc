@@ -170,6 +170,18 @@ recipe to contain two instructions:
     * boil eggs
     * slice apples
 
+==== Modifying a recipe's tags
+You can modify a recipe's tags by appending `[t/TAG [, ...]]` to a `modify` command.
+If you want to remove all tags from the recipe, append `t/` instead.
+
+Example 1: You can type `modify 1 t/lunch, dinner` and *CookBuddy* will update the tags in the 1st recipe to contain
+two tags:
+
+    * lunch
+    * dinner
+
+Example 2: You can type `modify 1 t/` and *CookBuddy* will remove all existing tags from the 1st recipe.
+
 
 === Favouriting a recipe — `fav`
 You can favourite an existing recipe from *CookBuddy* using the `fav` command.

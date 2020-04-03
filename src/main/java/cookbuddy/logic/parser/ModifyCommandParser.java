@@ -12,8 +12,6 @@ import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -85,7 +83,7 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
             editRecipeDescriptor.setDifficulty(
                 ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getValue(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
         if (!editRecipeDescriptor.isAnyFieldEdited()) {
             throw new ParseException(ModifyCommand.MESSAGE_NOT_EDITED);
@@ -95,20 +93,18 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * Parses {@code Optional<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero tags.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+    private Optional<Set<Tag>> parseTagsForEdit(Optional<String> tags) throws ParseException {
         assert tags != null;
 
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("")
-            ? Collections.emptySet()
-            : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+
+        return Optional.of(ParserUtil.parseTags(tags));
     }
 
 }
