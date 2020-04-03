@@ -111,7 +111,8 @@ public class CouponTest {
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different usage -> returns false
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withUsage(CommandTestUtil.VALID_USAGE_BOB).build();
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
+                .withUsage(TypicalCoupons.ALICE.getUsage().increaseUsageByOne().value).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different limit -> returns false

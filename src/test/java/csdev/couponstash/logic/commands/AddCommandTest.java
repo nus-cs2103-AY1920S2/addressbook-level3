@@ -66,9 +66,6 @@ public class AddCommandTest {
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_COUPON, () -> addCommand.execute(modelStub));
     }
 
-
-    //
-
     @Test
     public void equals() {
         Coupon alice = new CouponBuilder().withName("Alice").build();

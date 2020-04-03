@@ -11,6 +11,8 @@ public class Usage {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Usage should only contain numbers, and it should at least be a value of 0";
+    public static final String MESSAGE_UNEDITABLE = "Usage cannot be added or edited. "
+            + "This is to keep the savings consistent.";
     public static final String VALIDATION_REGEX = "^\\d+$";
     public final String value;
 

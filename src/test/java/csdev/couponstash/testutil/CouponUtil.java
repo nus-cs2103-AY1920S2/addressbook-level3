@@ -46,7 +46,6 @@ public class CouponUtil {
         sb.append(PREFIX_EXPIRY_DATE + coupon.getExpiryDate().value + " ");
         sb.append(PREFIX_START_DATE + coupon.getStartDate().value + " ");
         sb.append(convertSavingsToCommand(coupon.getSavingsForEachUse(), moneySymbol));
-        sb.append(PREFIX_USAGE + coupon.getUsage().value + " ");
         sb.append(PREFIX_LIMIT + coupon.getLimit().value + " ");
         sb.append(PREFIX_REMIND + coupon.getRemindDate().toString() + " ");
         coupon.getTags().stream().forEach(

@@ -36,7 +36,7 @@ public class CouponBuilder {
                     new PureMonetarySavings(new MonetaryAmount(97.5)));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
     public static final String DEFAULT_START_DATE = DateUtil.formatDateToString(LocalDate.now());
-    public static final String DEFAULT_USAGE = "3";
+    public static final String DEFAULT_USAGE = "0";
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
     public static final String DEFAULT_CONDITION = "While Stocks Last";
