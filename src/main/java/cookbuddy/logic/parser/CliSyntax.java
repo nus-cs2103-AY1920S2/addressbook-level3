@@ -15,6 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_RATING = new Prefix("r/");
     public static final Prefix PREFIX_SERVING = new Prefix("s/");
     public static final Prefix PREFIX_DIFFICULTY = new Prefix("d/");
-
-
+    
 }
