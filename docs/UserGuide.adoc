@@ -300,9 +300,9 @@ image::demo/Search.png[]
 * *Create a new note*: `new -t TITLE [-b BODY] [-o]`
 * *Open an existing note*: `open [-t] TITLE`
 * *Edit an existing note*: `edit -b BODY`
-* *Find a note based on certain keywords*: `search [-s] KEYWORD`
 * *Delete a note*: `delete [-t] TITLE`
 * *Go back to the parent note*: `open ../`
 * *Navigate to a specific directory*: `open [-t] TITLE`
 * *Autofill*: kbd:[Tab]
+* *(Coming in v2.0) Find a note based on certain keywords*: `search [-s] KEYWORD`
 
