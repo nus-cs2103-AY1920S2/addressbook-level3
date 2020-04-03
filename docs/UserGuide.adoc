@@ -115,7 +115,7 @@ Examples:
 * `(ab)delete 2` +
 Deletes the 2nd person in the address book.
 
-==== Editing a person : `(ab)edit`
+==== [Coming Soon] Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
 Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [o/ORGANIZATION] [b/BIRTHDAY]`
