@@ -44,4 +44,9 @@ public abstract class InMemoryStorage<T> implements AppStorage<T> {
         Conditions<T> cond = new LiterallyNoConditions<T>();
         return this.search(cond);
     }
+
+    @Override
+    public ArrayList<T> searchAggregated() {
+        return null;
+    }
 }

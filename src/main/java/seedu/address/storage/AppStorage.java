@@ -15,9 +15,19 @@ public interface AppStorage<T> {
     /**
      * Given a condition, return all valid objects
      * @param   cond            {@code Condition} interface
+     *
      * @return  ArrayList<T>    Filtered results
      */
     public ArrayList<T> search(Conditions cond);
 
     public ArrayList<T> search();
+
+    /**
+     * Performs an aggregated search over records passed in to identify groups of records which satisfies a condition
+     * @param   records         Batch of records to evaluate
+     *          cond            {@code Condition} interface
+     *
+     * @return  ArrayList<T>    Filtered results
+     */
+    public ArrayList<T> searchAggregated(ArrayList<T> records, Conditions cond);
 }
