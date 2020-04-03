@@ -66,7 +66,6 @@ public class PersonBuilder {
         birthday = personToCopy.getBirthday();
         organization = personToCopy.getOrganization();
         tags = new HashSet<>(personToCopy.getTags());
-        index = personToCopy.getIndex();
     }
 
     /**
@@ -142,7 +141,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, remark, birthday, organization, tags, index);
+        return new Person(name, phone, email, address, remark, birthday, organization, tags);
     }
 
 }

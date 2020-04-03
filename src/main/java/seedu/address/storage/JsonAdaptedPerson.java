@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
@@ -36,7 +35,6 @@ class JsonAdaptedPerson {
     private final String birthday;
     private final String organization;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final String index;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -49,8 +47,7 @@ class JsonAdaptedPerson {
                              @JsonProperty("remark") ArrayList<JsonAdaptedRemark> remark,
                              @JsonProperty("birthday") String birthday,
                              @JsonProperty("organization") String organization,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("index") String index) {
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -63,7 +60,6 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-        this.index = index;
     }
 
     /**
@@ -82,7 +78,6 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        index = Integer.toString(source.getIndex().getZeroBased());
     }
 
     /**
@@ -149,9 +144,7 @@ class JsonAdaptedPerson {
         final Organization modelOrganization = new Organization(organization);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        final Index modelIndex = new Index(Integer.parseInt(index));
         return new Person(modelName, modelPhone, modelEmail, modelAddress,
-                modelRemark, modelBirthday, modelOrganization, modelTags, modelIndex);
+                modelRemark, modelBirthday, modelOrganization, modelTags);
     }
-
 }

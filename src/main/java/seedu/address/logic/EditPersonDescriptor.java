@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
@@ -31,7 +30,6 @@ public class EditPersonDescriptor {
     private Organization organization;
     private ArrayList<Remark> remarks;
     private Set<Tag> tags;
-    private Index index;
 
     public EditPersonDescriptor() {}
 
@@ -48,7 +46,6 @@ public class EditPersonDescriptor {
         setOrganization(toCopy.organization);
         setRemarks(toCopy.remarks);
         setTags(toCopy.tags);
-        setIndex(toCopy.index);
     }
 
     /**
@@ -106,13 +103,6 @@ public class EditPersonDescriptor {
         return Optional.ofNullable(organization);
     }
 
-    public Optional<Index> getIndex() {
-        return Optional.ofNullable(index);
-    }
-    public void setIndex(Index index) {
-        this.index = index;
-    }
-
     /**
      * Sets {@code remarks} to this object's {@code remarks}.
      * A defensive copy of {@code remarks} is used internally.
@@ -162,10 +152,9 @@ public class EditPersonDescriptor {
         Birthday updatedBirthday = getBirthday().orElse(personToEdit.getBirthday());
         Organization updatedOrganization = getOrganization().orElse(personToEdit.getOrganization());
         Set<Tag> updatedTags = getTags().orElse(personToEdit.getTags());
-        Index updatedIndex = getIndex().orElse(personToEdit.getIndex());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
-                updatedBirthday, updatedOrganization, updatedTags, updatedIndex);
+                updatedBirthday, updatedOrganization, updatedTags);
     }
 
     @Override

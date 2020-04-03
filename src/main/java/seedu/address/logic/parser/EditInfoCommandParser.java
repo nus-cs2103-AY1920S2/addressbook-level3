@@ -9,7 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditInfoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.person.Remark;
 
 /**
@@ -21,7 +20,7 @@ public class EditInfoCommandParser implements Parser<EditInfoCommand> {
      * and returns a {@code RemarkCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditInfoCommand parse(String args, Model model) throws ParseException {
+    public EditInfoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_LINE_NUMBER, PREFIX_REMARK);

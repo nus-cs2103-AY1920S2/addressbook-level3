@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.Deadline;
 import seedu.address.model.assignment.Title;
@@ -24,7 +23,7 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddAssignmentCommand parse(String args, Model model) throws ParseException {
+    public AddAssignmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DEADLINE, PREFIX_ESTHOURS, PREFIX_TITLE);
 

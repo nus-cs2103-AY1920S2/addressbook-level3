@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -18,7 +17,7 @@ public class DeleteRestaurantCommandParser implements Parser<DeleteRestaurantCom
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteRestaurantCommand parse(String args, Model model) throws ParseException {
+    public DeleteRestaurantCommand parse(String args) throws ParseException {
         Index index;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args);

@@ -66,58 +66,58 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddRestaurantCommand.COMMAND_WORD:
-            return new AddRestaurantCommandParser().parse(arguments, model);
+            return new AddRestaurantCommandParser().parse(arguments);
 
         case DeleteRestaurantCommand.COMMAND_WORD:
-            return new DeleteRestaurantCommandParser().parse(arguments, model);
+            return new DeleteRestaurantCommandParser().parse(arguments);
 
         case ListRestaurantCommand.COMMAND_WORD:
             return new ListRestaurantCommand();
 
         case VisitedRestaurantCommand.COMMAND_WORD:
-            return new VisitedRestaurantCommandParser().parse(arguments, model);
+            return new VisitedRestaurantCommandParser().parse(arguments);
 
         case AddRestaurantNoteCommand.COMMAND_WORD:
-            return new AddRestaurantNoteCommandParser().parse(arguments, model);
+            return new AddRestaurantNoteCommandParser().parse(arguments);
 
         case AddAssignmentCommand.COMMAND_WORD:
-            return new AddAssignmentCommandParser().parse(arguments, model);
+            return new AddAssignmentCommandParser().parse(arguments);
 
         case ListAssignmentCommand.COMMAND_WORD:
-            return new ListAssignmentCommandParser().parse(arguments, model);
+            return new ListAssignmentCommandParser().parse(arguments);
 
         case AddEventCommand.COMMAND_WORD:
-            return new AddEventCommandParser().parse(arguments, model);
+            return new AddEventCommandParser().parse(arguments);
 
         case DoneCommand.COMMAND_WORD:
-            return new DoneCommandParser().parse(arguments, model);
+            return new DoneCommandParser().parse(arguments);
 
         case ListEventCommand.COMMAND_WORD:
-            return new ListEventCommandParser().parse(arguments, model);
+            return new ListEventCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments, model);
+            return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments, model);
+            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments, model);
+            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments, model);
+            return new FindCommandParser().parse(arguments);
 
         case AddInfoCommand.COMMAND_WORD:
-            return new AddInfoCommandParser().parse(arguments, model);
+            return new AddInfoCommandParser().parse(arguments);
 
         case EditInfoCommand.COMMAND_WORD:
-            return new EditInfoCommandParser().parse(arguments, model);
+            return new EditInfoCommandParser().parse(arguments);
 
         case DeleteInfoCommand.COMMAND_WORD:
-            return new DeleteInfoCommandParser().parse(arguments, model);
+            return new DeleteInfoCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -126,16 +126,16 @@ public class AddressBookParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommandParser().parse(arguments, model);
+            return new HelpCommandParser().parse(arguments);
 
         case GetCommand.COMMAND_WORD:
-            return new GetCommandParser().parse(arguments, model);
+            return new GetCommandParser().parse(arguments);
 
         case ShowBirthdayCommand.COMMAND_WORD:
             return new ShowBirthdayCommand();
 
         case ScheduleCommand.COMMAND_WORD:
-            return new ScheduleCommandParser().parse(arguments, model);
+            return new ScheduleCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 import seedu.address.model.event.Duration;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
@@ -27,7 +26,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      * and returns an AddEventCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddEventCommand parse(String args, Model model) throws ParseException {
+    public AddEventCommand parse(String args) throws ParseException {
 
         // does order matter for this command? pls double check
         ArgumentMultimap argMultimap =
