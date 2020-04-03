@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Package Commands <<Rectangle>>{
+Class Command
+
+Package Commons {
+    Class HI1 #FFFFFF
+}
+Package Module {
+    Class HI2 #FFFFFF
+}
+Package Group {
+    Class HI3 #FFFFFF
+}
+Package Student {
+    Class HI4 #FFFFFF
+}
+Package Sort {
+    Class HI5 #FFFFFF
+}
+Package Session {
+    Class HI6 #FFFFFF
+}
+Package Statistic {
+    Class HI7 #FFFFFF
+}
+
+HI1 .down.> Command
+HI2 .down.> Command
+HI3 .down.> Command
+HI4 .down.> Command
+HI5 .down.> Command
+HI6 .down.> Command
+HI7 .down.> Command
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Package Commands <<Rectangle>>{
+Class CommandDictionary
+Class CommandDetails {
+    String id
+}
+
+
+Class CommandWords
+
+Package Commons {
+    Class HI1 #FFFFFF
+}
+Package Module {
+    Class HI2 #FFFFFF
+}
+Package Group {
+    Class HI3 #FFFFFF
+}
+Package Student {
+    Class HI4 #FFFFFF
+}
+Package Sort {
+    Class HI5 #FFFFFF
+}
+Package Session {
+    Class HI6 #FFFFFF
+}
+Package Statistic {
+    Class HI7 #FFFFFF
+}
+
+CommandDictionary --> "*" CommandDetails : command details
+
+HI1 .up.> CommandDetails
+HI2 .up.> CommandDetails
+HI3 .up.> CommandDetails
+HI4 .up.> CommandDetails
+HI5 .up.> CommandDetails
+HI6 .up.> CommandDetails
+HI7 .up.> CommandDetails
+
+HI1 .down.> CommandWords
+HI2 .down.> CommandWords
+HI3 .down.> CommandWords
+HI4 .down.> CommandWords
+HI5 .down.> CommandWords
+HI6 .down.> CommandWords
+HI7 .down.> CommandWords
+@enduml
