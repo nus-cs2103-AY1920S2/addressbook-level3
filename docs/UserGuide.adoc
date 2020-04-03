@@ -67,7 +67,7 @@ image::Ui.png[width="800"]
 
    * `list` : lists all the recipes in the recipe book
 
-   * `new n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate`:
+   * `new recipe n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate`:
     adds a recipe named "Ham Sandwich" to *CookBuddy*.
 
    * `delete 3` : deletes the 3rd recipe shown in the current list
