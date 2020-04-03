@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+ModelManager -->"1" Good : filtered list
+Inventory *-right-> "1" UniqueGoodList
+
+UniqueGoodList o-right-> Good
+
+Good *--> GoodName
+Good *--> Quantity
+Good *--> ThresholdQuantity
+@enduml
