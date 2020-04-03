@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ObservableList<Integer> goalsCountList;
 
     // Independent Ui parts residing in this Ui container
     private MainTabPanel mainTabPanel;
@@ -136,10 +137,11 @@ public class MainWindow extends UiPart<Stage> {
         planningListPanel = new PlanningListPanel(plannedList);
 
         ObservableList<Record> cookedList = logic.getFilteredRecordList();
-        ObservableList<Integer> goalCountList = logic.getFilteredGoalsTally();
-        cookedListPanel = new CookedListPanel(cookedList, goalCountList);
+        goalsCountList = logic.getFilteredGoalsTally();
+        cookedListPanel = new CookedListPanel(cookedList, goalsCountList);
+        cookedListPanel.setChart(goalsCountList);
 
-        //using recipe list as stub for chievements, to be edited later todo
+        //using recipe list as stub for achievements, to be edited later todo
         ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
         achievementsListPanel = new RecipeListPanel(achievementsList);
 
@@ -274,6 +276,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showGoalsTab() {
         mainTabPanel.switchToGoalsTab();
+        cookedListPanel.setChart(goalsCountList);
     }
 
     /**

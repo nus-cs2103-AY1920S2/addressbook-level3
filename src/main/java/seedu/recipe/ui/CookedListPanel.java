@@ -32,6 +32,10 @@ public class CookedListPanel extends UiPart<Region> {
         cookedListView.setItems(recordList);
         cookedListView.setCellFactory(listView -> new RecordListViewCell());
 
+        setChart(goalCountList);
+    }
+
+    public void setChart(ObservableList<Integer> goalCountList) {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Herbivore", goalCountList.get(0)),
