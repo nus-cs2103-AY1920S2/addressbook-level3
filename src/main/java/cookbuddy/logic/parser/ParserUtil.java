@@ -148,7 +148,12 @@ public class ParserUtil {
      */
     public static Rating parseRating(String ratingString) throws ParseException {
         requireNonNull(ratingString);
-        int rating = Integer.parseInt(ratingString.trim());
+        int rating;
+        try {
+            rating = Integer.parseInt(ratingString.trim());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Input provided is not a valid integer!");
+        }
         if (!Rating.isValidRating(rating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
