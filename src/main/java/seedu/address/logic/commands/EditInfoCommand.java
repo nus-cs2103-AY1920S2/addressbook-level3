@@ -28,7 +28,7 @@ public class EditInfoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
-            + "[" + PREFIX_LINE_NUMBER + "LINE_NUMBER] " + "[" + PREFIX_REMARK + "INFO]\n"
+            + PREFIX_LINE_NUMBER + "LINE_NUMBER " + PREFIX_REMARK + "INFO\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_LINE_NUMBER + " 2 " + PREFIX_REMARK + " Likes to swim.";
 
@@ -72,7 +72,7 @@ public class EditInfoCommand extends Command {
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getBirthday(),
-                personToEdit.getOrganization(), personToEdit.getTags(), personToEdit.getIndex());
+                personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

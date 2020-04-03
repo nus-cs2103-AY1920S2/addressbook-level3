@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
@@ -38,7 +37,6 @@ public class PersonBuilder {
     private Birthday birthday;
     private Organization organization;
     private Set<Tag> tags;
-    private Index index;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -50,7 +48,6 @@ public class PersonBuilder {
         birthday = new Birthday(DEFAULT_BIRTHDAY);
         organization = new Organization(DEFAULT_ORGANIZATION);
         tags = new HashSet<>();
-        index = new Index(DEFAULT_INDEX);
     }
 
     /**
@@ -66,7 +63,6 @@ public class PersonBuilder {
         birthday = personToCopy.getBirthday();
         organization = personToCopy.getOrganization();
         tags = new HashSet<>(personToCopy.getTags());
-        index = personToCopy.getIndex();
     }
 
     /**
@@ -133,16 +129,8 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Index} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withIndex(String index) {
-        this.index = new Index(Integer.parseInt(index));
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, phone, email, address, remark, birthday, organization, tags, index);
+        return new Person(name, phone, email, address, remark, birthday, organization, tags);
     }
 
 }

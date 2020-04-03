@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -34,13 +35,13 @@ public class AddInfoCommand extends Command {
     public static final String MESSAGE_EMPTY = "No remark added to Person: %1$s";
 
     private final Index index;
-    private final Remark remark;
+    private final ArrayList<Remark> remark;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
      * @param remark of the person to be updated to
      */
-    public AddInfoCommand(Index index, Remark remark) {
+    public AddInfoCommand(Index index, ArrayList<Remark> remark) {
         requireAllNonNull(index, remark);
 
         this.index = index;
@@ -56,13 +57,14 @@ public class AddInfoCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        if (!remark.value.isEmpty()) {
-            personToEdit.getRemark().add(remark);
+        if (remark.size() != 0) {
+            for (int i = 0; i < remark.size(); i++) {
+                personToEdit.getRemark().add(remark.get(i));
+            }
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
                 personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getRemark(),
-                personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags(),
-                personToEdit.getIndex());
+                personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -75,7 +77,7 @@ public class AddInfoCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_EMPTY;
+        String message = (remark.size() != 0) ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_EMPTY;
         return String.format(message, personToEdit);
     }
 
