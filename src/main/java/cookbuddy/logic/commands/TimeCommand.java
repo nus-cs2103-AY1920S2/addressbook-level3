@@ -23,7 +23,7 @@ public class TimeCommand extends Command {
             + "Parameters: INDEX (must be a positive integer), TIME (hh:MM)\n"
             + "Example: " + COMMAND_WORD + " 1" + " 00:59 ";
 
-    public static final String MESSAGE_FAV_RECIPE_SUCCESS = "Time for Recipe: %1$s %2$s";
+    public static final String MESSAGE_TIME_RECIPE_SUCCESS = "Time for Recipe: %1$s %2$s";
 
     private final Index targetIndex;
     private final Time prepTime;
@@ -44,7 +44,7 @@ public class TimeCommand extends Command {
 
         Recipe recipeToSet = lastShownList.get(targetIndex.getZeroBased());
         model.setTime(recipeToSet, prepTime);
-        return new CommandResult(String.format(MESSAGE_FAV_RECIPE_SUCCESS, recipeToSet.getName(),
+        return new CommandResult(String.format(MESSAGE_TIME_RECIPE_SUCCESS, recipeToSet.getName(),
                 recipeToSet.getPrepTime()));
     }
 
