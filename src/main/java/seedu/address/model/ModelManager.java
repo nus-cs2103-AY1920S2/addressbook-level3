@@ -72,6 +72,14 @@ public class ModelManager extends BaseManager implements Model {
   private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Assignment> extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
   private MainWindow mainWindow;
+
+  private static ModelManager instance;
+
+  // Whenever other managers refer to model manager, modelManager must already be created
+  public static ModelManager getInstance() {
+    return instance;
+  }
+
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
    */
@@ -127,6 +135,7 @@ public class ModelManager extends BaseManager implements Model {
       staff.processAssignedCourses(filteredCourses);
     }
 
+    instance = this;
 
   }
 
@@ -332,11 +341,6 @@ public class ModelManager extends BaseManager implements Model {
     return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
   }
   // ======================================================================================================
-
-  private void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
-      Constants.ENTITY_TYPE entityType) {
-    raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
-  }
 
   // =================================== CRUD METHODS =====================================================
   public boolean has(ModelObject obj) throws CommandException {
