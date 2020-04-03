@@ -18,6 +18,7 @@ import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 
 /**
  * Represents a Recipe in the recipe book. Guarantees: details are present and
@@ -36,6 +37,7 @@ public class Recipe {
     private final Difficulty difficulty;
     private final Fav favStatus = new Fav(false);
     private final Done doneStatus = new Done(false);
+    private final Time prepTime = new Time(0, 0, 0);
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -96,6 +98,10 @@ public class Recipe {
         return doneStatus;
     }
 
+    public Time getPrepTime() {
+        return prepTime;
+    }
+
     /**
      * Returns an immutable tag set, which throws
      * {@code UnsupportedOperationException} if modification is attempted.
@@ -133,6 +139,10 @@ public class Recipe {
 
     public void unAttemptRecipe() {
         doneStatus.unAttempt();
+    }
+
+    public void setTime(Time time) {
+        prepTime.setTime(time);
     }
 
     /**
