@@ -34,7 +34,8 @@ public class EditInfoCommandParser implements Parser<EditInfoCommand> {
                     EditInfoCommand.MESSAGE_USAGE), ive);
         }
 
-        if (!argMultimap.getValue(PREFIX_LINE_NUMBER).isPresent() || argMultimap.getAllValues(PREFIX_LINE_NUMBER).get(0).isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_LINE_NUMBER).isPresent() || argMultimap
+                .getAllValues(PREFIX_LINE_NUMBER).get(0).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER, EditInfoCommand.MESSAGE_USAGE));
         }
         int line = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER).get(0));
