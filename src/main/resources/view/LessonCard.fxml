@@ -15,13 +15,13 @@
     </columnConstraints>
     <Label fx:id="name" styleClass="activity_big_label" text="\$code" wrapText="true"
            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <Label fx:id="note" styleClass="activity_small_label" text="\$code" wrapText="true"
+    <Label fx:id="startDate" styleClass="activity_small_label" text="\$code" wrapText="true"
            GridPane.columnIndex="0" GridPane.rowIndex="1">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>
     </Label>
-    <Label fx:id="date" styleClass="activity_small_label" text="\$code" wrapText="true"
+    <Label fx:id="endDate" styleClass="activity_small_label" text="\$code" wrapText="true"
            GridPane.columnIndex="0" GridPane.rowIndex="2">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
@@ -35,6 +35,12 @@
     </Label>
     <Label fx:id="priority" styleClass="activity_small_label" text="\$code" wrapText="true"
            GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <minWidth>
+            <Region fx:constant="USE_PREF_SIZE"/>
+        </minWidth>
+    </Label>
+    <Label fx:id="note" styleClass="activity_small_label" text="\$code" wrapText="true"
+           GridPane.columnIndex="0" GridPane.rowIndex="3">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>

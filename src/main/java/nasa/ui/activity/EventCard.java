@@ -30,7 +30,9 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label date;
+    private Label startDate;
+    @FXML
+    private Label endDate;
     @FXML
     private Label note;
     @FXML
@@ -44,7 +46,8 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());
-        date.setText("From " + activity.getDateFrom().toString() + " to " + activity.getDateTo().toString());
+        startDate.setText("From " + activity.getDateFrom().toString());
+        endDate.setText("To " + activity.getDateTo().toString());
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
         priority.setText("Priority: " + activity.getPriority().toString());
