@@ -1,6 +1,5 @@
 package seedu.recipe.ui;
 
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -64,7 +63,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label stepsHeader;
 
-    public RecipeCard(Recipe recipe, int displayedIndex) throws IOException {
+    public RecipeCard(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
@@ -72,9 +71,7 @@ public class RecipeCard extends UiPart<Region> {
         name.setWrapText(true);
 
         if (recipe.isFavourite()) {
-            String favouriteIcon = "/images/favourite.png";
-            // Path favouriteIconPath = Paths.get("src", "main", "resources", "images", "favourite.png");
-            favourite.setImage(new Image(favouriteIcon));
+            favourite.setImage(new Image("/images/favourite.png"));
         }
 
         recipe.getGoals().stream()

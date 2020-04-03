@@ -1,6 +1,5 @@
 package seedu.recipe.ui;
 
-import java.io.IOException;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -41,7 +40,7 @@ public class CookedCard extends UiPart<Region> {
     @FXML
     private FlowPane goals;
 
-    public CookedCard(Record record, int displayedIndex) throws IOException {
+    public CookedCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
         id.setText(displayedIndex + ". ");
