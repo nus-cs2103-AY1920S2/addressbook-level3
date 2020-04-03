@@ -66,6 +66,15 @@ public class ModelManager implements Model {
         update();
     }
 
+    @Override
+    public void clear() {
+        createNewState("BIRTHDAY");
+        setAddressBook(new AddressBook());
+        setRestaurantBook(new RestaurantBook());
+        setScheduler(new Scheduler());
+        setEventSchedule(new EventSchedule());
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -105,7 +114,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        createNewState("ADDRESS");
         this.addressBook.resetData(addressBook);
     }
 
@@ -141,6 +149,12 @@ public class ModelManager implements Model {
     }
 
     //========== Schoolwork Tracker ==========================================================================
+
+    @Override
+    public void setScheduler(ReadOnlyScheduler scheduler) {
+        this.scheduler.resetData(scheduler);
+    }
+
     @Override
     public void addAssignment(Assignment assignment) {
         createNewState("ASSIGNMENTS");
@@ -180,6 +194,11 @@ public class ModelManager implements Model {
     //=========== Event Schedule ================================================================================
 
     @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
+        this.eventSchedule.resetData(eventSchedule);
+    }
+
+    @Override
     public void addEvent(Event event) {
         eventSchedule.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
@@ -198,6 +217,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClashingEvent(Event event) {
+        requireNonNull(event);
+        return eventSchedule.hasClashingEvent(event);
+    }
+
+    @Override
     public ReadOnlyEventSchedule getEventSchedule() {
         return eventSchedule;
     }
@@ -208,6 +233,11 @@ public class ModelManager implements Model {
     }
 
     //=========== RestaurantBook ================================================================================
+
+    @Override
+    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
+        this.restaurantBook.resetData(restaurantBook);
+    }
 
     @Override
     public ReadOnlyRestaurantBook getRestaurantBook() {
@@ -408,15 +438,17 @@ public class ModelManager implements Model {
      * Returns the size of the undo stack
      * @return size of undo stack
      */
-    public int undoStackSize() { return undoStates.size(); }
-
+    public int undoStackSize() {
+        return undoStates.size();
+    }
 
     /**
      * Returns size of redo stack
      * @return size of redo stack
      */
-    public int redoStackSize() { return redoStates.size(); }
-
+    public int redoStackSize() {
+        return redoStates.size();
+    }
 
     /**
      * Un-does the last operation that alters something, pops the top of the undo stack into the redo stack
@@ -432,7 +464,6 @@ public class ModelManager implements Model {
 
         return commandType;
     }
-
 
     /**
      * Re-does the last undone operation, pops the top of redo stack into the undo stack

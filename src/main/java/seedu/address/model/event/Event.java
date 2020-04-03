@@ -93,6 +93,7 @@ public class Event {
         }
 
         Event otherEvent = (Event) other;
+
         return otherEvent.getEventTitle().equals(getEventTitle())
                 && otherEvent.getDuration().equals(getDuration())
                 && otherEvent.getPlace().equals(getPlace())

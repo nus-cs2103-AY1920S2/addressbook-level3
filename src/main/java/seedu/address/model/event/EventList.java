@@ -83,6 +83,26 @@ public class EventList {
     }
 
     /**
+     * @return size of the Event List.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Checks if there is a clashing event (determined by whether or not 2 events have the same date
+     * and time.
+     */
+    public boolean hasClashingEvent(Event event) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).getEventDate().dateTime.compareTo(event.getEventDate().dateTime) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Sorts the Event Schedule as an {@code ObservableList}
      */
     public void sort(Comparator<Event> comparator) {

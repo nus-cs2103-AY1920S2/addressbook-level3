@@ -24,6 +24,11 @@ import seedu.address.model.restaurant.Restaurant;
  */
 public class ModelStub implements Model {
     @Override
+    public void clear() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
     }
@@ -104,6 +109,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
@@ -140,6 +150,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setScheduler(ReadOnlyScheduler scheduler) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -184,6 +199,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setEventSchedule(ReadOnlyEventSchedule eventSchedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyEventSchedule getEventSchedule() {
         throw new AssertionError("This method should not be called.");
     }
@@ -195,6 +215,11 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasEvent(Event toAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasClashingEvent(Event toAdd) {
         throw new AssertionError("This method should not be called.");
     }
 

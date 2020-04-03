@@ -29,6 +29,11 @@ public interface Model {
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
+     * Clears all data
+     */
+    void clear();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -112,6 +117,11 @@ public interface Model {
      */
     void updateFilteredPersonListResult(Predicate<Person> predicate);
 
+    /**
+     * Replaces restaurant book data with the data in {@code restaurantBook}.
+     */
+    void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook);
+
     /** Returns the RestaurantBook */
     ReadOnlyRestaurantBook getRestaurantBook();
 
@@ -148,6 +158,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
+
+    /**
+     * Replaces scheduler data with the data in {@code scheduler}.
+     */
+    void setScheduler(ReadOnlyScheduler scheduler);
 
     /** Returns the Scheduler */
     ReadOnlyScheduler getScheduler();
@@ -189,6 +204,11 @@ public interface Model {
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
+    /**
+     * Replaces EventSchedule data with the data in {@code eventSchedule}.
+     */
+    void setEventSchedule(ReadOnlyEventSchedule eventSchedule);
+
     /** Returns the Event Schedule */
     ReadOnlyEventSchedule getEventSchedule();
 
@@ -202,6 +222,11 @@ public interface Model {
      * Returns true if an Event with the same title and date as {@code Event} exists in the event schedule
      */
     boolean hasEvent(Event toAdd);
+
+    /**
+     * Returns true if there is a clashing event (same timing and same date).
+     */
+    boolean hasClashingEvent(Event event);
 
     /** Sorts the event schedule by the filter */
     void sortEvent(Comparator<Event> comparator);
