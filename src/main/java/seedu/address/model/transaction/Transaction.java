@@ -15,12 +15,15 @@ import seedu.address.model.util.Quantity;
  */
 public class Transaction {
 
+    // Identity fields
     private final Customer customer;
     private final Product product;
     private final UUID productId;
     private final UUID customerId;
     private final DateTime dateTime;
     private final Quantity quantity;
+
+    // Data fields
     private final Money money;
     private final Description description;
 

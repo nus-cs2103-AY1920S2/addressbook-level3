@@ -20,10 +20,10 @@ public class Product {
 
     // Identity fields
     private final Description description;
-
-    // Data fields
     private final CostPrice costPrice;
     private final Price price;
+
+    // Data fields
     private final Quantity quantity;
     private final Money money;
     private final UUID id;

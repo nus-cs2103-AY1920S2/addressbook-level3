@@ -65,7 +65,8 @@ Adds a customer to the customer list +
 Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 
 [NOTE]
-A customer can have any number of tags (including 0).
+A customer can have any number of tags (including 0). +
+Duplicate customers (with the same name, phone, email) are not allowed.
 
 Examples:
 
@@ -158,6 +159,9 @@ Deletes all transactions as well.
 
 Adds a product to the product list. +
 Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]`
+
+[NOTE]
+Duplicate products (with the same description, cost price, price) are not allowed.
 
 [TIP]
 A product created without providing values for sales (in SGD) will be created with 0 sales. +
@@ -257,6 +261,9 @@ Deletes all transactions as well.
 
 Adds a specified transaction to the system. +
 Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]` +
+
+[NOTE]
+Duplicate transactions (with the same customer, product, datetime, quantity) are not allowed.
 
 [TIP]
 The date time field [dt/] is optional, and will be recorded as current local machine time if left empty. +
