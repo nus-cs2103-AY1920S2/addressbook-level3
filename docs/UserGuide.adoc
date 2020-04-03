@@ -126,6 +126,8 @@ HYBB uses the following tags to make sense of user input:
 
 === Legend
 From sections 6 to 11, the following notations may be used.
+
+[cols="1a,1"]
 |===
 |Notation |Meaning
 
@@ -133,13 +135,13 @@ From sections 6 to 11, the following notations may be used.
 |< > |Optional field. e.g. `n/NAME <g/GOAL>` can be used as `n/Spicy Chicken g/Bulk like the Hulk` or as `n/Spicy Chicken`
 |[ < > ] |At least one of the optional fields is necessary
 |… | One or more of this same field can be added. e.g. `<g/GOAL>...` can be used as `{nbsp}` (i.e. 0 times), `g/Bulk like the Hulk`, `g/Wholesome Wholemeals`, `g/Herbivore` etc.
-|image::Tip.png| Tip
+|image::Tip.png[] | Tip
 |===
 
 
 [TIP]
 Parameters can be in any order e.g. if the command specifies `n/NAME t/TIME`, `t/TIME n/NAME` is also acceptable. +
-Commands are case-insensitive, but tags are case-sensitive.
+Also, commands are case-insensitive, but tags are case-sensitive.
 
 [[Features]]
 == Basic Commands
