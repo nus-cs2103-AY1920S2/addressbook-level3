@@ -29,9 +29,9 @@ public class AddSessionCommand extends Command {
             CommandWords.SESSION,
             CommandWords.ADD_MODEL,
             "Adds a session in the TA-Tracker.",
-            List.of(),
-            List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
-            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
+            List.of(MODULE),
+            List.of(START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
+            MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
