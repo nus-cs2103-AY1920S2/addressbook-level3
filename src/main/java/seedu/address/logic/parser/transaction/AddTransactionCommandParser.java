@@ -44,31 +44,38 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         Index customerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
         Index productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
+        DateTime dateTime = getDateTime(argMultimap);
+        Money money = getMoney(argMultimap);
+        Description description = getDescription(argMultimap);
 
-        DateTime dateTime;
-        if (arePrefixesPresent(argMultimap, PREFIX_DATETIME)) {
-            dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
-        } else {
-            dateTime = new DateTime(DateTime.DEFAULT_VALUE);
-        }
-
-        Money money;
-        if (arePrefixesPresent(argMultimap, PREFIX_MONEY)) {
-            money = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
-        } else {
-            money = new Money(Money.DEFAULT_VALUE);
-        }
-
-        Description transDescription;
-        if (arePrefixesPresent(argMultimap, PREFIX_TRANS_DESCRIPTION)) {
-            transDescription = ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCRIPTION).get());
-        } else {
-            transDescription = new Description(Description.DEFAULT_VALUE);
-        }
         TransactionFactory transactionFactory = new TransactionFactory(customerIndex, productIndex, dateTime,
-                quantity, money, transDescription);
+                quantity, money, description);
 
         return new AddTransactionCommand(transactionFactory);
+    }
+
+    private DateTime getDateTime(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_DATETIME)) {
+            return ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+        } else {
+            return new DateTime(DateTime.DEFAULT_VALUE);
+        }
+    }
+
+    private Money getMoney(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_MONEY)) {
+            return ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
+        } else {
+            return new Money(Money.DEFAULT_VALUE);
+        }
+    }
+
+    private Description getDescription(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_TRANS_DESCRIPTION)) {
+            return ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCRIPTION).get());
+        } else {
+            return new Description(Description.DEFAULT_VALUE);
+        }
     }
 
     /**

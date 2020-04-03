@@ -16,7 +16,7 @@ public interface InventorySystemStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getInventorySystemFilePath();
 
     /**
      * Returns InventorySystem data as a {@link ReadOnlyInventorySystem}.
@@ -24,23 +24,23 @@ public interface InventorySystemStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyInventorySystem> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyInventorySystem> readInventorySystem() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getInventorySystemFilePath()
      */
-    Optional<ReadOnlyInventorySystem> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyInventorySystem> readInventorySystem(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyInventorySystem} to the storage.
-     * @param addressBook cannot be null.
+     * @param inventorySystem cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyInventorySystem addressBook) throws IOException;
+    void saveInventorySystem(ReadOnlyInventorySystem inventorySystem) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyInventorySystem)
+     * @see #saveInventorySystem(ReadOnlyInventorySystem)
      */
-    void saveAddressBook(ReadOnlyInventorySystem addressBook, Path filePath) throws IOException;
+    void saveInventorySystem(ReadOnlyInventorySystem addressBook, Path filePath) throws IOException;
 
 }

@@ -49,24 +49,31 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         CostPrice costPrice = ParserUtil.parseCostPrice(argMultimap.getValue(PREFIX_COSTPRICE).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
-        Money sales;
-        if (arePrefixesPresent(argMultimap, PREFIX_SALES)) {
-            sales = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALES).get());
-        } else {
-            sales = new Money(Money.DEFAULT_VALUE);
-        }
-        QuantityThreshold threshold;
-        if (arePrefixesPresent(argMultimap, PREFIX_THRESHOLD)) {
-            threshold = ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
-        } else {
-            // sets the default threshold at 20% of initial quantity
-            String lowLimit = String.valueOf(quantity.value / 5);
-            threshold = new QuantityThreshold(lowLimit);
-        }
+        Money sales = getSales(argMultimap);
+        QuantityThreshold threshold = getThreshold(argMultimap, quantity);
 
         Product product = new Product(description, costPrice, price, quantity, sales, threshold, 1);
 
         return new AddProductCommand(product);
+    }
+
+    private Money getSales(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_SALES)) {
+            return ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALES).get());
+        } else {
+            return new Money(Money.DEFAULT_VALUE);
+        }
+    }
+
+    private QuantityThreshold getThreshold(ArgumentMultimap argMultimap, Quantity quantity)
+        throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_THRESHOLD)) {
+            return ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
+        } else {
+            // sets the default threshold at 20% of initial quantity
+            String lowLimit = String.valueOf(quantity.value / 5);
+            return new QuantityThreshold(lowLimit);
+        }
     }
 
     /**

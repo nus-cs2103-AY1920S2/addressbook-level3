@@ -32,7 +32,7 @@ public class JsonAddressBookStorageTest {
 
     private java.util.Optional<ReadOnlyInventorySystem> readAddressBook(String filePath) throws Exception {
         return new JsonInventorySystemStorage(Paths.get(filePath))
-                .readAddressBook(addToTestDataPathIfNotNull(filePath));
+                .readInventorySystem(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -68,21 +68,21 @@ public class JsonAddressBookStorageTest {
         JsonInventorySystemStorage jsonAddressBookStorage = new JsonInventorySystemStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyInventorySystem readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveInventorySystem(original, filePath);
+        ReadOnlyInventorySystem readBack = jsonAddressBookStorage.readInventorySystem(filePath).get();
         assertEquals(original, new InventorySystem(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveInventorySystem(original, filePath);
+        readBack = jsonAddressBookStorage.readInventorySystem(filePath).get();
         assertEquals(original, new InventorySystem(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonAddressBookStorage.saveInventorySystem(original); // file path not specified
+        readBack = jsonAddressBookStorage.readInventorySystem().get(); // file path not specified
         assertEquals(original, new InventorySystem(readBack));
 
     }
@@ -98,7 +98,7 @@ public class JsonAddressBookStorageTest {
     private void saveAddressBook(ReadOnlyInventorySystem addressBook, String filePath) {
         try {
             new JsonInventorySystemStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveInventorySystem(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

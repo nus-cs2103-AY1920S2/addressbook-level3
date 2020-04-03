@@ -47,6 +47,23 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
                     MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE), pe);
         }
 
+        EditPersonDescriptor editPersonDescriptor = getEditPersonDescriptor(argMultimap);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCustomerCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditCustomerCommand(index, editPersonDescriptor);
+    }
+
+    /**
+     * Get an edit person descriptor from the user input values.
+     * @param argMultimap
+     * @return edit person descriptor
+     * @throws ParseException
+     */
+    private EditPersonDescriptor getEditPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
@@ -60,13 +77,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCustomerCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditCustomerCommand(index, editPersonDescriptor);
+        return editPersonDescriptor;
     }
 
     /**

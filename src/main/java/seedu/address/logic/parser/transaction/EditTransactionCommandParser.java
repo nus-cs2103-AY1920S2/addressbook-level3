@@ -42,6 +42,17 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
+        EditTransactionDescriptor editTransactionDescriptor = getEditTransactionDescriptor(argMultimap);
+
+        if (!editTransactionDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditTransactionCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditTransactionCommand(index, editTransactionDescriptor);
+    }
+
+    private EditTransactionDescriptor getEditTransactionDescriptor(ArgumentMultimap argMultimap)
+        throws ParseException {
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_CUSTOMER).isPresent()) {
             editTransactionDescriptor.setCustomerIndex(
@@ -72,12 +83,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
             editTransactionDescriptor.setDescription(
                     ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCRIPTION).get()));
         }
-
-        if (!editTransactionDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditTransactionCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditTransactionCommand(index, editTransactionDescriptor);
+        return editTransactionDescriptor;
     }
 }
 

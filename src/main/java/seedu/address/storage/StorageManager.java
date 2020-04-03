@@ -48,31 +48,31 @@ public class StorageManager implements Storage {
     // ================ InventorySystem methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getInventorySystemFilePath() {
+        return addressBookStorage.getInventorySystemFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyInventorySystem> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyInventorySystem> readInventorySystem() throws DataConversionException, IOException {
+        return readInventorySystem(addressBookStorage.getInventorySystemFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyInventorySystem> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyInventorySystem> readInventorySystem(Path filePath) throws DataConversionException,
             IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return addressBookStorage.readInventorySystem(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyInventorySystem addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveInventorySystem(ReadOnlyInventorySystem inventorySystem) throws IOException {
+        saveInventorySystem(inventorySystem, addressBookStorage.getInventorySystemFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyInventorySystem addressBook, Path filePath) throws IOException {
+    public void saveInventorySystem(ReadOnlyInventorySystem addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        addressBookStorage.saveInventorySystem(addressBook, filePath);
     }
 
 }

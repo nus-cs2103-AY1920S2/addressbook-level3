@@ -55,14 +55,14 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
         InventorySystem original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyInventorySystem retrieved = storageManager.readAddressBook().get();
+        storageManager.saveInventorySystem(original);
+        ReadOnlyInventorySystem retrieved = storageManager.readInventorySystem().get();
         assertEquals(original, new InventorySystem(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getInventorySystemFilePath());
     }
 
 }

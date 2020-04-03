@@ -71,50 +71,68 @@ public class JsonAdaptedCustomer {
      * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
     public Customer toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
+        final UUID modelUuid = getUUID();
+        final Name modelName = getName();
+        final Phone modelPhone = getPhone();
+        final Email modelEmail = getEmail();
+        final Address modelAddress = getAddress();
+        final Set<Tag> modelTags = getTags();
 
+        return new Customer(modelUuid, modelName, modelPhone, modelEmail, modelAddress, modelTags);
+    }
+
+    private UUID getUUID() throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        final UUID uuid = UUID.fromString(id);
+        return UUID.fromString(id);
+    }
 
+    private Name getName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        return new Name(name);
+    }
 
+    private Phone getPhone() throws IllegalValueException {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        return new Phone(phone);
+    }
 
+    private Email getEmail() throws IllegalValueException {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        return new Email(email);
+    }
 
+    private Address getAddress() throws IllegalValueException {
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
-
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Address(address);
     }
 
+    private HashSet<Tag> getTags() throws IllegalValueException {
+        final List<Tag> personTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            personTags.add(tag.toModelType());
+        }
+        return new HashSet<>(personTags);
+    }
 }

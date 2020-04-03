@@ -18,6 +18,7 @@ import seedu.address.model.transaction.DateTime;
  * Parses input arguments and creates a new PlotProductSalesCommand object
  */
 public class PlotProductSalesCommandParser implements Parser<PlotProductSalesCommand> {
+
     private static final int DEFAULT_LENGTH = 7;
     private static final DateTime DEFAULT_START_DATE =
             new DateTime(DateTime.DEFAULT_VALUE.minusDays(DEFAULT_LENGTH));

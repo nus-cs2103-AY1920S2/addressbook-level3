@@ -25,7 +25,7 @@ public class JsonAdaptedProduct {
     private final String costPrice;
     private final String price;
     private final String quantity;
-    private final String sales;
+    private final String money;
     private final String id;
     private final String threshold;
 
@@ -35,13 +35,13 @@ public class JsonAdaptedProduct {
     @JsonCreator
     public JsonAdaptedProduct(@JsonProperty("description") String description,
                               @JsonProperty("costPrice") String costPrice, @JsonProperty("price") String price,
-                             @JsonProperty("quantity") String quantity, @JsonProperty("sales") String sales,
+                             @JsonProperty("quantity") String quantity, @JsonProperty("money") String money,
                               @JsonProperty("threshold") String threshold, @JsonProperty("id") String id) {
         this.description = description;
         this.costPrice = costPrice;
         this.price = price;
         this.quantity = quantity;
-        this.sales = sales;
+        this.money = money;
         this.threshold = threshold;
         this.id = id;
     }
@@ -54,7 +54,7 @@ public class JsonAdaptedProduct {
         costPrice = source.getCostPrice().value;
         price = source.getPrice().value;
         quantity = source.getQuantity().toString();
-        sales = source.getMoney().toString();
+        money = source.getMoney().toString();
         threshold = source.getThreshold().value;
         id = source.getId().toString();
     }
@@ -65,15 +65,37 @@ public class JsonAdaptedProduct {
      * @throws IllegalValueException if there were any data constraints violated in the adapted product.
      */
     public Product toModelType() throws IllegalValueException {
+        final UUID modelId = getUuid();
+        final Description modelDescription = getDescription();
+        final CostPrice modelCostPrice = getCostPrice();
+        final Price modelPrice = getPrice();
+        final Quantity modelQuantity = getQuantity();
+        final Money modelMoney = getMoney();
+        final QuantityThreshold modelQuantityThreshold = getQuantityThreshold();
+
+        return new Product(modelId, modelDescription, modelCostPrice, modelPrice, modelQuantity,
+                modelMoney, modelQuantityThreshold, 1);
+    }
+
+    private UUID getUuid() throws IllegalValueException {
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
+        }
+        return UUID.fromString(id);
+    }
+
+    private Description getDescription() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                            Description.class.getSimpleName()));
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
+        return new Description(description);
+    }
 
+    private CostPrice getCostPrice() throws IllegalValueException {
         if (costPrice == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     CostPrice.class.getSimpleName()));
@@ -81,19 +103,23 @@ public class JsonAdaptedProduct {
         if (!CostPrice.isValidPrice(costPrice)) {
             throw new IllegalValueException(CostPrice.MESSAGE_CONSTRAINTS);
         }
-        final CostPrice modelCostPrice = new CostPrice(costPrice);
+        return new CostPrice(costPrice);
+    }
 
+    private Price getPrice() throws IllegalValueException {
         if (price == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
         if (!Price.isValidPrice(price)) {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
-        final Price modelPrice = new Price(price);
+        return new Price(price);
+    }
 
+    private Quantity getQuantity() throws IllegalValueException {
         if (quantity == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                            Quantity.class.getSimpleName()));
+                    Quantity.class.getSimpleName()));
         }
         if (!Quantity.isValidQuantity(quantity)) {
             throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
@@ -101,19 +127,23 @@ public class JsonAdaptedProduct {
         if (!Quantity.isValidValue(Integer.parseInt(quantity))) {
             throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
         }
-        final Quantity modelQuantity = new Quantity(quantity);
+        return new Quantity(quantity);
+    }
 
-        if (sales == null) {
+    private Money getMoney() throws IllegalValueException {
+        if (money == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Money.class.getSimpleName()));
         }
-        if (!Money.isValidMoney(sales)) {
+        if (!Money.isValidMoney(money)) {
             throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_FORMAT);
         }
-        if (!Money.isValidAmount(Integer.parseInt(sales))) {
+        if (!Money.isValidAmount(Integer.parseInt(money))) {
             throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
-        final Money modelSales = new Money(sales);
+        return new Money(money);
+    }
 
+    private QuantityThreshold getQuantityThreshold() throws IllegalValueException {
         if (threshold == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     QuantityThreshold.class.getSimpleName()));
@@ -121,15 +151,6 @@ public class JsonAdaptedProduct {
         if (!QuantityThreshold.isValidQuantity(threshold)) {
             throw new IllegalValueException(QuantityThreshold.MESSAGE_CONSTRAINTS);
         }
-        final QuantityThreshold modelQuantityThreshold = new QuantityThreshold(threshold);
-
-        if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
-        }
-        final UUID modelId = UUID.fromString(id);
-
-        return new Product(modelId, modelDescription, modelCostPrice, modelPrice, modelQuantity,
-                modelSales, modelQuantityThreshold, 1);
+        return new QuantityThreshold(threshold);
     }
-
 }
