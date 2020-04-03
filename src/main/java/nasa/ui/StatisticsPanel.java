@@ -13,6 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 
@@ -30,7 +31,7 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
     @FXML
-    private BarChart<String, Integer> barChart;
+    private StackedBarChart<String, Integer> stackedBarChart;
     @FXML
     private CategoryAxis xAxis;
     @FXML
@@ -99,17 +100,31 @@ public class StatisticsPanel extends UiPart<Region> {
         );
 
         //Bar chart
-        XYChart.Series<String, Integer> barData = new XYChart.Series();
+        XYChart.Series<String, Integer> tasksCompleted = new XYChart.Series();
         for (Module module : moduleList) {
-            barData.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredActivityList().size()));
+            tasksCompleted.getData().add(new XYChart.Data(module.getModuleCode().toString(),
+                    module.getFilteredActivityList()
+                            .stream()
+                            .filter(activity -> activity.isDone())
+                            .count()));
         }
-        barChart.setData(FXCollections.observableArrayList(barData));
+        tasksCompleted.setName("Completed");
+
+        XYChart.Series<String, Integer> tasksNotCompleted = new XYChart.Series();
+        for (Module module : moduleList) {
+            tasksNotCompleted.getData().add(new XYChart.Data(module.getModuleCode().toString(),
+                    module.getFilteredActivityList()
+                            .stream()
+                            .filter(activity -> !activity.isDone())
+                            .count()));
+        }
+        tasksNotCompleted.setName("Not completed");
+        stackedBarChart.getData().addAll(tasksCompleted, tasksNotCompleted);
 
     }
 
     private void resetStatistics() {
         pieChart.getData().clear();
-        barChart.getData().clear();
+        stackedBarChart.getData().clear();
     }
 }

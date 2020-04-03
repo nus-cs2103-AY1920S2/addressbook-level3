@@ -223,7 +223,7 @@ Examples:
 ** `shortcut s/l c/list` +
 Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
-=== Generating statistics
+=== Generating statistics: `statistics`
 Displays statistics of all activities.
 
 Switch to statistics tab either

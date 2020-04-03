@@ -77,10 +77,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * @return true if exactly two module codes provided, otherwise false
      */
     private boolean isModuleCodeEditable(List<String> moduleCodes) {
-        if (moduleCodes.size() == EDIT_MODULE_CODE) {
-            return true;
-        }
-        return false;
+        return moduleCodes.size() == EDIT_MODULE_CODE;
     }
 
     /**
@@ -90,9 +87,6 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * @return true if more than two module codes provided, otherwise false
      */
     private boolean isExcessModuleCodeParsed(List<String> moduleCodes) {
-        if (moduleCodes.size() > EDIT_MODULE_CODE) {
-            return true;
-        }
-        return false;
+        return moduleCodes.size() > EDIT_MODULE_CODE;
     }
 }

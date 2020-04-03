@@ -42,7 +42,7 @@ public class EventCard extends UiPart<Region> {
 
 
 
-    public EventCard(Event activity, int displayedIndex) {
+    public EventCard(Event activity) {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());

@@ -31,10 +31,6 @@ public class ActivityListPanel extends UiPart<Region> {
         activityListView.setCellFactory(listView -> new ActivityListViewCell());
     }
 
-    public void setWidth(double width) {
-        activityListView.setPrefWidth(width);
-    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
@@ -50,14 +46,14 @@ public class ActivityListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 if (activity instanceof Deadline) {
-                    setStyle("-fx-background-color: #47D0E0;");
-                    setGraphic(new DeadlineCard((Deadline) activity, getIndex() + 1).getRoot());
+                    setStyle("-fx-background-color:  #B5EAD7;");
+                    setGraphic(new DeadlineCard((Deadline) activity).getRoot());
                 } else if (activity instanceof Event) {
-                    setGraphic(new EventCard((Event) activity, getIndex() + 1).getRoot());
+                    setGraphic(new EventCard((Event) activity).getRoot());
                     setStyle("-fx-background-color: #aee4ff;");
                 } else if (activity instanceof Lesson) {
-                    setStyle("-fx-background-color: #C1BDF1;");
-                    setGraphic(new LessonCard((Lesson) activity, getIndex() + 1).getRoot());
+                    setStyle("-fx-background-color: #C7CEEA;");
+                    setGraphic(new LessonCard((Lesson) activity).getRoot());
                 }
             }
         }

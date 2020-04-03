@@ -43,7 +43,7 @@ public class LessonCard extends UiPart<Region> {
 
 
 
-    public LessonCard(Lesson activity, int displayedIndex) {
+    public LessonCard(Lesson activity) {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());

@@ -46,7 +46,7 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Circle circle;
 
-    public DeadlineCard(Deadline activity, int displayedIndex) {
+    public DeadlineCard(Deadline activity) {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());
