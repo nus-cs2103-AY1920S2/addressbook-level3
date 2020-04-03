@@ -25,24 +25,27 @@ public class CookedListPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
 
-    public CookedListPanel(ObservableList<Record> recordList) {
+    public CookedListPanel(ObservableList<Record> recordList, ObservableList<Integer> goalCountList) {
         super(FXML);
         cookedListView.setItems(recordList);
         cookedListView.setCellFactory(listView -> new RecordListViewCell());
 
-        //temporary Pie chart rendering (placeholder)
+        setChart(goalCountList);
+    }
+
+    public void setChart(ObservableList<Integer> goalCountList) {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Bulk Like the Hulk", 2),
-                        new PieChart.Data("Herbivores", 1),
-                        new PieChart.Data("Wholesome Wholemeal", 1));
+                        new PieChart.Data("Herbivore", goalCountList.get(0)),
+                        new PieChart.Data("Bulk like the Hulk", goalCountList.get(1)),
+                        new PieChart.Data("Wholesome Wholemeal", goalCountList.get(2)));
 
         pieChart.setTitle("My Healthy Plate");
         pieChart.setData(pieChartData);
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override

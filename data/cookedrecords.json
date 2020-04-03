@@ -10,18 +10,14 @@
   }, {
     "name" : "5 Ingredient Spelt Spaghetti",
     "date" : "2020-03-20",
-    "goals" : [ "Herbivores" ]
-  }, {
-    "name" : "Quick Carrot Daikon Stir-fry",
-    "date" : "2020-03-28",
-    "goals" : [ ]
+    "goals" : [ "Herbivore" ]
   }, {
     "name" : "5 Ingredient Spelt Spaghetti",
-    "date" : "2020-04-01",
+    "date" : "2020-04-02",
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
-    "name" : "Asian BBQ Chicken",
-    "date" : "2020-04-02",
+    "name" : "Sweet and Sour Chicken",
+    "date" : "2020-04-03",
     "goals" : [ "Bulk like the Hulk" ]
-  } ]
+  }]
 }

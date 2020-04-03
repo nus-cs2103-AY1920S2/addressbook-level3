@@ -3,11 +3,14 @@ package seedu.recipe.model.cooked;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
@@ -46,20 +49,6 @@ public class UniqueRecordList implements Iterable<Record> {
         }
 
         internalList.setAll(records);
-    }
-
-    /**
-     * Returns true if {@code recipes} contains only unique recipes.
-     */
-    private boolean recordsAreUnique(List<Record> records) {
-        for (int i = 0; i < records.size() - 1; i++) {
-            for (int j = i + 1; j < records.size(); j++) {
-                if (records.get(i).isSameRecord(records.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**
@@ -121,5 +110,46 @@ public class UniqueRecordList implements Iterable<Record> {
     @Override
     public Iterator<Record> iterator() {
         return internalList.iterator();
+    }
+
+    /**
+     * Returns true if {@code recipes} contains only unique recipes.
+     */
+    private boolean recordsAreUnique(List<Record> records) {
+        for (int i = 0; i < records.size() - 1; i++) {
+            for (int j = i + 1; j < records.size(); j++) {
+                if (records.get(i).isSameRecord(records.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns goalTally for all main {@code goal} in cookedRecordBook.
+     */
+
+    public ObservableList<Integer> getGoalsTally() {
+        HashMap<String, Integer> goalMap = new HashMap<String, Integer>();
+        goalMap.put("Herbivore", 0);
+        goalMap.put("Bulk like the Hulk", 0);
+        goalMap.put("Wholesome Wholemeal", 0);
+
+        for (int i = 0; i < internalList.size(); i++) {
+
+            List<Goal> currGoals = new ArrayList<Goal>();
+            currGoals.addAll(internalList.get(i).getGoals());
+            for (Goal curr : currGoals) {
+                String goalName = curr.goalName;
+                Integer prevCount = goalMap.get(goalName);
+                goalMap.put(goalName, prevCount + 1);
+            }
+        }
+        ObservableList<Integer> internalGoalList = FXCollections.observableArrayList(
+                goalMap.get("Herbivore"),
+                goalMap.get("Bulk like the Hulk"),
+                goalMap.get("Wholesome Wholemeal"));
+        return FXCollections.unmodifiableObservableList(internalGoalList);
     }
 }
