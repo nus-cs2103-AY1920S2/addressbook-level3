@@ -52,8 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-====
-*Keyboard shortcuts*
+
+=== Keyboard shortcuts
 
 Navigate around NASA using the following keyboard shortcuts.
 
@@ -231,7 +231,7 @@ Switch to statistics tab either
 
     1) using the TAB key
 
-    2) using the command `statistics`.
+    2) using the command `statistics`
 
 
 Format: `statistics`
