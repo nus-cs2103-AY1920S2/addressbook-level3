@@ -283,7 +283,7 @@ Budget will do a validity check using Regex and throw a `**ParseExection**` sinc
 The sequence diagram below depicts what was just elaborated:
 
 .Sequence diagram showing how a `**Budget**` is set
-image::add-budget/BudgetSequenceDiagram.png[]
+image::set-budget/SetBudgetSequenceDiagram.png[]
 
 ==== Design considerations
 We have considered various ways as to how `**Budget**` should be stored in `**ExpensLa**`. In this section, we will explain the
