@@ -19,9 +19,9 @@ public class DateTime {
 
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in uuuu-mm-dd hh:mm format, "
             + "and it should not be blank";
-    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.
-            ofPattern("uuuu-MM-dd HH:mm").
-            withResolverStyle(ResolverStyle.STRICT);
+    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
+            .ofPattern("uuuu-MM-dd HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /*
      * There must be one or more digits entered.

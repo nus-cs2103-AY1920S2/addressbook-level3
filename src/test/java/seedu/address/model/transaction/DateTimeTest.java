@@ -1,11 +1,9 @@
 package seedu.address.model.transaction;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.util.Description;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class DateTimeTest {
     @Test
@@ -49,7 +47,7 @@ public class DateTimeTest {
         assertThrows(IllegalArgumentException.class, () -> new DateTime("12345")); // invalid year format
         assertThrows(IllegalArgumentException.class, () -> new DateTime("2012")); // year only
         assertThrows(IllegalArgumentException.class, () -> new DateTime("2020-02-02")); // missing time value
-        assertThrows(IllegalArgumentException.class, () -> new DateTime("2020-02-0210:00")); // missing space between date and time
+        assertThrows(IllegalArgumentException.class, () -> new DateTime("2020-02-0210:00")); // missing space
         assertThrows(IllegalArgumentException.class, () -> new DateTime("2020-02-02 10")); // missing minute value
         assertThrows(IllegalArgumentException.class, () -> new DateTime("02-02-2020 10:00")); // wrong date format
         assertThrows(IllegalArgumentException.class, () -> new DateTime("2020/02/02 10:00")); // wrong date format
