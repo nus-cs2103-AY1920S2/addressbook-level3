@@ -101,6 +101,9 @@ public class RecipeBookParser {
             return new CountCommand();
 
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.equals("")) {
+                throw new ParseException("The exit command does not take in any arguments!");
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
