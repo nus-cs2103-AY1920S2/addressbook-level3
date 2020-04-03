@@ -75,7 +75,7 @@ public class ParserUtil {
         requireNonNull(ingredientString);
 
         if (ingredientString.isBlank()) {
-            throw new ParseException("Recipes need to have instructions; please enter some instructions.");
+            throw new ParseException("Recipes need to have ingredients; please enter some ingredients.");
         }
 
         return new IngredientList(Stream.of(ingredientString.trim().split(";")).map(String::trim).map(Ingredient::new)
@@ -93,7 +93,7 @@ public class ParserUtil {
         requireNonNull(instructionString);
 
         if (instructionString.isBlank()) {
-            throw new ParseException("Recipes need to have ingredients; please enter some ingredients.");
+            throw new ParseException("Recipes need to have instructions; please enter some instructions.");
         }
 
         return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
@@ -195,6 +195,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String timeString} into a {@code Time}
+     *
      * @param timeString the string to be parsed
      * @return the Time of the recipe
      * @throws ParseException if the given {@timeString} is invalid.
@@ -237,7 +238,7 @@ public class ParserUtil {
         if (tags.isPresent() && !tags.get().equals("")) {
             String tagsString = tags.get();
             List<String> tagList = Arrays.asList(tagsString.split(",")).stream().map(String::trim).collect(
-                    Collectors.toList());
+                Collectors.toList());
             for (String tagName : tagList) {
                 tagSet.add(parseTag(tagName));
             }
