@@ -71,7 +71,7 @@ public class JsonAdaptedCustomer {
      * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
     public Customer toModelType() throws IllegalValueException {
-        final UUID modelUuid = getUUID();
+        final UUID modelUuid = getUuid();
         final Name modelName = getName();
         final Phone modelPhone = getPhone();
         final Email modelEmail = getEmail();
@@ -81,7 +81,7 @@ public class JsonAdaptedCustomer {
         return new Customer(modelUuid, modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
-    private UUID getUUID() throws IllegalValueException {
+    private UUID getUuid() throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }

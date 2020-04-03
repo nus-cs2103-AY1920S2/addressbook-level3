@@ -55,6 +55,11 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         return new FindTransactionCommand(new JointTransactionPredicate(predicates));
     }
 
+    /**
+     * Add attributes entered by user to predicates list.
+     * @param argMultimap
+     * @throws ParseException
+     */
     private void addToPredicates(ArgumentMultimap argMultimap) throws ParseException {
         if (anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER)) {
             String customerArgs = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()).trim();
