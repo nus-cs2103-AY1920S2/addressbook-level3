@@ -77,17 +77,6 @@ public class UniqueOrderList implements Iterable<Order> {
     }
 
     /**
-     * The orders in the {@code internalList} will be sorted by timestamp.
-     */
-    public void sortByTimestamp() {
-        internalList.sort((Order first, Order second) -> {
-            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
-            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
-            return firstDateTime.compareTo(secondDateTime);
-        });
-    }
-
-    /**
      * Removes the equivalent order from the list.
      * The order must exist in the list.
      */
@@ -142,6 +131,15 @@ public class UniqueOrderList implements Iterable<Order> {
         return internalUnmodifiableList;
     }
 
+    public Order get(TransactionId transactionId) {
+        for (Order order : internalList) {
+            if (order.getTid().equals(transactionId)) {
+                return order;
+            }
+        }
+        return null;
+    }
+
     @Override
     public Iterator<Order> iterator() {
         return internalList.iterator();
@@ -160,6 +158,17 @@ public class UniqueOrderList implements Iterable<Order> {
     }
 
     /**
+     * The orders in the {@code internalList} will be sorted by timestamp.
+     */
+    private void sortByTimestamp() {
+        internalList.sort((Order first, Order second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        });
+    }
+
+    /**
      * Returns true if {@code orders} contains only unique orders.
      */
     private boolean ordersAreUnique(List<Order> orders) {
@@ -171,14 +180,5 @@ public class UniqueOrderList implements Iterable<Order> {
             }
         }
         return true;
-    }
-
-    public Order get(TransactionId transactionId) {
-        for (Order order : internalList) {
-            if (order.getTid().equals(transactionId)) {
-                return order;
-            }
-        }
-        return null;
     }
 }
