@@ -11,18 +11,6 @@ import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
 import static cookbuddy.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static java.util.Objects.requireNonNull;
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/ModifyCommand.java
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
-=======
->>>>>>> c5cbb6e2b9ee00ada3e6ee689676c50da75a94c5:src/main/java/cookbuddy/logic/commands/ModifyCommand.java
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,22 +18,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/ModifyCommand.java
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.attribute.Calorie;
-import seedu.address.model.recipe.attribute.Difficulty;
-import seedu.address.model.recipe.attribute.IngredientList;
-import seedu.address.model.recipe.attribute.InstructionList;
-import seedu.address.model.recipe.attribute.Name;
-import seedu.address.model.recipe.attribute.Rating;
-import seedu.address.model.recipe.attribute.Serving;
-import seedu.address.model.recipe.attribute.Tag;
-=======
 import cookbuddy.commons.core.Messages;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.commons.util.CollectionUtil;
@@ -61,7 +33,6 @@ import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
->>>>>>> c5cbb6e2b9ee00ada3e6ee689676c50da75a94c5:src/main/java/cookbuddy/logic/commands/ModifyCommand.java
 
 /**
  * Edits the details of an existing recipe in the recipe book.
@@ -71,22 +42,7 @@ public class ModifyCommand extends Command {
     public static final String COMMAND_WORD = "modify";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the recipe identified "
-<<<<<<< HEAD
-            + "by the index number used in the displayed recipe list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
-            + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
-            + "[" + PREFIX_CALORIE + "CALORIES] "
-            + "[" + PREFIX_SERVING + "SERVING] "
-            + "[" + PREFIX_RATING + "RATING]"
-            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY]"
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
-            + PREFIX_INSTRUCTIONS + "put egg on toast;put bread on egg";
-=======
+
         + "by the index number used in the displayed recipe list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
@@ -102,7 +58,6 @@ public class ModifyCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
         + PREFIX_INSTRUCTIONS + "put egg on toast;put bread on egg";
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -159,11 +114,7 @@ public class ModifyCommand extends Command {
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
-<<<<<<< HEAD
-        Difficulty updatedDifficulty = peDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
-=======
         Difficulty updatedDifficulty = editRecipeDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedImage, updatedCalorie,
@@ -293,15 +244,6 @@ public class ModifyCommand extends Command {
                 : Optional.empty();
         }
 
-        public void setDifficulty(Difficulty difficulty) {
-            this.difficulty = difficulty;
-        }
-
-        public Optional<Difficulty> getDifficulty() {
-            return (difficulty != null)
-                ? Optional.of(difficulty)
-                : Optional.empty();
-        }
 
         public void setDifficulty(Difficulty difficulty) {
             this.difficulty = difficulty;
@@ -348,15 +290,6 @@ public class ModifyCommand extends Command {
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
 
             return getName().equals(e.getName())
-<<<<<<< HEAD
-                    && getIngredients().equals(e.getIngredients())
-                    && getInstructions().equals(e.getInstructions())
-                    && getCalorie().equals(e.getCalorie())
-                    && getServing().equals(e.getServing())
-                    && getRating().equals(e.getRating())
-                    && getDifficulty().equals(e.getDifficulty())
-                    && getTags().equals(e.getTags());
-=======
                 && getIngredients().equals(e.getIngredients())
                 && getInstructions().equals(e.getInstructions())
                 && getImageFilePath().equals(e.getImageFilePath())
@@ -365,7 +298,6 @@ public class ModifyCommand extends Command {
                 && getRating().equals(e.getRating())
                 && getDifficulty().equals(e.getDifficulty())
                 && getTags().equals(e.getTags());
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
         }
     }
 }

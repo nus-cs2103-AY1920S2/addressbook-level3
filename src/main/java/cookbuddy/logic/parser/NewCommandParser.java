@@ -1,16 +1,5 @@
 package cookbuddy.logic.parser;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/NewCommandParser.java
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-=======
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
@@ -21,25 +10,10 @@ import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
->>>>>>> c5cbb6e2b9ee00ada3e6ee689676c50da75a94c5:src/main/java/cookbuddy/logic/parser/NewCommandParser.java
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/NewCommandParser.java
-import seedu.address.logic.commands.NewCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.attribute.Calorie;
-import seedu.address.model.recipe.attribute.Difficulty;
-import seedu.address.model.recipe.attribute.IngredientList;
-import seedu.address.model.recipe.attribute.InstructionList;
-import seedu.address.model.recipe.attribute.Name;
-import seedu.address.model.recipe.attribute.Rating;
-import seedu.address.model.recipe.attribute.Serving;
-import seedu.address.model.recipe.attribute.Tag;
-=======
 import cookbuddy.logic.commands.NewCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.Recipe;
@@ -52,7 +26,6 @@ import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
->>>>>>> c5cbb6e2b9ee00ada3e6ee689676c50da75a94c5:src/main/java/cookbuddy/logic/parser/NewCommandParser.java
 
 /**
  * Parses input arguments and creates a new NewCommand object
@@ -75,12 +48,8 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS,
-<<<<<<< HEAD
-                PREFIX_INSTRUCTIONS, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY, PREFIX_TAG);
-=======
             PREFIX_INSTRUCTIONS, PREFIX_IMAGEFILEPATH, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY,
             PREFIX_TAG);
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS)
             || !argMultimap
@@ -98,11 +67,7 @@ public class NewCommandParser implements Parser<NewCommand> {
         Calorie calorie = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).orElse("0"));
         Serving serving = ParserUtil.parseServing(argMultimap.getValue(PREFIX_SERVING).orElse("1"));
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).orElse("0"));
-<<<<<<< HEAD
-        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_Difficulty).orElse("0"));
-=======
         Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).orElse("0"));
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Recipe recipe = new Recipe(name, ingredients, instructions, url, calorie, serving, rating, difficulty, tagList);

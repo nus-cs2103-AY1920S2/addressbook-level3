@@ -10,17 +10,6 @@ import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/NewCommand.java
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-=======
->>>>>>> c5cbb6e2b9ee00ada3e6ee689676c50da75a94c5:src/main/java/cookbuddy/logic/commands/NewCommand.java
 
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
@@ -34,25 +23,6 @@ public class NewCommand extends Command {
     public static final String COMMAND_WORD = "new";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the recipe book. "
-<<<<<<< HEAD
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_INGREDIENTS + "INGREDIENT 1, QUANTITY; INGREDIENT 2, QUANTITY... "
-            + PREFIX_INSTRUCTIONS + "INSTRUCTION 1, INSTRUCTION 2 "
-            + "[" + PREFIX_CALORIE + "CALORIES] "
-            + "[" + PREFIX_SERVING + "SERVING SIZE] "
-            + "[" + PREFIX_RATING + "RATING] "
-            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Ham Sandwich "
-            + PREFIX_INGREDIENTS + "bread, 2 slices; ham, 1 slice "
-            + PREFIX_INSTRUCTIONS + "put ham between bread; eat sandwich "
-            + PREFIX_CALORIE + "169 "
-            + PREFIX_SERVING + "2 "
-            + PREFIX_RATING + "4 "
-            + PREFIX_TAG + "breakfast";
-=======
         + "Parameters: "
         + PREFIX_NAME + "NAME "
         + PREFIX_INGREDIENTS + "INGREDIENT 1, QUANTITY; INGREDIENT 2, QUANTITY... "
@@ -73,7 +43,6 @@ public class NewCommand extends Command {
         + PREFIX_RATING + "4 "
         + PREFIX_DIFFICULTY + "2 "
         + PREFIX_TAG + "breakfast";
->>>>>>> 6e999eb3ab90da48f83c9efe740a12b9839a34cf
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the recipe book";
