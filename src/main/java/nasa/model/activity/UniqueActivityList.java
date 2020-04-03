@@ -13,6 +13,7 @@ import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
 import nasa.model.activity.exceptions.DuplicateActivityException;
 
+
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
  * A activity is considered unique by comparing using {@code Activity#isSameActivity(Activity)}.
@@ -33,8 +34,6 @@ public class UniqueActivityList implements Iterable<Activity> {
 
     /**
      * Returns true if the list contains an equivalent activity as the given argument.
-     * @param toCheck Activity.
-     * @return boolean.
      */
     public boolean contains(Activity toCheck) {
         requireNonNull(toCheck);
@@ -42,19 +41,8 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Returns true if the list contains an activity with {@code name}.
-     * @param name Name.
-     * @return boolean.
-     */
-    public boolean hasActivity(Name name) {
-        requireNonNull(name);
-        return internalList.stream().anyMatch(x -> x.getName().equals(name));
-    }
-
-    /**
      * Adds a activity to the list.
      * The activity must not already exist in the list.
-     * @param toAdd Activity.
      */
     public void add(Activity toAdd) {
         requireNonNull(toAdd);
@@ -68,8 +56,6 @@ public class UniqueActivityList implements Iterable<Activity> {
      * Replaces the activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the list.
      * The activity identity of {@code editedActivity} must not be the same as another existing activity in the list.
-     * @param target Activity selected to edit.
-     * @param editedActivity Activity to edit.
      */
     public void setActivity(Activity target, Activity editedActivity) {
         requireAllNonNull(target, editedActivity);
@@ -141,7 +127,6 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Removes the equivalent activity from the list.
      * The activity must exist in the list.
-     * @param toRemove Activity.
      */
     public void remove(Activity toRemove) {
         requireNonNull(toRemove);
@@ -153,7 +138,6 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Removes the equivalent activity from the list by index.
      * The activity must exist in the list.
-     * @param index Index.
      */
     public void removeByIndex(Index index) {
         requireNonNull(index);
@@ -167,10 +151,6 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.clear();
     }
 
-    /**
-     * Reset activities with the given list.
-     * @param replacement UniqueActivityList
-     */
     public void setActivities(UniqueActivityList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -179,7 +159,6 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Replaces the contents of this list with {@code activities}.
      * {@code activities} must not contain duplicate activities.
-     * @param activities List
      */
     public void setActivities(List<Activity> activities) {
         requireAllNonNull(activities);
@@ -221,7 +200,6 @@ public class UniqueActivityList implements Iterable<Activity> {
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
-     * @return ObservableList
      */
     public ObservableList<Activity> asUnmodifiableObservableList() {
         return internalUnmodifiableList;

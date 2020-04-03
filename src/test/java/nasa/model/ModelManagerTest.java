@@ -20,11 +20,12 @@ import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
 import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
+import nasa.model.module.UniqueModuleList;
 import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<>(),
+    private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
             new UserPrefs());
 
     @Test
@@ -40,6 +41,7 @@ class ModelManagerTest {
     void getFilteredActivityListTest() {
         ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
 
+        System.out.println(list.get(0).getName().toString());
         assertEquals("Homework", list.get(0).getName().toString());
         assertEquals("Test", list.get(1).getName().toString());
         assertEquals("Prepare group meeting", list.get(2).getName().toString());

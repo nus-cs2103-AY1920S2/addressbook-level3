@@ -10,9 +10,6 @@ import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
-import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.ui.UiPart;
 
 /**
@@ -45,21 +42,12 @@ public class ActivityListPanel extends UiPart<Region> {
             prefWidthProperty().bind(activityListView.widthProperty().subtract(10));
 
             if (empty || activity == null) {
-                setStyle("");
                 setGraphic(null);
                 setText(null);
             } else {
-                if (activity instanceof Deadline) {
-                    setStyle("-fx-background-color: #47D0E0;");
-                    setGraphic(new DeadlineCard((Deadline) activity, getIndex() + 1).getRoot());
-                } else if (activity instanceof Event) {
-                    setGraphic(new EventCard((Event) activity, getIndex() + 1).getRoot());
-                    setStyle("-fx-background-color: #aee4ff;");
-                } else if (activity instanceof Lesson) {
-                    setStyle("-fx-background-color: #C1BDF1;");
-                    setGraphic(new LessonCard((Lesson) activity, getIndex() + 1).getRoot());
-                }
+                setGraphic(new ActivityCard(activity, getIndex() + 1).getRoot());
             }
         }
     }
+
 }

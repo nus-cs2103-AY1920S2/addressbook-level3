@@ -344,13 +344,12 @@ For more information regarding the procedure, please refer to the Activity Diagr
 image::SnoozeReminderActivityDiagram.png[]
 
 === Automation
-Every time a user stores an activity, it date of creation will be recorded. Based on user input to repeat the task either
-weekly, twice weekly or monthly, our application will check whether today's date has passed `date of creation`. Once it passed,
-the newly set date will be added from `date of creation` + `user input`.
+We store the date that the user has create an activity. Based on user input to repeat the task either
+weekly, twice weekly or monthly, our application will check whether today's date has passed `date of creation` + `user preset`.
 
 ==== Implementation
 By default there will not be any scheduling for any activities. Therefore, user has to enter `repeat` followed by `module code`
-, `activity name` to identify the activity and set the activity to `1-Weekly-, 2-Twice Weekly, 3-Monthly`.
+, `activity name` for identification of the activity and `1-Weekly-, 2-Twice Weekly, 3-Monthly`.
 
 * An example of command line `repeat m/CS3233 a/Lab Assignment r/1`.
 
@@ -364,8 +363,8 @@ Once the command line is entered, our application will react in the following st
 
 . RepeatCommand will set schedule in Model.
 . Model will first find the module in it internal module list.
-. After that, it will find for the activity inside the module.
-. Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and update changes to the expiring date.
+. After, it will find for the activity inside the module.
+. Once found, the attribute Schedule in activity will be set to `1`, `2` or `3` and make changes to the expiring date.
 
 image::sequenceDiagramAutomation.png[]
 
@@ -381,8 +380,6 @@ This is how it goes :
 . NasaBook will load every module in the module list and update each activity in the module through the Schedule class.
 .. If scheduler sees `0` nothing will be done and the activity will get deleted.
 .. If scheduler sees `1`,`2` or `3` it will update to the new date.
-
-image::activityDiagramAutomation2.png[]
 
 === Sort Activity Feature (To be implemented)
 
@@ -802,9 +799,10 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to repeat a task under CS2103T every week. +
-`repeat m/CS2103T a/task d/1`
+1.  User requests to repeat all task under CS2103T every tuesday. +
+`repeat CS2103t /d 2`
 2.  NASA will provide a acknowledgement messages
+3.  NASA will display all modules that has the tasks "homework".
 +
 Use case ends.
 
@@ -812,7 +810,7 @@ Use case ends.
 
 [none]
 * 1a. Nothing to repeat.
-* 1b. Prompt user no such modules.
+* 1b. Prompt user to add tasks to modules.
 +
 Use case ends.
 
@@ -937,7 +935,7 @@ Use case resumes at step 1.
 
 1.  User requests to get a motivation quotes +
 `quote`
-2.  NASA will provide a quote.
+2.  NASA will provide a pop-up quote.
 +
 Use case ends.
 

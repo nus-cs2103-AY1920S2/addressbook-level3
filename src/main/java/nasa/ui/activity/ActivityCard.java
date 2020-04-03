@@ -1,22 +1,20 @@
 package nasa.ui.activity;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.VBox;
 
 import nasa.model.activity.Activity;
-import nasa.model.activity.Deadline;
 import nasa.ui.UiPart;
+
 
 /**
  * An UI component that displays information of a {@code Module}.
  */
-public class DeadlineCard extends UiPart<Region> {
+public class ActivityCard extends UiPart<Region> {
 
-    private static final String FXML = "DeadlineCard.fxml";
+    private static final String FXML = "ActivityListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -28,7 +26,7 @@ public class DeadlineCard extends UiPart<Region> {
 
     public final Activity activity;
     @FXML
-    private GridPane deadlinePane;
+    private VBox cardPane;
     @FXML
     private Label name;
     @FXML
@@ -39,21 +37,17 @@ public class DeadlineCard extends UiPart<Region> {
     private Label status;
     @FXML
     private Label priority;
-    @FXML
-    private Group type;
-    @FXML
-    private Label labelForCircle;
-    @FXML
-    private Circle circle;
 
-    public DeadlineCard(Deadline activity, int displayedIndex) {
+
+
+    public ActivityCard(Activity activity, int displayedIndex) {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());
-        date.setText("Due by: " + activity.getDueDate().toString());
+        date.setText(activity.getDate().toString());
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
-        priority.setText("Priority: " + activity.getPriority().toString());
+        priority.setText(activity.getPriority().toString());
     }
 
     @Override
@@ -64,12 +58,12 @@ public class DeadlineCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeadlineCard)) {
+        if (!(other instanceof ActivityCard)) {
             return false;
         }
 
         // state check
-        DeadlineCard card = (DeadlineCard) other;
+        ActivityCard card = (ActivityCard) other;
         return name.getText().equals(card.name.getText());
     }
 }
