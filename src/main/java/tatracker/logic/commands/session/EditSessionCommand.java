@@ -37,7 +37,7 @@ public class EditSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.EDIT_MODEL,
-            "Edits a session in the TA-Tracker.",
+            "Edits a session at the shown list index.",
             List.of(INDEX),
             List.of(MODULE, START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
             MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES

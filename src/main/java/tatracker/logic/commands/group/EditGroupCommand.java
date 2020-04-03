@@ -27,7 +27,7 @@ public class EditGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.EDIT_MODEL,
-            "Edits the group identified by the group code.",
+            "Edits the group with the given group code.",
             List.of(MODULE, GROUP),
             List.of(NEWGROUP, NEWTYPE), // TODO: new type not needed?
             MODULE, GROUP, NEWGROUP, NEWTYPE

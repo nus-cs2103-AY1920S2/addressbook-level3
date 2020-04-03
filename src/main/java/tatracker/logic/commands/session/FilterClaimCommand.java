@@ -23,7 +23,7 @@ public class FilterClaimCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLAIM,
             CommandWords.FILTER_MODEL,
-            "Filters claim by module.",
+            "Filters a claim of a particular module.",
             List.of(MODULE),
             List.of(),
             MODULE

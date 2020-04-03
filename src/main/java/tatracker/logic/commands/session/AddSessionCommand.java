@@ -28,7 +28,7 @@ public class AddSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.ADD_MODEL,
-            "Adds a session in the TA-Tracker.",
+            "Adds a session into TA-Tracker.",
             List.of(MODULE),
             List.of(START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
             MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
