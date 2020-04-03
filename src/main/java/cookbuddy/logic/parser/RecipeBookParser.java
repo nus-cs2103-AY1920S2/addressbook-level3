@@ -92,7 +92,7 @@ public class RecipeBookParser {
             return new TimeCommandParser().parse(arguments);
 
         case CountCommand.COMMAND_WORD:
-            if(arguments != null) {
+            if (arguments != null) {
                 throw new ParseException("The count command does not take in any arguments!");
             }
             return new CountCommand();
