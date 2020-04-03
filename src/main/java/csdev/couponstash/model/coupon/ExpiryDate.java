@@ -65,7 +65,7 @@ public class ExpiryDate {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExpiryDate// instanceof handles nulls
-                && value.equals(((ExpiryDate) other).value)); // state check
+                && date.equals(((ExpiryDate) other).date)); // state check
     }
 
     @Override

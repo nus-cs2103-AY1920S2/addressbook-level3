@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandFailure;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -185,8 +186,9 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
     }
 
+    //Editing Start Date
     @Test
-    public void execute_startDateAfterExpiryDate_failure() {
+    public void execute_startDateAfterOriginalExpiryDate_failure() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
         LocalDate ed = TypicalCoupons.getTypicalCoupons().get(targetIndex.getZeroBased()).getExpiryDate().getDate();
         String sd = DateUtil.formatDateToString(ed.plusDays(1));
@@ -197,11 +199,106 @@ public class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
-        assertCommandFailure(editCommand, model, StartDate.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(editCommand, model, START_DATE_EXPIRY_DATE_CONSTRAINT);
     }
 
     @Test
-    public void execute_expiryDateBeforeStartDate_failure() {
+    public void execute_startDateEqualsOriginalExpiryDate_success() {
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
+
+        Coupon couponInFilteredList = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+
+        Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
+                .withStartDate(couponInFilteredList.getExpiryDate().value).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder().withStartDate(couponInFilteredList.getExpiryDate().value)
+                        .build());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_startDateBeforeOriginalExpiryDate_success() {
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
+
+        Coupon couponInFilteredList = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+
+        ExpiryDate ed = couponInFilteredList.getExpiryDate();
+        LocalDate sd = ed.getDate().minusDays(1);
+        String sdString = DateUtil.formatDateToString(sd);
+        Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
+                .withStartDate(sdString).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder().withStartDate(sdString)
+                        .build());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    //Editing Start Date and Expiry Date
+    @Test
+    public void execute_startDateBeforeExpiryDate_success() {
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
+
+        // New StartDate later than old ExpiryDate
+
+        Coupon couponInFilteredList = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        LocalDate oldEd = couponInFilteredList.getExpiryDate().getDate();
+        LocalDate newSd = oldEd.plusDays(7).minusDays(1);
+        LocalDate newEd = oldEd.plusDays(7);
+        String sdString = DateUtil.formatDateToString(newSd);
+        String edString = DateUtil.formatDateToString(newEd);
+
+        Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
+                .withStartDate(sdString).withExpiryDate(edString).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder().withStartDate(sdString).withExpiryDate(edString)
+                        .build());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+
+
+
+        // New ExpiryDate earlier than old StartDate
+        couponInFilteredList = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        LocalDate oldSd = couponInFilteredList.getStartDate().getDate();
+        newEd = oldSd.minusDays(7);
+        newSd = oldSd.minusDays(7).minusDays(1);
+        sdString = DateUtil.formatDateToString(newSd);
+        edString = DateUtil.formatDateToString(newEd);
+
+        editedCoupon = new CouponBuilder(couponInFilteredList)
+                .withStartDate(sdString).withExpiryDate(edString)
+                .withRemindDate(DateUtil.formatDateToString(newEd.minusDays(3)), edString).build();
+        editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder().withStartDate(sdString).withExpiryDate(edString)
+                        .build());
+        expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
+        expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+
+
+
+    //Editing Expiry Date
+    @Test
+    public void execute_expiryDateBeforeOriginalStartDate_failure() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
         LocalDate sd = TypicalCoupons.getTypicalCoupons().get(targetIndex.getZeroBased()).getStartDate().getDate();
         String ed = DateUtil.formatDateToString(sd.minusDays(1));
@@ -212,11 +309,11 @@ public class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
-        assertCommandFailure(editCommand, model, ExpiryDate.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(editCommand, model, START_DATE_EXPIRY_DATE_CONSTRAINT);
     }
 
     @Test
-    public void execute_expiryDateEqualsStartDate_success() {
+    public void execute_expiryDateEqualsOriginalStartDate_success() {
         CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
 
         Coupon couponInFilteredList = model.getFilteredCouponList()
@@ -239,27 +336,10 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void execute_startDateEqualsExpiryDate_success() {
-        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
 
-        Coupon couponInFilteredList = model.getFilteredCouponList()
-                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
-
-        Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
-                .withStartDate(couponInFilteredList.getExpiryDate().value).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
-                new EditCouponDescriptorBuilder().withStartDate(couponInFilteredList.getExpiryDate().value)
-                        .build());
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
-        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
 
     @Test
-    public void execute_expiryDateAfterStartDate_success() {
+    public void execute_expiryDateAfterOriginalStartDate_success() {
         CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
 
         Coupon couponInFilteredList = model.getFilteredCouponList()
@@ -284,27 +364,7 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void execute_startDateBeforeExpiryDate_success() {
-        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
 
-        Coupon couponInFilteredList = model.getFilteredCouponList()
-                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
-
-        ExpiryDate ed = couponInFilteredList.getExpiryDate();
-        LocalDate sd = ed.getDate().minusDays(1);
-        String sdString = DateUtil.formatDateToString(sd);
-        Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
-                .withStartDate(sdString).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
-                new EditCouponDescriptorBuilder().withStartDate(sdString)
-                        .build());
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon.getName());
-        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
 
 
     @Test

@@ -50,7 +50,7 @@ a|
    . Using a coupon: used
    . Viewing savings: saved
    . Archiving a coupon: archive
-   . Exporting a coupon: export
+   . Copying a coupon: copy
    . Sharing a coupon: share
    . Undoing the previous command: undo
    . Redoing the undone command: redo
@@ -498,13 +498,13 @@ Sorts the coupon stash by name in ascending order.
 * `sort e/` +
 Sorts the coupon stash by expiry date from earliest to latest.
 
-=== Exporting a coupon: `export`
-Exports a coupon as an <<Adding a coupon: `add`, `add`>> command to your clipboard so that you can easily share it with your friends/ family!
+=== Copying a coupon: `copy`
+Copies a coupon as an <<Adding a coupon: `add`, `add`>> command to your clipboard so that you can easily share it with your friends/ family!
 
-Format: `export INDEX`
+Format: `copy INDEX`
 
 ****
-* Exports the coupon at the specified INDEX.
+* Copies the coupon at the specified INDEX.
 * The index refers to the index number shown in the displayed coupon
 list.
 * The index *must be a positive integer* 1, 2, 3, …​
@@ -515,8 +515,8 @@ list.
 [NOTE]
 ====
 ****
-* Statistics like number of times used or amount of savings accumulated will not be exported.
-* The exported add command will only contain the following fields: +
+* Statistics like number of times used or amount of savings accumulated will not be copied.
+* The copied add command will only contain the following fields: +
 ** Name
 ** Savings
 ** Expiry Date
@@ -529,11 +529,11 @@ list.
 Examples:
 
 * `list` +
-`export 2` +
-Exports the 2nd coupon in the coupon stash to an `add` command and copies it to your clipboard.
+`copy 2` +
+Copies the 2nd coupon in the coupon stash to an `add` command and copies it to your clipboard.
 * `find chicken` +
-`export 1` +
-Exports the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
+`copy 1` +
+Copies the 1st coupon in the results of the find command to an `add` command and copies it to your clipboard.
 
 === Sharing a coupon: `share`
 Shares a coupon as a `.png` image file. Now you can post your coupons on Instagram!
@@ -723,9 +723,9 @@ e.g. `saved d/ 1-5-2020`
 |*Archive*
 |`archive INDEX` +
 e.g. `archive 1`
-|*Export*
-|`export INDEX` +
-e.g. `export 1`
+|*Copy*
+|`copy INDEX` +
+e.g. `copy 1`
 |*Share*
 |//ToDo
 |*Undo*

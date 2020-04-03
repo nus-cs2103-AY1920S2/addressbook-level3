@@ -10,10 +10,10 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import static java.util.Objects.requireNonNull;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 
 /**
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
         }
 
         if (!toAdd.getExpiryDate().isAfterOrEqual(toAdd.getStartDate())) {
-            throw new CommandException(StartDate.MESSAGE_CONSTRAINTS);
+            throw new CommandException(DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT);
         }
 
         model.addCoupon(toAdd, commandText);

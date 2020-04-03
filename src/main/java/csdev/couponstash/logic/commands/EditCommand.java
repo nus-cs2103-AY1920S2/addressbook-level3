@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
@@ -85,12 +86,9 @@ public class EditCommand extends IndexedCommand {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
-        if (!couponToEdit.getExpiryDate().isAfterOrEqual(editedCoupon.getStartDate())) {
-            throw new CommandException(StartDate.MESSAGE_CONSTRAINTS);
-        }
-
-        if (!editedCoupon.getExpiryDate().isAfterOrEqual(couponToEdit.getStartDate())) {
-            throw new CommandException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        //Conditions for start date & expiry date
+        if (!editedCoupon.getExpiryDate().isAfterOrEqual(editedCoupon.getStartDate())) {
+            throw new CommandException(START_DATE_EXPIRY_DATE_CONSTRAINT);
         }
 
         Usage currentUsage = couponToEdit.getUsage();

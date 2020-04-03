@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,6 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.element.ObservableMonthView;
 import csdev.couponstash.testutil.CouponBuilder;
 
@@ -50,11 +50,11 @@ public class AddCommandTest {
     @Test
     public void execute_startDateIsAfterExpiryDate_throwsCommandException() {
         Coupon validCoupon = new CouponBuilder().build();
-        Coupon invalidCoupon = new CouponBuilder().withExpiryDate("30-8-2020").withStartDate("31-12-2020").build();
+        Coupon invalidCoupon = new CouponBuilder().withExpiryDate("1-8-2020").withStartDate("31-12-2020").build();
         AddCommand addCommand = new AddCommand(invalidCoupon);
         ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
 
-        assertThrows(CommandException.class, StartDate.MESSAGE_CONSTRAINTS, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, START_DATE_EXPIRY_DATE_CONSTRAINT, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -65,6 +65,7 @@ public class AddCommandTest {
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_COUPON, () -> addCommand.execute(modelStub));
     }
+
 
     @Test
     public void equals() {
