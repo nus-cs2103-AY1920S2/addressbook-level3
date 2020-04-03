@@ -79,8 +79,8 @@ public class ParserUtil {
         }
 
         try {
-            return new IngredientList(Stream.of(ingredientString.trim().split(";")).map(String::trim).map(Ingredient::new)
-            .collect(Collectors.toList()));
+            return new IngredientList(Stream.of(ingredientString.trim().split(";"))
+                    .map(String::trim).map(Ingredient::new).collect(Collectors.toList()));
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException("No quantity has been provided for one or more ingredients!");
         }
